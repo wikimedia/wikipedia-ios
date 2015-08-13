@@ -181,11 +181,15 @@
         self.isPresented = ![transitionContext transitionWasCancelled];
         [self.backgroundView removeFromSuperview];
         if (![transitionContext transitionWasCancelled]) {
-            [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
-            [self removePresentGestureRecognizer];
             [self setupDismissalGestureIfNeeded];
             [self.presentedViewController setMode:WMFArticleControllerModeNormal animated:NO];
         }
+        [self removePresentGestureRecognizer];
+
+        [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
+        self.tapGestureRecognizer.delegate = nil;
+        self.tapGestureRecognizer = nil;
+
         self.interactionInProgress = NO;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
