@@ -468,8 +468,20 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    [self.delegate articleViewController:self
-               didTapSectionWithFragment:self.article.sections[indexPath.row + 1].anchor];
+    switch (indexPath.section) {
+        case WMFArticleSectionTypeTOC: {
+            [self.delegate articleViewController:self
+                       didTapSectionWithFragment:self.article.sections[indexPath.row + 1].anchor];
+            break;
+        }
+        case WMFArticleSectionTypeReadMore: {
+            MWKTitle* readMoreTitle = [(MWKArticle*)self.readMoreResults.articles[indexPath.item] title];
+            [self.delegate articleNavigator:nil didTapLinkToPage:readMoreTitle];
+        }
+
+        default:
+            break;
+    }
 }
 
 #pragma mark - Article Link Presentation
