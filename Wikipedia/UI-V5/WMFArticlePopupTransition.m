@@ -9,9 +9,6 @@
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF DDLogLevelVerbose
-
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
