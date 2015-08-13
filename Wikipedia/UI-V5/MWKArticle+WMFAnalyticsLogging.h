@@ -7,7 +7,8 @@
 //
 
 #import "MWKArticle.h"
+#import "WMFAnalyticsLogging.h"
 
-@interface MWKArticle (WMFAnalyticsLogging)
+@interface MWKArticle (WMFAnalyticsLogging)<WMFAnalyticsLogging>
 
 @end

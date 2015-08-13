@@ -204,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article == nil) {
         return @"";
     }
-    return [(id < WMFAnalyticsLogging >)self.article analyticsName];
+    return [self.article analyticsName];
 }
 
 - (void)logPreview {
