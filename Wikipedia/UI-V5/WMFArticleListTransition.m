@@ -256,7 +256,7 @@
 
 - (void)removeDismissGestureRecognizer {
     if (self.dismissGestureRecognizer) {
-        [self.articleContainerViewController.view removeGestureRecognizer:self.dismissGestureRecognizer];
+        [self.dismissGestureRecognizer.view removeGestureRecognizer:self.dismissGestureRecognizer];
         self.dismissGestureRecognizer.delegate = nil;
         self.dismissGestureRecognizer          = nil;
     }
