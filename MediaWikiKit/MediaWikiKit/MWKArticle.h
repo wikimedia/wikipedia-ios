@@ -95,7 +95,28 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId;
 
+/**
+ *  Check if the receiver is equal to the given article.
+ *
+ *  This method is meant to be a good compromise between comprehensive equality checking and speed. For a more detailed
+ *  check which takes into account the full content of the article (e.g. section text), use `isDeeplyEqualToArticle:`.
+ *
+ *  @param article Another `MWKArticle`
+ *
+ *  @return Whether or not the two articles are equal.
+ */
 - (BOOL)isEqualToArticle:(MWKArticle*)article;
+
+/**
+ *  Check if the receiver is comprehensively equal to another article.
+ *
+ *  Only use this method when you both 1) need to check the articles' content and 2) can afford to load all the section
+ *  text into memory (i.e. ideally not on the main thread, and definitely not in a tight loop).
+ *
+ *  @param article Another `MWKArticle`.
+ *
+ *  @return Whether the two articles are equal.
+ */
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article;
 
 - (void)save;
