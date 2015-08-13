@@ -4,6 +4,9 @@
 #import "WMFScrollViewTopPanGestureRecognizer.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "WMFArticleViewController.h"
+#import <PiwikTracker/PiwikTracker.h>
+#import "MWKArticle.h"
+#import "MWKTitle.h"
 
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
@@ -100,14 +103,6 @@
         [self animateDismiss:transitionContext];
     } else {
         [self animatePresentation:transitionContext];
-    }
-}
-
-- (void)animationEnded:(BOOL)transitionCompleted {
-    if (self.isPresented) {
-        [self.presentedViewController setMode:WMFArticleControllerModeNormal animated:NO];
-    } else {
-        [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
     }
 }
 
@@ -223,6 +218,7 @@
         [self.backgroundView removeFromSuperview];
         [self addDismissGestureRecognizer];
         [toView removeGestureRecognizer:self.tapGestureRecognizer];
+        [self.presentedViewController setMode:WMFArticleControllerModeNormal animated:NO];
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
@@ -245,15 +241,16 @@
     [containerView addSubview:self.backgroundView];
     [containerView addSubview:fromView];
 
-    self.isPresenting = YES;
+    self.isDismissing = YES;
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         self.backgroundView.alpha = 0.0;
         fromView.frame = fromViewFinalFrame;
     } completion:^(BOOL finished) {
-        self.isPresenting = NO;
+        self.isDismissing = NO;
         self.isPresented = [transitionContext transitionWasCancelled];
         [self addPresentGestureRecoginizer];
         [self.backgroundView removeFromSuperview];
+        [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
@@ -450,6 +447,20 @@
     } else {
         [self cancelInteractiveTransition];
     }
+}
+
+- (void)finishInteractiveTransition {
+    if (self.isPresenting) {
+        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Open" name:self.presentedViewController.article.title.text value:nil];
+    }
+    [super finishInteractiveTransition];
+}
+
+- (void)cancelInteractiveTransition {
+    if (self.isPresenting) {
+        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Dismiss" name:self.presentedViewController.article.title.text value:nil];
+    }
+    [super cancelInteractiveTransition];
 }
 
 @end
