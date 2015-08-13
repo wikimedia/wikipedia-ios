@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleNavigationDelegate.h"
+#import "WMFAnalyticsLogging.h"
 
 @class MWKDataStore;
 @class MWKSavedPageList;
@@ -14,7 +15,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
 };
 
 @interface WMFArticleViewController : UITableViewController
-    <UINavigationControllerDelegate>
+    <UINavigationControllerDelegate, WMFAnalyticsLogging>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages;
 

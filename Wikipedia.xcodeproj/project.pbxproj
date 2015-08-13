@@ -192,6 +192,9 @@
 		0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */; };
 		0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */; };
 		0E7955D01B2B659500B055A2 /* WMFArticleListTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955CD1B2B659500B055A2 /* WMFArticleListTransition.m */; };
+		0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */; };
+		0E7E60311B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E60301B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m */; };
+		0E7E60341B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E60331B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m */; };
 		0E869F121B56B83F002604C3 /* MWKList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F111B56B83F002604C3 /* MWKList.m */; };
 		0E869F151B582297002604C3 /* MWKListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F131B58228D002604C3 /* MWKListTests.m */; };
 		0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F4A1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m */; };
@@ -800,6 +803,13 @@
 		0E7955CC1B2B659500B055A2 /* WMFArticleListTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListTransition.h; sourceTree = "<group>"; };
 		0E7955CD1B2B659500B055A2 /* WMFArticleListTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleListTransition.m; sourceTree = "<group>"; };
 		0E7C6D4C1B3106A800F1F985 /* WMFArticleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleListDataSource.h; sourceTree = "<group>"; };
+		0E7E602A1B7CFA1E00ED1C69 /* WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnalyticsLogging.h; sourceTree = "<group>"; };
+		0E7E602B1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKTitle+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
+		0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKTitle+WMFAnalyticsLogging.m"; sourceTree = "<group>"; };
+		0E7E602F1B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKArticle+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
+		0E7E60301B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+WMFAnalyticsLogging.m"; sourceTree = "<group>"; };
+		0E7E60321B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSite+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
+		0E7E60331B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSite+WMFAnalyticsLogging.m"; sourceTree = "<group>"; };
 		0E869F101B56B83F002604C3 /* MWKList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKList.h; sourceTree = "<group>"; };
 		0E869F111B56B83F002604C3 /* MWKList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKList.m; sourceTree = "<group>"; };
 		0E869F131B58228D002604C3 /* MWKListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKListTests.m; sourceTree = "<group>"; };
@@ -2209,6 +2219,20 @@
 			path = TGLStackedViewController;
 			sourceTree = "<group>";
 		};
+		0E7E602E1B7CFA9B00ED1C69 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				0E7E602A1B7CFA1E00ED1C69 /* WMFAnalyticsLogging.h */,
+				0E7E602F1B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.h */,
+				0E7E60301B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m */,
+				0E7E602B1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.h */,
+				0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */,
+				0E7E60321B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.h */,
+				0E7E60331B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
 		0E94AFE81B2096D5000BC5EA /* UI-V5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2228,6 +2252,7 @@
 				0EFB48081B3BAFF600381F99 /* Storyboards */,
 				04016E221B335F0200D732FE /* WMFArticlePresenter.h */,
 				04016E231B335F0200D732FE /* WMFArticlePresenter.m */,
+				0E7E602E1B7CFA9B00ED1C69 /* Analytics */,
 			);
 			path = "UI-V5";
 			sourceTree = "<group>";
@@ -3453,6 +3478,7 @@
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
+				0E7E60341B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m in Sources */,
 				BCA96E731AAA354D009A61FA /* WMFGradientView.m in Sources */,
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
 				043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */,
@@ -3491,6 +3517,7 @@
 				0EF451F61B545ED100D621BD /* WMFRecentPagesDataSource.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				0487048C19F8262600B7D307 /* SearchResultFetcher.m in Sources */,
+				0E7E60311B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m in Sources */,
 				0E366B471B2F614E00ABFB86 /* PromiseKit.m in Sources */,
 				0E869F121B56B83F002604C3 /* MWKList.m in Sources */,
 				BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */,
@@ -3623,6 +3650,7 @@
 				0EFB0F1B1B31EE2D00D05C08 /* ArticleDataContextSingleton.m in Sources */,
 				BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */,
 				0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */,
+				0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				BC505EF71B59643400537006 /* WMFPageCollectionViewController.m in Sources */,
 				BCE24FDF1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m in Sources */,

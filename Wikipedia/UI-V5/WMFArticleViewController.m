@@ -10,7 +10,7 @@
 
 //Analytics
 #import <PiwikTracker/PiwikTracker.h>
-
+#import "MWKArticle+WMFAnalyticsLogging.h"
 
 // Models & Controllers
 #import "WebViewController.h"
@@ -199,17 +199,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Analytics
 
+- (NSString*)analyticsName {
+    NSParameterAssert(self.article);
+    if (self.article == nil) {
+        return @"";
+    }
+    return [(id < WMFAnalyticsLogging >)self.article analyticsName];
+}
+
 - (void)logPreview {
     if (self.mode == WMFArticleControllerModePopup && self.article.title.text) {
         NSLog(@"log preview page view");
-        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article-Preview", self.article.title.text]];
+        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article-Preview", [self analyticsName]]];
     }
 }
 
 - (void)logPageView {
     if (self.mode == WMFArticleControllerModeNormal && self.article.title.text) {
         NSLog(@"log full page view");
-        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article", self.article.title.text]];
+        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article", [self analyticsName]]];
     }
 }
 

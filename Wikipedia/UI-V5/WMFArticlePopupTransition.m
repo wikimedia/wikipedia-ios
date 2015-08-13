@@ -5,8 +5,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "WMFArticleViewController.h"
 #import <PiwikTracker/PiwikTracker.h>
-#import "MWKArticle.h"
-#import "MWKTitle.h"
+#import "MWKArticle+WMFAnalyticsLogging.h"
 
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
@@ -451,14 +450,14 @@
 
 - (void)finishInteractiveTransition {
     if (self.isPresenting) {
-        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Open" name:self.presentedViewController.article.title.text value:nil];
+        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Open" name:[self.presentedViewController analyticsName] value:nil];
     }
     [super finishInteractiveTransition];
 }
 
 - (void)cancelInteractiveTransition {
     if (self.isPresenting) {
-        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Dismiss" name:self.presentedViewController.article.title.text value:nil];
+        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Dismiss" name:[self.presentedViewController analyticsName] value:nil];
     }
     [super cancelInteractiveTransition];
 }
