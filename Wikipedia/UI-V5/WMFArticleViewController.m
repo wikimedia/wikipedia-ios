@@ -8,6 +8,10 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+//Analytics
+#import <PiwikTracker/PiwikTracker.h>
+
+
 // Models & Controllers
 #import "WebViewController.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
@@ -190,6 +194,22 @@ NS_ASSUME_NONNULL_BEGIN
     MWKArticle* article = note.userInfo[MWKArticleKey];
     if ([self.article.title isEqualToTitle:article.title]) {
         self.article = article;
+    }
+}
+
+#pragma mark - Analytics
+
+- (void)logPreview {
+    if (self.mode == WMFArticleControllerModePopup && self.article.title.text) {
+        NSLog(@"log preview page view");
+        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article-Preview", self.article.title.text]];
+    }
+}
+
+- (void)logPageView {
+    if (self.mode == WMFArticleControllerModeNormal && self.article.title.text) {
+        NSLog(@"log full page view");
+        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article", self.article.title.text]];
     }
 }
 
@@ -387,7 +407,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    [self logPreview];
     [self updateUI];
 
     // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
@@ -397,6 +417,11 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMoreForTitle:self.article.title];
         }
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self logPageView];
 }
 
 #pragma mark - UITableViewDataSource
@@ -533,6 +558,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)presentPopupForTitle:(MWKTitle*)title {
     MWKArticle* article          = [self.dataStore articleWithTitle:title];
     WMFArticleViewController* vc = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    [vc setMode:WMFArticleControllerModePopup animated:NO];
     vc.article = article;
 
     self.popupTransition                        = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self presentedViewController:vc contentScrollView:nil];
