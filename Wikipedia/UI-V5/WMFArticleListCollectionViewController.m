@@ -1,4 +1,5 @@
 #import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListCollectionViewController_Transitioning.h"
 #import "UICollectionView+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "WMFArticleViewControllerContainerCell.h"
@@ -22,13 +23,19 @@
 @property (nonatomic, strong) TGLStackedLayout* stackedLayout;
 @property (nonatomic, strong) WMFOffScreenFlowLayout* offScreenLayout;
 
-@property (strong, nonatomic) WMFArticleListTransition* cardTransition;
-
 @property (strong, nonatomic) MWKArticle* selectedArticle;
 
 @end
 
 @implementation WMFArticleListCollectionViewController
+@synthesize listTransition = _listTransition;
+
+- (WMFArticleListTransition*)listTransition {
+    if (!_listTransition) {
+        _listTransition = [[WMFArticleListTransition alloc] initWithListCollectionViewController:self];
+    }
+    return _listTransition;
+}
 
 - (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource {
     if ([_dataSource isEqual:dataSource]) {
@@ -153,7 +160,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.extendedLayoutIncludesOpaqueBars     = YES;
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.collectionView.backgroundColor       = [UIColor clearColor];
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
 
@@ -189,11 +198,10 @@
 // iOS 8+ Rotation Support
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self updateCellSizeBasedOnViewFrame];
     } completion:NULL];
-
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - Update Cell Size
@@ -253,19 +261,13 @@
     WMFArticleContainerViewController* container = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
     container.article = self.selectedArticle;
 
-    self.cardTransition = [[WMFArticleListTransition alloc] initWithArticleListViewController:self
-                                                               articleContainerViewController:container
-                                                                            contentScrollView:container.articleViewController.tableView];
-    container.transitioningDelegate  = self.cardTransition;
-    container.modalPresentationStyle = UIModalPresentationCustom;
-
     [self wmf_hideKeyboard];
 
-    [self presentViewController:container animated:YES completion:^{
-        [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
-                                    discoveryMethod:[self.dataSource discoveryMethod]];
-        [self.recentPages save];
-    }];
+    [self.navigationController pushViewController:container animated:YES];
+
+    [self.recentPages addPageToHistoryWithTitle:cell.viewController.article.title
+                                discoveryMethod:[self.dataSource discoveryMethod]];
+    [self.recentPages save];
 }
 
 #pragma mark - TGLStackedLayoutDelegate

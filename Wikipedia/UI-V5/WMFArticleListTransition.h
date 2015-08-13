@@ -4,14 +4,14 @@
 @class WMFArticleListCollectionViewController;
 @class WMFArticleContainerViewController;
 
-@interface WMFArticleListTransition : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
-
-- (instancetype)initWithArticleListViewController:(WMFArticleListCollectionViewController*)listViewController articleContainerViewController:(WMFArticleContainerViewController*)articleContainerViewController contentScrollView:(UIScrollView*)scrollView;
+@interface WMFArticleListTransition : UIPercentDrivenInteractiveTransition
+    <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, weak, readonly) WMFArticleListCollectionViewController* listViewController;
-@property (nonatomic, weak, readonly) WMFArticleContainerViewController* articleContainerViewController;
-@property (nonatomic, weak, readonly) UIScrollView* scrollView;
+@property (nonatomic, weak) WMFArticleContainerViewController* articleContainerViewController;
 
+- (instancetype)initWithListCollectionViewController:(WMFArticleListCollectionViewController*)listViewController
+    NS_DESIGNATED_INITIALIZER;
 
 /**
  *  Duration of the animation when not interactive
@@ -19,13 +19,18 @@
 @property (assign, nonatomic) NSTimeInterval nonInteractiveDuration;
 
 /**
- *  Set to NO to disable interactive dismissal
- *  Default is YES
+ *  Whether or not the receiver is setup to start a dismissal transition.
  */
-@property (assign, nonatomic) BOOL dismissInteractively;
+@property (nonatomic, assign, readonly) BOOL isDismissing;
+
+/**
+ *  Whether or not the receiver is setup to start a presentation transition.
+ *
+ *  Inverse of `isDismissing`.
+ */
+@property (nonatomic, assign, readonly) BOOL isPresenting;
 
 @end
-
 
 @protocol WMFArticleListTransitioning <NSObject>
 

@@ -58,6 +58,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @end
 
 @implementation WebViewController
+@synthesize article = _article;
 
 @synthesize siteInfoFetcher = _siteInfoFetcher;
 
@@ -83,7 +84,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)dealloc {
-    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -100,11 +100,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)setupTopMenuButtons {
     @weakify(self)
 
-    UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone handler:^(id sender) {
-        [self dismissViewControllerAnimated:YES completion:NULL];
+    UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                             handler:^(id sender) {
+        @strongify(self);
+        [self.delegate dismissWebViewController:self];
     }];
 
-    self.navigationItem.leftBarButtonItem = done;
+    self.navigationItem.backBarButtonItem = done;
 
     self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
                                              handler:^(id sender){
@@ -138,8 +140,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self editHistoryButtonPushed];
     }];
 
-    self.navigationController.toolbarHidden = NO;
-    self.toolbarItems                       = @[
+//    self.navigationController.toolbarHidden = NO;
+    self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonSave,
@@ -1068,6 +1070,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
+#warning TEMP: disable until we figure out what to do w/ top/bottom bars
+#if 0
     // Don't toggle if hidden state isn't different or if it's already toggling.
     if ((self.navigationController.isNavigationBarHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
         return;
@@ -1085,6 +1089,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             self.isAnimatingTopAndBottomMenuHidden = NO;
         }];
     }];
+#endif
 }
 
 - (void)animateTopAndBottomMenuReveal {
@@ -1335,11 +1340,21 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
+    self.article = [self.session.dataStore articleWithTitle:title];
+}
+
+- (void)setArticle:(MWKArticle* __nullable)article {
+    _article = article;
+
+    #warning HAX: force the view to load
+    [self view];
+
+    #warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
 
     if (![article isCached]) {
-        [self hideProgressViewAnimated:YES];
+        [self showProgressViewAnimated:NO];
+        [self loadArticleWithTitleFromNetwork:article.title];
         return;
     }
 
@@ -1351,7 +1366,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         case MWKHistoryDiscoveryMethodReloadFromNetwork:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
-            [self.session.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:self.session.currentArticleDiscoveryMethod];
+            [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title
+                                                              discoveryMethod:self.session.currentArticleDiscoveryMethod];
             break;
         }
 
@@ -1362,7 +1378,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
 
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:title.site.language];
+    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
     self.editable         = article.editable;
@@ -1754,8 +1770,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [UIView animateWithDuration:0.25 animations:^{
         [self _hideProgressView];
-    } completion:^(BOOL finished) {
-    }];
+    } completion:nil];
 }
 
 - (void)_hideProgressView {
