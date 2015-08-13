@@ -209,14 +209,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)logPreview {
     if (self.mode == WMFArticleControllerModePopup && self.article.title.text) {
-        NSLog(@"log preview page view");
         [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article-Preview", [self analyticsName]]];
     }
 }
 
 - (void)logPageView {
     if (self.mode == WMFArticleControllerModeNormal && self.article.title.text) {
-        NSLog(@"log full page view");
         [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article", [self analyticsName]]];
     }
 }
