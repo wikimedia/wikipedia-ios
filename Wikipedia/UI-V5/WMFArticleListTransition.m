@@ -67,7 +67,8 @@
 }
 
 - (CGFloat)completionSpeed {
-    return (1 - self.percentComplete) * 1.5;
+    // !!!: if you change this, be sure to make sure the app doesn't become unresponsive after dismissal transitions
+    return 1.0;
 }
 
 - (UIViewAnimationCurve)completionCurve {
