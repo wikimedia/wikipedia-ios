@@ -101,7 +101,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isEqualToArticle:(MWKArticle*)other {
-    return WMF_EQUAL(self.site, isEqualToSite:, other.site)
+    return WMF_EQUAL(self.title, isEqualToTitleExcludingFragment:, other.title)
            && WMF_EQUAL(self.redirected, isEqual:, other.redirected)
            && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified)
            && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby)
@@ -111,7 +111,9 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
            && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL)
            && self.articleId == other.articleId
            && self.languagecount == other.languagecount
-           && self.isMain == other.isMain;
+           && self.isMain == other.isMain
+           && self.images.count == other.images.count
+           && self.sections.count == other.sections.count;
 }
 
 - (BOOL)isDeeplyEqualToArticle:(MWKArticle*)article {
