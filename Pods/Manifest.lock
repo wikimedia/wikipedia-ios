@@ -70,7 +70,7 @@ DEPENDENCIES:
   - Nocilla
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
-  - PiwikTracker
+  - PiwikTracker (~> 3.3.0)
   - SDWebImage (from `./vendor/SDWebImage`)
 
 EXTERNAL SOURCES:
