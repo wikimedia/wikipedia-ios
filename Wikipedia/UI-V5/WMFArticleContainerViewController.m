@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.currentArticleController == self.articleViewController) {
         return @"Web";
     } else {
-        return @"Reader";
+        return @"Native";
     }
 }
 
