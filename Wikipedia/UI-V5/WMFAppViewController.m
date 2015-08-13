@@ -14,16 +14,37 @@
 #import "MediaWikiKit.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
+#import "WMFNavigationTransitionController.h"
+
 #import "OnboardingViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NearbyViewController.h"
 
-typedef NS_ENUM (NSUInteger, WMFAppTabType) {
+/**
+ *  Enums for each tab in the main tab bar.
+ *
+ *  @warning Be sure to update `WMFAppTabCount` when these enums change, and always initialize the first enum to 0.
+ *
+ *  @see WMFAppTabCount
+ */
+typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeHome = 0,
     WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
+
+/**
+ *  Number of tabs in the main tab bar.
+ *
+ *  @warning Kept as a separate constant to prevent switch statements from being considered inexhaustive. This means we
+ *           need to make sure it's manually kept in sync by ensuring:
+ *              - The tab enum we increment is the last one
+ *              - The first tab enum is initialized to 0
+ *
+ *  @see WMFAppTabType
+ */
+static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate>
@@ -38,6 +59,8 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
 
 @property (nonatomic, strong) SessionSingleton* session;
+
+@property (nonatomic, strong) WMFNavigationTransitionController* navigationTransitionController;
 
 @end
 
@@ -55,6 +78,16 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
+
+    for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
+        UINavigationController* navigationController = [self navigationControllerForTab:i];
+        navigationController.delegate = self.navigationTransitionController;
+        // prevent navigation bar from showing initially or hiding/showing as a side-effect
+        navigationController.hidesBarsOnSwipe             = NO;
+        navigationController.hidesBarsOnTap               = NO;
+        navigationController.hidesBarsWhenKeyboardAppears = NO;
+        navigationController.navigationBarHidden          = YES;
+    }
 }
 
 - (void)configureNearbyViewController {
@@ -120,6 +153,13 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 }
 
 #pragma mark - Accessors
+
+- (WMFNavigationTransitionController*)navigationTransitionController {
+    if (!_navigationTransitionController) {
+        _navigationTransitionController = [WMFNavigationTransitionController new];
+    }
+    return _navigationTransitionController;
+}
 
 - (SessionSingleton*)session {
     if (!_session) {
@@ -251,28 +291,18 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     }];
 }
 
+- (BOOL)tabBarController:(UITabBarController*)tabBarController shouldSelectViewController:(UIViewController*)viewController {
+    // !!!: disable pop to root behavior
+    return tabBarController.selectedViewController != viewController;
+}
+
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-
-    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-    switch (tab) {
-        case WMFAppTabTypeHome: {
-            [self configureNearbyViewController];
-        }
-        break;
-        case WMFAppTabTypeSearch: {
-            [self configureSearchViewController];
-        }
-        break;
-        case WMFAppTabTypeSaved: {
-            [self configureSavedViewController];
-        }
-        break;
-        case WMFAppTabTypeRecent: {
-            [self configureRecentViewController];
-        }
-        break;
-    }
+    // !!: Need to implement "pop to root" transition handling
+//    if (tabBarController.selectedViewController == viewController) {
+//        // pop to root when user taps the currently selected tab
+//        [viewController.navigationController popToRootViewControllerAnimated:YES];
+//    }
 }
 
 @end

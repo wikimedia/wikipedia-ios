@@ -1,15 +1,17 @@
-
 @import UIKit;
+#import "WMFArticleListItemController.h"
 
-@class WMFArticleViewController;
+@class WMFArticleContainerViewController;
 
-@interface WMFArticlePopupTransition : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+NS_ASSUME_NONNULL_BEGIN
 
-- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(WMFArticleViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView;
+@interface WMFArticlePopupTransition : UIPercentDrivenInteractiveTransition
+    <UIViewControllerAnimatedTransitioning>
+
+- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, weak, readonly) UIViewController* presentingViewController;
-@property (nonatomic, weak, readonly) WMFArticleViewController* presentedViewController;
-@property (nonatomic, weak, readonly) UIScrollView* scrollView;
+@property (nonatomic, weak) WMFArticleContainerViewController* presentedViewController;
 
 /**
  *  Duration of the animation when not interactive
@@ -17,8 +19,8 @@
 @property (assign, nonatomic) NSTimeInterval nonInteractiveDuration;
 
 /**
- *  Set to control the height of the popup.
- *  Set before presenting
+ *  Controls how much of `presentedViewController` is vertically "popped up" when the transition begins.
+ *
  *  Default is 300.0
  */
 @property (assign, nonatomic) CGFloat popupHeight;
@@ -35,6 +37,6 @@
  */
 @property (assign, nonatomic) BOOL dismissInteractively;
 
-
-
 @end
+
+NS_ASSUME_NONNULL_END
