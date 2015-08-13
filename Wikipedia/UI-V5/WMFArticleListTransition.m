@@ -64,11 +64,6 @@
     NSAssert(self.isDismissing, @"This class only supports interactive dismissal, not presentation.");
 }
 
-- (CGFloat)completionSpeed {
-    // !!!: if you change this, be sure to make sure the app doesn't become unresponsive after dismissal transitions
-    return 1.0;
-}
-
 - (UIViewAnimationCurve)completionCurve {
     return UIViewAnimationCurveEaseOut;
 }

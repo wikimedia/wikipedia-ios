@@ -101,10 +101,6 @@
     }
 }
 
-- (CGFloat)completionSpeed {
-    return (1 - self.percentComplete) * 1.5;
-}
-
 - (UIViewAnimationCurve)completionCurve {
     return UIViewAnimationCurveLinear;
 }
