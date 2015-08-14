@@ -298,8 +298,16 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleContainerViewController* vc =
         [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
                                                           savedPages:self.savedPageList];
+    [vc setMode:WMFArticleControllerModePopup animated:NO];
+
     vc.article = article;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - Analytics
+
+- (NSString*)analyticsName {
+    return [self.articleViewController analyticsName];
 }
 
 @end

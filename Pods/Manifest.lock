@@ -46,6 +46,9 @@ PODS:
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
+  - PiwikTracker (3.3.0):
+    - PiwikTracker/Core (= 3.3.0)
+  - PiwikTracker/Core (3.3.0)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -68,6 +71,7 @@ DEPENDENCIES:
   - Nocilla
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
+  - PiwikTracker (~> 3.3.0)
   - SDWebImage (from `./vendor/SDWebImage`)
   - SSDataSources
 
@@ -92,6 +96,7 @@ SPEC CHECKSUMS:
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
+  PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
 

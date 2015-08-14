@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleNavigationDelegate.h"
+#import "WMFAnalyticsLogging.h"
 #import "WMFArticleContentController.h"
 #import "WMFArticleListItemController.h"
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface WMFArticleViewController : UITableViewController
-    <WMFArticleContentController, WMFArticleListItemController>
+    <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages;
 

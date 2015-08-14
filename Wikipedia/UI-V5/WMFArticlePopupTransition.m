@@ -3,6 +3,8 @@
 
 #import "WMFArticleContainerViewController.h"
 #import "WMFArticleViewController.h"
+#import <PiwikTracker/PiwikTracker.h>
+#import "MWKArticle+WMFAnalyticsLogging.h"
 
 #import "WMFMath.h"
 
@@ -215,6 +217,7 @@
         [self.backgroundView removeFromSuperview];
         if (![transitionContext transitionWasCancelled]) {
             [self removeDismissGestureRecognizer];
+            [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
         }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
@@ -467,6 +470,20 @@
     } else {
         [self cancelInteractiveTransition];
     }
+}
+
+- (void)finishInteractiveTransition {
+    if (self.isPresenting) {
+        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Open" name:[self.presentedViewController analyticsName] value:nil];
+    }
+    [super finishInteractiveTransition];
+}
+
+- (void)cancelInteractiveTransition {
+    if (self.isPresenting) {
+        [[PiwikTracker sharedInstance] sendEventWithCategory:@"Preview" action:@"Dismiss" name:[self.presentedViewController analyticsName] value:nil];
+    }
+    [super cancelInteractiveTransition];
 }
 
 @end

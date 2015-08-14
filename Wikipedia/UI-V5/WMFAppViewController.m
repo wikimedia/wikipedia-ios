@@ -19,6 +19,7 @@
 #import "OnboardingViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NearbyViewController.h"
+#import <PiwikTracker/PiwikTracker.h>
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -74,6 +75,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
+    [[PiwikTracker sharedInstance] sendView:@"Home"];
 }
 
 - (void)configureTabController {
@@ -303,6 +305,26 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 //        // pop to root when user taps the currently selected tab
 //        [viewController.navigationController popToRootViewControllerAnimated:YES];
 //    }
+
+    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
+    switch (tab) {
+        case WMFAppTabTypeHome: {
+            [[PiwikTracker sharedInstance] sendView:@"Home"];
+        }
+        break;
+        case WMFAppTabTypeSearch: {
+            [[PiwikTracker sharedInstance] sendView:@"Search"];
+        }
+        break;
+        case WMFAppTabTypeSaved: {
+            [[PiwikTracker sharedInstance] sendView:@"Saved"];
+        }
+        break;
+        case WMFAppTabTypeRecent: {
+            [[PiwikTracker sharedInstance] sendView:@"Recent"];
+        }
+        break;
+    }
 }
 
 @end
