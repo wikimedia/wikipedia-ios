@@ -304,6 +304,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - Analytics
+
+- (NSString*)analyticsName {
+    return [self.articleViewController analyticsName];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
