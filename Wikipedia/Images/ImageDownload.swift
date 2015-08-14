@@ -40,7 +40,12 @@ public protocol ImageOriginConvertible {
 public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { return c.asImageOrigin() }
 
 public struct ImageDownload {
-    var url: NSURL
-    var image: UIImage
-    var origin: ImageOrigin
+    public var url: NSURL
+    public var image: UIImage
+    public var origin: ImageOrigin
+    public init(url: NSURL, image: UIImage, origin: ImageOrigin) {
+        self.url = url
+        self.image = image
+        self.origin = origin
+    }
 }

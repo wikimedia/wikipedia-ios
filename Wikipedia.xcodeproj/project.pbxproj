@@ -261,6 +261,7 @@
 		BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */; };
 		BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
+		BC12F2461B7A8EEB0042DB3C /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */; };
 		BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */; };
 		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
@@ -319,7 +320,6 @@
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
 		BC905A111B447A8300523DFE /* NSURLRequest+WMFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */; };
 		BC905A131B44815900523DFE /* SDImageCache+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */; };
-		BC905A151B44962100523DFE /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A141B44962100523DFE /* CancellablePromise.swift */; };
 		BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
@@ -371,7 +371,6 @@
 		BCBDC8821B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC8811B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift */; };
 		BCBDC8841B38E441003A6D17 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC8831B38E441003A6D17 /* WMFImageController.swift */; };
 		BCBDC88C1B3A0715003A6D17 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */; };
-		BCBDC88E1B3A42E7003A6D17 /* SwiftUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC88D1B3A42E7003A6D17 /* SwiftUtilities.swift */; };
 		BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */; };
 		BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185DF1A9EC836005378F8 /* UIButton+FrameUtils.m */; };
 		BCC185E81A9FA498005378F8 /* UICollectionViewLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewLayout+AttributeUtils.m */; };
@@ -406,8 +405,8 @@
 		BCF012331AD2FA38008D3675 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
 		BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1E20B1B4C590F00B10877 /* WMFBackgroundTestManagerTests.swift */; };
 		BCF1E2131B4C783600B10877 /* WMFLegacyImageDataMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1E2111B4C780C00B10877 /* WMFLegacyImageDataMigrationTests.swift */; };
-		BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */; };
 		BCF7FC9B1B7B9ADE00CDFB8C /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */; };
+		BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */; };
 		BCF8DCA61B70055F00149C26 /* WMFFixtureRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */; };
 		BCF8DCA81B7009B100149C26 /* MobileView in Resources */ = {isa = PBXBuildFile; fileRef = BCF8DCA71B7009B100149C26 /* MobileView */; };
 		BCFB090D1B445A720077955B /* UIImage+WMFSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB090C1B445A720077955B /* UIImage+WMFSerialization.m */; };
@@ -898,6 +897,7 @@
 		BC092BA01B19135700093C59 /* WMFApiJsonResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFApiJsonResponseSerializer.h; path = Serializers/WMFApiJsonResponseSerializer.h; sourceTree = "<group>"; };
 		BC092BA11B19135700093C59 /* WMFApiJsonResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFApiJsonResponseSerializer.m; path = Serializers/WMFApiJsonResponseSerializer.m; sourceTree = "<group>"; };
 		BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
+		BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFParagraphStyles.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFParagraphStyles.m"; sourceTree = "<group>"; };
@@ -1011,7 +1011,6 @@
 		BC905A0F1B447A8300523DFE /* NSURLRequest+WMFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+WMFUtilities.h"; sourceTree = "<group>"; };
 		BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+WMFUtilities.m"; sourceTree = "<group>"; };
 		BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SDImageCache+PromiseKit.swift"; sourceTree = "<group>"; };
-		BC905A141B44962100523DFE /* CancellablePromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
 		BC905BCF1B60391F0010227E /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkFetcherTests.m; sourceTree = "<group>"; };
 		BC92A76E1AFA83D2003C4212 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = ShareCard/WMFSharing.h; sourceTree = "<group>"; };
 		BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+WMFSharingTests.m"; sourceTree = "<group>"; };
@@ -1129,7 +1128,6 @@
 		BCBDC8811B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SDWebImageManager+PromiseKit.swift"; path = "Images/SDWebImageManager+PromiseKit.swift"; sourceTree = "<group>"; };
 		BCBDC8831B38E441003A6D17 /* WMFImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageController.swift; path = Images/WMFImageController.swift; sourceTree = "<group>"; };
 		BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
-		BCBDC88D1B3A42E7003A6D17 /* SwiftUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUtilities.swift; sourceTree = "<group>"; };
 		BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsingTests.m; sourceTree = "<group>"; };
 		BCC185D61A9E5628005378F8 /* UILabel+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WMFStyling.h"; sourceTree = "<group>"; };
 		BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WMFStyling.m"; sourceTree = "<group>"; };
@@ -1187,11 +1185,11 @@
 		BCF1E20B1B4C590F00B10877 /* WMFBackgroundTestManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBackgroundTestManagerTests.swift; sourceTree = "<group>"; };
 		BCF1E20E1B4C65B200B10877 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCF1E2111B4C780C00B10877 /* WMFLegacyImageDataMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLegacyImageDataMigrationTests.swift; sourceTree = "<group>"; };
-		BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleEqualityCheckTests.m; sourceTree = "<group>"; };
 		BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLogFormatter.m; sourceTree = "<group>"; };
 		BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Transitioning.h; sourceTree = "<group>"; };
 		BCF7FC9D1B7BA61B00CDFB8C /* WMFArticleListCollectionViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListCollectionViewController_Transitioning.h; sourceTree = "<group>"; };
 		BCF7FC9E1B7BAFB100CDFB8C /* WMFListTransitionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFListTransitionProvider.h; sourceTree = "<group>"; };
+		BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticleEqualityCheckTests.m; sourceTree = "<group>"; };
 		BCF8DCA41B70055F00149C26 /* WMFFixtureRecording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFixtureRecording.h; sourceTree = "<group>"; };
 		BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFixtureRecording.m; sourceTree = "<group>"; };
 		BCF8DCA71B7009B100149C26 /* MobileView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MobileView; sourceTree = "<group>"; };
@@ -1655,7 +1653,6 @@
 				BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */,
 				BC50C37D1A83C784006DC7AF /* WMFNetworkUtilities.h */,
 				BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */,
-				BC905A141B44962100523DFE /* CancellablePromise.swift */,
 				BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */,
 				BCF8DCA41B70055F00149C26 /* WMFFixtureRecording.h */,
 				BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */,
@@ -2465,6 +2462,7 @@
 				BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */,
 				BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */,
 				0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */,
+				BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */,
 				BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */,
 				04B501F91B7AF16C007BE332 /* NSArray+WMFExtensions.m */,
 				BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */,
@@ -2781,7 +2779,6 @@
 				BC092B971B18E8AF00093C59 /* NSString+WMFPageUtilities.h */,
 				BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */,
 				BC7E4A491B34A26A00EECD8B /* WMFLogging.h */,
-				BCBDC88D1B3A42E7003A6D17 /* SwiftUtilities.swift */,
 				BC725EC81B61255400E0A64C /* WMFOutParamUtils.h */,
 				BC3863581B77EAC1003A2D38 /* WMFLogFormatter.h */,
 				BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */,
@@ -3354,6 +3351,7 @@
 				BC0FED731AAA026C002488D7 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				048830D31AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				BC0FED6E1AAA0268002488D7 /* MWKImageListTests.m in Sources */,
+				BC12F2461B7A8EEB0042DB3C /* WMFImageControllerTests.swift in Sources */,
 				BC3059B91B6948C800AA5703 /* XCTestCase+PromiseKit.m in Sources */,
 				BC725ECC1B6182C800E0A64C /* MWKSavedPageListTests.m in Sources */,
 				BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */,
@@ -3447,7 +3445,6 @@
 				0EFB0F231B31EE2D00D05C08 /* ImageData.m in Sources */,
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
 				0E366B481B2F614E00ABFB86 /* PromiseKit.swift in Sources */,
-				BC905A151B44962100523DFE /* CancellablePromise.swift in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */,
@@ -3693,7 +3690,6 @@
 				BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				BCB669B21A83F6C400C7B1FE /* MWKImageInfo.m in Sources */,
-				BCBDC88E1B3A42E7003A6D17 /* SwiftUtilities.swift in Sources */,
 				BCB848781AAAABF80077EC24 /* WMFMath.m in Sources */,
 				D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */,
 				BC6E8B921B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m in Sources */,

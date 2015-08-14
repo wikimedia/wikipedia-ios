@@ -132,7 +132,9 @@ public class WMFImageController : NSObject {
      */
     public func fetchImageWithURL(url: NSURL) -> Promise<ImageDownload> {
         // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
-        let promise = imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
+        let (cancellable, promise) =
+            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
+        addCancellableForURL(cancellable, url: url)
         return applyDebugTransformIfEnabled(promise)
     }
 
@@ -177,9 +179,9 @@ public class WMFImageController : NSObject {
     }
 
     public func cachedImageWithURL(url: NSURL) -> Promise<ImageDownload> {
-        let cancellablePromise = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
-        addCancellableForURL(cancellablePromise, url: url)
-        return applyDebugTransformIfEnabled(cancellablePromise.then() { image, origin in
+        let (cancellable, promise) = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
+        addCancellableForURL(cancellable, url: url)
+        return applyDebugTransformIfEnabled(promise.then() { image, origin in
             return ImageDownload(url: url, image: image, origin: origin)
         })
     }
@@ -261,9 +263,9 @@ public class WMFImageController : NSObject {
             weak var wself = self;
             dispatch_async(self.cancellingQueue) {
                 let sself = wself
-                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? WrapperObject<Cancellable> {
+                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? Cancellable {
                     sself?.cancellables.removeObjectForKey(url.absoluteString!)
-                    cancellable.value.cancel()
+                    cancellable.cancel()
                 }
             }
         }
@@ -273,12 +275,11 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            let currentCancellables: [WrapperObject<Cancellable>] =
-                sself?.cancellables.objectEnumerator().allObjects as! [WrapperObject<Cancellable>]
+            let currentCancellables = sself?.cancellables.objectEnumerator().allObjects as! [Cancellable]
             sself?.cancellables.removeAllObjects()
             dispatch_async(dispatch_get_global_queue(0, 0)) {
                 for cancellable in currentCancellables {
-                    cancellable.value.cancel()
+                    cancellable.cancel()
                 }
             }
         }
@@ -288,7 +289,7 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            sself?.cancellables.setObject(WrapperObject(value: cancellable), forKey: url.absoluteString!)
+            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString!)
         }
     }
 
@@ -311,7 +312,7 @@ extension WMFImageController {
      *
      * @return `AnyPromise` which resolves to `UIImage`.
      */
-    public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
+    @objc public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
         return AnyPromise(bound: fetchImageWithURL(url).then(unpackImage()))
     }
 
@@ -320,11 +321,11 @@ extension WMFImageController {
      *
      * @return `AnyPromise` which resolves to `UIImage?`, where the image is present on a cache hit, and `nil` on a miss.
      */
-    public func cachedImageWithURL(url: NSURL?) -> AnyPromise {
+    @objc public func cachedImageWithURL(url: NSURL?) -> AnyPromise {
         return AnyPromise(bound: cachedImageWithURL(url).then(unpackImage()))
     }
 
-    public func cascadingFetchWithMainURL(mainURL: NSURL?,
+    @objc public func cascadingFetchWithMainURL(mainURL: NSURL?,
                                           cachedPlaceholderURL: NSURL?,
                                           mainImageBlock: (UIImage) -> Void,
                                           cachedPlaceholderImageBlock: (UIImage) -> Void) -> AnyPromise {
