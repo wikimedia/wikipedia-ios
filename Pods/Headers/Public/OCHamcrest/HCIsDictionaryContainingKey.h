@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Collection/HCIsDictionaryContainingKey.h
+../../../OCHamcrest/Source/Library/Collection/hcisdictionarycontainingkey.h

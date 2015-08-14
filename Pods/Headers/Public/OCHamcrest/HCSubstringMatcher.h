@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Text/HCSubstringMatcher.h
+../../../OCHamcrest/Source/Library/Text/hcsubstringmatcher.h

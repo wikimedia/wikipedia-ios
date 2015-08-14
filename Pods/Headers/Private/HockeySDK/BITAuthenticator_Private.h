@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITAuthenticator_Private.h
+../../../HockeySDK/Classes/bitauthenticator_private.h

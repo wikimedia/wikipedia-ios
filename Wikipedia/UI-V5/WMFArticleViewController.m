@@ -8,6 +8,10 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+//Analytics
+#import <PiwikTracker/PiwikTracker.h>
+#import "MWKArticle+WMFAnalyticsLogging.h"
+
 // Models & Controllers
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFArticleFetcher.h"
@@ -175,6 +179,28 @@ NS_ASSUME_NONNULL_BEGIN
     MWKArticle* article = note.userInfo[MWKArticleKey];
     if ([self.article.title isEqualToTitle:article.title]) {
         self.article = article;
+    }
+}
+
+#pragma mark - Analytics
+
+- (NSString*)analyticsName {
+    NSParameterAssert(self.article);
+    if (self.article == nil) {
+        return @"";
+    }
+    return [self.article analyticsName];
+}
+
+- (void)logPreview {
+    if (self.mode == WMFArticleControllerModePopup && self.article.title.text) {
+        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article-Preview", [self analyticsName]]];
+    }
+}
+
+- (void)logPageView {
+    if (self.mode == WMFArticleControllerModeNormal && self.article.title.text) {
+        [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article", [self analyticsName]]];
     }
 }
 
@@ -362,7 +388,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    [self logPreview];
     [self updateUI];
 
     // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
@@ -372,6 +398,11 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMoreForTitle:self.article.title];
         }
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self logPageView];
 }
 
 #pragma mark - UITableViewDataSource

@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/MKTPrimitiveArgumentMatching.h
+../../../OCMockito/Source/OCMockito/mktprimitiveargumentmatching.h

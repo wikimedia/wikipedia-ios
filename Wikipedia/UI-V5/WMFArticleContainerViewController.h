@@ -1,6 +1,7 @@
 @import UIKit;
 #import "WMFArticleContentController.h"
 #import "WMFArticleListItemController.h"
+#import "WMFAnalyticsLogging.h"
 
 @class WMFArticleViewController;
 @class MWKDataStore;
@@ -10,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController : UIViewController
-    <WMFArticleContentController, WMFArticleListItemController>
+    <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
 
 + (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
                                                  savedPages:(MWKSavedPageList*)savedPages;

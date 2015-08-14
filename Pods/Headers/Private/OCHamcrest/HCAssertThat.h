@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/HCAssertThat.h
+../../../OCHamcrest/Source/Core/hcassertthat.h

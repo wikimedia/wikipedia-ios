@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/MKTMockitoCore.h
+../../../OCMockito/Source/OCMockito/mktmockitocore.h

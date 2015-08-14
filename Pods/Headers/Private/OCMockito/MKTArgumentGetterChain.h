@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/ArgumentGetters/MKTArgumentGetterChain.h
+../../../OCMockito/Source/OCMockito/Helpers/ArgumentGetters/mktargumentgetterchain.h

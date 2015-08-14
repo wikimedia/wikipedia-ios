@@ -1,0 +1,3 @@
+PODS_HOCKEYSDK_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/HockeySDK/Vendor"
+PODS_HOCKEYSDK_GCC_PREPROCESSOR_DEFINITIONS = $(inherited) BITHOCKEY_VERSION="@\"3.6.2\"" BITHOCKEY_C_VERSION="\"3.6.2\"" BITHOCKEY_BUILD="@\"35\"" BITHOCKEY_C_BUILD="\"35\""
+PODS_HOCKEYSDK_OTHER_LDFLAGS = -framework "AssetsLibrary" -framework "CoreGraphics" -framework "CoreText" -framework "CrashReporter" -framework "MobileCoreServices" -framework "QuartzCore" -framework "QuickLook" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITAttributedLabel.h
+../../../HockeySDK/Classes/bitattributedlabel.h
