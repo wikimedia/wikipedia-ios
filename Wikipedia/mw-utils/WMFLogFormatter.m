@@ -20,21 +20,21 @@ static NSString* cachedApplicationName;
 }
 
 - (NSString*)formatLogMessage:(DDLogMessage*)logMessage {
-    NSString* level;
-    switch (logMessage->_level) {
-        case DDLogLevelDebug:
+    NSString* level = @"";
+    switch (logMessage->_flag) {
+        case DDLogFlagDebug:
             level = @"DEBUG";
             break;
-        case DDLogLevelVerbose:
+        case DDLogFlagVerbose:
             level = @"VERBOSE";
             break;
-        case DDLogLevelInfo:
+        case DDLogFlagInfo:
             level = @"INFO";
             break;
-        case DDLogLevelWarning:
+        case DDLogFlagWarning:
             level = @"WARN";
             break;
-        case DDLogLevelError:
+        case DDLogFlagError:
             level = @"ERROR";
             break;
         default:
@@ -45,7 +45,7 @@ static NSString* cachedApplicationName;
             cachedApplicationName,
             [self queueThreadLabelForLogMessage:logMessage],
             logMessage->_function,
-            logMessage->_line,
+            (unsigned long)logMessage->_line,
             level,
             logMessage->_message];
 }

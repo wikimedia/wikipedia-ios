@@ -1,7 +1,6 @@
-
 #import "WMFSearchViewController.h"
 #import "RecentSearchesViewController.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListCollectionViewController_Transitioning.h"
 
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
@@ -16,7 +15,7 @@
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
-@interface WMFSearchViewController ()<WMFRecentSearchesViewControllerDelegate>
+@interface WMFSearchViewController ()<WMFRecentSearchesViewControllerDelegate, WMFArticleListTransitionProvider>
 
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
@@ -35,6 +34,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @end
 
 @implementation WMFSearchViewController
+
+- (WMFArticleListTransition*)listTransition {
+    return self.resultsListController.listTransition;
+}
 
 - (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
     if (WMF_IS_EQUAL(_savedPages, savedPages)) {
@@ -118,7 +121,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateRecentSearchesVisibility];
-    [self configureArticleList];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

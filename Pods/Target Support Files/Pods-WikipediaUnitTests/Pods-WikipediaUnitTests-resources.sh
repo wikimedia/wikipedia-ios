@@ -54,6 +54,10 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "PiwikTracker/PiwikTracker/piwiktracker.xcdatamodeld"
   install_resource "${BUILT_PRODUCTS_DIR}/HockeySDKResources.bundle"
 fi
+if [[ "$CONFIGURATION" == "AdHoc" ]]; then
+  install_resource "PiwikTracker/PiwikTracker/piwiktracker.xcdatamodeld"
+  install_resource "${BUILT_PRODUCTS_DIR}/HockeySDKResources.bundle"
+fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "PiwikTracker/PiwikTracker/piwiktracker.xcdatamodeld"
   install_resource "${BUILT_PRODUCTS_DIR}/HockeySDKResources.bundle"

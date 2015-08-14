@@ -14,18 +14,38 @@
 #import "MediaWikiKit.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
+#import "WMFNavigationTransitionController.h"
+
 #import "OnboardingViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NearbyViewController.h"
 #import <PiwikTracker/PiwikTracker.h>
 
-
-typedef NS_ENUM (NSUInteger, WMFAppTabType) {
+/**
+ *  Enums for each tab in the main tab bar.
+ *
+ *  @warning Be sure to update `WMFAppTabCount` when these enums change, and always initialize the first enum to 0.
+ *
+ *  @see WMFAppTabCount
+ */
+typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeHome = 0,
     WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
+
+/**
+ *  Number of tabs in the main tab bar.
+ *
+ *  @warning Kept as a separate constant to prevent switch statements from being considered inexhaustive. This means we
+ *           need to make sure it's manually kept in sync by ensuring:
+ *              - The tab enum we increment is the last one
+ *              - The first tab enum is initialized to 0
+ *
+ *  @see WMFAppTabType
+ */
+static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate>
@@ -40,6 +60,8 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
 
 @property (nonatomic, strong) SessionSingleton* session;
+
+@property (nonatomic, strong) WMFNavigationTransitionController* navigationTransitionController;
 
 @end
 
@@ -58,6 +80,16 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 - (void)configureTabController {
     self.rootTabBarController.delegate = self;
+
+    for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
+        UINavigationController* navigationController = [self navigationControllerForTab:i];
+        navigationController.delegate = self.navigationTransitionController;
+        // prevent navigation bar from showing initially or hiding/showing as a side-effect
+        navigationController.hidesBarsOnSwipe             = NO;
+        navigationController.hidesBarsOnTap               = NO;
+        navigationController.hidesBarsWhenKeyboardAppears = NO;
+        navigationController.navigationBarHidden          = YES;
+    }
 }
 
 - (void)configureNearbyViewController {
@@ -124,6 +156,13 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
 #pragma mark - Accessors
 
+- (WMFNavigationTransitionController*)navigationTransitionController {
+    if (!_navigationTransitionController) {
+        _navigationTransitionController = [WMFNavigationTransitionController new];
+    }
+    return _navigationTransitionController;
+}
+
 - (SessionSingleton*)session {
     if (!_session) {
         _session = [SessionSingleton sharedInstance];
@@ -167,9 +206,8 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
 
         [self runDataMigrationIfNeededWithCompletion:^{
             [self loadMainUI];
-            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding){
-                [self hideSplashViewAnimated:!didShowOnboarding];
-            }];
+            BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
+            [self hideSplashViewAnimated:!didShowOnboarding];
         }];
     });
 }
@@ -196,22 +234,16 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     return showOnboarding.boolValue;
 }
 
-- (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
+- (BOOL)presentOnboardingIfNeeded {
     if ([self shouldShowOnboarding]) {
         [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
                            animated:NO
-                         completion:^{
-            if (completion) {
-                completion(YES);
-            }
-        }];
+                         completion:NULL];
         [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        return;
+        return YES;
     }
-    if (completion) {
-        completion(NO);
-    }
+    return NO;
 }
 
 #pragma mark - Splash
@@ -261,28 +293,34 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType) {
     }];
 }
 
+- (BOOL)tabBarController:(UITabBarController*)tabBarController shouldSelectViewController:(UIViewController*)viewController {
+    // !!!: disable pop to root behavior
+    return tabBarController.selectedViewController != viewController;
+}
+
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
+    // !!: Need to implement "pop to root" transition handling
+//    if (tabBarController.selectedViewController == viewController) {
+//        // pop to root when user taps the currently selected tab
+//        [viewController.navigationController popToRootViewControllerAnimated:YES];
+//    }
 
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {
-            [self configureNearbyViewController];
             [[PiwikTracker sharedInstance] sendView:@"Home"];
         }
         break;
         case WMFAppTabTypeSearch: {
-            [self configureSearchViewController];
             [[PiwikTracker sharedInstance] sendView:@"Search"];
         }
         break;
         case WMFAppTabTypeSaved: {
-            [self configureSavedViewController];
             [[PiwikTracker sharedInstance] sendView:@"Saved"];
         }
         break;
         case WMFAppTabTypeRecent: {
-            [self configureRecentViewController];
             [[PiwikTracker sharedInstance] sendView:@"Recent"];
         }
         break;

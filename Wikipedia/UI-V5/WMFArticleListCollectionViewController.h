@@ -1,7 +1,6 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleListDataSource.h"
-#import "WMFArticleListTransition.h"
 
 @class MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
@@ -12,7 +11,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
     WMFArticleListModeOffScreen
 };
 
-@interface WMFArticleListCollectionViewController : UICollectionViewController<WMFArticleListTransitioning>
+@interface WMFArticleListCollectionViewController : UICollectionViewController
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPages;

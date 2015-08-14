@@ -3,12 +3,18 @@
 
 #import <UIKit/UIKit.h>
 #import "PullToRefreshViewController.h"
+#import "WMFArticleContentController.h"
 
 @class BottomMenuViewController, CommunicationBridge;
 
 @protocol WMFWebViewControllerDelegate;
 
-@interface WebViewController : PullToRefreshViewController <UIWebViewDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
+@interface WebViewController : PullToRefreshViewController
+    <UIWebViewDelegate,
+     UIScrollViewDelegate,
+     UIGestureRecognizerDelegate,
+     UIAlertViewDelegate,
+     WMFArticleContentController>
 
 @property (nonatomic, weak) id<WMFWebViewControllerDelegate> delegate;
 
@@ -51,6 +57,8 @@
 @protocol WMFWebViewControllerDelegate <NSObject>
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
+
+- (void)dismissWebViewController:(WebViewController*)controller;
 
 @end
 

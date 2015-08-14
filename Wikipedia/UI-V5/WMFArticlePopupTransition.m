@@ -1,19 +1,22 @@
-
-
 #import "WMFArticlePopupTransition.h"
-#import "WMFScrollViewTopPanGestureRecognizer.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
+
+#import "WMFArticleContainerViewController.h"
 #import "WMFArticleViewController.h"
 #import <PiwikTracker/PiwikTracker.h>
 #import "MWKArticle+WMFAnalyticsLogging.h"
 
+#import "WMFMath.h"
+
+#import "WMFScrollViewTopPanGestureRecognizer.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
+
 @interface WMFArticlePopupTransition ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak, readwrite) UIViewController* presentingViewController;
-@property (nonatomic, weak, readwrite) WMFArticleViewController* presentedViewController;
-@property (nonatomic, weak, readwrite) UIScrollView* scrollView;
 
 @property (nonatomic, strong, readwrite) UIView* backgroundView;
+@property (nonatomic, weak, readwrite) UIView* containerView;
 
 @property (nonatomic, assign, readwrite) BOOL isPresented;
 @property (nonatomic, assign, readwrite) BOOL isDismissing;
@@ -27,64 +30,40 @@
 
 @property (assign, nonatomic) BOOL interactionInProgress;
 
+@property (nonatomic, readonly) CGFloat popupOriginY;
+
 @property (assign, nonatomic) CGFloat popupAnimationSpeed;
-@property (strong, nonatomic) CADisplayLink* popupAnimationTimer;
 @property (assign, nonatomic) CGFloat popupAnimationStartTime;
 @property (assign, nonatomic) CGFloat popupHeightAsProgress;
 @property (assign, nonatomic) CGFloat totalCardAnimationDistance;
 
 @end
 
-
 @implementation WMFArticlePopupTransition
 
-- (instancetype)initWithPresentingViewController:(UIViewController*)presentingViewController presentedViewController:(WMFArticleViewController*)presentedViewController contentScrollView:(UIScrollView*)scrollView {
+- (instancetype)initWithPresentingViewController:(UIViewController* __nonnull)presentingViewController {
     self = [super init];
     if (self) {
-        _presentInteractively     = YES;
-        _dismissInteractively     = YES;
-        _popupHeight              = 300.0;
-        _popupAnimationSpeed      = 100 / 0.3;
-        _presentingViewController = presentingViewController;
-        _presentedViewController  = presentedViewController;
-        _scrollView               = scrollView;
-        [self addPresentGestureRecoginizer];
+        self.presentingViewController = presentingViewController;
+        _presentInteractively         = YES;
+        _dismissInteractively         = YES;
+        _popupHeight                  = 300.0;
+        _popupAnimationSpeed          = 100 / 0.3;
+        _nonInteractiveDuration       = 0.5;
     }
     return self;
 }
 
-- (void)setPresentInteractively:(BOOL)presentInteractively {
-    _presentInteractively = presentInteractively;
-    [self addPresentGestureRecoginizer];
+- (CGFloat)popupOriginY {
+    return (self.containerView.frame.size.height - self.popupHeight);
 }
 
-- (void)setDismissInteractively:(BOOL)dismissInteractively {
-    _dismissInteractively = dismissInteractively;
-    [self addDismissGestureRecognizer];
+- (void)setIsPresenting:(BOOL)isPresenting {
+    self.isDismissing = !isPresenting;
 }
 
-#pragma mark - UIViewControllerTransitioningDelegate
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController*)presented presentingController:(UIViewController*)presenting sourceController:(UIViewController*)source {
-    return self;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController*)dismissed {
-    return self;
-}
-
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator {
-    if (self.presentInteractively) {
-        return self;
-    }
-    return nil;
-}
-
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator {
-    if (self.dismissInteractively) {
-        return self;
-    }
-    return nil;
+- (BOOL)isPresenting {
+    return !self.isDismissing;
 }
 
 #pragma mark - UIViewAnimatedTransistioning
@@ -96,11 +75,12 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.totalCardAnimationDistance = CGRectGetHeight([transitionContext containerView].frame);
 
-    [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
-
-    if (self.isPresented) {
+    if (self.isDismissing) {
         [self animateDismiss:transitionContext];
     } else {
+        if (self.presentInteractively) {
+            [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
+        }
         [self animatePresentation:transitionContext];
     }
 }
@@ -108,22 +88,20 @@
 #pragma mark - UIViewControllerInteractiveTransitioning
 
 - (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    //this needs to happen before super becuase it is used to modify the animations that start in the super call
+    // !!!: this needs to happen before super because it is used to modify the animations that start in the super call
     self.interactionInProgress = YES;
     [super startInteractiveTransition:transitionContext];
 
-    if (!self.isPresented) {
-        //Animate the transition partially to get the view on screen
+    self.containerView = [transitionContext containerView];
+
+    if (self.isPresenting) {
+        // Animate the transition partially to get the view on screen
         [self animateToPopupPosition];
     }
 }
 
-- (CGFloat)completionSpeed {
-    return (1 - self.percentComplete) * 1.5;
-}
-
 - (UIViewAnimationCurve)completionCurve {
-    return UIViewAnimationCurveEaseOut;
+    return UIViewAnimationCurveLinear;
 }
 
 #pragma mark - Animation
@@ -139,28 +117,27 @@
 - (void)animateToPopupPosition {
     self.popupHeightAsProgress   = [self animationProgressFromHeight:self.popupHeight];
     self.popupAnimationStartTime = CACurrentMediaTime();
-    self.popupAnimationTimer     = [CADisplayLink displayLinkWithTarget:self selector:@selector(animatePopupWithTimer:)];
-    [self.popupAnimationTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    CADisplayLink* popupAnimationTimer =
+        [CADisplayLink displayLinkWithTarget:self selector:@selector(animatePopupWithTimer:)];
+    [popupAnimationTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 - (void)animatePopupWithTimer:(CADisplayLink*)link {
-    NSTimeInterval elapedTime   = link.timestamp - self.popupAnimationStartTime;
-    CGFloat distance            = elapedTime * self.popupAnimationSpeed;
-    CGFloat progressDifferental = [self animationProgressFromHeight:distance];
+    NSTimeInterval elapedTime = link.timestamp - self.popupAnimationStartTime;
+    CGFloat distance          = elapedTime * self.popupAnimationSpeed;
+    CGFloat progressDelta     = [self animationProgressFromHeight:distance];
 
     CGFloat percentComplete = [self percentComplete];
 
     if (percentComplete < self.popupHeightAsProgress) {
-        percentComplete = [self percentComplete] + progressDifferental;
-
+        percentComplete += progressDelta;
         if (percentComplete >= self.popupHeightAsProgress) {
             percentComplete = self.popupHeightAsProgress;
             [link invalidate];
             link = nil;
         }
     } else {
-        percentComplete = [self percentComplete] - progressDifferental;
-
+        percentComplete -= progressDelta;
         if (percentComplete <= self.popupHeightAsProgress) {
             percentComplete = self.popupHeightAsProgress;
             [link invalidate];
@@ -172,105 +149,107 @@
 }
 
 - (void)animatePresentation:(id<UIViewControllerContextTransitioning>)transitionContext {
-    UIView* containerView = [transitionContext containerView];
-
-//    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIView* containerView  = [transitionContext containerView];
     UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView* toView         = [transitionContext viewForKey:UITransitionContextToViewKey];
 
-//    UIView* fromView = fromVC.view;
-    UIView* toView = toVC.view;
-
-    UIView* bg = [[UIView alloc] initWithFrame:containerView.bounds];
-    bg.backgroundColor  = [UIColor blackColor];
-    bg.alpha            = 0.35;
-    self.backgroundView = bg;
-
-    //Setup toView
-    CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
-
-    CGRect toViewStartFrame;
-
-    if ([toView superview]) {
-        toViewStartFrame = [containerView convertRect:toView.frame fromView:[toView superview]];
-    } else {
-        toViewStartFrame          = toViewFinalFrame;
-        toViewStartFrame.origin.y = CGRectGetHeight(containerView.bounds);
+    if (!self.backgroundView) {
+        UIView* backgroundView = [[UIView alloc] initWithFrame:containerView.bounds];
+        backgroundView.backgroundColor        = [UIColor blackColor];
+        backgroundView.alpha                  = 0.35;
+        backgroundView.userInteractionEnabled = NO;
+        self.backgroundView                   = backgroundView;
     }
 
-    toView.frame = toViewStartFrame;
+    // Setup toView
+    CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
 
     [containerView addSubview:self.backgroundView];
     [containerView addSubview:toView];
+    toView.frame = CGRectOffset(containerView.bounds, 0, containerView.frame.size.height);
 
+    [self setupPresentationGestureIfNeeded];
 
-    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [toView addGestureRecognizer:self.tapGestureRecognizer];
-
-    self.isPresenting = YES;
+    self.tapGestureRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.presentingViewController.view.window addGestureRecognizer:self.tapGestureRecognizer];
 
     [self performAnimations:^{
         self.backgroundView.alpha = 0.8;
         toView.frame = toViewFinalFrame;
-    } completion:^(BOOL finished) {
-        self.isPresenting = NO;
+    }
+                 completion:^(BOOL finished) {
+        self.isPresenting = [transitionContext transitionWasCancelled];
         self.isPresented = ![transitionContext transitionWasCancelled];
         [self.backgroundView removeFromSuperview];
-        [self addDismissGestureRecognizer];
-        [toView removeGestureRecognizer:self.tapGestureRecognizer];
-        [self.presentedViewController setMode:WMFArticleControllerModeNormal animated:NO];
+        if (![transitionContext transitionWasCancelled]) {
+            [self setupDismissalGestureIfNeeded];
+            [self.presentedViewController setMode:WMFArticleControllerModeNormal animated:NO];
+        }
+        [self removePresentGestureRecognizer];
+
+        [self.tapGestureRecognizer.view removeGestureRecognizer:self.tapGestureRecognizer];
+        self.tapGestureRecognizer.delegate = nil;
+        self.tapGestureRecognizer = nil;
+
+        self.interactionInProgress = NO;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
 
 - (void)animateDismiss:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIView* containerView = [transitionContext containerView];
+    UIView* fromView      = [transitionContext viewForKey:UITransitionContextFromViewKey];
+    UIView* toView        = [transitionContext viewForKey:UITransitionContextToViewKey];
 
-    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-//    UIViewController* toVC   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
-    UIView* fromView = fromVC.view;
-//    UIView* toView   = toVC.view;
-
-    //Setup fromView
-    CGRect fromViewStartFrame = fromView.frame;
-    CGRect fromViewFinalFrame = fromViewStartFrame;
-    fromViewFinalFrame.origin.y = CGRectGetHeight(containerView.bounds);
-    fromView.frame              = fromViewStartFrame;
-
+    [containerView addSubview:toView];
     [containerView addSubview:self.backgroundView];
     [containerView addSubview:fromView];
+    fromView.frame = containerView.bounds;
 
-    self.isDismissing = YES;
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         self.backgroundView.alpha = 0.0;
-        fromView.frame = fromViewFinalFrame;
+        fromView.frame = CGRectOffset(containerView.bounds, 0, containerView.frame.size.height);
     } completion:^(BOOL finished) {
-        self.isDismissing = NO;
+        self.interactionInProgress = NO;
+        self.isDismissing = [transitionContext transitionWasCancelled];
         self.isPresented = [transitionContext transitionWasCancelled];
-        [self addPresentGestureRecoginizer];
         [self.backgroundView removeFromSuperview];
-        [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
+        if (![transitionContext transitionWasCancelled]) {
+            [self removeDismissGestureRecognizer];
+            [self.presentedViewController setMode:WMFArticleControllerModePopup animated:NO];
+        }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
 
 - (void)performAnimations:(void (^)(void))animations completion:(void (^)(BOOL finished))completion {
     if (self.interactionInProgress) {
-        [UIView animateWithDuration:self.nonInteractiveDuration delay:0.0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:self.nonInteractiveDuration
+                              delay:0.0
+                            options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
             if (animations) {
                 animations();
             }
-        } completion:^(BOOL finished) {
+        }
+                         completion:^(BOOL finished) {
             if (completion) {
                 completion(finished);
             }
         }];
     } else {
-        [UIView animateWithDuration:self.nonInteractiveDuration delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
+        [UIView animateWithDuration:self.nonInteractiveDuration
+                              delay:0.0
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:0.0
+                            options:0
+                         animations:^{
             if (animations) {
                 animations();
             }
-        } completion:^(BOOL finished) {
+        }
+                         completion:^(BOOL finished) {
             if (completion) {
                 completion(finished);
             }
@@ -280,7 +259,19 @@
 
 #pragma mark - UIGestureRecognizerDelegate
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
+    return YES;
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    if (gestureRecognizer == self.presentGestureRecognizer) {
+        // only start dragging popup when touch begins inside it
+        CGPoint currentLocation = [gestureRecognizer locationInView:self.containerView];
+        return currentLocation.y >= self.popupOriginY;
+    } else if (gestureRecognizer == self.tapGestureRecognizer || gestureRecognizer == self.dismissGestureRecognizer) {
+        // only start dismissal if our VC on top of the stack
+        return self.presentingViewController.navigationController.topViewController == self.presentedViewController;
+    }
     return YES;
 }
 
@@ -288,56 +279,88 @@
     return YES;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
+    return NO;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
+    return NO;
+}
+
 #pragma mark - Gestures
 
-- (void)addPresentGestureRecoginizer {
-    if (self.isPresented) {
-        return;
-    }
-
+- (void)removeDismissGestureRecognizer {
     if (self.dismissGestureRecognizer) {
-        [self.presentedViewController.view removeGestureRecognizer:self.dismissGestureRecognizer];
+        [self.dismissGestureRecognizer.view removeGestureRecognizer:self.dismissGestureRecognizer];
         self.dismissGestureRecognizer.delegate = nil;
         self.dismissGestureRecognizer          = nil;
     }
-
-    if (!self.presentGestureRecognizer) {
-        self.presentGestureRecognizer          = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePresentGesture:)];
-        self.presentGestureRecognizer.delegate = self;
-        [self.presentedViewController.view addGestureRecognizer:self.presentGestureRecognizer];
-    }
 }
 
-- (void)addDismissGestureRecognizer {
-    if (!self.isPresented) {
-        return;
-    }
-
+- (void)removePresentGestureRecognizer {
     if (self.presentGestureRecognizer) {
-        [self.presentedViewController.view removeGestureRecognizer:self.presentGestureRecognizer];
+        [self.presentGestureRecognizer.view removeGestureRecognizer:self.presentGestureRecognizer];
         self.presentGestureRecognizer.delegate = nil;
         self.presentGestureRecognizer          = nil;
     }
+}
 
-    if (!self.dismissGestureRecognizer) {
-        self.dismissGestureRecognizer          = (id)[[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
-        self.dismissGestureRecognizer.delegate = self;
+/**
+ *  Idempotently setup the gesture recognizer for presenting from the popup state.
+ */
+- (void)setupPresentationGestureIfNeeded {
+    if (self.isDismissing) {
+        DDLogInfo(@"Not setting up presentation gesture while pending dismissal.");
+        return;
+    }
+    if (self.presentInteractively && !self.presentGestureRecognizer) {
+        self.presentGestureRecognizer =
+            [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePresentGesture:)];
+        self.presentGestureRecognizer.delegate = self;
+        /*
+           !!!: gesture must be added to window because:
+           1. navigation controller disables user interaction for the containerView during transitions
+           2. as a result of 1, the gesture never is never able to start receiving touch events, since the usual flow is
+            for the gesture itself to start receiving events, _then_ start the transition
+         */
+        [self.presentingViewController.view.window addGestureRecognizer:self.presentGestureRecognizer];
+    } else if (!self.presentInteractively) {
+        [self removePresentGestureRecognizer];
+    }
+}
+
+/**
+ *  Idempotently setup gesture recognizer for dismissal from presented state.
+ */
+- (void)setupDismissalGestureIfNeeded {
+    if (self.isPresenting) {
+        DDLogInfo(@"Not setting up dismissal gesture while pending presentation.");
+        return;
+    }
+    if (self.dismissInteractively && !self.dismissGestureRecognizer) {
+        self.dismissGestureRecognizer =
+            [[WMFScrollViewTopPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleDismissGesture:)];
+        self.dismissGestureRecognizer.cancelsTouchesInView = NO;
+        self.dismissGestureRecognizer.delaysTouchesBegan   = NO;
+        self.dismissGestureRecognizer.delegate             = self;
         [self.presentedViewController.view addGestureRecognizer:self.dismissGestureRecognizer];
-        [self.dismissGestureRecognizer setScrollview:self.scrollView];
+        self.dismissGestureRecognizer.scrollView = self.presentedViewController.articleViewController.tableView;
+    } else if (!self.dismissInteractively) {
+        [self removeDismissGestureRecognizer];
     }
 }
 
 - (void)handlePresentGesture:(UIPanGestureRecognizer*)recognizer {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
-            CGPoint touchlocation = [recognizer locationInView:recognizer.view];
+            CGPoint touchlocation = [recognizer locationInView:self.containerView];
             CGFloat viewLocation  = [self yOffsetFromAnimationProgress:self.percentComplete];
             self.yTouchOffset = viewLocation - touchlocation.y;
             break;
         }
 
         case UIGestureRecognizerStateChanged: {
-            CGPoint distanceTraveled = [recognizer locationInView:recognizer.view];
+            CGPoint distanceTraveled = [recognizer locationInView:self.containerView];
             distanceTraveled.y = distanceTraveled.y + self.yTouchOffset;
             CGFloat percent = distanceTraveled.y / self.totalCardAnimationDistance;
             percent = 1 - percent;
@@ -351,7 +374,7 @@
         }
 
         case UIGestureRecognizerStateEnded: {
-            CGPoint velocity = [recognizer velocityInView:recognizer.view];
+            CGPoint velocity = [recognizer velocityInView:self.containerView];
 
             BOOL fastSwipeUp = velocity.y < -self.totalCardAnimationDistance;
             if (fastSwipeUp) {
@@ -386,62 +409,63 @@
     }
 }
 
-- (void)handleDismissGesture:(UIPanGestureRecognizer*)recognizer {
+- (void)handleDismissGesture:(WMFScrollViewTopPanGestureRecognizer*)recognizer {
+    NSAssert(self.isDismissing, @"isDimissing flag was not set after presentation!");
     switch (recognizer.state) {
-        case UIGestureRecognizerStateBegan: {
-            CGPoint translation     = [recognizer translationInView:recognizer.view];
-            BOOL swipeIsTopToBottom = translation.y > 0;
-            if (swipeIsTopToBottom) {
-                [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-            }
-
-            break;
-        }
-
         case UIGestureRecognizerStateChanged: {
-            CGPoint distanceTraveled = [recognizer translationInView:recognizer.view];
-            CGFloat percent          = distanceTraveled.y / self.totalCardAnimationDistance;
-            if (percent > 0.99) {
-                percent = 0.99;
+            if (recognizer.isRecordingVerticalDisplacement) {
+                CGFloat transitionProgress =
+                    WMFStrictClamp(0.0, recognizer.aboveBoundsVerticalDisplacement / self.totalCardAnimationDistance, 1.0);
+                if (!self.interactionInProgress) {
+                    /*
+                       !!!: Must set this flag here since the gesture recognizer callbacks will fire again, causing this
+                          method to be entered before startInteractiveTransition is called, causing us to call pop
+                          more than once.
+                     */
+                    DDLogVerbose(@"Starting dismissal.");
+                    [self.presentedViewController.navigationController popViewControllerAnimated:YES];
+                } else {
+                    DDLogVerbose(@"Interactive transition progress: %f / %f = %f",
+                                 recognizer.aboveBoundsVerticalDisplacement,
+                                 self.totalCardAnimationDistance,
+                                 transitionProgress);
+                    [self updateInteractiveTransition:transitionProgress];
+                }
             }
-
-            [self updateInteractiveTransition:percent];
-
             break;
         }
 
         case UIGestureRecognizerStateEnded: {
-            if (self.percentComplete >= 0.33) {
-                [self finishInteractiveTransition];
-                return;
+            if (self.interactionInProgress) {
+                if (self.percentComplete >= 0.33) {
+                    DDLogVerbose(@"Finishing interactive transition.");
+                    [self finishInteractiveTransition];
+                } else {
+                    DDLogVerbose(@"Canceling interactive transition.");
+                    [self cancelInteractiveTransition];
+                }
+            } else {
+                DDLogVerbose(@"Touch ended w/o transition starting.");
             }
+            break;
+        }
 
-            BOOL fastSwipe = [recognizer velocityInView:recognizer.view].y > self.totalCardAnimationDistance;
-
-            if (fastSwipe) {
-                [self finishInteractiveTransition];
-                return;
+        case UIGestureRecognizerStateCancelled: {
+            if (self.interactionInProgress) {
+                DDLogVerbose(@"Canceling interactive transition.");
+                [self cancelInteractiveTransition];
             }
-
-            [self cancelInteractiveTransition];
-
-
             break;
         }
 
         default:
-            [self cancelInteractiveTransition];
             break;
     }
 }
 
 - (void)handleTap:(UITapGestureRecognizer*)tap {
-    CGPoint location = [tap locationInView:tap.view];
-
-    CGRect frameOfPopup = tap.view.frame;
-    frameOfPopup.origin.y = CGRectGetHeight(frameOfPopup) - self.popupHeight;
-
-    if (CGRectContainsPoint(frameOfPopup, location)) {
+    NSAssert(self.isPresenting, @"Tap gesture should only be possible while presenting.");
+    if ([tap locationInView:self.containerView].y >= self.popupOriginY) {
         [self finishInteractiveTransition];
     } else {
         [self cancelInteractiveTransition];

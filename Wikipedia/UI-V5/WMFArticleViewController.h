@@ -2,30 +2,30 @@
 #import <UIKit/UIKit.h>
 #import "WMFArticleNavigationDelegate.h"
 #import "WMFAnalyticsLogging.h"
+#import "WMFArticleContentController.h"
+#import "WMFArticleListItemController.h"
 
 @class MWKDataStore;
 @class MWKSavedPageList;
+@class WMFArticleViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_ENUM (NSUInteger, WMFArticleControllerMode) {
-    WMFArticleControllerModeNormal = 0,
-    WMFArticleControllerModeList,
-    WMFArticleControllerModePopup,
-};
+@protocol WMFArticleViewControllerDelegate <WMFArticleNavigationDelegate>
+
+- (void)articleViewController:(WMFArticleViewController*)articleViewController didTapSectionWithFragment:(NSString*)fragment;
+
+@end
 
 @interface WMFArticleViewController : UITableViewController
-    <UINavigationControllerDelegate, WMFAnalyticsLogging>
+    <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages;
 
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
-@property (nonatomic, strong, nullable) MWKArticle* article;
 
-@property (nonatomic, assign, readonly) WMFArticleControllerMode mode;
-
-- (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated;
+@property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 - (void)updateUI;
 
