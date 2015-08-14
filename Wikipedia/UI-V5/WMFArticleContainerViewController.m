@@ -21,6 +21,8 @@
 // Other
 #import "SessionSingleton.h"
 
+#import "NSURL+WMFLinkParsing.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
@@ -300,6 +302,11 @@ NS_ASSUME_NONNULL_BEGIN
                                                           savedPages:self.savedPageList];
     vc.article = article;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
+    [URL wmf_informNavigationDelegate:self withSender:nil];
+    return NO;
 }
 
 @end

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 
-@property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFArticleViewControllerDelegate, UITextViewDelegate> delegate;
 
 - (void)updateUI;
 

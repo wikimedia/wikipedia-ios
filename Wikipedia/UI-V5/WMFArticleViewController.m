@@ -341,6 +341,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:[UITableViewCell wmf_nibName]];
 
     self.tableView.scrollsToTop = YES;
 //    self.automaticallyAdjustsScrollViewInsets = NO;
@@ -395,14 +396,6 @@ NS_ASSUME_NONNULL_BEGIN
     return 0;
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.section != WMFArticleSectionTypeSummary) {
-        return UITableViewAutomaticDimension;
-    }
-    DTAttributedTextCell* cell = [self contentCellAtIndexPath:indexPath];
-    return [cell requiredRowHeightInTableView:tableView];
-}
-
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
         case WMFArticleSectionTypeSummary: return [self contentCellAtIndexPath:indexPath];
@@ -411,12 +404,25 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
-    WMFMinimalArticleContentCell* cell =
-        [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
-    cell.attributedString          = self.article.summaryHTML;
-    cell.articleNavigationDelegate = self.delegate;
-    cell.selectionStyle            = UITableViewCellSelectionStyleNone;
+- (UITableViewCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
+    UITableViewCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[UITableViewCell wmf_nibName]];
+
+    UITextView* tv = (id)[cell.contentView viewWithTag:1001];
+    if (!tv) {
+        tv          = [[UITextView alloc] initWithFrame:cell.bounds];
+        tv.delegate = self.delegate;
+        tv.tag      = 1001;
+        tv.editable = NO;
+        tv.scrollEnabled = NO;
+        [tv setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+        [cell.contentView addSubview:tv];
+        [tv mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.edges.equalTo(cell.contentView);
+        }];
+    }
+
+    tv.attributedText = [self.article summaryHTML];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -541,6 +547,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollToLink:(NSURL* __nonnull)linkURL animated:(BOOL)animated {
+}
+
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
+    return YES;
 }
 
 @end

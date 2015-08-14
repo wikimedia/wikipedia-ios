@@ -28,7 +28,8 @@
                DTDefaultLinkDecoration: @NO, // disable decoration for links
                DTDefaultLinkColor: [UIColor wmf_logoBlue],
                DTDocumentPreserveTrailingSpaces: @YES,
-               DTDefaultStyleSheet: defaultStyleSheet
+               DTDefaultStyleSheet: defaultStyleSheet,
+               DTUseiOS6Attributes: @YES
     };
 }
 
