@@ -1,10 +1,10 @@
 
-#import <Mantle/Mantle.h>
+#import <SSDataSources/SSDataSources.h>
 #import "WMFArticleListDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSearchResults : MTLModel<WMFArticleListDataSource>
+@interface WMFSearchResults : SSArrayDataSource<WMFArticleListDataSource>
 
 @property (nonatomic, copy, readonly) NSString* searchTerm;
 @property (nonatomic, strong, readonly) NSArray* articles;

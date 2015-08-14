@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleListDataSource.h"
+@class SSArrayDataSource;
 
 @class MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
@@ -16,7 +17,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
 @property (nonatomic, strong) MWKHistoryList* recentPages;
-@property (nonatomic, strong, nullable) id<WMFArticleListDataSource> dataSource;
+@property (nonatomic, strong, nullable) SSArrayDataSource<WMFArticleListDataSource>* dataSource;
 
 @property (nonatomic, assign, readonly) WMFArticleListMode mode;
 
