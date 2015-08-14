@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/MKTObjectMock.h
+../../../OCMockito/Source/OCMockito/mktobjectmock.h

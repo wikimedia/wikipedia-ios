@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Collection/HCEvery.h
+../../../OCHamcrest/Source/Library/Collection/hcevery.h

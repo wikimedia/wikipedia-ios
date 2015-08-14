@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/HCSelfDescribing.h
+../../../OCHamcrest/Source/Core/hcselfdescribing.h

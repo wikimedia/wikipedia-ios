@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Decorator/HCIs.h
+../../../OCHamcrest/Source/Library/Decorator/hcis.h

@@ -1,1 +1,1 @@
-../../../Masonry/Masonry/NSArray+MASShorthandAdditions.h
+../../../Masonry/Masonry/nsarray+masshorthandadditions.h

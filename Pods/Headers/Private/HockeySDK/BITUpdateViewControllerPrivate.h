@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITUpdateViewControllerPrivate.h
+../../../HockeySDK/Classes/bitupdateviewcontrollerprivate.h

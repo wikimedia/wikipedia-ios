@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Text/HCStringContainsInOrder.h
+../../../OCHamcrest/Source/Library/Text/hcstringcontainsinorder.h

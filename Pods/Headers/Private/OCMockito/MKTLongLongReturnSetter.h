@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/ReturnValueSetters/MKTLongLongReturnSetter.h
+../../../OCMockito/Source/OCMockito/Helpers/ReturnValueSetters/mktlonglongreturnsetter.h

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Number/HCIsEqualToNumber.h
+../../../OCHamcrest/Source/Library/Number/hcisequaltonumber.h

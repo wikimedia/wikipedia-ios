@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Logical/HCIsNot.h
+../../../OCHamcrest/Source/Library/Logical/hcisnot.h

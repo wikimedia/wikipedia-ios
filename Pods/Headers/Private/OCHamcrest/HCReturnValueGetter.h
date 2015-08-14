@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/Helpers/ReturnValueGetters/HCReturnValueGetter.h
+../../../OCHamcrest/Source/Core/Helpers/ReturnValueGetters/hcreturnvaluegetter.h

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Number/HCIsTrueFalse.h
+../../../OCHamcrest/Source/Library/Number/hcistruefalse.h

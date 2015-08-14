@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/BITStoreUpdateManagerDelegate.h
+../../../HockeySDK/Classes/bitstoreupdatemanagerdelegate.h

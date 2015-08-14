@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Decorator/HCDescribedAs.h
+../../../OCHamcrest/Source/Library/Decorator/hcdescribedas.h
