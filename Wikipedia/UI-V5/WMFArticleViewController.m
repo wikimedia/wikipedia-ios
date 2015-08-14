@@ -25,7 +25,6 @@
 // Views
 #import "WMFArticleTableHeaderView.h"
 #import "WMFArticleSectionCell.h"
-#import "PaddedLabel.h"
 #import "WMFArticleSectionHeaderView.h"
 #import "WMFMinimalArticleContentCell.h"
 #import "WMFArticleReadMoreCell.h"
@@ -39,7 +38,7 @@
 #import "MWKArticle+WMFSharing.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
-
+#import "NSURL+WMFLinkParsing.h"
 
 typedef NS_ENUM (NSInteger, WMFArticleSectionType) {
     WMFArticleSectionTypeSummary,
@@ -53,7 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 <UITableViewDataSource,
  UITableViewDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate>
+ WMFImageGalleryViewControllerDelegate,
+ UITextViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
@@ -252,7 +252,7 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
-    });;
+    });
 }
 
 - (void)fetchReadMoreForTitle:(MWKTitle*)title {
@@ -369,15 +369,11 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
 
     self.tableView.scrollsToTop = YES;
-//    self.automaticallyAdjustsScrollViewInsets = NO;
 
     UICollectionViewFlowLayout* galleryLayout = (UICollectionViewFlowLayout*)_headerGalleryViewController.collectionViewLayout;
     galleryLayout.minimumInteritemSpacing = 0;
     galleryLayout.minimumLineSpacing      = 0;
     galleryLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
-
-    [self.tableView registerClass:[WMFMinimalArticleContentCell class]
-           forCellReuseIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
 
     [self observeSavedPages];
     [self clearHeaderView];
@@ -426,14 +422,6 @@ NS_ASSUME_NONNULL_BEGIN
     return 0;
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.section != WMFArticleSectionTypeSummary) {
-        return UITableViewAutomaticDimension;
-    }
-    DTAttributedTextCell* cell = [self contentCellAtIndexPath:indexPath];
-    return [cell requiredRowHeightInTableView:tableView];
-}
-
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ((WMFArticleSectionType)indexPath.section) {
         case WMFArticleSectionTypeSummary: return [self contentCellAtIndexPath:indexPath];
@@ -443,11 +431,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
-    WMFMinimalArticleContentCell* cell =
-        [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
-    cell.attributedString          = self.article.summaryHTML;
-    cell.articleNavigationDelegate = self.delegate;
-    cell.selectionStyle            = UITableViewCellSelectionStyleNone;
+    WMFMinimalArticleContentCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
+    [cell setAttributedText:[self.article summaryHTML]];
     return cell;
 }
 
@@ -572,6 +557,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollToLink:(NSURL* __nonnull)linkURL animated:(BOOL)animated {
+}
+
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
+    [URL wmf_informNavigationDelegate:self.delegate withSender:nil];
+    return NO;
 }
 
 @end

@@ -570,9 +570,21 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
         if (!nonEmptyParagraphsWithSelectedChildren.count) {
             continue;
         }
-        NSString* lineSeparatedParagraphs = [nonEmptyParagraphsWithSelectedChildren componentsJoinedByString:@"<br/><br/>"];
-        NSData* xpathData                 = [lineSeparatedParagraphs dataUsingEncoding:NSUTF8StringEncoding];
-        return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
+        NSString* lineSeparatedParagraphs = [nonEmptyParagraphsWithSelectedChildren componentsJoinedByString:@"</p><p>"];
+        lineSeparatedParagraphs = [NSString stringWithFormat:@"<p>%@</p>", lineSeparatedParagraphs];
+        NSData* xpathData = [lineSeparatedParagraphs dataUsingEncoding:NSUTF8StringEncoding];
+
+        NSAttributedString* returnValue = [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
+
+        // Remove trailing line break. Prob move this to a category.
+        if (returnValue.length) {
+            NSAttributedString* lastCharacter = [returnValue attributedSubstringFromRange:NSMakeRange(returnValue.length - 1, 1)];
+            if ([[lastCharacter string] isEqualToString:@"\n"]) {
+                returnValue = [returnValue attributedSubstringFromRange:NSMakeRange(0, returnValue.length - 1)];
+            }
+        }
+
+        return returnValue;
     }
     return nil;
 }
