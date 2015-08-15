@@ -85,17 +85,22 @@ class WMFImageControllerTests: XCTestCase {
                                                       toPath: tempPath,
                                                       error: nil)
 
-        // import temp fixture data into image controller's disk cache
         let testURL = NSURL(string: "//foo/bar")!
-        imageController.importImage(fromFile: tempPath, withURL: testURL)
 
         expectPromise(toCatch(policy: CatchPolicy.AllErrors),
         pipe: { err in
             XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
         }) { () -> Promise<ImageDownload> in
-            let promise = self.imageController.cachedImageWithURL(testURL)
-            self.imageController.cancelFetchForURL(testURL)
-            return promise
+            self.imageController
+                // import temp fixture data into image controller's disk cache
+                .importImage(fromFile: tempPath, withURL: testURL)
+                // then, attempt to retrieve it from the cache
+                .then() {
+                  let promise = self.imageController.cachedImageWithURL(testURL)
+                  // but, cancel before the data is retrieved
+                  self.imageController.cancelFetchForURL(testURL)
+                  return promise
+                }
         }
 
         // remove temporarily copied test data
