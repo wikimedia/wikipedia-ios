@@ -76,11 +76,8 @@ class WMFImageControllerTests: XCTestCase {
 
     func testCancelCacheRequestCatchesWithCancellationError() {
         // copy some test fixture image to a temp location
-        let testFixtureDataPath =
-            self.wmf_bundle().resourcePath!.stringByAppendingPathComponent("golden-gate.jpg")
-
+        let testFixtureDataPath = wmf_bundle().resourcePath!.stringByAppendingPathComponent("golden-gate.jpg")
         let tempPath = WMFRandomTemporaryFileOfType("jpg")
-
         NSFileManager.defaultManager().copyItemAtPath(testFixtureDataPath,
                                                       toPath: tempPath,
                                                       error: nil)
