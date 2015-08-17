@@ -98,13 +98,13 @@ NS_ASSUME_NONNULL_BEGIN
     MWKImage* imageMetadata = self.images[indexPath.item];
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
-    .then(^id (ImageDownload* download) {
+    .then(^id (WMFImageDownload* download) {
         @strongify(self);
         UIImage* image = download.image;
         if (!self) {
             return [NSError cancelledError];
         } else {
-            BOOL shouldAnimate = [download.origin isEqualToString:[ImageDownload imageOriginNetwork]];
+            BOOL shouldAnimate = [download.origin isEqualToString:[WMFImageDownload imageOriginNetwork]];
             if (!imageMetadata.allNormalizedFaceBounds) {
                 @weakify(self);
                 return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {

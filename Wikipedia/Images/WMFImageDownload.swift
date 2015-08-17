@@ -1,5 +1,5 @@
 //
-//  ImageDownload.swift
+//  WMFImageDownload.swift
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 6/27/15.
@@ -42,7 +42,7 @@ public protocol ImageOriginConvertible {
 
 public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { return c.asImageOrigin() }
 
-public class ImageDownload: NSObject {
+public class WMFImageDownload: NSObject {
     public var url: NSURL
     public var image: UIImage
     public var origin: String

@@ -542,11 +542,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [[WMFImageController sharedInstance]
      cascadingFetchWithMainURL:infoForImage.imageThumbURL
            cachedPlaceholderURL:[[image largestCachedVariant] sourceURL]
-                 mainImageBlock:^(ImageDownload* download) {
+                 mainImageBlock:^(WMFImageDownload* download) {
         @strongify(self);
         [self setImage:download.image withInfo:infoForImage forCellAtIndexPath:indexPath];
     }
-    cachedPlaceholderImageBlock:^(ImageDownload* download) {
+    cachedPlaceholderImageBlock:^(WMFImageDownload* download) {
         @strongify(self);
         [self setPlaceholderImage:download.image ofInfo:infoForImage forCellAtIndexPath:indexPath];
     }]

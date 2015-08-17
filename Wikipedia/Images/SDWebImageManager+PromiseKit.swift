@@ -40,15 +40,15 @@ class SDWebImageOperationWrapper: NSObject, Cancellable {
 }
 
 extension SDWebImageManager {
-    func promisedImageWithURL(URL: NSURL, options: SDWebImageOptions) -> (Cancellable, Promise<ImageDownload>) {
-        let (promise, fulfill, reject) = Promise<ImageDownload>.defer()
+    func promisedImageWithURL(URL: NSURL, options: SDWebImageOptions) -> (Cancellable, Promise<WMFImageDownload>) {
+        let (promise, fulfill, reject) = Promise<WMFImageDownload>.defer()
 
         let promiseCompatibleOptions = options | SDWebImageOptions.ReportCancellationAsError
 
         let webImageOperation = self.downloadImageWithURL(URL, options: promiseCompatibleOptions, progress: nil)
         { img, err, cacheType, finished, imageURL in
                 if finished && err == nil {
-                    fulfill(ImageDownload(url: URL, image: img, origin: asImageOrigin(cacheType).rawValue))
+                    fulfill(WMFImageDownload(url: URL, image: img, origin: asImageOrigin(cacheType).rawValue))
                 } else {
                     reject(err)
                 }

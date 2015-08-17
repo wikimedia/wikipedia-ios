@@ -413,7 +413,7 @@
 		BCF8DCA61B70055F00149C26 /* WMFFixtureRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */; };
 		BCF8DCA81B7009B100149C26 /* MobileView in Resources */ = {isa = PBXBuildFile; fileRef = BCF8DCA71B7009B100149C26 /* MobileView */; };
 		BCFB090D1B445A720077955B /* UIImage+WMFSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFB090C1B445A720077955B /* UIImage+WMFSerialization.m */; };
-		BCFDB1401B3F3D9700F0C9F4 /* ImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFDB13F1B3F3D9700F0C9F4 /* ImageDownload.swift */; };
+		BCFDB1401B3F3D9700F0C9F4 /* WMFImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFDB13F1B3F3D9700F0C9F4 /* WMFImageDownload.swift */; };
 		BCFDB1421B3F3F7E00F0C9F4 /* WMFImageController+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFDB1411B3F3F7E00F0C9F4 /* WMFImageController+Debug.swift */; };
 		BCFDB1441B3F3FCB00F0C9F4 /* UIImage+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFDB1431B3F3FCB00F0C9F4 /* UIImage+Debug.swift */; };
 		BCFE026A1B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */; };
@@ -1205,7 +1205,7 @@
 		BCF8DCA71B7009B100149C26 /* MobileView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MobileView; sourceTree = "<group>"; };
 		BCFB090B1B445A720077955B /* UIImage+WMFSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WMFSerialization.h"; sourceTree = "<group>"; };
 		BCFB090C1B445A720077955B /* UIImage+WMFSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WMFSerialization.m"; sourceTree = "<group>"; };
-		BCFDB13F1B3F3D9700F0C9F4 /* ImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageDownload.swift; path = Images/ImageDownload.swift; sourceTree = "<group>"; };
+		BCFDB13F1B3F3D9700F0C9F4 /* WMFImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageDownload.swift; path = Images/WMFImageDownload.swift; sourceTree = "<group>"; };
 		BCFDB1411B3F3F7E00F0C9F4 /* WMFImageController+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WMFImageController+Debug.swift"; path = "Images/WMFImageController+Debug.swift"; sourceTree = "<group>"; };
 		BCFDB1431B3F3FCB00F0C9F4 /* UIImage+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Debug.swift"; path = "Images/UIImage+Debug.swift"; sourceTree = "<group>"; };
 		BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKHistoryListCorruptDataTests.m; sourceTree = "<group>"; };
@@ -2425,7 +2425,7 @@
 			children = (
 				BCBDC8831B38E441003A6D17 /* WMFImageController.swift */,
 				BCBDC8811B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift */,
-				BCFDB13F1B3F3D9700F0C9F4 /* ImageDownload.swift */,
+				BCFDB13F1B3F3D9700F0C9F4 /* WMFImageDownload.swift */,
 				BCFDB1411B3F3F7E00F0C9F4 /* WMFImageController+Debug.swift */,
 				BCFDB1431B3F3FCB00F0C9F4 /* UIImage+Debug.swift */,
 				BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */,
@@ -3635,7 +3635,7 @@
 				04C43AAE18344131006C643B /* CommunicationBridge.m in Sources */,
 				BCBDC8821B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift in Sources */,
 				045AB8C31B1E15D9002839D7 /* NSURL+Extras.m in Sources */,
-				BCFDB1401B3F3D9700F0C9F4 /* ImageDownload.swift in Sources */,
+				BCFDB1401B3F3D9700F0C9F4 /* WMFImageDownload.swift in Sources */,
 				04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */,
 				C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */,
 				BCFDB1421B3F3F7E00F0C9F4 /* WMFImageController+Debug.swift in Sources */,
