@@ -34,8 +34,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         featurelessFaceOptions = @{
-            CIDetectorEyeBlink: @NO,
-            CIDetectorSmile: @NO
+//            CIDetectorEyeBlink: @NO,
+//            CIDetectorSmile: @NO
         };
     });
     return featurelessFaceOptions;
