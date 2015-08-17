@@ -24,8 +24,8 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF DDLogLevelVerbose
+//#undef LOG_LEVEL_DEF
+//#define LOG_LEVEL_DEF DDLogLevelVerbose
 
 NS_ASSUME_NONNULL_BEGIN
 
