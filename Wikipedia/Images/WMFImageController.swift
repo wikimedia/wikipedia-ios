@@ -180,7 +180,9 @@ public class WMFImageController : NSObject {
 
     public func cachedImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
         let (cancellable, promise) = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
-        addCancellableForURL(cancellable, url: url)
+        if let cancellable = cancellable {
+            addCancellableForURL(cancellable, url: url)
+        }
         return applyDebugTransformIfEnabled(promise.then() { image, origin in
             return WMFImageDownload(url: url, image: image, origin: origin.rawValue)
         })
