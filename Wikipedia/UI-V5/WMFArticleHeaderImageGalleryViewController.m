@@ -72,10 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setImagesFromUncachedArticle:(MWKArticle* __nonnull)article {
     NSParameterAssert(!article.isCached);
-    if (article.imageURL) {
-        self.images = @[[[MWKImage alloc] initWithArticle:article sourceURLString:article.imageURL]];
-    } else if (article.thumbnailURL) {
-        self.images = @[[[MWKImage alloc] initWithArticle:article sourceURLString:article.thumbnailURL]];
+    if (article.image) {
+        self.images = @[article.image];
+    } else if (article.thumbnail) {
+        self.images = @[article.thumbnail];
     } else {
         self.images = nil;
     }
@@ -100,10 +100,29 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     MWKImage* imageMetadata = self.images[indexPath.item];
-    if ([self setCachedImageForCell:cell atIndexPath:indexPath metadata:imageMetadata]) {
-        return cell;
+
+    // try to set cell's image from memory cache, otherwise fetch it and do face detection if needed
+    if (![self setCachedImageForCell:cell atIndexPath:indexPath metadata:imageMetadata]) {
+        [self fetchImage:imageMetadata forCellAtIndexPath:indexPath];
     }
 
+    return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
+    // if there are 0 images, show a placeholder
+    return self.images.count > 0 ? self.images.count : 1;
+}
+
+#pragma mark - Image Fetching & Setting
+
+/**
+ *  Fetch image data for the given `imageMetadata`, and insert it into the cell at the given `indexPath`.
+ *
+ *  @param imageMetadata    Metadata which specifies where to fetch the image and whether face detection needs to run.
+ *  @param indexPath        The `NSIndexPath` for the cell related to the image.
+ */
+- (void)fetchImage:(MWKImage*)imageMetadata forCellAtIndexPath:(NSIndexPath*)indexPath {
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
     .then(^id (WMFImageDownload* download) {
@@ -111,38 +130,45 @@ NS_ASSUME_NONNULL_BEGIN
         UIImage* image = download.image;
         if (!self) {
             return [NSError cancelledError];
-        } else {
-            BOOL shouldAnimate = ![download.origin isEqualToString:[WMFImageDownload imageOriginMemory]];
-            if (!imageMetadata.didDetectFaces) {
-                DDLogVerbose(@"Running face detection for %@", imageMetadata.sourceURL);
-                @weakify(self);
-                return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
-                    @strongify(self);
-                    [imageMetadata setNormalizedFaceBoundsFromFeatures:faces inImage:image];
-                    [imageMetadata save];
-                    NSParameterAssert(imageMetadata.didDetectFaces);
-                    [self setImage:image
-                     centeringBounds:imageMetadata.firstFaceBounds
-                           indexPath:indexPath
-                            animated:shouldAnimate];
-                });
-            } else {
-                DDLogVerbose(@"Setting image %@ after retrieving from %@", imageMetadata.sourceURL, download.origin);
+        }
+        BOOL shouldAnimate = ![download.origin isEqualToString:[WMFImageDownload imageOriginMemory]];
+        if (!imageMetadata.didDetectFaces) {
+            DDLogVerbose(@"Running face detection for %@", imageMetadata.sourceURL);
+            @weakify(self);
+            return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
+                @strongify(self);
+                [imageMetadata setNormalizedFaceBoundsFromFeatures:faces inImage:image];
+                [imageMetadata save];
+                NSParameterAssert(imageMetadata.didDetectFaces);
                 [self setImage:image
-                 centeringBounds:imageMetadata.firstFaceBounds
-                       indexPath:indexPath
-                        animated:shouldAnimate];
-                return nil;
-            }
+                 inCellAtIndexPath:indexPath
+                   centeringBounds:imageMetadata.firstFaceBounds
+                          animated:shouldAnimate];
+            });
+        } else {
+            DDLogVerbose(@"Setting image %@ after retrieving from %@", imageMetadata.sourceURL, download.origin);
+            [self setImage:image
+             inCellAtIndexPath:indexPath
+               centeringBounds:imageMetadata.firstFaceBounds
+                      animated:shouldAnimate];
+            return nil;
         }
     })
     .catch(^(NSError* error) {
         // TODO: show error in UI
         DDLogError(@"Failed to fetch image from %@. %@", [imageMetadata sourceURL], error);
     });
-    return cell;
 }
 
+/**
+ *  Attempt to populate the given `cell` with the image for `metadata` if it's stored in memory.
+ *
+ *  @param cell      The cell to populate.
+ *  @param indexPath The indexPath where the cell resides.
+ *  @param metadata  The metadata which specifies the image URL and face detection information.
+ *
+ *  @return `YES` if the image was set from memory, `NO` if a fetch or other processing needs to take place.
+ */
 - (BOOL)setCachedImageForCell:(WMFImageCollectionViewCell*)cell
                   atIndexPath:(NSIndexPath*)indexPath
                      metadata:(MWKImage*)metadata {
@@ -155,37 +181,58 @@ NS_ASSUME_NONNULL_BEGIN
     }
     DDLogVerbose(@"%@ was set at indexPath %@ from memory cache.", metadata.sourceURL, indexPath);
     [self setImage:cachedImage
+              inCell:cell
      centeringBounds:metadata.firstFaceBounds
-           indexPath:indexPath
             animated:NO];
     return YES;
 }
 
-- (void)   setImage:(UIImage*)image
-    centeringBounds:(CGRect)normalizedCenterBounds
-          indexPath:(NSIndexPath*)path
-           animated:(BOOL)animated {
-    WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
+/**
+ *  Populate the cell at `indexPath` with the given `image`, if it's visible.
+ *
+ *  @param image                  The image to set in the cell's image view.
+ *  @param indexPath              The indexPath for the cell to update.
+ *  @param normalizedCenterBounds The bounds to center in the image view.
+ *  @param animated               Whether or not to animate the transition to `image`.
+ *
+ *  @see setImage:inCell:centeringBounds:animated:
+ */
+- (void)     setImage:(UIImage*)image
+    inCellAtIndexPath:(NSIndexPath*)indexPath
+      centeringBounds:(CGRect)normalizedCenterBounds
+             animated:(BOOL)animated {
+    WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell) {
-        // set contentsRect outside of animation to prevent pan/zoom effect
-        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        if (CGRectIsEmpty(normalizedCenterBounds)) {
-            [cell.imageView wmf_resetContentOffset];
-        } else {
-            [cell.imageView wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:normalizedCenterBounds]];
-        }
-        [UIView transitionWithView:cell.imageView
-                          duration:animated ? [CATransaction animationDuration] : 0.0
-                           options:UIViewAnimationOptionTransitionCrossDissolve
-                        animations:^{
-            cell.imageView.image = image;
-        } completion:nil];
+        [self setImage:image inCell:cell centeringBounds:normalizedCenterBounds animated:animated];
     }
 }
 
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    // if there are 0 images, show a placeholder
-    return self.images.count > 0 ? self.images.count : 1;
+/**
+ *  Populate the given `cell` with `image`, centering the image at `normalizedCenterBounds`.
+ *
+ *  @param image                  The image to set.
+ *  @param cell                   The cell which will be updated.
+ *  @param normalizedCenterBounds The focal point to center within the image, normalized to the image's bounds.
+ *  @param animated               Whether or not to animate the transition.
+ */
+- (void)   setImage:(UIImage*)image
+             inCell:(WMFImageCollectionViewCell*)cell
+    centeringBounds:(CGRect)normalizedCenterBounds
+           animated:(BOOL)animated {
+    NSParameterAssert(cell);
+    // set contentsRect outside of animation to prevent pan/zoom effect
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    if (CGRectIsEmpty(normalizedCenterBounds)) {
+        [cell.imageView wmf_resetContentOffset];
+    } else {
+        [cell.imageView wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:normalizedCenterBounds]];
+    }
+    [UIView transitionWithView:cell.imageView
+                      duration:animated ? [CATransaction animationDuration] : 0.0
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+        cell.imageView.image = image;
+    } completion:nil];
 }
 
 @end
