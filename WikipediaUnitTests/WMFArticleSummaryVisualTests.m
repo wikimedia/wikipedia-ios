@@ -13,22 +13,28 @@
 #import "MWKArticle.h"
 #import "XCTestCase+PromiseKit.h"
 #import "WMFMinimalArticleContentCell.h"
+#import "UIView+WMFDefaultNib.h"
+#import "WMFArticleViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
 @interface WMFArticleSummaryVisualTests : FBSnapshotTestCase
 @property (nonatomic, strong) MWKArticle* article;
+@property (nonatomic, strong) WMFArticleViewController* articleVC;
 @end
 
 @implementation WMFArticleSummaryVisualTests
 
 - (void)setUp {
     [super setUp];
-//    self.recordMode = YES;
+    self.articleVC = [WMFArticleViewController wmf_initialViewControllerFromClassStoryboard];
+    //self.recordMode = YES;
 }
 
 - (void)tearDown {
+    self.articleVC = nil;
     [super tearDown];
 }
 
@@ -72,17 +78,15 @@
                                            dataStore:nil
                                                 dict:mobileViewJSON[@"mobileview"]];
 
-    WMFMinimalArticleContentCell* testCell = [WMFMinimalArticleContentCell new];
-    testCell.attributedString = self.article.summaryHTML;
+    WMFMinimalArticleContentCell* testCell = [self.articleVC.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
 
-    // attributed text cell need a superview else it won't layout its subviews
-    UIView* testView = [UIView new];
-    [testView addSubview:testCell];
-    testView.frame = (CGRect){
-        .origin = CGPointZero,
-        .size   = [testCell.attributedTextContextView suggestedFrameSizeToFitEntireStringConstraintedToWidth:320]
-    };
-    testCell.frame = testView.bounds;
+    [testCell setAttributedText:self.article.summaryHTML];
+
+    CGSize preHeightAdjustmentSize = (CGSize){320, 100};
+
+    CGSize heightAdjustedSize = [testCell.contentView systemLayoutSizeFittingSize:preHeightAdjustmentSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+
+    testCell.frame = (CGRect){{0, 0}, heightAdjustedSize};
 
     // pass nil to get description based on current test
     // workaround for https://github.com/facebook/ios-snapshot-test-case/issues/102
