@@ -98,21 +98,31 @@ NS_ASSUME_NONNULL_BEGIN
     MWKImage* imageMetadata = self.images[indexPath.item];
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
-    .then(^id (UIImage* image) {
+    .then(^id (ImageDownload* download) {
+        @strongify(self);
+        UIImage* image = download.image;
         if (!self) {
             return [NSError cancelledError];
         } else {
+            BOOL shouldAnimate = [download.origin isEqualToString:[ImageDownload imageOriginNetwork]];
             if (!imageMetadata.allNormalizedFaceBounds) {
+                @weakify(self);
                 return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
                     @strongify(self);
                     imageMetadata.allNormalizedFaceBounds = [faces bk_map:^NSValue*(CIFeature* feature) {
                         return [NSValue valueWithCGRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
                     }];
                     [imageMetadata save];
-                    [self setImage:image centeringBounds:imageMetadata.firstFaceBounds forCellAtIndexPath:indexPath];
+                    [self setImage:image
+                        centeringBounds:imageMetadata.firstFaceBounds
+                     forCellAtIndexPath:indexPath
+                               animated:shouldAnimate];
                 });
             } else {
-                [self setImage:image centeringBounds:imageMetadata.firstFaceBounds forCellAtIndexPath:indexPath];
+                [self setImage:image
+                    centeringBounds:imageMetadata.firstFaceBounds
+                 forCellAtIndexPath:indexPath
+                           animated:shouldAnimate];
                 return nil;
             }
         }
@@ -120,7 +130,10 @@ NS_ASSUME_NONNULL_BEGIN
     return cell;
 }
 
-- (void)setImage:(UIImage*)image centeringBounds:(CGRect)normalizedCenterBounds forCellAtIndexPath:(NSIndexPath*)path {
+- (void)      setImage:(UIImage*)image
+       centeringBounds:(CGRect)normalizedCenterBounds
+    forCellAtIndexPath:(NSIndexPath*)path
+              animated:(BOOL)animated {
     WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
     if (cell) {
         cell.imageView.image       = image;

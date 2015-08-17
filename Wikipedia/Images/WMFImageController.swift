@@ -182,7 +182,7 @@ public class WMFImageController : NSObject {
         let (cancellable, promise) = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
         addCancellableForURL(cancellable, url: url)
         return applyDebugTransformIfEnabled(promise.then() { image, origin in
-            return ImageDownload(url: url, image: image, origin: origin)
+            return ImageDownload(url: url, image: image, origin: origin.rawValue)
         })
     }
 
@@ -310,10 +310,10 @@ extension WMFImageController {
     /**
      * Objective-C-compatible variant of fetchImageWithURL(url:) returning an `AnyPromise`.
      *
-     * @return `AnyPromise` which resolves to `UIImage`.
+     * @return `AnyPromise` which resolves to `ImageDownload`.
      */
     @objc public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: fetchImageWithURL(url).then(unpackImage()))
+        return AnyPromise(bound: fetchImageWithURL(url))
     }
 
     /**
@@ -322,23 +322,28 @@ extension WMFImageController {
      * @return `AnyPromise` which resolves to `UIImage?`, where the image is present on a cache hit, and `nil` on a miss.
      */
     @objc public func cachedImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: cachedImageWithURL(url).then(unpackImage()))
+        return AnyPromise(bound:
+            cachedImageWithURL(url)
+            .then() { $0.image }
+            .recover() { (err: NSError) -> Promise<UIImage?> in
+                if err.domain == WMFImageControllerErrorDomain
+                   && err.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
+                    return Promise<UIImage?>(nil)
+                } else {
+                    return Promise(err)
+                }
+            })
     }
 
     @objc public func cascadingFetchWithMainURL(mainURL: NSURL?,
                                           cachedPlaceholderURL: NSURL?,
-                                          mainImageBlock: (UIImage) -> Void,
-                                          cachedPlaceholderImageBlock: (UIImage) -> Void) -> AnyPromise {
+                                          mainImageBlock: (ImageDownload) -> Void,
+                                          cachedPlaceholderImageBlock: (ImageDownload) -> Void) -> AnyPromise {
         let promise: Promise<Void> =
         cascadingFetchWithMainURL(mainURL,
                                   cachedPlaceholderURL: cachedPlaceholderURL,
-                                  mainImageBlock: { mainImageBlock($0.image) },
-                                  cachedPlaceholderImageBlock:  { cachedPlaceholderImageBlock($0.image) })
+                                  mainImageBlock: mainImageBlock,
+                                  cachedPlaceholderImageBlock: cachedPlaceholderImageBlock)
         return AnyPromise(bound: promise)
-    }
-
-    /// Curried function taking `Void`, then an `ImageDownload`, returning its `image`
-    private func unpackImage()(download: ImageDownload) -> UIImage {
-        return download.image
     }
 }

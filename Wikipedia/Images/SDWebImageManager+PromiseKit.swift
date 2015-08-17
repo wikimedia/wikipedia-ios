@@ -48,7 +48,7 @@ extension SDWebImageManager {
         let webImageOperation = self.downloadImageWithURL(URL, options: promiseCompatibleOptions, progress: nil)
         { img, err, cacheType, finished, imageURL in
                 if finished && err == nil {
-                    fulfill(ImageDownload(url: URL, image: img, origin: asImageOrigin(cacheType)))
+                    fulfill(ImageDownload(url: URL, image: img, origin: asImageOrigin(cacheType).rawValue))
                 } else {
                     reject(err)
                 }

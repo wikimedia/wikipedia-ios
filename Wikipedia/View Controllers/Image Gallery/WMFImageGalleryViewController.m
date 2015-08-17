@@ -538,17 +538,17 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                      image:(MWKImage*)image
                       info:(MWKImageInfo* __nullable)infoForImage {
     NSParameterAssert(cell);
-    @weakify(self)
-
-    [[WMFImageController sharedInstance] cascadingFetchWithMainURL : infoForImage.imageThumbURL
-     cachedPlaceholderURL :[[image largestCachedVariant] sourceURL]
-     mainImageBlock :^(UIImage* __nonnull mainImage) {
-        @strongify(self)
-        [self setImage : mainImage withInfo : infoForImage forCellAtIndexPath : indexPath];
+    @weakify(self);
+    [[WMFImageController sharedInstance]
+     cascadingFetchWithMainURL:infoForImage.imageThumbURL
+           cachedPlaceholderURL:[[image largestCachedVariant] sourceURL]
+                 mainImageBlock:^(ImageDownload* download) {
+        @strongify(self);
+        [self setImage:download.image withInfo:infoForImage forCellAtIndexPath:indexPath];
     }
-cachedPlaceholderImageBlock:^(UIImage* __nonnull placeholderImage) {
-        @strongify(self)
-        [self setPlaceholderImage : placeholderImage ofInfo : infoForImage forCellAtIndexPath : indexPath];
+    cachedPlaceholderImageBlock:^(ImageDownload* download) {
+        @strongify(self);
+        [self setPlaceholderImage:download.image ofInfo:infoForImage forCellAtIndexPath:indexPath];
     }]
     .catch(^(NSError* error) {
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);

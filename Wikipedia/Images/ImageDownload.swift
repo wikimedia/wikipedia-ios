@@ -12,6 +12,7 @@ public enum ImageOrigin: String {
     case Network = "Network"
     case Disk = "Disk"
     case Memory = "Memory"
+    case None = "None"
 }
 
 extension ImageOrigin: DebugPrintable {
@@ -29,6 +30,8 @@ extension ImageOrigin {
             return UIColor.yellowColor()
         case .Memory:
             return UIColor.greenColor()
+        case .None:
+            return UIColor.grayColor()
         }
     }
 }
@@ -39,11 +42,18 @@ public protocol ImageOriginConvertible {
 
 public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { return c.asImageOrigin() }
 
-public struct ImageDownload {
+public class ImageDownload: NSObject {
     public var url: NSURL
     public var image: UIImage
-    public var origin: ImageOrigin
-    public init(url: NSURL, image: UIImage, origin: ImageOrigin) {
+    public var origin: String
+
+    // Exposing enums as string constants for ObjC compatibility
+    public static let imageOriginNetwork = ImageOrigin.Network.rawValue
+    public static let imageOriginDisk = ImageOrigin.Disk.rawValue
+    public static let imageOriginMemory = ImageOrigin.Memory.rawValue
+    public static let imageOriginNone = ImageOrigin.None.rawValue
+
+    public init(url: NSURL, image: UIImage, origin: String) {
         self.url = url
         self.image = image
         self.origin = origin
