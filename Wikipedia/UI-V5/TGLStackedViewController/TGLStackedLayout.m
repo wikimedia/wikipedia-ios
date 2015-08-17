@@ -691,7 +691,6 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
             if ([self.delegate respondsToSelector:@selector(stackLayout:deleteItemAtIndexPath:)]) {
                 [self.delegate stackLayout:self deleteItemAtIndexPath:indexPath];
             }
-            [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
 
             [self invalidateLayout];
         } completion:^(BOOL finished) {
