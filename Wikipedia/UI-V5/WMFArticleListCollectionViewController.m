@@ -75,7 +75,9 @@
         cell.viewController.article = [self.dataSource articleForIndexPath:indexPath];
     };
 
-    _dataSource.collectionView = self.collectionView;
+    if([self isViewLoaded]){
+        _dataSource.collectionView = self.collectionView;
+    }
 
     self.title = [_dataSource displayTitle];
 }
@@ -183,6 +185,8 @@
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor       = [UIColor clearColor];
+
+    self.dataSource.collectionView = self.collectionView;
 
     [self updateListForMode:self.mode animated:NO completion:NULL];
 }
