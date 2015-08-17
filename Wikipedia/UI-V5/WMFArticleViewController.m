@@ -469,8 +469,8 @@ NS_ASSUME_NONNULL_BEGIN
     [cell layoutIfNeeded];
 
     NSURL* url = [NSURL wmf_optionalURLWithString:readMoreArticle.thumbnailURL];
-    [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(UIImage* image){
-        cell.thumbnailImageView.image = image;
+    [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(WMFImageDownload* download){
+        cell.thumbnailImageView.image = download.image;
     }).catch(^(NSError* error){
         NSLog(@"Image Fetch Error: %@", [error localizedDescription]);
     });
