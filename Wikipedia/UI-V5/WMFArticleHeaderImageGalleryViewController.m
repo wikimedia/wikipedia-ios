@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!self) {
             return [NSError cancelledError];
         } else {
-            BOOL shouldAnimate = [download.origin isEqualToString:[WMFImageDownload imageOriginNetwork]];
+            BOOL shouldAnimate = ![download.origin isEqualToString:[WMFImageDownload imageOriginMemory]];
             if (!imageMetadata.allNormalizedFaceBounds) {
                 @weakify(self);
                 return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
@@ -136,13 +136,19 @@ NS_ASSUME_NONNULL_BEGIN
               animated:(BOOL)animated {
     WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
     if (cell) {
-        cell.imageView.image       = image;
+        // set contentsRect outside of animation to prevent pan/zoom effect
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         if (CGRectIsEmpty(normalizedCenterBounds)) {
             [cell.imageView wmf_resetContentOffset];
         } else {
             [cell.imageView wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:normalizedCenterBounds]];
         }
+        [UIView transitionWithView:cell.imageView
+                          duration:animated ? [CATransaction animationDuration] : 0.0
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+            cell.imageView.image = image;
+        } completion:nil];
     }
 }
 
