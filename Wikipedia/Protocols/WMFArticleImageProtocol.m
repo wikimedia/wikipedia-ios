@@ -60,8 +60,8 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
 - (void)startLoading {
     DDLogVerbose(@"Fetching image %@", self.request.URL);
     [[WMFImageController sharedInstance] fetchImageWithURL:self.request.URL]
-    .thenInBackground(^(UIImage* image) {
-        [self respondWithDataFromDownload:image];
+    .thenInBackground(^(WMFImageDownload* download) {
+        [self respondWithDataFromDownload:download];
     })
     .then(^{
         [self sendImageDownloadedNotification];
@@ -73,7 +73,8 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
 
 #pragma mark - Callbacks
 
-- (void)respondWithDataFromDownload:(UIImage*)image {
+- (void)respondWithDataFromDownload:(WMFImageDownload*)download {
+    UIImage* image = download.image;
     NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
     NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
     DDLogVerbose(@"Sending image response for %@", self.request.URL);
