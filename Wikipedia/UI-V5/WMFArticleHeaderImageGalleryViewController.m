@@ -118,9 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
                 @weakify(self);
                 return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
                     @strongify(self);
-                    imageMetadata.allNormalizedFaceBounds = [faces bk_map:^NSValue*(CIFeature* feature) {
-                        return [NSValue valueWithCGRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
-                    }];
+                    [imageMetadata setNormalizedFaceBoundsFromFeatures:faces inImage:image];
                     [imageMetadata save];
                     NSParameterAssert(imageMetadata.didDetectFaces);
                     [self setImage:image
