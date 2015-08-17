@@ -74,7 +74,7 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
 #pragma mark - Callbacks
 
 - (void)respondWithDataFromDownload:(WMFImageDownload*)download {
-    UIImage* image = download.image;
+    UIImage* image     = download.image;
     NSString* mimeType = [self.request.URL wmf_mimeTypeForExtension];
     NSData* data       = [image wmf_dataRepresentationForMimeType:mimeType serializedMimeType:&mimeType];
     DDLogVerbose(@"Sending image response for %@", self.request.URL);
