@@ -95,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         return cell;
     }
+
     MWKImage* imageMetadata = self.images[indexPath.item];
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
@@ -126,6 +127,10 @@ NS_ASSUME_NONNULL_BEGIN
                 return nil;
             }
         }
+    })
+    .catch(^ (NSError* error) {
+        // TODO: show error in UI
+        DDLogError(@"Failed to fetch image from %@. %@", [imageMetadata sourceURL], error);
     });
     return cell;
 }
