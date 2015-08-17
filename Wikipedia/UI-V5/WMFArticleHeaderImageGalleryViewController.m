@@ -24,6 +24,9 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF DDLogLevelVerbose
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleHeaderImageGalleryViewController ()
@@ -97,6 +100,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     MWKImage* imageMetadata = self.images[indexPath.item];
+    if ([self setCachedImageForCell:cell atIndexPath:indexPath metadata:imageMetadata]) {
+        return cell;
+    }
+
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
     .then(^id (WMFImageDownload* download) {
@@ -106,7 +113,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [NSError cancelledError];
         } else {
             BOOL shouldAnimate = ![download.origin isEqualToString:[WMFImageDownload imageOriginMemory]];
-            if (!imageMetadata.allNormalizedFaceBounds) {
+            if (!imageMetadata.didDetectFaces) {
+                DDLogVerbose(@"Running face detection for %@", imageMetadata.sourceURL);
                 @weakify(self);
                 return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
                     @strongify(self);
@@ -114,31 +122,51 @@ NS_ASSUME_NONNULL_BEGIN
                         return [NSValue valueWithCGRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
                     }];
                     [imageMetadata save];
+                    NSParameterAssert(imageMetadata.didDetectFaces);
                     [self setImage:image
-                        centeringBounds:imageMetadata.firstFaceBounds
-                     forCellAtIndexPath:indexPath
-                               animated:shouldAnimate];
+                     centeringBounds:imageMetadata.firstFaceBounds
+                           indexPath:indexPath
+                            animated:shouldAnimate];
                 });
             } else {
+                DDLogVerbose(@"Setting image %@ after retrieving from %@", imageMetadata.sourceURL, download.origin);
                 [self setImage:image
-                    centeringBounds:imageMetadata.firstFaceBounds
-                 forCellAtIndexPath:indexPath
-                           animated:shouldAnimate];
+                 centeringBounds:imageMetadata.firstFaceBounds
+                       indexPath:indexPath
+                        animated:shouldAnimate];
                 return nil;
             }
         }
     })
-    .catch(^ (NSError* error) {
+    .catch(^(NSError* error) {
         // TODO: show error in UI
         DDLogError(@"Failed to fetch image from %@. %@", [imageMetadata sourceURL], error);
     });
     return cell;
 }
 
-- (void)      setImage:(UIImage*)image
-       centeringBounds:(CGRect)normalizedCenterBounds
-    forCellAtIndexPath:(NSIndexPath*)path
-              animated:(BOOL)animated {
+- (BOOL)setCachedImageForCell:(WMFImageCollectionViewCell*)cell
+                  atIndexPath:(NSIndexPath*)indexPath
+                     metadata:(MWKImage*)metadata {
+    if (!metadata.didDetectFaces) {
+        return NO;
+    }
+    UIImage* cachedImage = [[WMFImageController sharedInstance] cachedImageInMemoryWithURL:metadata.sourceURL];
+    if (!cachedImage) {
+        return NO;
+    }
+    DDLogVerbose(@"%@ was set at indexPath %@ from memory cache.", metadata.sourceURL, indexPath);
+    [self setImage:cachedImage
+     centeringBounds:metadata.firstFaceBounds
+           indexPath:indexPath
+            animated:NO];
+    return YES;
+}
+
+- (void)   setImage:(UIImage*)image
+    centeringBounds:(CGRect)normalizedCenterBounds
+          indexPath:(NSIndexPath*)path
+           animated:(BOOL)animated {
     WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
     if (cell) {
         // set contentsRect outside of animation to prevent pan/zoom effect

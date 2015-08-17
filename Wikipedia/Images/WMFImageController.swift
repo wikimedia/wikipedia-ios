@@ -156,8 +156,12 @@ public class WMFImageController : NSObject {
         return url == nil ? false : imageManager.cachedImageExistsForURL(url!)
     }
 
+    public func cachedImageInMemoryWithURL(url: NSURL?) -> UIImage? {
+        return url == nil ? imageManager.imageCache.imageFromMemoryCacheForKey(cacheKeyForURL(url!)) : nil
+    }
+
     public func hasDataInMemoryForImageWithURL(url: NSURL?) -> Bool {
-        return url == nil ? false : imageManager.imageCache.imageFromMemoryCacheForKey(cacheKeyForURL(url!)) != nil
+        return cachedImageInMemoryWithURL(url) != nil
     }
 
     public func hasDataOnDiskForImageWithURL(url: NSURL?) -> Bool {
