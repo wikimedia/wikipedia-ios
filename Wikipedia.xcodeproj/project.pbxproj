@@ -265,12 +265,14 @@
 		BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */; };
 		BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
+		BC12F2461B7A8EEB0042DB3C /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */; };
 		BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */; };
 		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
 		BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
 		BC3047C21B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3047C11B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m */; };
 		BC3059B91B6948C800AA5703 /* XCTestCase+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3059B81B6948C800AA5703 /* XCTestCase+PromiseKit.m */; };
+		BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */; };
 		BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */; };
 		BC32A1D71B4B14C000A286DE /* WMFBackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */; };
@@ -293,6 +295,7 @@
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
 		BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */; };
 		BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1811B738DFB005BE5BA /* MWKCitation.m */; };
+		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
 		BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */; };
 		BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */; };
@@ -322,7 +325,6 @@
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
 		BC905A111B447A8300523DFE /* NSURLRequest+WMFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */; };
 		BC905A131B44815900523DFE /* SDImageCache+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */; };
-		BC905A151B44962100523DFE /* CancellablePromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A141B44962100523DFE /* CancellablePromise.swift */; };
 		BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
@@ -374,7 +376,6 @@
 		BCBDC8821B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC8811B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift */; };
 		BCBDC8841B38E441003A6D17 /* WMFImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC8831B38E441003A6D17 /* WMFImageController.swift */; };
 		BCBDC88C1B3A0715003A6D17 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */; };
-		BCBDC88E1B3A42E7003A6D17 /* SwiftUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCBDC88D1B3A42E7003A6D17 /* SwiftUtilities.swift */; };
 		BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */; };
 		BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185DF1A9EC836005378F8 /* UIButton+FrameUtils.m */; };
 		BCC185E81A9FA498005378F8 /* UICollectionViewLayout+AttributeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC185E71A9FA498005378F8 /* UICollectionViewLayout+AttributeUtils.m */; };
@@ -910,6 +911,7 @@
 		BC092BA01B19135700093C59 /* WMFApiJsonResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFApiJsonResponseSerializer.h; path = Serializers/WMFApiJsonResponseSerializer.h; sourceTree = "<group>"; };
 		BC092BA11B19135700093C59 /* WMFApiJsonResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFApiJsonResponseSerializer.m; path = Serializers/WMFApiJsonResponseSerializer.m; sourceTree = "<group>"; };
 		BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
+		BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFParagraphStyles.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFParagraphStyles.m"; sourceTree = "<group>"; };
@@ -922,6 +924,7 @@
 		BC3047C11B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDWebImageManager+WMFCacheRemoval.m"; sourceTree = "<group>"; };
 		BC3059B71B6948C800AA5703 /* XCTestCase+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+PromiseKit.h"; sourceTree = "<group>"; };
 		BC3059B81B6948C800AA5703 /* XCTestCase+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+PromiseKit.m"; sourceTree = "<group>"; };
+		BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageFaceDetectionTests.m; sourceTree = "<group>"; };
 		BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
 		BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBackgroundTaskManager.swift; sourceTree = "<group>"; };
 		BC32A1D81B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLegacyImageDataMigration.swift; sourceTree = "<group>"; };
@@ -967,6 +970,7 @@
 		BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsing.m"; sourceTree = "<group>"; };
 		BC5FA1801B738DFB005BE5BA /* MWKCitation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKCitation.h; sourceTree = "<group>"; };
 		BC5FA1811B738DFB005BE5BA /* MWKCitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKCitation.m; sourceTree = "<group>"; };
+		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NOWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleFetcherTests.m; sourceTree = "<group>"; };
@@ -1021,7 +1025,6 @@
 		BC905A0F1B447A8300523DFE /* NSURLRequest+WMFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+WMFUtilities.h"; sourceTree = "<group>"; };
 		BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+WMFUtilities.m"; sourceTree = "<group>"; };
 		BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SDImageCache+PromiseKit.swift"; sourceTree = "<group>"; };
-		BC905A141B44962100523DFE /* CancellablePromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellablePromise.swift; sourceTree = "<group>"; };
 		BC905BCF1B60391F0010227E /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkFetcherTests.m; sourceTree = "<group>"; };
 		BC92A76E1AFA83D2003C4212 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = ShareCard/WMFSharing.h; sourceTree = "<group>"; };
 		BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+WMFSharingTests.m"; sourceTree = "<group>"; };
@@ -1139,7 +1142,6 @@
 		BCBDC8811B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SDWebImageManager+PromiseKit.swift"; path = "Images/SDWebImageManager+PromiseKit.swift"; sourceTree = "<group>"; };
 		BCBDC8831B38E441003A6D17 /* WMFImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageController.swift; path = Images/WMFImageController.swift; sourceTree = "<group>"; };
 		BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
-		BCBDC88D1B3A42E7003A6D17 /* SwiftUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftUtilities.swift; sourceTree = "<group>"; };
 		BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageURLParsingTests.m; sourceTree = "<group>"; };
 		BCC185D61A9E5628005378F8 /* UILabel+WMFStyling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WMFStyling.h"; sourceTree = "<group>"; };
 		BCC185D71A9E5628005378F8 /* UILabel+WMFStyling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WMFStyling.m"; sourceTree = "<group>"; };
@@ -1665,7 +1667,6 @@
 				BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */,
 				BC50C37D1A83C784006DC7AF /* WMFNetworkUtilities.h */,
 				BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */,
-				BC905A141B44962100523DFE /* CancellablePromise.swift */,
 				BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */,
 				BCF8DCA41B70055F00149C26 /* WMFFixtureRecording.h */,
 				BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */,
@@ -2490,9 +2491,11 @@
 				BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */,
 				BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */,
 				0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */,
+				BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */,
 				BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */,
 				04B501F91B7AF16C007BE332 /* NSArray+WMFExtensions.m */,
 				BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */,
+				BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -2679,6 +2682,7 @@
 				BCF8DCA71B7009B100149C26 /* MobileView */,
 				BC5620A41B6BC3700013FFB0 /* mobileview */,
 				BC8210D61B4F048F0010BF7B /* Barack_Obama */,
+				BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */,
 				BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */,
 				BCD41DE11B11CC5800231BB1 /* organization-anon.json */,
 				BCD41DE21B11CC5800231BB1 /* protection-empty.json */,
@@ -2806,7 +2810,6 @@
 				BC092B971B18E8AF00093C59 /* NSString+WMFPageUtilities.h */,
 				BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */,
 				BC7E4A491B34A26A00EECD8B /* WMFLogging.h */,
-				BCBDC88D1B3A42E7003A6D17 /* SwiftUtilities.swift */,
 				BC725EC81B61255400E0A64C /* WMFOutParamUtils.h */,
 				BC3863581B77EAC1003A2D38 /* WMFLogFormatter.h */,
 				BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */,
@@ -3182,6 +3185,7 @@
 				BCCEC1241B1F68CF00A8B522 /* organization-anon.json in Resources */,
 				BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */,
 				BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */,
+				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
 				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
 				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
 				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
@@ -3371,6 +3375,7 @@
 				0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
 				BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */,
 				BC3863491B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m in Sources */,
+				BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */,
 				BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */,
 				BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */,
 				043B6E8F1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
@@ -3379,6 +3384,7 @@
 				BC0FED731AAA026C002488D7 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				048830D31AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				BC0FED6E1AAA0268002488D7 /* MWKImageListTests.m in Sources */,
+				BC12F2461B7A8EEB0042DB3C /* WMFImageControllerTests.swift in Sources */,
 				BC3059B91B6948C800AA5703 /* XCTestCase+PromiseKit.m in Sources */,
 				BC725ECC1B6182C800E0A64C /* MWKSavedPageListTests.m in Sources */,
 				BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */,
@@ -3472,7 +3478,6 @@
 				0EFB0F231B31EE2D00D05C08 /* ImageData.m in Sources */,
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
 				0E366B481B2F614E00ABFB86 /* PromiseKit.swift in Sources */,
-				BC905A151B44962100523DFE /* CancellablePromise.swift in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */,
@@ -3721,7 +3726,6 @@
 				BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				BCB669B21A83F6C400C7B1FE /* MWKImageInfo.m in Sources */,
-				BCBDC88E1B3A42E7003A6D17 /* SwiftUtilities.swift in Sources */,
 				BCB848781AAAABF80077EC24 /* WMFMath.m in Sources */,
 				D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */,
 				BC6E8B921B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m in Sources */,
@@ -4482,7 +4486,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 168;
+				CURRENT_PROJECT_VERSION = 171;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
