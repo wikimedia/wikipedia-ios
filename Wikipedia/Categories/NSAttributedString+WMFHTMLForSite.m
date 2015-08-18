@@ -9,7 +9,7 @@
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import <DTCoreText/DTCoreText.h>
 #import "MWKSite.h"
-#import "NSAttributedString+WMFModifyParagraphs.h"
+#import "NSAttributedString+WMFModify.h"
 
 @implementation NSAttributedString (WMFHTMLForSite)
 
@@ -37,15 +37,18 @@
     NSAttributedString* attrStr = [self initWithHTMLData:data
                                                  options:[[self class] wmf_defaultHTMLOptionsForSite:site]
                                       documentAttributes:nil];
-    attrStr = [attrStr wmf_attributedStringWithParagraphStylesAdjustments:^(NSMutableParagraphStyle* paragraphStyle){
+    return
+        [attrStr wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                             withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
         /*
            Needed because if you try adjust line spacing with DTDefaultLineHeightMultiplier
            anything larger than 1.0 ends up adding a bunch of padding before the first
            paragraph of text.
          */
-        paragraphStyle.lineSpacing = 12;
+        NSMutableParagraphStyle* mStyle = paragraphStyle.mutableCopy;
+        mStyle.lineSpacing = 12;
+        return mStyle;
     }];
-    return attrStr;
 }
 
 @end
