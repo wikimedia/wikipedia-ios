@@ -26,7 +26,7 @@
                DTDefaultFontSize: @(defaultFont.pointSize),
                //DTDefaultLineHeightMultiplier: @(1.8), // WARNING! Making this > 1.0 causes extra margin to appear above first paragraph!
                DTDefaultLinkDecoration: @NO, // disable decoration for links
-               DTDefaultLinkColor: [UIColor wmf_logoBlue],
+               //DTDefaultLinkColor: [UIColor wmf_logoBlue], // WARNING! Use tintColor with UILabel or UITextView to control link color!
                DTDocumentPreserveTrailingSpaces: @YES,
                DTDefaultStyleSheet: defaultStyleSheet,
                DTUseiOS6Attributes: @YES

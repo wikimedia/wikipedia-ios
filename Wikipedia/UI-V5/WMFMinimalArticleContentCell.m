@@ -12,6 +12,14 @@
 
 @implementation WMFMinimalArticleContentCell
 
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        self.tintColor = [UIColor wmf_logoBlue];
+    }
+    return self;
+}
+
 - (void)setAttributedText:(NSAttributedString*)attributedText {
     self.textView.attributedText = [attributedText wmf_attributedStringWithParagraphStylesAdjustments:^(NSMutableParagraphStyle* paragraphStyle){
         // Needed because if you set DTDefaultLineHeightMultiplier to anything larger than
