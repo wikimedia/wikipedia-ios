@@ -17,24 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFRecentPagesDataSource
 
 - (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages {
-    self = [super init];
+    self = [super initWithTarget:recentPages keyPath:WMF_SAFE_KEYPATH(recentPages, entries)];
     if (self) {
         self.recentPages = recentPages;
-        [self.KVOControllerNonRetaining observe:recentPages
-                                        keyPath:WMF_SAFE_KEYPATH(recentPages, entries)
-                                        options:NSKeyValueObservingOptionPrior
-                                          block:^(id observer, id object, NSDictionary* change) {
-            NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-            if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue]) {
-                [observer willChange:changeKind
-                     valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
-                              forKey:WMF_SAFE_KEYPATH(((WMFRecentPagesDataSource*)observer), articles)];
-            } else {
-                [observer didChange:changeKind
-                    valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
-                             forKey:WMF_SAFE_KEYPATH(((WMFRecentPagesDataSource*)observer), articles)];
-            }
-        }];
     }
     return self;
 }

@@ -15,6 +15,7 @@
 
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MediaWikiKit.h"
+#import <SSDataSources/SSDataSources.h>
 
 @interface WMFArticleListCollectionViewController ()<TGLStackedLayoutDelegate>
 
@@ -37,27 +38,42 @@
     return _listTransition;
 }
 
-- (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource {
+- (void)setDataSource:(SSArrayDataSource<WMFArticleListDataSource>* __nullable)dataSource {
     if ([_dataSource isEqual:dataSource]) {
         return;
     }
 
-    [self unobserveDataSource];
+    _dataSource.collectionView     = nil;
+    _dataSource.cellClass          = nil;
+    _dataSource.cellConfigureBlock = NULL;
 
     _dataSource = dataSource;
 
-    self.title = [_dataSource displayTitle];
+    _dataSource.cellClass = [WMFArticleViewControllerContainerCell class];
+
+    @weakify(self);
+    _dataSource.cellConfigureBlock = ^(WMFArticleViewControllerContainerCell* cell,
+                                       MWKArticle* article,
+                                       UICollectionView* collectionView,
+                                       NSIndexPath* indexPath) {
+        @strongify(self);
+        if (cell.viewController == nil) {
+            WMFArticleViewController* vc =
+                [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
+                                                                  savedPages:self.savedPages];
+            [vc setMode:WMFArticleControllerModeList animated:NO];
+            [cell setViewControllerAndAddViewToContentView:vc];
+        }
+
+        [self addChildViewController:cell.viewController];
+        cell.viewController.article = [self.dataSource articleForIndexPath:indexPath];
+    };
 
     if ([self isViewLoaded]) {
-        [self.collectionView setContentOffset:CGPointZero];
-        [self.collectionView reloadData];
-        /*
-           can't let KVO callbacks fire until the view is completely reloaded. this prevents crashes when updates occur
-           before reloading, which the collectionView assumes are balanced (i.e. we explicitly removed any sections that
-           no longer exist)
-         */
-        [self observeDataSource];
+        _dataSource.collectionView = self.collectionView;
     }
+
+    self.title = [_dataSource displayTitle];
 }
 
 #pragma mark - List Mode
@@ -164,9 +180,9 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor       = [UIColor clearColor];
 
-    [self updateListForMode:self.mode animated:NO completion:NULL];
+    self.dataSource.collectionView = self.collectionView;
 
-    [self observeDataSource];
+    [self updateListForMode:self.mode animated:NO completion:NULL];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -185,17 +201,6 @@
     return UIInterfaceOrientationMaskAll;
 }
 
-// iOS 7 Rotation Support
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration {
-    [UIView animateWithDuration:duration animations:^{
-        [self updateCellSizeBasedOnViewFrame];
-    }];
-
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
-
-// iOS 8+ Rotation Support
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
@@ -209,32 +214,6 @@
 - (void)updateCellSizeBasedOnViewFrame {
     self.stackedLayout.itemSize   = self.view.bounds.size;
     self.offScreenLayout.itemSize = self.view.bounds.size;
-}
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.dataSource articleCount];
-}
-
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleViewControllerContainerCell* cell =
-        [collectionView dequeueReusableCellWithReuseIdentifier:[WMFArticleViewControllerContainerCell wmf_nibName]
-                                                  forIndexPath:indexPath];
-
-    if (cell.viewController == nil) {
-        WMFArticleViewController* vc =
-            [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
-                                                              savedPages:self.savedPages];
-        [vc setMode:WMFArticleControllerModeList animated:NO];
-        [cell setViewControllerAndAddViewToContentView:vc];
-    }
-
-    [self addChildViewController:cell.viewController];
-    cell.viewController.article = [self.dataSource articleForIndexPath:indexPath];
-
-    return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -282,32 +261,8 @@
 
 - (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
     if ([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]) {
-        [self unobserveDataSource];
-        [self.dataSource deleteArticleAtIndexPath:indexPath];
-        [self observeDataSource];
+        [self.dataSource removeItemAtIndex:indexPath.item];
     }
-}
-
-#pragma mark - DataSource KVO
-
-- (void)observeDataSource {
-    if (![self isViewLoaded] || !self.dataSource) {
-        return;
-    }
-    [self.KVOControllerNonRetaining observe:self.dataSource
-                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, articles)
-                                    options:0
-                                      block:^(WMFArticleListCollectionViewController* observer,
-                                              id object,
-                                              NSDictionary* change) {
-        [observer.collectionView wmf_updateIndexes:change[NSKeyValueChangeIndexesKey]
-                                         inSection:0
-                                     forChangeKind:[change[NSKeyValueChangeKindKey] unsignedIntegerValue]];
-    }];
-}
-
-- (void)unobserveDataSource {
-    [self.KVOControllerNonRetaining unobserve:self.dataSource];
 }
 
 #pragma mark - WMFArticleListTransitioning

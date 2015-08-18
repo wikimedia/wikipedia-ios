@@ -1,9 +1,10 @@
 
 #import <UIKit/UIKit.h>
+#import <SSDataSources/SSDataSources.h>
 
 @class WMFArticleViewController;
 
-@interface WMFArticleViewControllerContainerCell : UICollectionViewCell
+@interface WMFArticleViewControllerContainerCell : SSBaseCollectionCell
 
 @property(nonatomic, strong, readonly) WMFArticleViewController* viewController;
 
