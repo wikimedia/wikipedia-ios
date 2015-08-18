@@ -8,18 +8,24 @@
 - (NSAttributedString*)wmf_attributedStringWithParagraphStylesAdjustments:(void (^)(NSMutableParagraphStyle* existingParagraphStyle))block {
     if (!block) {
         return self;
-    } else {
-        NSMutableAttributedString* mutableCopy = self.mutableCopy;
-        [self enumerateAttribute:NSParagraphStyleAttributeName
-                         inRange:NSMakeRange(0, self.length)
-                         options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
-                      usingBlock:^(NSParagraphStyle* pStyle, NSRange range, BOOL* stop){
-            NSMutableParagraphStyle* mutablePStyle = pStyle.mutableCopy;
-            block(mutablePStyle);
-            [mutableCopy addAttribute:NSParagraphStyleAttributeName value:mutablePStyle range:range];
-        }];
-        return mutableCopy;
     }
+
+    NSMutableAttributedString* mutableCopy = self.mutableCopy;
+
+    [mutableCopy beginEditing];
+
+    [self enumerateAttribute:NSParagraphStyleAttributeName
+                     inRange:NSMakeRange(0, self.length)
+                     options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired
+                  usingBlock:^(NSParagraphStyle* pStyle, NSRange range, BOOL* stop){
+        NSMutableParagraphStyle* mutablePStyle = pStyle.mutableCopy;
+        block(mutablePStyle);
+        [mutableCopy addAttribute:NSParagraphStyleAttributeName value:mutablePStyle range:range];
+    }];
+
+    [mutableCopy endEditing];
+
+    return mutableCopy;
 }
 
 @end
