@@ -2,7 +2,6 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFMinimalArticleContentCell.h"
-#import "NSAttributedString+WMFModifyParagraphs.h"
 
 @interface WMFMinimalArticleContentCell ()
 
@@ -21,11 +20,7 @@
 }
 
 - (void)setAttributedText:(NSAttributedString*)attributedText {
-    self.textView.attributedText = [attributedText wmf_attributedStringWithParagraphStylesAdjustments:^(NSMutableParagraphStyle* paragraphStyle){
-        // Needed because if you set DTDefaultLineHeightMultiplier to anything larger than
-        // 1.0 it ends up adding a bunch of padding before the first paragraph of text.
-        paragraphStyle.lineSpacing = 12;
-    }];
+    self.textView.attributedText = attributedText;
 }
 
 @end

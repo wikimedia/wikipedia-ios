@@ -9,6 +9,7 @@
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import <DTCoreText/DTCoreText.h>
 #import "MWKSite.h"
+#import "NSAttributedString+WMFModifyParagraphs.h"
 
 @implementation NSAttributedString (WMFHTMLForSite)
 
@@ -24,19 +25,27 @@
                DTDefaultFontFamily: defaultFont.familyName,
                DTDefaultFontName: defaultFont.fontName,
                DTDefaultFontSize: @(defaultFont.pointSize),
-               //DTDefaultLineHeightMultiplier: @(1.8), // WARNING! Making this > 1.0 causes extra margin to appear above first paragraph!
                DTDefaultLinkDecoration: @NO, // disable decoration for links
-               //DTDefaultLinkColor: [UIColor wmf_logoBlue], // WARNING! Use tintColor with UILabel or UITextView to control link color!
                DTDocumentPreserveTrailingSpaces: @YES,
                DTDefaultStyleSheet: defaultStyleSheet,
                DTUseiOS6Attributes: @YES
     };
+    // Reminder! Use tintColor with UILabel or UITextView to control link color!
 }
 
 - (instancetype)initWithHTMLData:(NSData*)data site:(MWKSite*)site {
-    return [self initWithHTMLData:data
-                          options:[[self class] wmf_defaultHTMLOptionsForSite:site]
-               documentAttributes:nil];
+    NSAttributedString* attrStr = [self initWithHTMLData:data
+                                                 options:[[self class] wmf_defaultHTMLOptionsForSite:site]
+                                      documentAttributes:nil];
+    attrStr = [attrStr wmf_attributedStringWithParagraphStylesAdjustments:^(NSMutableParagraphStyle* paragraphStyle){
+        /*
+           Needed because if you try adjust line spacing with DTDefaultLineHeightMultiplier
+           anything larger than 1.0 ends up adding a bunch of padding before the first
+           paragraph of text.
+         */
+        paragraphStyle.lineSpacing = 12;
+    }];
+    return attrStr;
 }
 
 @end
