@@ -23,4 +23,9 @@
     self.textView.attributedText = attributedText;
 }
 
+- (void)prepareForReuse {
+    self.textView.attributedText = nil;
+    [super prepareForReuse];
+}
+
 @end
