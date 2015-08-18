@@ -37,18 +37,34 @@
     NSAttributedString* attrStr = [self initWithHTMLData:data
                                                  options:[[self class] wmf_defaultHTMLOptionsForSite:site]
                                       documentAttributes:nil];
-    return
-        [attrStr wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                             withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
-        /*
-           Needed because if you try adjust line spacing with DTDefaultLineHeightMultiplier
-           anything larger than 1.0 ends up adding a bunch of padding before the first
-           paragraph of text.
-         */
-        NSMutableParagraphStyle* mStyle = paragraphStyle.mutableCopy;
-        mStyle.lineSpacing = 12;
-        return mStyle;
+
+    // DTCoreText adds a trailing line break to the attributed string it generates. Remove it.
+    attrStr = [self attributedStringWithoutTrailingSpace:attrStr];
+
+    // Needed because DTCoreText adds funky padding above the first paragraph if you use DTDefaultLineHeightMultiplier to increase line spacing.
+    attrStr = [self attributedStringWithFinalAdjustments:attrStr];
+
+    return attrStr;
+}
+
+- (NSAttributedString*)attributedStringWithFinalAdjustments:(NSAttributedString*)attrStr {
+    return [attrStr wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                                withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
+        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
+        style.lineSpacing = 12;
+        return style;
     }];
+}
+
+- (NSAttributedString*)attributedStringWithoutTrailingSpace:(NSAttributedString*)attrStr {
+    if (attrStr.length == 0) {
+        return attrStr;
+    }
+    NSAttributedString* lastCharacter = [attrStr attributedSubstringFromRange:NSMakeRange(attrStr.length - 1, 1)];
+    if ([[lastCharacter string] isEqualToString:@"\n"]) {
+        attrStr = [attrStr attributedSubstringFromRange:NSMakeRange(0, attrStr.length - 1)];
+    }
+    return attrStr;
 }
 
 @end

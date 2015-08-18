@@ -7,7 +7,7 @@
 
 - (NSAttributedString*)wmf_attributedStringChangingAttribute:(NSString*)attribute
                                                    withBlock:(id (^)(id thisAttributeObject))block {
-    if (!block) {
+    if (!block || self.length == 0) {
         return self;
     }
 
