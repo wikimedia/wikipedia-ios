@@ -89,24 +89,21 @@
     responseCallback(nil, fixtureJSON);
 }
 
-#if 0
+#pragma mark - (Flaky) Integration Tests
+
 // Disabled since doing network I/O is slow. Run manually if necessary
+#if 0
+
 - (void)testRealFetchOfPopularLocales {
     [self runTestWithLocales:@[@"en_US", @"fr_FR", @"en_GB"]];
 }
 
-#endif
-
-#if 0
-// Warning, this test is flaky by nature. Only run manually and don't commit w/ it enabled.
 - (void)testRealFetchOfRandomLocales {
     [self runTestWithLocales:
      [[[NSLocale availableLocaleIdentifiers]
        wmf_shuffledCopy]
       subarrayWithRange:NSMakeRange(0, 100)]];
 }
-
-#endif
 
 - (void)runTestWithLocales:(NSArray*)localeIdentifiers {
     NSMutableArray* errors = [NSMutableArray new];
@@ -127,5 +124,7 @@
     }];
     XCTAssert(errors.count == 0, @"Failed to fetch site info for locales: %@", errors);
 }
+
+#endif
 
 @end
