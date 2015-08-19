@@ -1,5 +1,6 @@
 
 #import "WMFHomeNearbyCell.h"
+#import "WMFCompassView.h"
 
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
@@ -7,6 +8,7 @@
 @interface WMFHomeNearbyCell ()
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet WMFCompassView *compassView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
@@ -29,6 +31,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
+    self.imageView.layer.cornerRadius = self.imageView.bounds.size.width/2;
+    self.imageView.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
+    self.imageView.layer.borderColor = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
 }
 
@@ -72,6 +77,11 @@
 - (void)setDistance:(CLLocationDistance)distance{
     _distance = distance;
     self.distanceLabel.text = [self textForDistance:distance];
+}
+
+- (void)setHeadingAngle:(NSNumber *)headingAngle{
+    _headingAngle = headingAngle;
+    self.compassView.angle = headingAngle;
 }
 
 - (void)updateTitleLabel{
@@ -158,5 +168,6 @@
         }
     }
 }
+
 
 @end

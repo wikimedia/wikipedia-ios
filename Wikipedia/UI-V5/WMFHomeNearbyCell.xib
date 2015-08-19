@@ -13,16 +13,31 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="392" height="119"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GG6-GQ-Ec3">
-                        <rect key="frame" x="8" y="7" width="104" height="104"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GG6-GQ-Ec3">
+                        <rect key="frame" x="24" y="23" width="72" height="72"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="104" id="ICz-gh-gip"/>
                             <constraint firstAttribute="width" constant="104" id="ruJ-uB-VlN"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ICz-gh-gip"/>
+                                <exclude reference="ruJ-uB-VlN"/>
+                            </mask>
+                        </variation>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2S-aV-OpE" customClass="WMFCompassView">
+                        <rect key="frame" x="8" y="7" width="104" height="104"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="104" id="7dn-3N-KDM"/>
+                            <constraint firstAttribute="width" constant="104" id="TM5-Zf-73B"/>
+                        </constraints>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMt-N1-oiI">
-                        <rect key="frame" x="120" y="31" width="264" height="56"/>
+                        <rect key="frame" x="120" y="32" width="264" height="55"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOc-Ni-BnE">
                                 <rect key="frame" x="0.0" y="0.0" width="264" height="21"/>
@@ -32,12 +47,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMF-Ha-Dgb" userLabel="Background">
-                                <rect key="frame" x="0.0" y="28" width="67" height="20"/>
+                                <rect key="frame" x="0.0" y="29" width="67" height="20"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.69340783357620239" blue="0.53976863622665405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.69642215967178345" blue="0.5386427640914917" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgE-y3-JSK">
-                                <rect key="frame" x="7" y="30" width="53" height="16"/>
+                                <rect key="frame" x="7" y="31" width="53" height="16"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -88,26 +103,39 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="C2S-aV-OpE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="0si-Di-JQm"/>
+                <constraint firstItem="C2S-aV-OpE" firstAttribute="top" secondItem="GG6-GQ-Ec3" secondAttribute="top" constant="-16" id="5Oy-kN-90h"/>
                 <constraint firstItem="BMt-N1-oiI" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="7oQ-yL-sYA"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BMt-N1-oiI" secondAttribute="bottom" constant="8" id="BDc-nU-PHT"/>
+                <constraint firstItem="C2S-aV-OpE" firstAttribute="trailing" secondItem="GG6-GQ-Ec3" secondAttribute="trailing" constant="16" id="ByR-BT-mF2"/>
                 <constraint firstItem="BMt-N1-oiI" firstAttribute="centerY" secondItem="GG6-GQ-Ec3" secondAttribute="centerY" id="Cle-vv-Lph"/>
                 <constraint firstItem="GG6-GQ-Ec3" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="top" priority="750" constant="8" id="FA6-uC-PGw"/>
                 <constraint firstItem="BMt-N1-oiI" firstAttribute="leading" secondItem="GG6-GQ-Ec3" secondAttribute="trailing" constant="8" symbolic="YES" id="I0H-Zz-rn5"/>
+                <constraint firstItem="BMt-N1-oiI" firstAttribute="leading" secondItem="C2S-aV-OpE" secondAttribute="trailing" constant="8" id="Isa-MI-U5x"/>
                 <constraint firstItem="GG6-GQ-Ec3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="IvG-WR-6lf"/>
                 <constraint firstAttribute="centerY" secondItem="GG6-GQ-Ec3" secondAttribute="centerY" id="Kcn-EJ-EyL"/>
+                <constraint firstItem="C2S-aV-OpE" firstAttribute="bottom" secondItem="GG6-GQ-Ec3" secondAttribute="bottom" constant="16" id="MtG-YV-R1a"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GG6-GQ-Ec3" secondAttribute="bottom" constant="8" id="aZg-B4-qPg"/>
+                <constraint firstAttribute="centerY" secondItem="C2S-aV-OpE" secondAttribute="centerY" id="b7G-Wx-T9l"/>
+                <constraint firstItem="C2S-aV-OpE" firstAttribute="centerY" secondItem="BMt-N1-oiI" secondAttribute="centerY" id="hhw-BC-AIG"/>
                 <constraint firstAttribute="trailing" secondItem="BMt-N1-oiI" secondAttribute="trailing" constant="8" id="tMj-jf-twN"/>
+                <constraint firstItem="C2S-aV-OpE" firstAttribute="leading" secondItem="GG6-GQ-Ec3" secondAttribute="leading" constant="-16" id="vPQ-1O-Ta9"/>
             </constraints>
             <size key="customSize" width="392" height="44"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="FA6-uC-PGw"/>
+                    <exclude reference="IvG-WR-6lf"/>
+                    <exclude reference="Kcn-EJ-EyL"/>
                     <exclude reference="aZg-B4-qPg"/>
                     <exclude reference="7oQ-yL-sYA"/>
                     <exclude reference="BDc-nU-PHT"/>
+                    <exclude reference="Cle-vv-Lph"/>
+                    <exclude reference="I0H-Zz-rn5"/>
                 </mask>
             </variation>
             <connections>
+                <outlet property="compassView" destination="C2S-aV-OpE" id="S5f-Vd-8xr"/>
                 <outlet property="distanceLabel" destination="hgE-y3-JSK" id="v4C-rW-lgo"/>
                 <outlet property="distanceLabelBackground" destination="KMF-Ha-Dgb" id="FBI-p3-xfl"/>
                 <outlet property="imageView" destination="GG6-GQ-Ec3" id="QwK-ct-jRr"/>

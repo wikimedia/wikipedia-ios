@@ -106,6 +106,8 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
         
         if(cell){
             MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
+            cell.headingAngle = [self headingAngleToLocation:result.location startLocationLocation:self.locationManager.lastLocation heading:heading interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+            
         }
     }];
 }
@@ -151,6 +153,49 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
     });
 }
 
+#pragma mark - Compass Heading
+
+- (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation startLocationLocation:(CLLocation*)startLocation heading:(CLHeading*)heading interfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
+    
+    // Get angle between device and article coordinates.
+    double angleRadians = [self headingBetweenLocation:startLocation.coordinate andLocation:toLocation.coordinate];
+    
+    // Adjust for device rotation (deviceHeading is in degrees).
+    double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
+    angleDegrees -= heading.trueHeading;
+    
+    if (angleDegrees > 360.0) {
+        angleDegrees -= 360.0;
+    } else if (angleDegrees < 0.0) {
+        angleDegrees += 360.0;
+    }
+    
+    // Adjust for interface orientation.
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationLandscapeLeft:
+            angleDegrees += 90.0;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            angleDegrees -= 90.0;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            angleDegrees += 180.0;
+            break;
+        default: //UIInterfaceOrientationPortrait
+            break;
+    }
+    
+    return @(DEGREES_TO_RADIANS(angleDegrees));
+}
+
+- (double)headingBetweenLocation:(CLLocationCoordinate2D)loc1
+                     andLocation:(CLLocationCoordinate2D)loc2 {
+    // From: http://www.movable-type.co.uk/scripts/latlong.html
+    double dy = loc2.longitude - loc1.longitude;
+    double y  = sin(dy) * cos(loc2.latitude);
+    double x  = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
+    return atan2(y, x);
+}
 
 
 @end
