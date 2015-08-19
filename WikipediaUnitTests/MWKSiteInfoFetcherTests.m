@@ -74,12 +74,9 @@
 
     NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
 
-    XCTestExpectation* successfulFetchExpectation = [self expectationWithDescription:@"successCallback"];
-
     [self.fetcher fetchInfoForSite:testSite
                            success:^(MWKSiteInfo* siteInfo) {
         assertThat(siteInfo.mainPageTitleText, is([fixtureJSON valueForKeyPath:@"query.general.mainpage"]));
-        [successfulFetchExpectation fulfill];
     }
                            failure:^(NSError* e){}];
 
@@ -90,8 +87,6 @@
                                          failure:anything()];
     void (^ responseCallback)(AFHTTPRequestOperation* op, NSDictionary* json) = [successBlockCaptor value];
     responseCallback(nil, fixtureJSON);
-
-    WaitForExpectations();
 }
 
 #if 0
