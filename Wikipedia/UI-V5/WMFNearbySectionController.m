@@ -15,7 +15,7 @@
 #import "WMFHomeNearbyCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
 static NSUInteger const WMFNearbySectionMaxResults = 3;
 
 static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters before we update fetch
@@ -31,133 +31,118 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @implementation WMFNearbySectionController
 
-- (instancetype)initWithDataSource:(SSSectionedDataSource*)dataSource locationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher
-{
+- (instancetype)initWithDataSource:(SSSectionedDataSource*)dataSource locationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     NSParameterAssert(locationManager);
     NSParameterAssert(locationSearchFetcher);
-    
+
     self = [super initWithDataSource:dataSource];
     if (self) {
-        
         locationSearchFetcher.maximumNumberOfResults = WMFNearbySectionMaxResults;
-        self.locationSearchFetcher = locationSearchFetcher;
-        
+        self.locationSearchFetcher                   = locationSearchFetcher;
+
         locationManager.delegate = self;
-        self.locationManager = locationManager;
-        
-        
+        self.locationManager     = locationManager;
     }
     return self;
 }
 
-- (id)sectionIdentifier{
+- (id)sectionIdentifier {
     return WMFNearbySectionIdentifier;
 }
 
-- (NSString*)headerText{
-    return  @"Nearby";
+- (NSString*)headerText {
+    return @"Nearby";
 }
 
-- (NSString*)footerText{
+- (NSString*)footerText {
     return @"More Nearby";
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView * __nonnull)collectionView{
+- (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
     [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib] forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath{
+- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
     return [WMFHomeNearbyCell cellForCollectionView:collectionView indexPath:indexPath];
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath{
-    
-    WMFHomeNearbyCell* nearbyCell = (id)cell;
+- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
+    WMFHomeNearbyCell* nearbyCell   = (id)cell;
     MWKLocationSearchResult* result = object;
-    nearbyCell.titleText = result.displayTitle;
+    nearbyCell.titleText       = result.displayTitle;
     nearbyCell.descriptionText = result.wikidataDescription;
-    nearbyCell.distance = result.distanceFromQueryCoordinates;
-    nearbyCell.imageURL = result.thumbnailURL;
+    nearbyCell.distance        = result.distanceFromQueryCoordinates;
+    nearbyCell.imageURL        = result.thumbnailURL;
 }
 
 #pragma mark - Section Updates
 
-- (void)updateSectionWithResults:(WMFLocationSearchResults*)results{
-    
+- (void)updateSectionWithResults:(WMFLocationSearchResults*)results {
     [self.dataSource replaceItemsWithItems:results.results inSection:[self sectionIndex]];
 }
 
-- (void)updateSectionWithLocation:(CLLocation*)location{
-    
-    [[self.dataSource indexPathsOfItemsInSection:[self sectionIndex]] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL *stop) {
-        
+- (void)updateSectionWithLocation:(CLLocation*)location {
+    [[self.dataSource indexPathsOfItemsInSection:[self sectionIndex]] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
         WMFHomeNearbyCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
-        
-        if(cell){
+
+        if (cell) {
             MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
             cell.distance = [location distanceFromLocation:result.location];
         }
     }];
 }
 
-- (void)updateSectionWithHeading:(CLHeading*)heading{
-    
-    [[self.dataSource indexPathsOfItemsInSection:[self sectionIndex]] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL *stop) {
-        
+- (void)updateSectionWithHeading:(CLHeading*)heading {
+    [[self.dataSource indexPathsOfItemsInSection:[self sectionIndex]] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
         WMFHomeNearbyCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
-        
-        if(cell){
+
+        if (cell) {
             MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
             cell.headingAngle = [self headingAngleToLocation:result.location startLocationLocation:self.locationManager.lastLocation heading:heading interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-            
         }
     }];
 }
 
-- (void)updateSectionWithLocationError:(NSError*)error{
-    
+- (void)updateSectionWithLocationError:(NSError*)error {
 }
 
-- (void)updateSectionWithSearchError:(NSError*)error{
-    
+- (void)updateSectionWithSearchError:(NSError*)error {
 }
 
 #pragma mark - WMFNearbyControllerDelegate
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location{
+- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
     [self updateSectionWithLocation:location];
     [self fetchNearbyArticlesIfLocationHasSignificantlyChanged:location];
 }
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading{
+- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
     [self updateSectionWithHeading:heading];
 }
 
-- (void)nearbyController:(WMFLocationManager*)controller didfetchNearbyResults:(WMFLocationSearchResults*)results{
+- (void)nearbyController:(WMFLocationManager*)controller didfetchNearbyResults:(WMFLocationSearchResults*)results {
     [self updateSectionWithResults:results];
 }
 
-- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error{
+- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
     [self updateSectionWithLocationError:error];
 }
 
 #pragma mark - Fetch Nearby Results
 
-- (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location{
-    
-    if(self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching){
+- (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location {
+    if (self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
         return;
     }
-    
+
     [self fetchNearbyArticlesWithLocation:location];
 }
 
-- (void)fetchNearbyArticlesWithLocation:(CLLocation*)location{
-    
-    if(self.locationSearchFetcher.isFetching){
+- (void)fetchNearbyArticlesWithLocation:(CLLocation*)location {
+    if (self.locationSearchFetcher.isFetching) {
         return;
     }
-    
+
     [self.locationSearchFetcher fetchArticlesWithLocation:location]
     .then(^(WMFLocationSearchResults* results){
         self.nearbyResults = results;
@@ -170,21 +155,20 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 #pragma mark - Compass Heading
 
-- (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation startLocationLocation:(CLLocation*)startLocation heading:(CLHeading*)heading interfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    
+- (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation startLocationLocation:(CLLocation*)startLocation heading:(CLHeading*)heading interfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Get angle between device and article coordinates.
     double angleRadians = [self headingBetweenLocation:startLocation.coordinate andLocation:toLocation.coordinate];
-    
+
     // Adjust for device rotation (deviceHeading is in degrees).
     double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
     angleDegrees -= heading.trueHeading;
-    
+
     if (angleDegrees > 360.0) {
         angleDegrees -= 360.0;
     } else if (angleDegrees < 0.0) {
         angleDegrees += 360.0;
     }
-    
+
     // Adjust for interface orientation.
     switch (interfaceOrientation) {
         case UIInterfaceOrientationLandscapeLeft:
@@ -199,7 +183,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         default: //UIInterfaceOrientationPortrait
             break;
     }
-    
+
     return @(DEGREES_TO_RADIANS(angleDegrees));
 }
 
@@ -211,6 +195,5 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     double x  = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
     return atan2(y, x);
 }
-
 
 @end

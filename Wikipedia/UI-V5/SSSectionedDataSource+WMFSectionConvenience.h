@@ -8,11 +8,11 @@
 
 - (NSArray*)indexPathsOfItemsInSection:(NSInteger)section;
 
-- (void)replaceItemsWithItems:(NSArray *)items inSection:(NSInteger)section;
+- (void)replaceItemsWithItems:(NSArray*)items inSection:(NSInteger)section;
 
 - (void)removeAllItemsInSection:(NSInteger)section;
 
-- (void)reloadCellsAtIndexes:(NSIndexSet *)indexes inSection:(NSInteger)section;
+- (void)reloadCellsAtIndexes:(NSIndexSet*)indexes inSection:(NSInteger)section;
 
 - (void)reloadSection:(NSInteger)section;
 

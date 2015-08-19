@@ -98,7 +98,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     }
 }
 
-- (void)configureHomeViewController{
+- (void)configureHomeViewController {
     self.homeViewController.searchSite = [self.session searchSite];
 }
 

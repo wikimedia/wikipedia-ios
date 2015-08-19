@@ -9,6 +9,6 @@
 @property (copy, nonatomic) NSString* descriptionText;
 
 @property (assign, nonatomic) CLLocationDistance distance;
-@property (copy, nonatomic) NSNumber *headingAngle;
+@property (copy, nonatomic) NSNumber* headingAngle;
 
 @end

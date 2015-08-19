@@ -19,49 +19,44 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 100.0; //me
 
 #pragma mark - Accessors
 
-- (CLLocationManager*)locationManager{
-    if(!_locationManager){
-        _locationManager = [[CLLocationManager alloc] init];
-        _locationManager.delegate = self;
-        _locationManager.activityType = CLActivityTypeFitness;
+- (CLLocationManager*)locationManager {
+    if (!_locationManager) {
+        _locationManager                = [[CLLocationManager alloc] init];
+        _locationManager.delegate       = self;
+        _locationManager.activityType   = CLActivityTypeFitness;
         _locationManager.distanceFilter = WMFMinimumDistanceBeforeUpdatingLocation;
     }
-    
+
     return _locationManager;
 }
 
-
-- (CLHeading* __nullable)lastHeading{
+- (CLHeading* __nullable)lastHeading {
     return self.locationManager.heading;
 }
 
 #pragma mark - Public
 
-- (void)startMonitoringLocation{
-    
+- (void)startMonitoringLocation {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    
-    if(status == kCLAuthorizationStatusDenied ||
-       status == kCLAuthorizationStatusRestricted){
-        
+
+    if (status == kCLAuthorizationStatusDenied ||
+        status == kCLAuthorizationStatusRestricted) {
         //Updates not possible
         return;
     }
-    
+
     if (status == kCLAuthorizationStatusNotDetermined && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        
         //Need authorization
         [self.locationManager requestWhenInUseAuthorization];
-        
+
         return;
     }
-    
+
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
 
-- (void)stopMonitoringLocation{
-    
+- (void)stopMonitoringLocation {
     [self stopLocationUpdates];
     [self stopHeadingUpdates];
 }
@@ -75,6 +70,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 100.0; //me
 - (void)startHeadingUpdates {
     [self.locationManager startUpdatingHeading];
 }
+
 - (void)stopLocationUpdates {
     [self.locationManager stopUpdatingLocation];
 }
@@ -85,8 +81,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 100.0; //me
 
 #pragma mark - CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
-    
+- (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     [self startMonitoringLocation];
 }
 
@@ -94,9 +89,9 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 100.0; //me
     if (locations.count == 0) {
         return;
     }
-    
+
     CLLocation* currentLocation = [locations lastObject];
-    
+
     self.lastLocation = currentLocation;
     [self.delegate nearbyController:self didUpdateLocation:currentLocation];
 }

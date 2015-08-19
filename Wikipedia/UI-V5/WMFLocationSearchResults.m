@@ -10,12 +10,11 @@
 
 @implementation WMFLocationSearchResults
 
-- (instancetype)initWithLocation:(CLLocation*)location results:(NSArray*)results
-{
+- (instancetype)initWithLocation:(CLLocation*)location results:(NSArray*)results {
     self = [super init];
     if (self) {
         self.location = location;
-        self.results = results;
+        self.results  = results;
     }
     return self;
 }

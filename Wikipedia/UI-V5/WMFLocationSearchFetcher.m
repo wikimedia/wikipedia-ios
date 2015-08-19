@@ -24,43 +24,41 @@
 
 @implementation WMFLocationSearchFetcher
 
-- (instancetype)initWithSearchSite:(MWKSite*)site{
+- (instancetype)initWithSearchSite:(MWKSite*)site {
     self = [super init];
     if (self) {
         NSParameterAssert(site);
-        self.searchSite  = site;
+        self.searchSite = site;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFLocationSearchRequestSerializer serializer];
         manager.responseSerializer = [WMFLocationSearchResponseSerializer serializer];
-        self.operationManager = manager;
+        self.operationManager      = manager;
     }
     return self;
 }
 
-- (WMFLocationSearchRequestSerializer*)nearbySerializer{
+- (WMFLocationSearchRequestSerializer*)nearbySerializer {
     return (WMFLocationSearchRequestSerializer*)(self.operationManager.requestSerializer);
 }
 
-- (void)setMaximumNumberOfResults:(NSUInteger)maximumNumberOfResults{
+- (void)setMaximumNumberOfResults:(NSUInteger)maximumNumberOfResults {
     [[self nearbySerializer] setMaximumNumberOfResults:maximumNumberOfResults];
 }
 
-- (NSUInteger)maximumNumberOfResults{
+- (NSUInteger)maximumNumberOfResults {
     return [[self nearbySerializer] maximumNumberOfResults];
 }
 
-- (AnyPromise*)fetchArticlesWithLocation:(CLLocation*)location{
+- (AnyPromise*)fetchArticlesWithLocation:(CLLocation*)location {
     return [self fetchNearbyArticlesWithLocation:location useDesktopURL:NO];
 }
 
-- (AnyPromise*)fetchNearbyArticlesWithLocation:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL{
- 
+- (AnyPromise*)fetchNearbyArticlesWithLocation:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL {
     self.isFetching = YES;
-    
+
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        
         NSURL* url = useDeskTopURL ? [self.searchSite apiEndpoint] : [self.searchSite mobileApiEndpoint];
-        
+
         [self.operationManager GET:url.absoluteString parameters:location success:^(AFHTTPRequestOperation* operation, id response) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithLocation:location results:response];
@@ -77,6 +75,5 @@
         }];
     }];
 }
-
 
 @end

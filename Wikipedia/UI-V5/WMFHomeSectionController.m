@@ -13,8 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFHomeSectionController
 
-- (instancetype)initWithDataSource:(SSSectionedDataSource*)dataSource
-{
+- (instancetype)initWithDataSource:(SSSectionedDataSource*)dataSource {
     NSParameterAssert(dataSource);
     NSParameterAssert(dataSource.collectionView);
 
@@ -25,43 +24,38 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (UICollectionView*)collectionView{
+- (UICollectionView*)collectionView {
     return self.dataSource.collectionView;
 }
 
-- (NSInteger)sectionIndex{
+- (NSInteger)sectionIndex {
     return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:self.sectionIdentifier];
 }
 
-
-- (SSSection*)section{
+- (SSSection*)section {
     return nil;
 }
 
-- (NSString*)sectionIdentifier{
+- (NSString*)sectionIdentifier {
     return nil;
 }
 
-- (NSString*)headerText{
+- (NSString*)headerText {
     return nil;
 }
 
-- (NSString*)footerText{
+- (NSString*)footerText {
     return nil;
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView*)collectionView{
-    
+- (void)registerCellsInCollectionView:(UICollectionView*)collectionView {
 }
 
-
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath{
+- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
     return nil;
 }
 
-
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath{
-    
+- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
 }
 
 @end
