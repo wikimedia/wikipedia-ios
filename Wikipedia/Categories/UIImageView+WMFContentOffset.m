@@ -11,31 +11,34 @@
 #import "UIImage+WMFNormalization.h"
 #import "WMFGeometry.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation UIImageView (WMFContentOffset)
 
-- (void)wmf_setContentOffsetToCenterFeature:(CIFeature* __nullable)feature {
+- (void)wmf_setContentOffsetToCenterFeature:(CIFeature* __nullable)feature fromImage:(UIImage*)image {
     if (feature) {
-        [self wmf_setContentOffsetToCenterRect:[self.image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
+        [self wmf_setContentOffsetToCenterRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]
+                                         image:image];
     }
 }
 
-- (void)wmf_setContentOffsetToCenterRect:(CGRect)rect {
+- (void)wmf_setContentOffsetToCenterRect:(CGRect)rect image:(UIImage*)image {
     CGPoint rectCenter  = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-    CGPoint imageCenter = CGPointMake(self.image.size.width / 2.f, self.image.size.height / 2.f);
+    CGPoint imageCenter = CGPointMake(image.size.width / 2.f, image.size.height / 2.f);
 
     CGPoint offset = CGPointZero;
     offset.x = rectCenter.x - imageCenter.x;
     offset.y = rectCenter.y - imageCenter.y;
 
-    [self wmf_setContentOffset:offset];
+    [self wmf_setContentOffset:offset image:image];
 }
 
-- (void)wmf_setContentOffset:(CGPoint)offset {
-    self.layer.contentsRect = [self.image wmf_normalizeRect:
-                               CGRectMake(WMFClamp(0, offset.x, self.image.size.width),
-                                          WMFClamp(0, offset.y, self.image.size.height),
-                                          self.image.size.width - fabs(offset.x * 2.f),
-                                          self.image.size.height - fabs(offset.y * 2.f))];
+- (void)wmf_setContentOffset:(CGPoint)offset image:(UIImage*)image {
+    self.layer.contentsRect = [image wmf_normalizeRect:
+                               CGRectMake(WMFClamp(0, offset.x, image.size.width),
+                                          WMFClamp(0, offset.y, image.size.height),
+                                          image.size.width - fabs(offset.x * 2.f),
+                                          image.size.height - fabs(offset.y * 2.f))];
 }
 
 - (void)wmf_resetContentOffset {
@@ -43,3 +46,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

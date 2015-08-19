@@ -1,5 +1,5 @@
 //
-//  ImageDownload.swift
+//  WMFImageDownload.swift
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 6/27/15.
@@ -39,11 +39,17 @@ public protocol ImageOriginConvertible {
 
 public func asImageOrigin<T: ImageOriginConvertible>(c: T) -> ImageOrigin { return c.asImageOrigin() }
 
-public struct ImageDownload {
+public class WMFImageDownload: NSObject {
     public var url: NSURL
     public var image: UIImage
-    public var origin: ImageOrigin
-    public init(url: NSURL, image: UIImage, origin: ImageOrigin) {
+    public var origin: String
+
+    // Exposing enums as string constants for ObjC compatibility
+    public static let imageOriginNetwork = ImageOrigin.Network.rawValue
+    public static let imageOriginDisk = ImageOrigin.Disk.rawValue
+    public static let imageOriginMemory = ImageOrigin.Memory.rawValue
+
+    public init(url: NSURL, image: UIImage, origin: String) {
         self.url = url
         self.image = image
         self.origin = origin

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "MWKImage.h"
+#import "MWKImage+FaceDetection.h"
 #import "WMFTestFixtureUtilities.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFAsyncTestCase.h"
@@ -100,6 +100,12 @@
 
     XCTAssertTrue(self.image.didDetectFaces);
     XCTAssertFalse(self.image.hasFaces);
+}
+
+- (void)testShouldSetDidDetectFacesIfPassedNilFeatures {
+    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
+    [self.image setNormalizedFaceBoundsFromFeatures:nil inImage:nil];
+    XCTAssertTrue(self.image.didDetectFaces, @"Need to be able to handle cases where CIDetector passes nil.");
 }
 
 // TODO: visual test for centered UIImageView

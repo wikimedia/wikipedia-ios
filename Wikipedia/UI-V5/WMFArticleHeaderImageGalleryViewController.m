@@ -15,6 +15,7 @@
 #import "CIDetector+WMFFaceDetection.h"
 
 // View
+#import "UIImageView+MWKImage.h"
 #import "WMFImageCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFContentOffset.h"
@@ -69,10 +70,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setImagesFromUncachedArticle:(MWKArticle* __nonnull)article {
     NSParameterAssert(!article.isCached);
-    if (article.imageURL) {
-        self.images = @[[[MWKImage alloc] initWithArticle:article sourceURLString:article.imageURL]];
-    } else if (article.thumbnailURL) {
-        self.images = @[[[MWKImage alloc] initWithArticle:article sourceURLString:article.thumbnailURL]];
+    if (article.image) {
+        self.images = @[article.image];
+    } else if (article.thumbnail) {
+        self.images = @[article.thumbnail];
     } else {
         self.images = nil;
     }
@@ -95,40 +96,10 @@ NS_ASSUME_NONNULL_BEGIN
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         return cell;
     }
-    MWKImage* imageMetadata = self.images[indexPath.item];
-    @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:[imageMetadata sourceURL]]
-    .then(^id (UIImage* image) {
-        if (!self) {
-            return [NSError cancelledError];
-        } else {
-            if (!imageMetadata.allNormalizedFaceBounds) {
-                return [self.faceDetector wmf_detectFeaturelessFacesInImage:image].then(^(NSArray* faces) {
-                    @strongify(self);
-                    [imageMetadata setNormalizedFaceBoundsFromFeatures:faces inImage:image];
-                    [imageMetadata save];
-                    [self setImage:image centeringBounds:imageMetadata.firstFaceBounds forCellAtIndexPath:indexPath];
-                });
-            } else {
-                [self setImage:image centeringBounds:imageMetadata.firstFaceBounds forCellAtIndexPath:indexPath];
-                return nil;
-            }
-        }
-    });
-    return cell;
-}
 
-- (void)setImage:(UIImage*)image centeringBounds:(CGRect)normalizedCenterBounds forCellAtIndexPath:(NSIndexPath*)path {
-    WMFImageCollectionViewCell* cell = (WMFImageCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
-    if (cell) {
-        cell.imageView.image       = image;
-        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
-        if (CGRectIsEmpty(normalizedCenterBounds)) {
-            [cell.imageView wmf_resetContentOffset];
-        } else {
-            [cell.imageView wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:normalizedCenterBounds]];
-        }
-    }
+    [cell.imageView wmf_setImageWithFaceDetectionFromMetadata:self.images[indexPath.item]];
+
+    return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
