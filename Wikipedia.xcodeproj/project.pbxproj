@@ -179,6 +179,9 @@
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
 		0E03E28D1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */; };
 		0E03E28E1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */; };
+		0E03E2911B8430FE00C1FBD7 /* WMFNearbySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */; };
+		0E03E2941B84392100C1FBD7 /* WMFHomeSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */; };
+		0E03E2991B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */; };
 		0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */; };
 		0E2B07021B2D1DE200EA2F53 /* WMFBottomStackLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B07011B2D1DE200EA2F53 /* WMFBottomStackLayout.m */; };
 		0E34AC571B45DC9500475A1A /* WMFArticleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E34AC561B45DC9500475A1A /* WMFArticleFetcher.m */; };
@@ -790,6 +793,12 @@
 		0E03E28A1B83DA7300C1FBD7 /* WMFHomeNearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeNearbyCell.h; sourceTree = "<group>"; };
 		0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeNearbyCell.m; sourceTree = "<group>"; };
 		0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFHomeNearbyCell.xib; sourceTree = "<group>"; };
+		0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbySectionController.h; sourceTree = "<group>"; };
+		0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbySectionController.m; sourceTree = "<group>"; };
+		0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeSectionController.h; sourceTree = "<group>"; };
+		0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeSectionController.m; sourceTree = "<group>"; };
+		0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSSectionedDataSource+WMFSectionConvenience.h"; sourceTree = "<group>"; };
+		0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSSectionedDataSource+WMFSectionConvenience.m"; sourceTree = "<group>"; };
 		0E2B06F41B2CE45800EA2F53 /* WMFSavedPagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSavedPagesDataSource.h; sourceTree = "<group>"; };
 		0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSavedPagesDataSource.m; sourceTree = "<group>"; };
 		0E2B07001B2D1DE200EA2F53 /* WMFBottomStackLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBottomStackLayout.h; sourceTree = "<group>"; };
@@ -2379,6 +2388,8 @@
 		0ED6897C1B8246F400B30427 /* Nearby Section */ = {
 			isa = PBXGroup;
 			children = (
+				0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */,
+				0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */,
 				0E03E28A1B83DA7300C1FBD7 /* WMFHomeNearbyCell.h */,
 				0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */,
 				0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */,
@@ -2391,6 +2402,10 @@
 		0EEAF0F61B8229E6000D4232 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */,
+				0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */,
+				0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */,
+				0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */,
 				0ED6897C1B8246F400B30427 /* Nearby Section */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
 			);
@@ -3634,6 +3649,7 @@
 				04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */,
 				BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */,
 				0EF451F61B545ED100D621BD /* WMFRecentPagesDataSource.m in Sources */,
+				0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				0487048C19F8262600B7D307 /* SearchResultFetcher.m in Sources */,
 				0E7E60311B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m in Sources */,
@@ -3652,6 +3668,7 @@
 				0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */,
 				C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */,
 				0E2B07021B2D1DE200EA2F53 /* WMFBottomStackLayout.m in Sources */,
+				0E03E2911B8430FE00C1FBD7 /* WMFNearbySectionController.m in Sources */,
 				BC56209A1B6B92CF0013FFB0 /* WMFLinkButtonFactory.m in Sources */,
 				04C91CEB195517250035ED1B /* OnboardingViewController.m in Sources */,
 				04D686FA1AB2949C0009B44A /* TabularScrollView.m in Sources */,
@@ -3670,6 +3687,7 @@
 				0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
 				04D686FC1AB2949C0009B44A /* WikiGlyphButton.m in Sources */,
 				C98990341A699DE000AF44FC /* WMFShareCardViewController.m in Sources */,
+				0E03E2991B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m in Sources */,
 				049289291B1FBC1800BE4B21 /* WMFURLCache.m in Sources */,
 				C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */,
 				0E94AFF31B209857000BC5EA /* WMFSearchViewController.m in Sources */,
@@ -3765,6 +3783,7 @@
 				0EEAF0F51B8229D9000D4232 /* WMFHomeSectionHeader.m in Sources */,
 				BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */,
 				D4991449181D51DE00E6073C /* AppDelegate.m in Sources */,
+				0E03E2941B84392100C1FBD7 /* WMFHomeSectionController.m in Sources */,
 				04A807331B76BF36007F4EDD /* NSArray+WMFPredicate.swift in Sources */,
 				BCB669A81A83F6C400C7B1FE /* MWKUser.m in Sources */,
 				BCB669AB1A83F6C400C7B1FE /* MWKProtectionStatus.m in Sources */,
