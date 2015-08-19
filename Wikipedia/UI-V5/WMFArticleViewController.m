@@ -296,15 +296,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateHeaderView {
     WMFArticleTableHeaderView* headerView = [self headerView];
 
-//TODO: progressively reduce title/description font to some floor size based on length of string
-//      see old LeadImageTitleAttributedString.m for example from old native lead image
-    headerView.titleLabel.text       = [self.article.title.text wmf_stringByRemovingHTML];
-    headerView.descriptionLabel.text = [self.article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+    [headerView setTitle:[self.article.title.text wmf_stringByRemovingHTML]
+             description:[self.article.entityDescription wmf_stringByCapitalizingFirstCharacter]];
 }
 
 - (void)clearHeaderView {
     WMFArticleTableHeaderView* headerView = [self headerView];
-    headerView.titleLabel.attributedText = nil;
+    [headerView setTitle:nil description:nil];
 }
 
 - (void)updateSavedButtonState {
