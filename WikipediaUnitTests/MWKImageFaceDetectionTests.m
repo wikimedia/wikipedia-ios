@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "MWKImage.h"
+#import "MWKImage+FaceDetection.h"
 #import "WMFTestFixtureUtilities.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFAsyncTestCase.h"
