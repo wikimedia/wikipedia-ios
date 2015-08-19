@@ -18,7 +18,7 @@
     }];
 }
 
-- (void)replaceItemsWithItems:(NSArray*)items inSection:(NSInteger)section {
+- (void)setItems:(NSArray*)items inSection:(NSInteger)section {
     [self removeAllItemsInSection:section];
     [self appendItems:items toSection:section];
 }

@@ -78,7 +78,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 #pragma mark - Section Updates
 
 - (void)updateSectionWithResults:(WMFLocationSearchResults*)results {
-    [self.dataSource replaceItemsWithItems:results.results inSection:[self sectionIndex]];
+    [self.dataSource setItems:results.results inSection:[self sectionIndex]];
 }
 
 - (void)updateSectionWithLocation:(CLLocation*)location {

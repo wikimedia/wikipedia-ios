@@ -8,7 +8,7 @@
 
 - (NSArray*)indexPathsOfItemsInSection:(NSInteger)section;
 
-- (void)replaceItemsWithItems:(NSArray*)items inSection:(NSInteger)section;
+- (void)setItems:(NSArray*)items inSection:(NSInteger)section;
 
 - (void)removeAllItemsInSection:(NSInteger)section;
 
