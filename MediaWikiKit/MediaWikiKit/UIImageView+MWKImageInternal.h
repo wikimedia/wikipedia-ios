@@ -13,16 +13,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImageView (WMFAssociatedMWKImage)
+@interface UIImageView (WMFAssociatedObjects)
 
+/**
+ *  The metadata associated with the receiver.
+ *
+ *   Used to ensure that images set on the receiver aren't associated with a URL for another metadata entity.
+ *
+ *   @warning Do not set directly, instead use @c -wmf_setMetadata:controller:.
+ */
 @property (nonatomic, strong, nullable) MWKImage* wmf_imageMetadata;
+
+/**
+ *  The image controller used to fetch image data.
+ *
+ *  Used to cancel the previous fetch executed by the receiver.
+ *
+ *  @warning Do not set direclty, instead use @c wmf_setMetadata:controller:
+ */
+@property (nonatomic, weak, nullable) WMFImageController* wmf_imageController;
+
+- (void)wmf_setMetadata:(MWKImage* __nullable)imageMetadata controller:(WMFImageController* __nullable)imageController;
 
 @end
 
 @interface UIImageView (MWKImageInternal)
 
 /// @see wmf_setImageFromMetadata:options:withBlock:completion:onError:
-- (void)wmf_setImageFromMetadata:(MWKImage* __nullable)imageMetadata
+- (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)inputSetImageBlock
                       completion:(dispatch_block_t __nullable)completion
@@ -37,18 +55,19 @@ NS_ASSUME_NONNULL_BEGIN
                       usingController:(WMFImageController*)controller;
 
 /**
- *  Sets the receiver's `image` if it is still associated with `imageMetadata`.
+ *  Sets the receiver's <code>image</code><b> if it is still associated with @c imageMetadata</b>.
  *
- *  Executes business logic to determine whether or not to transition to the new image, as well as invoking
- *  `setImageBlock` and `completion` at the appropriate points.
+ *  This is the final method invoked by @c wmf_setImageFromMetadata or @c wmf_setCachedIamgeForMetadata. When called,
+ *  it executes business logic to determine whether or not to transition to the new image, as well as invoking
+ *  @c setImageBlock and @c completion at the appropriate points.
  *
  *  @param image         The image to set.
- *  @param imageMetadata Metadata associated with `image`. Used for face centering & to prevent the image from being
+ *  @param imageMetadata Metadata associated with @c image. Used for face centering & to prevent the image from being
  *                       set it the receiver's associated image metadata has changed.
  *  @param options       Options used to determine how the image is set.
  *  @param setImageBlock Block used to set the image
  *  @param completion    Block to call after the image is set.
- *  @param animated      Whether or not the new image should be set with an animation (depending on `options`).
+ *  @param animated      Whether or not the new image should be set with an animation (depending on @c options).
  *
  *  @see -wmf_setImageForMetadata:options:withBlock:completion:onError:
  */

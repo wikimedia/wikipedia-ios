@@ -60,7 +60,7 @@ typedef void (^ WMFSetImageBlock)(UIImageView* imageView, UIImage* image, MWKIma
 - (void)wmf_resetImageMetadata;
 
 /**
- *  Set the receiver's image to the source URL of the given `imageMetadata`, centering any faces found.
+ *  Set the receiver's @c image to the @c sourceURL of the given @c imageMetadata, centering any faces found.
  *
  *  @param imageMetadata Metadata with the `sourceURL` of the image you want to set.
  *
@@ -71,10 +71,10 @@ typedef void (^ WMFSetImageBlock)(UIImageView* imageView, UIImage* image, MWKIma
 /**
  *  Set the receiver's image to the source URL of the given `imageMetadata`.
  *
- *  Does any necessary fetching or processing to retrieve the image and detect/center faces. Will set the image
- *  synchronously if possible.  This method is both idempotent and cancelling in that setting the same `imageMetadata`
- *  repeatedly is a no-op after the first call, and setting a different `imageMetadata` or `nil` will prevent the
- *  previous metadata's image from being set.
+ *  Will set the image synchronously if possible, but failing that, fetches the image from network or disk and then
+ *  (if specified in @c options) detects and centers faces (if found). This method is both idempotent and cancelling in
+ *  that setting the same @c imageMetadata repeatedly is a no-op after the first call, and setting a different
+ *  @c imageMetadata or @c nil will prevent the previous metadata's image from being set.
  *
  *  @param imageMetadata Metadata with the `sourceURL` of the image you want to set.
  *  @param options       Control how the image is set by specifying a bitmask of `WMFImageOptions`.
@@ -82,22 +82,22 @@ typedef void (^ WMFSetImageBlock)(UIImageView* imageView, UIImage* image, MWKIma
  *  @param completion    Called after the image has been set (i.e. after any fetching, processing, and/or animations).
  *  @param failure       Called if the image could not be retrieved from the network.
  */
-- (void)wmf_setImageFromMetadata:(MWKImage* __nullable)imageMetadata
+- (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)setImageBlock
                       completion:(dispatch_block_t __nullable)completion
                          onError:(void (^ __nullable )(NSError*))failure;
 
 /**
- *  Attempts to retrieve a cached image for `imageMetadata` from memory and set it synchronously.
+ *  Attempts to retrieve a cached image for @c imageMetadata from memory and set it synchronously.
  *
  *  @param imageMetadata Metadata to retrieve an image for.
  *  @param options       Options determining how to set the image.
  *  @param setImageBlock Block which should be called to set the image.
  *  @param completion    Block to call after the image was set.
  *
- *  @return `YES` if a cached image was in memory, or `NO` if the image wasn't in memory or face detection needed to be
- *          performed.
+ *  @return @c YES if a cached image was set, or @c NO if the image wasn't in memory or face detection needed to
+ *          be performed.
  */
 - (BOOL)wmf_setCachedImageForMetadata:(MWKImage*)imageMetadata
                               options:(WMFImageOptions)options

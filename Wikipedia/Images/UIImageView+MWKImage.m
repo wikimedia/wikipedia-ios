@@ -25,10 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 static const char* const MWKImageAssociationKey = "MWKImage";
 
+static const char* const WMFImageControllerAssociationKey = "WMFImageController";
+
 @implementation UIImageView (MWKImage)
 
 - (void)wmf_resetImageMetadata {
-    [self wmf_setImageFromMetadata:nil options:0 withBlock:nil completion:nil onError:nil];
+    [self wmf_setMetadata:nil controller:nil];
 }
 
 - (void)wmf_setImageWithFaceDetectionFromMetadata:(MWKImage*)imageMetadata {
@@ -39,7 +41,7 @@ static const char* const MWKImageAssociationKey = "MWKImage";
                            onError:nil];
 }
 
-- (void)wmf_setImageFromMetadata:(MWKImage* __nullable)imageMetadata
+- (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)setImageBlock
                       completion:(dispatch_block_t __nullable)completion
@@ -65,7 +67,27 @@ static const char* const MWKImageAssociationKey = "MWKImage";
 
 @end
 
-@implementation UIImageView (WMFAssociatedMWKImage)
+@implementation UIImageView (WMFAssociatedObjects)
+
+- (void)wmf_setMetadata:(MWKImage* __nullable)imageMetadata controller:(WMFImageController* __nullable)imageController {
+    [self.wmf_imageController cancelFetchForURL:self.wmf_imageMetadata.sourceURL];
+
+    self.wmf_imageController = imageController;
+    self.wmf_imageMetadata   = imageMetadata;
+
+    if (!imageMetadata) {
+        // reset our content offset in case a "regular" image is set
+        [self wmf_resetContentOffset];
+    }
+}
+
+- (WMFImageController* __nullable)wmf_imageController {
+    return [self bk_associatedValueForKey:WMFImageControllerAssociationKey];
+}
+
+- (void)setWmf_imageController:(WMFImageController* __nullable)imageController {
+    [self bk_associateValue:imageController withKey:WMFImageControllerAssociationKey];
+}
 
 - (MWKImage* __nullable)wmf_imageMetadata {
     return [self bk_associatedValueForKey:MWKImageAssociationKey];
@@ -79,40 +101,34 @@ static const char* const MWKImageAssociationKey = "MWKImage";
 
 @implementation UIImageView (MWKImageInternal)
 
-- (void)wmf_setImageFromMetadata:(MWKImage* __nullable)imageMetadata
+- (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)setImageBlock
                       completion:(dispatch_block_t __nullable)completion
                          onError:(void (^ __nullable)(NSError*))failure
-                 usingController:(WMFImageController*)controller {
-    NSAssert(!((options & WMFImageOptionNeverAnimate) && (options & WMFImageOptionAlwaysAnimate)),
-             @"Illegal attempt to set both always & never animate!");
+                 usingController:(WMFImageController*)imageController {
+    NSAssert(imageMetadata, @"Illegal attempt to set image from nil metadata. If needed, call wmf_resetImageMetadata.");
     if (WMF_EQUAL(self.wmf_imageMetadata, isEqualToImage:, imageMetadata)) {
         return;
     }
 
-    BOOL didSetSynchronously = [self wmf_setCachedImageForMetadata:imageMetadata
-                                                           options:options
-                                                     setImageBlock:setImageBlock
-                                                        completion:completion
-                                                   usingController:controller];
+    BOOL const didSetSynchronously = [self wmf_setCachedImageForMetadata:imageMetadata
+                                                                 options:options
+                                                           setImageBlock:setImageBlock
+                                                              completion:completion
+                                                         usingController:imageController];
     if (didSetSynchronously) {
         return;
     }
 
-    [controller cancelFetchForURL:self.wmf_imageMetadata.sourceURL];
-
-    self.wmf_imageMetadata = imageMetadata;
-
+    [self wmf_setMetadata:imageMetadata controller:imageController];
     if (!self.wmf_imageMetadata) {
-        // reset our content offset in case a "regular" image is set
-        [self wmf_resetContentOffset];
         return;
     }
 
     // async path, fetch the image then run same logic as above (face detection if necessary, then set)
     @weakify(self);
-    [controller fetchImageWithURL:[imageMetadata sourceURL]]
+    [imageController fetchImageWithURL:[imageMetadata sourceURL]]
     .then(^id (WMFImageDownload* download) {
         @strongify(self);
         if (!WMF_EQUAL(self.wmf_imageMetadata, isEqualToImage:, imageMetadata)) {
@@ -148,24 +164,21 @@ static const char* const MWKImageAssociationKey = "MWKImage";
                         setImageBlock:(WMFSetImageBlock __nullable)setImageBlock
                            completion:(dispatch_block_t __nullable)completion
                       usingController:(WMFImageController*)controller {
-    // fast path, try to set image synchronously if stored in memory & face detection has already been run (if needed)
+    NSAssert(imageMetadata, @"Illegal attempt to set image from nil metadata. If needed, call wmf_resetImageMetadata.");
+
+    if (WMF_EQUAL(self.wmf_imageMetadata, isEqualToImage:, imageMetadata)) {
+        return NO;
+    }
+
     UIImage* cachedImage = [controller cachedImageInMemoryWithURL:imageMetadata.sourceURL];
     if (cachedImage && (!(options & WMFImageOptionCenterFace) || imageMetadata.didDetectFaces)) {
-        [controller cancelFetchForURL:self.wmf_imageMetadata.sourceURL];
-
-        self.wmf_imageMetadata = imageMetadata;
-
-        if (!self.wmf_imageMetadata) {
-            // reset our content offset in case a "regular" image is set
-            [self wmf_resetContentOffset];
-        } else {
-            [self wmf_setImage:cachedImage
-                   forMetadata:imageMetadata
-                       options:options
-                     withBlock:setImageBlock
-                    completion:completion
-                      animated:NO];
-        }
+        [self wmf_setMetadata:imageMetadata controller:controller];
+        [self wmf_setImage:cachedImage
+               forMetadata:imageMetadata
+                   options:options
+                 withBlock:setImageBlock
+                completion:completion
+                  animated:NO];
         return YES;
     }
     return NO;
@@ -177,19 +190,19 @@ static const char* const MWKImageAssociationKey = "MWKImage";
            withBlock:(WMFSetImageBlock __nullable)setImageBlock
           completion:(dispatch_block_t __nullable)completion
             animated:(BOOL)animated {
+    NSAssert(!((options & WMFImageOptionNeverAnimate) && (options & WMFImageOptionAlwaysAnimate)),
+             @"Illegal attempt to set both always & never animate!");
+
     // set default setImageBlock if caller passed nil
     if (!setImageBlock) {
         setImageBlock = ^(UIImageView* imgView, UIImage* img, MWKImage* _) { imgView.image = img; };
     }
 
-    if (!self) {
-        // keep this return separate from the imageMetadata check to prevent misleading logs
-        return;
-    } else if (!WMF_EQUAL(self.wmf_imageMetadata, isEqualToImage:, imageMetadata)) {
-        DDLogInfo(@"%@ is skipping setting image for %@ since %@ was set",
-                  self, imageMetadata, self.wmf_imageMetadata);
+    if (!WMF_EQUAL(self.wmf_imageMetadata, isEqualToImage:, imageMetadata)) {
+        DDLogInfo(@"%@ is skipping setting image for %@ since %@ was set", self, self.wmf_imageMetadata, imageMetadata);
         return;
     }
+
     if (options & WMFImageOptionCenterFace) {
         self.contentMode = UIViewContentModeScaleAspectFill;
         if (CGRectIsEmpty(imageMetadata.firstFaceBounds)) {
@@ -199,14 +212,16 @@ static const char* const MWKImageAssociationKey = "MWKImage";
                                              image:image];
         }
     } else {
-        // if we're not centering the face, ensure the contentsRect is normal
+        // if we're not centering the face, ensure contentsRect is normal
         [self wmf_resetContentOffset];
     }
+
     animated = (animated && !(options & WMFImageOptionNeverAnimate)) || (options & WMFImageOptionAlwaysAnimate);
     [UIView transitionWithView:self
                       duration:animated ? [CATransaction animationDuration] : 0.0
-                       options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState
+                       options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
+        NSParameterAssert(setImageBlock);
         setImageBlock(self, image, imageMetadata);
     }
                     completion:^(BOOL finished) {
@@ -214,6 +229,8 @@ static const char* const MWKImageAssociationKey = "MWKImage";
             if (completion) {
                 completion();
             }
+        } else {
+            DDLogWarn(@"%@ failed to transition to %@", self, imageMetadata.sourceURL);
         }
     }];
 }
