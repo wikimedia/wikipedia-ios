@@ -93,8 +93,8 @@ public class WMFImageController : NSObject {
      */
     public func cascadingFetchWithMainURL(mainURL: NSURL?,
                                           cachedPlaceholderURL: NSURL?,
-                                          mainImageBlock: (ImageDownload) -> Void,
-                                          cachedPlaceholderImageBlock: (ImageDownload) -> Void) -> Promise<Void> {
+                                          mainImageBlock: (WMFImageDownload) -> Void,
+                                          cachedPlaceholderImageBlock: (WMFImageDownload) -> Void) -> Promise<Void> {
         weak var wself = self
         if hasImageWithURL(mainURL) {
             // if mainURL is cached, return it immediately w/o fetching placeholder
@@ -110,7 +110,7 @@ public class WMFImageController : NSObject {
             return Promise(empty)
         }
         // when placeholder handling is finished, fetch mainURL
-        .then() { () -> Promise<ImageDownload> in
+        .then() { () -> Promise<WMFImageDownload> in
             if let sself = wself {
                 return sself.fetchImageWithURL(mainURL)
             } else {
@@ -128,15 +128,17 @@ public class WMFImageController : NSObject {
      *
      * @param url URL which corresponds to the image being retrieved. Ignores URL schemes.
      *
-     * @return An `ImageDownload` with the image data and the origin it was loaded from.
+     * @return An `WMFImageDownload` with the image data and the origin it was loaded from.
      */
-    public func fetchImageWithURL(url: NSURL) -> Promise<ImageDownload> {
+    public func fetchImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
         // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
-        let promise = imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
+        let (cancellable, promise) =
+            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
+        addCancellableForURL(cancellable, url: url)
         return applyDebugTransformIfEnabled(promise)
     }
 
-    public func fetchImageWithURL(url: NSURL?) -> Promise<ImageDownload> {
+    public func fetchImageWithURL(url: NSURL?) -> Promise<WMFImageDownload> {
         return checkForValidURL(url, then: fetchImageWithURL)
     }
 
@@ -154,8 +156,12 @@ public class WMFImageController : NSObject {
         return url == nil ? false : imageManager.cachedImageExistsForURL(url!)
     }
 
+    public func cachedImageInMemoryWithURL(url: NSURL?) -> UIImage? {
+        return url == nil ? nil : imageManager.imageCache.imageFromMemoryCacheForKey(cacheKeyForURL(url!))
+    }
+
     public func hasDataInMemoryForImageWithURL(url: NSURL?) -> Bool {
-        return url == nil ? false : imageManager.imageCache.imageFromMemoryCacheForKey(cacheKeyForURL(url!)) != nil
+        return cachedImageInMemoryWithURL(url) != nil
     }
 
     public func hasDataOnDiskForImageWithURL(url: NSURL?) -> Bool {
@@ -172,15 +178,17 @@ public class WMFImageController : NSObject {
         }
     }
 
-    public func cachedImageWithURL(url: NSURL?) -> Promise<ImageDownload> {
+    public func cachedImageWithURL(url: NSURL?) -> Promise<WMFImageDownload> {
         return checkForValidURL(url, then: cachedImageWithURL)
     }
 
-    public func cachedImageWithURL(url: NSURL) -> Promise<ImageDownload> {
-        let cancellablePromise = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
-        addCancellableForURL(cancellablePromise, url: url)
-        return applyDebugTransformIfEnabled(cancellablePromise.then() { image, origin in
-            return ImageDownload(url: url, image: image, origin: origin)
+    public func cachedImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
+        let (cancellable, promise) = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
+        if let cancellable = cancellable {
+            addCancellableForURL(cancellable, url: url)
+        }
+        return applyDebugTransformIfEnabled(promise.then() { image, origin in
+            return WMFImageDownload(url: url, image: image, origin: origin.rawValue)
         })
     }
 
@@ -248,7 +256,7 @@ public class WMFImageController : NSObject {
      * Utility which returns a rejected promise for `nil` URLs, or passes valid URLs to function `then`.
      * @return A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
      */
-    private func checkForValidURL(url: NSURL?, then: (NSURL) -> Promise<ImageDownload>) -> Promise<ImageDownload> {
+    private func checkForValidURL(url: NSURL?, then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
         if url == nil { return Promise(WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
         else { return then(url!) }
     }
@@ -261,9 +269,9 @@ public class WMFImageController : NSObject {
             weak var wself = self;
             dispatch_async(self.cancellingQueue) {
                 let sself = wself
-                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? WrapperObject<Cancellable> {
+                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? Cancellable {
                     sself?.cancellables.removeObjectForKey(url.absoluteString!)
-                    cancellable.value.cancel()
+                    cancellable.cancel()
                 }
             }
         }
@@ -273,12 +281,11 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            let currentCancellables: [WrapperObject<Cancellable>] =
-                sself?.cancellables.objectEnumerator().allObjects as! [WrapperObject<Cancellable>]
+            let currentCancellables = sself?.cancellables.objectEnumerator().allObjects as! [Cancellable]
             sself?.cancellables.removeAllObjects()
             dispatch_async(dispatch_get_global_queue(0, 0)) {
                 for cancellable in currentCancellables {
-                    cancellable.value.cancel()
+                    cancellable.cancel()
                 }
             }
         }
@@ -288,7 +295,7 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            sself?.cancellables.setObject(WrapperObject(value: cancellable), forKey: url.absoluteString!)
+            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString!)
         }
     }
 
@@ -309,10 +316,10 @@ extension WMFImageController {
     /**
      * Objective-C-compatible variant of fetchImageWithURL(url:) returning an `AnyPromise`.
      *
-     * @return `AnyPromise` which resolves to `UIImage`.
+     * @return `AnyPromise` which resolves to `WMFImageDownload`.
      */
-    public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: fetchImageWithURL(url).then(unpackImage()))
+    @objc public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
+        return AnyPromise(bound: fetchImageWithURL(url))
     }
 
     /**
@@ -320,24 +327,29 @@ extension WMFImageController {
      *
      * @return `AnyPromise` which resolves to `UIImage?`, where the image is present on a cache hit, and `nil` on a miss.
      */
-    public func cachedImageWithURL(url: NSURL?) -> AnyPromise {
-        return AnyPromise(bound: cachedImageWithURL(url).then(unpackImage()))
+    @objc public func cachedImageWithURL(url: NSURL?) -> AnyPromise {
+        return AnyPromise(bound:
+            cachedImageWithURL(url)
+            .then() { $0.image }
+            .recover() { (err: NSError) -> Promise<UIImage?> in
+                if err.domain == WMFImageControllerErrorDomain
+                   && err.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
+                    return Promise<UIImage?>(nil)
+                } else {
+                    return Promise(err)
+                }
+            })
     }
 
-    public func cascadingFetchWithMainURL(mainURL: NSURL?,
+    @objc public func cascadingFetchWithMainURL(mainURL: NSURL?,
                                           cachedPlaceholderURL: NSURL?,
-                                          mainImageBlock: (UIImage) -> Void,
-                                          cachedPlaceholderImageBlock: (UIImage) -> Void) -> AnyPromise {
+                                          mainImageBlock: (WMFImageDownload) -> Void,
+                                          cachedPlaceholderImageBlock: (WMFImageDownload) -> Void) -> AnyPromise {
         let promise: Promise<Void> =
         cascadingFetchWithMainURL(mainURL,
                                   cachedPlaceholderURL: cachedPlaceholderURL,
-                                  mainImageBlock: { mainImageBlock($0.image) },
-                                  cachedPlaceholderImageBlock:  { cachedPlaceholderImageBlock($0.image) })
+                                  mainImageBlock: mainImageBlock,
+                                  cachedPlaceholderImageBlock: cachedPlaceholderImageBlock)
         return AnyPromise(bound: promise)
-    }
-
-    /// Curried function taking `Void`, then an `ImageDownload`, returning its `image`
-    private func unpackImage()(download: ImageDownload) -> UIImage {
-        return download.image
     }
 }

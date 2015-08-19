@@ -5,7 +5,6 @@
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
 #import "Wikipedia-Swift.h"
-#import <BlocksKit/BlocksKit.h>
 
 @interface MWKImage ()
 

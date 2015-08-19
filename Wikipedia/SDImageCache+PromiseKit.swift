@@ -9,10 +9,11 @@
 import Foundation
 
 extension SDImageCache {
-    public func queryDiskCacheForKey(key: String) -> CancellablePromise<(UIImage, ImageOrigin)> {
-        let (promise, fulfill, reject) = CancellablePromise<(UIImage, ImageOrigin)>.defer()
+    public func queryDiskCacheForKey(key: String) -> (Cancellable?, Promise<(UIImage, ImageOrigin)>) {
+        let (promise, fulfill, reject) = Promise<(UIImage, ImageOrigin)>.defer()
 
-        let diskQueryOperation = self.queryDiskCacheForKey(key, done: { image, cacheType -> Void in
+        // queryDiskCache will return nil if the image is in memory
+        let diskQueryOperation: NSOperation? = self.queryDiskCacheForKey(key, done: { image, cacheType -> Void in
             if image != nil {
                 fulfill((image, asImageOrigin(cacheType)))
             } else {
@@ -20,13 +21,27 @@ extension SDImageCache {
             }
         })
 
-        // cancel the underlying operation if the promise is cancelled
-        promise.catch(policy: CatchPolicy.AllErrors) { error in
-            if error.cancelled {
-                diskQueryOperation.cancel()
+        if let diskQueryOperation = diskQueryOperation {
+            // make sure promise is rejected if the operation is cancelled
+            self.KVOController.observe(diskQueryOperation,
+                keyPath: "isCancelled",
+                options: NSKeyValueObservingOptions.New)
+                { _, _, change in
+                    let value = change[NSKeyValueChangeNewKey] as! NSNumber
+                    if value.boolValue {
+                        reject(NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil))
+                    }
+            }
+
+            // tear down observation when operation finishes
+            self.KVOController.observe(diskQueryOperation,
+                keyPath: "isFinished",
+                options: NSKeyValueObservingOptions.allZeros)
+                { [weak self] _, object, _ in
+                    self?.KVOController.unobserve(object)
             }
         }
 
-        return promise
+        return (diskQueryOperation, promise)
     }
 }

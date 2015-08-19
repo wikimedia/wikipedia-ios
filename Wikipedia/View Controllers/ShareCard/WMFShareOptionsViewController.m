@@ -84,8 +84,8 @@
 }
 
 - (void)fetchImageThenShowShareCard {
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]].then(^(UIImage* image){
-        [self showShareCardWithImage:image];
+    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]].then(^(WMFImageDownload* download){
+        [self showShareCardWithImage:download.image];
     }).catch(^(NSError* error){
         [self showShareCardWithImage:nil];
     });

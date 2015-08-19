@@ -31,12 +31,6 @@
 @implementation WMFArticleListCollectionViewController
 @synthesize listTransition = _listTransition;
 
-- (void)dealloc {
-    _dataSource.collectionView     = nil;
-    _dataSource.cellClass          = nil;
-    _dataSource.cellConfigureBlock = NULL;
-}
-
 - (WMFArticleListTransition*)listTransition {
     if (!_listTransition) {
         _listTransition = [[WMFArticleListTransition alloc] initWithListCollectionViewController:self];
@@ -75,7 +69,7 @@
         cell.viewController.article = [self.dataSource articleForIndexPath:indexPath];
     };
 
-    if([self isViewLoaded]){
+    if ([self isViewLoaded]) {
         _dataSource.collectionView = self.collectionView;
     }
 

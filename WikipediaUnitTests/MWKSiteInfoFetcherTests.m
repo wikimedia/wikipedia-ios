@@ -74,12 +74,9 @@
 
     NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
 
-    XCTestExpectation* successfulFetchExpectation = [self expectationWithDescription:@"successCallback"];
-
     [self.fetcher fetchInfoForSite:testSite
                            success:^(MWKSiteInfo* siteInfo) {
         assertThat(siteInfo.mainPageTitleText, is([fixtureJSON valueForKeyPath:@"query.general.mainpage"]));
-        [successfulFetchExpectation fulfill];
     }
                            failure:^(NSError* e){}];
 
@@ -90,28 +87,23 @@
                                          failure:anything()];
     void (^ responseCallback)(AFHTTPRequestOperation* op, NSDictionary* json) = [successBlockCaptor value];
     responseCallback(nil, fixtureJSON);
-
-    WaitForExpectations();
 }
 
-#if 0
+#pragma mark - (Flaky) Integration Tests
+
 // Disabled since doing network I/O is slow. Run manually if necessary
+#if 0
+
 - (void)testRealFetchOfPopularLocales {
     [self runTestWithLocales:@[@"en_US", @"fr_FR", @"en_GB"]];
 }
 
-#endif
-
-#if 0
-// Warning, this test is flaky by nature. Only run manually and don't commit w/ it enabled.
 - (void)testRealFetchOfRandomLocales {
     [self runTestWithLocales:
      [[[NSLocale availableLocaleIdentifiers]
        wmf_shuffledCopy]
       subarrayWithRange:NSMakeRange(0, 100)]];
 }
-
-#endif
 
 - (void)runTestWithLocales:(NSArray*)localeIdentifiers {
     NSMutableArray* errors = [NSMutableArray new];
@@ -132,5 +124,7 @@
     }];
     XCTAssert(errors.count == 0, @"Failed to fetch site info for locales: %@", errors);
 }
+
+#endif
 
 @end
