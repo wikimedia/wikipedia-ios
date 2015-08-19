@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 500.0;
+static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 100.0; //meters before we update location
 
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
@@ -24,7 +24,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 500.0;
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.activityType = CLActivityTypeFitness;
-//        _locationManager.distanceFilter = WMFMinimumDistanceBeforeUpdatingLocation; //meters before we update location
+        _locationManager.distanceFilter = WMFMinimumDistanceBeforeUpdatingLocation;
     }
     
     return _locationManager;
@@ -96,12 +96,6 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 500.0;
     }
     
     CLLocation* currentLocation = [locations lastObject];
-    
-    if(self.lastLocation){
-        if([currentLocation distanceFromLocation:self.lastLocation] < WMFMinimumDistanceBeforeUpdatingLocation){
-            return;
-        }
-    }
     
     self.lastLocation = currentLocation;
     [self.delegate nearbyController:self didUpdateLocation:currentLocation];

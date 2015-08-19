@@ -1,10 +1,3 @@
-//
-//  SSSectionedDataSource+WMFSectionConvenience.h
-//  
-//
-//  Created by Corey Floyd on 8/19/15.
-//
-//
 
 #import "SSSectionedDataSource.h"
 #import <SSDataSources/SSDataSources.h>

@@ -18,6 +18,8 @@
 static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 static NSUInteger const WMFNearbySectionMaxResults = 3;
 
+static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters before we update fetch
+
 @interface WMFNearbySectionController ()<WMFNearbyControllerDelegate>
 
 @property (nonatomic, strong, readwrite) WMFLocationSearchFetcher* locationSearchFetcher;
@@ -124,7 +126,7 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location{
     [self updateSectionWithLocation:location];
-    [self fetchNearbyArticlesWithLocation:location];
+    [self fetchNearbyArticlesIfLocationHasSignificantlyChanged:location];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading{
@@ -141,7 +143,20 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
 
 #pragma mark - Fetch Nearby Results
 
+- (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location{
+    
+    if(self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching){
+        return;
+    }
+    
+    [self fetchNearbyArticlesWithLocation:location];
+}
+
 - (void)fetchNearbyArticlesWithLocation:(CLLocation*)location{
+    
+    if(self.locationSearchFetcher.isFetching){
+        return;
+    }
     
     [self.locationSearchFetcher fetchArticlesWithLocation:location]
     .then(^(WMFLocationSearchResults* results){
