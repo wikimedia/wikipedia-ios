@@ -1,25 +1,31 @@
 
 #import "WMFAppViewController.h"
+
+#import <PiwikTracker/PiwikTracker.h>
 #import "SessionSingleton.h"
-#import "WMFStyleManager.h"
-#import "WMFSearchViewController.h"
-#import "WMFArticleListCollectionViewController.h"
-#import "DataMigrationProgressViewController.h"
+
+#import "MediaWikiKit.h"
 #import "WMFSavedPagesDataSource.h"
 #import "WMFRecentPagesDataSource.h"
+
+#import <Masonry/Masonry.h>
+
+#import "WMFStyleManager.h"
+
+#import "WMFNavigationTransitionController.h"
+
+#import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIStoryboard+WMFExtensions.h"
 #import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
-#import <Masonry/Masonry.h>
-#import "MediaWikiKit.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
-#import "WMFNavigationTransitionController.h"
 
+#import "WMFHomeViewController.h"
+#import "WMFSearchViewController.h"
+#import "WMFArticleListCollectionViewController.h"
+#import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
-#import "NearbyViewController.h"
-#import <PiwikTracker/PiwikTracker.h>
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -54,7 +60,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
-@property (nonatomic, strong, readonly) NearbyViewController* nearbyViewController;
+@property (nonatomic, strong, readonly) WMFHomeViewController* homeViewController;
 @property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
@@ -71,7 +77,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 - (void)loadMainUI {
     [self configureTabController];
-    [self configureNearbyViewController];
+    [self configureHomeViewController];
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
@@ -92,8 +98,8 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     }
 }
 
-- (void)configureNearbyViewController {
-    //[self.nearbyViewController doSomething];
+- (void)configureHomeViewController{
+    self.homeViewController.searchSite = [self.session searchSite];
 }
 
 - (void)configureSearchViewController {
@@ -179,8 +185,8 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     return self.session.userDataStore;
 }
 
-- (NearbyViewController*)nearbyViewController {
-    return (NearbyViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
+- (WMFHomeViewController*)homeViewController {
+    return (WMFHomeViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
 }
 
 - (WMFSearchViewController*)searchViewController {

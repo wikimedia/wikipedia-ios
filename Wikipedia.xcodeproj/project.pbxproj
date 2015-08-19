@@ -195,6 +195,7 @@
 		0E466E521B41F83500E91992 /* WMFArticlePopupTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E466E511B41F83500E91992 /* WMFArticlePopupTransition.m */; };
 		0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */; };
 		0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */; };
+		0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */; };
 		0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */; };
 		0E7955D01B2B659500B055A2 /* WMFArticleListTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955CD1B2B659500B055A2 /* WMFArticleListTransition.m */; };
 		0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */; };
@@ -823,6 +824,8 @@
 		0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFScrollViewTopPanGestureRecognizer.m; sourceTree = "<group>"; };
 		0E5F285E1B6719AF008885A2 /* MWKArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKArticlePreview.h; sourceTree = "<group>"; };
 		0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreview.m; sourceTree = "<group>"; };
+		0E6FAFB31B7D5740000E5A46 /* WMFHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeViewController.h; sourceTree = "<group>"; };
+		0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeViewController.m; sourceTree = "<group>"; };
 		0E7955C21B2B389800B055A2 /* TGLStackedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLStackedLayout.h; sourceTree = "<group>"; };
 		0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLStackedLayout.m; sourceTree = "<group>"; };
 		0E7955CC1B2B659500B055A2 /* WMFArticleListTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListTransition.h; sourceTree = "<group>"; };
@@ -2402,6 +2405,8 @@
 		0EEAF0F61B8229E6000D4232 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0E6FAFB31B7D5740000E5A46 /* WMFHomeViewController.h */,
+				0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */,
 				0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */,
 				0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */,
 				0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */,
