@@ -6,7 +6,7 @@
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 
 #import "WMFLocationSearchResults.h"
-#import "MWKNearbyArticleResult.h"
+#import "MWKLocationSearchResult.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -71,7 +71,7 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
 - (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath{
     
     WMFHomeNearbyCell* nearbyCell = (id)cell;
-    MWKNearbyArticleResult* result = object;
+    MWKLocationSearchResult* result = object;
     nearbyCell.titleText = result.displayTitle;
     nearbyCell.descriptionText = result.wikidataDescription;
     nearbyCell.distance = result.distanceFromQueryCoordinates;
@@ -92,7 +92,7 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
         WMFHomeNearbyCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
         
         if(cell){
-            MWKNearbyArticleResult* result = [self.dataSource itemAtIndexPath:obj];
+            MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
             cell.distance = [location distanceFromLocation:result.location];
         }
     }];
@@ -105,7 +105,7 @@ static NSUInteger const WMFNearbySectionMaxResults = 3;
         WMFHomeNearbyCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
         
         if(cell){
-            MWKNearbyArticleResult* result = [self.dataSource itemAtIndexPath:obj];
+            MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
         }
     }];
 }

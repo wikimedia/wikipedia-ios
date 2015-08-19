@@ -1,7 +1,7 @@
 
 #import "WMFLocationSearchResponseSerializer.h"
 #import <Mantle/Mantle.h>
-#import "MWKNearbyArticleResult.h"
+#import "MWKLocationSearchResult.h"
 
 @implementation WMFLocationSearchResponseSerializer
 
@@ -12,8 +12,8 @@
     NSDictionary* nearbyResultsDictionary = JSON[@"query"][@"pages"];
     NSArray* nearbyResultsArray = [nearbyResultsDictionary allValues];
     
-    NSArray* results = [MTLJSONAdapter modelsOfClass:[MWKNearbyArticleResult class] fromJSONArray:nearbyResultsArray error:error];
-    return [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKNearbyArticleResult new], distanceFromQueryCoordinates) ascending:YES]]];
+    NSArray* results = [MTLJSONAdapter modelsOfClass:[MWKLocationSearchResult class] fromJSONArray:nearbyResultsArray error:error];
+    return [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];
 }
 
 @end

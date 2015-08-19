@@ -13,7 +13,6 @@
 #import "PromiseKit.h"
 
 #import "WMFLocationSearchResults.h"
-#import "MWKNearbyArticleResult.h"
 
 @interface WMFLocationSearchFetcher ()
 
