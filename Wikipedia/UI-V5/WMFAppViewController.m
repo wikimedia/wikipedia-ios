@@ -90,16 +90,14 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController* navigationController = [self navigationControllerForTab:i];
         navigationController.delegate = self.navigationTransitionController;
-        // prevent navigation bar from showing initially or hiding/showing as a side-effect
-        navigationController.hidesBarsOnSwipe             = NO;
-        navigationController.hidesBarsOnTap               = NO;
-        navigationController.hidesBarsWhenKeyboardAppears = NO;
-        navigationController.navigationBarHidden          = YES;
     }
 }
 
 - (void)configureHomeViewController {
     self.homeViewController.searchSite = [self.session searchSite];
+    self.homeViewController.dataStore   = self.session.dataStore;
+    self.homeViewController.savedPages  = self.session.userDataStore.savedPageList;
+    self.homeViewController.recentPages = self.session.userDataStore.historyList;
 }
 
 - (void)configureSearchViewController {
