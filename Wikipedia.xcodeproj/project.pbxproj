@@ -218,6 +218,11 @@
 		0ED44D751B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */; };
 		0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */; };
 		0ED689781B8234B000B30427 /* WMFLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689771B8234B000B30427 /* WMFLocationManager.m */; };
+		0ED6897B1B82422C00B30427 /* MWKLocationSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6897A1B82422C00B30427 /* MWKLocationSearchResult.m */; };
+		0ED6897F1B82470900B30427 /* WMFLocationSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6897E1B82470900B30427 /* WMFLocationSearchFetcher.m */; };
+		0ED689841B8247E300B30427 /* WMFLocationSearchResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689811B8247E300B30427 /* WMFLocationSearchResponseSerializer.m */; };
+		0ED689851B8247E300B30427 /* WMFLocationSearchRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689831B8247E300B30427 /* WMFLocationSearchRequestSerializer.m */; };
+		0ED689881B82559E00B30427 /* WMFLocationSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689871B82559E00B30427 /* WMFLocationSearchResults.m */; };
 		0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */; };
 		0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE768801AFD25CC00A5D046 /* WMFSearchFunnel.m */; };
 		0EF451F31B5458F700D621BD /* UITabBarController+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF451F21B5458F700D621BD /* UITabBarController+WMFExtensions.m */; };
@@ -852,6 +857,16 @@
 		0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+WMFExtensions.m"; sourceTree = "<group>"; };
 		0ED689761B8234B000B30427 /* WMFLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationManager.h; sourceTree = "<group>"; };
 		0ED689771B8234B000B30427 /* WMFLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationManager.m; sourceTree = "<group>"; };
+		0ED689791B82422C00B30427 /* MWKLocationSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLocationSearchResult.h; sourceTree = "<group>"; };
+		0ED6897A1B82422C00B30427 /* MWKLocationSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLocationSearchResult.m; sourceTree = "<group>"; };
+		0ED6897D1B82470900B30427 /* WMFLocationSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationSearchFetcher.h; sourceTree = "<group>"; };
+		0ED6897E1B82470900B30427 /* WMFLocationSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationSearchFetcher.m; sourceTree = "<group>"; };
+		0ED689801B8247E300B30427 /* WMFLocationSearchResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationSearchResponseSerializer.h; sourceTree = "<group>"; };
+		0ED689811B8247E300B30427 /* WMFLocationSearchResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationSearchResponseSerializer.m; sourceTree = "<group>"; };
+		0ED689821B8247E300B30427 /* WMFLocationSearchRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationSearchRequestSerializer.h; sourceTree = "<group>"; };
+		0ED689831B8247E300B30427 /* WMFLocationSearchRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationSearchRequestSerializer.m; sourceTree = "<group>"; };
+		0ED689861B82559E00B30427 /* WMFLocationSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationSearchResults.h; sourceTree = "<group>"; };
+		0ED689871B82559E00B30427 /* WMFLocationSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationSearchResults.m; sourceTree = "<group>"; };
 		0EE768791AF982C100A5D046 /* WMFArticleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleProtocol.h; path = Wikipedia/Protocols/WMFArticleProtocol.h; sourceTree = SOURCE_ROOT; };
 		0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleProtocol.m; path = Wikipedia/Protocols/WMFArticleProtocol.m; sourceTree = SOURCE_ROOT; };
 		0EE7687F1AFD25CC00A5D046 /* WMFSearchFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchFunnel.h; sourceTree = "<group>"; };
@@ -2124,6 +2139,21 @@
 			name = Table;
 			sourceTree = "<group>";
 		};
+		0E03E27E1B82EF7600C1FBD7 /* Fetcher */ = {
+			isa = PBXGroup;
+			children = (
+				0ED6897D1B82470900B30427 /* WMFLocationSearchFetcher.h */,
+				0ED6897E1B82470900B30427 /* WMFLocationSearchFetcher.m */,
+				0ED689801B8247E300B30427 /* WMFLocationSearchResponseSerializer.h */,
+				0ED689811B8247E300B30427 /* WMFLocationSearchResponseSerializer.m */,
+				0ED689821B8247E300B30427 /* WMFLocationSearchRequestSerializer.h */,
+				0ED689831B8247E300B30427 /* WMFLocationSearchRequestSerializer.m */,
+				0ED689861B82559E00B30427 /* WMFLocationSearchResults.h */,
+				0ED689871B82559E00B30427 /* WMFLocationSearchResults.m */,
+			);
+			name = Fetcher;
+			sourceTree = "<group>";
+		};
 		0E03E2961B844D7700C1FBD7 /* Location Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2328,6 +2358,7 @@
 			isa = PBXGroup;
 			children = (
 				0E03E2961B844D7700C1FBD7 /* Location Manager */,
+				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
 			);
 			name = "Nearby Section";
 			sourceTree = "<group>";
@@ -2658,6 +2689,8 @@
 				BCB669A11A83F6C300C7B1FE /* MWKSectionList.m */,
 				BC5FA1801B738DFB005BE5BA /* MWKCitation.h */,
 				BC5FA1811B738DFB005BE5BA /* MWKCitation.m */,
+				0ED689791B82422C00B30427 /* MWKLocationSearchResult.h */,
+				0ED6897A1B82422C00B30427 /* MWKLocationSearchResult.m */,
 			);
 			name = "Data i/o";
 			sourceTree = "<group>";
@@ -3605,6 +3638,7 @@
 				BC505F031B5D4D9300537006 /* UIImageView+WMFContentOffset.m in Sources */,
 				BCB669AE1A83F6C400C7B1FE /* MWKHistoryEntry.m in Sources */,
 				0EFB0EF51B31DE7200D05C08 /* NSError+WMFExtensions.m in Sources */,
+				0ED689851B8247E300B30427 /* WMFLocationSearchRequestSerializer.m in Sources */,
 				0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
 				04D686FC1AB2949C0009B44A /* WikiGlyphButton.m in Sources */,
 				C98990341A699DE000AF44FC /* WMFShareCardViewController.m in Sources */,
@@ -3616,6 +3650,7 @@
 				BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */,
 				0EFB0F261B31EE2D00D05C08 /* SectionImage.m in Sources */,
 				04D686C91AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
+				0ED689841B8247E300B30427 /* WMFLocationSearchResponseSerializer.m in Sources */,
 				BC092B961B18E89200093C59 /* NSString+WMFPageUtilities.m in Sources */,
 				04490FD51AF16A83009FAB52 /* WMFBundledImageProtocol.m in Sources */,
 				0429300A18604898002A13FC /* SavedPagesResultCell.m in Sources */,
@@ -3684,6 +3719,7 @@
 				BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */,
 				BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
 				BCB669AF1A83F6C400C7B1FE /* MWKHistoryList.m in Sources */,
+				0ED689881B82559E00B30427 /* WMFLocationSearchResults.m in Sources */,
 				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
@@ -3720,6 +3756,7 @@
 				04A807311B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
 				BC3863521B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
+				0ED6897B1B82422C00B30427 /* MWKLocationSearchResult.m in Sources */,
 				BCB669731A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */,
 				D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */,
@@ -3745,6 +3782,7 @@
 				04A9C2A21B4F326D008B996F /* WMFArticleReadMoreCell.m in Sources */,
 				BCB58F541A894D3E00465627 /* WMFImageGalleryDetailOverlayView.m in Sources */,
 				BCAFC5D31AFD5F7E004615BA /* MWKArticle+WMFSharing.m in Sources */,
+				0ED6897F1B82470900B30427 /* WMFLocationSearchFetcher.m in Sources */,
 				BCFB090D1B445A720077955B /* UIImage+WMFSerialization.m in Sources */,
 				BC8210D31B4EEA190010BF7B /* SDImageCache+WMFPersistentCache.m in Sources */,
 				BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */,
