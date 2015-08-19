@@ -26,6 +26,9 @@ pod 'BlocksKit/UIKit', '~> 2.2'
 # KVO
 pod 'KVOController'
 
+# Datasources
+pod 'SSDataSources'
+
 # Autolayout
 pod 'Masonry', '0.6.2'
 

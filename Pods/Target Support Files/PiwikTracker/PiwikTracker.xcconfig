@@ -1,0 +1,1 @@
+PIWIKTRACKER_OTHER_LDFLAGS = -framework "CoreData" -framework "CoreGraphics" -framework "CoreLocation" -framework "Foundation" -framework "UIKit"

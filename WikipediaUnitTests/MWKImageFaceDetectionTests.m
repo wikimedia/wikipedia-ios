@@ -96,7 +96,7 @@
         .then(^(NSArray* faces) {
             [self.image setNormalizedFaceBoundsFromFeatures:faces inImage:facelessImage];
         });
-    } timeout:WMFDefaultExpectationTimeout WMFExpectFromHere];
+    } timeout:WMFDefaultExpectationTimeout * 2 WMFExpectFromHere];
 
     XCTAssertTrue(self.image.didDetectFaces);
     XCTAssertFalse(self.image.hasFaces);

@@ -1,15 +1,12 @@
-#import <Mantle/Mantle.h>
+#import <SSDataSources/SSDataSources.h>
 #import "WMFArticleListDataSource.h"
 
 @class MWKHistoryList;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRecentPagesDataSource : MTLModel<WMFArticleListDataSource>
+@interface WMFRecentPagesDataSource : SSArrayDataSource<WMFArticleListDataSource>
 
-/**
- *  Observable
- */
 @property (nonatomic, strong, readonly) NSArray* articles;
 
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;

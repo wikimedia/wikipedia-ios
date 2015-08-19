@@ -17,22 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFSavedPagesDataSource
 
 - (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages {
-    self = [super init];
+    self = [super initWithTarget:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries)];
     if (self) {
         self.savedPages = savedPages;
-        [self.KVOControllerNonRetaining observe:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries) options:NSKeyValueObservingOptionPrior block:^(id observer, id object, NSDictionary* change) {
-            NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
-
-            if ([change[NSKeyValueChangeNotificationIsPriorKey] boolValue]) {
-                [observer willChange:changeKind
-                     valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
-                              forKey:WMF_SAFE_KEYPATH(((WMFSavedPagesDataSource*)observer), articles)];
-            } else {
-                [observer didChange:changeKind
-                    valuesAtIndexes:change[NSKeyValueChangeIndexesKey]
-                             forKey:WMF_SAFE_KEYPATH(((WMFSavedPagesDataSource*)observer), articles)];
-            }
-        }];
     }
     return self;
 }

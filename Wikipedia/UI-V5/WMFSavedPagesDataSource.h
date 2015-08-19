@@ -1,18 +1,13 @@
-
-#import <Mantle/Mantle.h>
+#import <SSDataSources/SSDataSources.h>
 #import "WMFArticleListDataSource.h"
 
 @class MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSavedPagesDataSource : MTLModel<WMFArticleListDataSource>
+@interface WMFSavedPagesDataSource : SSArrayDataSource<WMFArticleListDataSource>
 
-/**
- *  Observable
- */
 @property (nonatomic, strong, readonly) NSArray* articles;
-
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 
 - (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages;
