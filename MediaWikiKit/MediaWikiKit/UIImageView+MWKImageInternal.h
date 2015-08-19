@@ -27,6 +27,18 @@ static inline BOOL WMFApplyImageOptionsToAnimationFlag(WMFImageOptions options, 
            && ((options & WMFImageOptionAlwaysAnimate) || animated);
 }
 
+/**
+ *  Check whether or not face detection should be run, based on the metadata's state & the provided options.
+ *
+ *  @param imageMetadata The metadata which may or may not have face detection data.
+ *  @param options       Options specifying whether or not face detection should run.
+ *
+ *  @return @c YES if face detection should run, otherwise @c NO. Can mean user doesn't want to center faces or that
+ *          face detection has already been run for this image.
+ *
+ *  @warning Due to limitations in the data layer, this might unexpectedly report positive results since @c MWKImage
+ *           doesn't (easily) allow for checking if face detection has run on <b>any variant</b> of an image.
+ */
 extern BOOL WMFShouldDetectFacesForMetadataWithOptions(MWKImage* imageMetadata, WMFImageOptions options);
 
 @interface UIImageView (WMFAssociatedObjects)
