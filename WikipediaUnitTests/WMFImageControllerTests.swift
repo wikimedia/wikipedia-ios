@@ -34,7 +34,7 @@ class WMFImageControllerTests: XCTestCase {
         expectPromise(toResolve(),
             pipe: { imgDownload in
                 XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
-            }) { () -> Promise<ImageDownload> in
+            }) { () -> Promise<WMFImageDownload> in
                 self.imageController.fetchImageWithURL(testURL)
             }
     }
@@ -53,7 +53,7 @@ class WMFImageControllerTests: XCTestCase {
                 XCTAssertEqual(error.domain, stubbedError.domain)
                 let failingURL = error.userInfo![NSURLErrorFailingURLErrorKey] as! NSURL
                 XCTAssertEqual(failingURL, testURL)
-            }) { () -> Promise<ImageDownload> in
+            }) { () -> Promise<WMFImageDownload> in
                 self.imageController.fetchImageWithURL(testURL)
             }
     }
@@ -67,7 +67,7 @@ class WMFImageControllerTests: XCTestCase {
         expectPromise(toCatch(policy: CatchPolicy.AllErrors),
         pipe: { err in
             XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
-        }) { () -> Promise<ImageDownload> in
+        }) { () -> Promise<WMFImageDownload> in
             let promise = self.imageController.fetchImageWithURL(testURL)
             self.imageController.cancelFetchForURL(testURL)
             return promise
@@ -87,7 +87,7 @@ class WMFImageControllerTests: XCTestCase {
         expectPromise(toCatch(policy: CatchPolicy.AllErrors),
         pipe: { err in
             XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
-        }) { () -> Promise<ImageDownload> in
+        }) { () -> Promise<WMFImageDownload> in
             self.imageController
                 // import temp fixture data into image controller's disk cache
                 .importImage(fromFile: tempPath, withURL: testURL)

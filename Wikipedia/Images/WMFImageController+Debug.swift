@@ -14,7 +14,7 @@ let APPLY_IMAGE_OVERLAYS = false
 #endif
 
 internal extension WMFImageController {
-    func applyDebugTransformIfEnabled(promise: Promise<ImageDownload>) -> Promise<ImageDownload> {
+    func applyDebugTransformIfEnabled(promise: Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
         #if NDEBUG
             return promise
         #else
@@ -26,12 +26,13 @@ internal extension WMFImageController {
         #endif
     }
 
-    private func applyDebugTransforms(toDownload download: ImageDownload) -> ImageDownload {
+    private func applyDebugTransforms(toDownload download: WMFImageDownload) -> WMFImageDownload {
         var transformedDownload = download
         transformedDownload.image = download.image.wmf_imageByDrawingInContext() {
             download.image.wmf_fillCurrentContext()
             // tint
-            CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(), download.origin.debugColor.CGColor)
+            CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(),
+                                           ImageOrigin(rawValue: download.origin)!.debugColor.CGColor)
             UIRectFillUsingBlendMode(download.image.wmf_frame, kCGBlendModeOverlay)
         }
         return transformedDownload

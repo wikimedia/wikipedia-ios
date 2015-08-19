@@ -92,8 +92,6 @@
  */
 @property (copy, nonatomic) NSArray* allNormalizedFaceBounds;
 
-- (void)setNormalizedFaceBoundsFromFeatures:(NSArray*)features inImage:(UIImage*)image;
-
 /**
  * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.
  * @return The normalized bounds of the first face, or `CGRectZero` if allNormalizedFaceBounds is empty or `nil`.

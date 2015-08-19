@@ -8,14 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIImageView (WMFContentOffset)
 
-- (void)wmf_setContentOffsetToCenterFeature:(CIFeature* __nullable)feature;
+- (void)wmf_setContentOffsetToCenterFeature:(CIFeature* __nullable)feature fromImage:(UIImage*)image;
 
-- (void)wmf_setContentOffsetToCenterRect:(CGRect)rect;
+- (void)wmf_setContentOffsetToCenterRect:(CGRect)rect image:(UIImage*)image;
 
-- (void)wmf_setContentOffset:(CGPoint)offset;
+- (void)wmf_setContentOffset:(CGPoint)offset image:(UIImage*)image;
 
 - (void)wmf_resetContentOffset;
 
 @end
+
+NS_ASSUME_NONNULL_END

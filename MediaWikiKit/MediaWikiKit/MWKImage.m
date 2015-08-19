@@ -5,8 +5,6 @@
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
 #import "Wikipedia-Swift.h"
-#import "UIImage+WMFNormalization.h"
-#import <BlocksKit/BlocksKit.h>
 
 @interface MWKImage ()
 
@@ -84,12 +82,6 @@
 }
 
 #pragma mark - Accessors
-
-- (void)setNormalizedFaceBoundsFromFeatures:(NSArray*)features inImage:(UIImage*)image {
-    self.allNormalizedFaceBounds = [features bk_map:^NSValue*(CIFeature* feature) {
-        return [NSValue valueWithCGRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
-    }];
-}
 
 - (BOOL)didDetectFaces {
     return self.allNormalizedFaceBounds != nil;
