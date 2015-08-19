@@ -13,6 +13,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  Applys a bitmask of @c WMFImageOptions to an animation flag, returning the result.
+ *
+ *  @param options  The options to apply.
+ *  @param animated Whether or not the transition should be animated, before applying user options.
+ *
+ *  @return @c NO if @c WMFImageOptionNeverAnimate is set, @c YES if @c WMFImageOptionAlwaysAnimate is set, or the
+ *          value originally passed in the @c animated parameter.
+ */
+static inline BOOL WMFApplyImageOptionsToAnimationFlag(WMFImageOptions options, BOOL animated) {
+    return !(options & WMFImageOptionNeverAnimate)
+           && ((options & WMFImageOptionAlwaysAnimate) || animated);
+}
+
+extern BOOL WMFShouldDetectFacesForMetadataWithOptions(MWKImage* imageMetadata, WMFImageOptions options);
+
 @interface UIImageView (WMFAssociatedObjects)
 
 /**
@@ -43,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)inputSetImageBlock
-                      completion:(dispatch_block_t __nullable)completion
+                      completion:(void (^ __nullable)(BOOL))completion
                          onError:(void (^ __nullable)(NSError*))failure
                  usingController:(WMFImageController*)controller;
 
@@ -51,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)wmf_setCachedImageForMetadata:(MWKImage*)imageMetadata
                               options:(WMFImageOptions)options
                         setImageBlock:(WMFSetImageBlock __nullable)setImageBlock
-                           completion:(dispatch_block_t __nullable)completion
+                           completion:(void (^ __nullable)(BOOL))completion
                       usingController:(WMFImageController*)controller;
 
 /**
@@ -75,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
          forMetadata:(MWKImage*)imageMetadata
              options:(WMFImageOptions)options
            withBlock:(WMFSetImageBlock __nullable)setImageBlock
-          completion:(dispatch_block_t __nullable)completion
+          completion:(void (^ __nullable)(BOOL))completion
             animated:(BOOL)animated;
 
 @end

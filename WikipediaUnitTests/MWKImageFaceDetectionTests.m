@@ -102,6 +102,30 @@
     XCTAssertFalse(self.image.hasFaces);
 }
 
+- (void)testDetectingFacesInEmptyImage {
+    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
+
+    UIImage* emptyImage = [UIImage new];
+    NSParameterAssert(emptyImage);
+
+    [self expectAnyPromiseToResolve:^AnyPromise*{
+        CIDetector* sharedDetector = [CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector];
+        return [sharedDetector wmf_detectFeaturelessFacesInImage:emptyImage]
+        .then(^(NSArray* faces) {
+            [self.image setNormalizedFaceBoundsFromFeatures:faces inImage:emptyImage];
+        });
+    } timeout:WMFDefaultExpectationTimeout WMFExpectFromHere];
+
+    XCTAssertTrue(self.image.didDetectFaces);
+    XCTAssertFalse(self.image.hasFaces);
+}
+
+- (void)testShouldSetDidDetectFacesIfPassedNilFeatures {
+    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
+    [self.image setNormalizedFaceBoundsFromFeatures:nil inImage:nil];
+    XCTAssertTrue(self.image.didDetectFaces, @"Need to be able to handle cases where CIDetector passes nil.");
+}
+
 // TODO: visual test for centered UIImageView
 #if 0
 - (void)testDetectingFacesInObamaLeadImage {

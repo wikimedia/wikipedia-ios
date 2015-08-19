@@ -23,6 +23,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+BOOL WMFShouldDetectFacesForMetadataWithOptions(MWKImage* imageMetadata, WMFImageOptions options) {
+    return (options & WMFImageOptionCenterFace) && !imageMetadata.didDetectFaces;
+}
+
 static const char* const MWKImageAssociationKey = "MWKImage";
 
 static const char* const WMFImageControllerAssociationKey = "WMFImageController";
@@ -44,7 +48,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 - (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)setImageBlock
-                      completion:(dispatch_block_t __nullable)completion
+                      completion:(void (^ __nullable)(BOOL))completion
                          onError:(void (^ __nullable)(NSError*))failure {
     [self wmf_setImageFromMetadata:imageMetadata
                            options:options
@@ -57,7 +61,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 - (BOOL)wmf_setCachedImageForMetadata:(MWKImage*)imageMetadata
                               options:(WMFImageOptions)options
                         setImageBlock:(WMFSetImageBlock __nullable)setImageBlock
-                           completion:(dispatch_block_t __nullable)completion {
+                           completion:(void (^ __nullable)(BOOL))completion {
     return [self wmf_setCachedImageForMetadata:imageMetadata
                                        options:options
                                  setImageBlock:setImageBlock
@@ -104,7 +108,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 - (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)setImageBlock
-                      completion:(dispatch_block_t __nullable)completion
+                      completion:(void (^ __nullable)(BOOL))completion
                          onError:(void (^ __nullable)(NSError*))failure
                  usingController:(WMFImageController*)imageController {
     NSAssert(imageMetadata, @"Illegal attempt to set image from nil metadata. If needed, call wmf_resetImageMetadata.");
@@ -133,11 +137,14 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
         @strongify(self);
         if (!WMF_EQUAL(self.wmf_imageMetadata, isEqualToImage:, imageMetadata)) {
             return [NSError cancelledError];
-        }
-        return [imageMetadata setFaceBoundsFromFeaturesInImage:download.image].then(^(MWKImage* _) {
-            [imageMetadata save];
+        } else if (WMFShouldDetectFacesForMetadataWithOptions(imageMetadata, options)) {
+            return [imageMetadata setFaceBoundsFromFeaturesInImage:download.image].then(^(MWKImage* _) {
+                [imageMetadata save];
+                return download.image;
+            });
+        } else {
             return download.image;
-        });
+        }
     })
     .then(^(UIImage* image) {
         @strongify(self);
@@ -162,7 +169,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 - (BOOL)wmf_setCachedImageForMetadata:(MWKImage*)imageMetadata
                               options:(WMFImageOptions)options
                         setImageBlock:(WMFSetImageBlock __nullable)setImageBlock
-                           completion:(dispatch_block_t __nullable)completion
+                           completion:(void (^ __nullable)(BOOL))completion
                       usingController:(WMFImageController*)controller {
     NSAssert(imageMetadata, @"Illegal attempt to set image from nil metadata. If needed, call wmf_resetImageMetadata.");
 
@@ -171,7 +178,13 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     }
 
     UIImage* cachedImage = [controller cachedImageInMemoryWithURL:imageMetadata.sourceURL];
-    if (cachedImage && (!(options & WMFImageOptionCenterFace) || imageMetadata.didDetectFaces)) {
+    if (!cachedImage) {
+        DDLogVerbose(@"No cached image found for %@", imageMetadata.sourceURL);
+        [self wmf_resetImageMetadata];
+    } else if (WMFShouldDetectFacesForMetadataWithOptions(imageMetadata, options)) {
+        DDLogInfo(@"%@ requires face detection, unable to set cached image.", imageMetadata);
+        [self wmf_resetImageMetadata];
+    } else {
         [self wmf_setMetadata:imageMetadata controller:controller];
         [self wmf_setImage:cachedImage
                forMetadata:imageMetadata
@@ -188,7 +201,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
          forMetadata:(MWKImage*)imageMetadata
              options:(WMFImageOptions)options
            withBlock:(WMFSetImageBlock __nullable)setImageBlock
-          completion:(dispatch_block_t __nullable)completion
+          completion:(void (^ __nullable)(BOOL))completion
             animated:(BOOL)animated {
     NSAssert(!((options & WMFImageOptionNeverAnimate) && (options & WMFImageOptionAlwaysAnimate)),
              @"Illegal attempt to set both always & never animate!");
@@ -216,21 +229,23 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
         [self wmf_resetContentOffset];
     }
 
-    animated = (animated && !(options & WMFImageOptionNeverAnimate)) || (options & WMFImageOptionAlwaysAnimate);
+    float const duration = WMFApplyImageOptionsToAnimationFlag(options, animated) ?
+                           [CATransaction animationDuration] : 0.0;
+
     [UIView transitionWithView:self
-                      duration:animated ? [CATransaction animationDuration] : 0.0
+                      duration:duration
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
         NSParameterAssert(setImageBlock);
         setImageBlock(self, image, imageMetadata);
     }
                     completion:^(BOOL finished) {
-        if (finished) {
-            if (completion) {
-                completion();
-            }
-        } else {
-            DDLogWarn(@"%@ failed to transition to %@", self, imageMetadata.sourceURL);
+        if (!finished) {
+            DDLogWarn(@"Transition to %@ with duration %f in %@ didn't finish!",
+                      imageMetadata.sourceURL, duration, self);
+        }
+        if (completion) {
+            completion(finished);
         }
     }];
 }

@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setNormalizedFaceBoundsFromFeatures:(NSArray*)features inImage:(UIImage*)image {
     self.allNormalizedFaceBounds = [features bk_map:^NSValue*(CIFeature* feature) {
         return [NSValue valueWithCGRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]];
-    }];
-    NSParameterAssert(self.didDetectFaces || !features);
+    }] ? : @[];
+    NSParameterAssert(self.didDetectFaces);
 }
 
 - (AnyPromise*)setFaceBoundsFromFeaturesInImage:(UIImage*)image {

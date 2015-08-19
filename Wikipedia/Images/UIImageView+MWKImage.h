@@ -85,7 +85,7 @@ typedef void (^ WMFSetImageBlock)(UIImageView* imageView, UIImage* image, MWKIma
 - (void)wmf_setImageFromMetadata:(MWKImage*)imageMetadata
                          options:(WMFImageOptions)options
                        withBlock:(WMFSetImageBlock __nullable)setImageBlock
-                      completion:(dispatch_block_t __nullable)completion
+                      completion:(void (^ __nullable)(BOOL))completion
                          onError:(void (^ __nullable )(NSError*))failure;
 
 /**
@@ -102,7 +102,7 @@ typedef void (^ WMFSetImageBlock)(UIImageView* imageView, UIImage* image, MWKIma
 - (BOOL)wmf_setCachedImageForMetadata:(MWKImage*)imageMetadata
                               options:(WMFImageOptions)options
                         setImageBlock:(WMFSetImageBlock __nullable)setImageBlock
-                           completion:(dispatch_block_t __nullable)completion;
+                           completion:(void (^ __nullable)(BOOL))completion;
 
 @end
 
