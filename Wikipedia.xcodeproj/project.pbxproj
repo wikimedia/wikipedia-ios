@@ -217,6 +217,7 @@
 		0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */; };
 		0ED44D751B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */; };
 		0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */; };
+		0ED689781B8234B000B30427 /* WMFLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689771B8234B000B30427 /* WMFLocationManager.m */; };
 		0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */; };
 		0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE768801AFD25CC00A5D046 /* WMFSearchFunnel.m */; };
 		0EF451F31B5458F700D621BD /* UITabBarController+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF451F21B5458F700D621BD /* UITabBarController+WMFExtensions.m */; };
@@ -849,6 +850,8 @@
 		0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleViewControllerContainerCell.m; sourceTree = "<group>"; };
 		0ED44D761B28DA4D00F284BA /* UICollectionView+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+WMFExtensions.h"; sourceTree = "<group>"; };
 		0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+WMFExtensions.m"; sourceTree = "<group>"; };
+		0ED689761B8234B000B30427 /* WMFLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationManager.h; sourceTree = "<group>"; };
+		0ED689771B8234B000B30427 /* WMFLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationManager.m; sourceTree = "<group>"; };
 		0EE768791AF982C100A5D046 /* WMFArticleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleProtocol.h; path = Wikipedia/Protocols/WMFArticleProtocol.h; sourceTree = SOURCE_ROOT; };
 		0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleProtocol.m; path = Wikipedia/Protocols/WMFArticleProtocol.m; sourceTree = SOURCE_ROOT; };
 		0EE7687F1AFD25CC00A5D046 /* WMFSearchFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchFunnel.h; sourceTree = "<group>"; };
@@ -2121,6 +2124,15 @@
 			name = Table;
 			sourceTree = "<group>";
 		};
+		0E03E2961B844D7700C1FBD7 /* Location Manager */ = {
+			isa = PBXGroup;
+			children = (
+				0ED689761B8234B000B30427 /* WMFLocationManager.h */,
+				0ED689771B8234B000B30427 /* WMFLocationManager.m */,
+			);
+			name = "Location Manager";
+			sourceTree = "<group>";
+		};
 		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2263,6 +2275,7 @@
 				0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */,
 				0E366B491B308A2600ABFB86 /* UIStoryboard+WMFExtensions.h */,
 				0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */,
+				0EEAF0F61B8229E6000D4232 /* Home */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				0E2B06F91B2D128D00EA2F53 /* Search */,
 				0EFB48071B3BAFE900381F99 /* Article */,
@@ -2309,6 +2322,22 @@
 				BCB669921A83F6C300C7B1FE /* MWKRecentSearchEntry.m */,
 			);
 			name = "Recent Searches";
+			sourceTree = "<group>";
+		};
+		0ED6897C1B8246F400B30427 /* Nearby Section */ = {
+			isa = PBXGroup;
+			children = (
+				0E03E2961B844D7700C1FBD7 /* Location Manager */,
+			);
+			name = "Nearby Section";
+			sourceTree = "<group>";
+		};
+		0EEAF0F61B8229E6000D4232 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0ED6897C1B8246F400B30427 /* Nearby Section */,
+			);
+			name = Home;
 			sourceTree = "<group>";
 		};
 		0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */ = {
@@ -3740,6 +3769,7 @@
 				04272E7B1940EEBC00CC682F /* WMFAssetsFile.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				0EFB0F1C1B31EE2D00D05C08 /* NSManagedObject+WMFModelFactory.m in Sources */,
+				0ED689781B8234B000B30427 /* WMFLocationManager.m in Sources */,
 				D47BF5D4197870390067C3BC /* SavedPagesFunnel.m in Sources */,
 				04616DFC1AE706C600815BCE /* WMFLocalizationProtocol.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
