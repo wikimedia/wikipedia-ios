@@ -12,8 +12,19 @@
 
 #import <SSDataSources/SSDataSources.h>
 
+#import "MWKDataStore.h"
+#import "MWKSavedPageList.h"
+#import "MWKRecentSearchList.h"
+
+#import "MWKSite.h"
+#import "MWKLocationSearchResult.h"
+#import "MWKTitle.h"
+#import "MWKArticle.h"
+
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
+
+#import "WMFArticleContainerViewController.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -77,6 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden = NO;
+    
     [self flowLayout].itemSize            = CGSizeMake(self.view.bounds.size.width - 20, 150.0);
     [self flowLayout].headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 50.0);
     [self flowLayout].footerReferenceSize = CGSizeMake(self.view.bounds.size.width, 50.0);
@@ -84,10 +98,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    NSParameterAssert(self.searchSite);
-    [self configureDataSource];
 
+    NSParameterAssert(self.dataStore);
+    NSParameterAssert(self.searchSite);
+    NSParameterAssert(self.recentPages);
+    NSParameterAssert(self.savedPages);
+
+    [super viewDidAppear:animated];
+    [self configureDataSource];
     [self.locationManager startMonitoringLocation];
 }
 
@@ -157,6 +175,30 @@ NS_ASSUME_NONNULL_BEGIN
         [self.dataSource appendSection:section];
     } completion:NULL];
 }
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+    
+    id object = [self.dataSource itemAtIndexPath:indexPath];
+    
+    //TODO: Casting for now - ned to make a protocol or something
+    MWKLocationSearchResult* result = object;
+    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:result.displayTitle];
+    [self showArticleViewControllerForTitle:title animated:YES];
+}
+
+#pragma mark - Article Presentation
+
+- (void)showArticleViewControllerForTitle:(MWKTitle*)title animated:(BOOL)animated {
+    
+    MWKArticle* article  = [self.dataStore articleWithTitle:title];
+    WMFArticleContainerViewController* articleContainerVC = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore savedPages:self.savedPages];
+    articleContainerVC.article = article;
+    [self.navigationController pushViewController:articleContainerVC animated:animated];
+}
+
+
 
 @end
 
