@@ -7,6 +7,13 @@
 
     #Get build number from info.plist
     build=`/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "${INFOPLIST_FILE}"`
+    icon_caption="${CONFIGURATION}\n(${build})"
+    last_icon_caption_file="${CONFIGURATION_BUILD_DIR}/icon_caption"
+
+    if [[ -f "${last_icon_caption_file}" && `cat "${last_icon_caption_file}"` == "${icon_caption}" ]]; then
+      echo "Already overlaid ${icon_caption} on icons, skipping."
+      exit 0
+    fi
 
     #Find existing icons
     source_icon_set_prefix=$1
@@ -75,7 +82,7 @@
 
           #Overlay Image
           convert -background $overlay_color -fill white -gravity center -size ${overlay_width}x${overlay_height}\
-          caption:"${CONFIGURATION}\n(${build})"\
+          caption:"${icon_caption}"\
           "${source_icon_path}" +swap -gravity south -composite "${target_icon_path}"
 
         else
@@ -98,6 +105,8 @@
     IFS=$SAVEIFS
     echo "Reset IFS"
 
+    echo "Writing ${icon_caption} to last-processed icon caption file: ${last_icon_caption_file}"
+    echo "${icon_caption}" > "${last_icon_caption_file}"
   }
 
   processIconSet "AppIconSource" "AppIcon"
