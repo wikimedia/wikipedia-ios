@@ -9,6 +9,8 @@
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import <DTCoreText/DTCoreText.h>
 #import "MWKSite.h"
+#import "NSAttributedString+WMFModify.h"
+#import "NSAttributedString+WMFTrim.h"
 
 @implementation NSAttributedString (WMFHTMLForSite)
 
@@ -24,18 +26,35 @@
                DTDefaultFontFamily: defaultFont.familyName,
                DTDefaultFontName: defaultFont.fontName,
                DTDefaultFontSize: @(defaultFont.pointSize),
-               DTDefaultLineHeightMultiplier: @([[NSParagraphStyle defaultParagraphStyle] lineHeightMultiple]),
                DTDefaultLinkDecoration: @NO, // disable decoration for links
-               DTDefaultLinkColor: [UIColor wmf_logoBlue],
                DTDocumentPreserveTrailingSpaces: @YES,
-               DTDefaultStyleSheet: defaultStyleSheet
+               DTDefaultStyleSheet: defaultStyleSheet,
+               DTUseiOS6Attributes: @YES
     };
+    // Reminder! Use tintColor with UILabel or UITextView to control link color!
 }
 
 - (instancetype)initWithHTMLData:(NSData*)data site:(MWKSite*)site {
-    return [self initWithHTMLData:data
-                          options:[[self class] wmf_defaultHTMLOptionsForSite:site]
-               documentAttributes:nil];
+    NSAttributedString* attrStr = [self initWithHTMLData:data
+                                                 options:[[self class] wmf_defaultHTMLOptionsForSite:site]
+                                      documentAttributes:nil];
+
+    // DTCoreText adds a trailing line break(s) to the attributed string it generates.
+    attrStr = [attrStr wmf_trim];
+
+    // Needed because DTCoreText adds funky padding above the first paragraph if you use DTDefaultLineHeightMultiplier to increase line spacing.
+    attrStr = [self attributedStringWithFinalAdjustments:attrStr];
+
+    return attrStr;
+}
+
+- (NSAttributedString*)attributedStringWithFinalAdjustments:(NSAttributedString*)attrStr {
+    return [attrStr wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                                withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
+        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
+        style.lineSpacing = 12;
+        return style;
+    }];
 }
 
 @end
