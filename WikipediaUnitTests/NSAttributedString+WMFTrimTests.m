@@ -48,4 +48,12 @@
     assertThat([[[NSMutableAttributedString alloc] initWithString:@"\n \n   \n   "] wmf_trim].string, is(equalTo(@"")));
 }
 
+- (void)testTrailingWhiteSpaceString {
+    assertThat([[[NSMutableAttributedString alloc] initWithString:@"test text  \n   "] wmf_trim].string, is(equalTo(@"test text")));
+}
+
+- (void)testLeadingWhiteSpaceString {
+    assertThat([[[NSMutableAttributedString alloc] initWithString:@"\n \n  test text"] wmf_trim].string, is(equalTo(@"test text")));
+}
+
 @end
