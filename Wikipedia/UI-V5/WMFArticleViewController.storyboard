@@ -17,24 +17,24 @@
                         <color key="separatorColor" white="0.88258101850000004" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="fN6-15-6k9" customClass="WMFArticleTableHeaderView">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3F-xg-lcP">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                                     <animations/>
                                     <connections>
                                         <segue destination="7Or-9F-7Br" kind="embed" id="HdJ-OF-Rfg"/>
                                     </connections>
                                 </containerView>
                                 <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VfG-2f-on3" userLabel="Gray overlay">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                                     <animations/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                     <gestureRecognizers/>
                                 </view>
                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfp-fe-IJA" userLabel="Title Label">
-                                    <rect key="frame" x="20" y="84" width="560" height="60"/>
+                                    <rect key="frame" x="20" y="134" width="560" height="60"/>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -47,7 +47,7 @@
                                     <size key="shadowOffset" width="0.0" height="1"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NaE-rZ-0jM" userLabel="Description Label">
-                                    <rect key="frame" x="20" y="154" width="560" height="26"/>
+                                    <rect key="frame" x="20" y="204" width="560" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" placeholder="YES" id="dmn-b6-Cd3"/>
                                     </constraints>
@@ -276,7 +276,7 @@
             <objects>
                 <collectionViewController id="7Or-9F-7Br" customClass="WMFArticleHeaderImageGalleryViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="L4r-1P-bh8">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewLayout key="collectionViewLayout" id="s93-Y9-at2" customClass="WMFCollectionViewPageLayout"/>
