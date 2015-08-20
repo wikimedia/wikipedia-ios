@@ -180,7 +180,6 @@
 		0E03E28D1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */; };
 		0E03E28E1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */; };
 		0E03E2911B8430FE00C1FBD7 /* WMFNearbySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */; };
-		0E03E2941B84392100C1FBD7 /* WMFHomeSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */; };
 		0E03E2991B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */; };
 		0E03E29C1B84E88A00C1FBD7 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E29B1B84E88A00C1FBD7 /* WMFCompassView.m */; };
 		0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */; };
@@ -802,7 +801,6 @@
 		0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbySectionController.h; sourceTree = "<group>"; };
 		0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbySectionController.m; sourceTree = "<group>"; };
 		0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeSectionController.h; sourceTree = "<group>"; };
-		0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeSectionController.m; sourceTree = "<group>"; };
 		0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SSSectionedDataSource+WMFSectionConvenience.h"; sourceTree = "<group>"; };
 		0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SSSectionedDataSource+WMFSectionConvenience.m"; sourceTree = "<group>"; };
 		0E03E29A1B84E88A00C1FBD7 /* WMFCompassView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCompassView.h; sourceTree = "<group>"; };
@@ -2210,6 +2208,21 @@
 			name = "Location Manager";
 			sourceTree = "<group>";
 		};
+		0E03E2A21B85310400C1FBD7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0E03E28A1B83DA7300C1FBD7 /* WMFHomeNearbyCell.h */,
+				0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */,
+				0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */,
+				0E03E29A1B84E88A00C1FBD7 /* WMFCompassView.h */,
+				0E03E29B1B84E88A00C1FBD7 /* WMFCompassView.m */,
+				0E03E29D1B85310000C1FBD7 /* WMFNearbySectionEmptyCell.h */,
+				0E03E29E1B85310000C1FBD7 /* WMFNearbySectionEmptyCell.m */,
+				0E03E29F1B85310000C1FBD7 /* WMFNearbySectionEmptyCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2406,11 +2419,7 @@
 			children = (
 				0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */,
 				0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */,
-				0E03E28A1B83DA7300C1FBD7 /* WMFHomeNearbyCell.h */,
-				0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */,
-				0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */,
-				0E03E29A1B84E88A00C1FBD7 /* WMFCompassView.h */,
-				0E03E29B1B84E88A00C1FBD7 /* WMFCompassView.m */,
+				0E03E2A21B85310400C1FBD7 /* Views */,
 				0E03E2961B844D7700C1FBD7 /* Location Manager */,
 				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
 			);
@@ -2423,7 +2432,6 @@
 				0E6FAFB31B7D5740000E5A46 /* WMFHomeViewController.h */,
 				0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */,
 				0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */,
-				0E03E2931B84392100C1FBD7 /* WMFHomeSectionController.m */,
 				0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */,
 				0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */,
 				0ED6897C1B8246F400B30427 /* Nearby Section */,

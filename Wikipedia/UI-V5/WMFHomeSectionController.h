@@ -3,17 +3,13 @@
 
 @class SSSectionedDataSource;
 
+@protocol WMFHomeSectionControllerDelegate;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeSectionController : NSObject
+@protocol WMFHomeSectionController <NSObject>
 
-- (instancetype)initWithDataSource:(SSSectionedDataSource*)dataSource;
-
-@property (nonatomic, weak, readonly) SSSectionedDataSource* dataSource;
-
-- (NSInteger)sectionIndex;
-
-- (UICollectionView*)collectionView;
+@property (nonatomic, weak) id<WMFHomeSectionControllerDelegate> delegate;
 
 - (NSString*)sectionIdentifier;
 
@@ -26,6 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath;
 
 - (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath;
+
+- (NSArray*)items;
+
+@end
+
+typedef void (^WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
+
+
+@protocol WMFHomeSectionControllerDelegate <NSObject>
+
+- (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items;
+- (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items;
+
+- (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator;
 
 @end
 

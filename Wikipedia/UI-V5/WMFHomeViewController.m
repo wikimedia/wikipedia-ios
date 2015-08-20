@@ -11,6 +11,7 @@
 #import "WMFNearbySectionController.h"
 
 #import <SSDataSources/SSDataSources.h>
+#import "SSSectionedDataSource+WMFSectionConvenience.h"
 
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
@@ -29,7 +30,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController ()
+@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate>
 
 @property (nonatomic, strong) WMFNearbySectionController* nearbySectionController;
 
@@ -47,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController = [[WMFNearbySectionController alloc] initWithDataSource:self.dataSource locationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController = [[WMFNearbySectionController alloc] initWithLocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController.delegate = self;
     }
     return _nearbySectionController;
 }
@@ -69,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (SSSectionedDataSource*)dataSource {
     if (!_dataSource) {
         _dataSource = [[SSSectionedDataSource alloc] init];
+        _dataSource.shouldRemoveEmptySections = NO;
     }
     return _dataSource;
 }
@@ -114,9 +117,13 @@ NS_ASSUME_NONNULL_BEGIN
     [self.locationManager stopMonitoringLocation];
 }
 
-- (WMFHomeSectionController*)sectionControllerForSectionAtIndex:(NSInteger)index {
+- (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
     SSSection* section = [self.dataSource sectionAtIndex:index];
     return self.sectionControllers[section.sectionIdentifier];
+}
+
+- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller{
+    return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:[controller sectionIdentifier]];
 }
 
 #pragma mark - Data Source Configuration
@@ -130,13 +137,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.dataSource.cellCreationBlock = (id) ^ (id object, id parentView, NSIndexPath * indexPath){
         @strongify(self);
-        WMFHomeSectionController* controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         return [controller dequeueCellForCollectionView:self.collectionView atIndexPath:indexPath];
     };
 
     self.dataSource.cellConfigureBlock = ^(id cell, id object, id parentView, NSIndexPath* indexPath){
         @strongify(self);
-        WMFHomeSectionController* controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         [controller configureCell:cell withObject:object atIndexPath:indexPath];
     };
 
@@ -151,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.collectionSupplementaryConfigureBlock = ^(id view, NSString* kind, UICollectionView* cv, NSIndexPath* indexPath){
         @strongify(self);
 
-        WMFHomeSectionController* controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             WMFHomeSectionHeader* header = view;
@@ -162,19 +169,24 @@ NS_ASSUME_NONNULL_BEGIN
         }
     };
 
+    [self loadSectionForSectionController:self.nearbySectionController];
     self.dataSource.collectionView = self.collectionView;
+}
 
-    self.sectionControllers[self.nearbySectionController.sectionIdentifier] = self.nearbySectionController;
+- (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller{
 
-    [self.nearbySectionController registerCellsInCollectionView:self.collectionView];
-
-    SSSection* section = [SSSection new];
-    section.sectionIdentifier = self.nearbySectionController.sectionIdentifier;
-
+    self.sectionControllers[controller.sectionIdentifier] = controller;
+    
+    [controller registerCellsInCollectionView:self.collectionView];
+    
+    SSSection* section = [SSSection sectionWithItems:[controller items]];
+    section.sectionIdentifier = controller.sectionIdentifier;
+    
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
     } completion:NULL];
 }
+
 
 #pragma mark - UICollectionViewDelegate
 
@@ -197,6 +209,33 @@ NS_ASSUME_NONNULL_BEGIN
     articleContainerVC.article = article;
     [self.navigationController pushViewController:articleContainerVC animated:animated];
 }
+
+#pragma mark - WMFHomeSectionControllerDelegate
+
+- (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items{
+    
+    NSInteger section = [self indexForSectionController:controller];
+    [self.dataSource setItems:items inSection:section];
+}
+
+- (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items{
+    
+    NSInteger section = [self indexForSectionController:controller];
+    [self.dataSource appendItems:items toSection:section];
+}
+
+- (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator{
+    
+    NSInteger section = [self indexForSectionController:controller];
+    
+    [self.collectionView.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(NSIndexPath *obj, NSUInteger idx, BOOL *stop) {
+        
+        if(obj.section == section){
+            enumerator([self.collectionView cellForItemAtIndexPath:obj], obj);
+        }
+    }];
+}
+
 
 
 

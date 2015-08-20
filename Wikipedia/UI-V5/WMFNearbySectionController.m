@@ -15,6 +15,8 @@
 #import "WMFHomeNearbyCell.h"
 #import "UIView+WMFDefaultNib.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
 static NSUInteger const WMFNearbySectionMaxResults = 3;
 
@@ -31,11 +33,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @implementation WMFNearbySectionController
 
-- (instancetype)initWithDataSource:(SSSectionedDataSource*)dataSource locationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+@synthesize delegate = _delegate;
+
+- (instancetype)initWithLocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     NSParameterAssert(locationManager);
     NSParameterAssert(locationSearchFetcher);
 
-    self = [super initWithDataSource:dataSource];
+    self = [super init];
     if (self) {
         locationSearchFetcher.maximumNumberOfResults = WMFNearbySectionMaxResults;
         self.locationSearchFetcher                   = locationSearchFetcher;
@@ -58,6 +62,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     return @"More Nearby";
 }
 
+- (NSArray*)items{
+        return self.nearbyResults.results;
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
     [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib] forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
 }
@@ -78,26 +84,24 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 #pragma mark - Section Updates
 
 - (void)updateSectionWithResults:(WMFLocationSearchResults*)results {
-    [self.dataSource setItems:results.results inSection:[self sectionIndex]];
+    [self.delegate controller:self didSetItems:results.results];
 }
 
 - (void)updateSectionWithLocation:(CLLocation*)location {
-    [[self.dataSource indexPathsOfItemsInSection:[self sectionIndex]] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
-        WMFHomeNearbyCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
-
-        if (cell) {
-            MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
+    [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
+        
+        if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
+            MWKLocationSearchResult* result = [self items][indexPath.item];
             cell.distance = [location distanceFromLocation:result.location];
         }
     }];
 }
 
 - (void)updateSectionWithHeading:(CLHeading*)heading {
-    [[self.dataSource indexPathsOfItemsInSection:[self sectionIndex]] enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
-        WMFHomeNearbyCell* cell = (id)[self.collectionView cellForItemAtIndexPath:obj];
-
-        if (cell) {
-            MWKLocationSearchResult* result = [self.dataSource itemAtIndexPath:obj];
+    [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
+        
+        if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
+            MWKLocationSearchResult* result = [self items][indexPath.item];
             cell.headingAngle = [self headingAngleToLocation:result.location startLocationLocation:self.locationManager.lastLocation heading:heading interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
         }
     }];
@@ -197,3 +201,5 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
