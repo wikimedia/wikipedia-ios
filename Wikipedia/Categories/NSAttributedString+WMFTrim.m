@@ -12,12 +12,12 @@
 
     NSUInteger lastNonWhitespaceLocation = [self locationOfLastNonWhitespaceCharacter];
     if (lastNonWhitespaceLocation == NSNotFound) {
-        return self;
+        return [[NSAttributedString alloc] init];
     }
 
     NSUInteger firstNonWhitespaceLocation = [self locationOfFirstNonWhitespaceCharacter];
     if (firstNonWhitespaceLocation == NSNotFound) {
-        return self;
+        return [[NSAttributedString alloc] init];
     }
 
     return [self attributedSubstringFromRange:NSMakeRange(firstNonWhitespaceLocation, lastNonWhitespaceLocation - firstNonWhitespaceLocation + 1)];

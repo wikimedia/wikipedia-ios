@@ -6,6 +6,8 @@
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 #import "NSAttributedString+WMFTrim.h"
 #import "XCTestCase+WMFLabelConvenience.h"
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
 
 @interface NSAttributedString_WMFTrimTests : FBSnapshotTestCase
 
@@ -40,6 +42,10 @@
     FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
         label.attributedText = [[self attrString] wmf_trim];
     }], nil, [NSSet setWithObject:@"_64"], 0);
+}
+
+- (void)testAllWhiteSpaceString {
+    assertThat([[[NSMutableAttributedString alloc] initWithString:@"\n \n   \n   "] wmf_trim].string, is(equalTo(@"")));
 }
 
 @end
