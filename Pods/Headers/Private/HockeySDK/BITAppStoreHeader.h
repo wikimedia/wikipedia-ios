@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitappstoreheader.h
+../../../HockeySDK/Classes/BITAppStoreHeader.h

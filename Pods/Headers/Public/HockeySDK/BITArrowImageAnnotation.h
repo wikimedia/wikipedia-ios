@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitarrowimageannotation.h
+../../../HockeySDK/Classes/BITArrowImageAnnotation.h

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/Helpers/hccollect.h
+../../../OCHamcrest/Source/Core/Helpers/HCCollect.h

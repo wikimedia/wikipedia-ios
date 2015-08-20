@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/hcdiagnosingmatcher.h
+../../../OCHamcrest/Source/Core/HCDiagnosingMatcher.h

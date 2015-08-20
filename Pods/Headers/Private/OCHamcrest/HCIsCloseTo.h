@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Number/hciscloseto.h
+../../../OCHamcrest/Source/Library/Number/HCIsCloseTo.h

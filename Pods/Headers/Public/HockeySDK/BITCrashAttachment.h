@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitcrashattachment.h
+../../../HockeySDK/Classes/BITCrashAttachment.h

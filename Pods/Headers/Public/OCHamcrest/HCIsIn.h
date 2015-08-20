@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Collection/hcisin.h
+../../../OCHamcrest/Source/Library/Collection/HCIsIn.h

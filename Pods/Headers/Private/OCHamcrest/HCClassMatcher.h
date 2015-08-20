@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/hcclassmatcher.h
+../../../OCHamcrest/Source/Library/Object/HCClassMatcher.h

@@ -52,6 +52,7 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
+  - SelfSizingWaterfallCollectionViewLayout (0.0.1)
   - SSDataSources (0.8.5)
 
 DEPENDENCIES:
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - OCMockito (~> 1.4)
   - PiwikTracker (~> 3.3.0)
   - SDWebImage (from `./vendor/SDWebImage`)
+  - SelfSizingWaterfallCollectionViewLayout (= 0.0.1)
   - SSDataSources
 
 EXTERNAL SOURCES:
@@ -98,6 +100,7 @@ SPEC CHECKSUMS:
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SelfSizingWaterfallCollectionViewLayout: 8ea9ed8cca9f3bf8144016828a3932aaa97d0eb4
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.37.2

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitstorebutton.h
+../../../HockeySDK/Classes/BITStoreButton.h

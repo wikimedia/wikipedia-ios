@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitblurimageannotation.h
+../../../HockeySDK/Classes/BITBlurImageAnnotation.h

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/ochamcrest.h
+../../../OCHamcrest/Source/OCHamcrest.h

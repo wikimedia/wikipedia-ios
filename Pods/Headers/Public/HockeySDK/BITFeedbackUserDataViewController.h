@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitfeedbackuserdataviewcontroller.h
+../../../HockeySDK/Classes/BITFeedbackUserDataViewController.h
