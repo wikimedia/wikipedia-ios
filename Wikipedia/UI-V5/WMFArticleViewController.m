@@ -55,21 +55,25 @@ NS_ASSUME_NONNULL_BEGIN
  WMFImageGalleryViewControllerDelegate,
  UITextViewDelegate>
 
-@property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
-@property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
+#pragma mark Data Properties
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
 
+#pragma mark Fetcher Properties
+
 @property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
-
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 @property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
 @property (nonatomic, strong) WMFSearchResults* readMoreResults;
 
+#pragma mark Header Properties
+
+@property (nonatomic, weak) IBOutlet WMFArticleTableHeaderView* headerView;
+@property (nonatomic, weak) IBOutlet UIView* galleryContainerView;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
