@@ -51,7 +51,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
         locationManager.delegate = self;
         self.locationManager     = locationManager;
-        
+
         self.emptySectionObject = @"EmptySection";
     }
     return self;
@@ -69,10 +69,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     return @"More from nearby your location";
 }
 
-- (NSArray*)items{
-    if([self.nearbyResults.results count] > 0){
+- (NSArray*)items {
+    if ([self.nearbyResults.results count] > 0) {
         return self.nearbyResults.results;
-    }else{
+    } else {
         return @[self.emptySectionObject];
     }
 }
@@ -83,34 +83,27 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    
-    if([self.nearbyResults.results count] == 0){
+    if ([self.nearbyResults.results count] == 0) {
         return [WMFNearbySectionEmptyCell cellForCollectionView:collectionView indexPath:indexPath];
-    }else{
+    } else {
         return [WMFHomeNearbyCell cellForCollectionView:collectionView indexPath:indexPath];
     }
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath{
-
-    if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
-        
+- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
         WMFHomeNearbyCell* nearbyCell   = (id)cell;
         MWKLocationSearchResult* result = object;
         nearbyCell.titleText       = result.displayTitle;
         nearbyCell.descriptionText = result.wikidataDescription;
         nearbyCell.distance        = result.distanceFromQueryCoordinates;
         nearbyCell.imageURL        = result.thumbnailURL;
-   
-    }else{
-        
+    } else {
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
-        if(![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]){
+        if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
-                
                 [self.locationManager stopMonitoringLocation];
                 [self.locationManager startMonitoringLocation];
-
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }
@@ -124,8 +117,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 - (void)updateSectionWithLocation:(CLLocation*)location {
     [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
-        
-        if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
+        if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
             MWKLocationSearchResult* result = [self items][indexPath.item];
             cell.distance = [location distanceFromLocation:result.location];
         }
@@ -134,8 +126,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 - (void)updateSectionWithHeading:(CLHeading*)heading {
     [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
-        
-        if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
+        if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
             MWKLocationSearchResult* result = [self items][indexPath.item];
             cell.headingAngle = [self headingAngleToLocation:result.location startLocationLocation:self.locationManager.lastLocation heading:heading interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
         }
@@ -192,12 +183,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     });
 }
 
-- (void)reloadNearby{
-    
+- (void)reloadNearby {
     [self.locationManager stopMonitoringLocation];
     [self.locationManager startMonitoringLocation];
 }
-
 
 #pragma mark - Compass Heading
 

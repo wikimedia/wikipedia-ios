@@ -94,7 +94,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 }
 
 - (void)configureHomeViewController {
-    self.homeViewController.searchSite = [self.session searchSite];
+    self.homeViewController.searchSite  = [self.session searchSite];
     self.homeViewController.dataStore   = self.session.dataStore;
     self.homeViewController.savedPages  = self.session.userDataStore.savedPageList;
     self.homeViewController.recentPages = self.session.userDataStore.historyList;

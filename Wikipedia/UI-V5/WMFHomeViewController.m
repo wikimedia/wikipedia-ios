@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController = [[WMFNearbySectionController alloc] initWithLocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithLocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
         _nearbySectionController.delegate = self;
     }
     return _nearbySectionController;
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (SSSectionedDataSource*)dataSource {
     if (!_dataSource) {
-        _dataSource = [[SSSectionedDataSource alloc] init];
+        _dataSource                           = [[SSSectionedDataSource alloc] init];
         _dataSource.shouldRemoveEmptySections = NO;
     }
     return _dataSource;
@@ -94,21 +94,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.navigationController.navigationBarHidden = NO;
-    self.collectionView.dataSource = nil;
-    
+    self.collectionView.dataSource                = nil;
+
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-    [self flowLayout].estimatedItemHeight   = 150;
-    [self flowLayout].numberOfColumns = 1;
-    [self flowLayout].headerReferenceSize = CGSizeMake(width , 50.0);
+    [self flowLayout].estimatedItemHeight = 150;
+    [self flowLayout].numberOfColumns     = 1;
+    [self flowLayout].headerReferenceSize = CGSizeMake(width, 50.0);
     [self flowLayout].footerReferenceSize = CGSizeMake(width, 50.0);
     [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
-    [self flowLayout].minimumLineSpacing = 10.0;
+    [self flowLayout].minimumLineSpacing  = 10.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.searchSite);
     NSParameterAssert(self.recentPages);
@@ -124,14 +123,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self.locationManager stopMonitoringLocation];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
-    
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        
+
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
-        
     } completion:NULL];
 }
 
@@ -140,7 +136,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.sectionControllers[section.sectionIdentifier];
 }
 
-- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller{
+- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller {
     return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:[controller sectionIdentifier]];
 }
 
@@ -189,56 +185,49 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView registerNib:[WMFHomeSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
     [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
-    
+
     [self loadSectionForSectionController:self.nearbySectionController];
     self.dataSource.collectionView = self.collectionView;
 }
 
-- (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller{
-
+- (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     self.sectionControllers[controller.sectionIdentifier] = controller;
-    
+
     [controller registerCellsInCollectionView:self.collectionView];
-    
+
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
-    
+
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
     } completion:NULL];
-    
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSUInteger)section{
-    
+- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSUInteger)section {
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-    return CGSizeMake(width , 50.0);
+    return CGSizeMake(width, 50.0);
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section{
+- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-    return CGSizeMake(width , 50.0);
+    return CGSizeMake(width, 50.0);
 }
-
-
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    
     id object = [self.dataSource itemAtIndexPath:indexPath];
-    
+
     //TODO: Casting for now - ned to make a protocol or something
     MWKLocationSearchResult* result = object;
-    MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:result.displayTitle];
+    MWKTitle* title                 = [[MWKSite siteWithCurrentLocale] titleWithString:result.displayTitle];
     [self showArticleViewControllerForTitle:title animated:YES];
 }
 
 #pragma mark - Article Presentation
 
 - (void)showArticleViewControllerForTitle:(MWKTitle*)title animated:(BOOL)animated {
-    
-    MWKArticle* article  = [self.dataStore articleWithTitle:title];
+    MWKArticle* article                                   = [self.dataStore articleWithTitle:title];
     WMFArticleContainerViewController* articleContainerVC = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore savedPages:self.savedPages];
     articleContainerVC.article = article;
     [self.navigationController pushViewController:articleContainerVC animated:animated];
@@ -246,33 +235,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFHomeSectionControllerDelegate
 
-- (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items{
-    
+- (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
     [self.collectionView performBatchUpdates:^{
         [self.dataSource setItems:items inSection:section];
     } completion:^(BOOL finished) {
-        
     }];
 }
 
-- (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items{
-    
+- (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendItems:items toSection:section];
     } completion:^(BOOL finished) {
-        
     }];
 }
 
-- (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator{
-    
+- (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator {
     NSInteger section = [self indexForSectionController:controller];
-    
-    [self.collectionView.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(NSIndexPath *obj, NSUInteger idx, BOOL *stop) {
-        
-        if(obj.section == section){
+
+    [self.collectionView.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
+        if (obj.section == section) {
             enumerator([self.collectionView cellForItemAtIndexPath:obj], obj);
         }
     }];

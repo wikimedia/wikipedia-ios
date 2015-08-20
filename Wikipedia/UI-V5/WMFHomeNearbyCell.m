@@ -7,10 +7,10 @@
 
 #import <Masonry/Masonry.h>
 
-static CGFloat const WMFTextPadding = 8.0;
+static CGFloat const WMFTextPadding    = 8.0;
 static CGFloat const WMFDistanceHeight = 20.0;
 
-static CGFloat const WMFImageSize = 104;
+static CGFloat const WMFImageSize    = 104;
 static CGFloat const WMFImagePadding = 8.0;
 
 @interface WMFHomeNearbyCell ()
@@ -45,16 +45,13 @@ static CGFloat const WMFImagePadding = 8.0;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
 }
 
-- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
-    
+- (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
     self.titleLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFImageSize - WMFImagePadding - WMFImagePadding;
-    UICollectionViewLayoutAttributes *preferredAttributes = [layoutAttributes copy];
-    CGFloat height = MAX(120, self.titleLabel.intrinsicContentSize.height + WMFTextPadding + WMFTextPadding + WMFDistanceHeight + WMFTextPadding);
+    UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
+    CGFloat height                                        = MAX(120, self.titleLabel.intrinsicContentSize.height + WMFTextPadding + WMFTextPadding + WMFDistanceHeight + WMFTextPadding);
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
     return preferredAttributes;
 }
-
-
 
 - (void)setImageURL:(NSURL*)imageURL {
     _imageURL = imageURL;
