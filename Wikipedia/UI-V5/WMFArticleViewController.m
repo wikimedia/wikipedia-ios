@@ -461,13 +461,21 @@ NS_ASSUME_NONNULL_BEGIN
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == WMFArticleSectionTypeSummary) {
+        return 0;
+    } else {
+        return UITableViewAutomaticDimension;
+    }
+}
+
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     WMFArticleSectionHeaderView* header =
         [tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionHeaderView wmf_nibName]];
     //TODO(5.0): localize these!
     switch (section) {
         case WMFArticleSectionTypeSummary:
-            header.sectionHeaderLabel.text = @"Summary";
+            return nil;
             break;
         case WMFArticleSectionTypeTOC:
             header.sectionHeaderLabel.text = @"Table of contents";
