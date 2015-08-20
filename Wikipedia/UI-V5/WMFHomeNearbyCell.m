@@ -51,10 +51,10 @@
     _imageURL = imageURL;
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
-    .then(^id (UIImage* image) {
+    .then(^id (WMFImageDownload* download) {
         @strongify(self);
         if ([self.imageURL isEqual:imageURL]) {
-            self.imageView.image = image;
+            self.imageView.image = download.image;
         }
         return nil;
     })
