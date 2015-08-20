@@ -5,6 +5,14 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+#import <Masonry/Masonry.h>
+
+static CGFloat const WMFTextPadding = 8.0;
+static CGFloat const WMFDistanceHeight = 20.0;
+
+static CGFloat const WMFImageSize = 104;
+static CGFloat const WMFImagePadding = 8.0;
+
 @interface WMFHomeNearbyCell ()
 
 @property (strong, nonatomic) IBOutlet UIImageView* imageView;
@@ -37,13 +45,14 @@
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
 }
 
-//- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
-//
-//    CGRect frame = layoutAttributes.frame;
-//    frame.size.width = self.collectionViewWidth;
-//    layoutAttributes.frame = frame;
-//    return layoutAttributes;
-//}
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
+    
+    self.titleLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFImageSize - WMFImagePadding - WMFImagePadding;
+    UICollectionViewLayoutAttributes *preferredAttributes = [layoutAttributes copy];
+    CGFloat height = MAX(120, self.titleLabel.intrinsicContentSize.height + WMFTextPadding + WMFTextPadding + WMFDistanceHeight + WMFTextPadding);
+    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
+    return preferredAttributes;
+}
 
 
 

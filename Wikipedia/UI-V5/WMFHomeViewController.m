@@ -22,6 +22,9 @@
 #import "MWKTitle.h"
 #import "MWKArticle.h"
 
+#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+
+#import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
 
@@ -83,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _sectionControllers;
 }
 
-- (UICollectionViewFlowLayout*)flowLayout {
+- (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
     return (id)self.collectionView.collectionViewLayout;
 }
 
@@ -93,11 +96,15 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = NO;
+    self.collectionView.dataSource = nil;
     
-    [self flowLayout].itemSize            = CGSizeMake(self.view.bounds.size.width - 20, 150.0);
-    [self flowLayout].headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 50.0);
-    [self flowLayout].footerReferenceSize = CGSizeMake(self.view.bounds.size.width, 50.0);
-    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
+    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
+    [self flowLayout].estimatedItemHeight   = 150;
+    [self flowLayout].numberOfColumns = 1;
+    [self flowLayout].headerReferenceSize = CGSizeMake(width , 50.0);
+    [self flowLayout].footerReferenceSize = CGSizeMake(width, 50.0);
+    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
+    [self flowLayout].minimumLineSpacing = 10.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -115,6 +122,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.locationManager stopMonitoringLocation];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        
+        [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
+        
+    } completion:NULL];
 }
 
 - (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
@@ -144,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.cellConfigureBlock = ^(id cell, id object, id parentView, NSIndexPath* indexPath){
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-        [controller configureCell:cell withObject:object atIndexPath:indexPath];
+        [controller configureCell:cell withObject:object inCollectionView:parentView atIndexPath:indexPath];
     };
 
     self.dataSource.collectionSupplementaryCreationBlock = (id) ^ (NSString * kind, UICollectionView * cv, NSIndexPath * indexPath){
@@ -169,6 +187,9 @@ NS_ASSUME_NONNULL_BEGIN
         }
     };
 
+    [self.collectionView registerNib:[WMFHomeSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+    [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
+    
     [self loadSectionForSectionController:self.nearbySectionController];
     self.dataSource.collectionView = self.collectionView;
 }
@@ -185,7 +206,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
     } completion:NULL];
+    
 }
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSUInteger)section{
+    
+    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
+    return CGSizeMake(width , 50.0);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section{
+    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
+    return CGSizeMake(width , 50.0);
+}
+
 
 
 #pragma mark - UICollectionViewDelegate
@@ -215,13 +249,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items{
     
     NSInteger section = [self indexForSectionController:controller];
-    [self.dataSource setItems:items inSection:section];
+    [self.collectionView performBatchUpdates:^{
+        [self.dataSource setItems:items inSection:section];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items{
     
     NSInteger section = [self indexForSectionController:controller];
-    [self.dataSource appendItems:items toSection:section];
+    [self.collectionView performBatchUpdates:^{
+        [self.dataSource appendItems:items toSection:section];
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator{
@@ -235,9 +277,6 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 }
-
-
-
 
 @end
 

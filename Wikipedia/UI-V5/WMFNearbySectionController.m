@@ -91,8 +91,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     }
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
-    
+- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath{
+
     if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
         
         WMFHomeNearbyCell* nearbyCell   = (id)cell;
