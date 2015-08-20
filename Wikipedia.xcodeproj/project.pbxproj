@@ -130,7 +130,7 @@
 		04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04B0EA46190B2319007458AF /* PreviewLicenseView.xib */; };
 		04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B0EA49190B2348007458AF /* PreviewLicenseView.m */; };
 		04B501F81B7AEB03007BE332 /* NSArray+WMFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B501F71B7AEB03007BE332 /* NSArray+WMFExtensions.swift */; };
-		04B501FA1B7AF16C007BE332 /* NSArray+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B501F91B7AF16C007BE332 /* NSArray+WMFExtensions.m */; };
+		04B501FA1B7AF16C007BE332 /* NSArray+WMFExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B501F91B7AF16C007BE332 /* NSArray+WMFExtensionsTests.m */; };
 		04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */; };
 		04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AA618E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m */; };
 		04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
@@ -701,7 +701,7 @@
 		04B0EA48190B2348007458AF /* PreviewLicenseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewLicenseView.h; sourceTree = "<group>"; };
 		04B0EA49190B2348007458AF /* PreviewLicenseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewLicenseView.m; sourceTree = "<group>"; };
 		04B501F71B7AEB03007BE332 /* NSArray+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+WMFExtensions.swift"; sourceTree = "<group>"; };
-		04B501F91B7AF16C007BE332 /* NSArray+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WMFExtensions.m"; sourceTree = "<group>"; };
+		04B501F91B7AF16C007BE332 /* NSArray+WMFExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+WMFExtensionsTests.m"; sourceTree = "<group>"; };
 		04B7B9BB18B5570E00A63551 /* CaptchaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptchaViewController.h; sourceTree = "<group>"; };
 		04B7B9BC18B5570E00A63551 /* CaptchaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CaptchaViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04B91AA518E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TemporaryAnimatedXF.h"; sourceTree = "<group>"; };
@@ -2521,7 +2521,7 @@
 				0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */,
 				BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */,
 				BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */,
-				04B501F91B7AF16C007BE332 /* NSArray+WMFExtensions.m */,
+				04B501F91B7AF16C007BE332 /* NSArray+WMFExtensionsTests.m */,
 				BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */,
 				BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */,
 				0449D1411B83D9370036A9C8 /* NSAttributedString+WMFModifyTests.m */,
@@ -3460,7 +3460,7 @@
 				BC0FED681AAA0268002488D7 /* MWKUserTests.m in Sources */,
 				BCB3AE861AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m in Sources */,
 				BCF1E2131B4C783600B10877 /* WMFLegacyImageDataMigrationTests.swift in Sources */,
-				04B501FA1B7AF16C007BE332 /* NSArray+WMFExtensions.m in Sources */,
+				04B501FA1B7AF16C007BE332 /* NSArray+WMFExtensionsTests.m in Sources */,
 				BC0FED661AAA0268002488D7 /* MWKSiteTests.m in Sources */,
 				0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */,
 				BCA9575D1ABE473800B62AE8 /* LegacyCoreDataMigratorTests.m in Sources */,

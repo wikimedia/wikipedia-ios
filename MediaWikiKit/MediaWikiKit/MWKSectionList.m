@@ -145,6 +145,10 @@
 - (void)buildSectionHierarchy {
     __block MWKSection* currentParent = nil;
     [self.sections enumerateObjectsUsingBlock:^(MWKSection* currentSection, NSUInteger idx, BOOL* stop) {
+        if (!currentSection.level) {
+            currentParent = nil;
+            return;
+        }
         if ([currentParent isAncestorOfSection:currentSection]) {
             [currentParent addChild:currentSection];
         } else {
@@ -157,7 +161,10 @@
     __block MWKSection* currentParent = nil;
     return [self.sections bk_reduce:[NSMutableArray arrayWithCapacity:self.sections.count]
                           withBlock:^NSMutableArray*(NSMutableArray* topLevelSections, MWKSection* section) {
-        if (![currentParent isAncestorOfSection:section]) {
+        if (!section.level) {
+            [topLevelSections addObject:section];
+            currentParent = nil;
+        } else if (currentParent == nil || ![currentParent isAncestorOfSection:section]) {
             currentParent = section;
             [topLevelSections addObject:section];
         }

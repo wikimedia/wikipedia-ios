@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
+@property (nonatomic, strong) NSArray* topLevelSections;
 
 #pragma mark Fetcher Properties
 
@@ -96,6 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (MWKSection*)sectionDataForRow:(NSUInteger)row {
+    return self.topLevelSections[row];
+}
+
 - (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
     _headerGalleryViewController = galleryViewController;
     [_headerGalleryViewController setImagesFromArticle:self.article];
@@ -116,9 +121,15 @@ NS_ASSUME_NONNULL_BEGIN
     _article = article;
 
     [self.headerGalleryViewController setImagesFromArticle:article];
+    [self updateSectionHierarchy];
 
     [self updateUI];
     [self observeAndFetchArticleIfNeeded];
+}
+
+- (void)updateSectionHierarchy {
+    [_article.sections buildSectionHierarchy];
+    self.topLevelSections = [_article.sections.topLevelSections wmf_tail];
 }
 
 - (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated {
@@ -244,6 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
     }).then(^(MWKArticle* article){
         @strongify(self)
         [self.headerGalleryViewController setImagesFromArticle : article];
+        [self updateSectionHierarchy];
         self.article = article;
     }).catch(^(NSError* error){
         @strongify(self)
@@ -415,7 +427,7 @@ NS_ASSUME_NONNULL_BEGIN
             return 1;
             break;
         case WMFArticleSectionTypeTOC:
-            return self.article.sections.count - 1;
+            return self.topLevelSections.count - 1;
             break;
         case WMFArticleSectionTypeReadMore:
             return self.readMoreResults.articleCount;
@@ -440,8 +452,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleSectionCell*)tocSectionCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleSectionCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionCell wmf_nibName]];
-    cell.level           = self.article.sections[indexPath.row + 1].level;
-    cell.titleLabel.text = [self.article.sections[indexPath.row + 1].line wmf_stringByRemovingHTML];
+    cell.titleLabel.text = [[[self sectionDataForRow:indexPath.row] line] wmf_stringByRemovingHTML];
     return cell;
 }
 
@@ -497,7 +508,7 @@ NS_ASSUME_NONNULL_BEGIN
     switch (indexPath.section) {
         case WMFArticleSectionTypeTOC: {
             [self.delegate articleViewController:self
-                       didTapSectionWithFragment:self.article.sections[indexPath.row + 1].anchor];
+                       didTapSectionWithFragment:[[self sectionDataForRow:indexPath.row] anchor]];
             break;
         }
         case WMFArticleSectionTypeReadMore: {
@@ -525,7 +536,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFArticleSectionTypeTOC:
             return [[MWKTitle alloc] initWithSite:self.article.title.site
                                   normalizedTitle:self.article.title.text
-                                         fragment:self.article.sections[indexPath.row + 1].anchor];
+                                         fragment:[[self sectionDataForRow:indexPath.row] anchor]];
         case WMFArticleSectionTypeReadMore: {
             MWKArticle* readMoreArticle = ((MWKArticle*)self.readMoreResults.articles[indexPath.row]);
             return [[MWKTitle alloc] initWithSite:readMoreArticle.site

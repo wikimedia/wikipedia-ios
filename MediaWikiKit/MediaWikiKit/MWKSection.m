@@ -62,10 +62,6 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return self;
 }
 
-- (NSNumber*)level {
-    return _level ? : @0;
-}
-
 - (id)dataExport {
     NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
     if (self.toclevel) {
@@ -193,22 +189,25 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 }
 
 - (BOOL)isParentOfSection:(MWKSection*)section {
-    NSParameterAssert(section);
+    NSParameterAssert(section.level);
+    NSParameterAssert(self.level);
     return section.level.integerValue - self.level.integerValue == 1;
 }
 
 - (BOOL)isSiblingOfSection:(MWKSection*)section {
-    NSParameterAssert(section);
+    NSParameterAssert(section.level);
+    NSParameterAssert(self.level);
     return [section.level isEqualToNumber:self.level];
 }
 
 - (BOOL)isAncestorOfSection:(MWKSection*)section {
-    NSParameterAssert(section);
+    NSParameterAssert(section.level);
+    NSParameterAssert(self.level);
     return [section.level compare:self.level] == NSOrderedDescending;
 }
 
 - (void)addChild:(MWKSection*)child {
-    NSParameterAssert(child);
+    NSParameterAssert(child.level);
     NSAssert([child.level compare:self.level] == NSOrderedDescending,
              @"Illegal attempt to add %@ to sibling or descendant %@.", child, self);
     MWKSection* lastChild = self.mutableChildren.lastObject;

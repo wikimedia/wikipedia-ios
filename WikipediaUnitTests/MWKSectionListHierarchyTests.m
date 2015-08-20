@@ -75,12 +75,18 @@
     assertThat([topLevelSections[1] children], is(equalTo(@[list.entries[2]])));
 }
 
-- (void)testShouldHandleSectionsWithNilLevel {
+- (void)testShouldConsiderSectionsWithoutALevelAsChildlessOrphans {
     MWKSectionList* list      = [self sectionListWithLevels:@[@2, [NSNull null], @4]];
     NSArray* topLevelSections = list.topLevelSections;
-    assertThat(topLevelSections, is(equalTo(@[list.entries[0], list.entries[1]])));
-    assertThat([topLevelSections[0] children], isEmpty());
-    assertThat([topLevelSections[1] children], is(equalTo(@[list.entries[2]])));
+    assertThat(topLevelSections, is(equalTo(list.entries)));
+    assertThat(topLevelSections, everyItem(hasProperty(WMF_SAFE_KEYPATH(MWKSection.new, children), isEmpty())));
+}
+
+- (void)testShouldParseSectionsNormallyIfFirstSectionDoesNotHaveLevel {
+    MWKSectionList* list      = [self sectionListWithLevels:@[[NSNull null], @3, @2]];
+    NSArray* topLevelSections = list.topLevelSections;
+    assertThat(topLevelSections, is(equalTo(list.entries)));
+    assertThat(topLevelSections, everyItem(hasProperty(WMF_SAFE_KEYPATH(MWKSection.new, children), isEmpty())));
 }
 
 #pragma mark - Utils
