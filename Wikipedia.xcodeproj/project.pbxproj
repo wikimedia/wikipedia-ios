@@ -50,6 +50,7 @@
 		043C69211B85689F00941051 /* NSAttributedString+WMFTrim.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C69201B85689F00941051 /* NSAttributedString+WMFTrim.m */; };
 		043C69231B8569FA00941051 /* NSAttributedString+WMFTrimTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C69221B8569FA00941051 /* NSAttributedString+WMFTrimTests.m */; };
 		043C69261B856C2A00941051 /* XCTestCase+WMFLabelConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C69251B856C2A00941051 /* XCTestCase+WMFLabelConvenience.m */; };
+		043C69291B86502F00941051 /* NSCharacterSet+WMFExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 043C69281B86502F00941051 /* NSCharacterSet+WMFExtras.m */; };
 		043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */; };
 		043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F18E018D9691D00D8489A /* UINavigationController+TopActionSheet.m */; };
 		043F8BF21A11699A00D1AE44 /* UIView+WMFRoundCorners.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F8BF11A11699A00D1AE44 /* UIView+WMFRoundCorners.m */; };
@@ -555,6 +556,8 @@
 		043C69221B8569FA00941051 /* NSAttributedString+WMFTrimTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WMFTrimTests.m"; sourceTree = "<group>"; };
 		043C69241B856C2A00941051 /* XCTestCase+WMFLabelConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+WMFLabelConvenience.h"; sourceTree = "<group>"; };
 		043C69251B856C2A00941051 /* XCTestCase+WMFLabelConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+WMFLabelConvenience.m"; sourceTree = "<group>"; };
+		043C69271B86502F00941051 /* NSCharacterSet+WMFExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCharacterSet+WMFExtras.h"; sourceTree = "<group>"; };
+		043C69281B86502F00941051 /* NSCharacterSet+WMFExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCharacterSet+WMFExtras.m"; sourceTree = "<group>"; };
 		043F18DB18D9691D00D8489A /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopActionSheetLabel.h; sourceTree = "<group>"; };
 		043F18DC18D9691D00D8489A /* TopActionSheetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopActionSheetLabel.m; sourceTree = "<group>"; };
 		043F18DF18D9691D00D8489A /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+TopActionSheet.h"; sourceTree = "<group>"; };
@@ -1993,6 +1996,8 @@
 				04709B5D1B829E3C0086B978 /* NSAttributedString+WMFModify.m */,
 				043C691F1B85689F00941051 /* NSAttributedString+WMFTrim.h */,
 				043C69201B85689F00941051 /* NSAttributedString+WMFTrim.m */,
+				043C69271B86502F00941051 /* NSCharacterSet+WMFExtras.h */,
+				043C69281B86502F00941051 /* NSCharacterSet+WMFExtras.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3562,6 +3567,7 @@
 				C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */,
 				0447866F1852B5010050563B /* SessionSingleton.m in Sources */,
 				04CB603D1B5053120052B6EF /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */,
+				043C69291B86502F00941051 /* NSCharacterSet+WMFExtras.m in Sources */,
 				BC092B9F1B1907FC00093C59 /* MWKSiteInfoFetcher.m in Sources */,
 				BCB669AA1A83F6C400C7B1FE /* MWKImage.m in Sources */,
 				04D686F41AB2949C0009B44A /* MenuButton.m in Sources */,
