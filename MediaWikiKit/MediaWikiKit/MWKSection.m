@@ -31,6 +31,9 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 @property (readwrite, copy, nonatomic) NSString* text;          // may be nil
 @property (readwrite, strong, nonatomic) MWKImageList* images;    // ?????
+
+@property (readwrite, strong, nonatomic) NSMutableArray* mutableChildren;
+
 @end
 
 @implementation MWKSection
@@ -53,8 +56,14 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
         // Not present in .plist, loaded separately there
         self.text = [self optionalString:@"text"       dict:dict];
+
+        self.mutableChildren = [NSMutableArray new];
     }
     return self;
+}
+
+- (NSNumber*)level {
+    return _level ? : @0;
 }
 
 - (id)dataExport {
@@ -150,6 +159,10 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
            && WMF_EQUAL(self.images, isEqual:, section.images);
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ id: %d line: %@ level: %@", [super description], self.sectionId, self.line, self.level];
+}
+
 #pragma mark - Extraction
 
 - (NSString*)shareSnippet {
@@ -171,6 +184,39 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
         return nil;
     }
     return [[TFHpple hppleWithHTMLData:[self.text dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:xpath];
+}
+
+#pragma mark - Section Hierarchy
+
+- (NSArray*)children {
+    return _mutableChildren;
+}
+
+- (BOOL)isParentOfSection:(MWKSection*)section {
+    NSParameterAssert(section);
+    return section.level.integerValue - self.level.integerValue == 1;
+}
+
+- (BOOL)isSiblingOfSection:(MWKSection*)section {
+    NSParameterAssert(section);
+    return [section.level isEqualToNumber:self.level];
+}
+
+- (BOOL)isAncestorOfSection:(MWKSection*)section {
+    NSParameterAssert(section);
+    return [section.level compare:self.level] == NSOrderedDescending;
+}
+
+- (void)addChild:(MWKSection*)child {
+    NSParameterAssert(child);
+    NSAssert([child.level compare:self.level] == NSOrderedDescending,
+             @"Illegal attempt to add %@ to sibling or descendant %@.", child, self);
+    MWKSection* lastChild = self.mutableChildren.lastObject;
+    if ([lastChild isSiblingOfSection:child] || ![lastChild isAncestorOfSection:child]) {
+        [self.mutableChildren addObject:child];
+    } else {
+        [lastChild addChild:child];
+    }
 }
 
 @end

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#pragma once
-
 #import <Foundation/Foundation.h>
 #import "WMFSharing.h"
 #import "MWKSiteDataObject.h"
@@ -79,5 +77,22 @@ extern NSString* const MWKSectionShareSnippetXPath;
  * @return An array of `TFHppleElement` objects which match the given XPath query, or `nil` if there were no results.
  */
 - (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath;
+
+///
+/// @name Section Hierarchy
+///
+
+- (NSArray*)children;
+
+- (BOOL)isParentOfSection:(MWKSection*)section;
+
+- (BOOL)isSiblingOfSection:(MWKSection*)section;
+
+- (BOOL)isAncestorOfSection:(MWKSection*)section;
+
+#pragma mark - Internal
+
+- (void)addChild:(MWKSection*)child;
+
 
 @end

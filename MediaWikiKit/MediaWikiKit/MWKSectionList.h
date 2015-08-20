@@ -45,4 +45,12 @@
 
 - (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList;
 
+///
+/// @name Hierarchical Sections
+///
+
+- (NSArray*)topLevelSections;
+
+- (void)buildSectionHierarchy;
+
 @end
