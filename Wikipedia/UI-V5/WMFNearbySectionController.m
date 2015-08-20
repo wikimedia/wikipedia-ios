@@ -13,7 +13,10 @@
 #import "PromiseKit.h"
 
 #import "WMFHomeNearbyCell.h"
+#import "WMFNearbySectionEmptyCell.h"
 #import "UIView+WMFDefaultNib.h"
+
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,6 +31,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 @property (nonatomic, strong, readwrite) WMFLocationManager* locationManager;
 
 @property (nonatomic, strong, readwrite) WMFLocationSearchResults* nearbyResults;
+
+@property (nonatomic, copy) NSString* emptySectionObject;
 
 @end
 
@@ -46,6 +51,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
         locationManager.delegate = self;
         self.locationManager     = locationManager;
+        
+        self.emptySectionObject = @"EmptySection";
     }
     return self;
 }
@@ -63,22 +70,50 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (NSArray*)items{
+    if([self.nearbyResults.results count] > 0){
         return self.nearbyResults.results;
+    }else{
+        return @[self.emptySectionObject];
+    }
+}
+
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
     [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib] forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
+    [collectionView registerNib:[WMFNearbySectionEmptyCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySectionEmptyCell identifier]];
 }
 
 - (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFHomeNearbyCell cellForCollectionView:collectionView indexPath:indexPath];
+    
+    if([self.nearbyResults.results count] == 0){
+        return [WMFNearbySectionEmptyCell cellForCollectionView:collectionView indexPath:indexPath];
+    }else{
+        return [WMFHomeNearbyCell cellForCollectionView:collectionView indexPath:indexPath];
+    }
 }
 
 - (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object atIndexPath:(NSIndexPath*)indexPath {
-    WMFHomeNearbyCell* nearbyCell   = (id)cell;
-    MWKLocationSearchResult* result = object;
-    nearbyCell.titleText       = result.displayTitle;
-    nearbyCell.descriptionText = result.wikidataDescription;
-    nearbyCell.distance        = result.distanceFromQueryCoordinates;
-    nearbyCell.imageURL        = result.thumbnailURL;
+    
+    if([cell isKindOfClass:[WMFHomeNearbyCell class]]){
+        
+        WMFHomeNearbyCell* nearbyCell   = (id)cell;
+        MWKLocationSearchResult* result = object;
+        nearbyCell.titleText       = result.displayTitle;
+        nearbyCell.descriptionText = result.wikidataDescription;
+        nearbyCell.distance        = result.distanceFromQueryCoordinates;
+        nearbyCell.imageURL        = result.thumbnailURL;
+   
+    }else{
+        
+        WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
+        if(![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]){
+            [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
+                
+                [self.locationManager stopMonitoringLocation];
+                [self.locationManager startMonitoringLocation];
+
+            } forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
 }
 
 #pragma mark - Section Updates
@@ -156,6 +191,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         [self updateSectionWithSearchError:error];
     });
 }
+
+- (void)reloadNearby{
+    
+    [self.locationManager stopMonitoringLocation];
+    [self.locationManager startMonitoringLocation];
+}
+
 
 #pragma mark - Compass Heading
 
