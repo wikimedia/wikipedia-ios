@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/mktargumentcaptor.h
+../../../OCMockito/Source/OCMockito/MKTArgumentCaptor.h

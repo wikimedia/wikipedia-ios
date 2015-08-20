@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/Helpers/nsinvocation+ochamcrest.h
+../../../OCHamcrest/Source/Core/Helpers/NSInvocation+OCHamcrest.h

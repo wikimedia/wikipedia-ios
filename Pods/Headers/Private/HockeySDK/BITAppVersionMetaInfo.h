@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitappversionmetainfo.h
+../../../HockeySDK/Classes/BITAppVersionMetaInfo.h

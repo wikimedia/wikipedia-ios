@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/hockeysdkfeatureconfig.h
+../../../HockeySDK/Classes/HockeySDKFeatureConfig.h

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bithttpoperation.h
+../../../HockeySDK/Classes/BITHTTPOperation.h

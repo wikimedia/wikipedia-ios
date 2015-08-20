@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitfeedbackmanagerprivate.h
+../../../HockeySDK/Classes/BITFeedbackManagerPrivate.h

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitfeedbacklistviewcontroller.h
+../../../HockeySDK/Classes/BITFeedbackListViewController.h

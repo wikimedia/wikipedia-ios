@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitauthenticationviewcontroller.h
+../../../HockeySDK/Classes/BITAuthenticationViewController.h

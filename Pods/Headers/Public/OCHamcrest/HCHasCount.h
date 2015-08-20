@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Collection/hchascount.h
+../../../OCHamcrest/Source/Library/Collection/HCHasCount.h

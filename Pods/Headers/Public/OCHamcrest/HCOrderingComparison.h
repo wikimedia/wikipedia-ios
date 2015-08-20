@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Number/hcorderingcomparison.h
+../../../OCHamcrest/Source/Library/Number/HCOrderingComparison.h

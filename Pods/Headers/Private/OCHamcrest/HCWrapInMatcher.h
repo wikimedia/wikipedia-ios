@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/Helpers/hcwrapinmatcher.h
+../../../OCHamcrest/Source/Core/Helpers/HCWrapInMatcher.h
