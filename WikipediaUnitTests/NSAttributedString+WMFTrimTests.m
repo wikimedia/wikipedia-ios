@@ -18,7 +18,7 @@
     //self.recordMode = YES;
 }
 
-- (NSAttributedString*)testString {
+- (NSAttributedString*)attrString {
     NSMutableAttributedString* attributedText = [[NSMutableAttributedString alloc] initWithString:@" \n \n This is a test string which should help confirm that this is working the way we want it to.  \n"];
     [attributedText addAttribute:NSBackgroundColorAttributeName value:[UIColor greenColor] range:[attributedText.string rangeOfString:@"should"]];
     [attributedText addAttribute:NSBackgroundColorAttributeName value:[UIColor greenColor] range:[attributedText.string rangeOfString:@"working"]];
@@ -32,13 +32,13 @@
 
 - (void)testTrimReference {
     FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
-        label.attributedText = [self testString];
+        label.attributedText = [self attrString];
     }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 - (void)testTrim {
     FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
-        label.attributedText = [[self testString] wmf_trim];
+        label.attributedText = [[self attrString] wmf_trim];
     }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
