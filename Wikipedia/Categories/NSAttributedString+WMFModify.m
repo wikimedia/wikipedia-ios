@@ -32,4 +32,22 @@
     return mutableCopy;
 }
 
+- (NSAttributedString*)wmf_rightTrim {
+    if (self.length == 0) {
+        return self;
+    }
+    static NSCharacterSet* invertedWhitespaceCharSet;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        invertedWhitespaceCharSet = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
+    });
+
+    NSRange lastNonWhiteSpaceRange = [self.string rangeOfCharacterFromSet:invertedWhitespaceCharSet options:NSBackwardsSearch];
+
+    if (lastNonWhiteSpaceRange.location != NSNotFound) {
+        return [self attributedSubstringFromRange:NSMakeRange(0, lastNonWhiteSpaceRange.location + 1)];
+    }
+    return self;
+}
+
 @end

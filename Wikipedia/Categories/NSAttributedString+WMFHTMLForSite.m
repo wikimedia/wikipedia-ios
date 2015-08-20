@@ -38,8 +38,8 @@
                                                  options:[[self class] wmf_defaultHTMLOptionsForSite:site]
                                       documentAttributes:nil];
 
-    // DTCoreText adds a trailing line break to the attributed string it generates. Remove it.
-    attrStr = [self attributedStringWithoutTrailingSpace:attrStr];
+    // DTCoreText adds a trailing line break(s) to the attributed string it generates.
+    attrStr = [attrStr wmf_rightTrim];
 
     // Needed because DTCoreText adds funky padding above the first paragraph if you use DTDefaultLineHeightMultiplier to increase line spacing.
     attrStr = [self attributedStringWithFinalAdjustments:attrStr];
@@ -54,17 +54,6 @@
         style.lineSpacing = 12;
         return style;
     }];
-}
-
-- (NSAttributedString*)attributedStringWithoutTrailingSpace:(NSAttributedString*)attrStr {
-    if (attrStr.length == 0) {
-        return attrStr;
-    }
-    NSAttributedString* lastCharacter = [attrStr attributedSubstringFromRange:NSMakeRange(attrStr.length - 1, 1)];
-    if ([[lastCharacter string] isEqualToString:@"\n"]) {
-        attrStr = [attrStr attributedSubstringFromRange:NSMakeRange(0, attrStr.length - 1)];
-    }
-    return attrStr;
 }
 
 @end
