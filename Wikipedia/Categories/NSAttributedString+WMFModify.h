@@ -16,6 +16,4 @@
 - (NSAttributedString*)wmf_attributedStringChangingAttribute:(NSString*)attribute
                                                    withBlock:(id (^)(id thisAttributeObject))block;
 
-- (NSAttributedString*)wmf_rightTrim;
-
 @end

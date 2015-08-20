@@ -10,6 +10,7 @@
 #import <DTCoreText/DTCoreText.h>
 #import "MWKSite.h"
 #import "NSAttributedString+WMFModify.h"
+#import "NSAttributedString+WMFTrim.h"
 
 @implementation NSAttributedString (WMFHTMLForSite)
 
@@ -39,7 +40,7 @@
                                       documentAttributes:nil];
 
     // DTCoreText adds a trailing line break(s) to the attributed string it generates.
-    attrStr = [attrStr wmf_rightTrim];
+    attrStr = [attrStr wmf_trim];
 
     // Needed because DTCoreText adds funky padding above the first paragraph if you use DTDefaultLineHeightMultiplier to increase line spacing.
     attrStr = [self attributedStringWithFinalAdjustments:attrStr];

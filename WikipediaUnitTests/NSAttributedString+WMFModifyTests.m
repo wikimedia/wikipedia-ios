@@ -8,13 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
-
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
 #import "NSAttributedString+WMFModify.h"
+#import "XCTestCase+WMFLabelConvenience.h"
 
 @interface NSAttributedString_WMFModifyTests : FBSnapshotTestCase
 
@@ -55,81 +51,60 @@
     [super tearDown];
 }
 
-- (UILabel*)getLabelWithAttributedStringFromBlock:(NSAttributedString* (^)(NSAttributedString*))block {
-    UILabel* label = [[UILabel alloc] init];
-    label.lineBreakMode   = NSLineBreakByWordWrapping;
-    label.numberOfLines   = 0;
-    label.backgroundColor = [UIColor whiteColor];
-    label.attributedText  = block([self getTestAttrStr]);
-
-    CGSize preHeightAdjustmentSize = (CGSize){320, 100};
-
-    CGSize heightAdjustedSize = [label systemLayoutSizeFittingSize:preHeightAdjustmentSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
-    label.frame = (CGRect){CGPointZero, heightAdjustedSize};
-    return label;
-}
-
 - (void)test0ReferenceOutput {
-    UILabel* label = [self getLabelWithAttributedStringFromBlock:^(NSAttributedString* attrStr){
-        return attrStr;
-    }];
-
-    FBSnapshotVerifyViewWithOptions(label, nil, [NSSet setWithObject:@"_64"], 0);
+    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
+        label.attributedText = [self getTestAttrStr];
+    }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 - (void)testRemoveAllStrikeThroughs {
-    UILabel* label = [self getLabelWithAttributedStringFromBlock:^(NSAttributedString* attrStr){
-        attrStr = [attrStr wmf_attributedStringChangingAttribute:NSStrikethroughStyleAttributeName
-                                                       withBlock:^NSNumber*(NSNumber* strike){
+    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
+        NSAttributedString* attrStr =
+            [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSStrikethroughStyleAttributeName
+                                                               withBlock:^NSNumber*(NSNumber* strike){
             return nil;
         }];
-        return attrStr;
-    }];
-
-    FBSnapshotVerifyViewWithOptions(label, nil, [NSSet setWithObject:@"_64"], 0);
+        label.attributedText = attrStr;
+    }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 - (void)testChangeGreenBackgroundColorsToBlue {
-    UILabel* label = [self getLabelWithAttributedStringFromBlock:^(NSAttributedString* attrStr){
-        attrStr = [attrStr wmf_attributedStringChangingAttribute:NSBackgroundColorAttributeName
-                                                       withBlock:^UIColor*(UIColor* color){
+    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
+        NSAttributedString* attrStr =
+            [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSBackgroundColorAttributeName
+                                                               withBlock:^UIColor*(UIColor* color){
             return [color isEqual:[UIColor greenColor]] ? [UIColor blueColor] : color;
         }];
-        return attrStr;
-    }];
-
-    FBSnapshotVerifyViewWithOptions(label, nil, [NSSet setWithObject:@"_64"], 0);
+        label.attributedText = attrStr;
+    }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 - (void)testChangeReduceLineSpacing {
-    UILabel* label = [self getLabelWithAttributedStringFromBlock:^(NSAttributedString* attrStr){
-        attrStr = [attrStr wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                                       withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
+    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
+        NSAttributedString* attrStr =
+            [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                                               withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
             NSMutableParagraphStyle* mutablePStyle = paragraphStyle.mutableCopy;
             mutablePStyle.lineSpacing = 2;
             return mutablePStyle;
         }];
-        return attrStr;
-    }];
-
-    FBSnapshotVerifyViewWithOptions(label, nil, [NSSet setWithObject:@"_64"], 0);
+        label.attributedText = attrStr;
+    }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 - (void)testRemovingLink {
-    UILabel* label = [self getLabelWithAttributedStringFromBlock:^(NSAttributedString* attrStr){
-        attrStr = [attrStr wmf_attributedStringChangingAttribute:NSLinkAttributeName
-                                                       withBlock:^id (id link){
+    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
+        NSAttributedString* attrStr =
+            [[self getTestAttrStr] wmf_attributedStringChangingAttribute:NSLinkAttributeName
+                                                               withBlock:^id (id link){
             return nil;
         }];
         attrStr = [attrStr wmf_attributedStringChangingAttribute:NSForegroundColorAttributeName
                                                        withBlock:^UIColor*(UIColor* color){
             return nil;
         }];
-        return attrStr;
-    }];
-
-    FBSnapshotVerifyViewWithOptions(label, nil, [NSSet setWithObject:@"_64"], 0);
+        label.attributedText = attrStr;
+    }], nil, [NSSet setWithObject:@"_64"], 0);
 }
 
 @end
