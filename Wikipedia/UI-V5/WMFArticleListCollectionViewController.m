@@ -127,6 +127,7 @@
         layout.alwaysBounce = YES;
         layout.delegate     = self;
         layout.itemSize     = self.view.bounds.size;
+        layout.topReveal    = 250;
         _stackedLayout      = layout;
     }
 

@@ -36,7 +36,7 @@
 }
 
 - (CGFloat)getIndentationForLevel:(NSNumber*)level {
-    return 10 + ((level.integerValue - 2) * 10);
+    return 20 + ((level.integerValue - 2) * 10);
 }
 
 @end

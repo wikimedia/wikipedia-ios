@@ -2,11 +2,9 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import <DTCoreText/DTCoreText.h>
-#import "WMFArticleNavigationDelegate.h"
 
-@interface WMFMinimalArticleContentCell : DTAttributedTextCell
+@interface WMFMinimalArticleContentCell : UITableViewCell
 
-@property (nonatomic, weak, nullable) id<WMFArticleNavigationDelegate> articleNavigationDelegate;
+- (void)setAttributedText:(NSAttributedString*)attributedText;
 
 @end

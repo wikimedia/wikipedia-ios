@@ -4,11 +4,29 @@
 #import "WMFArticleTableHeaderView.h"
 #import "UIButton+WMFButton.h"
 
+@interface WMFArticleTableHeaderView ()
+
+@property (weak, nonatomic) IBOutlet UILabel* titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel* descriptionLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* descriptionTopConstraint;
+@property (nonatomic) CGFloat initialDescriptionTopConstraintConstant;
+
+@end
+
 @implementation WMFArticleTableHeaderView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.initialDescriptionTopConstraintConstant = self.descriptionTopConstraint.constant;
     [self.saveButton wmf_setButtonType:WMFButtonTypeHeart];
+    self.titleLabel.layer.shadowRadius       = 5.0;
+    self.descriptionLabel.layer.shadowRadius = 5.0;
+}
+
+- (void)setTitle:(NSString*)title description:(NSString*)description {
+    self.titleLabel.text                   = title;
+    self.descriptionTopConstraint.constant = description.length == 0 ? 0 : self.initialDescriptionTopConstraintConstant;
+    self.descriptionLabel.text             = description;
 }
 
 @end

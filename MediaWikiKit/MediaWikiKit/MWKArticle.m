@@ -567,11 +567,18 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
         }] bk_select:^BOOL (id stringOrNull) {
             return [stringOrNull isKindOfClass:[NSString class]] && [stringOrNull length] > 0;
         }];
+
         if (!nonEmptyParagraphsWithSelectedChildren.count) {
             continue;
         }
-        NSString* lineSeparatedParagraphs = [nonEmptyParagraphsWithSelectedChildren componentsJoinedByString:@"<br/><br/>"];
-        NSData* xpathData                 = [lineSeparatedParagraphs dataUsingEncoding:NSUTF8StringEncoding];
+
+        NSArray* paragraphsWrappedWithParagraphTags =
+            [nonEmptyParagraphsWithSelectedChildren bk_map:^NSString*(NSString* thisParagraph) {
+            return [@[@"<p>", thisParagraph, @"</p>"] componentsJoinedByString : @""];
+        }];
+
+        NSData* xpathData = [[paragraphsWrappedWithParagraphTags componentsJoinedByString:@""] dataUsingEncoding:NSUTF8StringEncoding];
+
         return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
     }
     return nil;
