@@ -21,7 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
-static NSUInteger const WMFNearbySectionMaxResults = 3;
+static NSUInteger const WMFNearbySectionMaxResults = 50;
 
 static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters before we update fetch
 
@@ -62,11 +62,11 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (NSString*)headerText {
-    return @"Nearby";
+    return @"Nearby your location";
 }
 
 - (NSString*)footerText {
-    return @"More Nearby";
+    return @"More from nearby your location";
 }
 
 - (NSArray*)items{
