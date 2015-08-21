@@ -29,8 +29,9 @@ extern NSString* const WMFDefaultSiteDomain;
 - (NSURL*)mobileURL;
 
 - (NSURL*)apiEndpoint;
-
 - (NSURL*)mobileApiEndpoint;
+
+- (NSURL*)apiEndpoint:(BOOL)isMobile;
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language NS_DESIGNATED_INITIALIZER;
 

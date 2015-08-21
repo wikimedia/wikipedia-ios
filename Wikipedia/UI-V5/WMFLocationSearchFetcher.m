@@ -56,23 +56,20 @@
 }
 
 - (AnyPromise*)fetchNearbyArticlesWithLocation:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL {
-    self.isFetching = YES;
 
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSURL* url = useDeskTopURL ? [self.searchSite apiEndpoint] : [self.searchSite mobileApiEndpoint];
+        NSURL* url = [self.searchSite apiEndpoint:useDeskTopURL];
 
         [self.operationManager GET:url.absoluteString parameters:location success:^(AFHTTPRequestOperation* operation, id response) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithLocation:location results:response];
             resolve(results);
-            self.isFetching = NO;
         } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             if ([url isEqual:[self.searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
                 [self fetchNearbyArticlesWithLocation:location useDesktopURL:YES];
             } else {
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];
                 resolve(error);
-                self.isFetching = NO;
             }
         }];
     }];
