@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Internal Class Declarations
 
 @interface WMFRelatedSearchRequestParameters : NSObject
-@property (nonatomic, strong) MWKTitle *title;
+@property (nonatomic, strong) MWKTitle* title;
 @property (nonatomic, assign) NSUInteger numberOfResults;
 @end
 
@@ -51,23 +51,22 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (BOOL)isFetching{
+- (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title{
+- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title {
     return [self fetchArticlesRelatedToTitle:title useDesktopURL:NO];
 }
 
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title useDesktopURL:(BOOL)useDeskTopURL {
-    
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         NSURL* url = [self.searchSite apiEndpoint:useDeskTopURL];
-        
+
         WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
         params.title = title;
         params.numberOfResults = self.maximumNumberOfResults;
-        
+
         [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             WMFRelatedSearchResults* results = [[WMFRelatedSearchResults alloc] initWithTitle:title results:response];
@@ -99,32 +98,31 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
                               withParameters:(id)parameters
                                        error:(NSError* __autoreleasing*)error {
-    
     NSDictionary* serializedParams = [self serializedParams:(WMFRelatedSearchRequestParameters*)parameters];
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
 - (NSDictionary*)serializedParams:(WMFRelatedSearchRequestParameters*)params {
     NSString* numberOfResults = [NSString stringWithFormat:@"%lu", (unsigned long)params.numberOfResults];
-    
+
     return @{
-             @"action": @"query",
-             @"prop": @"pageterms|pageimages",
-             @"wbptterms": @"description",
-             @"generator": @"search",
-             @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],
-             @"gsrnamespace": @0,
-             @"gsrwhat": @"text",
-             @"gsrinfo": @"",
-             @"gsrprop": @"redirecttitle",
-             @"gsroffset": @0,
-             @"gsrlimit": numberOfResults,
-             @"piprop": @"thumbnail",
-             @"pithumbsize": @(LEAD_IMAGE_WIDTH),
-             @"pilimit": numberOfResults,
-             @"continue": @"",
-             @"format": @"json"
-             };
+               @"action": @"query",
+               @"prop": @"pageterms|pageimages",
+               @"wbptterms": @"description",
+               @"generator": @"search",
+               @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],
+               @"gsrnamespace": @0,
+               @"gsrwhat": @"text",
+               @"gsrinfo": @"",
+               @"gsrprop": @"redirecttitle",
+               @"gsroffset": @0,
+               @"gsrlimit": numberOfResults,
+               @"piprop": @"thumbnail",
+               @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+               @"pilimit": numberOfResults,
+               @"continue": @"",
+               @"format": @"json"
+    };
 }
 
 @end

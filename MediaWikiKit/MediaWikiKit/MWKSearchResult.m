@@ -20,11 +20,11 @@
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
-             @"displayTitle": @"title",
-             @"articleID": @"pageid",
-             @"thumbnailURL": @"thumbnail.source",
-             @"wikidataDescription": @"terms.description"
-             };
+               @"displayTitle": @"title",
+               @"articleID": @"pageid",
+               @"thumbnailURL": @"thumbnail.source",
+               @"wikidataDescription": @"terms.description"
+    };
 }
 
 @end

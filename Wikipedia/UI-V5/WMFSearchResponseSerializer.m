@@ -4,8 +4,7 @@
 
 @implementation WMFSearchResponseSerializer
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.searchResultClass = [MWKSearchResult class];
@@ -19,7 +18,8 @@
     NSDictionary* JSON                    = [super responseObjectForResponse:response data:data error:error];
     NSDictionary* nearbyResultsDictionary = JSON[@"query"][@"pages"];
     NSArray* nearbyResultsArray           = [nearbyResultsDictionary allValues];
-    
+
     return [MTLJSONAdapter modelsOfClass:[self.searchResultClass class] fromJSONArray:nearbyResultsArray error:error];
 }
+
 @end

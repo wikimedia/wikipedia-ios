@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _nearbySectionController;
 }
 
-- (WMFRelatedSectionController*)recentSectionController{
+- (WMFRelatedSectionController*)recentSectionController {
     if (!_recentSectionController) {
         MWKTitle* recentTite = [self mostRecentReadArticle];
         if (!recentTite) {
@@ -112,12 +112,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Related Articles
 
-- (MWKTitle*)mostRecentReadArticle{
+- (MWKTitle*)mostRecentReadArticle {
     MWKHistoryEntry* latest = [[self.recentPages entries] lastObject];
     return latest.title;
 }
 
-- (MWKTitle*)mostRecentSavedArticle{
+- (MWKTitle*)mostRecentSavedArticle {
     MWKSavedPageEntry* latest = [[self.savedPages entries] lastObject];
     return latest.title;
 }
@@ -225,7 +225,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller {
-    if(!controller){
+    if (!controller) {
         return;
     }
     self.sectionControllers[controller.sectionIdentifier] = controller;
@@ -288,14 +288,13 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes{
+- (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
     NSInteger section = [self indexForSectionController:controller];
     [self.collectionView performBatchUpdates:^{
         [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
     } completion:^(BOOL finished) {
     }];
 }
-
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator {
     NSInteger section = [self indexForSectionController:controller];

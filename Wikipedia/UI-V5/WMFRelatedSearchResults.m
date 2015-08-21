@@ -10,11 +10,11 @@
 
 @implementation WMFRelatedSearchResults
 
-- (instancetype)initWithTitle:(MWKTitle*)title results:(NSArray*)results{
+- (instancetype)initWithTitle:(MWKTitle*)title results:(NSArray*)results {
     self = [super init];
     if (self) {
-        self.title = title;
-        self.results  = results;
+        self.title   = title;
+        self.results = results;
     }
     return self;
 }

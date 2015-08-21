@@ -15,7 +15,7 @@
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-static NSString* const WMFNearbySectionIdentifierPrefix  = @"WMFRelatedSectionIdentifier";
+static NSString* const WMFNearbySectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
 
 static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
@@ -32,15 +32,15 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher{
+- (instancetype)initWithArticleTitle:(MWKTitle*)title relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
     NSParameterAssert(relatedSearchFetcher);
-    
+
     self = [super init];
     if (self) {
         relatedSearchFetcher.maximumNumberOfResults = WMFRelatedSectionMaxResults;
-        self.relatedSearchFetcher  = relatedSearchFetcher;
-        
+        self.relatedSearchFetcher                   = relatedSearchFetcher;
+
         self.title = title;
     }
     [self fetchNearbyArticlesWithTitle:self.title];
@@ -73,12 +73,12 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 - (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
-        WMFArticlePreviewCell* previewCell   = (id)cell;
-        MWKLocationSearchResult* result = object;
+        WMFArticlePreviewCell* previewCell = (id)cell;
+        MWKLocationSearchResult* result    = object;
         previewCell.titleText       = result.displayTitle;
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
-        previewCell.summaryText = nil;
+        previewCell.summaryText     = nil;
     }
 }
 
@@ -97,7 +97,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     if (self.relatedSearchFetcher.isFetching) {
         return;
     }
-    
+
     [self.relatedSearchFetcher fetchArticlesRelatedToTitle:title]
     .then(^(WMFRelatedSearchResults* results){
         self.relatedResults = results;

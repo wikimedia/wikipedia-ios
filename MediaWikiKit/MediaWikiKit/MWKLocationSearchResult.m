@@ -25,14 +25,12 @@
     }];
 }
 
-
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
-    
     NSMutableDictionary* mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-    [mapping addEntriesFromDictionary: @{
-                                         @"location": @"coordinates",
-                                         @"distanceFromQueryCoordinates": @"coordinates",
-                                         }];
+    [mapping addEntriesFromDictionary:@{
+         @"location": @"coordinates",
+         @"distanceFromQueryCoordinates": @"coordinates",
+     }];
 
     return mapping;
 }

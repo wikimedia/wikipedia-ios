@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Internal Class Declarations
 
 @interface WMFLocationSearchRequestParameters : NSObject
-@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, strong) CLLocation* location;
 @property (nonatomic, assign) NSUInteger numberOfResults;
 @end
 
@@ -45,15 +45,16 @@ NS_ASSUME_NONNULL_BEGIN
         NSParameterAssert(site);
         self.searchSite = site;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-        manager.requestSerializer  = [WMFLocationSearchRequestSerializer serializer];
+        manager.requestSerializer = [WMFLocationSearchRequestSerializer serializer];
         WMFSearchResponseSerializer* serializer = [WMFSearchResponseSerializer serializer];
         serializer.searchResultClass = [MWKLocationSearchResult class];
-        manager.responseSerializer = serializer;
-        self.operationManager      = manager;
+        manager.responseSerializer   = serializer;
+        self.operationManager        = manager;
     }
     return self;
 }
-- (BOOL)isFetching{
+
+- (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
@@ -66,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchNearbyArticlesWithLocation:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL {
-
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         NSURL* url = [self.searchSite apiEndpoint:useDeskTopURL];
 
@@ -104,30 +104,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
                               withParameters:(id)parameters
                                        error:(NSError* __autoreleasing*)error {
-    
     NSDictionary* serializedParams = [self serializedParams:(WMFLocationSearchRequestParameters*)parameters];
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
 - (NSDictionary*)serializedParams:(WMFLocationSearchRequestParameters*)params {
     NSString* coords =
-    [NSString stringWithFormat:@"%f|%f", params.location.coordinate.latitude, params.location.coordinate.longitude];
+        [NSString stringWithFormat:@"%f|%f", params.location.coordinate.latitude, params.location.coordinate.longitude];
     NSString* numberOfResults = [NSString stringWithFormat:@"%lu", (unsigned long)params.numberOfResults];
-    
+
     return @{
-             @"action": @"query",
-             @"prop": @"coordinates|pageimages|pageterms",
-             @"colimit": numberOfResults,
-             @"pithumbsize": @(LEAD_IMAGE_WIDTH),
-             @"pilimit": numberOfResults,
-             @"wbptterms": @"description",
-             @"generator": @"geosearch",
-             @"ggscoord": coords,
-             @"codistancefrompoint": coords,
-             @"ggsradius": @"10000",
-             @"ggslimit": numberOfResults,
-             @"format": @"json"
-             };
+               @"action": @"query",
+               @"prop": @"coordinates|pageimages|pageterms",
+               @"colimit": numberOfResults,
+               @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+               @"pilimit": numberOfResults,
+               @"wbptterms": @"description",
+               @"generator": @"geosearch",
+               @"ggscoord": coords,
+               @"codistancefrompoint": coords,
+               @"ggsradius": @"10000",
+               @"ggslimit": numberOfResults,
+               @"format": @"json"
+    };
 }
 
 @end
