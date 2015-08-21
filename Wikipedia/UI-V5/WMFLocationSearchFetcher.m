@@ -18,7 +18,6 @@
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
-@property (nonatomic, assign, readwrite) BOOL isFetching;
 
 @end
 
@@ -35,6 +34,9 @@
         self.operationManager      = manager;
     }
     return self;
+}
+- (BOOL)isFetching{
+    return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
 - (WMFLocationSearchRequestSerializer*)nearbySerializer {
