@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, :deployment_target => '7.0'
+platform :ios, :deployment_target => '8.0'
 
 inhibit_all_warnings!
 
@@ -31,6 +31,9 @@ pod 'SSDataSources'
 
 # Autolayout
 pod 'Masonry', '0.6.2'
+
+# Collection View layout
+pod 'SelfSizingWaterfallCollectionViewLayout', '0.0.1'
 
 # Diagnostics
 pod 'PiwikTracker', '~> 3.3.0'

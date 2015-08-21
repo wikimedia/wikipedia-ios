@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitkeychainutils.h
+../../../HockeySDK/Classes/BITKeychainUtils.h

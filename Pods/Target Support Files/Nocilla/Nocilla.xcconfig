@@ -1,1 +1,0 @@
-NOCILLA_OTHER_LDFLAGS = -framework "CFNetwork"

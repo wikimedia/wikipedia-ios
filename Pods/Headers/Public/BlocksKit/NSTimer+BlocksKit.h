@@ -1,1 +1,1 @@
-../../../BlocksKit/BlocksKit/Core/nstimer+blockskit.h
+../../../BlocksKit/BlocksKit/Core/NSTimer+BlocksKit.h

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Core/hcmatcher.h
+../../../OCHamcrest/Source/Core/HCMatcher.h

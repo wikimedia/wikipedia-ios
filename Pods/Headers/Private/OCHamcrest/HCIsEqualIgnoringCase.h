@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Text/hcisequalignoringcase.h
+../../../OCHamcrest/Source/Library/Text/HCIsEqualIgnoringCase.h

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Collection/hciscollectioncontaining.h
+../../../OCHamcrest/Source/Library/Collection/HCIsCollectionContaining.h

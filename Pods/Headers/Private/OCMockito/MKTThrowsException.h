@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/mktthrowsexception.h
+../../../OCMockito/Source/OCMockito/MKTThrowsException.h

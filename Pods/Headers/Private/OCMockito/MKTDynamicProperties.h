@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/mktdynamicproperties.h
+../../../OCMockito/Source/OCMockito/Helpers/MKTDynamicProperties.h

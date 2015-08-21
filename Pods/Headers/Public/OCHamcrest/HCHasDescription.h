@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/hchasdescription.h
+../../../OCHamcrest/Source/Library/Object/HCHasDescription.h

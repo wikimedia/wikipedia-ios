@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/ReturnValueSetters/mktunsignedshortreturnsetter.h
+../../../OCMockito/Source/OCMockito/Helpers/ReturnValueSetters/MKTUnsignedShortReturnSetter.h

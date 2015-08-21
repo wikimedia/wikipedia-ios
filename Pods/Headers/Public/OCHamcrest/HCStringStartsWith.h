@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Text/hcstringstartswith.h
+../../../OCHamcrest/Source/Library/Text/HCStringStartsWith.h

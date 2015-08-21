@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Number/hcnumberassert.h
+../../../OCHamcrest/Source/Library/Number/HCNumberAssert.h

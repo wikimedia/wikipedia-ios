@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Text/hcisequalignoringwhitespace.h
+../../../OCHamcrest/Source/Library/Text/HCIsEqualIgnoringWhiteSpace.h
