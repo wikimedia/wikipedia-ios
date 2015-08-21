@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFHomeSectionHeader" id="DH9-hh-2Hp" customClass="WMFHomeSectionHeader">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiY-pH-Vjc">
+                    <rect key="frame" x="8" y="15" width="584" height="21"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" red="0.019607843137254902" green="0.023529411764705882" blue="0.019607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="QiY-pH-Vjc" secondAttribute="centerY" id="FzQ-Qq-dcK"/>
+                <constraint firstItem="QiY-pH-Vjc" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="8" id="a5V-sx-jyW"/>
+                <constraint firstAttribute="trailing" secondItem="QiY-pH-Vjc" secondAttribute="trailing" constant="8" id="eGB-1h-cDx"/>
+                <constraint firstAttribute="centerX" secondItem="QiY-pH-Vjc" secondAttribute="centerX" id="iUm-be-7Gz"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="iUm-be-7Gz"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="titleLabel" destination="QiY-pH-Vjc" id="Qc4-j1-61e"/>
+            </connections>
+        </collectionReusableView>
+    </objects>
+</document>

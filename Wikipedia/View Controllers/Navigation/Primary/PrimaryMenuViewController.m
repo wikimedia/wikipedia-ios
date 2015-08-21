@@ -17,7 +17,6 @@
 #import "SecondaryMenuViewController.h"
 #import "HistoryViewController.h"
 #import "SavedPagesViewController.h"
-#import "NearbyViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
@@ -241,7 +240,6 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
             break;
         case PRIMARY_MENU_ITEM_NEARBY:
             [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeNearby];
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[NearbyViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case PRIMARY_MENU_ITEM_MORE: {
             [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeMore];

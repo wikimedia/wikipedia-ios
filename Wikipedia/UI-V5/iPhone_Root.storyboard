@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -81,7 +81,7 @@
         <!--Search-->
         <scene sceneID="Ijm-OL-UgQ">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="cv0-Vi-jBW" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="cv0-Vi-jBW" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="search" id="CfH-lu-Ja9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="M49-9C-IIr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -257,6 +257,27 @@
             </objects>
             <point key="canvasLocation" x="1689" y="2881"/>
         </scene>
+        <!--Home View Controller-->
+        <scene sceneID="GQS-UF-SlV">
+            <objects>
+                <collectionViewController id="ijM-Cp-AID" customClass="WMFHomeViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="kwN-cC-rkY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.94499534368515015" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <collectionViewLayout key="collectionViewLayout" id="PEa-JF-GrQ" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <cells/>
+                        <connections>
+                            <outlet property="delegate" destination="ijM-Cp-AID" id="SC7-eq-goH"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="mHo-1o-28h"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fWB-DA-BCh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="237" y="2881"/>
+        </scene>
         <!--Recent Searches View Controller-->
         <scene sceneID="MGk-Bd-HA1">
             <objects>
@@ -428,7 +449,7 @@
         <!--Saved-->
         <scene sceneID="Lqf-ge-2v5">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Saved" image="saved" id="tEK-7k-93Q"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ScF-IW-gDl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -446,58 +467,10 @@
             </objects>
             <point key="canvasLocation" x="1689" y="2115"/>
         </scene>
-        <!--Nearby-->
-        <scene sceneID="Db8-pn-u9C">
-            <objects>
-                <viewController storyboardIdentifier="NearbyViewController" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y74-wE-CKB" customClass="NearbyViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rhw-5r-SuS"/>
-                        <viewControllerLayoutGuide type="bottom" id="hQ8-Ps-Tb7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yua-5k-4ie">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eCD-hw-sGe">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="531"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="Smk-pU-0GM">
-                                    <size key="itemSize" width="320" height="160"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                                <connections>
-                                    <outlet property="dataSource" destination="y74-wE-CKB" id="u5D-KK-9JN"/>
-                                    <outlet property="delegate" destination="y74-wE-CKB" id="MFS-xP-XK7"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="eCD-hw-sGe" secondAttribute="trailing" id="4Qy-A9-mdC"/>
-                            <constraint firstItem="eCD-hw-sGe" firstAttribute="top" secondItem="rhw-5r-SuS" secondAttribute="bottom" id="NgJ-Pk-zpf"/>
-                            <constraint firstItem="eCD-hw-sGe" firstAttribute="leading" secondItem="yua-5k-4ie" secondAttribute="leading" id="WMe-kb-GEp"/>
-                            <constraint firstItem="hQ8-Ps-Tb7" firstAttribute="top" secondItem="eCD-hw-sGe" secondAttribute="bottom" id="xOP-Cy-g4C"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Nearby" id="U3f-2f-YQU"/>
-                    <navigationItem key="navigationItem" id="jSq-CI-bRK"/>
-                    <connections>
-                        <outlet property="collectionView" destination="eCD-hw-sGe" id="EPp-rw-5mv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tus-AL-SDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="237" y="2881"/>
-        </scene>
         <!--Recent-->
         <scene sceneID="2zr-9G-QMd">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recent" image="history" id="ZNo-7p-3PU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rIL-t0-IJM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -518,7 +491,7 @@
         <!--Home-->
         <scene sceneID="my8-ht-Vqg">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="fCG-Qf-VzW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -529,7 +502,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="navigationBarHidden" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="y74-wE-CKB" kind="relationship" relationship="rootViewController" id="El9-dO-blV"/>
+                        <segue destination="ijM-Cp-AID" kind="relationship" relationship="rootViewController" id="Yb6-mc-Hil"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

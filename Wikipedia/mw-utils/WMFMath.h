@@ -47,3 +47,9 @@ extern double RoundWithPrecision(double (* rounder)(double), double x, unsigned 
 
 /// Round @c x to 2 significant digits after the decimal point.
 extern double WMFFlooredPercentage(double x) __attribute__((const)) __attribute__((pure));
+
+
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
+
+#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+
