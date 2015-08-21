@@ -7,20 +7,25 @@
 
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
+#import "WMFRelatedSearchFetcher.h"
 
 #import "WMFNearbySectionController.h"
+#import "WMFRelatedSectionController.h"
 
 #import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
-#import "MWKRecentSearchList.h"
+#import "MWKHistoryList.h"
 
 #import "MWKSite.h"
-#import "MWKLocationSearchResult.h"
+#import "MWKHistoryEntry.h"
+#import "MWKSavedPageEntry.h"
 #import "MWKTitle.h"
 #import "MWKArticle.h"
+
+#import "MWKLocationSearchResult.h"
 
 #import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
 
@@ -36,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate>
 
 @property (nonatomic, strong) WMFNearbySectionController* nearbySectionController;
+@property (nonatomic, strong) WMFRelatedSectionController* recentSectionController;
+@property (nonatomic, strong) WMFRelatedSectionController* savedSectionController;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
@@ -55,6 +62,19 @@ NS_ASSUME_NONNULL_BEGIN
         _nearbySectionController.delegate = self;
     }
     return _nearbySectionController;
+}
+
+- (WMFRelatedSectionController*)recentSectionController{
+    if (!_recentSectionController) {
+        MWKTitle* recentTite = [self mostRecentReadArticle];
+        if (!recentTite) {
+            return nil;
+        }
+        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        _recentSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
+        _recentSectionController.delegate = self;
+    }
+    return _recentSectionController;
 }
 
 - (WMFLocationManager*)locationManager {
@@ -88,6 +108,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
     return (id)self.collectionView.collectionViewLayout;
+}
+
+#pragma mark - Related Articles
+
+- (MWKTitle*)mostRecentReadArticle{
+    MWKHistoryEntry* latest = [[self.recentPages entries] lastObject];
+    return latest.title;
+}
+
+- (MWKTitle*)mostRecentSavedArticle{
+    MWKSavedPageEntry* latest = [[self.savedPages entries] lastObject];
+    return latest.title;
 }
 
 #pragma mark - UiViewController
@@ -187,10 +219,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
     [self loadSectionForSectionController:self.nearbySectionController];
+    [self loadSectionForSectionController:self.recentSectionController];
+
     self.dataSource.collectionView = self.collectionView;
 }
 
 - (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller {
+    if(!controller){
+        return;
+    }
     self.sectionControllers[controller.sectionIdentifier] = controller;
 
     [controller registerCellsInCollectionView:self.collectionView];
@@ -250,6 +287,15 @@ NS_ASSUME_NONNULL_BEGIN
     } completion:^(BOOL finished) {
     }];
 }
+
+- (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes{
+    NSInteger section = [self indexForSectionController:controller];
+    [self.collectionView performBatchUpdates:^{
+        [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
+    } completion:^(BOOL finished) {
+    }];
+}
+
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator {
     NSInteger section = [self indexForSectionController:controller];

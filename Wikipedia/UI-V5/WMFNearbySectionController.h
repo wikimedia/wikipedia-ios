@@ -3,7 +3,6 @@
 
 @class WMFLocationManager;
 @class WMFLocationSearchFetcher;
-@class SSSectionedDataSource;
 
 NS_ASSUME_NONNULL_BEGIN
 

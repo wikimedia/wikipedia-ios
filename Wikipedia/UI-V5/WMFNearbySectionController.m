@@ -3,7 +3,6 @@
 
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
-#import "SSSectionedDataSource+WMFSectionConvenience.h"
 
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
@@ -21,7 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
-static NSUInteger const WMFNearbySectionMaxResults = 50;
+static NSUInteger const WMFNearbySectionMaxResults = 3;
 
 static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters before we update fetch
 
@@ -158,7 +157,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     [self updateSectionWithLocationError:error];
 }
 
-#pragma mark - Fetch Nearby Results
+#pragma mark - Fetch
 
 - (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location {
     if (self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
