@@ -1,5 +1,6 @@
 
 #import "WMFLocationSearchResults.h"
+#import "MWKLocationSearchResult.h"
 
 @interface WMFLocationSearchResults ()
 
@@ -13,8 +14,9 @@
 - (instancetype)initWithLocation:(CLLocation*)location results:(NSArray*)results {
     self = [super init];
     if (self) {
+        
         self.location = location;
-        self.results  = results;
+        self.results  = [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];;
     }
     return self;
 }

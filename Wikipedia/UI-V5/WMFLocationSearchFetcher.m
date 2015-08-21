@@ -5,13 +5,14 @@
 //Networking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "WMFApiJsonResponseSerializer.h"
+#import "WMFSearchResponseSerializer.h"
 #import <Mantle/Mantle.h>
 
 //Promises
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+//Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 
@@ -24,12 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger numberOfResults;
 @end
 
-@interface WMFLocationSearchResponseSerializer : WMFApiJsonResponseSerializer
-@end
-
 @interface WMFLocationSearchRequestSerializer : AFHTTPRequestSerializer
 @end
-
 
 #pragma mark - Fetcher Implementation
 
@@ -49,7 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
         self.searchSite = site;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFLocationSearchRequestSerializer serializer];
-        manager.responseSerializer = [WMFLocationSearchResponseSerializer serializer];
+        WMFSearchResponseSerializer* serializer = [WMFSearchResponseSerializer serializer];
+        serializer.searchResultClass = [MWKLocationSearchResult class];
+        manager.responseSerializer = serializer;
         self.operationManager      = manager;
     }
     return self;
@@ -129,22 +128,6 @@ NS_ASSUME_NONNULL_BEGIN
              @"ggslimit": numberOfResults,
              @"format": @"json"
              };
-}
-
-@end
-
-
-@implementation WMFLocationSearchResponseSerializer
-
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
-                          error:(NSError* __autoreleasing*)error {
-    NSDictionary* JSON                    = [super responseObjectForResponse:response data:data error:error];
-    NSDictionary* nearbyResultsDictionary = JSON[@"query"][@"pages"];
-    NSArray* nearbyResultsArray           = [nearbyResultsDictionary allValues];
-    
-    NSArray* results = [MTLJSONAdapter modelsOfClass:[MWKLocationSearchResult class] fromJSONArray:nearbyResultsArray error:error];
-    return [results sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromQueryCoordinates) ascending:YES]]];
 }
 
 @end

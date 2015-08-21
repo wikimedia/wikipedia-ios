@@ -1,15 +1,7 @@
 
 #import "MWKLocationSearchResult.h"
-#import "NSURL+Extras.h"
-#import "NSString+Extras.h"
 
 @implementation MWKLocationSearchResult
-
-+ (NSValueTransformer*)thumbnailURLJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* value, BOOL* success, NSError* __autoreleasing* error) {
-        return [NSURL wmf_optionalURLWithString:value];
-    }];
-}
 
 + (NSValueTransformer*)locationJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError* __autoreleasing* error) {
@@ -25,13 +17,6 @@
     }];
 }
 
-+ (NSValueTransformer*)wikidataDescriptionJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError* __autoreleasing* error) {
-        NSString* description = [value firstObject];
-        return [description wmf_stringByCapitalizingFirstCharacter];
-    }];
-}
-
 + (NSValueTransformer*)distanceFromQueryCoordinatesJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError* __autoreleasing* error) {
         NSDictionary* coords = [value firstObject];
@@ -40,15 +25,16 @@
     }];
 }
 
+
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
-    return @{
-               @"displayTitle": @"title",
-               @"articleID": @"pageid",
-               @"thumbnailURL": @"thumbnail.source",
-               @"location": @"coordinates",
-               @"distanceFromQueryCoordinates": @"coordinates",
-               @"wikidataDescription": @"terms.description"
-    };
+    
+    NSMutableDictionary* mapping = [[super JSONKeyPathsByPropertyKey] mutableCopy];
+    [mapping addEntriesFromDictionary: @{
+                                         @"location": @"coordinates",
+                                         @"distanceFromQueryCoordinates": @"coordinates",
+                                         }];
+
+    return mapping;
 }
 
 @end
