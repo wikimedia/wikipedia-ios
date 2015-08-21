@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 100.0; //meters before we update location
+static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //meters before we update location
 
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
