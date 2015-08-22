@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-typedef void (^WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
+typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
 
 
 @protocol WMFHomeSectionControllerDelegate <NSObject>

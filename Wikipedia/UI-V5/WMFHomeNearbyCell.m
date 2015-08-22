@@ -54,22 +54,22 @@ static CGFloat const WMFImagePadding = 8.0;
 }
 
 - (void)setImageURL:(NSURL*)imageURL {
-    if([_imageURL isEqual:imageURL]){
+    if ([_imageURL isEqual:imageURL]) {
         return;
     }
-    
+
     [[WMFImageController sharedInstance] cancelFetchForURL:_imageURL];
-    
+
     _imageURL = imageURL;
-    
+
     UIImage* cached = [[WMFImageController sharedInstance] cachedImageInMemoryWithURL:imageURL];
-    if(cached){
+    if (cached) {
         self.imageView.image = cached;
         return;
     }
-    
+
     @weakify(self);
-    
+
     [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
     .then(^id (WMFImageDownload* download) {
         @strongify(self);
