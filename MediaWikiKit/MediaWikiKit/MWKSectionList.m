@@ -144,6 +144,7 @@
 
 - (void)buildSectionHierarchy {
     __block MWKSection* currentParent = nil;
+    [self.sections makeObjectsPerformSelector:@selector(removeAllChildren)];
     [self.sections enumerateObjectsUsingBlock:^(MWKSection* currentSection, NSUInteger idx, BOOL* stop) {
         if (!currentSection.level) {
             currentParent = nil;

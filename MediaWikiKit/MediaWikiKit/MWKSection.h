@@ -94,5 +94,6 @@ extern NSString* const MWKSectionShareSnippetXPath;
 
 - (void)addChild:(MWKSection*)child;
 
+- (void)removeAllChildren;
 
 @end

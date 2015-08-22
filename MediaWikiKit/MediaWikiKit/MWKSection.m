@@ -218,4 +218,8 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     }
 }
 
+- (void)removeAllChildren {
+    [self.mutableChildren removeAllObjects];
+}
+
 @end
