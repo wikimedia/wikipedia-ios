@@ -11,29 +11,27 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiY-pH-Vjc">
-                    <rect key="frame" x="8" y="15" width="584" height="21"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-RH-fPG">
+                    <rect key="frame" x="8" y="7" width="584" height="37"/>
                     <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Abw-0C-Eqo"/>
+                    </constraints>
+                    <color key="textColor" red="0.28235294117647058" green="0.28235294117647058" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" red="0.019607843137254902" green="0.023529411764705882" blue="0.019607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                </textView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="QiY-pH-Vjc" secondAttribute="centerY" id="FzQ-Qq-dcK"/>
-                <constraint firstItem="QiY-pH-Vjc" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="8" id="a5V-sx-jyW"/>
-                <constraint firstAttribute="trailing" secondItem="QiY-pH-Vjc" secondAttribute="trailing" constant="8" id="eGB-1h-cDx"/>
-                <constraint firstAttribute="centerX" secondItem="QiY-pH-Vjc" secondAttribute="centerX" id="iUm-be-7Gz"/>
+                <constraint firstItem="Bj8-RH-fPG" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="8" id="LSd-Kj-rUk"/>
+                <constraint firstAttribute="centerY" secondItem="Bj8-RH-fPG" secondAttribute="centerY" id="kKV-Sq-4bq"/>
+                <constraint firstAttribute="trailing" secondItem="Bj8-RH-fPG" secondAttribute="trailing" constant="8" id="tCh-p1-BwF"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="iUm-be-7Gz"/>
-                </mask>
-            </variation>
             <connections>
-                <outlet property="titleLabel" destination="QiY-pH-Vjc" id="Qc4-j1-61e"/>
+                <outlet property="titleView" destination="Bj8-RH-fPG" id="kLd-uI-lUi"/>
             </connections>
         </collectionReusableView>
     </objects>

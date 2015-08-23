@@ -38,7 +38,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate>
+@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
 @property (nonatomic, strong, null_resettable) WMFRelatedSectionController* recentSectionController;
@@ -277,7 +277,11 @@ NS_ASSUME_NONNULL_BEGIN
 
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             WMFHomeSectionHeader* header = view;
-            header.titleLabel.text = controller.headerText;
+            NSMutableAttributedString* title = [[controller headerText] mutableCopy];
+            [title addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0] range:NSMakeRange(0, title.length)];
+            [title addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.353 green:0.353 blue:0.353 alpha:1] range:NSMakeRange(0, title.length)];
+            header.titleView.attributedText = title;
+            header.titleView.delegate = self;
         } else {
             WMFHomeSectionFooter* footer = view;
             footer.moreLabel.text = controller.footerText;
@@ -413,6 +417,15 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 }
+
+#pragma mark - UITextViewDelegate
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+    MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
+    [self showArticleViewControllerForTitle:title animated:YES];
+    return NO;
+}
+
 
 @end
 

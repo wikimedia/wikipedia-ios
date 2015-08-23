@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)sectionIdentifier;
 
-- (NSString*)headerText;
+- (NSAttributedString*)headerText;
 
 - (NSString*)footerText;
 
