@@ -77,6 +77,19 @@ NS_ASSUME_NONNULL_BEGIN
     return _recentSectionController;
 }
 
+- (WMFRelatedSectionController*)savedSectionController {
+    if (!_savedSectionController) {
+        MWKTitle* recentTite = [self mostRecentSavedArticle];
+        if (!recentTite) {
+            return nil;
+        }
+        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        _savedSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
+        _savedSectionController.delegate = self;
+    }
+    return _savedSectionController;
+}
+
 - (WMFLocationManager*)locationManager {
     if (!_locationManager) {
         _locationManager = [[WMFLocationManager alloc] init];
@@ -220,6 +233,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self loadSectionForSectionController:self.nearbySectionController];
     [self loadSectionForSectionController:self.recentSectionController];
+    [self loadSectionForSectionController:self.savedSectionController];
 
     self.dataSource.collectionView = self.collectionView;
 }
