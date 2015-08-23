@@ -123,6 +123,11 @@ NS_ASSUME_NONNULL_BEGIN
     return (id)self.collectionView.collectionViewLayout;
 }
 
+- (CGFloat)contentWidth{
+    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
+    return width;
+}
+
 #pragma mark - Related Articles
 
 - (MWKTitle*)mostRecentReadArticle {
@@ -143,12 +148,9 @@ NS_ASSUME_NONNULL_BEGIN
     self.navigationController.navigationBarHidden = NO;
     self.collectionView.dataSource                = nil;
 
-    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
     [self flowLayout].estimatedItemHeight = 150;
     [self flowLayout].numberOfColumns     = 1;
-    [self flowLayout].headerReferenceSize = CGSizeMake(width, 50.0);
-    [self flowLayout].footerReferenceSize = CGSizeMake(width, 50.0);
-    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
+    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
     [self flowLayout].minimumLineSpacing  = 10.0;
 }
 
@@ -254,17 +256,16 @@ NS_ASSUME_NONNULL_BEGIN
     } completion:NULL];
 }
 
+#pragma mark - UICollectionViewDelegate
+
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSUInteger)section {
-    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-    return CGSizeMake(width, 50.0);
+    return CGSizeMake([self contentWidth], 50.0);
 }
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
-    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-    return CGSizeMake(width, 50.0);
+    return CGSizeMake([self contentWidth], 80.0);
 }
 
-#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id object = [self.dataSource itemAtIndexPath:indexPath];
