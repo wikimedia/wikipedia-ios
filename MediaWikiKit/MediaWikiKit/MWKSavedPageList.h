@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index;
 - (MWKSavedPageEntry* __nullable)entryForTitle:(MWKTitle*)title;
+- (MWKSavedPageEntry*)mostRecentEntry;
 
 - (NSUInteger)indexForEntry:(MWKSavedPageEntry*)entry;
 

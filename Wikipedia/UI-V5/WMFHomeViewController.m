@@ -40,9 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate>
 
-@property (nonatomic, strong) WMFNearbySectionController* nearbySectionController;
-@property (nonatomic, strong) WMFRelatedSectionController* recentSectionController;
-@property (nonatomic, strong) WMFRelatedSectionController* savedSectionController;
+@property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
+@property (nonatomic, strong, null_resettable) WMFRelatedSectionController* recentSectionController;
+@property (nonatomic, strong, null_resettable) WMFRelatedSectionController* savedSectionController;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
@@ -53,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFHomeViewController
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - Accessors
 
@@ -130,8 +135,46 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Related Articles
 
+- (BOOL)shouldReloadRecentArticleSection{
+    
+    if([[[self.recentPages mostRecentEntry] title] isEqualToTitle:self.recentSectionController.title]){
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)shouldReloadSavedArticleSection{
+    
+    if([[[self.savedPages mostRecentEntry] title] isEqualToTitle:self.savedSectionController.title]){
+        return NO;
+    }
+    return YES;
+}
+
+- (void)reloadRelatedArticlesForRecentArticles{
+    
+    if([self shouldReloadRecentArticleSection]){
+        [self unloadSectionForSectionController:self.recentSectionController];
+        self.recentSectionController = nil;
+        if([self.dataSource numberOfSections] > 1){
+            [self insertSectionForSectionController:self.recentSectionController atIndex:1];
+        }else{
+            [self loadSectionForSectionController:self.recentSectionController];
+        }
+    }
+}
+
+- (void)reloadRelatedArticlesForSavedArticles{
+    
+    if([self shouldReloadSavedArticleSection]){
+        [self unloadSectionForSectionController:self.savedSectionController];
+        self.savedSectionController = nil;
+        [self loadSectionForSectionController:self.savedSectionController];
+    }
+}
+
 - (MWKTitle*)mostRecentReadArticle {
-    MWKHistoryEntry* latest = [[self.recentPages entries] lastObject];
+    MWKHistoryEntry* latest = [self.recentPages mostRecentEntry];
     return latest.title;
 }
 
@@ -140,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
     return latest.title;
 }
 
-#pragma mark - UiViewController
+#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -152,6 +195,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
     [self flowLayout].minimumLineSpacing  = 10.0;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -178,19 +223,28 @@ NS_ASSUME_NONNULL_BEGIN
     } completion:NULL];
 }
 
-- (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    SSSection* section = [self.dataSource sectionAtIndex:index];
-    return self.sectionControllers[section.sectionIdentifier];
-}
 
-- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller {
-    return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:[controller sectionIdentifier]];
+#pragma mark - Notifications
+
+- (void)applicationDidBecomeActiveWithNotification:(NSNotification*)note{
+
+    if(!self.isViewLoaded){
+        return;
+    }
+    
+    //never loaded
+    if([self.dataSource numberOfSections] == 0){
+        return;
+    }
+    
+    [self reloadRelatedArticlesForRecentArticles];
+    [self reloadRelatedArticlesForSavedArticles];
 }
 
 #pragma mark - Data Source Configuration
 
 - (void)configureDataSource {
-    if (_dataSource != nil) {
+    if ([self.dataSource numberOfSections] > 0) {
         return;
     }
 
@@ -240,19 +294,58 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.collectionView = self.collectionView;
 }
 
+#pragma mark - Section Management
+
+- (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
+    SSSection* section = [self.dataSource sectionAtIndex:index];
+    return self.sectionControllers[section.sectionIdentifier];
+}
+
+- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller {
+    return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:[controller sectionIdentifier]];
+}
+
 - (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     if (!controller) {
         return;
     }
     self.sectionControllers[controller.sectionIdentifier] = controller;
-
+    
     [controller registerCellsInCollectionView:self.collectionView];
-
+    
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
-
+    
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
+    } completion:NULL];
+}
+
+- (void)insertSectionForSectionController:(id<WMFHomeSectionController>)controller atIndex:(NSUInteger)index {
+    if (!controller) {
+        return;
+    }
+    self.sectionControllers[controller.sectionIdentifier] = controller;
+    
+    [controller registerCellsInCollectionView:self.collectionView];
+    
+    SSSection* section = [SSSection sectionWithItems:[controller items]];
+    section.sectionIdentifier = controller.sectionIdentifier;
+    
+    [self.collectionView performBatchUpdates:^{
+        [self.dataSource insertSection:section atIndex:index];
+    } completion:NULL];
+}
+
+- (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller{
+    if (!controller) {
+        return;
+    }
+    NSUInteger index = [self indexForSectionController:controller];
+    
+    [self.collectionView performBatchUpdates:^{
+        [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
+        [self.dataSource removeSectionAtIndex:index];
     } completion:NULL];
 }
 
