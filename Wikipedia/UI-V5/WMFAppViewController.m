@@ -89,7 +89,8 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController* navigationController = [self navigationControllerForTab:i];
-        navigationController.delegate = self.navigationTransitionController;
+        navigationController.delegate            = self.navigationTransitionController;
+        navigationController.navigationBarHidden = NO;
     }
 }
 

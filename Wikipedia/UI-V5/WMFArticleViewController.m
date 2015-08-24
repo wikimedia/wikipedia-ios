@@ -128,6 +128,19 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateSectionHierarchy];
 
     [self updateUI];
+
+    // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
+    // them, but not every time the card controller causes the ui to be updated (ie on scroll as it recycles article views).
+    if (self.mode != WMFArticleControllerModeList) {
+        if (self.article.title) {
+            [self fetchReadMoreForTitle:self.article.title];
+        }
+    }
+
+    if ([self isViewLoaded]) {
+        [self.tableView reloadData];
+    }
+
     [self observeAndFetchArticleIfNeeded];
 }
 
@@ -332,7 +345,10 @@ NS_ASSUME_NONNULL_BEGIN
     .then(^(WMFSearchResults* results) {
         @strongify(self)
         self.readMoreResults = results;
-        [self.tableView reloadData];
+
+        if (self.isViewLoaded) {
+            [self.tableView reloadData];
+        }
     })
     .catch(^(NSError* err) {
         DDLogError(@"Failed to fetch readmore: %@", err);
@@ -353,7 +369,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self updateSavedButtonState];
-    [self.tableView reloadData];
 }
 
 - (void)updateHeaderView {
@@ -440,6 +455,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self clearHeaderView];
     [self configureForDynamicCellHeight];
     [self updateUI];
+    [self.tableView reloadData];
     [self updateUIForMode:self.mode animated:NO];
 }
 
@@ -447,14 +463,6 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillAppear:animated];
     [self logPreview];
     [self updateUI];
-
-    // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
-    // them, but not every time the card controller causes the ui to be updated (ie on scroll as it recycles article views).
-    if (self.mode != WMFArticleControllerModeList) {
-        if (self.article.title) {
-            [self fetchReadMoreForTitle:self.article.title];
-        }
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
