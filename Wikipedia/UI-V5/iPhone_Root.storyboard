@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--App View Controller-->
@@ -18,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h62-i6-ynd">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="ebr-hF-Cp5" kind="embed" id="Yxb-oQ-YEY"/>
@@ -59,6 +60,7 @@
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="trailing" secondItem="h62-i6-ynd" secondAttribute="trailing" id="Iua-p1-CTQ"/>
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="leading" secondItem="h62-i6-ynd" secondAttribute="leading" id="VUa-jN-ymx"/>
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="bottom" secondItem="h62-i6-ynd" secondAttribute="bottom" id="ViF-Dc-utu"/>
+                            <constraint firstItem="h62-i6-ynd" firstAttribute="top" secondItem="zy6-Kl-9CO" secondAttribute="topMargin" id="WCa-gF-CoG"/>
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="bottom" secondItem="fKi-Ok-D1o" secondAttribute="bottom" id="Z4Z-Fq-OZ6"/>
                             <constraint firstAttribute="trailing" secondItem="N6E-ZW-sLh" secondAttribute="trailing" id="hmi-rN-wSd"/>
                             <constraint firstItem="N6E-ZW-sLh" firstAttribute="leading" secondItem="zy6-Kl-9CO" secondAttribute="leading" id="lfR-SP-Ly1"/>
@@ -66,6 +68,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="1MN-55-LYg"/>
+                                <exclude reference="7RO-pe-hAX"/>
                             </mask>
                         </variation>
                     </view>
@@ -108,7 +111,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8Yb-zt-F5o"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="xp5-j8-6jN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ZNj-Jo-URc">
@@ -120,7 +123,7 @@
                                 </connections>
                             </searchBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu">
-                                <rect key="frame" x="0.0" y="74" width="600" height="457"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="477"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="4Pn-cn-DIj" kind="embed" id="8w9-gJ-Prh"/>
@@ -143,7 +146,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-pb-Bgw">
-                                <rect key="frame" x="0.0" y="44" width="600" height="487"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="507"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="Rqy-g9-mNA" kind="embed" id="B6d-7Y-a0q"/>
@@ -210,7 +213,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Saved" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qVm-oc-aaW" userLabel="Saved Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="cbI-aA-luO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="TGLStackedLayout"/>
@@ -262,7 +265,7 @@
             <objects>
                 <collectionViewController id="ijM-Cp-AID" customClass="WMFHomeViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="kwN-cC-rkY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.94499534368515015" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -287,11 +290,11 @@
                         <viewControllerLayoutGuide type="bottom" id="U8y-aI-ssO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="un9-Tr-mR7">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="507"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
-                                <rect key="frame" x="0.0" y="50" width="600" height="437"/>
+                                <rect key="frame" x="0.0" y="50" width="600" height="457"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -348,7 +351,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Search" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Pn-cn-DIj" userLabel="Search Results List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Sdm-Uo-q4M">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="457"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="477"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="TGLStackedLayout"/>
@@ -399,7 +402,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Recent" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2yz-KN-V6a" userLabel="Recent Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="TGO-DA-pJe">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="TGLStackedLayout"/>
@@ -491,7 +494,7 @@
         <!--Home-->
         <scene sceneID="my8-ht-Vqg">
             <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="fCG-Qf-VzW"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
