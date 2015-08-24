@@ -49,8 +49,20 @@
 /// @name Hierarchical Sections
 ///
 
+/**
+ *  Retrieve all child-less sections in the receiver.
+ *
+ *  Can be used to retrieve root sections from which the hierarchy can be traversed as a tree.
+ *
+ *  @return An array of `MWKSection` objects.
+ */
 - (NSArray*)topLevelSections;
 
+/**
+ *  Parse the receiver's @c entries and populate their @c children properties.
+ *
+ *  @note This method is idempotent, and resets the @c children data for all @c entries.
+ */
 - (void)buildSectionHierarchy;
 
 @end
