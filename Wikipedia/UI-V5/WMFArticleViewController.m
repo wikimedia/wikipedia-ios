@@ -407,7 +407,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)configureForDynamicCellHeight {
     self.tableView.rowHeight                    = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight           = 80;
+    // estimatedRowHeight returned in delegate method
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 80;
 }
@@ -563,6 +563,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isLeadSection:indexPath.section]) {
+        return UITableViewAutomaticDimension;
+    } else if ([self isIndexPathForParentSection:indexPath]) {
+        return 48.f;
+    } else if ([self isIndexPathForChildSection:indexPath]) {
+        return 37.f;
+    } else {
+        return 80.f;
+    }
+}
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:indexPath.section != 0];
