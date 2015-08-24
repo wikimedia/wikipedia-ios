@@ -76,8 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFArticleViewController
-@synthesize article = _article;
-@synthesize mode    = _mode;
+@synthesize article               = _article;
+@synthesize mode                  = _mode;
 @synthesize indexSetOfTOCSections = _indexSetOfTOCSections;
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
@@ -93,8 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (void)setTopLevelSections:(NSArray * __nonnull)topLevelSections {
-    _topLevelSections = [topLevelSections copy];
+- (void)setTopLevelSections:(NSArray* __nonnull)topLevelSections {
+    _topLevelSections      = [topLevelSections copy];
     _indexSetOfTOCSections = nil;
 }
 
@@ -195,8 +195,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (MWKSection*)sectionForIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert([self isTOCSection:indexPath.section]);
     return [self isIndexPathForParentSection:indexPath] ?
-           [self parentSectionForTableSection:indexPath.section]
-           : [self childSectionForIndexPath:indexPath];
+           [self parentSectionForTableSection : indexPath.section]
+           :[self childSectionForIndexPath:indexPath];
 }
 
 - (MWKSection*)parentSectionForTableSection:(NSUInteger)section {
@@ -406,7 +406,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Configuration
 
 - (void)configureForDynamicCellHeight {
-    self.tableView.rowHeight                    = UITableViewAutomaticDimension;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     // estimatedRowHeight returned in delegate method
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 80;
@@ -552,7 +552,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     } else {
         WMFArticleSectionHeaderView* header =
-        [tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionHeaderView wmf_nibName]];
+            [tableView dequeueReusableCellWithIdentifier:[WMFArticleSectionHeaderView wmf_nibName]];
         if (section == tableView.numberOfSections - 1) {
             header.sectionHeaderLabel.text = @"Read more";
         } else {
@@ -564,7 +564,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView*)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath*)indexPath {
     if ([self isLeadSection:indexPath.section]) {
         return UITableViewAutomaticDimension;
     } else if ([self isIndexPathForParentSection:indexPath]) {

@@ -90,7 +90,7 @@
 }
 
 - (void)testShouldHaveSameHierarchyIfBuiltTwice {
-    MWKSectionList* list      = [self sectionListWithLevels:@[@2, @3, @3]];
+    MWKSectionList* list = [self sectionListWithLevels:@[@2, @3, @3]];
     // build it again
     [list buildSectionHierarchy];
     NSArray* topLevelSections = list.topLevelSections;

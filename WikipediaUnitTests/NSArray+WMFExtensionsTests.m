@@ -64,19 +64,19 @@
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyArrayIfRangeLocationOutOfBounds {
-    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange:NSMakeRange(2, 1)]), isEmpty());
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange: NSMakeRange(2, 1)]), isEmpty());
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyIfRangeIsNotFound {
-    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange:NSMakeRange(NSNotFound, 1)]), isEmpty());
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange: NSMakeRange(NSNotFound, 1)]), isEmpty());
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyIfRangeIsEmpty {
-    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange:NSMakeRange(0, 0)]), isEmpty());
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange: NSMakeRange(0, 0)]), isEmpty());
 }
 
 - (void)testSafeSubarrayShouldReturnEmptyFromEmptyList {
-    assertThat(([@[] wmf_safeSubarrayWithRange:NSMakeRange(0, 1)]), isEmpty());
+    assertThat(([@[] wmf_safeSubarrayWithRange: NSMakeRange(0, 1)]), isEmpty());
 }
 
 - (void)testTailShouldReturnAllButTheFirstElement {
