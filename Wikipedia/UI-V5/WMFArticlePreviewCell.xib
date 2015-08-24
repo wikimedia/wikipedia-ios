@@ -21,6 +21,12 @@
                             <constraint firstAttribute="height" constant="160" id="5OZ-Kk-CoX"/>
                         </constraints>
                     </imageView>
+                    <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHn-dQ-BBy" userLabel="Gray overlay">
+                        <rect key="frame" x="0.0" y="0.0" width="361" height="160"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEK-59-fwO">
                         <rect key="frame" x="8" y="81" width="345" height="39"/>
                         <animations/>
@@ -58,13 +64,17 @@
                 <constraint firstItem="kPi-wU-UzV" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" id="8cS-b1-6Cf"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" id="Bwg-G1-AHL"/>
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="8" id="JLS-oe-btW"/>
+                <constraint firstItem="DHn-dQ-BBy" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="N3Z-Or-18E"/>
+                <constraint firstItem="DHn-dQ-BBy" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="top" id="TEC-wc-uVA"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="VP5-MT-WVV"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="top" secondItem="pEK-59-fwO" secondAttribute="bottom" constant="10" id="a4q-aQ-EEg"/>
+                <constraint firstItem="DHn-dQ-BBy" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="aYN-Wp-RZG"/>
                 <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" constant="8" id="cbI-rk-WYN"/>
                 <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" id="gqX-Rl-5tH"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="AVJ-4N-Dr6" secondAttribute="trailing" id="jet-NL-aB8"/>
                 <constraint firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="xDh-kd-k8A"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="AVJ-4N-Dr6" secondAttribute="leading" id="xGo-HI-1kZ"/>
+                <constraint firstItem="DHn-dQ-BBy" firstAttribute="bottom" secondItem="kPi-wU-UzV" secondAttribute="bottom" id="xrz-cf-uel"/>
             </constraints>
             <size key="customSize" width="361" height="322"/>
             <connections>
