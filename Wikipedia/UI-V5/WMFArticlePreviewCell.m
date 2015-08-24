@@ -31,6 +31,8 @@ static CGFloat const WMFImageHeight = 160;
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
+    self.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {

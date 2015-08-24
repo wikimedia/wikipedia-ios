@@ -61,6 +61,7 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="backgroundView" destination="eK1-tC-UDQ" id="AKL-wW-MnT"/>
                 <outlet property="moreLabel" destination="w1S-hp-bvc" id="MoV-Wa-IqR"/>
             </connections>
             <point key="canvasLocation" x="719" y="258"/>

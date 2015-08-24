@@ -1,7 +1,7 @@
 
-#import "SSBaseCollectionCell.h"
+#import "WMFShadowCell.h"
 
-@interface WMFArticlePreviewCell : SSBaseCollectionCell
+@interface WMFArticlePreviewCell : WMFShadowCell
 
 @property (copy, nonatomic) NSURL* imageURL;
 @property (copy, nonatomic) NSString* titleText;
