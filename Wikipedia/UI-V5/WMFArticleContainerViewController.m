@@ -109,6 +109,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self updateInsetsForArticleViewController];
+
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.articleViewController];
     nav.navigationBarHidden = YES;
     nav.delegate            = self;
@@ -124,6 +126,16 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleViewController.article = self.article;
         self.webViewController.article     = self.article;
     }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self updateInsetsForArticleViewController];
+}
+
+- (void)updateInsetsForArticleViewController{
+    CGFloat navHeight = [self.navigationController.navigationBar frame].size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+    self.articleViewController.tableView.contentInset = UIEdgeInsetsMake(navHeight, 0.0, 0.0, 0.0);
 }
 
 #pragma mark - WebView Transition
