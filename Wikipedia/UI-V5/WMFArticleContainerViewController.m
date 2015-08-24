@@ -1,5 +1,6 @@
 #import "WMFArticleContainerViewController.h"
 #import "WMFArticleContainerViewController_Transitioning.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 // Frameworks
 #import <Masonry/Masonry.h>
@@ -24,20 +25,21 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
-<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate>
+<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
+@property (nonatomic, strong) UINavigationController* contentNavigationController;
 @property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
 @property (nonatomic, strong, readwrite) WebViewController* webViewController;
-@property (nonatomic, weak) UIViewController<WMFArticleContentController>* currentArticleController;
 
-@property (nonatomic, weak) UIBarButtonItem* toggleCurrentControllerButton;
+@property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 
 @end
 
 @implementation WMFArticleContainerViewController
 @synthesize popupTransition = _popupTransition;
+@synthesize article         = _article;
 
 #pragma mark - Setup
 
@@ -49,25 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
-        self.savedPageList            = savedPages;
-        self.dataStore                = dataStore;
-        self.currentArticleController = self.articleViewController;
-        [self configureNavigationItem];
+        self.savedPageList = savedPages;
+        self.dataStore     = dataStore;
     }
     return self;
-}
-
-- (void)configureNavigationItem {
-    UIBarButtonItem* toggleCurrentControllerButton =
-        [[UIBarButtonItem alloc] initWithTitle:[self toggleButtonTitle]
-                                         style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(toggleCurrentArticleController)];
-    self.toggleCurrentControllerButton = toggleCurrentControllerButton;
-
-    self.navigationItem.rightBarButtonItems = @[
-        self.toggleCurrentControllerButton
-    ];
 }
 
 #pragma mark - Accessors
@@ -76,33 +63,28 @@ NS_ASSUME_NONNULL_BEGIN
     return [NSString stringWithFormat:@"%@ %@", [super description], self.article.title];
 }
 
+- (UIViewController<WMFArticleContentController>*)currentArticleController {
+    return (id)[self.contentNavigationController topViewController];
+}
+
+- (void)setArticle:(MWKArticle* __nullable)article {
+    if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
+        return;
+    }
+
+    _article = article;
+
+    if (self.isViewLoaded) {
+        self.articleViewController.article = article;
+        self.webViewController.article     = article;
+    }
+}
+
 - (WMFArticlePopupTransition*)popupTransition {
     if (!_popupTransition) {
         _popupTransition = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self];
     }
     return _popupTransition;
-}
-
-- (NSString*)toggleButtonTitle {
-    // TODO: come up with better (localized) names
-    if (self.currentArticleController == self.articleViewController) {
-        return @"Web";
-    } else {
-        return @"Native";
-    }
-}
-
-- (MWKArticle* __nullable)article {
-    return self.currentArticleController.article;
-}
-
-- (void)setArticle:(MWKArticle* __nullable)article {
-    if (WMF_EQUAL(self.article, isEqualToArticle:, article)) {
-        return;
-    }
-
-    self.articleViewController.article = article;
-    self.webViewController.article     = article;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -122,88 +104,37 @@ NS_ASSUME_NONNULL_BEGIN
     return _webViewController;
 }
 
-- (void)setCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController {
-    [self setCurrentArticleController:currentArticleController animated:NO];
-}
-
-- (BOOL)isChildContentControllerViewInstalled:(UIViewController*)viewController {
-    return [viewController isViewLoaded] && viewController.view.superview == self.view;
-}
-
-- (void)setCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController
-                           animated:(BOOL)animated {
-    if (self.currentArticleController == currentArticleController
-        && [self isChildContentControllerViewInstalled:currentArticleController]) {
-        DDLogVerbose(@"Ignoring redundant set of currentArticleController");
-        return;
-    }
-
-    if (currentArticleController.parentViewController != self) {
-        [self addChildViewController:currentArticleController];
-    }
-
-    // prevent premature view loading
-    if ([self isViewLoaded]) {
-        [self transitionFromPreviousArticleController:self.currentArticleController
-                                  toArticleController:currentArticleController
-                                             animated:animated];
-    } else {
-        [self primitiveSetCurrentArticleController:currentArticleController];
-    }
-}
-
-- (void)transitionFromPreviousArticleController:(UIViewController<WMFArticleContentController>* __nullable)previousController
-                            toArticleController:(UIViewController<WMFArticleContentController>* __nullable)currentArticleController
-                                       animated:(BOOL)animated {
-    [self transitionFromViewController:previousController
-                      toViewController:currentArticleController
-                              duration:animated ? [CATransaction animationDuration] : 0.0
-                               options:UIViewAnimationOptionTransitionCrossDissolve
-                            animations:^{
-        [self setupCurrentArticleController:currentArticleController];
-    }
-                            completion:^(BOOL finished) {
-        NSParameterAssert(finished);
-        [self primitiveSetCurrentArticleController:currentArticleController];
-    }];
-}
-
-- (void)setupCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController {
-    [currentArticleController.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.top.and.bottom.equalTo(self.view);
-    }];
-}
-
-- (void)toggleCurrentArticleController {
-    if (self.currentArticleController == self.articleViewController) {
-        [self setCurrentArticleController:self.webViewController animated:YES];
-    } else {
-        [self setCurrentArticleController:self.articleViewController animated:YES];
-    }
-}
-
-- (void)primitiveSetCurrentArticleController:(UIViewController<WMFArticleContentController>*)currentArticleController {
-    NSAssert(_currentArticleController != currentArticleController,
-             @"Caller should have already performed equality checks and acted accordingly.");
-    _currentArticleController = currentArticleController;
-    [_currentArticleController didMoveToParentViewController:self];
-    self.toggleCurrentControllerButton.title = [self toggleButtonTitle];
-}
-
-#pragma mark - WebView Transition
-
-- (void)showWebViewAtFragment:(NSString*)fragment {
-    [self.webViewController scrollToFragment:fragment];
-    [self setCurrentArticleController:self.webViewController animated:YES];
-}
-
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // !!!: currentArticleController's view must be added manually. otherwise this is done by VC transition APIs
-    [self.view addSubview:self.currentArticleController.view];
-    [self setupCurrentArticleController:self.currentArticleController];
+
+    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.articleViewController];
+    nav.navigationBarHidden = YES;
+    nav.delegate            = self;
+    [self addChildViewController:nav];
+    [self.view addSubview:nav.view];
+    [nav.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.trailing.top.and.bottom.equalTo(self.view);
+    }];
+    [nav didMoveToParentViewController:self];
+    self.contentNavigationController = nav;
+
+    if (self.article) {
+        self.articleViewController.article = self.article;
+        self.webViewController.article     = self.article;
+    }
+}
+
+#pragma mark - WebView Transition
+
+- (void)showWebViewAnimated:(BOOL)animated {
+    [self.contentNavigationController pushViewController:self.webViewController animated:YES];
+}
+
+- (void)showWebViewAtFragment:(NSString*)fragment animated:(BOOL)animated {
+    [self.webViewController scrollToFragment:fragment];
+    [self showWebViewAnimated:animated];
 }
 
 #pragma mark - WMFArticleViewControllerDelegate
@@ -227,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleViewController:(WMFArticleViewController* __nonnull)articleViewController
     didTapSectionWithFragment:(NSString* __nonnull)fragment {
-    [self showWebViewAtFragment:fragment];
+    [self showWebViewAtFragment:fragment animated:YES];
 }
 
 - (void)showCitationWithFragment:(NSString*)fragment {
@@ -242,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
 //    }
 
     // TEMP: show webview until we figure out what to do w/ ReferencesVC
-    [self showWebViewAtFragment:fragment];
+    [self showWebViewAtFragment:fragment animated:YES];
 }
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
@@ -273,8 +204,16 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentPopupForTitle:title];
 }
 
-- (void)dismissWebViewController:(WebViewController*)controller {
-    [self setCurrentArticleController:self.articleViewController];
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
+    if (viewController == self.articleViewController) {
+        [self.navigationController setNavigationBarHidden:NO animated:NO];
+        [self.contentNavigationController setNavigationBarHidden:YES animated:NO];
+    } else {
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        [self.contentNavigationController setNavigationBarHidden:NO animated:NO];
+    }
 }
 
 #pragma mark - Popup

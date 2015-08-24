@@ -95,18 +95,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return UIStatusBarAnimationFade;
 }
 
-#pragma mark View lifecycle methods
-
 - (void)setupTopMenuButtons {
     @weakify(self)
-
-    UIBarButtonItem * done = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                             handler:^(id sender) {
-        @strongify(self);
-        [self.delegate dismissWebViewController:self];
-    }];
-
-    self.navigationItem.backBarButtonItem = done;
 
     self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
                                              handler:^(id sender){
@@ -151,6 +141,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         self.buttonShare
     ];
 }
+
+#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -262,6 +254,30 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    self.referencesHidden = YES;
+
+    [self updateTOCButtonVisibility];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self doStuffOnAppear];
+    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
+
+    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
+
+    [super viewWillDisappear:animated];
+}
+
+#pragma mark - Utility
+
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
         [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"location.hash = '%@'", self.jumpToFragment]];
@@ -290,12 +306,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [super showAlert:alertText type:type duration:duration];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self doStuffOnAppear];
-    [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
-}
-
 - (void)doStuffOnAppear {
     // Don't move this to viewDidLoad - this is because viewDidLoad may only get
     // called very occasionally as app suspend/resume probably doesn't cause
@@ -320,24 +330,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    self.referencesHidden = YES;
-
-    [self updateTOCButtonVisibility];
-}
-
 - (void)updateTOCButtonVisibility {
     self.buttonTOC.enabled = ![SessionSingleton sharedInstance].currentArticle.isMain;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
-
-    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
-
-    [super viewWillDisappear:animated];
 }
 
 #pragma mark - WMFSectionHeaderEditDelegate methods
@@ -1070,8 +1064,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
-#warning TEMP: disable until we figure out what to do w/ top/bottom bars
-#if 0
     // Don't toggle if hidden state isn't different or if it's already toggling.
     if ((self.navigationController.isNavigationBarHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
         return;
@@ -1084,12 +1076,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [UIView animateWithDuration:0.12f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             // Not using the animated variant intentionally!
             [self.navigationController setNavigationBarHidden:hidden];
-            [self.navigationController setToolbarHidden:hidden];
         } completion:^(BOOL done){
             self.isAnimatingTopAndBottomMenuHidden = NO;
         }];
     }];
-#endif
 }
 
 - (void)animateTopAndBottomMenuReveal {
