@@ -27,12 +27,6 @@ bridge.registerListener( "setLanguage", function( payload ){
     document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
 } );
 
-bridge.registerListener( "scrollToFragment", function( payload ) {
-    var item = document.getElementById( payload.hash );
-    var rect = item.getBoundingClientRect();
-    window.scroll( 0, rect.top );
-});
-
 bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );

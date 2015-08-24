@@ -128,12 +128,6 @@ bridge.registerListener( "setLanguage", function( payload ){
     document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
 } );
 
-bridge.registerListener( "scrollToFragment", function( payload ) {
-    var item = document.getElementById( payload.hash );
-    var rect = item.getBoundingClientRect();
-    window.scroll( 0, rect.top );
-});
-
 bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );
@@ -275,7 +269,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./bridge":1,"./refs":5,"./transformer":7,"./transforms/collapsePageIssuesAndDisambig":10}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":8,"./transforms/collapsePageIssuesAndDisambig":11}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -408,6 +402,32 @@ exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./bridge":1}],6:[function(require,module,exports){
 (function (global){
+var sectionHeaders = require("./sectionHeaders");
+
+function scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId){
+    var header = sectionHeaders.getSectionHeaderForId(fragmentId);
+    if  (header.id != fragmentId){
+        window.scrollBy(0, -header.getBoundingClientRect().height);
+    }
+}
+
+function scrollToFragment(fragmentId){
+    location.hash = '';
+    location.hash = fragmentId;
+    /*
+    Setting location.hash scrolls the element to very top of screen. If this
+    element is not a section header it will be positioned *under* the top
+    static section header, so shift it down by the static section header 
+    height in these cases.
+    */
+    scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId);
+}
+
+global.scrollToFragment = scrollToFragment;
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./sectionHeaders":7}],7:[function(require,module,exports){
+(function (global){
+var utilities = require("./utilities");
 
 function getSectionHeadersArray(){
     var nodeList = document.querySelectorAll('h1.section_heading');
@@ -431,11 +451,18 @@ function getSectionHeaderLocationsArray(){
     return nodeArray;
 }
 
+function getSectionHeaderForId(id){
+    var sectionHeadingParent = utilities.findClosest(document.getElementById(id), 'div[id^="section_heading_and_content_block_"]');
+    var sectionHeading = sectionHeadingParent.querySelector('h1.section_heading');
+    return sectionHeading;
+}
+
+exports.getSectionHeaderForId = getSectionHeaderForId;
 global.getSectionHeadersArray = getSectionHeadersArray;
 global.getSectionHeaderLocationsArray = getSectionHeaderLocationsArray;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{"./utilities":16}],8:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -458,7 +485,7 @@ Transformer.prototype.transform = function( transform, element ) {
 
 module.exports = new Transformer();
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 require("./transforms/collapseTables");
 require("./transforms/relocateFirstParagraph");
@@ -466,7 +493,7 @@ require("./transforms/hideRedLinks");
 require("./transforms/addImageOverflowContainers");
 require("./transforms/collapsePageIssuesAndDisambig");
 
-},{"./transforms/addImageOverflowContainers":9,"./transforms/collapsePageIssuesAndDisambig":10,"./transforms/collapseTables":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],9:[function(require,module,exports){
+},{"./transforms/addImageOverflowContainers":10,"./transforms/collapsePageIssuesAndDisambig":11,"./transforms/collapseTables":12,"./transforms/hideRedLinks":13,"./transforms/relocateFirstParagraph":14}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -507,7 +534,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":7,"../utilities":15}],10:[function(require,module,exports){
+},{"../transformer":8,"../utilities":16}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -690,7 +717,7 @@ exports.issuesClicked = issuesClicked;
 exports.disambigClicked = disambigClicked;
 exports.closeClicked = closeClicked;
 
-},{"../transformer":7,"../utilities":15}],11:[function(require,module,exports){
+},{"../transformer":8,"../utilities":16}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -779,7 +806,7 @@ transformer.register( "hideTables", function( content ) {
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
         var table = tables[i];
-        if (utilities.findAncestor (table, 'app_table_container')) continue;
+        if (utilities.findClosest (table, '.app_table_container')) continue;
 
         if (!shouldTableBeCollapsed(table)) {
             continue;
@@ -853,7 +880,7 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-},{"../transformer":7,"../utilities":15}],12:[function(require,module,exports){
+},{"../transformer":8,"../utilities":16}],13:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -864,7 +891,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":7}],13:[function(require,module,exports){
+},{"../transformer":8}],14:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -909,7 +936,7 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     }
 });
 
-},{"../transformer":7}],14:[function(require,module,exports){
+},{"../transformer":8}],15:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -1017,7 +1044,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":7,"../utilities":15}],15:[function(require,module,exports){
+},{"../transformer":8,"../utilities":16}],16:[function(require,module,exports){
 
 function getDictionaryFromSrcset(srcset) {
     /*
@@ -1051,9 +1078,9 @@ function firstAncestorWithMultipleChildren (el) {
     return el;
 }
 
-// From: http://stackoverflow.com/a/22119674/135557
-function findAncestor (el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
+// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+function findClosest (el, selector) {
+    while ((el = el.parentElement) && !el.matches(selector));
     return el;
 }
 
@@ -1076,11 +1103,11 @@ function isNestedInTable(el) {
 exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
 exports.firstDivAncestor = firstDivAncestor;
 exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
-exports.findAncestor = findAncestor;
+exports.findClosest = findClosest;
 exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function (global){
 
 var _topElement = null;
@@ -1111,4 +1138,4 @@ global.setPreRotationRelativeScrollOffset = setPreRotationRelativeScrollOffset;
 global.getPostRotationScrollOffset = getPostRotationScrollOffset;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])

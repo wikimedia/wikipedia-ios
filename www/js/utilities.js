@@ -31,9 +31,9 @@ function firstAncestorWithMultipleChildren (el) {
     return el;
 }
 
-// From: http://stackoverflow.com/a/22119674/135557
-function findAncestor (el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
+// Implementation of https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+function findClosest (el, selector) {
+    while ((el = el.parentElement) && !el.matches(selector));
     return el;
 }
 
@@ -56,6 +56,6 @@ function isNestedInTable(el) {
 exports.getDictionaryFromSrcset = getDictionaryFromSrcset;
 exports.firstDivAncestor = firstDivAncestor;
 exports.firstAncestorWithMultipleChildren = firstAncestorWithMultipleChildren;
-exports.findAncestor = findAncestor;
+exports.findClosest = findClosest;
 exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;

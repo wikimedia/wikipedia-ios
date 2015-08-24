@@ -280,7 +280,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
-        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"location.hash = '%@'", self.jumpToFragment]];
+        [[self.webView wmf_javascriptContext][@"scrollToFragment"] performSelector:@selector(callWithArguments:) withObject:@[self.jumpToFragment] afterDelay:0.1];
     }
 }
 
