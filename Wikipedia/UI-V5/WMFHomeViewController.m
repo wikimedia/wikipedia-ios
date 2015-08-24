@@ -54,8 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFHomeViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -128,45 +127,41 @@ NS_ASSUME_NONNULL_BEGIN
     return (id)self.collectionView.collectionViewLayout;
 }
 
-- (CGFloat)contentWidth{
+- (CGFloat)contentWidth {
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
     return width;
 }
 
 #pragma mark - Related Articles
 
-- (BOOL)shouldReloadRecentArticleSection{
-    
-    if([[[self.recentPages mostRecentEntry] title] isEqualToTitle:self.recentSectionController.title]){
+- (BOOL)shouldReloadRecentArticleSection {
+    if ([[[self.recentPages mostRecentEntry] title] isEqualToTitle:self.recentSectionController.title]) {
         return NO;
     }
     return YES;
 }
 
-- (BOOL)shouldReloadSavedArticleSection{
-    
-    if([[[self.savedPages mostRecentEntry] title] isEqualToTitle:self.savedSectionController.title]){
+- (BOOL)shouldReloadSavedArticleSection {
+    if ([[[self.savedPages mostRecentEntry] title] isEqualToTitle:self.savedSectionController.title]) {
         return NO;
     }
     return YES;
 }
 
-- (void)reloadRelatedArticlesForRecentArticles{
-    
-    if([self shouldReloadRecentArticleSection]){
+- (void)reloadRelatedArticlesForRecentArticles {
+    if ([self shouldReloadRecentArticleSection]) {
         [self unloadSectionForSectionController:self.recentSectionController];
         self.recentSectionController = nil;
-        if([self.dataSource numberOfSections] > 0){
+        if ([self.dataSource numberOfSections] > 0) {
             [self insertSectionForSectionController:self.recentSectionController atIndex:0];
-        }else{
+        } else {
             [self loadSectionForSectionController:self.recentSectionController];
         }
     }
 }
 
-- (void)reloadRelatedArticlesForSavedArticles{
-    
-    if([self shouldReloadSavedArticleSection]){
+- (void)reloadRelatedArticlesForSavedArticles {
+    if ([self shouldReloadSavedArticleSection]) {
         [self unloadSectionForSectionController:self.savedSectionController];
         self.savedSectionController = nil;
         [self loadSectionForSectionController:self.savedSectionController];
@@ -195,7 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
     [self flowLayout].minimumLineSpacing  = 10.0;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
@@ -223,20 +218,18 @@ NS_ASSUME_NONNULL_BEGIN
     } completion:NULL];
 }
 
-
 #pragma mark - Notifications
 
-- (void)applicationDidBecomeActiveWithNotification:(NSNotification*)note{
+- (void)applicationDidBecomeActiveWithNotification:(NSNotification*)note {
+    if (!self.isViewLoaded) {
+        return;
+    }
 
-    if(!self.isViewLoaded){
-        return;
-    }
-    
     //never loaded
-    if([self.dataSource numberOfSections] == 0){
+    if ([self.dataSource numberOfSections] == 0) {
         return;
     }
-    
+
     [self reloadRelatedArticlesForRecentArticles];
     [self reloadRelatedArticlesForSavedArticles];
 }
@@ -276,12 +269,12 @@ NS_ASSUME_NONNULL_BEGIN
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            WMFHomeSectionHeader* header = view;
+            WMFHomeSectionHeader* header     = view;
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
             [title addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0] range:NSMakeRange(0, title.length)];
             [title addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.353 green:0.353 blue:0.353 alpha:1] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
-            header.titleView.delegate = self;
+            header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
             footer.moreLabel.text = controller.footerText;
@@ -314,12 +307,12 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     self.sectionControllers[controller.sectionIdentifier] = controller;
-    
+
     [controller registerCellsInCollectionView:self.collectionView];
-    
+
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
-    
+
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
     } completion:NULL];
@@ -330,23 +323,23 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     self.sectionControllers[controller.sectionIdentifier] = controller;
-    
+
     [controller registerCellsInCollectionView:self.collectionView];
-    
+
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
-    
+
     [self.collectionView performBatchUpdates:^{
         [self.dataSource insertSection:section atIndex:index];
     } completion:NULL];
 }
 
-- (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller{
+- (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     if (!controller) {
         return;
     }
     NSUInteger index = [self indexForSectionController:controller];
-    
+
     [self.collectionView performBatchUpdates:^{
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
         [self.dataSource removeSectionAtIndex:index];
@@ -362,7 +355,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
     return CGSizeMake([self contentWidth], 80.0);
 }
-
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id object = [self.dataSource itemAtIndexPath:indexPath];
@@ -420,12 +412,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange{
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
     MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
     [self showArticleViewControllerForTitle:title animated:YES];
     return NO;
 }
-
 
 @end
 

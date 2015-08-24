@@ -60,7 +60,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     return WMFNearbySectionIdentifier;
 }
 
-- (NSAttributedString*)headerText{
+- (NSAttributedString*)headerText {
     return [[NSAttributedString alloc] initWithString:@"Nearby your location" attributes:nil];
 }
 

@@ -51,9 +51,9 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     return [WMFNearbySectionIdentifierPrefix stringByAppendingString:self.title.text];
 }
 
-- (NSAttributedString*)headerText{
+- (NSAttributedString*)headerText {
     NSMutableAttributedString* link = [[NSMutableAttributedString alloc] initWithString:self.title.text];
-    [link addAttribute: NSLinkAttributeName value:self.title.desktopURL range: NSMakeRange(0, link.length)];
+    [link addAttribute:NSLinkAttributeName value:self.title.desktopURL range:NSMakeRange(0, link.length)];
     [link insertAttributedString:[[NSAttributedString alloc] initWithString:@"Because You Read " attributes:nil] atIndex:0];
     return link;
 }
