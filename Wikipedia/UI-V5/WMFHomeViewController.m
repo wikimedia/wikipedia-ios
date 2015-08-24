@@ -156,8 +156,8 @@ NS_ASSUME_NONNULL_BEGIN
     if([self shouldReloadRecentArticleSection]){
         [self unloadSectionForSectionController:self.recentSectionController];
         self.recentSectionController = nil;
-        if([self.dataSource numberOfSections] > 1){
-            [self insertSectionForSectionController:self.recentSectionController atIndex:1];
+        if([self.dataSource numberOfSections] > 0){
+            [self insertSectionForSectionController:self.recentSectionController atIndex:0];
         }else{
             [self loadSectionForSectionController:self.recentSectionController];
         }
@@ -291,8 +291,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView registerNib:[WMFHomeSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
     [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
-    [self loadSectionForSectionController:self.nearbySectionController];
     [self loadSectionForSectionController:self.recentSectionController];
+    [self loadSectionForSectionController:self.nearbySectionController];
     [self loadSectionForSectionController:self.savedSectionController];
 
     self.dataSource.collectionView = self.collectionView;
