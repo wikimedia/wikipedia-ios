@@ -4,6 +4,7 @@
 
 #import "WMFLogging.h"
 #import "WMFGCDHelpers.h"
+#import "WMFMath.h"
 #import <BlocksKit/BlocksKit.h>
 #import "NSError+WMFExtensions.h"
 #import "NSObjectUtilities.h"

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitcrashreporttextformatter.h
+../../../HockeySDK/Classes/BITCrashReportTextFormatter.h

@@ -12,8 +12,6 @@
 // and use UIView+ConstraintsScale methods to make layout also work with iPads.
 #define MENUS_SCALE_MULTIPLIER (CHROME_MENUS_HEIGHT / CHROME_MENUS_HEIGHT_PHONE)
 
-#define SEARCH_THUMBNAIL_WIDTH (48 * 3)
-
 #define HIDE_KEYBOARD_ON_SCROLL_THRESHOLD 55.0f
 
 #define THUMBNAIL_MINIMUM_SIZE_TO_CACHE CGSizeMake(35, 35)

@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Object/hcissame.h
+../../../OCHamcrest/Source/Library/Object/HCIsSame.h

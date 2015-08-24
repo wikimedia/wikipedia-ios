@@ -1,1 +1,1 @@
-../../../OCMockito/Source/OCMockito/Helpers/ArgumentGetters/mktfloatargumentgetter.h
+../../../OCMockito/Source/OCMockito/Helpers/ArgumentGetters/MKTFloatArgumentGetter.h

@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bithockeymanager.h
+../../../HockeySDK/Classes/BITHockeyManager.h

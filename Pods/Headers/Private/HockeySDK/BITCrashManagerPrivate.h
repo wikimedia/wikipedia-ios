@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitcrashmanagerprivate.h
+../../../HockeySDK/Classes/BITCrashManagerPrivate.h

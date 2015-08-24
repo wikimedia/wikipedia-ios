@@ -1,1 +1,1 @@
-../../../OCHamcrest/Source/Library/Logical/hcallof.h
+../../../OCHamcrest/Source/Library/Logical/HCAllOf.h

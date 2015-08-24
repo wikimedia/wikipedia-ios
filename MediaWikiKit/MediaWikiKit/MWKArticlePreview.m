@@ -1,10 +1,3 @@
-//
-//  MWKArticlePreview.m
-//
-//
-//  Created by Corey Floyd on 7/27/15.
-//
-//
 
 #import "MWKArticlePreview.h"
 #import "NSDateFormatter+WMFExtensions.h"

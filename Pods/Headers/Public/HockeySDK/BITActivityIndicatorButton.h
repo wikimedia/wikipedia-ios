@@ -1,1 +1,1 @@
-../../../HockeySDK/Classes/bitactivityindicatorbutton.h
+../../../HockeySDK/Classes/BITActivityIndicatorButton.h
