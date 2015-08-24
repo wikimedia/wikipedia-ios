@@ -89,16 +89,6 @@
     assertThat(topLevelSections, everyItem(hasProperty(WMF_SAFE_KEYPATH(MWKSection.new, children), isEmpty())));
 }
 
-- (void)testShouldHaveSameHierarchyIfBuiltTwice {
-    MWKSectionList* list = [self sectionListWithLevels:@[@2, @3, @3]];
-    // build it again
-    [list buildSectionHierarchy];
-    NSArray* topLevelSections = list.topLevelSections;
-    assertThat(topLevelSections, is(equalTo(@[list.entries.firstObject])));
-    MWKSection* topLevelSection = topLevelSections.firstObject;
-    assertThat(topLevelSection.children, is(equalTo(@[list.entries[1], list.entries[2]])));
-}
-
 #pragma mark - Utils
 
 - (MWKSectionList*)sectionListWithLevels:(NSArray*)levels {
@@ -110,7 +100,6 @@
         }
         return [[MWKSection alloc] initWithArticle:self.dummyArticle dict:dict];
     }]];
-    [list buildSectionHierarchy];
     return list;
 }
 

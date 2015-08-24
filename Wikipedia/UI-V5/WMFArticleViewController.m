@@ -145,7 +145,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateSectionHierarchy {
-    [_article.sections buildSectionHierarchy];
     self.topLevelSections = [_article.sections.topLevelSections wmf_tail];
 }
 

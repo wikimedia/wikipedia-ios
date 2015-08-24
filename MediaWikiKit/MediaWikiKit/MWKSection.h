@@ -86,8 +86,6 @@ extern NSString* const MWKSectionShareSnippetXPath;
  *  Sections that are descendants of the receiver.
  *
  *  @return An array of @c MWKSection objects, or @c nil if the hierarchy has not been built yet.
- *
- *  @see -[MWKSectionList buildSectionHierarchy]
  */
 - (NSArray*)children;
 

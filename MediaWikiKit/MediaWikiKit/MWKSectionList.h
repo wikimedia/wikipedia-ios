@@ -58,11 +58,4 @@
  */
 - (NSArray*)topLevelSections;
 
-/**
- *  Parse the receiver's @c entries and populate their @c children properties.
- *
- *  @note This method is idempotent, and resets the @c children data for all @c entries.
- */
-- (void)buildSectionHierarchy;
-
 @end
