@@ -95,7 +95,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = @"Home";
+    self.title                    = @"Home";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Wikipedia"]];
 
     self.collectionView.dataSource = nil;
 
