@@ -150,7 +150,7 @@
                                     <outlet property="sectionHeaderLabel" destination="it7-aT-0VE" id="hFm-sN-pgn"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ParentSectionCell" rowHeight="103" id="Az3-5t-77D" userLabel="ParentSectionCell" customClass="WMFArticleSectionCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ParentSectionCell" rowHeight="44" id="Az3-5t-77D" userLabel="ParentSectionCell" customClass="WMFArticleSectionCell">
                                 <rect key="frame" x="0.0" y="0.0" width="298" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Az3-5t-77D" id="m9K-gk-Nme">
@@ -162,8 +162,8 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5O-OT-rgO">
-                                            <rect key="frame" x="10" y="10" width="0.0" height="83"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="83" text="Parent Section Cell" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5O-OT-rgO">
+                                            <rect key="frame" x="10" y="10" width="300" height="24"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="22"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -189,14 +189,14 @@
                                     <outlet property="titleLabel" destination="G5O-OT-rgO" id="GxH-Rt-4cg"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChildSectionCell" rowHeight="103" id="Gjv-rJ-5Sd" userLabel="ChildSectionCell" customClass="WMFArticleSectionCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChildSectionCell" rowHeight="37" id="Gjv-rJ-5Sd" userLabel="ChildSectionCell" customClass="WMFArticleSectionCell">
                                 <rect key="frame" x="0.0" y="0.0" width="298" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gjv-rJ-5Sd" id="cqe-Ae-BjI">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPW-nl-GFm">
-                                            <rect key="frame" x="10" y="10" width="394" height="83"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Child Section Cell" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPW-nl-GFm">
+                                            <rect key="frame" x="10" y="10" width="394" height="17"/>
                                             <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>

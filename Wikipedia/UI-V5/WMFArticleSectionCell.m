@@ -12,16 +12,6 @@
 
 @implementation WMFArticleSectionCell
 
-//- (void)layoutSubviews {
-//    [super layoutSubviews];
-//    CGFloat prevWidth = self.titleLabel.preferredMaxLayoutWidth;
-//    CGFloat newWidth = self.titleLabel.frame.size.width;
-//    if (prevWidth != newWidth) {
-//        self.titleLabel.preferredMaxLayoutWidth = newWidth;
-//        [super layoutSubviews];
-//    }
-//}
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.titleLabel.text = @"";

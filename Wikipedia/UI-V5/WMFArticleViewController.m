@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
 @property (nonatomic, strong) NSArray* topLevelSections;
+@property (nonatomic, strong, readonly) NSIndexSet* indexSetOfTOCSections;
 
 #pragma mark Fetcher Properties
 
@@ -77,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleViewController
 @synthesize article = _article;
 @synthesize mode    = _mode;
+@synthesize indexSetOfTOCSections = _indexSetOfTOCSections;
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     WMFArticleViewController* vc = [self wmf_initialViewControllerFromClassStoryboard];
@@ -91,8 +93,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (MWKSection*)sectionDataForRow:(NSUInteger)row {
-    return self.topLevelSections[row];
+- (void)setTopLevelSections:(NSArray * __nonnull)topLevelSections {
+    _topLevelSections = [topLevelSections copy];
+    _indexSetOfTOCSections = nil;
+}
+
+- (NSIndexSet*)indexSetOfTOCSections {
+    if (!_indexSetOfTOCSections) {
+        _indexSetOfTOCSections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, self.topLevelSections.count)];
+    }
+    return _indexSetOfTOCSections;
 }
 
 - (void)setHeaderGalleryViewController:(WMFArticleHeaderImageGalleryViewController* __nonnull)galleryViewController {
@@ -157,6 +167,49 @@ NS_ASSUME_NONNULL_BEGIN
         _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
     return _articleFetcher;
+}
+
+#pragma mark - Section Hierarchy Accessors
+
+- (BOOL)isLeadSection:(NSUInteger)section {
+    // TODO: check summary length > 0?
+    return section == 0;
+}
+
+- (BOOL)isTOCSection:(NSUInteger)section {
+    return [self.indexSetOfTOCSections containsIndex:section];
+}
+
+- (BOOL)isReadMoreSection:(NSUInteger)section {
+    return ![self isLeadSection:section] && ![self isTOCSection:section];
+}
+
+- (BOOL)isIndexPathForParentSection:(NSIndexPath*)indexPath {
+    return [self isTOCSection:indexPath.section] && indexPath.item == 0;
+}
+
+- (BOOL)isIndexPathForChildSection:(NSIndexPath*)indexPath {
+    return [self isTOCSection:indexPath.section] && indexPath.item != 0;
+}
+
+- (MWKSection*)sectionForIndexPath:(NSIndexPath*)indexPath {
+    NSParameterAssert([self isTOCSection:indexPath.section]);
+    return [self isIndexPathForParentSection:indexPath] ?
+           [self parentSectionForTableSection:indexPath.section]
+           : [self childSectionForIndexPath:indexPath];
+}
+
+- (MWKSection*)parentSectionForTableSection:(NSUInteger)section {
+    NSParameterAssert([self isTOCSection:section]);
+    return self.topLevelSections[section - self.indexSetOfTOCSections.firstIndex];
+}
+
+- (MWKSection*)childSectionForIndexPath:(NSIndexPath*)indexPath {
+    NSParameterAssert([self isTOCSection:indexPath.section]);
+    MWKSection* parentSection = [self parentSectionForTableSection:indexPath.section];
+    NSParameterAssert(parentSection);
+    // first item is always the parent section
+    return parentSection.children[indexPath.item - 1];
 }
 
 #pragma mark - Saved Pages KVO
@@ -412,24 +465,25 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    // TODO: check summary length?
     return 2 + self.topLevelSections.count;
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
+    if ([self isLeadSection:section]) {
         return 1;
-    } else if (section - 1 < self.topLevelSections.count) {
+    } else if ([self isTOCSection:section]) {
         // parent + children
-        return [[self.topLevelSections[section - 1] children] count] + 1;
+        return [[[self parentSectionForTableSection:section] children] count] + 1;
     } else {
         return self.readMoreResults.articleCount;
     }
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.section == 0) {
+    if ([self isLeadSection:indexPath.section]) {
         return [self contentCellAtIndexPath:indexPath];
-    } else if (indexPath.section - 1 < self.topLevelSections.count) {
+    } else if ([self isTOCSection:indexPath.section]) {
         return [self tocSectionCellAtIndexPath:indexPath];
     } else {
         return [self readMoreCellAtIndexPath:indexPath];
@@ -443,7 +497,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UITableViewCell*)tocSectionCellAtIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.item == 0) {
+    if ([self isIndexPathForParentSection:indexPath]) {
         return [self parentSectionCellForSection:indexPath.section];
     } else {
         return [self childSectionCellForIndexPath:indexPath];
@@ -452,16 +506,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UITableViewCell*)parentSectionCellForSection:(NSUInteger)section {
     WMFArticleSectionCell* parentCell = [self.tableView dequeueReusableCellWithIdentifier:@"ParentSectionCell"];
-    MWKSection* sectionData     = self.topLevelSections[section - 1];
-    parentCell.titleLabel.text = [sectionData.line wmf_stringByRemovingHTML];
+    parentCell.titleLabel.text = [[[self parentSectionForTableSection:section] line] wmf_stringByRemovingHTML];
     return parentCell;
 }
 
 - (UITableViewCell*)childSectionCellForIndexPath:(NSIndexPath*)indexPath {
     WMFArticleSectionCell* childCell = [self.tableView dequeueReusableCellWithIdentifier:@"ChildSectionCell"];
-    MWKSection* parentSection     = self.topLevelSections[indexPath.section - 1];
-    MWKSection* childSection = parentSection.children[indexPath.item - 1];
-    childCell.titleLabel.text = [childSection.line wmf_stringByRemovingHTML];
+    childCell.titleLabel.text = [[[self childSectionForIndexPath:indexPath] line] wmf_stringByRemovingHTML];
     return childCell;
 }
 
@@ -486,8 +537,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-    return (section == 0 || (section != 1 && section < tableView.numberOfSections - 1)) != 0 ?
-           0 : UITableViewAutomaticDimension;
+    if ([self isLeadSection:section]
+        || ([self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex)) {
+        // omit headers for lead section & all but the first TOC section
+        return 0;
+    } else {
+        return UITableViewAutomaticDimension;
+    }
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
@@ -512,10 +568,9 @@ NS_ASSUME_NONNULL_BEGIN
     [tableView deselectRowAtIndexPath:indexPath animated:indexPath.section != 0];
     if (indexPath.section == 0) {
         return;
-    } else if (indexPath.section - 1 < self.topLevelSections.count) {
-        #warning TODO: get nested section
-//        [self.delegate articleViewController:self
-//                   didTapSectionWithFragment:[[self sectionDataForRow:indexPath.row] anchor]];
+    } else if ([self isTOCSection:indexPath.section]) {
+        [self.delegate articleViewController:self
+                   didTapSectionWithFragment:[[self sectionForIndexPath:indexPath] anchor]];
     } else {
         MWKTitle* readMoreTitle = [(MWKArticle*)self.readMoreResults.articles[indexPath.item] title];
         [self.delegate articleNavigator:nil didTapLinkToPage:readMoreTitle];
