@@ -39,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleContainerViewController
 @synthesize popupTransition = _popupTransition;
 
+#pragma mark - Setup
+
 + (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
                                                  savedPages:(MWKSavedPageList*)savedPages {
     return [[self alloc] initWithDataStore:dataStore savedPages:savedPages];
@@ -55,11 +57,24 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.article.title];
+- (void)configureNavigationItem {
+    UIBarButtonItem* toggleCurrentControllerButton =
+        [[UIBarButtonItem alloc] initWithTitle:[self toggleButtonTitle]
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(toggleCurrentArticleController)];
+    self.toggleCurrentControllerButton = toggleCurrentControllerButton;
+
+    self.navigationItem.rightBarButtonItems = @[
+        self.toggleCurrentControllerButton
+    ];
 }
 
 #pragma mark - Accessors
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.article.title];
+}
 
 - (WMFArticlePopupTransition*)popupTransition {
     if (!_popupTransition) {
@@ -88,7 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.articleViewController.article = article;
     self.webViewController.article     = article;
-    self.title                         = article.title.text;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -151,8 +165,6 @@ NS_ASSUME_NONNULL_BEGIN
                             completion:^(BOOL finished) {
         NSParameterAssert(finished);
         [self primitiveSetCurrentArticleController:currentArticleController];
-        // !!!: this has to be done in completion, otherwise the animation will report as not having finished
-        [self updateNavigationBarStateForViewController:currentArticleController];
     }];
 }
 
@@ -160,14 +172,6 @@ NS_ASSUME_NONNULL_BEGIN
     [currentArticleController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
-    [self updateNavigationBarStateForViewController:currentArticleController];
-}
-
-- (void)updateNavigationBarStateForViewController:(UIViewController*)viewController {
-    [self.navigationController setNavigationBarHidden:viewController != self.webViewController
-                                             animated:NO];
-    // !!!: custom transitions don't handle back button presses very nicely, so disable for now
-    self.navigationItem.hidesBackButton = viewController == self.webViewController;
 }
 
 - (void)toggleCurrentArticleController {
@@ -195,29 +199,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - ViewController
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self updateNavigationBarStateForViewController:self.currentArticleController];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // !!!: currentArticleController's view must be added manually. otherwise this is done by VC transition APIs
     [self.view addSubview:self.currentArticleController.view];
     [self setupCurrentArticleController:self.currentArticleController];
-}
-
-- (void)configureNavigationItem {
-    UIBarButtonItem* toggleCurrentControllerButton =
-        [[UIBarButtonItem alloc] initWithTitle:[self toggleButtonTitle]
-                                         style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(toggleCurrentArticleController)];
-    self.toggleCurrentControllerButton = toggleCurrentControllerButton;
-
-    self.navigationItem.rightBarButtonItems = @[
-        self.toggleCurrentControllerButton
-    ];
 }
 
 #pragma mark - WMFArticleViewControllerDelegate

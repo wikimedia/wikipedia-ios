@@ -36,7 +36,6 @@
                          interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
     if ([animationController isKindOfClass:[WMFArticleListTransition class]]) {
         WMFArticleListTransition* listTransition = (WMFArticleListTransition*)animationController;
-        // HAX: should probably just use separate animators instead of relying on a flag being set
         return listTransition.isDismissing ? listTransition : nil;
     } else if ([animationController isKindOfClass:[WMFArticlePopupTransition class]]) {
         WMFArticlePopupTransition* popupTransition = (WMFArticlePopupTransition*)animationController;
@@ -50,6 +49,17 @@
                                   animationControllerForOperation:(UINavigationControllerOperation)operation
                                                fromViewController:(UIViewController*)fromVC
                                                  toViewController:(UIViewController*)toVC {
+    return nil;
+
+    //TODO: enable this for only popups
+    if (operation == UINavigationControllerOperationPush && [fromVC wmf_isArticleContainer] && [toVC wmf_isArticleContainer]) {
+        return [self popupTransitionWithPresentingController:(WMFArticleContainerViewController*)fromVC
+                                         presentedController:(WMFArticleContainerViewController*)toVC];
+    }
+
+    return nil;
+
+    //TODO: re-enable old logic to support all transitions
     if ([fromVC wmf_isListTransitionProvider] && [toVC wmf_isArticleContainer]) {
         NSAssert(operation == UINavigationControllerOperationPush, @"Expected push, got %ld", operation);
         DDLogVerbose(@"Pushing container from list");

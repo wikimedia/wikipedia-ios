@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return nil;
+    return @"Recent";
 }
 
 - (NSUInteger)articleCount {

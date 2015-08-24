@@ -95,8 +95,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBarHidden = NO;
-    self.collectionView.dataSource                = nil;
+    self.title = @"Home";
+
+    self.collectionView.dataSource = nil;
 
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
     [self flowLayout].estimatedItemHeight = 150;
