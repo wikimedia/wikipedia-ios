@@ -6,11 +6,8 @@
 @interface UIWebView (WMFJavascriptToXcodeConsoleLogging)
 
 /**
- *  Adds 'xcodelog()' to 'window' obj for easy way to send debug
- *  messages from javascript land to the Xcode console.
- *  Example -
- *      In a js file we can do this:
- *          window.xcodelog('some debug string');
+ *  Adds 'console.log()' to global javascript namespace for sending
+ *  debug messages from javascript land to the Xcode console.
  */
 - (void)wmf_enableJavascriptToXcodeConsoleLogging;
 

@@ -8,9 +8,18 @@
 @implementation UIWebView (WMFJavascriptToXcodeConsoleLogging)
 
 - (void)wmf_enableJavascriptToXcodeConsoleLogging {
-    [self wmf_javascriptContext][@"window"][@"xcodelog"] = ^(NSString* stringToLog) {
-        NSLog(@"%@", stringToLog);
+#if DEBUG
+    JSValue* console = [[self wmf_javascriptContext] globalObject][@"console"];
+    @weakify(self);
+    console[@"log"] = ^(NSString* message) {
+        @strongify(self);
+        [self logWebViewMessage:message];
     };
+#endif
+}
+
+- (void)logWebViewMessage:(NSString*)message {
+    NSLog(@"%@", message);
 }
 
 @end
