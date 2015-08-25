@@ -148,10 +148,11 @@ function maybeSendMessageForTarget(event, hrefTarget){
             bridge.sendMessage( 'disambigClicked', disambigPayload );
         } else if ( "issues_container_close_button" === targetId ) {
             issuesAndDisambig.closeClicked();
-
         } else {
-            // If it is a link to an anchor in the current page, just scroll to it
-            document.getElementById( href.substring( 1 ) ).scrollIntoView();
+            // If it is a link to an anchor in the current page, use existing link handling
+            // so top floating native header height can be taken into account by the regular
+            // fragment handling logic.
+            bridge.sendMessage( 'linkClicked', { 'href': href });
         }
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
