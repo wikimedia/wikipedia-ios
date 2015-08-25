@@ -37,6 +37,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIView+WMFRTLMirroring.h"
+#import "UIView+WMFDefaultNib.h"
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
@@ -192,17 +193,16 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 }
 
 - (void)loadRowViews {
-    // Don't forget - had to select "File's Owner" in left column of xib and then choose
-    // this view controller in the Identity Inspector (3rd icon from left in right column)
-    // in the Custom Class / Class dropdown. See: http://stackoverflow.com/a/21991592
-    UINib* secondaryMenuRowViewNib = [UINib nibWithNibName:@"SecondaryMenuRowView" bundle:nil];
-
     [self setRowData];
 
     for (NSUInteger i = 0; i < self.rowData.count; i++) {
         NSMutableDictionary* row = self.rowData[i];
 
-        SecondaryMenuRowView* rowView = [[secondaryMenuRowViewNib instantiateWithOwner:self options:nil] firstObject];
+        // Don't forget - had to select "File's Owner" in left column of xib and then choose
+        // this view controller in the Identity Inspector (3rd icon from left in right column)
+        // in the Custom Class / Class dropdown. See: http://stackoverflow.com/a/21991592
+        SecondaryMenuRowView* rowView =
+            [[[SecondaryMenuRowView wmf_classNib] instantiateWithOwner:self options:nil] firstObject];
 
         rowView.tag              = [self getIndexOfRow:row];
         rowView.optionSwitch.tag = rowView.tag;
