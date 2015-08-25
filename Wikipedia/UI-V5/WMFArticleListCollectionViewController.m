@@ -3,6 +3,12 @@
 
 #import "UICollectionView+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
+#import "UIView+WMFDefaultNib.h"
+#import "UICollectionView+WMFKVOUpdatableList.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
+
+#import "WMFArticleContainerViewController.h"
+
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 #import "MediaWikiKit.h"
@@ -46,6 +52,7 @@
 
     if ([self isViewLoaded]) {
         _dataSource.collectionView = self.collectionView;
+        [self.collectionView wmf_scrollToTop:NO];
     }
 
     self.title = [_dataSource displayTitle];
