@@ -7,13 +7,13 @@
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
-@interface NSArray_WMFExtensions : XCTestCase
+@interface NSArray_WMFExtensionsTests : XCTestCase
 
 @property (strong, nonatomic) NSArray* array;
 
 @end
 
-@implementation NSArray_WMFExtensions
+@implementation NSArray_WMFExtensionsTests
 
 - (void)setUp {
     [super setUp];
@@ -56,6 +56,39 @@
 
 - (void)test_wmf_reverseArray {
     assertThat([self.array wmf_reverseArray], is(@[@"two", @"one"]));
+}
+
+- (void)testSafeSubarrayShouldLimitToCount {
+    NSArray* original = @[@0, @1];
+    assertThat([original wmf_safeSubarrayWithRange:NSMakeRange(0, 5)], is(original));
+}
+
+- (void)testSafeSubarrayShouldReturnEmptyArrayIfRangeLocationOutOfBounds {
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange: NSMakeRange(2, 1)]), isEmpty());
+}
+
+- (void)testSafeSubarrayShouldReturnEmptyIfRangeIsNotFound {
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange: NSMakeRange(NSNotFound, 1)]), isEmpty());
+}
+
+- (void)testSafeSubarrayShouldReturnEmptyIfRangeIsEmpty {
+    assertThat(([@[@0, @1] wmf_safeSubarrayWithRange: NSMakeRange(0, 0)]), isEmpty());
+}
+
+- (void)testSafeSubarrayShouldReturnEmptyFromEmptyList {
+    assertThat(([@[] wmf_safeSubarrayWithRange: NSMakeRange(0, 1)]), isEmpty());
+}
+
+- (void)testTailShouldReturnAllButTheFirstElement {
+    assertThat(([@[@0, @1] wmf_tail]), is(equalTo(@[@1])));
+}
+
+- (void)testTailShouldReturnEmptyArrayFromSingletonList {
+    assertThat(([@[@1] wmf_tail]), isEmpty());
+}
+
+- (void)testTailShouldReturnEmptyArrayFromEmptyList {
+    assertThat(([@[] wmf_tail]), isEmpty());
 }
 
 @end

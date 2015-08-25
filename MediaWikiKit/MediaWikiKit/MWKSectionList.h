@@ -45,4 +45,17 @@
 
 - (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList;
 
+///
+/// @name Hierarchical Sections
+///
+
+/**
+ *  Retrieve all child-less sections in the receiver.
+ *
+ *  Can be used to retrieve root sections from which the hierarchy can be traversed as a tree.
+ *
+ *  @return An array of `MWKSection` objects.
+ */
+- (NSArray*)topLevelSections;
+
 @end
