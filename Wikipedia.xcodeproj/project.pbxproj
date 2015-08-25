@@ -217,6 +217,7 @@
 		0E869F121B56B83F002604C3 /* MWKList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F111B56B83F002604C3 /* MWKList.m */; };
 		0E869F151B582297002604C3 /* MWKListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F131B58228D002604C3 /* MWKListTests.m */; };
 		0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F4A1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m */; };
+		0E87265B1B8CC9E7008EA2AC /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */; };
 		0E9008E81B715E64001A600A /* WMFCollectionViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */; };
 		0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2951B4B59E3008B996F /* WMFMinimalArticleContentCell.m */; };
 		0E94AFEA1B209721000BC5EA /* iPhone_Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */; };
@@ -880,6 +881,8 @@
 		0E869F131B58228D002604C3 /* MWKListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKListTests.m; sourceTree = "<group>"; };
 		0E869F491B5FDD24002604C3 /* WMFHamburgerMenuFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFHamburgerMenuFunnel.h; path = EventLogging/WMFHamburgerMenuFunnel.h; sourceTree = "<group>"; };
 		0E869F4A1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFHamburgerMenuFunnel.m; path = EventLogging/WMFHamburgerMenuFunnel.m; sourceTree = "<group>"; };
+		0E8726591B8CC9E7008EA2AC /* UIView+WMFShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFShadow.h"; sourceTree = "<group>"; };
+		0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFShadow.m"; sourceTree = "<group>"; };
 		0E88F9211B4ED2AB00205C99 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = "UI-V5/WMFBlockDefinitions.h"; sourceTree = "<group>"; };
 		0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCollectionViewExtensionTests.m; sourceTree = "<group>"; };
 		0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone_Root.storyboard; sourceTree = "<group>"; };
@@ -2204,6 +2207,8 @@
 		0E03E2861B83948B00C1FBD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0E8726591B8CC9E7008EA2AC /* UIView+WMFShadow.h */,
+				0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */,
 				0EA0BF3A1B8AAB6300BA423E /* WMFShadowCell.h */,
 				0EA0BF3B1B8AAB6300BA423E /* WMFShadowCell.m */,
 				0EEAF0F31B8229D9000D4232 /* WMFHomeSectionHeader.h */,
@@ -3872,6 +3877,7 @@
 				BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */,
 				BCB66A0C1A85183000C7B1FE /* NSString+WMFHTMLParsing.m in Sources */,
 				BCB669AF1A83F6C400C7B1FE /* MWKHistoryList.m in Sources */,
+				0E87265B1B8CC9E7008EA2AC /* UIView+WMFShadow.m in Sources */,
 				0ED689881B82559E00B30427 /* WMFLocationSearchResults.m in Sources */,
 				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,
 				0E03E28D1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m in Sources */,

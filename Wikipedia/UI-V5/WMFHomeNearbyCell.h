@@ -1,8 +1,8 @@
 
-#import <SSDataSources/SSDataSources.h>
+#import "WMFShadowCell.h"
 @import CoreLocation;
 
-@interface WMFHomeNearbyCell : SSBaseCollectionCell
+@interface WMFHomeNearbyCell : WMFShadowCell
 
 @property (copy, nonatomic) NSURL* imageURL;
 @property (copy, nonatomic) NSString* titleText;
