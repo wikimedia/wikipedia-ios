@@ -19,7 +19,7 @@
     [self wmf_updateShadowPathBasedOnBounds];
 }
 
-- (void)wmf_updateShadowPathBasedOnBounds{
+- (void)wmf_updateShadowPathBasedOnBounds {
     self.layer.shadowPath = [UIBezierPath bezierPathWithRect:CGRectInset(self.bounds, -1.0, -1.0)].CGPath;
 }
 

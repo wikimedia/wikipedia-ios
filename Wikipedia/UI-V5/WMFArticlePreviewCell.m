@@ -91,13 +91,13 @@ static CGFloat const WMFImageHeight = 160;
 
     summaryAttributedText = [summaryAttributedText wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
                                                                                withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
-                                                                                   NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
-                                                                                   style.alignment     = NSTextAlignmentNatural;
-                                                                                   style.lineSpacing = 12;
-                                                                                   style.lineBreakMode = NSLineBreakByTruncatingTail;
-                                                                                   
-                                                                                   return style;
-                                                                               }];
+        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
+        style.alignment = NSTextAlignmentNatural;
+        style.lineSpacing = 12;
+        style.lineBreakMode = NSLineBreakByTruncatingTail;
+
+        return style;
+    }];
 
 
     self.summaryLabel.attributedText = summaryAttributedText;
