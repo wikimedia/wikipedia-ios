@@ -54,7 +54,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 - (NSAttributedString*)headerText {
     NSMutableAttributedString* link = [[NSMutableAttributedString alloc] initWithString:self.title.text];
     [link addAttribute:NSLinkAttributeName value:self.title.desktopURL range:NSMakeRange(0, link.length)];
-    [link insertAttributedString:[[NSAttributedString alloc] initWithString:@"Because You Read " attributes:nil] atIndex:0];
+    [link insertAttributedString:[[NSAttributedString alloc] initWithString:@"Because you read " attributes:nil] atIndex:0];
     return link;
 }
 
@@ -101,12 +101,15 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
         return;
     }
 
+    @weakify(self);
     [self.relatedSearchFetcher fetchArticlesRelatedToTitle:title]
     .then(^(WMFRelatedSearchResults* results){
+        @strongify(self);
         self.relatedResults = results;
         [self updateSectionWithResults:results];
     })
     .catch(^(NSError* error){
+        @strongify(self);
         [self updateSectionWithSearchError:error];
     });
 }

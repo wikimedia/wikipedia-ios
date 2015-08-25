@@ -382,24 +382,21 @@ NS_ASSUME_NONNULL_BEGIN
     NSInteger section = [self indexForSectionController:controller];
     [self.collectionView performBatchUpdates:^{
         [self.dataSource setItems:items inSection:section];
-    } completion:^(BOOL finished) {
-    }];
+    } completion:NULL];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendItems:items toSection:section];
-    } completion:^(BOOL finished) {
-    }];
+    } completion:NULL];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
     NSInteger section = [self indexForSectionController:controller];
     [self.collectionView performBatchUpdates:^{
         [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
-    } completion:^(BOOL finished) {
-    }];
+    } completion:NULL];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator {

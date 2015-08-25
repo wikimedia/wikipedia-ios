@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-RH-fPG">
-                    <rect key="frame" x="8" y="7" width="584" height="37"/>
+                    <rect key="frame" x="2" y="7" width="590" height="37"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Abw-0C-Eqo"/>
@@ -26,7 +26,7 @@
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Bj8-RH-fPG" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="8" id="LSd-Kj-rUk"/>
+                <constraint firstItem="Bj8-RH-fPG" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="2" id="LSd-Kj-rUk"/>
                 <constraint firstAttribute="centerY" secondItem="Bj8-RH-fPG" secondAttribute="centerY" id="kKV-Sq-4bq"/>
                 <constraint firstAttribute="trailing" secondItem="Bj8-RH-fPG" secondAttribute="trailing" constant="8" id="tCh-p1-BwF"/>
             </constraints>
