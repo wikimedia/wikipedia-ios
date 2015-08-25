@@ -19,7 +19,7 @@
 #import "MWKArticle.h"
 #import "MWKSection.h"
 #import "MWKSite.h"
-#import "MWKSectionList_Private.h"
+#import "MWKSectionList.h"
 #import "MWKDataStore.h"
 #import "MWKImageList.h"
 
@@ -42,17 +42,15 @@
 - (void)testUniqueLargestVariants {
     MWKDataStore* tmpDataStore = [[MWKDataStore alloc] initWithBasePath:self.tempDataStoreDir];
 
-    // create article w/ mock section to prevent crashing due to image import side effects
     MWKTitle* title     = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:tmpDataStore];
-    [article.sections setSections:[NSMutableArray arrayWithObject:mock([MWKSection class])]];
 
     NSArray* dummySourceURLs = [@[@"10px-a.jpg", @"10px-b.jpg", @"100px-a.jpg", @"10px-c.jpg"] bk_map :^id (id obj) {
         return MWKCreateImageURLWithPath(obj);
     }];
 
     [dummySourceURLs bk_each:^(NSString* sourceURL) {
-        [article importImageURL:sourceURL sectionId:0];
+        [article importImageURL:sourceURL sectionId:kMWKArticleSectionNone];
     }];
 
     assertThat([[article.images uniqueLargestVariants] valueForKeyPath:@"sourceURL.lastPathComponent"],

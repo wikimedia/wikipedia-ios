@@ -3,6 +3,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "NSString+WMFGlyphs.h"
+
 typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeW,
     WMFButtonTypeShare,
@@ -26,5 +28,7 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
                     handler:(void (^)(id sender))action;
 
 - (void)wmf_setButtonType:(WMFButtonType)type;
+
+- (void)wmf_setGlyphTitle:(WMFGlyph)glyph color:(UIColor*)color forState:(UIControlState)state;
 
 @end

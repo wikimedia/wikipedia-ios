@@ -86,7 +86,7 @@ transformer.register( "hideTables", function( content ) {
     var tables = content.querySelectorAll( "table" );
     for (var i = 0; i < tables.length; i++) {
         var table = tables[i];
-        if (utilities.findAncestor (table, 'app_table_container')) continue;
+        if (utilities.findClosest (table, '.app_table_container')) continue;
 
         if (!shouldTableBeCollapsed(table)) {
             continue;

@@ -6,37 +6,15 @@
 
 @interface WMFArticleSectionCell ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* leadingIndentationConstraint;
+@property (weak, nonatomic) IBOutlet UIButton* disclosureIndicatorButton;
 
 @end
 
 @implementation WMFArticleSectionCell
 
-- (instancetype)initWithCoder:(NSCoder*)coder {
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self setSelectionBackgroundColor:[UIColor colorWithWhite:0.0 alpha:0.1]];
-        [self wmf_makeCellDividerBeEdgeToEdge];
-    }
-    return self;
-}
-
-- (void)setSelectionBackgroundColor:(UIColor*)color {
-    UIView* selectionColor = [[UIView alloc] init];
-    selectionColor.backgroundColor = color;
-    self.selectedBackgroundView    = selectionColor;
-}
-
-- (void)setLevel:(NSNumber*)level {
-    [self applyIndentForLevel:level];
-}
-
-- (void)applyIndentForLevel:(NSNumber*)level {
-    self.leadingIndentationConstraint.constant = [self getIndentationForLevel:level];
-}
-
-- (CGFloat)getIndentationForLevel:(NSNumber*)level {
-    return 20 + ((level.integerValue - 2) * 10);
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.titleLabel.text = @"";
 }
 
 @end

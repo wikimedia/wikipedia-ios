@@ -6,18 +6,20 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#import "MWKSectionList_Private.h"
+#import "MWKSectionList.h"
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
 
 @interface MWKSectionList ()
 
+@property (strong, nonatomic) NSArray* sections;
 @property (readwrite, weak, nonatomic) MWKArticle* article;
 @property (assign, nonatomic) unsigned long mutationState;
 
 @end
 
 @implementation MWKSectionList
+@synthesize sections = _sections;
 
 - (NSUInteger)count {
     return [self.sections count];
@@ -30,7 +32,7 @@
 - (instancetype)initWithArticle:(MWKArticle*)article sections:(NSArray*)sections {
     self = [self initWithArticle:article];
     if (self) {
-        self.sections = [sections mutableCopy];
+        self.sections = sections;
     }
     return self;
 }
@@ -40,8 +42,6 @@
     if (self) {
         self.article       = article;
         self.mutationState = 0;
-        self.sections      = [NSMutableArray array];
-        [self importSectionsFromDisk];
     }
     return self;
 }
@@ -61,7 +61,19 @@
            && WMF_EQUAL(self.sections, isEqualToArray:, [sectionList sections]);
 }
 
-- (void)importSectionsFromDisk {
+- (NSArray*)sections {
+    if (!_sections) {
+        self.sections = [self sectionsFromDataStore];
+    }
+    return _sections;
+}
+
+- (void)setSections:(NSArray*)sections {
+    _sections = [sections copy];
+    [self buildSectionHierarchy];
+}
+
+- (NSArray*)sectionsFromDataStore {
     NSFileManager* fm = [NSFileManager defaultManager];
     NSString* path    = [[self.article.dataStore pathForTitle:self.article.title] stringByAppendingPathComponent:@"sections"];
 
@@ -78,23 +90,24 @@
         }
     }];
 
+    NSMutableArray* sections      = [[NSMutableArray alloc] init];
     NSRegularExpression* redigits = [NSRegularExpression regularExpressionWithPattern:@"^\\d+$" options:0 error:nil];
     @try {
         for (NSString* subpath in files) {
             NSString* filename = [subpath lastPathComponent];
             NSArray* matches   = [redigits matchesInString:filename options:0 range:NSMakeRange(0, [filename length])];
             if (matches && [matches count]) {
-                [self readAndInsertSection:[filename intValue]];
+                MWKSection* section = [self.article.dataStore sectionWithId:filename.intValue
+                                                                    article:self.article];
+                NSParameterAssert(section);
+                [sections addObject:section];
             }
         }
     }@catch (NSException* e) {
         NSLog(@"Failed to import sections at path %@, leaving list empty.", path);
-        [self.sections removeAllObjects];
+        [sections removeAllObjects];
     }
-}
-
-- (void)readAndInsertSection:(int)sectionId {
-    self.sections[sectionId] = [self.article.dataStore sectionWithId:sectionId article:self.article];
+    return sections;
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
@@ -138,6 +151,39 @@
 
 - (NSArray*)entries {
     return self.sections;
+}
+
+#pragma mark - Hierarchy
+
+- (void)buildSectionHierarchy {
+    __block MWKSection* currentParent = nil;
+    [self.sections makeObjectsPerformSelector:@selector(removeAllChildren)];
+    [self.sections enumerateObjectsUsingBlock:^(MWKSection* currentSection, NSUInteger idx, BOOL* stop) {
+        if (!currentSection.level) {
+            currentParent = nil;
+            return;
+        }
+        if ([currentParent isAncestorOfSection:currentSection]) {
+            [currentParent addChild:currentSection];
+        } else {
+            currentParent = currentSection;
+        }
+    }];
+}
+
+- (NSArray*)topLevelSections {
+    __block MWKSection* currentParent = nil;
+    return [self.sections bk_reduce:[NSMutableArray arrayWithCapacity:self.sections.count]
+                          withBlock:^NSMutableArray*(NSMutableArray* topLevelSections, MWKSection* section) {
+        if (!section.level) {
+            [topLevelSections addObject:section];
+            currentParent = nil;
+        } else if (currentParent == nil || ![currentParent isAncestorOfSection:section]) {
+            currentParent = section;
+            [topLevelSections addObject:section];
+        }
+        return topLevelSections;
+    }];
 }
 
 @end
