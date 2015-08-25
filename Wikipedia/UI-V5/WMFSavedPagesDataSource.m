@@ -4,6 +4,8 @@
 #import "MWKSavedPageEntry.h"
 #import "MWKArticle.h"
 #import "MediaWikiKit.h"
+#import "WMFArticlePreviewCell.h"
+#import "UIView+WMFDefaultNib.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,8 +22,28 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithTarget:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries)];
     if (self) {
         self.savedPages = savedPages;
+
+        self.cellClass = [WMFArticlePreviewCell class];
+
+        @weakify(self);
+        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+                                    MWKSavedPageEntry* entry,
+                                    UICollectionView* collectionView,
+                                    NSIndexPath* indexPath) {
+            @strongify(self);
+            MWKArticle* article = [self articleForIndexPath:indexPath];
+            cell.titleText             = article.title.text;
+            cell.descriptionText       = article.entityDescription;
+            cell.image                 = [article bestThumbnailImage];
+            cell.summaryAttributedText = [article summaryHTMLWithoutLinks];
+        };
     }
     return self;
+}
+
+- (void)setCollectionView:(UICollectionView*)collectionView {
+    [super setCollectionView:collectionView];
+    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
 }
 
 - (NSArray*)articles {

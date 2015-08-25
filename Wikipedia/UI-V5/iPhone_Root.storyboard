@@ -216,38 +216,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="TGLStackedLayout"/>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFArticleViewControllerContainerCell" id="sY3-kZ-Xb4" customClass="WMFArticleViewControllerContainerCell">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUo-1s-WXH" customClass="WMFForwardingTouchesView">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <animations/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <animations/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xUo-1s-WXH" secondAttribute="trailing" id="0BW-eA-xvK"/>
-                                    <constraint firstItem="xUo-1s-WXH" firstAttribute="top" secondItem="sY3-kZ-Xb4" secondAttribute="top" id="B9O-RI-Lac"/>
-                                    <constraint firstItem="xUo-1s-WXH" firstAttribute="leading" secondItem="sY3-kZ-Xb4" secondAttribute="leading" id="dWt-Qv-9Yn"/>
-                                    <constraint firstAttribute="bottom" secondItem="xUo-1s-WXH" secondAttribute="bottom" id="m2C-6z-5pz"/>
-                                </constraints>
-                                <size key="customSize" width="50" height="50"/>
-                                <connections>
-                                    <outlet property="touchView" destination="xUo-1s-WXH" id="r02-sC-u5p"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
+                        <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="qVm-oc-aaW" id="oec-qb-SMc"/>
                             <outlet property="delegate" destination="qVm-oc-aaW" id="uJd-6E-G6k"/>
@@ -354,38 +324,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="477"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="TGLStackedLayout"/>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFArticleViewControllerContainerCell" id="fRY-7t-L7c" customClass="WMFArticleViewControllerContainerCell">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtl-dx-ekc" customClass="WMFForwardingTouchesView">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <animations/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <animations/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="xtl-dx-ekc" firstAttribute="leading" secondItem="fRY-7t-L7c" secondAttribute="leading" id="3rl-Vl-tzt"/>
-                                    <constraint firstItem="xtl-dx-ekc" firstAttribute="top" secondItem="fRY-7t-L7c" secondAttribute="top" id="BSl-hO-bCO"/>
-                                    <constraint firstAttribute="bottom" secondItem="xtl-dx-ekc" secondAttribute="bottom" id="K9S-U3-3xl"/>
-                                    <constraint firstAttribute="trailing" secondItem="xtl-dx-ekc" secondAttribute="trailing" id="fbm-GE-zvr"/>
-                                </constraints>
-                                <size key="customSize" width="50" height="50"/>
-                                <connections>
-                                    <outlet property="touchView" destination="xtl-dx-ekc" id="pEM-Im-uyf"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
+                        <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="4Pn-cn-DIj" id="bps-am-g8F"/>
                             <outlet property="delegate" destination="4Pn-cn-DIj" id="pQr-HZ-wDg"/>
@@ -405,38 +345,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="TGLStackedLayout"/>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFArticleViewControllerContainerCell" id="lcF-U0-4hY" customClass="WMFArticleViewControllerContainerCell">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qbh-N0-jBQ" customClass="WMFForwardingTouchesView">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <animations/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <animations/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Qbh-N0-jBQ" secondAttribute="bottom" id="1bs-9J-MC2"/>
-                                    <constraint firstItem="Qbh-N0-jBQ" firstAttribute="leading" secondItem="lcF-U0-4hY" secondAttribute="leading" id="OL3-2j-DYi"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qbh-N0-jBQ" secondAttribute="trailing" id="ch9-he-QKU"/>
-                                    <constraint firstItem="Qbh-N0-jBQ" firstAttribute="top" secondItem="lcF-U0-4hY" secondAttribute="top" id="xLY-du-esw"/>
-                                </constraints>
-                                <size key="customSize" width="50" height="50"/>
-                                <connections>
-                                    <outlet property="touchView" destination="Qbh-N0-jBQ" id="vka-h8-zug"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
+                        <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="2yz-KN-V6a" id="dqQ-eP-Tyk"/>
                             <outlet property="delegate" destination="2yz-KN-V6a" id="v1H-vu-Lg3"/>
