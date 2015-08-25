@@ -101,14 +101,10 @@ platform :ios do
     ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
     # force debug menu to be shown
     ENV['WMF_FORCE_DEBUG_MENU'] = '1'
-    xcargs= ["PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}",
-             # force app ID suffix to "developer"
-             "APP_ID_SUFFIX=.developer",
-             # force hockey app ID
-             "WMF_HOCKEYAPP_IDENTIFIER=7138507aefac3ee74c295f75a0b857e4"].join ' '
+    xcargs= ["PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"].join ' '
     ipa(
-      configuration: "Release",
-      scheme: "Wikipedia",
+      configuration: "AdHoc",
+      scheme: "Wikipedia AdHoc",
       embed: 'build/dev.mobileprovision',
       xcargs: xcargs
     )
