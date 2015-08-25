@@ -9,6 +9,8 @@
 #import "WMFLocationSearchFetcher.h"
 
 #import "WMFNearbySectionController.h"
+#import "WMFSettingsViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 #import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
@@ -57,10 +59,22 @@ NS_ASSUME_NONNULL_BEGIN
     if (!item.titleView) {
         item.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
     }
+    if (!item.rightBarButtonItems.count) {
+        item.rightBarButtonItems = @[
+            [self settingsBarButtonItem]
+        ];
+    }
     return item;
 }
 
 #pragma mark - Accessors
+
+- (UIBarButtonItem*)settingsBarButtonItem {
+    // TODO: localize
+    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain
+                                           target:self
+                                           action:@selector(didTapSettingsButton:)];
+}
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
@@ -101,6 +115,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
     return (id)self.collectionView.collectionViewLayout;
+}
+
+#pragma mark - Actions
+
+- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+    UINavigationController* settingsContainer =
+        [[UINavigationController alloc] initWithRootViewController:
+         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+    [self presentViewController:settingsContainer
+                       animated:YES
+                     completion:nil];
 }
 
 #pragma mark - UiViewController
