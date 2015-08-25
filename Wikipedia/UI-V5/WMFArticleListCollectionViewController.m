@@ -10,6 +10,7 @@
 #import "WMFOffScreenFlowLayout.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UICollectionView+WMFKVOUpdatableList.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
 
 #import "WMFArticleContainerViewController.h"
 
@@ -71,6 +72,7 @@
 
     if ([self isViewLoaded]) {
         _dataSource.collectionView = self.collectionView;
+        [self.collectionView wmf_scrollToTop:NO];
     }
 
     self.title = [_dataSource displayTitle];
