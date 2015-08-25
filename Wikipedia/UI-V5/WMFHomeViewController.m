@@ -49,22 +49,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFHomeViewController
 
-- (NSString*)title {
-    // TODO: localize
-    return @"Home";
-}
-
-- (UINavigationItem*)navigationItem {
-    UINavigationItem* item = [super navigationItem];
-    if (!item.titleView) {
-        item.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
-    }
-    if (!item.rightBarButtonItems.count) {
-        item.rightBarButtonItems = @[
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.navigationItem.titleView =
+            [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
+        self.navigationItem.rightBarButtonItems = @[
             [self settingsBarButtonItem]
         ];
     }
-    return item;
+    return self;
+}
+
+- (NSString*)title {
+    // TODO: localize
+    return @"Home";
 }
 
 #pragma mark - Accessors

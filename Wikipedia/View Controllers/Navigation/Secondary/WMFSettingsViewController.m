@@ -100,7 +100,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 @implementation WMFSettingsViewController
 
 - (NSString*)title {
-    return MWLocalizedString(@"main-menu-title", nil);
+    return MWLocalizedString(@"settings-title", nil);
 }
 
 - (BOOL)prefersStatusBarHidden {
