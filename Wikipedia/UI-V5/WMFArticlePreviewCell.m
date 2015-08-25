@@ -4,6 +4,9 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+#import "NSAttributedString+WMFModify.h"
+#import "UIImageView+MWKImage.h"
+
 static CGFloat const WMFTextPadding = 8.0;
 static CGFloat const WMFImageHeight = 160;
 
@@ -62,6 +65,12 @@ static CGFloat const WMFImageHeight = 160;
     });
 }
 
+- (void)setImage:(MWKImage*)image {
+    if (image) {
+        [self.imageView wmf_setImageWithFaceDetectionFromMetadata:image];
+    }
+}
+
 - (void)setTitleText:(NSString*)titleText {
     _titleText           = titleText;
     self.titleLabel.text = titleText;
@@ -72,9 +81,26 @@ static CGFloat const WMFImageHeight = 160;
     self.descriptionLabel.text = descriptionText;
 }
 
-- (void)setSummaryText:(NSString*)summaryText {
-    _summaryText           = summaryText;
-    self.summaryLabel.text = summaryText;
+- (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText {
+    _summaryAttributedText = summaryAttributedText;
+
+    if (!_summaryAttributedText) {
+        self.summaryLabel.text = nil;
+        return;
+    }
+
+    summaryAttributedText = [summaryAttributedText wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                                                               withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
+                                                                                   NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
+                                                                                   style.alignment     = NSTextAlignmentNatural;
+                                                                                   style.lineSpacing = 12;
+                                                                                   style.lineBreakMode = NSLineBreakByTruncatingTail;
+                                                                                   
+                                                                                   return style;
+                                                                               }];
+
+
+    self.summaryLabel.attributedText = summaryAttributedText;
 }
 
 @end

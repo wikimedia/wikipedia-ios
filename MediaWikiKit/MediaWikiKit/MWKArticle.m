@@ -16,6 +16,8 @@
 #import "MWKSection.h"
 #import "MWKCitation.h"
 
+@import CoreText;
+
 typedef NS_ENUM (NSUInteger, MWKArticleSchemaVersion) {
     /**
      * Initial schema verison, added @c main boolean field.
@@ -382,6 +384,18 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return _image;
 }
 
+- (MWKImage*)bestThumbnailImage {
+    if (self.thumbnailURL) {
+        return [self thumbnail];
+    }
+
+    if (self.imageURL) {
+        return [self image];
+    }
+
+    return nil;
+}
+
 - (MWKImageList*)images {
     if (_images == nil) {
         _images = [self.dataStore imageListWithArticle:self section:nil];
@@ -582,6 +596,28 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
         return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
     }
     return nil;
+}
+
+- (NSAttributedString*)summaryHTMLWithoutLinks {
+    NSMutableAttributedString* summary = [[self summaryHTML] mutableCopy];
+
+    [summary enumerateAttribute:NSLinkAttributeName inRange:NSMakeRange(0, summary.length) options:0 usingBlock:^(id value, NSRange range, BOOL* stop) {
+        [summary removeAttribute:NSLinkAttributeName range:range];
+        [summary removeAttribute:NSForegroundColorAttributeName range:range];
+    }];
+
+    NSMutableArray* superScripts = [NSMutableArray array];
+    [summary enumerateAttribute:(NSString*)kCTSuperscriptAttributeName inRange:NSMakeRange(0, summary.length) options:0 usingBlock:^(id value, NSRange range, BOOL* stop) {
+        if([value integerValue] == 1){
+            [superScripts addObject:[NSValue valueWithRange:range]];
+        }
+    }];
+
+    [superScripts enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSValue* obj, NSUInteger idx, BOOL* stop) {
+        [summary replaceCharactersInRange:[obj rangeValue] withString:@""];
+    }];
+
+    return summary;
 }
 
 @end

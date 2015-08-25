@@ -1,5 +1,9 @@
 
 #import "WMFSearchResults.h"
+#import "WMFArticlePreviewCell.h"
+#import "MWKArticle.h"
+#import "MWKTitle.h"
+#import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,8 +21,25 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.searchTerm       = searchTerm;
         self.searchSuggestion = suggestion;
+
+        self.cellClass = [WMFArticlePreviewCell class];
+
+        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+                                    MWKArticle* article,
+                                    UICollectionView* collectionView,
+                                    NSIndexPath* indexPath) {
+            cell.titleText             = article.title.text;
+            cell.descriptionText       = article.entityDescription;
+            cell.image                 = [article bestThumbnailImage];
+            cell.summaryAttributedText = nil;
+        };
     }
     return self;
+}
+
+- (void)setCollectionView:(UICollectionView*)collectionView {
+    [super setCollectionView:collectionView];
+    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {

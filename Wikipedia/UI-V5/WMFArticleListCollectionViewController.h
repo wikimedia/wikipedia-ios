@@ -19,10 +19,6 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 @property (nonatomic, strong) MWKHistoryList* recentPages;
 @property (nonatomic, strong, nullable) SSArrayDataSource<WMFArticleListDataSource>* dataSource;
 
-@property (nonatomic, assign, readonly) WMFArticleListMode mode;
-
-- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion;
-
 - (void)refreshVisibleCells;
 
 - (void)scrollToArticle:(MWKArticle*)article animated:(BOOL)animated;
