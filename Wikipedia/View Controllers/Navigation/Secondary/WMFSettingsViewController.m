@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 12/18/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "SecondaryMenuViewController.h"
+#import "WMFSettingsViewController.h"
 #import "HistoryViewController.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
@@ -64,13 +64,14 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
 };
 
 static uint const WMFDebugSectionCount                                    = 2;
-static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
-                                                                              SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG };
+static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
+    SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
+    SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG
+};
 
 #pragma mark - Private
 
-@interface SecondaryMenuViewController () <LanguageSelectionDelegate> {
-}
+@interface WMFSettingsViewController () <LanguageSelectionDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
 @property (strong, nonatomic) NSMutableArray* rowData;
@@ -79,7 +80,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
 @end
 
-@implementation SecondaryMenuViewController
+@implementation WMFSettingsViewController
 
 - (NSString*)title {
     return MWLocalizedString(@"main-menu-title", nil);
