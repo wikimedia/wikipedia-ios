@@ -1,16 +1,8 @@
 
-#import <Mantle/Mantle.h>
+#import "MWKSearchResult.h"
 @import CoreLocation;
 
-@interface MWKLocationSearchResult : MTLModel<MTLJSONSerializing>
-
-@property (nonatomic, assign, readonly) NSInteger articleID;
-
-@property (nonatomic, copy, readonly) NSString* displayTitle;
-
-@property (nonatomic, copy, readonly) NSString* wikidataDescription;
-
-@property (nonatomic, copy, readonly) NSURL* thumbnailURL;
+@interface MWKLocationSearchResult : MWKSearchResult<MTLJSONSerializing>
 
 @property (nonatomic, strong, readonly) CLLocation* location;
 

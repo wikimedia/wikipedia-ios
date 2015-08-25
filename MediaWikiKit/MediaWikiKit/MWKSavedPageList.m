@@ -41,6 +41,10 @@
     return [super entryAtIndex:index];
 }
 
+- (MWKSavedPageEntry*)mostRecentEntry {
+    return [self.entries lastObject];
+}
+
 - (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
     if ([title.text length] == 0) {
         return nil;

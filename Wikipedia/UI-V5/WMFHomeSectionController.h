@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)sectionIdentifier;
 
-- (NSString*)headerText;
+- (NSAttributedString*)headerText;
 
 - (NSString*)footerText;
 
@@ -34,6 +34,8 @@ typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
 
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items;
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items;
+
+- (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator;
 
