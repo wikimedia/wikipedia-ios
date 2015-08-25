@@ -109,6 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    // Manually adjusting scrollview offsets to compensate for embedded navigation controller
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self updateInsetsForArticleViewController];
 
     UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.articleViewController];
@@ -134,8 +137,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateInsetsForArticleViewController {
-    CGFloat navHeight = [self.navigationController.navigationBar frame].size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
-    self.articleViewController.tableView.contentInset = UIEdgeInsetsMake(navHeight, 0.0, 0.0, 0.0);
+    self.articleViewController.tableView.contentInset =
+        UIEdgeInsetsMake([self.navigationController.navigationBar frame].size.height
+                         + [[UIApplication sharedApplication] statusBarFrame].size.height,
+                         0.0,
+                         self.tabBarController.tabBar.frame.size.height,
+                         0.0);
 }
 
 #pragma mark - WebView Transition
