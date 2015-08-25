@@ -1,32 +1,49 @@
 //  Created by Monte Hurd on 12/18/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "SecondaryMenuViewController.h"
+#import "WMFSettingsViewController.h"
+
+// Views
+#import "TabularScrollView.h"
+#import "SecondaryMenuRowView.h"
+#import "PaddedLabel.h"
+
+// View Controllers
 #import "HistoryViewController.h"
+#import "LanguagesViewController.h"
+#import "LoginViewController.h"
+#import "AboutViewController.h"
+
+// Models
+#import "MWKSite.h"
+#import "MWKLanguageLink.h"
+
+// Networking
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
+
+// Constants
+#import "WikiGlyph_Chars.h"
+#import "Defines.h"
+#import "UIFont+WMFStyle.h"
+
+// Utils
 #import "WikipediaAppUtils.h"
-#import "LanguagesViewController.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "UIViewController+Alert.h"
 #import "NSString+FormattedAttributedString.h"
-#import "TabularScrollView.h"
-#import "SecondaryMenuRowView.h"
-#import "WikiGlyph_Chars.h"
-#import "Defines.h"
-#import "LoginViewController.h"
-#import "PaddedLabel.h"
-#import <HockeySDK/HockeySDK.h>
-#import "UIFont+WMFStyle.h"
 #import "NSBundle+WMFInfoUtils.h"
-#import "MWKLanguageLink.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "AboutViewController.h"
-#import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
-#import "MediaWikiKit.h"
+#import "UIView+WMFDefaultNib.h"
+
+// Frameworks
+#import <HockeySDK/HockeySDK.h>
+
+// Other
+#import "WMFArticlePresenter.h"
 
 #pragma mark - Defines
 
@@ -64,13 +81,14 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
 };
 
 static uint const WMFDebugSectionCount                                    = 2;
-static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
-                                                                              SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG };
+static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
+    SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
+    SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG
+};
 
 #pragma mark - Private
 
-@interface SecondaryMenuViewController () <LanguageSelectionDelegate> {
-}
+@interface WMFSettingsViewController () <LanguageSelectionDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
 @property (strong, nonatomic) NSMutableArray* rowData;
@@ -79,10 +97,10 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 
 @end
 
-@implementation SecondaryMenuViewController
+@implementation WMFSettingsViewController
 
 - (NSString*)title {
-    return MWLocalizedString(@"main-menu-title", nil);
+    return MWLocalizedString(@"settings-title", nil);
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -175,17 +193,16 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = { SE
 }
 
 - (void)loadRowViews {
-    // Don't forget - had to select "File's Owner" in left column of xib and then choose
-    // this view controller in the Identity Inspector (3rd icon from left in right column)
-    // in the Custom Class / Class dropdown. See: http://stackoverflow.com/a/21991592
-    UINib* secondaryMenuRowViewNib = [UINib nibWithNibName:@"SecondaryMenuRowView" bundle:nil];
-
     [self setRowData];
 
     for (NSUInteger i = 0; i < self.rowData.count; i++) {
         NSMutableDictionary* row = self.rowData[i];
 
-        SecondaryMenuRowView* rowView = [[secondaryMenuRowViewNib instantiateWithOwner:self options:nil] firstObject];
+        // Don't forget - had to select "File's Owner" in left column of xib and then choose
+        // this view controller in the Identity Inspector (3rd icon from left in right column)
+        // in the Custom Class / Class dropdown. See: http://stackoverflow.com/a/21991592
+        SecondaryMenuRowView* rowView =
+            [[[SecondaryMenuRowView wmf_classNib] instantiateWithOwner:self options:nil] firstObject];
 
         rowView.tag              = [self getIndexOfRow:row];
         rowView.optionSwitch.tag = rowView.tag;

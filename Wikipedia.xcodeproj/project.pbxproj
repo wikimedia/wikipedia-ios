@@ -146,7 +146,7 @@
 		04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCA0C219830A44000E982A /* ReferenceVC.m */; };
 		04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFEA1935093A00E3F60C /* SecondaryMenuRowView.m */; };
 		04CCCFEF1935093A00E3F60C /* SecondaryMenuRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04CCCFEB1935093A00E3F60C /* SecondaryMenuRowView.xib */; };
-		04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFED1935093A00E3F60C /* SecondaryMenuViewController.m */; };
+		04CCCFF01935093A00E3F60C /* WMFSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFED1935093A00E3F60C /* WMFSettingsViewController.m */; };
 		04CCCFF61935094000E3F60C /* PrimaryMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFF31935094000E3F60C /* PrimaryMenuViewController.m */; };
 		04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CCCFF51935094000E3F60C /* PrimaryMenuTableViewCell.m */; };
 		04D149DD18877343006B4104 /* AlertLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D149DA18877343006B4104 /* AlertLabel.m */; };
@@ -160,7 +160,7 @@
 		04D686FA1AB2949C0009B44A /* TabularScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D686EF1AB2949C0009B44A /* TabularScrollView.m */; };
 		04D686FC1AB2949C0009B44A /* WikiGlyphButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D686F11AB2949C0009B44A /* WikiGlyphButton.m */; };
 		04D686FE1AB2949C0009B44A /* WikiGlyphLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D686F31AB2949C0009B44A /* WikiGlyphLabel.m */; };
-		04DA87701B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA876F1B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard */; };
+		04DA87701B2FF5B200C948F8 /* WMFSettingsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA876F1B2FF5B200C948F8 /* WMFSettingsViewController.storyboard */; };
 		04DA87751B30A03600C948F8 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87741B30A03600C948F8 /* LoginViewController.storyboard */; };
 		04DA87771B30A9D600C948F8 /* AccountCreationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */; };
 		04DA87791B30B99300C948F8 /* CaptchaViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */; };
@@ -746,8 +746,8 @@
 		04CCCFE91935093A00E3F60C /* SecondaryMenuRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondaryMenuRowView.h; sourceTree = "<group>"; };
 		04CCCFEA1935093A00E3F60C /* SecondaryMenuRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondaryMenuRowView.m; sourceTree = "<group>"; };
 		04CCCFEB1935093A00E3F60C /* SecondaryMenuRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondaryMenuRowView.xib; sourceTree = "<group>"; };
-		04CCCFEC1935093A00E3F60C /* SecondaryMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondaryMenuViewController.h; sourceTree = "<group>"; };
-		04CCCFED1935093A00E3F60C /* SecondaryMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondaryMenuViewController.m; sourceTree = "<group>"; };
+		04CCCFEC1935093A00E3F60C /* WMFSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSettingsViewController.h; sourceTree = "<group>"; };
+		04CCCFED1935093A00E3F60C /* WMFSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsViewController.m; sourceTree = "<group>"; };
 		04CCCFF21935094000E3F60C /* PrimaryMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimaryMenuViewController.h; sourceTree = "<group>"; };
 		04CCCFF31935094000E3F60C /* PrimaryMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PrimaryMenuViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		04CCCFF41935094000E3F60C /* PrimaryMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrimaryMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -773,7 +773,7 @@
 		04D686F11AB2949C0009B44A /* WikiGlyphButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikiGlyphButton.m; sourceTree = "<group>"; };
 		04D686F21AB2949C0009B44A /* WikiGlyphLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikiGlyphLabel.h; sourceTree = "<group>"; };
 		04D686F31AB2949C0009B44A /* WikiGlyphLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikiGlyphLabel.m; sourceTree = "<group>"; };
-		04DA876F1B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SecondaryMenuViewController.storyboard; sourceTree = "<group>"; };
+		04DA876F1B2FF5B200C948F8 /* WMFSettingsViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFSettingsViewController.storyboard; sourceTree = "<group>"; };
 		04DA87741B30A03600C948F8 /* LoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountCreationViewController.storyboard; sourceTree = "<group>"; };
 		04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CaptchaViewController.storyboard; sourceTree = "<group>"; };
@@ -2063,8 +2063,8 @@
 		04CCCFE81935093A00E3F60C /* Secondary */ = {
 			isa = PBXGroup;
 			children = (
-				04CCCFEC1935093A00E3F60C /* SecondaryMenuViewController.h */,
-				04CCCFED1935093A00E3F60C /* SecondaryMenuViewController.m */,
+				04CCCFEC1935093A00E3F60C /* WMFSettingsViewController.h */,
+				04CCCFED1935093A00E3F60C /* WMFSettingsViewController.m */,
 				04CCCFE91935093A00E3F60C /* SecondaryMenuRowView.h */,
 				04CCCFEA1935093A00E3F60C /* SecondaryMenuRowView.m */,
 				04CCCFEB1935093A00E3F60C /* SecondaryMenuRowView.xib */,
@@ -2513,7 +2513,7 @@
 				04AEF0F51B2E8F6300EFE858 /* ReferencesVC.storyboard */,
 				04AEF0FA1B2F703700EFE858 /* PrimaryMenuViewController.storyboard */,
 				04DA87741B30A03600C948F8 /* LoginViewController.storyboard */,
-				04DA876F1B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard */,
+				04DA876F1B2FF5B200C948F8 /* WMFSettingsViewController.storyboard */,
 				04DA87761B30A9D600C948F8 /* AccountCreationViewController.storyboard */,
 				04DA87781B30B99300C948F8 /* CaptchaViewController.storyboard */,
 				04DA877C1B30D29800C948F8 /* SavedPagesViewController.storyboard */,
@@ -3368,7 +3368,7 @@
 				C979727A1A731EAA00C6ED7A /* ShareOptions.xib in Resources */,
 				0E03E2A91B85750C00C1FBD7 /* WMFHomeSectionFooter.xib in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
-				04DA87701B2FF5B200C948F8 /* SecondaryMenuViewController.storyboard in Resources */,
+				04DA87701B2FF5B200C948F8 /* WMFSettingsViewController.storyboard in Resources */,
 				04AEF0FB1B2F703700EFE858 /* PrimaryMenuViewController.storyboard in Resources */,
 				042258581B34A2C100FDD0C6 /* EditSummaryViewController.storyboard in Resources */,
 				BCB58F591A89747400465627 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
@@ -3769,7 +3769,7 @@
 				C96335911AA92AAC00A1EB2C /* WMFCrashAlertView.m in Sources */,
 				0ECC99EF1B67D43500004E47 /* WMFArticleRequestSerializer.m in Sources */,
 				D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */,
-				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
+				04CCCFF01935093A00E3F60C /* WMFSettingsViewController.m in Sources */,
 				0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
 				BC905A111B447A8300523DFE /* NSURLRequest+WMFUtilities.m in Sources */,
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,
