@@ -67,6 +67,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) MWKImage* thumbnail;
 @property (readonly, strong, nonatomic) MWKImage* image;
 
+- (MWKImage*)bestThumbnailImage;
+
 /**
  *  Array of `MWKCitation` objects parsed from the receiver's reference list.
  *
@@ -133,6 +135,11 @@ static const NSInteger kMWKArticleSectionNone = -1;
  * @return Summary of the receiver as an attributed string built from HTML.
  */
 - (NSAttributedString*)summaryHTML;
+
+/**
+ *  @return Same as summary, but without links
+ */
+- (NSAttributedString*)summaryHTMLWithoutLinks;
 
 @end
 
