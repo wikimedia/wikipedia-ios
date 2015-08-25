@@ -135,6 +135,7 @@
             if (m.topConstraint) {
                 NSNumber* topOffset = headingsTopOffsets[i];
                 CGFloat topFloat    = topOffset.floatValue + self.webView.scrollView.contentOffset.y;
+                topFloat += self.webView.scrollView.contentInset.top;
                 [m.topConstraint setOffset:topFloat];
                 m.yOffset = topFloat;
             }
@@ -143,6 +144,7 @@
 }
 
 - (void)updateTopHeaderForScrollOffsetY:(CGFloat)offsetY {
+    offsetY += self.webView.scrollView.contentInset.top;
     static NSUInteger lastTopmostIndex = -1;
 
     NSUInteger topmostIndex = [self indexOfTopmostSectionForWebViewScrollOffsetY:offsetY];

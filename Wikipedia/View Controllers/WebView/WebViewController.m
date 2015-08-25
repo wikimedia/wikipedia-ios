@@ -280,7 +280,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
-        [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"location.hash = '%@'", self.jumpToFragment]];
+        NSString* jumpToThis = [self.jumpToFragment copy];
+        self.jumpToFragment = nil;
+        [[self.webView wmf_javascriptContext][@"scrollToFragment"] performSelector:@selector(callWithArguments:) withObject:@[jumpToThis] afterDelay:0.1];
     }
 }
 
@@ -761,7 +763,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
-                if ([href hasPrefix:@"//"]) {
+                if ([href hasPrefix:@"#"]) {
+                    weakSelf.jumpToFragment = [href substringFromIndex:1];
+                    [weakSelf jumpToFragmentIfNecessary];
+                } else if ([href hasPrefix:@"//"]) {
                     // Expand protocol-relative link to https -- secure by default!
                     href = [@"https:" stringByAppendingString:href];
                 }

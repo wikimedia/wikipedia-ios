@@ -3,6 +3,7 @@ var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
 var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
+var utilities = require("./utilities");
 
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
@@ -27,65 +28,9 @@ bridge.registerListener( "setLanguage", function( payload ){
     document.querySelector('base').href = 'https://' + payload.lang + '.wikipedia.org/';
 } );
 
-bridge.registerListener( "scrollToFragment", function( payload ) {
-    var item = document.getElementById( payload.hash );
-    var rect = item.getBoundingClientRect();
-    window.scroll( 0, rect.top );
-});
-
 bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );
-
-/**
- * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
- * Think of it as a reverse element.querySelector :)
- *
- * Takes only element names, raw classes, and ids right now. Combines all given.
- */
-function findParent(element, selector) {
-    // parse selector attributes
-    var matches = selector.match(/^([a-z0-9]*)(?:\.([a-z0-9-]+))?(?:#([a-z0-9-]+))?$/i);
-    if (!matches) {
-        throw new Error("Unexpected findParent selector format: " + selector);
-    }
-    var maybeLowerCase = function (s) {
-        return typeof s === 'string' ? s.toLowerCase() : undefined;
-    };
-    return _findParent(element,
-                       maybeLowerCase(matches[1]),
-                       maybeLowerCase(matches[2]),
-                       maybeLowerCase(matches[3]),
-                       0,
-                       10);
-}
-
-/**
- * Recursively traverse an element's parents until a match is found, up to `maxDepth`.
- * @param element {HTMLElement} The element to check against provided selectors.
- * @param selectorName {String} *Lowercase* tag name to search for.
- * @param selectorClass {String} *Lowercase* class to search for.
- * @param selectorId {String} *Lowercase* id to search for.
- * @param depth {Int} The current recursion/traversal depth
- * @param maxDepth {Int} The maximum depth to traverse to.
- * @see findParent(element, selector)
- */
-function _findParent(element, selectorName, selectorClass, selectorId, depth, maxDepth) {
-    if (!element || depth >= maxDepth) {
-        // base case, nothing found or max depth reached
-        return undefined;
-    } else if (selectorName && element.tagName && selectorName === element.tagName.toLowerCase()) {
-        // element.tagName can be nil if we hit `document`
-        return element;
-    } else if (selectorClass && element.classList && element.classList.contains(selectorClass)) {
-        return element;
-    } else if (selectorId && element.id && selectorId === element.id) {
-        return element;
-    } else {
-        // continue traversing
-        return _findParent(element.parentNode, selectorName, selectorClass, selectorId, depth+1, maxDepth);
-    }
-}
 
 document.onclick = function() {
     // Reminder: resist adding any click/tap handling here - they can
@@ -116,7 +61,7 @@ function touchEndedWithoutDragging(event){
      there are certain elements which don't have an <a> ancestor, so if we fail to find it,
      specify the event's target instead
      */
-    var didSendMessage = maybeSendMessageForTarget(event, findParent(event.target, 'A') || event.target);
+    var didSendMessage = maybeSendMessageForTarget(event, utilities.findClosest(event.target, 'A') || event.target);
 
     var hasSelectedText = window.getSelection().rangeCount > 0;
 
@@ -154,10 +99,11 @@ function maybeSendMessageForTarget(event, hrefTarget){
             bridge.sendMessage( 'disambigClicked', disambigPayload );
         } else if ( "issues_container_close_button" === targetId ) {
             issuesAndDisambig.closeClicked();
-
         } else {
-            // If it is a link to an anchor in the current page, just scroll to it
-            document.getElementById( href.substring( 1 ) ).scrollIntoView();
+            // If it is a link to an anchor in the current page, use existing link handling
+            // so top floating native header height can be taken into account by the regular
+            // fragment handling logic.
+            bridge.sendMessage( 'linkClicked', { 'href': href });
         }
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
