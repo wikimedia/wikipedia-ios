@@ -2,31 +2,47 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFSettingsViewController.h"
+
+// Views
+#import "TabularScrollView.h"
+#import "SecondaryMenuRowView.h"
+#import "PaddedLabel.h"
+
+// View Controllers
 #import "HistoryViewController.h"
+#import "LanguagesViewController.h"
+#import "LoginViewController.h"
+#import "AboutViewController.h"
+
+// Models
+#import "MWKSite.h"
+#import "MWKLanguageLink.h"
+
+// Networking
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
+
+// Constants
+#import "WikiGlyph_Chars.h"
+#import "Defines.h"
+#import "UIFont+WMFStyle.h"
+
+// Utils
 #import "WikipediaAppUtils.h"
-#import "LanguagesViewController.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "UIViewController+Alert.h"
 #import "NSString+FormattedAttributedString.h"
-#import "TabularScrollView.h"
-#import "SecondaryMenuRowView.h"
-#import "WikiGlyph_Chars.h"
-#import "Defines.h"
-#import "LoginViewController.h"
-#import "PaddedLabel.h"
-#import <HockeySDK/HockeySDK.h>
-#import "UIFont+WMFStyle.h"
 #import "NSBundle+WMFInfoUtils.h"
-#import "MWKLanguageLink.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "AboutViewController.h"
-#import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
-#import "MediaWikiKit.h"
+
+// Frameworks
+#import <HockeySDK/HockeySDK.h>
+
+// Other
+#import "WMFArticlePresenter.h"
 
 #pragma mark - Defines
 
