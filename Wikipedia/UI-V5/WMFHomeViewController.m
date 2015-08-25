@@ -47,6 +47,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFHomeViewController
 
+- (NSString*)title {
+    // TODO: localize
+    return @"Home";
+}
+
+- (UINavigationItem*)navigationItem {
+    UINavigationItem* item = [super navigationItem];
+    if (!item.titleView) {
+        item.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
+    }
+    return item;
+}
+
 #pragma mark - Accessors
 
 - (WMFNearbySectionController*)nearbySectionController {
@@ -94,9 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title                    = @"Home";
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
 
     self.collectionView.dataSource = nil;
 
