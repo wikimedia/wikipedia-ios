@@ -73,6 +73,7 @@
 		0463639818A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
 		04661DC81B4346C90045E970 /* WMFArticleViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04661DC71B4346C90045E970 /* WMFArticleViewController.storyboard */; };
 		046A4B9D1B38DC5400440F67 /* UIView+WMFRTLMirroring.m in Sources */ = {isa = PBXBuildFile; fileRef = 046A4B9C1B38DC5400440F67 /* UIView+WMFRTLMirroring.m */; };
+		046D3CA01B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 046D3C9F1B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */; };
 		046E2B6B1B31ED94008A99A6 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E2B6A1B31ED94008A99A6 /* UIButton+WMFButton.m */; };
 		046E2B6F1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E2B6E1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.m */; };
 		04709B5E1B829E3C0086B978 /* NSAttributedString+WMFModify.m in Sources */ = {isa = PBXBuildFile; fileRef = 04709B5D1B829E3C0086B978 /* NSAttributedString+WMFModify.m */; };
@@ -613,6 +614,8 @@
 		04661DC71B4346C90045E970 /* WMFArticleViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFArticleViewController.storyboard; sourceTree = "<group>"; };
 		046A4B9B1B38DC5400440F67 /* UIView+WMFRTLMirroring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFRTLMirroring.h"; sourceTree = "<group>"; };
 		046A4B9C1B38DC5400440F67 /* UIView+WMFRTLMirroring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFRTLMirroring.m"; sourceTree = "<group>"; };
+		046D3C9E1B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+WMFJavascriptToXcodeConsoleLogging.h"; sourceTree = "<group>"; };
+		046D3C9F1B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+WMFJavascriptToXcodeConsoleLogging.m"; sourceTree = "<group>"; };
 		046E2B691B31ED94008A99A6 /* UIButton+WMFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIButton+WMFButton.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		046E2B6A1B31ED94008A99A6 /* UIButton+WMFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIButton+WMFButton.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		046E2B6D1B3213BE008A99A6 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = "<group>"; };
@@ -1936,6 +1939,8 @@
 				0439317519FB092600386E8F /* UIWebView+LoadAssetsHtml.m */,
 				042BEAED1A92EE66002CF320 /* UIWebView+WMFTrackingView.h */,
 				042BEAEE1A92EE66002CF320 /* UIWebView+WMFTrackingView.m */,
+				046D3C9E1B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.h */,
+				046D3C9F1B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */,
 				04BA489F1A80062E00CB5CAE /* UIFont+WMFStyle.h */,
 				04BA48A01A80062E00CB5CAE /* UIFont+WMFStyle.m */,
 				BC6BFC5D1B680A410074D0DA /* NSString+WMFGlyphs.h */,
@@ -3905,6 +3910,7 @@
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				BC505EEE1B594B5700537006 /* WMFImageCollectionViewCell.m in Sources */,
 				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
+				046D3CA01B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */,
 				BC505EEB1B59461400537006 /* WMFCollectionViewPageLayout.m in Sources */,
 				BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */,
 				0447862F185145090050563B /* HistoryResultCell.m in Sources */,
