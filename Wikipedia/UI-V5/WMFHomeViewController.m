@@ -183,8 +183,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationController.navigationBarHidden = NO;
-    self.collectionView.dataSource                = nil;
+    self.title                    = @"Home";
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
+
+    self.collectionView.dataSource = nil;
 
     [self flowLayout].estimatedItemHeight = 150;
     [self flowLayout].numberOfColumns     = 1;

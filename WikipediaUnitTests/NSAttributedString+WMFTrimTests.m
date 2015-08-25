@@ -5,9 +5,9 @@
 #import <XCTest/XCTest.h>
 #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 #import "NSAttributedString+WMFTrim.h"
-#import "XCTestCase+WMFLabelConvenience.h"
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
+#import "FBSnapshotTestCase+WMFConvenience.h"
 
 @interface NSAttributedString_WMFTrimTests : FBSnapshotTestCase
 
@@ -33,15 +33,11 @@
 }
 
 - (void)testTrimReference {
-    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
-        label.attributedText = [self attrString];
-    }], nil, [NSSet setWithObject:@"_64"], 0);
+    [self wmf_visuallyVerifyMultilineLabelWithText:[self attrString]];
 }
 
 - (void)testTrim {
-    FBSnapshotVerifyViewWithOptions([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
-        label.attributedText = [[self attrString] wmf_trim];
-    }], nil, [NSSet setWithObject:@"_64"], 0);
+    [self wmf_visuallyVerifyMultilineLabelWithText:[[self attrString] wmf_trim]];
 }
 
 - (void)testAllWhiteSpaceString {
