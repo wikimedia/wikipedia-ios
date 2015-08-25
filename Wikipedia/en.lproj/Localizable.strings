@@ -103,6 +103,8 @@
 "search-recent-clear-cancel" = "Cancel";
 "search-recent-clear-delete-all" = "Delete All";
 
+"settings-title" = "Settings";
+
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
 "main-menu-language-title" = "Search $1 Wikipedia";

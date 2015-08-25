@@ -1,3 +1,4 @@
+var utilities = require("./utilities");
 
 function getSectionHeadersArray(){
     var nodeList = document.querySelectorAll('h1.section_heading');
@@ -21,5 +22,12 @@ function getSectionHeaderLocationsArray(){
     return nodeArray;
 }
 
+function getSectionHeaderForId(id){
+    var sectionHeadingParent = utilities.findClosest(document.getElementById(id), 'div[id^="section_heading_and_content_block_"]');
+    var sectionHeading = sectionHeadingParent.querySelector('h1.section_heading');
+    return sectionHeading;
+}
+
+exports.getSectionHeaderForId = getSectionHeaderForId;
 global.getSectionHeadersArray = getSectionHeadersArray;
 global.getSectionHeaderLocationsArray = getSectionHeaderLocationsArray;

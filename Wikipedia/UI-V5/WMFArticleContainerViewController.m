@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateInsetsForArticleViewController];
 }
 
-- (void)updateInsetsForArticleViewController{
+- (void)updateInsetsForArticleViewController {
     CGFloat navHeight = [self.navigationController.navigationBar frame].size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
     self.articleViewController.tableView.contentInset = UIEdgeInsetsMake(navHeight, 0.0, 0.0, 0.0);
 }

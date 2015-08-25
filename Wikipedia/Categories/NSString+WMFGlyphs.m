@@ -84,7 +84,7 @@
                                           color:(UIColor*)color {
     return [[NSAttributedString alloc] initWithString:[NSString wmf_stringForGlyph:glyph]
                                            attributes:@{
-                NSFontAttributeName: fontSize ? : [UIFont wmf_glyphFontOfSize:32],
+                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:fontSize ? fontSize.unsignedIntegerValue : 32],
                 NSBaselineOffsetAttributeName: baselineOffset ? : @([NSString wmf_baselineOffsetToCenterGlyph:glyph]),
                 NSForegroundColorAttributeName: color ? : [UIColor blackColor]
             }];

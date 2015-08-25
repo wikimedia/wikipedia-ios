@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#pragma once
-
 #import <Foundation/Foundation.h>
 #import "WMFSharing.h"
 #import "MWKSiteDataObject.h"
@@ -79,5 +77,59 @@ extern NSString* const MWKSectionShareSnippetXPath;
  * @return An array of `TFHppleElement` objects which match the given XPath query, or `nil` if there were no results.
  */
 - (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath;
+
+///
+/// @name Section Hierarchy
+///
+
+/**
+ *  Sections that are descendants of the receiver.
+ *
+ *  @return An array of @c MWKSection objects, or @c nil if the hierarchy has not been built yet.
+ */
+- (NSArray*)children;
+
+/**
+ *  Check if the receiver could be considered the parent of another section.
+ *
+ *  @param section The section to check.
+ *
+ *  @return @c YES if @c section has a @c level that is one greater than the receiver's @c level, otherwise @c NO.
+ */
+- (BOOL)isParentOfSection:(MWKSection*)section;
+
+/**
+ *  Check if another section is a sibling of the receiver.
+ *
+ *  @param section The section to check.
+ *
+ *  @return @c YES if @c section has a @c level equal to the receiver's, otherwise @c NO.
+ */
+- (BOOL)isSiblingOfSection:(MWKSection*)section;
+
+/**
+ *  Check if the receiver is an ancestor of another section.
+ *
+ *  This is different from @c isParentOfSection: in that it can check for degrees of separation greater than 1.
+ *
+ *  @param section The section to check.
+ *
+ *  @return @c YES if the receiver's @c level is less than the @c level of @c section, otherwise @c NO.
+ */
+- (BOOL)isAncestorOfSection:(MWKSection*)section;
+
+#pragma mark - Internal
+
+/**
+ *  Add another section as a child of the receiver.
+ *
+ *  @param child The section to add as a child.
+ */
+- (void)addChild:(MWKSection*)child;
+
+/**
+ *  Remove all children from the receiver.
+ */
+- (void)removeAllChildren;
 
 @end

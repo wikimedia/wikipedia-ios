@@ -3,6 +3,7 @@
 
 #import "CommunicationBridge.h"
 #import "UIWebView+LoadAssetsHtml.h"
+#import "UIWebView+WMFJavascriptToXcodeConsoleLogging.h"
 
 @interface CommunicationBridge ()
 
@@ -26,6 +27,7 @@
 
         __weak CommunicationBridge* weakSelf = self;
         [self addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
+            [weakSelf.webView wmf_enableJavascriptToXcodeConsoleLogging];
             [weakSelf sendQueuedMessages];
         }];
         targetWebView.delegate = self;

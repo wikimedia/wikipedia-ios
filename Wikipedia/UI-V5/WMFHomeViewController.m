@@ -11,6 +11,8 @@
 
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
+#import "WMFSettingsViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
 #import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
@@ -58,7 +60,31 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.navigationItem.titleView =
+            [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
+        self.navigationItem.rightBarButtonItems = @[
+            [self settingsBarButtonItem]
+        ];
+    }
+    return self;
+}
+
+- (NSString*)title {
+    // TODO: localize
+    return @"Home";
+}
+
 #pragma mark - Accessors
+
+- (UIBarButtonItem*)settingsBarButtonItem {
+    // TODO: localize
+    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain
+                                           target:self
+                                           action:@selector(didTapSettingsButton:)];
+}
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
@@ -131,6 +157,18 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
     return width;
 }
+#pragma mark - Actions
+
+- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+    UINavigationController* settingsContainer =
+        [[UINavigationController alloc] initWithRootViewController:
+         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+    [self presentViewController:settingsContainer
+                       animated:YES
+                     completion:nil];
+}
+
+#pragma mark - UiViewController
 
 #pragma mark - Related Articles
 
@@ -182,9 +220,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title                    = @"Home";
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
 
     self.collectionView.dataSource = nil;
 

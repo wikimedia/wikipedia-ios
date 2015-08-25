@@ -14,7 +14,7 @@
 #import "UIScreen+Extras.h"
 #import "WikiGlyph_Chars.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "SecondaryMenuViewController.h"
+#import "WMFSettingsViewController.h"
 #import "HistoryViewController.h"
 #import "SavedPagesViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -243,7 +243,7 @@ typedef NS_ENUM (NSInteger, PrimaryMenuItemTag) {
             break;
         case PRIMARY_MENU_ITEM_MORE: {
             [self.funnel logMenuSelectionWithType:WMFHamburgerMenuItemTypeMore];
-            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[SecondaryMenuViewController wmf_initialViewControllerFromClassStoryboard]];
+            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
             [self presentViewController:nc animated:YES completion:nil];
         }
         break;

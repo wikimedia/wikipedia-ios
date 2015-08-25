@@ -3,6 +3,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondaryMenuViewController : UIViewController <UIScrollViewDelegate>
+@interface WMFSettingsViewController : UIViewController
 
 @end
