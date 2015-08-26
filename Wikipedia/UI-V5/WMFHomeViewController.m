@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!recentTite) {
             return nil;
         }
-        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
         _recentSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
         _recentSectionController.delegate = self;
     }
@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!recentTite) {
             return nil;
         }
-        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
         _savedSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
         _savedSectionController.delegate = self;
     }

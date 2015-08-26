@@ -31,18 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedSearchFetcher ()
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
 
 @end
 
 @implementation WMFRelatedSearchFetcher
 
-- (instancetype)initWithSearchSite:(MWKSite*)site {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        NSParameterAssert(site);
-        self.searchSite = site;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer = [WMFSearchResponseSerializer serializer];
@@ -61,7 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title useDesktopURL:(BOOL)useDeskTopURL {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSURL* url = [self.searchSite apiEndpoint:useDeskTopURL];
+        MWKSite* searchSite = title.site;
+        NSURL* url = [searchSite apiEndpoint:useDeskTopURL];
 
         WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
         params.title = title;
@@ -72,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
             WMFRelatedSearchResults* results = [[WMFRelatedSearchResults alloc] initWithTitle:title results:response];
             resolve(results);
         } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-            if ([url isEqual:[self.searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
                 [self fetchArticlesRelatedToTitle:title useDesktopURL:YES];
             } else {
                 [[MWNetworkActivityIndicatorManager sharedManager] pop];

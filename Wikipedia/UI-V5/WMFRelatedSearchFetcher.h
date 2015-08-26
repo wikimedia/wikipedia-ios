@@ -5,10 +5,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedSearchFetcher : NSObject
 
-- (instancetype)initWithSearchSite:(MWKSite*)site;
-
-@property (nonatomic, strong, readonly) MWKSite* searchSite;
-
 @property (nonatomic, assign) NSUInteger maximumNumberOfResults;
 
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title;
