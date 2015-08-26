@@ -46,27 +46,26 @@ platform :ios do
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
-    increment_build_number(
-      build_number: ENV["BUILD_NUMBER"].to_i
-    )
-    sigh(
-      adhoc: false,
-      force: true,
-      filename: 'build/alpha.mobileprovision'
-    )
-    ipa(
-      configuration: "Alpha",
-      scheme: "Wikipedia Alpha",
-      embed: 'build/alpha.mobileprovision',
-      # needed to override automatic profile selection
-      xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
-    )
-    hockey(
-      notes: git_commit_log,
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-    )
-    deliver beta: true
+    with_bump(true, false) do
+      sigh(
+        adhoc: false,
+        force: true,
+        filename: 'build/alpha.mobileprovision'
+      )
+      ipa(
+        configuration: "Alpha",
+        scheme: "Wikipedia Alpha",
+        embed: 'build/alpha.mobileprovision',
+        # needed to override automatic profile selection
+        xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
+      )
+      hockey(
+        notes: git_commit_log,
+        notify: '0', # Means do not notify
+        status: '1', # Means do not make available for download
+      )
+      deliver beta: true
+    end
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
