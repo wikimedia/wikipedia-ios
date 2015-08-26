@@ -60,29 +60,29 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchArticlesWithSite:(MWKSite*)site location:(CLLocation*)location {
-    return [self fetchNearbyArticlesWithSite:site location:location useDesktopURL:NO];
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        [self fetchNearbyArticlesWithSite:site location:location useDesktopURL:NO resolver:resolve];
+    }];
 }
 
-- (AnyPromise*)fetchNearbyArticlesWithSite:(MWKSite*)site location:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSURL* url = [site apiEndpoint:useDeskTopURL];
+- (void)fetchNearbyArticlesWithSite:(MWKSite*)site location:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL resolver:(PMKResolver)resolve {
+    NSURL* url = [site apiEndpoint:useDeskTopURL];
 
-        WMFLocationSearchRequestParameters* params = [WMFLocationSearchRequestParameters new];
-        params.location = location;
-        params.numberOfResults = self.maximumNumberOfResults;
+    WMFLocationSearchRequestParameters* params = [WMFLocationSearchRequestParameters new];
+    params.location        = location;
+    params.numberOfResults = self.maximumNumberOfResults;
 
-        [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
+    [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSite:site Location:location results:response];
+        resolve(results);
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            [self fetchNearbyArticlesWithSite:site location:location useDesktopURL:NO resolver:resolve];
+        } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSite:site Location:location results:response];
-            resolve(results);
-        } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-            if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchNearbyArticlesWithSite:site location:location useDesktopURL:NO];
-            } else {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve(error);
-            }
-        }];
+            resolve(error);
+        }
     }];
 }
 
