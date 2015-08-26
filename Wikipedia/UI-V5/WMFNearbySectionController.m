@@ -175,10 +175,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 #pragma mark - Fetch
 
 - (void)refetchNearbyArticlesIfSiteHasChanged {
+    if(!self.nearbyResults){
+        return;
+    }
     if ([self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
         return;
     }
-
+    
     [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
 }
 
