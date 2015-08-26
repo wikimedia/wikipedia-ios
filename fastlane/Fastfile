@@ -21,22 +21,21 @@ platform :ios do
     make 'lint'
   end
 
-  desc "Lints code, runs tests, and generates reports"
-  lane :jenkins do
-    xctool :test, [
+  desc "Runs unit tests, optionally generating a JUnit report."
+  lane :test do |options|
+    args = [
       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
-      'GCC_GENERATE_TEST_COVERAGE_FILES=YES',
-      '-reporter junit:build/reports/unit-tests.xml',
-      '-reporter pretty'
-    ].join(' ')
+      'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
+    ]
+    if options[:junit] then
+      args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
+    end
+    xctool :test, args.join(' ')
   end
 
   desc "Runs all the unit tests."
   lane :travis do
-    xctool :test, [
-      'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
-      'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
-    ].join(' ')
+    test
   end
 
   desc "Increment app build version, commit, & tag locally. Specify push:true to push the new tag & commit."
@@ -64,6 +63,7 @@ platform :ios do
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
+    test(junit: true)
     sigh(
       adhoc: false,
       force: true,
