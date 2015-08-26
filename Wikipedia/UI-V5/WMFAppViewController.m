@@ -202,6 +202,11 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 #pragma mark - UIViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchLanguageDidChangeWithNotification:) name:WMFSearchLanguageDidChangeNotification object:nil];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
@@ -321,5 +326,13 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
         break;
     }
 }
+
+#pragma mark - Notifications
+
+- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
+    [self configureHomeViewController];
+    [self configureSavedViewController];
+}
+
 
 @end

@@ -8,6 +8,8 @@
 #import "WMFAssetsFile.h"
 #import "MediaWikiKit.h"
 
+NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidChangeNotification";
+
 @interface SessionSingleton ()
 
 @property (strong, nonatomic, readwrite) MWKDataStore* dataStore;
@@ -139,6 +141,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:searchLanguage forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.searchSite = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:WMFSearchLanguageDidChangeNotification object:nil];
 }
 
 - (NSString*)searchLanguage {
