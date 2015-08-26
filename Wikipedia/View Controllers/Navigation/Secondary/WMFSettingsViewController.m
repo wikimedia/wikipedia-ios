@@ -620,14 +620,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 }
 
 - (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
-    [self showAlert:MWLocalizedString(@"main-menu-language-selection-saved", nil) type:ALERT_TYPE_TOP duration:1];
-
-    [self switchPreferredLanguageToId:langData.languageCode];
-}
-
-- (void)switchPreferredLanguageToId:(NSString*)languageId {
-    [[SessionSingleton sharedInstance] setSearchLanguage:languageId];
-    [[WMFArticlePresenter sharedInstance] presentTodaysArticle];
+    [[SessionSingleton sharedInstance] setSearchLanguage:langData.languageCode];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - Animation
