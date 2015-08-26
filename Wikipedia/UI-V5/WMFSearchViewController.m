@@ -48,6 +48,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self observeSavedPages];
 }
 
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+    _searchSite  = searchSite;
+    self.fetcher = nil;
+}
+
 - (NSString*)currentSearchTerm {
     return [(WMFSearchResults*)self.resultsListController.dataSource searchTerm];
 }
