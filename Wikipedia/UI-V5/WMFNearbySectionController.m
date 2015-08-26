@@ -59,6 +59,11 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     return self;
 }
 
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+    _searchSite = searchSite;
+    [self refetchNearbyArticlesIfSiteHasChanged];
+}
+
 - (id)sectionIdentifier {
     return WMFNearbySectionIdentifier;
 }
@@ -169,7 +174,11 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 #pragma mark - Fetch
 
-- (void)refetchNearbyArticles {
+- (void)refetchNearbyArticlesIfSiteHasChanged {
+    if ([self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
+        return;
+    }
+
     [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
 }
 
