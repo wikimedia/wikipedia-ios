@@ -22,7 +22,7 @@ platform :ios do
   end
 
   desc "Runs unit tests, optionally generating a JUnit report."
-  lane :test do |options|
+  lane :verify do |options|
     args = [
       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
       'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
@@ -35,7 +35,7 @@ platform :ios do
 
   desc "Runs all the unit tests."
   lane :travis do
-    test
+    verify
   end
 
   desc "Increment app build version, commit, & tag locally. Specify push:true to push the new tag & commit."
@@ -63,7 +63,7 @@ platform :ios do
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
-    test(junit: true)
+    verify(junit: true)
     sigh(
       adhoc: false,
       force: true,
