@@ -63,5 +63,10 @@ def with_bump(push=false, check_env=true)
   commit_version_bump
   # tag must be added after the version bump is committed
   add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
-  push_to_git_remote if push
+  if push then
+    push_to_git_remote(
+      local_branch: 'HEAD',
+      remote_branch: git_branch
+    )
+  end
 end
