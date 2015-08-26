@@ -76,6 +76,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     }
 }
 
+- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+    MWKSearchResult* result = self.items[index];
+    MWKSite* site           = self.nearbyResults.searchSite;
+    MWKTitle* title         = [site titleWithString:result.displayTitle];
+    return title;
+}
+
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
     [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib] forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
     [collectionView registerNib:[WMFNearbySectionEmptyCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySectionEmptyCell identifier]];

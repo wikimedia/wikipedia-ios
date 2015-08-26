@@ -397,9 +397,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id object = [self.dataSource itemAtIndexPath:indexPath];
 
-    //TODO: Casting for now - ned to make a protocol or something
-    MWKLocationSearchResult* result = object;
-    MWKTitle* title                 = [[MWKSite siteWithCurrentLocale] titleWithString:result.displayTitle];
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
     [self showArticleViewControllerForTitle:title animated:YES];
 }
 
