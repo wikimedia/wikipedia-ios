@@ -39,12 +39,15 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithLocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+- (instancetype)initWithSite:(MWKSite*)site LocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+    NSParameterAssert(site);
     NSParameterAssert(locationManager);
     NSParameterAssert(locationSearchFetcher);
 
     self = [super init];
     if (self) {
+        self.searchSite = site;
+
         locationSearchFetcher.maximumNumberOfResults = WMFNearbySectionMaxResults;
         self.locationSearchFetcher                   = locationSearchFetcher;
 
@@ -166,6 +169,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 #pragma mark - Fetch
 
+- (void)refetchNearbyArticles {
+    [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
+}
+
 - (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location {
     if (self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
         return;
@@ -179,7 +186,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         return;
     }
 
-    [self.locationSearchFetcher fetchArticlesWithLocation:location]
+    [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite location:location]
     .then(^(WMFLocationSearchResults* results){
         self.nearbyResults = results;
         [self updateSectionWithResults:results];

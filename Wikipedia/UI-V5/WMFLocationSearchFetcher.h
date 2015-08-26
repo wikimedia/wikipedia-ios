@@ -6,13 +6,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationSearchFetcher : NSObject
 
-- (instancetype)initWithSearchSite:(MWKSite*)site;
-
-@property (nonatomic, strong, readonly) MWKSite* searchSite;
-
 @property (nonatomic, assign) NSUInteger maximumNumberOfResults;
 
-- (AnyPromise*)fetchArticlesWithLocation:(CLLocation*)location;
+- (AnyPromise*)fetchArticlesWithSite:(MWKSite*)site location:(CLLocation*)location;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

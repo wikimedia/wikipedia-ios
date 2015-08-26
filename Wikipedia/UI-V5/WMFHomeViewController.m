@@ -86,9 +86,14 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+    _searchSite                           = searchSite;
+    self.nearbySectionController.searchSite = searchSite;
+}
+
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithLocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
         _nearbySectionController.delegate = self;
     }
     return _nearbySectionController;
@@ -129,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFLocationSearchFetcher*)locationSearchFetcher {
     if (!_locationSearchFetcher) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
     }
     return _locationSearchFetcher;
 }
