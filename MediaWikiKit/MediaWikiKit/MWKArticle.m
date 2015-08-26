@@ -608,7 +608,7 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
 
     NSMutableArray* superScripts = [NSMutableArray array];
     [summary enumerateAttribute:(NSString*)kCTSuperscriptAttributeName inRange:NSMakeRange(0, summary.length) options:0 usingBlock:^(id value, NSRange range, BOOL* stop) {
-        if([value integerValue] == 1){
+        if ([value integerValue] == 1) {
             [superScripts addObject:[NSValue valueWithRange:range]];
         }
     }];

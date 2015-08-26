@@ -97,7 +97,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.collectionView.dataSource = self.dataSource;
 
     self.extendedLayoutIncludesOpaqueBars     = YES;

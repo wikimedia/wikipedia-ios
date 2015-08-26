@@ -78,10 +78,10 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
         MWKLocationSearchResult* result    = object;
-        previewCell.titleText       = result.displayTitle;
-        previewCell.descriptionText = result.wikidataDescription;
-        previewCell.imageURL        = result.thumbnailURL;
-        previewCell.summaryAttributedText     = nil;
+        previewCell.titleText             = result.displayTitle;
+        previewCell.descriptionText       = result.wikidataDescription;
+        previewCell.imageURL              = result.thumbnailURL;
+        previewCell.summaryAttributedText = nil;
     }
 }
 

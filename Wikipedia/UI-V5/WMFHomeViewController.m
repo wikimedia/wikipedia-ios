@@ -157,6 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
     return width;
 }
+
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
