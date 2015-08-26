@@ -58,9 +58,9 @@ def with_bump(push=false, check_env=true)
   else
     increment_build_number
   end
-  commit_version_bump
   plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
   yield if block_given?
+  commit_version_bump
   # tag must be added after the version bump is committed
   add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
   push_to_git_remote if push
