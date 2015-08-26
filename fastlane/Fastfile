@@ -49,7 +49,7 @@ platform :ios do
     with_bump(true, false) do
       sigh(
         adhoc: false,
-        force: false,
+        force: true,
         filename: 'build/alpha.mobileprovision'
       )
       ipa(
