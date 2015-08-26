@@ -39,33 +39,50 @@ platform :ios do
     ].join(' ')
   end
 
-  desc "Increment app build version, commit, & tag locally."
-  lane :bump do
-    with_bump
+  desc "Increment app build version, commit, & tag locally. Specify push:true to push the new tag & commit."
+  lane :bump do |options|
+    if options[:check_env] && ENV['BUILD_NUMBER']
+      increment_build_number(build_number: ENV['BUILD_NUMBER'].to_i)
+    else
+      increment_build_number
+    end
+    plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
+    commit_version_bump
+    # tag must be added after the version bump is committed
+    add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
+    if options[:push] then
+      branch_comps = git_branch.split('/')
+      remote = branch_comps.first
+      ref = branch_comps.drop(1).join('/')
+      push_to_git_remote(
+        remote: remote,
+        local_branch: 'HEAD',
+        remote_branch: ref
+      )
+    end
   end
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
-    with_bump(true, false) do
-      sigh(
-        adhoc: false,
-        force: true,
-        filename: 'build/alpha.mobileprovision'
-      )
-      ipa(
-        configuration: "Alpha",
-        scheme: "Wikipedia Alpha",
-        embed: 'build/alpha.mobileprovision',
-        # needed to override automatic profile selection
-        xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
-      )
-      hockey(
-        notes: git_commit_log,
-        notify: '0', # Means do not notify
-        status: '1', # Means do not make available for download
-      )
-      deliver beta: true
-    end
+    sigh(
+      adhoc: false,
+      force: true,
+      filename: 'build/alpha.mobileprovision'
+    )
+    ipa(
+      configuration: "Alpha",
+      scheme: "Wikipedia Alpha",
+      embed: 'build/alpha.mobileprovision',
+      # needed to override automatic profile selection
+      xcargs: "PROVISIONING_PROFILE=#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::SIGH_UDID]}"
+    )
+    hockey(
+      notes: git_commit_log,
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
+    )
+    deliver beta: true
+    bump(push: true)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
