@@ -21,34 +21,50 @@ platform :ios do
     make 'lint'
   end
 
-  desc "Lints code, runs tests, and generates reports"
-  lane :jenkins do
-    xctool :test, [
+  desc "Runs unit tests, optionally generating a JUnit report."
+  lane :verify do |options|
+    args = [
       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
-      'GCC_GENERATE_TEST_COVERAGE_FILES=YES',
-      '-reporter junit:build/reports/unit-tests.xml',
-      '-reporter pretty'
-    ].join(' ')
+      'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
+    ]
+    if options[:junit] then
+      args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
+    end
+    xctool :test, args.join(' ')
   end
 
   desc "Runs all the unit tests."
   lane :travis do
-    xctool :test, [
-      'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
-      'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
-    ].join(' ')
+    verify
   end
 
-  desc "Increment app build version, commit, & tag locally."
-  lane :bump do
-    with_bump
+  desc "Increment app build version, commit, & tag locally. Specify push:true to push the new tag & commit."
+  lane :bump do |options|
+    if options[:check_env] && ENV['BUILD_NUMBER']
+      increment_build_number(build_number: ENV['BUILD_NUMBER'].to_i)
+    else
+      increment_build_number
+    end
+    plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
+    commit_version_bump
+    # tag must be added after the version bump is committed
+    add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
+    if options[:push] then
+      branch_comps = git_branch.split('/')
+      remote = branch_comps.first
+      ref = branch_comps.drop(1).join('/')
+      # need to specify branches explicitly otherwise we get refspec errors
+      push_to_git_remote(
+        remote: remote,
+        local_branch: 'HEAD',
+        remote_branch: ref
+      )
+    end
   end
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
-    increment_build_number(
-      build_number: ENV["BUILD_NUMBER"].to_i
-    )
+    verify(junit: true)
     sigh(
       adhoc: false,
       force: true,
@@ -67,6 +83,7 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
     deliver beta: true
+    bump(push: true)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"

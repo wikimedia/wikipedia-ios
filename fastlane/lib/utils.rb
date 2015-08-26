@@ -51,17 +51,3 @@ def get_version_short_string(path)
   plist_hash['CFBundleShortVersionString']
 end
 
-# commit version bump, call a block, then push the bump to git
-def with_bump(push=false)
-  if ENV['BUILD_NUMBER']
-    increment_build_number(build_number: ENV['BUILD_NUMBER'].to_i)
-  else
-    increment_build_number
-  end
-  commit_version_bump
-  plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
-  # tag must be added after the version bump is committed
-  add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
-  yield if block_given?
-  push_to_git_remote if push
-end
