@@ -16,8 +16,7 @@
 #import "MWKCitation.h"
 #import "MWKTitle.h"
 
-// View
-#import "WMFArticlePopupTransition.h"
+#import "WMFPreviewController.h"
 
 // Other
 #import "SessionSingleton.h"
@@ -25,7 +24,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
-<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate, UINavigationControllerDelegate>
+<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate, UINavigationControllerDelegate, WMFPreviewControllerDelegate>
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -35,11 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 
+@property (nonatomic, strong, nullable) WMFPreviewController* previewController;
+
 @end
 
 @implementation WMFArticleContainerViewController
-@synthesize popupTransition = _popupTransition;
-@synthesize article         = _article;
+@synthesize article = _article;
 
 #pragma mark - Setup
 
@@ -78,13 +78,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleViewController.article = article;
         self.webViewController.article     = article;
     }
-}
-
-- (WMFArticlePopupTransition*)popupTransition {
-    if (!_popupTransition) {
-        _popupTransition = [[WMFArticlePopupTransition alloc] initWithPresentingViewController:self];
-    }
-    return _popupTransition;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -131,18 +124,32 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self updateInsetsForArticleViewController];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [self updateInsetsForArticleViewController];
 }
 
 - (void)updateInsetsForArticleViewController {
-    self.articleViewController.tableView.contentInset =
-        UIEdgeInsetsMake([self.navigationController.navigationBar frame].size.height
-                         + [[UIApplication sharedApplication] statusBarFrame].size.height,
-                         0.0,
-                         self.tabBarController.tabBar.frame.size.height,
-                         0.0);
+    CGFloat topInset = [self.navigationController.navigationBar frame].size.height
+                       + [[UIApplication sharedApplication] statusBarFrame].size.height;
+
+    UIEdgeInsets adjustedInsets = UIEdgeInsetsMake(topInset,
+                                                   0.0,
+                                                   self.tabBarController.tabBar.frame.size.height,
+                                                   0.0);
+
+    self.articleViewController.tableView.contentInset          = adjustedInsets;
+    self.articleViewController.tableView.scrollIndicatorInsets = adjustedInsets;
+
+    //adjust offset if we are at the top
+    if (self.articleViewController.tableView.contentOffset.y <= 0) {
+        self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
+    }
 }
 
 #pragma mark - WebView Transition
@@ -238,19 +245,35 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Popup
 
 - (void)presentPopupForTitle:(MWKTitle*)title {
-    MWKArticle* article                   = [self.dataStore articleWithTitle:title];
+    MWKArticle* article = [self.dataStore articleWithTitle:title];
+
     WMFArticleContainerViewController* vc =
         [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
                                                           savedPages:self.savedPageList];
-
     vc.article = article;
-    [self.navigationController pushViewController:vc animated:YES];
+
+    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc presentingViewController:self tabBarController:self.navigationController.tabBarController];
+    previewController.delegate = self;
+    [previewController presentPreviewAnimated:YES];
+
+    self.previewController = previewController;
 }
 
 #pragma mark - Analytics
 
 - (NSString*)analyticsName {
     return [self.articleViewController analyticsName];
+}
+
+#pragma mark - WMFPreviewControllerDelegate
+
+- (void)previewController:(WMFPreviewController*)previewController didPresentViewController:(UIViewController*)viewController {
+    self.previewController = nil;
+    [self.navigationController pushViewController:viewController animated:NO];
+}
+
+- (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
+    self.previewController = nil;
 }
 
 @end

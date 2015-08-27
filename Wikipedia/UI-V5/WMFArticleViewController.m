@@ -443,6 +443,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.scrollsToTop = YES;
 
     UICollectionViewFlowLayout* galleryLayout = (UICollectionViewFlowLayout*)_headerGalleryViewController.collectionViewLayout;
