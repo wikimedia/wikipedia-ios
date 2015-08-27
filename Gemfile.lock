@@ -227,6 +227,3 @@ DEPENDENCIES
   cocoapods (~> 0.38.2)
   fastlane (~> 1.21.0)
   git (~> 1.2)
-
-BUNDLED WITH
-   1.10.6
