@@ -24,7 +24,7 @@ static CGFloat const WMFImageHeight = 160;
 - (void)prepareForReuse {
     [super prepareForReuse];
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
+    self.imageView.image = [UIImage imageNamed:@"lead-default.png"];
     _imageURL            = nil;
     _titleLabel.text     = nil;
     _titleText           = nil;
@@ -33,7 +33,7 @@ static CGFloat const WMFImageHeight = 160;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.imageView.image             = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
+    self.imageView.image             = [UIImage imageNamed:@"lead-default.png"];
     self.backgroundColor             = [UIColor whiteColor];
     self.contentView.backgroundColor = [UIColor whiteColor];
 }

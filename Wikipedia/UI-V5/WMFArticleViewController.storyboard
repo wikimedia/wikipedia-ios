@@ -26,8 +26,12 @@
                                         <segue destination="7Or-9F-7Br" kind="embed" id="HdJ-OF-Rfg"/>
                                     </connections>
                                 </containerView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aRr-YL-vMe" userLabel="Gray Overlay">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
+                                </view>
                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfp-fe-IJA" userLabel="Title Label">
-                                    <rect key="frame" x="20" y="134" width="374" height="60"/>
+                                    <rect key="frame" x="20" y="144" width="374" height="60"/>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -65,19 +69,29 @@
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="aRr-YL-vMe" firstAttribute="top" secondItem="fN6-15-6k9" secondAttribute="top" id="8d1-83-weB"/>
+                                <constraint firstItem="NaE-rZ-0jM" firstAttribute="top" secondItem="aRr-YL-vMe" secondAttribute="bottom" id="AHd-pY-zhe"/>
                                 <constraint firstItem="7Lr-kU-lXN" firstAttribute="top" secondItem="fN6-15-6k9" secondAttribute="top" constant="10" id="AIP-LN-XUw"/>
                                 <constraint firstAttribute="bottom" secondItem="N3F-xg-lcP" secondAttribute="bottom" id="CD2-kI-NCt"/>
                                 <constraint firstItem="NaE-rZ-0jM" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" constant="20" symbolic="YES" id="D0Q-Xt-uMD"/>
+                                <constraint firstItem="aRr-YL-vMe" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" id="EPg-eJ-eXU"/>
                                 <constraint firstAttribute="bottom" secondItem="NaE-rZ-0jM" secondAttribute="bottom" constant="20" symbolic="YES" id="F0s-h0-85m"/>
                                 <constraint firstItem="Pfp-fe-IJA" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" constant="20" symbolic="YES" id="JQ5-YK-uKU"/>
+                                <constraint firstAttribute="bottom" secondItem="aRr-YL-vMe" secondAttribute="bottom" id="LbF-QT-aeI"/>
                                 <constraint firstItem="N3F-xg-lcP" firstAttribute="top" secondItem="fN6-15-6k9" secondAttribute="top" id="Mpl-Ow-U0n"/>
+                                <constraint firstAttribute="trailing" secondItem="aRr-YL-vMe" secondAttribute="trailing" id="PlI-Qz-yr0"/>
                                 <constraint firstAttribute="trailing" secondItem="N3F-xg-lcP" secondAttribute="trailing" id="RMB-Db-paF"/>
-                                <constraint firstItem="NaE-rZ-0jM" firstAttribute="top" secondItem="Pfp-fe-IJA" secondAttribute="bottom" constant="10" id="SA0-IK-ch8"/>
+                                <constraint firstItem="NaE-rZ-0jM" firstAttribute="top" secondItem="Pfp-fe-IJA" secondAttribute="bottom" id="SA0-IK-ch8"/>
                                 <constraint firstAttribute="trailing" secondItem="7Lr-kU-lXN" secondAttribute="trailing" constant="10" id="V8a-5S-mA5"/>
                                 <constraint firstAttribute="trailing" secondItem="Pfp-fe-IJA" secondAttribute="trailing" constant="20" symbolic="YES" id="bh8-Wu-2e1"/>
                                 <constraint firstAttribute="trailing" secondItem="NaE-rZ-0jM" secondAttribute="trailing" constant="20" symbolic="YES" id="s2t-ri-FTC"/>
                                 <constraint firstItem="N3F-xg-lcP" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" id="xAt-od-Qyd"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="AHd-pY-zhe"/>
+                                </mask>
+                            </variation>
                             <connections>
                                 <outlet property="descriptionLabel" destination="NaE-rZ-0jM" id="9QH-pj-Yr0"/>
                                 <outlet property="descriptionTopConstraint" destination="SA0-IK-ch8" id="oMK-pl-5fi"/>
