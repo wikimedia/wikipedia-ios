@@ -45,9 +45,3 @@ def info_plist_to_hash(path)
   JSON.parse! %x[plutil -convert json -o - #{path}]
 end
 
-# Hack to read app version from Info.plist
-def get_version_short_string(path)
-  plist_hash = info_plist_to_hash path
-  plist_hash['CFBundleShortVersionString']
-end
-
