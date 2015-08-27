@@ -119,13 +119,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEqualToTitle:(MWKTitle*)otherTitle {
     return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle)
-           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle)
-           && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
+           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle);
 }
 
-- (BOOL)isEqualToTitleExcludingFragment:(MWKTitle*)otherTitle {
+- (BOOL)isEqualToTitleIncludingFragment:(MWKTitle*)otherTitle {
     return WMF_IS_EQUAL_PROPERTIES(self, site, otherTitle)
-           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle);
+           && WMF_EQUAL_PROPERTIES(self, text, isEqualToString:, otherTitle)
+           && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
 }
 
 - (NSString*)description {

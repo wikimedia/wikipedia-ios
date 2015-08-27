@@ -103,7 +103,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 }
 
 - (BOOL)isEqualToArticle:(MWKArticle*)other {
-    return WMF_EQUAL(self.title, isEqualToTitleExcludingFragment:, other.title)
+    return WMF_EQUAL(self.title, isEqualToTitle:, other.title)
            && WMF_EQUAL(self.redirected, isEqual:, other.redirected)
            && WMF_EQUAL(self.lastmodified, isEqualToDate:, other.lastmodified)
            && WMF_IS_EQUAL(self.lastmodifiedby, other.lastmodifiedby)
