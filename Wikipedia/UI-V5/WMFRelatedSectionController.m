@@ -66,6 +66,13 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     return self.relatedResults.results;
 }
 
+- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+    MWKSearchResult* result = self.items[index];
+    MWKSite* site           = self.relatedResults.title.site;
+    MWKTitle* title         = [site titleWithString:result.displayTitle];
+    return title;
+}
+
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
     [collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
 }

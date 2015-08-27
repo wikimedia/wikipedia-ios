@@ -31,18 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRelatedSearchFetcher ()
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
 
 @end
 
 @implementation WMFRelatedSearchFetcher
 
-- (instancetype)initWithSearchSite:(MWKSite*)site {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        NSParameterAssert(site);
-        self.searchSite = site;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer = [WMFSearchResponseSerializer serializer];
@@ -56,29 +53,30 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title {
-    return [self fetchArticlesRelatedToTitle:title useDesktopURL:NO];
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        [self fetchArticlesRelatedToTitle:title useDesktopURL:NO resolver:resolve];
+    }];
 }
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title useDesktopURL:(BOOL)useDeskTopURL {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        NSURL* url = [self.searchSite apiEndpoint:useDeskTopURL];
+- (void)fetchArticlesRelatedToTitle:(MWKTitle*)title useDesktopURL:(BOOL)useDeskTopURL resolver:(PMKResolver)resolve {
+    MWKSite* searchSite = title.site;
+    NSURL* url          = [searchSite apiEndpoint:useDeskTopURL];
 
-        WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
-        params.title = title;
-        params.numberOfResults = self.maximumNumberOfResults;
+    WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
+    params.title           = title;
+    params.numberOfResults = self.maximumNumberOfResults;
 
-        [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
+    [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+        WMFRelatedSearchResults* results = [[WMFRelatedSearchResults alloc] initWithTitle:title results:response];
+        resolve(results);
+    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            [self fetchArticlesRelatedToTitle:title useDesktopURL:YES resolver:resolve];
+        } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            WMFRelatedSearchResults* results = [[WMFRelatedSearchResults alloc] initWithTitle:title results:response];
-            resolve(results);
-        } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-            if ([url isEqual:[self.searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-                [self fetchArticlesRelatedToTitle:title useDesktopURL:YES];
-            } else {
-                [[MWNetworkActivityIndicatorManager sharedManager] pop];
-                resolve(error);
-            }
-        }];
+            resolve(error);
+        }
     }];
 }
 

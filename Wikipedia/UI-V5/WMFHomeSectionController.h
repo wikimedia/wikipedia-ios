@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray*)items;
 
+- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
+
 @end
 
 typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);

@@ -39,12 +39,15 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithLocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+- (instancetype)initWithSite:(MWKSite*)site LocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+    NSParameterAssert(site);
     NSParameterAssert(locationManager);
     NSParameterAssert(locationSearchFetcher);
 
     self = [super init];
     if (self) {
+        self.searchSite = site;
+
         locationSearchFetcher.maximumNumberOfResults = WMFNearbySectionMaxResults;
         self.locationSearchFetcher                   = locationSearchFetcher;
 
@@ -54,6 +57,11 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         self.emptySectionObject = @"EmptySection";
     }
     return self;
+}
+
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+    _searchSite = searchSite;
+    [self refetchNearbyArticlesIfSiteHasChanged];
 }
 
 - (id)sectionIdentifier {
@@ -74,6 +82,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     } else {
         return @[self.emptySectionObject];
     }
+}
+
+- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+    MWKSearchResult* result = self.items[index];
+    MWKSite* site           = self.nearbyResults.searchSite;
+    MWKTitle* title         = [site titleWithString:result.displayTitle];
+    return title;
 }
 
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
@@ -159,6 +174,17 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 #pragma mark - Fetch
 
+- (void)refetchNearbyArticlesIfSiteHasChanged {
+    if(!self.nearbyResults){
+        return;
+    }
+    if ([self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
+        return;
+    }
+    
+    [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
+}
+
 - (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location {
     if (self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
         return;
@@ -168,11 +194,15 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (void)fetchNearbyArticlesWithLocation:(CLLocation*)location {
+    if(!location){
+        return;
+    }
+    
     if (self.locationSearchFetcher.isFetching) {
         return;
     }
 
-    [self.locationSearchFetcher fetchArticlesWithLocation:location]
+    [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite location:location]
     .then(^(WMFLocationSearchResults* results){
         self.nearbyResults = results;
         [self updateSectionWithResults:results];

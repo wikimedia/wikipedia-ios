@@ -8,8 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbySectionController : NSObject <WMFHomeSectionController>
 
-- (instancetype)initWithLocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher;
+- (instancetype)initWithSite:(MWKSite*)site LocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher;
 
+@property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) WMFLocationManager* locationManager;
 @property (nonatomic, strong, readonly) WMFLocationSearchFetcher* locationSearchFetcher;
 
