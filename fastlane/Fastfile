@@ -13,6 +13,7 @@ platform :ios do
   before_all do
      ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
      ensure_git_status_clean
+     export_apple_id lane_context[SharedValues::LANE_NAME]
   end
 
   desc "Runs linting (and eventually static analysis)"
@@ -49,20 +50,9 @@ platform :ios do
     commit_version_bump
   end
 
-  desc "Create a tag based on current app version, optionally pushing to remote of current branch."
+  desc "Create a tag based on current app version."
   lane :tag do |options|
     add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
-    if options[:push] then
-      branch_comps = git_branch.split('/')
-      remote = branch_comps.first
-      ref = branch_comps.drop(1).join('/')
-      # need to specify branches explicitly otherwise we get refspec errors
-      push_to_git_remote(
-        remote: remote,
-        local_branch: 'HEAD',
-        remote_branch: ref
-      )
-    end
   end
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
