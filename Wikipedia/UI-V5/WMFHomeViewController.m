@@ -399,12 +399,20 @@ NS_ASSUME_NONNULL_BEGIN
     return CGSizeMake([self contentWidth], 80.0);
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    id object = [self.dataSource itemAtIndexPath:indexPath];
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]) {
+        return [controller shouldSelectItemAtIndex:indexPath.item];
+    }
+    return YES;
+}
 
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
-    [self showArticleViewControllerForTitle:title animated:YES];
+    if (title) {
+        [self showArticleViewControllerForTitle:title animated:YES];
+    }
 }
 
 #pragma mark - Article Presentation
