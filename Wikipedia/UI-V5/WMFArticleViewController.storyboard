@@ -100,14 +100,14 @@
                             </connections>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFMinimalArticleContentCell" id="Ilq-jy-WyF" customClass="WMFMinimalArticleContentCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFMinimalArticleContentCell" rowHeight="90" id="Ilq-jy-WyF" customClass="WMFMinimalArticleContentCell">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ilq-jy-WyF" id="TQF-Pl-fwa">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nXu-Iu-Ejf">
-                                            <rect key="frame" x="20" y="20" width="374" height="4"/>
+                                            <rect key="frame" x="20" y="27" width="374" height="36"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <attributedString key="attributedText"/>
                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -127,8 +127,8 @@
                                     <animations/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="nXu-Iu-Ejf" secondAttribute="trailing" constant="20" symbolic="YES" id="5Tv-YL-hYA"/>
-                                        <constraint firstItem="nXu-Iu-Ejf" firstAttribute="top" secondItem="TQF-Pl-fwa" secondAttribute="top" constant="20" symbolic="YES" id="mkh-qO-tc7"/>
-                                        <constraint firstAttribute="bottom" secondItem="nXu-Iu-Ejf" secondAttribute="bottom" constant="20" symbolic="YES" id="pP2-b8-EbG"/>
+                                        <constraint firstItem="nXu-Iu-Ejf" firstAttribute="top" secondItem="TQF-Pl-fwa" secondAttribute="top" constant="27" id="mkh-qO-tc7"/>
+                                        <constraint firstAttribute="bottom" secondItem="nXu-Iu-Ejf" secondAttribute="bottom" constant="27" id="pP2-b8-EbG"/>
                                         <constraint firstItem="nXu-Iu-Ejf" firstAttribute="leading" secondItem="TQF-Pl-fwa" secondAttribute="leading" constant="20" symbolic="YES" id="wCJ-ac-iWh"/>
                                     </constraints>
                                 </tableViewCellContentView>
