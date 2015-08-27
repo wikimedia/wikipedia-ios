@@ -67,7 +67,7 @@
                                 </button>
                             </subviews>
                             <animations/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="aRr-YL-vMe" firstAttribute="top" secondItem="fN6-15-6k9" secondAttribute="top" id="8d1-83-weB"/>
                                 <constraint firstItem="NaE-rZ-0jM" firstAttribute="top" secondItem="aRr-YL-vMe" secondAttribute="bottom" id="AHd-pY-zhe"/>
@@ -320,6 +320,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewLayout key="collectionViewLayout" id="s93-Y9-at2" customClass="WMFCollectionViewPageLayout"/>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="50" placeholderIntrinsicHeight="50" reuseIdentifier="WMFImageCollectionViewCell" id="BsT-fo-lkV" customClass="WMFImageCollectionViewCell">
