@@ -11,7 +11,6 @@
 
 #import "WMFArticleContentController.h"
 #import "WMFArticleListCollectionViewController_Transitioning.h"
-#import "WMFArticlePopupTransition.h"
 #import "WMFArticleViewController.h"
 #import "WMFArticleContainerViewController_Transitioning.h"
 
@@ -37,9 +36,6 @@
     if ([animationController isKindOfClass:[WMFArticleListTransition class]]) {
         WMFArticleListTransition* listTransition = (WMFArticleListTransition*)animationController;
         return listTransition.isDismissing ? listTransition : nil;
-    } else if ([animationController isKindOfClass:[WMFArticlePopupTransition class]]) {
-        WMFArticlePopupTransition* popupTransition = (WMFArticlePopupTransition*)animationController;
-        return popupTransition;
     } else {
         return nil;
     }
@@ -49,14 +45,6 @@
                                   animationControllerForOperation:(UINavigationControllerOperation)operation
                                                fromViewController:(UIViewController*)fromVC
                                                  toViewController:(UIViewController*)toVC {
-    return nil;
-
-    //TODO: enable this for only popups
-    if (operation == UINavigationControllerOperationPush && [fromVC wmf_isArticleContainer] && [toVC wmf_isArticleContainer]) {
-        return [self popupTransitionWithPresentingController:(WMFArticleContainerViewController*)fromVC
-                                         presentedController:(WMFArticleContainerViewController*)toVC];
-    }
-
     return nil;
 
     //TODO: re-enable old logic to support all transitions
@@ -75,17 +63,6 @@
                 [self transitionForList:(id < WMFArticleListTransitionProvider >) toVC
                               container:(WMFArticleContainerViewController*)fromVC];
             return transition;
-        } else if ([toVC wmf_isArticleContainer]) {
-            DDLogVerbose(@"Transitioning between containers with operation: %ld", operation);
-            NSAssert(operation != UINavigationControllerOperationNone,
-                     @"UINavigationControllerOperationNone is not supported!");
-            if (operation == UINavigationControllerOperationPop) {
-                return [self popupTransitionWithPresentingController:(WMFArticleContainerViewController*)toVC
-                                                 presentedController:(WMFArticleContainerViewController*)fromVC];
-            } else if (operation == UINavigationControllerOperationPush) {
-                return [self popupTransitionWithPresentingController:(WMFArticleContainerViewController*)fromVC
-                                                 presentedController:(WMFArticleContainerViewController*)toVC];
-            }
         }
     }
     // fall back to default
@@ -98,12 +75,6 @@
                                      container:(WMFArticleContainerViewController*)containerVC {
     listTransitionProvider.listTransition.articleContainerViewController = containerVC;
     return listTransitionProvider.listTransition;
-}
-
-- (WMFArticlePopupTransition*)popupTransitionWithPresentingController:(WMFArticleContainerViewController*)presentingVC
-                                                  presentedController:(WMFArticleContainerViewController*)presentedVC {
-    presentingVC.popupTransition.presentedViewController = presentedVC;
-    return presentingVC.popupTransition;
 }
 
 @end
