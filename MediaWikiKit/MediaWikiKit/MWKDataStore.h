@@ -91,9 +91,45 @@ extern NSString* const MWKArticleKey;
  */
 - (void)saveImageInfo:(NSArray*)imageInfo forArticle:(MWKArticle*)article;
 
-// Raw load methods
+///
+/// @name Article Load Methods
+///
+
+/**
+ *  Retrieves an existing article from the receiver.
+ *
+ *  This will check memory cache first, falling back to disk if necessary. If data is read from disk, it is inserted
+ *  into the memory cache before returning, allowing subsequent calls to this method to hit the memory cache.
+ *
+ *  @param title The title under which article data was previously stored.
+ *
+ *  @return An article, or @c nil if none was found.
+ */
 - (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title;
+
+/**
+ *  Attempt to create an article object from data on disk.
+ *
+ *  @param title The title under which article data was previously stored.
+ *
+ *  @return An article, or @c nil if none was found.
+ */
+- (MWKArticle*)articleFromDiskWithTitle:(MWKTitle*)title;
+
+/**
+ *  Get or create an article with a given title.
+ *
+ *  If an article already exists for this title return it. Otherwise, create a new object and return it without saving
+ *  it.
+ *
+ *  @param title The title related to the article data.
+ *
+ *  @return An article object with the given title.
+ *
+ *  @see -existingArticleWithTitle:
+ */
 - (MWKArticle*)articleWithTitle:(MWKTitle*)title;
+
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (MWKImage*)imageWithURL:(NSString*)url article:(MWKArticle*)article;
