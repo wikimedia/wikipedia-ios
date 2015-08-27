@@ -293,7 +293,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 - (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title {
     MWKArticle* existingArticle =
-        [self memoryCachedArticleWithTitle:title] ?: [self articleFromDiskWithTitle:title];
+        [self memoryCachedArticleWithTitle:title] ? : [self articleFromDiskWithTitle:title];
     if (existingArticle) {
         [self.articleCache setObject:existingArticle forKey:existingArticle.title];
     }
@@ -311,7 +311,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (MWKArticle*)articleWithTitle:(MWKTitle*)title {
-    return [self existingArticleWithTitle:title] ?: [[MWKArticle alloc] initWithTitle:title dataStore:self];
+    return [self existingArticleWithTitle:title] ? : [[MWKArticle alloc] initWithTitle:title dataStore:self];
 }
 
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article {

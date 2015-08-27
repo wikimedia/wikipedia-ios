@@ -302,17 +302,17 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
-    @weakify(self)
-    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle: title progress: NULL].then(^(MWKArticlePreview* articlePreview){
-        @strongify(self)
-        AnyPromise * fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+    @weakify(self);
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(MWKArticlePreview* articlePreview){
+        @strongify(self);
+        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
         self.articleFetcherPromise = fullArticlePromise;
         return fullArticlePromise;
     }).then(^(MWKArticle* article){
-        @strongify(self)
+        @strongify(self);
         self.article = article;
     }).catch(^(NSError* error){
-        @strongify(self)
+        @strongify(self);
         if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
             [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
         } else if (!self.presentingViewController) {
