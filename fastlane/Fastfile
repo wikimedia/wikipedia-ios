@@ -13,6 +13,7 @@ platform :ios do
   before_all do
      ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
      ensure_git_status_clean
+     export_apple_id lane_context[SharedValues::LANE_NAME]
   end
 
   desc "Runs linting (and eventually static analysis)"
@@ -38,33 +39,26 @@ platform :ios do
     verify
   end
 
-  desc "Increment app build version, commit, & tag locally. Specify push:true to push the new tag & commit."
+  desc "Increment the app's build number and commit the changes."
   lane :bump do |options|
-    if options[:check_env] && ENV['BUILD_NUMBER']
-      increment_build_number(build_number: ENV['BUILD_NUMBER'].to_i)
+    opt_build_num = options[:build_number]
+    if opt_build_num then
+      increment_build_number(build_number: opt_build_num.to_i)
     else
       increment_build_number
     end
-    plist_version = get_version_short_string File.expand_path(File.join(ENV['PWD'], 'Wikipedia/Wikipedia-Info.plist'))
     commit_version_bump
-    # tag must be added after the version bump is committed
-    add_git_tag(tag: "#{plist_version}.#{Fastlane::Actions.lane_context[Fastlane::Actions::SharedValues::BUILD_NUMBER]}")
-    if options[:push] then
-      branch_comps = git_branch.split('/')
-      remote = branch_comps.first
-      ref = branch_comps.drop(1).join('/')
-      # need to specify branches explicitly otherwise we get refspec errors
-      push_to_git_remote(
-        remote: remote,
-        local_branch: 'HEAD',
-        remote_branch: ref
-      )
-    end
+  end
+
+  desc "Create a tag based on current app version."
+  lane :tag do |options|
+    add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
   end
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
     verify(junit: true)
+    bump
     sigh(
       adhoc: false,
       force: true,
@@ -83,7 +77,7 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
     deliver beta: true
-    bump(push: true)
+    tag(push: true)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
