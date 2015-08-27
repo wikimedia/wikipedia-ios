@@ -198,7 +198,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (id)serializedArticleWithTitle:(MWKTitle*)title response:(NSDictionary*)response {
-    MWKArticle* article = [self.dataStore articleWithTitle:title];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore dict:response];
     @try {
         [article importMobileViewJSON:response];
         [article save];
