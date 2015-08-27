@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
     _article = article;
 
     [self.headerGalleryViewController setImagesFromArticle:article];
-    [self updateSectionHierarchy];
+    self.topLevelSections = [_article.sections.topLevelSections wmf_tail];
 
     [self updateUI];
 
@@ -142,10 +142,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self observeAndFetchArticleIfNeeded];
-}
-
-- (void)updateSectionHierarchy {
-    self.topLevelSections = [_article.sections.topLevelSections wmf_tail];
 }
 
 - (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated {
@@ -213,6 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKSection*)parentSectionForTableSection:(NSUInteger)section {
     NSParameterAssert([self isTOCSection:section]);
+    NSParameterAssert(self.indexSetOfTOCSections.count > 0);
     return self.topLevelSections[section - self.indexSetOfTOCSections.firstIndex];
 }
 
@@ -306,15 +303,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
     @weakify(self)
-    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle : title progress : NULL].then(^(MWKArticlePreview* articlePreview){
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle: title progress: NULL].then(^(MWKArticlePreview* articlePreview){
         @strongify(self)
         AnyPromise * fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
         self.articleFetcherPromise = fullArticlePromise;
         return fullArticlePromise;
     }).then(^(MWKArticle* article){
         @strongify(self)
-        [self.headerGalleryViewController setImagesFromArticle : article];
-        [self updateSectionHierarchy];
         self.article = article;
     }).catch(^(NSError* error){
         @strongify(self)
