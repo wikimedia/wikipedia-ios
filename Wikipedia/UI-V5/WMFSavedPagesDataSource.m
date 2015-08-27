@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.titleText             = article.title.text;
             cell.descriptionText       = article.entityDescription;
             cell.image                 = [article bestThumbnailImage];
-            cell.summaryAttributedText = [article summaryHTMLWithoutLinks];
+            [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
         };
     }
     return self;

@@ -45,8 +45,8 @@
                         <color key="shadowColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                         <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVJ-4N-Dr6" userLabel="Summary Label">
-                        <rect key="frame" x="16" y="168" width="329" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVJ-4N-Dr6" userLabel="Summary Label">
+                        <rect key="frame" x="16" y="168" width="329" height="146"/>
                         <animations/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -59,6 +59,7 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="AVJ-4N-Dr6" firstAttribute="bottom" secondItem="4oB-M2-f0E" secondAttribute="bottom" constant="-8" id="555-u4-ydB"/>
                 <constraint firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" constant="16" id="5bK-Ct-E22"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="bottom" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="-16" id="7DI-C8-Ce9"/>
                 <constraint firstItem="kPi-wU-UzV" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" id="8cS-b1-6Cf"/>
@@ -83,7 +84,7 @@
                 <outlet property="summaryLabel" destination="AVJ-4N-Dr6" id="r2R-dZ-1h6"/>
                 <outlet property="titleLabel" destination="pEK-59-fwO" id="cqJ-Dn-DTA"/>
             </connections>
-            <point key="canvasLocation" x="467.5" y="175"/>
+            <point key="canvasLocation" x="374.5" y="182"/>
         </collectionViewCell>
     </objects>
 </document>

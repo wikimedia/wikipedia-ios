@@ -125,6 +125,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     }
 }
 
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.nearbyResults.results.count > index;
+}
+
 #pragma mark - Section Updates
 
 - (void)updateSectionWithResults:(WMFLocationSearchResults*)results {

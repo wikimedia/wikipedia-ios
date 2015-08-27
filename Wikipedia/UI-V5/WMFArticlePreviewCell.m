@@ -6,6 +6,7 @@
 
 #import "NSAttributedString+WMFModify.h"
 #import "UIImageView+MWKImage.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
 
 static CGFloat const WMFTextPadding = 8.0;
 static CGFloat const WMFImageHeight = 160;
@@ -28,7 +29,8 @@ static CGFloat const WMFImageHeight = 160;
     _imageURL            = nil;
     _titleLabel.text     = nil;
     _titleText           = nil;
-    _descriptionText     = nil;
+    self.descriptionLabel.text = nil;
+    self.summaryLabel.text = nil;
 }
 
 - (void)awakeFromNib {
@@ -82,9 +84,7 @@ static CGFloat const WMFImageHeight = 160;
 }
 
 - (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText {
-    _summaryAttributedText = summaryAttributedText;
-
-    if (!_summaryAttributedText) {
+    if (!summaryAttributedText.string.length) {
         self.summaryLabel.text = nil;
         return;
     }
@@ -99,8 +99,19 @@ static CGFloat const WMFImageHeight = 160;
         return style;
     }];
 
-
     self.summaryLabel.attributedText = summaryAttributedText;
+}
+
+- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite *)site {
+    if (!summaryHTML.length) {
+        self.summaryLabel.text = nil;
+        return;
+    }
+
+    NSAttributedString* summaryAttributedText =
+        [[NSAttributedString alloc] initWithHTMLData:[summaryHTML dataUsingEncoding:NSUTF8StringEncoding] site:site];
+
+    [self setSummaryAttributedText:summaryAttributedText];
 }
 
 @end

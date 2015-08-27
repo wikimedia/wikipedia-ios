@@ -6,7 +6,7 @@
 
 #import "MWKTitle.h"
 #import "WMFRelatedSearchResults.h"
-#import "MWKLocationSearchResult.h"
+#import "MWKRelatedSearchResult.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -35,12 +35,10 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 - (instancetype)initWithArticleTitle:(MWKTitle*)title relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
     NSParameterAssert(relatedSearchFetcher);
-
     self = [super init];
     if (self) {
         relatedSearchFetcher.maximumNumberOfResults = WMFRelatedSectionMaxResults;
         self.relatedSearchFetcher                   = relatedSearchFetcher;
-
         self.title = title;
     }
     [self fetchNearbyArticlesWithTitle:self.title];
@@ -81,14 +79,17 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     return [WMFArticlePreviewCell cellForCollectionView:collectionView indexPath:indexPath];
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(UICollectionViewCell*)cell
+           withObject:(id)object
+     inCollectionView:(UICollectionView*)collectionView
+          atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
-        MWKLocationSearchResult* result    = object;
-        previewCell.titleText             = result.displayTitle;
-        previewCell.descriptionText       = result.wikidataDescription;
-        previewCell.imageURL              = result.thumbnailURL;
-        previewCell.summaryAttributedText = nil;
+        MWKRelatedSearchResult* result     = object;
+        previewCell.titleText       = result.displayTitle;
+        previewCell.descriptionText = result.wikidataDescription;
+        previewCell.imageURL        = result.thumbnailURL;
+        [previewCell setSummaryHTML: result.extractHTML fromSite:self.relatedResults.title.site];
     }
 }
 

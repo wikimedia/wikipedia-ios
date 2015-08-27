@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
+@optional
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
+
 @end
 
 typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);

@@ -1,6 +1,7 @@
 
 #import "WMFShadowCell.h"
 @class MWKImage;
+@class MWKSite;
 
 @interface WMFArticlePreviewCell : WMFShadowCell
 
@@ -9,6 +10,9 @@
 
 @property (copy, nonatomic) NSString* titleText;
 @property (copy, nonatomic) NSString* descriptionText;
-@property (copy, nonatomic) NSAttributedString* summaryAttributedText;
+
+- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;
+
+- (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText;
 
 @end
