@@ -48,17 +48,17 @@ platform :ios do
       increment_build_number
     end
     commit_version_bump
-  end
-
-  desc "Create a tag based on current app version."
-  lane :tag do |options|
     add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
   end
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
     verify(junit: true)
-    bump
+
+    # let jenkins specify build number until we figure out how to "store" it in git
+    abort "Must specify BUILD_NUMBER enviroment variable!" unless ENV['BUILD_NUMBER']
+    increment_build_number(build_number: ENV['BUILD_NUMBER'])
+
     sigh(
       adhoc: false,
       force: true,
@@ -77,7 +77,6 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
     deliver beta: true
-    tag(push: true)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
