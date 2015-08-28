@@ -237,7 +237,6 @@
 		0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
 		0ECC99EF1B67D43500004E47 /* WMFArticleRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99EE1B67D43500004E47 /* WMFArticleRequestSerializer.m */; };
 		0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */; };
-		0ED44D751B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */; };
 		0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */; };
 		0ED689721B822D3B00B30427 /* WMFHomeSectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689711B822D3B00B30427 /* WMFHomeSectionFooter.m */; };
 		0ED689781B8234B000B30427 /* WMFLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689771B8234B000B30427 /* WMFLocationManager.m */; };
@@ -916,8 +915,6 @@
 		0ECC99F01B67DDB600004E47 /* WMFArticleResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleResponseSerializer.h; sourceTree = "<group>"; };
 		0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleResponseSerializer.m; sourceTree = "<group>"; };
 		0ECC99F61B68025900004E47 /* WMFArticleRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleRequestSerializer.h; sourceTree = "<group>"; };
-		0ED44D731B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleViewControllerContainerCell.h; sourceTree = "<group>"; };
-		0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleViewControllerContainerCell.m; sourceTree = "<group>"; };
 		0ED44D761B28DA4D00F284BA /* UICollectionView+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+WMFExtensions.h"; sourceTree = "<group>"; };
 		0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+WMFExtensions.m"; sourceTree = "<group>"; };
 		0ED689701B822D3B00B30427 /* WMFHomeSectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeSectionFooter.h; sourceTree = "<group>"; };
@@ -2306,7 +2303,6 @@
 				0E94AFEF1B209792000BC5EA /* WMFArticleListCollectionViewController.m */,
 				0E366B371B2F2ACF00ABFB86 /* Layouts */,
 				0E7955BF1B2B389800B055A2 /* TGLStackedViewController */,
-				0E2B06FC1B2D12C400EA2F53 /* Cell */,
 			);
 			name = "Article List";
 			sourceTree = "<group>";
@@ -2364,15 +2360,6 @@
 				BCF7FC9E1B7BAFB100CDFB8C /* WMFListTransitionProvider.h */,
 			);
 			name = Transitions;
-			sourceTree = "<group>";
-		};
-		0E2B06FC1B2D12C400EA2F53 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				0ED44D731B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.h */,
-				0ED44D741B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m */,
-			);
-			name = Cell;
 			sourceTree = "<group>";
 		};
 		0E366B371B2F2ACF00ABFB86 /* Layouts */ = {
@@ -3797,7 +3784,6 @@
 				BCA9AEAB1B82942000B49320 /* UIImageView+MWKImage.m in Sources */,
 				0EFB0F1A1B31EE2D00D05C08 /* ArticleData.xcdatamodeld in Sources */,
 				043F8BF21A11699A00D1AE44 /* UIView+WMFRoundCorners.m in Sources */,
-				0ED44D751B28AC1E00F284BA /* WMFArticleViewControllerContainerCell.m in Sources */,
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
 				04709B5E1B829E3C0086B978 /* NSAttributedString+WMFModify.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
