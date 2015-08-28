@@ -2,16 +2,15 @@
 #import "WMFPreviewController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UITabBarController+WMFExtensions.h"
+#import <Masonry/Masonry.h>
 
 @interface WMFPreviewController ()<UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong, readwrite) UIViewController* previewViewController;
-@property (nonatomic, strong, readwrite) UIViewController* presentingViewController;
-@property (nonatomic, strong, readwrite) UITabBarController* tabBarController;
+@property (nonatomic, weak, readwrite) UIViewController* containingViewController;
+@property (nonatomic, weak, readwrite) UITabBarController* tabBarController;
 
 @property (nonatomic, strong) UIView* containerView;
-@property (nonatomic, strong) UIView* presentingViewControllerSnapshot;
-
 @property (nonatomic, strong) UIView* gestureView;
 
 @property (strong, nonatomic) UITapGestureRecognizer* tapGestureRecognizer;
@@ -23,40 +22,58 @@
 
 @implementation WMFPreviewController
 
-- (instancetype)initWithPreviewViewController:(UIViewController*)previewViewController presentingViewController:(UIViewController*)presentingController tabBarController:(UITabBarController*)tabBarController {
+- (instancetype)initWithPreviewViewController:(UIViewController*)previewViewController containingViewController:(UIViewController*)containingViewController tabBarController:(UITabBarController*)tabBarController {
     self = [super init];
     if (self) {
-        self.previewHeight            = 300.0;
         self.previewViewController    = previewViewController;
-        self.presentingViewController = presentingController;
+        self.containingViewController = containingViewController;
         self.tabBarController         = tabBarController;
-        [self setupViews];
-        [self setupGestureRecognizers];
     }
     return self;
 }
 
-- (void)setupViews {
-    UIView* view = [[UIView alloc] initWithFrame:self.presentingViewController.view.bounds];
-    view.backgroundColor = [UIColor blackColor];
+- (void)updatePreviewWithSizeChange:(CGSize)newSize {
+    [self setPreviewVerticalOffset:[self startingVerticalOffset]];
+}
 
+#pragma amrk - Views
+
+- (void)setupViews {
+    //Add container for snapshots
+    UIView* view = [[UIView alloc] initWithFrame:self.containingViewController.view.bounds];
+    view.backgroundColor = [UIColor clearColor];
+    [self.containingViewController.view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.edges.equalTo(self.containingViewController.view);
+    }];
     self.containerView = view;
 
-    view       = [self.presentingViewController.view snapshotViewAfterScreenUpdates:YES];
-    view.frame = self.containerView.bounds;
-    [self.containerView addSubview:view];
-    self.presentingViewControllerSnapshot = view;
-
-    self.previewViewController.view.frame = self.containerView.bounds;
-    [self setPreviewVerticalOffset:self.containerView.bounds.size.height];
+    //Add preview
+    [self.containingViewController addChildViewController:self.previewViewController];
     [self.containerView addSubview:self.previewViewController.view];
+    [self setPreviewVerticalOffset:[self offScreenVerticalOffset]];
+    [self.previewViewController didMoveToParentViewController:self.containingViewController];
 
-    view                 = [[UIView alloc] initWithFrame:self.presentingViewController.view.bounds];
+    // Add gesture view
+    view                 = [[UIView alloc] initWithFrame:self.containerView.bounds];
     view.backgroundColor = [UIColor clearColor];
     [self.containerView addSubview:view];
-
+    [view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.edges.equalTo(self.containerView);
+    }];
     self.gestureView = view;
 }
+
+- (void)tearDownViews {
+    [self.previewViewController willMoveToParentViewController:nil];
+    [self.previewViewController.view removeFromSuperview];
+    [self.previewViewController removeFromParentViewController];
+    [self.containerView removeFromSuperview];
+    self.containingViewController.view.layer.transform = CATransform3DIdentity;
+    self.previewViewController.view.layer.transform    = CATransform3DIdentity;
+}
+
+#pragma mark - Gesture Recognizer Setup
 
 - (void)setupGestureRecognizers {
     self.panGestureRecognizer =
@@ -71,7 +88,11 @@
 #pragma mark - Preview Offset
 
 - (CGFloat)startingVerticalOffset {
-    return self.containerView.bounds.size.height - self.previewHeight;
+    if (self.containerView.bounds.size.height > 400) {
+        return self.containerView.frame.size.height * 0.66;
+    } else {
+        return self.containerView.frame.size.height * 0.5;
+    }
 }
 
 - (CGFloat)offScreenVerticalOffset {
@@ -88,8 +109,9 @@
             [self updateBackgroundWithPercentCompletion:[self percentCompleteWithVerticalOffset:verticalOffset]];
         } completion:NULL];
 
+        [self setPreviewVerticalOffset:verticalOffset];
         [UIView animateWithDuration:0.35 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
-            [self setPreviewVerticalOffset:verticalOffset];
+            [self.previewViewController.view layoutIfNeeded];
         } completion:^(BOOL finished) {
             if (completion) {
                 completion();
@@ -98,6 +120,7 @@
     } else {
         [self updateBackgroundWithPercentCompletion:[self percentCompleteWithVerticalOffset:verticalOffset]];
         [self setPreviewVerticalOffset:verticalOffset];
+        [self.previewViewController.view layoutIfNeeded];
         if (completion) {
             completion();
         }
@@ -105,23 +128,21 @@
 }
 
 - (void)setPreviewVerticalOffset:(CGFloat)verticalOffset {
-    CGRect frame = self.containerView.bounds;
-    frame                                 = CGRectOffset(frame, 0.0, verticalOffset);
-    self.previewViewController.view.frame = frame;
+    [self.previewViewController.view mas_remakeConstraints:^(MASConstraintMaker* make) {
+        make.size.equalTo(self.containerView);
+        make.leading.equalTo(self.containerView);
+        make.top.equalTo(self.containerView).with.offset(verticalOffset);
+    }];
 }
 
 #pragma mark - Preview Management
 
 - (void)presentPreviewAnimated:(BOOL)animated {
-    [self.presentingViewController addChildViewController:self.previewViewController];
-    [self.presentingViewController.view addSubview:self.containerView];
+    [self setupViews];
+    [self setupGestureRecognizers];
 
     [self.tabBarController wmf_setTabBarVisible:NO animated:animated completion:^{
-        @weakify(self);
-        [self setPreviewVerticalOffset:[self startingVerticalOffset] animated:animated completion:^{
-            @strongify(self);
-            [self.previewViewController didMoveToParentViewController:self.presentingViewController];
-        }];
+        [self setPreviewVerticalOffset:[self startingVerticalOffset] animated:animated completion:NULL];
     }];
 }
 
@@ -133,9 +154,7 @@
     @weakify(self);
     [self setPreviewVerticalOffset:[self offScreenVerticalOffset] animated:animated completion:^{
         @strongify(self);
-        [self.previewViewController willMoveToParentViewController:nil];
-        [self.containerView removeFromSuperview];
-        [self.previewViewController removeFromParentViewController];
+        [self tearDownViews];
         [self.tabBarController wmf_setTabBarVisible:YES animated:animated completion:NULL];
         [self.delegate previewController:self didDismissViewController:self.previewViewController];
     }];
@@ -145,9 +164,7 @@
     @weakify(self);
     [self setPreviewVerticalOffset:[self presentedVerticalOffset] animated:animated completion:^{
         @strongify(self);
-        [self.previewViewController willMoveToParentViewController:nil];
-        [self.containerView removeFromSuperview];
-        [self.previewViewController removeFromParentViewController];
+        [self tearDownViews];
         [self.tabBarController wmf_setTabBarVisible:YES animated:animated completion:NULL];
         [self.delegate previewController:self didPresentViewController:self.previewViewController];
     }];
@@ -164,7 +181,8 @@
     CGFloat totalScaleChange = scaleAt1 - scaleAt0;
     CGFloat scaleChange      = percent * totalScaleChange;
     CGFloat scale            = scaleAt0 + scaleChange;
-    self.presentingViewControllerSnapshot.layer.transform = CATransform3DMakeScale(scale, scale, 1.0);
+    self.containingViewController.view.layer.transform = CATransform3DMakeScale(scale, scale, 1.0);
+    self.previewViewController.view.layer.transform    = CATransform3DInvert(self.containingViewController.view.layer.transform);
 }
 
 #pragma mark - Gesture Recognizer
@@ -183,9 +201,7 @@
             CGPoint touchlocation = [recognizer locationInView:self.containerView];
             CGFloat newYOffest    = touchlocation.y + self.yTouchOffsetFromPreviewOrigin;
             newYOffest = newYOffest > [self presentedVerticalOffset] ? newYOffest : [self presentedVerticalOffset];
-            CGRect newFrame = self.previewViewController.view.frame;
-            newFrame.origin.y                     = newYOffest;
-            self.previewViewController.view.frame = newFrame;
+            [self setPreviewVerticalOffset:newYOffest];
             [self updateBackgroundWithPercentCompletion:[self percentCompleteWithVerticalOffset:newYOffest]];
             break;
         }
@@ -229,7 +245,7 @@
 
 - (void)handleTapGesture:(UITapGestureRecognizer*)recognizer {
     CGPoint touchlocation = [recognizer locationInView:self.containerView];
-    CGFloat topInset      = [self.presentingViewController.navigationController.navigationBar frame].size.height
+    CGFloat topInset      = [self.containingViewController.navigationController.navigationBar frame].size.height
                             + [[UIApplication sharedApplication] statusBarFrame].size.height;
     CGRect frame = CGRectOffset(self.previewViewController.view.frame, 0.0, topInset);
 

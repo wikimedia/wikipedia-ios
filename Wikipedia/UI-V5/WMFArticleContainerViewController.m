@@ -145,7 +145,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [self updateInsetsForArticleViewController];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self updateInsetsForArticleViewController];
+        [self.previewController updatePreviewWithSizeChange:size];
+    } completion:NULL];
 }
 
 - (void)updateInsetsForArticleViewController {
@@ -266,7 +269,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                           savedPages:self.savedPageList];
     vc.article = article;
 
-    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc presentingViewController:self tabBarController:self.navigationController.tabBarController];
+    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];
     previewController.delegate = self;
     [previewController presentPreviewAnimated:YES];
 
@@ -283,7 +286,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewController:(WMFPreviewController*)previewController didPresentViewController:(UIViewController*)viewController {
     self.previewController = nil;
-    [self.navigationController pushViewController:viewController animated:NO];
+
+    /* HACK: for some reason, the view controller is unusable when it comes back from the preview.
+     * Trying to display it causes much ballyhooing about constraints.
+     * Work around, make another view controller and push it instead.
+     */
+    WMFArticleContainerViewController* previewed = (id)viewController;
+
+    WMFArticleContainerViewController* vc =
+        [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
+                                                          savedPages:self.savedPageList];
+    vc.article = previewed.article;
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {

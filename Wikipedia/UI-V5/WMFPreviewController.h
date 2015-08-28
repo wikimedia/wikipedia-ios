@@ -5,22 +5,30 @@
 
 @interface WMFPreviewController : NSObject
 
-- (instancetype)initWithPreviewViewController:(UIViewController*)previewViewController presentingViewController:(UIViewController<WMFPreviewControllerDelegate>*)presentingController tabBarController:(UITabBarController*)tabBarController;
+/**
+ *  Init a Preview Controller which will display a view controller as a pop up that can be dragged to present or dismiss
+ *  This object uses view containment and simple animations to present the previewViewController's view
+ *  The view and is removed from the hierarchy on completion
+ *  It is the callers (delegates) responsibility to actually present the view controller in the "real" container.
+ *  In general, you should do this without animation so it appears seemless.
+ *  This class was created because doing this using standard transition APIs created problems with animations
+ *
+ *  @param previewViewController    The viewcontroller to preview
+ *  @param containingViewController The view controller to use as the container (the preview will be added using view containment)
+ *  @param tabBarController         The tab bar (if any), that needs animated out of the way for the preview to be visible
+ *
+ *  @return The Preview Controller
+ */
+- (instancetype)initWithPreviewViewController:(UIViewController*)previewViewController containingViewController:(UIViewController*)containingViewController tabBarController:(UITabBarController*)tabBarController;
 
 @property (nonatomic, strong, readonly) UIViewController* previewViewController;
-@property (nonatomic, strong, readonly) UIViewController* presentingViewController;
-@property (nonatomic, strong, readonly) UITabBarController* tabBarController;
-
-@property (nonatomic, assign) id<WMFPreviewControllerDelegate> delegate;
-
+@property (nonatomic, weak, readonly) UIViewController* containingViewController;
+@property (nonatomic, weak, readonly) UITabBarController* tabBarController;
 
 /**
- *  Controls how much of `presentedViewController` is vertically "popped up" when the transition begins.
- *
- *  Default is 300.0
+ *  Set to be notified when the preview is presented or dismissed
  */
-@property (nonatomic, assign) CGFloat previewHeight;
-
+@property (nonatomic, assign) id<WMFPreviewControllerDelegate> delegate;
 
 /**
  *  Presents the preview
@@ -29,12 +37,30 @@
  */
 - (void)presentPreviewAnimated:(BOOL)animated;
 
+
+/**
+ *  Update the preview baecause the size of the containingViewController changed.
+ *  You are expected to call this method from inside of the animation block for [id<UIViewControllerTransitionCoordinator> animateAlongsideTransition:completion:]
+ *
+ *  @param newSize the new size of the containingViewController
+ */
+- (void)updatePreviewWithSizeChange:(CGSize)newSize;
+
 @end
 
 
 @protocol WMFPreviewControllerDelegate <NSObject>
 
+/**
+ *  Called when the preview is pulled to the top.
+ *  At this point it wold be appropriate to display the vview controller in the hierarchy
+ */
 - (void)previewController:(WMFPreviewController*)previewController didPresentViewController:(UIViewController*)viewController;
+
+/**
+ *  Called if the preview is dismissed
+ *  At this point it wold be appropriate to return to the view state before the preview began
+ */
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController;
 
 @end
