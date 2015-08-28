@@ -96,6 +96,10 @@
             [self wmf_setGlyphTitle:WMF_GLYPH_PENCIL color:nil forState:UIControlStateNormal];
             [self wmf_setGlyphTitle:WMF_GLYPH_PENCIL color:[UIColor lightGrayColor] forState:UIControlStateDisabled];
             break;
+        case WMFButtonTypeBookmark:
+            [self setImage:[UIImage imageNamed:@"unsaved"] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"saved"] forState:UIControlStateSelected];
+            break;
         default:
             break;
     }
