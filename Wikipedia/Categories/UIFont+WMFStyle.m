@@ -6,6 +6,10 @@
 
 @implementation UIFont (WMF_Style)
 
++ (UIFont*)wmf_htmlBodyFont {
+    return [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
 + (UIFont*)wmf_glyphFontOfSize:(CGFloat)fontSize;
 {
     UIFont* font = [UIFont fontWithName:@"WikiFont-Glyphs" size:fontSize];

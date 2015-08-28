@@ -7,9 +7,10 @@
 #import "NSAttributedString+WMFModify.h"
 #import "UIImageView+MWKImage.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
+#import "UIFont+WMFStyle.h"
 
-static CGFloat const WMFTextPadding = 8.0;
-static CGFloat const WMFImageHeight = 160;
+CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
+CGFloat const WMFArticlePreviewCellImageHeight = 160;
 
 @interface WMFArticlePreviewCell ()
 
@@ -41,12 +42,12 @@ static CGFloat const WMFImageHeight = 160;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    self.titleLabel.preferredMaxLayoutWidth       = layoutAttributes.size.width - WMFTextPadding - WMFTextPadding;
-    self.descriptionLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFTextPadding - WMFTextPadding;
-    self.summaryLabel.preferredMaxLayoutWidth     = layoutAttributes.size.width - WMFTextPadding - WMFTextPadding;
+    self.titleLabel.preferredMaxLayoutWidth       = layoutAttributes.size.width - WMFArticlePreviewCellTextPadding - WMFArticlePreviewCellTextPadding;
+    self.descriptionLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFArticlePreviewCellTextPadding - WMFArticlePreviewCellTextPadding;
+    self.summaryLabel.preferredMaxLayoutWidth     = layoutAttributes.size.width - WMFArticlePreviewCellTextPadding - WMFArticlePreviewCellTextPadding;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    CGFloat height                                        = MAX(200, self.summaryLabel.intrinsicContentSize.height + WMFImageHeight + WMFTextPadding + WMFTextPadding);
+    CGFloat height                                        = MAX(200, self.summaryLabel.intrinsicContentSize.height + WMFArticlePreviewCellImageHeight + WMFArticlePreviewCellTextPadding + WMFArticlePreviewCellTextPadding);
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
     return preferredAttributes;
 }

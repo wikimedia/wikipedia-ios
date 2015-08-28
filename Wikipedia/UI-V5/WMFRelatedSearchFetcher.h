@@ -7,7 +7,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSUInteger maximumNumberOfResults;
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title;
+- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title numberOfExtactCharacters:(NSUInteger)extractChars;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

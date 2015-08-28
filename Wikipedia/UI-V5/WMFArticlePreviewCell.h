@@ -3,6 +3,9 @@
 @class MWKImage;
 @class MWKSite;
 
+extern CGFloat const WMFArticlePreviewCellTextPadding;
+extern CGFloat const WMFArticlePreviewCellImageHeight;
+
 @interface WMFArticlePreviewCell : WMFShadowCell
 
 @property (copy, nonatomic) NSURL* imageURL;
@@ -14,5 +17,14 @@
 - (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;
 
 - (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText;
+
+/**
+ *  Get/set style attributes of the label used to display the article's summary.
+ *
+ *  @warning Do not set the text directly, use `setSummaryHTML:fromSite:` and `setSummaryAttributedText:`.
+ *
+ *  @return The label used to display the `summaryHTML` and `summaryAttributedText`.
+ */
+- (UILabel*)summaryLabel;
 
 @end

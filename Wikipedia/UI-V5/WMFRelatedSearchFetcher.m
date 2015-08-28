@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRelatedSearchRequestParameters : NSObject
 @property (nonatomic, strong) MWKTitle* title;
 @property (nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, assign) NSUInteger numberOfExtractCharacters;
 
 @end
 
@@ -55,19 +56,23 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title {
+- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title numberOfExtactCharacters:(NSUInteger)extractChars {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesRelatedToTitle:title useDesktopURL:NO resolver:resolve];
+        [self fetchArticlesRelatedToTitle:title numberOfExtactCharacters:extractChars useDesktopURL:NO resolver:resolve];
     }];
 }
 
-- (void)fetchArticlesRelatedToTitle:(MWKTitle*)title useDesktopURL:(BOOL)useDeskTopURL resolver:(PMKResolver)resolve {
+- (void)fetchArticlesRelatedToTitle:(MWKTitle*)title
+           numberOfExtactCharacters:(NSUInteger)extractChars
+                      useDesktopURL:(BOOL)useDeskTopURL
+                           resolver:(PMKResolver)resolve {
     MWKSite* searchSite = title.site;
     NSURL* url          = [searchSite apiEndpoint:useDeskTopURL];
 
     WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
     params.title           = title;
     params.numberOfResults = self.maximumNumberOfResults;
+    params.numberOfExtractCharacters = extractChars;
 
     [self.operationManager GET:url.absoluteString
                     parameters:params
@@ -77,7 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
                        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchArticlesRelatedToTitle:title useDesktopURL:YES resolver:resolve];
+            [self fetchArticlesRelatedToTitle:title
+                     numberOfExtactCharacters:extractChars
+                                useDesktopURL:YES
+                                     resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
@@ -133,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
                // extracts
                @"exintro": @YES,
                @"exlimit": numResults,
-               @"exchars": @300,
+               @"exchars": @(params.numberOfExtractCharacters),
                // pageterms
                @"wbptterms": @"description",
                // pageimage

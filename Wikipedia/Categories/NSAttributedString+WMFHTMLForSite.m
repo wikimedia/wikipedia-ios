@@ -11,13 +11,17 @@
 #import "MWKSite.h"
 #import "NSAttributedString+WMFModify.h"
 #import "NSAttributedString+WMFTrim.h"
+#import "UIFont+WMFStyle.h"
 
 @implementation NSAttributedString (WMFHTMLForSite)
 
 + (NSDictionary*)wmf_defaultHTMLOptionsForSite:(MWKSite*)site {
-    UIFont* defaultFont                = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    DTCSSStylesheet* defaultStyleSheet =
-        [[DTCSSStylesheet alloc] initWithStyleBlock:@"img { display: none } "];
+    UIFont* defaultFont = [UIFont wmf_htmlBodyFont];
+    static DTCSSStylesheet* defaultStyleSheet;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        defaultStyleSheet = [[DTCSSStylesheet alloc] initWithStyleBlock:@"img { display: none } "];
+    });
     return @{
                NSBaseURLDocumentOption: [site URL],
                DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],
