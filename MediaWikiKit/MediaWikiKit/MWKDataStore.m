@@ -292,26 +292,26 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (MWKArticle*)existingArticleWithTitle:(MWKTitle*)title {
+    MWKArticle* existingArticle =
+        [self memoryCachedArticleWithTitle:title] ? : [self articleFromDiskWithTitle:title];
+    if (existingArticle) {
+        [self.articleCache setObject:existingArticle forKey:existingArticle.title];
+    }
+    return existingArticle;
+}
+
+- (MWKArticle*)articleFromDiskWithTitle:(MWKTitle*)title {
     NSString* path     = [self pathForTitle:title];
     NSString* filePath = [path stringByAppendingPathComponent:@"Article.plist"];
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return dict ? [[MWKArticle alloc] initWithTitle : title dataStore:self dict:dict] : nil;
+    if (!dict) {
+        return nil;
+    }
+    return [[MWKArticle alloc] initWithTitle:title dataStore:self dict:dict];
 }
 
 - (MWKArticle*)articleWithTitle:(MWKTitle*)title {
-    MWKArticle* article = [self memoryCachedArticleWithTitle:title];
-
-    if (!article) {
-        article = [self existingArticleWithTitle:title];
-        if (!article) {
-            article = [[MWKArticle alloc] initWithTitle:title dataStore:self];
-        }
-        if (article) {
-            [self.articleCache setObject:article forKey:article.title];
-        }
-    }
-
-    return article;
+    return [self existingArticleWithTitle:title] ? : [[MWKArticle alloc] initWithTitle:title dataStore:self];
 }
 
 - (MWKSection*)sectionWithId:(NSUInteger)sectionId article:(MWKArticle*)article {

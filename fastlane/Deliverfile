@@ -17,3 +17,8 @@ automatic_release false
 copyright "#{Time.now.year} Wikimedia Foundation"
 
 screenshots_path "./screenshots"
+
+# Specify apple ID explicitly in appropriate lanes to prevent (fragile) iTC API fallback
+# See export_apple_id in lib/utils.rb
+apple_id ENV['WMF_APPLE_ID']
+

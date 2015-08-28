@@ -86,9 +86,14 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+    _searchSite                           = searchSite;
+    self.nearbySectionController.searchSite = searchSite;
+}
+
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithLocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
         _nearbySectionController.delegate = self;
     }
     return _nearbySectionController;
@@ -100,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!recentTite) {
             return nil;
         }
-        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
         _recentSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
         _recentSectionController.delegate = self;
     }
@@ -113,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!recentTite) {
             return nil;
         }
-        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
         _savedSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
         _savedSectionController.delegate = self;
     }
@@ -129,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFLocationSearchFetcher*)locationSearchFetcher {
     if (!_locationSearchFetcher) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] initWithSearchSite:self.searchSite];
+        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
     }
     return _locationSearchFetcher;
 }
@@ -397,9 +402,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id object = [self.dataSource itemAtIndexPath:indexPath];
 
-    //TODO: Casting for now - ned to make a protocol or something
-    MWKLocationSearchResult* result = object;
-    MWKTitle* title                 = [[MWKSite siteWithCurrentLocale] titleWithString:result.displayTitle];
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
     [self showArticleViewControllerForTitle:title animated:YES];
 }
 

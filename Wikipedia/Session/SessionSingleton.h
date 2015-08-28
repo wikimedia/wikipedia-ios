@@ -13,6 +13,8 @@
 @class MWKTitle;
 @class MWKArticle;
 
+extern NSString* const WMFSearchLanguageDidChangeNotification;
+
 @interface SessionSingleton : NSObject
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
