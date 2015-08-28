@@ -97,8 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
-        _nearbySectionController.delegate = self;
+        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
     }
     return _nearbySectionController;
 }
@@ -176,19 +175,17 @@ NS_ASSUME_NONNULL_BEGIN
                      completion:nil];
 }
 
-#pragma mark - UiViewController
-
 #pragma mark - Related Articles
 
 - (BOOL)shouldReloadRecentArticleSection {
-    if ([[[self.recentPages mostRecentEntry] title] isEqualToTitle:self.recentSectionController.title]) {
+    if ([[[self.recentPages mostRecentEntry] title] isEqualToTitle:_recentSectionController.title]) {
         return NO;
     }
     return YES;
 }
 
 - (BOOL)shouldReloadSavedArticleSection {
-    if ([[[self.savedPages mostRecentEntry] title] isEqualToTitle:self.savedSectionController.title]) {
+    if ([[[self.savedPages mostRecentEntry] title] isEqualToTitle:_savedSectionController.title]) {
         return NO;
     }
     return YES;
@@ -196,8 +193,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reloadRelatedArticlesForRecentArticles {
     if ([self shouldReloadRecentArticleSection]) {
-        [self unloadSectionForSectionController:self.recentSectionController];
-        self.recentSectionController = nil;
+        if (_recentSectionController) {
+            [self unloadSectionForSectionController:self.recentSectionController];
+            self.recentSectionController = nil;
+        }
+
         if ([self.dataSource numberOfSections] > 0) {
             [self insertSectionForSectionController:self.recentSectionController atIndex:0];
         } else {
@@ -208,8 +208,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reloadRelatedArticlesForSavedArticles {
     if ([self shouldReloadSavedArticleSection]) {
-        [self unloadSectionForSectionController:self.savedSectionController];
-        self.savedSectionController = nil;
+        if (_savedSectionController) {
+            [self unloadSectionForSectionController:self.savedSectionController];
+            self.savedSectionController = nil;
+        }
         [self loadSectionForSectionController:self.savedSectionController];
     }
 }
@@ -360,6 +362,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
+        controller.delegate = self;
     } completion:NULL];
 }
 
@@ -376,6 +379,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView performBatchUpdates:^{
         [self.dataSource insertSection:section atIndex:index];
+        controller.delegate = self;
     } completion:NULL];
 }
 
@@ -384,6 +388,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     NSUInteger index = [self indexForSectionController:controller];
+
+    if (index == NSNotFound) {
+        return;
+    }
 
     [self.collectionView performBatchUpdates:^{
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
@@ -436,6 +444,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
+    if (section == NSNotFound) {
+        return;
+    }
     [self.collectionView performBatchUpdates:^{
         [self.dataSource setItems:items inSection:section];
     } completion:NULL];
@@ -443,6 +455,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
+    if (section == NSNotFound) {
+        return;
+    }
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendItems:items toSection:section];
     } completion:NULL];
@@ -450,6 +466,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
     NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
+    if (section == NSNotFound) {
+        return;
+    }
     [self.collectionView performBatchUpdates:^{
         [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
     } completion:NULL];
@@ -457,7 +477,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator {
     NSInteger section = [self indexForSectionController:controller];
-
+    if (section == NSNotFound) {
+        return;
+    }
     [self.collectionView.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
         if (obj.section == section) {
             enumerator([self.collectionView cellForItemAtIndexPath:obj], obj);

@@ -67,7 +67,8 @@ class WMFImageControllerTests: XCTestCase {
         expectPromise(toCatch(policy: CatchPolicy.AllErrors),
         pipe: { err in
             XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
-        }) { () -> Promise<WMFImageDownload> in
+        },
+        timeout: 2) { () -> Promise<WMFImageDownload> in
             let promise = self.imageController.fetchImageWithURL(testURL)
             self.imageController.cancelFetchForURL(testURL)
             return promise
@@ -87,7 +88,8 @@ class WMFImageControllerTests: XCTestCase {
         expectPromise(toCatch(policy: CatchPolicy.AllErrors),
         pipe: { err in
             XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
-        }) { () -> Promise<WMFImageDownload> in
+        },
+        timeout: 2) { () -> Promise<WMFImageDownload> in
             self.imageController
                 // import temp fixture data into image controller's disk cache
                 .importImage(fromFile: tempPath, withURL: testURL)
