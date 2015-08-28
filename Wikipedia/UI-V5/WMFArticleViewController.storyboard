@@ -26,7 +26,7 @@
                                         <segue destination="7Or-9F-7Br" kind="embed" id="HdJ-OF-Rfg"/>
                                     </connections>
                                 </containerView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aRr-YL-vMe" userLabel="Gray Overlay">
+                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aRr-YL-vMe" userLabel="Gray Overlay">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.20000000000000001" colorSpace="calibratedWhite"/>
                                 </view>
