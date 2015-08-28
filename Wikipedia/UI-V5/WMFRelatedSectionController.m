@@ -41,7 +41,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
         self.relatedSearchFetcher                   = relatedSearchFetcher;
         self.title                                  = title;
     }
-    [self fetchNearbyArticlesWithTitle:self.title];
+    [self fetchRelatedArticlesWithTitle:self.title];
     return self;
 }
 
@@ -106,7 +106,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 #pragma mark - Fetch
 
-- (void)fetchNearbyArticlesWithTitle:(MWKTitle*)title {
+- (void)fetchRelatedArticlesWithTitle:(MWKTitle*)title {
     if (self.relatedSearchFetcher.isFetching) {
         return;
     }
