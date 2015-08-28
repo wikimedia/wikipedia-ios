@@ -93,8 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController          = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
-        _nearbySectionController.delegate = self;
+        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
     }
     return _nearbySectionController;
 }
@@ -106,8 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
             return nil;
         }
         WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
-        _recentSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
-        _recentSectionController.delegate = self;
+        _recentSectionController = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
     }
     return _recentSectionController;
 }
@@ -119,8 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
             return nil;
         }
         WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
-        _savedSectionController          = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
-        _savedSectionController.delegate = self;
+        _savedSectionController = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
     }
     return _savedSectionController;
 }
@@ -361,6 +358,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendSection:section];
+        controller.delegate = self;
     } completion:NULL];
 }
 
@@ -377,6 +375,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView performBatchUpdates:^{
         [self.dataSource insertSection:section atIndex:index];
+        controller.delegate = self;
     } completion:NULL];
 }
 
@@ -425,6 +424,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
     if (section == NSNotFound) {
         return;
     }
@@ -435,6 +435,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
     if (section == NSNotFound) {
         return;
     }
@@ -445,6 +446,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
     NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
     if (section == NSNotFound) {
         return;
     }
