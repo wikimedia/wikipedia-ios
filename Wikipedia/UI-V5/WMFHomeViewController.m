@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    _searchSite                           = searchSite;
+    _searchSite                             = searchSite;
     self.nearbySectionController.searchSite = searchSite;
 }
 
@@ -399,7 +399,7 @@ NS_ASSUME_NONNULL_BEGIN
     return CGSizeMake([self contentWidth], 80.0);
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]) {
         return [controller shouldSelectItemAtIndex:indexPath.item];

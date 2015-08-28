@@ -39,7 +39,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     if (self) {
         relatedSearchFetcher.maximumNumberOfResults = WMFRelatedSectionMaxResults;
         self.relatedSearchFetcher                   = relatedSearchFetcher;
-        self.title = title;
+        self.title                                  = title;
     }
     [self fetchNearbyArticlesWithTitle:self.title];
     return self;
@@ -89,7 +89,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
         previewCell.titleText       = result.displayTitle;
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
-        [previewCell setSummaryHTML: result.extractHTML fromSite:self.relatedResults.title.site];
+        [previewCell setSummaryHTML:result.extractHTML fromSite:self.relatedResults.title.site];
     }
 }
 

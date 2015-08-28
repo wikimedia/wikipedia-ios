@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
         manager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForCollectionsOf:[MWKRelatedSearchResult class]
                                                             fromKeypath:@"query.pages"];
-        self.operationManager      = manager;
+        self.operationManager = manager;
     }
     return self;
 }
@@ -120,8 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
                @"continue": @"",
                @"format": @"json",
                @"action": @"query",
-               @"prop": @"extracts|pageterms|pageimages"
-               ,
+               @"prop": @"extracts|pageterms|pageimages",
                @"generator": @"search",
                // search
                @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],

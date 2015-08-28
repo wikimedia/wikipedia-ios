@@ -25,12 +25,12 @@ static CGFloat const WMFImageHeight = 160;
 - (void)prepareForReuse {
     [super prepareForReuse];
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    self.imageView.image = [UIImage imageNamed:@"lead-default.png"];
-    _imageURL            = nil;
-    _titleLabel.text     = nil;
-    _titleText           = nil;
+    self.imageView.image       = [UIImage imageNamed:@"lead-default.png"];
+    _imageURL                  = nil;
+    _titleLabel.text           = nil;
+    _titleText                 = nil;
     self.descriptionLabel.text = nil;
-    self.summaryLabel.text = nil;
+    self.summaryLabel.text     = nil;
 }
 
 - (void)awakeFromNib {
@@ -102,7 +102,7 @@ static CGFloat const WMFImageHeight = 160;
     self.summaryLabel.attributedText = summaryAttributedText;
 }
 
-- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite *)site {
+- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site {
     if (!summaryHTML.length) {
         self.summaryLabel.text = nil;
         return;

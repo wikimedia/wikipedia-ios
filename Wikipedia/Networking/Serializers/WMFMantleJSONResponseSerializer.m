@@ -30,31 +30,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMantleJSONResponseSerializer
 
-+ (instancetype)serializerForCollectionsOf:(Class __nonnull)model fromKeypath:(NSString * __nonnull)keypath {
++ (instancetype)serializerForCollectionsOf:(Class __nonnull)model fromKeypath:(NSString* __nonnull)keypath {
     return [[WMFMantleJSONCollectionResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
 }
 
-+ (instancetype)serializerForInstancesOf:(Class __nonnull)model fromKeypath:(NSString * __nonnull)keypath {
++ (instancetype)serializerForInstancesOf:(Class __nonnull)model fromKeypath:(NSString* __nonnull)keypath {
     return [[WMFMantleJSONObjectResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
 }
 
-- (instancetype)initWithModelClass:(Class __nonnull)modelClass jsonKeypath:(NSString * __nonnull)keypath {
+- (instancetype)initWithModelClass:(Class __nonnull)modelClass jsonKeypath:(NSString* __nonnull)keypath {
     self = [super init];
     if (self) {
-        _modelClass = modelClass;
+        _modelClass  = modelClass;
         _jsonKeypath = [keypath copy];
     }
     return self;
 }
 
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error {
+- (id)responseObjectForResponse:(NSURLResponse*)response
+                           data:(NSData*)data
+                          error:(NSError* __autoreleasing*)error {
     NSDictionary* json = [super responseObjectForResponse:response data:data error:error];
     if (!json) {
         return nil;
     }
-    id value = self.jsonKeypath.length ? [json valueForKeyPath:self.jsonKeypath] : json;
+    id value = self.jsonKeypath.length ? [json valueForKeyPath : self.jsonKeypath] : json;
     if (!value && self.jsonKeypath.length) {
         DDLogWarn(@"No value returned when serializing %@ with keypath %@ from response: %@",
                   self.modelClass, self.jsonKeypath, json);
@@ -70,9 +70,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMantleJSONObjectResponseSerializer
 
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error {
+- (id)responseObjectForResponse:(NSURLResponse*)response
+                           data:(NSData*)data
+                          error:(NSError* __autoreleasing*)error {
     NSDictionary* jsonObject = [super responseObjectForResponse:response data:data error:error];
     if (!jsonObject) {
         return nil;
@@ -86,9 +86,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMantleJSONCollectionResponseSerializer
 
-- (id)responseObjectForResponse:(NSURLResponse *)response
-                           data:(NSData *)data
-                          error:(NSError *__autoreleasing *)error {
+- (id)responseObjectForResponse:(NSURLResponse*)response
+                           data:(NSData*)data
+                          error:(NSError* __autoreleasing*)error {
     id value = [super responseObjectForResponse:response data:data error:error];
     if ([value isKindOfClass:[NSArray class]]) {
         return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:value error:error];
