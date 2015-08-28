@@ -182,7 +182,8 @@
         case UIGestureRecognizerStateChanged: {
             CGPoint touchlocation = [recognizer locationInView:self.containerView];
             CGFloat newYOffest    = touchlocation.y + self.yTouchOffsetFromPreviewOrigin;
-            CGRect newFrame       = self.previewViewController.view.frame;
+            newYOffest = newYOffest > [self presentedVerticalOffset] ? newYOffest : [self presentedVerticalOffset];
+            CGRect newFrame = self.previewViewController.view.frame;
             newFrame.origin.y                     = newYOffest;
             self.previewViewController.view.frame = newFrame;
             [self updateBackgroundWithPercentCompletion:[self percentCompleteWithVerticalOffset:newYOffest]];
