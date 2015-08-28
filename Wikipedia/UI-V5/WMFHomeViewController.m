@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    _searchSite                           = searchSite;
+    _searchSite                             = searchSite;
     self.nearbySectionController.searchSite = searchSite;
 }
 
