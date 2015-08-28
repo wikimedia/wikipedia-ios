@@ -59,7 +59,8 @@
         make.leading.trailing.top.and.bottom.equalTo(self.contentView);
     }];
 
-    self.touchView.viewsToSendTouches = @[[viewController saveButton]];
+// Do we need this object's functionality at all now that this line isn't needed?
+//    self.touchView.viewsToSendTouches = @[[viewController saveButton]];
 }
 
 @end

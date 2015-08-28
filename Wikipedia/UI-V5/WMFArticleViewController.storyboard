@@ -54,24 +54,12 @@
                                     <color key="shadowColor" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                                     <size key="shadowOffset" width="0.0" height="1"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Lr-kU-lXN" userLabel="Save Button">
-                                    <rect key="frame" x="374" y="10" width="30" height="30"/>
-                                    <animations/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="30" id="UCw-sr-3ES"/>
-                                        <constraint firstAttribute="width" constant="30" id="xxa-A3-dMe"/>
-                                    </constraints>
-                                    <connections>
-                                        <action selector="toggleSave:" destination="Btv-Tg-s8D" eventType="touchUpInside" id="53C-N0-a7G"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <animations/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="aRr-YL-vMe" firstAttribute="top" secondItem="fN6-15-6k9" secondAttribute="top" id="8d1-83-weB"/>
                                 <constraint firstItem="NaE-rZ-0jM" firstAttribute="top" secondItem="aRr-YL-vMe" secondAttribute="bottom" id="AHd-pY-zhe"/>
-                                <constraint firstItem="7Lr-kU-lXN" firstAttribute="top" secondItem="fN6-15-6k9" secondAttribute="top" constant="10" id="AIP-LN-XUw"/>
                                 <constraint firstAttribute="bottom" secondItem="N3F-xg-lcP" secondAttribute="bottom" id="CD2-kI-NCt"/>
                                 <constraint firstItem="NaE-rZ-0jM" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" constant="20" symbolic="YES" id="D0Q-Xt-uMD"/>
                                 <constraint firstItem="aRr-YL-vMe" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" id="EPg-eJ-eXU"/>
@@ -82,7 +70,6 @@
                                 <constraint firstAttribute="trailing" secondItem="aRr-YL-vMe" secondAttribute="trailing" id="PlI-Qz-yr0"/>
                                 <constraint firstAttribute="trailing" secondItem="N3F-xg-lcP" secondAttribute="trailing" id="RMB-Db-paF"/>
                                 <constraint firstItem="NaE-rZ-0jM" firstAttribute="top" secondItem="Pfp-fe-IJA" secondAttribute="bottom" id="SA0-IK-ch8"/>
-                                <constraint firstAttribute="trailing" secondItem="7Lr-kU-lXN" secondAttribute="trailing" constant="10" id="V8a-5S-mA5"/>
                                 <constraint firstAttribute="trailing" secondItem="Pfp-fe-IJA" secondAttribute="trailing" constant="20" symbolic="YES" id="bh8-Wu-2e1"/>
                                 <constraint firstAttribute="trailing" secondItem="NaE-rZ-0jM" secondAttribute="trailing" constant="20" symbolic="YES" id="s2t-ri-FTC"/>
                                 <constraint firstItem="N3F-xg-lcP" firstAttribute="leading" secondItem="fN6-15-6k9" secondAttribute="leading" id="xAt-od-Qyd"/>
@@ -95,7 +82,6 @@
                             <connections>
                                 <outlet property="descriptionLabel" destination="NaE-rZ-0jM" id="9QH-pj-Yr0"/>
                                 <outlet property="descriptionTopConstraint" destination="SA0-IK-ch8" id="oMK-pl-5fi"/>
-                                <outlet property="saveButton" destination="7Lr-kU-lXN" id="ZPh-eh-tgH"/>
                                 <outlet property="titleLabel" destination="Pfp-fe-IJA" id="CBh-Ne-1sg"/>
                             </connections>
                         </view>
