@@ -19,8 +19,8 @@
 
 
 static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
-static NSUInteger const WMFNumberOfExtractLines = 4;
-static NSUInteger const WMFRelatedSectionMaxResults = 3;
+static NSUInteger const WMFNumberOfExtractLines          = 4;
+static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @interface WMFRelatedSectionController ()
 
@@ -45,7 +45,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
         relatedSearchFetcher.maximumNumberOfResults = WMFRelatedSectionMaxResults;
         self.relatedSearchFetcher                   = relatedSearchFetcher;
         self.title                                  = title;
-        self.delegate = delegate;
+        self.delegate                               = delegate;
     }
     [self fetchRelatedArticlesWithTitle:self.title];
     return self;
@@ -94,7 +94,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
         previewCell.summaryLabel.numberOfLines = WMFNumberOfExtractLines;
-        MWKRelatedSearchResult* result     = object;
+        MWKRelatedSearchResult* result = object;
         previewCell.titleText       = result.displayTitle;
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
@@ -119,7 +119,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 - (NSUInteger)numberOfExtractCharactersToFetch {
     CGFloat maxLabelWidth = [self.delegate maxItemWidth] - WMFArticlePreviewCellTextPadding * 2;
     NSParameterAssert(maxLabelWidth > 0);
-    UIFont* summaryHTMLFont = [UIFont wmf_htmlBodyFont];
+    UIFont* summaryHTMLFont           = [UIFont wmf_htmlBodyFont];
     CGFloat approximateCharacterWidth = summaryHTMLFont.xHeight;
     return ceilf(maxLabelWidth / approximateCharacterWidth * WMFNumberOfExtractLines);
 }

@@ -70,8 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSURL* url          = [searchSite apiEndpoint:useDeskTopURL];
 
     WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
-    params.title           = title;
-    params.numberOfResults = self.maximumNumberOfResults;
+    params.title                     = title;
+    params.numberOfResults           = self.maximumNumberOfResults;
     params.numberOfExtractCharacters = extractChars;
 
     [self.operationManager GET:url.absoluteString

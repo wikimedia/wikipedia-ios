@@ -125,7 +125,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFRelatedSectionController alloc] initWithArticleTitle:title
                                                 relatedSearchFetcher:fetcher
                                                             delegate:self];
-
 }
 
 - (WMFLocationManager*)locationManager {
@@ -430,7 +429,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFHomeSectionControllerDelegate
 
 - (CGFloat)maxItemWidth {
-    CGSize screenBoundsSize = [[UIScreen mainScreen] bounds].size;
+    CGSize screenBoundsSize           = [[UIScreen mainScreen] bounds].size;
     UIEdgeInsets defaultSectionInsets = [[self class] defaultSectionInsets];
     return MAX(screenBoundsSize.height, screenBoundsSize.width) - defaultSectionInsets.left - defaultSectionInsets.right;
 }
