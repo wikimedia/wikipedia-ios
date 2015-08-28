@@ -334,5 +334,4 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     [self configureSavedViewController];
 }
 
-
 @end
