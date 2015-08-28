@@ -15,7 +15,7 @@
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-static NSString* const WMFNearbySectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
+static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
 
 static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
@@ -46,17 +46,19 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 }
 
 - (id)sectionIdentifier {
-    return [WMFNearbySectionIdentifierPrefix stringByAppendingString:self.title.text];
+    return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.title.text];
 }
 
 - (NSAttributedString*)headerText {
     NSMutableAttributedString* link = [[NSMutableAttributedString alloc] initWithString:self.title.text];
     [link addAttribute:NSLinkAttributeName value:self.title.desktopURL range:NSMakeRange(0, link.length)];
+    // TODO: localize
     [link insertAttributedString:[[NSAttributedString alloc] initWithString:@"Because you read " attributes:nil] atIndex:0];
     return link;
 }
 
 - (NSString*)footerText {
+    // TODO: localize
     return @"More like this";
 }
 
