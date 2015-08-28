@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -216,7 +215,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="WMFSelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
                             <outlet property="dataSource" destination="qVm-oc-aaW" id="oec-qb-SMc"/>
@@ -239,7 +238,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.94499534368515015" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewLayout key="collectionViewLayout" id="PEa-JF-GrQ" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <collectionViewLayout key="collectionViewLayout" id="PEa-JF-GrQ" customClass="WMFSelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
                             <outlet property="delegate" destination="ijM-Cp-AID" id="SC7-eq-goH"/>
@@ -324,7 +323,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="477"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="WMFSelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
                             <outlet property="dataSource" destination="4Pn-cn-DIj" id="bps-am-g8F"/>
@@ -345,7 +344,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                        <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="WMFSelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
                             <outlet property="dataSource" destination="2yz-KN-V6a" id="dqQ-eP-Tyk"/>

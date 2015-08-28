@@ -52,7 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Data Properties
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
 @property (nonatomic, strong) NSArray* topLevelSections;
 @property (nonatomic, strong, readonly) NSIndexSet* indexSetOfTOCSections;
@@ -80,15 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize mode                  = _mode;
 @synthesize indexSetOfTOCSections = _indexSetOfTOCSections;
 
-+ (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
++ (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore {
     WMFArticleViewController* vc = [self wmf_initialViewControllerFromClassStoryboard];
-    vc.dataStore  = dataStore;
-    vc.savedPages = savedPages;
+    vc.dataStore = dataStore;
     return vc;
-}
-
-- (void)dealloc {
-    [self unobserveSavedPages];
 }
 
 #pragma mark - Accessors
@@ -155,14 +149,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self observeAndFetchArticleIfNeeded];
 }
 
-- (BOOL)isSaved {
-    return [self.savedPages isSaved:self.article.title];
-}
-
-- (UIButton*)saveButton {
-    return [[self headerView] saveButton];
-}
-
 - (WMFArticlePreviewFetcher*)articlePreviewFetcher {
     if (!_articlePreviewFetcher) {
         _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
@@ -219,21 +205,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(parentSection);
     // first item is always the parent section
     return parentSection.children[indexPath.item - 1];
-}
-
-#pragma mark - Saved Pages KVO
-
-- (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.savedPages
-                                    keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)
-                                    options:0
-                                      block:^(WMFArticleViewController* observer, id object, NSDictionary* change) {
-        [observer updateSavedButtonState];
-    }];
-}
-
-- (void)unobserveSavedPages {
-    [self.KVOControllerNonRetaining unobserve:self.savedPages keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)];
 }
 
 #pragma mark - Article Notifications
@@ -361,8 +332,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         [self clearHeaderView];
     }
-
-    [self updateSavedButtonState];
 }
 
 - (void)updateHeaderView {
@@ -375,10 +344,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clearHeaderView {
     WMFArticleTableHeaderView* headerView = [self headerView];
     [headerView setTitle:nil description:nil];
-}
-
-- (void)updateSavedButtonState {
-    [self headerView].saveButton.selected = [self isSaved];
 }
 
 - (void)updateUIForMode:(WMFArticleControllerMode)mode animated:(BOOL)animated {
@@ -396,20 +361,6 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
     self.headerGalleryViewController.view.userInteractionEnabled = mode == WMFArticleControllerModeNormal;
-}
-
-#pragma mark - Actions
-
-- (IBAction)toggleSave:(id)sender {
-    if (![self.article isCached]) {
-        [self fetchArticle];
-    }
-
-    [self unobserveSavedPages];
-    [self.savedPages toggleSavedPageForTitle:self.article.title];
-    [self.savedPages save];
-    [self observeSavedPages];
-    [self updateSavedButtonState];
 }
 
 #pragma mark - Configuration
@@ -446,7 +397,6 @@ NS_ASSUME_NONNULL_BEGIN
     galleryLayout.minimumLineSpacing      = 0;
     galleryLayout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
 
-    [self observeSavedPages];
     [self clearHeaderView];
     [self configureForDynamicCellHeight];
     [self updateUI];

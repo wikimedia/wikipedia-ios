@@ -15,11 +15,13 @@
 #import "MWKArticle.h"
 #import "MWKCitation.h"
 #import "MWKTitle.h"
+#import "MWKSavedPageList.h"
 
 #import "WMFPreviewController.h"
 
 // Other
 #import "SessionSingleton.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
+
+@property (strong, nonatomic) UIBarButtonItem* saveButton;
 
 @end
 
@@ -82,8 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleViewController*)articleViewController {
     if (!_articleViewController) {
-        _articleViewController = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore
-                                                                                   savedPages:self.savedPageList];
+        _articleViewController          = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore];
         _articleViewController.delegate = self;
     }
     return _articleViewController;
@@ -101,6 +104,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    @weakify(self)
+    self.saveButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
+        @strongify(self)
+        [self toggleSave : self];
+    }];
+    self.navigationItem.rightBarButtonItem = self.saveButton;
+
+    [self observeSavedPages];
 
     // Manually adjusting scrollview offsets to compensate for embedded navigation controller
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -122,6 +134,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleViewController.article = self.article;
         self.webViewController.article     = self.article;
     }
+
+    [self updateSavedButtonState];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -274,6 +288,45 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
+}
+
+#pragma mark - Saved Pages
+
+- (void)observeSavedPages {
+    [self.KVOControllerNonRetaining observe:self.savedPageList
+                                    keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
+                                    options:0
+                                      block:^(WMFArticleContainerViewController* observer, id object, NSDictionary* change) {
+        [observer updateSavedButtonState];
+    }];
+}
+
+- (void)unobserveSavedPages {
+    [self.KVOControllerNonRetaining unobserve:self.savedPageList keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)];
+}
+
+- (IBAction)toggleSave:(id)sender {
+    if (![self.article isCached]) {
+        [self.articleViewController fetchArticle];
+    }
+
+    [self unobserveSavedPages];
+    [self.savedPageList toggleSavedPageForTitle:self.article.title];
+    [self.savedPageList save];
+    [self observeSavedPages];
+    [self updateSavedButtonState];
+}
+
+- (void)updateSavedButtonState {
+    ((UIButton*)self.saveButton.customView).selected = [self isSaved];
+}
+
+- (BOOL)isSaved {
+    return [self.savedPageList isSaved:self.article.title];
+}
+
+- (void)dealloc {
+    [self unobserveSavedPages];
 }
 
 @end
