@@ -115,19 +115,6 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         }
     }
 
-    func testMigrateImagesResolvesAfterMigratingAllImages() {
-        let (article, legacyImageDataPaths) = prepareArticleFixtureWithTempImages("Barack_Obama")
-        expectPromise(toResolve(),
-        timeout: 5,
-        pipe: {
-            self.verifySuccessfulMigration(ofArticle: article, legacyImageDataPaths: legacyImageDataPaths)
-        },
-        test: {
-            self.imageMigration.migrateAllImagesInArticleWithTitle(article.title)
-        })
-    }
-
-
     func testSetupAndStartMigrationWithObamaMigratesSuccessfully() {
         let (article, legacyImageDataPaths) = prepareArticleFixtureWithTempImages("Barack_Obama")
 
