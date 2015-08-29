@@ -86,7 +86,9 @@
 
     CGSize heightAdjustedSize = [testCell.contentView systemLayoutSizeFittingSize:preHeightAdjustmentSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
 
-    testCell.frame = (CGRect){CGPointZero, heightAdjustedSize};
+    CGRect adjustedRect = (CGRect){CGPointZero, heightAdjustedSize};
+    testCell.contentView.frame = adjustedRect;
+    testCell.frame             = adjustedRect;
 
     // pass nil to get description based on current test
     // workaround for https://github.com/facebook/ios-snapshot-test-case/issues/102
