@@ -70,6 +70,7 @@
 		045AB8C31B1E15D9002839D7 /* NSURL+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 045AB8C21B1E15D9002839D7 /* NSURL+Extras.m */; };
 		045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D872019FAD2FA0035C1F9 /* AboutViewController.m */; };
 		04616DFC1AE706C600815BCE /* WMFLocalizationProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 04616DFB1AE706C600815BCE /* WMFLocalizationProtocol.m */; };
+		04627C981B91989200414AC6 /* WMFSaveButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04627C971B91989200414AC6 /* WMFSaveButtonController.m */; };
 		0463639818A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
 		04661DC81B4346C90045E970 /* WMFArticleViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04661DC71B4346C90045E970 /* WMFArticleViewController.storyboard */; };
 		046A4B9D1B38DC5400440F67 /* UIView+WMFRTLMirroring.m in Sources */ = {isa = PBXBuildFile; fileRef = 046A4B9C1B38DC5400440F67 /* UIView+WMFRTLMirroring.m */; };
@@ -618,6 +619,8 @@
 		045D872019FAD2FA0035C1F9 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		04616DFA1AE706C600815BCE /* WMFLocalizationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocalizationProtocol.h; sourceTree = "<group>"; };
 		04616DFB1AE706C600815BCE /* WMFLocalizationProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocalizationProtocol.m; sourceTree = "<group>"; };
+		04627C961B91989200414AC6 /* WMFSaveButtonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSaveButtonController.h; sourceTree = "<group>"; };
+		04627C971B91989200414AC6 /* WMFSaveButtonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSaveButtonController.m; sourceTree = "<group>"; };
 		0463639618A844570049EE4F /* KeychainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainCredentials.h; sourceTree = "<group>"; };
 		0463639718A844570049EE4F /* KeychainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainCredentials.m; sourceTree = "<group>"; };
 		04649CA619F72B360071E8FA /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
@@ -2547,6 +2550,8 @@
 				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
 				BC38634B1B7400E7003A2D38 /* WMFArticleListItemController.h */,
 				BC6BFC651B6858250074D0DA /* WMFArticleViewController_Private.h */,
+				04627C961B91989200414AC6 /* WMFSaveButtonController.h */,
+				04627C971B91989200414AC6 /* WMFSaveButtonController.m */,
 				0E0377741B4C47D500470BBE /* Table */,
 				0E2B06FB1B2D12B300EA2F53 /* Transitions */,
 				0E34AC551B45DC9500475A1A /* WMFArticleFetcher.h */,
@@ -3745,6 +3750,7 @@
 				0E582D351B82258300B2645B /* WMFArticlePreviewCell.m in Sources */,
 				04CCCFF71935094000E3F60C /* PrimaryMenuTableViewCell.m in Sources */,
 				BCAC50C11AF3F7460015936C /* NSBundle+WMFInfoUtils.m in Sources */,
+				04627C981B91989200414AC6 /* WMFSaveButtonController.m in Sources */,
 				0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */,
 				0EFB0F201B31EE2D00D05C08 /* GalleryImage.m in Sources */,
 				0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */,

@@ -89,6 +89,7 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
         previewCell.descriptionText       = result.wikidataDescription;
         previewCell.imageURL              = result.thumbnailURL;
         previewCell.summaryAttributedText = nil;
+        previewCell.title                 = [self titleForItemAtIndex:indexPath.row];
     }
 }
 

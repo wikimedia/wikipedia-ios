@@ -6,6 +6,8 @@
 
 #import "NSAttributedString+WMFModify.h"
 #import "UIImageView+MWKImage.h"
+#import "UIButton+WMFButton.h"
+#import "WMFSaveButtonController.h"
 
 static CGFloat const WMFTextPadding = 8.0;
 static CGFloat const WMFImageHeight = 160;
@@ -16,6 +18,9 @@ static CGFloat const WMFImageHeight = 160;
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel* summaryLabel;
+
+@property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
+@property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
 @end
 
@@ -36,6 +41,12 @@ static CGFloat const WMFImageHeight = 160;
     self.imageView.image             = [UIImage imageNamed:@"lead-default.png"];
     self.backgroundColor             = [UIColor whiteColor];
     self.contentView.backgroundColor = [UIColor whiteColor];
+
+    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
+
+    self.saveButtonController =
+        [[WMFSaveButtonController alloc] initWithButton:self.saveButton
+                                                  title:self.title];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -101,6 +112,11 @@ static CGFloat const WMFImageHeight = 160;
 
 
     self.summaryLabel.attributedText = summaryAttributedText;
+}
+
+- (void)setTitle:(MWKTitle*)title {
+    _title                          = title;
+    self.saveButtonController.title = title;
 }
 
 @end
