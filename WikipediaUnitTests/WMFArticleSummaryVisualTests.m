@@ -16,6 +16,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFArticleViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "FBSnapshotTestCase+WMFConvenience.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
@@ -70,27 +71,17 @@
 }
 
 - (void)verifySummaryForFixtureData:(NSDictionary*)mobileViewJSON langCode:(NSString*)langCode  {
-    MWKTitle* title =
-        [MWKTitle titleWithString:@"Title" site:[MWKSite siteWithDomain:@"wikipedia.org"
-                                                               language:langCode]];
-
+    MWKTitle* title = [MWKTitle titleWithString:@"Title" site:[MWKSite siteWithDomain:@"wikipedia.org"
+                                                                             language:langCode]];
     self.article = [[MWKArticle alloc] initWithTitle:title
                                            dataStore:nil
                                                 dict:mobileViewJSON[@"mobileview"]];
 
-    WMFMinimalArticleContentCell* testCell = [self.articleVC.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
-
-    [testCell setAttributedText:self.article.summaryHTML];
-
-    CGSize preHeightAdjustmentSize = (CGSize){320, 100};
-
-    CGSize heightAdjustedSize = [testCell.contentView systemLayoutSizeFittingSize:preHeightAdjustmentSize withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
-    testCell.frame = (CGRect){CGPointZero, heightAdjustedSize};
-
-    // pass nil to get description based on current test
-    // workaround for https://github.com/facebook/ios-snapshot-test-case/issues/102
-    FBSnapshotVerifyViewWithOptions(testCell, nil, [NSSet setWithObject:@"_64"], 0);
+    [self wmf_visuallyVerifyCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]
+                                 fromTableView:self.articleVC.tableView
+                           configuredWithBlock:^(UITableViewCell* cell){
+        [(WMFMinimalArticleContentCell*)cell setAttributedText:self.article.summaryHTML];
+    }];
 }
 
 @end
