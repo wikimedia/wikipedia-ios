@@ -32,7 +32,6 @@ static CGFloat const WMFImageHeight = 160;
     self.imageView.image = [UIImage imageNamed:@"lead-default.png"];
     _imageURL            = nil;
     _titleLabel.text     = nil;
-    _titleText           = nil;
     _descriptionText     = nil;
 }
 
@@ -82,11 +81,6 @@ static CGFloat const WMFImageHeight = 160;
     }
 }
 
-- (void)setTitleText:(NSString*)titleText {
-    _titleText           = titleText;
-    self.titleLabel.text = titleText;
-}
-
 - (void)setDescriptionText:(NSString*)descriptionText {
     _descriptionText           = descriptionText;
     self.descriptionLabel.text = descriptionText;
@@ -116,6 +110,7 @@ static CGFloat const WMFImageHeight = 160;
 
 - (void)setTitle:(MWKTitle*)title {
     _title                          = title;
+    self.titleLabel.text            = title.text;
     self.saveButtonController.title = title;
 }
 

@@ -7,10 +7,8 @@
 @property (copy, nonatomic) NSURL* imageURL;
 @property (copy, nonatomic) MWKImage* image;
 
-@property (copy, nonatomic) NSString* titleText;
+@property (copy, nonatomic) MWKTitle* title;
 @property (copy, nonatomic) NSString* descriptionText;
 @property (copy, nonatomic) NSAttributedString* summaryAttributedText;
-
-@property (copy, nonatomic) MWKTitle* title;
 
 @end
