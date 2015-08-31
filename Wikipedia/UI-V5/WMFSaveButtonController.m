@@ -22,7 +22,6 @@
         self.button        = button;
         self.title         = title;
         [self observeSavedPages];
-        [self updateSavedButtonState];
     }
     return self;
 }
@@ -30,7 +29,7 @@
 - (void)observeSavedPages {
     [self.KVOControllerNonRetaining observe:self.savedPageList
                                     keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
-                                    options:0
+                                    options:NSKeyValueObservingOptionInitial
                                       block:^(WMFSaveButtonController* observer, id object, NSDictionary* change) {
         [observer updateSavedButtonState];
     }];
@@ -45,7 +44,6 @@
     [self.savedPageList toggleSavedPageForTitle:self.title];
     [self.savedPageList save];
     [self observeSavedPages];
-    [self updateSavedButtonState];
 }
 
 - (void)setTitle:(MWKTitle*)title {
