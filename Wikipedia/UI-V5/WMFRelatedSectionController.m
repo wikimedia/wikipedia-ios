@@ -99,12 +99,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
         [previewCell setSummaryHTML:result.extractHTML fromSite:self.relatedResults.title.site];
-        NSAssert(^{
-            UIFont* actualFont = [previewCell.summaryLabel.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil] ?: previewCell.summaryLabel.font;
+        NSAssert (^{
+            UIFont* actualFont = [previewCell.summaryLabel.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil] ? : previewCell.summaryLabel.font;
             UIFont* requiredFont = [UIFont wmf_htmlBodyFont];
             return [actualFont.familyName isEqualToString:requiredFont.familyName]
-                    && (fabs(actualFont.pointSize - requiredFont.pointSize) < 0.01);
-        }(),@"Expected previewCell to use standard HTML body font! Needed for numberOfExtactCharactersToFetch.");
+            && (fabs(actualFont.pointSize - requiredFont.pointSize) < 0.01);
+        } (), @"Expected previewCell to use standard HTML body font! Needed for numberOfExtactCharactersToFetch.");
     }
 }
 
@@ -124,7 +124,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     NSParameterAssert(maxLabelWidth > 0);
     UIFont* summaryHTMLFont           = [UIFont wmf_htmlBodyFont];
     CGFloat approximateCharacterWidth = summaryHTMLFont.xHeight;
-    NSUInteger charsPerLine = ceilf(maxLabelWidth / approximateCharacterWidth);
+    NSUInteger charsPerLine           = ceilf(maxLabelWidth / approximateCharacterWidth);
     // and an extra half line to force UILabel to truncate the string
     return charsPerLine * (WMFNumberOfExtractLines + 0.5);
 }

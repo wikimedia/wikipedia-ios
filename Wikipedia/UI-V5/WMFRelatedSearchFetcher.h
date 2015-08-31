@@ -10,25 +10,25 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  TextExtracts will return HTML truncated as follows (taken from the article on Food Preparation on EN Wikipedia):
  *
- @code
- <p>The following outline is provided as an overview of and a topical guide to food preparation:</p>
- <p><b>Food preparation</b> – preparing food for eating</p>...
- @endcode
+   @code
+   <p>The following outline is provided as an overview of and a topical guide to food preparation:</p>
+   <p><b>Food preparation</b> – preparing food for eating</p>...
+   @endcode
  *
  *  Which ends up looking like:
  *
- @code
- The following outline is provided as an overview of and a topical guide to food preparation:
- Food preparation - preparing food for eating
- ...
- @endcode
+   @code
+   The following outline is provided as an overview of and a topical guide to food preparation:
+   Food preparation - preparing food for eating
+   ...
+   @endcode
  *
  *  This poses multiple problems:
  *      - Possibility of double truncation
  *      - Ellipsis appearing on its own line
  *
- *  To circumvent this, it's recommended to request a number of extract characters that will force your 
- *  view/label/textview to truncate the string.  For example, adding an extra half or whole line to the number of 
+ *  To circumvent this, it's recommended to request a number of extract characters that will force your
+ *  view/label/textview to truncate the string.  For example, adding an extra half or whole line to the number of
  *  characters parameter.
  */
 
