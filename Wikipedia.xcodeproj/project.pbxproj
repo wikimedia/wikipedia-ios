@@ -112,6 +112,7 @@
 		0493C2CC1952373100EBB973 /* DataHousekeeping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0493C2CB1952373100EBB973 /* DataHousekeeping.m */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */ = {isa = PBXBuildFile; fileRef = 049566C118F5F4CB0058EA12 /* ZeroConfigState.m */; };
+		04A1C4FC1B94F10600B47788 /* WMFSaveButtonControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A1C4FB1B94F10600B47788 /* WMFSaveButtonControllerTests.m */; };
 		04A807311B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A807301B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift */; };
 		04A807331B76BF36007F4EDD /* NSArray+WMFPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */; };
 		04A807341B7738C6007F4EDD /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA6764A1AC05FAD00A16160 /* NSArray+PredicateTests.m */; };
@@ -697,6 +698,7 @@
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
 		049566C018F5F4CB0058EA12 /* ZeroConfigState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZeroConfigState.h; sourceTree = "<group>"; };
 		049566C118F5F4CB0058EA12 /* ZeroConfigState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZeroConfigState.m; sourceTree = "<group>"; };
+		04A1C4FB1B94F10600B47788 /* WMFSaveButtonControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSaveButtonControllerTests.m; sourceTree = "<group>"; };
 		04A807301B757880007F4EDD /* UIButton+WMFMultiLineHeight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+WMFMultiLineHeight.swift"; sourceTree = "<group>"; };
 		04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSArray+WMFPredicate.swift"; sourceTree = "<group>"; };
 		04A97E8518B81D5D0046B166 /* AccountCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountCreationViewController.h; sourceTree = "<group>"; };
@@ -2687,6 +2689,7 @@
 				BC7B769D1B84CD2A00774FBC /* UIImageView+MWKImageTests.m */,
 				043C69221B8569FA00941051 /* NSAttributedString+WMFTrimTests.m */,
 				BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */,
+				04A1C4FB1B94F10600B47788 /* WMFSaveButtonControllerTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3657,6 +3660,7 @@
 				04A807341B7738C6007F4EDD /* NSArray+PredicateTests.m in Sources */,
 				BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */,
 				BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */,
+				04A1C4FC1B94F10600B47788 /* WMFSaveButtonControllerTests.m in Sources */,
 				BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */,
 				BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */,
 			);
