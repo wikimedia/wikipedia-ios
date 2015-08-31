@@ -8,6 +8,7 @@
 @interface WMFSaveButtonController : NSObject
 
 @property (weak, nonatomic) MWKTitle* title;
+@property (weak, nonatomic) UIButton* button;
 
 - (instancetype)initWithButton:(UIButton*)button
                  savedPageList:(MWKSavedPageList*)savedPageList

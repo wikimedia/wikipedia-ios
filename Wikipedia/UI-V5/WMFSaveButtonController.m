@@ -7,7 +7,6 @@
 
 @interface WMFSaveButtonController ()
 
-@property (strong, nonatomic) UIButton* button;
 @property (strong, nonatomic) MWKSavedPageList* savedPageList;
 
 @end
