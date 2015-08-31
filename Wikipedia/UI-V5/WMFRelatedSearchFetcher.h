@@ -3,10 +3,54 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+///
+///  @name Fetching Extracts
+///
+
+/**
+ *  TextExtracts will return HTML truncated as follows (taken from the article on Food Preparation on EN Wikipedia):
+ *
+ @code
+ <p>The following outline is provided as an overview of and a topical guide to food preparation:</p>
+ <p><b>Food preparation</b> – preparing food for eating</p>...
+ @endcode
+ *
+ *  Which ends up looking like:
+ *
+ @code
+ The following outline is provided as an overview of and a topical guide to food preparation:
+ Food preparation - preparing food for eating
+ ...
+ @endcode
+ *
+ *  This poses multiple problems:
+ *      - Possibility of double truncation
+ *      - Ellipsis appearing on its own line
+ *
+ *  To circumvent this, it's recommended to request a number of extract characters that will force your 
+ *  view/label/textview to truncate the string.  For example, adding an extra half or whole line to the number of 
+ *  characters parameter.
+ */
+
 @interface WMFRelatedSearchFetcher : NSObject
 
+/**
+ *  Maxmimum number of related titles to fetch, limited to 20.
+ *
+ *  The limit is imposed by TextExtracts.
+ */
 @property (nonatomic, assign) NSUInteger maximumNumberOfResults;
 
+/**
+ *  Query a site for titles related to a given title.
+ *
+ *  @param title        The title for which to find related content, as well as the site to pull content from.
+ *  @param extractChars The number of characters to extract from related titles.
+ *
+ *  @return A promise which resolves to an instance of @c WMFRelatedSearchResults.
+ *
+ *  @see Fetching Extracts
+ */
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title numberOfExtactCharacters:(NSUInteger)extractChars;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
