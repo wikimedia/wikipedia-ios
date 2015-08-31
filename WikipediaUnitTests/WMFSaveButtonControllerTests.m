@@ -46,38 +46,33 @@
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [self.dataStore removeFolderAtBasePath];
     [super tearDown];
 }
 
 - (void)testButtonStateForEmptySavedPagesListAndNilTitle {
-    [self.savedPagesList removeAllSavedPages];
     self.saveButtonController.title = nil;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
 }
 
 - (void)testButtonStateForEmptySavedPagesListAndUnsavedTitle {
-    [self.savedPagesList removeAllSavedPages];
     self.saveButtonController.title = self.titleSFEn;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
 }
 
 - (void)testButtonStateForNonEmptySavedPagesListAndUnsavedTitle {
-    [self.savedPagesList removeAllSavedPages];
     [self.savedPagesList addSavedPageWithTitle:self.titleSFFr];
     self.saveButtonController.title = self.titleSFEn;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
 }
 
 - (void)testButtonStateForNonEmptySavedPagesListAndSavedTitle {
-    [self.savedPagesList removeAllSavedPages];
     [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
     self.saveButtonController.title = self.titleSFEn;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
 }
 
 - (void)testToggleFromSavedToUnsaved {
-    [self.savedPagesList removeAllSavedPages];
     [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
     self.saveButtonController.title = self.titleSFEn;
     assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(YES)));
@@ -86,7 +81,6 @@
 }
 
 - (void)testToggleFromUnSavedTosaved {
-    [self.savedPagesList removeAllSavedPages];
     self.saveButtonController.title = self.titleSFEn;
     assertThat(@([self.savedPagesList isSaved:self.titleSFEn]), is(@(NO)));
     [self.button sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -94,7 +88,6 @@
 }
 
 - (void)testNoChangeForTitleWhenOtherTitleToggled {
-    [self.savedPagesList removeAllSavedPages];
     [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
     [self.savedPagesList addSavedPageWithTitle:self.titleSFFr];
     self.saveButtonController.title = self.titleSFEn;
