@@ -17,6 +17,7 @@
 #import "MWKCitation.h"
 #import "MWKTitle.h"
 #import "MWKSavedPageList.h"
+#import "MWKUserDataStore.h"
 
 // View
 #import "WMFArticlePopupTransition.h"
@@ -150,6 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.saveButtonController =
         [[WMFSaveButtonController alloc] initWithButton:(UIButton*)self.navigationItem.rightBarButtonItem.customView
+                                          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
                                                   title:self.article.title];
 }
 

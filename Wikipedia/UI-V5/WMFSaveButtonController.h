@@ -10,6 +10,7 @@
 @property (weak, nonatomic) MWKTitle* title;
 
 - (instancetype)initWithButton:(UIButton*)button
+                 savedPageList:(MWKSavedPageList*)savedPageList
                          title:(MWKTitle*)title;
 
 @end

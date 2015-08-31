@@ -8,6 +8,7 @@
 #import "UIImageView+MWKImage.h"
 #import "UIButton+WMFButton.h"
 #import "WMFSaveButtonController.h"
+#import "SessionSingleton.h"
 
 static CGFloat const WMFTextPadding = 8.0;
 static CGFloat const WMFImageHeight = 160;
@@ -45,6 +46,7 @@ static CGFloat const WMFImageHeight = 160;
 
     self.saveButtonController =
         [[WMFSaveButtonController alloc] initWithButton:self.saveButton
+                                          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
                                                   title:self.title];
 }
 

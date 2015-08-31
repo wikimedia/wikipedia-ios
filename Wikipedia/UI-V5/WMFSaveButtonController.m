@@ -3,31 +3,29 @@
 #import "WMFSaveButtonController.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
-#import "SessionSingleton.h"
 #import "MWKUserDataStore.h"
 
 @interface WMFSaveButtonController ()
 
 @property (strong, nonatomic) UIButton* button;
+@property (strong, nonatomic) MWKSavedPageList* savedPageList;
 
 @end
 
 @implementation WMFSaveButtonController
 
 - (instancetype)initWithButton:(UIButton*)button
+                 savedPageList:(MWKSavedPageList*)savedPageList
                          title:(MWKTitle*)title {
     self = [super init];
     if (self) {
-        self.button = button;
-        self.title  = title;
+        self.savedPageList = savedPageList;
+        self.button        = button;
+        self.title         = title;
         [self observeSavedPages];
         [self updateSavedButtonState];
     }
     return self;
-}
-
-- (MWKSavedPageList*)savedPageList {
-    return [SessionSingleton sharedInstance].userDataStore.savedPageList;
 }
 
 - (void)observeSavedPages {
