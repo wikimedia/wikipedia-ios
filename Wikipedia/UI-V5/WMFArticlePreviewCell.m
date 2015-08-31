@@ -96,7 +96,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         style.alignment = NSTextAlignmentNatural;
         style.lineSpacing = 12;
         style.lineBreakMode = NSLineBreakByTruncatingTail;
-
         return style;
     }];
 
