@@ -8,6 +8,9 @@
 #import "UIImageView+MWKImage.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import "UIFont+WMFStyle.h"
+#import "UIButton+WMFButton.h"
+#import "WMFSaveButtonController.h"
+#import "SessionSingleton.h"
 
 CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
 CGFloat const WMFArticlePreviewCellImageHeight = 160;
@@ -19,6 +22,9 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel* summaryLabel;
 
+@property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
+@property (strong, nonatomic) IBOutlet UIButton* saveButton;
+
 @end
 
 @implementation WMFArticlePreviewCell
@@ -28,8 +34,7 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
     self.imageView.image       = [UIImage imageNamed:@"lead-default.png"];
     _imageURL                  = nil;
-    _titleLabel.text           = nil;
-    _titleText                 = nil;
+    self.title = nil;
     self.descriptionLabel.text = nil;
     self.summaryLabel.text     = nil;
 }
@@ -39,6 +44,14 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
     self.imageView.image             = [UIImage imageNamed:@"lead-default.png"];
     self.backgroundColor             = [UIColor whiteColor];
     self.contentView.backgroundColor = [UIColor whiteColor];
+
+    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
+
+    self.saveButtonController =
+        [[WMFSaveButtonController alloc]
+         initWithButton:self.saveButton
+          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
+                  title:self.title];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -74,11 +87,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
     }
 }
 
-- (void)setTitleText:(NSString*)titleText {
-    _titleText           = titleText;
-    self.titleLabel.text = titleText;
-}
-
 - (void)setDescriptionText:(NSString*)descriptionText {
     _descriptionText           = descriptionText;
     self.descriptionLabel.text = descriptionText;
@@ -112,6 +120,12 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         [[NSAttributedString alloc] initWithHTMLData:[summaryHTML dataUsingEncoding:NSUTF8StringEncoding] site:site];
 
     [self setSummaryAttributedText:summaryAttributedText];
+}
+
+- (void)setTitle:(MWKTitle*)title {
+    _title                          = title;
+    self.titleLabel.text            = title.text;
+    self.saveButtonController.title = title;
 }
 
 @end

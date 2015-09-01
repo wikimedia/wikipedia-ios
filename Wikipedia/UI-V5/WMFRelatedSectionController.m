@@ -95,7 +95,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         WMFArticlePreviewCell* previewCell = (id)cell;
         previewCell.summaryLabel.numberOfLines = WMFNumberOfExtractLines;
         MWKRelatedSearchResult* result = object;
-        previewCell.titleText       = result.displayTitle;
+        previewCell.title                 = [self titleForItemAtIndex:indexPath.row];
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
         [previewCell setSummaryHTML:result.extractHTML fromSite:self.relatedResults.title.site];

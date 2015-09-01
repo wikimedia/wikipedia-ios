@@ -32,9 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [self articleForIndexPath:indexPath];
-            cell.titleText       = article.title.text;
-            cell.descriptionText = article.entityDescription;
-            cell.image           = [article bestThumbnailImage];
+            cell.title                 = article.title;
+            cell.descriptionText       = article.entityDescription;
+            cell.image                 = [article bestThumbnailImage];
             [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
         };
     }

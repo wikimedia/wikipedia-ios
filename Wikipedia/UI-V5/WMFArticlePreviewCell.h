@@ -2,6 +2,7 @@
 #import "WMFShadowCell.h"
 @class MWKImage;
 @class MWKSite;
+@class MWKTitle;
 
 extern CGFloat const WMFArticlePreviewCellTextPadding;
 extern CGFloat const WMFArticlePreviewCellImageHeight;
@@ -11,7 +12,7 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
 @property (copy, nonatomic) NSURL* imageURL;
 @property (copy, nonatomic) MWKImage* image;
 
-@property (copy, nonatomic) NSString* titleText;
+@property (copy, nonatomic) MWKTitle* title;
 @property (copy, nonatomic) NSString* descriptionText;
 
 - (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;
