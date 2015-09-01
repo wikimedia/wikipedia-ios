@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     MWKArticle* article,
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
-            cell.titleText             = article.title.text;
+            cell.title                 = article.title;
             cell.descriptionText       = article.entityDescription;
             cell.image                 = [article bestThumbnailImage];
             cell.summaryAttributedText = nil;
