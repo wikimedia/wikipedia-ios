@@ -11,6 +11,7 @@
 #import "UIButton+WMFButton.h"
 #import "WMFSaveButtonController.h"
 #import "SessionSingleton.h"
+#import "NSParagraphStyle+WMFParagraphStyles.h"
 
 CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
 CGFloat const WMFArticlePreviewCellImageHeight = 160;
@@ -55,12 +56,16 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    self.titleLabel.preferredMaxLayoutWidth       = layoutAttributes.size.width - WMFArticlePreviewCellTextPadding - WMFArticlePreviewCellTextPadding;
-    self.descriptionLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFArticlePreviewCellTextPadding - WMFArticlePreviewCellTextPadding;
-    self.summaryLabel.preferredMaxLayoutWidth     = layoutAttributes.size.width - WMFArticlePreviewCellTextPadding - WMFArticlePreviewCellTextPadding;
+    CGFloat const preferredMaxLayoutWidth = layoutAttributes.size.width - 2 * WMFArticlePreviewCellTextPadding;
+
+    self.titleLabel.preferredMaxLayoutWidth       = preferredMaxLayoutWidth;
+    self.descriptionLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+    self.summaryLabel.preferredMaxLayoutWidth     = preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    CGFloat height                                        = MAX(200, self.summaryLabel.intrinsicContentSize.height + WMFArticlePreviewCellImageHeight + WMFArticlePreviewCellTextPadding + WMFArticlePreviewCellTextPadding);
+    CGFloat height                                        =
+        WMFArticlePreviewCellImageHeight +
+        MIN(200, self.summaryLabel.intrinsicContentSize.height + 2 * WMFArticlePreviewCellTextPadding);
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
     return preferredAttributes;
 }
@@ -98,11 +103,11 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         return;
     }
 
-    summaryAttributedText = [summaryAttributedText wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                                                               withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
+
+    summaryAttributedText = [summaryAttributedText
+                             wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                                         withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
         NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
-        style.alignment = NSTextAlignmentNatural;
-        style.lineSpacing = 12;
         style.lineBreakMode = NSLineBreakByTruncatingTail;
         return style;
     }];
