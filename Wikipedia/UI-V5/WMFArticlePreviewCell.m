@@ -34,7 +34,7 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
     self.imageView.image       = [UIImage imageNamed:@"lead-default.png"];
     _imageURL                  = nil;
-    self.title = nil;
+    self.title                 = nil;
     self.descriptionLabel.text = nil;
     self.summaryLabel.text     = nil;
 }
