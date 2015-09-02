@@ -3,6 +3,7 @@
 
 @class MWKTitle;
 @class MWKSavedPageList;
+@class MWKImage;
 
 /**
  *  Base class for cells which represent a title and have save button.
@@ -25,5 +26,9 @@
  *  @param savedPageList A saved page list which is mutated on the main thread.
  */
 - (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
+
+@property (copy, nonatomic) NSURL* imageURL;
+
+- (void)setImage:(MWKImage*)image;
 
 @end

@@ -7,10 +7,11 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
 
 @interface WMFArticlePreviewCell : WMFSaveableTitleCollectionViewCell
 
-@property (copy, nonatomic) NSURL* imageURL;
-
-- (void)setImage:(MWKImage*)image;
-
+/**
+ *  Text which describes the @c title associated with the receiver.
+ *
+ *  Usually set to the title's WikiData description and put in a label below the title.
+ */
 @property (copy, nonatomic) NSString* descriptionText;
 
 - (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;
@@ -25,5 +26,6 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
  *  @return The label used to display the `summaryHTML` and `summaryAttributedText`.
  */
 - (UILabel*)summaryLabel;
+
 
 @end

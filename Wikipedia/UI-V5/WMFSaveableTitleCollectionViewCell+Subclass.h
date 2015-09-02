@@ -26,4 +26,14 @@
  */
 @property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
+/**
+ *  The view used to display images set to the receiver via either its @c image or @c imageURL properties.
+ */
+@property (strong, nonatomic) IBOutlet UIImageView* imageView;
+
+/**
+ *  @return The name to a bundled image which will be set to the receiver's @c imageView when preparing for reuse.
+ */
++ (NSString*)defaultImageName;
+
 @end

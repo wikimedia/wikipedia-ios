@@ -1,9 +1,13 @@
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
-#import "UIView+WMFShadow.h"
-#import "WMFSaveButtonController.h"
-#import "UIButton+WMFButton.h"
+
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 #import "WMFSaveButtonController.h"
 #import "MWKTitle.h"
+
+#import "UIView+WMFShadow.h"
+#import "UIImageView+MWKImage.h"
+#import "UIButton+WMFButton.h"
 
 @interface WMFSaveableTitleCollectionViewCell ()
 
@@ -28,6 +32,7 @@
 
 - (void)commonInit {
     [self configureContentView];
+    self.imageView.image             = [UIImage imageNamed:[[self class] defaultImageName]];
     [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
 }
 
@@ -40,9 +45,15 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.title = nil;
+    self.imageURL = nil;
+    self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
 }
 
 #pragma mark - Accessors
+
++ (NSString*)defaultImageName {
+    return @"lead-default";
+}
 
 - (void)setSaveButton:(UIButton *)saveButton {
     self.saveButtonController.button = saveButton;
@@ -70,6 +81,31 @@
 
 - (MWKTitle*)title {
     return self.saveButtonController.title;
+}
+
+- (void)setImageURL:(NSURL*)imageURL {
+    [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
+    [self.imageView wmf_resetImageMetadata];
+
+    _imageURL = imageURL;
+    @weakify(self);
+    [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
+    .then(^id (WMFImageDownload* download) {
+        @strongify(self);
+        if ([self.imageURL isEqual:imageURL]) {
+            self.imageView.image = download.image;
+        }
+        return nil;
+    })
+    .catch(^(NSError* error){
+        //TODO: Show placeholder
+    });
+}
+
+- (void)setImage:(MWKImage*)image {
+    if (image) {
+        [self.imageView wmf_setImageWithFaceDetectionFromMetadata:image];
+    }
 }
 
 @end

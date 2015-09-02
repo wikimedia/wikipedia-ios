@@ -2,12 +2,7 @@
 #import "WMFArticlePreviewCell.h"
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
-
 #import "NSAttributedString+WMFModify.h"
-#import "UIImageView+MWKImage.h"
-#import "SessionSingleton.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 
@@ -16,7 +11,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 
 @interface WMFArticlePreviewCell ()
 
-@property (strong, nonatomic) IBOutlet UIImageView* imageView;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel* summaryLabel;
 
@@ -26,17 +20,8 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.imageURL = nil;
-    self.imageView.image = [UIImage imageNamed:@"lead-default.png"];
     self.descriptionText = nil;
     self.summaryLabel.text     = nil;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.imageView.image             = [UIImage imageNamed:@"lead-default.png"];
-    self.backgroundColor             = [UIColor whiteColor];
-    self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -52,31 +37,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         MIN(200, self.summaryLabel.intrinsicContentSize.height + 2 * WMFArticlePreviewCellTextPadding);
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
     return preferredAttributes;
-}
-
-- (void)setImageURL:(NSURL*)imageURL {
-    [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    [self.imageView wmf_resetImageMetadata];
-
-    _imageURL = imageURL;
-    @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
-    .then(^id (WMFImageDownload* download) {
-        @strongify(self);
-        if ([self.imageURL isEqual:imageURL]) {
-            self.imageView.image = download.image;
-        }
-        return nil;
-    })
-    .catch(^(NSError* error){
-        //TODO: Show placeholder
-    });
-}
-
-- (void)setImage:(MWKImage*)image {
-    if (image) {
-        [self.imageView wmf_setImageWithFaceDetectionFromMetadata:image];
-    }
 }
 
 - (void)setDescriptionText:(NSString*)descriptionText {
