@@ -320,6 +320,7 @@
 		BC505F061B5D683A00537006 /* NSArray+WMFLayoutDirectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC505F051B5D683A00537006 /* NSArray+WMFLayoutDirectionUtilities.m */; };
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
+		BC550B071B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
@@ -1048,6 +1049,8 @@
 		BC50C3821A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFJoinedPropertyParametersTests.m; sourceTree = "<group>"; };
 		BC50C3851A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKImageInfoResponseSerializer.h; path = Serializers/MWKImageInfoResponseSerializer.h; sourceTree = "<group>"; };
 		BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoResponseSerializer.m; path = Serializers/MWKImageInfoResponseSerializer.m; sourceTree = "<group>"; };
+		BC550B051B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DTCSSStylesheet+WMFStylesheets.h"; sourceTree = "<group>"; };
+		BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DTCSSStylesheet+WMFStylesheets.m"; sourceTree = "<group>"; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC5620951B6B854E0013FFB0 /* WMFArticleNavigationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationDelegate.h; sourceTree = "<group>"; };
 		BC5620971B6B87BF0013FFB0 /* WMFArticleNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigation.h; sourceTree = "<group>"; };
@@ -2062,6 +2065,8 @@
 				043C69201B85689F00941051 /* NSAttributedString+WMFTrim.m */,
 				043C69271B86502F00941051 /* NSCharacterSet+WMFExtras.h */,
 				043C69281B86502F00941051 /* NSCharacterSet+WMFExtras.m */,
+				BC550B051B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.h */,
+				BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3909,6 +3914,7 @@
 				0ED689881B82559E00B30427 /* WMFLocationSearchResults.m in Sources */,
 				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,
 				0E03E28D1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m in Sources */,
+				BC550B071B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				BCB58F441A890D9700465627 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */,

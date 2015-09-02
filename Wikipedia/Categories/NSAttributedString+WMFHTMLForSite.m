@@ -12,16 +12,12 @@
 #import "NSAttributedString+WMFModify.h"
 #import "NSAttributedString+WMFTrim.h"
 #import "UIFont+WMFStyle.h"
+#import "DTCSSStylesheet+WMFStylesheets.h"
 
 @implementation NSAttributedString (WMFHTMLForSite)
 
 + (NSDictionary*)wmf_defaultHTMLOptionsForSite:(MWKSite*)site {
     UIFont* defaultFont = [UIFont wmf_htmlBodyFont];
-    static DTCSSStylesheet* defaultStyleSheet;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        defaultStyleSheet = [[DTCSSStylesheet alloc] initWithStyleBlock:@"img { display: none } "];
-    });
     return @{
                NSBaseURLDocumentOption: [site URL],
                DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],
@@ -32,7 +28,7 @@
                DTDefaultFontSize: @(defaultFont.pointSize),
                DTDefaultLinkDecoration: @NO, // disable decoration for links
                DTDocumentPreserveTrailingSpaces: @YES,
-               DTDefaultStyleSheet: defaultStyleSheet,
+               DTDefaultStyleSheet: [DTCSSStylesheet wmf_imageHidingStylesheet],
                DTUseiOS6Attributes: @YES
     };
     // Reminder! Use tintColor with UILabel or UITextView to control link color!
