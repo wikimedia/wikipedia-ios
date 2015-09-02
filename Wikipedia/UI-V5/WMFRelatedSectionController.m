@@ -1,23 +1,26 @@
-
-
 #import "WMFRelatedSectionController.h"
 
+// Networking & Model
 #import "WMFRelatedSearchFetcher.h"
-
 #import "MWKTitle.h"
 #import "WMFRelatedSearchResults.h"
-#import "MWKLocationSearchResult.h"
+#import "MWKRelatedSearchResult.h"
 
-//Promises
+// Frameworks
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+// View
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-static NSString* const WMFNearbySectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
+// Style
+#import "UIFont+WMFStyle.h"
 
-static NSUInteger const WMFRelatedSectionMaxResults = 3;
+
+static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
+static NSUInteger const WMFNumberOfExtractLines          = 4;
+static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @interface WMFRelatedSectionController ()
 
@@ -32,33 +35,35 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
+- (instancetype)initWithArticleTitle:(MWKTitle*)title
+                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher
+                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate {
     NSParameterAssert(title);
     NSParameterAssert(relatedSearchFetcher);
-
     self = [super init];
     if (self) {
-        relatedSearchFetcher.maximumNumberOfResults = WMFRelatedSectionMaxResults;
-        self.relatedSearchFetcher                   = relatedSearchFetcher;
-
-        self.title = title;
+        self.relatedSearchFetcher = relatedSearchFetcher;
+        self.title                = title;
+        self.delegate             = delegate;
     }
-    [self fetchNearbyArticlesWithTitle:self.title];
+    [self fetchRelatedArticlesWithTitle:self.title];
     return self;
 }
 
 - (id)sectionIdentifier {
-    return [WMFNearbySectionIdentifierPrefix stringByAppendingString:self.title.text];
+    return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.title.text];
 }
 
 - (NSAttributedString*)headerText {
     NSMutableAttributedString* link = [[NSMutableAttributedString alloc] initWithString:self.title.text];
     [link addAttribute:NSLinkAttributeName value:self.title.desktopURL range:NSMakeRange(0, link.length)];
+    // TODO: localize
     [link insertAttributedString:[[NSAttributedString alloc] initWithString:@"Because you read " attributes:nil] atIndex:0];
     return link;
 }
 
 - (NSString*)footerText {
+    // TODO: localize
     return @"More like this";
 }
 
@@ -81,14 +86,24 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
     return [WMFArticlePreviewCell cellForCollectionView:collectionView indexPath:indexPath];
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(UICollectionViewCell*)cell
+           withObject:(id)object
+     inCollectionView:(UICollectionView*)collectionView
+          atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
-        MWKLocationSearchResult* result    = object;
-        previewCell.title                 = [self titleForItemAtIndex:indexPath.row];
-        previewCell.descriptionText       = result.wikidataDescription;
-        previewCell.imageURL              = result.thumbnailURL;
-        previewCell.summaryAttributedText = nil;
+        previewCell.summaryLabel.numberOfLines = WMFNumberOfExtractLines;
+        MWKRelatedSearchResult* result = object;
+        previewCell.title           = [self titleForItemAtIndex:indexPath.row];
+        previewCell.descriptionText = result.wikidataDescription;
+        previewCell.imageURL        = result.thumbnailURL;
+        [previewCell setSummaryHTML:result.extractHTML fromSite:self.relatedResults.title.site];
+        NSAssert (^{
+            UIFont* actualFont = [previewCell.summaryLabel.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil] ? : previewCell.summaryLabel.font;
+            UIFont* requiredFont = [UIFont wmf_htmlBodyFont];
+            return [actualFont.familyName isEqualToString:requiredFont.familyName]
+            && (fabs(actualFont.pointSize - requiredFont.pointSize) < 0.01);
+        } (), @"Expected previewCell to use standard HTML body font! Needed for numberOfExtactCharactersToFetch.");
     }
 }
 
@@ -103,13 +118,25 @@ static NSUInteger const WMFRelatedSectionMaxResults = 3;
 
 #pragma mark - Fetch
 
-- (void)fetchNearbyArticlesWithTitle:(MWKTitle*)title {
+- (NSUInteger)numberOfExtractCharactersToFetch {
+    CGFloat maxLabelWidth = [self.delegate maxItemWidth] - WMFArticlePreviewCellTextPadding * 2;
+    NSParameterAssert(maxLabelWidth > 0);
+    UIFont* summaryHTMLFont           = [UIFont wmf_htmlBodyFont];
+    CGFloat approximateCharacterWidth = summaryHTMLFont.xHeight;
+    NSUInteger charsPerLine           = ceilf(maxLabelWidth / approximateCharacterWidth);
+    // and an extra half line to force UILabel to truncate the string
+    return charsPerLine * (WMFNumberOfExtractLines + 0.5);
+}
+
+- (void)fetchRelatedArticlesWithTitle:(MWKTitle*)title {
     if (self.relatedSearchFetcher.isFetching) {
         return;
     }
 
     @weakify(self);
-    [self.relatedSearchFetcher fetchArticlesRelatedToTitle:title]
+    [self.relatedSearchFetcher fetchArticlesRelatedToTitle:title
+                                  numberOfExtactCharacters:[self numberOfExtractCharactersToFetch]
+                                               resultLimit:WMFRelatedSectionMaxResults]
     .then(^(WMFRelatedSearchResults* results){
         @strongify(self);
         self.relatedResults = results;

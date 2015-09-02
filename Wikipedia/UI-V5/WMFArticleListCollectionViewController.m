@@ -104,7 +104,7 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor       = [UIColor clearColor];
 
-    [self flowLayout].estimatedItemHeight = 150;
+    [self flowLayout].estimatedItemHeight = 200;
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
     [self flowLayout].minimumLineSpacing  = 10.0;

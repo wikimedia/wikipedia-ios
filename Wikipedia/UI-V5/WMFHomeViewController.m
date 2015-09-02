@@ -79,6 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
++ (UIEdgeInsets)defaultSectionInsets {
+    return UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
+}
+
 - (UIBarButtonItem*)settingsBarButtonItem {
     // TODO: localize
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain
@@ -100,26 +104,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFRelatedSectionController*)recentSectionController {
     if (!_recentSectionController) {
-        MWKTitle* recentTite = [self mostRecentReadArticle];
-        if (!recentTite) {
-            return nil;
-        }
-        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
-        _recentSectionController = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
+        _recentSectionController = [self relatedSectionControllerWithTitle:[self mostRecentReadArticle]];
     }
     return _recentSectionController;
 }
 
 - (WMFRelatedSectionController*)savedSectionController {
     if (!_savedSectionController) {
-        MWKTitle* recentTite = [self mostRecentSavedArticle];
-        if (!recentTite) {
-            return nil;
-        }
-        WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
-        _savedSectionController = [[WMFRelatedSectionController alloc] initWithArticleTitle:recentTite relatedSearchFetcher:fetcher];
+        _savedSectionController = [self relatedSectionControllerWithTitle:[self mostRecentSavedArticle]];
     }
     return _savedSectionController;
+}
+
+- (id<WMFHomeSectionController> __nullable)relatedSectionControllerWithTitle:(MWKTitle* __nullable)title {
+    if (!title) {
+        return nil;
+    }
+    WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
+    return [[WMFRelatedSectionController alloc] initWithArticleTitle:title
+                                                relatedSearchFetcher:fetcher
+                                                            delegate:self];
 }
 
 - (WMFLocationManager*)locationManager {
@@ -229,9 +233,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.collectionView.dataSource = nil;
 
-    [self flowLayout].estimatedItemHeight = 150;
+    [self flowLayout].estimatedItemHeight = 200;
     [self flowLayout].numberOfColumns     = 1;
-    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
+    [self flowLayout].sectionInset        = [[self class] defaultSectionInsets];
     [self flowLayout].minimumLineSpacing  = 10.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -405,10 +409,20 @@ NS_ASSUME_NONNULL_BEGIN
     return CGSizeMake([self contentWidth], 80.0);
 }
 
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]) {
+        return [controller shouldSelectItemAtIndex:indexPath.item];
+    }
+    return YES;
+}
+
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
-    [self showArticleViewControllerForTitle:title animated:YES];
+    if (title) {
+        [self showArticleViewControllerForTitle:title animated:YES];
+    }
 }
 
 #pragma mark - Article Presentation
@@ -421,6 +435,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
+
+- (CGFloat)maxItemWidth {
+    CGSize screenBoundsSize           = [[UIScreen mainScreen] bounds].size;
+    UIEdgeInsets defaultSectionInsets = [[self class] defaultSectionInsets];
+    return MAX(screenBoundsSize.height, screenBoundsSize.width) - defaultSectionInsets.left - defaultSectionInsets.right;
+}
 
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];

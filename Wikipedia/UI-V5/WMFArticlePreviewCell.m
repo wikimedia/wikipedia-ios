@@ -6,12 +6,15 @@
 
 #import "NSAttributedString+WMFModify.h"
 #import "UIImageView+MWKImage.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
+#import "UIFont+WMFStyle.h"
 #import "UIButton+WMFButton.h"
 #import "WMFSaveButtonController.h"
 #import "SessionSingleton.h"
+#import "NSParagraphStyle+WMFParagraphStyles.h"
 
-static CGFloat const WMFTextPadding = 8.0;
-static CGFloat const WMFImageHeight = 160;
+CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
+CGFloat const WMFArticlePreviewCellImageHeight = 160;
 
 @interface WMFArticlePreviewCell ()
 
@@ -30,10 +33,11 @@ static CGFloat const WMFImageHeight = 160;
 - (void)prepareForReuse {
     [super prepareForReuse];
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    self.imageView.image = [UIImage imageNamed:@"lead-default.png"];
-    _imageURL            = nil;
-    _titleLabel.text     = nil;
-    _descriptionText     = nil;
+    self.imageView.image       = [UIImage imageNamed:@"lead-default.png"];
+    _imageURL                  = nil;
+    self.title                 = nil;
+    self.descriptionLabel.text = nil;
+    self.summaryLabel.text     = nil;
 }
 
 - (void)awakeFromNib {
@@ -45,18 +49,23 @@ static CGFloat const WMFImageHeight = 160;
     [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
 
     self.saveButtonController =
-        [[WMFSaveButtonController alloc] initWithButton:self.saveButton
-                                          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
-                                                  title:self.title];
+        [[WMFSaveButtonController alloc]
+         initWithButton:self.saveButton
+          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
+                  title:self.title];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    self.titleLabel.preferredMaxLayoutWidth       = layoutAttributes.size.width - WMFTextPadding - WMFTextPadding;
-    self.descriptionLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFTextPadding - WMFTextPadding;
-    self.summaryLabel.preferredMaxLayoutWidth     = layoutAttributes.size.width - WMFTextPadding - WMFTextPadding;
+    CGFloat const preferredMaxLayoutWidth = layoutAttributes.size.width - 2 * WMFArticlePreviewCellTextPadding;
+
+    self.titleLabel.preferredMaxLayoutWidth       = preferredMaxLayoutWidth;
+    self.descriptionLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+    self.summaryLabel.preferredMaxLayoutWidth     = preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    CGFloat height                                        = MAX(200, self.summaryLabel.intrinsicContentSize.height + WMFImageHeight + WMFTextPadding + WMFTextPadding);
+    CGFloat height                                        =
+        WMFArticlePreviewCellImageHeight +
+        MIN(200, self.summaryLabel.intrinsicContentSize.height + 2 * WMFArticlePreviewCellTextPadding);
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
     return preferredAttributes;
 }
@@ -89,25 +98,33 @@ static CGFloat const WMFImageHeight = 160;
 }
 
 - (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText {
-    _summaryAttributedText = summaryAttributedText;
-
-    if (!_summaryAttributedText) {
+    if (!summaryAttributedText.string.length) {
         self.summaryLabel.text = nil;
         return;
     }
 
-    summaryAttributedText = [summaryAttributedText wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                                                               withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
-        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
-        style.alignment = NSTextAlignmentNatural;
-        style.lineSpacing = 12;
-        style.lineBreakMode = NSLineBreakByTruncatingTail;
 
+    summaryAttributedText = [summaryAttributedText
+                             wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
+                                                         withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
+        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
+        style.lineBreakMode = NSLineBreakByTruncatingTail;
         return style;
     }];
 
-
     self.summaryLabel.attributedText = summaryAttributedText;
+}
+
+- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site {
+    if (!summaryHTML.length) {
+        self.summaryLabel.text = nil;
+        return;
+    }
+
+    NSAttributedString* summaryAttributedText =
+        [[NSAttributedString alloc] initWithHTMLData:[summaryHTML dataUsingEncoding:NSUTF8StringEncoding] site:site];
+
+    [self setSummaryAttributedText:summaryAttributedText];
 }
 
 - (void)setTitle:(MWKTitle*)title {

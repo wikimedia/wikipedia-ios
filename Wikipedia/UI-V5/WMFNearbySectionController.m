@@ -85,10 +85,12 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    MWKSearchResult* result = self.items[index];
-    MWKSite* site           = self.nearbyResults.searchSite;
-    MWKTitle* title         = [site titleWithString:result.displayTitle];
-    return title;
+    id result = self.items[index];
+    if ([result isKindOfClass:[MWKSearchResult class]]) {
+        MWKSite* site = self.nearbyResults.searchSite;
+        return [site titleWithString:[(MWKSearchResult*)result displayTitle]];
+    }
+    return nil;
 }
 
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
@@ -121,6 +123,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }
+}
+
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.nearbyResults.results.count > index;
 }
 
 #pragma mark - Section Updates

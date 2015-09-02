@@ -20,10 +20,10 @@
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
-               @"displayTitle": @"title",
-               @"articleID": @"pageid",
-               @"thumbnailURL": @"thumbnail.source",
-               @"wikidataDescription": @"terms.description"
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description"
     };
 }
 

@@ -4,7 +4,7 @@
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "WMFSearchResponseSerializer.h"
+#import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
 
 //Promises
@@ -13,7 +13,7 @@
 
 //Models
 #import "WMFRelatedSearchResults.h"
-#import "MWKSearchResult.h"
+#import "MWKRelatedSearchResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRelatedSearchRequestParameters : NSObject
 @property (nonatomic, strong) MWKTitle* title;
 @property (nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, assign) NSUInteger numberOfExtractCharacters;
+
 @end
 
 @interface WMFRelatedSearchRequestSerializer : AFHTTPRequestSerializer
@@ -42,8 +44,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
-        manager.responseSerializer = [WMFSearchResponseSerializer serializer];
-        self.operationManager      = manager;
+        manager.responseSerializer =
+            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKRelatedSearchResult class]
+                                                                       fromKeypath:@"query.pages"];
+        self.operationManager = manager;
     }
     return self;
 }
@@ -52,27 +56,44 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title {
+- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
+                  numberOfExtactCharacters:(NSUInteger)extractChars
+                               resultLimit:(NSUInteger)resultLimit {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesRelatedToTitle:title useDesktopURL:NO resolver:resolve];
+        [self fetchArticlesRelatedToTitle:title
+                 numberOfExtactCharacters:extractChars
+                              resultLimit:resultLimit
+                            useDesktopURL:NO
+                                 resolver:resolve];
     }];
 }
 
-- (void)fetchArticlesRelatedToTitle:(MWKTitle*)title useDesktopURL:(BOOL)useDeskTopURL resolver:(PMKResolver)resolve {
+- (void)fetchArticlesRelatedToTitle:(MWKTitle*)title
+           numberOfExtactCharacters:(NSUInteger)extractChars
+                        resultLimit:(NSUInteger)resultLimit
+                      useDesktopURL:(BOOL)useDeskTopURL
+                           resolver:(PMKResolver)resolve {
     MWKSite* searchSite = title.site;
     NSURL* url          = [searchSite apiEndpoint:useDeskTopURL];
 
     WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
-    params.title           = title;
-    params.numberOfResults = self.maximumNumberOfResults;
+    params.title                     = title;
+    params.numberOfResults           = resultLimit;
+    params.numberOfExtractCharacters = extractChars;
 
-    [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
+    [self.operationManager GET:url.absoluteString
+                    parameters:params
+                       success:^(AFHTTPRequestOperation* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        WMFRelatedSearchResults* results = [[WMFRelatedSearchResults alloc] initWithTitle:title results:response];
-        resolve(results);
-    } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        resolve([[WMFRelatedSearchResults alloc] initWithTitle:title results:response]);
+    }
+                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchArticlesRelatedToTitle:title useDesktopURL:YES resolver:resolve];
+            [self fetchArticlesRelatedToTitle:title
+                     numberOfExtactCharacters:extractChars
+                                  resultLimit:resultLimit
+                                useDesktopURL:YES
+                                     resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
@@ -85,6 +106,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Internal Class Implementations
 
 @implementation WMFRelatedSearchRequestParameters
+
+- (void)setNumberOfResults:(NSUInteger)numberOfResults {
+    if (numberOfResults > 20) {
+        DDLogError(@"Illegal attempt to request %lu articles, limiting to 20.", numberOfResults);
+        numberOfResults = 20;
+    }
+    _numberOfResults = numberOfResults;
+}
+
 @end
 
 #pragma mark - Request Serializer
@@ -101,30 +131,34 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSDictionary*)serializedParams:(WMFRelatedSearchRequestParameters*)params {
-    NSString* numberOfResults = [NSString stringWithFormat:@"%lu", (unsigned long)params.numberOfResults];
-
+    NSNumber* numResults = @(params.numberOfResults);
     return @{
+               @"continue": @"",
+               @"format": @"json",
                @"action": @"query",
-               @"prop": @"pageterms|pageimages",
-               @"wbptterms": @"description",
+               @"prop": @"extracts|pageterms|pageimages",
                @"generator": @"search",
+               // search
                @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],
                @"gsrnamespace": @0,
                @"gsrwhat": @"text",
                @"gsrinfo": @"",
                @"gsrprop": @"redirecttitle",
                @"gsroffset": @0,
-               @"gsrlimit": numberOfResults,
+               @"gsrlimit": numResults,
+               // extracts
+               @"exintro": @YES,
+               @"exlimit": numResults,
+               @"exchars": @(params.numberOfExtractCharacters),
+               // pageterms
+               @"wbptterms": @"description",
+               // pageimage
                @"piprop": @"thumbnail",
                @"pithumbsize": @(LEAD_IMAGE_WIDTH),
-               @"pilimit": numberOfResults,
-               @"continue": @"",
-               @"format": @"json"
+               @"pilimit": numResults,
     };
 }
 
 @end
-
-
 
 NS_ASSUME_NONNULL_END

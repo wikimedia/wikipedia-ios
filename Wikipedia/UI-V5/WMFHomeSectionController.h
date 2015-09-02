@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
+@optional
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
+
 @end
 
 typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
@@ -35,11 +38,14 @@ typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
 @protocol WMFHomeSectionControllerDelegate <NSObject>
 
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items;
+
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items;
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator;
+
+- (CGFloat)maxItemWidth;
 
 @end
 
