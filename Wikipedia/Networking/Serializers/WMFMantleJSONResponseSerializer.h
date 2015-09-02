@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Create a serializer for converting a value in a JSON response into a single instance of @c model.
  *
- *  @param model   Class which response objects should be converted into. Must subclass @c MTLModel and conform to 
+ *  @param model   Class which response objects should be converted into. Must subclass @c MTLModel and conform to
  *                 @c MTLJSONSerializing.
  *
  *  @param keypath Keypath used to extract the JSON object which is deserialized into @c model.

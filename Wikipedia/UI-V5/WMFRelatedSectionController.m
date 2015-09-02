@@ -42,9 +42,9 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     NSParameterAssert(relatedSearchFetcher);
     self = [super init];
     if (self) {
-        self.relatedSearchFetcher                   = relatedSearchFetcher;
-        self.title                                  = title;
-        self.delegate                               = delegate;
+        self.relatedSearchFetcher = relatedSearchFetcher;
+        self.title                = title;
+        self.delegate             = delegate;
     }
     [self fetchRelatedArticlesWithTitle:self.title];
     return self;

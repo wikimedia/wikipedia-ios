@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
                  @"%@ must conform to %@ to be used with %@",
                  modelClass, NSStringFromProtocol(@protocol(MTLJSONSerializing)), self);
         _modelClass  = modelClass;
-        _jsonKeypath = [keypath copy] ?: @"";
+        _jsonKeypath = [keypath copy] ? : @"";
     }
     return self;
 }
@@ -94,9 +94,9 @@ NS_ASSUME_NONNULL_BEGIN
         if (jsonObject) {
             DDLogError(@"%@ expected dictionary value, got: %@", self, jsonObject);
             NSError* unexpectedResponseError =
-            [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{
-                NSURLErrorFailingURLErrorKey: response.URL
-            }];
+                [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{
+                     NSURLErrorFailingURLErrorKey: response.URL
+                 }];
             WMFSafeAssign(error, unexpectedResponseError);
         }
         return nil;

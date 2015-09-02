@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKRelatedSearchResult class]
-                                                            fromKeypath:@"query.pages"];
+                                                                       fromKeypath:@"query.pages"];
         self.operationManager = manager;
     }
     return self;
