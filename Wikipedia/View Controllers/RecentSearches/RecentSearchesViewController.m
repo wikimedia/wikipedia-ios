@@ -3,8 +3,6 @@
 
 #import "RecentSearchesViewController.h"
 #import "RecentSearchCell.h"
-#import "PaddedLabel.h"
-#import "NSObject+ConstraintsScale.h"
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
@@ -12,22 +10,19 @@
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "Wikipedia-Swift.h"
+#import "UIColor+WMFHexColor.h"
 
-#define CELL_HEIGHT (48.0 * MENUS_SCALE_MULTIPLIER)
-#define HEADING_FONT_SIZE (16.0 * MENUS_SCALE_MULTIPLIER)
-#define HEADING_COLOR [UIColor blackColor]
-#define HEADING_PADDING UIEdgeInsetsMake(22.0f, 16.0f, 22.0f, 16.0f)
-#define TRASH_FONT_SIZE (30.0 * MENUS_SCALE_MULTIPLIER)
-#define TRASH_COLOR [UIColor grayColor]
-#define TRASH_DISABLED_COLOR [UIColor lightGrayColor]
-#define PLIST_FILE_NAME @"Recent.plist"
-#define LIMIT 100
+static CGFloat const cellHeight           = 70.f;
+static CGFloat const trashFontSize        = 30.f;
+static NSInteger const trashColor         = 0x777777;
+static NSString* const pListFileName      = @"Recent.plist";
+static NSUInteger const recentSearchLimit = 100.f;
 
 @interface RecentSearchesViewController ()
 
-@property (weak, nonatomic) IBOutlet UITableView* table;
-@property (weak, nonatomic) IBOutlet PaddedLabel* headingLabel;
-@property (weak, nonatomic) IBOutlet WikiGlyphButton* trashButton;
+@property (strong, nonatomic) IBOutlet UITableView* table;
+@property (strong, nonatomic) IBOutlet UILabel* headingLabel;
+@property (strong, nonatomic) IBOutlet WikiGlyphButton* trashButton;
 
 @property (strong, nonatomic) NSMutableArray* tableDataArray;
 
@@ -46,9 +41,10 @@
 
     [self loadDataArrayFromFile];
 
-    [self adjustConstraintsScaleForViews:@[self.headingLabel, self.trashButton]];
-
     [self updateTrashButtonEnabledState];
+
+    [self.table setBackgroundColor:[UIColor clearColor]];
+    self.table.backgroundView.backgroundColor = [UIColor clearColor];
 }
 
 - (NSUInteger)recentSearchesItemCount {
@@ -62,16 +58,13 @@
 }
 
 - (void)setupHeadingLabel {
-    self.headingLabel.padding   = HEADING_PADDING;
-    self.headingLabel.font      = [UIFont boldSystemFontOfSize:HEADING_FONT_SIZE];
-    self.headingLabel.textColor = HEADING_COLOR;
-    self.headingLabel.text      = MWLocalizedString(@"search-recent-title", nil);
+    self.headingLabel.text = MWLocalizedString(@"search-recent-title", nil);
 }
 
 - (void)setupTrashButton {
     self.trashButton.backgroundColor = [UIColor clearColor];
-    [self.trashButton.label setWikiText:WIKIGLYPH_TRASH color:TRASH_COLOR
-                                   size:TRASH_FONT_SIZE
+    [self.trashButton.label setWikiText:WIKIGLYPH_TRASH color:[UIColor wmf_colorWithHex:trashColor alpha:1.0f]
+                                   size:trashFontSize
                          baselineOffset:1];
 
     self.trashButton.accessibilityLabel  = MWLocalizedString(@"menu-trash-accessibility-label", nil);
@@ -103,8 +96,8 @@
          @"type": @(searchType)
      } atIndex:0];
 
-    if (self.tableDataArray.count > LIMIT) {
-        self.tableDataArray = [self.tableDataArray subarrayWithRange:NSMakeRange(0, LIMIT)].mutableCopy;
+    if (self.tableDataArray.count > recentSearchLimit) {
+        self.tableDataArray = [self.tableDataArray subarrayWithRange:NSMakeRange(0, recentSearchLimit)].mutableCopy;
     }
 
     [self saveDataArrayToFile];
@@ -139,7 +132,7 @@
 - (NSString*)getFilePath {
     NSArray* paths               = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString* documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:PLIST_FILE_NAME];
+    return [documentsDirectory stringByAppendingPathComponent:pListFileName];
 }
 
 - (void)saveDataArrayToFile {
@@ -205,7 +198,7 @@
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return CELL_HEIGHT;
+    return cellHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {

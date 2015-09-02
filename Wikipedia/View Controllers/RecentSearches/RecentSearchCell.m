@@ -2,59 +2,43 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "RecentSearchCell.h"
-#import "PaddedLabel.h"
-#import "NSObject+ConstraintsScale.h"
-#import "Defines.h"
 #import "WikiGlyph_Chars.h"
 #import "UIFont+WMFStyle.h"
+#import "UIView+WMFShadow.h"
+#import "UIColor+WMFHexColor.h"
 
-#define FONT_SIZE (16.0f * MENUS_SCALE_MULTIPLIER)
-#define FONT_COLOR [UIColor grayColor]
-#define ICON_SIZE (20.0f * MENUS_SCALE_MULTIPLIER)
-#define ICON_GLYPH WIKIGLYPH_MAGNIFY_BOLD
-#define BORDER_COLOR [UIColor colorWithWhite:0.9 alpha:1.0]
-#define MAGNIFY_ICON_COLOR [UIColor colorWithWhite:0.8 alpha:1.0]
+static CGFloat const magnifyIconSize    = 28.f;
+static NSInteger const magnifyIconColor = 0x777777;
 
 @interface RecentSearchCell ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* topBorderHeightConstraint;
-@property (weak, nonatomic) IBOutlet UIView* topBorderView;
-@property (strong, nonatomic) NSAttributedString* magnifyIconString;
-@property (weak, nonatomic) IBOutlet PaddedLabel* iconLabel;
+@property (strong, nonatomic) IBOutlet UIView* shadowView;
+@property (strong, nonatomic) IBOutlet UILabel* iconLabel;
 
 @end
 
 @implementation RecentSearchCell
 
 - (void)awakeFromNib {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    self.iconLabel.attributedText           = [self getAttributedIconString];
-    self.topBorderView.backgroundColor      = BORDER_COLOR;
-    self.topBorderHeightConstraint.constant = 1.0f / [UIScreen mainScreen].scale;
-    self.label.font                         = [UIFont systemFontOfSize:FONT_SIZE];
-
-    self.label.numberOfLines = 1;
-    self.label.lineBreakMode = NSLineBreakByTruncatingTail; // <-- Don't make truncating a habit! :) Is bad.
-
-    self.label.textColor = FONT_COLOR;
-
-    [self adjustConstraintsScaleForViews:@[self.label, self.iconLabel]];
+    self.iconLabel.attributedText = [RecentSearchCell attributedIconString];
+    [self.shadowView wmf_setupShadow];
+    self.contentView.backgroundColor = [UIColor clearColor];
+    self.backgroundColor             = [UIColor clearColor];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (NSAttributedString*)getAttributedIconString {
-    return [[NSAttributedString alloc] initWithString:ICON_GLYPH
-                                           attributes:@{
-                NSFontAttributeName: [UIFont wmf_glyphFontOfSize:ICON_SIZE],
-                NSForegroundColorAttributeName: MAGNIFY_ICON_COLOR,
-                NSBaselineOffsetAttributeName: @1
-            }];
++ (NSAttributedString*)attributedIconString {
+    static dispatch_once_t once;
+    static NSAttributedString* sharedString;
+    dispatch_once(&once, ^{
+        sharedString =
+            [[NSAttributedString alloc] initWithString:WIKIGLYPH_MAGNIFY_BOLD
+                                            attributes:@{
+                 NSFontAttributeName: [UIFont wmf_glyphFontOfSize:magnifyIconSize],
+                 NSForegroundColorAttributeName: [UIColor wmf_colorWithHex:magnifyIconColor alpha:1.0f],
+                 NSBaselineOffsetAttributeName: @1
+             }];
+    });
+    return sharedString;
 }
 
 @end

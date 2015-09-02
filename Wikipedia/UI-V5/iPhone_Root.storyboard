@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -262,51 +263,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="507"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
-                                <rect key="frame" x="0.0" y="50" width="600" height="457"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Rqy-g9-mNA" id="5go-DG-2bZ"/>
-                                    <outlet property="delegate" destination="Rqy-g9-mNA" id="qWP-b9-11L"/>
-                                </connections>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label" customClass="PaddedLabel">
-                                <rect key="frame" x="0.0" y="0.0" width="525" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label">
+                                <rect key="frame" x="25" y="8" width="492" height="40"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" placeholder="YES" id="MJn-Fv-Xfk"/>
+                                    <constraint firstAttribute="height" constant="40" id="MJn-Fv-Xfk"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7SS-UN-pgW" userLabel="Trash Button" customClass="WikiGlyphButton">
-                                <rect key="frame" x="525" y="0.0" width="75" height="50"/>
+                                <rect key="frame" x="525" y="8" width="75" height="40"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="1mE-o0-SnE"/>
                                 </constraints>
                             </view>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
+                                <rect key="frame" x="0.0" y="48" width="600" height="459"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Rqy-g9-mNA" id="5go-DG-2bZ"/>
+                                    <outlet property="delegate" destination="Rqy-g9-mNA" id="qWP-b9-11L"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="U8y-aI-ssO" firstAttribute="top" secondItem="ka6-Dy-C8P" secondAttribute="bottom" id="0eP-KB-sYM"/>
-                            <constraint firstItem="bGx-k7-AQ1" firstAttribute="top" secondItem="wQU-Qf-hyW" secondAttribute="bottom" id="8g7-OL-dpp"/>
-                            <constraint firstItem="ka6-Dy-C8P" firstAttribute="top" secondItem="7SS-UN-pgW" secondAttribute="bottom" id="Hea-Em-Lo4"/>
+                            <constraint firstItem="bGx-k7-AQ1" firstAttribute="top" secondItem="wQU-Qf-hyW" secondAttribute="bottom" constant="8" id="8g7-OL-dpp"/>
                             <constraint firstAttribute="trailing" secondItem="ka6-Dy-C8P" secondAttribute="trailing" id="Nxp-8p-jAo"/>
-                            <constraint firstItem="bGx-k7-AQ1" firstAttribute="leading" secondItem="un9-Tr-mR7" secondAttribute="leading" id="Rqc-W8-ezB"/>
+                            <constraint firstItem="bGx-k7-AQ1" firstAttribute="leading" secondItem="un9-Tr-mR7" secondAttribute="leading" constant="25" id="Rqc-W8-ezB"/>
                             <constraint firstItem="ka6-Dy-C8P" firstAttribute="leading" secondItem="un9-Tr-mR7" secondAttribute="leading" id="T76-im-h7m"/>
                             <constraint firstItem="ka6-Dy-C8P" firstAttribute="top" secondItem="bGx-k7-AQ1" secondAttribute="bottom" id="YB4-03-c48"/>
+                            <constraint firstItem="7SS-UN-pgW" firstAttribute="top" secondItem="bGx-k7-AQ1" secondAttribute="top" id="cHr-cY-eOK"/>
+                            <constraint firstItem="7SS-UN-pgW" firstAttribute="bottom" secondItem="bGx-k7-AQ1" secondAttribute="bottom" id="ehK-vH-ktM"/>
                             <constraint firstAttribute="trailing" secondItem="7SS-UN-pgW" secondAttribute="trailing" id="hBO-Jx-cJe"/>
-                            <constraint firstItem="7SS-UN-pgW" firstAttribute="leading" secondItem="bGx-k7-AQ1" secondAttribute="trailing" id="hC9-Qy-49A"/>
-                            <constraint firstItem="7SS-UN-pgW" firstAttribute="top" secondItem="wQU-Qf-hyW" secondAttribute="bottom" id="rcG-1H-QW3"/>
+                            <constraint firstItem="7SS-UN-pgW" firstAttribute="leading" secondItem="bGx-k7-AQ1" secondAttribute="trailing" constant="8" symbolic="YES" id="hC9-Qy-49A"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="headingLabel" destination="bGx-k7-AQ1" id="jiB-LK-Nd9"/>
+                        <outlet property="headingLabel" destination="bGx-k7-AQ1" id="c8h-qY-42y"/>
                         <outlet property="table" destination="ka6-Dy-C8P" id="ONG-nR-ET1"/>
                         <outlet property="trashButton" destination="7SS-UN-pgW" id="svA-sm-1IW"/>
                     </connections>
