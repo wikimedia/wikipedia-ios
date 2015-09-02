@@ -134,9 +134,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self configureSearchBar:self.searchBar];
 }
 
--(void)configureSearchBar:(UISearchBar*)searchBar {
+- (void)configureSearchBar:(UISearchBar*)searchBar {
     [searchBar setPlaceholder:@"Search Wikipedia"];
-    searchBar.tintColor = [UIColor darkGrayColor];
+    searchBar.tintColor       = [UIColor darkGrayColor];
     searchBar.searchBarStyle  = UISearchBarStyleMinimal;
     searchBar.backgroundColor = [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
 }
