@@ -4228,7 +4228,7 @@
 					"-Werror=incomplete-implementation",
 					"-Werror=nonnull",
 				);
-				WMF_HOCKEYAPP_IDENTIFIER = 35ef86a164e10f9c01c634c640ec2f0a;
+				WMF_HOCKEYAPP_IDENTIFIER = 95e2f42fa3eadeb025f319b58ef86aeb;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Alpha;
