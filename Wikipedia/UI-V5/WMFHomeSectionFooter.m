@@ -10,9 +10,4 @@
     [self.backgroundView wmf_setupShadow];
 }
 
-- (void)setBounds:(CGRect)bounds {
-    [super setBounds:bounds];
-    [self.backgroundView wmf_updateShadowPathBasedOnBounds];
-}
-
 @end

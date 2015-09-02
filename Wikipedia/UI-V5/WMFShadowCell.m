@@ -22,9 +22,4 @@
     [self.contentView wmf_setupShadow];
 }
 
-- (void)setBounds:(CGRect)bounds {
-    [super setBounds:bounds];
-    [self.contentView wmf_updateShadowPathBasedOnBounds];
-}
-
 @end
