@@ -15,10 +15,4 @@
  */
 - (void)wmf_setupShadow;
 
-/**
- *  Update the shadow based on bounds changes
- *  Call this whenever the bounds of the view changes to update the shadow
- */
-- (void)wmf_updateShadowPathBasedOnBounds;
-
 @end
