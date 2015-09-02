@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer =
-            [WMFMantleJSONResponseSerializer serializerForCollectionsOf:[MWKRelatedSearchResult class]
+            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKRelatedSearchResult class]
                                                             fromKeypath:@"query.pages"];
         self.operationManager = manager;
     }
@@ -56,14 +56,21 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title numberOfExtactCharacters:(NSUInteger)extractChars {
+- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
+                  numberOfExtactCharacters:(NSUInteger)extractChars
+                               resultLimit:(NSUInteger)resultLimit {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesRelatedToTitle:title numberOfExtactCharacters:extractChars useDesktopURL:NO resolver:resolve];
+        [self fetchArticlesRelatedToTitle:title
+                 numberOfExtactCharacters:extractChars
+                              resultLimit:resultLimit
+                            useDesktopURL:NO
+                                 resolver:resolve];
     }];
 }
 
 - (void)fetchArticlesRelatedToTitle:(MWKTitle*)title
            numberOfExtactCharacters:(NSUInteger)extractChars
+                        resultLimit:(NSUInteger)resultLimit
                       useDesktopURL:(BOOL)useDeskTopURL
                            resolver:(PMKResolver)resolve {
     MWKSite* searchSite = title.site;
@@ -71,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
     params.title                     = title;
-    params.numberOfResults           = self.maximumNumberOfResults;
+    params.numberOfResults           = resultLimit;
     params.numberOfExtractCharacters = extractChars;
 
     [self.operationManager GET:url.absoluteString
@@ -84,6 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticlesRelatedToTitle:title
                      numberOfExtactCharacters:extractChars
+                                  resultLimit:resultLimit
                                 useDesktopURL:YES
                                      resolver:resolve];
         } else {

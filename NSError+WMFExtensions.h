@@ -14,7 +14,8 @@ typedef NS_ENUM(NSInteger, WMFErrorType) {
     WMFErrorTypeStringMissingParameter,
     WMFErrorTypeRedirected,
     WMFErrorTypeUnableToSave,
-    WMFErrorTypeArticleResponseSerialization
+    WMFErrorTypeArticleResponseSerialization,
+    WMFErrorTypeUnexpectedResponseType
 };
 
 @interface NSError (WMFExtensions)

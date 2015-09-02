@@ -42,7 +42,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     NSParameterAssert(relatedSearchFetcher);
     self = [super init];
     if (self) {
-        relatedSearchFetcher.maximumNumberOfResults = WMFRelatedSectionMaxResults;
         self.relatedSearchFetcher                   = relatedSearchFetcher;
         self.title                                  = title;
         self.delegate                               = delegate;
@@ -136,7 +135,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
     @weakify(self);
     [self.relatedSearchFetcher fetchArticlesRelatedToTitle:title
-                                  numberOfExtactCharacters:[self numberOfExtractCharactersToFetch]]
+                                  numberOfExtactCharacters:[self numberOfExtractCharactersToFetch]
+                                               resultLimit:WMFRelatedSectionMaxResults]
     .then(^(WMFRelatedSearchResults* results){
         @strongify(self);
         self.relatedResults = results;

@@ -35,23 +35,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRelatedSearchFetcher : NSObject
 
 /**
- *  Maxmimum number of related titles to fetch, limited to 20.
- *
- *  The limit is imposed by TextExtracts.
- */
-@property (nonatomic, assign) NSUInteger maximumNumberOfResults;
-
-/**
  *  Query a site for titles related to a given title.
  *
  *  @param title        The title for which to find related content, as well as the site to pull content from.
  *  @param extractChars The number of characters to extract from related titles.
+ *  @param resultLimit  Maximum number of search results, limited to 20.
  *
  *  @return A promise which resolves to an instance of @c WMFRelatedSearchResults.
  *
  *  @see Fetching Extracts
  */
-- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title numberOfExtactCharacters:(NSUInteger)extractChars;
+- (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
+                  numberOfExtactCharacters:(NSUInteger)extractChars
+                               resultLimit:(NSUInteger)resultLimit;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 
