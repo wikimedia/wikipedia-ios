@@ -33,6 +33,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @property (nonatomic, copy) NSString* emptySectionObject;
 
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+
 @end
 
 @implementation WMFNearbySectionController
@@ -114,6 +116,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         nearbyCell.descriptionText = result.wikidataDescription;
         nearbyCell.distance        = result.distanceFromQueryCoordinates;
         nearbyCell.imageURL        = result.thumbnailURL;
+        [nearbyCell setSavedPageList:self.savedPageList];
     } else {
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {

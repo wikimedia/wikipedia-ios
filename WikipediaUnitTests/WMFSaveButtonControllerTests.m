@@ -40,7 +40,9 @@
     self.savedPagesList = [[MWKSavedPageList alloc] initWithDataStore:self.dataStore];
 
     self.button               = [[UIButton alloc] init];
-    self.saveButtonController = [[WMFSaveButtonController alloc] initWithButton:self.button savedPageList:self.savedPagesList title:nil];
+    self.saveButtonController = [[WMFSaveButtonController alloc] initWithButton:self.button
+                                                                  savedPageList:self.savedPagesList
+                                                                          title:nil];
 
     assertThat(@([self.savedPagesList countOfEntries]), is(equalToInt(0)));
 }
@@ -66,10 +68,40 @@
     assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
 }
 
-- (void)testButtonStateForNonEmptySavedPagesListAndSavedTitle {
+- (void)testShouldUpdateToSavedStateWhenSetWithSavedTitle {
     [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
     self.saveButtonController.title = self.titleSFEn;
     assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+}
+
+- (void)testShouldUpdateToUnsavedStateWhenTitleIsNullified {
+    [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
+    self.saveButtonController.title = self.titleSFEn;
+    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+    self.saveButtonController.title = nil;
+    assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+}
+
+- (void)testShouldUpdateSavedStateWhenTitleIsRemovedFromListByAnotherObject {
+    [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
+    self.saveButtonController.title = self.titleSFEn;
+    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+    [self.savedPagesList removeEntryWithListIndex:self.titleSFEn];
+    assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+}
+
+- (void)testShouldUpdateSavedStateWhenTitleIsAddedToListByAnotherObject {
+    self.saveButtonController.title = self.titleSFEn;
+    assertThat(@(self.button.state), is(equalToInt(UIControlStateNormal)));
+    [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
+    assertThat(@(self.button.state), is(equalToInt(UIControlStateSelected)));
+}
+
+- (void)testShouldUpdateButtonStateWhenSet {
+    self.saveButtonController.title = self.titleSFEn;
+    [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
+    self.saveButtonController.button = [UIButton new];
+    assertThat(@(self.saveButtonController.button.state), is(equalToInt(UIControlStateSelected)));
 }
 
 - (void)testToggleFromSavedToUnsaved {

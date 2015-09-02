@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite) NSString* searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
 @end
 
@@ -24,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         self.cellClass = [WMFArticlePreviewCell class];
 
+        @weakify(self);
         self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
                                     MWKArticle* article,
                                     UICollectionView* collectionView,
@@ -32,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
             cell.descriptionText       = article.entityDescription;
             cell.image                 = [article bestThumbnailImage];
             cell.summaryAttributedText = nil;
+            @strongify(self);
+            [cell setSavedPageList:self.savedPageList];
         };
     }
     return self;

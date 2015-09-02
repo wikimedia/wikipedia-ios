@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class MWKSavedPageList;
 
 @protocol WMFArticleListDataSource <NSObject>
 
@@ -16,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod;
+
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
 @optional
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath;

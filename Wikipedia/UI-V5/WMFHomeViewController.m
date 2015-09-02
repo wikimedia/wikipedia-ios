@@ -98,6 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        [_nearbySectionController setSavedPageList:self.savedPages];
     }
     return _nearbySectionController;
 }
@@ -121,9 +122,12 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
-    return [[WMFRelatedSectionController alloc] initWithArticleTitle:title
-                                                relatedSearchFetcher:fetcher
-                                                            delegate:self];
+    id<WMFHomeSectionController> controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:title
+                                                                                   relatedSearchFetcher:fetcher
+                                                                                               delegate:self];
+    [controller setSavedPageList:self.savedPages];
+
+    return controller;
 }
 
 - (WMFLocationManager*)locationManager {

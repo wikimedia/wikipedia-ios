@@ -1,18 +1,16 @@
+#import "WMFSaveableTitleCollectionViewCell.h"
 
-#import "WMFShadowCell.h"
 @class MWKImage;
-@class MWKSite;
-@class MWKTitle;
 
 extern CGFloat const WMFArticlePreviewCellTextPadding;
 extern CGFloat const WMFArticlePreviewCellImageHeight;
 
-@interface WMFArticlePreviewCell : WMFShadowCell
+@interface WMFArticlePreviewCell : WMFSaveableTitleCollectionViewCell
 
 @property (copy, nonatomic) NSURL* imageURL;
-@property (copy, nonatomic) MWKImage* image;
 
-@property (copy, nonatomic) MWKTitle* title;
+- (void)setImage:(MWKImage*)image;
+
 @property (copy, nonatomic) NSString* descriptionText;
 
 - (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;

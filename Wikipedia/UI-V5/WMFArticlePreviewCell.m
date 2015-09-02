@@ -1,17 +1,15 @@
 
 #import "WMFArticlePreviewCell.h"
+#import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
 #import "NSAttributedString+WMFModify.h"
 #import "UIImageView+MWKImage.h"
-#import "NSAttributedString+WMFHTMLForSite.h"
-#import "UIFont+WMFStyle.h"
-#import "UIButton+WMFButton.h"
-#import "WMFSaveButtonController.h"
 #import "SessionSingleton.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
+#import "NSAttributedString+WMFHTMLForSite.h"
 
 CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
 CGFloat const WMFArticlePreviewCellImageHeight = 160;
@@ -19,12 +17,8 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 @interface WMFArticlePreviewCell ()
 
 @property (strong, nonatomic) IBOutlet UIImageView* imageView;
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel* summaryLabel;
-
-@property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
-@property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
 @end
 
@@ -32,11 +26,9 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    self.imageView.image       = [UIImage imageNamed:@"lead-default.png"];
-    _imageURL                  = nil;
-    self.title                 = nil;
-    self.descriptionLabel.text = nil;
+    self.imageURL = nil;
+    self.imageView.image = [UIImage imageNamed:@"lead-default.png"];
+    self.descriptionText = nil;
     self.summaryLabel.text     = nil;
 }
 
@@ -45,14 +37,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
     self.imageView.image             = [UIImage imageNamed:@"lead-default.png"];
     self.backgroundColor             = [UIColor whiteColor];
     self.contentView.backgroundColor = [UIColor whiteColor];
-
-    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
-
-    self.saveButtonController =
-        [[WMFSaveButtonController alloc]
-         initWithButton:self.saveButton
-          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
-                  title:self.title];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -71,6 +55,9 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 }
 
 - (void)setImageURL:(NSURL*)imageURL {
+    [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
+    [self.imageView wmf_resetImageMetadata];
+
     _imageURL = imageURL;
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
@@ -125,12 +112,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         [[NSAttributedString alloc] initWithHTMLData:[summaryHTML dataUsingEncoding:NSUTF8StringEncoding] site:site];
 
     [self setSummaryAttributedText:summaryAttributedText];
-}
-
-- (void)setTitle:(MWKTitle*)title {
-    _title                          = title;
-    self.titleLabel.text            = title.text;
-    self.saveButtonController.title = title;
 }
 
 @end

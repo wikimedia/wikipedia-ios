@@ -50,12 +50,19 @@
 
     _dataSource = dataSource;
 
+    [_dataSource setSavedPageList:self.savedPages];
+
     if ([self isViewLoaded]) {
         _dataSource.collectionView = self.collectionView;
         [self.collectionView wmf_scrollToTop:NO];
     }
 
     self.title = [_dataSource displayTitle];
+}
+
+- (void)setSavedPages:(MWKSavedPageList * __nonnull)savedPages {
+    _savedPages = savedPages;
+    [_dataSource setSavedPageList:savedPages];
 }
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {

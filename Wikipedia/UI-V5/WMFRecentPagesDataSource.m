@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRecentPagesDataSource ()
 
 @property (nonatomic, strong, readwrite) MWKHistoryList* recentPages;
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
 @end
 
@@ -32,10 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [self articleForIndexPath:indexPath];
-            cell.title           = article.title;
-            cell.descriptionText = article.entityDescription;
-            cell.image           = [article bestThumbnailImage];
             [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
+            cell.title                 = article.title;
+            cell.descriptionText       = article.entityDescription;
+            cell.image                 = [article bestThumbnailImage];
+            [cell setSavedPageList:self.savedPageList];
         };
     }
     return self;
