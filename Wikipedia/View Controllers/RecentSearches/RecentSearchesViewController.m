@@ -97,7 +97,7 @@ static NSUInteger const recentSearchLimit = 100.f;
      } atIndex:0];
 
     if (self.tableDataArray.count > recentSearchLimit) {
-        self.tableDataArray = [self.tableDataArray subarrayWithRange:NSMakeRange(0, recentSearchLimit)].mutableCopy;
+        self.tableDataArray = [self.tableDataArray wmf_safeSubarrayWithRange:NSMakeRange(0, recentSearchLimit)].mutableCopy;
     }
 
     [self saveDataArrayToFile];
