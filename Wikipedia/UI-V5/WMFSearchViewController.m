@@ -40,12 +40,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
-    if (WMF_IS_EQUAL(_savedPages, savedPages)) {
-        return;
-    }
-    [self unobserveSavedPages];
     _savedPages = savedPages;
-    [self observeSavedPages];
+    // resultsListController might be nil if `prepareForSegue:sender:` hasn't been called
+    self.resultsListController.savedPages = savedPages;
 }
 
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
@@ -93,25 +90,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
     self.resultsListController.dataStore   = self.dataStore;
-    self.resultsListController.savedPages  = self.savedPages;
     self.resultsListController.recentPages = self.recentPages;
-}
-
-#pragma mark - DataSource KVO
-
-- (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.savedPages
-                                    keyPath:WMF_SAFE_KEYPATH(self.savedPages, entries)
-                                    options:0
-                                      block:^(WMFSearchViewController* observer,
-                                              id object,
-                                              NSDictionary* change) {
-        [observer.resultsListController refreshVisibleCells];
-    }];
-}
-
-- (void)unobserveSavedPages {
-    [self.KVOController unobserve:self.savedPages];
+    self.resultsListController.savedPages= self.savedPages;
 }
 
 #pragma mark - UIViewController
