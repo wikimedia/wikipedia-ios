@@ -1,6 +1,6 @@
 
 #import "WMFSearchResults.h"
-#import "WMFArticlePreviewCell.h"
+#import "WMFSearchResultCell.h"
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
@@ -17,24 +17,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSearchResults
 
-- (instancetype)initWithSearchTerm:(NSString*)searchTerm articles:(nullable NSArray*)articles searchSuggestion:(nullable NSString*)suggestion {
+- (instancetype)initWithSearchTerm:(NSString*)searchTerm
+                          articles:(nullable NSArray*)articles
+                  searchSuggestion:(nullable NSString*)suggestion {
     self = [super initWithItems:articles];
     if (self) {
         self.searchTerm       = searchTerm;
         self.searchSuggestion = suggestion;
 
-        self.cellClass = [WMFArticlePreviewCell class];
+        self.cellClass = [WMFSearchResultCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+        self.cellConfigureBlock = ^(WMFSearchResultCell* cell,
                                     MWKArticle* article,
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
-            cell.title                 = article.title;
-            cell.descriptionText       = article.entityDescription;
-            cell.image                 = [article bestThumbnailImage];
-            cell.summaryAttributedText = nil;
             @strongify(self);
+            [cell setTitle:article.title highlightingSubstring:self.searchTerm];
+            [cell setSearchResultDescription: article.entityDescription];
+            cell.image                 = [article bestThumbnailImage];
             [cell setSavedPageList:self.savedPageList];
         };
     }
@@ -43,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCollectionView:(UICollectionView*)collectionView {
     [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+    [self.collectionView registerNib:[WMFSearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFSearchResultCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {

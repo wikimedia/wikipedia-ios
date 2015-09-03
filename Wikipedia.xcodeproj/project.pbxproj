@@ -321,6 +321,10 @@
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC550B071B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */; };
+		BC550B0B1B977C9D0082F298 /* WMFSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B0A1B977C9D0082F298 /* WMFSearchResultCell.m */; };
+		BC550B101B97949E0082F298 /* WMFSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */; };
+		BC550B121B98908E0082F298 /* WMFSearchResultCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */; };
+		BC550B151B98936F0082F298 /* UIView+VisualTestSizingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
@@ -1051,9 +1055,13 @@
 		BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoResponseSerializer.m; path = Serializers/MWKImageInfoResponseSerializer.m; sourceTree = "<group>"; };
 		BC550B051B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DTCSSStylesheet+WMFStylesheets.h"; sourceTree = "<group>"; };
 		BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DTCSSStylesheet+WMFStylesheets.m"; sourceTree = "<group>"; };
-		BC550B091B977C9C0082F298 /* WMFSearchCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchCollectionViewCell.h; sourceTree = "<group>"; };
-		BC550B0A1B977C9D0082F298 /* WMFSearchCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchCollectionViewCell.m; sourceTree = "<group>"; };
+		BC550B091B977C9C0082F298 /* WMFSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultCell.h; sourceTree = "<group>"; };
+		BC550B0A1B977C9D0082F298 /* WMFSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultCell.m; sourceTree = "<group>"; };
 		BC550B0C1B9782C50082F298 /* WMFSaveableTitleCollectionViewCell+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFSaveableTitleCollectionViewCell+Subclass.h"; sourceTree = "<group>"; };
+		BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFSearchResultCell.xib; sourceTree = "<group>"; };
+		BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultCellVisualTests.m; sourceTree = "<group>"; };
+		BC550B131B98936F0082F298 /* UIView+VisualTestSizingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VisualTestSizingUtils.h"; sourceTree = "<group>"; };
+		BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VisualTestSizingUtils.m"; sourceTree = "<group>"; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC5620951B6B854E0013FFB0 /* WMFArticleNavigationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationDelegate.h; sourceTree = "<group>"; };
 		BC5620971B6B87BF0013FFB0 /* WMFArticleNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigation.h; sourceTree = "<group>"; };
@@ -2336,6 +2344,7 @@
 		0E2B06F91B2D128D00EA2F53 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				BC550B081B977C730082F298 /* Cells */,
 				0E94AFF11B209857000BC5EA /* WMFSearchViewController.h */,
 				0E94AFF21B209857000BC5EA /* WMFSearchViewController.m */,
 				0E366B381B2F33BC00ABFB86 /* WMFSearchResults.h */,
@@ -2621,6 +2630,16 @@
 			name = Style;
 			sourceTree = "<group>";
 		};
+		BC550B081B977C730082F298 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BC550B091B977C9C0082F298 /* WMFSearchResultCell.h */,
+				BC550B0A1B977C9D0082F298 /* WMFSearchResultCell.m */,
+				BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		BC5620A41B6BC3700013FFB0 /* mobileview */ = {
 			isa = PBXGroup;
 			children = (
@@ -2708,6 +2727,7 @@
 				043C69221B8569FA00941051 /* NSAttributedString+WMFTrimTests.m */,
 				BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */,
 				04A1C4FB1B94F10600B47788 /* WMFSaveButtonControllerTests.m */,
+				BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -2756,6 +2776,8 @@
 				BC3059B71B6948C800AA5703 /* XCTestCase+PromiseKit.h */,
 				BC3059B81B6948C800AA5703 /* XCTestCase+PromiseKit.m */,
 				043C69241B856C2A00941051 /* XCTestCase+WMFVisualTestConvenience.h */,
+				BC550B131B98936F0082F298 /* UIView+VisualTestSizingUtils.h */,
+				BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */,
 				043C69251B856C2A00941051 /* XCTestCase+WMFVisualTestConvenience.m */,
 				04D2F0CE1B8832FB00E42A76 /* FBSnapshotTestCase+WMFConvenience.h */,
 				04D2F0CF1B8832FB00E42A76 /* FBSnapshotTestCase+WMFConvenience.m */,
@@ -3440,6 +3462,7 @@
 				D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
 				04016E1E1B328E8B00D732FE /* OnboardingViewController.storyboard in Resources */,
+				BC550B101B97949E0082F298 /* WMFSearchResultCell.xib in Resources */,
 				C98990361A699DFB00AF44FC /* ShareCard.xib in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
@@ -3651,6 +3674,7 @@
 				BC8210D51B4EEF2D0010BF7B /* WMFImageController+Testing.swift in Sources */,
 				BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */,
 				BCFE026F1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m in Sources */,
+				BC550B121B98908E0082F298 /* WMFSearchResultCellVisualTests.m in Sources */,
 				BCB3AE8A1AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.m in Sources */,
 				BC49B3641AEECFD8009F55BE /* ArticleLoadingTests.m in Sources */,
 				BCEC77921AC9B6AD00D9DDA5 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m in Sources */,
@@ -3678,6 +3702,7 @@
 				0449D1421B83D9370036A9C8 /* NSAttributedString+WMFModifyTests.m in Sources */,
 				BC0FED671AAA0268002488D7 /* MWKTitleTests.m in Sources */,
 				043C69261B856C2A00941051 /* XCTestCase+WMFVisualTestConvenience.m in Sources */,
+				BC550B151B98936F0082F298 /* UIView+VisualTestSizingUtils.m in Sources */,
 				BCD41E001B11D1B200231BB1 /* XCTestCase+MWKFixtures.m in Sources */,
 				BCCE8EBA1B4D5DD90009FBBC /* XCTestCase+PromiseKit.swift in Sources */,
 				BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */,
@@ -3979,6 +4004,7 @@
 				BC6BFC5F1B680A410074D0DA /* NSString+WMFGlyphs.m in Sources */,
 				0E43C31B1B87830200C58861 /* MWKSearchResult.m in Sources */,
 				BCFDB1441B3F3FCB00F0C9F4 /* UIImage+Debug.swift in Sources */,
+				BC550B0B1B977C9D0082F298 /* WMFSearchResultCell.m in Sources */,
 				BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */,
 				04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */,
 				0E366B3F1B2F5C4500ABFB86 /* WMFSearchFetcher.m in Sources */,

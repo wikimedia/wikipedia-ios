@@ -10,7 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray* articles;
 @property (nonatomic, copy, nullable, readonly) NSString* searchSuggestion;
 
-- (instancetype)initWithSearchTerm:(NSString*)searchTerm articles:(nullable NSArray*)articles searchSuggestion:(nullable NSString*)suggestion;
+- (instancetype)initWithSearchTerm:(NSString*)searchTerm
+                          articles:(nullable NSArray*)articles
+                  searchSuggestion:(nullable NSString*)suggestion;
 
 - (BOOL)noResults;
 
