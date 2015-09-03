@@ -28,7 +28,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
                                         <rect key="frame" x="195" y="204" width="210" height="192"/>
                                         <animations/>
                                         <constraints>
@@ -122,9 +122,10 @@
                                     <outlet property="delegate" destination="tkf-8P-b2O" id="jHa-CL-iNk"/>
                                 </connections>
                             </searchBar>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia7-49-Gwu" userLabel="Results Container View">
                                 <rect key="frame" x="0.0" y="74" width="600" height="477"/>
                                 <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="4Pn-cn-DIj" kind="embed" id="8w9-gJ-Prh"/>
                                 </connections>
@@ -145,16 +146,17 @@
                                     <action selector="searchForSuggestion:" destination="tkf-8P-b2O" eventType="touchUpInside" id="0Md-vC-UXr"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-pb-Bgw">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-pb-Bgw" userLabel="Recent Searches Container">
                                 <rect key="frame" x="0.0" y="44" width="600" height="507"/>
                                 <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="Rqy-g9-mNA" kind="embed" id="B6d-7Y-a0q"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tpe-pb-Bgw" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" id="22F-ec-9qm"/>
                             <constraint firstItem="ukX-0p-5ey" firstAttribute="top" secondItem="ZNj-Jo-URc" secondAttribute="bottom" id="32n-FT-n9y"/>
@@ -292,7 +294,7 @@
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="U8y-aI-ssO" firstAttribute="top" secondItem="ka6-Dy-C8P" secondAttribute="bottom" id="0eP-KB-sYM"/>
                             <constraint firstItem="bGx-k7-AQ1" firstAttribute="top" secondItem="wQU-Qf-hyW" secondAttribute="bottom" constant="8" id="8g7-OL-dpp"/>
@@ -324,6 +326,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="477"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="WMFSelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
