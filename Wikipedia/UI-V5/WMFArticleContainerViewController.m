@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self updateInsetsForArticleViewController];
         [self.previewController updatePreviewWithSizeChange:size];
     } completion:NULL];
@@ -272,19 +272,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Popup
 
 - (void)presentPopupForTitle:(MWKTitle*)title {
-    
     MWKArticle* article = [self.dataStore articleWithTitle:title];
 
     WMFArticleContainerViewController* vc =
         [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
                                                           savedPages:self.savedPageList];
     vc.article = article;
-    
+
     //TODO: Disabling pop ups until Popup VC is redesigned.
     //Renable preview when this true
-    
+
     [self.navigationController pushViewController:vc animated:YES];
-    
+
     return;
 
     WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];

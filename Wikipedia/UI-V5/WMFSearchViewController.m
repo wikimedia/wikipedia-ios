@@ -202,11 +202,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     dispatch_promise(^{
         return [self.fetcher searchArticleTitlesForSearchTerm:searchTerm];
     }).then((id) ^ (WMFSearchResults * results){
+        /*
+           HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
+           collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
+         */
+        self.resultsListController.dataSource = results;
+
         [UIView animateWithDuration:0.25 animations:^{
             [self updateUIWithResults:results];
         }];
-
-        self.resultsListController.dataSource = results;
 
         if ([results.articles count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher searchFullArticleTextForSearchTerm:searchTerm appendToPreviousResults:results];
@@ -224,13 +228,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)updateUIWithResults:(WMFSearchResults*)results {
-    [self updateSearchButtonWithResults:results.searchSuggestion];
+    [self updateSearchSuggestion:results.searchSuggestion];
     [self updateRecentSearchesVisibility];
 }
 
-- (void)updateSearchButtonWithResults:(NSString*)searchSuggestion {
-    [self.searchSuggestionButton setAttributedTitle:([searchSuggestion length] ? [self getAttributedStringForSuggestion : searchSuggestion] : nil)
-                                           forState:UIControlStateNormal];
+- (void)updateSearchSuggestion:(NSString*)searchSuggestion {
+    NSAttributedString* title =
+        [searchSuggestion length] ? [self getAttributedStringForSuggestion : searchSuggestion] : nil;
+    [self.searchSuggestionButton setAttributedTitle:title forState:UIControlStateNormal];
     [self.view setNeedsUpdateConstraints];
     [self.view layoutIfNeeded];
 }
@@ -238,7 +243,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     self.suggestionButtonHeightConstraint.constant =
-        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal] ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
+        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal] ?
+        [self.searchSuggestionButton wmf_heightAccountingForMultiLineText]
+        : 0;
 }
 
 - (NSAttributedString*)getAttributedStringForSuggestion:(NSString*)suggestion {
@@ -261,7 +268,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)searchForSuggestion:(id)sender {
     self.searchBar.text = [self searchSuggestion];
     [UIView animateWithDuration:0.25 animations:^{
-        [self updateSearchButtonWithResults:nil];
+        [self updateSearchSuggestion:nil];
     }];
 
     [self searchForSearchTerm:self.searchBar.text];
