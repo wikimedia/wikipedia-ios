@@ -151,12 +151,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image __deprecated;
 
-/**
- *  Loads the image in the "thumbnailURL" property from disk
- *  if it has been cached.
- */
-- (void)loadThumbnailFromDisk __deprecated;
-
 - (NSArray*)allImageURLs;
 
 @end
