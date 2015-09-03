@@ -84,6 +84,10 @@ NS_ASSUME_NONNULL_BEGIN
     return MWKHistoryDiscoveryMethodSearch;
 }
 
+- (CGFloat)estimatedItemHeight {
+    return 70.f;
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

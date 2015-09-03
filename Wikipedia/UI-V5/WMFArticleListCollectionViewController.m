@@ -56,6 +56,9 @@
     if ([self isViewLoaded]) {
         if (_dataSource) {
             _dataSource.collectionView = self.collectionView;
+            if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
+                [self flowLayout].estimatedItemHeight = _dataSource.estimatedItemHeight;
+            }
         } else {
             [self.collectionView reloadData];
         }
@@ -116,7 +119,12 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor       = [UIColor clearColor];
 
-    [self flowLayout].estimatedItemHeight = 200;
+    if ([self.dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
+        [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
+    } else {
+        [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
+    }
+
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
     [self flowLayout].minimumLineSpacing  = 10.0;

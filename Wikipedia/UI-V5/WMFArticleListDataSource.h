@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath;
 
+- (CGFloat)estimatedItemHeight;
+
 @end
 
 NS_ASSUME_NONNULL_END

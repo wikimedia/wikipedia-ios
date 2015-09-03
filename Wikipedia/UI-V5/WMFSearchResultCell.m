@@ -104,17 +104,20 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 
 #pragma mark - UICollectionViewCell
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.highlightSubstring = nil;
+    [self setSearchResultDescription:nil];
+}
+
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
     self.titleLabel.preferredMaxLayoutWidth =
         layoutAttributes.size.width
         - WMFSearchResultImageWidth
-        - 2.f * WMFSearchResultTitleLabelPadding;
-
-    self.searchResultDescriptionLabel.preferredMaxLayoutWidth =
-        layoutAttributes.size.width
-        - WMFSearchResultImageWidth
         - 3.f * WMFSearchResultTitleLabelPadding
         - self.saveButton.intrinsicContentSize.width;
+
+    self.searchResultDescriptionLabel.preferredMaxLayoutWidth = self.titleLabel.preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, WMFSearchResultImageWidth);
