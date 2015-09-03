@@ -112,11 +112,11 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
         WMFHomeNearbyCell* nearbyCell   = (id)cell;
         MWKLocationSearchResult* result = object;
-        nearbyCell.titleText       = result.displayTitle;
+        [nearbyCell setSavedPageList:self.savedPageList];
         nearbyCell.descriptionText = result.wikidataDescription;
+        nearbyCell.title       = [self titleForItemAtIndex:indexPath.item];
         nearbyCell.distance        = result.distanceFromQueryCoordinates;
         nearbyCell.imageURL        = result.thumbnailURL;
-        [nearbyCell setSavedPageList:self.savedPageList];
     } else {
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {

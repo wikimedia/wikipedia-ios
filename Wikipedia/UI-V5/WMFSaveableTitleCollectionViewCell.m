@@ -76,7 +76,11 @@
 
 - (void)setTitle:(MWKTitle*)title {
     self.saveButtonController.title = title;
-    self.titleLabel.text = title.text;
+    [self updateTitleLabel];
+}
+
+- (void)updateTitleLabel {
+    self.titleLabel.text = self.title.text;
 }
 
 - (MWKTitle*)title {

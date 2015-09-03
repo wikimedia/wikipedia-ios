@@ -36,4 +36,13 @@
  */
 + (NSString*)defaultImageName;
 
+/**
+ *  Update the receiver's @c titleLabel with the new value set to @c title.
+ *
+ *  The default implementation sets the label's @c text to the title's @c text.
+ *
+ *  @param title The new title.
+ */
+- (void)updateTitleLabel;
+
 @end
