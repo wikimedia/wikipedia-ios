@@ -417,7 +417,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDataSource
 
+- (BOOL)hasArticlePreviewBeenRetrieved {
+// TODO: update this to actually check if MWKArticlePreview has returned!
+// Presently it's checking if the article is cached because at this time
+// we're not actually using the article preview data we're fetching, so
+// it's difficult to check it.
+    return self.article.isCached;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    // Hide all sections until article preview data is retrieved.
+    if (![self hasArticlePreviewBeenRetrieved]) {
+        return 0;
+    }
+
     // TODO: check summary length?
     return 2 + self.topLevelSections.count;
 }
