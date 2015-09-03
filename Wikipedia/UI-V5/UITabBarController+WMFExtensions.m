@@ -19,7 +19,7 @@
     CGFloat offsetY = (visible) ? -height : height;
 
     // zero duration means no animation
-    CGFloat duration = (animated) ? 0.3 : 0.0;
+    CGFloat duration = (animated) ? 0.2 : 0.0;
 
     [UIView animateWithDuration:duration animations:^{
         self.tabBar.frame = CGRectOffset(frame, 0, offsetY);
