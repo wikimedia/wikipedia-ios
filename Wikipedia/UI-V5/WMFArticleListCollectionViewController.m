@@ -47,13 +47,18 @@
     }
 
     _dataSource.collectionView = nil;
+    self.collectionView.dataSource = nil;
 
     _dataSource = dataSource;
 
     [_dataSource setSavedPageList:self.savedPages];
 
     if ([self isViewLoaded]) {
-        _dataSource.collectionView = self.collectionView;
+        if (_dataSource) {
+            _dataSource.collectionView = self.collectionView;
+        } else {
+            [self.collectionView reloadData];
+        }
         [self.collectionView wmf_scrollToTop:NO];
     }
 
