@@ -491,7 +491,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     if ([self isLeadSection:section]
-        || ([self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex)) {
+        || ([self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex)
+        || ![self tableView:tableView viewForHeaderInSection:section]
+        ) {
         // omit headers for lead section & all but the first TOC section
         return 0;
     } else {
@@ -501,7 +503,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     //TODO(5.0): localize these!
-    if (section == 0 || (section != 1 && section < tableView.numberOfSections - 1)) {
+    if (section == 0
+        || (section != 1 && section < tableView.numberOfSections - 1)
+        || ([self tableView:tableView numberOfRowsInSection:section] == 0)
+        ) {
         return nil;
     } else {
         WMFArticleSectionHeaderView* header =
