@@ -203,8 +203,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return [self.fetcher searchArticleTitlesForSearchTerm:searchTerm];
     }).then((id) ^ (WMFSearchResults * results){
         /*
-         HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
-         collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
+           HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
+           collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
         self.resultsListController.dataSource = results;
 
@@ -234,7 +234,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateSearchSuggestion:(NSString*)searchSuggestion {
     NSAttributedString* title =
-        [searchSuggestion length] ? [self getAttributedStringForSuggestion: searchSuggestion] : nil;
+        [searchSuggestion length] ? [self getAttributedStringForSuggestion : searchSuggestion] : nil;
     [self.searchSuggestionButton setAttributedTitle:title forState:UIControlStateNormal];
     [self.view setNeedsUpdateConstraints];
     [self.view layoutIfNeeded];
@@ -244,8 +244,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super updateViewConstraints];
     self.suggestionButtonHeightConstraint.constant =
         [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal] ?
-            [self.searchSuggestionButton wmf_heightAccountingForMultiLineText]
-            : 0;
+        [self.searchSuggestionButton wmf_heightAccountingForMultiLineText]
+        : 0;
 }
 
 - (NSAttributedString*)getAttributedStringForSuggestion:(NSString*)suggestion {
