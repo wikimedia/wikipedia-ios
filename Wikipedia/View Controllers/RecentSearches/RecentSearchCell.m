@@ -7,7 +7,7 @@
 #import "UIView+WMFShadow.h"
 #import "UIColor+WMFHexColor.h"
 
-static CGFloat const magnifyIconSize    = 28.f;
+static CGFloat const magnifyIconSize    = 26.f;
 static NSInteger const magnifyIconColor = 0x777777;
 
 @interface RecentSearchCell ()

@@ -12,7 +12,7 @@
 #import "Wikipedia-Swift.h"
 #import "UIColor+WMFHexColor.h"
 
-static CGFloat const cellHeight           = 70.f;
+static CGFloat const cellHeight           = 68.f;
 static CGFloat const trashFontSize        = 30.f;
 static NSInteger const trashColor         = 0x777777;
 static NSString* const pListFileName      = @"Recent.plist";
