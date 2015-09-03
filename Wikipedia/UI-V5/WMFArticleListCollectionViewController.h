@@ -3,7 +3,7 @@
 #import "WMFArticleListDataSource.h"
 @class SSArrayDataSource;
 
-@class MWKDataStore, MWKSavedPageList, MWKHistoryList;
+@class MWKDataStore, MWKSavedPageList, MWKHistoryList, SelfSizingWaterfallCollectionViewLayout;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +18,8 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
 @property (nonatomic, strong) MWKHistoryList* recentPages;
 @property (nonatomic, strong, nullable) SSArrayDataSource<WMFArticleListDataSource>* dataSource;
+
+- (SelfSizingWaterfallCollectionViewLayout*)flowLayout;
 
 - (void)refreshVisibleCells;
 

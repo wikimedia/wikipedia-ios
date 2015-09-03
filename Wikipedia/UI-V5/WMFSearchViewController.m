@@ -1,16 +1,19 @@
 #import "WMFSearchViewController.h"
+
 #import "RecentSearchesViewController.h"
 #import "WMFArticleListCollectionViewController_Transitioning.h"
+
+#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
 
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 
-#import <Masonry/Masonry.h>
-
 #import "MediaWikiKit.h"
 
+#import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
+
 #import "NSString+FormattedAttributedString.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
@@ -98,9 +101,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // TODO: localize
     self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    SelfSizingWaterfallCollectionViewLayout* resultLayout = [self.resultsListController flowLayout];
+    resultLayout.minimumLineSpacing = 5.f;
     [self updateUIWithResults:nil];
+
+    // TODO: localize
+    [self.searchBar setPlaceholder:@"Search Wikipedia"];
+    self.searchBar.tintColor       = [UIColor darkGrayColor];
+    self.searchBar.searchBarStyle  = UISearchBarStyleMinimal;
+    self.searchBar.backgroundColor = [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,14 +123,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.searchBar becomeFirstResponder];
-    [self configureSearchBar:self.searchBar];
-}
-
-- (void)configureSearchBar:(UISearchBar*)searchBar {
-    [searchBar setPlaceholder:@"Search Wikipedia"];
-    searchBar.tintColor       = [UIColor darkGrayColor];
-    searchBar.searchBarStyle  = UISearchBarStyleMinimal;
-    searchBar.backgroundColor = [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
