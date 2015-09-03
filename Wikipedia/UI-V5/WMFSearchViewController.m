@@ -89,15 +89,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.searchBar.text length] > 0 || self.recentSearchesViewController.recentSearchesItemCount == 0;
 
     /*
-     HAX: Need to show/hide superviews since recent & results are in the same container. should use UIViewController
+       HAX: Need to show/hide superviews since recent & results are in the same container. should use UIViewController
           containment/transition API instead in the future.
-    */
+     */
     if ((self.recentSearchesViewController.view.superview.alpha == 0) == hideRecentSearches) {
         return;
     }
 
     [UIView animateWithDuration:animated ? [CATransaction animationDuration] : 0.0
-                    animations:^{
+                     animations:^{
         self.recentSearchesViewController.view.superview.alpha = hideRecentSearches ? 0.0 : 1.0;
         self.resultsListController.view.superview.alpha = 1.0 - self.recentSearchesViewController.view.superview.alpha;
     }];
@@ -109,7 +109,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     NSParameterAssert(self.savedPages);
     self.resultsListController.dataStore   = self.dataStore;
     self.resultsListController.recentPages = self.recentPages;
-    self.resultsListController.savedPages = self.savedPages;
+    self.resultsListController.savedPages  = self.savedPages;
 }
 
 #pragma mark - UIViewController
@@ -193,6 +193,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchBar resignFirstResponder];
     [self didCancelSearch];
 }
+
 #pragma mark - Search
 
 - (void)didCancelSearch {

@@ -46,7 +46,7 @@
         return;
     }
 
-    _dataSource.collectionView = nil;
+    _dataSource.collectionView     = nil;
     self.collectionView.dataSource = nil;
 
     _dataSource = dataSource;
@@ -68,7 +68,7 @@
     self.title = [_dataSource displayTitle];
 }
 
-- (void)setSavedPages:(MWKSavedPageList * __nonnull)savedPages {
+- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
     _savedPages = savedPages;
     [_dataSource setSavedPageList:savedPages];
 }
@@ -125,9 +125,9 @@
         [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
     }
 
-    [self flowLayout].numberOfColumns     = 1;
-    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
-    [self flowLayout].minimumLineSpacing  = 10.0;
+    [self flowLayout].numberOfColumns    = 1;
+    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
+    [self flowLayout].minimumLineSpacing = 10.0;
 
     self.dataSource.collectionView = self.collectionView;
 }

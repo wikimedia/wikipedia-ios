@@ -32,7 +32,7 @@
 
 - (void)commonInit {
     [self configureContentView];
-    self.imageView.image             = [UIImage imageNamed:[[self class] defaultImageName]];
+    self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
     [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
 }
 
@@ -44,8 +44,8 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.title = nil;
-    self.imageURL = nil;
+    self.title           = nil;
+    self.imageURL        = nil;
     self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
 }
 
@@ -55,7 +55,7 @@
     return @"lead-default";
 }
 
-- (void)setSaveButton:(UIButton *)saveButton {
+- (void)setSaveButton:(UIButton*)saveButton {
     self.saveButtonController.button = saveButton;
 }
 

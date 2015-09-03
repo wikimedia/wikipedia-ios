@@ -55,8 +55,8 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 - (void)updateTitleLabel {
     NSRange highlightRange =
         self.highlightSubstring.length ?
-        [self.title.text rangeOfString:self.highlightSubstring
-                               options:NSCaseInsensitiveSearch]
+        [self.title.text rangeOfString : self.highlightSubstring
+         options:NSCaseInsensitiveSearch]
         : WMFRangeMakeNotFound();
     if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
         [super updateTitleLabel];

@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(self);
             MWKArticle* article = [self articleForIndexPath:indexPath];
             [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
-            cell.title                 = article.title;
-            cell.descriptionText       = article.entityDescription;
-            cell.image                 = [article bestThumbnailImage];
+            cell.title           = article.title;
+            cell.descriptionText = article.entityDescription;
+            cell.image           = [article bestThumbnailImage];
             [cell setSavedPageList:self.savedPageList];
         };
     }

@@ -20,8 +20,8 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.descriptionText = nil;
-    self.summaryLabel.text     = nil;
+    self.descriptionText   = nil;
+    self.summaryLabel.text = nil;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {

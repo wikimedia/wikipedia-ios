@@ -114,7 +114,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         MWKLocationSearchResult* result = object;
         [nearbyCell setSavedPageList:self.savedPageList];
         nearbyCell.descriptionText = result.wikidataDescription;
-        nearbyCell.title       = [self titleForItemAtIndex:indexPath.item];
+        nearbyCell.title           = [self titleForItemAtIndex:indexPath.item];
         nearbyCell.distance        = result.distanceFromQueryCoordinates;
         nearbyCell.imageURL        = result.thumbnailURL;
     } else {

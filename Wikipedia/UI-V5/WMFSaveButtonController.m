@@ -24,7 +24,7 @@
 
 #pragma mark - Accessors
 
-- (void)setSavedPageList:(MWKSavedPageList *)savedPageList {
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
     if (self.savedPageList == savedPageList) {
         return;
     }
@@ -60,8 +60,8 @@
                                     keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WMFSaveButtonController* observer, id object, NSDictionary* change) {
-                                          [observer updateSavedButtonState];
-                                      }];
+        [observer updateSavedButtonState];
+    }];
 }
 
 - (void)unobserveSavedPages {

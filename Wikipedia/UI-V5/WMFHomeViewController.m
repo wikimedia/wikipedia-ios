@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!title) {
         return nil;
     }
-    WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
+    WMFRelatedSearchFetcher* fetcher        = [[WMFRelatedSearchFetcher alloc] init];
     id<WMFHomeSectionController> controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:title
                                                                                    relatedSearchFetcher:fetcher
                                                                                                delegate:self];

@@ -34,8 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             [cell setTitle:article.title highlightingSubstring:self.searchTerm];
-            [cell setSearchResultDescription: article.entityDescription];
-            cell.image                 = [article bestThumbnailImage];
+            [cell setSearchResultDescription:article.entityDescription];
+            cell.image = [article bestThumbnailImage];
             [cell setSavedPageList:self.savedPageList];
         };
     }

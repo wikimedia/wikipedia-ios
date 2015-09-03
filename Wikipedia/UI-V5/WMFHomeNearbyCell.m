@@ -29,7 +29,7 @@ static CGFloat const WMFImagePadding = 8.0;
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
     self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
     _distanceLabel.text  = nil;
-    self.descriptionText     = nil;
+    self.descriptionText = nil;
 }
 
 - (void)awakeFromNib {

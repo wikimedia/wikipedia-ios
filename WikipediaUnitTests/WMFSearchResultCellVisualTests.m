@@ -18,13 +18,13 @@ static NSString* const ShortSearchResultTitle = @"One line title";
 static NSString* const MediumSearchResultTitle = @"This is a moderately long title that should take up two lines.";
 
 static NSString* const LongSearchResultTitle =
-@"This is an excessively lengthy title that I wrote for testing, which should take up three lines of text"
-" (at the very least).";
+    @"This is an excessively lengthy title that I wrote for testing, which should take up three lines of text"
+    " (at the very least).";
 
 static NSString* const ShortSearchResultDescription = @"One line description";
 
 static NSString* const LongSearchResultDescription =
-@"This description describes a search result, and should take approximately three lines to display.";
+    @"This description describes a search result, and should take approximately three lines to display.";
 
 @interface WMFSearchResultCellVisualTests : FBSnapshotTestCase
 @property (nonatomic, strong) WMFSearchResultCell* searchResultCell;
