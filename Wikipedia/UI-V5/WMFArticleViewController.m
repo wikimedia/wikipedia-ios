@@ -538,23 +538,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([self isLeadSection:section]
-        || ([self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex)
-        || ![self tableView:tableView viewForHeaderInSection:section]
-        ) {
-        // omit headers for lead section & all but the first TOC section
-        return 0;
-    } else {
-        return UITableViewAutomaticDimension;
-    }
+    return [self shouldHideHeaderForSection:section] ? 0 : UITableViewAutomaticDimension;
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     //TODO(5.0): localize these!
-    if (section == 0
-        || (section != 1 && section < tableView.numberOfSections - 1)
-        || ([self tableView:tableView numberOfRowsInSection:section] == 0)
-        ) {
+    if ([self shouldHideHeaderForSection:section]) {
         return nil;
     } else {
         WMFArticleSectionHeaderView* header =
@@ -566,6 +555,18 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return header;
     }
+}
+
+- (BOOL)shouldHideHeaderForSection:(NSUInteger)section {
+    return [self isLeadSection:section] || [self isTOCSectionAfterFirst:section] || ![self hasRowsInSection:section];
+}
+
+- (BOOL)isTOCSectionAfterFirst:(NSUInteger)section {
+    return [self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex;
+}
+
+- (BOOL)hasRowsInSection:(NSUInteger)section {
+    return [self.tableView numberOfRowsInSection:section] > 0;
 }
 
 #pragma mark - UITableViewDelegate
