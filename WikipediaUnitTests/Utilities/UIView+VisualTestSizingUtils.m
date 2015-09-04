@@ -10,15 +10,6 @@
 
 static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrientationPortrait;
 
-@implementation UIScreen (WMFWidthForOrientation)
-
-- (CGFloat)wmf_widthForOrientation:(UIInterfaceOrientation)orientation {
-    CGSize size = self.bounds.size;
-    return UIInterfaceOrientationIsLandscape(orientation) ? MAX(size.width, size.height) : MIN(size.width, size.height);
-}
-
-@end
-
 @implementation UIView (VisualTestSizingUtils)
 
 - (CGRect)wmf_sizeThatFitsScreenWidth {
@@ -27,7 +18,7 @@ static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrien
 
 - (CGRect)wmf_sizeThatFitsScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
     CGSize preHeightAdjustmentSize = (CGSize){
-        .width  = [[UIScreen mainScreen] wmf_widthForOrientation:orientation],
+        .width  = UIInterfaceOrientationIsLandscape(orientation) ? 568 : 320,
         .height = CGFLOAT_MAX
     };
 
@@ -37,12 +28,12 @@ static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrien
 
     return (CGRect){
                .origin = CGPointZero,
-               .size   = sizeThatFitsWidth
+               .size   = CGSizeMake(floor(sizeThatFitsWidth.width), floor(sizeThatFitsWidth.height))
     };
 }
 
 - (void)wmf_sizeToFitScreenWidth {
-    [self wmf_sizeThatFitsScreenWidthForOrientation:WMFDefaultTestOrientation];
+    [self wmf_sizeToFitScreenWidthForOrientation:WMFDefaultTestOrientation];
 }
 
 - (void)wmf_sizeToFitScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
