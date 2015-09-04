@@ -393,10 +393,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            self.loadingMessageContainerView.hidden = YES;
-        }
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        self.loadingMessageContainerView.hidden = YES;
     }
 }
 
