@@ -72,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
+@property (nonatomic, strong) UIView* loadingMessageContainerView;
+
 @end
 
 @implementation WMFArticleViewController
@@ -335,6 +337,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateHeaderView {
+    if (![self hasArticlePreviewBeenRetrieved]) {
+        [self showLoadingMessageContainerView];
+    }
+
     WMFArticleTableHeaderView* headerView = [self headerView];
 
     [headerView setTitle:[self.article.title.text wmf_stringByRemovingHTML]
@@ -361,6 +367,37 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
     self.headerGalleryViewController.view.userInteractionEnabled = mode == WMFArticleControllerModeNormal;
+}
+
+#pragma mark - Loading message container view
+
+- (void)setupLoadingMessageContainerViewIfNecessary {
+    if (!self.loadingMessageContainerView) {
+        self.loadingMessageContainerView =
+            [[[UINib nibWithNibName:@"WMFArticleViewLoadingView" bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
+        [self.headerView addSubview:self.loadingMessageContainerView];
+        self.headerView.clipsToBounds = NO;
+        CGFloat heightOfSpaceBelowHeaderView = MAX(100, self.tableView.frame.size.height - self.headerView.frame.size.height - self.tableView.scrollIndicatorInsets.top - self.tableView.scrollIndicatorInsets.bottom);
+        [self.loadingMessageContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.headerView.mas_bottom);
+            make.leading.equalTo(self.headerView.mas_leading);
+            make.trailing.equalTo(self.headerView.mas_trailing);
+            make.height.equalTo(@(heightOfSpaceBelowHeaderView));
+        }];
+    }
+}
+
+- (void)showLoadingMessageContainerView {
+    [self setupLoadingMessageContainerViewIfNecessary];
+    self.loadingMessageContainerView.hidden = NO;
+}
+
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            self.loadingMessageContainerView.hidden = YES;
+        }
+    }
 }
 
 #pragma mark - Configuration
