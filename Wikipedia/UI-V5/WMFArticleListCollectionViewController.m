@@ -32,6 +32,10 @@
 @implementation WMFArticleListCollectionViewController
 @synthesize listTransition = _listTransition;
 
+- (instancetype)init {
+    return [self initWithCollectionViewLayout:[SelfSizingWaterfallCollectionViewLayout new]];
+}
+
 #pragma mark - Accessors
 
 - (WMFArticleListTransition*)listTransition {

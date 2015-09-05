@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSearchResults
 
-- (instancetype)initWithSearchTerm:(NSString*)searchTerm articles:(nullable NSArray*)articles searchSuggestion:(nullable NSString*)suggestion {
+- (instancetype)initWithSearchTerm:(NSString*)searchTerm
+                          articles:(nullable NSArray*)articles
+                  searchSuggestion:(nullable NSString*)suggestion {
     self = [super initWithItems:articles];
     if (self) {
         self.searchTerm       = searchTerm;

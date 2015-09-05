@@ -2,6 +2,10 @@
 
 #import "WMFHomeViewController.h"
 
+#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
+
+
 #import "MWKSavedPageList.h"
 #import "MWKRecentSearchList.h"
 
@@ -28,8 +32,6 @@
 #import "MWKArticle.h"
 
 #import "MWKLocationSearchResult.h"
-
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
 
 #import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
@@ -302,19 +304,22 @@ NS_ASSUME_NONNULL_BEGIN
         [controller configureCell:cell withObject:object inCollectionView:parentView atIndexPath:indexPath];
     };
 
-    self.dataSource.collectionSupplementaryCreationBlock = (id) ^ (NSString * kind, UICollectionView * cv, NSIndexPath * indexPath){
+    self.dataSource.collectionSupplementaryCreationBlock = ^UICollectionReusableView*(NSString* kind,
+                                                                                      UICollectionView* cv,
+                                                                                      NSIndexPath* indexPath) {
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            return (id)[WMFHomeSectionHeader supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
+            return [WMFHomeSectionHeader supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
         } else {
-            return (id)[WMFHomeSectionFooter supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
+            return [WMFHomeSectionFooter supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
         }
     };
 
-    self.dataSource.collectionSupplementaryConfigureBlock = ^(id view, NSString* kind, UICollectionView* cv, NSIndexPath* indexPath){
+    self.dataSource.collectionSupplementaryConfigureBlock = ^(id view,
+                                                              NSString* kind,
+                                                              UICollectionView* cv,
+                                                              NSIndexPath* indexPath){
         @strongify(self);
-
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             WMFHomeSectionHeader* header     = view;
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
@@ -325,6 +330,11 @@ NS_ASSUME_NONNULL_BEGIN
         } else {
             WMFHomeSectionFooter* footer = view;
             footer.moreLabel.text = controller.footerText;
+            @weakify(self);
+            footer.whenTapped = ^{
+                @strongify(self);
+                [self didTapFooterInSection:indexPath.section];
+            };
         }
     };
 
@@ -397,6 +407,16 @@ NS_ASSUME_NONNULL_BEGIN
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
         [self.dataSource removeSectionAtIndex:index];
     } completion:NULL];
+}
+
+- (void)didTapFooterInSection:(NSUInteger)section {
+    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
+    NSParameterAssert(controllerForSection);
+    if (!controllerForSection) {
+        DDLogError(@"Unexpected footer tap for missing section %lu.", section);
+        return;
+    }
+    [self.navigationController pushViewController:[controllerForSection moreViewController] animated:YES];
 }
 
 #pragma mark - UICollectionViewDelegate

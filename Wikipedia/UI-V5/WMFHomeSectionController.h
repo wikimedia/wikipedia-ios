@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
+- (UIViewController*)moreViewController;
+
 @optional
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
 

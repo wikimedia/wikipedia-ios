@@ -1,10 +1,17 @@
 #import "WMFRelatedSectionController.h"
 
+// TEMP
+#import "SessionSingleton.h"
+
 // Networking & Model
 #import "WMFRelatedSearchFetcher.h"
 #import "MWKTitle.h"
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
+
+// Controller
+#import "WMFArticleListCollectionViewController.h"
+#import "WMFRelatedTitleListDataSource.h"
 
 // Frameworks
 #import "Wikipedia-Swift.h"
@@ -26,7 +33,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
-
 @property (nonatomic, strong, readwrite) WMFRelatedSearchResults* relatedResults;
 
 @end
@@ -64,7 +70,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (NSString*)footerText {
     // TODO: localize
-    return @"More like this";
+    return [NSString stringWithFormat:@"More like %@", self.title.text];
 }
 
 - (NSArray*)items {
@@ -105,6 +111,21 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
             && (fabs(actualFont.pointSize - requiredFont.pointSize) < 0.01);
         } (), @"Expected previewCell to use standard HTML body font! Needed for numberOfExtactCharactersToFetch.");
     }
+}
+
+- (UIViewController*)moreViewController {
+    #warning Remove SessionSingleton
+    WMFRelatedTitleListDataSource* dataSource =
+        [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.title
+                                                   dataStore:[[SessionSingleton sharedInstance] dataStore]
+                                               savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]
+                                   numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]];
+    WMFArticleListCollectionViewController* moreRelatedVC = [WMFArticleListCollectionViewController new];
+    moreRelatedVC.dataStore = [[SessionSingleton sharedInstance] dataStore];
+    moreRelatedVC.savedPages = [[[SessionSingleton sharedInstance] userDataStore] savedPageList];
+    moreRelatedVC.recentPages = [[[SessionSingleton sharedInstance] userDataStore] historyList];
+    moreRelatedVC.dataSource = dataSource;
+    return moreRelatedVC;
 }
 
 #pragma mark - Section Updates

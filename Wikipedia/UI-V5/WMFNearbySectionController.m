@@ -1,6 +1,8 @@
 
 #import "WMFNearbySectionController.h"
 
+#import "WMFArticleListCollectionViewController.h"
+
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
 
@@ -127,6 +129,11 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
     return self.nearbyResults.results.count > index;
+}
+
+- (UIViewController*)moreViewController {
+    #warning TODO
+    return nil;
 }
 
 #pragma mark - Section Updates

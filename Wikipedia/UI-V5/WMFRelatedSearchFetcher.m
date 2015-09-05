@@ -17,6 +17,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
+
 #pragma mark - Internal Class Declarations
 
 @interface WMFRelatedSearchRequestParameters : NSObject
@@ -108,9 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFRelatedSearchRequestParameters
 
 - (void)setNumberOfResults:(NSUInteger)numberOfResults {
-    if (numberOfResults > 20) {
-        DDLogError(@"Illegal attempt to request %lu articles, limiting to 20.", numberOfResults);
-        numberOfResults = 20;
+    if (numberOfResults > WMFMaxRelatedSearchResultLimit) {
+        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
+                   numberOfResults, WMFMaxRelatedSearchResultLimit);
+        numberOfResults = WMFMaxRelatedSearchResultLimit;
     }
     _numberOfResults = numberOfResults;
 }

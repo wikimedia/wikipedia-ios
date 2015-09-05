@@ -6,8 +6,16 @@
 @implementation MWKSearchResult
 
 + (NSValueTransformer*)thumbnailURLJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* value, BOOL* success, NSError* __autoreleasing* error) {
-        return [NSURL wmf_optionalURLWithString:value];
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^NSURL* (NSString* urlString,
+                                                  BOOL* success,
+                                                  NSError* __autoreleasing* error) {
+        return [NSURL wmf_optionalURLWithString:urlString];
+    }
+                            reverseBlock:^NSString* (NSURL* thumbnailURL,
+                                                     BOOL* success,
+                                                     NSError* __autoreleasing* error) {
+        return [thumbnailURL absoluteString];
     }];
 }
 

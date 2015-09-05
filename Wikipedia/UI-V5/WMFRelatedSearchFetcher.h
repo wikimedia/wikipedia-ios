@@ -3,6 +3,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSUInteger const WMFMaxRelatedSearchResultLimit;
+
 ///
 ///  @name Fetching Extracts
 ///
@@ -39,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param title        The title for which to find related content, as well as the site to pull content from.
  *  @param extractChars The number of characters to extract from related titles.
- *  @param resultLimit  Maximum number of search results, limited to 20.
+ *  @param resultLimit  Maximum number of search results, limited to WMFMaxRelatedSearchResultLimit.
  *
  *  @return A promise which resolves to an instance of @c WMFRelatedSearchResults.
  *

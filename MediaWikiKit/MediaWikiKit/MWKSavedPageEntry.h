@@ -9,7 +9,8 @@
 #import "MWKSiteDataObject.h"
 #import "MWKList.h"
 
-@interface MWKSavedPageEntry : MWKSiteDataObject<MWKListObject>
+@interface MWKSavedPageEntry : MWKSiteDataObject
+<MWKListObject, MWKTitleAssociated>
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
 
