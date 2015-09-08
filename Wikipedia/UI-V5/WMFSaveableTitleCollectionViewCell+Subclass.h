@@ -8,7 +8,12 @@
 
 #import "WMFSaveableTitleCollectionViewCell.h"
 
-@interface WMFSaveableTitleCollectionViewCell (Subclass)
+/**
+ *  Category which exposes properties & methods that are accessible to and overridable by subclasses.
+ *
+ *  @note This must be an unnamed category, otherwise the IBOutlets won't work.
+ */
+@interface WMFSaveableTitleCollectionViewCell ()
 
 /**
  *  Label used to display the receiver's @c title.
