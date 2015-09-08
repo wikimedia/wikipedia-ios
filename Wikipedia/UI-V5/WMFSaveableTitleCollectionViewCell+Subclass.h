@@ -8,7 +8,7 @@
 
 #import "WMFSaveableTitleCollectionViewCell.h"
 
-@interface WMFSaveableTitleCollectionViewCell ()
+@interface WMFSaveableTitleCollectionViewCell (Subclass)
 
 /**
  *  Label used to display the receiver's @c title.
@@ -32,7 +32,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView* imageView;
 
 /**
- *  @return The name to a bundled image which will be set to the receiver's @c imageView when preparing for reuse.
+ *  @return The name of a bundled image which will be set to the receiver's @c imageView when preparing for reuse.
  */
 + (NSString*)defaultImageName;
 
