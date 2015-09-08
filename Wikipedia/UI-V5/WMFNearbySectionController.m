@@ -215,12 +215,15 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         return;
     }
 
+    @weakify(self);
     [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite location:location]
     .then(^(WMFLocationSearchResults* results){
+        @strongify(self);
         self.nearbyResults = results;
         [self updateSectionWithResults:results];
     })
     .catch(^(NSError* error){
+        @strongify(self);
         [self updateSectionWithSearchError:error];
     });
 }
