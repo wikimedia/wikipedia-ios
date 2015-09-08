@@ -69,6 +69,7 @@
 		044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044BD6B418849AD000FFE4BE /* SectionEditorViewController.m */; };
 		045AB8C31B1E15D9002839D7 /* NSURL+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 045AB8C21B1E15D9002839D7 /* NSURL+Extras.m */; };
 		045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 045D872019FAD2FA0035C1F9 /* AboutViewController.m */; };
+		045DB3441B9930EB0095940D /* WMFArticleViewLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 045DB3431B9930EB0095940D /* WMFArticleViewLoadingView.xib */; };
 		04616DFC1AE706C600815BCE /* WMFLocalizationProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 04616DFB1AE706C600815BCE /* WMFLocalizationProtocol.m */; };
 		04627C981B91989200414AC6 /* WMFSaveButtonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04627C971B91989200414AC6 /* WMFSaveButtonController.m */; };
 		0463639818A844570049EE4F /* KeychainCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 0463639718A844570049EE4F /* KeychainCredentials.m */; };
@@ -622,6 +623,7 @@
 		045AB8C21B1E15D9002839D7 /* NSURL+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Extras.m"; sourceTree = "<group>"; };
 		045D871F19FAD2FA0035C1F9 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		045D872019FAD2FA0035C1F9 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		045DB3431B9930EB0095940D /* WMFArticleViewLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleViewLoadingView.xib; sourceTree = "<group>"; };
 		04616DFA1AE706C600815BCE /* WMFLocalizationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocalizationProtocol.h; sourceTree = "<group>"; };
 		04616DFB1AE706C600815BCE /* WMFLocalizationProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocalizationProtocol.m; sourceTree = "<group>"; };
 		04627C961B91989200414AC6 /* WMFSaveButtonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSaveButtonController.h; sourceTree = "<group>"; };
@@ -2600,6 +2602,7 @@
 				04016E1D1B328E8B00D732FE /* OnboardingViewController.storyboard */,
 				04016E1F1B329D4500D732FE /* PageHistoryViewController.storyboard */,
 				04661DC71B4346C90045E970 /* WMFArticleViewController.storyboard */,
+				045DB3431B9930EB0095940D /* WMFArticleViewLoadingView.xib */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -3453,6 +3456,7 @@
 				04C7576F1A1AA2D00084AC39 /* RecentSearchCell.xib in Resources */,
 				0E03E2A11B85310000C1FBD7 /* WMFNearbySectionEmptyCell.xib in Resources */,
 				C979727A1A731EAA00C6ED7A /* ShareOptions.xib in Resources */,
+				045DB3441B9930EB0095940D /* WMFArticleViewLoadingView.xib in Resources */,
 				0E03E2A91B85750C00C1FBD7 /* WMFHomeSectionFooter.xib in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
 				0E2691071B86C3FC009B8605 /* WMFArticlePreviewCell.xib in Resources */,

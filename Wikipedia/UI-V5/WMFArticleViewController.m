@@ -72,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGalleryViewController;
 @property (nonatomic, weak) IBOutlet UITapGestureRecognizer* expandGalleryTapRecognizer;
 
+@property (nonatomic, strong) UIView* loadingMessageContainerView;
+
 @end
 
 @implementation WMFArticleViewController
@@ -335,6 +337,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateHeaderView {
+    if (![self hasArticlePreviewBeenRetrieved]) {
+        [self showLoadingMessageContainerView];
+    }
+
     WMFArticleTableHeaderView* headerView = [self headerView];
 
     [headerView setTitle:[self.article.title.text wmf_stringByRemovingHTML]
@@ -361,6 +367,35 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
     self.headerGalleryViewController.view.userInteractionEnabled = mode == WMFArticleControllerModeNormal;
+}
+
+#pragma mark - Loading message container view
+
+- (void)setupLoadingMessageContainerViewIfNecessary {
+    if (!self.loadingMessageContainerView) {
+        self.loadingMessageContainerView =
+            [[[UINib nibWithNibName:@"WMFArticleViewLoadingView" bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
+        [self.headerView addSubview:self.loadingMessageContainerView];
+        self.headerView.clipsToBounds = NO;
+        CGFloat heightOfSpaceBelowHeaderView = MAX(100, self.tableView.frame.size.height - self.headerView.frame.size.height - self.tableView.scrollIndicatorInsets.top - self.tableView.scrollIndicatorInsets.bottom);
+        [self.loadingMessageContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.headerView.mas_bottom);
+            make.leading.equalTo(self.headerView.mas_leading);
+            make.trailing.equalTo(self.headerView.mas_trailing);
+            make.height.equalTo(@(heightOfSpaceBelowHeaderView));
+        }];
+    }
+}
+
+- (void)showLoadingMessageContainerView {
+    [self setupLoadingMessageContainerViewIfNecessary];
+    self.loadingMessageContainerView.hidden = NO;
+}
+
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        self.loadingMessageContainerView.hidden = YES;
+    }
 }
 
 #pragma mark - Configuration
@@ -417,7 +452,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDataSource
 
+- (BOOL)hasArticlePreviewBeenRetrieved {
+// TODO: update this to actually check if MWKArticlePreview has returned!
+// Presently it's checking if the article is cached because at this time
+// we're not actually using the article preview data we're fetching, so
+// it's difficult to check it.
+    return self.article.isCached;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    // Hide all sections until article preview data is retrieved.
+    if (![self hasArticlePreviewBeenRetrieved]) {
+        return 0;
+    }
+
     // TODO: check summary length?
     return 2 + self.topLevelSections.count;
 }
@@ -490,18 +538,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
-    if ([self isLeadSection:section]
-        || ([self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex)) {
-        // omit headers for lead section & all but the first TOC section
-        return 0;
-    } else {
-        return UITableViewAutomaticDimension;
-    }
+    return [self shouldHideHeaderForSection:section] ? 0 : UITableViewAutomaticDimension;
 }
 
 - (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     //TODO(5.0): localize these!
-    if (section == 0 || (section != 1 && section < tableView.numberOfSections - 1)) {
+    if ([self shouldHideHeaderForSection:section]) {
         return nil;
     } else {
         WMFArticleSectionHeaderView* header =
@@ -513,6 +555,18 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return header;
     }
+}
+
+- (BOOL)shouldHideHeaderForSection:(NSUInteger)section {
+    return [self isLeadSection:section] || [self isTOCSectionAfterFirst:section] || ![self hasRowsInSection:section];
+}
+
+- (BOOL)isTOCSectionAfterFirst:(NSUInteger)section {
+    return [self isTOCSection:section] && section != self.indexSetOfTOCSections.firstIndex;
+}
+
+- (BOOL)hasRowsInSection:(NSUInteger)section {
+    return [self.tableView numberOfRowsInSection:section] > 0;
 }
 
 #pragma mark - UITableViewDelegate
