@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite locationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
     }
     return _nearbySectionController;
 }

@@ -41,7 +41,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site LocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+- (instancetype)initWithSite:(MWKSite*)site locationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     NSParameterAssert(site);
     NSParameterAssert(locationManager);
     NSParameterAssert(locationSearchFetcher);
@@ -108,7 +108,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     }
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
+- (void)configureCell:(UICollectionViewCell*)cell
+           withObject:(id)object
+     inCollectionView:(UICollectionView*)collectionView
+          atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
         WMFHomeNearbyCell* nearbyCell   = (id)cell;
         MWKLocationSearchResult* result = object;
