@@ -17,6 +17,12 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
 
 @implementation WMFLocationManager
 
+- (void)dealloc {
+    if (self.locationManager.delegate == self) {
+        self.locationManager.delegate = nil;
+    }
+}
+
 #pragma mark - Accessors
 
 - (CLLocationManager*)locationManager {
