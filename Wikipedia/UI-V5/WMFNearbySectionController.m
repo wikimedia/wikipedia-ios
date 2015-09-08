@@ -184,10 +184,6 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     [self updateSectionWithHeading:heading];
 }
 
-- (void)nearbyController:(WMFLocationManager*)controller didfetchNearbyResults:(WMFLocationSearchResults*)results {
-    [self updateSectionWithResults:results];
-}
-
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
     [self updateSectionWithLocationError:error];
 }
