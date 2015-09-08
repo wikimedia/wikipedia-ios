@@ -17,9 +17,13 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 
 @interface WMFSearchResultCell ()
 
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint* bottomTitleToTopDescriptionConstraint;
+
 @property (nonatomic, strong) IBOutlet UILabel* searchResultDescriptionLabel;
 
 @property (nonatomic, copy) NSString* highlightSubstring;
+
+@property (nonatomic, assign) BOOL shouldCollapseDescription;
 
 @end
 
@@ -48,6 +52,20 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 
 - (void)setSearchResultDescription:(NSString*)searchResultDescription {
     self.searchResultDescriptionLabel.text = searchResultDescription;
+}
+
+#pragma mark - Description Display Logic
+
+- (void)setShouldCollapseDescription:(BOOL)shouldCollapseDescription {
+    if (_shouldCollapseDescription == shouldCollapseDescription) {
+        return;
+    }
+
+    _shouldCollapseDescription = shouldCollapseDescription;
+
+    self.searchResultDescriptionLabel.hidden = shouldCollapseDescription;
+
+    [self setNeedsUpdateConstraints];
 }
 
 #pragma mark - WMFSaveableTitleCollectionViewCell
@@ -108,20 +126,34 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
     [super prepareForReuse];
     self.highlightSubstring = nil;
     [self setSearchResultDescription:nil];
+    self.shouldCollapseDescription = NO;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.shouldCollapseDescription = CGRectGetMaxY(self.searchResultDescriptionLabel.frame) > self.contentView.bounds.size.height;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    self.titleLabel.preferredMaxLayoutWidth =
+    CGFloat preferredMaxLayoutWidth =
         layoutAttributes.size.width
         - WMFSearchResultImageWidth
         - 3.f * WMFSearchResultTitleLabelPadding
         - self.saveButton.intrinsicContentSize.width;
+    if (self.titleLabel.preferredMaxLayoutWidth != preferredMaxLayoutWidth) {
+        self.titleLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+    }
 
     self.searchResultDescriptionLabel.preferredMaxLayoutWidth = self.titleLabel.preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, WMFSearchResultImageWidth);
     return preferredAttributes;
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
+    self.bottomTitleToTopDescriptionConstraint.active = !self.shouldCollapseDescription;
 }
 
 @end

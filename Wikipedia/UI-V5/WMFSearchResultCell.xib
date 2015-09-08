@@ -26,7 +26,7 @@
                         <rect key="frame" x="70" y="0.0" width="388" height="70"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-4V-sKF">
-                                <rect key="frame" x="8" y="8" width="32.5" height="20.5"/>
+                                <rect key="frame" x="8" y="8" width="33" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -38,18 +38,18 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-rF-5NR">
-                                <rect key="frame" x="8" y="47" width="63.5" height="14.5"/>
+                                <rect key="frame" x="8" y="32" width="64" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="15" id="dzf-Qt-cZS"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="GUi-rF-5NR" firstAttribute="top" relation="greaterThanOrEqual" secondItem="0e9-4V-sKF" secondAttribute="bottom" constant="6" id="3ca-cb-ZIQ"/>
+                            <constraint firstItem="GUi-rF-5NR" firstAttribute="top" secondItem="0e9-4V-sKF" secondAttribute="bottom" constant="3" id="3ca-cb-ZIQ"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0e9-4V-sKF" secondAttribute="bottom" constant="8" id="8gh-8N-fKK"/>
                             <constraint firstItem="GUi-rF-5NR" firstAttribute="leading" secondItem="0e9-4V-sKF" secondAttribute="leading" id="Jba-lR-VAQ"/>
                             <constraint firstAttribute="bottom" secondItem="GUi-rF-5NR" secondAttribute="bottom" priority="500" constant="8" id="LGO-Um-X1M"/>
@@ -76,6 +76,7 @@
             </constraints>
             <size key="customSize" width="458" height="70"/>
             <connections>
+                <outlet property="bottomTitleToTopDescriptionConstraint" destination="3ca-cb-ZIQ" id="7fv-6z-NIm"/>
                 <outlet property="imageView" destination="KcR-G1-H0y" id="b62-ya-wXY"/>
                 <outlet property="saveButton" destination="Ahk-mO-odv" id="pt1-hl-NSP"/>
                 <outlet property="searchResultDescriptionLabel" destination="GUi-rF-5NR" id="iVr-hK-eWD"/>

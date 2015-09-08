@@ -93,6 +93,12 @@ static NSString* const LongSearchResultDescription =
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
+- (void)testShouldExpandDescriptionToMultipleLines {
+    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
+    [self.searchResultCell setSearchResultDescription:LongSearchResultDescription];
+    [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
+}
+
 #pragma mark - Title Highlighting
 
 - (void)testShouldHighlightMatchingSubstring {
