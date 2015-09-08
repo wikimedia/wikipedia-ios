@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager : NSObject
 
-@property (nonatomic, assign, nullable) id<WMFNearbyControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFNearbyControllerDelegate> delegate;
 
 @property (nonatomic, strong, readonly, nullable) CLLocation* lastLocation;
 @property (nonatomic, strong, readonly, nullable) CLHeading* lastHeading;
