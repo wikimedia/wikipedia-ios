@@ -30,9 +30,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
-@property (nonatomic, assign, readwrite) WMFSearchState state;
-
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint* suggestionButtonHeightConstraint;
+
+@property (nonatomic, assign, getter = isRecentSearchesHidden) BOOL recentSearchesHidden;
+
+- (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated;
 
 @end
 
@@ -69,40 +71,35 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return _fetcher;
 }
 
-- (void)updateSearchStateAndNotifyDelegate:(WMFSearchState)state {
-    if (self.state == state) {
-        return;
-    }
-
-    self.state = state;
-    [self updateRecentSearchesVisibility:YES];
-
-    [self.delegate searchController:self searchStateDidChange:self.state];
-}
-
 - (void)updateRecentSearchesVisibility {
     [self updateRecentSearchesVisibility:YES];
-}
-
-- (BOOL)isRecentSearchesHidden {
-    return self.recentSearchesContainerView.alpha < 0.01;
 }
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
         [self.searchBar.text length] > 0 || self.recentSearchesViewController.recentSearchesItemCount == 0;
 
+    [self setRecentSearchesHidden:hideRecentSearches animated:animated];
+}
+
+- (void)setRecentSearchesHidden:(BOOL)showingRecentSearches {
+    [self setRecentSearchesHidden:showingRecentSearches animated:NO];
+}
+
+- (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated {
     /*
        HAX: Need to show/hide superviews since recent & results are in the same container. should use UIViewController
-          containment/transition API instead in the future.
+       containment/transition API instead in the future.
      */
-    if ([self isRecentSearchesHidden] == hideRecentSearches) {
+    if (self.isRecentSearchesHidden == hidingRecentSearches) {
         return;
     }
 
+    _recentSearchesHidden = hidingRecentSearches;
+
     [UIView animateWithDuration:animated ? [CATransaction animationDuration] : 0.0
                      animations:^{
-        self.recentSearchesContainerView.alpha = hideRecentSearches ? 0.0 : 1.0;
+        self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
         self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
     }];
 }
@@ -158,9 +155,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
-    [self updateSearchStateAndNotifyDelegate:WMFSearchStateActive];
-    [self updateRecentSearchesVisibility:YES];
-
     [self.searchBar setShowsCancelButton:YES animated:YES];
 
     if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
@@ -174,7 +168,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
 
-    [self updateRecentSearchesVisibility:YES];
+    [self.searchBar setShowsCancelButton:YES animated:YES];
+
+    [self setRecentSearchesHidden:YES animated:YES];
 
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         if ([searchText isEqualToString:self.searchBar.text]) {
@@ -184,8 +180,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar*)searchBar {
-    [self updateRecentSearchesVisibility];
-    [self.searchBar setShowsCancelButton:NO animated:YES];
+    [self.searchBar setShowsCancelButton:searchBar.text.length animated:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
@@ -193,8 +188,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar*)searchBar {
-    [self updateSearchStateAndNotifyDelegate:WMFSearchStateInactive];
     [self.searchBar resignFirstResponder];
+    [self.searchBar setShowsCancelButton:NO animated:YES];
     [self didCancelSearch];
 }
 
@@ -204,14 +199,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchBar.text = nil;
     [self updateSearchSuggestion:nil];
     self.resultsListController.dataSource = nil;
-    [self.searchBar setShowsCancelButton:NO animated:YES];
     [self updateRecentSearchesVisibility];
 }
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
+    @weakify(self);
     dispatch_promise(^{
         return [self.fetcher searchArticleTitlesForSearchTerm:searchTerm];
-    }).then((id) ^ (WMFSearchResults * results){
+    }).then(^id (WMFSearchResults* results){
+        @strongify(self);
+        if (![results.searchTerm isEqualToString:self.searchBar.text]) {
+            return [NSError cancelledError];
+        }
+
         /*
            HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
@@ -269,7 +269,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(NSString*)searchTerm {
     self.searchBar.text = searchTerm;
-    [self.searchBar setShowsCancelButton:YES animated:YES];
     [self searchForSearchTerm:searchTerm];
     [self updateRecentSearchesVisibility];
 }
@@ -278,6 +277,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (IBAction)searchForSuggestion:(id)sender {
     self.searchBar.text = [self searchSuggestion];
+    [self.searchBar setShowsCancelButton:YES animated:YES];
     [UIView animateWithDuration:0.25 animations:^{
         [self updateSearchSuggestion:nil];
     }];
