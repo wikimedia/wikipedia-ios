@@ -41,7 +41,9 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site locationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+- (instancetype)initWithSite:(MWKSite*)site
+             locationManager:(WMFLocationManager*)locationManager
+       locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     NSParameterAssert(site);
     NSParameterAssert(locationManager);
     NSParameterAssert(locationSearchFetcher);
@@ -122,7 +124,9 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     } else {
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
+            @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
+                @strongify(self);
                 [self.locationManager stopMonitoringLocation];
                 [self.locationManager startMonitoringLocation];
             } forControlEvents:UIControlEventTouchUpInside];
