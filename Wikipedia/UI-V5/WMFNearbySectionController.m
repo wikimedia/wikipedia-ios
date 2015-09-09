@@ -239,11 +239,6 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     });
 }
 
-- (void)reloadNearby {
-    [self.locationManager stopMonitoringLocation];
-    [self.locationManager startMonitoringLocation];
-}
-
 #pragma mark - Compass Heading
 
 - (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation
