@@ -1,6 +1,6 @@
 
 #import "WMFSearchResults.h"
-#import "WMFArticlePreviewCell.h"
+#import "WMFSearchResultCell.h"
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite) NSString* searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
 @end
 
@@ -24,16 +25,18 @@ NS_ASSUME_NONNULL_BEGIN
         self.searchTerm       = searchTerm;
         self.searchSuggestion = suggestion;
 
-        self.cellClass = [WMFArticlePreviewCell class];
+        self.cellClass = [WMFSearchResultCell class];
 
-        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+        @weakify(self);
+        self.cellConfigureBlock = ^(WMFSearchResultCell* cell,
                                     MWKArticle* article,
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
-            cell.title                 = article.title;
-            cell.descriptionText       = article.entityDescription;
-            cell.image                 = [article bestThumbnailImage];
-            cell.summaryAttributedText = nil;
+            @strongify(self);
+            [cell setTitle:article.title highlightingSubstring:self.searchTerm];
+            [cell setSearchResultDescription:article.entityDescription];
+            cell.image = [article bestThumbnailImage];
+            [cell setSavedPageList:self.savedPageList];
         };
     }
     return self;
@@ -41,8 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCollectionView:(UICollectionView*)collectionView {
     [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib]
-          forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+    [self.collectionView registerNib:[WMFSearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFSearchResultCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {
@@ -80,6 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
     return MWKHistoryDiscoveryMethodSearch;
+}
+
+- (CGFloat)estimatedItemHeight {
+    return 70.f;
 }
 
 @end

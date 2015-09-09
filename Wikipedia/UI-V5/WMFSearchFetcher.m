@@ -78,9 +78,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFSearchResults*)searchResultsFromFetcher:(SearchResultFetcher*)resultsFetcher {
     NSArray* articles = [resultsFetcher.searchResults bk_map:^id (NSDictionary* obj) {
         MWKTitle* title = [MWKTitle titleWithString:obj[@"title"] site:self.searchSite];
-        MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore searchResultsDict:obj];
-        [article loadThumbnailFromDisk]; //TODO: Remove after image caching complete
-
+        MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
+                                                      dataStore:self.dataStore
+                                              searchResultsDict:obj];
         return article;
     }];
 

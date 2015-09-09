@@ -11,4 +11,6 @@
                                fromTableView:(UITableView*)tableView
                          configuredWithBlock:(void (^)(UITableViewCell*))block;
 
+- (void)wmf_verifyViewAtScreenWidth:(UIView*)view;
+
 @end

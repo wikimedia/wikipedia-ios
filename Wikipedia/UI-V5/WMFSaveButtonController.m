@@ -1,15 +1,8 @@
-//  Created by Monte Hurd on 8/19/15.2//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
-
 #import "WMFSaveButtonController.h"
+#import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKUserDataStore.h"
-
-@interface WMFSaveButtonController ()
-
-@property (strong, nonatomic) MWKSavedPageList* savedPageList;
-
-@end
 
 @implementation WMFSaveButtonController
 
@@ -18,35 +11,31 @@
                          title:(MWKTitle*)title {
     self = [super init];
     if (self) {
-        self.savedPageList = savedPageList;
         self.button        = button;
         self.title         = title;
-        [self observeSavedPages];
+        self.savedPageList = savedPageList;
     }
     return self;
 }
 
-- (void)observeSavedPages {
-    [self.KVOControllerNonRetaining observe:self.savedPageList
-                                    keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
-                                    options:NSKeyValueObservingOptionInitial
-                                      block:^(WMFSaveButtonController* observer, id object, NSDictionary* change) {
-        [observer updateSavedButtonState];
-    }];
-}
-
-- (void)unobserveSavedPages {
-    [self.KVOControllerNonRetaining unobserve:self.savedPageList keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)];
-}
-
-- (void)toggleSave:(id)sender {
+- (void)dealloc {
     [self unobserveSavedPages];
-    [self.savedPageList toggleSavedPageForTitle:self.title];
-    [self.savedPageList save];
+}
+
+#pragma mark - Accessors
+
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
+    if (self.savedPageList == savedPageList) {
+        return;
+    }
+    _savedPageList = savedPageList;
     [self observeSavedPages];
 }
 
 - (void)setTitle:(MWKTitle*)title {
+    if (WMF_EQUAL(self.title, isEqualToTitle:, title)) {
+        return;
+    }
     _title = title;
     [self updateSavedButtonState];
 }
@@ -61,7 +50,25 @@
      forControlEvents:UIControlEventTouchUpInside];
 
     _button = button;
+    [self updateSavedButtonState];
 }
+
+#pragma mark - KVO
+
+- (void)observeSavedPages {
+    [self.KVOControllerNonRetaining observe:self.savedPageList
+                                    keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WMFSaveButtonController* observer, id object, NSDictionary* change) {
+        [observer updateSavedButtonState];
+    }];
+}
+
+- (void)unobserveSavedPages {
+    [self.KVOControllerNonRetaining unobserve:self.savedPageList keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)];
+}
+
+#pragma mark - Save State
 
 - (void)updateSavedButtonState {
     self.button.selected = [self isSaved];
@@ -71,8 +78,11 @@
     return [self.savedPageList isSaved:self.title];
 }
 
-- (void)dealloc {
+- (void)toggleSave:(id)sender {
     [self unobserveSavedPages];
+    [self.savedPageList toggleSavedPageForTitle:self.title];
+    [self.savedPageList save];
+    [self observeSavedPages];
 }
 
 @end

@@ -33,6 +33,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong, readwrite) WMFRelatedSearchResults* relatedResults;
 
 @end
@@ -104,6 +105,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
         [previewCell setSummaryHTML:result.extractHTML fromSite:self.relatedResults.title.site];
+        [previewCell setSavedPageList:self.savedPageList];
         NSAssert (^{
             UIFont* actualFont = [previewCell.summaryLabel.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil] ? : previewCell.summaryLabel.font;
             UIFont* requiredFont = [UIFont wmf_htmlBodyFont];

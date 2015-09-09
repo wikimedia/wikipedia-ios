@@ -262,38 +262,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     return nil;
 }
 
-- (void)loadThumbnailFromDisk {
-    /**
-     *  The folowing logic was pulled from the Article Fetcher
-     *  Putting it here to begin to coalesce populating Article data
-     *  in a single place. This will be addressed natuarlly as we
-     *  refactor model class mapping in the network layer.
-     */
-    if (!self.thumbnailURL) {
-        return;
-    }
-
-    if ([[self existingImageWithURL:self.thumbnailURL] isDownloaded]) {
-        return;
-    }
-
-    NSString* cacheFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)
-                                firstObject]
-                               stringByAppendingPathComponent:self.thumbnailURL.lastPathComponent];
-    BOOL isDirectory      = NO;
-    BOOL cachedFileExists = [[NSFileManager defaultManager] fileExistsAtPath:cacheFilePath
-                                                                 isDirectory:&isDirectory];
-    if (cachedFileExists) {
-        NSError* error = nil;
-        NSData* data   = [NSData dataWithContentsOfFile:cacheFilePath options:0 error:&error];
-        if (!error) {
-            // Copy Search/Nearby thumb binary to core data store so it doesn't have to be re-downloaded.
-            MWKImage* image = [self importImageURL:self.thumbnailURL sectionId:kMWKArticleSectionNone];
-            [self importImageData:data image:image];
-        }
-    }
-}
-
 /**
  * Return image object if folder for that image exists
  * else return nil

@@ -1,5 +1,6 @@
 
 #import "WMFHomeNearbyCell.h"
+#import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 #import "WMFCompassView.h"
 
 #import "Wikipedia-Swift.h"
@@ -15,9 +16,7 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @interface WMFHomeNearbyCell ()
 
-@property (strong, nonatomic) IBOutlet UIImageView* imageView;
 @property (strong, nonatomic) IBOutlet WMFCompassView* compassView;
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UIView* distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel* distanceLabel;
 
@@ -29,11 +28,8 @@ static CGFloat const WMFImagePadding = 8.0;
     [super prepareForReuse];
     [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
     self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
-    _imageURL            = nil;
-    _titleLabel.text     = nil;
     _distanceLabel.text  = nil;
-    _titleText           = nil;
-    _descriptionText     = nil;
+    self.descriptionText = nil;
 }
 
 - (void)awakeFromNib {
@@ -53,43 +49,11 @@ static CGFloat const WMFImagePadding = 8.0;
     return preferredAttributes;
 }
 
-- (void)setImageURL:(NSURL*)imageURL {
-    if ([_imageURL isEqual:imageURL]) {
-        return;
-    }
-
-    [[WMFImageController sharedInstance] cancelFetchForURL:_imageURL];
-
-    _imageURL = imageURL;
-
-    UIImage* cached = [[WMFImageController sharedInstance] cachedImageInMemoryWithURL:imageURL];
-    if (cached) {
-        self.imageView.image = cached;
-        return;
-    }
-
-    @weakify(self);
-
-    [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
-    .then(^id (WMFImageDownload* download) {
-        @strongify(self);
-        if ([self.imageURL isEqual:imageURL]) {
-            self.imageView.image = download.image;
-        }
-        return nil;
-    })
-    .catchWithPolicy(PMKCatchPolicyAllErrorsExceptCancellation, ^(NSError* error){
-        self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
-    });
-}
-
-- (void)setTitleText:(NSString*)titleText {
-    _titleText = titleText;
-    [self updateTitleLabel];
-}
-
 - (void)setDescriptionText:(NSString*)descriptionText {
-    _descriptionText = descriptionText;
+    if (WMF_EQUAL(self.descriptionText, isEqualToString:, descriptionText)) {
+        return;
+    }
+    _descriptionText = [descriptionText copy];
     [self updateTitleLabel];
 }
 
@@ -121,11 +85,11 @@ static CGFloat const WMFImagePadding = 8.0;
 }
 
 - (NSAttributedString*)attributedTitleText {
-    if ([self.titleText length] == 0) {
+    if ([self.title.text length] == 0) {
         return nil;
     }
 
-    return [[NSAttributedString alloc] initWithString:self.titleText attributes:
+    return [[NSAttributedString alloc] initWithString:self.title.text attributes:
             @{
                 NSFontAttributeName: [UIFont systemFontOfSize:17.0f],
                 NSForegroundColorAttributeName: [UIColor blackColor]

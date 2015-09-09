@@ -1,18 +1,17 @@
+#import "WMFSaveableTitleCollectionViewCell.h"
 
-#import "WMFShadowCell.h"
 @class MWKImage;
-@class MWKSite;
-@class MWKTitle;
 
 extern CGFloat const WMFArticlePreviewCellTextPadding;
 extern CGFloat const WMFArticlePreviewCellImageHeight;
 
-@interface WMFArticlePreviewCell : WMFShadowCell
+@interface WMFArticlePreviewCell : WMFSaveableTitleCollectionViewCell
 
-@property (copy, nonatomic) NSURL* imageURL;
-@property (copy, nonatomic) MWKImage* image;
-
-@property (copy, nonatomic) MWKTitle* title;
+/**
+ *  Text which describes the @c title associated with the receiver.
+ *
+ *  Usually set to the title's WikiData description and put in a label below the title.
+ */
 @property (copy, nonatomic) NSString* descriptionText;
 
 - (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;
@@ -27,5 +26,6 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
  *  @return The label used to display the `summaryHTML` and `summaryAttributedText`.
  */
 - (UILabel*)summaryLabel;
+
 
 @end

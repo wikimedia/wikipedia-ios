@@ -1,7 +1,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class SSSectionedDataSource;
+@class SSSectionedDataSource, MWKSavedPageList;
 
 @protocol WMFHomeSectionControllerDelegate;
 
@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
+
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
 @end
 

@@ -2,6 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "XCTestCase+WMFVisualTestConvenience.h"
+#import "UIView+VisualTestSizingUtils.h"
 
 @implementation XCTestCase (WMFVisualTestConvenience)
 
@@ -15,13 +16,8 @@
         block(label);
     }
 
-    CGSize preHeightAdjustmentSize = (CGSize){320, 100};
+    [label wmf_sizeToFitScreenWidth];
 
-    CGSize heightAdjustedSize = [label systemLayoutSizeFittingSize:preHeightAdjustmentSize
-                                     withHorizontalFittingPriority:UILayoutPriorityRequired
-                                           verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
-    label.frame = (CGRect){CGPointZero, heightAdjustedSize};
     return label;
 }
 
@@ -34,15 +30,7 @@
         block(cell);
     }
 
-    CGSize preHeightAdjustmentSize = (CGSize){320, 100};
-
-    CGSize heightAdjustedSize = [cell.contentView systemLayoutSizeFittingSize:preHeightAdjustmentSize
-                                                withHorizontalFittingPriority:UILayoutPriorityRequired
-                                                      verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
-    CGRect adjustedRect = (CGRect){CGPointZero, heightAdjustedSize};
-    cell.contentView.frame = adjustedRect;
-    cell.frame             = adjustedRect;
+    [cell wmf_sizeToFitScreenWidth];
 
     return cell;
 }
