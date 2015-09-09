@@ -19,6 +19,8 @@
 
 #import <BlocksKit/BlocksKit+UIKit.h>
 
+#import "CLLocation+WMFBearing.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
@@ -162,7 +164,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
         if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
             MWKLocationSearchResult* result = [self items][indexPath.item];
-            cell.headingAngle = [self headingAngleToLocation:result.location startLocationLocation:self.locationManager.lastLocation heading:heading interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+            cell.headingAngle = [self headingAngleToLocation:result.location
+                                               startLocation:self.locationManager.lastLocation
+                                                     heading:heading
+                                        interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
         }
     }];
 }
@@ -238,13 +243,12 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 #pragma mark - Compass Heading
 
-- (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation startLocationLocation:(CLLocation*)startLocation heading:(CLHeading*)heading interfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation
+                      startLocation:(CLLocation*)startLocation
+                            heading:(CLHeading*)heading
+               interfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Get angle between device and article coordinates.
-    double angleRadians = [self headingBetweenLocation:startLocation.coordinate andLocation:toLocation.coordinate];
-
-    // Adjust for device rotation (deviceHeading is in degrees).
-    double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
-    angleDegrees -= heading.trueHeading;
+    double angleDegrees = [startLocation wmf_bearingToLocation:toLocation forCurrentHeading:heading];
 
     if (angleDegrees > 360.0) {
         angleDegrees -= 360.0;
@@ -268,15 +272,6 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     }
 
     return @(DEGREES_TO_RADIANS(angleDegrees));
-}
-
-- (double)headingBetweenLocation:(CLLocationCoordinate2D)loc1
-                     andLocation:(CLLocationCoordinate2D)loc2 {
-    // From: http://www.movable-type.co.uk/scripts/latlong.html
-    double dy = loc2.longitude - loc1.longitude;
-    double y  = sin(dy) * cos(loc2.latitude);
-    double x  = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
-    return atan2(y, x);
 }
 
 @end
