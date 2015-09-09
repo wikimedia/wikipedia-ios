@@ -27,11 +27,28 @@ extension NSArray {
     }
 
     /**
+    Select up to `n` elements from an array starting with the last element
+    
+    :param: length The max length
+    
+    :returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items
+    in the array.
+    */
+    public func wmf_arrayByTrimmingToLengthFromEnd(n: UInt) -> NSArray {
+        let intLength = Int(n);
+        if (self.count == 0 || self.count < intLength) {
+            return self;
+        }
+        
+        return self.subarrayWithRange(NSMakeRange(self.count-intLength, intLength));
+    }
+
+    /**
     Get all elements in an array except the first.
 
     :returns: All but the first element of the receiver, or an empty array if there was only one element.
     */
-    public func wmf_tail() -> NSArray {
+    public func wmf_arrayByRemovingFirstElement() -> NSArray {
         return wmf_safeSubarrayWithRange(NSMakeRange(1, self.count - 1))
     }
 
@@ -67,4 +84,27 @@ extension NSArray {
     public func wmf_reverseArray() -> AnyObject {
         return self.reverseObjectEnumerator().allObjects;
     }
+    
+    /**
+    Return an new array by interleaving the receiver with otherArray.
+    The first element in the receiver is always first.
+    
+    :param: otherArray The array whose lements to interleave
+    
+    :returns: The interleaved array
+    */
+    public func wmf_arrayByInterleavingElementsFromArray(otherArray: NSArray) -> NSArray {
+        
+        var newArray = self.mutableCopy() as! NSMutableArray;
+        
+        otherArray.enumerateObjectsUsingBlock { (object, index, stop) -> Void in
+            
+            var newIndex = 2*index + 1;
+            newIndex = newIndex > newArray.count ? newArray.count : newIndex;
+            newArray.insertObject(object, atIndex: newIndex);
+        }
+        
+        return newArray;
+    }
+
 }

@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
     _article = article;
 
     [self.headerGalleryViewController setImagesFromArticle:article];
-    self.topLevelSections = [_article.sections.topLevelSections wmf_tail];
+    self.topLevelSections = [_article.sections.topLevelSections wmf_arrayByRemovingFirstElement];
 
     [self updateUI];
 
