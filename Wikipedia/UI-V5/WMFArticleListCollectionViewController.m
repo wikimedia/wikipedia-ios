@@ -53,12 +53,11 @@
 
     [_dataSource setSavedPageList:self.savedPages];
 
-    if ([self isViewLoaded]) {
+    //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
+    //isViewLoaded is not enough.
+    if ([self isViewLoaded] && self.view.window) {
         if (_dataSource) {
-            _dataSource.collectionView = self.collectionView;
-            if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
-                [self flowLayout].estimatedItemHeight = _dataSource.estimatedItemHeight;
-            }
+            [self connectCollectionViewAndDataSource];
         } else {
             [self.collectionView reloadData];
         }
@@ -85,6 +84,15 @@
     [self.collectionView wmf_enumerateVisibleCellsUsingBlock:
      ^(WMFArticlePreviewCell* cell, NSIndexPath* path, BOOL* _) {
     }];
+}
+
+#pragma mark - DataSource and Collection View Wiring
+
+- (void)connectCollectionViewAndDataSource {
+    _dataSource.collectionView = self.collectionView;
+    if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
+        [self flowLayout].estimatedItemHeight = _dataSource.estimatedItemHeight;
+    }
 }
 
 #pragma mark - Scrolling
@@ -128,8 +136,11 @@
     [self flowLayout].numberOfColumns    = 1;
     [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
     [self flowLayout].minimumLineSpacing = 10.0;
+}
 
-    self.dataSource.collectionView = self.collectionView;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self connectCollectionViewAndDataSource];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
