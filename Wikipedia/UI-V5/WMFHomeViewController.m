@@ -14,8 +14,8 @@
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 
-#import <SSDataSources/SSDataSources.h>
-#import "SSSectionedDataSource+WMFSectionConvenience.h"
+#import "WMFSectionSchemaManager.h"
+#import "WMFSectionSchemaItem.h"
 
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
@@ -28,6 +28,9 @@
 #import "MWKArticle.h"
 
 #import "MWKLocationSearchResult.h"
+
+#import <SSDataSources/SSDataSources.h>
+#import "SSSectionedDataSource+WMFSectionConvenience.h"
 
 #import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
 
@@ -42,15 +45,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate>
 
+@property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
+
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
-@property (nonatomic, strong, null_resettable) WMFRelatedSectionController* recentSectionController;
-@property (nonatomic, strong, null_resettable) WMFRelatedSectionController* savedSectionController;
+@property (nonatomic, strong) NSMutableDictionary* sectionControllers;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
-@property (nonatomic, strong) NSMutableDictionary* sectionControllers;
 
 @end
 
@@ -95,39 +98,19 @@ NS_ASSUME_NONNULL_BEGIN
     self.nearbySectionController.searchSite = searchSite;
 }
 
+- (WMFSectionSchemaManager*)schemaManager {
+    if (!_schemaManager) {
+        _schemaManager = [[WMFSectionSchemaManager alloc] initWithSavedPages:self.savedPages recentPages:self.recentPages];
+    }
+    return _schemaManager;
+}
+
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
         [_nearbySectionController setSavedPageList:self.savedPages];
     }
     return _nearbySectionController;
-}
-
-- (WMFRelatedSectionController*)recentSectionController {
-    if (!_recentSectionController) {
-        _recentSectionController = [self relatedSectionControllerWithTitle:[self mostRecentReadArticle]];
-    }
-    return _recentSectionController;
-}
-
-- (WMFRelatedSectionController*)savedSectionController {
-    if (!_savedSectionController) {
-        _savedSectionController = [self relatedSectionControllerWithTitle:[self mostRecentSavedArticle]];
-    }
-    return _savedSectionController;
-}
-
-- (id<WMFHomeSectionController> __nullable)relatedSectionControllerWithTitle:(MWKTitle* __nullable)title {
-    if (!title) {
-        return nil;
-    }
-    WMFRelatedSearchFetcher* fetcher        = [[WMFRelatedSearchFetcher alloc] init];
-    id<WMFHomeSectionController> controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:title
-                                                                                   relatedSearchFetcher:fetcher
-                                                                                               delegate:self];
-    [controller setSavedPageList:self.savedPages];
-
-    return controller;
 }
 
 - (WMFLocationManager*)locationManager {
@@ -177,57 +160,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
-}
-
-#pragma mark - Related Articles
-
-- (BOOL)shouldReloadRecentArticleSection {
-    if ([[[self.recentPages mostRecentEntry] title] isEqualToTitle:_recentSectionController.title]) {
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)shouldReloadSavedArticleSection {
-    if ([[[self.savedPages mostRecentEntry] title] isEqualToTitle:_savedSectionController.title]) {
-        return NO;
-    }
-    return YES;
-}
-
-- (void)reloadRelatedArticlesForRecentArticles {
-    if ([self shouldReloadRecentArticleSection]) {
-        if (_recentSectionController) {
-            [self unloadSectionForSectionController:self.recentSectionController];
-            self.recentSectionController = nil;
-        }
-
-        if ([self.dataSource numberOfSections] > 0) {
-            [self insertSectionForSectionController:self.recentSectionController atIndex:0];
-        } else {
-            [self loadSectionForSectionController:self.recentSectionController];
-        }
-    }
-}
-
-- (void)reloadRelatedArticlesForSavedArticles {
-    if ([self shouldReloadSavedArticleSection]) {
-        if (_savedSectionController) {
-            [self unloadSectionForSectionController:self.savedSectionController];
-            self.savedSectionController = nil;
-        }
-        [self loadSectionForSectionController:self.savedSectionController];
-    }
-}
-
-- (MWKTitle*)mostRecentReadArticle {
-    MWKHistoryEntry* latest = [self.recentPages mostRecentEntry];
-    return latest.title;
-}
-
-- (MWKTitle*)mostRecentSavedArticle {
-    MWKSavedPageEntry* latest = [[self.savedPages entries] lastObject];
-    return latest.title;
 }
 
 #pragma mark - UIViewController
@@ -281,8 +213,9 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self reloadRelatedArticlesForRecentArticles];
-    [self reloadRelatedArticlesForSavedArticles];
+    [self.schemaManager updateSchema];
+
+    [self reloadSections];
 }
 
 #pragma mark - Data Source Configuration
@@ -335,14 +268,38 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView registerNib:[WMFHomeSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
     [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
-    [self loadSectionForSectionController:self.recentSectionController];
-    [self loadSectionForSectionController:self.nearbySectionController];
-    [self loadSectionForSectionController:self.savedSectionController];
+    [self reloadSections];
 
     self.dataSource.collectionView = self.collectionView;
 }
 
+#pragma mark - Related Sections
+
+- (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFSectionSchemaItem*)item {
+    WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
+    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title relatedSearchFetcher:fetcher];
+    [controller setSavedPageList:self.savedPages];
+    return controller;
+}
+
 #pragma mark - Section Management
+
+- (void)reloadSections {
+    [self unloadAllSections];
+    [self.schemaManager.sectionSchema enumerateObjectsUsingBlock:^(WMFSectionSchemaItem* obj, NSUInteger idx, BOOL* stop) {
+        switch (obj.type) {
+            case WMFSectionSchemaItemTypeRecent:
+            case WMFSectionSchemaItemTypeSaved:
+                [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
+                break;
+            case WMFSectionSchemaItemTypeNearby:
+                [self loadSectionForSectionController:self.nearbySectionController];
+                break;
+            default:
+                break;
+        }
+    }];
+}
 
 - (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
     SSSection* section = [self.dataSource sectionAtIndex:index];
@@ -401,6 +358,15 @@ NS_ASSUME_NONNULL_BEGIN
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
         [self.dataSource removeSectionAtIndex:index];
     } completion:NULL];
+}
+
+- (void)unloadAllSections {
+    if ([self.dataSource numberOfSections] == 0) {
+        return;
+    }
+
+    [self.sectionControllers removeAllObjects];
+    [self.dataSource removeAllSections];
 }
 
 #pragma mark - UICollectionViewDelegate
