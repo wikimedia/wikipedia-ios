@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (void)setSavedPages:(MWKSavedPageList * __nonnull)savedPages {
+- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
     _savedPages = savedPages;
     [self.nearbySectionController setSavedPageList:savedPages];
     [self.recentSectionController setSavedPageList:savedPages];

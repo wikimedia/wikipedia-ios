@@ -60,7 +60,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     if (self) {
         self.searchSite = site;
 
-        self.locationSearchFetcher                   = locationSearchFetcher;
+        self.locationSearchFetcher = locationSearchFetcher;
 
         locationManager.delegate = self;
         self.locationManager     = locationManager;
@@ -150,13 +150,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     NSAssert(self.nearbyResults.results.count > 0 && [[self.locationManager class] isAuthorized],
              @"Shouldn't be able to present more nearby titles if we're not able to determine location."
              " Current status is %d", [CLLocationManager authorizationStatus]);
-    #warning Remove SessionSingleton 
-    WMFNearbyTitleListDataSource* dataSource = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+    #warning Remove SessionSingleton
+    WMFNearbyTitleListDataSource* dataSource                   = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
     WMFArticleListCollectionViewController* moreNearbyTitlesVC = [[WMFArticleListCollectionViewController alloc] init];
-    moreNearbyTitlesVC.dataStore = [[[SessionSingleton sharedInstance] userDataStore] dataStore];
+    moreNearbyTitlesVC.dataStore   = [[[SessionSingleton sharedInstance] userDataStore] dataStore];
     moreNearbyTitlesVC.recentPages = [[[SessionSingleton sharedInstance] userDataStore] historyList];
-    moreNearbyTitlesVC.savedPages = self.savedPageList;
-    moreNearbyTitlesVC.dataSource = dataSource;
+    moreNearbyTitlesVC.savedPages  = self.savedPageList;
+    moreNearbyTitlesVC.dataSource  = dataSource;
     return moreNearbyTitlesVC;
 }
 
@@ -213,7 +213,6 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 - (void)refetchNearbyArticlesIfSiteHasChanged {
     if (self.locationManager.lastLocation && ![self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
         [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
-
     }
 }
 

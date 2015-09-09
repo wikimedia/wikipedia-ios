@@ -16,7 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbyTitleListDataSource : SSArrayDataSource
-<WMFArticleListDataSource>
+    <WMFArticleListDataSource>
 
 @property (nonatomic, strong) MWKSite* site;
 

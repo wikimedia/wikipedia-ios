@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setLocationSearchResults:(WMFLocationSearchResults * __nonnull)locationSearchResults {
+- (void)setLocationSearchResults:(WMFLocationSearchResults* __nonnull)locationSearchResults {
     if (locationSearchResults == self.locationSearchResults) {
         return;
     }
@@ -91,13 +91,13 @@ NS_ASSUME_NONNULL_BEGIN
         NSDictionary* serializedSearchResult = [MTLJSONAdapter JSONDictionaryFromModel:locResult error:&error];
         NSAssert(serializedSearchResult, @"Failed to serialize location search result %@. Error %@", locResult, error);
         MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
-                                                     dataStore:nil
-                                             searchResultsDict:serializedSearchResult];
+                                                      dataStore:nil
+                                              searchResultsDict:serializedSearchResult];
         return article;
     }]];
 }
 
-- (void)setSite:(MWKSite * __nonnull)site {
+- (void)setSite:(MWKSite* __nonnull)site {
     if (WMF_EQUAL(self.site, isEqualToSite:, site)) {
         return;
     }
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
     return @"More from nearby your location";
 }
 
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath * __nonnull)indexPath {
+- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath* __nonnull)indexPath {
     return NO;
 }
 
@@ -149,17 +149,17 @@ NS_ASSUME_NONNULL_BEGIN
     return self.allItems.count;
 }
 
-- (MWKArticle*)articleForIndexPath:(NSIndexPath * __nonnull)indexPath {
+- (MWKArticle*)articleForIndexPath:(NSIndexPath* __nonnull)indexPath {
     return [self itemAtIndexPath:indexPath];
 }
 
-- (NSIndexPath*)indexPathForArticle:(MWKArticle * __nonnull)article {
+- (NSIndexPath*)indexPathForArticle:(MWKArticle* __nonnull)article {
     return [self indexPathForItem:article];
 }
 
 #pragma mark - SSDataSource
 
-- (void)setCollectionView:(UICollectionView *)collectionView {
+- (void)setCollectionView:(UICollectionView*)collectionView {
     [super setCollectionView:collectionView];
     [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib]
      forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
