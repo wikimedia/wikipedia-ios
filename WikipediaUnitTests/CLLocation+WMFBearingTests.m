@@ -24,10 +24,10 @@
 
 - (void)setUp {
     [super setUp];
-    self.mosconeCenter = [[CLLocation alloc] initWithLatitude:37.783821 longitude:-122.400264];
+    self.mosconeCenter    = [[CLLocation alloc] initWithLatitude:37.783821 longitude:-122.400264];
     self.goldenGateBridge = [[CLLocation alloc] initWithLatitude:37.809616 longitude:-122.476784];
-    self.coitTower = [[CLLocation alloc] initWithLatitude:37.801904 longitude:-122.405713];
-    self.twinPeaksSummit = [[CLLocation alloc] initWithLatitude:37.752959 longitude:-122.445854];
+    self.coitTower        = [[CLLocation alloc] initWithLatitude:37.801904 longitude:-122.405713];
+    self.twinPeaksSummit  = [[CLLocation alloc] initWithLatitude:37.752959 longitude:-122.445854];
     self.dogpatchBoulders = [[CLLocation alloc] initWithLatitude:37.756303 longitude:-122.387848];
 }
 

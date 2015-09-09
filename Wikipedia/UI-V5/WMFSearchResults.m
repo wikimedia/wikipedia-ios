@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCollectionView:(UICollectionView*)collectionView {
     [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib]
+          forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {

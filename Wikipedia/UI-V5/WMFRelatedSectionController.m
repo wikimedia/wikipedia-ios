@@ -121,10 +121,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
                                                savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]
                                    numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]];
     WMFArticleListCollectionViewController* moreRelatedVC = [WMFArticleListCollectionViewController new];
-    moreRelatedVC.dataStore = [[SessionSingleton sharedInstance] dataStore];
-    moreRelatedVC.savedPages = [[[SessionSingleton sharedInstance] userDataStore] savedPageList];
+    moreRelatedVC.dataStore   = [[SessionSingleton sharedInstance] dataStore];
+    moreRelatedVC.savedPages  = [[[SessionSingleton sharedInstance] userDataStore] savedPageList];
     moreRelatedVC.recentPages = [[[SessionSingleton sharedInstance] userDataStore] historyList];
-    moreRelatedVC.dataSource = dataSource;
+    moreRelatedVC.dataSource  = dataSource;
     return moreRelatedVC;
 }
 

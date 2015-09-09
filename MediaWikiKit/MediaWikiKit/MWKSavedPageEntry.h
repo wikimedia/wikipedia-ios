@@ -10,7 +10,7 @@
 #import "MWKList.h"
 
 @interface MWKSavedPageEntry : MWKSiteDataObject
-<MWKListObject, MWKTitleAssociated>
+    <MWKListObject, MWKTitleAssociated>
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
 

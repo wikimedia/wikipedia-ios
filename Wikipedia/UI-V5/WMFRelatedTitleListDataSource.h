@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKTitle;
 
 @interface WMFRelatedTitleListDataSource : SSArrayDataSource
-<WMFArticleListDataSource>
+    <WMFArticleListDataSource>
 
 
 - (instancetype)initWithTitle:(MWKTitle*)title

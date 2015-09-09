@@ -21,7 +21,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.moreLabel.text = nil;
-    self.whenTapped = nil;
+    self.whenTapped     = nil;
 }
 
 @end
