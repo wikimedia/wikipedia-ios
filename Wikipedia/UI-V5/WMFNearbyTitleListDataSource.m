@@ -8,18 +8,15 @@
 
 #import "WMFNearbyTitleListDataSource.h"
 
-// Location & Fetching
-#import "WMFLocationManager.h"
-#import "WMFLocationSearchFetcher.h"
+// View Model
+#import "WMFNearbyViewModel.h"
 
 // Models
-#import "WMFLocationSearchResults.h"
+#import "MWKSite.h"
+#import "MWKTitle.h"
 #import "MWKLocationSearchResult.h"
-#import "MWKHistoryEntry.h"
-
-// Frameworks
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+#import "MWKArticle.h"
+#import "WMFLocationSearchResults.h"
 
 // Views
 #import "WMFHomeNearbyCell.h"
@@ -29,101 +26,51 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbyTitleListDataSource ()
-<WMFNearbyControllerDelegate>
+<WMFNearbyViewModelDelegate>
 
-@property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
-@property (nonatomic, strong) WMFLocationManager* locationManager;
+@property (nonatomic, strong) WMFNearbyViewModel* viewModel;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
-
-@property (nonatomic, strong) WMFLocationSearchResults* locationSearchResults;
 
 @end
 
 @implementation WMFNearbyTitleListDataSource
 
 - (instancetype)initWithSite:(MWKSite*)site {
-    return [self initWithSite:site
-              locationManager:[[WMFLocationManager alloc] init]
-                      fetcher:[[WMFLocationSearchFetcher alloc] init]];
+    WMFNearbyViewModel* viewModel = [[WMFNearbyViewModel alloc] initWithSite:site resultLimit:20];
+    return [self initWithSite:site viewModel:viewModel];
 }
 
-- (instancetype)initWithSite:(MWKSite*)site
-             locationManager:(WMFLocationManager*)locationManager
-                     fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
+- (instancetype)initWithSite:(MWKSite*)site viewModel:(WMFNearbyViewModel*)viewModel {
+    NSParameterAssert([viewModel.site isEqualToSite:site]);
     self = [super initWithItems:nil];
     if (self) {
-        self.site                  = site;
-        self.locationSearchFetcher = locationSearchFetcher;
-
         self.cellClass = [WMFHomeNearbyCell class];
-
         @weakify(self);
         self.cellConfigureBlock = ^(WMFHomeNearbyCell* nearbyCell,
                                     MWKArticle* article,
                                     id parentView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKLocationSearchResult* result = self.locationSearchResults.results[indexPath.item];
+            MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.item];
             [nearbyCell setSavedPageList:self.savedPageList];
             nearbyCell.descriptionText = result.wikidataDescription;
             nearbyCell.title           = article.title;
             nearbyCell.distance        = result.distanceFromQueryCoordinates;
             nearbyCell.imageURL        = result.thumbnailURL;
         };
-
-        // !!!: Need to setup location manager last to prevent premature delegate callbacks
-        self.locationManager          = locationManager;
-        self.locationManager.delegate = self;
-        [self.locationManager restartLocationMonitoring];
+        self.viewModel = viewModel;
+        self.viewModel.delegate = self;
+        [self.viewModel fetch];
     }
     return self;
 }
 
-- (void)setLocationSearchResults:(WMFLocationSearchResults* __nonnull)locationSearchResults {
-    if (locationSearchResults == self.locationSearchResults) {
-        return;
-    }
-    _locationSearchResults = locationSearchResults;
-
-    [self updateItems:[_locationSearchResults.results bk_map:^MWKArticle*(MWKLocationSearchResult* locResult) {
-        MWKTitle* title = [[MWKTitle alloc] initWithString:locResult.displayTitle site:self.site];
-        NSError* error;
-        NSDictionary* serializedSearchResult = [MTLJSONAdapter JSONDictionaryFromModel:locResult error:&error];
-        NSAssert(serializedSearchResult, @"Failed to serialize location search result %@. Error %@", locResult, error);
-        MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
-                                                      dataStore:nil
-                                              searchResultsDict:serializedSearchResult];
-        return article;
-    }]];
+- (void)setSite:(MWKSite * __nonnull)site {
+    self.viewModel.site = site;
 }
 
-- (void)setSite:(MWKSite* __nonnull)site {
-    if (WMF_EQUAL(self.site, isEqualToSite:, site)) {
-        return;
-    }
-    _site = site;
-    if (self.locationSearchResults && ![self.locationSearchResults.searchSite isEqualToSite:self.site]) {
-        DDLogInfo(@"Search site changed, reloading nearby titles.");
-        [self fetchTitlesForLocation:self.locationSearchResults.location];
-    }
-}
-
-- (void)fetchTitlesForUpdatedLocationIfNeeded:(CLLocation*)location {
-    if (!self.locationSearchResults
-        || [self.locationSearchResults.location distanceFromLocation:location] > 500) {
-        DDLogInfo(@"Fetching nearby titles for new location %@, last location %@",
-                  location, self.locationSearchResults.location);
-        [self fetchTitlesForLocation:location];
-    }
-}
-
-- (void)fetchTitlesForLocation:(CLLocation*)location {
-    @weakify(self);
-    [self.locationSearchFetcher fetchArticlesWithSite:self.site location:location resultLimit:20]
-    .then(^(WMFLocationSearchResults* locationSearchResults) {
-        @strongify(self);
-        self.locationSearchResults = locationSearchResults;
-    });
+- (MWKSite*)site {
+    return self.viewModel.site;
 }
 
 #pragma mark - WMFArticleListDataSource
@@ -165,17 +112,25 @@ NS_ASSUME_NONNULL_BEGIN
      forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
 }
 
-#pragma mark - WMFNearbyControllerDelegate
+#pragma mark - WMFNearbyViewModelDelegate
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    [self fetchTitlesForUpdatedLocationIfNeeded:location];
+- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
+    // TODO: propagate error to view controller
 }
 
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
-    #warning TODO: update headings
-}
-
-- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
+- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel
+       didUpdateResults:(WMFLocationSearchResults*)locationSearchResults {
+    [self updateItems:[locationSearchResults.results bk_map:^MWKArticle*(MWKLocationSearchResult* locResult) {
+        MWKTitle* title = [[MWKTitle alloc] initWithString:locResult.displayTitle
+                                                      site:locationSearchResults.searchSite];
+        NSError* error;
+        NSDictionary* serializedSearchResult = [MTLJSONAdapter JSONDictionaryFromModel:locResult error:&error];
+        NSAssert(serializedSearchResult, @"Failed to serialize location search result %@. Error %@", locResult, error);
+        MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
+                                                      dataStore:nil
+                                              searchResultsDict:serializedSearchResult];
+        return article;
+    }]];
 }
 
 @end

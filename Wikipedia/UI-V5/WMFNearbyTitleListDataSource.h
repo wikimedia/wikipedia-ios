@@ -9,9 +9,7 @@
 #import <SSDataSources/SSArrayDataSource.h>
 #import "WMFArticleListDataSource.h"
 
-@class CLLocation;
-@class WMFLocationManager;
-@class WMFLocationSearchFetcher;
+@class WMFNearbyViewModel;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,9 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSite:(MWKSite*)site;
 
-- (instancetype)initWithSite:(MWKSite*)site
-             locationManager:(WMFLocationManager*)locationManager
-                     fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSite:(MWKSite*)site viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
 
 @end
 

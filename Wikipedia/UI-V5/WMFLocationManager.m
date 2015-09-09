@@ -6,8 +6,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //meters before we update location
-
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
@@ -18,9 +16,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
 @implementation WMFLocationManager
 
 - (void)dealloc {
-    if (self.locationManager.delegate == self) {
-        self.locationManager.delegate = nil;
-    }
+    self.locationManager.delegate = nil;
+    [self stopMonitoringLocation];
 }
 
 #pragma mark - Accessors
@@ -30,7 +27,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
         _locationManager                = [[CLLocationManager alloc] init];
         _locationManager.delegate       = self;
         _locationManager.activityType   = CLActivityTypeFitness;
-        _locationManager.distanceFilter = WMFMinimumDistanceBeforeUpdatingLocation;
+        _locationManager.distanceFilter = 500;
     }
 
     return _locationManager;
@@ -38,6 +35,10 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
 
 - (CLHeading* __nullable)lastHeading {
     return self.locationManager.heading;
+}
+
+- (CLLocation* __nullable)lastLocation {
+    return self.locationManager.location;
 }
 
 #pragma mark - Permissions
@@ -109,10 +110,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
         return;
     }
 
-    CLLocation* currentLocation = [locations lastObject];
-
-    self.lastLocation = currentLocation;
-    [self.delegate nearbyController:self didUpdateLocation:currentLocation];
+    [self.delegate nearbyController:self didUpdateLocation:manager.location];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {

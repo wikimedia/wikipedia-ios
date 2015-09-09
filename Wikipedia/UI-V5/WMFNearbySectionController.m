@@ -28,7 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
-static NSUInteger const WMFNearbySectionMaxResults = 3;
+static NSUInteger const WMFHomeNearbySectionMaxResults = 3;
 
 static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters before we update fetch
 
@@ -147,7 +147,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (UIViewController*)moreViewController {
-    NSAssert(self.nearbyResults.results.count > 0 && [[self.locationManager class] isAuthorized],
+    NSAssert(/*self.nearbyResults.results.count > 0 &&*/ [[self.locationManager class] isAuthorized],
              @"Shouldn't be able to present more nearby titles if we're not able to determine location."
              " Current status is %d", [CLLocationManager authorizationStatus]);
     #warning Remove SessionSingleton
@@ -237,7 +237,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     @weakify(self);
     [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite
                                              location:location
-                                          resultLimit:WMFNearbySectionMaxResults]
+                                          resultLimit:WMFHomeNearbySectionMaxResults]
     .then(^(WMFLocationSearchResults* results){
         @strongify(self);
         self.nearbyResults = results;
