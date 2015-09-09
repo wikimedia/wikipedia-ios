@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
+- (void)restartLocationMonitoring;
+
++ (BOOL)isAuthorized;
 
 @end
 

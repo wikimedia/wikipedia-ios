@@ -81,13 +81,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (void)setSavedPages:(MWKSavedPageList * __nonnull)savedPages {
+    _savedPages = savedPages;
+    [self.nearbySectionController setSavedPageList:savedPages];
+    [self.recentSectionController setSavedPageList:savedPages];
+    [self.savedSectionController setSavedPageList:savedPages];
+}
+
 + (UIEdgeInsets)defaultSectionInsets {
     return UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
 }
 
 - (UIBarButtonItem*)settingsBarButtonItem {
     // TODO: localize
-    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain
+    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
+                                            style:UIBarButtonItemStylePlain
                                            target:self
                                            action:@selector(didTapSettingsButton:)];
 }
@@ -99,7 +107,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite locationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
+                                                                    locationManager:self.locationManager
+                                                              locationSearchFetcher:self.locationSearchFetcher];
         [_nearbySectionController setSavedPageList:self.savedPages];
     }
     return _nearbySectionController;

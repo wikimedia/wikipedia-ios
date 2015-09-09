@@ -40,23 +40,36 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
     return self.locationManager.heading;
 }
 
-#pragma mark - Public
+#pragma mark - Permissions
+
++ (BOOL)isAuthorized {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse;
+}
+
+- (BOOL)requestAuthorizationIfNeeded {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusNotDetermined
+        && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - Location Monitoring
+
+- (void)restartLocationMonitoring {
+    [self stopMonitoringLocation];
+    [self startMonitoringLocation];
+}
 
 - (void)startMonitoringLocation {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-
-    if (status == kCLAuthorizationStatusDenied ||
-        status == kCLAuthorizationStatusRestricted) {
-        //Updates not possible
+    if (![[self class] isAuthorized]) {
+        [self requestAuthorizationIfNeeded];
         return;
     }
 
-    if (status == kCLAuthorizationStatusNotDetermined && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        //Need authorization
-        [self.locationManager requestWhenInUseAuthorization];
-
-        return;
-    }
+    NSParameterAssert([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse);
 
     [self startLocationUpdates];
     [self startHeadingUpdates];

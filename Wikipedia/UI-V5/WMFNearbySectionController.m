@@ -2,6 +2,7 @@
 #import "WMFNearbySectionController.h"
 
 #import "WMFArticleListCollectionViewController.h"
+#import "WMFNearbyTitleListDataSource.h"
 
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
@@ -20,6 +21,9 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "CLLocation+WMFBearing.h"
+
+// TEMP
+#import "SessionSingleton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,7 +60,6 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     if (self) {
         self.searchSite = site;
 
-        locationSearchFetcher.maximumNumberOfResults = WMFNearbySectionMaxResults;
         self.locationSearchFetcher                   = locationSearchFetcher;
 
         locationManager.delegate = self;
@@ -127,13 +130,13 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
         nearbyCell.distance        = result.distanceFromQueryCoordinates;
         nearbyCell.imageURL        = result.thumbnailURL;
     } else {
+        [self.locationManager startMonitoringLocation];
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
                 @strongify(self);
-                [self.locationManager stopMonitoringLocation];
-                [self.locationManager startMonitoringLocation];
+                [self.locationManager restartLocationMonitoring];
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }
@@ -144,8 +147,17 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (UIViewController*)moreViewController {
-    #warning TODO
-    return nil;
+    NSAssert(self.nearbyResults.results.count > 0 && [[self.locationManager class] isAuthorized],
+             @"Shouldn't be able to present more nearby titles if we're not able to determine location."
+             " Current status is %d", [CLLocationManager authorizationStatus]);
+    #warning Remove SessionSingleton 
+    WMFNearbyTitleListDataSource* dataSource = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+    WMFArticleListCollectionViewController* moreNearbyTitlesVC = [[WMFArticleListCollectionViewController alloc] init];
+    moreNearbyTitlesVC.dataStore = [[[SessionSingleton sharedInstance] userDataStore] dataStore];
+    moreNearbyTitlesVC.recentPages = [[[SessionSingleton sharedInstance] userDataStore] historyList];
+    moreNearbyTitlesVC.savedPages = self.savedPageList;
+    moreNearbyTitlesVC.dataSource = dataSource;
+    return moreNearbyTitlesVC;
 }
 
 #pragma mark - Section Updates
@@ -199,18 +211,15 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 #pragma mark - Fetch
 
 - (void)refetchNearbyArticlesIfSiteHasChanged {
-    if (!self.nearbyResults) {
-        return;
-    }
-    if ([self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
-        return;
-    }
+    if (self.locationManager.lastLocation && ![self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
+        [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
 
-    [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
+    }
 }
 
 - (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location {
-    if (self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
+    if (self.nearbyResults.location
+        && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
         return;
     }
 
@@ -227,7 +236,9 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
     }
 
     @weakify(self);
-    [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite location:location]
+    [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite
+                                             location:location
+                                          resultLimit:WMFNearbySectionMaxResults]
     .then(^(WMFLocationSearchResults* results){
         @strongify(self);
         self.nearbyResults = results;

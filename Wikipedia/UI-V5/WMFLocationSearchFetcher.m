@@ -59,18 +59,28 @@ NS_ASSUME_NONNULL_BEGIN
     return (WMFLocationSearchRequestSerializer*)(self.operationManager.requestSerializer);
 }
 
-- (AnyPromise*)fetchArticlesWithSite:(MWKSite*)site location:(CLLocation*)location {
+- (AnyPromise*)fetchArticlesWithSite:(MWKSite*)site
+                            location:(CLLocation*)location
+                         resultLimit:(NSUInteger)resultLimit {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchNearbyArticlesWithSite:site location:location useDesktopURL:NO resolver:resolve];
+        [self fetchNearbyArticlesWithSite:site
+                                 location:location
+                              resultLimit:resultLimit
+                            useDesktopURL:NO
+                                 resolver:resolve];
     }];
 }
 
-- (void)fetchNearbyArticlesWithSite:(MWKSite*)site location:(CLLocation*)location useDesktopURL:(BOOL)useDeskTopURL resolver:(PMKResolver)resolve {
+- (void)fetchNearbyArticlesWithSite:(MWKSite*)site
+                           location:(CLLocation*)location
+                        resultLimit:(NSUInteger)resultLimit
+                      useDesktopURL:(BOOL)useDeskTopURL
+                           resolver:(PMKResolver)resolve {
     NSURL* url = [site apiEndpoint:useDeskTopURL];
 
     WMFLocationSearchRequestParameters* params = [WMFLocationSearchRequestParameters new];
     params.location        = location;
-    params.numberOfResults = self.maximumNumberOfResults;
+    params.numberOfResults = resultLimit;
 
     [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -78,7 +88,11 @@ NS_ASSUME_NONNULL_BEGIN
         resolve(results);
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchNearbyArticlesWithSite:site location:location useDesktopURL:NO resolver:resolve];
+            [self fetchNearbyArticlesWithSite:site
+                                     location:location
+                                  resultLimit:resultLimit
+                                useDesktopURL:NO
+                                     resolver:resolve];
         } else {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
