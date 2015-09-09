@@ -276,8 +276,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Related Sections
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFSectionSchemaItem*)item {
-    WMFRelatedSearchFetcher* fetcher = [[WMFRelatedSearchFetcher alloc] init];
-    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title relatedSearchFetcher:fetcher];
+    WMFRelatedSearchFetcher* fetcher        = [[WMFRelatedSearchFetcher alloc] init];
+    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title relatedSearchFetcher:fetcher delegate:self];
     [controller setSavedPageList:self.savedPages];
     return controller;
 }
