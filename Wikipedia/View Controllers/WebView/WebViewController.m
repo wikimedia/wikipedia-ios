@@ -1353,26 +1353,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    switch (self.session.currentArticleDiscoveryMethod) {
-        case MWKHistoryDiscoveryMethodSaved:
-        case MWKHistoryDiscoveryMethodSearch:
-        case MWKHistoryDiscoveryMethodRandom:
-        case MWKHistoryDiscoveryMethodLink:
-        case MWKHistoryDiscoveryMethodReloadFromNetwork:
-        case MWKHistoryDiscoveryMethodUnknown: {
-            // Update the history so the most recently viewed article appears at the top.
-            [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title
-                                                              discoveryMethod:self.session.currentArticleDiscoveryMethod];
-            break;
-        }
-
-        case MWKHistoryDiscoveryMethodReloadFromCache:
-        case MWKHistoryDiscoveryMethodBackForward:
-            // Traversing history should not alter it, and should be served from the cache.
-            break;
-    }
-
-
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
