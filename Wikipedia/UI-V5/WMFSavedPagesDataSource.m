@@ -12,8 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSavedPagesDataSource ()
 
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
-
 @end
 
 @implementation WMFSavedPagesDataSource
@@ -21,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages {
     self = [super initWithTarget:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries)];
     if (self) {
-        self.savedPages = savedPages;
+        self.savedPageList = savedPages;
 
         self.cellClass = [WMFArticlePreviewCell class];
 
@@ -36,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.descriptionText = article.entityDescription;
             cell.image           = [article bestThumbnailImage];
             [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
+            [cell setSavedPageList:self.savedPageList];
         };
     }
     return self;
@@ -47,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSArray*)articles {
-    return [[self.savedPages entries] bk_map:^id (id obj) {
+    return [[self.savedPageList entries] bk_map:^id (id obj) {
         return [self articleForEntry:obj];
     }];
 }
@@ -57,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKDataStore*)dataStore {
-    return self.savedPages.dataStore;
+    return self.savedPageList.dataStore;
 }
 
 - (nullable NSString*)displayTitle {
@@ -65,11 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSUInteger)articleCount {
-    return [[self savedPages] countOfEntries];
+    return [[self savedPageList] countOfEntries];
 }
 
 - (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [self.savedPages entryAtIndex:indexPath.row];
+    MWKSavedPageEntry* savedEntry = [self.savedPageList entryAtIndex:indexPath.row];
     return savedEntry;
 }
 
@@ -94,8 +93,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     if (savedEntry) {
-        [self.savedPages removeSavedPageWithTitle:savedEntry.title];
-        [self.savedPages save];
+        [self.savedPageList removeSavedPageWithTitle:savedEntry.title];
+        [self.savedPageList save];
     }
 }
 

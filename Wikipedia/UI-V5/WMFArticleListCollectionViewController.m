@@ -46,16 +46,31 @@
         return;
     }
 
-    _dataSource.collectionView = nil;
+    _dataSource.collectionView     = nil;
+    self.collectionView.dataSource = nil;
 
     _dataSource = dataSource;
 
+    [_dataSource setSavedPageList:self.savedPages];
+
     if ([self isViewLoaded]) {
-        _dataSource.collectionView = self.collectionView;
+        if (_dataSource) {
+            _dataSource.collectionView = self.collectionView;
+            if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
+                [self flowLayout].estimatedItemHeight = _dataSource.estimatedItemHeight;
+            }
+        } else {
+            [self.collectionView reloadData];
+        }
         [self.collectionView wmf_scrollToTop:NO];
     }
 
     self.title = [_dataSource displayTitle];
+}
+
+- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
+    _savedPages = savedPages;
+    [_dataSource setSavedPageList:savedPages];
 }
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
@@ -104,10 +119,15 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor       = [UIColor clearColor];
 
-    [self flowLayout].estimatedItemHeight = 200;
-    [self flowLayout].numberOfColumns     = 1;
-    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
-    [self flowLayout].minimumLineSpacing  = 10.0;
+    if ([self.dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
+        [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
+    } else {
+        [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
+    }
+
+    [self flowLayout].numberOfColumns    = 1;
+    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
+    [self flowLayout].minimumLineSpacing = 10.0;
 
     self.dataSource.collectionView = self.collectionView;
 }

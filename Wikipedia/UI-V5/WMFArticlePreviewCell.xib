@@ -89,9 +89,9 @@
             <connections>
                 <outlet property="descriptionLabel" destination="vbF-9q-HIn" id="Mv9-pV-4Z5"/>
                 <outlet property="imageView" destination="kPi-wU-UzV" id="0Ag-gE-eDC"/>
-                <outlet property="saveButton" destination="yjn-Ua-PWa" id="t3L-qX-T7c"/>
+                <outlet property="saveButton" destination="yjn-Ua-PWa" id="8bw-XV-UHt"/>
                 <outlet property="summaryLabel" destination="AVJ-4N-Dr6" id="r2R-dZ-1h6"/>
-                <outlet property="titleLabel" destination="pEK-59-fwO" id="cqJ-Dn-DTA"/>
+                <outlet property="titleLabel" destination="pEK-59-fwO" id="Sdc-93-88D"/>
             </connections>
             <point key="canvasLocation" x="374.5" y="182"/>
         </collectionViewCell>

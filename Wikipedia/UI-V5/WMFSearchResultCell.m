@@ -1,0 +1,159 @@
+//
+//  WMFSearchCollectionViewCell.m
+//  Wikipedia
+//
+//  Created by Brian Gerstle on 9/2/15.
+//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
+//
+
+#import "WMFSearchResultCell.h"
+#import "WMFSaveableTitleCollectionViewCell+Subclass.h"
+#import "MWKTitle.h"
+#import "WMFRangeUtils.h"
+#import "NSParagraphStyle+WMFParagraphStyles.h"
+
+static CGFloat const WMFSearchResultImageWidth        = 70.f;
+static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
+
+@interface WMFSearchResultCell ()
+
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint* bottomTitleToTopDescriptionConstraint;
+
+@property (nonatomic, strong) IBOutlet UILabel* searchResultDescriptionLabel;
+
+@property (nonatomic, copy) NSString* highlightSubstring;
+
+@property (nonatomic, assign) BOOL shouldCollapseDescription;
+
+@end
+
+@implementation WMFSearchResultCell
+
+#pragma mark - Style
+
++ (CGFloat)titleLabelFontSize {
+    return 16.f;
+}
+
++ (UIFont*)titleLabelFont {
+    return [UIFont systemFontOfSize:[self titleLabelFontSize]];
+}
+
++ (UIFont*)boldTitleLabelFont {
+    return [UIFont boldSystemFontOfSize:[self titleLabelFontSize]];
+}
+
+#pragma mark - Accessors
+
+- (void)setTitle:(MWKTitle*)title highlightingSubstring:(NSString*)substring {
+    self.highlightSubstring = substring;
+    self.title              = title;
+}
+
+- (void)setSearchResultDescription:(NSString*)searchResultDescription {
+    self.searchResultDescriptionLabel.text = searchResultDescription;
+}
+
+#pragma mark - Description Display Logic
+
+- (void)setShouldCollapseDescription:(BOOL)shouldCollapseDescription {
+    if (_shouldCollapseDescription == shouldCollapseDescription) {
+        return;
+    }
+
+    _shouldCollapseDescription = shouldCollapseDescription;
+
+    self.searchResultDescriptionLabel.hidden = shouldCollapseDescription;
+
+    [self setNeedsUpdateConstraints];
+}
+
+#pragma mark - WMFSaveableTitleCollectionViewCell
+
+- (void)updateTitleLabel {
+    NSRange highlightRange =
+        self.highlightSubstring.length ?
+        [self.title.text rangeOfString : self.highlightSubstring
+         options:NSCaseInsensitiveSearch]
+        : WMFRangeMakeNotFound();
+    if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
+        [super updateTitleLabel];
+    } else {
+        [self applyAttributedTitleWithHighlightRange:highlightRange];
+    }
+}
+
++ (NSString*)defaultImageName {
+    return @"logo-placeholder-search";
+}
+
+#pragma mark - Highlighting
+
+- (void)applyAttributedTitleWithHighlightRange:(NSRange)highlightRange {
+    NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(highlightRange));
+    NSMutableAttributedString* attributedTitle =
+        [[NSMutableAttributedString alloc] initWithString:self.title.text attributes:nil];
+
+    NSRange beforeHighlight = NSMakeRange(0, highlightRange.location);
+    if (!WMFRangeIsNotFoundOrEmpty(beforeHighlight)) {
+        [attributedTitle addAttribute:NSFontAttributeName
+                                value:[[self class] titleLabelFont]
+                                range:beforeHighlight];
+    }
+
+    [attributedTitle addAttribute:NSFontAttributeName
+                            value:[[self class] boldTitleLabelFont]
+                            range:highlightRange];
+
+    NSUInteger afterHighlightStart = WMFRangeGetMaxIndex(highlightRange) - 1;
+    NSRange afterHighlight         = NSMakeRange(afterHighlightStart, self.title.text.length - afterHighlightStart);
+    if (!WMFRangeIsNotFoundOrEmpty(afterHighlight)) {
+        [attributedTitle addAttribute:NSFontAttributeName
+                                value:[[self class] titleLabelFont]
+                                range:beforeHighlight];
+    }
+
+    [attributedTitle addAttribute:NSParagraphStyleAttributeName
+                            value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
+                            range:NSMakeRange(0, self.title.text.length)];
+
+    self.titleLabel.attributedText = attributedTitle;
+}
+
+#pragma mark - UICollectionViewCell
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.highlightSubstring = nil;
+    [self setSearchResultDescription:nil];
+    self.shouldCollapseDescription = NO;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.shouldCollapseDescription = CGRectGetMaxY(self.searchResultDescriptionLabel.frame) > self.contentView.bounds.size.height;
+}
+
+- (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
+    CGFloat preferredMaxLayoutWidth =
+        layoutAttributes.size.width
+        - WMFSearchResultImageWidth
+        - 3.f * WMFSearchResultTitleLabelPadding
+        - self.saveButton.intrinsicContentSize.width;
+    if (self.titleLabel.preferredMaxLayoutWidth != preferredMaxLayoutWidth) {
+        self.titleLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+    }
+
+    self.searchResultDescriptionLabel.preferredMaxLayoutWidth = self.titleLabel.preferredMaxLayoutWidth;
+
+    UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
+    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, WMFSearchResultImageWidth);
+    return preferredAttributes;
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
+    self.bottomTitleToTopDescriptionConstraint.active = !self.shouldCollapseDescription;
+}
+
+@end

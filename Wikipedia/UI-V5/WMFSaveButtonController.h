@@ -3,12 +3,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class MWKSavedPageList, MWKTitle;
+@class MWKSavedPageList, MWKTitle, MWKSavedPageList;
 
 @interface WMFSaveButtonController : NSObject
 
-@property (weak, nonatomic) MWKTitle* title;
-@property (weak, nonatomic) UIButton* button;
+@property (copy, nonatomic) MWKTitle* title;
+@property (strong, nonatomic) UIButton* button;
+@property (strong, nonatomic) MWKSavedPageList* savedPageList;
 
 - (instancetype)initWithButton:(UIButton*)button
                  savedPageList:(MWKSavedPageList*)savedPageList

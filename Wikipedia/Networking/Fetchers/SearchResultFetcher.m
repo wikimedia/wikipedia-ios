@@ -10,7 +10,14 @@
 #import "NSString+Extras.h"
 #import "WikipediaAppUtils.h"
 
-#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
+static NSNumber* WMFSearchThumbnailWidth() {
+    static NSNumber* WMFSearchThumbnailWidth;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        WMFSearchThumbnailWidth = @([[UIScreen mainScreen] scale] * 70.f);
+    });
+    return WMFSearchThumbnailWidth;
+}
 
 @interface SearchResultFetcher ()
 
@@ -121,7 +128,7 @@
                        @"prop": @"pageterms|pageimages",
                        @"piprop": @"thumbnail",
                        @"wbptterms": @"description",
-                       @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+                       @"pithumbsize": WMFSearchThumbnailWidth(),
                        @"pilimit": @(self.maxSearchResults),
                        // -- Parameters causing prefix search to efficiently return suggestion.
                        @"list": @"search",
@@ -153,7 +160,7 @@
                        @"gsroffset": @0,
                        @"gsrlimit": @(self.maxSearchResults),
                        @"piprop": @"thumbnail",
-                       @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+                       @"pithumbsize": WMFSearchThumbnailWidth(),
                        @"pilimit": @(self.maxSearchResults),
                        @"continue": @"",
                        @"format": @"json"
