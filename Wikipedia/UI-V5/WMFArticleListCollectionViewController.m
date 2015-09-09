@@ -127,15 +127,9 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.collectionView.backgroundColor       = [UIColor clearColor];
 
-    if ([self.dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
-        [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
-    } else {
-        [self flowLayout].estimatedItemHeight = [self.dataSource estimatedItemHeight];
-    }
-
-    [self flowLayout].numberOfColumns    = 1;
-    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
-    [self flowLayout].minimumLineSpacing = 10.0;
+    [self flowLayout].numberOfColumns     = 1;
+    [self flowLayout].sectionInset        = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
+    [self flowLayout].minimumLineSpacing  = 10.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
