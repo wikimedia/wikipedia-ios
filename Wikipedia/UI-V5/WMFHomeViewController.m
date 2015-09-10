@@ -1,42 +1,40 @@
-
-
 #import "WMFHomeViewController.h"
 
+// Frameworks
 #import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 
-
-#import "MWKSavedPageList.h"
-#import "MWKRecentSearchList.h"
-
-#import "WMFLocationManager.h"
-
+// Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
-#import "WMFSettingsViewController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
-
 #import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 
+// Models
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
-
 #import "MWKSite.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKTitle.h"
 #import "MWKArticle.h"
-
 #import "MWKLocationSearchResult.h"
+#import "MWKSavedPageList.h"
+#import "MWKRecentSearchList.h"
 
+// Views
 #import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
 
+// Child View Controllers
 #import "WMFArticleContainerViewController.h"
+#import "WMFSettingsViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
 
+// Controllers
+#import "WMFLocationManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
