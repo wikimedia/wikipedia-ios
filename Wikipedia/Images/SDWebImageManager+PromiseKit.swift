@@ -31,7 +31,7 @@ class SDWebImageOperationWrapper: NSObject, Cancellable {
         objc_setAssociatedObject(operation,
                                  "SDWebImageOperationWrapper",
                                  self,
-                                 UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+                                 UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
     }
 
     func cancel() -> Void {
@@ -41,7 +41,7 @@ class SDWebImageOperationWrapper: NSObject, Cancellable {
 
 extension SDWebImageManager {
     func promisedImageWithURL(URL: NSURL, options: SDWebImageOptions) -> (Cancellable, Promise<WMFImageDownload>) {
-        let (promise, fulfill, reject) = Promise<WMFImageDownload>.defer()
+        let (promise, fulfill, reject) = Promise<WMFImageDownload>.pendingPromise()
 
         let promiseCompatibleOptions = options | SDWebImageOptions.ReportCancellationAsError
 

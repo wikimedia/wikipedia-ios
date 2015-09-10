@@ -27,13 +27,13 @@ internal extension WMFImageController {
     }
 
     private func applyDebugTransforms(toDownload download: WMFImageDownload) -> WMFImageDownload {
-        var transformedDownload = download
+        let transformedDownload = download
         transformedDownload.image = download.image.wmf_imageByDrawingInContext() {
             download.image.wmf_fillCurrentContext()
             // tint
             CGContextSetFillColorWithColor(UIGraphicsGetCurrentContext(),
                                            ImageOrigin(rawValue: download.origin)!.debugColor.CGColor)
-            UIRectFillUsingBlendMode(download.image.wmf_frame, kCGBlendModeOverlay)
+            UIRectFillUsingBlendMode(download.image.wmf_frame, CGBlendMode.Overlay)
         }
         return transformedDownload
     }

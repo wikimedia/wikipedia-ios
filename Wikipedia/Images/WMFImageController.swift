@@ -269,8 +269,8 @@ public class WMFImageController : NSObject {
             weak var wself = self;
             dispatch_async(self.cancellingQueue) {
                 let sself = wself
-                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? Cancellable {
-                    sself?.cancellables.removeObjectForKey(url.absoluteString!)
+                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString) as? Cancellable {
+                    sself?.cancellables.removeObjectForKey(url.absoluteString)
                     cancellable.cancel()
                 }
             }
@@ -295,7 +295,7 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString!)
+            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
     }
 

@@ -78,7 +78,7 @@ public class WMFBackgroundTaskManager<T> {
      */
     public func start () -> Promise<Void> {
         // need to track recursion manually since promises aren't recursive
-        let (promise, resolve, reject) = Promise<Void>.defer()
+        let (promise, resolve, reject) = Promise<Void>.pendingPromise()
         self.resolve = resolve
         self.reject = reject
 
@@ -108,7 +108,7 @@ public class WMFBackgroundTaskManager<T> {
 
     /// Start a background task and process `nextItem`, then invoke `processNext()` to continue recursive processing.
     private func processNext(nextItem: T) {
-        let (taskPromise, resolveTask, rejectTask) = Promise<Void>.defer()
+        let (taskPromise, resolveTask, rejectTask) = Promise<Void>.pendingPromise()
         // start a new background task, which will represent this "link" in the promise chain
         let taskId = self.dynamicType.startTask() { [weak self] in
             // if we run out of time, cancel this (and subsequent) tasks

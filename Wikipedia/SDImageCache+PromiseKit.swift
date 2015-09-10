@@ -10,7 +10,7 @@ import Foundation
 
 extension SDImageCache {
     public func queryDiskCacheForKey(key: String) -> (Cancellable?, Promise<(UIImage, ImageOrigin)>) {
-        let (promise, fulfill, reject) = Promise<(UIImage, ImageOrigin)>.defer()
+        let (promise, fulfill, reject) = Promise<(UIImage, ImageOrigin)>.pendingPromise()
 
         // queryDiskCache will return nil if the image is in memory
         let diskQueryOperation: NSOperation? = self.queryDiskCacheForKey(key, done: { image, cacheType -> Void in
@@ -36,7 +36,7 @@ extension SDImageCache {
             // tear down observation when operation finishes
             self.KVOController.observe(diskQueryOperation,
                 keyPath: "isFinished",
-                options: NSKeyValueObservingOptions.allZeros)
+                options: NSKeyValueObservingOptions())
                 { [weak self] _, object, _ in
                     self?.KVOController.unobserve(object)
             }
