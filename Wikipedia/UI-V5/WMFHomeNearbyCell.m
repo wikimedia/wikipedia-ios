@@ -24,10 +24,12 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @implementation WMFHomeNearbyCell
 
++ (NSString*)defaultImageName {
+    return @"logo-placeholder-nearby.png";
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
     _distanceLabel.text  = nil;
     self.descriptionText = nil;
 }
