@@ -10,7 +10,7 @@
 
 @property (nonatomic, strong) MWKRecentSearchList* recentSearches;
 
-- (void)reloadTable;
+- (void)reloadRecentSearches;
 
 @property (nonatomic, weak) id<WMFRecentSearchesViewControllerDelegate> delegate;
 

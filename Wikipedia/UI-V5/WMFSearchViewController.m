@@ -147,6 +147,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchBar becomeFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self saveLastSearch];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
         self.resultsListController = segue.destinationViewController;
@@ -190,10 +195,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
+    [self saveLastSearch];
     [self updateRecentSearchesVisibility];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar*)searchBar {
+    [self saveLastSearch];
     [self.searchBar resignFirstResponder];
     [self.searchBar setShowsCancelButton:NO animated:YES];
     [self didCancelSearch];
@@ -268,6 +275,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             attributedStringWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:18]}
                        substitutionStrings:@[suggestion]
                     substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
+}
+
+
+#pragma mark - RecentSearches
+
+- (void)saveLastSearch{
+    if([self currentSearchTerm]){
+        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite searchTerm:[self currentSearchTerm]];
+        [self.recentSearches addEntry:entry];
+        [self.recentSearches save];
+        [self.recentSearchesViewController reloadRecentSearches];
+    }
 }
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate

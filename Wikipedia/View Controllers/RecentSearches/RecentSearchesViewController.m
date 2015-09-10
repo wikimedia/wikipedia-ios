@@ -51,7 +51,7 @@ static NSUInteger const recentSearchLimit = 100.f;
     [self.table registerNib:[UINib nibWithNibName:@"RecentSearchCell" bundle:nil] forCellReuseIdentifier:@"RecentSearchCell"];
 }
 
-- (void)reloadTable {
+- (void)reloadRecentSearches {
     [self.table reloadData];
     [self updateTrashButtonEnabledState];
 }
@@ -118,7 +118,7 @@ static NSUInteger const recentSearchLimit = 100.f;
 
 - (void)deleteAllRecentSearchItems {
     [self removeAllTerms];
-    [self reloadTable];
+    [self reloadRecentSearches];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
