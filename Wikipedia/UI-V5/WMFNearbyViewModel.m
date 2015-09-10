@@ -23,8 +23,6 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
-typedef void (^ WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInteger index);
-
 @interface WMFNearbyViewModel ()
 <WMFNearbyControllerDelegate>
 
