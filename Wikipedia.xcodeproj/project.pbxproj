@@ -306,6 +306,7 @@
 		BC305C2D1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C2C1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m */; };
 		BC305C321BA0C9D900E414B8 /* WMFNearbyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C311BA0C9D900E414B8 /* WMFNearbyViewModel.m */; };
 		BC305C351BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C341BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m */; };
+		BC305C381BA204EF00E414B8 /* NSString+WMFDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C371BA204EF00E414B8 /* NSString+WMFDistance.m */; };
 		BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */; };
 		BC32A1D71B4B14C000A286DE /* WMFBackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */; };
@@ -1032,6 +1033,8 @@
 		BC305C311BA0C9D900E414B8 /* WMFNearbyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyViewModel.m; sourceTree = "<group>"; };
 		BC305C331BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+WMFApproximateEquality.h"; sourceTree = "<group>"; };
 		BC305C341BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFApproximateEquality.m"; sourceTree = "<group>"; };
+		BC305C361BA204EF00E414B8 /* NSString+WMFDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFDistance.h"; sourceTree = "<group>"; };
+		BC305C371BA204EF00E414B8 /* NSString+WMFDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFDistance.m"; sourceTree = "<group>"; };
 		BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
 		BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBackgroundTaskManager.swift; sourceTree = "<group>"; };
 		BC32A1D81B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLegacyImageDataMigration.swift; sourceTree = "<group>"; };
@@ -2101,6 +2104,8 @@
 				BC7925F31B9F2C55003C9522 /* CLLocation+WMFBearing.m */,
 				BC305C331BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.h */,
 				BC305C341BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m */,
+				BC305C361BA204EF00E414B8 /* NSString+WMFDistance.h */,
+				BC305C371BA204EF00E414B8 /* NSString+WMFDistance.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3787,6 +3792,7 @@
 				0487048A19F8262600B7D307 /* PreviewHtmlFetcher.m in Sources */,
 				0E94AFF61B209882000BC5EA /* WMFArticleViewController.m in Sources */,
 				0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */,
+				BC305C381BA204EF00E414B8 /* NSString+WMFDistance.m in Sources */,
 				04B501F81B7AEB03007BE332 /* NSArray+WMFExtensions.swift in Sources */,
 				04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */,
 				BCB669A91A83F6C400C7B1FE /* MWKSection.m in Sources */,
