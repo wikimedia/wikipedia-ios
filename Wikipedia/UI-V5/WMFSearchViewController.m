@@ -77,7 +77,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchBar.text length] > 0 || self.recentSearchesViewController.recentSearchesItemCount == 0;
+        [self.searchBar.text length] > 0 || [self.recentSearches countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -111,6 +111,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.dataStore   = self.dataStore;
     self.resultsListController.recentPages = self.recentPages;
     self.resultsListController.savedPages  = self.savedPages;
+}
+
+- (void)configureRecentSearchList{
+    NSParameterAssert(self.recentSearches);
+    self.recentSearchesViewController.recentSearches = self.recentSearches;
+    self.recentSearchesViewController.delegate = self;
 }
 
 #pragma mark - UIViewController
@@ -147,8 +153,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self configureArticleList];
     }
     if ([segue.destinationViewController isKindOfClass:[RecentSearchesViewController class]]) {
-        self.recentSearchesViewController          = segue.destinationViewController;
-        self.recentSearchesViewController.delegate = self;
+        self.recentSearchesViewController = segue.destinationViewController;
+        [self configureRecentSearchList];
     }
 }
 
@@ -230,7 +236,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }).then(^(WMFSearchResults* results){
         if ([searchTerm isEqualToString:results.searchTerm]) {
             self.resultsListController.dataSource = results;
-            [self.recentSearchesViewController saveTerm:searchTerm forDomain:self.fetcher.searchSite.domain type:SEARCH_TYPE_TITLES];
         }
     }).catch(^(NSError* error){
         NSLog(@"%@", [error description]);
