@@ -1,7 +1,5 @@
-
 #import "WMFNearbySectionController.h"
 
-#import "WMFArticleListCollectionViewController.h"
 #import "WMFNearbyTitleListDataSource.h"
 
 #import "WMFLocationManager.h"
@@ -19,9 +17,6 @@
 #import "UIView+WMFDefaultNib.h"
 
 #import <BlocksKit/BlocksKit+UIKit.h>
-
-// TEMP
-#import "SessionSingleton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -139,15 +134,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self.viewModel.locationSearchResults.results.count > index;
 }
 
-- (UIViewController*)moreViewController {
-    WMFNearbyTitleListDataSource* dataSource = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
-#warning Remove SessionSingleton
-    WMFArticleListCollectionViewController* moreNearbyTitlesVC = [[WMFArticleListCollectionViewController alloc] init];
-    moreNearbyTitlesVC.dataStore   = [[[SessionSingleton sharedInstance] userDataStore] dataStore];
-    moreNearbyTitlesVC.recentPages = [[[SessionSingleton sharedInstance] userDataStore] historyList];
-    moreNearbyTitlesVC.savedPages  = self.savedPageList;
-    moreNearbyTitlesVC.dataSource  = dataSource;
-    return moreNearbyTitlesVC;
+- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
+    return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
 }
 
 #pragma mark - WMFNearbyViewModelDelegate

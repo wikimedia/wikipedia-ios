@@ -9,8 +9,7 @@
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
 
-// Controller
-#import "WMFArticleListCollectionViewController.h"
+// Controllers
 #import "WMFRelatedTitleListDataSource.h"
 
 // Frameworks
@@ -23,7 +22,6 @@
 
 // Style
 #import "UIFont+WMFStyle.h"
-
 
 static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
 static NSUInteger const WMFNumberOfExtractLines          = 4;
@@ -122,19 +120,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     }
 }
 
-- (UIViewController*)moreViewController {
+- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
     #warning Remove SessionSingleton
-    WMFRelatedTitleListDataSource* dataSource =
-        [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.title
-                                                   dataStore:[[SessionSingleton sharedInstance] dataStore]
-                                               savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]
-                                   numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]];
-    WMFArticleListCollectionViewController* moreRelatedVC = [WMFArticleListCollectionViewController new];
-    moreRelatedVC.dataStore   = [[SessionSingleton sharedInstance] dataStore];
-    moreRelatedVC.savedPages  = [[[SessionSingleton sharedInstance] userDataStore] savedPageList];
-    moreRelatedVC.recentPages = [[[SessionSingleton sharedInstance] userDataStore] historyList];
-    moreRelatedVC.dataSource  = dataSource;
-    return moreRelatedVC;
+    return [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.title
+                                                      dataStore:[[SessionSingleton sharedInstance] dataStore]
+                                                  savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]
+                                      numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]];
 }
 
 #pragma mark - Section Updates

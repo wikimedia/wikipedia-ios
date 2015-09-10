@@ -32,6 +32,8 @@
 #import "WMFArticleContainerViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFArticleListDataSource.h"
+#import "WMFArticleListCollectionViewController.h"
 
 // Controllers
 #import "WMFLocationManager.h"
@@ -415,7 +417,12 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
-    [self.navigationController pushViewController:[controllerForSection moreViewController] animated:YES];
+    WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
+    extendedList.dataStore = self.dataStore;
+    extendedList.savedPages = self.savedPages;
+    extendedList.recentPages = self.recentPages;
+    extendedList.dataSource = [controllerForSection extendedListDataSource];
+    [self.navigationController pushViewController:extendedList animated:YES];
 }
 
 #pragma mark - UICollectionViewDelegate
