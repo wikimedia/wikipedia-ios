@@ -10,6 +10,7 @@
 @interface NSArray_WMFExtensionsTests : XCTestCase
 
 @property (strong, nonatomic) NSArray* array;
+@property (strong, nonatomic) NSArray* otherArray;
 
 @end
 
@@ -17,11 +18,13 @@
 
 - (void)setUp {
     [super setUp];
-    self.array = @[@"one", @"two"];
+    self.array      = @[@"one", @"two"];
+    self.otherArray = @[@1, @2, @3];
 }
 
 - (void)tearDown {
-    self.array = nil;
+    self.array      = nil;
+    self.otherArray = nil;
     [super tearDown];
 }
 
@@ -54,6 +57,23 @@
     assertThat([self.array wmf_arrayByTrimmingToLength:1][0], is(@"one"));
 }
 
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_countZeroReturnsSelf {
+    NSArray* emptyArray = @[];
+    assertThat([emptyArray wmf_arrayByTrimmingToLengthFromEnd:5], is(emptyArray));
+}
+
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_arraySmallerThanRequestedLength {
+    assertThat([self.array wmf_arrayByTrimmingToLengthFromEnd:3], is(self.array));
+}
+
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_trimToCount {
+    assertThat([self.array wmf_arrayByTrimmingToLengthFromEnd:1], hasCountOf(1));
+}
+
+- (void)test_wmf_arrayByTrimmingToLengthFromEnd_trimToExpectedResult {
+    assertThat([self.array wmf_arrayByTrimmingToLengthFromEnd:1][0], is(@"two"));
+}
+
 - (void)test_wmf_reverseArray {
     assertThat([self.array wmf_reverseArray], is(@[@"two", @"one"]));
 }
@@ -79,16 +99,40 @@
     assertThat(([@[] wmf_safeSubarrayWithRange: NSMakeRange(0, 1)]), isEmpty());
 }
 
-- (void)testTailShouldReturnAllButTheFirstElement {
-    assertThat(([@[@0, @1] wmf_tail]), is(equalTo(@[@1])));
+- (void)testArrayByRemovingFirstElement_shouldReturnAllButTheFirstElement {
+    assertThat(([@[@0, @1] wmf_arrayByRemovingFirstElement]), is(equalTo(@[@1])));
 }
 
-- (void)testTailShouldReturnEmptyArrayFromSingletonList {
-    assertThat(([@[@1] wmf_tail]), isEmpty());
+- (void)testArrayByRemovingFirstElement_shouldReturnEmptyArrayFromSingletonList {
+    assertThat(([@[@1] wmf_arrayByRemovingFirstElement]), isEmpty());
 }
 
-- (void)testTailShouldReturnEmptyArrayFromEmptyList {
-    assertThat(([@[] wmf_tail]), isEmpty());
+- (void)testArrayByRemovingFirstElement_shouldReturnEmptyArrayFromEmptyList {
+    assertThat(([@[] wmf_arrayByRemovingFirstElement]), isEmpty());
+}
+
+- (void)testArrayByInterleaving_firstObject {
+    assertThat([self.array wmf_arrayByInterleavingElementsFromArray:self.otherArray][0], is(@"one"));
+}
+
+- (void)testArrayByInterleaving_secondObject {
+    assertThat([self.array wmf_arrayByInterleavingElementsFromArray:self.otherArray][1], is(@1));
+}
+
+- (void)testArrayByInterleaving_lastObject {
+    assertThat([[self.array wmf_arrayByInterleavingElementsFromArray:self.otherArray] lastObject], is(@3));
+}
+
+- (void)testArrayByInterleaving_firstObjectOtherArray {
+    assertThat([self.otherArray wmf_arrayByInterleavingElementsFromArray:self.array][0], is(@1));
+}
+
+- (void)testArrayByInterleaving_secondObjectOtherArray {
+    assertThat([self.otherArray wmf_arrayByInterleavingElementsFromArray:self.array][1], is(@"one"));
+}
+
+- (void)testArrayByInterleaving_lastObjectOtherArray {
+    assertThat([[self.otherArray wmf_arrayByInterleavingElementsFromArray:self.array] lastObject], is(@3));
 }
 
 @end
