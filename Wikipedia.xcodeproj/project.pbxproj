@@ -1120,7 +1120,6 @@
 		BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSafeAssignTests.m; sourceTree = "<group>"; };
 		BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSavedPageListTests.m; sourceTree = "<group>"; };
 		BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkResponseSerializerTests.m; sourceTree = "<group>"; };
-		BC7925EB1B9A7C5A003C9522 /* MWKTitleAssociated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKTitleAssociated.h; sourceTree = "<group>"; };
 		BC7925F21B9F2C55003C9522 /* CLLocation+WMFBearing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+WMFBearing.h"; sourceTree = "<group>"; };
 		BC7925F31B9F2C55003C9522 /* CLLocation+WMFBearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFBearing.m"; sourceTree = "<group>"; };
 		BC7925F51B9F31A9003C9522 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFBearingTests.m"; sourceTree = "<group>"; };
@@ -2871,7 +2870,6 @@
 				BCB669791A83F6C300C7B1FE /* MWKSite.m */,
 				BCB6697A1A83F6C300C7B1FE /* MWKTitle.h */,
 				BCB6697B1A83F6C300C7B1FE /* MWKTitle.m */,
-				BC7925EB1B9A7C5A003C9522 /* MWKTitleAssociated.h */,
 			);
 			name = "Metadata classes";
 			sourceTree = "<group>";
