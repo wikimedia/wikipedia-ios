@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)stopUpdates;
 
-#pragma mark - Tracking User Bearing 
+#pragma mark - Tracking User Bearing
 
 - (void)autoUpdateResultAtIndex:(NSUInteger)index;
 

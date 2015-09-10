@@ -26,8 +26,8 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
 
 - (void)setAngleRadians:(double)angleRadians {
     /*
-     The vector of the device heading is based on the top of the device, so make sure "North" always points up.
-    */
+       The vector of the device heading is based on the top of the device, so make sure "North" always points up.
+     */
     switch ([[UIApplication sharedApplication] statusBarOrientation]) {
         case UIInterfaceOrientationLandscapeLeft:
             angleRadians += M_PI_2;

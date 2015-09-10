@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                    locationManager:self.locationManager];
+                                                                    locationManager  :self.locationManager];
         [_nearbySectionController setSavedPageList:self.savedPages];
     }
     return _nearbySectionController;

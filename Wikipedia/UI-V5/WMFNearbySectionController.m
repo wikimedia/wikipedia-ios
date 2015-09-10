@@ -25,7 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
+static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
 @interface WMFNearbySectionController ()
 <WMFNearbyViewModelDelegate>
@@ -54,7 +54,7 @@ static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifie
     NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
-        self.viewModel = viewModel;
+        self.viewModel          = viewModel;
         self.viewModel.delegate = self;
         self.emptySectionObject = @"EmptySection";
     }

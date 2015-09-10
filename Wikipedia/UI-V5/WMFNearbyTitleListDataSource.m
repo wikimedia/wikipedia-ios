@@ -60,14 +60,14 @@ NS_ASSUME_NONNULL_BEGIN
             [self.viewModel autoUpdateResultAtIndex:indexPath.item];
             [nearbyCell setLocationSearchResult:result];
         };
-        self.viewModel = viewModel;
+        self.viewModel          = viewModel;
         self.viewModel.delegate = self;
         [self.viewModel startUpdates];
     }
     return self;
 }
 
-- (void)setSite:(MWKSite * __nonnull)site {
+- (void)setSite:(MWKSite* __nonnull)site {
     self.viewModel.site = site;
 }
 

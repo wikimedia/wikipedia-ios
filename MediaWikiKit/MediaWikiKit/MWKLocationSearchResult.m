@@ -3,7 +3,7 @@
 
 @implementation MWKLocationSearchResult
 
-+ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
     if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], bearingToLocation)]
         || [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromUser)]) {
         return MTLPropertyStorageTransitory;

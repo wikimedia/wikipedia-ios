@@ -79,13 +79,13 @@ static CGFloat const WMFImagePadding = 8.0;
     self.compassView.hidden = compassHidden;
 }
 
-- (void)setLocationSearchResult:(MWKLocationSearchResult *)locationSearchResult {
+- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult {
     if (WMF_EQUAL(self.locationSearchResult, isEqual:, locationSearchResult)) {
         return;
     }
 
     [self unobserveResult];
-    
+
     _locationSearchResult = locationSearchResult;
 
     self.descriptionText = self.locationSearchResult.wikidataDescription;
@@ -111,9 +111,9 @@ static CGFloat const WMFImagePadding = 8.0;
      observe:self.locationSearchResult
      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)
      options:NSKeyValueObservingOptionInitial
-     block:^(WMFHomeNearbyCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
-         cell.distance = result.distanceFromUser;
-     }];
+       block:^(WMFHomeNearbyCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
+        cell.distance = result.distanceFromUser;
+    }];
 }
 
 - (void)unobserveResult {

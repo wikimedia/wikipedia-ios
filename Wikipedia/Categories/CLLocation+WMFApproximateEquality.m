@@ -10,7 +10,7 @@
 
 @implementation CLLocation (WMFApproximateEquality)
 
-- (BOOL)wmf_hasSameCoordinatesAsLocation:(CLLocation *)location {
+- (BOOL)wmf_hasSameCoordinatesAsLocation:(CLLocation*)location {
     if (!location) {
         return NO;
     }
@@ -18,7 +18,7 @@
            && self.coordinate.longitude == location.coordinate.longitude;
 }
 
-- (BOOL)wmf_isVeryCloseToLocation:(CLLocation *)location {
+- (BOOL)wmf_isVeryCloseToLocation:(CLLocation*)location {
     return [self distanceFromLocation:location] <= 1;
 }
 

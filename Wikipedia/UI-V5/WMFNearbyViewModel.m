@@ -23,7 +23,7 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
-typedef void(^WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInteger index);
+typedef void (^ WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInteger index);
 
 @interface WMFNearbyViewModel ()
 <WMFNearbyControllerDelegate>
@@ -45,7 +45,7 @@ typedef void(^WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInte
              locationManager:(WMFLocationManager* __nullable)locationManager {
     return [self initWithSite:site
                   resultLimit:resultLimit
-              locationManager:locationManager ?: [[WMFLocationManager alloc] init]
+              locationManager:locationManager ? : [[WMFLocationManager alloc] init]
                       fetcher:[[WMFLocationSearchFetcher alloc] init]];
 }
 
@@ -55,7 +55,7 @@ typedef void(^WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInte
                      fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     self = [super init];
     if (self) {
-        self.autoUpdatingIndexes = [NSMutableIndexSet indexSet];
+        self.autoUpdatingIndexes   = [NSMutableIndexSet indexSet];
         self.site                  = site;
         self.resultLimit           = resultLimit;
         self.locationSearchFetcher = locationSearchFetcher;
@@ -78,7 +78,7 @@ typedef void(^WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInte
     [self fetchTitlesForLocation:self.locationSearchResults.location];
 }
 
-- (void)setLocationSearchResults:(WMFLocationSearchResults * __nullable)locationSearchResults {
+- (void)setLocationSearchResults:(WMFLocationSearchResults* __nullable)locationSearchResults {
     if (WMF_EQUAL(self.locationSearchResults, isEqual:, locationSearchResults)) {
         return;
     }
@@ -138,8 +138,8 @@ typedef void(^WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInte
     } else if ([self.locationSearchResults.location distanceFromLocation:location] < 500
                && [self.locationSearchResults.searchSite isEqualToSite:self.site]) {
         /*
-         How often we search titles for a location is separate from how often the location updates. See WMFLocationManager.
-        */
+           How often we search titles for a location is separate from how often the location updates. See WMFLocationManager.
+         */
         DDLogInfo(@"Ignoring fetch request for %@ since it is too close to previously fetched location: %@",
                   location, self.locationSearchResults.location);
         return;
