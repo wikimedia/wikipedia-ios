@@ -50,7 +50,6 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         return;
     }
 
-
     summaryAttributedText = [summaryAttributedText
                              wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
                                                          withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
@@ -59,7 +58,10 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
         return style;
     }];
 
-    self.summaryLabel.attributedText = summaryAttributedText;
+    NSMutableAttributedString* text = [summaryAttributedText mutableCopy];
+    [text addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_summaryTextColor] range:NSMakeRange(0, text.length)];
+
+    self.summaryLabel.attributedText = text;
 }
 
 - (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site {
