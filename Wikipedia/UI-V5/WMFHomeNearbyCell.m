@@ -23,9 +23,17 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @interface WMFHomeNearbyCell ()
 
+- (void)setDistance:(CLLocationDistance)distance;
+
+- (void)setBearing:(CLLocationDegrees)bearing;
+
+- (void)setCompassHidden:(BOOL)compassHidden;
+
 @property (strong, nonatomic) IBOutlet WMFCompassView* compassView;
 @property (strong, nonatomic) IBOutlet UIView* distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel* distanceLabel;
+
+@property (nonatomic, copy) NSString* descriptionText;
 
 @property (strong, nonatomic) MWKLocationSearchResult* locationSearchResult;
 
@@ -44,7 +52,7 @@ static CGFloat const WMFImagePadding = 8.0;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.locationSearchResult = nil;
+    [self setLocationSearchResult:nil withTitle:nil];
 }
 
 - (void)awakeFromNib {
@@ -64,12 +72,7 @@ static CGFloat const WMFImagePadding = 8.0;
     return preferredAttributes;
 }
 
-#pragma mark - Location Attributes
-
-- (void)setDistance:(CLLocationDistance)distance {
-    _distance               = distance;
-    self.distanceLabel.text = [self textForDistance:distance];
-}
+#pragma mark - Compass
 
 - (void)setBearing:(CLLocationDegrees)bearing {
     self.compassView.angleRadians = DEGREES_TO_RADIANS(bearing);
@@ -79,8 +82,11 @@ static CGFloat const WMFImagePadding = 8.0;
     self.compassView.hidden = compassHidden;
 }
 
-- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult {
-    if (WMF_EQUAL(self.locationSearchResult, isEqual:, locationSearchResult)) {
+#pragma mark - Result
+
+- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult withTitle:(MWKTitle*)title {
+    if (WMF_EQUAL(self.locationSearchResult, isEqual:, locationSearchResult)
+        && WMF_EQUAL(self.title, isEqualToTitle:, title)) {
         return;
     }
 
@@ -88,9 +94,12 @@ static CGFloat const WMFImagePadding = 8.0;
 
     _locationSearchResult = locationSearchResult;
 
+    // !!! Set title _after_ the description to ensure the label updates properly.
     self.descriptionText = self.locationSearchResult.wikidataDescription;
-    self.distance        = self.locationSearchResult.distanceFromQueryCoordinates;
-    self.imageURL        = self.locationSearchResult.thumbnailURL;
+    self.title           = title;
+
+    self.distance = self.locationSearchResult.distanceFromQueryCoordinates;
+    self.imageURL = self.locationSearchResult.thumbnailURL;
 
     [self observeResult];
 }
@@ -126,15 +135,7 @@ static CGFloat const WMFImagePadding = 8.0;
                                       keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)];
 }
 
-#pragma mark - Text Attributes
-
-- (void)setDescriptionText:(NSString*)descriptionText {
-    if (WMF_EQUAL(self.descriptionText, isEqualToString:, descriptionText)) {
-        return;
-    }
-    _descriptionText = [descriptionText copy];
-    [self updateTitleLabel];
-}
+#pragma mark - Title/Description
 
 - (void)updateTitleLabel {
     NSMutableAttributedString* text = [NSMutableAttributedString new];
@@ -181,40 +182,47 @@ static CGFloat const WMFImagePadding = 8.0;
             }];
 }
 
+#pragma mark - Distance
+
+- (void)setDistance:(CLLocationDistance)distance {
+    self.distanceLabel.text = [self textForDistance:distance];
+}
+
 - (NSString*)textForDistance:(CLLocationDistance)distance {
     // Make nearby use feet for meters according to locale.
     // stringWithFormat float decimal places: http://stackoverflow.com/a/6531587
-
-    BOOL useMetric = [[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
-
-    if (useMetric) {
-        // Show in km if over 0.1 km.
+    if ([[[NSLocale currentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue]) {
         if (distance > (999.0f / 10.0f)) {
+            // Show in km if over 0.1 km.
             NSNumber* displayDistance   = @(distance / 1000.0f);
             NSString* distanceIntString = [NSString stringWithFormat:@"%.2f", displayDistance.floatValue];
-            return [MWLocalizedString(@"nearby-distance-label-km", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                  withString:distanceIntString];
-            // Show in meters if under 0.1 km.
+            return [MWLocalizedString(@"nearby-distance-label-km", nil)
+                    stringByReplacingOccurrencesOfString:@"$1"
+                                              withString:distanceIntString];
         } else {
+            // Show in meters if under 0.1 km.
             NSString* distanceIntString = [NSString stringWithFormat:@"%.f", distance];
-            return [MWLocalizedString(@"nearby-distance-label-meters", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                      withString:distanceIntString];
+            return [MWLocalizedString(@"nearby-distance-label-meters", nil)
+                    stringByReplacingOccurrencesOfString:@"$1"
+                                              withString:distanceIntString];
         }
     } else {
         // Meters to feet.
         distance = distance * 3.28084f;
 
-        // Show in miles if over 0.1 miles.
         if (distance > (5279.0f / 10.0f)) {
+            // Show in miles if over 0.1 miles.
             NSNumber* displayDistance   = @(distance / 5280.0f);
             NSString* distanceIntString = [NSString stringWithFormat:@"%.2f", displayDistance.floatValue];
-            return [MWLocalizedString(@"nearby-distance-label-miles", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                     withString:distanceIntString];
-            // Show in feet if under 0.1 miles.
+            return [MWLocalizedString(@"nearby-distance-label-miles", nil)
+                    stringByReplacingOccurrencesOfString:@"$1"
+                                              withString:distanceIntString];
         } else {
+            // Show in feet if under 0.1 miles.
             NSString* distanceIntString = [NSString stringWithFormat:@"%.f", distance];
-            return [MWLocalizedString(@"nearby-distance-label-feet", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                                    withString:distanceIntString];
+            return [MWLocalizedString(@"nearby-distance-label-feet", nil)
+                    stringByReplacingOccurrencesOfString:@"$1"
+                                              withString:distanceIntString];
         }
     }
 }

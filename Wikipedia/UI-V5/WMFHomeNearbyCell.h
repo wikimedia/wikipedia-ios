@@ -6,14 +6,16 @@
 
 @interface WMFHomeNearbyCell : WMFSaveableTitleCollectionViewCell
 
-@property (copy, nonatomic) NSString* descriptionText;
-
-@property (assign, nonatomic) CLLocationDistance distance;
-
-- (void)setBearing:(CLLocationDegrees)bearing;
-
-- (void)setCompassHidden:(BOOL)compassHidden;
-
-- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult;
+/**
+ *  Display the given search result.
+ *
+ *  Populates the receiver with data in the given result, in addition to binding to properties which are updated
+ *  automatically (i.e. @c distanceFromUser and @c bearingToLocation).
+ *
+ *  @warning Use this instead of @c -setTitle:.
+ *
+ *  @param locationSearchResult The result whose data will be displayed in the receiver.
+ */
+- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult withTitle:(MWKTitle*)title;
 
 @end

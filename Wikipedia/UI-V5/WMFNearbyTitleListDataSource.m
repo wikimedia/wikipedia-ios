@@ -55,10 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(self);
             [nearbyCell setSavedPageList:self.savedPageList];
             MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.item];
-            nearbyCell.title = [self.viewModel.locationSearchResults titleForResult:result];
             // TODO: stop auto-updating headings for indexes of cells which aren't visible
             [self.viewModel autoUpdateResultAtIndex:indexPath.item];
-            [nearbyCell setLocationSearchResult:result];
+            [nearbyCell setLocationSearchResult:result
+                                      withTitle:[self.viewModel.locationSearchResults titleForResult:result]];
         };
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;

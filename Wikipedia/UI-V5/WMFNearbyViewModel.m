@@ -136,10 +136,11 @@
     } else if ([self.locationSearchResults.location distanceFromLocation:location] < 500
                && [self.locationSearchResults.searchSite isEqualToSite:self.site]) {
         /*
-           How often we search titles for a location is separate from how often the location updates. See WMFLocationManager.
+           How often we search titles for a location is separate from how often the location updates.
+           See WMFLocationManager for distanceFilter settings.
          */
-        DDLogInfo(@"Ignoring fetch request for %@ since it is too close to previously fetched location: %@",
-                  location, self.locationSearchResults.location);
+        DDLogVerbose(@"Not fetching nearby titles for %@ since it is too close to previously fetched location: %@.",
+                     location, self.locationSearchResults.location);
         return;
     }
 

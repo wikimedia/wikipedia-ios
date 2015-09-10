@@ -119,10 +119,9 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         WMFHomeNearbyCell* nearbyCell   = (id)cell;
         MWKLocationSearchResult* result = object;
         NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
-        [nearbyCell setLocationSearchResult:result];
+        [nearbyCell setLocationSearchResult:result withTitle:[self titleForItemAtIndex:indexPath.item]];
         [self.viewModel autoUpdateResultAtIndex:indexPath.item];
         [nearbyCell setSavedPageList:self.savedPageList];
-        nearbyCell.title = [self titleForItemAtIndex:indexPath.item];
     } else {
         [self.viewModel startUpdates];
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
