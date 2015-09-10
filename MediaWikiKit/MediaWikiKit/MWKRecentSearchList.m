@@ -14,7 +14,14 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
+    //Filter out any bad data (Recent searches was implemented improperly previously)
+    NSArray* entries = [[dataStore savedPageListData] bk_reject:^BOOL (NSDictionary* obj) {
+        if ([obj objectForKey:@"searchTerm"] == nil || [obj objectForKey:@"domain"] == nil || [obj objectForKey:@"language"] == nil) {
+            return YES;
+        }
+        return NO;
+    }];
+    entries = [entries bk_map:^id (id obj) {
         return [[MWKRecentSearchEntry alloc] initWithDict:obj];
     }];
 
