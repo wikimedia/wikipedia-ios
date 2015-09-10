@@ -11,7 +11,7 @@ extension NSArray {
     }
 
     /**
-    Select up to `n` elements from an array.
+    Select the first `n` elements from an array.
     
     :param: length The max length
     
@@ -27,11 +27,11 @@ extension NSArray {
     }
 
     /**
-    Select up to `n` elements from an array starting with the last element
+    Select the last `n` elements from an array
     
     :param: length The max length
     
-    :returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items
+    :returns: A new array with the last `n` items in the receiver, or the receiver if `n` exceeds the number of items
     in the array.
     */
     public func wmf_arrayByTrimmingToLengthFromEnd(n: UInt) -> NSArray {
@@ -39,7 +39,6 @@ extension NSArray {
         if (self.count == 0 || self.count < intLength) {
             return self;
         }
-        
         return self.subarrayWithRange(NSMakeRange(self.count-intLength, intLength));
     }
 
@@ -73,10 +72,7 @@ extension NSArray {
         if safeLength == 0 {
             return NSArray()
         }
-        precondition(safeLength >= 0)
         let safeRange = NSMakeRange(range.location, safeLength)
-        precondition(WMFRangeGetMaxIndex(safeRange) <= UInt(self.count),
-                     "Calculated unsafe range \(safeRange) for array of count \(self.count)")
         return self.subarrayWithRange(safeRange)
     }
 
@@ -95,10 +91,15 @@ extension NSArray {
     */
     public func wmf_arrayByInterleavingElementsFromArray(otherArray: NSArray) -> NSArray {
         
-        var newArray = self.mutableCopy() as! NSMutableArray;
+        let newArray = self.mutableCopy() as! NSMutableArray;
         
         otherArray.enumerateObjectsUsingBlock { (object, index, stop) -> Void in
             
+            /* 
+            When adding items in an array from the begining, 
+            you need to adjust the index of each subssequent item to account for the previous added items.
+            Multipling the index by 2 does this.
+            */
             var newIndex = 2*index + 1;
             newIndex = newIndex > newArray.count ? newArray.count : newIndex;
             newArray.insertObject(object, atIndex: newIndex);
