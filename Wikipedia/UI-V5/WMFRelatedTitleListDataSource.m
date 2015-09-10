@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKRelatedSearchResult* searchResult = self.relatedTitleResults[indexPath.item];
+            [cell setSavedPageList:self.savedPageList];
             cell.title           = article.title;
             cell.descriptionText = searchResult.wikidataDescription;
             cell.image           = [article bestThumbnailImage];
