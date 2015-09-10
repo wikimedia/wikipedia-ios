@@ -24,7 +24,7 @@
 #import "PromiseKit.h"
 
 @interface WMFNearbyViewModel ()
-<WMFNearbyControllerDelegate>
+<WMFLocationManagerDelegate>
 
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 @property (nonatomic, strong) WMFLocationManager* locationManager;

@@ -3,13 +3,13 @@
 @import CoreLocation;
 
 @class WMFLocationSearchResults;
-@protocol WMFNearbyControllerDelegate;
+@protocol WMFLocationManagerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager : NSObject
 
-@property (nonatomic, weak, nullable) id<WMFNearbyControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
 
 @property (nonatomic, strong, readonly, nullable) CLLocation* lastLocation;
 @property (nonatomic, strong, readonly, nullable) CLHeading* lastHeading;
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@protocol WMFNearbyControllerDelegate <NSObject>
+@protocol WMFLocationManagerDelegate <NSObject>
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location;
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading;
