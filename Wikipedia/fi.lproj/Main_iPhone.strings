@@ -3,6 +3,7 @@
 // Author: Elseweyr
 // Author: Jack Phoenix
 // Author: Nike
+// Author: SMAUG
 
 "21c-U6-yfo.normalTitle" = "Näytä toinen CAPTCHA";
 "5cT-2Y-0Ie.placeholder" = "Käyttäjänimi";
@@ -22,4 +23,5 @@
 "kVb-lx-d6C.placeholder" = "Salasana";
 "mAk-1N-jPC.placeholder" = "Käyttäjänimi";
 "rKI-nq-3p7.placeholder" = "Sähköpostiosoite (vapaaehtoinen)";
+"wVn-n7-pdy.text" = "Kielikoodi";
 "wkl-j8-wLX.text" = "Luo tunnus";

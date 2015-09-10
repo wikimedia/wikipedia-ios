@@ -1,6 +1,7 @@
 // Messages for Ukrainian (українська)
 // Exported from translatewiki.net
 // Author: Andriykopanytsia
+// Author: Ата
 
 "21c-U6-yfo.normalTitle" = "Показати інший малюнок";
 "5cT-2Y-0Ie.placeholder" = "Ім'я користувача";
@@ -16,8 +17,10 @@
 "gPg-cg-Yjy.placeholder" = "Введіть текст з рисунку вище";
 "heA-3K-nhS.text" = "Ви вже зареєстровані? Увійдіть";
 "huU-kO-aYI.text" = "Вірогідно, Ви їх усі видалили. Наступного разу, коли відвідаєте сторінку, Ви зможете повернутися до неї звідси.";
+"ib6-Zk-jUw.text" = "Локалізована назва статті";
 "jiW-Cg-oL3.text" = "Створити обліковий запис";
 "kVb-lx-d6C.placeholder" = "Пароль";
 "mAk-1N-jPC.placeholder" = "Ім'я користувача";
 "rKI-nq-3p7.placeholder" = "Адреса електронної пошти (необов'язково)";
+"wVn-n7-pdy.text" = "Назва мови";
 "wkl-j8-wLX.text" = "Створити обліковий запис";

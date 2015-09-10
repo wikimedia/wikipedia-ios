@@ -272,7 +272,7 @@
 "image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
 "image-gallery-fetch-image-info-error-title" = "Title of prompt when image meta download fails in gallery";
 "image-gallery-fetch-image-info-error-message" = "Message of prompt when image meta download fails in gallery";
-"image-gallery-fetch-image-info-error-ok" = "OK button of prompt when image meta download fails in gallery";
+"image-gallery-fetch-image-info-error-ok" = "OK button of prompt when image meta download fails in gallery\n{{Identical|OK}}";
 "hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";

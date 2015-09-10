@@ -1,6 +1,7 @@
 // Messages for Brazilian Portuguese (português do Brasil)
 // Exported from translatewiki.net
 // Author: Luckas
+// Author: Walesson
 // Author: Webysther
 
 "21c-U6-yfo.normalTitle" = "Mostrar outro código";
@@ -17,8 +18,10 @@
 "gPg-cg-Yjy.placeholder" = "Insira o código CAPTCHA da imagem acima";
 "heA-3K-nhS.text" = "Já possui uma conta? Entrar";
 "huU-kO-aYI.text" = "Seu histórico está vazio. Na próxima vez que você buscar uma página, você pode acessar a mesma por aqui.";
+"ib6-Zk-jUw.text" = "Título do artigo localizada";
 "jiW-Cg-oL3.text" = "Criar conta";
 "kVb-lx-d6C.placeholder" = "Senha";
 "mAk-1N-jPC.placeholder" = "Nome de usuário";
 "rKI-nq-3p7.placeholder" = "Endereço de e-mail (opcional)";
+"wVn-n7-pdy.text" = "Nome do idioma";
 "wkl-j8-wLX.text" = "Criar conta";

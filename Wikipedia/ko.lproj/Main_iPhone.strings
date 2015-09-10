@@ -1,5 +1,6 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
+// Author: Hwangjy9
 // Author: Priviet
 // Author: 아라
 
@@ -17,8 +18,10 @@
 "gPg-cg-Yjy.placeholder" = "위 그림에 있는 캡차 텍스트를 입력하세요";
 "heA-3K-nhS.text" = "계정이 이미 있습니까? 로그인하세요";
 "huU-kO-aYI.text" = "방문 기록이 비어 있습니다. 다음 번에 당신이 간 문서를 여기에서 얻을 수 있습니다.";
+"ib6-Zk-jUw.text" = "지역화된 문서 제목";
 "jiW-Cg-oL3.text" = "계정 만들기";
 "kVb-lx-d6C.placeholder" = "비밀번호";
 "mAk-1N-jPC.placeholder" = "사용자 이름";
 "rKI-nq-3p7.placeholder" = "이메일 주소 (선택 사항)";
+"wVn-n7-pdy.text" = "언어 이름";
 "wkl-j8-wLX.text" = "계정 만들기";

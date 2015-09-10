@@ -1,6 +1,7 @@
 // Messages for Esperanto (Esperanto)
 // Exported from translatewiki.net
 // Author: KuboF
+// Author: Ochilov
 // Author: Remux
 
 "21c-U6-yfo.normalTitle" = "Montri alian captcha-n";
@@ -19,4 +20,5 @@
 "kVb-lx-d6C.placeholder" = "Pasvorto";
 "mAk-1N-jPC.placeholder" = "Uzantnomo";
 "rKI-nq-3p7.placeholder" = "Retpoŝta adreso (malnepra)";
+"wVn-n7-pdy.text" = "Nomo de lingvo";
 "wkl-j8-wLX.text" = "Krei konton";

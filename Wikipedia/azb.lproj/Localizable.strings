@@ -1,6 +1,7 @@
 // Messages for South Azerbaijani (تۆرکجه)
 // Exported from translatewiki.net
 // Author: Arjanizary
+// Author: Ebrahimi-amir
 // Author: Koroğlu
 
 "article-languages-label" = "دیل سئچ";
@@ -21,7 +22,7 @@
 "account-creation-login" = "اؤنجه‌دن حسابینیز وارمی؟ گیرینیز.";
 "account-creation-username-placeholder-text" = "ایشلدن آدی";
 "account-creation-password-placeholder-text" = "رمز";
-"login-user-blocked" = "ایشلدن باغلانیب.";
+"login-user-blocked" = "ایشلدن بلوکلانیب.";
 "login-username-placeholder-text" = "ایشلدن آدی";
 "login-password-placeholder-text" = "رمز";
 "wikitext-upload-save" = "ساخلانیلیر...";
@@ -59,7 +60,7 @@
 "main-menu-show-today" = "بوگون";
 "main-menu-nearby" = "یاخیندا";
 "main-menu-more" = "داها...";
-"saved-pages-title" = "ساخلانیلمیش صفحه‌لر";
+"saved-pages-title" = "ذخیره اولونموش صفحه‌لر";
 "saved-pages-clear-cancel" = "پوْز";
 // Fuzzy
 "saved-pages-clear-delete-all" = "هامیسین سیل";
@@ -84,7 +85,7 @@
 "about-wikipedia" = "ویکی‌پدیا";
 "about-contributors" = "چالیشقان‌لار";
 "about-translators" = "چئویریجی‌لر";
-"share-menu-save-page" = "صفحه‌نی ساخلا";
+"share-menu-save-page" = "صفحه‌نی ذخیره ائت";
 "timestamp-just-now" = "ایندی";
 "timestamp-minutes" = "d% دقیقه قاباق";
 "timestamp-hours" = "d% ساعات قاباق";

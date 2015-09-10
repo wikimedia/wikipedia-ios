@@ -4,6 +4,7 @@
 // Author: Jack Phoenix
 // Author: McSalama
 // Author: Nike
+// Author: SMAUG
 // Author: Silvonen
 // Author: Stryn
 // Author: SuperPete
@@ -15,6 +16,7 @@
 "article-languages-filter-placeholder" = "Kielisuodatin";
 "article-read-more-title" = "Lue lisää";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
+"article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
 "info-box-title" = "Pikafaktoja";
 "info-box-close-text" = "Sulje";
 "table-title-other" = "Lisätietoja";
@@ -127,6 +129,7 @@
 "main-menu-nearby" = "Lähistöllä";
 "main-menu-more" = "Lisää...";
 "main-menu-heading-debug" = "Vianetsintä";
+"main-menu-debug-crash" = "Virhe";
 "saved-pages-title" = "Tallennetut sivut";
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
@@ -260,7 +263,9 @@
 "migration-skip-button-title" = "Poista se";
 "image-gallery-unknown-owner" = "Tuntematon tallentaja.";
 "image-gallery-fetch-image-info-error-title" = "Kuvien lataaminen epäonnistui";
+"image-gallery-fetch-image-info-error-message" = "Kuvien lataaminen tähän artikkeliin ei onnistu. Päivitä artikkeli ja yritä uudelleen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+"hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "hockeyapp-alert-send-report" = "Lähetä raportti";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";

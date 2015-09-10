@@ -1,6 +1,7 @@
 // Messages for Uzbek (oʻzbekcha/ўзбекча)
 // Exported from translatewiki.net
 // Author: 6ahodir
+// Author: Ochilov
 // Author: Sociologist
 // Author: Uzeconomist
 // Author: Таржимон
@@ -94,12 +95,9 @@
 "saved-pages-clear-confirmation-heading" = "Barcha saqlangan elementlarni oʻchirmoqchimisiz?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "saved-pages-clear-cancel" = "Bekor qilish";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Barchasini oʻchirish";
-// Fuzzy
-"page-history-title" = "Maqolaning tarixi";
-// Fuzzy
-"page-history-downloading" = "Maqola tarixi yuklanyapti...";
+"page-history-title" = "Maqolani tarixi";
+"page-history-downloading" = "Maqolani tarixi o'rnatish...";
 "navbar-title-mode-edit-wikitext" = "Tahrirlash";
 "navbar-title-mode-login" = "Kirish";
 "navbar-title-mode-login-and-save" = "Kirish va saqlab qolish";

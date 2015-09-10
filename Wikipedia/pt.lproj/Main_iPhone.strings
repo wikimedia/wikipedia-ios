@@ -1,5 +1,6 @@
 // Messages for Portuguese (português)
 // Exported from translatewiki.net
+// Author: Fúlvio
 // Author: SandroHc
 // Author: Vitorvicentevalente
 // Author: Webysther
@@ -18,6 +19,7 @@
 "gPg-cg-Yjy.placeholder" = "Insira o código CAPTCHA da imagem acima";
 "heA-3K-nhS.text" = "Já possui uma conta? Inicie sessão";
 "huU-kO-aYI.text" = "Provavelmente apagou todas. Da próxima vez que aceder a uma página, poderá voltar a partir daqui.";
+"ib6-Zk-jUw.text" = "Título do artigo localizado.";
 "jiW-Cg-oL3.text" = "Criar conta";
 "kVb-lx-d6C.placeholder" = "Palavra-passe";
 "mAk-1N-jPC.placeholder" = "Nome de utilizador(a)";

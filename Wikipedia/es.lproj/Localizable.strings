@@ -74,7 +74,7 @@
 "wikitext-upload-captcha-needed" = "Necesita verificación CAPTCHA.";
 "wikitext-upload-save" = "Guardando…";
 "wikitext-upload-save-sign-in" = "Acceder";
-"wikitext-upload-save-sign-in-benefits" = "Así los co-editores pueden conectar con usted y usted puede ver que artículos ha editado.";
+"wikitext-upload-save-sign-in-benefits" = "Así otros editores pueden contactarte y puedes ver qué artículos has editado.";
 "wikitext-upload-save-anonymously" = "Guardar anónimamente";
 "wikitext-upload-save-anonymously-warning" = "Las ediciones se atribuirán a la dirección IP del dispositivo. Si $1 tendrás más privacidad.";
 "wikitext-upload-save-terms-and-license" = "Al guardar, aceptas los $1 y a liberar irrevocablemente tus contribuciones bajo los términos de la licencia $2";

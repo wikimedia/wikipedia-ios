@@ -5,6 +5,7 @@
 // Author: Milicevic01
 // Author: Rancher
 
+"languages-title" = "Језици";
 "article-languages-label" = "Изаберите језик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Учитавање језика...";
@@ -48,8 +49,8 @@
 "wikitext-upload-save-sign-in" = "Пријавите се";
 "wikitext-upload-save-anonymously" = "Сачувајте анонимно";
 "wikitext-upload-save-anonymously-warning" = "Измене ће бити приписане ИП адреси вашег уређаја. Ако $1 имаћете више приватности.";
-"wikitext-upload-save-terms-and-license" = "Чувањем странице слажете се са $1 и безусловно прихватате да се ваш допринос објави под лиценцом $2.";
-"wikitext-upload-save-terms-name" = "Условима коришћења";
+"wikitext-upload-save-terms-and-license" = "Чувањем странице слажете се са $1 и безусловно прихватате да се Ваш допринос објави под лиценцом $2.";
+"wikitext-upload-save-terms-name" = "условима коришћења";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Учитај везу";
 "open-link-cancel" = "Откажи";
@@ -114,8 +115,7 @@
 "edit-summary-choice-added-clarification" = "Додато разјашњење";
 "edit-summary-choice-other" = "Друго";
 "edit-summary-description" = "Тачан опис измене помаже другим уредницима да брже прегледају ваше измене. Такође можете изабрати неки од већ дефинисаних описа испод.";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "Како сте унапредили страницу?";
+"edit-summary-field-placeholder-text" = "На који начин сте унапредили чланак";
 "edit-summary-title" = "Како сте унапредили чланак?";
 "credits-wikimedia-repos" = "Викимедија";
 "about-title" = "О";
@@ -179,3 +179,5 @@
 "nearby-open-in-maps" = "Отворити у Мапама";
 "nearby-cancel" = "Откажи";
 "image-gallery-fetch-image-info-error-ok" = "У реду";
+"page-issues" = "Недостаци странице";
+"page-similar-titles" = "Сличне странице";

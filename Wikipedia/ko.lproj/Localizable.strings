@@ -1,6 +1,7 @@
 // Messages for Korean (한국어)
 // Exported from translatewiki.net
 // Author: Alex00728
+// Author: Hwangjy9
 // Author: Namoroka
 // Author: Priviet
 // Author: SeoJeongHo
@@ -8,12 +9,14 @@
 // Author: Ysjbserver
 // Author: 아라
 
+"languages-title" = "언어";
 "article-languages-label" = "언어 선택";
 "article-languages-cancel" = "취소";
 "article-languages-downloading" = "문서 언어를 불러오는 중...";
 "article-languages-filter-placeholder" = "언어 필터";
 "article-read-more-title" = "더 읽어보기";
 "article-unable-to-load-section" = "섹션을 불러오지 못했습니다. 문제를 해결하기 위해 문서를 새로고침하십시오.";
+"article-unable-to-load-article" = "문서를 불러올 수 없습니다.";
 "info-box-title" = "빠른 사실";
 "info-box-close-text" = "닫기";
 "table-title-other" = "자세한 정보";

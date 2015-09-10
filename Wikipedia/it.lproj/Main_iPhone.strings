@@ -2,6 +2,8 @@
 // Exported from translatewiki.net
 // Author: Beta16
 // Author: Macofe
+// Author: Simoarmanni
+// Author: Statix64
 
 "21c-U6-yfo.normalTitle" = "Mostra un altro captcha";
 "5cT-2Y-0Ie.placeholder" = "Nome utente";
@@ -17,9 +19,10 @@
 "gPg-cg-Yjy.placeholder" = "Inserisci il testo captcha dall'immagine sopra";
 "heA-3K-nhS.text" = "Hai già un'utenza? Accedi";
 "huU-kO-aYI.text" = "Probabilmente hai cancellato tutto. La prossima volta che vai in una pagina, puoi tornarci da qui.";
+"ib6-Zk-jUw.text" = "Titolo dell'articolo trovato";
 "jiW-Cg-oL3.text" = "Registrati";
 "kVb-lx-d6C.placeholder" = "Password";
 "mAk-1N-jPC.placeholder" = "Nome utente";
-"rKI-nq-3p7.placeholder" = "Indirizzo di posta elettronica (opzionale)";
+"rKI-nq-3p7.placeholder" = "Indirizzo email (opzionale)";
 "wVn-n7-pdy.text" = "Nome della lingua";
 "wkl-j8-wLX.text" = "Crea un'utenza";

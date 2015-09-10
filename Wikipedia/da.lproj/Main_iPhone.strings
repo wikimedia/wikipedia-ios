@@ -3,6 +3,7 @@
 // Author: Anders Feder
 // Author: Christian List
 // Author: Gorbi
+// Author: Mads Haupt
 
 "21c-U6-yfo.normalTitle" = "Vis en anden captcha";
 "5cT-2Y-0Ie.placeholder" = "Brugernavn";
@@ -18,6 +19,7 @@
 "gPg-cg-Yjy.placeholder" = "Indtast CAPTCHA teksten fra billedet ovenfor";
 "heA-3K-nhS.text" = "Har du allerede en konto? Log på";
 "huU-kO-aYI.text" = "Du har sikkert slettet dem alle. Næste gang du går til en side, kan du komme tilbage til den her.";
+"ib6-Zk-jUw.text" = "Oversat titel";
 "jiW-Cg-oL3.text" = "Opret konto";
 "kVb-lx-d6C.placeholder" = "Adgangskode";
 "mAk-1N-jPC.placeholder" = "Brugernavn";
