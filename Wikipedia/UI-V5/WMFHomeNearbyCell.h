@@ -2,11 +2,18 @@
 #import "WMFSaveableTitleCollectionViewCell.h"
 @import CoreLocation;
 
+@class MWKLocationSearchResult;
+
 @interface WMFHomeNearbyCell : WMFSaveableTitleCollectionViewCell
 
 @property (copy, nonatomic) NSString* descriptionText;
 
 @property (assign, nonatomic) CLLocationDistance distance;
-@property (copy, nonatomic) NSNumber* headingAngle;
+
+- (void)setBearing:(CLLocationDegrees)bearing;
+
+- (void)setCompassHidden:(BOOL)compassHidden;
+
+- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult;
 
 @end

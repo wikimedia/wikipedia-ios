@@ -10,8 +10,6 @@
 #import "MWKRecentSearchList.h"
 
 #import "WMFLocationManager.h"
-#import "WMFLocationSearchFetcher.h"
-#import "WMFRelatedSearchFetcher.h"
 
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
@@ -49,7 +47,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, null_resettable) WMFRelatedSectionController* savedSectionController;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
-@property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
 @property (nonatomic, strong) NSMutableDictionary* sectionControllers;
@@ -108,8 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                    locationManager:self.locationManager
-                                                              locationSearchFetcher:self.locationSearchFetcher];
+                                                                    locationManager:self.locationManager];
         [_nearbySectionController setSavedPageList:self.savedPages];
     }
     return _nearbySectionController;
@@ -133,9 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!title) {
         return nil;
     }
-    WMFRelatedSearchFetcher* fetcher        = [[WMFRelatedSearchFetcher alloc] init];
     id<WMFHomeSectionController> controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:title
-                                                                                   relatedSearchFetcher:fetcher
                                                                                                delegate:self];
     [controller setSavedPageList:self.savedPages];
 
@@ -147,13 +141,6 @@ NS_ASSUME_NONNULL_BEGIN
         _locationManager = [[WMFLocationManager alloc] init];
     }
     return _locationManager;
-}
-
-- (WMFLocationSearchFetcher*)locationSearchFetcher {
-    if (!_locationSearchFetcher) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
-    }
-    return _locationSearchFetcher;
 }
 
 - (SSSectionedDataSource*)dataSource {

@@ -3,6 +3,9 @@
 
 @interface WMFCompassView : UIView
 
-@property (nonatomic, strong) NSNumber* angle;
+/**
+ *  Compass bearing measured in radians, where 0 is North and pi is South.
+ */
+@property (nonatomic, assign) double angleRadians;
 
 @end

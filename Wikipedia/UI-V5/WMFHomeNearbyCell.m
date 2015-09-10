@@ -6,6 +6,13 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
+#import "WMFNearbyViewModel.h"
+#import "MWKLocationSearchResult.h"
+#import "WMFLocationSearchResults.h"
+
+// TEMP
+#import "WMFMath.h"
+
 #import <Masonry/Masonry.h>
 
 static CGFloat const WMFTextPadding    = 8.0;
@@ -20,9 +27,16 @@ static CGFloat const WMFImagePadding = 8.0;
 @property (strong, nonatomic) IBOutlet UIView* distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel* distanceLabel;
 
+@property (strong, nonatomic) MWKLocationSearchResult* locationSearchResult;
+
 @end
 
 @implementation WMFHomeNearbyCell
+@synthesize locationSearchResult = _locationSearchResult;
+
+- (void)dealloc {
+    [self unobserveResult];
+}
 
 + (NSString*)defaultImageName {
     return @"logo-placeholder-nearby.png";
@@ -30,8 +44,7 @@ static CGFloat const WMFImagePadding = 8.0;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    _distanceLabel.text  = nil;
-    self.descriptionText = nil;
+    self.locationSearchResult = nil;
 }
 
 - (void)awakeFromNib {
@@ -51,22 +64,76 @@ static CGFloat const WMFImagePadding = 8.0;
     return preferredAttributes;
 }
 
-- (void)setDescriptionText:(NSString*)descriptionText {
-    if (WMF_EQUAL(self.descriptionText, isEqualToString:, descriptionText)) {
-        return;
-    }
-    _descriptionText = [descriptionText copy];
-    [self updateTitleLabel];
-}
+#pragma mark - Location Attributes
 
 - (void)setDistance:(CLLocationDistance)distance {
     _distance               = distance;
     self.distanceLabel.text = [self textForDistance:distance];
 }
 
-- (void)setHeadingAngle:(NSNumber*)headingAngle {
-    _headingAngle          = headingAngle;
-    self.compassView.angle = headingAngle;
+- (void)setBearing:(CLLocationDegrees)bearing {
+    self.compassView.angleRadians = DEGREES_TO_RADIANS(bearing);
+}
+
+- (void)setCompassHidden:(BOOL)compassHidden {
+    self.compassView.hidden = compassHidden;
+}
+
+- (void)setLocationSearchResult:(MWKLocationSearchResult *)locationSearchResult {
+    if (WMF_EQUAL(self.locationSearchResult, isEqual:, locationSearchResult)) {
+        return;
+    }
+
+    [self unobserveResult];
+    
+    _locationSearchResult = locationSearchResult;
+
+    self.descriptionText = self.locationSearchResult.wikidataDescription;
+    self.distance        = self.locationSearchResult.distanceFromQueryCoordinates;
+    self.imageURL        = self.locationSearchResult.thumbnailURL;
+
+    [self observeResult];
+}
+
+- (void)observeResult {
+    if (!self.locationSearchResult) {
+        return;
+    }
+    [self.KVOControllerNonRetaining
+     observe:self.locationSearchResult
+     keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, bearingToLocation)
+     options:NSKeyValueObservingOptionInitial
+       block:^(WMFHomeNearbyCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
+        [cell setBearing:result.bearingToLocation];
+        [cell setCompassHidden:NO];
+    }];
+    [self.KVOControllerNonRetaining
+     observe:self.locationSearchResult
+     keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)
+     options:NSKeyValueObservingOptionInitial
+     block:^(WMFHomeNearbyCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
+         cell.distance = result.distanceFromUser;
+     }];
+}
+
+- (void)unobserveResult {
+    if (!self.locationSearchResult) {
+        return;
+    }
+    [self.KVOControllerNonRetaining unobserve:self.locationSearchResult
+                                      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, bearingToLocation)];
+    [self.KVOControllerNonRetaining unobserve:self.locationSearchResult
+                                      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)];
+}
+
+#pragma mark - Text Attributes
+
+- (void)setDescriptionText:(NSString*)descriptionText {
+    if (WMF_EQUAL(self.descriptionText, isEqualToString:, descriptionText)) {
+        return;
+    }
+    _descriptionText = [descriptionText copy];
+    [self updateTitleLabel];
 }
 
 - (void)updateTitleLabel {

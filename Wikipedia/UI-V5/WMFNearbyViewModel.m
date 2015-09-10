@@ -17,10 +17,13 @@
 #import "MWKLocationSearchResult.h"
 #import "MWKHistoryEntry.h"
 #import "CLLocation+WMFApproximateEquality.h"
+#import "CLLocation+WMFBearing.h"
 
 // Frameworks
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
+
+typedef void(^WMFBearingTrackingBlock)(CLLocationDegrees updatedBearing, NSUInteger index);
 
 @interface WMFNearbyViewModel ()
 <WMFNearbyControllerDelegate>
@@ -31,14 +34,18 @@
 
 @property (nonatomic, strong, readwrite) WMFLocationSearchResults* locationSearchResults;
 
+@property (nonatomic, strong) NSMutableIndexSet* autoUpdatingIndexes;
+
 @end
 
 @implementation WMFNearbyViewModel
 
-- (instancetype)initWithSite:(MWKSite*)site resultLimit:(NSUInteger)resultLimit {
+- (instancetype)initWithSite:(MWKSite*)site
+                 resultLimit:(NSUInteger)resultLimit
+             locationManager:(WMFLocationManager* __nullable)locationManager {
     return [self initWithSite:site
                   resultLimit:resultLimit
-              locationManager:[[WMFLocationManager alloc] init]
+              locationManager:locationManager ?: [[WMFLocationManager alloc] init]
                       fetcher:[[WMFLocationSearchFetcher alloc] init]];
 }
 
@@ -48,6 +55,7 @@
                      fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     self = [super init];
     if (self) {
+        self.autoUpdatingIndexes = [NSMutableIndexSet indexSet];
         self.site                  = site;
         self.resultLimit           = resultLimit;
         self.locationSearchFetcher = locationSearchFetcher;
@@ -58,6 +66,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [self stopUpdates];
+}
+
 - (void)setSite:(MWKSite* __nonnull)site {
     if (WMF_EQUAL(self.site, isEqualToSite:, site)) {
         return;
@@ -66,21 +78,67 @@
     [self fetchTitlesForLocation:self.locationSearchResults.location];
 }
 
+- (void)setLocationSearchResults:(WMFLocationSearchResults * __nullable)locationSearchResults {
+    if (WMF_EQUAL(self.locationSearchResults, isEqual:, locationSearchResults)) {
+        return;
+    }
+    [self stopUpdatingAllResults];
+    _locationSearchResults = locationSearchResults;
+}
+
+#pragma mark - Result Updates
+
+- (void)autoUpdateResultAtIndex:(NSUInteger)index {
+    [self.autoUpdatingIndexes addIndex:index];
+    DDLogInfo(@"Tracking headings for %lu indexes", self.autoUpdatingIndexes.count);
+    [self updateBearingAtIndex:index];
+    [self updateDistanceAtIndex:index];
+}
+
+- (void)stopUpdatingResultAtIndex:(NSUInteger)index {
+    [self.autoUpdatingIndexes removeIndex:index];
+    DDLogInfo(@"Tracking headings for %lu indexes", self.autoUpdatingIndexes.count);
+    // TODO: toggle heading tracking based on whether or not we have indexes to track
+}
+
+- (void)stopUpdatingAllResults {
+    [self.autoUpdatingIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* stop) {
+        [self stopUpdatingResultAtIndex:idx];
+    }];
+}
+
+- (void)updateBearingAtIndex:(NSUInteger)index {
+    MWKLocationSearchResult* result = self.locationSearchResults.results[index];
+    result.bearingToLocation =
+        [self.locationSearchResults.location wmf_bearingToLocation:result.location
+                                                 forCurrentHeading:self.locationManager.lastHeading];
+}
+
+- (void)updateDistanceAtIndex:(NSUInteger)index {
+    MWKLocationSearchResult* result = self.locationSearchResults.results[index];
+    result.distanceFromUser = [result.location distanceFromLocation:self.locationManager.lastLocation];
+}
+
 #pragma mark - Fetch
 
-- (void)fetch {
+- (void)startUpdates {
     [self.locationManager restartLocationMonitoring];
     // TODO: check if authorized. if not, fail w/ an error
+}
+
+- (void)stopUpdates {
+    [self.locationManager stopMonitoringLocation];
+    self.locationSearchResults = nil;
+    // TODO: cancel last search request
 }
 
 - (void)fetchTitlesForLocation:(CLLocation* __nullable)location {
     if (!location) {
         return;
-    } else if ([self.locationSearchResults.location wmf_hasSameCoordinatesAsLocation:location]
-        && [self.locationSearchResults.searchSite isEqualToSite:self.site]) {
+    } else if ([self.locationSearchResults.location distanceFromLocation:location] < 500
+               && [self.locationSearchResults.searchSite isEqualToSite:self.site]) {
         /*
-         HAX: CLLocationManger will send redundant updates (same location w/ a different timestamp) even if the
-         distance filter is set to a large number.
+         How often we search titles for a location is separate from how often the location updates. See WMFLocationManager.
         */
         DDLogInfo(@"Ignoring fetch request for %@ since it is too close to previously fetched location: %@",
                   location, self.locationSearchResults.location);
@@ -118,10 +176,15 @@
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
     [self fetchTitlesForLocation:location];
+    [self.autoUpdatingIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* _) {
+        [self updateDistanceAtIndex:idx];
+    }];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
-    #warning TODO: update headings
+    [self.autoUpdatingIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* _) {
+        [self updateBearingAtIndex:idx];
+    }];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {

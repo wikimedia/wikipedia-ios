@@ -36,7 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFNearbyTitleListDataSource
 
 - (instancetype)initWithSite:(MWKSite*)site {
-    WMFNearbyViewModel* viewModel = [[WMFNearbyViewModel alloc] initWithSite:site resultLimit:20];
+    WMFNearbyViewModel* viewModel = [[WMFNearbyViewModel alloc] initWithSite:site
+                                                                 resultLimit:20
+                                                             locationManager:nil];
     return [self initWithSite:site viewModel:viewModel];
 }
 
@@ -51,16 +53,16 @@ NS_ASSUME_NONNULL_BEGIN
                                     id parentView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.item];
             [nearbyCell setSavedPageList:self.savedPageList];
-            nearbyCell.descriptionText = result.wikidataDescription;
-            nearbyCell.title           = article.title;
-            nearbyCell.distance        = result.distanceFromQueryCoordinates;
-            nearbyCell.imageURL        = result.thumbnailURL;
+            MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.item];
+            nearbyCell.title = [self.viewModel.locationSearchResults titleForResult:result];
+            // TODO: stop auto-updating headings for indexes of cells which aren't visible
+            [self.viewModel autoUpdateResultAtIndex:indexPath.item];
+            [nearbyCell setLocationSearchResult:result];
         };
         self.viewModel = viewModel;
         self.viewModel.delegate = self;
-        [self.viewModel fetch];
+        [self.viewModel startUpdates];
     }
     return self;
 }
@@ -120,6 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel
        didUpdateResults:(WMFLocationSearchResults*)locationSearchResults {
+    // TEMP: remove this when artilce lists can handle article placeholders
     [self updateItems:[locationSearchResults.results bk_map:^MWKArticle*(MWKLocationSearchResult* locResult) {
         MWKTitle* title = [[MWKTitle alloc] initWithString:locResult.displayTitle
                                                       site:locationSearchResults.searchSite];

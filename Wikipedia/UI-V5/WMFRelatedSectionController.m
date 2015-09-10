@@ -43,8 +43,15 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher
                             delegate:(id<WMFHomeSectionControllerDelegate>)delegate {
+    return [self initWithArticleTitle:title
+                             delegate:delegate
+                 relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
+}
+
+- (instancetype)initWithArticleTitle:(MWKTitle*)title
+                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate
+                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
     NSParameterAssert(relatedSearchFetcher);
     self = [super init];

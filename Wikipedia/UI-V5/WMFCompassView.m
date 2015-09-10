@@ -24,8 +24,24 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     self.backgroundColor = [UIColor clearColor];
 }
 
-- (void)setAngle:(NSNumber*)angle {
-    _angle = angle;
+- (void)setAngleRadians:(double)angleRadians {
+    /*
+     The vector of the device heading is based on the top of the device, so make sure "North" always points up.
+    */
+    switch ([[UIApplication sharedApplication] statusBarOrientation]) {
+        case UIInterfaceOrientationLandscapeLeft:
+            angleRadians += M_PI_2;
+            break;
+        case UIInterfaceOrientationLandscapeRight:
+            angleRadians -= M_PI_2;
+            break;
+        case UIInterfaceOrientationPortraitUpsideDown:
+            angleRadians += M_PI;
+            break;
+        default: //UIInterfaceOrientationPortrait
+            break;
+    }
+    _angleRadians = angleRadians;
     [self setNeedsDisplay];
 }
 
@@ -42,41 +58,39 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     double diameter = rect.size.width;
     double radius   = diameter / 2.0f;
 
-    if (self.angle) {
-        UIColor* tickColor = [UIColor colorWithRed:0 green:0.693 blue:0.539 alpha:1];
+    UIColor* tickColor = [UIColor colorWithRed:0 green:0.693 blue:0.539 alpha:1];
 
-        CGContextSetFillColorWithColor(ctx, tickColor.CGColor);
-        CGContextSetStrokeColorWithColor(ctx, tickColor.CGColor);
+    CGContextSetFillColorWithColor(ctx, tickColor.CGColor);
+    CGContextSetStrokeColorWithColor(ctx, tickColor.CGColor);
 
-        // Draw compass lines.
-        CGFloat compassLineLength = (radius - (WMFCompassPadding)) * 0.07f;
-        CGFloat compassLineRadius = (radius - (WMFCompassPadding)) * 1.15f;
-        [self drawCompassLinesInContext:ctx
-                                 center:CGPointMake(radius, radius)
-                                 radius:compassLineRadius
-                                   size:CGSizeMake(WMFCompassLineWidth / scale, compassLineLength)
-                                  count:WMFCompassLineCount];
+    // Draw compass lines.
+    CGFloat compassLineLength = (radius - (WMFCompassPadding)) * 0.07f;
+    CGFloat compassLineRadius = (radius - (WMFCompassPadding)) * 1.15f;
+    [self drawCompassLinesInContext:ctx
+                             center:CGPointMake(radius, radius)
+                             radius:compassLineRadius
+                               size:CGSizeMake(WMFCompassLineWidth / scale, compassLineLength)
+                              count:WMFCompassLineCount];
 
-        // Draw opposite tick line.
-        CGFloat oppositeTickLength = (compassLineLength * 3.0f);
-        [self drawOppositeLineInContext:ctx
-                                 center:CGPointMake(radius, radius)
-                                 radius:compassLineRadius
-                                   size:CGSizeMake(WMFCompassOppositeLineWidth / scale, oppositeTickLength)];
+    // Draw opposite tick line.
+    CGFloat oppositeTickLength = (compassLineLength * 3.0f);
+    [self drawOppositeLineInContext:ctx
+                             center:CGPointMake(radius, radius)
+                             radius:compassLineRadius
+                               size:CGSizeMake(WMFCompassOppositeLineWidth / scale, oppositeTickLength)];
 
-        // Draw tick (arrow-like directional indicator).
-        CGFloat tickPercentOfRectWidth  = 0.125;
-        CGFloat tickPercentOfRectHeight = 0.135;
-        CGSize tickSize                 =
-            CGSizeMake(
-                (rect.size.width - (WMFCompassPadding * 2.0f)) * tickPercentOfRectWidth,
-                (rect.size.height - (WMFCompassPadding * 2.0f)) * tickPercentOfRectHeight
-                );
-        [self drawTickInContext:ctx
-                         center:CGPointMake(radius, radius)
-                         radius:compassLineRadius - onePx
-                           size:tickSize];
-    }
+    // Draw tick (arrow-like directional indicator).
+    CGFloat tickPercentOfRectWidth  = 0.125;
+    CGFloat tickPercentOfRectHeight = 0.135;
+    CGSize tickSize                 =
+        CGSizeMake(
+            (rect.size.width - (WMFCompassPadding * 2.0f)) * tickPercentOfRectWidth,
+            (rect.size.height - (WMFCompassPadding * 2.0f)) * tickPercentOfRectHeight
+            );
+    [self drawTickInContext:ctx
+                     center:CGPointMake(radius, radius)
+                     radius:compassLineRadius - onePx
+                       size:tickSize];
 
     CGContextDrawPath(ctx, kCGPathStroke);
 
@@ -94,7 +108,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     // Move to center of circle.
     CGContextTranslateCTM(ctx, center.x, center.y);
     // Rotate.
-    CGContextRotateCTM(ctx, [self.angle doubleValue]);
+    CGContextRotateCTM(ctx, self.angleRadians);
     // Rotate to other side.
     CGContextRotateCTM(ctx, DEGREES_TO_RADIANS(180.0f));
 
@@ -136,7 +150,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     // Move to center of circle.
     CGContextTranslateCTM(ctx, center.x, center.y);
     // Rotate.
-    CGContextRotateCTM(ctx, [self.angle doubleValue]);
+    CGContextRotateCTM(ctx, self.angleRadians);
 
     // Move to location to draw tick.
     CGContextTranslateCTM(ctx, 0, -radius);
@@ -147,7 +161,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     CGRect tickRect    = CGRectMake(0, 0, size.width, size.height);
 
     // Determines how far down from the vertical center the dots forming the base of the
-    // tick triangle are.
+    // tick triangleRadians are.
     CGFloat midpointDescent = size.height * 0.1666;
 
     CGPoint p1 = CGPointMake(CGRectGetMinX(tickRect), CGRectGetMaxY(tickRect));

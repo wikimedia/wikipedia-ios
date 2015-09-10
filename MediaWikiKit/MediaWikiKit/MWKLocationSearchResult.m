@@ -3,6 +3,15 @@
 
 @implementation MWKLocationSearchResult
 
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
+    if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], bearingToLocation)]
+        || [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKLocationSearchResult new], distanceFromUser)]) {
+        return MTLPropertyStorageTransitory;
+    } else {
+        return [super storageBehaviorForPropertyWithKey:propertyKey];
+    }
+}
+
 + (NSValueTransformer*)locationJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value,
                                                                   BOOL* success,

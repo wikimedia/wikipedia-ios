@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class MWKTitle;
 @class WMFLocationManager;
 @class WMFLocationSearchFetcher;
 @class WMFLocationSearchResults;
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFNearbyViewModelDelegate <NSObject>
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results;
+
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error;
 
 @end
@@ -29,14 +31,28 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSite* site;
 @property (nonatomic, strong, nullable, readonly) WMFLocationSearchResults* locationSearchResults;
 
-- (instancetype)initWithSite:(MWKSite*)site resultLimit:(NSUInteger)resultLimit;
+- (instancetype)initWithSite:(MWKSite*)site
+                 resultLimit:(NSUInteger)resultLimit
+             locationManager:(WMFLocationManager* __nullable)locationManager;
 
 - (instancetype)initWithSite:(MWKSite*)site
                  resultLimit:(NSUInteger)resultLimit
              locationManager:(WMFLocationManager*)locationManager
                      fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher NS_DESIGNATED_INITIALIZER;
 
-- (void)fetch;
+#pragma mark - Updating Nearby Data
+
+- (void)startUpdates;
+
+- (void)stopUpdates;
+
+#pragma mark - Tracking User Bearing 
+
+- (void)autoUpdateResultAtIndex:(NSUInteger)index;
+
+- (void)stopUpdatingResultAtIndex:(NSUInteger)index;
+
+- (void)stopUpdatingAllResults;
 
 @end
 
