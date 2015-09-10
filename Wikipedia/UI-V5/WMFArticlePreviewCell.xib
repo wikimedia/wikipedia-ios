@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -46,15 +46,20 @@
                         <size key="shadowOffset" width="0.0" height="1"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVJ-4N-Dr6" userLabel="Summary Label">
-                        <rect key="frame" x="16" y="168" width="329" height="146"/>
+                        <rect key="frame" x="16" y="168" width="329" height="117"/>
                         <animations/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.11798221617937088" green="0.11801020056009293" blue="0.1179804727435112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjn-Ua-PWa" userLabel="Save Button">
-                        <rect key="frame" x="330" y="283" width="30" height="34"/>
-                        <state key="normal">
+                        <rect key="frame" x="320" y="287" width="25" height="25"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="05Y-0E-4AK"/>
+                            <constraint firstAttribute="width" constant="25" id="Trm-rO-83J"/>
+                        </constraints>
+                        <state key="normal" image="saved">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -72,20 +77,26 @@
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" id="Bwg-G1-AHL"/>
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="8" id="JLS-oe-btW"/>
                 <constraint firstItem="DHn-dQ-BBy" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="N3Z-Or-18E"/>
-                <constraint firstAttribute="bottom" secondItem="yjn-Ua-PWa" secondAttribute="bottom" constant="5" id="Rb7-rE-ZTT"/>
+                <constraint firstAttribute="bottom" secondItem="yjn-Ua-PWa" secondAttribute="bottom" constant="10" id="Rb7-rE-ZTT"/>
                 <constraint firstItem="DHn-dQ-BBy" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="top" id="TEC-wc-uVA"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="VP5-MT-WVV"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="top" secondItem="pEK-59-fwO" secondAttribute="bottom" id="a4q-aQ-EEg"/>
                 <constraint firstItem="DHn-dQ-BBy" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="aYN-Wp-RZG"/>
                 <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" constant="16" id="cbI-rk-WYN"/>
+                <constraint firstItem="yjn-Ua-PWa" firstAttribute="top" secondItem="AVJ-4N-Dr6" secondAttribute="bottom" constant="2" id="fOj-LJ-MQN"/>
                 <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" id="gqX-Rl-5tH"/>
-                <constraint firstAttribute="trailing" secondItem="yjn-Ua-PWa" secondAttribute="trailing" constant="1" id="hY0-Zq-nAG"/>
+                <constraint firstAttribute="trailing" secondItem="yjn-Ua-PWa" secondAttribute="trailing" constant="16" id="hY0-Zq-nAG"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="AVJ-4N-Dr6" secondAttribute="trailing" id="jet-NL-aB8"/>
                 <constraint firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="xDh-kd-k8A"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="AVJ-4N-Dr6" secondAttribute="leading" id="xGo-HI-1kZ"/>
                 <constraint firstItem="DHn-dQ-BBy" firstAttribute="bottom" secondItem="kPi-wU-UzV" secondAttribute="bottom" id="xrz-cf-uel"/>
             </constraints>
             <size key="customSize" width="361" height="322"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="555-u4-ydB"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="descriptionLabel" destination="vbF-9q-HIn" id="Mv9-pV-4Z5"/>
                 <outlet property="imageView" destination="kPi-wU-UzV" id="0Ag-gE-eDC"/>
@@ -96,4 +107,7 @@
             <point key="canvasLocation" x="374.5" y="182"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="saved" width="25" height="25"/>
+    </resources>
 </document>

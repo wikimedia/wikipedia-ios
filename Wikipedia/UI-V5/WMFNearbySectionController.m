@@ -111,8 +111,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
      inCollectionView:(UICollectionView*)collectionView
           atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFNearbySearchResultCell class]]) {
-        WMFNearbySearchResultCell* nearbyCell   = (id)cell;
-        MWKLocationSearchResult* result = object;
+        WMFNearbySearchResultCell* nearbyCell = (id)cell;
+        MWKLocationSearchResult* result       = object;
         NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
         [nearbyCell setLocationSearchResult:result withTitle:[self titleForItemAtIndex:indexPath.item]];
         [self.viewModel autoUpdateResultAtIndex:indexPath.item];
