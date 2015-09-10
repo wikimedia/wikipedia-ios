@@ -1,5 +1,5 @@
 
-#import "WMFHomeNearbyCell.h"
+#import "WMFNearbySearchResultCell.h"
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 
 // Views
@@ -27,7 +27,7 @@ static CGFloat const WMFDistanceHeight = 20.0;
 static CGFloat const WMFImageSize    = 104;
 static CGFloat const WMFImagePadding = 8.0;
 
-@interface WMFHomeNearbyCell ()
+@interface WMFNearbySearchResultCell ()
 
 - (void)setDistance:(CLLocationDistance)distance;
 
@@ -45,7 +45,7 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @end
 
-@implementation WMFHomeNearbyCell
+@implementation WMFNearbySearchResultCell
 @synthesize locationSearchResult = _locationSearchResult;
 
 - (void)dealloc {
@@ -118,7 +118,7 @@ static CGFloat const WMFImagePadding = 8.0;
      observe:self.locationSearchResult
      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, bearingToLocation)
      options:NSKeyValueObservingOptionInitial
-       block:^(WMFHomeNearbyCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
+       block:^(WMFNearbySearchResultCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
         [cell setBearing:result.bearingToLocation];
         [cell setCompassHidden:NO];
     }];
@@ -126,7 +126,7 @@ static CGFloat const WMFImagePadding = 8.0;
      observe:self.locationSearchResult
      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)
      options:NSKeyValueObservingOptionInitial
-       block:^(WMFHomeNearbyCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
+       block:^(WMFNearbySearchResultCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
         cell.distance = result.distanceFromUser;
     }];
 }

@@ -4,7 +4,7 @@
 
 @class MWKLocationSearchResult;
 
-@interface WMFHomeNearbyCell : WMFSaveableTitleCollectionViewCell
+@interface WMFNearbySearchResultCell : WMFSaveableTitleCollectionViewCell
 
 /**
  *  Display the given search result.

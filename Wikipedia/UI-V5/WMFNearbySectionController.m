@@ -12,7 +12,7 @@
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
 
-#import "WMFHomeNearbyCell.h"
+#import "WMFNearbySearchResultCell.h"
 #import "WMFNearbySectionEmptyCell.h"
 #import "UIView+WMFDefaultNib.h"
 
@@ -93,7 +93,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib] forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
+    [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];
     [collectionView registerNib:[WMFNearbySectionEmptyCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySectionEmptyCell identifier]];
 }
 
@@ -102,7 +102,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     if ([self.viewModel.locationSearchResults.results count] == 0) {
         return [WMFNearbySectionEmptyCell cellForCollectionView:collectionView indexPath:indexPath];
     } else {
-        return [WMFHomeNearbyCell cellForCollectionView:collectionView indexPath:indexPath];
+        return [WMFNearbySearchResultCell cellForCollectionView:collectionView indexPath:indexPath];
     }
 }
 
@@ -110,8 +110,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
            withObject:(id)object
      inCollectionView:(UICollectionView*)collectionView
           atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
-        WMFHomeNearbyCell* nearbyCell   = (id)cell;
+    if ([cell isKindOfClass:[WMFNearbySearchResultCell class]]) {
+        WMFNearbySearchResultCell* nearbyCell   = (id)cell;
         MWKLocationSearchResult* result = object;
         NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
         [nearbyCell setLocationSearchResult:result withTitle:[self titleForItemAtIndex:indexPath.item]];

@@ -19,7 +19,7 @@
 #import "WMFLocationSearchResults.h"
 
 // Views
-#import "WMFHomeNearbyCell.h"
+#import "WMFNearbySearchResultCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFArticlePreviewCell.h"
 
@@ -46,9 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([viewModel.site isEqualToSite:site]);
     self = [super initWithItems:nil];
     if (self) {
-        self.cellClass = [WMFHomeNearbyCell class];
+        self.cellClass = [WMFNearbySearchResultCell class];
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFHomeNearbyCell* nearbyCell,
+        self.cellConfigureBlock = ^(WMFNearbySearchResultCell* nearbyCell,
                                     MWKArticle* article,
                                     id parentView,
                                     NSIndexPath* indexPath) {
@@ -110,8 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCollectionView:(UICollectionView*)collectionView {
     [super setCollectionView:collectionView];
-    [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib]
-     forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
+    [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib]
+     forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];
 }
 
 #pragma mark - WMFNearbyViewModelDelegate
