@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)initWithCoder:(NSCoder* __nullable)aDecoder {
+- (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.navigationItem.titleView =

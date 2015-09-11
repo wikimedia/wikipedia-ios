@@ -540,7 +540,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self shouldHideHeaderForSection:section] ? 0 : UITableViewAutomaticDimension;
 }
 
-- (UIView*)tableView:(UITableView* __nullable)tableView viewForHeaderInSection:(NSInteger)section {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     //TODO(5.0): localize these!
     if ([self shouldHideHeaderForSection:section]) {
         return nil;
