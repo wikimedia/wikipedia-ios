@@ -226,10 +226,8 @@ public class WMFImageController : NSObject {
 
         weak var wself = self
         return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            let empty: Void
             if let sself = wself {
                 let diskCachePath = sself.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
-                var error: NSError?
                 let diskCacheURL = NSURL(fileURLWithPath: diskCachePath)
                 
                 do{
@@ -242,7 +240,7 @@ public class WMFImageController : NSObject {
                     if error.code != NSFileWriteFileExistsError {
                         NSLog("Failed to create directory for migrated image data for url \(url) at path \(diskCachePath)"
                             + "due to error \(error)")
-                        return (empty, error)
+                        return
                     }
                 }
                 
@@ -254,14 +252,13 @@ public class WMFImageController : NSObject {
                     if error.code != NSFileWriteFileExistsError {
                         NSLog("Failed to move legacy data for url \(url) from \(filepath) to path \(diskCachePath)"
                             + "due to error \(error)")
-                        return (empty, error)
+                        return
                     }
                 }
                 
 
                
             }
-            return (empty, nil)
         }
     }
 
