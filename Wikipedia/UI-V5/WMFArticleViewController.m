@@ -412,7 +412,7 @@ NS_ASSUME_NONNULL_BEGIN
     return YES;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id __nullable)sender {
     [super prepareForSegue:segue sender:sender];
     if ([segue.destinationViewController isKindOfClass:[WMFArticleHeaderImageGalleryViewController class]]) {
         self.headerGalleryViewController          = segue.destinationViewController;
@@ -540,7 +540,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self shouldHideHeaderForSection:section] ? 0 : UITableViewAutomaticDimension;
 }
 
-- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView*)tableView:(UITableView* __nullable)tableView viewForHeaderInSection:(NSInteger)section {
     //TODO(5.0): localize these!
     if ([self shouldHideHeaderForSection:section]) {
         return nil;

@@ -8,7 +8,6 @@
 
 #import "UIImageView+MWKImageInternal.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 #import <BlocksKit/BlocksKit.h>
 
 #import "MWKImage+FaceDetection.h"

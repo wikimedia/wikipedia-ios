@@ -1,7 +1,6 @@
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 #import "WMFSaveButtonController.h"
 #import "MWKTitle.h"
 

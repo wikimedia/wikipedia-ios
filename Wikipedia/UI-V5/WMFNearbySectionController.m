@@ -9,7 +9,6 @@
 
 //Promises
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 #import "WMFHomeNearbyCell.h"
 #import "WMFNearbySectionEmptyCell.h"
