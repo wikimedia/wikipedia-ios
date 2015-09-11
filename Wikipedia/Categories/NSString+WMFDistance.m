@@ -13,7 +13,7 @@
 + (NSString*)wmf_localizedStringForDistance:(CLLocationDistance)distance {
     return [self wmf_localizedStringForDistance:distance
                                  useMetricUnits:[[[NSLocale currentLocale]
-                            objectForKey:(__bridge NSString*)kCFLocaleUsesMetricSystem] boolValue]];
+                             objectForKey:(__bridge NSString*)kCFLocaleUsesMetricSystem] boolValue]];
 }
 
 + (NSString*)wmf_localizedStringForDistance:(CLLocationDistance)distance useMetricUnits:(BOOL)useMetricUnits {

@@ -13,6 +13,9 @@
 @class WMFLocationSearchFetcher;
 @class WMFLocationSearchResults;
 @class WMFNearbyViewModel;
+@class MWKLocationSearchResult;
+@class WMFSearchResultDistanceProvider;
+@class WMFSearchResultBearingProvider;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -102,28 +105,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)stopUpdates;
 
-#pragma mark - Tracking User Bearing
+#pragma mark - Value Providers
 
 /**
- *  Update the @c MWKLocationSearchResult at @c index when the receiver gets location & heading updates.
+ *  Create a bearing provider for the location of the search result at the specified index.
  *
- *  This will update the object at @c index synchronously, and for every subsequent location & heading update.
+ *  @param index The index of the search result which the bearing should point to.
  *
- *  @param index The index of the search result which should be automatically updated.
+ *  @return An object whose @c bearingToLocation property is automatically updated when the user's heading changes.
  */
-- (void)autoUpdateResultAtIndex:(NSUInteger)index;
+- (WMFSearchResultBearingProvider*)bearingProviderForResultAtIndex:(NSUInteger)index;
 
 /**
- *  Stop automatically updating the search result at @c index.
+ *  Create a distance provider for the location of the search result at the specified index.
  *
- *  @param index The index of the search result which should no longer be updated.
+ *  @param index The index of the search result which the distance should be measured from.
+ *
+ *  @return An object whose @c distanceToUser property is automatically updated when the user's location changes.
  */
-- (void)stopUpdatingResultAtIndex:(NSUInteger)index;
-
-/**
- *  Stop automatically updating all search results.
- */
-- (void)stopUpdatingAllResults;
+- (WMFSearchResultDistanceProvider*)distanceProviderForResultAtIndex:(NSUInteger)index;
 
 @end
 

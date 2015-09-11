@@ -10,11 +10,9 @@
 #import "PromiseKit.h"
 #import <Masonry/Masonry.h>
 
-
-// Model
-#import "WMFNearbyViewModel.h"
-#import "MWKLocationSearchResult.h"
-#import "WMFLocationSearchResults.h"
+// Models
+#import "WMFSearchResultDistanceProvider.h"
+#import "WMFSearchResultBearingProvider.h"
 
 // Utils
 #import "WMFMath.h"
@@ -29,28 +27,19 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @interface WMFNearbySearchResultCell ()
 
-- (void)setDistance:(CLLocationDistance)distance;
-
-- (void)setBearing:(CLLocationDegrees)bearing;
-
-- (void)setCompassHidden:(BOOL)compassHidden;
-
+// Views
 @property (strong, nonatomic) IBOutlet WMFCompassView* compassView;
 @property (strong, nonatomic) IBOutlet UIView* distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel* distanceLabel;
 
-@property (nonatomic, copy) NSString* descriptionText;
-
-@property (strong, nonatomic) MWKLocationSearchResult* locationSearchResult;
+// Values
+@property (nonatomic, copy) NSString* searchResultDescription;
+@property (strong, nonatomic) WMFSearchResultBearingProvider* bearingProvider;
+@property (strong, nonatomic) WMFSearchResultDistanceProvider* distanceProvider;
 
 @end
 
 @implementation WMFNearbySearchResultCell
-@synthesize locationSearchResult = _locationSearchResult;
-
-- (void)dealloc {
-    [self unobserveResult];
-}
 
 + (NSString*)defaultImageName {
     return @"logo-placeholder-nearby.png";
@@ -58,7 +47,9 @@ static CGFloat const WMFImagePadding = 8.0;
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self setLocationSearchResult:nil withTitle:nil];
+    [self setSearchResultDescription:nil];
+    self.distanceProvider = nil;
+    self.bearingProvider  = nil;
 }
 
 - (void)awakeFromNib {
@@ -80,84 +71,53 @@ static CGFloat const WMFImagePadding = 8.0;
 
 #pragma mark - Compass
 
+- (void)setBearingProvider:(WMFSearchResultBearingProvider*)bearingProvider {
+    [self.KVOController unobserve:_bearingProvider];
+    _bearingProvider = bearingProvider;
+    if (_bearingProvider) {
+        self.compassView.hidden = NO;
+        [self.KVOController observe:_bearingProvider
+                            keyPath:WMF_SAFE_KEYPATH(_bearingProvider, bearingToLocation)
+                            options:NSKeyValueObservingOptionInitial
+                              block:^(WMFNearbySearchResultCell* cell,
+                                      WMFSearchResultBearingProvider* provider,
+                                      NSDictionary* change) {
+            [cell setBearing:provider.bearingToLocation];
+        }];
+    } else {
+        self.compassView.hidden = YES;
+    }
+}
+
 - (void)setBearing:(CLLocationDegrees)bearing {
     self.compassView.angleRadians = DEGREES_TO_RADIANS(bearing);
 }
 
-- (void)setCompassHidden:(BOOL)compassHidden {
-    self.compassView.hidden = compassHidden;
-}
-
-#pragma mark - Result
-
-- (void)setLocationSearchResult:(MWKLocationSearchResult*)locationSearchResult withTitle:(MWKTitle*)title {
-    if (WMF_EQUAL(self.locationSearchResult, isEqual:, locationSearchResult)
-        && WMF_EQUAL(self.title, isEqualToTitle:, title)) {
-        return;
-    }
-
-    [self unobserveResult];
-
-    _locationSearchResult = locationSearchResult;
-
-    // !!! Set title _after_ the description to ensure the label updates properly.
-    self.descriptionText = self.locationSearchResult.wikidataDescription;
-    self.title           = title;
-
-    self.distance = self.locationSearchResult.distanceFromQueryCoordinates;
-    self.imageURL = self.locationSearchResult.thumbnailURL;
-
-    [self observeResult];
-}
-
-- (void)observeResult {
-    if (!self.locationSearchResult) {
-        return;
-    }
-    [self.KVOControllerNonRetaining
-     observe:self.locationSearchResult
-     keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, bearingToLocation)
-     options:NSKeyValueObservingOptionInitial
-       block:^(WMFNearbySearchResultCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
-        [cell setBearing:result.bearingToLocation];
-        [cell setCompassHidden:NO];
-    }];
-    [self.KVOControllerNonRetaining
-     observe:self.locationSearchResult
-     keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)
-     options:NSKeyValueObservingOptionInitial
-       block:^(WMFNearbySearchResultCell* cell, MWKLocationSearchResult* result, NSDictionary* _) {
-        cell.distance = result.distanceFromUser;
-    }];
-}
-
-- (void)unobserveResult {
-    if (!self.locationSearchResult) {
-        return;
-    }
-    [self.KVOControllerNonRetaining unobserve:self.locationSearchResult
-                                      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, bearingToLocation)];
-    [self.KVOControllerNonRetaining unobserve:self.locationSearchResult
-                                      keyPath:WMF_SAFE_KEYPATH(self.locationSearchResult, distanceFromUser)];
-}
-
 #pragma mark - Title/Description
 
+- (void)setSearchResultDescription:(NSString*)searchResultDescription {
+    if (WMF_EQUAL(self.searchResultDescription, isEqualToString:, searchResultDescription)) {
+        return;
+    }
+    _searchResultDescription = [searchResultDescription copy];
+    [self updateTitleLabel];
+}
+
 - (void)updateTitleLabel {
-    NSMutableAttributedString* text = [NSMutableAttributedString new];
+    NSMutableAttributedString* attributedTitleAndDescription = [NSMutableAttributedString new];
 
     NSAttributedString* titleText = [self attributedTitleText];
     if ([titleText length] > 0) {
-        [text appendAttributedString:titleText];
+        [attributedTitleAndDescription appendAttributedString:titleText];
     }
 
-    NSAttributedString* descriptionText = [self attributedDescriptionText];
-    if ([descriptionText length] > 0) {
-        [text appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"\n"]];
-        [text appendAttributedString:descriptionText];
+    NSAttributedString* searchResultDescription = [self attributedDescriptionText];
+    if ([searchResultDescription length] > 0) {
+        [attributedTitleAndDescription appendAttributedString:[[NSMutableAttributedString alloc] initWithString:@"\n"]];
+        [attributedTitleAndDescription appendAttributedString:searchResultDescription];
     }
 
-    self.titleLabel.attributedText = text;
+    self.titleLabel.attributedText = attributedTitleAndDescription;
 }
 
 - (NSAttributedString*)attributedTitleText {
@@ -165,23 +125,21 @@ static CGFloat const WMFImagePadding = 8.0;
         return nil;
     }
 
-    return [[NSAttributedString alloc] initWithString:self.title.text attributes:
-            @{
+    return [[NSAttributedString alloc] initWithString:self.title.text attributes:@{
                 NSFontAttributeName: [UIFont systemFontOfSize:17.0f],
                 NSForegroundColorAttributeName: [UIColor blackColor]
             }];
 }
 
 - (NSAttributedString*)attributedDescriptionText {
-    if ([self.descriptionText length] == 0) {
+    if ([self.searchResultDescription length] == 0) {
         return nil;
     }
 
     NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.paragraphSpacingBefore = 2.0;
 
-    return [[NSAttributedString alloc] initWithString:self.descriptionText attributes:
-            @{
+    return [[NSAttributedString alloc] initWithString:self.searchResultDescription attributes:@{
                 NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
                 NSForegroundColorAttributeName: [UIColor grayColor],
                 NSParagraphStyleAttributeName: paragraphStyle
@@ -190,8 +148,30 @@ static CGFloat const WMFImagePadding = 8.0;
 
 #pragma mark - Distance
 
+- (void)setDistanceProvider:(WMFSearchResultDistanceProvider*)distanceProvider {
+    [self.KVOController unobserve:_distanceProvider];
+    _distanceProvider = distanceProvider;
+    if (_distanceProvider) {
+        [self.KVOController observe:_distanceProvider
+                            keyPath:WMF_SAFE_KEYPATH(_distanceProvider, distanceToUser)
+                            options:NSKeyValueObservingOptionInitial
+                              block:^(WMFNearbySearchResultCell* cell,
+                                      WMFSearchResultDistanceProvider* provider,
+                                      NSDictionary* change) {
+            [cell setDistance:provider.distanceToUser];
+        }];
+    } else {
+        [self setDistance:0];
+    }
+}
+
 - (void)setDistance:(CLLocationDistance)distance {
+#if DEBUG && 0
+    //   Set ^ to 1 to debug live distance updates by showing the full value
+    self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
+#else
     self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
+#endif
 }
 
 @end

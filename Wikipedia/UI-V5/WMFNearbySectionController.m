@@ -7,6 +7,9 @@
 
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
+#import "WMFLocationSearchResults.h"
+#import "WMFSearchResultBearingProvider.h"
+#import "WMFSearchResultDistanceProvider.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -114,9 +117,12 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         WMFNearbySearchResultCell* nearbyCell = (id)cell;
         MWKLocationSearchResult* result       = object;
         NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
-        [nearbyCell setLocationSearchResult:result withTitle:[self titleForItemAtIndex:indexPath.item]];
-        [self.viewModel autoUpdateResultAtIndex:indexPath.item];
+        [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
+        [nearbyCell setSearchResultDescription:result.wikidataDescription];
+        [nearbyCell setImageURL:result.thumbnailURL];
         [nearbyCell setSavedPageList:self.savedPageList];
+        [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
+        [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
     } else {
         [self.viewModel startUpdates];
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
@@ -124,7 +130,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
             @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
                 @strongify(self);
-                [self.viewModel startUpdates];;
+                [self.viewModel startUpdates];
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }

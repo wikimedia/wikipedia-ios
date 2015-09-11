@@ -11,9 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
 
-@property (nonatomic, strong, readonly, nullable) CLLocation* lastLocation;
-@property (nonatomic, strong, readonly, nullable) CLHeading* lastHeading;
-
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
 - (void)restartLocationMonitoring;
@@ -26,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFLocationManagerDelegate <NSObject>
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location;
+
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading;
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error;

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
                             location:(CLLocation*)location
                          resultLimit:(NSUInteger)resultLimit
                          cancellable:(inout id<Cancellable> __nullable* __nullable)outCancellable;
-                         
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,7 +9,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
-@property (nonatomic, strong, readwrite) CLLocation* lastLocation;
 
 @end
 
@@ -35,14 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     return _locationManager;
-}
-
-- (CLHeading* __nullable)lastHeading {
-    return self.locationManager.heading;
-}
-
-- (CLLocation* __nullable)lastLocation {
-    return self.locationManager.location;
 }
 
 #pragma mark - Permissions
@@ -113,7 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (locations.count == 0) {
         return;
     }
-
     [self.delegate nearbyController:self didUpdateLocation:manager.location];
 }
 

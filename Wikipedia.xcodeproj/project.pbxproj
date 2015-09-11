@@ -298,6 +298,8 @@
 		BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
 		BC12F2461B7A8EEB0042DB3C /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */; };
+		BC22F44B1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */; };
+		BC22F44F1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */; };
 		BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */; };
 		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
@@ -1021,6 +1023,10 @@
 		BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
 		BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		BC22F4491BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultDistanceProvider.h; sourceTree = "<group>"; };
+		BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultDistanceProvider.m; sourceTree = "<group>"; };
+		BC22F44D1BA33D0300B64F4B /* WMFSearchResultBearingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultBearingProvider.h; sourceTree = "<group>"; };
+		BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultBearingProvider.m; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFParagraphStyles.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFParagraphStyles.m"; sourceTree = "<group>"; };
 		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
@@ -2693,6 +2699,17 @@
 			name = Style;
 			sourceTree = "<group>";
 		};
+		BC22F44C1BA33CF400B64F4B /* Value Providers */ = {
+			isa = PBXGroup;
+			children = (
+				BC22F4491BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.h */,
+				BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */,
+				BC22F44D1BA33D0300B64F4B /* WMFSearchResultBearingProvider.h */,
+				BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */,
+			);
+			name = "Value Providers";
+			sourceTree = "<group>";
+		};
 		BC305C2E1BA0C97400E414B8 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2700,6 +2717,7 @@
 				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
 				BC305C301BA0C9D900E414B8 /* WMFNearbyViewModel.h */,
 				BC305C311BA0C9D900E414B8 /* WMFNearbyViewModel.m */,
+				BC22F44C1BA33CF400B64F4B /* Value Providers */,
 			);
 			name = "View Model";
 			sourceTree = "<group>";
@@ -4066,6 +4084,7 @@
 				BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */,
 				0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */,
 				0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */,
+				BC22F44B1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				BC505EF71B59643400537006 /* WMFPageCollectionViewController.m in Sources */,
 				BCE24FDF1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m in Sources */,
@@ -4129,6 +4148,7 @@
 				043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */,
 				BCB669A51A83F6C400C7B1FE /* MWKTitle.m in Sources */,
 				08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */,
+				BC22F44F1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m in Sources */,
 				04272E7B1940EEBC00CC682F /* WMFAssetsFile.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				0EFB0F1C1B31EE2D00D05C08 /* NSManagedObject+WMFModelFactory.m in Sources */,

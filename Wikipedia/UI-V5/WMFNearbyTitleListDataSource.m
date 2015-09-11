@@ -53,12 +53,14 @@ NS_ASSUME_NONNULL_BEGIN
                                     id parentView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            [nearbyCell setSavedPageList:self.savedPageList];
             MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.item];
-            // TODO: stop auto-updating headings for indexes of cells which aren't visible
-            [self.viewModel autoUpdateResultAtIndex:indexPath.item];
-            [nearbyCell setLocationSearchResult:result
-                                      withTitle:[self.viewModel.locationSearchResults titleForResult:result]];
+            [nearbyCell setSavedPageList:self.savedPageList];
+            [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
+            [nearbyCell setSearchResultDescription:result.wikidataDescription];
+            [nearbyCell setImageURL:result.thumbnailURL];
+            [nearbyCell setSavedPageList:self.savedPageList];
+            [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
+            [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
         };
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;

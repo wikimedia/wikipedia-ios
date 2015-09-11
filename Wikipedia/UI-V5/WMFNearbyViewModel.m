@@ -18,6 +18,8 @@
 #import "MWKHistoryEntry.h"
 #import "CLLocation+WMFApproximateEquality.h"
 #import "CLLocation+WMFBearing.h"
+#import "WMFSearchResultDistanceProvider.h"
+#import "WMFSearchResultBearingProvider.h"
 
 // Frameworks
 #import "Wikipedia-Swift.h"
@@ -32,9 +34,26 @@
 
 @property (nonatomic, strong, readwrite) WMFLocationSearchResults* locationSearchResults;
 
-@property (nonatomic, strong) NSMutableIndexSet* autoUpdatingIndexes;
+@property (nonatomic, weak) id<Cancellable> lastFetch;
 
-@property (nonatomic, weak) id<Cancellable> lastLocationSearch;
+#pragma mark - Location Manager State
+
+/**
+ *  @name Location Manager State
+ *
+ *  We need to keep track of these properties to ensure that the UI isn't emptied if the location manager is restarted,
+ *  which will temporarily set its @c location and @c heading properties to @c nil.
+ */
+
+/**
+ *  The last-known location reported by the @c locationManager.
+ */
+@property (nonatomic, strong, readwrite, nullable) CLLocation* lastLocation;
+
+/**
+ *  The last-known heading reported by the @c locationManager.
+ */
+@property (nonatomic, strong, readwrite, nullable) CLHeading* lastHeading;
 
 @end
 
@@ -55,7 +74,6 @@
                      fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
     self = [super init];
     if (self) {
-        self.autoUpdatingIndexes   = [NSMutableIndexSet indexSet];
         self.site                  = site;
         self.resultLimit           = resultLimit;
         self.locationSearchFetcher = locationSearchFetcher;
@@ -66,11 +84,7 @@
     return self;
 }
 
-- (void)dealloc {
-    [self stopUpdates];
-}
-
-- (void)setSite:(MWKSite* __nonnull)site {
+- (void)setSite:(MWKSite*)site {
     if (WMF_EQUAL(self.site, isEqualToSite:, site)) {
         return;
     }
@@ -83,41 +97,7 @@
         return;
     }
     NSParameterAssert(!locationSearchResults || [locationSearchResults.searchSite isEqualToSite:self.site]);
-    [self stopUpdatingAllResults];
     _locationSearchResults = locationSearchResults;
-}
-
-#pragma mark - Result Updates
-
-- (void)autoUpdateResultAtIndex:(NSUInteger)index {
-    [self.autoUpdatingIndexes addIndex:index];
-    DDLogInfo(@"Tracking headings for %lu indexes", self.autoUpdatingIndexes.count);
-    [self updateBearingAtIndex:index];
-    [self updateDistanceAtIndex:index];
-}
-
-- (void)stopUpdatingResultAtIndex:(NSUInteger)index {
-    [self.autoUpdatingIndexes removeIndex:index];
-    DDLogInfo(@"Tracking headings for %lu indexes", self.autoUpdatingIndexes.count);
-    // TODO: toggle heading tracking based on whether or not we have indexes to track
-}
-
-- (void)stopUpdatingAllResults {
-    [self.autoUpdatingIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* stop) {
-        [self stopUpdatingResultAtIndex:idx];
-    }];
-}
-
-- (void)updateBearingAtIndex:(NSUInteger)index {
-    MWKLocationSearchResult* result = self.locationSearchResults.results[index];
-    result.bearingToLocation =
-        [self.locationSearchResults.location wmf_bearingToLocation:result.location
-                                                 forCurrentHeading:self.locationManager.lastHeading];
-}
-
-- (void)updateDistanceAtIndex:(NSUInteger)index {
-    MWKLocationSearchResult* result = self.locationSearchResults.results[index];
-    result.distanceFromUser = [result.location distanceFromLocation:self.locationManager.lastLocation];
 }
 
 #pragma mark - Fetch
@@ -130,7 +110,7 @@
 - (void)stopUpdates {
     [self.locationManager stopMonitoringLocation];
     self.locationSearchResults = nil;
-    [self.lastLocationSearch cancel];
+    [self.lastFetch cancel];
 }
 
 - (void)fetchTitlesForLocation:(CLLocation* __nullable)location {
@@ -147,13 +127,13 @@
         return;
     }
 
-    [self.lastLocationSearch cancel];
-    id<Cancellable> search;
+    [self.lastFetch cancel];
+    id<Cancellable> fetch;
     @weakify(self);
     [self.locationSearchFetcher fetchArticlesWithSite:self.site
                                              location:location
                                           resultLimit:self.resultLimit
-                                          cancellable:&search]
+                                          cancellable:&fetch]
     .then(^(WMFLocationSearchResults* locationSearchResults) {
         @strongify(self);
         self.locationSearchResults = locationSearchResults;
@@ -163,22 +143,52 @@
         @strongify(self);
         [self.delegate nearbyViewModel:self didFailWithError:error];
     });
-    self.lastLocationSearch = search;
+    self.lastFetch = fetch;
+}
+
+#pragma mark - Value Providers
+
+- (WMFSearchResultDistanceProvider*)distanceProviderForResultAtIndex:(NSUInteger)index {
+    WMFSearchResultDistanceProvider* provider = [WMFSearchResultDistanceProvider new];
+    MWKLocationSearchResult* result           = self.locationSearchResults.results[index];
+    [provider.KVOController
+     observe:self
+     keyPath:WMF_SAFE_KEYPATH(self, lastLocation)
+     options:NSKeyValueObservingOptionInitial
+       block:^(WMFSearchResultDistanceProvider* observer, WMFNearbyViewModel* nearbyViewModel, NSDictionary* _) {
+        observer.distanceToUser = [result.location distanceFromLocation:nearbyViewModel.lastLocation];
+    }];
+    return provider;
+}
+
+- (WMFSearchResultBearingProvider*)bearingProviderForResultAtIndex:(NSUInteger)index {
+    WMFSearchResultBearingProvider* provider = [WMFSearchResultBearingProvider new];
+    MWKLocationSearchResult* result          = self.locationSearchResults.results[index];
+    [provider.KVOController
+     observe:self
+     keyPath:WMF_SAFE_KEYPATH(self, lastHeading)
+     options:NSKeyValueObservingOptionInitial
+       block:^(WMFSearchResultBearingProvider* observer, WMFNearbyViewModel* viewModel, NSDictionary* _) {
+        observer.bearingToLocation =
+            [viewModel.lastLocation wmf_bearingToLocation:result.location
+                                        forCurrentHeading:viewModel.lastHeading];
+    }];
+    return provider;
 }
 
 #pragma mark - WMFNearbyControllerDelegate
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
     [self fetchTitlesForLocation:location];
-    [self.autoUpdatingIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* _) {
-        [self updateDistanceAtIndex:idx];
-    }];
+    if (location) {
+        self.lastLocation = location;
+    }
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
-    [self.autoUpdatingIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* _) {
-        [self updateBearingAtIndex:idx];
-    }];
+    if (heading) {
+        self.lastHeading = heading;
+    }
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
