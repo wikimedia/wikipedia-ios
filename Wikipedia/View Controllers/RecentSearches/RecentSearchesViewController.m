@@ -8,9 +8,13 @@
 #import "WikiGlyph_Chars.h"
 #import "WikipediaAppUtils.h"
 #import "UIViewController+WMFHideKeyboard.h"
-#import "UIView+TemporaryAnimatedXF.h"
 #import "Wikipedia-Swift.h"
 #import "UIColor+WMFHexColor.h"
+#import "MWKRecentSearchList.h"
+#import "MWKRecentSearchEntry.h"
+#import "UIView+TemporaryAnimatedXF.h"
+#import "Defines.h"
+#import "SearchResultFetcher.h"
 
 static CGFloat const cellHeight           = 68.f;
 static CGFloat const trashFontSize        = 30.f;
@@ -24,8 +28,6 @@ static NSUInteger const recentSearchLimit = 100.f;
 @property (strong, nonatomic) IBOutlet UILabel* headingLabel;
 @property (strong, nonatomic) IBOutlet WikiGlyphButton* trashButton;
 
-@property (strong, nonatomic) NSMutableArray* tableDataArray;
-
 @end
 
 @implementation RecentSearchesViewController
@@ -33,28 +35,25 @@ static NSUInteger const recentSearchLimit = 100.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tableDataArray = @[].mutableCopy;
-
     [self setupTrashButton];
     [self setupHeadingLabel];
     [self setupTable];
-
-    [self loadDataArrayFromFile];
 
     [self updateTrashButtonEnabledState];
 
     [self.table setBackgroundColor:[UIColor clearColor]];
     self.table.backgroundView.backgroundColor = [UIColor clearColor];
-}
-
-- (NSUInteger)recentSearchesItemCount {
-    return [self.tableDataArray count];
+    self.table.rowHeight                      = cellHeight;
 }
 
 - (void)setupTable {
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     [self.table registerNib:[UINib nibWithNibName:@"RecentSearchCell" bundle:nil] forCellReuseIdentifier:@"RecentSearchCell"];
+}
+
+- (void)reloadRecentSearches {
+    [self.table reloadData];
+    [self updateTrashButtonEnabledState];
 }
 
 - (void)setupHeadingLabel {
@@ -74,88 +73,18 @@ static NSUInteger const recentSearchLimit = 100.f;
                                                                                    action:@selector(trashButtonTapped)]];
 }
 
-- (void)saveTerm:(NSString*)term
-       forDomain:(NSString*)domain
-            type:(SearchType)searchType {
-    if (!term || (term.length == 0)) {
-        return;
-    }
-    if (!domain || (domain.length == 0)) {
-        return;
-    }
-
-    NSDictionary* termDict = [self dataForTerm:term domain:domain];
-    if (termDict) {
-        [self removeTerm:term forDomain:domain];
-    }
-
-    [self.tableDataArray insertObject:@{
-         @"term": term,
-         @"domain": domain,
-         @"timestamp": [NSDate date],
-         @"type": @(searchType)
-     } atIndex:0];
-
-    if (self.tableDataArray.count > recentSearchLimit) {
-        self.tableDataArray = [self.tableDataArray wmf_safeSubarrayWithRange:NSMakeRange(0, recentSearchLimit)].mutableCopy;
-    }
-
-    [self saveDataArrayToFile];
-    [self.table reloadData];
-}
-
 - (void)updateTrashButtonEnabledState {
-    self.trashButton.enabled = (self.tableDataArray.count > 0) ? YES : NO;
+    self.trashButton.enabled = ([self.recentSearches countOfEntries] > 0) ? YES : NO;
 }
 
-- (void)removeTerm:(NSString*)term
-         forDomain:(NSString*)domain {
-    NSDictionary* termDict = [self dataForTerm:term domain:domain];
-    if (termDict) {
-        [self.tableDataArray removeObject:termDict];
-        [self saveDataArrayToFile];
-    }
+- (void)removeEntry:(MWKRecentSearchEntry*)entry {
+    [self.recentSearches removeEntry:entry];
+    [self.recentSearches save];
 }
 
 - (void)removeAllTerms {
-    [self.tableDataArray removeAllObjects];
-    [self saveDataArrayToFile];
-}
-
-- (NSDictionary*)dataForTerm:(NSString*)term
-                      domain:(NSString*)domain {
-    // For now just match on the search term, not the domain or other fields.
-    return [self.tableDataArray wmf_firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@)", term]];
-    //return [self.tableDataArray wmf_firstMatchForPredicate:[NSPredicate predicateWithFormat:@"(term == %@) AND (domain == %@)", term, domain]];
-}
-
-- (NSString*)getFilePath {
-    NSArray* paths               = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString* documentsDirectory = [paths objectAtIndex:0];
-    return [documentsDirectory stringByAppendingPathComponent:pListFileName];
-}
-
-- (void)saveDataArrayToFile {
-    NSError* error;
-    NSString* path         = [self getFilePath];
-    NSFileManager* manager = [NSFileManager defaultManager];
-    if ([manager isDeletableFileAtPath:path]) {
-        [manager removeItemAtPath:path error:&error];
-    }
-
-    if (![manager fileExistsAtPath:path]) {
-        [self.tableDataArray writeToFile:path atomically:YES];
-    }
-
-    [self updateTrashButtonEnabledState];
-}
-
-- (void)loadDataArrayFromFile {
-    NSString* path = [self getFilePath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSArray* a = [[NSArray alloc] initWithContentsOfFile:path];
-        self.tableDataArray = a.mutableCopy;
-    }
+    [self.recentSearches removeAllEntries];
+    [self.recentSearches save];
 }
 
 - (void)trashButtonTapped {
@@ -189,16 +118,7 @@ static NSUInteger const recentSearchLimit = 100.f;
 
 - (void)deleteAllRecentSearchItems {
     [self removeAllTerms];
-    [self.table reloadData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    return cellHeight;
+    [self reloadRecentSearches];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
@@ -208,14 +128,13 @@ static NSUInteger const recentSearchLimit = 100.f;
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.tableDataArray.count;
+    return [self.recentSearches countOfEntries];
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
     static NSString* cellId = @"RecentSearchCell";
     RecentSearchCell* cell  = (RecentSearchCell*)[tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
-
-    NSString* term = self.tableDataArray[indexPath.row][@"term"];
+    NSString* term          = [[self.recentSearches entryAtIndex:indexPath.row] searchTerm];
     [cell.label setText:term];
 
     return cell;
@@ -230,19 +149,16 @@ static NSUInteger const recentSearchLimit = 100.f;
 // Override to support editing the table view.
 - (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString* term   = self.tableDataArray[indexPath.row][@"term"];
-        NSString* domain = self.tableDataArray[indexPath.row][@"domain"];
-        [self removeTerm:term forDomain:domain];
+        [self removeEntry:[self.recentSearches entryAtIndex:indexPath.row]];
 
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self updateTrashButtonEnabledState];
     }
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    NSString* term = self.tableDataArray[indexPath.row][@"term"];
-
-    [self.delegate recentSearchController:self didSelectSearchTerm:term];
+    [self.delegate recentSearchController:self didSelectSearchTerm:[self.recentSearches entryAtIndex:indexPath.row]];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
