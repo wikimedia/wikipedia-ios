@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 /// Migrate legacy image data for saved pages into WMFImageController.
 @objc

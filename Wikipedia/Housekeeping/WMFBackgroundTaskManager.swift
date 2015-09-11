@@ -81,7 +81,7 @@ public class WMFBackgroundTaskManager<T> {
         // need to track recursion manually since promises aren't recursive
         let (promise, resolve, reject) = Promise<Void>.pendingPromise()
         self.resolve = resolve
-        self.reject = reject
+        self.reject = { reject($0) }
 
         // recursively process items until all are done or one fails
         dispatch_async(queue) {
@@ -93,7 +93,7 @@ public class WMFBackgroundTaskManager<T> {
         .then(on: queue, finalize)
         .recover(on: queue) { err in
             // invoke finalize, wait until it finishes, then return error
-            finalize().thenInBackground() { Promise<Void>(err) }
+            finalize().thenInBackground() { Promise<Void>(error: err) }
         }
     }
 
@@ -129,7 +129,7 @@ public class WMFBackgroundTaskManager<T> {
         // start task, propagating its state to our internal promise (which is also rejected on expiration)
         processor(nextItem)
         .thenInBackground(resolveTask)
-        .catch(policy: CatchPolicy.AllErrors, rejectTask)
+        .report(policy: ErrorPolicy.AllErrors, rejectTask)
 
         taskPromise
         .finally() { () -> Void in
@@ -140,7 +140,7 @@ public class WMFBackgroundTaskManager<T> {
             // try to continue recursively
             self?.processNext()
         }
-        .catch(policy: CatchPolicy.AllErrors) { [weak self] error in
+        .report(policy: ErrorPolicy.AllErrors) { [weak self] error in
             self?.reject(error)
         }
     }
