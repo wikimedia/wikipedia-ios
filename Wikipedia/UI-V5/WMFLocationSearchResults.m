@@ -13,7 +13,7 @@
 
 @implementation WMFLocationSearchResults
 
-- (instancetype)initWithSite:(MWKSite*)site Location:(CLLocation*)location results:(NSArray*)results {
+- (instancetype)initWithSite:(MWKSite*)site location:(CLLocation*)location results:(NSArray*)results {
     self = [super init];
     if (self) {
         self.searchSite = site;

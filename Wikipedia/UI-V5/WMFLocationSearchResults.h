@@ -10,7 +10,7 @@
 @property (nonatomic, strong, readonly) CLLocation* location;
 @property (nonatomic, strong, readonly) NSArray* results;
 
-- (instancetype)initWithSite:(MWKSite*)site Location:(CLLocation*)location results:(NSArray*)results;
+- (instancetype)initWithSite:(MWKSite*)site location:(CLLocation*)location results:(NSArray*)results;
 
 - (MWKTitle*)titleForResult:(MWKLocationSearchResult*)result;
 

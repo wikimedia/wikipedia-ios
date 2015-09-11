@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.operationManager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSite:site Location:location results:response];
+        WMFLocationSearchResults* results = [[WMFLocationSearchResults alloc] initWithSite:site location:location results:response];
         resolve(results);
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
