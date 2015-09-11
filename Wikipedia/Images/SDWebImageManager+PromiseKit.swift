@@ -32,7 +32,7 @@ class SDWebImageOperationWrapper: NSObject, Cancellable {
         objc_setAssociatedObject(operation,
                                  "SDWebImageOperationWrapper",
                                  self,
-                                 UInt(objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+                                 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 
     func cancel() -> Void {

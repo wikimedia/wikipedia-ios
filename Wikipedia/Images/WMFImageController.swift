@@ -215,7 +215,8 @@ public class WMFImageController : NSObject {
     public func importImage(fromFile filepath: String, withURL url: NSURL) -> Promise<Void> {
         if hasDataOnDiskForImageWithURL(url) {
             //NSLog("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
-            NSFileManager.defaultManager().removeItemAtPath(filepath, error: nil)
+            
+            try! NSFileManager.defaultManager().removeItemAtPath(filepath)
             return Promise()
         } else if !NSFileManager.defaultManager().fileExistsAtPath(filepath) {
             //NSLog("Source file does not exist: \(filepath)")
@@ -282,7 +283,7 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            let currentCancellables = sself?.cancellables.objectEnumerator().allObjects as! [Cancellable]
+            let currentCancellables = sself?.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
             sself?.cancellables.removeAllObjects()
             dispatch_async(dispatch_get_global_queue(0, 0)) {
                 for cancellable in currentCancellables {
