@@ -9,6 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
+@property (nonatomic, strong, nullable) id orientationNotificationToken;
 
 @end
 
@@ -32,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
          */
         _locationManager.distanceFilter = 1;
     }
-
     return _locationManager;
 }
 
@@ -83,7 +83,47 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startHeadingUpdates {
+    if (![[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+    @weakify(self);
+    self.orientationNotificationToken =
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification* note) {
+        @strongify(self);
+        [self updateHeadingOrientation];
+    }];
+    [self updateHeadingOrientation];
     [self.locationManager startUpdatingHeading];
+}
+
+- (void)updateHeadingOrientation {
+    switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationFaceDown:
+            self.locationManager.headingOrientation = CLDeviceOrientationFaceDown;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            self.locationManager.headingOrientation = CLDeviceOrientationLandscapeLeft;
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            self.locationManager.headingOrientation = CLDeviceOrientationLandscapeRight;
+            break;
+        case UIDeviceOrientationFaceUp:
+            self.locationManager.headingOrientation = CLDeviceOrientationFaceUp;
+            break;
+        case UIDeviceOrientationPortrait:
+            self.locationManager.headingOrientation = CLDeviceOrientationPortrait;
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            self.locationManager.headingOrientation = CLDeviceOrientationPortraitUpsideDown;
+            break;
+        case UIDeviceOrientationUnknown:
+        default:
+            self.locationManager.headingOrientation = CLDeviceOrientationUnknown;
+            break;
+    }
 }
 
 - (void)stopLocationUpdates {
@@ -91,6 +131,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)stopHeadingUpdates {
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    self.orientationNotificationToken = nil;
     [self.locationManager stopUpdatingHeading];
 }
 
