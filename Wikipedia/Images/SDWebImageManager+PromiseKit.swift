@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 extension SDImageCacheType: ImageOriginConvertible {
     public func asImageOrigin() -> ImageOrigin {

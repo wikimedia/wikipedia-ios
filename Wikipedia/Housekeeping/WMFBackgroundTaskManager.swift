@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 /// Serially process items returned by a function, managing a background task for each one.
 public class WMFBackgroundTaskManager<T> {

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 #if DEBUG
 // Enable to colorize images based on whether they were loaded from memory, disk, or network.

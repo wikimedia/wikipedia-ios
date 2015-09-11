@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 extension SDImageCache {
     public func queryDiskCacheForKey(key: String) -> (Cancellable?, Promise<(UIImage, ImageOrigin)>) {
