@@ -230,21 +230,35 @@ public class WMFImageController : NSObject {
             if let sself = wself {
                 let diskCachePath = sself.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
                 var error: NSError?
-                NSFileManager.defaultManager().createDirectoryAtPath(diskCachePath.stringByDeletingLastPathComponent,
-                                                                     withIntermediateDirectories: true,
-                                                                     attributes: nil,
-                                                                     error: &error)
-                if error != nil && error!.code != NSFileWriteFileExistsError {
-                    NSLog("Failed to create directory for migrated image data for url \(url) at path \(diskCachePath)"
-                          + "due to error \(error)")
-                    return (empty, error)
+                
+                do{
+                    try NSFileManager.defaultManager().createDirectoryAtPath(diskCachePath.stringByDeletingLastPathComponent,
+                        withIntermediateDirectories: true,
+                        attributes: nil)
+                    
+                }catch let error as NSError{
+
+                    if error.code != NSFileWriteFileExistsError {
+                        NSLog("Failed to create directory for migrated image data for url \(url) at path \(diskCachePath)"
+                            + "due to error \(error)")
+                        return (empty, error)
+                    }
                 }
-                NSFileManager.defaultManager().moveItemAtPath(filepath, toPath: diskCachePath, error: &error)
-                if error != nil && error!.code != NSFileWriteFileExistsError {
-                    NSLog("Failed to move legacy data for url \(url) from \(filepath) to path \(diskCachePath)"
-                           + "due to error \(error)")
-                    return (empty, error)
+                
+                do{
+                    try NSFileManager.defaultManager().moveItemAtPath(filepath, toPath: diskCachePath)
+                    
+                }catch let error as NSError{
+                    
+                    if error.code != NSFileWriteFileExistsError {
+                        NSLog("Failed to move legacy data for url \(url) from \(filepath) to path \(diskCachePath)"
+                            + "due to error \(error)")
+                        return (empty, error)
+                    }
                 }
+                
+
+               
             }
             return (empty, nil)
         }
