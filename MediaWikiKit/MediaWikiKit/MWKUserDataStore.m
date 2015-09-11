@@ -44,7 +44,7 @@
 }
 
 - (AnyPromise*)save {
-    return PMKWhen(@[[self.historyList save], [self.savedPageList save], [self.recentSearchList save]]);
+    return [self.historyList save].then([self.savedPageList save]).then([self.recentSearchList save]);
 }
 
 - (AnyPromise*)reset {

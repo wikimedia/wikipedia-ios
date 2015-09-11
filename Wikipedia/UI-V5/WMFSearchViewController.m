@@ -204,9 +204,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
     @weakify(self);
-    dispatch_promise(^{
-        return [self.fetcher searchArticleTitlesForSearchTerm:searchTerm];
-    }).then(^id (WMFSearchResults* results){
+    [self.fetcher searchArticleTitlesForSearchTerm:searchTerm]
+    .thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
         @strongify(self);
         if (![results.searchTerm isEqualToString:self.searchBar.text]) {
             return [NSError cancelledError];
