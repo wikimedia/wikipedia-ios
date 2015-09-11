@@ -14,15 +14,20 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    //Filter out any bad data (Recent searches was implemented improperly previously)
-    NSArray* entries = [[dataStore savedPageListData] bk_reject:^BOOL (NSDictionary* obj) {
-        if ([obj objectForKey:@"searchTerm"] == nil || [obj objectForKey:@"domain"] == nil || [obj objectForKey:@"language"] == nil) {
+    NSArray* entries = [[dataStore recentSearchListData] bk_map:^id (id obj) {
+        @try {
+            return [[MWKRecentSearchEntry alloc] initWithDict:obj];
+        } @catch (NSException* e) {
+            NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
+            return nil;
+        }
+    }];
+
+    entries = [entries bk_reject:^BOOL (id obj) {
+        if ([obj isEqual:[NSNull null]]) {
             return YES;
         }
         return NO;
-    }];
-    entries = [entries bk_map:^id (id obj) {
-        return [[MWKRecentSearchEntry alloc] initWithDict:obj];
     }];
 
     self = [super initWithEntries:entries];
