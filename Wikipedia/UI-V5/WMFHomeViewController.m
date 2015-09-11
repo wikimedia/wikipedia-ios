@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)initWithCoder:(NSCoder*)aDecoder {
+- (instancetype)initWithCoder:(NSCoder* __nullable)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.navigationItem.titleView =
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (NSString*)title {
+- (NSString* __nullable)title {
     // TODO: localize
     return @"Home";
 }
