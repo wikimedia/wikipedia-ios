@@ -230,9 +230,10 @@ public class WMFImageController : NSObject {
             if let sself = wself {
                 let diskCachePath = sself.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
                 var error: NSError?
+                let diskCacheURL = NSURL(fileURLWithPath: diskCachePath)
                 
                 do{
-                    try NSFileManager.defaultManager().createDirectoryAtPath(diskCachePath.stringByDeletingLastPathComponent,
+                    try NSFileManager.defaultManager().createDirectoryAtPath((diskCacheURL.URLByDeletingLastPathComponent?.absoluteString)!,
                         withIntermediateDirectories: true,
                         attributes: nil)
                     
