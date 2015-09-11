@@ -61,6 +61,10 @@ NS_ASSUME_NONNULL_BEGIN
                 savedPageList:(MWKSavedPageList*)savedPageList
     numberOfExtractCharacters:(NSUInteger)numberOfExtractCharacters
                       fetcher:(WMFRelatedSearchFetcher*)fetcher {
+    NSParameterAssert(title);
+    NSParameterAssert(dataStore);
+    NSParameterAssert(savedPageList);
+    NSParameterAssert(fetcher);
     self = [super initWithItems:nil];
     if (self) {
         self.title                     = title;
@@ -84,7 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
             cell.image           = [article bestThumbnailImage];
             [cell setSummaryHTML:searchResult.extractHTML fromSite:self.title.site];
         };
-        [self fetch];
     }
     return self;
 }
@@ -97,13 +100,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetching
 
-- (void)fetch {
+- (AnyPromise*)fetch {
     @weakify(self);
-    [self.relatedSearchFetcher fetchArticlesRelatedToTitle:self.title
-                                  numberOfExtactCharacters:self.numberOfExtractCharacters
-                                               resultLimit:WMFMaxRelatedSearchResultLimit]
-    .then(^(WMFRelatedSearchResults* searchResults) {
+    return [self.relatedSearchFetcher fetchArticlesRelatedToTitle:self.title
+                                         numberOfExtactCharacters:self.numberOfExtractCharacters
+                                                      resultLimit:WMFMaxRelatedSearchResultLimit]
+           .then(^(WMFRelatedSearchResults* searchResults) {
         @strongify(self);
+        if (!self) {
+            return;
+        }
         NSMutableArray* mutableResults = [searchResults.results mutableCopy];
         NSArray* items = [mutableResults bk_reduce:[NSMutableArray arrayWithCapacity:self.relatedTitleResults.count]
                                          withBlock:^(NSMutableArray* articles,

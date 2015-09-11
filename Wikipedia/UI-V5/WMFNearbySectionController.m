@@ -143,14 +143,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
 }
 
-- (void)startUpdating {
-    [self.viewModel startUpdates];
-}
-
-- (void)stopUpdating {
-    [self.viewModel stopUpdates];
-}
-
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
