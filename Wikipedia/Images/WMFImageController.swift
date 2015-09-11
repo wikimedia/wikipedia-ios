@@ -271,7 +271,7 @@ public class WMFImageController : NSObject {
      * @return A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
      */
     private func checkForValidURL(url: NSURL?, then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
-        if url == nil { return Promise(WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
+        if url == nil { return Promise(error: WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
         else { return then(url!) }
     }
 
@@ -315,7 +315,7 @@ public class WMFImageController : NSObject {
 
     /// Utility for creating a `Promise` cancelled with a WMFImageController error
     class func cancelledPromise<T>() -> Promise<T> {
-        return Promise<T>(WMFImageControllerErrorCode.FetchCancelled.error)
+        return Promise(error: WMFImageControllerErrorCode.FetchCancelled.error)
     }
 
     /// Utility for creating an `AnyPromise` cancelled with a WMFImageController error
@@ -350,7 +350,7 @@ extension WMFImageController {
                    && err.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
                     return Promise<UIImage?>(nil)
                 } else {
-                    return Promise(err)
+                    return Promise(error: err)
                 }
             })
     }
