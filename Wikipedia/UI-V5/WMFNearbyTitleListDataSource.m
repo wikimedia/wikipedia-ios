@@ -64,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
         };
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
-        [self.viewModel startUpdates];
     }
     return self;
 }
@@ -77,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.viewModel.site;
 }
 
-#pragma mark - WMFArticleListDataSource
+#pragma mark - WMFArticleListDynamicDataSource
 
 - (NSString* __nullable)displayTitle {
     // TODO: localize & standardize w/ home section controller
@@ -106,6 +105,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSIndexPath*)indexPathForArticle:(MWKArticle* __nonnull)article {
     return [self indexPathForItem:article];
+}
+
+- (void)startUpdating {
+    [self.viewModel startUpdates];
+}
+
+- (void)stopUpdating {
+    [self.viewModel stopUpdates];
 }
 
 #pragma mark - SSDataSource

@@ -89,20 +89,10 @@ NS_ASSUME_NONNULL_BEGIN
              locationManager:(WMFLocationManager*)locationManager
                      fetcher:(WMFLocationSearchFetcher*)locationSearchFetcher NS_DESIGNATED_INITIALIZER;
 
-#pragma mark - Updating Nearby Data
+#pragma mark - Updates
 
-/**
- *  Start monitoring the user's location and fetching nearby titles, if possible.
- *
- *  The view model will inform its delegate of any errors.
- */
 - (void)startUpdates;
 
-/**
- *  Stop monitoring the user's location.
- *
- *  Also resets the @c locationSearchResults property.
- */
 - (void)stopUpdates;
 
 #pragma mark - Value Providers

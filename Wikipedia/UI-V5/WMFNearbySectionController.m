@@ -124,7 +124,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
         [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
     } else {
-        [self.viewModel startUpdates];
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             @weakify(self);
@@ -142,6 +141,14 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 - (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+}
+
+- (void)startUpdating {
+    [self.viewModel startUpdates];
+}
+
+- (void)stopUpdating {
+    [self.viewModel stopUpdates];
 }
 
 #pragma mark - WMFNearbyViewModelDelegate

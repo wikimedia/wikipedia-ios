@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource;
 
 @optional
+
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
 
 - (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
@@ -40,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
-
 
 @protocol WMFHomeSectionControllerDelegate <NSObject>
 

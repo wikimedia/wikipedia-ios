@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFNearbySectionController : NSObject <WMFHomeSectionController>
+@interface WMFNearbySectionController : NSObject <WMFHomeSectionDynamicController>
 
 - (instancetype)initWithSite:(MWKSite*)site
              locationManager:(WMFLocationManager*)locationManager;

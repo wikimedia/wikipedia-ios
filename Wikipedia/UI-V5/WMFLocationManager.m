@@ -22,6 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (CLHeading*)heading {
+    return self.locationManager.heading;
+}
+
+- (CLLocation*)location {
+    return self.locationManager.location;
+}
+
 - (CLLocationManager*)locationManager {
     if (!_locationManager) {
         _locationManager              = [[CLLocationManager alloc] init];

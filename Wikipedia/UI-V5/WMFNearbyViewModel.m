@@ -80,6 +80,8 @@
         // !!!: Must setup location manager last to prevent delegate callbacks firing before fetcher is setup
         self.locationManager          = locationManager;
         self.locationManager.delegate = self;
+        self.lastLocation = self.locationManager.location;
+        self.lastHeading = self.locationManager.heading;
     }
     return self;
 }
@@ -100,17 +102,31 @@
     _locationSearchResults = locationSearchResults;
 }
 
+- (void)setLastHeading:(CLHeading * __nullable)lastHeading {
+    if (!lastHeading) {
+        // ignore nil values to keep last known heading on the screen
+        return;
+    }
+    _lastHeading = lastHeading;
+}
+
+- (void)setLastLocation:(CLLocation * __nullable)lastLocation {
+    if (!lastLocation) {
+        // ignore nil values to keep last known heading on the screen
+        return;
+    }
+    _lastLocation = lastLocation;
+    [self fetchTitlesForLocation:_lastLocation];
+}
+
 #pragma mark - Fetch
 
 - (void)startUpdates {
     [self.locationManager restartLocationMonitoring];
-    // TODO: check if authorized. if not, fail w/ an error
 }
 
 - (void)stopUpdates {
     [self.locationManager stopMonitoringLocation];
-    self.locationSearchResults = nil;
-    [self.lastFetch cancel];
 }
 
 - (void)fetchTitlesForLocation:(CLLocation* __nullable)location {
@@ -179,16 +195,11 @@
 #pragma mark - WMFNearbyControllerDelegate
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    [self fetchTitlesForLocation:location];
-    if (location) {
-        self.lastLocation = location;
-    }
+    self.lastLocation = location;
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
-    if (heading) {
-        self.lastHeading = heading;
-    }
+    self.lastHeading = heading;
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {

@@ -9,18 +9,19 @@
 #import <SSDataSources/SSArrayDataSource.h>
 #import "WMFArticleListDataSource.h"
 
-@class WMFNearbyViewModel;
+@class WMFNearbyViewModel, WMFLocationManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbyTitleListDataSource : SSArrayDataSource
-    <WMFArticleListDataSource>
+    <WMFArticleListDynamicDataSource>
 
 @property (nonatomic, strong) MWKSite* site;
 
 - (instancetype)initWithSite:(MWKSite*)site;
 
-- (instancetype)initWithSite:(MWKSite*)site viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSite:(MWKSite*)site
+                   viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
 
 @end
 
