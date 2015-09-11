@@ -34,6 +34,8 @@
 
 @property (nonatomic, strong) NSMutableIndexSet* autoUpdatingIndexes;
 
+@property (nonatomic, weak) id<Cancellable> lastLocationSearch;
+
 @end
 
 @implementation WMFNearbyViewModel
@@ -80,6 +82,7 @@
     if (WMF_EQUAL(self.locationSearchResults, isEqual:, locationSearchResults)) {
         return;
     }
+    NSParameterAssert(!locationSearchResults || [locationSearchResults.searchSite isEqualToSite:self.site]);
     [self stopUpdatingAllResults];
     _locationSearchResults = locationSearchResults;
 }
@@ -127,7 +130,7 @@
 - (void)stopUpdates {
     [self.locationManager stopMonitoringLocation];
     self.locationSearchResults = nil;
-    // TODO: cancel last search request
+    [self.lastLocationSearch cancel];
 }
 
 - (void)fetchTitlesForLocation:(CLLocation* __nullable)location {
@@ -144,24 +147,15 @@
         return;
     }
 
-    NSAssert(![self.locationSearchResults.location wmf_isVeryCloseToLocation:location]
-             || self.locationSearchResults.searchSite,
-             @"Unexpected fetch of two nearly adjacent locations: %@", @[self.locationSearchResults.location, location]);
-
-    // TODO: cancel fetch for previous location
+    [self.lastLocationSearch cancel];
+    id<Cancellable> search;
     @weakify(self);
-    [self.locationSearchFetcher fetchArticlesWithSite:self.site location:location resultLimit:self.resultLimit]
+    [self.locationSearchFetcher fetchArticlesWithSite:self.site
+                                             location:location
+                                          resultLimit:self.resultLimit
+                                          cancellable:&search]
     .then(^(WMFLocationSearchResults* locationSearchResults) {
         @strongify(self);
-        if (![locationSearchResults.searchSite isEqualToSite:self.site]) {
-            DDLogWarn(@"Ignoring location search results from site %@ since it was changed to %@",
-                      locationSearchResults.searchSite, self.site);
-            return;
-        } else if (![locationSearchResults.location wmf_hasSameCoordinatesAsLocation:self.locationManager.lastLocation]) {
-            DDLogWarn(@"Ignoring location search results for location %@ since it was updated to %@",
-                      locationSearchResults.location, self.locationManager.lastLocation);
-            return;
-        }
         self.locationSearchResults = locationSearchResults;
         [self.delegate nearbyViewModel:self didUpdateResults:locationSearchResults];
     })
@@ -169,6 +163,7 @@
         @strongify(self);
         [self.delegate nearbyViewModel:self didFailWithError:error];
     });
+    self.lastLocationSearch = search;
 }
 
 #pragma mark - WMFNearbyControllerDelegate

@@ -1,6 +1,8 @@
 
 #import <Foundation/Foundation.h>
 @import CoreLocation;
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,10 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchArticlesWithSite:(MWKSite*)site
                             location:(CLLocation*)location
-                         resultLimit:(NSUInteger)resultLimit;
-
-@property (nonatomic, assign, readonly) BOOL isFetching;
-
+                         resultLimit:(NSUInteger)resultLimit
+                         cancellable:(inout id<Cancellable> __nullable* __nullable)outCancellable;
+                         
 @end
 
 NS_ASSUME_NONNULL_END
