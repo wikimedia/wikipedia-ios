@@ -134,7 +134,7 @@ public class WMFImageController : NSObject {
     public func fetchImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
         // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
         let (cancellable, promise) =
-            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
+            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: SDWebImageOptions())
         addCancellableForURL(cancellable, url: url)
         return applyDebugTransformIfEnabled(promise)
     }
