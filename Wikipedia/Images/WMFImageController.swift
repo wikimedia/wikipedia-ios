@@ -345,10 +345,11 @@ extension WMFImageController {
         return AnyPromise(bound:
             cachedImageWithURL(url)
             .then() { $0.image }
-            .recover() { (err: NSError) -> Promise<UIImage?> in
-                if err.domain == WMFImageControllerErrorDomain
-                   && err.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
-                    return Promise<UIImage?>(nil)
+            .recover() { (err) -> Promise<UIImage?> in
+                let error = err as NSError
+                if error.domain == WMFImageControllerErrorDomain
+                    && error.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
+                        return Promise<UIImage?>(nil)
                 } else {
                     return Promise(error: err)
                 }
