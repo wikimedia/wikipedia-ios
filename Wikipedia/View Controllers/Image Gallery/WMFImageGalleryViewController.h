@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "WMFPageCollectionViewController.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 @class MWKArticle, MWKImage;
 

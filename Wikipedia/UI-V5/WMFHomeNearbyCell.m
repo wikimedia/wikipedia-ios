@@ -4,7 +4,6 @@
 #import "WMFCompassView.h"
 
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 #import <Masonry/Masonry.h>
 

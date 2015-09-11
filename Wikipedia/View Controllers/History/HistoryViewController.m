@@ -16,7 +16,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]

@@ -22,7 +22,6 @@
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 static NSString* const kSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDidShowCancelRefreshAlert";
 static NSString* const kSavedPagesCellID                    = @"SavedPagesResultCell";

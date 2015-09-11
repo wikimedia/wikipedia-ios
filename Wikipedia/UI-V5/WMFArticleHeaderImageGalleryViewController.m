@@ -10,7 +10,6 @@
 
 // Utils
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "CIDetector+WMFFaceDetection.h"
 
