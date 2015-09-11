@@ -2,7 +2,7 @@
 .DS_Store
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
-./build
+./build # Only ignore top level build folder. We want to commit the contents of the Carthage/Build folder
 *.pbxuser
 !default.pbxuser
 *.mode1v3
