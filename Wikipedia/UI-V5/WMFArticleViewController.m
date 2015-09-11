@@ -6,6 +6,7 @@
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"
+#import <PromiseKit/AnyPromise.h>
 
 //Analytics
 #import <PiwikTracker/PiwikTracker.h>

@@ -5,6 +5,7 @@
 #import "NSDate-Utilities.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
+#import <PromiseKit/AnyPromise.h>
 #import <BlocksKit/BlocksKit.h>
 
 #define MAX_HISTORY_ENTRIES 100

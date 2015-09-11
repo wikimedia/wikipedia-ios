@@ -6,6 +6,7 @@
 #import "SessionSingleton.h"
 #import "NSString+Extras.h"
 #import "Wikipedia-Swift.h"
+#import <PromiseKit/AnyPromise.h>
 #import "UIImage+WMFSerialization.h"
 #import "NSURLRequest+WMFUtilities.h"
 

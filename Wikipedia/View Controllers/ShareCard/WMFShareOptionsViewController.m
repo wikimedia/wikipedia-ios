@@ -15,6 +15,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKArticle+WMFSharing.h"
 #import "Wikipedia-Swift.h"
+#import <PromiseKit/AnyPromise.h>
 
 @interface WMFShareOptionsViewController ()
 

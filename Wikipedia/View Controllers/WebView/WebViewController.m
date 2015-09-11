@@ -13,6 +13,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKLanguageLink.h"
 #import "Wikipedia-Swift.h"
+#import <PromiseKit/AnyPromise.h>
 
 #import <BlocksKit/BlocksKit+UIKit.h>
 

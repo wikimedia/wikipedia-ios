@@ -17,7 +17,7 @@
 #import "SessionSingleton.h"
 #import <Nocilla/Nocilla.h>
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+#import <PromiseKit/AnyPromise.h>
 #import "XCTestCase+PromiseKit.h"
 
 #define HC_SHORTHAND 1

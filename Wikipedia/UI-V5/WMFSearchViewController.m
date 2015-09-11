@@ -12,6 +12,7 @@
 
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
+#import <PromiseKit/AnyPromise.h>
 
 #import "NSString+FormattedAttributedString.h"
 
