@@ -7,8 +7,10 @@
 //
 
 import Foundation
-import Wikipedia
 import XCTest
+
+import Wikipedia
+@testable import WMFLegacyImageDataMigration
 
 @objc
 class WMFLegacyImageDataMigrationTests : XCTestCase {
