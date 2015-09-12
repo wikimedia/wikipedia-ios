@@ -1,8 +1,5 @@
 #import "WMFRelatedSectionController.h"
 
-// TEMP
-#import "SessionSingleton.h"
-
 // Networking & Model
 #import "WMFRelatedSearchFetcher.h"
 #import "MWKTitle.h"
@@ -59,9 +56,17 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
         self.delegate             = delegate;
-        [self fetchRelatedArticles];
     }
     return self;
+}
+
+- (void)setSavedPageList:(MWKSavedPageList *)savedPageList {
+    /*
+     HAX: can't fetch titles until we get the saved page list, since it's needed to create articles
+          and configure cells
+    */
+    _savedPageList = savedPageList;
+    [self fetchRelatedArticles];
 }
 
 - (id)sectionIdentifier {
@@ -126,13 +131,13 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 - (WMFRelatedTitleListDataSource*)relatedTitleDataSource {
     if (!_relatedTitleDataSource) {
         /*
-         HAX: Need to use the "more" data source to fetch data and keep in around since morelike: searches for the same
-         title don't have the same results in order. might need to look into continuation soon
-        */
+           HAX: Need to use the "more" data source to fetch data and keep it around since morelike: searches for the same
+           title don't have the same results in order. might need to look into continuation soon
+         */
         _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
                                    initWithTitle:self.title
-                                        dataStore:[[SessionSingleton sharedInstance] dataStore]
-                                    savedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]
+                                        dataStore:self.savedPageList.dataStore
+                                    savedPageList:self.savedPageList
                         numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]
                                           fetcher:self.relatedSearchFetcher];;
     }
@@ -142,7 +147,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 - (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
     if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedTitleResults) {
         [self.relatedTitleDataSource fetch];
-
     }
     return self.relatedTitleDataSource;
 }
