@@ -44,8 +44,8 @@
 - (NSString*)wmf_valueForQueryKey:(NSString*)queryKey {
     NSURLQueryItem* queryItem = [[[NSURLComponents componentsWithURL:self resolvingAgainstBaseURL:YES] queryItems]
                                  bk_match:^BOOL (NSURLQueryItem* q) {
-                                     return [q.name isEqualToString:@"page"];
-                                 }];
+        return [q.name isEqualToString:@"page"];
+    }];
     return queryItem ? (queryItem.value ? : @"") : nil;
 }
 
