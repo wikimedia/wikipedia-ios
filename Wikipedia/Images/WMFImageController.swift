@@ -96,7 +96,6 @@ public class WMFImageController : NSObject {
                                           cachedPlaceholderURL: NSURL?,
                                           mainImageBlock: (WMFImageDownload) -> Void,
                                           cachedPlaceholderImageBlock: (WMFImageDownload) -> Void) -> Promise<Void> {
-        weak var wself = self
         if hasImageWithURL(mainURL) {
             // if mainURL is cached, return it immediately w/o fetching placeholder
             return cachedImageWithURL(mainURL).then(mainImageBlock)
@@ -104,22 +103,15 @@ public class WMFImageController : NSObject {
         // return cached placeholder (if available)
         return cachedImageWithURL(cachedPlaceholderURL)
         // handle cached placeholder
-        .then() { cachedPlaceholderImageBlock($0) }
+        .then(cachedPlaceholderImageBlock)
         // ignore cache misses for placeholder
-        .recover() { error in
-            let empty: Void
-            return Promise(empty)
-        }
+        .recover() { _ -> Promise<Void> in Promise() }
         // when placeholder handling is finished, fetch mainURL
-        .then() { () -> Promise<WMFImageDownload> in
-            if let sself = wself {
-                return sself.fetchImageWithURL(mainURL)
-            } else {
-                return WMFImageController.cancelledPromise()
-            }
+        .then() { [weak self] in
+            self?.fetchImageWithURL(mainURL) ?? WMFImageController.cancelledPromise()
         }
         // handle the main image
-        .then() { mainImageBlock($0) }
+        .then(mainImageBlock)
     }
 
     /// MARK: - Simple Fetching
