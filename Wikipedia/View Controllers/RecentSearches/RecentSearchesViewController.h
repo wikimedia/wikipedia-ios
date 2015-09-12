@@ -2,26 +2,23 @@
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "Defines.h"
-#import "SearchResultFetcher.h"
 
+@class MWKRecentSearchList, MWKRecentSearchEntry;
 @protocol WMFRecentSearchesViewControllerDelegate;
 
 @interface RecentSearchesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, assign, readonly) NSUInteger recentSearchesItemCount;
+@property (nonatomic, strong) MWKRecentSearchList* recentSearches;
+
+- (void)reloadRecentSearches;
 
 @property (nonatomic, weak) id<WMFRecentSearchesViewControllerDelegate> delegate;
-
-- (void)saveTerm:(NSString*)term
-       forDomain:(NSString*)domain
-            type:(SearchType)searchType;
 
 @end
 
 
 @protocol WMFRecentSearchesViewControllerDelegate <NSObject>
 
-- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(NSString*)searchTerm;
+- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(MWKRecentSearchEntry*)searchTerm;
 
 @end

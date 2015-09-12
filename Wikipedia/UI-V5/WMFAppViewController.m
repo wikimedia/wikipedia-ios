@@ -102,10 +102,11 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 }
 
 - (void)configureSearchViewController {
-    self.searchViewController.searchSite  = [self.session searchSite];
-    self.searchViewController.dataStore   = self.session.dataStore;
-    self.searchViewController.savedPages  = self.session.userDataStore.savedPageList;
-    self.searchViewController.recentPages = self.session.userDataStore.historyList;
+    self.searchViewController.searchSite     = [self.session searchSite];
+    self.searchViewController.dataStore      = self.session.dataStore;
+    self.searchViewController.savedPages     = self.session.userDataStore.savedPageList;
+    self.searchViewController.recentPages    = self.session.userDataStore.historyList;
+    self.searchViewController.recentSearches = self.session.userDataStore.recentSearchList;
 }
 
 - (void)configureArticleListController:(WMFArticleListCollectionViewController*)controller {

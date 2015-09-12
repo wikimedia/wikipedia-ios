@@ -23,21 +23,21 @@
 }
 
 - (MWKHistoryList*)historyList {
-    if (_historyList == nil) {
+    if (!_historyList) {
         _historyList = [[MWKHistoryList alloc] initWithDataStore:self.dataStore];
     }
     return _historyList;
 }
 
 - (MWKSavedPageList*)savedPageList {
-    if (_savedPageList == nil) {
+    if (!_savedPageList) {
         _savedPageList = [[MWKSavedPageList alloc] initWithDataStore:self.dataStore];
     }
     return _savedPageList;
 }
 
 - (MWKRecentSearchList*)recentSearchList {
-    if (_recentSearchList) {
+    if (!_recentSearchList) {
         _recentSearchList = [[MWKRecentSearchList alloc] initWithDataStore:self.dataStore];
     }
     return _recentSearchList;

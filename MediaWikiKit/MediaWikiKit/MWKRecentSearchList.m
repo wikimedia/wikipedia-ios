@@ -14,8 +14,20 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
-        return [[MWKRecentSearchEntry alloc] initWithDict:obj];
+    NSArray* entries = [[dataStore recentSearchListData] bk_map:^id (id obj) {
+        @try {
+            return [[MWKRecentSearchEntry alloc] initWithDict:obj];
+        } @catch (NSException* e) {
+            NSLog(@"Encountered exception while reading entry %@: %@", e, obj);
+            return nil;
+        }
+    }];
+
+    entries = [entries bk_reject:^BOOL (id obj) {
+        if ([obj isEqual:[NSNull null]]) {
+            return YES;
+        }
+        return NO;
     }];
 
     self = [super initWithEntries:entries];
