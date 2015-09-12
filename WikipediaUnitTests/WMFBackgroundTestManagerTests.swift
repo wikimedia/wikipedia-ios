@@ -7,6 +7,7 @@
 //
 
 import Wikipedia
+@testable import Wikipedia.WMFBackgroundTaskManager
 import Foundation
 import XCTest
 
