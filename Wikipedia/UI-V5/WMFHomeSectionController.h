@@ -1,9 +1,9 @@
 
 #import <Foundation/Foundation.h>
 
-@class SSSectionedDataSource, MWKSavedPageList;
+@class SSSectionedDataSource, SSArrayDataSource, MWKSavedPageList;
 
-@protocol WMFHomeSectionControllerDelegate;
+@protocol WMFHomeSectionControllerDelegate, WMFArticleListDataSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +27,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
+/**
+ *  @return A data source which will provide a larger list of items from this section.
+ */
+- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource;
+
 @optional
+
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
 
 - (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
@@ -35,7 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
-
 
 @protocol WMFHomeSectionControllerDelegate <NSObject>
 

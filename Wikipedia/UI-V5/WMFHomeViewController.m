@@ -1,45 +1,44 @@
-
-
 #import "WMFHomeViewController.h"
 
-#import "MWKSavedPageList.h"
-#import "MWKRecentSearchList.h"
+// Frameworks
+#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 
-#import "WMFLocationManager.h"
-#import "WMFLocationSearchFetcher.h"
-#import "WMFRelatedSearchFetcher.h"
-
+// Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
-#import "WMFSettingsViewController.h"
-#import "UIViewController+WMFStoryboardUtilities.h"
-
+#import <SSDataSources/SSDataSources.h>
+#import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFSectionSchemaManager.h"
 #import "WMFSectionSchemaItem.h"
 
+// Models
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
-
 #import "MWKSite.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKTitle.h"
 #import "MWKArticle.h"
-
 #import "MWKLocationSearchResult.h"
+#import "MWKSavedPageList.h"
+#import "MWKRecentSearchList.h"
 
-#import <SSDataSources/SSDataSources.h>
-#import "SSSectionedDataSource+WMFSectionConvenience.h"
-
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
-
+// Views
 #import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
 
+// Child View Controllers
 #import "WMFArticleContainerViewController.h"
+#import "WMFSettingsViewController.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "WMFArticleListDataSource.h"
+#import "WMFArticleListCollectionViewController.h"
 
+// Controllers
+#import "WMFLocationManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,7 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableDictionary* sectionControllers;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
-@property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
 
@@ -88,7 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)settingsBarButtonItem {
     // TODO: localize
-    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain
+    return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
+                                            style:UIBarButtonItemStylePlain
                                            target:self
                                            action:@selector(didTapSettingsButton:)];
 }
@@ -107,7 +106,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite LocationManager:self.locationManager locationSearchFetcher:self.locationSearchFetcher];
+        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
+                                                                    locationManager  :self.locationManager];
         [_nearbySectionController setSavedPageList:self.savedPages];
     }
     return _nearbySectionController;
@@ -118,13 +118,6 @@ NS_ASSUME_NONNULL_BEGIN
         _locationManager = [[WMFLocationManager alloc] init];
     }
     return _locationManager;
-}
-
-- (WMFLocationSearchFetcher*)locationSearchFetcher {
-    if (!_locationSearchFetcher) {
-        _locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
-    }
-    return _locationSearchFetcher;
 }
 
 - (SSSectionedDataSource*)dataSource {
@@ -239,19 +232,22 @@ NS_ASSUME_NONNULL_BEGIN
         [controller configureCell:cell withObject:object inCollectionView:parentView atIndexPath:indexPath];
     };
 
-    self.dataSource.collectionSupplementaryCreationBlock = (id) ^ (NSString * kind, UICollectionView * cv, NSIndexPath * indexPath){
+    self.dataSource.collectionSupplementaryCreationBlock = ^UICollectionReusableView*(NSString* kind,
+                                                                                      UICollectionView* cv,
+                                                                                      NSIndexPath* indexPath) {
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            return (id)[WMFHomeSectionHeader supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
+            return [WMFHomeSectionHeader supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
         } else {
-            return (id)[WMFHomeSectionFooter supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
+            return [WMFHomeSectionFooter supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
         }
     };
 
-    self.dataSource.collectionSupplementaryConfigureBlock = ^(id view, NSString* kind, UICollectionView* cv, NSIndexPath* indexPath){
+    self.dataSource.collectionSupplementaryConfigureBlock = ^(id view,
+                                                              NSString* kind,
+                                                              UICollectionView* cv,
+                                                              NSIndexPath* indexPath){
         @strongify(self);
-
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             WMFHomeSectionHeader* header     = view;
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
@@ -262,6 +258,11 @@ NS_ASSUME_NONNULL_BEGIN
         } else {
             WMFHomeSectionFooter* footer = view;
             footer.moreLabel.text = controller.footerText;
+            @weakify(self);
+            footer.whenTapped = ^{
+                @strongify(self);
+                [self didTapFooterInSection:indexPath.section];
+            };
         }
     };
 
@@ -276,8 +277,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Related Sections
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFSectionSchemaItem*)item {
-    WMFRelatedSearchFetcher* fetcher        = [[WMFRelatedSearchFetcher alloc] init];
-    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title relatedSearchFetcher:fetcher delegate:self];
+    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title
+                                                                                               delegate:self];
     [controller setSavedPageList:self.savedPages];
     return controller;
 }
@@ -358,6 +359,21 @@ NS_ASSUME_NONNULL_BEGIN
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
         [self.dataSource removeSectionAtIndex:index];
     } completion:NULL];
+}
+
+- (void)didTapFooterInSection:(NSUInteger)section {
+    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
+    NSParameterAssert(controllerForSection);
+    if (!controllerForSection) {
+        DDLogError(@"Unexpected footer tap for missing section %lu.", section);
+        return;
+    }
+    WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
+    extendedList.dataStore   = self.dataStore;
+    extendedList.savedPages  = self.savedPages;
+    extendedList.recentPages = self.recentPages;
+    extendedList.dataSource  = [controllerForSection extendedListDataSource];
+    [self.navigationController pushViewController:extendedList animated:YES];
 }
 
 - (void)unloadAllSections {

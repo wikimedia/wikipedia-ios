@@ -22,7 +22,8 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
     MWKHistoryDiscoveryMethodReloadFromCache,
 };
 
-@interface MWKHistoryEntry : MWKSiteDataObject<MWKListObject>
+@interface MWKHistoryEntry : MWKSiteDataObject
+    <MWKListObject>
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readwrite, strong, nonatomic) NSDate* date;

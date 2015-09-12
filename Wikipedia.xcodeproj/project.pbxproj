@@ -183,8 +183,8 @@
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
-		0E03E28D1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */; };
-		0E03E28E1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */; };
+		0E03E28D1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E28B1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.m */; };
+		0E03E28E1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E03E28C1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.xib */; };
 		0E03E2911B8430FE00C1FBD7 /* WMFNearbySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */; };
 		0E03E2991B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */; };
 		0E03E29C1B84E88A00C1FBD7 /* WMFCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03E29B1B84E88A00C1FBD7 /* WMFCompassView.m */; };
@@ -298,6 +298,8 @@
 		BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
 		BC12F2461B7A8EEB0042DB3C /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */; };
+		BC22F44B1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */; };
+		BC22F44F1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */; };
 		BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */; };
 		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
@@ -305,6 +307,10 @@
 		BC3047C21B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3047C11B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m */; };
 		BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */; };
 		BC3059B91B6948C800AA5703 /* XCTestCase+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3059B81B6948C800AA5703 /* XCTestCase+PromiseKit.m */; };
+		BC305C2D1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C2C1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m */; };
+		BC305C321BA0C9D900E414B8 /* WMFNearbyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C311BA0C9D900E414B8 /* WMFNearbyViewModel.m */; };
+		BC305C351BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C341BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m */; };
+		BC305C381BA204EF00E414B8 /* NSString+WMFDistance.m in Sources */ = {isa = PBXBuildFile; fileRef = BC305C371BA204EF00E414B8 /* NSString+WMFDistance.m */; };
 		BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */; };
 		BC32A1D71B4B14C000A286DE /* WMFBackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */; };
@@ -328,6 +334,7 @@
 		BC550B101B97949E0082F298 /* WMFSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */; };
 		BC550B121B98908E0082F298 /* WMFSearchResultCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */; };
 		BC550B151B98936F0082F298 /* UIView+VisualTestSizingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */; };
+		BC550B181B9A75100082F298 /* WMFRelatedTitleListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B171B9A75100082F298 /* WMFRelatedTitleListDataSource.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
@@ -350,6 +357,8 @@
 		BC725ECA1B617E1A00E0A64C /* WMFSafeAssignTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */; };
 		BC725ECC1B6182C800E0A64C /* MWKSavedPageListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */; };
 		BC725ED21B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */; };
+		BC7925F41B9F2C55003C9522 /* CLLocation+WMFBearing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7925F31B9F2C55003C9522 /* CLLocation+WMFBearing.m */; };
+		BC7925F61B9F31A9003C9522 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7925F51B9F31A9003C9522 /* CLLocation+WMFBearingTests.m */; };
 		BC7B769E1B84CD2A00774FBC /* UIImageView+MWKImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B769D1B84CD2A00774FBC /* UIImageView+MWKImageTests.m */; };
 		BC7B76A01B861F7100774FBC /* MWKSectionListHierarchyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
@@ -831,9 +840,9 @@
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
-		0E03E28A1B83DA7300C1FBD7 /* WMFHomeNearbyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeNearbyCell.h; sourceTree = "<group>"; };
-		0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeNearbyCell.m; sourceTree = "<group>"; };
-		0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFHomeNearbyCell.xib; sourceTree = "<group>"; };
+		0E03E28A1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbySearchResultCell.h; sourceTree = "<group>"; };
+		0E03E28B1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbySearchResultCell.m; sourceTree = "<group>"; };
+		0E03E28C1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFNearbySearchResultCell.xib; sourceTree = "<group>"; };
 		0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbySectionController.h; sourceTree = "<group>"; };
 		0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbySectionController.m; sourceTree = "<group>"; };
 		0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeSectionController.h; sourceTree = "<group>"; };
@@ -1014,6 +1023,10 @@
 		BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
 		BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		BC22F4491BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultDistanceProvider.h; sourceTree = "<group>"; };
+		BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultDistanceProvider.m; sourceTree = "<group>"; };
+		BC22F44D1BA33D0300B64F4B /* WMFSearchResultBearingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultBearingProvider.h; sourceTree = "<group>"; };
+		BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultBearingProvider.m; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFParagraphStyles.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFParagraphStyles.m"; sourceTree = "<group>"; };
 		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
@@ -1026,6 +1039,14 @@
 		BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageFaceDetectionTests.m; sourceTree = "<group>"; };
 		BC3059B71B6948C800AA5703 /* XCTestCase+PromiseKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+PromiseKit.h"; sourceTree = "<group>"; };
 		BC3059B81B6948C800AA5703 /* XCTestCase+PromiseKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+PromiseKit.m"; sourceTree = "<group>"; };
+		BC305C2B1BA0842600E414B8 /* WMFNearbyTitleListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbyTitleListDataSource.h; sourceTree = "<group>"; };
+		BC305C2C1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyTitleListDataSource.m; sourceTree = "<group>"; };
+		BC305C301BA0C9D900E414B8 /* WMFNearbyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbyViewModel.h; sourceTree = "<group>"; };
+		BC305C311BA0C9D900E414B8 /* WMFNearbyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyViewModel.m; sourceTree = "<group>"; };
+		BC305C331BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+WMFApproximateEquality.h"; sourceTree = "<group>"; };
+		BC305C341BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFApproximateEquality.m"; sourceTree = "<group>"; };
+		BC305C361BA204EF00E414B8 /* NSString+WMFDistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFDistance.h"; sourceTree = "<group>"; };
+		BC305C371BA204EF00E414B8 /* NSString+WMFDistance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFDistance.m"; sourceTree = "<group>"; };
 		BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
 		BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBackgroundTaskManager.swift; sourceTree = "<group>"; };
 		BC32A1D81B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLegacyImageDataMigration.swift; sourceTree = "<group>"; };
@@ -1070,6 +1091,8 @@
 		BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultCellVisualTests.m; sourceTree = "<group>"; };
 		BC550B131B98936F0082F298 /* UIView+VisualTestSizingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VisualTestSizingUtils.h"; sourceTree = "<group>"; };
 		BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VisualTestSizingUtils.m"; sourceTree = "<group>"; };
+		BC550B161B9A75100082F298 /* WMFRelatedTitleListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRelatedTitleListDataSource.h; sourceTree = "<group>"; };
+		BC550B171B9A75100082F298 /* WMFRelatedTitleListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRelatedTitleListDataSource.m; sourceTree = "<group>"; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC5620951B6B854E0013FFB0 /* WMFArticleNavigationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigationDelegate.h; sourceTree = "<group>"; };
 		BC5620971B6B87BF0013FFB0 /* WMFArticleNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleNavigation.h; sourceTree = "<group>"; };
@@ -1112,6 +1135,9 @@
 		BC725EC91B617E1A00E0A64C /* WMFSafeAssignTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSafeAssignTests.m; sourceTree = "<group>"; };
 		BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSavedPageListTests.m; sourceTree = "<group>"; };
 		BC725ED11B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkResponseSerializerTests.m; sourceTree = "<group>"; };
+		BC7925F21B9F2C55003C9522 /* CLLocation+WMFBearing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+WMFBearing.h"; sourceTree = "<group>"; };
+		BC7925F31B9F2C55003C9522 /* CLLocation+WMFBearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFBearing.m"; sourceTree = "<group>"; };
+		BC7925F51B9F31A9003C9522 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+WMFBearingTests.m"; sourceTree = "<group>"; };
 		BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectUtilities.h; sourceTree = "<group>"; };
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
 		BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAsyncTestCase.m; path = ../WMFAsyncTestCase.m; sourceTree = "<group>"; };
@@ -2086,6 +2112,12 @@
 				043C69281B86502F00941051 /* NSCharacterSet+WMFExtras.m */,
 				BC550B051B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.h */,
 				BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */,
+				BC7925F21B9F2C55003C9522 /* CLLocation+WMFBearing.h */,
+				BC7925F31B9F2C55003C9522 /* CLLocation+WMFBearing.m */,
+				BC305C331BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.h */,
+				BC305C341BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m */,
+				BC305C361BA204EF00E414B8 /* NSString+WMFDistance.h */,
+				BC305C371BA204EF00E414B8 /* NSString+WMFDistance.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2279,9 +2311,9 @@
 		0E03E2A21B85310400C1FBD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0E03E28A1B83DA7300C1FBD7 /* WMFHomeNearbyCell.h */,
-				0E03E28B1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m */,
-				0E03E28C1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib */,
+				0E03E28A1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.h */,
+				0E03E28B1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.m */,
+				0E03E28C1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.xib */,
 				0E03E29A1B84E88A00C1FBD7 /* WMFCompassView.h */,
 				0E03E29B1B84E88A00C1FBD7 /* WMFCompassView.m */,
 				0E03E29D1B85310000C1FBD7 /* WMFNearbySectionEmptyCell.h */,
@@ -2298,6 +2330,8 @@
 				0E2690F81B86A9DB009B8605 /* WMFRelatedSectionController.m */,
 				0E2691051B86BBE9009B8605 /* Views */,
 				0E2691041B86BBD1009B8605 /* Fetcher */,
+				BC550B161B9A75100082F298 /* WMFRelatedTitleListDataSource.h */,
+				BC550B171B9A75100082F298 /* WMFRelatedTitleListDataSource.m */,
 			);
 			name = "Related Section";
 			sourceTree = "<group>";
@@ -2538,11 +2572,9 @@
 		0ED6897C1B8246F400B30427 /* Nearby Section */ = {
 			isa = PBXGroup;
 			children = (
-				0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */,
-				0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */,
+				BC305C2E1BA0C97400E414B8 /* View Model */,
+				BC305C2F1BA0C98C00E414B8 /* Data Controllers */,
 				0E03E2A21B85310400C1FBD7 /* Views */,
-				0E03E2961B844D7700C1FBD7 /* Location Manager */,
-				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
 			);
 			name = "Nearby Section";
 			sourceTree = "<group>";
@@ -2667,6 +2699,40 @@
 			name = Style;
 			sourceTree = "<group>";
 		};
+		BC22F44C1BA33CF400B64F4B /* Value Providers */ = {
+			isa = PBXGroup;
+			children = (
+				BC22F4491BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.h */,
+				BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */,
+				BC22F44D1BA33D0300B64F4B /* WMFSearchResultBearingProvider.h */,
+				BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */,
+			);
+			name = "Value Providers";
+			sourceTree = "<group>";
+		};
+		BC305C2E1BA0C97400E414B8 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				0E03E2961B844D7700C1FBD7 /* Location Manager */,
+				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
+				BC305C301BA0C9D900E414B8 /* WMFNearbyViewModel.h */,
+				BC305C311BA0C9D900E414B8 /* WMFNearbyViewModel.m */,
+				BC22F44C1BA33CF400B64F4B /* Value Providers */,
+			);
+			name = "View Model";
+			sourceTree = "<group>";
+		};
+		BC305C2F1BA0C98C00E414B8 /* Data Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E03E28F1B8430FE00C1FBD7 /* WMFNearbySectionController.h */,
+				0E03E2901B8430FE00C1FBD7 /* WMFNearbySectionController.m */,
+				BC305C2B1BA0842600E414B8 /* WMFNearbyTitleListDataSource.h */,
+				BC305C2C1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m */,
+			);
+			name = "Data Controllers";
+			sourceTree = "<group>";
+		};
 		BC550B081B977C730082F298 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -2764,6 +2830,7 @@
 				043C69221B8569FA00941051 /* NSAttributedString+WMFTrimTests.m */,
 				BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */,
 				04A1C4FB1B94F10600B47788 /* WMFSaveButtonControllerTests.m */,
+				BC7925F51B9F31A9003C9522 /* CLLocation+WMFBearingTests.m */,
 				BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */,
 			);
 			name = Tests;
@@ -3508,7 +3575,7 @@
 				04AEF0F01B2E87A800EFE858 /* WebViewController.storyboard in Resources */,
 				04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */,
 				04DA87791B30B99300C948F8 /* CaptchaViewController.storyboard in Resources */,
-				0E03E28E1B83DA7300C1FBD7 /* WMFHomeNearbyCell.xib in Resources */,
+				0E03E28E1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.xib in Resources */,
 				04CCCFEF1935093A00E3F60C /* SecondaryMenuRowView.xib in Resources */,
 				047E74141860509000916964 /* SavedPagesResultPrototypeView.xib in Resources */,
 				C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */,
@@ -3706,6 +3773,7 @@
 				BC0FED6F1AAA0268002488D7 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
 				0E9008E81B715E64001A600A /* WMFCollectionViewExtensionTests.m in Sources */,
 				BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */,
+				BC7925F61B9F31A9003C9522 /* CLLocation+WMFBearingTests.m in Sources */,
 				BC8210CC1B4EB2390010BF7B /* NSURLExtrasTests.m in Sources */,
 				BC0FED741AAA026C002488D7 /* CircularBitwiseRotationTests.m in Sources */,
 				BCEC77951AC9C74700D9DDA5 /* NSArray+WMFShuffle.m in Sources */,
@@ -3776,6 +3844,7 @@
 				0487048A19F8262600B7D307 /* PreviewHtmlFetcher.m in Sources */,
 				0E94AFF61B209882000BC5EA /* WMFArticleViewController.m in Sources */,
 				0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */,
+				BC305C381BA204EF00E414B8 /* NSString+WMFDistance.m in Sources */,
 				04B501F81B7AEB03007BE332 /* NSArray+WMFExtensions.swift in Sources */,
 				04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */,
 				BCB669A91A83F6C400C7B1FE /* MWKSection.m in Sources */,
@@ -3813,6 +3882,7 @@
 				0E34AC571B45DC9500475A1A /* WMFArticleFetcher.m in Sources */,
 				040D83591AB0ECFD000896D5 /* WMFCenteredPathView.m in Sources */,
 				BCB669B41A83F6C400C7B1FE /* MWKArticle.m in Sources */,
+				BC550B181B9A75100082F298 /* WMFRelatedTitleListDataSource.m in Sources */,
 				0ED689721B822D3B00B30427 /* WMFHomeSectionFooter.m in Sources */,
 				0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */,
 				BC6BFC681B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m in Sources */,
@@ -3828,6 +3898,7 @@
 				04414DDF1A1420EB00A41B4E /* WikiDataShortDescriptionFetcher.m in Sources */,
 				0EFB0F1F1B31EE2D00D05C08 /* DiscoveryContext.m in Sources */,
 				BC6E8B951B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m in Sources */,
+				BC7925F41B9F2C55003C9522 /* CLLocation+WMFBearing.m in Sources */,
 				04D686F61AB2949C0009B44A /* MenuLabel.m in Sources */,
 				042E3B931AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */,
 				04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
@@ -3847,10 +3918,12 @@
 				0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */,
 				0EFB0F201B31EE2D00D05C08 /* GalleryImage.m in Sources */,
 				0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */,
+				BC305C351BA0E47F00E414B8 /* CLLocation+WMFApproximateEquality.m in Sources */,
 				0E2690FC1B86AB9D009B8605 /* WMFRelatedSearchFetcher.m in Sources */,
 				0487048F19F8262600B7D307 /* WikiTextSectionFetcher.m in Sources */,
 				0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BC38634F1B7509E8003A2D38 /* WMFNavigationTransitionController.m in Sources */,
+				BC305C2D1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m in Sources */,
 				C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */,
 				04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */,
 				0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */,
@@ -3964,6 +4037,7 @@
 				04224501197F5E09005DD0BF /* BulletedLabel.m in Sources */,
 				C979727D1A731F2D00C6ED7A /* WMFShareOptionsView.m in Sources */,
 				BCFDB1421B3F3F7E00F0C9F4 /* WMFImageController+Debug.swift in Sources */,
+				BC305C321BA0C9D900E414B8 /* WMFNearbyViewModel.m in Sources */,
 				0E87265E1B8E22B3008EA2AC /* WMFPreviewController.m in Sources */,
 				C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */,
 				BCB58F781A8D081E00465627 /* NSArray+BKIndex.m in Sources */,
@@ -3981,7 +4055,7 @@
 				0E87265B1B8CC9E7008EA2AC /* UIView+WMFShadow.m in Sources */,
 				0ED689881B82559E00B30427 /* WMFLocationSearchResults.m in Sources */,
 				BC6E8B9F1B5FE0C9003D9A39 /* UICollectionView+WMFKVOUpdatableList.m in Sources */,
-				0E03E28D1B83DA7300C1FBD7 /* WMFHomeNearbyCell.m in Sources */,
+				0E03E28D1B83DA7300C1FBD7 /* WMFNearbySearchResultCell.m in Sources */,
 				BC550B071B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m in Sources */,
 				BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */,
 				0E4500B81B97A26400A33B55 /* WMFSectionSchemaItem.m in Sources */,
@@ -4010,6 +4084,7 @@
 				BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */,
 				0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */,
 				0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */,
+				BC22F44B1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				BC505EF71B59643400537006 /* WMFPageCollectionViewController.m in Sources */,
 				BCE24FDF1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m in Sources */,
@@ -4073,6 +4148,7 @@
 				043F18E118D9691D00D8489A /* TopActionSheetLabel.m in Sources */,
 				BCB669A51A83F6C400C7B1FE /* MWKTitle.m in Sources */,
 				08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */,
+				BC22F44F1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m in Sources */,
 				04272E7B1940EEBC00CC682F /* WMFAssetsFile.m in Sources */,
 				D4991445181D51DE00E6073C /* main.m in Sources */,
 				0EFB0F1C1B31EE2D00D05C08 /* NSManagedObject+WMFModelFactory.m in Sources */,

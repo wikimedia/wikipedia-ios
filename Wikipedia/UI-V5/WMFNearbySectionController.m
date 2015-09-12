@@ -1,35 +1,35 @@
-
 #import "WMFNearbySectionController.h"
 
+// Controllers
+#import "WMFNearbyTitleListDataSource.h"
+#import "WMFNearbyViewModel.h"
 #import "WMFLocationManager.h"
-#import "WMFLocationSearchFetcher.h"
 
+// Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
+#import "WMFLocationSearchResults.h"
+#import "WMFSearchResultBearingProvider.h"
+#import "WMFSearchResultDistanceProvider.h"
 
-//Promises
+// Frameworks
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
-#import "WMFHomeNearbyCell.h"
+// Views
+#import "WMFNearbySearchResultCell.h"
 #import "WMFNearbySectionEmptyCell.h"
 #import "UIView+WMFDefaultNib.h"
 
-#import <BlocksKit/BlocksKit+UIKit.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFNearbySectionIdentifier  = @"WMFNearbySectionIdentifier";
-static NSUInteger const WMFNearbySectionMaxResults = 3;
+static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
-static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters before we update fetch
+@interface WMFNearbySectionController ()
+<WMFNearbyViewModelDelegate>
 
-@interface WMFNearbySectionController ()<WMFNearbyControllerDelegate>
-
-@property (nonatomic, strong, readwrite) WMFLocationSearchFetcher* locationSearchFetcher;
-@property (nonatomic, strong, readwrite) WMFLocationManager* locationManager;
-
-@property (nonatomic, strong, readwrite) WMFLocationSearchResults* nearbyResults;
+@property (nonatomic, strong) WMFNearbyViewModel* viewModel;
 
 @property (nonatomic, copy) NSString* emptySectionObject;
 
@@ -41,29 +41,31 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site LocationManager:(WMFLocationManager*)locationManager locationSearchFetcher:(WMFLocationSearchFetcher*)locationSearchFetcher {
-    NSParameterAssert(site);
-    NSParameterAssert(locationManager);
-    NSParameterAssert(locationSearchFetcher);
+- (instancetype)initWithSite:(MWKSite*)site locationManager:(WMFLocationManager*)locationManager {
+    return [self initWithSite:site
+                    viewModel:[[WMFNearbyViewModel alloc] initWithSite:site
+                                                           resultLimit:3
+                                                       locationManager:locationManager]];
+}
 
+- (instancetype)initWithSite:(MWKSite*)site viewModel:(WMFNearbyViewModel*)viewModel {
+    NSParameterAssert(site);
+    NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
-        self.searchSite = site;
-
-        locationSearchFetcher.maximumNumberOfResults = WMFNearbySectionMaxResults;
-        self.locationSearchFetcher                   = locationSearchFetcher;
-
-        locationManager.delegate = self;
-        self.locationManager     = locationManager;
-
+        self.viewModel          = viewModel;
+        self.viewModel.delegate = self;
         self.emptySectionObject = @"EmptySection";
     }
     return self;
 }
 
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    _searchSite = searchSite;
-    [self refetchNearbyArticlesIfSiteHasChanged];
+    self.viewModel.site = searchSite;
+}
+
+- (MWKSite*)searchSite {
+    return self.viewModel.site;
 }
 
 - (id)sectionIdentifier {
@@ -79,8 +81,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 }
 
 - (NSArray*)items {
-    if ([self.nearbyResults.results count] > 0) {
-        return self.nearbyResults.results;
+    if ([self.viewModel.locationSearchResults.results count] > 0) {
+        return self.viewModel.locationSearchResults.results;
     } else {
         return @[self.emptySectionObject];
     }
@@ -89,184 +91,66 @@ static CLLocationDistance WMFMinimumDistanceBeforeRefetching = 500.0; //meters b
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
     id result = self.items[index];
     if ([result isKindOfClass:[MWKSearchResult class]]) {
-        MWKSite* site = self.nearbyResults.searchSite;
-        return [site titleWithString:[(MWKSearchResult*)result displayTitle]];
+        return [self.viewModel.locationSearchResults titleForResultAtIndex:index];
     }
     return nil;
 }
 
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFHomeNearbyCell wmf_classNib] forCellWithReuseIdentifier:[WMFHomeNearbyCell identifier]];
+    [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];
     [collectionView registerNib:[WMFNearbySectionEmptyCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySectionEmptyCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    if ([self.nearbyResults.results count] == 0) {
+- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView
+                                          atIndexPath:(NSIndexPath*)indexPath {
+    if ([self.viewModel.locationSearchResults.results count] == 0) {
         return [WMFNearbySectionEmptyCell cellForCollectionView:collectionView indexPath:indexPath];
     } else {
-        return [WMFHomeNearbyCell cellForCollectionView:collectionView indexPath:indexPath];
+        return [WMFNearbySearchResultCell cellForCollectionView:collectionView indexPath:indexPath];
     }
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
-        WMFHomeNearbyCell* nearbyCell   = (id)cell;
-        MWKLocationSearchResult* result = object;
+- (void)configureCell:(UICollectionViewCell*)cell
+           withObject:(id)object
+     inCollectionView:(UICollectionView*)collectionView
+          atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFNearbySearchResultCell class]]) {
+        WMFNearbySearchResultCell* nearbyCell = (id)cell;
+        MWKLocationSearchResult* result       = object;
+        NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
+        [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
+        [nearbyCell setSearchResultDescription:result.wikidataDescription];
+        [nearbyCell setImageURL:result.thumbnailURL];
         [nearbyCell setSavedPageList:self.savedPageList];
-        nearbyCell.descriptionText = result.wikidataDescription;
-        nearbyCell.title           = [self titleForItemAtIndex:indexPath.item];
-        nearbyCell.distance        = result.distanceFromQueryCoordinates;
-        nearbyCell.imageURL        = result.thumbnailURL;
+        [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
+        [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
     } else {
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
+            @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
-                [self.locationManager stopMonitoringLocation];
-                [self.locationManager startMonitoringLocation];
+                @strongify(self);
+                [self.viewModel startUpdates];
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.nearbyResults.results.count > index;
+    return self.viewModel.locationSearchResults.results.count > index;
 }
 
-#pragma mark - Section Updates
+- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
+    return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+}
 
-- (void)updateSectionWithResults:(WMFLocationSearchResults*)results {
+#pragma mark - WMFNearbyViewModelDelegate
+
+- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
+}
+
+- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
     [self.delegate controller:self didSetItems:results.results];
-}
-
-- (void)updateSectionWithLocation:(CLLocation*)location {
-    [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
-        if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
-            MWKLocationSearchResult* result = [self items][indexPath.item];
-            cell.distance = [location distanceFromLocation:result.location];
-        }
-    }];
-}
-
-- (void)updateSectionWithHeading:(CLHeading*)heading {
-    [self.delegate controller:self enumerateVisibleCells:^(WMFHomeNearbyCell* cell, NSIndexPath* indexPath){
-        if ([cell isKindOfClass:[WMFHomeNearbyCell class]]) {
-            MWKLocationSearchResult* result = [self items][indexPath.item];
-            cell.headingAngle = [self headingAngleToLocation:result.location startLocationLocation:self.locationManager.lastLocation heading:heading interfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
-        }
-    }];
-}
-
-- (void)updateSectionWithLocationError:(NSError*)error {
-}
-
-- (void)updateSectionWithSearchError:(NSError*)error {
-}
-
-#pragma mark - WMFNearbyControllerDelegate
-
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    [self updateSectionWithLocation:location];
-    [self fetchNearbyArticlesIfLocationHasSignificantlyChanged:location];
-}
-
-- (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
-    [self updateSectionWithHeading:heading];
-}
-
-- (void)nearbyController:(WMFLocationManager*)controller didfetchNearbyResults:(WMFLocationSearchResults*)results {
-    [self updateSectionWithResults:results];
-}
-
-- (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
-    [self updateSectionWithLocationError:error];
-}
-
-#pragma mark - Fetch
-
-- (void)refetchNearbyArticlesIfSiteHasChanged {
-    if (!self.nearbyResults) {
-        return;
-    }
-    if ([self.nearbyResults.searchSite isEqualToSite:self.searchSite]) {
-        return;
-    }
-
-    [self fetchNearbyArticlesWithLocation:self.locationManager.lastLocation];
-}
-
-- (void)fetchNearbyArticlesIfLocationHasSignificantlyChanged:(CLLocation*)location {
-    if (self.nearbyResults.location && [self.nearbyResults.location distanceFromLocation:location] < WMFMinimumDistanceBeforeRefetching) {
-        return;
-    }
-
-    [self fetchNearbyArticlesWithLocation:location];
-}
-
-- (void)fetchNearbyArticlesWithLocation:(CLLocation*)location {
-    if (!location) {
-        return;
-    }
-
-    if (self.locationSearchFetcher.isFetching) {
-        return;
-    }
-
-    [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite location:location]
-    .then(^(WMFLocationSearchResults* results){
-        self.nearbyResults = results;
-        [self updateSectionWithResults:results];
-    })
-    .catch(^(NSError* error){
-        [self updateSectionWithSearchError:error];
-    });
-}
-
-- (void)reloadNearby {
-    [self.locationManager stopMonitoringLocation];
-    [self.locationManager startMonitoringLocation];
-}
-
-#pragma mark - Compass Heading
-
-- (NSNumber*)headingAngleToLocation:(CLLocation*)toLocation startLocationLocation:(CLLocation*)startLocation heading:(CLHeading*)heading interfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Get angle between device and article coordinates.
-    double angleRadians = [self headingBetweenLocation:startLocation.coordinate andLocation:toLocation.coordinate];
-
-    // Adjust for device rotation (deviceHeading is in degrees).
-    double angleDegrees = RADIANS_TO_DEGREES(angleRadians);
-    angleDegrees -= heading.trueHeading;
-
-    if (angleDegrees > 360.0) {
-        angleDegrees -= 360.0;
-    } else if (angleDegrees < 0.0) {
-        angleDegrees += 360.0;
-    }
-
-    // Adjust for interface orientation.
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationLandscapeLeft:
-            angleDegrees += 90.0;
-            break;
-        case UIInterfaceOrientationLandscapeRight:
-            angleDegrees -= 90.0;
-            break;
-        case UIInterfaceOrientationPortraitUpsideDown:
-            angleDegrees += 180.0;
-            break;
-        default: //UIInterfaceOrientationPortrait
-            break;
-    }
-
-    return @(DEGREES_TO_RADIANS(angleDegrees));
-}
-
-- (double)headingBetweenLocation:(CLLocationCoordinate2D)loc1
-                     andLocation:(CLLocationCoordinate2D)loc2 {
-    // From: http://www.movable-type.co.uk/scripts/latlong.html
-    double dy = loc2.longitude - loc1.longitude;
-    double y  = sin(dy) * cos(loc2.latitude);
-    double x  = cos(loc1.latitude) * sin(loc2.latitude) - sin(loc1.latitude) * cos(loc2.latitude) * cos(dy);
-    return atan2(y, x);
 }
 
 @end
