@@ -121,11 +121,11 @@ public class WMFLegacyImageDataMigration : NSObject {
                         if let sself = self {
                             let filepath = sself.legacyDataStore.pathForImageData(url.absoluteString, title: title)
                             let promise = sself.imageController.importImage(fromFile: filepath, withURL: url)
-                            return promise.recover() { error in
+                            return promise.recover() { (error: ErrorType) -> Promise<Void> in
                                 #if DEBUG
                                 // only return errors in debug, silently fail in production
-                                if error.code != NSFileNoSuchFileError {
-                                    return Promise(error)
+                                if (error as NSError).code != NSFileNoSuchFileError {
+                                    return Promise(error: error)
                                 }
                                 #endif
                                 return Promise()
