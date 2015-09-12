@@ -1,25 +1,26 @@
 #import "WMFNearbySectionController.h"
 
+// Controllers
 #import "WMFNearbyTitleListDataSource.h"
-
-#import "WMFLocationManager.h"
 #import "WMFNearbyViewModel.h"
+#import "WMFLocationManager.h"
 
+// Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 #import "WMFLocationSearchResults.h"
 #import "WMFSearchResultBearingProvider.h"
 #import "WMFSearchResultDistanceProvider.h"
 
-//Promises
+// Frameworks
 #import "Wikipedia-Swift.h"
 #import "PromiseKit.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
+// Views
 #import "WMFNearbySearchResultCell.h"
 #import "WMFNearbySectionEmptyCell.h"
 #import "UIView+WMFDefaultNib.h"
-
-#import <BlocksKit/BlocksKit+UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

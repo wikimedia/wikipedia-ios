@@ -80,8 +80,8 @@
         // !!!: Must setup location manager last to prevent delegate callbacks firing before fetcher is setup
         self.locationManager          = locationManager;
         self.locationManager.delegate = self;
-        self.lastLocation = self.locationManager.location;
-        self.lastHeading = self.locationManager.heading;
+        self.lastLocation             = self.locationManager.location;
+        self.lastHeading              = self.locationManager.heading;
     }
     return self;
 }
@@ -102,7 +102,7 @@
     _locationSearchResults = locationSearchResults;
 }
 
-- (void)setLastHeading:(CLHeading * __nullable)lastHeading {
+- (void)setLastHeading:(CLHeading* __nullable)lastHeading {
     if (!lastHeading) {
         // ignore nil values to keep last known heading on the screen
         return;
@@ -110,7 +110,7 @@
     _lastHeading = lastHeading;
 }
 
-- (void)setLastLocation:(CLLocation * __nullable)lastLocation {
+- (void)setLastLocation:(CLLocation* __nullable)lastLocation {
     if (!lastLocation) {
         // ignore nil values to keep last known heading on the screen
         return;
