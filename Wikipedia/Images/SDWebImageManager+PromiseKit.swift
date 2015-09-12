@@ -44,7 +44,7 @@ extension SDWebImageManager {
     func promisedImageWithURL(URL: NSURL, options: SDWebImageOptions) -> (Cancellable, Promise<WMFImageDownload>) {
         let (promise, fulfill, reject) = Promise<WMFImageDownload>.pendingPromise()
 
-        let promiseCompatibleOptions = options | SDWebImageOptions.ReportCancellationAsError
+        let promiseCompatibleOptions: SDWebImageOptions = [options, SDWebImageOptions.ReportCancellationAsError]
 
         let webImageOperation = self.downloadImageWithURL(URL, options: promiseCompatibleOptions, progress: nil)
         { img, err, cacheType, finished, imageURL in
