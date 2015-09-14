@@ -1,7 +1,7 @@
 
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
+
 
 @interface MWKUserDataStore ()
 

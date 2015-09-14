@@ -7,7 +7,7 @@
 //
 
 #import "AnyPromise+WMFExtensions.h"
-#import <PromiseKit/AnyPromise.h>
+
 
 @implementation AnyPromise (WMFExtensions)
 

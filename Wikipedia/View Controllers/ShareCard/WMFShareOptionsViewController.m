@@ -7,6 +7,10 @@
 //
 
 #import "WMFShareOptionsViewController.h"
+
+
+#import "Wikipedia-Swift.h"
+
 #import "WMFShareCardViewController.h"
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
@@ -14,8 +18,6 @@
 #import "NSString+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKArticle+WMFSharing.h"
-#import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
 
 @interface WMFShareOptionsViewController ()
 

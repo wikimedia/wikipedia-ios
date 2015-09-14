@@ -13,6 +13,7 @@
 
 #import <libextobjc/EXTScope.h>
 #import <KVOController/FBKVOController.h>
+#import <PromiseKit/PromiseKit.h>
 
 #import "WMFBlockDefinitions.h"
 #import "WMFComparison.h"

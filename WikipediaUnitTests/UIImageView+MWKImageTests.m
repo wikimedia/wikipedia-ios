@@ -9,7 +9,7 @@
 #import "WMFAsyncTestCase.h"
 #import "UIImageView+MWKImageInternal.h"
 #import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
+
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>

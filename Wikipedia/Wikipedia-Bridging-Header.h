@@ -13,5 +13,3 @@
 #import "SDImageCache+WMFPersistentCache.h"
 
 #import <KVOController/FBKVOController.h>
-
-#import <PromiseKit/NSError+Cancellation.h>

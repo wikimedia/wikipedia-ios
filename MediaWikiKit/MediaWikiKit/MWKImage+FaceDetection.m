@@ -8,7 +8,7 @@
 
 #import "MWKImage+FaceDetection.h"
 #import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
+
 #import "CIDetector+WMFFaceDetection.h"
 #import "UIImage+WMFNormalization.h"
 

@@ -8,9 +8,10 @@
 
 import Foundation
 import Wikipedia
+import PromiseKit
 import XCTest
 
-public func descriptionfromFunction(fn: StaticString, line: UWord) -> String {
+public func descriptionfromFunction(fn: StaticString, line: UInt) -> String {
     return "\(fn):L\(line)"
 }
 
@@ -18,15 +19,15 @@ func toResolve<T>() -> (Promise<T>) -> ((T) -> Void) -> Promise<Void> {
     return Promise.thenInBackground
 }
 
-func toCatch<T>(policy: CatchPolicy = .AllErrorsExceptCancellation) -> (Promise<T>) -> ((NSError) -> Void) -> Void {
-    return { p in { errF in Promise<T>.catch(p)(policy: policy, errF) } }
+func toReport<T>(policy: ErrorPolicy = ErrorPolicy.AllErrorsExceptCancellation) -> (Promise<T>) -> ((ErrorType) -> Void) -> Void {
+    return { p in { errF in Promise<T>.report(p)(policy: policy, errF) } }
 }
 
 extension XCTestCase {
     public func wmf_fulfillExpectation<T>(function: StaticString = __FUNCTION__,
-                                          line: UWord = __LINE__,
+                                          line: UInt = __LINE__,
                                           pipe: ((T) -> Void)? = nil) -> (T) -> Void {
-        return wmf_fulfillExpectation(descriptionfromFunction(function, line), pipe: pipe)
+        return wmf_fulfillExpectation(descriptionfromFunction(function, line: line), pipe: pipe)
     }
 
     public func wmf_fulfillExpectation<T>(description: String,
@@ -43,12 +44,12 @@ extension XCTestCase {
         timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
         expirationHandler: XCWaitCompletionHandler? = nil,
         function: StaticString = __FUNCTION__,
-        line: UWord = __LINE__,
+        line: UInt = __LINE__,
         pipe: ((U) -> Void)? = nil,
         test: () -> Promise<T>) {
         expectPromise(
             callback,
-            description: descriptionfromFunction(function, line),
+            description: descriptionfromFunction(function, line: line),
             timeout: timeout,
             expirationHandler: expirationHandler,
             pipe: pipe,
@@ -73,11 +74,11 @@ extension XCTestCase {
                                      timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
                                      expirationHandler: XCWaitCompletionHandler? = nil,
                                      function: StaticString = __FUNCTION__,
-                                     line: UWord = __LINE__,
+                                     line: UInt = __LINE__,
                                      pipe: ((T) -> Void)? = nil) {
         expectPromise(
             callback,
-            description: descriptionfromFunction(function, line),
+            description: descriptionfromFunction(function, line: line),
             timeout: timeout,
             expirationHandler: expirationHandler,
             pipe: pipe)
@@ -89,6 +90,6 @@ extension XCTestCase {
                                       expirationHandler: XCWaitCompletionHandler? = nil,
                                       pipe: ((T) -> Void)? = nil) {
         callback(wmf_fulfillExpectation(description, pipe: pipe))
-        wmf_waitForExpectations(timeout: timeout, handler: expirationHandler)
+        wmf_waitForExpectations(timeout, handler: expirationHandler)
     }
 }

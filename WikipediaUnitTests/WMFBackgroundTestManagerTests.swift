@@ -7,7 +7,7 @@
 //
 
 import Wikipedia
-@testable import Wikipedia.WMFBackgroundTaskManager
+@testable import Wikipedia
 import Foundation
 import XCTest
 
@@ -129,7 +129,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         },
         finalize: self.markAsFinalized)
 
-        expectPromise(toCatch(),
+        expectPromise(toReport(),
         pipe: { _ -> Void in
             XCTAssertTrue(self.didFinalize)
             XCTAssertEqual(processedItems, expectedItems, "Expected to process items until error was encountered")
@@ -162,7 +162,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         },
         finalize: self.markAsFinalized)
 
-        expectPromise(toCatch(policy: CatchPolicy.AllErrors),
+        expectPromise(toReport(policy: ErrorPolicy.AllErrors),
         pipe: { err -> Void in
             XCTAssertTrue(self.didFinalize)
             XCTAssertTrue(err.cancelled, "Expected cancelled error when task expires")
@@ -186,7 +186,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         },
         finalize: self.markAsFinalized)
 
-        expectPromise(toCatch(policy: CatchPolicy.AllErrors),
+        expectPromise(toReport(policy: ErrorPolicy.AllErrors),
         pipe: { err -> Void in
             XCTAssertTrue(self.didFinalize)
             XCTAssertTrue(err.cancelled, "Expected cancelled error when task expires")

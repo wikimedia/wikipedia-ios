@@ -9,6 +9,14 @@
 import Foundation
 import PromiseKit
 
+enum LegacyImageDataMigrationError : CancellableErrorType {
+    case Deinit
+
+    var cancelled: Bool {
+        return true
+    }
+}
+
 /// Migrate legacy image data for saved pages into WMFImageController.
 @objc
 public class WMFLegacyImageDataMigration : NSObject {
@@ -39,7 +47,7 @@ public class WMFLegacyImageDataMigration : NSObject {
             return self?.unmigratedEntry()
         },
         processor: { [weak self] entry in
-            return self?.migrateEntry(entry) ?? Promise<Void>(NSError.cancelledError())
+            return self?.migrateEntry(entry) ?? Promise<Void>(error: LegacyImageDataMigrationError.Deinit)
         },
         finalize: { [weak self] in
             return self?.save() ?? Promise()

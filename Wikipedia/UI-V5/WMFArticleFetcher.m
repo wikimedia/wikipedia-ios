@@ -14,7 +14,7 @@
 
 //Promises
 #import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
+
 
 //Models
 #import "MWKArticlePreview.h"

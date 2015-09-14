@@ -9,7 +9,7 @@
 import Foundation
 import PromiseKit
 
-private enum BackgroundTaskError : CancellableErrorType {
+enum BackgroundTaskError : CancellableErrorType {
     case Deinit
     case TaskExpired
     case InvalidTask
@@ -17,9 +17,9 @@ private enum BackgroundTaskError : CancellableErrorType {
     var cancelled: Bool {
         get {
             switch(self) {
-            case .Deinit, .TaskExpired, .InvalidTask:
+            case .Deinit, .TaskExpired:
                 return true
-            default:
+            case .InvalidTask:
                 return false
             }
         }
@@ -135,15 +135,15 @@ public class WMFBackgroundTaskManager<T> {
     private func processNext(nextItem: T) {
         let (taskPromise, resolveTask, rejectTask) = Promise<Void>.pendingPromise()
         // start a new background task, which will represent this "link" in the promise chain
-        let taskId = self.dynamicType.startTask() { [weak self] in
+        let taskId = self.dynamicType.startTask() {
             // if we run out of time, cancel this (and subsequent) tasks
-//            rejectTask(NSError.cancelledError())
+            rejectTask(BackgroundTaskError.TaskExpired)
         }
 
         // couldn't obtain valid taskID, don't process any more objects
         if taskId == UIBackgroundTaskInvalid {
             // stop immediately if we cannot get a valid task
-//            self.reject(NSError.cancelledError())
+            self.reject(BackgroundTaskError.InvalidTask)
             return
         }
 

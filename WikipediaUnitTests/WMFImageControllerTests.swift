@@ -9,8 +9,11 @@
 import UIKit
 import XCTest
 import Wikipedia
+import PromiseKit
 
 class WMFImageControllerTests: XCTestCase {
+    private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
+
     var imageController: WMFImageController!
 
     override func setUp() {
@@ -26,7 +29,7 @@ class WMFImageControllerTests: XCTestCase {
 
     func testReceivingDataResponseResolves() {
         let testURL = NSURL(string: "https://upload.wikimedia.org/foo")!
-        let stubbedData = UIImagePNGRepresentation(UIImage(named: "lead-default"))
+        let stubbedData = UIImagePNGRepresentation(UIImage(named: "lead-default")!)
 
         LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
@@ -47,11 +50,12 @@ class WMFImageControllerTests: XCTestCase {
         LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString).andFailWithError(stubbedError)
 
-        expectPromise(toCatch(),
+        expectPromise(toReport() as ImageDownloadPromiseErrorCallback,
             pipe: { error in
+                let error = error as NSError
                 XCTAssertEqual(error.code, stubbedError.code)
                 XCTAssertEqual(error.domain, stubbedError.domain)
-                let failingURL = error.userInfo![NSURLErrorFailingURLErrorKey] as! NSURL
+                let failingURL = error.userInfo[NSURLErrorFailingURLErrorKey] as! NSURL
                 XCTAssertEqual(failingURL, testURL)
             }) { () -> Promise<WMFImageDownload> in
                 self.imageController.fetchImageWithURL(testURL)
@@ -64,9 +68,9 @@ class WMFImageControllerTests: XCTestCase {
          at least if this changes, we can easily point to another image in the repo
          */
         let testURL = NSURL(string:"https://github.com/wikimedia/wikipedia-ios/blob/master/WikipediaUnitTests/Fixtures/golden-gate.jpg?raw=true")!
-        expectPromise(toCatch(policy: CatchPolicy.AllErrors),
-        pipe: { err in
-            XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
+        expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
+        pipe: { (err: ErrorType) -> Void in
+            XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
         },
         timeout: 2) { () -> Promise<WMFImageDownload> in
             let promise = self.imageController.fetchImageWithURL(testURL)
@@ -75,24 +79,22 @@ class WMFImageControllerTests: XCTestCase {
         }
     }
 
-    func testCancelCacheRequestCatchesWithCancellationError() {
+    func testCancelCacheRequestCatchesWithCancellationError() throws {
         // copy some test fixture image to a temp location
-        let testFixtureDataPath = wmf_bundle().resourcePath!.stringByAppendingPathComponent("golden-gate.jpg")
-        let tempPath = WMFRandomTemporaryFileOfType("jpg")
-        NSFileManager.defaultManager().copyItemAtPath(testFixtureDataPath,
-                                                      toPath: tempPath,
-                                                      error: nil)
+        let testFixtureDataPath = NSURL(string: wmf_bundle().resourcePath!)!.URLByAppendingPathComponent("golden-gate.jpg")
+        let tempPath = NSURL(string:WMFRandomTemporaryFileOfType("jpg"))!
+        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempPath)
 
         let testURL = NSURL(string: "//foo/bar")!
 
-        expectPromise(toCatch(policy: CatchPolicy.AllErrors),
-        pipe: { err in
-            XCTAssert(err.cancelled, "Expected promise error to be cancelled but was \(err)")
+        expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
+        pipe: { (err: ErrorType) -> Void in
+            XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
         },
         timeout: 2) { () -> Promise<WMFImageDownload> in
             self.imageController
                 // import temp fixture data into image controller's disk cache
-                .importImage(fromFile: tempPath, withURL: testURL)
+                .importImage(fromFile: tempPath.absoluteString, withURL: testURL)
                 // then, attempt to retrieve it from the cache
                 .then() {
                   let promise = self.imageController.cachedImageWithURL(testURL)
@@ -103,6 +105,6 @@ class WMFImageControllerTests: XCTestCase {
         }
 
         // remove temporarily copied test data
-        NSFileManager.defaultManager().removeItemAtPath(tempPath, error: nil)
+        try! NSFileManager.defaultManager().removeItemAtURL(tempPath)
     }
 }

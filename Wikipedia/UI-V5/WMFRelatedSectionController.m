@@ -8,7 +8,7 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
+
 
 // View
 #import "WMFArticlePreviewCell.h"

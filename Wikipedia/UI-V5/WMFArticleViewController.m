@@ -1,12 +1,12 @@
 #import "WMFArticleViewController_Private.h"
 
+#import "Wikipedia-Swift.h"
+
 #import "SessionSingleton.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
-#import "Wikipedia-Swift.h"
-#import <PromiseKit/AnyPromise.h>
 
 //Analytics
 #import <PiwikTracker/PiwikTracker.h>

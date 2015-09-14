@@ -9,8 +9,7 @@
 import Foundation
 import XCTest
 
-import Wikipedia
-@testable import WMFLegacyImageDataMigration
+@testable import Wikipedia
 
 @objc
 class WMFLegacyImageDataMigrationTests : XCTestCase {
