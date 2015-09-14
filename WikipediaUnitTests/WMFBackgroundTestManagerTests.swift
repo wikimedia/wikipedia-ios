@@ -188,8 +188,11 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
 
         expectPromise(toReport(ErrorPolicy.AllErrors),
         pipe: { err -> Void in
+            guard case BackgroundTaskError.InvalidTask = err else {
+                XCTFail("Expected invalid task error, but got \(err)")
+                return
+            }
             XCTAssertTrue(self.didFinalize)
-            XCTAssertTrue((err as! CancellableErrorType).cancelled, "Expected cancelled error when task expires")
             XCTAssertEqual(stoppedTasks, [], "Should not have stopped any tasks")
         },
         test: { () -> Promise<Void> in

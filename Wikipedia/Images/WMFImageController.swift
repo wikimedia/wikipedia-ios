@@ -222,13 +222,13 @@ public class WMFImageController : NSObject {
                 let diskCachePath = sself.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
                 let diskCacheURL = NSURL(fileURLWithPath: diskCachePath)
                 
-                do{
-                    try NSFileManager.defaultManager().createDirectoryAtPath((diskCacheURL.URLByDeletingLastPathComponent?.absoluteString)!,
-                        withIntermediateDirectories: true,
-                        attributes: nil)
-                    
-                }catch let error as NSError{
-
+                do {
+                    try NSFileManager.defaultManager()
+                                     .createDirectoryAtPath(
+                                        (diskCacheURL.URLByDeletingLastPathComponent?.absoluteString)!,
+                                        withIntermediateDirectories: true,
+                                        attributes: nil)
+                } catch let error as NSError {
                     if error.code != NSFileWriteFileExistsError {
                         NSLog("Failed to create directory for migrated image data for url \(url) at path \(diskCachePath)"
                             + "due to error \(error)")
@@ -236,20 +236,15 @@ public class WMFImageController : NSObject {
                     }
                 }
                 
-                do{
+                do {
                     try NSFileManager.defaultManager().moveItemAtPath(filepath, toPath: diskCachePath)
-                    
-                }catch let error as NSError{
-                    
+                } catch let error as NSError {
                     if error.code != NSFileWriteFileExistsError {
                         NSLog("Failed to move legacy data for url \(url) from \(filepath) to path \(diskCachePath)"
                             + "due to error \(error)")
                         return
                     }
                 }
-                
-
-               
             }
         }
     }

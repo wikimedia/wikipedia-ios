@@ -19,13 +19,12 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     // Array of paths to temporary files that need to be cleaned up in tearDown
     var tmpImageDirectory: String!
 
-    // use our own cache of savedPageList, to work around issues w/ state disappearing every time it's re-created
-    var savedPageList: MWKSavedPageList!
+    var savedPageList: MWKSavedPageList {
+        return self.imageMigration.savedPageList
+    }
 
     override func setUp() {
         dataStore = MWKDataStore.temporaryDataStore()
-
-        savedPageList = dataStore.userDataStore().savedPageList
 
         imageMigration = WMFLegacyImageDataMigration(imageController: WMFImageController.temporaryController(),
                                                      legacyDataStore: self.dataStore)
@@ -85,10 +84,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
             XCTAssertTrue(unmigratedEntries.isEmpty, "Expected data store to contain 0 unmigrated entries")
         },
         test: {
-            Promise().then() { _ -> AnyPromise in
-                return self.savedPageList.save()
-            }
-            .then() { _ -> Promise<Void> in
+            firstly() { self.savedPageList.save() }.then() { _ -> Promise<Void> in
                 // not asserting which entry is returned, since order is arbitrary
                 self.imageMigration.markEntryAsMigrated(self.imageMigration.unmigratedEntry()!)
                 self.imageMigration.markEntryAsMigrated(self.imageMigration.unmigratedEntry()!)
