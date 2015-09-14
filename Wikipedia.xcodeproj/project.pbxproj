@@ -333,6 +333,8 @@
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */; };
+		BC592D211BA761A100F7C261 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E604C1BA13BFE00C19E77 /* PromiseKit.framework */; };
+		BC592D221BA761A100F7C261 /* OMGHTTPURLRQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E604D1BA13BFE00C19E77 /* OMGHTTPURLRQ.framework */; };
 		BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */; };
 		BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1811B738DFB005BE5BA /* MWKCitation.m */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
@@ -1550,6 +1552,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42D9F08408049EFEF0362C7D /* libPods-WikipediaUnitTests.a in Frameworks */,
+				BC592D211BA761A100F7C261 /* PromiseKit.framework in Frameworks */,
+				BC592D221BA761A100F7C261 /* OMGHTTPURLRQ.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4372,6 +4376,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -4504,6 +4509,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -4636,6 +4642,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4686,6 +4693,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4736,6 +4744,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;

@@ -21,12 +21,10 @@ enum LegacyImageDataMigrationError : CancellableErrorType {
 @objc
 public class WMFLegacyImageDataMigration : NSObject {
     /// Image controller where data will be migrated.
-    private let imageController: WMFImageController
+    let imageController: WMFImageController
 
     /// List of saved pages which is saved when the tasks are finished processing.
-    private lazy var savedPageList: MWKSavedPageList = {
-        self.legacyDataStore.userDataStore().savedPageList
-    }()
+    let savedPageList: MWKSavedPageList
 
     /// Data store which provides articles and saves the entries after processing.
     private let legacyDataStore: MWKDataStore
@@ -59,6 +57,7 @@ public class WMFLegacyImageDataMigration : NSObject {
                          legacyDataStore: MWKDataStore) {
         self.imageController = imageController
         self.legacyDataStore = legacyDataStore
+        self.savedPageList = self.legacyDataStore.userDataStore().savedPageList
         super.init()
     }
 
@@ -73,7 +72,7 @@ public class WMFLegacyImageDataMigration : NSObject {
     /// MARK: - Testable Methods
 
     /// Save the receiver's saved page list, making sure to preserve the current list on disk.
-    private func save() -> Promise<Void> {
+    func save() -> Promise<Void> {
         // for each entry that we migrated
         let migratedEntries = savedPageList.entries.filter() { $0.didMigrateImageData == true } as! [MWKSavedPageEntry]
         let currentSavedPageList = legacyDataStore.userDataStore().savedPageList
@@ -96,7 +95,7 @@ public class WMFLegacyImageDataMigration : NSObject {
         }.asVoid()
     }
 
-    private func unmigratedEntry() -> MWKSavedPageEntry? {
+    func unmigratedEntry() -> MWKSavedPageEntry? {
         var entry: MWKSavedPageEntry?
         dispatch_sync(savedPageQueue) {
             let allEntries = self.savedPageList.entries as! [MWKSavedPageEntry]
@@ -106,7 +105,7 @@ public class WMFLegacyImageDataMigration : NSObject {
     }
 
     /// Migrate all images in `entry` into `imageController`, then mark it as migrated.
-    private func migrateEntry(entry: MWKSavedPageEntry) -> Promise<Void> {
+    func migrateEntry(entry: MWKSavedPageEntry) -> Promise<Void> {
         NSLog("Migrating entry \(entry)")
         return migrateAllImagesInArticleWithTitle(entry.title)
         .then(on: savedPageQueue) { [weak self] in
@@ -115,7 +114,7 @@ public class WMFLegacyImageDataMigration : NSObject {
     }
 
     /// Move an article's images into `imageController`, ignoring any errors.
-    private func migrateAllImagesInArticleWithTitle(title: MWKTitle) -> Promise<Void> {
+    func migrateAllImagesInArticleWithTitle(title: MWKTitle) -> Promise<Void> {
         if let images = legacyDataStore.existingArticleWithTitle(title)?.allImageURLs() as? [NSURL] {
             if images.count > 0 {
                 return images.reduce(Promise()) { (chain, url) -> Promise<Void> in
@@ -143,7 +142,7 @@ public class WMFLegacyImageDataMigration : NSObject {
     }
 
     /// Mark the given entry as having its image data migrated.
-    private func markEntryAsMigrated(entry: MWKSavedPageEntry) {
+    func markEntryAsMigrated(entry: MWKSavedPageEntry) {
         savedPageList.updateEntryWithTitle(entry.title) { e in
             e.didMigrateImageData = true
             return true

@@ -10,6 +10,7 @@ import Foundation
 import XCTest
 
 @testable import Wikipedia
+import PromiseKit
 
 @objc
 class WMFLegacyImageDataMigrationTests : XCTestCase {
@@ -30,18 +31,16 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                                                      legacyDataStore: self.dataStore)
 
         tmpImageDirectory = WMFRandomTemporaryPath()
-        NSFileManager.defaultManager().createDirectoryAtPath(tmpImageDirectory,
-                                                             withIntermediateDirectories: true,
-                                                             attributes: nil,
-                                                             error: nil)
+        try! NSFileManager.defaultManager().createDirectoryAtPath(tmpImageDirectory,
+                                                                  withIntermediateDirectories: true,
+                                                                  attributes: nil)
         super.setUp()
     }
 
     override func tearDown() {
         imageMigration.imageController.deleteAllImages()
         dataStore.removeFolderAtBasePath()
-        NSFileManager.defaultManager().removeItemAtPath(tmpImageDirectory, error: nil)
-
+        try! NSFileManager.defaultManager().removeItemAtPath(tmpImageDirectory)
         super.tearDown()
     }
 
@@ -72,9 +71,9 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     }
 
     func testMarkingAnEntryAsMigratedCausesUnmigratedEntryToReturnNextEntryOrNil() {
-        let migratedEntry = addEntryWithTitleText("foo", didMigrate: true)
-        let unmigratedEntry = addEntryWithTitleText("bar", didMigrate: false)
-        let unmigratedEntry2 = addEntryWithTitleText("baz", didMigrate: false)
+        addEntryWithTitleText("foo", didMigrate: true)
+        addEntryWithTitleText("bar", didMigrate: false)
+        addEntryWithTitleText("baz", didMigrate: false)
         expectPromise(toResolve(),
         pipe: {
             let result = self.imageMigration.unmigratedEntry()
@@ -178,8 +177,8 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                 // prime the imageMigration so that it's internal state has entries for article 1 & 2
                 let imageMigrationEntries = self.imageMigration.savedPageList.entries as! [MWKSavedPageEntry]
                 let imageMigrationTitles: [MWKTitle] = imageMigrationEntries.map({ $0.title })
-                XCTAssertTrue(contains(imageMigrationTitles, article1.title))
-                XCTAssertTrue(contains(imageMigrationTitles, article2.title))
+                XCTAssertTrue(imageMigrationTitles.contains(article1.title))
+                XCTAssertTrue(imageMigrationTitles.contains(article2.title))
 
                 // remove article 1
                 self.savedPageList.removeSavedPageWithTitle(article1.title)
@@ -207,12 +206,12 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         // copy all legacy data to a tmp folder for later comparison
         let legacyImageDataPaths = (article.allImageURLs() as! [NSURL]).reduce([:] as [NSURL:String]) { memo, url in
             let legacyImageData = dataStore.imageDataWithImage(MWKImage(article: article,
-                sourceURLString: url.absoluteString!))
+                sourceURLString: url.absoluteString))
             assert(legacyImageData.length != 0, "Images in the test article must have data for this test")
-            let tmpPathForURL = tmpImageDirectory.stringByAppendingPathComponent(url.lastPathComponent!)
-            legacyImageData.writeToFile(tmpPathForURL, atomically: false)
+            let tmpPathForURL = NSURL(string: tmpImageDirectory)!.URLByAppendingPathComponent(url.lastPathComponent!)
+            legacyImageData.writeToURL(tmpPathForURL, atomically: false)
             var appendedMemo = memo
-            appendedMemo[url] = tmpPathForURL
+            appendedMemo[url] = tmpPathForURL.absoluteString
             return appendedMemo
         }
         return (article, legacyImageDataPaths)
@@ -240,7 +239,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
             XCTAssertFalse(self.imageMigration.imageController.hasDataInMemoryForImageWithURL(url),
                 "image migration should not store migrated images in memory to prevent bloating")
 
-            XCTAssertNil(self.dataStore.imageDataWithImage(MWKImage(article: article, sourceURLString: url.absoluteString!)),
+            XCTAssertNil(self.dataStore.imageDataWithImage(MWKImage(article: article, sourceURLString: url.absoluteString)),
                 "Legacy image data not deleted for image with url: \(url)")
 
             let legacyData = NSFileManager.defaultManager().contentsAtPath(legacyImageDataPaths[url]!)
