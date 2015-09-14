@@ -289,9 +289,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
-- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(NSString*)searchTerm {
-    self.searchBar.text = searchTerm;
-    [self searchForSearchTerm:searchTerm];
+- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(MWKRecentSearchEntry*)searchTerm {
+    self.searchBar.text = searchTerm.searchTerm;
+    [self searchForSearchTerm:searchTerm.searchTerm];
     [self updateRecentSearchesVisibility];
 }
 

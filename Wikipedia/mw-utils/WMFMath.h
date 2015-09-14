@@ -45,11 +45,20 @@
  */
 extern double RoundWithPrecision(double (* rounder)(double), double x, unsigned int precision);
 
-/// Round @c x to 2 significant digits after the decimal point.
+/**
+ *  Round @c x to 2 significant digits after the decimal point.
+ *
+ *  @param x Number to round.
+ *
+ *  @return @c x rounded to 2 decimal points.
+ */
 extern double WMFFlooredPercentage(double x) __attribute__((const)) __attribute__((pure));
 
+///
+/// @name Geometry
+///
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
+#define RADIANS_TO_DEGREES(radians) ((radians) * 180.0 / M_PI)
 
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 

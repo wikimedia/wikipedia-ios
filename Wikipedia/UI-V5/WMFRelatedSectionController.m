@@ -6,6 +6,9 @@
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
 
+// Controllers
+#import "WMFRelatedTitleListDataSource.h"
+
 // Frameworks
 #import "Wikipedia-Swift.h"
 
@@ -17,7 +20,6 @@
 // Style
 #import "UIFont+WMFStyle.h"
 
-
 static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
 static NSUInteger const WMFNumberOfExtractLines          = 4;
 static NSUInteger const WMFRelatedSectionMaxResults      = 3;
@@ -27,17 +29,26 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
-@property (nonatomic, strong, readwrite) WMFRelatedSearchResults* relatedResults;
+
+@property (nonatomic, strong) WMFRelatedTitleListDataSource* relatedTitleDataSource;
 
 @end
 
 @implementation WMFRelatedSectionController
+@synthesize relatedTitleDataSource = _relatedTitleDataSource;
 
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher
                             delegate:(id<WMFHomeSectionControllerDelegate>)delegate {
+    return [self initWithArticleTitle:title
+                             delegate:delegate
+                 relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
+}
+
+- (instancetype)initWithArticleTitle:(MWKTitle*)title
+                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate
+                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
     NSParameterAssert(relatedSearchFetcher);
     self = [super init];
@@ -46,8 +57,16 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         self.title                = title;
         self.delegate             = delegate;
     }
-    [self fetchRelatedArticlesWithTitle:self.title];
     return self;
+}
+
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
+    /*
+       HAX: can't fetch titles until we get the saved page list, since it's needed to create articles
+          and configure cells
+     */
+    _savedPageList = savedPageList;
+    [self fetchRelatedArticles];
 }
 
 - (id)sectionIdentifier {
@@ -64,16 +83,17 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (NSString*)footerText {
     // TODO: localize
-    return @"More like this";
+    return [NSString stringWithFormat:@"More like %@", self.title.text];
 }
 
 - (NSArray*)items {
-    return self.relatedResults.results;
+    return [self.relatedTitleDataSource.relatedTitleResults
+            wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
 }
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
     MWKSearchResult* result = self.items[index];
-    MWKSite* site           = self.relatedResults.title.site;
+    MWKSite* site           = self.title.site;
     MWKTitle* title         = [site titleWithString:result.displayTitle];
     return title;
 }
@@ -97,7 +117,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         previewCell.title           = [self titleForItemAtIndex:indexPath.row];
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
-        [previewCell setSummaryHTML:result.extractHTML fromSite:self.relatedResults.title.site];
+        [previewCell setSummaryHTML:result.extractHTML fromSite:self.title.site];
         [previewCell setSavedPageList:self.savedPageList];
         NSAssert (^{
             UIFont* actualFont = [previewCell.summaryLabel.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil] ? : previewCell.summaryLabel.font;
@@ -108,10 +128,32 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     }
 }
 
+- (WMFRelatedTitleListDataSource*)relatedTitleDataSource {
+    if (!_relatedTitleDataSource) {
+        /*
+           HAX: Need to use the "more" data source to fetch data and keep it around since morelike: searches for the same
+           title don't have the same results in order. might need to look into continuation soon
+         */
+        _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
+                                   initWithTitle:self.title
+                                        dataStore:self.savedPageList.dataStore
+                                    savedPageList:self.savedPageList
+                        numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]
+                                          fetcher:self.relatedSearchFetcher];;
+    }
+    return _relatedTitleDataSource;
+}
+
+- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
+    if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedTitleResults) {
+        [self.relatedTitleDataSource fetch];
+    }
+    return self.relatedTitleDataSource;
+}
+
 #pragma mark - Section Updates
 
 - (void)updateSectionWithResults:(WMFRelatedSearchResults*)results {
-    [self.delegate controller:self didSetItems:results.results];
 }
 
 - (void)updateSectionWithSearchError:(NSError*)error {
@@ -129,19 +171,15 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return charsPerLine * (WMFNumberOfExtractLines + 0.5);
 }
 
-- (void)fetchRelatedArticlesWithTitle:(MWKTitle*)title {
+- (void)fetchRelatedArticles {
     if (self.relatedSearchFetcher.isFetching) {
         return;
     }
-
     @weakify(self);
-    [self.relatedSearchFetcher fetchArticlesRelatedToTitle:title
-                                  numberOfExtactCharacters:[self numberOfExtractCharactersToFetch]
-                                               resultLimit:WMFRelatedSectionMaxResults]
-    .then(^(WMFRelatedSearchResults* results){
+    [self.relatedTitleDataSource fetch]
+    .then(^(WMFRelatedSearchResults* _){
         @strongify(self);
-        self.relatedResults = results;
-        [self updateSectionWithResults:results];
+        [self.delegate controller:self didSetItems:self.items];
     })
     .catch(^(NSError* error){
         @strongify(self);

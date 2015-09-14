@@ -32,7 +32,18 @@
 @implementation WMFArticleListCollectionViewController
 @synthesize listTransition = _listTransition;
 
+- (instancetype)init {
+    return [self initWithCollectionViewLayout:[SelfSizingWaterfallCollectionViewLayout new]];
+}
+
 #pragma mark - Accessors
+
+- (id<WMFArticleListDynamicDataSource>)dynamicDataSource {
+    if ([self.dataSource conformsToProtocol:@protocol(WMFArticleListDynamicDataSource)]) {
+        return (id<WMFArticleListDynamicDataSource>)self.dataSource;
+    }
+    return nil;
+}
 
 - (WMFArticleListTransition*)listTransition {
     if (!_listTransition) {
@@ -58,6 +69,7 @@
     if ([self isViewLoaded] && self.view.window) {
         if (_dataSource) {
             [self connectCollectionViewAndDataSource];
+            [[self dynamicDataSource] startUpdating];
         } else {
             [self.collectionView reloadData];
         }
@@ -134,14 +146,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self connectCollectionViewAndDataSource];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
+    [self connectCollectionViewAndDataSource];
+    [[self dynamicDataSource] startUpdating];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[self dynamicDataSource] stopUpdating];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {

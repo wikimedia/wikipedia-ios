@@ -56,6 +56,9 @@
 #pragma mark - KVO
 
 - (void)observeSavedPages {
+    if (!self.savedPageList) {
+        return;
+    }
     [self.KVOControllerNonRetaining observe:self.savedPageList
                                     keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)
                                     options:NSKeyValueObservingOptionInitial
@@ -65,6 +68,9 @@
 }
 
 - (void)unobserveSavedPages {
+    if (!self.savedPageList) {
+        return;
+    }
     [self.KVOControllerNonRetaining unobserve:self.savedPageList keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries)];
 }
 

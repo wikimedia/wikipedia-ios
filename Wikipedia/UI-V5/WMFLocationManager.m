@@ -6,51 +6,74 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //meters before we update location
-
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
-@property (nonatomic, strong, readwrite) CLLocation* lastLocation;
+@property (nonatomic, strong, nullable) id orientationNotificationToken;
 
 @end
 
 @implementation WMFLocationManager
 
-#pragma mark - Accessors
-
-- (CLLocationManager*)locationManager {
-    if (!_locationManager) {
-        _locationManager                = [[CLLocationManager alloc] init];
-        _locationManager.delegate       = self;
-        _locationManager.activityType   = CLActivityTypeFitness;
-        _locationManager.distanceFilter = WMFMinimumDistanceBeforeUpdatingLocation;
-    }
-
-    return _locationManager;
+- (void)dealloc {
+    self.locationManager.delegate = nil;
+    [self stopMonitoringLocation];
 }
 
-- (CLHeading* __nullable)lastHeading {
+#pragma mark - Accessors
+
+- (CLHeading*)heading {
     return self.locationManager.heading;
 }
 
-#pragma mark - Public
+- (CLLocation*)location {
+    return self.locationManager.location;
+}
+
+- (CLLocationManager*)locationManager {
+    if (!_locationManager) {
+        _locationManager              = [[CLLocationManager alloc] init];
+        _locationManager.delegate     = self;
+        _locationManager.activityType = CLActivityTypeFitness;
+        /*
+           Update location every 1 meter. This is separate from how often we update the titles that are near a given
+           location. See WMFNearbyViewModel.
+         */
+        _locationManager.distanceFilter = 1;
+    }
+    return _locationManager;
+}
+
+#pragma mark - Permissions
+
++ (BOOL)isAuthorized {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse;
+}
+
+- (BOOL)requestAuthorizationIfNeeded {
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusNotDetermined
+        && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - Location Monitoring
+
+- (void)restartLocationMonitoring {
+    [self stopMonitoringLocation];
+    [self startMonitoringLocation];
+}
 
 - (void)startMonitoringLocation {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-
-    if (status == kCLAuthorizationStatusDenied ||
-        status == kCLAuthorizationStatusRestricted) {
-        //Updates not possible
+    if (![[self class] isAuthorized]) {
+        [self requestAuthorizationIfNeeded];
         return;
     }
 
-    if (status == kCLAuthorizationStatusNotDetermined && [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        //Need authorization
-        [self.locationManager requestWhenInUseAuthorization];
-
-        return;
-    }
+    NSParameterAssert([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse);
 
     [self startLocationUpdates];
     [self startHeadingUpdates];
@@ -68,7 +91,47 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
 }
 
 - (void)startHeadingUpdates {
+    if (![[UIDevice currentDevice] isGeneratingDeviceOrientationNotifications]) {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    }
+    @weakify(self);
+    self.orientationNotificationToken =
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification* note) {
+        @strongify(self);
+        [self updateHeadingOrientation];
+    }];
+    [self updateHeadingOrientation];
     [self.locationManager startUpdatingHeading];
+}
+
+- (void)updateHeadingOrientation {
+    switch ([[UIDevice currentDevice] orientation]) {
+        case UIDeviceOrientationFaceDown:
+            self.locationManager.headingOrientation = CLDeviceOrientationFaceDown;
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+            self.locationManager.headingOrientation = CLDeviceOrientationLandscapeLeft;
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            self.locationManager.headingOrientation = CLDeviceOrientationLandscapeRight;
+            break;
+        case UIDeviceOrientationFaceUp:
+            self.locationManager.headingOrientation = CLDeviceOrientationFaceUp;
+            break;
+        case UIDeviceOrientationPortrait:
+            self.locationManager.headingOrientation = CLDeviceOrientationPortrait;
+            break;
+        case UIDeviceOrientationPortraitUpsideDown:
+            self.locationManager.headingOrientation = CLDeviceOrientationPortraitUpsideDown;
+            break;
+        case UIDeviceOrientationUnknown:
+        default:
+            self.locationManager.headingOrientation = CLDeviceOrientationUnknown;
+            break;
+    }
 }
 
 - (void)stopLocationUpdates {
@@ -76,6 +139,8 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
 }
 
 - (void)stopHeadingUpdates {
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    self.orientationNotificationToken = nil;
     [self.locationManager stopUpdatingHeading];
 }
 
@@ -89,11 +154,7 @@ static CLLocationDistance WMFMinimumDistanceBeforeUpdatingLocation = 1.0; //mete
     if (locations.count == 0) {
         return;
     }
-
-    CLLocation* currentLocation = [locations lastObject];
-
-    self.lastLocation = currentLocation;
-    [self.delegate nearbyController:self didUpdateLocation:currentLocation];
+    [self.delegate nearbyController:self didUpdateLocation:manager.location];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
