@@ -79,7 +79,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -103,4 +103,4 @@ SPEC CHECKSUMS:
   SelfSizingWaterfallCollectionViewLayout: 8ea9ed8cca9f3bf8144016828a3932aaa97d0eb4
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.2
