@@ -113,10 +113,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.savedPages  = self.savedPages;
 }
 
-- (void)configureRecentSearchList{
+- (void)configureRecentSearchList {
     NSParameterAssert(self.recentSearches);
     self.recentSearchesViewController.recentSearches = self.recentSearches;
-    self.recentSearchesViewController.delegate = self;
+    self.recentSearchesViewController.delegate       = self;
 }
 
 #pragma mark - UIViewController
@@ -147,7 +147,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchBar becomeFirstResponder];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self saveLastSearch];
 }
@@ -277,11 +277,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                     substitutionAttributes:@[@{NSFontAttributeName: [UIFont italicSystemFontOfSize:18]}]];
 }
 
-
 #pragma mark - RecentSearches
 
-- (void)saveLastSearch{
-    if([self currentSearchTerm]){
+- (void)saveLastSearch {
+    if ([self currentSearchTerm]) {
         MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite searchTerm:[self currentSearchTerm]];
         [self.recentSearches addEntry:entry];
         [self.recentSearches save];
