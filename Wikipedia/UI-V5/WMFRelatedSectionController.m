@@ -60,11 +60,11 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return self;
 }
 
-- (void)setSavedPageList:(MWKSavedPageList *)savedPageList {
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
     /*
-     HAX: can't fetch titles until we get the saved page list, since it's needed to create articles
+       HAX: can't fetch titles until we get the saved page list, since it's needed to create articles
           and configure cells
-    */
+     */
     _savedPageList = savedPageList;
     [self fetchRelatedArticles];
 }
