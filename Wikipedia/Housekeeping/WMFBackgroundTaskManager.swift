@@ -172,12 +172,12 @@ public class WMFBackgroundTaskManager<T> {
     // MARK: - Background Task Wrappers
 
     /// Create a background task (modified during testing).
-    private class func startTask(expirationHandler: ()->Void) -> UIBackgroundTaskIdentifier {
+    internal class func startTask(expirationHandler: ()->Void) -> UIBackgroundTaskIdentifier {
         return UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(expirationHandler)
     }
 
     /// Stop a background task (modified during testing).
-    private class func stopTask(task: UIBackgroundTaskIdentifier) {
+    internal class func stopTask(task: UIBackgroundTaskIdentifier) {
         UIApplication.sharedApplication().endBackgroundTask(task)
     }
 }

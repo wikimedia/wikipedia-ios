@@ -6,10 +6,11 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-import Wikipedia
-@testable import Wikipedia
 import Foundation
 import XCTest
+
+@testable import Wikipedia
+import PromiseKit
 
 // Must start task numbers at 1, as 0 == invalid
 let defaultInitialTask = 1
@@ -31,13 +32,13 @@ public class WMFMockedBackgroundTaskManager<T> : WMFBackgroundTaskManager<T> {
     }
 
     // Instead of starting a background task, increment our task counter and store the expiration handler for later.
-    override public class func startTask(expirationHandler: () -> Void) -> UIBackgroundTaskIdentifier {
+    override class func startTask(expirationHandler: () -> Void) -> UIBackgroundTaskIdentifier {
         expirationHandlers.append(expirationHandler)
         return currentTask++
     }
 
     // Instead of stopping a task, store it as a task that we would have stopped.
-    override public class func stopTask(task: UIBackgroundTaskIdentifier) {
+    override class func stopTask(task: UIBackgroundTaskIdentifier) {
         stoppedTasks.append(task)
     }
 }
@@ -80,7 +81,7 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
     func testResolvesWhenNextReturnsNilAfterReturningNonNilValues() {
         var items = Array(0...10)
         var processedItems: [Int] = []
-        let expectedItems = items.reverse()
+        let expectedItems = Array(items.reverse())
         let taskMgr = WMFMockedBackgroundTaskManager(
         next: { () -> Int? in
             let item: Int? = items.count > 0 ? items.removeLast() : nil
@@ -112,19 +113,18 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         let errIndex = 5
         items.insert(NSError(domain: "OH NO", code: 0, userInfo: nil), atIndex: errIndex)
         var processedItems: [Int] = []
-        var expectedItems: [Int] = Array(items.reverse()[0...errIndex - 1].map({ $0 as! Int }))
+        let expectedItems: [Int] = Array(items.reverse()[0...errIndex - 1].map({ $0 as! Int }))
 
         let taskMgr = WMFMockedBackgroundTaskManager(
         next: { () -> AnyObject? in
             return items.count > 0 ? items.removeLast() : nil
         },
         processor: { (item: AnyObject) -> Promise<Void> in
-            return dispatch_promise(on: dispatch_get_main_queue()) { () -> (Void!, NSError!) in
-                if item is Int {
-                    return (processedItems.append(item as! Int), nil)
-                } else {
-                    return (nil, item as! NSError)
+            return dispatch_promise(on: dispatch_get_main_queue()) { () throws -> Void in
+                guard item is Int else {
+                    throw item as! NSError
                 }
+                return processedItems.append(item as! Int)
             }
         },
         finalize: self.markAsFinalized)
@@ -162,10 +162,10 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         },
         finalize: self.markAsFinalized)
 
-        expectPromise(toReport(policy: ErrorPolicy.AllErrors),
+        expectPromise(toReport(ErrorPolicy.AllErrors),
         pipe: { err -> Void in
             XCTAssertTrue(self.didFinalize)
-            XCTAssertTrue(err.cancelled, "Expected cancelled error when task expires")
+            XCTAssertTrue((err as! CancellableErrorType).cancelled, "Expected cancelled error when task expires")
             XCTAssertEqual(processedItems, expectedItems, "Expected to process up to and including expired item")
             self.verifyExpectedNumberOfStartedAndStoppedBackgroundTasks(expectedItems.count)
         },
@@ -186,10 +186,10 @@ class WMFBackgroundTaskManagerTests : WMFAsyncTestCase {
         },
         finalize: self.markAsFinalized)
 
-        expectPromise(toReport(policy: ErrorPolicy.AllErrors),
+        expectPromise(toReport(ErrorPolicy.AllErrors),
         pipe: { err -> Void in
             XCTAssertTrue(self.didFinalize)
-            XCTAssertTrue(err.cancelled, "Expected cancelled error when task expires")
+            XCTAssertTrue((err as! CancellableErrorType).cancelled, "Expected cancelled error when task expires")
             XCTAssertEqual(stoppedTasks, [], "Should not have stopped any tasks")
         },
         test: { () -> Promise<Void> in
