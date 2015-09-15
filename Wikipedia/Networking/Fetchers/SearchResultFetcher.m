@@ -139,7 +139,7 @@ static NSNumber* WMFSearchThumbnailWidth() {
                        @"srprop": @"",
                        @"sroffset": @0,
                        @"srlimit": @1,
-//                       @"redirects": @1,
+                       @"redirects": @1,
                        // --
                        @"continue": @"",
                        @"format": @"json"
@@ -163,14 +163,45 @@ static NSNumber* WMFSearchThumbnailWidth() {
                        @"pithumbsize": WMFSearchThumbnailWidth(),
                        @"pilimit": @(self.maxSearchResults),
                        @"continue": @"",
-                       @"format": @"json"
-//                       @"redirects": @1,
+                       @"format": @"json",
+                       @"redirects": @1
             };
             break;
         default:
             return @{};
             break;
     }
+}
+
+- (NSDictionary*)processRedirects:(NSDictionary*)redirects inPages:(NSDictionary*)pages {
+    // Needed to allow search result redirects to work!
+    // Details: https://phabricator.wikimedia.org/T110231 and https://phabricator.wikimedia.org/T92796
+    NSMutableDictionary* output = @{}.mutableCopy;
+    for (NSDictionary* pageId in pages) {
+        NSMutableDictionary* mutablePage = [NSMutableDictionary dictionaryWithDictionary:pages[pageId]];
+        for (NSDictionary* redirect in redirects) {
+            if ([redirect[@"to"] isEqualToString:mutablePage[@"title"]]) {
+                mutablePage[@"index"] = redirect[@"index"];
+
+/*
+                // Also add "Redirected from: title <linebreak>" to beginning of redirected result descriptions.
+                NSDictionary* terms = mutablePage[@"terms"];
+                if (terms) {
+                    NSArray* descriptions = terms[@"description"];
+                    if (descriptions && (descriptions.count > 0)) {
+                        // Todo: i18n for "Redirected from:"
+                        terms                 = @{@"description": @[[NSString stringWithFormat:@"Redirected from: %@\n%@", redirect[@"from"], [descriptions[0] wmf_stringByCapitalizingFirstCharacter]]]};
+                        mutablePage[@"terms"] = terms;
+                    }
+                }
+ */
+
+                break;
+            }
+        }
+        output[pageId] = mutablePage;
+    }
+    return output;
 }
 
 - (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {
@@ -180,6 +211,13 @@ static NSNumber* WMFSearchThumbnailWidth() {
         NSDictionary* query = (NSDictionary*)rawResponse[@"query"];
         if (query) {
             NSDictionary* pages = (NSDictionary*)query[@"pages"];
+
+            // The search team controversially added "redirects" to the query results
+            // as a hack to provide index info about redirects. Process these.
+            NSDictionary* redirects = (NSDictionary*)query[@"redirects"];
+            if (redirects) {
+                pages = [self processRedirects:redirects inPages:pages];
+            }
 
             NSSortDescriptor* sortByIndex = [NSSortDescriptor sortDescriptorWithKey:@"index"
                                                                           ascending:YES];
