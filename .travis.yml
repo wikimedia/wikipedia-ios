@@ -2,7 +2,7 @@ language: objective-c
 osx_image: xcode7
 install:
   - make travis-get-deps
-script: make test
+script: make test 1>/dev/null
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
