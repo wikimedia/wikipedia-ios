@@ -20,6 +20,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 *.dSYM.zip
+*.gcno
+*.gcda
 
 # Icons
 Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
