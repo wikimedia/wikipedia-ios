@@ -13,7 +13,7 @@ submodules: ##Install or update submodules
 	git submodule update --init --recursive
 
 prebuild: ##Install dependencies needed to build the project
-prebuild: submodules
+prebuild: submodules brew-install
 
 check-deps: ##Make sure dev prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check bundle-check
@@ -24,6 +24,8 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 
 travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
+	@brew update; \
+	brew install carthage || brew upgrade carthage; \
 	bundle install --without dev;
 
 #!!!!!
@@ -66,11 +68,11 @@ brew-check: ##Check that Homebrew is installed
 	fi
 
 # Append additional dependencies as quoted strings (i.e. BREW_FORMULAE = "f1" "f2" ...)
-BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool"
+BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool" "carthage"
 
 brew-install: ##Install executable dependencies via Homebrew
 brew-install: brew-check
-	@brew install $(BREW_FORMULAE); brew upgrade ${BREW_FORMULAE)
+	@brew install $(BREW_FORMULAE) || brew upgrade ${BREW_FORMULAE)
 
 # Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
 EXEC_DEPS = "uncrustify" "convert" "gs" "xctool"
