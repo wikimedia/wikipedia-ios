@@ -183,18 +183,10 @@ static NSNumber* WMFSearchThumbnailWidth() {
             if ([redirect[@"to"] isEqualToString:mutablePage[@"title"]]) {
                 mutablePage[@"index"] = redirect[@"index"];
 
-/*
-                // Also add "Redirected from: title <linebreak>" to beginning of redirected result descriptions.
                 NSDictionary* terms = mutablePage[@"terms"];
                 if (terms) {
-                    NSArray* descriptions = terms[@"description"];
-                    if (descriptions && (descriptions.count > 0)) {
-                        // Todo: i18n for "Redirected from:"
-                        terms                 = @{@"description": @[[NSString stringWithFormat:@"Redirected from: %@\n%@", redirect[@"from"], [descriptions[0] wmf_stringByCapitalizingFirstCharacter]]]};
-                        mutablePage[@"terms"] = terms;
-                    }
+                    mutablePage[@"terms"] = [self updateDescription:terms[@"description"] withRedirectFromTitle:redirect[@"from"]];
                 }
- */
 
                 break;
             }
@@ -202,6 +194,12 @@ static NSNumber* WMFSearchThumbnailWidth() {
         output[pageId] = mutablePage;
     }
     return output;
+}
+
+- (NSDictionary*)updateDescription:(NSArray*)descriptions withRedirectFromTitle:(NSString*)fromTitle {
+    // Todo: i18n for "Redirected from:"
+    NSString* description = descriptions[0] ? [@"\n" stringByAppendingString : [descriptions[0] wmf_stringByCapitalizingFirstCharacter]] : @"";
+    return @{@"description": @[[NSString stringWithFormat:@"Redirected from: %@%@", fromTitle, description]]};
 }
 
 - (NSArray*)getSanitizedResponse:(NSDictionary*)rawResponse {
