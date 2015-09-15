@@ -119,19 +119,18 @@ public class WMFLegacyImageDataMigration : NSObject {
             if images.count > 0 {
                 return images.reduce(Promise()) { (chain, url) -> Promise<Void> in
                     return chain.then(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
-                        if let sself = self {
-                            let filepath = sself.legacyDataStore.pathForImageData(url.absoluteString, title: title)
-                            let promise = sself.imageController.importImage(fromFile: filepath, withURL: url)
-                            return promise.recover() { (error: ErrorType) -> Promise<Void> in
-                                #if DEBUG
-                                // only return errors in debug, silently fail in production
-                                if (error as NSError).code != NSFileNoSuchFileError {
-                                    return Promise(error: error)
-                                }
-                                #endif
-                                return Promise()
+                        guard let strongSelf: WMFLegacyImageDataMigration = self else {
+                            return Promise(error: LegacyImageDataMigrationError.Deinit)
+                        }
+                        let filepath = strongSelf.legacyDataStore.pathForImageData(url.absoluteString, title: title)
+                        let promise = strongSelf.imageController.importImage(fromFile: filepath, withURL: url)
+                        return promise.recover() { (error: ErrorType) -> Promise<Void> in
+                            #if DEBUG
+                            // only return errors in debug, silently fail in production
+                            if (error as NSError).code != NSFileNoSuchFileError {
+                                return Promise(error: error)
                             }
-                        } else {
+                            #endif
                             return Promise()
                         }
                     }

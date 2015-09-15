@@ -14,13 +14,23 @@ import PromiseKit
 ///
 
 public let WMFImageControllerErrorDomain = "WMFImageControllerErrorDomain"
-public enum WMFImageControllerErrorCode: Int {
+public enum WMFImageControllerErrorCode: Int, CancellableErrorType {
     case DataNotFound
     case FetchCancelled
     case InvalidOrEmptyURL
+    case Deinit
 
     var error: NSError {
         return NSError(domain: WMFImageControllerErrorDomain, code: self.rawValue, userInfo: nil)
+    }
+
+    public var cancelled: Bool {
+        switch self {
+            case .FetchCancelled, .InvalidOrEmptyURL, .Deinit:
+                return true
+            default:
+                return false
+        }
     }
 }
 
@@ -161,8 +171,7 @@ public class WMFImageController : NSObject {
         return url == nil ? false : imageManager.diskImageExistsForURL(url)
     }
 
-    //XC6: @testable
-    public func diskDataForImageWithURL(url: NSURL?) -> NSData? {
+    func diskDataForImageWithURL(url: NSURL?) -> NSData? {
         if let url = url {
             let path = imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(url))
             return NSFileManager.defaultManager().contentsAtPath(path)
@@ -205,46 +214,40 @@ public class WMFImageController : NSObject {
     }
 
     public func importImage(fromFile filepath: String, withURL url: NSURL) -> Promise<Void> {
-        if hasDataOnDiskForImageWithURL(url) {
-            //NSLog("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
-            
-            try! NSFileManager.defaultManager().removeItemAtPath(filepath)
-            return Promise()
-        } else if !NSFileManager.defaultManager().fileExistsAtPath(filepath) {
-            //NSLog("Source file does not exist: \(filepath)")
+        guard NSFileManager.defaultManager().fileExistsAtPath(filepath) else {
+            NSLog("Source file does not exist: \(filepath)")
             // Do not treat this as an error, as the image record could have been created w/o data ever being imported.
-            return Promise()
+            return Promise<Void>()
         }
 
-        weak var wself = self
-        return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            if let sself = wself {
-                let diskCachePath = sself.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
-                let diskCacheURL = NSURL(fileURLWithPath: diskCachePath)
-                
-                do {
-                    try NSFileManager.defaultManager()
-                                     .createDirectoryAtPath(
-                                        (diskCacheURL.URLByDeletingLastPathComponent?.absoluteString)!,
-                                        withIntermediateDirectories: true,
-                                        attributes: nil)
-                } catch let error as NSError {
-                    if error.code != NSFileWriteFileExistsError {
-                        NSLog("Failed to create directory for migrated image data for url \(url) at path \(diskCachePath)"
-                            + "due to error \(error)")
-                        return
-                    }
-                }
-                
-                do {
-                    try NSFileManager.defaultManager().moveItemAtPath(filepath, toPath: diskCachePath)
-                } catch let error as NSError {
-                    if error.code != NSFileWriteFileExistsError {
-                        NSLog("Failed to move legacy data for url \(url) from \(filepath) to path \(diskCachePath)"
-                            + "due to error \(error)")
-                        return
-                    }
-                }
+        return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+            guard let strongSelf: WMFImageController = self else {
+                throw WMFImageControllerErrorCode.Deinit
+            }
+
+            if strongSelf.hasDataOnDiskForImageWithURL(url) {
+                NSLog("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
+                try NSFileManager.defaultManager().removeItemAtPath(filepath)
+                return
+            }
+
+            let diskCachePath = strongSelf.imageManager.imageCache.defaultCachePathForKey(strongSelf.cacheKeyForURL(url))
+            let diskCacheURL = NSURL(fileURLWithPath: diskCachePath, isDirectory: false)
+            let fileURL = NSURL(fileURLWithPath: filepath, isDirectory: false)
+
+            do {
+                try NSFileManager.defaultManager()
+                                 .createDirectoryAtURL(diskCacheURL.URLByDeletingLastPathComponent!,
+                                                       withIntermediateDirectories: true,
+                                                       attributes: nil)
+            } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
+                NSLog("Ignoring file exists error for path \(fileExistsError)")
+            }
+
+            do {
+                try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: diskCacheURL)
+            } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
+                NSLog("Ignoring file exists error for path \(fileExistsError)")
             }
         }
     }
