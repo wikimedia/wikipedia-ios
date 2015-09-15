@@ -19,7 +19,7 @@ static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrien
 - (CGRect)wmf_sizeThatFitsScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
     CGSize preHeightAdjustmentSize = (CGSize){
         .width  = UIInterfaceOrientationIsLandscape(orientation) ? 568 : 320,
-        .height = CGFLOAT_MAX
+        .height = 0
     };
 
     CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:preHeightAdjustmentSize
