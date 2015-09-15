@@ -26,19 +26,13 @@
                         <rect key="frame" x="70" y="0.0" width="388" height="70"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0e9-4V-sKF">
-                                <rect key="frame" x="8" y="8" width="33" height="21"/>
+                                <rect key="frame" x="8" y="8" width="372" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ahk-mO-odv">
-                                <rect key="frame" x="355" y="22" width="25" height="25"/>
-                                <state key="normal" image="saved">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUi-rF-5NR">
-                                <rect key="frame" x="8" y="32" width="64" height="15"/>
+                                <rect key="frame" x="8" y="32" width="372" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="15" id="dzf-Qt-cZS"/>
                                 </constraints>
@@ -50,15 +44,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GUi-rF-5NR" firstAttribute="top" secondItem="0e9-4V-sKF" secondAttribute="bottom" constant="3" id="3ca-cb-ZIQ"/>
+                            <constraint firstAttribute="trailing" secondItem="GUi-rF-5NR" secondAttribute="trailing" constant="8" id="6T0-pm-uyx"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0e9-4V-sKF" secondAttribute="bottom" constant="8" id="8gh-8N-fKK"/>
+                            <constraint firstAttribute="trailing" secondItem="0e9-4V-sKF" secondAttribute="trailing" constant="8" id="J3T-TS-2aY"/>
                             <constraint firstItem="GUi-rF-5NR" firstAttribute="leading" secondItem="0e9-4V-sKF" secondAttribute="leading" id="Jba-lR-VAQ"/>
                             <constraint firstAttribute="bottom" secondItem="GUi-rF-5NR" secondAttribute="bottom" priority="500" constant="8" id="LGO-Um-X1M"/>
                             <constraint firstItem="0e9-4V-sKF" firstAttribute="top" secondItem="H47-kH-Db1" secondAttribute="top" constant="8" id="M5L-s9-7EF"/>
-                            <constraint firstItem="Ahk-mO-odv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GUi-rF-5NR" secondAttribute="trailing" constant="8" id="OWd-UH-pQw"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="GUi-rF-5NR" secondAttribute="bottom" priority="750" constant="4" id="RdJ-Le-84T"/>
-                            <constraint firstAttribute="trailing" secondItem="Ahk-mO-odv" secondAttribute="trailing" constant="8" id="Su2-C3-ILE"/>
-                            <constraint firstItem="Ahk-mO-odv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0e9-4V-sKF" secondAttribute="trailing" constant="8" id="cBV-YQ-gLJ"/>
-                            <constraint firstAttribute="centerY" secondItem="Ahk-mO-odv" secondAttribute="centerY" id="pz1-aB-PGA"/>
                             <constraint firstItem="0e9-4V-sKF" firstAttribute="leading" secondItem="H47-kH-Db1" secondAttribute="leading" constant="8" id="wSv-eh-3Do"/>
                         </constraints>
                     </view>
@@ -78,7 +70,6 @@
             <connections>
                 <outlet property="bottomTitleToTopDescriptionConstraint" destination="3ca-cb-ZIQ" id="7fv-6z-NIm"/>
                 <outlet property="imageView" destination="KcR-G1-H0y" id="b62-ya-wXY"/>
-                <outlet property="saveButton" destination="Ahk-mO-odv" id="pt1-hl-NSP"/>
                 <outlet property="searchResultDescriptionLabel" destination="GUi-rF-5NR" id="iVr-hK-eWD"/>
                 <outlet property="titleLabel" destination="0e9-4V-sKF" id="zNI-CI-IFr"/>
             </connections>
@@ -87,6 +78,5 @@
     </objects>
     <resources>
         <image name="logo-placeholder-search" width="55" height="55"/>
-        <image name="saved" width="25" height="25"/>
     </resources>
 </document>
