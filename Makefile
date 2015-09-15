@@ -26,7 +26,9 @@ travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
 	brew install carthage || brew upgrade carthage; \
-	brew install xctool --HEAD || brew install xctool --HEAD; \
+	# run tests directly for speed & Xcode 7 GM support
+	xcodebuild test -scheme Wikipedia -workspace Wikipedia.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.3' -enableCodeCoverage YES
+	# brew install xctool --HEAD || brew install xctool --HEAD; \
 	bundle install --without dev;
 
 #!!!!!
