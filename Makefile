@@ -18,6 +18,15 @@ prebuild: submodules brew-install
 check-deps: ##Make sure dev prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check bundle-check
 
+test:
+	xcodebuild test \
+	-scheme Wikipedia \
+	-workspace Wikipedia.xcworkspace \
+	-destination 'platform=iOS Simulator,name=iPhone 6,OS=8.3' \
+	-enableCodeCoverage YES \
+	GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
+	GCC_GENERATE_TEST_COVERAGE_FILES=YES
+
 #!!!!!
 #!!!!! Travis
 #!!!!!
@@ -26,8 +35,7 @@ travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
 	brew install carthage || brew upgrade carthage; \
-	# run tests directly for speed & Xcode 7 GM support
-	xcodebuild test -scheme Wikipedia -workspace Wikipedia.xcworkspace -destination 'platform=iOS Simulator,name=iPhone 6,OS=8.3' -enableCodeCoverage YES
+	# run tests directly for speed & Xcode 7 GM support	
 	# brew install xctool --HEAD || brew install xctool --HEAD; \
 	bundle install --without dev;
 

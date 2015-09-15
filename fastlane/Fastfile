@@ -24,6 +24,9 @@ platform :ios do
 
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
+    make 'test'
+    return
+    # xctool isn't 100% happy w/ Xcode 7
     args = [
       'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
       'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
