@@ -24,9 +24,6 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 
 travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
-	@brew update; \
-	brew install uncrustify || brew upgrade uncrustify; \
-	brew install xctool || brew upgrade xctool; \
 	bundle install --without dev;
 
 #!!!!!
@@ -36,8 +33,8 @@ travis-get-deps: xcode-cltools-check submodules
 # Required so we (and other tools) can use command line tools, e.g. xcodebuild.
 xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	@case $(XCODE_VERSION) in \
-		"Xcode 6"*) echo "Xcode 6 or higher is installed!" ;; \
-		*) echo "Missing Xcode 6 or higher."; exit 1;; \
+		"Xcode 7"*) echo "Xcode 7 or higher is installed!" ;; \
+		*) echo "Missing Xcode 7 or higher."; exit 1;; \
 	esac; \
 	if ! xcode-select -p > /dev/null ; then \
 		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences."; \
