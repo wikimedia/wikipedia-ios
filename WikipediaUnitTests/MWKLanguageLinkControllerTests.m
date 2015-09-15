@@ -21,8 +21,10 @@
 - (void)setUp {
     [super setUp];
 
-    NSAssert([[NSLocale preferredLanguages] containsObject:@"en"],
-             @"For simplicity these tests assume the simulator has 'English' has one of its preferred languages.");
+    NSAssert([[NSLocale preferredLanguages] containsObject:@"en-US"]
+             || [[NSLocale preferredLanguages] containsObject:@"en"],
+             @"For simplicity these tests assume the simulator has 'English' has one of its preferred languages."
+             " Instead, these were the preferred languages: %@", [NSLocale preferredLanguages]);
 
     // all tests must start w/ a clean slate
     WMFDeletePreviouslySelectedLanguages();

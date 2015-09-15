@@ -3,9 +3,14 @@
         "canonical_name": "English", 
         "code": "en", 
         "name": "English"
-    }, 
+    },
     {
-        "canonical_name": "Dutch", 
+        "canonical_name": "English",
+        "code": "en-US",
+        "name": "English"
+    },
+    {
+        "canonical_name": "Dutch",
         "code": "nl", 
         "name": "Nederlands"
     }, 
