@@ -33,7 +33,7 @@ pod 'SSDataSources'
 pod 'Masonry', '0.6.2'
 
 # Collection View layout
-pod 'SelfSizingWaterfallCollectionViewLayout', '0.0.1'
+pod 'SelfSizingWaterfallCollectionViewLayout', :git => 'git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git'
 
 # Diagnostics
 pod 'PiwikTracker', '~> 3.3.0'
