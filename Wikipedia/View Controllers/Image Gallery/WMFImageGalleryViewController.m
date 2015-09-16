@@ -9,7 +9,7 @@
 #import "WMFImageGalleryViewController.h"
 
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 #import "AnyPromise+WMFExtensions.h"
 
 // Utils

@@ -23,7 +23,6 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 @interface WMFNearbyViewModel ()
 <WMFLocationManagerDelegate>

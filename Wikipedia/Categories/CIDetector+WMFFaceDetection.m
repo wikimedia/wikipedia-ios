@@ -8,7 +8,7 @@
 
 #import "CIDetector+WMFFaceDetection.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 #import <BlocksKit/BlocksKit.h>
 #import "CIContext+WMFImageProcessing.h"
 #import "UIImage+WMFImageProcessing.h"

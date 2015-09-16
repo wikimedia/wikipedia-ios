@@ -13,9 +13,9 @@ extension NSArray {
     /**
     Select the first `n` elements from an array.
     
-    :param: length The max length
+    - parameter length: The max length
     
-    :returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items 
+    - returns: A new array with the first `n` items in the receiver, or the receiver if `n` exceeds the number of items 
               in the array.
     */
     public func wmf_arrayByTrimmingToLength(n: UInt) -> NSArray {
@@ -45,7 +45,7 @@ extension NSArray {
     /**
     Get all elements in an array except the first.
 
-    :returns: All but the first element of the receiver, or an empty array if there was only one element.
+    - returns: All but the first element of the receiver, or an empty array if there was only one element.
     */
     public func wmf_arrayByRemovingFirstElement() -> NSArray {
         return wmf_safeSubarrayWithRange(NSMakeRange(1, self.count - 1))
@@ -54,9 +54,9 @@ extension NSArray {
     /**
     Returns a subarray from the receiver, limited to its bounds.
 
-    :param: range The range of the desired items.
+    - parameter range: The range of the desired items.
 
-    :returns: A subarray with the desired items, constrained by the number of items in the receiver.
+    - returns: A subarray with the desired items, constrained by the number of items in the receiver.
     */
     public func wmf_safeSubarrayWithRange(range: NSRange) -> NSArray {
         if range.location > self.count - 1 || WMFRangeIsNotFoundOrEmpty(range) {
@@ -76,7 +76,7 @@ extension NSArray {
         return self.subarrayWithRange(safeRange)
     }
 
-    /// :returns: A reversed copy of the receiver.
+    /// - returns: A reversed copy of the receiver.
     public func wmf_reverseArray() -> AnyObject {
         return self.reverseObjectEnumerator().allObjects;
     }

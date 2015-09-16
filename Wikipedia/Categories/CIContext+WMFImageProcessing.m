@@ -29,13 +29,7 @@
     dispatch_once(&onceToken, ^{
         NSMutableDictionary* options = [NSMutableDictionary new];
         options[kCIContextUseSoftwareRenderer] = @YES;
-
-        #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-        #error No need to check for constant existence if deployment target >= 8.0
-        #endif
-        if (&kCIContextPriorityRequestLow != NULL) {
-            options[kCIContextPriorityRequestLow] = @YES;
-        }
+        options[kCIContextPriorityRequestLow] = @YES;
         backgroundContextOptions = [options copy];
     });
     return backgroundContextOptions;

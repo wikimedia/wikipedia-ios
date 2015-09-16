@@ -7,19 +7,30 @@
 //
 
 import Foundation
+import PromiseKit
 
 ///
 /// @name Constants
 ///
 
 public let WMFImageControllerErrorDomain = "WMFImageControllerErrorDomain"
-public enum WMFImageControllerErrorCode: Int {
+public enum WMFImageControllerErrorCode: Int, CancellableErrorType {
     case DataNotFound
     case FetchCancelled
     case InvalidOrEmptyURL
+    case Deinit
 
     var error: NSError {
         return NSError(domain: WMFImageControllerErrorDomain, code: self.rawValue, userInfo: nil)
+    }
+
+    public var cancelled: Bool {
+        switch self {
+            case .FetchCancelled, .InvalidOrEmptyURL, .Deinit:
+                return true
+            default:
+                return false
+        }
     }
 }
 
@@ -95,7 +106,6 @@ public class WMFImageController : NSObject {
                                           cachedPlaceholderURL: NSURL?,
                                           mainImageBlock: (WMFImageDownload) -> Void,
                                           cachedPlaceholderImageBlock: (WMFImageDownload) -> Void) -> Promise<Void> {
-        weak var wself = self
         if hasImageWithURL(mainURL) {
             // if mainURL is cached, return it immediately w/o fetching placeholder
             return cachedImageWithURL(mainURL).then(mainImageBlock)
@@ -103,22 +113,15 @@ public class WMFImageController : NSObject {
         // return cached placeholder (if available)
         return cachedImageWithURL(cachedPlaceholderURL)
         // handle cached placeholder
-        .then() { cachedPlaceholderImageBlock($0) }
+        .then(cachedPlaceholderImageBlock)
         // ignore cache misses for placeholder
-        .recover() { error in
-            let empty: Void
-            return Promise(empty)
-        }
+        .recover() { _ -> Promise<Void> in Promise() }
         // when placeholder handling is finished, fetch mainURL
-        .then() { () -> Promise<WMFImageDownload> in
-            if let sself = wself {
-                return sself.fetchImageWithURL(mainURL)
-            } else {
-                return WMFImageController.cancelledPromise()
-            }
+        .then() { [weak self] in
+            self?.fetchImageWithURL(mainURL) ?? WMFImageController.cancelledPromise()
         }
         // handle the main image
-        .then() { mainImageBlock($0) }
+        .then(mainImageBlock)
     }
 
     /// MARK: - Simple Fetching
@@ -133,7 +136,7 @@ public class WMFImageController : NSObject {
     public func fetchImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
         // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
         let (cancellable, promise) =
-            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: .allZeros)
+            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: SDWebImageOptions())
         addCancellableForURL(cancellable, url: url)
         return applyDebugTransformIfEnabled(promise)
     }
@@ -168,8 +171,7 @@ public class WMFImageController : NSObject {
         return url == nil ? false : imageManager.diskImageExistsForURL(url)
     }
 
-    //XC6: @testable
-    public func diskDataForImageWithURL(url: NSURL?) -> NSData? {
+    func diskDataForImageWithURL(url: NSURL?) -> NSData? {
         if let url = url {
             let path = imageManager.imageCache.defaultCachePathForKey(cacheKeyForURL(url))
             return NSFileManager.defaultManager().contentsAtPath(path)
@@ -212,39 +214,41 @@ public class WMFImageController : NSObject {
     }
 
     public func importImage(fromFile filepath: String, withURL url: NSURL) -> Promise<Void> {
-        if hasDataOnDiskForImageWithURL(url) {
-            //NSLog("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
-            NSFileManager.defaultManager().removeItemAtPath(filepath, error: nil)
-            return Promise()
-        } else if !NSFileManager.defaultManager().fileExistsAtPath(filepath) {
-            //NSLog("Source file does not exist: \(filepath)")
+        guard NSFileManager.defaultManager().fileExistsAtPath(filepath) else {
+            NSLog("Source file does not exist: \(filepath)")
             // Do not treat this as an error, as the image record could have been created w/o data ever being imported.
-            return Promise()
+            return Promise<Void>()
         }
 
-        weak var wself = self
-        return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            let empty: Void
-            if let sself = wself {
-                let diskCachePath = sself.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
-                var error: NSError?
-                NSFileManager.defaultManager().createDirectoryAtPath(diskCachePath.stringByDeletingLastPathComponent,
-                                                                     withIntermediateDirectories: true,
-                                                                     attributes: nil,
-                                                                     error: &error)
-                if error != nil && error!.code != NSFileWriteFileExistsError {
-                    NSLog("Failed to create directory for migrated image data for url \(url) at path \(diskCachePath)"
-                          + "due to error \(error)")
-                    return (empty, error)
-                }
-                NSFileManager.defaultManager().moveItemAtPath(filepath, toPath: diskCachePath, error: &error)
-                if error != nil && error!.code != NSFileWriteFileExistsError {
-                    NSLog("Failed to move legacy data for url \(url) from \(filepath) to path \(diskCachePath)"
-                           + "due to error \(error)")
-                    return (empty, error)
-                }
+        return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
+            guard let strongSelf: WMFImageController = self else {
+                throw WMFImageControllerErrorCode.Deinit
             }
-            return (empty, nil)
+
+            if strongSelf.hasDataOnDiskForImageWithURL(url) {
+                NSLog("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
+                try NSFileManager.defaultManager().removeItemAtPath(filepath)
+                return
+            }
+
+            let diskCachePath = strongSelf.imageManager.imageCache.defaultCachePathForKey(strongSelf.cacheKeyForURL(url))
+            let diskCacheURL = NSURL(fileURLWithPath: diskCachePath, isDirectory: false)
+            let fileURL = NSURL(fileURLWithPath: filepath, isDirectory: false)
+
+            do {
+                try NSFileManager.defaultManager()
+                                 .createDirectoryAtURL(diskCacheURL.URLByDeletingLastPathComponent!,
+                                                       withIntermediateDirectories: true,
+                                                       attributes: nil)
+            } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
+                NSLog("Ignoring file exists error for path \(fileExistsError)")
+            }
+
+            do {
+                try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: diskCacheURL)
+            } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
+                NSLog("Ignoring file exists error for path \(fileExistsError)")
+            }
         }
     }
 
@@ -257,7 +261,7 @@ public class WMFImageController : NSObject {
      * @return A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
      */
     private func checkForValidURL(url: NSURL?, then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
-        if url == nil { return Promise(WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
+        if url == nil { return Promise(error: WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
         else { return then(url!) }
     }
 
@@ -269,8 +273,8 @@ public class WMFImageController : NSObject {
             weak var wself = self;
             dispatch_async(self.cancellingQueue) {
                 let sself = wself
-                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString!) as? Cancellable {
-                    sself?.cancellables.removeObjectForKey(url.absoluteString!)
+                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString) as? Cancellable {
+                    sself?.cancellables.removeObjectForKey(url.absoluteString)
                     cancellable.cancel()
                 }
             }
@@ -281,7 +285,7 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            let currentCancellables = sself?.cancellables.objectEnumerator().allObjects as! [Cancellable]
+            let currentCancellables = sself?.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
             sself?.cancellables.removeAllObjects()
             dispatch_async(dispatch_get_global_queue(0, 0)) {
                 for cancellable in currentCancellables {
@@ -295,13 +299,13 @@ public class WMFImageController : NSObject {
         weak var wself = self;
         dispatch_async(self.cancellingQueue) {
             let sself = wself
-            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString!)
+            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
     }
 
     /// Utility for creating a `Promise` cancelled with a WMFImageController error
     class func cancelledPromise<T>() -> Promise<T> {
-        return Promise<T>(WMFImageControllerErrorCode.FetchCancelled.error)
+        return Promise(error: WMFImageControllerErrorCode.FetchCancelled.error)
     }
 
     /// Utility for creating an `AnyPromise` cancelled with a WMFImageController error
@@ -331,12 +335,13 @@ extension WMFImageController {
         return AnyPromise(bound:
             cachedImageWithURL(url)
             .then() { $0.image }
-            .recover() { (err: NSError) -> Promise<UIImage?> in
-                if err.domain == WMFImageControllerErrorDomain
-                   && err.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
-                    return Promise<UIImage?>(nil)
+            .recover() { (err) -> Promise<UIImage?> in
+                let error = err as NSError
+                if error.domain == WMFImageControllerErrorDomain
+                    && error.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
+                        return Promise<UIImage?>(nil)
                 } else {
-                    return Promise(err)
+                    return Promise(error: err)
                 }
             })
     }

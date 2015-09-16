@@ -40,7 +40,7 @@ pod 'PiwikTracker', '~> 3.3.0'
 pod 'CocoaLumberjack', '~> 2.0.0'
 pod 'HockeySDK', '3.6.2'
 
-target 'WikipediaUnitTests', :exclusive => false do
+target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4'
   pod 'OCHamcrest', '~> 4.1'
   pod 'Nocilla'

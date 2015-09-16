@@ -31,7 +31,7 @@
 - (void)setUp {
     [super setUp];
     self.articleVC = [WMFArticleViewController wmf_initialViewControllerFromClassStoryboard];
-    //self.recordMode = YES;
+//    self.recordMode = YES;
 }
 
 - (void)tearDown {

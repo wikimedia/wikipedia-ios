@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setCollectionView:(UICollectionView*)collectionView {
+- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
     [super setCollectionView:collectionView];
     [self.collectionView registerNib:[WMFSearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFSearchResultCell identifier]];
 }

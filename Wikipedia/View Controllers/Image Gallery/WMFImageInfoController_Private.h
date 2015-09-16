@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSDictionary* WMFIndexImageInfo(NSArray* imageInfo);
+extern NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo);
 
 @interface WMFImageInfoController ()
 

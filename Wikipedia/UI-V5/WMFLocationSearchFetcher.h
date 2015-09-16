@@ -2,7 +2,6 @@
 #import <Foundation/Foundation.h>
 @import CoreLocation;
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

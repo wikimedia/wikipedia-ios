@@ -10,7 +10,6 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 // View
 #import "WMFArticlePreviewCell.h"
@@ -92,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setCollectionView:(UICollectionView*)collectionView {
+- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
     [super setCollectionView:collectionView];
     [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib]
           forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];

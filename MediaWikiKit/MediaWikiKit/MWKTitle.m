@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
            ^ flipBitsWithAdditionalRotation(self.fragment.hash, 2);
 }
 
-- (instancetype)copyWithZone:(NSZone*)zone {
+- (instancetype)copyWithZone:(NSZone* __nullable)zone {
     // immutable
     return self;
 }

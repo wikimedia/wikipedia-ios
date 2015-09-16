@@ -14,7 +14,7 @@ public enum ImageOrigin: String {
     case Memory = "Memory"
 }
 
-extension ImageOrigin: DebugPrintable {
+extension ImageOrigin: CustomDebugStringConvertible {
     public var debugDescription: String {
         return rawValue
     }

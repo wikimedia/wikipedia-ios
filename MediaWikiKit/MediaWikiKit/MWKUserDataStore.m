@@ -1,7 +1,7 @@
 
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 
 @interface MWKUserDataStore ()
 
@@ -44,7 +44,7 @@
 }
 
 - (AnyPromise*)save {
-    return PMKWhen(@[[self.historyList save], [self.savedPageList save], [self.recentSearchList save]]);
+    return [self.historyList save].then([self.savedPageList save]).then([self.recentSearchList save]);
 }
 
 - (AnyPromise*)reset {

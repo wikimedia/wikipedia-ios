@@ -11,7 +11,7 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 
 // View
 #import "WMFArticlePreviewCell.h"

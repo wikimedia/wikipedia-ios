@@ -10,7 +10,7 @@
 
 //Promises
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 
 //Models
 #import "WMFLocationSearchResults.h"

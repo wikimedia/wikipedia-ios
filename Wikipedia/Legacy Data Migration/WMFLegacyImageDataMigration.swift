@@ -7,19 +7,24 @@
 //
 
 import Foundation
+import PromiseKit
+
+enum LegacyImageDataMigrationError : CancellableErrorType {
+    case Deinit
+
+    var cancelled: Bool {
+        return true
+    }
+}
 
 /// Migrate legacy image data for saved pages into WMFImageController.
 @objc
 public class WMFLegacyImageDataMigration : NSObject {
-    //XC6: @testable
     /// Image controller where data will be migrated.
-    public let imageController: WMFImageController
+    let imageController: WMFImageController
 
-    //XC6: @testable
     /// List of saved pages which is saved when the tasks are finished processing.
-    public lazy var savedPageList: MWKSavedPageList = {
-        self.legacyDataStore.userDataStore().savedPageList
-    }()
+    let savedPageList: MWKSavedPageList
 
     /// Data store which provides articles and saves the entries after processing.
     private let legacyDataStore: MWKDataStore
@@ -40,7 +45,7 @@ public class WMFLegacyImageDataMigration : NSObject {
             return self?.unmigratedEntry()
         },
         processor: { [weak self] entry in
-            return self?.migrateEntry(entry) ?? Promise<Void>(NSError.cancelledError())
+            return self?.migrateEntry(entry) ?? Promise<Void>(error: LegacyImageDataMigrationError.Deinit)
         },
         finalize: { [weak self] in
             return self?.save() ?? Promise()
@@ -52,6 +57,7 @@ public class WMFLegacyImageDataMigration : NSObject {
                          legacyDataStore: MWKDataStore) {
         self.imageController = imageController
         self.legacyDataStore = legacyDataStore
+        self.savedPageList = self.legacyDataStore.userDataStore().savedPageList
         super.init()
     }
 
@@ -65,9 +71,8 @@ public class WMFLegacyImageDataMigration : NSObject {
 
     /// MARK: - Testable Methods
 
-    //XC6: @testable
     /// Save the receiver's saved page list, making sure to preserve the current list on disk.
-    public func save() -> Promise<Void> {
+    func save() -> Promise<Void> {
         // for each entry that we migrated
         let migratedEntries = savedPageList.entries.filter() { $0.didMigrateImageData == true } as! [MWKSavedPageEntry]
         let currentSavedPageList = legacyDataStore.userDataStore().savedPageList
@@ -90,8 +95,7 @@ public class WMFLegacyImageDataMigration : NSObject {
         }.asVoid()
     }
 
-    //XC6: @testable
-    public func unmigratedEntry() -> MWKSavedPageEntry? {
+    func unmigratedEntry() -> MWKSavedPageEntry? {
         var entry: MWKSavedPageEntry?
         dispatch_sync(savedPageQueue) {
             let allEntries = self.savedPageList.entries as! [MWKSavedPageEntry]
@@ -100,9 +104,8 @@ public class WMFLegacyImageDataMigration : NSObject {
         return entry
     }
 
-    //XC6: @testable
     /// Migrate all images in `entry` into `imageController`, then mark it as migrated.
-    public func migrateEntry(entry: MWKSavedPageEntry) -> Promise<Void> {
+    func migrateEntry(entry: MWKSavedPageEntry) -> Promise<Void> {
         NSLog("Migrating entry \(entry)")
         return migrateAllImagesInArticleWithTitle(entry.title)
         .then(on: savedPageQueue) { [weak self] in
@@ -110,26 +113,24 @@ public class WMFLegacyImageDataMigration : NSObject {
         }
     }
 
-    //XC6: @testable
     /// Move an article's images into `imageController`, ignoring any errors.
-    public func migrateAllImagesInArticleWithTitle(title: MWKTitle) -> Promise<Void> {
+    func migrateAllImagesInArticleWithTitle(title: MWKTitle) -> Promise<Void> {
         if let images = legacyDataStore.existingArticleWithTitle(title)?.allImageURLs() as? [NSURL] {
             if images.count > 0 {
                 return images.reduce(Promise()) { (chain, url) -> Promise<Void> in
                     return chain.then(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
-                        if let sself = self {
-                            let filepath = sself.legacyDataStore.pathForImageData(url.absoluteString!, title: title)
-                            let promise = sself.imageController.importImage(fromFile: filepath, withURL: url)
-                            return promise.recover() { error in
-                                #if DEBUG
-                                // only return errors in debug, silently fail in production
-                                if error.code != NSFileNoSuchFileError {
-                                    return Promise(error)
-                                }
-                                #endif
-                                return Promise()
+                        guard let strongSelf: WMFLegacyImageDataMigration = self else {
+                            return Promise(error: LegacyImageDataMigrationError.Deinit)
+                        }
+                        let filepath = strongSelf.legacyDataStore.pathForImageData(url.absoluteString, title: title)
+                        let promise = strongSelf.imageController.importImage(fromFile: filepath, withURL: url)
+                        return promise.recover() { (error: ErrorType) -> Promise<Void> in
+                            #if DEBUG
+                            // only return errors in debug, silently fail in production
+                            if (error as NSError).code != NSFileNoSuchFileError {
+                                return Promise(error: error)
                             }
-                        } else {
+                            #endif
                             return Promise()
                         }
                     }
@@ -139,9 +140,8 @@ public class WMFLegacyImageDataMigration : NSObject {
         return Promise()
     }
 
-    //XC6: @testable
     /// Mark the given entry as having its image data migrated.
-    public func markEntryAsMigrated(entry: MWKSavedPageEntry) {
+    func markEntryAsMigrated(entry: MWKSavedPageEntry) {
         savedPageList.updateEntryWithTitle(entry.title) { e in
             e.didMigrateImageData = true
             return true

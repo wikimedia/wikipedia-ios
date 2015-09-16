@@ -58,17 +58,6 @@
 
 #pragma mark - View event handling
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-#error Remove willRotate now that iOS 7 is dropped
-#endif
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    // reset currentPageIndex flags so that the current image stays visible after rotation
-    _didApplyCurrentPage = NO;
-    _currentPage         = [self mostVisibleItemIndex];
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];

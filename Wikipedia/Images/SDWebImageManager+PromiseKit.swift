@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 extension SDImageCacheType: ImageOriginConvertible {
     public func asImageOrigin() -> ImageOrigin {
@@ -31,7 +32,7 @@ class SDWebImageOperationWrapper: NSObject, Cancellable {
         objc_setAssociatedObject(operation,
                                  "SDWebImageOperationWrapper",
                                  self,
-                                 UInt(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+                                 objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 
     func cancel() -> Void {
@@ -41,9 +42,9 @@ class SDWebImageOperationWrapper: NSObject, Cancellable {
 
 extension SDWebImageManager {
     func promisedImageWithURL(URL: NSURL, options: SDWebImageOptions) -> (Cancellable, Promise<WMFImageDownload>) {
-        let (promise, fulfill, reject) = Promise<WMFImageDownload>.defer()
+        let (promise, fulfill, reject) = Promise<WMFImageDownload>.pendingPromise()
 
-        let promiseCompatibleOptions = options | SDWebImageOptions.ReportCancellationAsError
+        let promiseCompatibleOptions: SDWebImageOptions = [options, SDWebImageOptions.ReportCancellationAsError]
 
         let webImageOperation = self.downloadImageWithURL(URL, options: promiseCompatibleOptions, progress: nil)
         { img, err, cacheType, finished, imageURL in

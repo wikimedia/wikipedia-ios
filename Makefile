@@ -13,7 +13,7 @@ submodules: ##Install or update submodules
 	git submodule update --init --recursive
 
 prebuild: ##Install dependencies needed to build the project
-prebuild: submodules
+prebuild: submodules brew-install
 
 check-deps: ##Make sure dev prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check bundle-check
@@ -25,8 +25,7 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
-	brew install uncrustify || brew upgrade uncrustify; \
-	brew install xctool || brew upgrade xctool; \
+	brew install carthage || brew upgrade carthage; \
 	bundle install --without dev;
 
 #!!!!!
@@ -36,8 +35,8 @@ travis-get-deps: xcode-cltools-check submodules
 # Required so we (and other tools) can use command line tools, e.g. xcodebuild.
 xcode-cltools-check: ##Make sure proper Xcode & command line tools are installed
 	@case $(XCODE_VERSION) in \
-		"Xcode 6"*) echo "Xcode 6 or higher is installed!" ;; \
-		*) echo "Missing Xcode 6 or higher."; exit 1;; \
+		"Xcode 7"*) echo "Xcode 7 or higher is installed!" ;; \
+		*) echo "Missing Xcode 7 or higher."; exit 1;; \
 	esac; \
 	if ! xcode-select -p > /dev/null ; then \
 		echo "Xcode command line tools are missing! Please run xcode-select --install or download them from Xcode's 'Downloads' tab in preferences."; \
@@ -69,11 +68,11 @@ brew-check: ##Check that Homebrew is installed
 	fi
 
 # Append additional dependencies as quoted strings (i.e. BREW_FORMULAE = "f1" "f2" ...)
-BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool"
+BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool" "carthage"
 
 brew-install: ##Install executable dependencies via Homebrew
 brew-install: brew-check
-	@brew install $(BREW_FORMULAE); brew upgrade ${BREW_FORMULAE)
+	@brew install $(BREW_FORMULAE) || brew upgrade ${BREW_FORMULAE)
 
 # Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
 EXEC_DEPS = "uncrustify" "convert" "gs" "xctool"

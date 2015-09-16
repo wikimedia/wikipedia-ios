@@ -18,20 +18,27 @@ platform :ios do
 
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
-    return if test_disabled?
-    make 'lint'
+    make 'lint' unless test_disabled?
   end
 
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
-    args = [
-      'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
-      'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
-    ]
-    if options[:junit] then
-      args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
-    end
-    xctool :test, args.join(' ')
+    xctest(
+      workspace: 'Wikipedia.xcworkspace',
+      scheme: 'Wikipedia',
+      destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0',
+      build_settings: {'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS' => 'YES', 'GCC_GENERATE_TEST_COVERAGE_FILES' => 'YES'}
+    )
+
+    # xctool isn't 100% happy w/ Xcode 7
+    # args = [
+    #   'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
+    #   'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
+    # ]
+    # if options[:junit] then
+    #   args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
+    # end
+    # xctool :test, args.join(' ')
   end
 
   desc "Runs all the unit tests."

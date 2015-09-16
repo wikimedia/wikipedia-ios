@@ -7,7 +7,6 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 #import <Masonry/Masonry.h>
 
 // Models

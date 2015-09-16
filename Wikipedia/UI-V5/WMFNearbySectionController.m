@@ -14,7 +14,6 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // Views

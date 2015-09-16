@@ -1,12 +1,12 @@
 #import "WMFArticleViewController_Private.h"
 
+#import "Wikipedia-Swift.h"
+
 #import "SessionSingleton.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
 
 //Analytics
 #import <PiwikTracker/PiwikTracker.h>
@@ -413,7 +413,7 @@ NS_ASSUME_NONNULL_BEGIN
     return YES;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id __nullable)sender {
     [super prepareForSegue:segue sender:sender];
     if ([segue.destinationViewController isKindOfClass:[WMFArticleHeaderImageGalleryViewController class]]) {
         self.headerGalleryViewController          = segue.destinationViewController;
@@ -541,7 +541,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self shouldHideHeaderForSection:section] ? 0 : UITableViewAutomaticDimension;
 }
 
-- (UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     //TODO(5.0): localize these!
     if ([self shouldHideHeaderForSection:section]) {
         return nil;

@@ -7,40 +7,42 @@
 //
 
 import Foundation
-import Wikipedia
 import XCTest
+
+@testable import Wikipedia
+import PromiseKit
 
 @objc
 class WMFLegacyImageDataMigrationTests : XCTestCase {
     var dataStore: MWKDataStore!
-    var imageMigration: WMFLegacyImageDataMigration!
+
+    var savedPageList: MWKSavedPageList {
+        return self.imageMigration.savedPageList
+    }
+
     // Array of paths to temporary files that need to be cleaned up in tearDown
     var tmpImageDirectory: String!
 
-    // use our own cache of savedPageList, to work around issues w/ state disappearing every time it's re-created
-    var savedPageList: MWKSavedPageList!
+    var imageMigration: WMFLegacyImageDataMigration!
 
     override func setUp() {
         dataStore = MWKDataStore.temporaryDataStore()
-
-        savedPageList = dataStore.userDataStore().savedPageList
 
         imageMigration = WMFLegacyImageDataMigration(imageController: WMFImageController.temporaryController(),
                                                      legacyDataStore: self.dataStore)
 
         tmpImageDirectory = WMFRandomTemporaryPath()
-        NSFileManager.defaultManager().createDirectoryAtPath(tmpImageDirectory,
-                                                             withIntermediateDirectories: true,
-                                                             attributes: nil,
-                                                             error: nil)
+        try! NSFileManager.defaultManager().createDirectoryAtPath(tmpImageDirectory,
+                                                                  withIntermediateDirectories: true,
+                                                                  attributes: nil)
         super.setUp()
     }
 
     override func tearDown() {
         imageMigration.imageController.deleteAllImages()
         dataStore.removeFolderAtBasePath()
-        NSFileManager.defaultManager().removeItemAtPath(tmpImageDirectory, error: nil)
-
+        dataStore = nil
+        try! NSFileManager.defaultManager().removeItemAtPath(tmpImageDirectory)
         super.tearDown()
     }
 
@@ -71,9 +73,9 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     }
 
     func testMarkingAnEntryAsMigratedCausesUnmigratedEntryToReturnNextEntryOrNil() {
-        let migratedEntry = addEntryWithTitleText("foo", didMigrate: true)
-        let unmigratedEntry = addEntryWithTitleText("bar", didMigrate: false)
-        let unmigratedEntry2 = addEntryWithTitleText("baz", didMigrate: false)
+        addEntryWithTitleText("foo", didMigrate: true)
+        addEntryWithTitleText("bar", didMigrate: false)
+        addEntryWithTitleText("baz", didMigrate: false)
         expectPromise(toResolve(),
         pipe: {
             let result = self.imageMigration.unmigratedEntry()
@@ -85,10 +87,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
             XCTAssertTrue(unmigratedEntries.isEmpty, "Expected data store to contain 0 unmigrated entries")
         },
         test: {
-            Promise().then() { _ -> AnyPromise in
-                return self.savedPageList.save()
-            }
-            .then() { _ -> Promise<Void> in
+            firstly() { self.savedPageList.save() }.then() { _ -> Promise<Void> in
                 // not asserting which entry is returned, since order is arbitrary
                 self.imageMigration.markEntryAsMigrated(self.imageMigration.unmigratedEntry()!)
                 self.imageMigration.markEntryAsMigrated(self.imageMigration.unmigratedEntry()!)
@@ -174,19 +173,21 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                 return self.savedPageList.save()
             }
             .then() { _ -> AnyPromise in
-                // prime the imageMigration so that it's internal state has entries for article 1 & 2
                 let imageMigrationEntries = self.imageMigration.savedPageList.entries as! [MWKSavedPageEntry]
                 let imageMigrationTitles: [MWKTitle] = imageMigrationEntries.map({ $0.title })
-                XCTAssertTrue(contains(imageMigrationTitles, article1.title))
-                XCTAssertTrue(contains(imageMigrationTitles, article2.title))
+                XCTAssertTrue(imageMigrationTitles.contains(article1.title))
+                XCTAssertTrue(imageMigrationTitles.contains(article2.title))
+
+                // make changes to saved page list on disk which shouldn't effect the image migration
+                let mainSavedPageList = self.dataStore.userDataStore().savedPageList
 
                 // remove article 1
-                self.savedPageList.removeSavedPageWithTitle(article1.title)
+                mainSavedPageList.removeSavedPageWithTitle(article1.title)
 
                 // save article 3
-                self.savedPageList.addSavedPageWithTitle(titleToAddWhileMigrating)
+                mainSavedPageList.addSavedPageWithTitle(titleToAddWhileMigrating)
 
-                return self.savedPageList.save()
+                return mainSavedPageList.save()
             }
             .then() { _ -> Promise<Void> in
                 self.imageMigration.setupAndStart()
@@ -206,12 +207,14 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         // copy all legacy data to a tmp folder for later comparison
         let legacyImageDataPaths = (article.allImageURLs() as! [NSURL]).reduce([:] as [NSURL:String]) { memo, url in
             let legacyImageData = dataStore.imageDataWithImage(MWKImage(article: article,
-                sourceURLString: url.absoluteString!))
+                sourceURLString: url.absoluteString))
             assert(legacyImageData.length != 0, "Images in the test article must have data for this test")
-            let tmpPathForURL = tmpImageDirectory.stringByAppendingPathComponent(url.lastPathComponent!)
-            legacyImageData.writeToFile(tmpPathForURL, atomically: false)
+            let tmpPathForURL = NSURL(fileURLWithPath: tmpImageDirectory, isDirectory: true)
+                                .URLByAppendingPathComponent(url.lastPathComponent!)
+            assert(legacyImageData.writeToURL(tmpPathForURL, atomically: false),
+                   "failed to write image data to tmp file \(tmpPathForURL)")
             var appendedMemo = memo
-            appendedMemo[url] = tmpPathForURL
+            appendedMemo[url] = tmpPathForURL.path
             return appendedMemo
         }
         return (article, legacyImageDataPaths)
@@ -239,13 +242,15 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
             XCTAssertFalse(self.imageMigration.imageController.hasDataInMemoryForImageWithURL(url),
                 "image migration should not store migrated images in memory to prevent bloating")
 
-            XCTAssertNil(self.dataStore.imageDataWithImage(MWKImage(article: article, sourceURLString: url.absoluteString!)),
-                "Legacy image data not deleted for image with url: \(url)")
+            // use XCTAssertTrue instead of XCTAssertNil to prevent noisy logging of image data on failure
+            let imageFromDataStore = self.dataStore.imageDataWithImage(MWKImage(article: article, sourceURLString: url.absoluteString))
+            XCTAssertTrue(imageFromDataStore == nil,
+                          "Legacy image data for title \(article.title) not deleted for image with url: \(url)")
 
-            let legacyData = NSFileManager.defaultManager().contentsAtPath(legacyImageDataPaths[url]!)
-            let migratedData = self.imageMigration.imageController.diskDataForImageWithURL(url)
-            XCTAssertTrue(legacyData == migratedData,
-                "Migrated data and legacy data not identical for \(url)")
+            let legacyData: NSData? = NSFileManager.defaultManager().contentsAtPath(legacyImageDataPaths[url]!)
+            let migratedData: NSData? = self.imageMigration.imageController.diskDataForImageWithURL(url)
+            XCTAssertNotNil(migratedData, "Migrated data missing for \(url)")
+            XCTAssertTrue(legacyData == migratedData, "Migrated data and legacy data not identical for \(url)")
         }
     }
 

@@ -8,7 +8,7 @@
 
 #import "LegacyDataMigrator.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 
 @implementation LegacyDataMigrator
 

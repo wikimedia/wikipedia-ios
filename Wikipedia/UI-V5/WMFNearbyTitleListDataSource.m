@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - SSDataSource
 
-- (void)setCollectionView:(UICollectionView*)collectionView {
+- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
     [super setCollectionView:collectionView];
     [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib]
      forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];

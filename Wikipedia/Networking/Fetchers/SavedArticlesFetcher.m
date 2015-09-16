@@ -4,7 +4,8 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
+
 
 @interface SavedArticlesFetcher ()
 

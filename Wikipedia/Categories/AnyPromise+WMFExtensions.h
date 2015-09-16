@@ -7,7 +7,7 @@
 //
 
 #import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+
 
 @interface AnyPromise (WMFExtensions)
 
