@@ -25,6 +25,8 @@ test:
 	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' \
 	-sdk iphonesimulator \
 	-enableCodeCoverage YES \
+	OBJROOT=$(PWD)/build \
+	SYMROOT=$(PWD)/build \
 	GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
 	GCC_GENERATE_TEST_COVERAGE_FILES=YES
 
