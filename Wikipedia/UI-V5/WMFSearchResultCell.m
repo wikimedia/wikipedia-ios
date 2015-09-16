@@ -52,6 +52,7 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 
 - (void)setSearchResultDescription:(NSString*)searchResultDescription {
     self.searchResultDescriptionLabel.text = searchResultDescription;
+    [self.searchResultDescriptionLabel layoutIfNeeded];
 }
 
 #pragma mark - Description Display Logic
