@@ -188,7 +188,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
     PushExpectation();
 
-    NSError* dummyError = [NSError new];
+    NSError* dummyError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorUnknown userInfo:nil];
     [self mockInfoFetcherFailure:dummyError forTitlesInRange:attemptedBatch];
 
     WaitForExpectations();
