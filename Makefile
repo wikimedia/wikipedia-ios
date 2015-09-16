@@ -23,6 +23,7 @@ test:
 	-scheme Wikipedia \
 	-workspace Wikipedia.xcworkspace \
 	-destination 'platform=iOS Simulator,name=iPhone 6,OS=9.0' \
+	-sdk iphonesimulator \
 	-enableCodeCoverage YES \
 	GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
 	GCC_GENERATE_TEST_COVERAGE_FILES=YES
