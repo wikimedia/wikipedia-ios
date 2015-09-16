@@ -56,6 +56,24 @@
                <Test
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
+               <Test
+                  Identifier = "NSAttributedString_WMFModifyTests">
+               </Test>
+               <Test
+                  Identifier = "NSAttributedString_WMFTrimTests/testTrim">
+               </Test>
+               <Test
+                  Identifier = "NSAttributedString_WMFTrimTests/testTrimReference">
+               </Test>
+               <Test
+                  Identifier = "WMFArticleSummaryVisualTests">
+               </Test>
+               <Test
+                  Identifier = "WMFImageInfoControllerTests/testReadsFromDataStoreLazilyAndPopulatesFetchedIndices">
+               </Test>
+               <Test
+                  Identifier = "WMFSearchResultCellVisualTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
