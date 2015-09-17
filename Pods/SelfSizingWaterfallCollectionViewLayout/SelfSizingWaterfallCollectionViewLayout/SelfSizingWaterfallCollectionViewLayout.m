@@ -194,9 +194,22 @@
     if (!_columnHeights) {
         _columnHeights = [NSMutableArray array];
     }
+    if([_columnHeights count] == 0){
+        for (NSUInteger section = 0; section < self.numberOfSections; section++) {
+            
+            NSUInteger numberOfColumns = [self numberOfColumnsInSection:section];
+            NSMutableArray *sectionColumnHeights = [NSMutableArray arrayWithCapacity:numberOfColumns];
+            
+            for (NSUInteger column = 0; column < numberOfColumns; column++) {
+                [sectionColumnHeights addObject:@(0)];
+            }
+            
+            [_columnHeights addObject:sectionColumnHeights];
+        }
+    }
+    
     return _columnHeights;
 }
-
 - (NSMutableArray *)headerAttributes
 {
     if (!_headerAttributes) {
@@ -252,17 +265,8 @@
     
     for (NSUInteger section = 0; section < self.numberOfSections; section++) {
         
-        NSUInteger numberOfColumns = [self numberOfColumnsInSection:section];
-        NSMutableArray *sectionColumnHeights = [NSMutableArray arrayWithCapacity:numberOfColumns];
-        
         [self.headerAttributes addObject:[NSNull null]];
         [self.footerAttributes addObject:[NSNull null]];
-        
-        for (NSUInteger column = 0; column < numberOfColumns; column++) {
-            [sectionColumnHeights addObject:@(0)];
-        }
-        
-        [self.columnHeights addObject:sectionColumnHeights];
     }
 }
 
@@ -393,6 +397,11 @@
 - (CGSize)collectionViewContentSize
 {
     CGSize contentSize = self.collectionView.bounds.size;
+    
+    if([self.columnHeights count] == 0){
+        return contentSize;
+    }
+    
     contentSize.height = [[[self allSectionHeights] valueForKeyPath:@"@sum.floatValue"] floatValue];
     return contentSize;
 }

@@ -232,7 +232,6 @@
 		0E94AFF31B209857000BC5EA /* WMFSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFF21B209857000BC5EA /* WMFSearchViewController.m */; };
 		0E94AFF61B209882000BC5EA /* WMFArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */; };
 		0E94AFFB1B20A22C000BC5EA /* WMFStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E94AFFA1B20A22C000BC5EA /* WMFStyleManager.m */; };
-		0E9824981B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9824971B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.m */; };
 		0E9F3B951BA14869000DF999 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E604C1BA13BFE00C19E77 /* PromiseKit.framework */; };
 		0E9F3B961BA14869000DF999 /* OMGHTTPURLRQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E0E604D1BA13BFE00C19E77 /* OMGHTTPURLRQ.framework */; };
 		0EA0BF3C1B8AAB6300BA423E /* WMFSaveableTitleCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA0BF3B1B8AAB6300BA423E /* WMFSaveableTitleCollectionViewCell.m */; };
@@ -950,8 +949,6 @@
 		0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleViewController.m; sourceTree = "<group>"; };
 		0E94AFF91B20A22C000BC5EA /* WMFStyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFStyleManager.h; sourceTree = "<group>"; };
 		0E94AFFA1B20A22C000BC5EA /* WMFStyleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFStyleManager.m; sourceTree = "<group>"; };
-		0E9824961B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSelfSizingWaterfallCollectionViewLayout.h; sourceTree = "<group>"; };
-		0E9824971B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSelfSizingWaterfallCollectionViewLayout.m; sourceTree = "<group>"; };
 		0EA0BF3A1B8AAB6300BA423E /* WMFSaveableTitleCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSaveableTitleCollectionViewCell.h; sourceTree = "<group>"; };
 		0EA0BF3B1B8AAB6300BA423E /* WMFSaveableTitleCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSaveableTitleCollectionViewCell.m; sourceTree = "<group>"; };
 		0EA35C481B6BB85100D9CFE6 /* WMFArticleContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController.h; sourceTree = "<group>"; };
@@ -2475,15 +2472,6 @@
 			name = Schema;
 			sourceTree = "<group>";
 		};
-		0E4500BA1B97A27800A33B55 /* Layout */ = {
-			isa = PBXGroup;
-			children = (
-				0E9824961B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.h */,
-				0E9824971B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.m */,
-			);
-			name = Layout;
-			sourceTree = "<group>";
-		};
 		0E4500BB1B97A28C00A33B55 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
@@ -2592,7 +2580,6 @@
 				0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */,
 				0E4500B91B97A26800A33B55 /* Schema */,
 				0E4500BB1B97A28C00A33B55 /* Sections */,
-				0E4500BA1B97A27800A33B55 /* Layout */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
 			);
 			name = Home;
@@ -3890,7 +3877,6 @@
 				0449E63918AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				04C695CE18ED08D900D9F2DA /* UIView+WMFSearchSubviews.m in Sources */,
 				0487048E19F8262600B7D307 /* WikipediaZeroMessageFetcher.m in Sources */,
-				0E9824981B8FF618003F9B84 /* WMFSelfSizingWaterfallCollectionViewLayout.m in Sources */,
 				BC092BA21B19135700093C59 /* WMFApiJsonResponseSerializer.m in Sources */,
 				0EFB0F221B31EE2D00D05C08 /* Image.m in Sources */,
 				D4F277FB194235A00032BA38 /* ProtectedEditAttemptFunnel.m in Sources */,
