@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: NehalDaveND
 // Author: Nirjal stha
+// Author: राम प्रसाद जोशी
 // Author: सरोज कुमार ढकाल
 
 "article-languages-cancel" = "रद्द गर्ने";
@@ -41,7 +42,7 @@
 "search-loading-article-loaded" = "लेख लोड भयो।";
 "search-cancel" = "रद्द गर्ने";
 "search-titles" = "शीर्षकहरू :";
-"search-did-you-mean" = "के तपाईको खोजाई: $1 हो?";
+"search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
 "search-recent-title" = "भर्खरैका खोजहरूः";
 "search-recent-clear-cancel" = "रद्द गर्ने";
 "search-recent-clear-delete-all" = "सबै मेट्ने";
@@ -159,7 +160,7 @@
 "nearby-distance-label-feet" = "$1 फिट";
 "nearby-distance-label-miles" = "$1 माइल्स";
 "nearby-cancel" = "रद्द गर्ने";
-"migration-prompt-message" = "हामी तपाईको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
+"migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
 "saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";

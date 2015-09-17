@@ -7,12 +7,14 @@
 // Author: Macofe
 // Author: Tsaetre
 
+"languages-title" = "Språk";
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Laster artikkelspråk…";
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Les mer";
 "article-unable-to-load-section" = "Kunne ikke laste dette avsnittet. Prøv å oppdatere artikkelen for å se om det løser problemet.";
+"article-unable-to-load-article" = "Artikkelen kunne ikke lastes inn.";
 "info-box-title" = "Raske fakta";
 "info-box-close-text" = "Lukk";
 "table-title-other" = "Mer informasjon";
@@ -95,7 +97,9 @@
 "search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-delete-all" = "Slett alt";
 "main-menu-title" = "Mer";
+"main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søk i Wikipedia på $1";
+"main-menu-faq" = "Ofte stilte spørsmål";
 "main-menu-language-toggle-show" = "Vis språk";
 "main-menu-language-toggle-hide" = "Skjul språk";
 "main-menu-language-selection-saved" = "Språkvalg lagret";
@@ -235,6 +239,7 @@
 "menu-share-accessibility-label" = "Del";
 "menu-more-accessibility-label" = "Flere innstillinger";
 "menu-trash-accessibility-label" = "Slett";
+"menu-language-accessibility-label" = "Språk";
 "nearby-title" = "I nærheten";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
