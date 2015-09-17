@@ -80,6 +80,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UICollectionView Protocols
 
+- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
+    // prevent selection of placeholder image
+    return self.images.count > 0;
+}
+
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     [self.delegate headerImageGallery:self didSelectImageAtIndex:indexPath.item];
 }
