@@ -22,13 +22,20 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 }
 
 - (NSString*)getHeaderTag {
+    NSUInteger headingSize = [self getHeadingTagSize];
     return
-        [NSString stringWithFormat:@"<h1 class='section_heading' id='%@' sectionId='%d'>%@</h1>%@",
+        [NSString stringWithFormat:@"<h%ld class='section_heading' id='%@' sectionId='%d'>%@</h%ld>%@",
+         headingSize,
          self.anchor,
          self.sectionId,
          [self isLeadSection] ? self.title.text : self.line,
+         headingSize,
          [self isLeadSection] ? MWKSectionDisambigAndPageIssuesPlaceholderDiv : @""
         ];
+}
+
+- (NSInteger)getHeadingTagSize {
+    return MIN(MAX(self.level.integerValue, 1), 6);
 }
 
 @end
