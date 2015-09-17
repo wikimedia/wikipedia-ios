@@ -1,7 +1,9 @@
 var utilities = require("./utilities");
 
+var querySelectorForHeadingsToNativize = 'h1.section_heading, h2.section_heading, h3.section_heading';
+
 function getSectionHeadersArray(){
-    var nodeList = document.querySelectorAll('h1.section_heading');
+    var nodeList = document.querySelectorAll(querySelectorForHeadingsToNativize);
     var nodeArray = Array.prototype.slice.call(nodeList);
     nodeArray = nodeArray.map(function(n){
         return {
@@ -14,7 +16,7 @@ function getSectionHeadersArray(){
 }
 
 function getSectionHeaderLocationsArray(){
-    var nodeList = document.querySelectorAll('h1.section_heading');
+    var nodeList = document.querySelectorAll(querySelectorForHeadingsToNativize);
     var nodeArray = Array.prototype.slice.call(nodeList);
     nodeArray = nodeArray.map(function(n){
         return n.getBoundingClientRect().top;
@@ -24,7 +26,7 @@ function getSectionHeaderLocationsArray(){
 
 function getSectionHeaderForId(id){
     var sectionHeadingParent = utilities.findClosest(document.getElementById(id), 'div[id^="section_heading_and_content_block_"]');
-    var sectionHeading = sectionHeadingParent.querySelector('h1.section_heading');
+    var sectionHeading = sectionHeadingParent.querySelector(querySelectorForHeadingsToNativize);
     return sectionHeading;
 }
 
