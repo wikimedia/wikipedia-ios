@@ -15,6 +15,7 @@
 
 
 #import "NSString+FormattedAttributedString.h"
+#import "UIViewController+Alert.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -77,7 +78,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchBar.text length] > 0 || [self.recentSearches countOfEntries] == 0;
+        [self.searchBar.text wmf_trim].length > 0 || [self.recentSearches countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -174,7 +175,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
-    if ([searchText length] == 0) {
+    if ([searchText wmf_trim].length == 0) {
         [self didCancelSearch];
         return;
     }
@@ -216,6 +217,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
+    if ([searchTerm wmf_trim].length == 0) {
+        return;
+    }
     @weakify(self);
     [self.fetcher searchArticleTitlesForSearchTerm:searchTerm]
     .thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
@@ -241,9 +245,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
         if ([searchTerm isEqualToString:results.searchTerm]) {
+            if (results.articles.count == 0) {
+                [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
+            }
             self.resultsListController.dataSource = results;
         }
     }).catch(^(NSError* error){
+        [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
+
         NSLog(@"%@", [error description]);
     });
 }

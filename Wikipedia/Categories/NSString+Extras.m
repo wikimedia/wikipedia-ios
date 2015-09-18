@@ -140,4 +140,8 @@
     return (NSOrderedSame == [self caseInsensitiveCompare:string]);
 }
 
+- (NSString*)wmf_trim {
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+}
+
 @end

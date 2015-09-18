@@ -42,4 +42,6 @@
 
 - (BOOL)wmf_isEqualToStringIgnoringCase:(NSString*)string;
 
+- (NSString*)wmf_trim;
+
 @end
