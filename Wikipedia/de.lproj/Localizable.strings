@@ -23,6 +23,8 @@
 "history-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "history-clear-cancel" = "Abbrechen";
 "history-clear-delete-all" = "Alle löschen";
+"history-description" = "Du hast vermutlich alle Seiten gelöscht. Das nächste Mal, wenn du eine Seite besuchst, kannst du von hier auf sie zurückgehen.";
+"history-none" = "Hier gibt es keine letzten Seiten.";
 "zero-free-verbiage" = "Kostenloser Wikipedia-Zugriff von deinem Mobilfunknetzbetreiber (auf Gebühren wird verzichtet)";
 "zero-charged-verbiage" = "Wikipedia Zero ist aus";
 "zero-charged-verbiage-extended" = "Das Laden weiterer Artikel kann Datenübertragungsgebühren verursachen. Offline gespeicherte Artikel verwenden keine Daten und sind kostenlos.";
@@ -132,6 +134,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Aktualisierung abgebrochen";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikel werden ständig aktualisiert. Tippe auf „Aktualisieren“, um die neuesten Versionen aller Artikel abzurufen.";
 "saved-pages-refresh-cancel-alert-button" = "Verstanden";
+"saved-pages-description" = "Gespeicherte Seiten sind ziemlich genial. Betrachte sie als Lesezeichen, die du lesen kannst, auch wenn du offline bist.";
+"saved-pages-none" = "Noch keine gespeicherten Seiten.";
 "page-history-title" = "Artikelversionsgeschichte";
 "page-history-downloading" = "Lade Artikelversionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
@@ -273,8 +277,5 @@
 "page-issues" = "Seitenprobleme";
 "page-similar-titles" = "Ähnliche Seiten";
 "captcha-reload" = "Ein anderes Captcha anzeigen";
-"saved-pages-description" = "Gespeicherte Seiten sind ziemlich genial. Betrachte sie als Lesezeichen, die du lesen kannst, auch wenn du offline bist.";
-"saved-pages-none" = "Noch keine gespeicherten Seiten.";
-"history-none" = "Hier gibt es keine letzten Seiten.";
 "captcha-prompt" = "CAPTCHA-Text von dem oben stehenden Bild eingeben";
-"history-description" = "Du hast vermutlich alle Seiten gelöscht. Das nächste Mal, wenn du eine Seite besuchst, kannst du von hier auf sie zurückgehen.";
+"mwk-empty-title-error" = "Operation kann nicht mit einem leeren Titel ausgeführt werden.";

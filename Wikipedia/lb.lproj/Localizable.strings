@@ -22,6 +22,8 @@
 "history-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "history-clear-cancel" = "Ofbriechen";
 "history-clear-delete-all" = "All läschen";
+"history-description" = "Dir hutt se wahrscheinlech all geläscht. Wann Dir déi nächste Kéier op eng Säit gitt da kënnt Dir vun hei aus op déi Säit zréckgoen.";
+"history-none" = "Keng rezent Säiten hei.";
 "zero-free-verbiage" = "Gratis Zougang op Wikipedia vun Ärem GSM-Operateur (keng Taxe fir den Datentrafik)";
 "zero-charged-verbiage" = "Wikipedia Zero ass aus";
 "zero-charged-verbiage-extended" = "D'Luede vun aneren Artikele ka Käschte mat sech bréngen. Gespäichert Artikelen déi 'offline' gespäichert si generéiere keen Datentransfer a kaschten näischt.";
@@ -127,6 +129,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Aktualisatioun ofgegrach";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikele ginn dauernd aktualiséiert. Klickt 'Aktualiséieren' fir déi neist Versioun vun allen Artikelen ze kréien.";
 "saved-pages-refresh-cancel-alert-button" = "Verstan";
+"saved-pages-description" = "Gespäichert Säite si flott. Denkt dru fir ze als Lieszeechen ze benotzen déi Dir liese kënnt wann Dir offline sidd.";
+"saved-pages-none" = "Nach keng gespäichert Säiten.";
 "page-history-title" = "Versioune vum Artikel";
 "page-history-downloading" = "Lëscht vun de Versioune vum Artikel gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
@@ -262,8 +266,4 @@
 "page-issues" = "Problemer mat der Säit";
 "page-similar-titles" = "Ähnlech Säiten";
 "captcha-reload" = "En anere Captcha weisen";
-"saved-pages-description" = "Gespäichert Säite si flott. Denkt dru fir ze als Lieszeechen ze benotzen déi Dir liese kënnt wann Dir offline sidd.";
-"saved-pages-none" = "Nach keng gespäichert Säiten.";
-"history-none" = "Keng rezent Säiten hei.";
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
-"history-description" = "Dir hutt se wahrscheinlech all geläscht. Wann Dir déi nächste Kéier op eng Säit gitt da kënnt Dir vun hei aus op déi Säit zréckgoen.";

@@ -31,6 +31,8 @@
 "history-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "history-clear-cancel" = "Annuler";
 "history-clear-delete-all" = "Supprimer tout";
+"history-description" = "Vous les avez probablement toutes supprimées. La prochaine fois que vous irez sur une page, vous pourrez y retourner depuis ici.";
+"history-none" = "Aucune page récente ici.";
 "zero-free-verbiage" = "Accès libre à Wikipédia de la part de votre opérateur mobile (dispensé de frais de données)";
 "zero-charged-verbiage" = "Wikipédia Zéro est désactivé";
 "zero-charged-verbiage-extended" = "Charger d’autres articles pourrait augmenter les frais de données. Les articles enregistrés hors connexion ne consomment pas de données et sont gratuits.";
@@ -140,6 +142,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Mise à jour annulée";
 "saved-pages-refresh-cancel-alert-message" = "Les articles de Wikipédia sont mis à jour continuellement. Appuyez sur rafraîchir pour obtenir la dernière version de tous les articles.";
 "saved-pages-refresh-cancel-alert-button" = "L’obtenir";
+"saved-pages-description" = "Les pages enregistrées sont assez impressionnantes. Voyez-les comme des favoris que vous pouvez lire même en étant déconnecté.";
+"saved-pages-none" = "Encore aucune page enregistrée.";
 "page-history-title" = "Historique de l’article";
 "page-history-downloading" = "Chargement de l’historique de l’article…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
@@ -281,8 +285,4 @@
 "page-issues" = "Problèmes de la page";
 "page-similar-titles" = "Pages similaires";
 "captcha-reload" = "Afficher un autre captcha";
-"saved-pages-description" = "Les pages enregistrées sont assez impressionnantes. Voyez-les comme des favoris que vous pouvez lire même en étant déconnecté.";
-"saved-pages-none" = "Encore aucune page enregistrée.";
-"history-none" = "Aucune page récente ici.";
 "captcha-prompt" = "Entrer le texte du CAPTCHA dans l’image ci-dessus";
-"history-description" = "Vous les avez probablement toutes supprimées. La prochaine fois que vous irez sur une page, vous pourrez y retourner depuis ici.";

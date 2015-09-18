@@ -40,6 +40,8 @@
 "history-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "history-clear-cancel" = "Annulla";
 "history-clear-delete-all" = "Cancella tutto";
+"history-description" = "Probabilmente hai cancellato tutto. La prossima volta che vai in una pagina, puoi tornarci da qui.";
+"history-none" = "Nessuna pagina recente qui.";
 "zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";
@@ -149,6 +151,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
 "saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
 "saved-pages-refresh-cancel-alert-button" = "OK!";
+"saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
+"saved-pages-none" = "Nessuna pagina salvata ancora.";
 "page-history-title" = "Cronologia dell'articolo";
 "page-history-downloading" = "Caricamento della cronologia dell'articolo...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -290,8 +294,5 @@
 "page-issues" = "Problemi alla pagina";
 "page-similar-titles" = "Pagine simili";
 "captcha-reload" = "Mostra un altro captcha";
-"saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
-"saved-pages-none" = "Nessuna pagina salvata ancora.";
-"history-none" = "Nessuna pagina recente qui.";
 "captcha-prompt" = "Inserisci il testo captcha dall'immagine sopra";
-"history-description" = "Probabilmente hai cancellato tutto. La prossima volta che vai in una pagina, puoi tornarci da qui.";
+"mwk-empty-title-error" = "Impossibile eseguire l'operazione con un titolo vuoto.";

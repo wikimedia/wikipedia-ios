@@ -22,6 +22,8 @@
 "history-clear-confirmation-sub-heading" = "¡Esta aición nun pué desfacese!";
 "history-clear-cancel" = "Encaboxar";
 "history-clear-delete-all" = "Desaniciar too";
+"history-description" = "Probablemente desaniciástiles toes. La siguiente vez que vaigas a una páxina pues volver a ella dende equí.";
+"history-none" = "Equí nun hai páxines recientes.";
 "zero-free-verbiage" = "Accesu llibre a Wikipedia dende l'operador de móviles (facturación de baldre por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero ta apagáu";
 "zero-charged-verbiage-extended" = "Cargar otros artículos pue implicar cargos por tráficu de datos. Los artículos guardaos pa ver sin conexón nun xeneran tráficu y son de baldre.";
@@ -131,6 +133,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Anovamientu encaboxáu";
 "saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia anuévense tol tiempu. Toca refrescar pa recibir les caberes versiones de tolos artículos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendílo";
+"saved-pages-description" = "Les páxines guardaes son prestoses enforma. Piensa nelles como marcadores que pues lleer anque nun tengas conexón.";
+"saved-pages-none" = "Inda nun hai páxines guardaes.";
 "page-history-title" = "Historial del artículu";
 "page-history-downloading" = "Cargando l'historial del artículu...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -262,11 +266,9 @@
 "image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
 "image-gallery-fetch-image-info-error-message" = "Nun pudieron descargase les imaxes d'esti artículu. Por favor, refresca l'artículu ya inténtalo otra vuelta.";
 "image-gallery-fetch-image-info-error-ok" = "Aceutar";
-"captcha-reload" = "Amosar otru «captcha»";
 "saved-pages-description" = "Les páxines guardaes son prestoses enforma. Piensa n'elles como marcadores que pues lleer anque nun tengas conexón.";
 "saved-pages-none" = "Inda nun hai páxines guardaes.";
 "history-none" = "Equí nun hai páxines recientes.";
-"captcha-prompt" = "Escribi'l testu CAPTCHA de la imaxe d'arriba";
 "history-description" = "Probablemente desaniciástiles toes. La siguiente vez que vaigas a una páxina pues volver a ella dende equí.";
 "hockeyapp-alert-question" = "¿Quedríes unviar un informe de fallu a $1 pa que Wikimedia pueda revisalu?";
 "hockeyapp-alert-question-with-response-field" = "¿Quedríes unviar un informe de fallu a $1 pa que Wikimedia pueda revisalu? Por favor, describe qué pasó cuando asocedió'l fallu:";
@@ -278,3 +280,6 @@
 "page-issues" = "Problemes de la páxina";
 "page-similar-titles" = "Páxines asemeyaes";
 
+"captcha-reload" = "Amosar otru «captcha»";
+"captcha-prompt" = "Escribi'l testu CAPTCHA de la imaxe d'arriba";
+"mwk-empty-title-error" = "Nun pué facese la operación col títulu vacíu.";

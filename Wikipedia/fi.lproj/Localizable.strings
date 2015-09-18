@@ -29,6 +29,8 @@
 "history-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
 "history-clear-cancel" = "Peruuta";
 "history-clear-delete-all" = "Poista kaikki";
+"history-description" = "Olet todennäköisesti poistanut ne kaikki. Seuraavalla kerralla kun menet sivulle, voit palata sinne tätä kautta.";
+"history-none" = "Ei tuoreita sivuja täällä.";
 "zero-free-verbiage" = "Ilmainen Wikipedian käyttöoikeus matkapuhelinoperaattoriltasi (tiedonsiirtomaksut poistettu)";
 "zero-charged-verbiage" = "Wikipedia Zero on pois käytöstä";
 "zero-charged-verbiage-extended" = "Muiden artikkelien lataamisesta saattaa aiheutua tiedonsiirtokustannuksia. Tallennetut artikkelit eivät käytä verkkoyhteyttä ja ovat ilmaisia.";
@@ -138,6 +140,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Päivitys peruttiin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedian artikkeleja päivitetään kaiken aikaa. Napauta päivitä saadaksesi kaikkien artikkeleiden uusimmat versiot.";
 "saved-pages-refresh-cancel-alert-button" = "Selvä!";
+"saved-pages-description" = "Tallennetut sivut ovat melko loistavia. Ajattele niitä kirjanmerkkeinä, joita voit lukea ilman verkkoyhteyttä.";
+"saved-pages-none" = "Ei vielä tallennettuja sivuja.";
 "page-history-title" = "Artikkelin historia";
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";
@@ -272,8 +276,4 @@
 "page-issues" = "Sivun ongelmat";
 "page-similar-titles" = "Samankaltaiset sivut";
 "captcha-reload" = "Näytä toinen CAPTCHA";
-"saved-pages-description" = "Tallennetut sivut ovat melko loistavia. Ajattele niitä kirjanmerkkeinä, joita voit lukea ilman verkkoyhteyttä.";
-"saved-pages-none" = "Ei vielä tallennettuja sivuja.";
-"history-none" = "Ei tuoreita sivuja täällä.";
 "captcha-prompt" = "Syötä CAPTCHA-teksti yllä olevasta kuvasta";
-"history-description" = "Olet todennäköisesti poistanut ne kaikki. Seuraavalla kerralla kun menet sivulle, voit palata sinne tätä kautta.";

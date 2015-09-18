@@ -30,6 +30,8 @@
 "history-clear-confirmation-sub-heading" = "此操作不能還原！";
 "history-clear-cancel" = "取消";
 "history-clear-delete-all" = "删除全部";
+"history-description" = "你可能全部清空了。下一次您進入到一個頁面時，可以從這裡返回。";
+"history-none" = "沒有近期頁面。";
 "zero-free-verbiage" = "從閣下的電話公司免費存取維基百科 (不需要支出資料費用)";
 "zero-charged-verbiage" = "Wikipedia Zero 已關閉";
 "zero-charged-verbiage-extended" = "讀取其他條目將可能產生資料流量費用。已儲存的條目可離線存取，不會產生額外的流量費用。";
@@ -139,6 +141,8 @@
 "saved-pages-refresh-cancel-alert-title" = "已取消更新";
 "saved-pages-refresh-cancel-alert-message" = "維基百科的條目會隨時更新。輕觸重新整理以取得所有條目的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
+"saved-pages-description" = "儲存頁面很棒。試想一下，你存為書籤後即使在離線時也可以閱讀。";
+"saved-pages-none" = "尚未儲存頁面。";
 "page-history-title" = "條目歷史";
 "page-history-downloading" = "讀取條目歷史中...";
 "navbar-title-mode-edit-wikitext" = "編輯";
@@ -280,8 +284,4 @@
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
 "captcha-reload" = "顯示其他驗證碼";
-"saved-pages-description" = "儲存頁面很棒。試想一下，你存為書籤後即使在離線時也可以閱讀。";
-"saved-pages-none" = "尚未儲存頁面。";
-"history-none" = "沒有近期頁面。";
 "captcha-prompt" = "輸入上圖中的驗證碼文字";
-"history-description" = "你可能全部清空了。下一次您進入到一個頁面時，可以從這裡返回。";

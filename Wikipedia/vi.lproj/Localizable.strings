@@ -29,6 +29,8 @@
 "history-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "history-clear-cancel" = "Hủy bỏ";
 "history-clear-delete-all" = "Xóa Toàn bộ";
+"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
+"history-none" = "Đây không có trang gần đây.";
 "zero-free-verbiage" = "Truy cập Wikipedia miễn phí qua nhà điều hành điện thoại di động (miễn phí dữ liệu)";
 "zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";
 "zero-charged-verbiage-extended" = "Nếu tải các bài khác, bạn có thể phải trả phí dữ liệu. Các bài được lưu ngoại tuyến không tốn dữ liệu và được xem miễn phí.";
@@ -138,6 +140,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Đã hủy cập nhật";
 "saved-pages-refresh-cancel-alert-message" = "Các bài viết Wikipedia được cập nhật rất thường xuyên. Chạm vào Tải lại để lấy bản mới nhất của các bài.";
 "saved-pages-refresh-cancel-alert-button" = "Được rồi";
+"saved-pages-description" = "Các trang đã lưu là giống như các dấu trang có thể đọc ngay cả khi ngoại tuyến.";
+"saved-pages-none" = "Chưa lưu trang nào.";
 "page-history-title" = "Lịch sử trang";
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
@@ -276,11 +280,9 @@
 "hockeyapp-alert-always-send" = "Luôn gửi";
 "hockeyapp-alert-do-not-send" = "Đừng gửi";
 "hockeyapp-alert-privacy" = "Quyền riêng tư $1";
-"captcha-reload" = "Hiển thị CAPTCHA khác";
-"saved-pages-description" = "Các trang đã lưu là giống như các dấu trang có thể đọc ngay cả khi ngoại tuyến.";
-"saved-pages-none" = "Chưa lưu trang nào.";
-"history-none" = "Đây không có trang gần đây.";
-"captcha-prompt" = "Nhập văn bản CAPTCHA theo hình bên trên";
-"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
 "page-issues" = "Vấn đề trang";
 "page-similar-titles" = "Trang tương tự";
+"captcha-reload" = "Hiển thị CAPTCHA khác";
+"captcha-prompt" = "Nhập văn bản CAPTCHA theo hình bên trên";
+"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
+"mwk-empty-title-error" = "Không thể thực hiện tác vụ đối với một tiêu đề trống.";

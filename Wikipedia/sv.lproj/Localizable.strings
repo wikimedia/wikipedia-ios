@@ -31,6 +31,8 @@
 "history-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "history-clear-cancel" = "Avbryt";
 "history-clear-delete-all" = "Radera alla";
+"history-description" = "Du raderade förmodligen samtliga. Nästa gång du går till en sida kan du komma tillbaka till den härifrån.";
+"history-none" = "Inga nya sidor här.";
 "zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
 "zero-charged-verbiage" = "Wikipedia Zero är avstängt";
 "zero-charged-verbiage-extended" = "Att ladda andra artiklar kan medföra datakostnader. Sparade artiklar som lagras offline använder inte data och är gratis.";
@@ -140,6 +142,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Uppdatering avbruten";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
 "saved-pages-refresh-cancel-alert-button" = "Jag förstår";
+"saved-pages-description" = "Sparade sidor är väldigt händigt. Tänk på dem som bokmärken som du kan läsa även när du inte är ansluten.";
+"saved-pages-none" = "Inga sparade sidor ännu.";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Läser in artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
@@ -281,8 +285,5 @@
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
 "captcha-reload" = "Visa en annan captcha";
-"saved-pages-description" = "Sparade sidor är väldigt händigt. Tänk på dem som bokmärken som du kan läsa även när du inte är ansluten.";
-"saved-pages-none" = "Inga sparade sidor ännu.";
-"history-none" = "Inga nya sidor här.";
 "captcha-prompt" = "Ange captchatexten från bilden ovan";
-"history-description" = "Du raderade förmodligen samtliga. Nästa gång du går till en sida kan du komma tillbaka till den härifrån.";
+"mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";

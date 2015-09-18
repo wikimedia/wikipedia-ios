@@ -19,6 +19,7 @@
 "history-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "history-clear-cancel" = "Angra";
 "history-clear-delete-all" = "Sletta alt";
+"history-none" = "Ongar nýggjar síður her.";
 "zero-free-verbiage" = "Ókeypis Wikipedia atgongd frá tínum fartelefonveitara (krevur ikki gjald fyri dáta)";
 "zero-charged-verbiage" = "Wikipedia Zero er sløkt";
 "zero-charged-verbiage-extended" = "At innlesa aðrar greinar kann viðføra dátakostnað. Goymdar greinar ið er lagraðar offline brúka ikki dáta og eru ókeypis.";
@@ -123,6 +124,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Dagføring avbtotin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia greinar verða dagførdar alla tíðina. Trýst á dagfør fyri at fáa tær nýggjastu versjónirnar av øllum greinunum.";
 "saved-pages-refresh-cancel-alert-button" = "Eg skilji";
+"saved-pages-description" = "Goymdar síður eru sera praktiskar. Hugsa um tær um bókamerki, sum tú kanst lesa, sjálvt tá ið tú ert offline.";
+"saved-pages-none" = "Ongar goymdar síður enn.";
 "page-history-title" = "Søgan hjá greinini";
 "page-history-downloading" = "Innlesur søguna hjá greinini...";
 "navbar-title-mode-edit-wikitext" = "Rætta";
@@ -197,7 +200,4 @@
 "hockeyapp-alert-always-send" = "Send altíð";
 "hockeyapp-alert-do-not-send" = "Ikki senda";
 "page-similar-titles" = "Líknandi síður";
-"saved-pages-description" = "Goymdar síður eru sera praktiskar. Hugsa um tær um bókamerki, sum tú kanst lesa, sjálvt tá ið tú ert offline.";
-"saved-pages-none" = "Ongar goymdar síður enn.";
-"history-none" = "Ongar nýggjar síður her.";
 "captcha-prompt" = "Skriva CAPTCHA tekstin frá myndini omanfyri";

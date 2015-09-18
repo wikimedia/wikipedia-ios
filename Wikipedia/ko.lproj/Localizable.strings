@@ -29,6 +29,8 @@
 "history-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "history-clear-cancel" = "취소";
 "history-clear-delete-all" = "모두 삭제";
+"history-description" = "방문 기록이 비어 있습니다. 다음 번에 당신이 간 문서를 여기에서 얻을 수 있습니다.";
+"history-none" = "여기에 최근 문서가 없습니다.";
 "zero-free-verbiage" = "이동 통신사에서 무료로 위키백과에 접속하세요 (데이터 요금 면제)";
 "zero-charged-verbiage" = "위키백과 제로가 꺼져 있습니다";
 "zero-charged-verbiage-extended" = "다른 문서를 불러오면 데이터 요금이 부과될 수 있습니다. 저장된 문서는 오프라인으로 저장되어 데이터를 사용하지 않으며 무료입니다.";
@@ -138,6 +140,8 @@
 "saved-pages-refresh-cancel-alert-title" = "업데이트 취소됨";
 "saved-pages-refresh-cancel-alert-message" = "위키백과 글은 시시때때로 업데이트 됩니다. 모든 글의 최신 버전을 볼려면 새로고침하세요.";
 "saved-pages-refresh-cancel-alert-button" = "알았습니다!";
+"saved-pages-description" = "저장된 문서는 정말 훌륭합니다. 오프라인일 때여도 읽을 수 있는 책갈피라고 생각해주세요.";
+"saved-pages-none" = "저장된 문서가 아직 없습니다.";
 "page-history-title" = "문서 역사";
 "page-history-downloading" = "문서 역사를 불러오는 중...";
 "navbar-title-mode-edit-wikitext" = "편집";
@@ -274,8 +278,4 @@
 "page-issues" = "문서 문제";
 "page-similar-titles" = "비슷한 문서";
 "captcha-reload" = "다른 캡차 보이기";
-"saved-pages-description" = "저장된 문서는 정말 훌륭합니다. 오프라인일 때여도 읽을 수 있는 책갈피라고 생각해주세요.";
-"saved-pages-none" = "저장된 문서가 아직 없습니다.";
-"history-none" = "여기에 최근 문서가 없습니다.";
 "captcha-prompt" = "위 그림에 있는 캡차 텍스트를 입력하세요";
-"history-description" = "방문 기록이 비어 있습니다. 다음 번에 당신이 간 문서를 여기에서 얻을 수 있습니다.";

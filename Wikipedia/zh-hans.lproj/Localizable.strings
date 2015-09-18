@@ -31,6 +31,8 @@
 "history-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "history-clear-cancel" = "取消";
 "history-clear-delete-all" = "删除全部";
+"history-description" = "您可能清空了它们。下次您前往一个页面时，可从此返回。";
+"history-none" = "无最近页面。";
 "zero-free-verbiage" = "来自您的移动运营商的免费维基百科访问（并减免数据流量费用）";
 "zero-charged-verbiage" = "维基百科零已关闭";
 "zero-charged-verbiage-extended" = "载入其他条目将可能产生流量费用。已保存条目会离线存储并且免流量费用。";
@@ -140,6 +142,8 @@
 "saved-pages-refresh-cancel-alert-title" = "更新已取消";
 "saved-pages-refresh-cancel-alert-message" = "维基百科条目始终在更新。点按刷新以获得所有条目的最新版本。";
 "saved-pages-refresh-cancel-alert-button" = "明白了";
+"saved-pages-description" = "保存页面非常棒。试想一下在你保存后，即使离线时也可以阅读。";
+"saved-pages-none" = "尚未保存页面。";
 "page-history-title" = "条目历史";
 "page-history-downloading" = "加载条目历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
@@ -281,8 +285,4 @@
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
 "captcha-reload" = "显示另一个验证码";
-"saved-pages-description" = "保存页面非常棒。试想一下在你保存后，即使离线时也可以阅读。";
-"saved-pages-none" = "尚未保存页面。";
-"history-none" = "无最近页面。";
 "captcha-prompt" = "输入上面图片的验证码文字";
-"history-description" = "您可能清空了它们。下次您前往一个页面时，可从此返回。";

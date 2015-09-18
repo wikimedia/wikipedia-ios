@@ -15,6 +15,7 @@
 "history-section-lastweek" = "पछिल्लो हप्ता";
 "history-clear-cancel" = "रद्द गर्ने";
 "history-clear-delete-all" = "सबै मेट्ने";
+"history-none" = "यहाँ भर्खरैको कुनै पृष्ठ नरहेको !";
 "zero-charged-verbiage" = "विकिपीडिया शुन्य बन्द भयो";
 "zero-interstitial-title" = "विकिपीडिया शून्य छोड्नुहोस्";
 "zero-interstitial-continue" = "छोड्ने";
@@ -76,6 +77,7 @@
 "saved-pages-clear-cancel" = "रद्द गर्ने";
 "saved-pages-clear-delete-all" = "सबै मेट्ने";
 "saved-pages-refresh-cancel-alert-button" = "पाउनु भयो";
+"saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";
 // Fuzzy
 "page-history-title" = "पृष्ठको इतिहास";
 // Fuzzy
@@ -163,5 +165,3 @@
 "migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
-"saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";
-"history-none" = "यहाँ भर्खरैको कुनै पृष्ठ नरहेको !";

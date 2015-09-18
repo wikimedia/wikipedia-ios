@@ -95,6 +95,7 @@
 "saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
 "saved-pages-clear-delete-all" = "Обриши све";
+"saved-pages-none" = "Нема сачуваних страница.";
 "page-history-title" = "Историја чланка";
 "page-history-downloading" = "Учитавам историју чланка...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -179,7 +180,8 @@
 "nearby-open-in-maps" = "Отворити у Мапама";
 "nearby-cancel" = "Откажи";
 "image-gallery-fetch-image-info-error-ok" = "У реду";
-"saved-pages-none" = "Нема сачуваних страница.";
+"page-issues" = "Недостаци странице";
+"page-similar-titles" = "Сличне странице";
 "captcha-prompt" = "Унесите текст са слике изнад";
 "page-issues" = "Недостаци странице";
 "page-similar-titles" = "Сличне странице";

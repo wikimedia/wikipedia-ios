@@ -29,6 +29,8 @@
 "history-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
 "history-clear-cancel" = "Cancelar";
 "history-clear-delete-all" = "Borrar todo";
+"history-description" = "Probablemente borraste el historial. La próxima vez que vayas a una página puedes recuperarla desde aquí.";
+"history-none" = "Aquí no hay páginas recientes.";
 "zero-free-verbiage" = "Acceso gratuito a Wikipedia de tu operador móvil (sin cargos por datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivado";
 "zero-charged-verbiage-extended" = "Cargar otros artículos puede incurrir en cargos por datos. Los artículos almacenados sin conexión no utilizan datos y son gratis.";
@@ -138,6 +140,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia se actualizan todo el tiempo. Pulsa actualizar para obtener las últimas versiones de todos los artículos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
+"saved-pages-description" = "Las páginas guardadas son bastante impresionantes. Piensa en ellas como marcadores que se pueden leer incluso cuando estás sin conexión.";
+"saved-pages-none" = "Todavía no hay páginas guardadas.";
 "page-history-title" = "Historial de página";
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -279,8 +283,5 @@
 "page-issues" = "Problemas de la página";
 "page-similar-titles" = "Páginas similares";
 "captcha-reload" = "Mostrar otro «captcha»";
-"saved-pages-description" = "Las páginas guardadas son bastante impresionantes. Piensa en ellas como marcadores que se pueden leer incluso cuando estás sin conexión.";
-"saved-pages-none" = "Todavía no hay páginas guardadas.";
-"history-none" = "Aquí no hay páginas recientes.";
 "captcha-prompt" = "Escribe el texto del CAPTCHA anterior";
-"history-description" = "Probablemente borraste el historial. La próxima vez que vayas a una página puedes recuperarla desde aquí.";
+"mwk-empty-title-error" = "No se puede realizar la operación con un título vacío.";

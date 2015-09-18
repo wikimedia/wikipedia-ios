@@ -99,6 +99,7 @@
 "saved-pages-title" = "Uložené stránky";
 // Fuzzy
 "saved-pages-clear-delete-all" = "Smazat vše";
+"saved-pages-none" = "Zatím žádné uložené stránky.";
 "page-history-title" = "Historie článku";
 "page-history-downloading" = "Načítání historie článku…";
 "navbar-title-mode-edit-wikitext" = "Upravit";
@@ -133,4 +134,3 @@
 "image-gallery-fetch-image-info-error-title" = "Nelze stahovat obrázky";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "page-similar-titles" = "Podobné stránky";
-"saved-pages-none" = "Zatím žádné uložené stránky.";

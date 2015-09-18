@@ -24,6 +24,8 @@
 "history-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "history-clear-cancel" = "Zrušiť";
 "history-clear-delete-all" = "Vymazať všetko";
+"history-description" = "Pravdepodobne si vymazal všetky časti. Nabudúce, keď túto stránku navštíviš, sa možeš odtiaľto k nim vrátiť.";
+"history-none" = "Žiadne posledne zobrazené stránky.";
 "zero-free-verbiage" = "Voľný prístup k Wikipédii od vášho mobilného operátora (neplatíte poplatky za prenos dát)";
 "zero-charged-verbiage" = "Wikipédia Zero je vypnutá";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -126,6 +128,8 @@
 "saved-pages-clear-delete-all" = "Vymazať všetko";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizácia zrušená";
 "saved-pages-refresh-cancel-alert-button" = "Rozumiem";
+"saved-pages-description" = "Uložené stránky sú úžasné. Vyskúšajte si ich aj ako obľúbené stránky, ktoré je možné používať v offline režime.";
+"saved-pages-none" = "Žiadne uložené stránky.";
 "page-history-title" = "História článku";
 "page-history-downloading" = "Načítavanie histórie článku...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
@@ -159,6 +163,7 @@
 "about-translators" = "Prekladatelia";
 "about-translators-details" = "Preložené dobrovoľníkmi na $1";
 "about-libraries" = "Použité knižnice";
+"about-libraries-license" = "Licencia";
 "about-send-feedback" = "Odoslať spätnú väzbu";
 "about-product-of" = "Produkt $1";
 "about-wikimedia-foundation" = "Nadácie Wikimédia";
@@ -210,6 +215,7 @@
 "menu-share-accessibility-label" = "Zdieľať";
 "menu-more-accessibility-label" = "Ďalšie nastavenia";
 "menu-trash-accessibility-label" = "Vymazať";
+"menu-language-accessibility-label" = "Jazyky";
 "nearby-title" = "V okolí";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
@@ -234,8 +240,4 @@
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "page-similar-titles" = "Podobné stránky";
 "captcha-reload" = "Zobraziť ďalšie captcha";
-"saved-pages-description" = "Uložené stránky sú úžasné. Vyskúšajte si ich aj ako obľúbené stránky, ktoré je možné používať v offline režime.";
-"saved-pages-none" = "Žiadne uložené stránky.";
-"history-none" = "Žiadne posledne zobrazené stránky.";
 "captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
-"history-description" = "Pravdepodobne si vymazal všetky časti. Nabudúce, keď túto stránku navštíviš, sa možeš odtiaľto k nim vrátiť.";

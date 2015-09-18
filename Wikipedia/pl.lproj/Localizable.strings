@@ -33,6 +33,8 @@
 "history-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "history-clear-cancel" = "Anuluj";
 "history-clear-delete-all" = "Usuń wszystko";
+"history-description" = "Prawdopodobnie usunąłeś je wszystkie. Następnym razem, gdy wejdziesz na stronę, możesz powrócić do niej stąd.";
+"history-none" = "Brak ostatnich zmian stron.";
 "zero-free-verbiage" = "Bezpłatny dostęp do Wikipedii u twojego operatora telefonii komórkowej (uchylona opłata za ruch)";
 "zero-charged-verbiage" = "Wikipedia Zero jest wyłączona.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -136,6 +138,8 @@
 "saved-pages-clear-delete-all" = "Usuń wszystko";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizacja anulowana";
 "saved-pages-refresh-cancel-alert-message" = "Artykuły Wikipedii są aktualizowane cały czas. Kliknij przycisk \"aktualizuj\", aby uzyskać najnowsze wersje wszystkich artykułów.";
+"saved-pages-description" = "Zapisane strony są całkiem fajne. Pomyśl o nich jako o zakładkach, które można przeczytać nawet wtedy, gdy jesteś w trybie offline.";
+"saved-pages-none" = "Nie zapisano jeszcze żadnych stron.";
 "page-history-title" = "Historia artykułu";
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
@@ -270,8 +274,4 @@
 "page-issues" = "Problemy ze stroną";
 "page-similar-titles" = "Podobne strony";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
-"saved-pages-description" = "Zapisane strony są całkiem fajne. Pomyśl o nich jako o zakładkach, które można przeczytać nawet wtedy, gdy jesteś w trybie offline.";
-"saved-pages-none" = "Nie zapisano jeszcze żadnych stron.";
-"history-none" = "Brak ostatnich zmian stron.";
 "captcha-prompt" = "Wpisz tekst CAPTCHA z obrazka powyżej";
-"history-description" = "Prawdopodobnie usunąłeś je wszystkie. Następnym razem, gdy wejdziesz na stronę, możesz powrócić do niej stąd.";

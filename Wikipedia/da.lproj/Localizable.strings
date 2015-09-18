@@ -275,3 +275,4 @@
 "hockeyapp-alert-privacy" = "$1 privatliv";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+"mwk-empty-title-error" = "Ude af stand til at udføre operationen med tom titel.";
