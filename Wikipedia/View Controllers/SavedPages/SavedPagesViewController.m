@@ -448,13 +448,14 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     [self.progressView setProgress:progress animated:YES];
 }
 
-- (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError*)error {
-    __weak __typeof(self) weakSelf = self;
-
+- (void)fetchFinished:(id)sender
+          fetchedData:(id __unused)fetchedData
+               status:(FetchFinalStatus)status
+                error:(NSError*)error {
+    @weakify(self);
     [self.progressView setProgress:1.0 animated:YES completion:^{
-        __typeof(weakSelf) strongSelf = weakSelf;
-
-        [strongSelf finishRefresh];
+        @strongify(self);
+        [self finishRefresh];
     }];
 }
 

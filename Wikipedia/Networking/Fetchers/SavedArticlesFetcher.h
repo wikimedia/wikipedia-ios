@@ -22,12 +22,10 @@
 + (void)                 setSharedInstance:(SavedArticlesFetcher*)fetcher;
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
-                   articleFetcher:(WMFArticleFetcher*)articleFetcher NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithArticleFetcher:(WMFArticleFetcher*)articleFetcher NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
