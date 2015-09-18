@@ -1,5 +1,6 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
+// Author: Meno25
 // Author: Musab Moahmmed
 // Author: Omda4wady
 // Author: Shbib Al-Subaie
@@ -7,6 +8,7 @@
 // Author: محمد أحمد عبد الفتاح
 // Author: محمد عصام
 
+"languages-title" = "اللغات";
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
 "article-languages-filter-placeholder" = "مرشح اللغات";

@@ -3,11 +3,12 @@
 // Author: Anders Feder
 // Author: Christian List
 // Author: Gorbi
+// Author: Mads Haupt
 // Author: Sarrus
 
 "languages-title" = "Sprog";
 "article-languages-label" = "Vælg sprog";
-"article-languages-cancel" = "Annullér";
+"article-languages-cancel" = "Annuller";
 "article-languages-downloading" = "Indlæser artikelsprog...";
 "article-languages-filter-placeholder" = "Sprogfilter";
 "article-read-more-title" = "Læs mere";
@@ -23,14 +24,14 @@
 "history-section-lastmonth" = "Sidste måned";
 "history-clear-confirmation-heading" = "Slet alle de seneste emner?";
 "history-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
-"history-clear-cancel" = "Annullér";
-"history-clear-delete-all" = "Slet alle";
+"history-clear-cancel" = "Annuller";
+"history-clear-delete-all" = "Slet";
 "zero-free-verbiage" = "Gratis Wikipedia adgang fra din mobiloperatør (data gebyrer frafaldes)";
-"zero-charged-verbiage" = "Wikipedia Zero er slukket";
+"zero-charged-verbiage" = "Wikipedia Zero er slået fra";
 "zero-charged-verbiage-extended" = "At hente andre artikler kan medføre datagebyrer. Gemte artikler, der er gemt offline, bruger ikke data, og de er gratis.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "Forlader Wikipedia Zero";
-"zero-interstitial-leave-app" = "Datagebyrer opkræves muligvis. Fortsæt til den eksterne side?";
+"zero-interstitial-leave-app" = "Datagebyrer opkræves muligvis. Vil du fortsætte til den eksterne side?";
 "zero-interstitial-continue" = "Forlad";
 "zero-interstitial-cancel" = "Bliv her";
 "zero-learn-more" = "Datagebyrer er frafaldet for denne Wikipedia app.";
@@ -42,7 +43,7 @@
 "account-creation-captcha-required" = "CAPTCHA kontrol kræves.";
 "account-creation-captcha-obtaining" = "Henter en ny CAPTCHA.";
 "account-creation-logging-in" = "Logger på...";
-"account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens";
+"account-creation-passwords-mismatched" = "Adgangskoderne stemmer ikke overens.";
 "account-creation-saving" = "Gemmer...";
 "account-creation-login" = "Har du allerede en konto? Log på.";
 "account-creation-username-placeholder-text" = "Brugernavn";
@@ -93,7 +94,7 @@
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "search-recent-clear-cancel" = "Annullér";
-"search-recent-clear-delete-all" = "Slet alle";
+"search-recent-clear-delete-all" = "Slet";
 "main-menu-title" = "Mere";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
@@ -127,13 +128,13 @@
 "main-menu-heading-debug" = "Fejlsøgning";
 "main-menu-debug-crash" = "Crash";
 "saved-pages-title" = "Gemte sider";
-"saved-pages-clear-confirmation-heading" = "Slet alle gemte sider?";
+"saved-pages-clear-confirmation-heading" = "Vil du slette alle gemte sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
-"saved-pages-clear-cancel" = "Afbryd";
-"saved-pages-clear-delete-all" = "Slet alle";
+"saved-pages-clear-cancel" = "Annuller";
+"saved-pages-clear-delete-all" = "Slet";
 "saved-pages-refresh-cancel-alert-title" = "Opdatering annulleret";
-"saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler opdateres hele tiden. Tryk \"opdatér\" for at få seneste version af alle artiklerne.";
-"saved-pages-refresh-cancel-alert-button" = "Forstået";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler opdateres hele tiden. Tryk opdater for at få seneste version af alle artiklerne.";
+"saved-pages-refresh-cancel-alert-button" = "OK";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Indlæser artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
@@ -145,7 +146,7 @@
 "navbar-title-mode-edit-wikitext-disallow" = "Redigeringsproblemer";
 "navbar-title-mode-edit-wikitext-preview" = "Forhåndsvisning";
 "navbar-title-mode-edit-wikitext-captcha" = "Hurtig verificering kræves";
-"navbar-title-mode-edit-wikitext-summary" = "Beskriv din redigering";
+"navbar-title-mode-edit-wikitext-summary" = "Beskriv dine ændringer";
 "navbar-title-mode-edit-wikitext-save" = "Gem";
 "edit-summary-choice-linked-words" = "Tilføjede links";
 "edit-summary-choice-fixed-grammar" = "Rettede grammatik";
@@ -274,3 +275,4 @@
 "hockeyapp-alert-privacy" = "$1 privatliv";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+"mwk-empty-title-error" = "Ude af stand til at udføre operationen med tom titel.";

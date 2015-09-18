@@ -27,6 +27,8 @@
 "history-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "history-clear-cancel" = "Cancelar";
 "history-clear-delete-all" = "Apagar tudo";
+"history-description" = "Provavelmente apagou todas. Da próxima vez que aceder a uma página, poderá voltar a partir daqui.";
+"history-none" = "Sem páginas recentes aqui.";
 "zero-free-verbiage" = "Acesso gratuito à Wikipédia disponibilizado pela sua operadora (sem taxa de dados cobrada)";
 "zero-charged-verbiage" = "Wikipédia Zero está desativada";
 "zero-charged-verbiage-extended" = "A leitura de outros artigos podem incorrer em taxas de dados. Artigos gravados e armazenados off-line não usam dados e o seu acesso é gratuito.";
@@ -136,6 +138,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Atualização cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos da Wikipédia são atualizados a todo o instante. Toque em atualizar para obter as versões mais recentes de todos os artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Percebido";
+"saved-pages-description" = "As páginas guardadas são bastante úteis. Pense como se fossem marcadores que pode ler mesmo quando estiver offline.";
+"saved-pages-none" = "Sem páginas guardadas ainda.";
 "page-history-title" = "Histórico do artigo";
 "page-history-downloading" = "A carregar o histórico do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -277,8 +281,4 @@
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas semelhantes";
 "captcha-reload" = "Mostrar outro código";
-"saved-pages-description" = "As páginas guardadas são bastante úteis. Pense como se fossem marcadores que pode ler mesmo quando estiver offline.";
-"saved-pages-none" = "Sem páginas guardadas ainda.";
-"history-none" = "Sem páginas recentes aqui.";
 "captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
-"history-description" = "Provavelmente apagou todas. Da próxima vez que aceder a uma página, poderá voltar a partir daqui.";

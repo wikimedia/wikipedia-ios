@@ -3,6 +3,7 @@
 // Author: Bsitzmann
 // Author: Умар
 
+"languages-title" = "Меттанаш";
 "article-languages-label" = "Харжа мотт";
 // Fuzzy
 "article-languages-filter-placeholder" = "Литтар";
@@ -13,6 +14,7 @@
 "history-section-yesterday" = "Селхана";
 "history-section-lastweek" = "Даханчу кӀирнахь";
 "history-section-lastmonth" = "Баханчу баттахь";
+"history-none" = "Кеста хьаьжжина агӀонаш яц.";
 "zero-interstitial-continue" = "Дихьа гӀо";
 // Fuzzy
 "zero-interstitial-cancel" = "Цаоьшу";
@@ -22,7 +24,7 @@
 "account-creation-username-placeholder-text" = "Декъашхочун цӀе";
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Бакъе пароль";
-"account-creation-email-placeholder-text" = "Электронан почтан адрес (ца хилча бе яц)";
+"account-creation-email-placeholder-text" = "Электронан поштан адрес (ца хилча бе яц)";
 "login-password-empty" = "Системин чудаха оьшуш ю пароль.";
 "login-username-placeholder-text" = "Декъашхочун цӀе";
 "login-password-placeholder-text" = "Пароль";
@@ -56,6 +58,7 @@
 "main-menu-nearby" = "Уллехь";
 "saved-pages-title" = "Ӏалашйина агӀонаш";
 "saved-pages-clear-cancel" = "Цаоьшу";
+"saved-pages-none" = "ХӀинци а яц Ӏалашйина агӀонаш.";
 // Fuzzy
 "page-history-title" = "АгӀона истори";
 // Fuzzy
@@ -85,7 +88,7 @@
 "onboarding-free-encyclopedia" = "Маьрша энциклопеди";
 "preference_title_eventlogging_opt_in" = "Лелорах лаьцна дӀадохьуьйту";
 "page_protected_can_not_edit" = "ХӀара агӀо таян хьан бакъо яц";
-"page_protected_can_not_edit_title" = "ХӀара агӀо гӀоралла дина ю";
+"page_protected_can_not_edit_title" = "ХӀара агӀо ларйина ю";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Чулацам";
 "abuse-filter-warning-heading" = "ХӀара нисдар зуламе долчух тера ду. Лаьий хьуна и Ӏалашдан?";
@@ -116,6 +119,4 @@
 "nearby-pull-to-refresh-is-refreshing" = "Карлаяккхар";
 "nearby-cancel" = "Цаоьшу";
 "captcha-reload" = "Гайта кхин код";
-"saved-pages-none" = "ХӀинци а яц Ӏалашйина агӀонаш.";
-"history-none" = "Кеста хьаьжжина агӀонаш яц.";
 "captcha-prompt" = "Лакхарчу суьртан тӀера капчан йоза язде";

@@ -16,6 +16,8 @@
 // Author: Nivit
 // Author: Ontsed
 // Author: Peg60
+// Author: Simoarmanni
+// Author: Statix64
 // Author: SuperVirtual
 
 "languages-title" = "Lingue";
@@ -25,6 +27,7 @@
 "article-languages-filter-placeholder" = "Filtra lingua";
 "article-read-more-title" = "Leggi altro";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
+"article-unable-to-load-article" = "Impossibile caricare questa pagina.";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "table-title-other" = "Ulteriori informazioni";
@@ -37,6 +40,8 @@
 "history-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "history-clear-cancel" = "Annulla";
 "history-clear-delete-all" = "Cancella tutto";
+"history-description" = "Probabilmente hai cancellato tutto. La prossima volta che vai in una pagina, puoi tornarci da qui.";
+"history-none" = "Nessuna pagina recente qui.";
 "zero-free-verbiage" = "Accesso gratuito a Wikipedia dal vostro operatore di telefonia mobile (tariffa dati non applicata)";
 "zero-charged-verbiage" = "Wikipedia Zero è spento";
 "zero-charged-verbiage-extended" = "Scaricare altri articoli può comportare tariffe dati. Gli articoli salvati archiviati offline non utilizzano dati mobili e sono gratuiti.";
@@ -146,6 +151,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
 "saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
 "saved-pages-refresh-cancel-alert-button" = "OK!";
+"saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
+"saved-pages-none" = "Nessuna pagina salvata ancora.";
 "page-history-title" = "Cronologia dell'articolo";
 "page-history-downloading" = "Caricamento della cronologia dell'articolo...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -169,7 +176,7 @@
 "edit-summary-choice-added-clarification" = "Aggiunto chiarimento";
 "edit-summary-choice-other" = "Altro";
 "edit-summary-description" = "Un oggetto compilato in modo chiaro aiuta gli altri utenti a controllare le tue modifiche. Puoi anche sceglierne uno preimpostato dalla lista qui in basso";
-"edit-summary-field-placeholder-text" = "Altri modi in cui hai migliorato l'articolo";
+"edit-summary-field-placeholder-text" = "Altri modi in cui hai migliorato la voce";
 "edit-summary-title" = "Come hai migliorato la voce?";
 "fetching-random-article" = "Recupera voce a caso";
 "article-pull-to-refresh-prompt" = "Tira per aggiornare la voce";
@@ -185,7 +192,7 @@
 "about-testers" = "tester";
 "about-testers-details" = "QA testato da $1";
 "about-translators" = "traduttori";
-"about-translators-details" = "Tradotto da volontari in $1";
+"about-translators-details" = "Tradotto dai volontari di $1";
 "about-libraries" = "librerie usate";
 "about-libraries-license" = "Licenza";
 "about-repositories" = "archivi";
@@ -193,7 +200,7 @@
 "about-product-of" = "Un prodotto di $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Salva la pagina";
-"share-menu-page-saved" = "Pagina salvata";
+"share-menu-page-saved" = "Salvata per la lettura offline.";
 "share-menu-page-saved-access" = "Suggerimento: per accedere alle pagine salvate, tocca $1 sopra o premi a lungo $2 sotto.";
 "share-custom-menu-item" = "Condividi";
 "share-article-name-on-wikipedia" = "\"$1\" su @Wikipedia";
@@ -258,7 +265,7 @@
 "nearby-pull-to-refresh-prompt" = "Trascina in basso per aggiornare";
 "nearby-pull-to-refresh-is-refreshing" = "Aggiornamento in corso...";
 "nearby-loading" = "Caricamento delle voci nelle vicinanze...";
-"nearby-loaded" = "Voci nelle vicinanze caricati";
+"nearby-loaded" = "Voci nelle vicinanze caricate";
 "nearby-none" = "Nessuna voce trovata nelle vicinanze. Tira per aggiornare o riprova più tardi.";
 "nearby-open-in-maps" = "Apri in Maps";
 "nearby-cancel" = "Annulla";
@@ -266,19 +273,19 @@
 "nearby-location-updates-enable" = "Per abilitare gli aggiornamenti di posizione apri l'app \"Impostazioni\" e seleziona:";
 "nearby-location-updates-settings-menu" = "Privacy > Localizzazione > Wikipedia";
 "nearby-location-general-error" = "Impossibile determinare la posizione. Tira su per ricaricare o riprova più tardi.";
-"nearby-wifi" = "Abilitando il WiFi, aiuti il dispositivo a determinar meglio la tua posizione.";
+"nearby-wifi" = "Abilitando il Wi-Fi, aiuti il dispositivo a determinare meglio la tua posizione.";
 "migration-update-progress-label" = "Trasferendo i dati locali";
 "migration-update-progress-count-label" = "Trasferimento dell'articolo $1 di $2";
-"migration-prompt-title" = "Sembra che è presente una cronologia!";
-"migration-prompt-message" = "Abbiamo bisogno di spostare le tue pagine recenti e salvate. Può richiedere un minuto...";
+"migration-prompt-title" = "Sembra che sia presente una cronologia!";
+"migration-prompt-message" = "Abbiamo bisogno di spostare le tue pagine recenti e salvate. Questo potrebbe richiedere un minuto...";
 "migration-confirm-button-title" = "Sposta il mio materiale";
 "migration-skip-button-title" = "Elimina";
 "image-gallery-unknown-owner" = "Uploader sconosciuto.";
 "image-gallery-fetch-image-info-error-title" = "Impossibile scaricare le immagini";
 "image-gallery-fetch-image-info-error-message" = "Impossibile scaricare le immagini per questo articolo. Ricarica la pagina e prova ancora.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
-"hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash?";
-"hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminare il crash? Per favore descrivi ciò che è successo quando si è verificato il crash:";
+"hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminarlo?";
+"hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminarlo? Per favore descrivi ciò che è successo quando si è verificato il crash:";
 "hockeyapp-alert-title" = "Siamo spiacenti, l'ultima volta l'app è andata in stallo";
 "hockeyapp-alert-send-report" = "Invia segnalazione";
 "hockeyapp-alert-always-send" = "Invia sempre";
@@ -287,8 +294,5 @@
 "page-issues" = "Problemi alla pagina";
 "page-similar-titles" = "Pagine simili";
 "captcha-reload" = "Mostra un altro captcha";
-"saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
-"saved-pages-none" = "Nessuna pagina salvata ancora.";
-"history-none" = "Nessuna pagina recente qui.";
 "captcha-prompt" = "Inserisci il testo captcha dall'immagine sopra";
-"history-description" = "Probabilmente hai cancellato tutto. La prossima volta che vai in una pagina, puoi tornarci da qui.";
+"mwk-empty-title-error" = "Impossibile eseguire l'operazione con un titolo vuoto.";

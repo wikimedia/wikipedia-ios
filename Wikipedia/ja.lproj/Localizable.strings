@@ -3,6 +3,7 @@
 // Author: Barrel0116
 // Author: Dude1717
 // Author: Fryed-peach
+// Author: Kanon und wikipedia
 // Author: Otokoume
 // Author: Shirayuki
 // Author: SkyDaisy9
@@ -31,6 +32,8 @@
 "history-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "history-clear-cancel" = "キャンセル";
 "history-clear-delete-all" = "すべて削除";
+"history-description" = "すべて削除してしまったようです。次にページをみた際にはここからそのページへと戻ることができます。";
+"history-none" = "履歴はまだありません。";
 "zero-free-verbiage" = "ブラウザからウィキペディアへの無料アクセス (通信料金は免除されます)";
 "zero-charged-verbiage" = "ウィキペディアゼロはオフです";
 "zero-charged-verbiage-extended" = "その他の記事を読み込むとデータ料金が発生する場合があります。保存した記事はオフラインで保管されており、データ通信を使用しないため無料です。";
@@ -140,6 +143,8 @@
 "saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
 "saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
 "saved-pages-refresh-cancel-alert-button" = "了解";
+"saved-pages-description" = "保存したページはかなり便利です。オフラインの時でも読めるブックマークと考えてください。";
+"saved-pages-none" = "保存されたページはまだありません。";
 "page-history-title" = "記事の履歴";
 "page-history-downloading" = "記事の履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
@@ -262,8 +267,10 @@
 "nearby-location-general-error" = "位置を特定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
 "migration-update-progress-label" = "ローカルデータをアップグレード中";
+"migration-update-progress-count-label" = "$2版の記事$1のアップグレードの進捗";
 "migration-prompt-title" = "履歴があるようです！";
 "migration-prompt-message" = "私たちは、あなたのセーブされた最新のページを上に移動する必要があります。これには数分かかる場合があります…";
+"migration-confirm-button-title" = "私のものを移動する";
 "migration-skip-button-title" = "それを削除";
 "image-gallery-unknown-owner" = "アップロード者不明。";
 "image-gallery-fetch-image-info-error-title" = "画像をダウンロードできませんでした";
@@ -276,11 +283,8 @@
 "hockeyapp-alert-always-send" = "常に送信";
 "hockeyapp-alert-do-not-send" = "送信しない";
 "hockeyapp-alert-privacy" = "$1 のプライバシーについて";
-"captcha-reload" = "別のcaptchaを表示";
-"saved-pages-description" = "保存したページはかなり便利です。オフラインの時でも読めるブックマークと考えてください。";
-"saved-pages-none" = "保存されたページはまだありません。";
-"history-none" = "履歴はまだありません。";
-"captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
-"history-description" = "すべて削除してしまったようです。次にページをみた際にはここからそのページへと戻ることができます。";
 "page-issues" = "ページの問題点";
 "page-similar-titles" = "類似したページ";
+"captcha-reload" = "別のcaptchaを表示";
+"captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
+"mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";

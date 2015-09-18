@@ -27,6 +27,8 @@
 "history-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "history-clear-cancel" = "ביטול";
 "history-clear-delete-all" = "למחוק הכול";
+"history-description" = "כנראה מחקת את כולם. בפעם הבאה שיזדמן לך לקרוא דף, אפשר יהיה לחזור אליו מכאן.";
+"history-none" = "אין פה דפים שקראת לאחרונה.";
 "zero-free-verbiage" = "גישה בחינם לוויקיפדיה דרך ספק התקשורת הניידת שלך (ללא חיוב על נתונים)";
 "zero-charged-verbiage" = "ויקיפדיה אפס כבויה";
 "zero-charged-verbiage-extended" = "טעינת ערכים אחרים עשויה לגרום לחיוב זמן אוויר על נתונים. ערכים שמורים שמאוחסנים באופן בלתי־מקוון אינם מתמשים בנתונים וזמינים חינם.";
@@ -136,6 +138,8 @@
 "saved-pages-refresh-cancel-alert-title" = "העדכון בוטל";
 "saved-pages-refresh-cancel-alert-message" = "ערכים בוויקיפדיה מתעדכנים כל הזמן. יש ללחוץ על רענון כדי לקבל את הגרסה החדשה ביותר של כל הערכים.";
 "saved-pages-refresh-cancel-alert-button" = "הבנתי";
+"saved-pages-description" = "דפים שמורים זה דבר די מגניב. הם כמו סימניות שאפשר לקרוא גם כשהמכשיר אינו מחובר לרשת.";
+"saved-pages-none" = "אין עדיין דפים שמורים.";
 "page-history-title" = "היסטוריית הערך";
 "page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
@@ -277,8 +281,5 @@
 "page-issues" = "בעיות בדף";
 "page-similar-titles" = "דפים דומים";
 "captcha-reload" = "להראות תמונת אימות אחרת";
-"saved-pages-description" = "דפים שמורים זה דבר די מגניב. הם כמו סימניות שאפשר לקרוא גם כשהמכשיר אינו מחובר לרשת.";
-"saved-pages-none" = "אין עדיין דפים שמורים.";
-"history-none" = "אין פה דפים שקראת לאחרונה.";
 "captcha-prompt" = "נא להזין את הטקסט מהתמונה לעיל";
-"history-description" = "כנראה מחקת את כולם. בפעם הבאה שיזדמן לך לקרוא דף, אפשר יהיה לחזור אליו מכאן.";
+"mwk-empty-title-error" = "לא ניתן לבצע את הפעולה עם כותרת ריקה.";

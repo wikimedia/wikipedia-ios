@@ -22,6 +22,8 @@
 "history-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "history-clear-cancel" = "Revocare";
 "history-clear-delete-all" = "Șterge tot";
+"history-description" = "Probabil că le-ați șters pe toate. Data viitoare când doriți să accesați o pagină, puteți reveni la ea pornind de aici.";
+"history-none" = "Nicio pagină recentă aici.";
 "zero-free-verbiage" = "Acces gratuit la Wikipedia de la operatorul dumneavoastră de telefonie mobilă (traficul de date nu va fi taxat)";
 "zero-charged-verbiage" = "Wikipedia Zero este dezactivată";
 "zero-charged-verbiage-extended" = "Încărcarea altor articole poate însemna taxarea traficului de date. Articolele salvate și stocate off-line nu folosesc traficul de date și sunt gratuite.";
@@ -131,6 +133,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualizare anulată";
 "saved-pages-refresh-cancel-alert-message" = "Articolele Wikipediei sunt actualizate permanent. Apăsați „reîncarcă” pentru a obține ultima versiune a tuturor articolelor.";
 "saved-pages-refresh-cancel-alert-button" = "Am înțeles!";
+"saved-pages-description" = "Paginile salvate sunt minunate. Gândiți-vă la ele ca la niște semne de carte care vă permit să citiți chiar și atunci când sunteți off-line.";
+"saved-pages-none" = "Nicio pagină salvată încă.";
 "page-history-title" = "Istoric articol";
 "page-history-downloading" = "Se încarcă istoricul articolului...";
 "navbar-title-mode-edit-wikitext" = "Modificare";
@@ -272,8 +276,4 @@
 "page-issues" = "Problemele paginii";
 "page-similar-titles" = "Pagini similare";
 "captcha-reload" = "Arată alt text captcha";
-"saved-pages-description" = "Paginile salvate sunt minunate. Gândiți-vă la ele ca la niște semne de carte care vă permit să citiți chiar și atunci când sunteți off-line.";
-"saved-pages-none" = "Nicio pagină salvată încă.";
-"history-none" = "Nicio pagină recentă aici.";
 "captcha-prompt" = "Introduceți textul CAPTCHA din imaginea de mai sus";
-"history-description" = "Probabil că le-ați șters pe toate. Data viitoare când doriți să accesați o pagină, puteți reveni la ea pornind de aici.";

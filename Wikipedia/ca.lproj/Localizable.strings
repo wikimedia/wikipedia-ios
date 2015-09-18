@@ -9,13 +9,16 @@
 // Author: Macofe
 // Author: SMP
 // Author: Toniher
+// Author: Vriullop
 
+"languages-title" = "Llengües";
 "article-languages-label" = "Trieu un idioma";
 "article-languages-cancel" = "Cancel·la";
 "article-languages-downloading" = "Carregant els idiomes de l'article...";
 "article-languages-filter-placeholder" = "Filtre d'idioma";
 "article-read-more-title" = "Més informació";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
+"article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
 "table-title-other" = "Més informació";
@@ -28,6 +31,8 @@
 "history-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "history-clear-cancel" = "Cancel·la";
 "history-clear-delete-all" = "Esborra-ho tot";
+"history-description" = "Probablement els heu esborrat tots. La propera vegada que aneu a una pàgina podeu tornar-hi des d'aquí.";
+"history-none" = "No hi ha pàgines recents aquí.";
 "zero-free-verbiage" = "Accés lliure a la Viquipèdia des del vostre operador mòbil (sense càrrecs per transmissió de dades)";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";
 "zero-charged-verbiage-extended" = "Carregar articles addicionals pot implicar costos per transmissió de dades. Els articles emmagatzemats sense connexió no impliquen transmissió de dades i són gratuïts.";
@@ -137,6 +142,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualització cancel·lada";
 "saved-pages-refresh-cancel-alert-message" = "Els articles de la Viquipèdia s'actualitzen constantment. Feu un toc per obtenir la darrera versió de tots els articles.";
 "saved-pages-refresh-cancel-alert-button" = "Ho he entès";
+"saved-pages-description" = "Les pàgines desades són fantàstiques. Penseu que són talment com adreces d'interès que podeu llegir fins i tot sense connexió.";
+"saved-pages-none" = "No s'ha desat encara cap pàgina.";
 "page-history-title" = "Historial de l'article";
 "page-history-downloading" = "S'està carregant l'historial de l'article...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -278,8 +285,5 @@
 "page-issues" = "Problemes de la pàgina";
 "page-similar-titles" = "Pàgines similars";
 "captcha-reload" = "Mostra un altre captcha";
-"saved-pages-description" = "Les pàgines desades són fantàstiques. Penseu que són talment com adreces d'interès que podeu llegir fins i tot sense connexió.";
-"saved-pages-none" = "No s'ha desat encara cap pàgina.";
-"history-none" = "No hi ha pàgines recents aquí.";
 "captcha-prompt" = "Introduïu el text del CAPTCHA de la imatge de dalt";
-"history-description" = "Probablement els heu esborrat tots. La propera vegada que aneu a una pàgina podeu tornar-hi des d'aquí.";
+"mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";

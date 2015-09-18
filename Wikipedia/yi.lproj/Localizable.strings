@@ -109,6 +109,7 @@
 "navbar-title-mode-edit-wikitext-warning" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-disallow" = "רעדאקטירן פראגעס";
 "navbar-title-mode-edit-wikitext-preview" = "פֿאראויסשטעלונג";
+"navbar-title-mode-edit-wikitext-summary" = "באשרײַבט אייער רעדאקטירונג";
 "navbar-title-mode-edit-wikitext-save" = "אויפֿהיטן";
 "edit-summary-choice-linked-words" = "צולייגן לינקען";
 "edit-summary-choice-fixed-grammar" = "פארראכטן גראמאטיק";
@@ -116,6 +117,7 @@
 "edit-summary-choice-added-category" = "צוגעלייגט קאטעגאריע";
 "edit-summary-choice-added-missing-info" = "צוגעלייגט פעלנדע אינפארמאציע";
 "edit-summary-choice-other" = "אַנדער";
+"edit-summary-field-placeholder-text" = "אנדערע וועגן איר האט פארבעסערט דעם ארטיקל";
 "edit-summary-title" = "וויאזוי האט איר פארבעסערט דעם בלאט?";
 "credits-wikimedia-repos" = "וויקימעדיע";
 "credits-github-mirror" = "אפ-שפיגל (גיטהאב)";

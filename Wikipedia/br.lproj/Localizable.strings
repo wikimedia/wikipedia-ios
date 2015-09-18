@@ -25,6 +25,8 @@
 "history-clear-confirmation-sub-heading" = "Ne c'hall ket an ober-mañ bezañ nullet !";
 "history-clear-cancel" = "Nullañ";
 "history-clear-delete-all" = "Lemel pep tra";
+"history-description" = "Lamet ho peus pep tra moarvat. Ar wech kentañ ma'z eot war ur bajenn e c'hallot distreiñ warni ac'halese.";
+"history-none" = "Pajenn nevez ebet aze.";
 "zero-free-verbiage" = "Moned frank da Wikipedia eus hoc'h oberataer hezoug (mizoù roadennoù null)";
 "zero-charged-verbiage" = "Wikipedia Zero n'a ket en-dro";
 "zero-charged-verbiage-extended" = "Kargañ pennadoù all a c'hallfe kreskiñ ar mizoù. Ne vez ket bevezet roadennoù gant ar pennadoù enrollet ezlinenn ha digoust int.";
@@ -134,6 +136,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Hizivadur nullet";
 "saved-pages-refresh-cancel-alert-message" = "Hizivaet e vez pennadoù Wikepedia dizehan. Pouezit war freskaat evit kaout doare diwezhañ an holl bennadoù.";
 "saved-pages-refresh-cancel-alert-button" = "Mat eo";
+"saved-pages-description" = "Mat-tre eo enrollañ pajennoù. Gallout a rit ober ganto evel sinedoù hag a c'hallit lenn pa vezit ezlinenn.";
+"saved-pages-none" = "Pajenn ebet enrollet c'hoazh.";
 "page-history-title" = "Istor ar pennad";
 "page-history-downloading" = "O kargañ istor ar pennad...";
 "navbar-title-mode-edit-wikitext" = "Kemmañ";
@@ -272,11 +276,7 @@
 "hockeyapp-alert-always-send" = "Kas atav";
 "hockeyapp-alert-do-not-send" = "Chom hep kas";
 "hockeyapp-alert-privacy" = "Prevezded $1";
-"captcha-reload" = "Diskwel ur c'haptcha all";
-"saved-pages-description" = "Mat-tre eo enrollañ pajennoù. Gallout a rit ober ganto evel sinedoù hag a c'hallit lenn pa vezit ezlinenn.";
-"saved-pages-none" = "Pajenn ebet enrollet c'hoazh.";
-"history-none" = "Pajenn nevez ebet aze.";
-"captcha-prompt" = "Ebarzhit an destenn CAPTCHA er skeudenn amañ a-us";
-"history-description" = "Lamet ho peus pep tra moarvat. Ar wech kentañ ma'z eot war ur bajenn e c'hallot distreiñ warni ac'halese.";
 "page-issues" = "Kudennoù war ar bajenn";
 "page-similar-titles" = "Pajennoù damheñvel";
+"captcha-reload" = "Diskwel ur c'haptcha all";
+"captcha-prompt" = "Ebarzhit an destenn CAPTCHA er skeudenn amañ a-us";

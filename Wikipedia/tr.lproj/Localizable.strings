@@ -4,7 +4,9 @@
 // Author: Incelemeelemani
 // Author: Mavrikant
 // Author: Mavrikant2
+// Author: McAang
 // Author: Meelo
+// Author: Rapsar
 // Author: Sayginer
 // Author: Sucsuzz
 // Author: Uğurkent
@@ -31,6 +33,8 @@
 "history-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
 "history-clear-cancel" = "İptal";
 "history-clear-delete-all" = "Tümünü Sil";
+"history-description" = "Muhtemelen hepsini sildiniz. Bundan sonra herhangi bir sayfaya giderseniz, buradan ona tekrar ulaşabilirsiniz.";
+"history-none" = "Hiç ziyaret edilmiş sayfa yok.";
 "zero-free-verbiage" = "Mobil operatörünüz aracılığıyla ücretsiz Vikipedi erişimi (veri ücreti alınmaz)";
 "zero-charged-verbiage" = "Wikipedia Zero kapalı";
 "zero-charged-verbiage-extended" = "Diğer maddeleri yüklemek veri ücretlendirmesine neden olabilir. Kaydedilen maddeler çevrim dışı olarak saklanır, veri harcamaz ve ücretsizdir.";
@@ -140,9 +144,11 @@
 "saved-pages-refresh-cancel-alert-title" = "Güncelleme iptal edildi";
 "saved-pages-refresh-cancel-alert-message" = "Vikipedi maddeleri her zaman güncellenir. Maddelerin en son sürümlerini almak için dokunarak sayfayı yenileyin.";
 "saved-pages-refresh-cancel-alert-button" = "Anladım";
+"saved-pages-description" = "Kaydedilmiş sayfalar çok güzeldir. Bunu çevrim dışıyken bile okuyabileceğiniz yer imleri olarak düşünün.";
+"saved-pages-none" = "Henüz kaydedilmiş bir sayfa yok.";
 "page-history-title" = "Madde geçmişi";
 "page-history-downloading" = "Madde geçmişi yükleniyor...";
-"navbar-title-mode-edit-wikitext" = "Düzenle";
+"navbar-title-mode-edit-wikitext" = "Değiştir";
 "navbar-title-mode-login" = "Oturum aç";
 "navbar-title-mode-login-and-save" = "Oturum aç ve kaydet";
 "navbar-title-mode-create-account" = "Hesap oluştur";
@@ -281,8 +287,4 @@
 "page-issues" = "Sayfa sorunları";
 "page-similar-titles" = "Benzer sayfalar";
 "captcha-reload" = "Başka bir captcha göster";
-"saved-pages-description" = "Kaydedilmiş sayfalar çok güzeldir. Bunu çevrim dışıyken bile okuyabileceğiniz yer imleri olarak düşünün.";
-"saved-pages-none" = "Henüz kaydedilmiş bir sayfa yok.";
-"history-none" = "Hiç ziyaret edilmiş sayfa yok.";
 "captcha-prompt" = "Yukarıdaki resimdeki CAPTCHA metnini girin";
-"history-description" = "Muhtemelen hepsini sildiniz. Bundan sonra herhangi bir sayfaya giderseniz, buradan ona tekrar ulaşabilirsiniz.";

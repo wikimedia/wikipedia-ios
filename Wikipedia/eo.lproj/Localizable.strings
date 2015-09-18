@@ -2,8 +2,10 @@
 // Exported from translatewiki.net
 // Author: Fitoschido
 // Author: KuboF
+// Author: Ochilov
 // Author: Remux
 
+"languages-title" = "Lingvoj";
 "article-languages-label" = "Elekti lingvon";
 "article-languages-cancel" = "Nuligi";
 "article-languages-downloading" = "Ŝarĝante lingvojn de la artikolo...";
@@ -76,6 +78,8 @@
 "search-recent-clear-cancel" = "Nuligi";
 "search-recent-clear-delete-all" = "Forigi ĉiujn";
 "main-menu-title" = "Pli";
+"main-menu-heading-about" = "Pri";
+"main-menu-faq" = "Oftaj demandoj";
 "main-menu-language-toggle-show" = "Montri lingvojn";
 "main-menu-language-toggle-hide" = "Kaŝu lingvojn";
 "main-menu-language-selection-saved" = "Lingvoelekto konservita";
@@ -199,6 +203,7 @@
 "menu-share-accessibility-label" = "Kundividi";
 "menu-more-accessibility-label" = "Pliaj agordoj";
 "menu-trash-accessibility-label" = "Forigi";
+"menu-language-accessibility-label" = "Lingvoj";
 "nearby-title" = "Ĉirkaŭe";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
