@@ -15,6 +15,7 @@
 
 
 #import "NSString+FormattedAttributedString.h"
+#import "UIViewController+Alert.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -244,9 +245,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
         if ([searchTerm isEqualToString:results.searchTerm]) {
+
+            if (results.articles.count == 0) {
+                [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
+            }
             self.resultsListController.dataSource = results;
         }
     }).catch(^(NSError* error){
+
+        [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
+
         NSLog(@"%@", [error description]);
     });
 }
