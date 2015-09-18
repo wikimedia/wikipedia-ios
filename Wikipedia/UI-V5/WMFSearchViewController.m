@@ -77,7 +77,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchBar.text length] > 0 || [self.recentSearches countOfEntries] == 0;
+        [self.searchBar.text wmf_trim].length > 0 || [self.recentSearches countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -174,7 +174,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
-    if ([searchText length] == 0) {
+    if ([searchText wmf_trim].length == 0) {
         [self didCancelSearch];
         return;
     }
