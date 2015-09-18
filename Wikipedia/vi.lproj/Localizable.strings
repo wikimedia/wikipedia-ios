@@ -284,4 +284,5 @@
 "page-similar-titles" = "Trang tương tự";
 "captcha-reload" = "Hiển thị CAPTCHA khác";
 "captcha-prompt" = "Nhập văn bản CAPTCHA theo hình bên trên";
+"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
 "mwk-empty-title-error" = "Không thể thực hiện tác vụ đối với một tiêu đề trống.";

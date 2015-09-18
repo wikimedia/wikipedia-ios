@@ -46,7 +46,7 @@
 "account-creation-login" = "¿Yá tienes una cuenta? Anicia sesión.";
 "account-creation-username-placeholder-text" = "Nome d'usuariu";
 "account-creation-password-placeholder-text" = "Contraseña";
-"account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
+"account-creation-password-confirm-placeholder-text" = "Vuelve a escribir la contraseña";
 "account-creation-email-placeholder-text" = "Corréu electrónicu (opcional)";
 "account-creation-missing-fields" = "Tienes d'escribir un nome d'usuariu, una contraseña, y la confirmación de la contraseña pa crear una cuenta.";
 "login-name-not-found" = "Ye necesariu un nome d'usuariu p'aniciar sesión.";
@@ -266,6 +266,10 @@
 "image-gallery-fetch-image-info-error-title" = "Nun pudieron descargase les imaxes";
 "image-gallery-fetch-image-info-error-message" = "Nun pudieron descargase les imaxes d'esti artículu. Por favor, refresca l'artículu ya inténtalo otra vuelta.";
 "image-gallery-fetch-image-info-error-ok" = "Aceutar";
+"saved-pages-description" = "Les páxines guardaes son prestoses enforma. Piensa n'elles como marcadores que pues lleer anque nun tengas conexón.";
+"saved-pages-none" = "Inda nun hai páxines guardaes.";
+"history-none" = "Equí nun hai páxines recientes.";
+"history-description" = "Probablemente desaniciástiles toes. La siguiente vez que vaigas a una páxina pues volver a ella dende equí.";
 "hockeyapp-alert-question" = "¿Quedríes unviar un informe de fallu a $1 pa que Wikimedia pueda revisalu?";
 "hockeyapp-alert-question-with-response-field" = "¿Quedríes unviar un informe de fallu a $1 pa que Wikimedia pueda revisalu? Por favor, describe qué pasó cuando asocedió'l fallu:";
 "hockeyapp-alert-title" = "Sentímoslo, l'aplicación falló la última vez";
@@ -275,6 +279,7 @@
 "hockeyapp-alert-privacy" = "Intimidá de $1";
 "page-issues" = "Problemes de la páxina";
 "page-similar-titles" = "Páxines asemeyaes";
+
 "captcha-reload" = "Amosar otru «captcha»";
 "captcha-prompt" = "Escribi'l testu CAPTCHA de la imaxe d'arriba";
 "mwk-empty-title-error" = "Nun pué facese la operación col títulu vacíu.";
