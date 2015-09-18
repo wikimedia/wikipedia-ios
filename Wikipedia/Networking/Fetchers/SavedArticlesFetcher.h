@@ -1,7 +1,11 @@
 
 #import "FetcherBase.h"
 
-@class MWKArticle, MWKSavedPageList, AFHTTPRequestOperationManager, SavedArticlesFetcher, MWKDataStore;
+@class MWKArticle,
+       MWKSavedPageList,
+       MWKDataStore,
+       WMFArticleFetcher,
+       SavedArticlesFetcher;
 
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
@@ -21,6 +25,9 @@
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                   articleFetcher:(WMFArticleFetcher*)articleFetcher NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 

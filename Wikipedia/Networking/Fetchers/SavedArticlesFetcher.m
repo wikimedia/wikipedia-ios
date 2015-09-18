@@ -1,11 +1,12 @@
 
 #import "SavedArticlesFetcher.h"
-#import "WMFArticleFetcher.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "MediaWikiKit.h"
+
 #import "Wikipedia-Swift.h"
+#import "WMFArticleFetcher.h"
 
-
+#import "MWKDataStore.h"
+#import "MWKSavedPageList.h"
+#import "MWKArticle.h"
 
 @interface SavedArticlesFetcher ()
 
@@ -37,16 +38,22 @@ static SavedArticlesFetcher* _fetcher = nil;
     _fetcher = fetcher;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(dataStore != nil);
-
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore
+                   articleFetcher:(WMFArticleFetcher *)articleFetcher {
+    NSParameterAssert(dataStore);
+    NSParameterAssert(articleFetcher);
     self = [super init];
     if (self) {
         self.dataStore   = dataStore;
-        self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
-        self.fetcher     = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+        self.accessQueue = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue",
+                                                 DISPATCH_QUEUE_SERIAL);
+        self.fetcher     = articleFetcher;
     }
     return self;
+}
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+    return [self initWithDataStore:dataStore articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]];
 }
 
 - (void)fetchSavedPageList:(MWKSavedPageList*)savedPageList {
