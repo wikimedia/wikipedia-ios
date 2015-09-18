@@ -216,6 +216,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
+    if ([searchTerm wmf_trim].length == 0) {
+        return;
+    }
     @weakify(self);
     [self.fetcher searchArticleTitlesForSearchTerm:searchTerm]
     .thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
