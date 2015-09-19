@@ -103,7 +103,7 @@ GEM
       terminal-table (~> 1.4.5)
       xcodeproj (>= 0.20, < 1.0.0)
       xcpretty (>= 0.1.11)
-    fastlane_core (0.16.2)
+    fastlane_core (0.17.0)
       babosa
       capybara (~> 2.4.3)
       colored
@@ -124,12 +124,13 @@ GEM
       mini_magick (~> 4.0.2)
     fuzzy_match (2.0.4)
     git (1.2.9.1)
-    gym (0.5.0)
-      fastlane_core (>= 0.16.1, < 1.0.0)
+    gym (0.6.2)
+      fastlane_core (>= 0.17.0, < 1.0.0)
+      plist
       rubyzip (>= 1.1.7)
       terminal-table
       xcpretty
-    highline (1.7.5)
+    highline (1.7.6)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     i18n (0.7.0)
@@ -228,5 +229,5 @@ PLATFORMS
 
 DEPENDENCIES
   cocoapods (~> 0.38.2)
-  fastlane (~> 1.26.0)
+  fastlane
   git (~> 1.2)
