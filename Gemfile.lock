@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/bgerstle/fastlane.git
-  revision: a1a14a2a36e260217bf93b79a2025b6109013c9f
-  branch: feature/enable_code_coverage
+  revision: 401f5562fafb553a9dd900b6fbcc15da074f6f01
+  ref: 401f5562fafb553a9dd900b6fbcc15da074f6f01
   specs:
     fastlane (1.27.0)
       addressable (~> 2.3.8)
