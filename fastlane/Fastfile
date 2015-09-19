@@ -26,8 +26,7 @@ platform :ios do
     xctest(
       workspace: 'Wikipedia.xcworkspace',
       scheme: 'Wikipedia',
-      destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0',
-      enable_code_coverage: 'YES'
+      destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0'
     )
 
     # xctool isn't 100% happy w/ Xcode 7
