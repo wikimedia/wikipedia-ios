@@ -22,6 +22,9 @@ DerivedData
 *.dSYM.zip
 *.gcno
 *.gcda
+*.gcov
+*.profdata
+*.xccoverage
 
 # Icons
 Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
