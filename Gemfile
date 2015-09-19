@@ -5,7 +5,7 @@ group :dev do
 end
 
 group :ci do
-  gem 'fastlane', '~> 1.26.0'
+  gem 'fastlane', :git => "https://github.com/bgerstle/fastlane.git", :branch => "feature/enable_code_coverage"
   gem 'git', '~> 1.2'
 end
 
