@@ -27,7 +27,11 @@ platform :ios do
       workspace: 'Wikipedia.xcworkspace',
       scheme: 'Wikipedia',
       destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0',
-      build_settings: {'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS' => 'YES', 'GCC_GENERATE_TEST_COVERAGE_FILES' => 'YES'}
+      build_settings: {
+        'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS' => 'YES', 
+        'GCC_GENERATE_TEST_COVERAGE_FILES' => 'YES'
+      },
+      '-enableCodeCoverage' => 'YES'
     )
 
     # xctool isn't 100% happy w/ Xcode 7
