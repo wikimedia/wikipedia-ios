@@ -136,15 +136,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupSaveButton {
     @weakify(self)
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
+    UIBarButtonItem* save = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
         @strongify(self)
         if (![self.article isCached]) {
             [self.articleViewController fetchArticle];
         }
     }];
-
+    
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL], save];
+    
     self.saveButtonController =
-        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)self.navigationItem.rightBarButtonItem.customView
+        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)save.customView
                                           savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
                                                   title:self.article.title];
 }
