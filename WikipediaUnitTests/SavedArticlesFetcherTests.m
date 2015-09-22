@@ -6,56 +6,14 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "SavedArticlesFetcher_Testing.h"
-#import "WMFArticleFetcher.h"
-#import "MWKSavedPageList.h"
-#import "MWKTitle.h"
-#import "MWKSavedPageEntry.h"
-
-// Test Utils
-#import "WMFAsyncTestCase.h"
-#import "WMFTestFixtureUtilities.h"
-#import "XCTestCase+PromiseKit.h"
-#import "MWKDataStore+TemporaryDataStore.h"
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-
-#define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
-
-typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NSError*);
-
-/**
- *  Verify the proper download & error handling of the SavedArticlesFetcher.
- *
- *  @note @c WMFArticleFetcher is responsible for both fetching <b>and</b> persisting articles. We are mocking it
- *        here for simplicity, but felt it was worth noting that we are not checking the data store here since we 
- *        take for granted that the successful resolution of a promise from @c WMFArticleFetcher means the article was
- *        written successfully to disk.
- */
-@interface SavedArticlesFetcherTests : WMFAsyncTestCase
-<SavedArticlesFetcherDelegate>
-
-@property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
-
-@property (nonatomic, strong) WMFArticleFetcher* mockArticleFetcher;
-
-@property (nonatomic, strong) MWKDataStore* tempDataStore;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
-
-@property (nonatomic, strong) NSMutableArray<SavedArticlesFetcherDidFetchArticleBlock>* expectedArticles;
-
-@property (nonatomic, strong) void(^expectedFetchFinishedError)(NSError*);
-
-@end
+#import "SavedArticlesFetcherTests.h"
 
 @implementation SavedArticlesFetcherTests
 
 - (void)setUp {
     [super setUp];
-    self.expectedArticles = [NSMutableArray new];
+    self.downloadErrors = [NSMutableDictionary new];
+    self.downloadedArticles = [NSMutableArray new];
     self.expectedFetchFinishedError = nil;
     self.tempDataStore = [MWKDataStore temporaryDataStore];
     self.mockArticleFetcher = mock([WMFArticleFetcher class]);
@@ -64,16 +22,14 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
 }
 
 - (void)tearDown {
-    // technically neither of these should happen since we're using expectations, but added as a fail-safe
-    // to ensure expectations work properly
-    XCTAssert(self.expectedArticles.count == 0, @"Not all expected articles were retrieved!");
     XCTAssertNil(self.expectedFetchFinishedError, @"fetchFinished: callback not invoked!");
-
     [self.tempDataStore removeFolderAtBasePath];
     [super tearDown];
 }
 
-- (void)testShouldStartDownloadingAnArticleWhenItIsSaved {
+#pragma mark - Downloading
+
+- (void)testStartDownloadingArticleWhenAddedToList {
     [self stubListWithEntries:0];
 
     [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
@@ -91,14 +47,109 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
 
-    [self expectFetcherToGetArticle:stubbedArticle atProgress:1.0 error:nil];
+    [self expectFetcherToFinishWithError:nil];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, is(@[stubbedArticle]));
+    assertThat(self.downloadErrors, isEmpty());
+}
+
+- (void)testStartDownloadingUncachedArticleAlreadyInList {
+    [self stubListWithEntries:1];
+
+    MWKTitle* uncachedEntryTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+
+    MWKArticle* stubbedArticle =
+    [[MWKArticle alloc]
+     initWithTitle:uncachedEntryTitle
+     dataStore:self.tempDataStore
+     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+    
+    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
     WaitForExpectations();
+
+    assertThat(self.downloadedArticles, is(@[stubbedArticle]));
+    assertThat(self.downloadErrors, isEmpty());
 }
 
-- (void)testShouldReportDownloadErrors {
+- (void)testCorrectProgressForMultipleSuccessfulDownloads {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKArticle* firstArticle =
+        [[MWKArticle alloc]
+         initWithTitle:firstTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle =
+        [[MWKArticle alloc]
+         initWithTitle:secondTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:firstArticle]];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+
+    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, is(@[firstArticle, secondArticle]));
+    assertThat(self.downloadErrors, isEmpty());
+}
+
+- (void)testSkipsCachedArticles {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKArticle* firstArticle =
+    [[MWKArticle alloc]
+     initWithTitle:firstTitle
+     dataStore:self.tempDataStore
+     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+
+    [firstArticle save];
+    NSAssert(firstArticle.isCached, @"Test depends on article being considered cached after save!");
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle =
+    [[MWKArticle alloc]
+     initWithTitle:secondTitle
+     dataStore:self.tempDataStore
+     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+
+    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, is(@[secondArticle]));
+    assertThat(self.downloadErrors, isEmpty());
+}
+
+#pragma mark - Error Handling
+
+- (void)testReportDownloadErrors {
     [self stubListWithEntries:0];
 
     [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
@@ -112,20 +163,84 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
 
-    [self expectFetcherToGetArticle:nil atProgress:1.0 error:downloadError];
+    [self expectFetcherToFinishWithError:downloadError];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
+}
+
+- (void)testContinuesDownloadingIfArticleDownloadFails {
+    [self stubListWithEntries:2];
+
+    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle =
+        [[MWKArticle alloc]
+         initWithTitle:secondTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:downloadError]];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+
+    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:downloadError];
 
     WaitForExpectations();
+
+    assertThat(self.downloadedArticles, is(@[secondArticle]));
+    assertThat(self.downloadErrors, is(@{firstTitle: downloadError}));
 }
 
-- (void)testShouldStopDownloadingAnArticleWhenItIsDeleted {
-}
+#pragma mark - Cancellation
 
-- (void)testShouldDownloadMultipleArticles {
-}
+- (void)testStopDownloadingAnArticleWhenItIsDeleted {
+    [self stubListWithEntries:2];
 
-- (void)testShouldNotDownloadCachedArticles {
+    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+
+    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKArticle* secondArticle =
+    [[MWKArticle alloc]
+     initWithTitle:secondTitle
+     dataStore:self.tempDataStore
+     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+
+    __block PMKResolver resolve;
+    AnyPromise* unresolvedPromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull aResolve) {
+        resolve = aResolve;
+    }];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:unresolvedPromise]];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+
+    [self.savedPageList removeEntryWithListIndex:firstTitle];
+
+    WaitForExpectations();
+
+    [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
+
+    // resolve promise after the test to prevent PromiseKit warning
+    resolve([NSError cancelledError]);
+
+    assertThat(self.downloadedArticles, is(@[secondArticle]));
+    assertThat(self.downloadErrors, isEmpty());
 }
 
 #pragma mark - Utils
@@ -146,21 +261,6 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
     PMKHang([self.savedPageList save]);
 }
 
-- (void)expectFetcherToGetArticle:(MWKArticle*)expectedArticle
-                       atProgress:(CGFloat)expectedProgress
-                            error:(NSError*)expectedError {
-    XCTestExpectation* fetchArticleExpectation =
-        [self expectationWithDescription:[NSString stringWithFormat:@"Fetch %@", expectedArticle.title ? : expectedError]];
-    @weakify(self);
-    [self.expectedArticles addObject:^(MWKArticle* article, CGFloat progress, NSError* error) {
-        @strongify(self);
-        XCTAssertEqualObjects(article, expectedArticle);
-        XCTAssertEqual(progress, expectedProgress);
-        XCTAssertEqualObjects(error, expectedError);
-        [fetchArticleExpectation fulfill];
-    }];
-}
-
 - (void)expectFetcherToFinishWithError:(NSError*)error {
     XCTestExpectation* fetchFinishedExpectation = [self expectationWithDescription:@"fetch finished"];
     @weakify(self);
@@ -173,17 +273,28 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
 
 #pragma mark - SavedArticlesFetcherDelegate
 
-- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher
-             didFetchArticle:(MWKArticle *)article
+- (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
+               didFetchTitle:(MWKTitle*)title
+                     article:(MWKArticle*)article
                     progress:(CGFloat)progress
-                       error:(NSError *)error {
-    XCTAssert(self.expectedArticles.count > 0, @"Received didFetchArticle callback when none expected.");
-    SavedArticlesFetcherDidFetchArticleBlock callback = self.expectedArticles.firstObject;
-    [self.expectedArticles removeObjectAtIndex:0];
-    callback(article, progress, error);
+                       error:(NSError*)error {
+    XCTAssertTrue([NSThread isMainThread]);
+    if (error) {
+        self.downloadErrors[title] = error;
+    } else {
+        XCTAssertNotNil(article);
+        [self.downloadedArticles addObject:article];
+    }
+    NSArray* uncachedEntries = [self.savedPageList.entries bk_reject:^BOOL(MWKSavedPageEntry* entry) {
+        MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:entry.title];
+        return [existingArticle isCached];
+    }];
+    float expectedProgress = (float)(self.downloadedArticles.count + self.downloadErrors.count) / uncachedEntries.count;
+    XCTAssertEqual(progress, expectedProgress);
 }
 
 - (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError *)error {
+    XCTAssertTrue([NSThread isMainThread]);
     XCTAssertNotNil(self.expectedFetchFinishedError, @"Wasn't expecting a fetchFinished callback!");
     self.expectedFetchFinishedError(error);
     self.expectedFetchFinishedError = nil;

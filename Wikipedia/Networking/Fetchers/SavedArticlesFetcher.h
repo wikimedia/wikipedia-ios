@@ -10,7 +10,8 @@
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
 - (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
-             didFetchArticle:(MWKArticle*)article
+               didFetchTitle:(MWKTitle*)title
+                     article:(MWKArticle*)article
                     progress:(CGFloat)progress
                        error:(NSError*)error;
 

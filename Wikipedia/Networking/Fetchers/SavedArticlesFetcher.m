@@ -105,11 +105,11 @@ static SavedArticlesFetcher* _fetcher = nil;
             self.fetchOperationsByArticleTitle[title] = [self.fetcher fetchArticleForPageTitle:title
                                                                                       progress:NULL]
                                                         .thenOn(self.accessQueue, ^(MWKArticle* article){
-                [self notifyDelegateProgressWithFetchedArticle:article title:title error:nil];
+                [self didFetchArticle:article title:title error:nil];
             })
                                                         .catch(^(NSError* error){
                 dispatch_async(self.accessQueue, ^{
-                    [self notifyDelegateProgressWithFetchedArticle:nil title:title error:error];
+                    [self didFetchArticle:nil title:title error:error];
                 });
             });
         }
@@ -125,11 +125,11 @@ static SavedArticlesFetcher* _fetcher = nil;
 - (void)savedPageListDidChange:(NSDictionary*)change {
     switch ([change[NSKeyValueChangeKindKey] integerValue]) {
         case NSKeyValueChangeInsertion: {
-            [self savedPageListDidAddItemsAtIndexes:change[NSKeyValueChangeIndexesKey]];
+            [self savedPageListDidAddItems:change[NSKeyValueChangeNewKey]];
             break;
          }
         case NSKeyValueChangeRemoval: {
-            [self savedPageListDidDeleteItemsAtIndexes:change[NSKeyValueChangeIndexesKey]];
+            [self savedPageListDidDeleteItems:change[NSKeyValueChangeOldKey]];
             break;
         }
         case NSKeyValueChangeSetting: {
@@ -141,23 +141,24 @@ static SavedArticlesFetcher* _fetcher = nil;
     }
 }
 
-- (void)savedPageListDidDeleteItemsAtIndexes:(NSIndexSet*)deletedIndexes {
-    if (!deletedIndexes.count) {
+- (void)savedPageListDidDeleteItems:(NSArray<MWKSavedPageEntry*>*)deletedEntries {
+    if (!deletedEntries.count) {
         return;
     }
-    [[self.savedPageList.entries objectsAtIndexes:deletedIndexes] bk_each:^(MWKTitle* title) {
-        [self.fetcher cancelFetchForPageTitle:title];
-    }];
+    dispatch_async(self.accessQueue, ^{
+        [deletedEntries bk_each:^(MWKSavedPageEntry* entry) {
+            [self.fetcher cancelFetchForPageTitle:entry.title];
+            [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
+        }];
+        [self notifyDelegateIfFinished];
+    });
 }
 
-- (void)savedPageListDidAddItemsAtIndexes:(NSIndexSet*)insertedIndexes {
-    if (!insertedIndexes.count) {
+- (void)savedPageListDidAddItems:(NSArray<MWKSavedPageEntry*>*)insertedEntries {
+    if (!insertedEntries.count) {
         return;
     }
-    NSArray<MWKTitle*>* insertedTitles =
-        [[self.savedPageList.entries objectsAtIndexes:insertedIndexes]
-                                          valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)];
-    [self fetchTitles:insertedTitles];
+    [self fetchTitles:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)]];
 }
 
 - (void)mergeFetchesWithUpdatedSavedPageList {
@@ -208,31 +209,31 @@ static SavedArticlesFetcher* _fetcher = nil;
 #pragma mark - Delegate Notification
 
 /// Only invoke within accessQueue
-- (void)notifyDelegateProgressWithFetchedArticle:(MWKArticle*)fetchedArticle
-                                        title:(MWKTitle*)title
-                                           error:(NSError*)error {
+- (void)didFetchArticle:(MWKArticle*)fetchedArticle
+                  title:(MWKTitle*)title
+                  error:(NSError*)error {
     if (error) {
         // store errors for later reporting
         self.errorsByArticleTitle[title] = error;
     }
+
     // stop tracking operation, effectively advancing the progress
     [self.fetchOperationsByArticleTitle removeObjectForKey:title];
 
-    // calculate new progress on internal queue then jump to main queue to inform our delegate
     CGFloat progress = [self progress];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.fetchFinishedDelegate savedArticlesFetcher:self
-                                         didFetchArticle:fetchedArticle
+                                           didFetchTitle:title
+                                                 article:fetchedArticle
                                                 progress:progress
                                                    error:error];
     });
 
-    // after every progress advance, check if we need to inform delegate of completion
-    [self notifyDelegateCompletionIfFinished];
+    [self notifyDelegateIfFinished];
 }
 
 /// Only invoke within accessQueue
-- (void)notifyDelegateCompletionIfFinished {
+- (void)notifyDelegateIfFinished {
     if ([self.fetchOperationsByArticleTitle count] == 0) {
         NSError* reportedError;
         if ([self.errorsByArticleTitle count] > 0) {
