@@ -26,13 +26,13 @@
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
-typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NSError*);
+typedef void (^ SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NSError*);
 
 /**
  *  Verify the proper download & error handling of the SavedArticlesFetcher.
  *
  *  @note @c WMFArticleFetcher is responsible for both fetching <b>and</b> persisting articles. We are mocking it
- *        here for simplicity, but felt it was worth noting that we are not checking the data store here since we 
+ *        here for simplicity, but felt it was worth noting that we are not checking the data store here since we
  *        take for granted that the successful resolution of a promise from @c WMFArticleFetcher means the article was
  *        written successfully to disk.
  *
@@ -40,7 +40,7 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
  *           reduce noise in the implementation while providing documentation for utilities needed to make tests readable.
  */
 @interface SavedArticlesFetcherTests : WMFAsyncTestCase
-<SavedArticlesFetcherDelegate>
+    <SavedArticlesFetcherDelegate>
 
 /// Test Subject
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
@@ -60,7 +60,7 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
 ///
 
 /**
- *  Tracks the successful downloads in order to verify that the expected articles were downloaded correctly with the 
+ *  Tracks the successful downloads in order to verify that the expected articles were downloaded correctly with the
  *  correct progress value.
  */
 @property (nonatomic, strong) NSMutableArray<MWKArticle*>* downloadedArticles;
@@ -81,6 +81,6 @@ typedef void(^SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, NS
 /**
  *  Block which checks the @c fetchFinished: callback for the value passed to @c expectFetcherToFinishWithError: method.
  */
-@property (nonatomic, strong) void(^expectedFetchFinishedError)(NSError*);
+@property (nonatomic, strong) void (^ expectedFetchFinishedError)(NSError*);
 
 @end

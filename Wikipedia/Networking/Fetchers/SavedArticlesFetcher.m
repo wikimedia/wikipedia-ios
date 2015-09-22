@@ -40,10 +40,10 @@ static SavedArticlesFetcher* _fetcher = nil;
     NSParameterAssert(articleFetcher);
     self = [super init];
     if (self) {
-        _accessQueue   = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
+        _accessQueue                       = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
         self.fetchOperationsByArticleTitle = [NSMutableDictionary new];
-        self.errorsByArticleTitle = [NSMutableDictionary new];
-        self.fetcher = articleFetcher;
+        self.errorsByArticleTitle          = [NSMutableDictionary new];
+        self.fetcher                       = articleFetcher;
     }
     return self;
 }
@@ -90,18 +90,18 @@ static SavedArticlesFetcher* _fetcher = nil;
     dispatch_async(self.accessQueue, ^{
         for (MWKTitle* title in titles) {
             /*
-             !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of 
-             objects in cache
-            */
+               !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
+               objects in cache
+             */
             MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
             if (existingArticle.isCached) {
                 continue;
             }
 
             /*
-             NOTE: don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-             immediately in order for accurate progress & error reporting
-            */
+               NOTE: don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+               immediately in order for accurate progress & error reporting
+             */
             self.fetchOperationsByArticleTitle[title] = [self.fetcher fetchArticleForPageTitle:title
                                                                                       progress:NULL]
                                                         .thenOn(self.accessQueue, ^(MWKArticle* article){
@@ -127,7 +127,7 @@ static SavedArticlesFetcher* _fetcher = nil;
         case NSKeyValueChangeInsertion: {
             [self savedPageListDidAddItems:change[NSKeyValueChangeNewKey]];
             break;
-         }
+        }
         case NSKeyValueChangeRemoval: {
             [self savedPageListDidDeleteItems:change[NSKeyValueChangeOldKey]];
             break;
@@ -166,14 +166,14 @@ static SavedArticlesFetcher* _fetcher = nil;
         [self.savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)];
     dispatch_async(self.accessQueue, ^{
         NSArray<MWKTitle*>* cancelledFetchTitles =
-        [self.fetchOperationsByArticleTitle.allKeys bk_reject:^BOOL(MWKTitle* title) {
+            [self.fetchOperationsByArticleTitle.allKeys bk_reject:^BOOL (MWKTitle* title) {
             return ![currentSavedTitles containsObject:title];
         }];
         [cancelledFetchTitles bk_each:^(MWKTitle* title) {
             [self.fetcher cancelFetchForPageTitle:title];
         }];
         [self.fetchOperationsByArticleTitle removeObjectsForKeys:cancelledFetchTitles];
-        NSArray<MWKTitle*>* titlesToFetch = [currentSavedTitles bk_reject:^BOOL(MWKTitle* title) {
+        NSArray<MWKTitle*>* titlesToFetch = [currentSavedTitles bk_reject:^BOOL (MWKTitle* title) {
             return [self.fetchOperationsByArticleTitle.allKeys containsObject:title];
         }];
         [self fetchTitles:titlesToFetch];
@@ -195,15 +195,15 @@ static SavedArticlesFetcher* _fetcher = nil;
 /// Only invoke within accessQueue
 - (CGFloat)progress {
     /*
-     FIXME: Handle progress when only downloading a subset of saved pages (e.g. if some were already downloaded in
-     a previous session)?
-    */
+       FIXME: Handle progress when only downloading a subset of saved pages (e.g. if some were already downloaded in
+       a previous session)?
+     */
     if ([self.savedPageList countOfEntries] == 0) {
         return 0.0;
     }
 
     return (CGFloat)([self.savedPageList countOfEntries] - [self.fetchOperationsByArticleTitle count])
-            / (CGFloat)[self.savedPageList countOfEntries];
+           / (CGFloat)[self.savedPageList countOfEntries];
 }
 
 #pragma mark - Delegate Notification

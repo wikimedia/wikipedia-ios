@@ -12,12 +12,12 @@
 
 - (void)setUp {
     [super setUp];
-    self.downloadErrors = [NSMutableDictionary new];
-    self.downloadedArticles = [NSMutableArray new];
-    self.expectedFetchFinishedError = nil;
-    self.tempDataStore = [MWKDataStore temporaryDataStore];
-    self.mockArticleFetcher = mock([WMFArticleFetcher class]);
-    self.savedArticlesFetcher = [[SavedArticlesFetcher alloc] initWithArticleFetcher:self.mockArticleFetcher];
+    self.downloadErrors                             = [NSMutableDictionary new];
+    self.downloadedArticles                         = [NSMutableArray new];
+    self.expectedFetchFinishedError                 = nil;
+    self.tempDataStore                              = [MWKDataStore temporaryDataStore];
+    self.mockArticleFetcher                         = mock([WMFArticleFetcher class]);
+    self.savedArticlesFetcher                       = [[SavedArticlesFetcher alloc] initWithArticleFetcher:self.mockArticleFetcher];
     self.savedArticlesFetcher.fetchFinishedDelegate = self;
 }
 
@@ -61,14 +61,14 @@
     MWKTitle* uncachedEntryTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
 
     MWKArticle* stubbedArticle =
-    [[MWKArticle alloc]
-     initWithTitle:uncachedEntryTitle
-     dataStore:self.tempDataStore
-     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+        [[MWKArticle alloc]
+         initWithTitle:uncachedEntryTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
     [given([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
-    
+
     [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:nil];
@@ -82,7 +82,7 @@
 - (void)testCorrectProgressForMultipleSuccessfulDownloads {
     [self stubListWithEntries:2];
 
-    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
     MWKArticle* firstArticle =
         [[MWKArticle alloc]
          initWithTitle:firstTitle
@@ -116,22 +116,22 @@
 - (void)testSkipsCachedArticles {
     [self stubListWithEntries:2];
 
-    MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
     MWKArticle* firstArticle =
-    [[MWKArticle alloc]
-     initWithTitle:firstTitle
-     dataStore:self.tempDataStore
-     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+        [[MWKArticle alloc]
+         initWithTitle:firstTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
     [firstArticle save];
     NSAssert(firstArticle.isCached, @"Test depends on article being considered cached after save!");
 
     MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
     MWKArticle* secondArticle =
-    [[MWKArticle alloc]
-     initWithTitle:secondTitle
-     dataStore:self.tempDataStore
-     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+        [[MWKArticle alloc]
+         initWithTitle:secondTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
 
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
@@ -210,13 +210,13 @@
 
     MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
     MWKArticle* secondArticle =
-    [[MWKArticle alloc]
-     initWithTitle:secondTitle
-     dataStore:self.tempDataStore
-     dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+        [[MWKArticle alloc]
+         initWithTitle:secondTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
     __block PMKResolver resolve;
-    AnyPromise* unresolvedPromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull aResolve) {
+    AnyPromise* unresolvedPromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
         resolve = aResolve;
     }];
 
@@ -254,7 +254,7 @@
 
 - (void)stubListWithEntries:(NSUInteger)numEntries {
     for (NSUInteger e = 0; e < numEntries; e++) {
-        MWKTitle* title = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://en.wikipedia.org/wiki/Foo_%lu", e]]];
+        MWKTitle* title          = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://en.wikipedia.org/wiki/Foo_%lu", e]]];
         MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
         [self.savedPageList addEntry:entry];
     }
@@ -285,7 +285,7 @@
         XCTAssertNotNil(article);
         [self.downloadedArticles addObject:article];
     }
-    NSArray* uncachedEntries = [self.savedPageList.entries bk_reject:^BOOL(MWKSavedPageEntry* entry) {
+    NSArray* uncachedEntries = [self.savedPageList.entries bk_reject:^BOOL (MWKSavedPageEntry* entry) {
         MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:entry.title];
         return [existingArticle isCached];
     }];
@@ -293,7 +293,7 @@
     XCTAssertEqual(progress, expectedProgress);
 }
 
-- (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError *)error {
+- (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError*)error {
     XCTAssertTrue([NSThread isMainThread]);
     XCTAssertNotNil(self.expectedFetchFinishedError, @"Wasn't expecting a fetchFinished callback!");
     self.expectedFetchFinishedError(error);
