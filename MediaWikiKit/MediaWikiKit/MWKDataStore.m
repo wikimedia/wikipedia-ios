@@ -334,8 +334,8 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return html;
 }
 
-- (BOOL)htmlFileExistsForSectionId:(NSUInteger)sectionId title:(MWKTitle*)title {
-    NSString* path     = [self pathForSectionId:sectionId title:title];
+- (BOOL)hasHTMLFileForSection:(MWKSection*)section {
+    NSString* path     = [self pathForSectionId:section.sectionId title:section.title];
     NSString* filePath = [path stringByAppendingPathComponent:@"Section.html"];
     return [[NSFileManager defaultManager] fileExistsAtPath:filePath];
 }

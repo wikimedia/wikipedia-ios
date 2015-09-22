@@ -154,6 +154,6 @@ extern NSString* const MWKArticleKey;
 
 - (NSError*)removeFolderAtBasePath;
 
-- (BOOL)htmlFileExistsForSectionId:(NSUInteger)sectionId title:(MWKTitle*)title;
+- (BOOL)hasHTMLFileForSection:(MWKSection*)section;
 
 @end

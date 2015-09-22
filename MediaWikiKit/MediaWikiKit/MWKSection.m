@@ -107,7 +107,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 }
 
 - (BOOL)hasTextData {
-    return [self.article.dataStore htmlFileExistsForSectionId:self.sectionId title:self.article.title];
+    return [self.article.dataStore hasHTMLFileForSection:self];
 }
 
 - (NSString*)text {
