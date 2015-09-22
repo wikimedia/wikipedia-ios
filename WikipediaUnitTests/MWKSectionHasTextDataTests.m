@@ -36,7 +36,7 @@
     return article;
 }
 
-- (void)testArticleHasAtLeastOneSectionWithZeroLengthHTML {
+- (void)testHasTextDataMethodReturnsYESforZeroLengthSectionHTML {
     // Ensure at least one section of article has zero length section html.
     MWKArticle* article              = [self getTestingArticle];
     BOOL atLeastOneZeroLengthSection = NO;
@@ -47,11 +47,8 @@
         }
     }
     assertThat(@(atLeastOneZeroLengthSection), isTrue());
-}
 
-- (void)testHasTextDataMethodReturnsYESforZeroLengthSectionHTML {
     // Ensure "[MWKSection hasTextData]" returns YES if section html isn't nil - even if it's a zero length string.
-    MWKArticle* article = [self getTestingArticle];
     for (MWKSection* section in article.sections) {
         /*
            Reminder: zero length strings are *valid* section text data!
