@@ -23,11 +23,11 @@
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 
+@property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
+
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 - (instancetype)initWithArticleFetcher:(WMFArticleFetcher*)articleFetcher NS_DESIGNATED_INITIALIZER;
-
-@property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
 - (void)fetchSavedPageList:(MWKSavedPageList*)savedPageList;
 

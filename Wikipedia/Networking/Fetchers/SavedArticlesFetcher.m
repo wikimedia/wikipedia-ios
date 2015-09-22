@@ -1,5 +1,5 @@
 
-#import "SavedArticlesFetcher.h"
+#import "SavedArticlesFetcher_Testing.h"
 
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
@@ -15,8 +15,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, AnyPromise*>* fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, NSError*>* errorsByArticleTitle;
-
-@property (nonatomic, strong) dispatch_queue_t accessQueue;
 
 @end
 
@@ -42,8 +40,9 @@ static SavedArticlesFetcher* _fetcher = nil;
     NSParameterAssert(articleFetcher);
     self = [super init];
     if (self) {
-        self.accessQueue   = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue",
-                                                   DISPATCH_QUEUE_SERIAL);
+        _accessQueue   = dispatch_queue_create("org.wikipedia.savedarticlesfetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
+        self.fetchOperationsByArticleTitle = [NSMutableDictionary new];
+        self.errorsByArticleTitle = [NSMutableDictionary new];
         self.fetcher = articleFetcher;
     }
     return self;
@@ -90,32 +89,30 @@ static SavedArticlesFetcher* _fetcher = nil;
     }
     dispatch_async(self.accessQueue, ^{
         for (MWKTitle* title in titles) {
+            /*
+             !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of 
+             objects in cache
+            */
+            MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
+            if (existingArticle.isCached) {
+                continue;
+            }
+
+            /*
+             NOTE: don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+             immediately in order for accurate progress & error reporting
+            */
             self.fetchOperationsByArticleTitle[title] = [self.fetcher fetchArticleForPageTitle:title
                                                                                       progress:NULL]
                                                         .thenOn(self.accessQueue, ^(MWKArticle* article){
-                [self didFinishDownloadingArticle:article];
+                [self notifyDelegateProgressWithFetchedArticle:article title:title error:nil];
             })
                                                         .catch(^(NSError* error){
-                [self failedToDownloadArticleWithTitle:title error:error];
-            })
-                                                        .finallyOn(self.accessQueue, ^{
-                [self.fetchOperationsByArticleTitle removeObjectForKey:title];
+                dispatch_async(self.accessQueue, ^{
+                    [self notifyDelegateProgressWithFetchedArticle:nil title:title error:error];
+                });
             });
         }
-    });
-}
-
-/// Only invoke within accessQueue
-- (void)didFinishDownloadingArticle:(MWKArticle*)article {
-    [self notifyDelegateProgressWithFetchedArticle:article error:nil];
-    [self notifyDelegateCompletionIfFinished];
-}
-
-- (void)failedToDownloadArticleWithTitle:(MWKTitle*)title error:(NSError*)error {
-    dispatch_async(self.accessQueue, ^{
-        self.errorsByArticleTitle[title] = error;
-        [self notifyDelegateProgressWithFetchedArticle:nil error:error];
-        [self notifyDelegateCompletionIfFinished];
     });
 }
 
@@ -157,11 +154,13 @@ static SavedArticlesFetcher* _fetcher = nil;
     if (!insertedIndexes.count) {
         return;
     }
-    [self fetchTitles:[self.savedPageList.entries objectsAtIndexes:insertedIndexes]];
+    NSArray<MWKTitle*>* insertedTitles =
+        [[self.savedPageList.entries objectsAtIndexes:insertedIndexes]
+                                          valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)];
+    [self fetchTitles:insertedTitles];
 }
 
 - (void)mergeFetchesWithUpdatedSavedPageList {
-    // using an array for quick containment checks
     NSArray<MWKTitle*>* currentSavedTitles =
         [self.savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)];
     dispatch_async(self.accessQueue, ^{
@@ -194,6 +193,10 @@ static SavedArticlesFetcher* _fetcher = nil;
 
 /// Only invoke within accessQueue
 - (CGFloat)progress {
+    /*
+     FIXME: Handle progress when only downloading a subset of saved pages (e.g. if some were already downloaded in
+     a previous session)?
+    */
     if ([self.savedPageList countOfEntries] == 0) {
         return 0.0;
     }
@@ -206,15 +209,26 @@ static SavedArticlesFetcher* _fetcher = nil;
 
 /// Only invoke within accessQueue
 - (void)notifyDelegateProgressWithFetchedArticle:(MWKArticle*)fetchedArticle
+                                        title:(MWKTitle*)title
                                            error:(NSError*)error {
-    CGFloat progress = [self progress];
+    if (error) {
+        // store errors for later reporting
+        self.errorsByArticleTitle[title] = error;
+    }
+    // stop tracking operation, effectively advancing the progress
+    [self.fetchOperationsByArticleTitle removeObjectForKey:title];
 
+    // calculate new progress on internal queue then jump to main queue to inform our delegate
+    CGFloat progress = [self progress];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.fetchFinishedDelegate savedArticlesFetcher:self
                                          didFetchArticle:fetchedArticle
                                                 progress:progress
                                                    error:error];
     });
+
+    // after every progress advance, check if we need to inform delegate of completion
+    [self notifyDelegateCompletionIfFinished];
 }
 
 /// Only invoke within accessQueue
@@ -224,6 +238,8 @@ static SavedArticlesFetcher* _fetcher = nil;
         if ([self.errorsByArticleTitle count] > 0) {
             reportedError = [[self.errorsByArticleTitle allValues] firstObject];
         }
+
+        [self.errorsByArticleTitle removeAllObjects];
 
         [self finishWithError:reportedError
                   fetchedData:nil];
