@@ -234,7 +234,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
