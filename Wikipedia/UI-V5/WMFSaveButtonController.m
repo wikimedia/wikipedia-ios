@@ -3,6 +3,14 @@
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 #import "MWKUserDataStore.h"
+#import "SavedPagesFunnel.h"
+
+@interface WMFSaveButtonController ()
+
+@property (nonatomic, strong) SavedPagesFunnel* savedPagesFunnel;
+
+@end
+
 
 @implementation WMFSaveButtonController
 
@@ -53,6 +61,13 @@
     [self updateSavedButtonState];
 }
 
+- (SavedPagesFunnel*)savedPagesFunnel{
+    if(!_savedPagesFunnel){
+        _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
+    }
+    return _savedPagesFunnel;
+}
+
 #pragma mark - KVO
 
 - (void)observeSavedPages {
@@ -88,6 +103,14 @@
     [self unobserveSavedPages];
     [self.savedPageList toggleSavedPageForTitle:self.title];
     [self.savedPageList save];
+    
+    BOOL isSaved = [self.savedPageList isSaved:self.title];
+    if(isSaved){
+        [self.savedPagesFunnel logSaveNew];
+    }else{
+        [self.savedPagesFunnel logDelete];
+    }
+    
     [self observeSavedPages];
 }
 

@@ -41,7 +41,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
-@property (nonatomic, strong) UIBarButtonItem* buttonSave;
 @property (nonatomic, strong) UIBarButtonItem* buttonShare;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
@@ -112,12 +111,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTranslate handler:^(id sender){
         @strongify(self)
         [self showLanguages];
-    }];
-
-    self.buttonSave = [UIBarButtonItem wmf_buttonType:WMFButtonTypeHeart handler:^(id sender){
-        @strongify(self)
-        [self toggleSavedPage];
-        [self updateBottomBarButtonsEnabledState];
     }];
 
     self.buttonShare = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
@@ -858,64 +851,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self fadeAlert];
    }
  */
-
-#pragma Saved Pages
-
-- (void)toggleSavedPage {
-    SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
-    MWKUserDataStore* store  = self.session.userDataStore;
-    MWKTitle* title          = self.session.currentArticle.title;
-
-    [store.savedPageList toggleSavedPageForTitle:title];
-    [store.savedPageList save].then(^(){
-        BOOL isSaved = [store.savedPageList isSaved:title];
-
-        if (isSaved) {
-            [self showPageSavedAlertMessageForTitle:self.session.currentArticle.title.text];
-            [funnel logSaveNew];
-        } else {
-            [self fadeAlert];
-            [funnel logDelete];
-        }
-    });
-}
-
-- (void)showPageSavedAlertMessageForTitle:(NSString*)title {
-    NSParameterAssert(title.length);
-    // First show saved message.
-    NSString* savedMessage = MWLocalizedString(@"share-menu-page-saved", nil);
-
-    NSMutableAttributedString* attributedSavedMessage =
-        [savedMessage attributedStringWithAttributes:@{}
-                                 substitutionStrings:@[title]
-                              substitutionAttributes:@[@{ NSFontAttributeName: [UIFont italicSystemFontOfSize:ALERT_FONT_SIZE] }]].mutableCopy;
-
-    CGFloat duration                  = 2.0;
-    BOOL AccessSavedPagesMessageShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"AccessSavedPagesMessageShown"];
-
-    if (!AccessSavedPagesMessageShown) {
-        duration = 5;
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"AccessSavedPagesMessageShown"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
-        NSString* accessMessage = [NSString stringWithFormat:@"\n%@", MWLocalizedString(@"share-menu-page-saved-access", nil)];
-
-        NSDictionary* d = @{
-            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:ALERT_FONT_SIZE],
-            NSBaselineOffsetAttributeName: @2
-        };
-
-        NSAttributedString* attributedAccessMessage =
-            [accessMessage attributedStringWithAttributes:@{}
-                                      substitutionStrings:@[WIKIGLYPH_W, WIKIGLYPH_HEART]
-                                   substitutionAttributes:@[d, d]];
-
-
-        [attributedSavedMessage appendAttributedString:attributedAccessMessage];
-    }
-
-    [self showAlert:attributedSavedMessage type:ALERT_TYPE_BOTTOM duration:duration];
-}
 
 #pragma mark Web view scroll offset recording
 
