@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (MWKArticle*)articleWithMobileViewJSONFixture:(NSString*)fixtureName
                                       withTitle:(id)titleOrString
-                            insertIntoDataStore:(MWKDataStore*)dataStore;
+                                      dataStore:(MWKDataStore*)dataStore;
 
 /**
  * Similar to `articleWithMobileViewJSONFixture`, but using an entire folder of data instead of a single mobileview

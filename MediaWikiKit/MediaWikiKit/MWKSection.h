@@ -132,4 +132,9 @@ extern NSString* const MWKSectionShareSnippetXPath;
  */
 - (void)removeAllChildren;
 
+/**
+ *  Determines whether this section's text is available (cached) *without* loading the entire text string from disk.
+ */
+- (BOOL)hasTextData;
+
 @end
