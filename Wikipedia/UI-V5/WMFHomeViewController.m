@@ -170,12 +170,17 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setToolbarHidden:YES animated:NO];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.searchSite);
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
-
     [super viewDidAppear:animated];
     [self configureDataSource];
     [self.locationManager startMonitoringLocation];
