@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
+        self.hidesBottomBarWhenPushed = YES;
         self.savedPageList = savedPages;
         self.dataStore     = dataStore;
     }
