@@ -52,7 +52,7 @@ static SavedArticlesFetcher* _fetcher = nil;
     return [self initWithArticleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]];
 }
 
-- (void)setSavedPageList:(MWKSavedPageList *)savedPageList {
+- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
     // Using identity instead of equivalence since updates to an instance are more important than equivalent state
     if (self.savedPageList == savedPageList) {
         return;
