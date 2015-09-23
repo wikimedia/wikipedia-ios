@@ -1,7 +1,7 @@
 
-#import "UIView+WMFShapshotting.h"
+#import "UIView+WMFSnapshotting.h"
 
-@implementation UIView (WMFShapshotting)
+@implementation UIView (WMFSnapshotting)
 
 - (UIImage *)wmf_snapshotImage
 {

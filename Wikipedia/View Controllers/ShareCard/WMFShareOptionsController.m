@@ -16,7 +16,7 @@
 #import "NSString+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
 
-#import "UIView+WMFShapshotting.h"
+#import "UIView+WMFSnapshotting.h"
 
 #import "WMFShareCardViewController.h"
 #import "WMFShareOptionsView.h"

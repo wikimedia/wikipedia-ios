@@ -1,7 +1,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (WMFShapshotting)
+@interface UIView (WMFSnapshotting)
 
 - (UIImage *)wmf_snapshotImage;
 
