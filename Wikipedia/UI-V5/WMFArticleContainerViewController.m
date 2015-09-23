@@ -21,6 +21,10 @@
 
 #import "WMFPreviewController.h"
 
+//Sharing
+#import "WMFShareFunnel.h"
+#import "WMFShareOptionsViewController.h"
+
 // Other
 #import "SessionSingleton.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -39,6 +43,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
+
+@property (strong, nonatomic, null_resettable) WMFShareFunnel* shareFunnel;
+@property (strong, nonatomic, nullable) WMFShareOptionsViewController* shareOptionsViewController;
+@property (strong, nonatomic) UIPopoverController* popover;
 
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
@@ -79,9 +87,15 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    self.shareFunnel = nil;
+    
     _article = article;
 
     self.saveButtonController.title = article.title;
+    
+    if(_article){
+        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
+    }
 
     if (self.isViewLoaded) {
         self.articleViewController.article = article;
@@ -110,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setupSaveButton];
+    [self setupToolbar];
 
     // Manually adjusting scrollview offsets to compensate for embedded navigation controller
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -134,8 +148,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)setupSaveButton {
+- (void)setupToolbar {
     @weakify(self)
+    
     UIBarButtonItem* save = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
         @strongify(self)
         if (![self.article isCached]) {
@@ -143,12 +158,24 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
     
-    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL], save];
+    UIBarButtonItem* share = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+        @strongify(self)
+        NSString* selectedText = nil;
+        if(self.contentNavigationController.topViewController == self.webViewController){
+            selectedText = [self.webViewController selectedText];
+        }
+        [self shareArticleWithTextSnippet:nil fromBarButtonItem:nil];
+    }];
+    
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL],
+                          share,
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:NULL],
+                          save];
     
     self.saveButtonController =
-        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)save.customView
-                                          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
-                                                  title:self.article.title];
+    [[WMFSaveButtonController alloc] initWithButton:[save wmf_UIButton]
+                                      savedPageList:self.savedPageList
+                                              title:self.article.title];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -190,6 +217,15 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.articleViewController.tableView.contentOffset.y <= 0) {
         self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
     }
+}
+
+#pragma mark - Share
+
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromBarButtonItem:(nullable UIBarButtonItem*)item{
+    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+    self.shareOptionsViewController =
+    [[WMFShareOptionsViewController alloc] initWithArticle:self.article snippet:text shareFunnel:self.shareFunnel];
+    [self.shareOptionsViewController presentShareOptionsFromViewController:self barButtonItem:item];
 }
 
 #pragma mark - WebView Transition
@@ -270,6 +306,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentPopupForTitle:title];
 }
 
+- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text{
+    [self.shareFunnel logHighlight];
+}
+
+- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text{
+    [self shareArticleWithTextSnippet:text fromBarButtonItem:nil];
+}
+
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
@@ -333,6 +377,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
 }
+
 
 @end
 
