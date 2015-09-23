@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFShareOptionsViewController.h"
+#import "WMFShareOptionsController.h"
 
 #import "Wikipedia-Swift.h"
 #import <Masonry/Masonry.h>
@@ -22,11 +22,10 @@
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
-#import "MWKArticle+WMFSharing.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFShareOptionsViewController ()<UIPopoverControllerDelegate>
+@interface WMFShareOptionsController ()<UIPopoverControllerDelegate>
 
 @property (strong, nonatomic, readwrite) MWKArticle* article;
 @property (strong, nonatomic, readwrite) WMFShareFunnel* shareFunnel;
@@ -39,13 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, strong, nonatomic) UIView* grayOverlay;
 @property (nullable, strong, nonatomic) WMFShareOptionsView* shareOptions;
 @property (nullable, strong, nonatomic) UIImage* shareImage;
-@property (nullable, strong, nonatomic) NSString* shareTitle;
 
 @property (nullable, strong, nonatomic) UIPopoverController* popover;
 
 @end
 
-@implementation WMFShareOptionsViewController
+@implementation WMFShareOptionsController
 
 - (void)cleanup{
     
@@ -53,7 +51,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.originButtonItem = nil;
     self.originView = nil;
     self.shareImage = nil;
-    self.shareTitle = nil;
     self.snippet = nil;
 }
 
@@ -69,19 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
     
     if (self) {
         _article        = article;
-        _shareTitle     = [article.title.text copy];
         _shareFunnel = funnel;
     }
     return self;
-}
-
-#pragma mark - Accessors
-
-- (nullable NSString*)snippet{
-    if(_snippet.length == 0){
-        return [[self.article shareSnippet] copy];
-    }
-    return _snippet;
 }
 
 #pragma mark - Public Presentation methods
@@ -257,13 +244,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentActivityViewControllerWithImage:nil title:[self titleForActivityTextOnly]];
 }
 
-#pragma mark - Snippet to Title Conversion
+#pragma mark - Snippet and Title Conversion
+
+- (NSString*)shareTitle{
+    return [self.article.title.text length] > 0 ? [self.article.title.text copy] : @"";
+}
 
 - (NSString*)snippetForTextOnlySharing{
-    if(_snippet.length == 0){
-        return @"";
-    }
-    return [_snippet copy];
+    return [self.snippet length] > 0 ? [self.snippet copy] : @"";
 }
 
 - (NSString*)titleForActivityWithCard{
@@ -272,13 +260,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)titleForActivityTextOnly{
-    if (self.snippetForTextOnlySharing.length == 0) {
+    if ([self snippetForTextOnlySharing].length == 0) {
         return [MWLocalizedString(@"share-article-name-on-wikipedia", nil)
                            stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
     } else {
         return [[MWLocalizedString(@"share-article-name-on-wikipedia-with-selected-text", nil)
                             stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle]
-                           stringByReplacingOccurrencesOfString:@"$2" withString:self.snippetForTextOnlySharing];
+                           stringByReplacingOccurrencesOfString:@"$2" withString:[self snippetForTextOnlySharing]];
     }
 }
 
@@ -330,7 +318,14 @@ NS_ASSUME_NONNULL_BEGIN
                                                  animated:YES];
         }else{
             
-            [self.popover presentPopoverFromRect:self.originView.frame
+            CGRect frame = self.originView.frame;
+            if(CGRectIsNull(frame)){
+                frame  = self.containerViewController.view.frame;
+            }else{
+                frame = [self.containerViewController.view convertRect:frame fromView:self.originView.superview];
+            }
+            
+            [self.popover presentPopoverFromRect:frame
                                           inView:self.containerViewController.view
                         permittedArrowDirections:UIPopoverArrowDirectionAny
                                         animated:YES];

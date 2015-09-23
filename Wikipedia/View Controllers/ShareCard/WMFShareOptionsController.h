@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class WMFShareFunnel;
+@class WMFShareFunnel, MWKArticle;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFShareOptionsViewController : NSObject
+@interface WMFShareOptionsController : NSObject
 
 @property (nonatomic, strong, readonly) MWKArticle* article;
 @property (nonatomic, strong, readonly) WMFShareFunnel* funnel;
@@ -21,16 +21,25 @@ NS_ASSUME_NONNULL_BEGIN
  * Initialize a new instance with an article and an optional snippet.
  *
  * @param article           The article the snippet is derived from.
- * @param snippet           Optional. The snippet to share, with any necessary processing already applied.
- * @param backgroundView    The background of the share card.
- * @param delegate          The `WMFShareOptionsViewControllerDelegate`.
- *
- * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
+ * @param funnel            The funnel to use to log events.
  */
 - (instancetype)initWithArticle:(MWKArticle*)article
                     shareFunnel:(WMFShareFunnel*)funnel NS_DESIGNATED_INITIALIZER;
 
+/**
+ * Initialize a new instance with an article and an optional snippet.
+ *
+ * @param snippet           The snippet to share.
+ * @param viewController    The view controller that will present the menus.
+ * @param item              The item that will serve as the origin for the menu (i.e. a popover arrow).
+ *
+ * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
+ */
 - (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item;
+
+/**
+ * Same as above, but presented from a view instead of a bar button item
+ */
 - (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view;
 
 @end

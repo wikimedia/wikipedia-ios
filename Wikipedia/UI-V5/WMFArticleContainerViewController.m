@@ -18,12 +18,13 @@
 #import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
+#import "MWKArticle+WMFSharing.h"
 
 #import "WMFPreviewController.h"
 
 //Sharing
 #import "WMFShareFunnel.h"
-#import "WMFShareOptionsViewController.h"
+#import "WMFShareOptionsController.h"
 
 // Other
 #import "SessionSingleton.h"
@@ -45,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
 
 @property (strong, nonatomic, null_resettable) WMFShareFunnel* shareFunnel;
-@property (strong, nonatomic, nullable) WMFShareOptionsViewController* shareOptionsViewController;
+@property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
 @property (strong, nonatomic) UIPopoverController* popover;
 
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
@@ -88,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.shareFunnel = nil;
-    self.shareOptionsViewController = nil;
+    self.shareOptionsController = nil;
     
     _article = article;
 
@@ -96,8 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     if(_article){
         self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
-        self.shareOptionsViewController =
-        [[WMFShareOptionsViewController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
+        self.shareOptionsController =
+        [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
     }
 
     if (self.isViewLoaded) {
@@ -167,9 +168,9 @@ NS_ASSUME_NONNULL_BEGIN
         if(self.contentNavigationController.topViewController == self.webViewController){
             selectedText = [self.webViewController selectedText];
         }
-        [self shareArticleWithTextSnippet:nil fromBarButtonItem:nil];
+        [self shareArticleWithTextSnippet:nil fromButton:sender];
     }];
-    
+
     self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL],
                           share,
                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:NULL],
@@ -224,9 +225,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromBarButtonItem:(nullable UIBarButtonItem*)item{
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button{
+    
+    if(text.length == 0){
+        text = [self.article shareSnippet];
+    }
+    
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-    [self.shareOptionsViewController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:item];
+    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromView:button];
 }
 
 #pragma mark - WebView Transition
@@ -312,7 +318,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text{
-    [self shareArticleWithTextSnippet:text fromBarButtonItem:nil];
+    [self shareArticleWithTextSnippet:text fromButton:nil];
 }
 
 #pragma mark - UINavigationControllerDelegate

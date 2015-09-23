@@ -482,7 +482,7 @@
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
 		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
 		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
-		C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */; };
+		C90799BA1A8564C60044E13C /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsController.m */; };
 		C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */; };
 		C91A86F41A8BCB680088A801 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C91A86F31A8BCB680088A801 /* WMFShareCardImageContainer.m */; };
 		C94BE3EE1A8169ED00F2105B /* WMFShareFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C94BE3ED1A8169ED00F2105B /* WMFShareFunnel.m */; };
@@ -1450,8 +1450,8 @@
 		C42D94851A937DE000A4871A /* WMFProgressLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProgressLineView.m; sourceTree = "<group>"; };
 		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "../../../Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		C7C26C8CB2ECA7439FB76EAE /* Pods.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.alpha.xcconfig; path = "Pods/Target Support Files/Pods/Pods.alpha.xcconfig"; sourceTree = "<group>"; };
-		C90799B81A8564C60044E13C /* WMFShareOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareOptionsViewController.h; path = ShareCard/WMFShareOptionsViewController.h; sourceTree = "<group>"; };
-		C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareOptionsViewController.m; path = ShareCard/WMFShareOptionsViewController.m; sourceTree = "<group>"; };
+		C90799B81A8564C60044E13C /* WMFShareOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareOptionsController.h; path = ShareCard/WMFShareOptionsController.h; sourceTree = "<group>"; };
+		C90799B91A8564C60044E13C /* WMFShareOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareOptionsController.m; path = ShareCard/WMFShareOptionsController.m; sourceTree = "<group>"; };
 		C913C89A1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSuggestedPagesFunnel.h; path = EventLogging/WMFSuggestedPagesFunnel.h; sourceTree = "<group>"; };
 		C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSuggestedPagesFunnel.m; path = EventLogging/WMFSuggestedPagesFunnel.m; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
@@ -3175,8 +3175,8 @@
 				C98990331A699DE000AF44FC /* WMFShareCardViewController.m */,
 				C91A86F21A8BCB680088A801 /* WMFShareCardImageContainer.h */,
 				C91A86F31A8BCB680088A801 /* WMFShareCardImageContainer.m */,
-				C90799B81A8564C60044E13C /* WMFShareOptionsViewController.h */,
-				C90799B91A8564C60044E13C /* WMFShareOptionsViewController.m */,
+				C90799B81A8564C60044E13C /* WMFShareOptionsController.h */,
+				C90799B91A8564C60044E13C /* WMFShareOptionsController.m */,
 				C97972791A731EAA00C6ED7A /* ShareOptions.xib */,
 				C979727B1A731F2D00C6ED7A /* WMFShareOptionsView.h */,
 				C979727C1A731F2D00C6ED7A /* WMFShareOptionsView.m */,
@@ -3963,7 +3963,7 @@
 				0E2690F91B86A9DB009B8605 /* WMFRelatedSectionController.m in Sources */,
 				041E32381B72AB9A001D0E28 /* WMFSectionHeader.m in Sources */,
 				0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */,
-				C90799BA1A8564C60044E13C /* WMFShareOptionsViewController.m in Sources */,
+				C90799BA1A8564C60044E13C /* WMFShareOptionsController.m in Sources */,
 				0E2B07021B2D1DE200EA2F53 /* WMFBottomStackLayout.m in Sources */,
 				0E03E2911B8430FE00C1FBD7 /* WMFNearbySectionController.m in Sources */,
 				04C91CEB195517250035ED1B /* OnboardingViewController.m in Sources */,
