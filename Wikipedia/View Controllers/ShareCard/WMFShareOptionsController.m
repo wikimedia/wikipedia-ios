@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)cleanup{
     
+    [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     self.containerViewController = nil;
     self.originButtonItem = nil;
     self.originView = nil;
@@ -106,11 +107,11 @@ NS_ASSUME_NONNULL_BEGIN
     
     [self setupBackgroundView];
 
-    _shareImage = [self cardImageWithArticleImage:image];
+    self.shareImage = [self cardImageWithArticleImage:image];
     
-    [self setupShareOptionsWithImage:_shareImage];
+    [self setupShareOptions];
     
-    [self presentShareOptionsView:self.shareOptions];
+    [self presentShareOptions];
 }
 
 - (void)setupBackgroundView{
@@ -132,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)setupShareOptionsWithImage:(UIImage*)image{
+- (void)setupShareOptions{
     
     WMFShareOptionsView* shareOptionsView =
     [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
@@ -141,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
     shareOptionsView.shareAsTextLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsCardLabel.text                         = MWLocalizedString(@"share-as-image", nil);
     shareOptionsView.shareAsTextLabel.text                         = MWLocalizedString(@"share-as-text", nil);
-    shareOptionsView.cardImageView.image                           = _shareImage;
+    shareOptionsView.cardImageView.image                           = self.shareImage;
     
     [self.containerViewController.view addSubview:shareOptionsView];
     self.shareOptions = shareOptionsView;
@@ -162,20 +163,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share Options
 
-- (void)presentShareOptionsView:(UIView*)shareOptionsView{
+- (void)presentShareOptions{
     
     UIView* containingView = self.containerViewController.view;
     
-    [shareOptionsView mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
 
         make.top.equalTo(containingView.mas_bottom);
     }];
     
-    [shareOptionsView layoutIfNeeded];
+    [self.shareOptions layoutIfNeeded];
 
-    [shareOptionsView mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
     
@@ -184,7 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     [UIView animateWithDuration:0.40 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
         
-        [shareOptionsView layoutIfNeeded];
+        [self.shareOptions layoutIfNeeded];
         self.grayOverlay.alpha = 1.0;
         
     } completion:^(BOOL finished) {
@@ -227,7 +228,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)respondToDimAreaTapGesture:(UITapGestureRecognizer*)recognizer {
     [self.shareFunnel logAbandonedAfterSeeingShareAFact];
-    [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     [self dismissShareOptions];
     [self cleanup];
 }
