@@ -94,9 +94,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Asynchornous Fetch and Present
 
 - (void)fetchImageThenShowShareCard {
+    @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]].then(^(WMFImageDownload* download){
+        @strongify(self);
         [self showShareOptionsWithImage:download.image];
     }).catch(^(NSError* error){
+        @strongify(self);
         [self showShareOptionsWithImage:nil];
     });
 }
