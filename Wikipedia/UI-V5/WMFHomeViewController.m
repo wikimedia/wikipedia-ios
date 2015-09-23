@@ -175,7 +175,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController setToolbarHidden:YES animated:NO];
 }
 
-
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.dataStore);
     NSParameterAssert(self.searchSite);
