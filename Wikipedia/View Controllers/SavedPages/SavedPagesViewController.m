@@ -385,7 +385,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     fetcher.fetchFinishedDelegate = self;
 
     [SavedArticlesFetcher setSharedInstance:fetcher];
-    [fetcher fetchSavedPageList:self.savedPageList];
+    [fetcher setSavedPageList:self.savedPageList];
 
     self.progressView.progress = 0.0;
 

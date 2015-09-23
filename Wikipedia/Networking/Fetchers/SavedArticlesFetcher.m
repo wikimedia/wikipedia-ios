@@ -1,5 +1,5 @@
 
-#import "SavedArticlesFetcher_Testing.h"
+#import "SavedArticlesFetcher.h"
 
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
@@ -10,8 +10,8 @@
 
 @interface SavedArticlesFetcher ()
 
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher* fetcher;
+@property (nonatomic, strong, readonly) dispatch_queue_t accessQueue;
 
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, AnyPromise*>* fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, NSError*>* errorsByArticleTitle;
@@ -52,9 +52,7 @@ static SavedArticlesFetcher* _fetcher = nil;
     return [self initWithArticleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]];
 }
 
-#pragma mark - Fetching
-
-- (void)fetchSavedPageList:(MWKSavedPageList*)savedPageList {
+- (void)setSavedPageList:(MWKSavedPageList *)savedPageList {
     // Using identity instead of equivalence since updates to an instance are more important than equivalent state
     if (self.savedPageList == savedPageList) {
         return;
@@ -63,8 +61,14 @@ static SavedArticlesFetcher* _fetcher = nil;
     [self.KVOControllerNonRetaining unobserve:self.savedPageList];
     [self cancelFetch];
 
-    self.savedPageList = savedPageList;
+    _savedPageList = savedPageList;
 
+    [self fetchSavedPageList];
+}
+
+#pragma mark - Fetching
+
+- (void)fetchSavedPageList {
     if (!self.savedPageList) {
         return;
     }
@@ -95,8 +99,11 @@ static SavedArticlesFetcher* _fetcher = nil;
              */
             MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
             if (existingArticle.isCached) {
+                DDLogVerbose(@"Skipping download of cached title: %@", title);
                 continue;
             }
+
+            DDLogInfo(@"Fetching saved title: %@", title);
 
             /*
                NOTE: don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
@@ -147,6 +154,7 @@ static SavedArticlesFetcher* _fetcher = nil;
     }
     dispatch_async(self.accessQueue, ^{
         [deletedEntries bk_each:^(MWKSavedPageEntry* entry) {
+            DDLogInfo(@"Canceling saved page download for title: %@", entry.title);
             [self.fetcher cancelFetchForPageTitle:entry.title];
             [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
         }];
@@ -214,7 +222,10 @@ static SavedArticlesFetcher* _fetcher = nil;
                   error:(NSError*)error {
     if (error) {
         // store errors for later reporting
+        DDLogError(@"Failed to download saved page %@ due to error: %@", title, error);
         self.errorsByArticleTitle[title] = error;
+    } else {
+        DDLogInfo(@"Downloaded saved page: %@", title);
     }
 
     // stop tracking operation, effectively advancing the progress
@@ -241,6 +252,8 @@ static SavedArticlesFetcher* _fetcher = nil;
         }
 
         [self.errorsByArticleTitle removeAllObjects];
+
+        DDLogInfo(@"Finished downloading all saved pages!");
 
         [self finishWithError:reportedError
                   fetchedData:nil];

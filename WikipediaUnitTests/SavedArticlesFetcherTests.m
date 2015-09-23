@@ -32,7 +32,7 @@
 - (void)testStartDownloadingArticleWhenAddedToList {
     [self stubListWithEntries:0];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
 
@@ -69,7 +69,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -103,7 +103,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -137,7 +137,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -152,7 +152,7 @@
 - (void)testReportDownloadErrors {
     [self stubListWithEntries:0];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
 
@@ -191,7 +191,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     [self expectFetcherToFinishWithError:downloadError];
 
@@ -228,7 +228,7 @@
 
     [self expectFetcherToFinishWithError:nil];
 
-    [self.savedArticlesFetcher fetchSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
     [self.savedPageList removeEntryWithListIndex:firstTitle];
 

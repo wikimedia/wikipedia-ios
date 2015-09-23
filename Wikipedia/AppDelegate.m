@@ -6,14 +6,17 @@
 #import "Wikipedia-Swift.h"
 #import "WMFLogFormatter.h"
 #import <PiwikTracker/PiwikTracker.h>
+#import "SavedArticlesFetcher.h"
+#import "SessionSingleton.h"
 
 static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
 static NSString* const WMFPiwikSiteID    = @"4";
 
 @interface AppDelegate ()
 
-@property(nonatomic, strong) WMFAppViewController* appViewController;
-@property(nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
+@property (nonatomic, strong) WMFAppViewController* appViewController;
+@property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
+@property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 
 @end
 
@@ -60,10 +63,20 @@ static NSString* const WMFPiwikSiteID    = @"4";
     return _imageMigration;
 }
 
+- (SavedArticlesFetcher*)savedArticlesFetcher {
+    if (!_savedArticlesFetcher) {
+        _savedArticlesFetcher =
+            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+    }
+    return _savedArticlesFetcher;
+}
+
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [self.imageMigration setupAndStart];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
+
+    self.savedArticlesFetcher.savedPageList = [[[SessionSingleton sharedInstance] userDataStore] savedPageList];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];
@@ -97,5 +110,10 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+// TODO: fetch saved pages in the background
+//- (void)application:(UIApplication *)application
+//    performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+//}
 
 @end

@@ -1118,7 +1118,6 @@
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
 		BC5620A61B6BEDAD0013FFB0 /* UIColor+WMFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WMFStyle.h"; sourceTree = "<group>"; };
 		BC5620A71B6BEDAD0013FFB0 /* UIColor+WMFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WMFStyle.m"; sourceTree = "<group>"; };
-		BC5EA3AA1BB0B65900AA196A /* SavedArticlesFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher_Testing.h; sourceTree = "<group>"; };
 		BC5EA3AB1BB1BAE100AA196A /* SavedArticlesFetcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcherTests.h; sourceTree = "<group>"; };
 		BC5FA1751B72859B005BE5BA /* NSURL+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WMFLinkParsing.h"; sourceTree = "<group>"; };
 		BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsing.m"; sourceTree = "<group>"; };
@@ -1846,7 +1845,6 @@
 				0487045B19F8262600B7D307 /* AccountLogin.h */,
 				0487045C19F8262600B7D307 /* AccountLogin.m */,
 				C42D947C1A937DAC00A4871A /* SavedArticlesFetcher.h */,
-				BC5EA3AA1BB0B65900AA196A /* SavedArticlesFetcher_Testing.h */,
 				C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */,
 				0487045F19F8262600B7D307 /* AssetsFileFetcher.h */,
 				0487046019F8262600B7D307 /* AssetsFileFetcher.m */,

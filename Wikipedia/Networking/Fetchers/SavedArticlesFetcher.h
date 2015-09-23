@@ -22,15 +22,13 @@
 + (SavedArticlesFetcher*)sharedInstance;
 + (void)                 setSharedInstance:(SavedArticlesFetcher*)fetcher;
 
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 - (instancetype)initWithArticleFetcher:(WMFArticleFetcher*)articleFetcher NS_DESIGNATED_INITIALIZER;
-
-- (void)fetchSavedPageList:(MWKSavedPageList*)savedPageList;
 
 - (void)getProgress:(WMFProgressHandler)progressBlock;
 
