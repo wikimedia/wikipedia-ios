@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SavedArticlesFetcherTests.h"
-#import "SavedArticlesFetcher_Testing.h"
+#import "SavedArticlesFetcher.h"
 #import "WMFArticleFetcher.h"
 #import "MWKSavedPageList.h"
 #import "MWKTitle.h"
