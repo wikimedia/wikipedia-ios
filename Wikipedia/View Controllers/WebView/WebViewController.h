@@ -51,12 +51,17 @@
                                    thenHideTOC:(BOOL)hideTOC;
 - (void)scrollToFragment:(NSString*)fragment;
 
+
+- (NSString*)selectedText;
+
 @end
 
 
 @protocol WMFWebViewControllerDelegate <NSObject>
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
+- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;
+- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
 
 @end
 

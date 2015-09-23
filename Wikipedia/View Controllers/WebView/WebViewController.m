@@ -18,8 +18,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "WMFShareCardViewController.h"
-#import "WMFShareFunnel.h"
-#import "WMFShareOptionsViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
@@ -41,15 +39,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
-@property (nonatomic, strong) UIBarButtonItem* buttonShare;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
 @property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
-@property (strong, nonatomic) UIPopoverController* popover;
-@property (strong, nonatomic) WMFShareFunnel* shareFunnel;
-@property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
@@ -113,11 +107,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self showLanguages];
     }];
 
-    self.buttonShare = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
-        @strongify(self)
-        [self shareUpArrowButtonPushed];
-    }];
-
     self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
         @strongify(self)
         [self editHistoryButtonPushed];
@@ -127,11 +116,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonSave,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonLanguages,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonShare
     ];
 }
 
@@ -819,7 +804,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
          */
 
         UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
-                                                              action:@selector(shareButtonPushed:)];
+                                                              action:@selector(shareMenuItemTapped:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
         [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
@@ -1694,6 +1679,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return 0.75 * progress;
 }
 
+#pragma mark - Share Actions
+
+- (void)shareMenuItemTapped:(id)sender {
+    [self shareSnippet:self.selectedText];
+}
+
 #pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
@@ -1701,7 +1692,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         if ([self.selectedText isEqualToString:@""]) {
             return NO;
         }
-        [self textWasHighlighted];
+        [self.delegate webViewController:self didSelectText:self.selectedText];
         return YES;
     }
     return [super canPerformAction:action withSender:sender];
@@ -1713,29 +1704,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
 }
 
-- (void)textWasHighlighted {
-    if (!self.shareFunnel) {
-        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:[SessionSingleton sharedInstance].currentArticle];
-        [self.shareFunnel logHighlight];
-    }
-}
-
-- (void)shareButtonPushed:(id)sender {
-    [self shareSnippet:self.selectedText];
-}
-
-- (void)shareUpArrowButtonPushed {
-    [self shareSnippet:self.selectedText];
-}
-
 - (void)shareSnippet:(NSString*)snippet {
     [self.webView wmf_suppressSelection];
-
-    self.shareOptionsViewController =
-        [[WMFShareOptionsViewController alloc] initWithMWKArticle:[SessionSingleton sharedInstance].currentArticle
-                                                          snippet:snippet
-                                                   backgroundView:self.navigationController.view
-                                                         delegate:self];
+    [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
 }
 
 - (void)editHistoryButtonPushed {
@@ -1743,66 +1714,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self presentViewController:nc animated:YES completion:nil];
 }
 
-#pragma mark - ShareTapDelegate methods
-- (void)didShowSharePreviewForMWKArticle:(MWKArticle*)article withText:(NSString*)text {
-    if (!self.shareFunnel) {
-        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:article];
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-}
 
-- (void)tappedBackgroundToAbandonWithText:(NSString*)text {
-    [self.shareFunnel logAbandonedAfterSeeingShareAFact];
-    [self releaseShareResources];
-}
-
-- (void)tappedShareCardWithText:(NSString*)text {
-    [self.shareFunnel logShareAsImageTapped];
-}
-
-- (void)tappedShareTextWithText:(NSString*)text {
-    [self.shareFunnel logShareAsTextTapped];
-}
-
-- (void)finishShareWithActivityItems:(NSArray*)activityItems text:(NSString*)text {
-    UIActivityViewController* shareActivityVC =
-        [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                          applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
-    NSMutableArray* exclusions = @[
-        UIActivityTypePrint,
-        UIActivityTypeAssignToContact,
-        UIActivityTypeSaveToCameraRoll
-    ].mutableCopy;
-
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        [exclusions addObject:UIActivityTypeAirDrop];
-        [exclusions addObject:UIActivityTypeAddToReadingList];
-    }
-
-    shareActivityVC.excludedActivityTypes = exclusions;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self presentViewController:shareActivityVC animated:YES completion:nil];
-    } else {
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
-        [self.popover presentPopoverFromBarButtonItem:self.buttonShare
-                             permittedArrowDirections:UIPopoverArrowDirectionAny
-                                             animated:YES];
-    }
-
-    [shareActivityVC setCompletionHandler:^(NSString* activityType, BOOL completed) {
-        if (completed) {
-            [self.shareFunnel logShareSucceededWithShareMethod:activityType];
-        } else {
-            [self.shareFunnel logShareFailedWithShareMethod:activityType];
-        }
-        [self releaseShareResources];
-    }];
-}
-
-- (void)releaseShareResources {
-    self.shareFunnel                = nil;
-    self.shareOptionsViewController = nil;
-}
 
 #pragma mark - Article loading convenience
 
