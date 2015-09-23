@@ -123,6 +123,46 @@ public class WMFImageController : NSObject {
         .then(mainImageBlock)
     }
 
+    /**
+    Use the shared session to download an image directly to the receiver's disk cache.
+
+    - parameter url: The URL to download the image from.
+
+    - returns: A promise which is resolved after the data has been successfully written to disk.
+    */
+    public func downloadImageDataInBackground(url: NSURL) -> Promise<Void> {
+        if hasDataOnDiskForImageWithURL(url) {
+            // already done!
+            return Promise()
+        }
+
+        let (promise, fulfill, reject) = Promise<NSURL>.pendingPromise()
+
+        /*
+          FIXME: Using sharedSession to punt on refactoring this to work with background sessions (which require using
+          a delegate).
+        */
+        let task = NSURLSession.sharedSession()
+                               .downloadTaskWithRequest(NSURLRequest(URL: url.wmf_urlByPrependingSchemeIfSchemeless())) { location, respsonse, error in
+            if error != nil {
+                reject(error!)
+            } else {
+                fulfill(location!)
+            }
+        }
+        task.priority = NSURLSessionTaskPriorityLow
+        task.resume()
+
+        addCancellableForURL(task, url: url)
+
+        return promise.thenInBackground() { [weak self] location in
+            guard let strongSelf = self else {
+                throw WMFImageControllerErrorCode.Deinit
+            }
+            return strongSelf.importImage(fromFile: location.path!, withURL: url)
+        }
+    }
+
     // MARK: - Simple Fetching
 
     /**
@@ -365,5 +405,9 @@ extension WMFImageController {
                                   mainImageBlock: mainImageBlock,
                                   cachedPlaceholderImageBlock: cachedPlaceholderImageBlock)
         return AnyPromise(bound: promise)
+    }
+
+    @objc public func downloadImageDataInBackground(url: NSURL) -> AnyPromise {
+        return AnyPromise(bound: downloadImageDataInBackground(url))
     }
 }

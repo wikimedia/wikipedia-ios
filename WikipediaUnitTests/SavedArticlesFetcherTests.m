@@ -174,7 +174,7 @@
 
     WaitForExpectations();
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:anything()];
+    [MKTVerifyCount(self.mockImageController, never()) downloadImageDataInBackground:anything()];
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
@@ -236,17 +236,17 @@
 
     __block PMKResolver resolveSecondArticleRequest;
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
+     willReturn:[AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         resolveSecondArticleRequest = resolve;
     }]];
 
     [self expectFetcherToFinishWithError:nil];
 
     /*
-     !!!: Lots of dispatching here to ensure deterministic behavior, making it possible to consistently predict what
-     the progress value should be.  If this were omitted, the cancellation could happen at any time, meaning the saved
-     page list could have 1 or 2 entries when we get our delegate callback, resulting in flaky tests.
-    */
+       !!!: Lots of dispatching here to ensure deterministic behavior, making it possible to consistently predict what
+       the progress value should be.  If this were omitted, the cancellation could happen at any time, meaning the saved
+       page list could have 1 or 2 entries when we get our delegate callback, resulting in flaky tests.
+     */
 
     // start requesting first & second article
     [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
@@ -343,7 +343,7 @@
 
 - (void)verifyImageDownloadAttemptForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        [MKTVerify(self.mockImageController) fetchImageWithURL:imageURL];
+        [MKTVerify(self.mockImageController) downloadImageDataInBackground:imageURL];
     }];
 }
 
