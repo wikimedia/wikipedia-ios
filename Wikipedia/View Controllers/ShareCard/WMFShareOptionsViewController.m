@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
     
     UIView* cardView = cardViewController.view;
-    [cardViewController fillCardWithMWKArticle:self.article snippet:_snippet image:image];
+    [cardViewController fillCardWithMWKArticle:self.article snippet:self.snippet image:image];
     
     return [cardView wmf_snapshotImage];
 }
