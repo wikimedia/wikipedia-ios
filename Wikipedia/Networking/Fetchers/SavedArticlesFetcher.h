@@ -5,7 +5,8 @@
        MWKSavedPageList,
        MWKDataStore,
        WMFArticleFetcher,
-       SavedArticlesFetcher;
+       SavedArticlesFetcher,
+       WMFImageController;
 
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
@@ -28,7 +29,8 @@
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-- (instancetype)initWithArticleFetcher:(WMFArticleFetcher*)articleFetcher NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithArticleFetcher:(WMFArticleFetcher*)articleFetcher
+                       imageController:(WMFImageController*)imageController NS_DESIGNATED_INITIALIZER;
 
 - (void)getProgress:(WMFProgressHandler)progressBlock;
 

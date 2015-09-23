@@ -12,12 +12,14 @@
 
 - (void)setUp {
     [super setUp];
-    self.downloadErrors                             = [NSMutableDictionary new];
-    self.downloadedArticles                         = [NSMutableArray new];
-    self.expectedFetchFinishedError                 = nil;
-    self.tempDataStore                              = [MWKDataStore temporaryDataStore];
-    self.mockArticleFetcher                         = mock([WMFArticleFetcher class]);
-    self.savedArticlesFetcher                       = [[SavedArticlesFetcher alloc] initWithArticleFetcher:self.mockArticleFetcher];
+    self.downloadErrors             = [NSMutableDictionary new];
+    self.downloadedArticles         = [NSMutableArray new];
+    self.expectedFetchFinishedError = nil;
+    self.tempDataStore              = [MWKDataStore temporaryDataStore];
+    self.mockArticleFetcher         = mock([WMFArticleFetcher class]);
+    self.mockImageController        = mock([WMFImageController class]);
+    self.savedArticlesFetcher       = [[SavedArticlesFetcher alloc] initWithArticleFetcher:self.mockArticleFetcher
+                                                                           imageController:self.mockImageController];
     self.savedArticlesFetcher.fetchFinishedDelegate = self;
 }
 
@@ -51,6 +53,7 @@
 
     WaitForExpectations();
 
+    [self verifyImageDownloadAttemptForArticle:stubbedArticle];
     assertThat(self.downloadedArticles, is(@[stubbedArticle]));
     assertThat(self.downloadErrors, isEmpty());
 }
@@ -75,6 +78,7 @@
 
     WaitForExpectations();
 
+    [self verifyImageDownloadAttemptForArticle:stubbedArticle];
     assertThat(self.downloadedArticles, is(@[stubbedArticle]));
     assertThat(self.downloadErrors, isEmpty());
 }
@@ -109,6 +113,8 @@
 
     WaitForExpectations();
 
+    [self verifyImageDownloadAttemptForArticle:firstArticle];
+    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[firstArticle, secondArticle]));
     assertThat(self.downloadErrors, isEmpty());
 }
@@ -143,6 +149,7 @@
 
     WaitForExpectations();
 
+    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
     assertThat(self.downloadErrors, isEmpty());
 }
@@ -167,6 +174,7 @@
 
     WaitForExpectations();
 
+    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:anything()];
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
@@ -197,6 +205,7 @@
 
     WaitForExpectations();
 
+    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
     assertThat(self.downloadErrors, is(@{firstTitle: downloadError}));
 }
@@ -239,8 +248,57 @@
     // resolve promise after the test to prevent PromiseKit warning
     resolve([NSError cancelledError]);
 
+    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
     assertThat(self.downloadErrors, isEmpty());
+}
+
+- (void)testCancelsImageFetchesForDeletedArticles {
+    [self stubListWithEntries:1];
+
+    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKArticle* firstArticle =
+        [[MWKArticle alloc]
+         initWithTitle:firstTitle
+             dataStore:self.tempDataStore
+                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:firstArticle]];
+
+    [self expectFetcherToFinishWithError:nil];
+
+    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+
+    WaitForExpectations();
+
+    /*
+       HAX: we need to save the article on behalf of the article fetcher in order for the savedArticlesFetcher to
+          get the list of image fetches to cancel from its dataStore
+     */
+    [firstArticle save];
+
+    // download finished, images have now started downloading
+    [self verifyImageDownloadAttemptForArticle:firstArticle];
+    assertThat(self.downloadedArticles, is(@[firstArticle]));
+    assertThat(self.downloadErrors, isEmpty());
+
+    [self.savedPageList removeEntryWithListIndex:firstTitle];
+
+    XCTestExpectation* asyncFetcherWorkExpectation =
+        [self expectationWithDescription:@"Fetcher should cancel requests on its internal queue."];
+
+    dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
+        // it will try to cancel the article fetch even though it's already downloaded (no effect)
+        [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
+        // then it will cancel any download for its images
+        [firstArticle.allImageURLs bk_each:^(NSURL* imageURL) {
+            [MKTVerify(self.mockImageController) cancelFetchForURL:imageURL];
+        }];
+        [asyncFetcherWorkExpectation fulfill];
+    });
+
+    WaitForExpectations();
 }
 
 #pragma mark - Utils
@@ -259,6 +317,12 @@
         [self.savedPageList addEntry:entry];
     }
     PMKHang([self.savedPageList save]);
+}
+
+- (void)verifyImageDownloadAttemptForArticle:(MWKArticle*)article {
+    [[article allImageURLs] bk_each:^(NSURL* imageURL) {
+        [MKTVerify(self.mockImageController) fetchImageWithURL:imageURL];
+    }];
 }
 
 - (void)expectFetcherToFinishWithError:(NSError*)error {

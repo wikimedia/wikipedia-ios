@@ -1386,6 +1386,7 @@
 		BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController_Private.h; path = "Image Gallery/WMFImageInfoController_Private.h"; sourceTree = "<group>"; };
 		BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRangeUtils.h; sourceTree = "<group>"; };
 		BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
+		BCDBEBE81BB32E7600841C20 /* SavedArticlesFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher_Testing.h; sourceTree = "<group>"; };
 		BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcherTests.m; sourceTree = "<group>"; };
 		BCE24FD41B0CF0C7003F054B /* LegacyCoreDataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyCoreDataMigrator.h; sourceTree = "<group>"; };
 		BCE24FD51B0CF0C7003F054B /* LegacyCoreDataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyCoreDataMigrator.m; sourceTree = "<group>"; };
@@ -1845,6 +1846,7 @@
 				0487045B19F8262600B7D307 /* AccountLogin.h */,
 				0487045C19F8262600B7D307 /* AccountLogin.m */,
 				C42D947C1A937DAC00A4871A /* SavedArticlesFetcher.h */,
+				BCDBEBE81BB32E7600841C20 /* SavedArticlesFetcher_Testing.h */,
 				C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */,
 				0487045F19F8262600B7D307 /* AssetsFileFetcher.h */,
 				0487046019F8262600B7D307 /* AssetsFileFetcher.m */,

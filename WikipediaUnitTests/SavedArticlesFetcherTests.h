@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SavedArticlesFetcherTests.h"
-#import "SavedArticlesFetcher.h"
+#import "SavedArticlesFetcher_Testing.h"
 #import "WMFArticleFetcher.h"
 #import "MWKSavedPageList.h"
 #import "MWKTitle.h"
@@ -19,6 +19,7 @@
 #import "WMFTestFixtureUtilities.h"
 #import "XCTestCase+PromiseKit.h"
 #import "MWKDataStore+TemporaryDataStore.h"
+#import "Wikipedia-Swift.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -39,7 +40,7 @@ typedef void (^ SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, 
  *  @warning This class is not intended to be subclassed or reused in other tests. The header was only created to
  *           reduce noise in the implementation while providing documentation for utilities needed to make tests readable.
  */
-@interface SavedArticlesFetcherTests : WMFAsyncTestCase
+@interface SavedArticlesFetcherTests : XCTestCase
     <SavedArticlesFetcherDelegate>
 
 /// Test Subject
@@ -47,6 +48,9 @@ typedef void (^ SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, 
 
 /// Mock fetcher used feed certain responses to the test subject in order to validate specific behaviors.
 @property (nonatomic, strong) WMFArticleFetcher* mockArticleFetcher;
+
+/// Mock image controller
+@property (nonatomic, strong) WMFImageController* mockImageController;
 
 /// Temporary data store used to validate the test subject's behavior for articles which are or aren't cached.
 @property (nonatomic, strong) MWKDataStore* tempDataStore;
