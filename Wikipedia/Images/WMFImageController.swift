@@ -52,7 +52,7 @@ public class WMFImageController : NSObject {
         }
     }
 
-    /// MARK: - Initialization
+    // MARK: - Initialization
 
     private static let defaultNamespace = "default"
 
@@ -87,7 +87,7 @@ public class WMFImageController : NSObject {
         cancelAllFetches()
     }
 
-    /// MARK: - Complex Fetching
+    // MARK: - Complex Fetching
 
     /**
      Perform a cascading fetch which attempts to retrieve a "main" image from memory, or fall back to a
@@ -123,7 +123,7 @@ public class WMFImageController : NSObject {
         .then(mainImageBlock)
     }
 
-    /// MARK: - Simple Fetching
+    // MARK: - Simple Fetching
 
     /**
      Retrieve the data and uncompressed image for `url`.
@@ -150,8 +150,6 @@ public class WMFImageController : NSObject {
     }
 
     // MARK: - Caching
-
-    // MARK: Query
 
     /// - returns: Whether or not the image corresponding to `url` has been downloaded (ignores URL schemes).
     public func hasImageWithURL(url: NSURL?) -> Bool {
@@ -193,7 +191,7 @@ public class WMFImageController : NSObject {
         })
     }
 
-    // MARK: Deletion
+    // MARK: - Deletion
 
     public func clearMemoryCache() {
         imageManager.imageCache.clearMemory()
@@ -325,7 +323,7 @@ public class WMFImageController : NSObject {
     }
 }
 
-/// MARK: - Objective-C Bridge
+// MARK: - Objective-C Bridge
 
 extension WMFImageController {
     /**
