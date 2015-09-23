@@ -24,7 +24,7 @@ static MWKTitle* MWKTitleFromStringOrTitle(id titleOrString) {
 
 - (MWKArticle*)articleWithMobileViewJSONFixture:(NSString*)fixtureName
                                       withTitle:(id)titleOrString
-                            insertIntoDataStore:(MWKDataStore*)dataStore {
+                                      dataStore:(MWKDataStore*)dataStore {
     return [[MWKArticle alloc] initWithTitle:MWKTitleFromStringOrTitle(titleOrString)
                                    dataStore:dataStore
                                         dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"mobileview"]];

@@ -58,8 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
-        self.savedPageList = savedPages;
-        self.dataStore     = dataStore;
+        self.savedPageList            = savedPages;
+        self.dataStore                = dataStore;
     }
     return self;
 }
