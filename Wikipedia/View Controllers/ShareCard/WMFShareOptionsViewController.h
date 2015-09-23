@@ -12,10 +12,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFShareOptionsViewController : UIViewController
+@interface WMFShareOptionsViewController : NSObject
 
 @property (nonatomic, strong, readonly) MWKArticle* article;
-@property (nonatomic, copy, readonly) NSString* snippet;
 @property (nonatomic, strong, readonly) WMFShareFunnel* funnel;
 
 /**
@@ -29,11 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
  * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
  */
 - (instancetype)initWithArticle:(MWKArticle*)article
-                        snippet:(nullable NSString*)snippet
                     shareFunnel:(WMFShareFunnel*)funnel NS_DESIGNATED_INITIALIZER;
 
-- (void)presentShareOptionsFromViewController:(UIViewController*)viewController barButtonItem:(UIBarButtonItem*)item;
-- (void)presentShareOptionsFromViewController:(UIViewController*)viewController view:(nullable UIView*)view;
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item;
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view;
 
 @end
 

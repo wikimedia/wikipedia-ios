@@ -88,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.shareFunnel = nil;
+    self.shareOptionsViewController = nil;
     
     _article = article;
 
@@ -95,6 +96,8 @@ NS_ASSUME_NONNULL_BEGIN
     
     if(_article){
         self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
+        self.shareOptionsViewController =
+        [[WMFShareOptionsViewController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
     }
 
     if (self.isViewLoaded) {
@@ -223,9 +226,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromBarButtonItem:(nullable UIBarButtonItem*)item{
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-    self.shareOptionsViewController =
-    [[WMFShareOptionsViewController alloc] initWithArticle:self.article snippet:text shareFunnel:self.shareFunnel];
-    [self.shareOptionsViewController presentShareOptionsFromViewController:self barButtonItem:item];
+    [self.shareOptionsViewController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:item];
 }
 
 #pragma mark - WebView Transition

@@ -26,12 +26,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFShareOptionsViewController ()
+@interface WMFShareOptionsViewController ()<UIPopoverControllerDelegate>
 
 @property (strong, nonatomic, readwrite) MWKArticle* article;
-@property (copy, nonatomic, readwrite) NSString* snippet;
 @property (strong, nonatomic, readwrite) WMFShareFunnel* shareFunnel;
 
+@property (nullable, copy, nonatomic) NSString* snippet;
 @property (weak, nonatomic) UIViewController* containerViewController;
 @property (nullable, weak, nonatomic) UIBarButtonItem* originButtonItem;
 @property (nullable, weak, nonatomic) UIView* originView;
@@ -39,61 +39,64 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, strong, nonatomic) UIView* grayOverlay;
 @property (nullable, strong, nonatomic) WMFShareOptionsView* shareOptions;
 @property (nullable, strong, nonatomic) UIImage* shareImage;
-@property (strong, nonatomic) NSString* shareTitle;
+@property (nullable, strong, nonatomic) NSString* shareTitle;
 
-@property (strong, nonatomic) UIPopoverController* popover;
+@property (nullable, strong, nonatomic) UIPopoverController* popover;
 
 @end
 
 @implementation WMFShareOptionsViewController
 
+- (void)cleanup{
+    
+    self.containerViewController = nil;
+    self.originButtonItem = nil;
+    self.originView = nil;
+    self.shareImage = nil;
+    self.shareTitle = nil;
+    self.snippet = nil;
+}
+
+
 - (instancetype)initWithArticle:(MWKArticle*)article
-                        snippet:(nullable NSString*)snippet
                     shareFunnel:(WMFShareFunnel*)funnel{
     
     NSParameterAssert(article);
     NSParameterAssert(funnel);
     NSParameterAssert(article.title.desktopURL.absoluteString);
 
-    self = [super initWithNibName:nil bundle:nil];
+    self = [super init];
     
     if (self) {
-        
         _article        = article;
         _shareTitle     = [article.title.text copy];
         _shareFunnel = funnel;
-        _snippet = [snippet copy];
     }
     return self;
 }
 
 #pragma mark - Accessors
 
-- (NSString*)snippet{
+- (nullable NSString*)snippet{
     if(_snippet.length == 0){
         return [[self.article shareSnippet] copy];
     }
     return _snippet;
 }
 
-- (NSString*)snippetForTextOnlySharing{
-    if(_snippet.length == 0){
-        return @"";
-    }
-    return [_snippet copy];
-}
-
 #pragma mark - Public Presentation methods
 
-- (void)presentShareOptionsFromViewController:(UIViewController*)viewController barButtonItem:(UIBarButtonItem*)item{
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item{
+    self.snippet = [snippet copy];
     self.containerViewController = viewController;
     self.originButtonItem = item;
     self.originView = nil;
     [self fetchImageThenShowShareCard];
-
 }
 
-- (void)presentShareOptionsFromViewController:(UIViewController*)viewController view:(nullable UIView*)view{
+
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view{
+    self.snippet = [snippet copy];
     self.containerViewController = viewController;
     self.originButtonItem = nil;
     self.originView = view;
@@ -157,7 +160,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.shareOptions = shareOptionsView;
 }
 
-
 #pragma mark - Create Card Image
 
 - (UIImage*)cardImageWithArticleImage:(UIImage*)image{
@@ -178,7 +180,6 @@ NS_ASSUME_NONNULL_BEGIN
     UIView* containingView = self.containerViewController.view;
     
     [shareOptionsView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@360);
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
 
@@ -188,17 +189,15 @@ NS_ASSUME_NONNULL_BEGIN
     [shareOptionsView layoutIfNeeded];
 
     [shareOptionsView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@360);
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
     
-        make.bottom.equalTo(containingView.mas_bottom);
+        make.bottom.equalTo(self.containerViewController.mas_bottomLayoutGuide);
     }];
     
-    [UIView animateWithDuration:0.35 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
+    [UIView animateWithDuration:0.40 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
         
         [shareOptionsView layoutIfNeeded];
-        
         self.grayOverlay.alpha = 1.0;
         
     } completion:^(BOOL finished) {
@@ -215,9 +214,19 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)dismissShareOptions {
-    [UIView animateWithDuration:0.35 animations:^{
+    
+    UIView* containingView = self.containerViewController.view;
+
+    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(containingView.mas_width);
+        make.centerX.equalTo(containingView.mas_centerX);
+        
+        make.top.equalTo(containingView.mas_bottom);
+    }];
+
+    [UIView animateWithDuration:0.40 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
         self.grayOverlay.alpha = 0.0;
-        self.shareOptions.hidden = YES;
+        [self.shareOptions layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self.grayOverlay removeFromSuperview];
         [self.shareOptions removeFromSuperview];
@@ -233,6 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.shareFunnel logAbandonedAfterSeeingShareAFact];
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     [self dismissShareOptions];
+    [self cleanup];
 }
 
 - (void)respondToTapForCardGesture:(UITapGestureRecognizer*)recognizer {
@@ -247,7 +257,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentActivityViewControllerWithImage:nil title:[self titleForActivityTextOnly]];
 }
 
-#pragma mark - Activity View Controller
+#pragma mark - Snippet to Title Conversion
+
+- (NSString*)snippetForTextOnlySharing{
+    if(_snippet.length == 0){
+        return @"";
+    }
+    return [_snippet copy];
+}
 
 - (NSString*)titleForActivityWithCard{
     return [MWLocalizedString(@"share-article-name-on-wikipedia", nil)
@@ -264,6 +281,8 @@ NS_ASSUME_NONNULL_BEGIN
                            stringByReplacingOccurrencesOfString:@"$2" withString:self.snippetForTextOnlySharing];
     }
 }
+
+#pragma mark - Activity View Controller
 
 - (void)presentActivityViewControllerWithImage:(nullable UIImage*)image title:(NSString*)title {
    
@@ -302,6 +321,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         
         self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
+        self.popover.delegate = self;
         
         if(self.originButtonItem){
 
@@ -315,9 +335,16 @@ NS_ASSUME_NONNULL_BEGIN
                         permittedArrowDirections:UIPopoverArrowDirectionAny
                                         animated:YES];
         }
-        
     }
+    
+    [self cleanup];
 }
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    self.popover = nil;
+}
+
+
 
 @end
 
