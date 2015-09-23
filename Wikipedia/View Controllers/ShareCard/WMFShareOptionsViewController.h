@@ -8,22 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol WMFShareOptionsViewControllerDelegate
+@class WMFShareFunnel;
 
-- (void)didShowSharePreviewForMWKArticle:(MWKArticle*)article withText:(NSString*)text;
-- (void)tappedBackgroundToAbandonWithText:(NSString*)text;
-- (void)tappedShareCardWithText:(NSString*)text;
-- (void)tappedShareTextWithText:(NSString*)text;
-- (void)finishShareWithActivityItems:(NSArray*)activityItems text:(NSString*)text;
-@end
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFShareOptionsViewController : UIViewController
 
-@property (nonatomic, readonly) MWKArticle* article;
+@property (nonatomic, strong, readonly) MWKArticle* article;
 @property (nonatomic, copy, readonly) NSString* snippet;
-@property (nonatomic, copy, readonly) NSString* snippetForTextOnlySharing;
-@property (nonatomic, readonly) UIView* backgroundView;
-@property (nonatomic, weak, readonly) id<WMFShareOptionsViewControllerDelegate> delegate;
+@property (nonatomic, strong, readonly) WMFShareFunnel* funnel;
 
 /**
  * Initialize a new instance with an article and an optional snippet.
@@ -35,9 +28,13 @@
  *
  * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
  */
-- (instancetype)initWithMWKArticle:(MWKArticle*)article
-                           snippet:(NSString*)snippet
-                    backgroundView:(UIView*)backgroundView
-                          delegate:(id)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithArticle:(MWKArticle*)article
+                        snippet:(nullable NSString*)snippet
+                    shareFunnel:(WMFShareFunnel*)funnel NS_DESIGNATED_INITIALIZER;
+
+- (void)presentShareOptionsFromViewController:(UIViewController*)viewController barButtonItem:(UIBarButtonItem*)item;
+- (void)presentShareOptionsFromViewController:(UIViewController*)viewController view:(nullable UIView*)view;
 
 @end
+
+NS_ASSUME_NONNULL_END
