@@ -224,29 +224,51 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
-    __block PMKResolver resolve;
-    AnyPromise* unresolvedPromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
-        resolve = aResolve;
+    __block PMKResolver resolveFirstArticleRequest;
+    AnyPromise* unresolvedSecondArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        resolveFirstArticleRequest = resolve;
     }];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:unresolvedPromise]];
 
+
+    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:unresolvedSecondArticlePromise]];
+
+    __block PMKResolver resolveSecondArticleRequest;
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+     willReturn:[AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
+        resolveSecondArticleRequest = resolve;
+    }]];
 
     [self expectFetcherToFinishWithError:nil];
 
+    /*
+     !!!: Lots of dispatching here to ensure deterministic behavior, making it possible to consistently predict what
+     the progress value should be.  If this were omitted, the cancellation could happen at any time, meaning the saved
+     page list could have 1 or 2 entries when we get our delegate callback, resulting in flaky tests.
+    */
+
+    // start requesting first & second article
     [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
 
-    [self.savedPageList removeEntryWithListIndex:firstTitle];
+    // after that happens...
+    dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
+        // cancel the first request by removing the entry
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self.savedPageList removeEntryWithListIndex:firstTitle];
+        });
+        dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
+            // after cancellation happens, resolve the second article request, triggering delegate callback
+            resolveSecondArticleRequest(secondArticle);
+        });
+    });
 
     WaitForExpectations();
 
     [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
 
     // resolve promise after the test to prevent PromiseKit warning
-    resolve([NSError cancelledError]);
+    resolveFirstArticleRequest([NSError cancelledError]);
 
     [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
