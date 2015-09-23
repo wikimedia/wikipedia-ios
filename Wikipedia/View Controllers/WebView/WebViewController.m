@@ -175,7 +175,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
         //dispatching because the toc is expensive to create so we are waiting to update it after the web view renders.
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
+            [weakSelf.tocVC updateTocForArticle:weakSelf.article];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
             [weakSelf.sectionHeadersViewController resetHeaders];
         });
@@ -326,7 +326,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateTOCButtonVisibility {
-    self.buttonTOC.enabled = ![SessionSingleton sharedInstance].currentArticle.isMain;
+    self.buttonTOC.enabled = !self.article.isMain;
 }
 
 #pragma mark - WMFSectionHeaderEditDelegate methods
@@ -365,7 +365,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)showSectionEditorForSection:(NSNumber*)sectionID {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.session.currentArticle.sections[[sectionID integerValue]];
+    sectionEditVC.section = self.article.sections[[sectionID integerValue]];
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
@@ -518,7 +518,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    if (self.session.currentArticle.isMain) {
+    if (self.article.isMain) {
         return;
     }
 
@@ -752,7 +752,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [strSelf.session.currentArticleSite titleWithInternalLink:href];
+                MWKTitle* pageTitle = [strSelf.article.site titleWithInternalLink:href];
                 [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
@@ -830,10 +830,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [strSelf.session.currentArticle.images largestImageVariantForURL:selectedImageURL
+            MWKImage* selectedImage = [strSelf.article.images largestImageVariantForURL:selectedImageURL
                                                                                             cachedOnly:NO];
             NSCParameterAssert(selectedImage);
-            [strSelf presentGalleryForArticle:strSelf.session.currentArticle showingImage:selectedImage];
+            [strSelf presentGalleryForArticle:strSelf.article showingImage:selectedImage];
         }];
 
         self.unsafeToScroll = NO;
@@ -891,11 +891,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
-    if (self.session.currentArticle.isMain) {
+    if (self.article.isMain) {
         return;
     }
 
-    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.session.currentArticle.title];
+    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.article.title];
 }
 
 #pragma mark Web view html content live location retrieval
@@ -1049,7 +1049,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     MWKHistoryList* historyList = self.session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
     if ([historyList countOfEntries] > 0) {
-        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.session.currentArticle.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }
 }
 
@@ -1072,7 +1072,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)reloadCurrentArticleOrMainPageWithMethod:(MWKHistoryDiscoveryMethod)method {
-    MWKTitle* page = self.session.currentArticle.title;
+    MWKTitle* page = self.article.title;
     if (page) {
         [self navigateToPage:page discoveryMethod:method];
     } else {
@@ -1131,7 +1131,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     if ([article isCached] && !needsRefresh) {
-        [self displayArticle:self.session.currentArticle.title];
+        [self displayArticle:self.article.title];
         [self fadeAlert];
         return;
     }
@@ -1187,7 +1187,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } else {
         self.isFetchingArticle = NO;
 
-        [self displayArticle:self.session.currentArticle.title];
+        [self displayArticle:self.article.title];
 
         NSString* errorMsg = error.localizedDescription;
         [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
@@ -1247,7 +1247,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 NSString* title = (NSString*)fetchedData;
                 if (title) {
-                    MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
+                    MWKTitle* pageTitle = [self.article.site titleWithString:title];
                     [self navigateToPage:pageTitle discoveryMethod:MWKHistoryDiscoveryMethodRandom];
                 }
             }
@@ -1300,7 +1300,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection* section in self.session.currentArticle.sections) {
+    for (MWKSection* section in _article.sections) {
         NSString* html = nil;
 
         @try {
@@ -1370,12 +1370,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateBottomBarButtonsEnabledState {
-    self.buttonLanguages.enabled            = !(self.session.currentArticle.isMain && [self.session.currentArticle languagecount] > 0);
-    [self.buttonSave wmf_UIButton].selected = [self isCurrentArticleSaved];
+    self.buttonLanguages.enabled            = !(self.article.isMain && [self.article languagecount] > 0);
 }
 
 - (BOOL)isCurrentArticleSaved {
-    return [self.session.userDataStore.savedPageList isSaved:self.session.currentArticle.title];
+    return [self.session.userDataStore.savedPageList isSaved:self.article.title];
 }
 
 #pragma mark Scroll to last section after rotate
@@ -1411,7 +1410,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.session.currentArticleSite.language
+        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.article.site.language
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
@@ -1810,7 +1809,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)loadRandomArticle {
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:self.article.site.language
                                                                withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                         thenNotifyDelegate:self];
 }
