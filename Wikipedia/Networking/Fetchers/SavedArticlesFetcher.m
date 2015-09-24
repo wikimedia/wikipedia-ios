@@ -108,7 +108,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                 [[article allImageURLs] bk_each:^(NSURL* imageURL) {
                     // fetch all article images, but don't block success on their completion or consider failed image
                     // download an error
-                    [self.imageController downloadImageDataInBackground:imageURL];
+                    [self.imageController fetchImageWithURLInBackground:imageURL];
                 }];
                 [self didFetchArticle:article title:title error:nil];
             })

@@ -134,23 +134,4 @@ class WMFImageControllerTests: XCTestCase {
         XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
                        NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath.path!))
     }
-
-    func testDownloadImageInBackgroundGoesToDirectlyToDisk() {
-        let testURL = NSURL(string: "//foo/bar")!
-
-        LSNocilla.sharedInstance().start()
-        defer {
-            LSNocilla.sharedInstance().stop()
-        }
-
-        let imageData = self.wmf_bundle().wmf_dataFromContentsOfFile("golden-gate", ofType: "jpg")
-
-        stubRequest("GET", "https://foo/bar").andReturnRawResponse(imageData)
-
-        expectPromise(toResolve(), timeout: 2) {
-            self.imageController.downloadImageDataInBackground(testURL)
-        }
-
-        XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL), imageData)
-    }
 }

@@ -177,7 +177,7 @@
 
     WaitForExpectations();
 
-    [MKTVerifyCount(self.mockImageController, never()) downloadImageDataInBackground:anything()];
+    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURLInBackground:anything()];
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
@@ -346,7 +346,7 @@
 
 - (void)verifyImageDownloadAttemptForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        [MKTVerify(self.mockImageController) downloadImageDataInBackground:imageURL];
+        [MKTVerify(self.mockImageController) fetchImageWithURLInBackground:imageURL];
     }];
 }
 

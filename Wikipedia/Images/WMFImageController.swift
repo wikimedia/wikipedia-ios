@@ -63,6 +63,8 @@ public class WMFImageController : NSObject {
                                   namespace: defaultNamespace)
     }()
 
+    public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]
+
     public class func sharedInstance() -> WMFImageController {
         return _sharedInstance
     }
@@ -123,44 +125,16 @@ public class WMFImageController : NSObject {
         .then(mainImageBlock)
     }
 
+
     /**
-    Use the shared session to download an image directly to the receiver's disk cache.
+    Fetch the image at `url` slowly in the background.
 
-    - parameter url: The URL to download the image from.
+    - parameter url: A URL pointing to an image.
 
-    - returns: A promise which is resolved after the data has been successfully written to disk.
+    - returns: A promise which resolves when the image has been downloaded.
     */
-    public func downloadImageDataInBackground(url: NSURL) -> Promise<Void> {
-        if hasDataOnDiskForImageWithURL(url) {
-            // already done!
-            return Promise()
-        }
-
-        let (promise, fulfill, reject) = Promise<NSURL>.pendingPromise()
-
-        /*
-          FIXME: Using sharedSession to punt on refactoring this to work with background sessions (which require using
-          a delegate).
-        */
-        let task = NSURLSession.sharedSession()
-                               .downloadTaskWithRequest(NSURLRequest(URL: url.wmf_urlByPrependingSchemeIfSchemeless())) { location, respsonse, error in
-            if error != nil {
-                reject(error!)
-            } else {
-                fulfill(location!)
-            }
-        }
-        task.priority = NSURLSessionTaskPriorityLow
-        task.resume()
-
-        addCancellableForURL(task, url: url)
-
-        return promise.thenInBackground() { [weak self] location in
-            guard let strongSelf = self else {
-                throw WMFImageControllerErrorCode.Deinit
-            }
-            return strongSelf.importImage(fromFile: location.path!, withURL: url)
-        }
+    public func fetchImageWithURLInBackground(url: NSURL?) -> Promise<WMFImageDownload> {
+        return fetchImageWithURL(url, options: WMFImageController.backgroundImageFetchOptions) as Promise<WMFImageDownload>
     }
 
     // MARK: - Simple Fetching
@@ -172,16 +146,16 @@ public class WMFImageController : NSObject {
      
      - returns: A `WMFImageDownload` with the image data and the origin it was loaded from.
      */
-    public func fetchImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
+    public func fetchImageWithURL(
+                    url: NSURL?,
+                    options: SDWebImageOptions = SDWebImageOptions()) -> Promise<WMFImageDownload> {
         // HAX: make sure all image requests have a scheme (MW api sometimes omits one)
-        let (cancellable, promise) =
-            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: SDWebImageOptions())
-        addCancellableForURL(cancellable, url: url)
-        return applyDebugTransformIfEnabled(promise)
-    }
-
-    public func fetchImageWithURL(url: NSURL?) -> Promise<WMFImageDownload> {
-        return checkForValidURL(url, then: fetchImageWithURL)
+        return checkForValidURL(url) { url in
+            let (cancellable, promise) =
+            imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: options)
+            addCancellableForURL(cancellable, url: url)
+            return applyDebugTransformIfEnabled(promise)
+        }
     }
 
     /// - returns: Whether or not a fetch is outstanding for an image with `url`.
@@ -309,7 +283,7 @@ public class WMFImageController : NSObject {
 
     - returns: A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
     */
-    private func checkForValidURL(url: NSURL?, then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
+    private func checkForValidURL(url: NSURL?, @noescape then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
         if url == nil { return Promise(error: WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
         else { return then(url!) }
     }
@@ -367,13 +341,32 @@ public class WMFImageController : NSObject {
 
 extension WMFImageController {
     /**
-     Objective-C-compatible variant of fetchImageWithURL(url:) returning an `AnyPromise`.
+     Objective-C-compatible variant of fetchImageWithURL(url:options:) using default options & returning an `AnyPromise`.
      
      - returns: `AnyPromise` which resolves to `WMFImageDownload`.
      */
     @objc public func fetchImageWithURL(url: NSURL?) -> AnyPromise {
         return AnyPromise(bound: fetchImageWithURL(url))
     }
+
+    /**
+    Objective-C-compatible variant of fetchImageWithURL(url:options:) returning an `AnyPromise`.
+
+    - returns: `AnyPromise` which resolves to `WMFImageDownload`.
+    */
+    @objc public func fetchImageWithURL(url: NSURL?, options: SDWebImageOptions) -> AnyPromise {
+        return AnyPromise(bound: fetchImageWithURL(url, options: options))
+    }
+
+    /**
+    Objective-C-compatible variant of fetchImageWithURLInBackground(url:) returning an `AnyPromise`.
+
+    - returns: `AnyPromise` which resolves to `WMFImageDownload`.
+    */
+    @objc public func fetchImageWithURLInBackground(url: NSURL?) -> AnyPromise {
+        return AnyPromise(bound: fetchImageWithURLInBackground(url))
+    }
+
 
     /**
      Objective-C-compatible variant of cachedImageWithURL(url:) returning an `AnyPromise`.
@@ -405,9 +398,5 @@ extension WMFImageController {
                                   mainImageBlock: mainImageBlock,
                                   cachedPlaceholderImageBlock: cachedPlaceholderImageBlock)
         return AnyPromise(bound: promise)
-    }
-
-    @objc public func downloadImageDataInBackground(url: NSURL) -> AnyPromise {
-        return AnyPromise(bound: downloadImageDataInBackground(url))
     }
 }
