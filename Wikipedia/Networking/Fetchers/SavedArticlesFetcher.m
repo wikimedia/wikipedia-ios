@@ -31,7 +31,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
                        articleFetcher:(WMFArticleFetcher*)articleFetcher
-                       imageController:(WMFImageController*)imageController {
+                      imageController:(WMFImageController*)imageController {
     NSParameterAssert(savedPageList);
     NSParameterAssert(savedPageList.dataStore);
     NSParameterAssert(articleFetcher);
@@ -43,7 +43,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         self.errorsByArticleTitle          = [NSMutableDictionary new];
         self.articleFetcher                = articleFetcher;
         self.imageController               = imageController;
-        self.savedPageList = savedPageList;
+        self.savedPageList                 = savedPageList;
     }
     return self;
 }
@@ -139,8 +139,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }];
         if (wasFetching) {
             /*
-             only notify delegate if deletion occurs during a download session. if deletion occurs
-             after the fact, we don't need to inform delegate of completion
+               only notify delegate if deletion occurs during a download session. if deletion occurs
+               after the fact, we don't need to inform delegate of completion
              */
             [self notifyDelegateIfFinished];
         }
