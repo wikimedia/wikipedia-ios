@@ -1,31 +1,37 @@
 
 #import "WMFAppViewController.h"
+#import "Wikipedia-Swift.h"
 
+// Frameworks
 #import <PiwikTracker/PiwikTracker.h>
+#import <Masonry/Masonry.h>
+
+// Networking
+#import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
 
+// Model
 #import "MediaWikiKit.h"
 #import "WMFSavedPagesDataSource.h"
 #import "WMFRecentPagesDataSource.h"
 
-#import <Masonry/Masonry.h>
-
-#import "WMFStyleManager.h"
-
-#import "WMFNavigationTransitionController.h"
-
+// Views
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIStoryboard+WMFExtensions.h"
 #import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
+#import "WMFStyleManager.h"
 
+
+// View Controllers
 #import "WMFHomeViewController.h"
 #import "WMFSearchViewController.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
+#import "WMFNavigationTransitionController.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -65,6 +71,8 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
 
+@property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
+@property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
 
 @property (nonatomic, strong) WMFNavigationTransitionController* navigationTransitionController;
@@ -162,6 +170,23 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 #pragma mark - Accessors
 
+- (WMFLegacyImageDataMigration*)imageMigration {
+    if (!_imageMigration) {
+        _imageMigration = [[WMFLegacyImageDataMigration alloc]
+                           initWithImageController:[WMFImageController sharedInstance]
+                                   legacyDataStore:[MWKDataStore new]];
+    }
+    return _imageMigration;
+}
+
+- (SavedArticlesFetcher*)savedArticlesFetcher {
+    if (!_savedArticlesFetcher) {
+        _savedArticlesFetcher =
+            [[SavedArticlesFetcher alloc] initWithSavedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
+    }
+    return _savedArticlesFetcher;
+}
+
 - (WMFNavigationTransitionController*)navigationTransitionController {
     if (!_navigationTransitionController) {
         _navigationTransitionController = [WMFNavigationTransitionController new];
@@ -216,6 +241,8 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
         [self showSplashView];
 
         [self runDataMigrationIfNeededWithCompletion:^{
+            [self.imageMigration setupAndStart];
+            [self.savedArticlesFetcher fetchAndObserveSavedPageList];
             [self loadMainUI];
             BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
             [self hideSplashViewAnimated:!didShowOnboarding];
