@@ -33,6 +33,9 @@
 #import "SavedPagesFunnel.h"
 #import "EditFunnel.h"
 #import "MediaWikiKit.h"
+#import "WMFOpenExternalLinkDelegateProtocol.h"
+#import "Wikipedia-Swift.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 typedef NS_ENUM (NSInteger, WMFCannedSummaryChoices) {
     CANNED_SUMMARY_TYPOS,
@@ -49,7 +52,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     PREVIEW_MODE_EDIT_WIKITEXT_CAPTCHA
 };
 
-@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate>
+@interface PreviewAndSaveViewController () <FetchFinishedDelegate, UITextFieldDelegate, UIScrollViewDelegate, WMFOpenExternalLinkDelegate>
 
 @property (strong, nonatomic) NSString* captchaId;
 @property (strong, nonatomic) NSString* captchaUrl;
@@ -59,7 +62,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @property (weak, nonatomic) IBOutlet UIScrollView* captchaScrollView;
 @property (weak, nonatomic) IBOutlet UIView* captchaScrollContainer;
 @property (weak, nonatomic) IBOutlet UIView* editSummaryContainer;
-@property (weak, nonatomic) IBOutlet UIWebView* previewWebView;
+@property (weak, nonatomic) IBOutlet PreviewWebView* previewWebView;
 @property (strong, nonatomic) CommunicationBridge* bridge;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* previewWebViewHeightConstraint;
 @property (strong, nonatomic) UILabel* aboutLabel;
@@ -86,6 +89,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @end
 
 @implementation PreviewAndSaveViewController
+
+- (void)wmf_externalUrlOpener:(NSURL*)url {
+    [self wmf_openExternalUrl:url];
+}
 
 - (NSString*)getSummary {
     NSMutableArray* summaryArray = @[].mutableCopy;
@@ -194,6 +201,9 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.previewWebView.externalLinksOpenerDelegate     = self;
+    self.previewLicenseView.externalLinksOpenerDelegate = self;
 
     @weakify(self)
     self.buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){

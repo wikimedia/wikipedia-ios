@@ -82,12 +82,11 @@
     assertThat(self.imageView.image, is(successfulDownload.image));
 
     assertThat(@(testMetadata.didDetectFaces), isTrue());
-    
+
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
               @"Face detection should have ran.");
-    
-    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 
+    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 }
 
 - (void)testSuccessfullySettingImageFromURLWithCenterFaces {
@@ -122,7 +121,7 @@
 
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == NO,
               @"Face detection should have ran.");
-    
+
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 }
 
@@ -201,7 +200,6 @@
               @"Face detection should NOT have ran.");
 
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
-
 }
 
 - (void)testSuccessfullySettingCachedImageWithoutCenterFaces {

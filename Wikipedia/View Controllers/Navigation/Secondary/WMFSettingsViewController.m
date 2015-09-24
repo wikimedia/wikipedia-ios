@@ -44,6 +44,7 @@
 
 // Other
 #import "WMFArticlePresenter.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 #pragma mark - Defines
 
@@ -532,25 +533,25 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
             case SECONDARY_MENU_ROW_INDEX_ZERO_FAQ:
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_ZERO_FAQ]];
+                [self wmf_openExternalUrl:[NSURL URLWithString:URL_ZERO_FAQ]];
             }
             break;
 
             case SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY:
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_PRIVACY_POLICY]];
+                [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
             }
             break;
 
             case SECONDARY_MENU_ROW_INDEX_TERMS:
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_TERMS]];
+                [self wmf_openExternalUrl:[NSURL URLWithString:URL_TERMS]];
             }
             break;
 
             case SECONDARY_MENU_ROW_INDEX_RATE_APP:
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_RATE_APP]];
+                [self wmf_openExternalUrl:[NSURL URLWithString:URL_RATE_APP]];
             }
             break;
 
@@ -572,7 +573,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
                 NSURL* url = [NSURL URLWithString:encodedUrlString];
 
-                [[UIApplication sharedApplication] openURL:url];
+                [self wmf_openExternalUrl:url];
             }
             break;
             case SECONDARY_MENU_ROW_INDEX_ABOUT:
@@ -585,7 +586,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
                 break;
             }
             case SECONDARY_MENU_ROW_INDEX_FAQ: {
-                [[UIApplication sharedApplication] openURL:
+                [self wmf_openExternalUrl:
                  [NSURL URLWithString:@"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"]];
                 break;
             }

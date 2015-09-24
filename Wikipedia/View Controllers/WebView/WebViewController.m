@@ -28,6 +28,7 @@
 
 #import "UIWebView+WMFJavascriptContext.h"
 #import "UIWebView+WMFTrackingView.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -903,7 +904,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 NSURL* url = [NSURL URLWithString:href];
                 NSCAssert(url, @"Failed to from URL from link %@", href);
                 if (url) {
-                    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:url];
+                    [strSelf wmf_openExternalUrl:url];
                 }
             }
         }];
@@ -1583,13 +1584,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         case WMFWebViewAlertZeroWebPage:
             if (1 == buttonIndex) {
                 NSURL* url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
-                [[UIApplication sharedApplication] openURL:url];
+                [self wmf_openExternalUrl:url];
             }
             break;
         case WMFWebViewAlertZeroInterstitial:
             if (1 == buttonIndex) {
                 NSURL* url = [NSURL URLWithString:self.externalUrl];
-                [[UIApplication sharedApplication] openURL:url];
+                [self wmf_openExternalUrl:url];
             }
             break;
     }
@@ -1954,5 +1955,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     dialog.tag = WMFWebViewAlertZeroCharged;
     [dialog show];
 }
+
+/*
+   -(void)didReceiveMemoryWarning {
+
+    [self.session.zeroConfigState toggleFakeZeroOn];
+
+   }
+ */
 
 @end
