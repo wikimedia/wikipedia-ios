@@ -67,8 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
-        self.savedPageList = savedPages;
-        self.dataStore     = dataStore;
+        self.savedPageList            = savedPages;
+        self.dataStore                = dataStore;
     }
     return self;
 }
@@ -154,15 +154,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupToolbar {
     @weakify(self)
-    
-    UIBarButtonItem* save = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
+    UIBarButtonItem * save = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
         @strongify(self)
         if (![self.article isCached]) {
             [self.articleViewController fetchArticle];
         }
     }];
     
-    UIBarButtonItem* share = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+    UIBarButtonItem * share = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
         @strongify(self)
         NSString* selectedText = nil;
         if(self.contentNavigationController.topViewController == self.webViewController){
@@ -187,14 +186,13 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateInsetsForArticleViewController];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.navigationController setToolbarHidden:NO animated:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setToolbarHidden:YES animated:animated];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

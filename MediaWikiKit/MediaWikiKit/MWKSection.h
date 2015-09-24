@@ -132,4 +132,14 @@ extern NSString* const MWKSectionShareSnippetXPath;
  */
 - (void)removeAllChildren;
 
+/**
+ *  Determines whether this section's text is available (cached) *without* loading the entire text string from disk.
+ *  Reminder: zero length strings are *valid* section text data!
+ *    Some sections have zero length strings - such as sections having immediate sub-sections.
+ *    So [MWKSection hasTextData] *must* return YES if its "Section.html" file exists, even
+ *    if it's empty, otherwise an article having any zero length sections would never appear to
+ *    be cached.
+ */
+- (BOOL)hasTextData;
+
 @end
