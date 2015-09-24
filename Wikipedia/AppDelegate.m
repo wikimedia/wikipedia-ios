@@ -66,7 +66,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (SavedArticlesFetcher*)savedArticlesFetcher {
     if (!_savedArticlesFetcher) {
         _savedArticlesFetcher =
-            [[SavedArticlesFetcher alloc] initWithDataStore:[[SessionSingleton sharedInstance] dataStore]];
+            [[SavedArticlesFetcher alloc] initWithSavedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
 }
@@ -76,7 +76,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
 
-    self.savedArticlesFetcher.savedPageList = [[[SessionSingleton sharedInstance] userDataStore] savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];

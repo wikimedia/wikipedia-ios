@@ -8,8 +8,11 @@
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SavedArticlesFetcher ()
 
+@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong) WMFImageController* imageController;
 
@@ -26,19 +29,13 @@
 
 static SavedArticlesFetcher* _articleFetcher = nil;
 
-+ (SavedArticlesFetcher*)sharedInstance {
-    NSParameterAssert([NSThread isMainThread]);
-    return _articleFetcher;
-}
-
-+ (void)setSharedInstance:(SavedArticlesFetcher*)articleFetcher {
-    NSParameterAssert([NSThread isMainThread]);
-    _articleFetcher = articleFetcher;
-}
-
-- (instancetype)initWithArticleFetcher:(WMFArticleFetcher*)articleFetcher
+- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
+                       articleFetcher:(WMFArticleFetcher*)articleFetcher
                        imageController:(WMFImageController*)imageController {
+    NSParameterAssert(savedPageList);
+    NSParameterAssert(savedPageList.dataStore);
     NSParameterAssert(articleFetcher);
+    NSParameterAssert(imageController);
     self = [super init];
     if (self) {
         _accessQueue                       = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
@@ -46,38 +43,22 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         self.errorsByArticleTitle          = [NSMutableDictionary new];
         self.articleFetcher                = articleFetcher;
         self.imageController               = imageController;
+        self.savedPageList = savedPageList;
     }
     return self;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    return [self initWithArticleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:dataStore]
-                        imageController:[WMFImageController sharedInstance]];
-}
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
-    // Using identity instead of equivalence since updates to an instance are more important than equivalent state
-    if (self.savedPageList == savedPageList) {
-        return;
-    }
-
-    [self.KVOControllerNonRetaining unobserve:self.savedPageList];
-    [self cancelFetch];
-
-    _savedPageList = savedPageList;
-
-    [self fetchSavedPageList];
+- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList {
+    return [self initWithSavedPageList:savedPageList
+                        articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:savedPageList.dataStore]
+                       imageController:[WMFImageController sharedInstance]];
 }
 
 #pragma mark - Fetching
 
-- (void)fetchSavedPageList {
-    if (!self.savedPageList) {
-        return;
-    }
-
+- (void)fetchAndObserveSavedPageList {
     // build up initial state of current list
-    [self startFetching];
+    [self fetchUncachedEntries:self.savedPageList.entries];
 
     // observe subsequent changes
     [self.KVOControllerNonRetaining observe:self.savedPageList
@@ -86,11 +67,20 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                                      action:@selector(savedPageListDidChange:)];
 }
 
-- (void)startFetching {
-    [self fetchTitles:[self.savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)]];
+- (void)cancelFetch {
+    [self cancelFetchForEntries:self.savedPageList.entries];
 }
 
-- (void)fetchTitles:(NSArray<MWKTitle*>*)titles {
+#pragma mark Internal Methods
+
+- (void)fetchUncachedEntries:(NSArray<MWKSavedPageEntry*>*)insertedEntries {
+    if (!insertedEntries.count) {
+        return;
+    }
+    [self fetchUncachedTitles:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)]];
+}
+
+- (void)fetchUncachedTitles:(NSArray<MWKTitle*>*)titles {
     if (!titles.count) {
         return;
     }
@@ -98,7 +88,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         for (MWKTitle* title in titles) {
             /*
                !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
-               objects in cache
+               objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
              */
             MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
             if (existingArticle.isCached) {
@@ -109,7 +99,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             DDLogInfo(@"Fetching saved title: %@", title);
 
             /*
-               NOTE: don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+               don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
                immediately in order to ensure accurate progress & error reporting.
              */
             self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title
@@ -131,32 +121,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     });
 }
 
-- (void)cancelFetch {
-    [self.articleFetcher cancelAllFetches];
-}
-
-#pragma mark - KVO
-
-- (void)savedPageListDidChange:(NSDictionary*)change {
-    switch ([change[NSKeyValueChangeKindKey] integerValue]) {
-        case NSKeyValueChangeInsertion: {
-            [self savedPageListDidAddItems:change[NSKeyValueChangeNewKey]];
-            break;
-        }
-        case NSKeyValueChangeRemoval: {
-            [self savedPageListDidDeleteItems:change[NSKeyValueChangeOldKey]];
-            break;
-        }
-        case NSKeyValueChangeSetting: {
-            [self mergeFetchesWithUpdatedSavedPageList];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
-- (void)savedPageListDidDeleteItems:(NSArray<MWKSavedPageEntry*>*)deletedEntries {
+- (void)cancelFetchForEntries:(NSArray<MWKSavedPageEntry*>*)deletedEntries {
     if (!deletedEntries.count) {
         return;
     }
@@ -174,38 +139,30 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }];
         if (wasFetching) {
             /*
-               only notify delegate if deletion occurs during a download session. if deletion occurs
-               after the fact, we don't need to inform delegate of completion
+             only notify delegate if deletion occurs during a download session. if deletion occurs
+             after the fact, we don't need to inform delegate of completion
              */
             [self notifyDelegateIfFinished];
         }
     });
 }
 
-- (void)savedPageListDidAddItems:(NSArray<MWKSavedPageEntry*>*)insertedEntries {
-    if (!insertedEntries.count) {
-        return;
-    }
-    [self fetchTitles:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)]];
-}
+#pragma mark - KVO
 
-- (void)mergeFetchesWithUpdatedSavedPageList {
-    NSArray<MWKTitle*>* currentSavedTitles =
-        [self.savedPageList.entries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)];
-    dispatch_async(self.accessQueue, ^{
-        NSArray<MWKTitle*>* cancelledFetchTitles =
-            [self.fetchOperationsByArticleTitle.allKeys bk_reject:^BOOL (MWKTitle* title) {
-            return ![currentSavedTitles containsObject:title];
-        }];
-        [cancelledFetchTitles bk_each:^(MWKTitle* title) {
-            [self.articleFetcher cancelFetchForPageTitle:title];
-        }];
-        [self.fetchOperationsByArticleTitle removeObjectsForKeys:cancelledFetchTitles];
-        NSArray<MWKTitle*>* titlesToFetch = [currentSavedTitles bk_reject:^BOOL (MWKTitle* title) {
-            return [self.fetchOperationsByArticleTitle.allKeys containsObject:title];
-        }];
-        [self fetchTitles:titlesToFetch];
-    });
+- (void)savedPageListDidChange:(NSDictionary*)change {
+    switch ([change[NSKeyValueChangeKindKey] integerValue]) {
+        case NSKeyValueChangeInsertion: {
+            [self fetchUncachedEntries:change[NSKeyValueChangeNewKey]];
+            break;
+        }
+        case NSKeyValueChangeRemoval: {
+            [self cancelFetchForEntries:change[NSKeyValueChangeOldKey]];
+            break;
+        }
+        default:
+            NSAssert(NO, @"Unsupported KVO operation %@ on saved page list %@", change, self.savedPageList);
+            break;
+    }
 }
 
 #pragma mark - Progress
@@ -237,9 +194,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 #pragma mark - Delegate Notification
 
 /// Only invoke within accessQueue
-- (void)didFetchArticle:(MWKArticle*)fetchedArticle
+- (void)didFetchArticle:(MWKArticle* __nullable)fetchedArticle
                   title:(MWKTitle*)title
-                  error:(NSError*)error {
+                  error:(NSError* __nullable)error {
     if (error) {
         // store errors for later reporting
         DDLogError(@"Failed to download saved page %@ due to error: %@", title, error);
@@ -277,11 +234,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
         [self finishWithError:reportedError
                   fetchedData:nil];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[self class] setSharedInstance:nil];
-        });
     }
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

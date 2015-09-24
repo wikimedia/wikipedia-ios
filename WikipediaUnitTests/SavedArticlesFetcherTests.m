@@ -18,8 +18,11 @@
     self.tempDataStore              = [MWKDataStore temporaryDataStore];
     self.mockArticleFetcher         = mock([WMFArticleFetcher class]);
     self.mockImageController        = mock([WMFImageController class]);
-    self.savedArticlesFetcher       = [[SavedArticlesFetcher alloc] initWithArticleFetcher:self.mockArticleFetcher
-                                                                           imageController:self.mockImageController];
+    self.savedArticlesFetcher       =
+        [[SavedArticlesFetcher alloc]
+         initWithSavedPageList:self.savedPageList
+                articleFetcher:self.mockArticleFetcher
+               imageController:self.mockImageController];
     self.savedArticlesFetcher.fetchFinishedDelegate = self;
 }
 
@@ -34,7 +37,7 @@
 - (void)testStartDownloadingArticleWhenAddedToList {
     [self stubListWithEntries:0];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
 
@@ -72,7 +75,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -107,7 +110,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -143,7 +146,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -159,7 +162,7 @@
 - (void)testReportDownloadErrors {
     [self stubListWithEntries:0];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
 
@@ -199,7 +202,7 @@
     [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     [self expectFetcherToFinishWithError:downloadError];
 
@@ -249,7 +252,7 @@
      */
 
     // start requesting first & second article
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     // after that happens...
     dispatch_async(self.savedArticlesFetcher.accessQueue, ^{
@@ -290,7 +293,7 @@
 
     [self expectFetcherToFinishWithError:nil];
 
-    [self.savedArticlesFetcher setSavedPageList:self.savedPageList];
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
     WaitForExpectations();
 

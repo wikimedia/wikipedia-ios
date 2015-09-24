@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong, readonly) dispatch_queue_t accessQueue;
 
+- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
+                       articleFetcher:(WMFArticleFetcher*)articleFetcher
+                      imageController:(WMFImageController*)imageController NS_DESIGNATED_INITIALIZER;
+
 @end
