@@ -22,6 +22,8 @@
 "history-clear-confirmation-sub-heading" = "Tuah khawh a si lo!";
 "history-clear-cancel" = "Let than";
 "history-clear-delete-all" = "Hlo Dih";
+"history-description" = "Na hloh dih hna i si men lai. Voidang cu cahmai na kal khawhnak ah kal cang.";
+"history-none" = "Zohmi cahmai a um rih lo.";
 "zero-free-verbiage" = "Na mobile operator sinin Wikipedia Alak laknak (data man a um lo)";
 "zero-charged-verbiage" = "Wikipedia Alak a phit";
 "zero-charged-verbiage-extended" = "Cabia dang zohnak nih data man an lak lai. Offline khonmi cabia cu manlo a si.";
@@ -131,6 +133,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Update a let than";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia cabia pawl hi tharchuah lengmang a si. Refresh kha hmeh piak law tharchuahmi pawl na rel khawh lai.";
 "saved-pages-refresh-cancel-alert-button" = "Ngah cang";
+"saved-pages-description" = "Khonmi cahmai pawl a mak bak. Offline na si zongah na rel khawh hna.";
+"saved-pages-none" = "Khonmi Cahmai um lo!";
 "page-history-title" = "Cabia cakhumh";
 "page-history-downloading" = "Cabia cakhumh langhter lio...";
 "navbar-title-mode-edit-wikitext" = "Remh";
@@ -271,10 +275,5 @@
 "hockeyapp-alert-privacy" = "$1 pumpak kilvennak";
 "page-issues" = "Cahmai nambar";
 "page-similar-titles" = "Cahmai khatmi pawl";
-
 "captcha-reload" = "Adang captcha langhter";
-"saved-pages-description" = "Khonmi cahmai pawl a mak bak. Offline na si zongah na rel khawh hna.";
-"saved-pages-none" = "Khonmi Cahmai um lo!";
-"history-none" = "Zohmi cahmai a um rih lo.";
 "captcha-prompt" = "Hmanthlak cung i CAPTCHA ca kha tialpiak";
-"history-description" = "Na hloh dih hna i si men lai. Voidang cu cahmai na kal khawhnak ah kal cang.";

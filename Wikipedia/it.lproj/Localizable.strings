@@ -111,6 +111,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "search-recent-clear-cancel" = "Annulla";
 "search-recent-clear-delete-all" = "Cancella tutto";
+"settings-title" = "Impostazioni";
 "main-menu-title" = "Altro";
 "main-menu-heading-about" = "Informazioni";
 "main-menu-language-title" = "Cerca nel wiki in lingua $1";

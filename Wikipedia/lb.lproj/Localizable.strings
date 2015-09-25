@@ -89,6 +89,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-delete-all" = "All läschen";
+"settings-title" = "Astellungen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";

@@ -102,6 +102,7 @@
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "search-recent-clear-cancel" = "Cancel·la";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";
+"settings-title" = "Configuració";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";

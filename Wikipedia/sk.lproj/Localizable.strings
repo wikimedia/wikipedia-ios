@@ -92,6 +92,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
 "search-recent-clear-cancel" = "Zrušiť";
 "search-recent-clear-delete-all" = "Vymazať všetko";
+"settings-title" = "Nastavenia";
 "main-menu-title" = "Viac";
 "main-menu-heading-about" = "O aplikácii";
 "main-menu-language-title" = "Hľadať v $1 Wikipédii";
@@ -238,6 +239,7 @@
 "hockeyapp-alert-always-send" = "Vždy odoslať";
 "hockeyapp-alert-do-not-send" = "Neodoslať";
 "hockeyapp-alert-privacy" = "$1 súkromie";
+"page-issues" = "Problémy stránky";
 "page-similar-titles" = "Podobné stránky";
 "captcha-reload" = "Zobraziť ďalšie captcha";
 "captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";

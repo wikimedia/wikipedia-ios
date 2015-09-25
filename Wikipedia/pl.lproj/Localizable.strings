@@ -100,6 +100,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "search-recent-clear-cancel" = "Anuluj";
 "search-recent-clear-delete-all" = "Usuń wszystko";
+"settings-title" = "Ustawienia";
 "main-menu-title" = "Więcej";
 "main-menu-heading-about" = "O aplikacji";
 "main-menu-language-title" = "Przeszukaj $ Wikipedię";

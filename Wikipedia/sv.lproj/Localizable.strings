@@ -102,6 +102,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-delete-all" = "Radera alla";
+"settings-title" = "Inställningar";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";

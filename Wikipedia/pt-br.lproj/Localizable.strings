@@ -3,6 +3,7 @@
 // Author: !Silent
 // Author: Anaclaudiaml
 // Author: Araceletorres
+// Author: Cainamarques
 // Author: Dianakc
 // Author: Fasouzafreitas
 // Author: Luckas
@@ -19,7 +20,7 @@
 "article-languages-filter-placeholder" = "Filtro de idioma";
 "article-read-more-title" = "Leia mais";
 "article-unable-to-load-section" = "Não foi possível carregar esta seção. Tente atualizar o artigo para ver se corrige o problema.";
-"article-unable-to-load-article" = "Não é possível carregar artigo.";
+"article-unable-to-load-article" = "Não foi possível carregar o artigo.";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informações";
@@ -104,7 +105,7 @@
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Excluir tudo";
 "main-menu-title" = "Mais";
-"main-menu-heading-about" = "Cerca de";
+"main-menu-heading-about" = "Sobre";
 "main-menu-language-title" = "Buscar $1 na Wikipédia";
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Mostrar idiomas";

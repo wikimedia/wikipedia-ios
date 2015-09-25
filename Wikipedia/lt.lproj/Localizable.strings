@@ -4,6 +4,7 @@
 // Author: Hugo.arg
 // Author: Mantak111
 // Author: Pofka
+// Author: Zygimantus
 
 "article-languages-label" = "Pasirinkite kalbą";
 "article-languages-cancel" = "Atšaukti";
@@ -18,6 +19,7 @@
 "history-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "history-clear-cancel" = "Atšaukti";
 "history-clear-delete-all" = "Naikinti viską";
+"history-none" = "Naujausių puslapių nėra.";
 "zero-interstitial-continue" = "Išeiti";
 "zero-interstitial-cancel" = "Likti čia";
 "zero-learn-more-learn-more" = "Skaityti daugiau";
@@ -61,6 +63,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "search-recent-clear-cancel" = "Atšaukti";
 "search-recent-clear-delete-all" = "Naikinti viską";
+"settings-title" = "Nustatymai";
 "main-menu-title" = "Daugiau";
 "main-menu-language-toggle-show" = "Rodyti kalbas";
 "main-menu-language-toggle-hide" = "Slėpti kalbas";
@@ -92,6 +95,7 @@
 // Fuzzy
 "saved-pages-clear-delete-all" = "Naikinti viską";
 "saved-pages-refresh-cancel-alert-button" = "Supratau";
+"saved-pages-none" = "Įrašytų puslapių dar nėra.";
 // Fuzzy
 "page-history-title" = "Straipsnio istorija";
 // Fuzzy
@@ -161,3 +165,4 @@
 "hockeyapp-alert-send-report" = "Siųsti ataskaitą";
 "hockeyapp-alert-always-send" = "Visada siųsti";
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
+"captcha-reload" = "Rodyti kitą saugos kodą";

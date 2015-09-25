@@ -93,6 +93,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
 "search-recent-clear-cancel" = "Revocare";
 "search-recent-clear-delete-all" = "Șterge tot";
+"settings-title" = "Setări";
 "main-menu-title" = "Mai mult";
 "main-menu-heading-about" = "Despre";
 "main-menu-language-title" = "Căutare pe wiki în limba $1";
@@ -277,3 +278,4 @@
 "page-similar-titles" = "Pagini similare";
 "captcha-reload" = "Arată alt text captcha";
 "captcha-prompt" = "Introduceți textul CAPTCHA din imaginea de mai sus";
+"mwk-empty-title-error" = "Imposibil de efectuat operațiunea cu un titlu gol.";

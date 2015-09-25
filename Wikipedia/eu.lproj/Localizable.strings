@@ -82,6 +82,7 @@
 "saved-pages-title" = "Gordetako orrialdeak";
 "saved-pages-clear-cancel" = "Utzi";
 "saved-pages-clear-delete-all" = "Dena ezabatu";
+"saved-pages-none" = "Hizkuntzaren izena";
 "navbar-title-mode-edit-wikitext" = "Aldatu";
 "navbar-title-mode-login" = "Saioa hasi";
 "navbar-title-mode-login-and-save" = "Saioa hasi eta gorde";
@@ -157,4 +158,3 @@
 "hockeyapp-alert-do-not-send" = "Ez bidali";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
-"saved-pages-none" = "Hizkuntzaren izena";
