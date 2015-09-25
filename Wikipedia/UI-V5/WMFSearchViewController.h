@@ -1,16 +1,15 @@
 
 @protocol WMFSearchViewControllerDelegate;
 
-@class MWKSite, MWKDataStore, MWKSavedPageList, MWKHistoryList, MWKRecentSearchList;
+@class MWKSite, MWKUserDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface WMFSearchViewController : UIViewController
 
-@property (nonatomic, strong) MWKSite* searchSite;
-@property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong) MWKSavedPageList* savedPages;
-@property (nonatomic, strong) MWKHistoryList* recentPages;
-@property (nonatomic, strong) MWKRecentSearchList* recentSearches;
+@property (nonatomic, strong, readonly) MWKSite* searchSite;
+@property (nonatomic, strong, readonly) MWKUserDataStore* userDataStore;
+
+- (instancetype)initWithSite:(MWKSite*)site userDataStore:(MWKUserDataStore*)userDataStore;
 
 @end
 

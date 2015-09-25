@@ -3,14 +3,14 @@
 #import "RecentSearchesViewController.h"
 #import "WMFArticleListCollectionViewController_Transitioning.h"
 
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
-
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
 
 #import "MediaWikiKit.h"
 
 #import <Masonry/Masonry.h>
+#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+#import <PiwikTracker/PiwikTracker.h>
 #import "Wikipedia-Swift.h"
 
 
@@ -19,7 +19,11 @@
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
-@interface WMFSearchViewController ()<WMFRecentSearchesViewControllerDelegate, WMFArticleListTransitionProvider>
+@interface WMFSearchViewController ()
+<WMFRecentSearchesViewControllerDelegate, WMFArticleListTransitionProvider>
+
+@property (nonatomic, strong) MWKSite* searchSite;
+@property (nonatomic, strong) MWKUserDataStore* userDataStore;
 
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
@@ -41,19 +45,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
+- (instancetype)initWithSite:(MWKSite *)site userDataStore:(MWKUserDataStore*)userDataStore {
+    self = [super init];
+    if (self) {
+        self.searchSite = site;
+        self.userDataStore = userDataStore;
+    }
+    return self;
+}
+
+#pragma mark - Accessors
+
 - (WMFArticleListTransition*)listTransition {
     return self.resultsListController.listTransition;
-}
-
-- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
-    _savedPages = savedPages;
-    // resultsListController might be nil if `prepareForSegue:sender:` hasn't been called
-    self.resultsListController.savedPages = savedPages;
-}
-
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    _searchSite  = searchSite;
-    self.fetcher = nil;
 }
 
 - (NSString*)currentSearchTerm {
@@ -66,7 +70,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (WMFSearchFetcher*)fetcher {
     if (!_fetcher) {
-        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.userDataStore.dataStore];
     }
 
     return _fetcher;
@@ -78,7 +82,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchBar.text wmf_trim].length > 0 || [self.recentSearches countOfEntries] == 0;
+        [self.searchBar.text wmf_trim].length > 0 || [self.userDataStore.recentSearchList countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -106,17 +110,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureArticleList {
-    NSParameterAssert(self.dataStore);
-    NSParameterAssert(self.recentPages);
-    NSParameterAssert(self.savedPages);
-    self.resultsListController.dataStore   = self.dataStore;
-    self.resultsListController.recentPages = self.recentPages;
-    self.resultsListController.savedPages  = self.savedPages;
+    self.resultsListController.dataStore   = self.userDataStore.dataStore;
+    self.resultsListController.recentPages = self.userDataStore.historyList;
+    self.resultsListController.savedPages  = self.userDataStore.savedPageList;
 }
 
 - (void)configureRecentSearchList {
-    NSParameterAssert(self.recentSearches);
-    self.recentSearchesViewController.recentSearches = self.recentSearches;
+    self.recentSearchesViewController.recentSearches = self.userDataStore.recentSearchList;
     self.recentSearchesViewController.delegate       = self;
 }
 
@@ -146,6 +146,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[PiwikTracker sharedInstance] sendView:@"Search"];
     [self.searchBar becomeFirstResponder];
 }
 
@@ -291,8 +292,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)saveLastSearch {
     if ([self currentSearchTerm]) {
         MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite searchTerm:[self currentSearchTerm]];
-        [self.recentSearches addEntry:entry];
-        [self.recentSearches save];
+        [self.userDataStore.recentSearchList addEntry:entry];
+        [self.userDataStore.recentSearchList save];
         [self.recentSearchesViewController reloadRecentSearches];
     }
 }
