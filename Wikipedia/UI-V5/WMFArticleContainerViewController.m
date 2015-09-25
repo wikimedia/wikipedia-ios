@@ -1,15 +1,17 @@
 #import "WMFArticleContainerViewController.h"
-#import "WMFArticleContainerViewController_Transitioning.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
 
 // Frameworks
 #import <Masonry/Masonry.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
+
 
 // Controller
 #import "WMFArticleViewController.h"
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFSaveButtonController.h"
+#import "WMFPreviewController.h"
+#import "WMFArticleContainerViewController_Transitioning.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -19,16 +21,18 @@
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 
-#import "WMFPreviewController.h"
 
-// Other
-#import "SessionSingleton.h"
+// View
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
-<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate, UINavigationControllerDelegate, WMFPreviewControllerDelegate>
+<WMFWebViewControllerDelegate,
+ WMFArticleViewControllerDelegate,
+ UINavigationControllerDelegate,
+ WMFPreviewControllerDelegate>
+
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -143,7 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.toolbarItems         = @[flexSpaceItem, saveBarButton];
     self.saveButtonController =
         [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveBarButton.customView
-                                          savedPageList:[SessionSingleton sharedInstance].userDataStore.savedPageList
+                                          savedPageList:self.savedPageList
                                                   title:self.article.title];
 }
 
@@ -244,7 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
       didTapExternalLink:(NSURL* __nonnull)externalURL {
-    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
+//    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
 }
 
 #pragma mark - WMFArticleListItemController
