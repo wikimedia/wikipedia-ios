@@ -315,6 +315,7 @@
 		BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */; };
 		BC32A1D71B4B14C000A286DE /* WMFBackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */; };
 		BC32A1D91B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC32A1D81B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift */; };
+		BC32F6AC1BB5B35D007FDF65 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC32F6AB1BB5B35D007FDF65 /* Search.storyboard */; settings = {ASSET_TAGS = (); }; };
 		BC34E46A1B31AD8B00258928 /* MWKLanguageLinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */; };
 		BC3863491B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */; };
 		BC38634F1B7509E8003A2D38 /* WMFNavigationTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC38634E1B7509E8003A2D38 /* WMFNavigationTransitionController.m */; };
@@ -1064,6 +1065,7 @@
 		BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
 		BC32A1D61B4B14C000A286DE /* WMFBackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFBackgroundTaskManager.swift; sourceTree = "<group>"; };
 		BC32A1D81B4B1B8A00A286DE /* WMFLegacyImageDataMigration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFLegacyImageDataMigration.swift; sourceTree = "<group>"; };
+		BC32F6AB1BB5B35D007FDF65 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		BC34E4681B31AD8B00258928 /* MWKLanguageLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLanguageLinkController.h; sourceTree = "<group>"; };
 		BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkController.m; sourceTree = "<group>"; };
 		BC34E4721B31D92100258928 /* LangaugeSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangaugeSelectionDelegate.h; sourceTree = "<group>"; };
@@ -2501,6 +2503,7 @@
 		0E94AFE81B2096D5000BC5EA /* UI-V5 */ = {
 			isa = PBXGroup;
 			children = (
+				BC32F6AB1BB5B35D007FDF65 /* Search.storyboard */,
 				0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */,
 				0EFB48091B3BB01300381F99 /* Style */,
 				0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */,
@@ -3577,6 +3580,7 @@
 				0E03E2A91B85750C00C1FBD7 /* WMFHomeSectionFooter.xib in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
 				0E2691071B86C3FC009B8605 /* WMFArticlePreviewCell.xib in Resources */,
+				BC32F6AC1BB5B35D007FDF65 /* Search.storyboard in Resources */,
 				04DA87701B2FF5B200C948F8 /* WMFSettingsViewController.storyboard in Resources */,
 				04AEF0FB1B2F703700EFE858 /* PrimaryMenuViewController.storyboard in Resources */,
 				BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */,
