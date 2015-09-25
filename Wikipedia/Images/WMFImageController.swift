@@ -367,7 +367,6 @@ extension WMFImageController {
         return AnyPromise(bound: fetchImageWithURLInBackground(url))
     }
 
-
     /**
      Objective-C-compatible variant of cachedImageWithURL(url:) returning an `AnyPromise`.
      

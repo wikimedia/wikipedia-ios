@@ -63,8 +63,6 @@ class WMFImageControllerTests: XCTestCase {
             }
     }
 
-// FIXME: flaky test
-#if false
     func testCancelUnresolvedRequestCatchesWithCancellationError() {
         /*
          try to download an image from our repo on GH (as opposed to some external URL which might change)
@@ -75,13 +73,13 @@ class WMFImageControllerTests: XCTestCase {
         pipe: { (err: ErrorType) -> Void in
             XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
         },
-        timeout: 2) { () -> Promise<WMFImageDownload> in
-            let promise = self.imageController.fetchImageWithURL(testURL)
+        timeout: 5) { () -> Promise<WMFImageDownload> in
+            let promise: Promise<WMFImageDownload> =
+                self.imageController.fetchImageWithURL(testURL, options: WMFImageController.backgroundImageFetchOptions)
             self.imageController.cancelFetchForURL(testURL)
             return promise
         }
     }
-#endif
 
     func testCancelCacheRequestCatchesWithCancellationError() throws {
         // copy some test fixture image to a temp location
