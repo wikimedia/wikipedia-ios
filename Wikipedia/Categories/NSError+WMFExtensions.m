@@ -7,23 +7,23 @@ NSString* const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
 @implementation NSError (WMFExtensions)
 
 + (NSError*)wmf_errorWithType:(WMFErrorType)type userInfo:(NSDictionary*)userInfo{
-    
+
     return [NSError errorWithDomain:WMFErrorDomain code:type userInfo:userInfo];
 }
 
 + (NSError*)wmf_redirectedErrorWithTitle:(MWKTitle*)redirectedTitle{
 
     return [self wmf_errorWithType:WMFErrorTypeRedirected userInfo:redirectedTitle ? @{WMFRedirectTitleKey : redirectedTitle}: nil];
-    
+
 }
 
 + (NSError*)wmf_unableToSaveErrorWithReason:(NSString*)reason{
-    
+
     return [self wmf_errorWithType:WMFErrorTypeUnableToSave userInfo:reason ? @{NSLocalizedDescriptionKey : reason}: nil];
 }
 
 + (NSError*)wmf_serializeArticleErrorWithReason:(NSString*)reason{
-    
+
     return [self wmf_errorWithType:WMFErrorTypeArticleResponseSerialization userInfo:reason ? @{NSLocalizedDescriptionKey : reason}: nil];
 }
 
@@ -48,7 +48,7 @@ NSString* const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
 @implementation NSError (WMFConnectionFallback)
 
 - (BOOL)wmf_shouldFallbackToDesktopURLError{
-    
+
     if (self.domain == NSStreamSocketSSLErrorDomain ||
         (self.domain == NSURLErrorDomain &&
          (self.code == NSURLErrorSecureConnectionFailed ||

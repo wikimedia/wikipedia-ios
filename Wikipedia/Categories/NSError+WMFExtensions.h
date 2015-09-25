@@ -9,7 +9,7 @@ extern NSString* const WMFRedirectTitleKey;
 extern NSString* const WMFRedirectTitleKey;
 
 typedef NS_ENUM(NSInteger, WMFErrorType) {
-    
+
     WMFErrorTypeStringLength,
     WMFErrorTypeStringMissingParameter,
     WMFErrorTypeRedirected,
