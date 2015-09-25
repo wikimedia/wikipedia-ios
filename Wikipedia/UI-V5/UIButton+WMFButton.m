@@ -9,9 +9,11 @@
 #import "UIView+WMFRTLMirroring.h"
 #import "NSString+WMFGlyphs.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation UIButton (WMFGlyph)
 
-+ (UIButton*)wmf_buttonType:(WMFButtonType)type handler:(void (^)(id sender))action {
++ (UIButton*)wmf_buttonType:(WMFButtonType)type handler:(void (^ __nullable)(id sender))action {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = (CGRect){{0, 0}, {40, 40}};
 
@@ -22,21 +24,21 @@
     } forControlEvents:UIControlEventTouchDown];
 
     [button bk_addEventHandler:^(UIButton* sender){
-        sender.highlighted = !sender.selected; // Prevent annoying flicker.
-        [sender animateAndRewindXF:CATransform3DMakeScale([sender xMirroringMultiplierForButtonType:type] * 1.25, 1.25, 1.0f)
-                        afterDelay:0.0
-                          duration:0.04f
-                              then:^{
+        sender.highlighted = !sender.selected;     // Prevent annoying flicker.
+        float const horizontalScaleMultiplier = [sender xMirroringMultiplierForButtonType:type] * 1.25;
+        CATransform3D scaleTransform = CATransform3DMakeScale(horizontalScaleMultiplier, 1.25, 1.0f);
+        [sender animateAndRewindXF:scaleTransform afterDelay:0.0 duration:0.04f then:^{
             if (action) {
                 action(sender);
             }
         }];
-    } forControlEvents:UIControlEventTouchUpInside];
+    }
+              forControlEvents:UIControlEventTouchUpInside];
 
     return button;
 }
 
-- (void)wmf_setGlyphTitle:(WMFGlyph)glyph color:(UIColor*)color forState:(UIControlState)state {
+- (void)wmf_setGlyphTitle:(WMFGlyph)glyph color:(UIColor* __nullable)color forState:(UIControlState)state {
     [self setAttributedTitle:[NSAttributedString attributedStringForGlyph:glyph color:color]
                     forState:state];
 }
@@ -133,3 +135,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
