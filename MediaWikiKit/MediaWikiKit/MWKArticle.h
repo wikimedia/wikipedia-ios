@@ -151,6 +151,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (MWKImage*)importImageData:(NSData*)data image:(MWKImage*)image __deprecated;
 
-- (NSArray*)allImageURLs;
+/**
+ *  @return Set of all image URLs shown in the receiver.
+ */
+- (NSSet<NSURL*>*)allImageURLs;
 
 @end

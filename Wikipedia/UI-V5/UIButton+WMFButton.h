@@ -23,13 +23,16 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeBookmark
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface UIButton (WMFGlyph)
 
-+ (UIButton*)wmf_buttonType:(WMFButtonType)type
-                    handler:(void (^)(id sender))action;
++ (UIButton*)wmf_buttonType:(WMFButtonType)type handler:(void (^ __nullable)(id sender))action;
 
 - (void)wmf_setButtonType:(WMFButtonType)type;
 
-- (void)wmf_setGlyphTitle:(WMFGlyph)glyph color:(UIColor*)color forState:(UIControlState)state;
+- (void)wmf_setGlyphTitle:(WMFGlyph)glyph color:(UIColor* __nullable)color forState:(UIControlState)state;
 
 @end
+
+NS_ASSUME_NONNULL_END

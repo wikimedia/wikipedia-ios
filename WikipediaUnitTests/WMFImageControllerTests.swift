@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import Wikipedia
+@testable import Wikipedia
 import PromiseKit
 
 class WMFImageControllerTests: XCTestCase {
@@ -63,8 +63,6 @@ class WMFImageControllerTests: XCTestCase {
             }
     }
 
-// FIXME: flaky test
-#if false
     func testCancelUnresolvedRequestCatchesWithCancellationError() {
         /*
          try to download an image from our repo on GH (as opposed to some external URL which might change)
@@ -75,20 +73,23 @@ class WMFImageControllerTests: XCTestCase {
         pipe: { (err: ErrorType) -> Void in
             XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
         },
-        timeout: 2) { () -> Promise<WMFImageDownload> in
-            let promise = self.imageController.fetchImageWithURL(testURL)
+        timeout: 5) { () -> Promise<WMFImageDownload> in
+            let promise: Promise<WMFImageDownload> =
+                self.imageController.fetchImageWithURL(testURL, options: WMFImageController.backgroundImageFetchOptions)
             self.imageController.cancelFetchForURL(testURL)
             return promise
         }
     }
-#endif
 
     func testCancelCacheRequestCatchesWithCancellationError() throws {
         // copy some test fixture image to a temp location
         let testFixtureDataPath = NSURL(string: wmf_bundle().resourcePath!)!.URLByAppendingPathComponent("golden-gate.jpg")
         let tempPath = NSURL(string:WMFRandomTemporaryFileOfType("jpg"))!
         try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempPath)
-
+        defer {
+            // remove temporarily copied test data
+            try! NSFileManager.defaultManager().removeItemAtURL(tempPath)
+        }
         let testURL = NSURL(string: "//foo/bar")!
 
         expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
@@ -107,8 +108,28 @@ class WMFImageControllerTests: XCTestCase {
                   return promise
                 }
         }
+    }
 
-        // remove temporarily copied test data
-        try! NSFileManager.defaultManager().removeItemAtURL(tempPath)
+    func testImportImageMovesFileToCorrespondingPathInDiskCache() {
+        let testFixtureDataPath =
+            NSURL(fileURLWithPath: wmf_bundle().resourcePath!).URLByAppendingPathComponent("golden-gate.jpg")
+
+        let tempImageCopyURL = NSURL(fileURLWithPath: WMFRandomTemporaryFileOfType("jpg"))
+
+        try! NSFileManager.defaultManager().copyItemAtURL(testFixtureDataPath, toURL: tempImageCopyURL)
+
+        let testURL = NSURL(string: "//foo/bar")!
+
+        expectPromise(toResolve(), timeout: 2) {
+            self.imageController.importImage(fromFile: tempImageCopyURL.path!, withURL: testURL)
+        }
+
+        XCTAssertFalse(self.imageController.hasDataInMemoryForImageWithURL(testURL),
+                       "Importing image to disk should bypass the memory cache")
+
+        XCTAssertTrue(self.imageController.hasDataOnDiskForImageWithURL(testURL))
+
+        XCTAssertEqual(self.imageController.diskDataForImageWithURL(testURL),
+                       NSFileManager.defaultManager().contentsAtPath(testFixtureDataPath.path!))
     }
 }

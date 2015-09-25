@@ -1,33 +1,38 @@
 
 #import "FetcherBase.h"
 
-@class MWKArticle, MWKSavedPageList, AFHTTPRequestOperationManager, SavedArticlesFetcher, MWKDataStore;
+@class MWKArticle,
+       MWKSavedPageList,
+       WMFArticleFetcher,
+       SavedArticlesFetcher,
+       WMFImageController;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
 - (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
-             didFetchArticle:(MWKArticle*)article
+               didFetchTitle:(MWKTitle*)title
+                     article:(MWKArticle* __nullable)article
                     progress:(CGFloat)progress
-                       error:(NSError*)error;
+                       error:(NSError* __nullable)error;
 
 @end
 
 @interface SavedArticlesFetcher : FetcherBase
 
-+ (SavedArticlesFetcher*)sharedInstance;
-+ (void)                 setSharedInstance:(SavedArticlesFetcher*)fetcher;
-
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+@property (nonatomic, weak, nullable) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
 
-@property (nonatomic, weak) id<SavedArticlesFetcherDelegate> fetchFinishedDelegate;
-
-- (void)fetchSavedPageList:(MWKSavedPageList*)savedPageList;
+- (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList;
 
 - (void)getProgress:(WMFProgressHandler)progressBlock;
+
+- (void)fetchAndObserveSavedPageList;
 
 - (void)cancelFetch;
 
 @end
+
+NS_ASSUME_NONNULL_END
