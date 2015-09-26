@@ -37,6 +37,16 @@ NS_ASSUME_NONNULL_BEGIN
     return [self initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.collectionView registerClass:[WMFImageCollectionViewCell class]
+            forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
+
+    self.collectionView.pagingEnabled = YES;
+    WMFCollectionViewPageLayout* layout = (WMFCollectionViewPageLayout*)self.collectionViewLayout;
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+}
+
 #pragma mark - Accessors
 
 - (CIDetector*)faceDetector {
@@ -83,14 +93,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         self.images = nil;
     }
-}
-
-#pragma mark - UIViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.collectionView registerClass:[WMFImageCollectionViewCell class]
-            forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
 }
 
 #pragma mark - UICollectionView Protocols

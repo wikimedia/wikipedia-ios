@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIView* browserContainer = self.webViewController.webView.scrollView;
     [browserContainer addSubview:self.headerGallery.view];
     [self.headerGallery.view mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.equalTo(self.webViewController.webView);
+        make.leading.trailing.equalTo(self.view);
         make.top.equalTo(self.webViewController.webView.scrollView);
         make.height.equalTo(@160.f);
     }];
