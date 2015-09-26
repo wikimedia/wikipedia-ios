@@ -131,7 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFArticleListCollectionViewController alloc] init];
+        _readMoreListViewController = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
         _readMoreListViewController.recentPages = self.savedPageList.dataStore.userDataStore.historyList;
         _readMoreListViewController.dataStore = self.savedPageList.dataStore;
         _readMoreListViewController.savedPages = self.savedPageList;
@@ -183,17 +183,25 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Manually adjusting scrollview offsets to compensate for embedded navigation controller
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-
-//    [self updateInsetsForArticleViewController];
-
     [self addChildViewController:self.webViewController];
     [self.view addSubview:self.webViewController.view];
     [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
     [self.webViewController didMoveToParentViewController:self];
+
+    /*
+     NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
+     issues when attempting a contentInset approach:
+     - doesn't work well for footers:
+        - contentInset causes jumpiness when scrolling beyond _bottom_ of content
+        - interferes w/ bouncing at the bottom
+     - forces you to manually set scrollView insets
+     - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
+     
+     IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
+     headers & footers
+    */
 
     [self addChildViewController:self.headerGallery];
     UIView* browserContainer = self.webViewController.webView.scrollView;
@@ -211,14 +219,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreListViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(self.view);
         make.top.equalTo([self.webViewController.webView wmf_browserView].mas_bottom);
-        /*
-         HAX: provide non-zero placeholder height which we'll change once subviews are laid out
-         this allows the collection view to know it can display at least one visible cell. once this occurs, we can
-         use its internal contentSize to define its full height. see below about using an intrinsically-sized 
-         collectionview subclass or something else altogether.
-         */
-        make.height.equalTo(@100);
     }];
+
+    // TODO: add logo & authorship footer
+
     [self.readMoreListViewController didMoveToParentViewController:self];
 
     if (self.article) {
@@ -238,24 +242,16 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
      HAX: need to manage positioning the browser view manually.
-     using constraints prevents the browser view from resizing itself after DOM content has loaded. maybe we could
-     write our own UIWebView (or WKWebView?) subclass which defines an intrinsic content size.
+     using constraints seems to prevent the browser view size and scrollview contentSize from being set
+     properly.
      */
     UIView* browserView = [self.webViewController.webView wmf_browserView];
     [browserView setFrame:(CGRect){
         .origin = CGPointMake(0, headerBottom),
         .size = browserView.frame.size
     }];
-    /*
-     HAX: temp workaround until we create an article list subclass which can use a collection view that reports its
-     contentSize as its intrinsicContentSize
-     ... or add "cells" manually as individual views. collection view might be unnecessary here..? how to handle
-     selection if there's no collection view
-     */
-    CGFloat readMoreHeight = self.readMoreListViewController.collectionView.contentSize.height;
-    [self.readMoreListViewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(readMoreHeight));
-    }];
+
+    CGFloat readMoreHeight = self.readMoreListViewController.view.frame.size.height;
     CGFloat totalHeight = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     if (self.webViewController.webView.scrollView.contentSize.height != totalHeight) {
         self.webViewController.webView.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);

@@ -12,11 +12,12 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 #import "MediaWikiKit.h"
-#import <SSDataSources/SSDataSources.h>
 
 #import "WMFArticleViewController.h"
 
+#import <SSDataSources/SSDataSources.h>
 #import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+#import <Masonry/Masonry.h>
 
 #import "WMFArticlePreviewCell.h"
 
@@ -24,16 +25,28 @@
 
 
 @interface WMFArticleListCollectionViewController ()
-
+<UICollectionViewDelegate>
 @property (strong, nonatomic) MWKArticle* selectedArticle;
+@property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
+@property (nonatomic, strong) IBOutlet UICollectionViewLayout* collectionViewLayout;
+
++ (Class)collectionViewClass;
 
 @end
 
 @implementation WMFArticleListCollectionViewController
 @synthesize listTransition = _listTransition;
 
-- (instancetype)init {
-    return [self initWithCollectionViewLayout:[SelfSizingWaterfallCollectionViewLayout new]];
++ (SelfSizingWaterfallCollectionViewLayout*)createLayout {
+    return [SelfSizingWaterfallCollectionViewLayout new];
+}
+
++ (Class)collectionViewClass {
+    return [UICollectionView class];
+}
+
++ (UICollectionView*)createCollectionView {
+    return [[[self collectionViewClass] alloc] initWithFrame:CGRectZero collectionViewLayout:[self createLayout]];
 }
 
 #pragma mark - Accessors
@@ -130,6 +143,17 @@
 
 #pragma mark - UIViewController
 
+- (void)loadView {
+    [super loadView];
+    self.view = [[UIView alloc] init];
+    self.collectionView = [[self class] createCollectionView];
+    self.collectionView.delegate = self;
+    [self.view addSubview:self.collectionView];
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.top.and.bottom.equalTo(self.view);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -204,6 +228,44 @@
     CGRect frame               = cell.frame;
     frame.size.height = CGRectGetHeight(self.collectionView.frame) - frame.origin.y;
     return frame;
+}
+
+@end
+
+@interface WMFIntrinsicSizeCollectionView : UICollectionView
+
+@end
+
+@implementation WMFIntrinsicSizeCollectionView
+
+- (void)setContentSize:(CGSize)contentSize {
+    BOOL didChange = CGSizeEqualToSize(self.contentSize, contentSize);
+    [super setContentSize:contentSize];
+    if (didChange) {
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
+    }
+}
+
+- (void)layoutSubviews {
+    CGSize oldSize = self.contentSize;
+    [super layoutSubviews];
+    if (!CGSizeEqualToSize(oldSize, self.contentSize)) {
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
+    }
+}
+
+- (CGSize)intrinsicContentSize {
+    return self.contentSize;
+}
+
+@end
+
+@implementation WMFSelfSizingArticleListCollectionViewController
+
++ (Class)collectionViewClass {
+    return [WMFIntrinsicSizeCollectionView class];
 }
 
 @end

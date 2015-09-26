@@ -124,9 +124,6 @@
                                 <rect key="frame" x="0.0" y="118" width="600" height="438"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="4Pn-cn-DIj" kind="embed" id="8w9-gJ-Prh"/>
-                                </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
                                 <rect key="frame" x="0.0" y="88" width="600" height="30"/>
@@ -317,28 +314,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zrx-j4-pdr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="587" y="3712"/>
-        </scene>
-        <!--Search Results List-->
-        <scene sceneID="1Ub-Zb-UVi">
-            <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Search" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Pn-cn-DIj" userLabel="Search Results List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Sdm-Uo-q4M">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="SelfSizingWaterfallCollectionViewLayout"/>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="4Pn-cn-DIj" id="bps-am-g8F"/>
-                            <outlet property="delegate" destination="4Pn-cn-DIj" id="pQr-HZ-wDg"/>
-                        </connections>
-                    </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" id="GUP-3S-B3l"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1ux-fZ-r7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1287" y="3692"/>
         </scene>
         <!--Recent Pages List-->
         <scene sceneID="bR7-pf-lJf">

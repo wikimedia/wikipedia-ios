@@ -124,6 +124,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.resultsListController = [WMFArticleListCollectionViewController new];
+    [self addChildViewController:self.resultsListController];
+    [self.resultsListContainerView addSubview:self.resultsListController.view];
+    [self.resultsListController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.top.and.bottom.equalTo(self.resultsListContainerView);
+    }];
+    [self configureArticleList];
+
     // TODO: localize
     self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;

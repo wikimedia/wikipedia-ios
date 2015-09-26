@@ -12,7 +12,10 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
     WMFArticleListModeOffScreen
 };
 
-@interface WMFArticleListCollectionViewController : UICollectionViewController
+@interface WMFArticleListCollectionViewController : UIViewController
+
+@property (nonatomic, strong, readonly) UICollectionView* collectionView;
+@property (nonatomic, strong, readonly) UICollectionViewLayout* collectionViewLayout;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
@@ -26,6 +29,11 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 - (void)scrollToArticle:(MWKArticle*)article animated:(BOOL)animated;
 
 - (void)scrollToArticleIfOffscreen:(MWKArticle*)article animated:(BOOL)animated;
+
+@end
+
+// TODO: move to separate file in article container folder
+@interface WMFSelfSizingArticleListCollectionViewController : WMFArticleListCollectionViewController
 
 @end
 
