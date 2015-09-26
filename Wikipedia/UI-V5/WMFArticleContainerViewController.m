@@ -202,6 +202,13 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreListViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(self.view);
         make.top.equalTo([self.webViewController.webView wmf_browserView].mas_bottom);
+        /*
+         HAX: provide non-zero placeholder height which we'll change once subviews are laid out
+         this allows the collection view to know it can display at least one visible cell. once this occurs, we can
+         use its internal contentSize to define its full height. see below about using an intrinsically-sized 
+         collectionview subclass or something else altogether.
+         */
+        make.height.equalTo(@100);
     }];
     [self.readMoreListViewController didMoveToParentViewController:self];
 
