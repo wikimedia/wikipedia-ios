@@ -168,6 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFArticleHeaderImageGalleryViewController*)headerGallery {
     if (!_headerGallery) {
         _headerGallery = [[WMFArticleHeaderImageGalleryViewController alloc] init];
+        // TODO: add delegate callbacks for presenting full gallery
     }
     return _headerGallery;
 }
@@ -229,11 +230,11 @@ NS_ASSUME_NONNULL_BEGIN
                                     keyPath:WMF_SAFE_KEYPATH(self.webViewController.webView.scrollView, contentSize)
                                     options:0
                                       block:^(WMFArticleContainerViewController* observer, id object, NSDictionary *change) {
-        [observer layoutWebView];
+        [observer layoutWebViewSubviews];
     }];
 }
 
-- (void)layoutWebView {
+- (void)layoutWebViewSubviews {
     CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
      HAX: need to manage positioning the browser view manually.
@@ -256,19 +257,19 @@ NS_ASSUME_NONNULL_BEGIN
         make.height.equalTo(@(readMoreHeight));
     }];
     CGFloat totalHeight = CGRectGetMaxY(browserView.frame) + readMoreHeight;
-    if (self.webViewController.webView.scrollView.contentSize.height < totalHeight) {
+    if (self.webViewController.webView.scrollView.contentSize.height != totalHeight) {
         self.webViewController.webView.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self layoutWebView];
+    [self layoutWebViewSubviews];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self layoutWebView];
+    [self layoutWebViewSubviews];
 }
 
 - (UIBarItem*)paddingToolbarItem {
@@ -288,10 +289,20 @@ NS_ASSUME_NONNULL_BEGIN
                                                          action:@selector(didTapRefresh)];
 }
 
-- (UIBarItem*)flexibleSpaceToolbarItem {
+- (UIBarButtonItem*)flexibleSpaceToolbarItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                          target:nil
                                                          action:NULL];
+}
+
+- (UIBarButtonItem*)tableOfContentsToolbarItem {
+    @weakify(self);
+    UIBarButtonItem* item = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
+        @strongify(self);
+        [self.webViewController tocToggle];
+    }];
+
+    return item;
 }
 
 - (void)setupToolbar {
@@ -304,6 +315,10 @@ NS_ASSUME_NONNULL_BEGIN
         [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
                                           savedPageList:self.savedPageList
                                                   title:self.article.title];
+
+    if (!self.article.isMain) {
+        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -342,7 +357,7 @@ NS_ASSUME_NONNULL_BEGIN
 //    }
 }
 
-#pragma mark - Refresh
+#pragma mark - Toolbar Actions
 
 - (void)didTapRefresh {
     [self fetchCurrentArticle];
