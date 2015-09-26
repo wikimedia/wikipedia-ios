@@ -139,7 +139,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
                                         dataStore:self.savedPageList.dataStore
                                     savedPageList:self.savedPageList
                         numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]
-                                          fetcher:self.relatedSearchFetcher];;
+                                      resultLimit:WMFMaxRelatedSearchResultLimit
+                                          fetcher:self.relatedSearchFetcher];
     }
     return _relatedTitleDataSource;
 }

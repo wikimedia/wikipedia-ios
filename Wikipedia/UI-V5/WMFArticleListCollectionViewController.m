@@ -151,7 +151,6 @@
     NSParameterAssert(self.savedPages);
     [self connectCollectionViewAndDataSource];
     [[self dynamicDataSource] startUpdating];
-    [self.navigationController setToolbarHidden:YES animated:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -13,6 +13,9 @@
 #import "WMFPreviewController.h"
 #import "WMFArticleContainerViewController_Transitioning.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
+#import "WMFRelatedTitleListDataSource.h"
+#import "WMFArticleListCollectionViewController.h"
+#import "UITabBarController+WMFExtensions.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -41,8 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
-@property (nonatomic, strong, readwrite) WebViewController* webViewController;
+@property (nonatomic, strong) WebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
+@property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
 
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
@@ -63,9 +67,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
-        self.hidesBottomBarWhenPushed = YES;
         self.savedPageList            = savedPages;
         self.dataStore                = dataStore;
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
+- (instancetype __nullable)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
 }
@@ -80,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.webViewController;
 }
 
+// TEMP: make immutable
 - (void)setArticle:(MWKArticle* __nullable)article {
     if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
@@ -106,6 +119,27 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (WMFArticleListCollectionViewController*)readMoreListViewController {
+    if (!_readMoreListViewController) {
+        _readMoreListViewController = [[WMFArticleListCollectionViewController alloc] init];
+        _readMoreListViewController.recentPages = self.savedPageList.dataStore.userDataStore.historyList;
+        _readMoreListViewController.dataStore = self.savedPageList.dataStore;
+        _readMoreListViewController.savedPages = self.savedPageList;
+        WMFRelatedTitleListDataSource* relatedTitlesDataSource =
+        [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.article.title
+                                                   dataStore:self.savedPageList.dataStore
+                                               savedPageList:self.savedPageList
+                                   numberOfExtractCharacters:200
+                                                 resultLimit:3];
+        // TODO: fetch lazily
+        [relatedTitlesDataSource fetch];
+        // TEMP: configure extract chars
+        _readMoreListViewController.dataSource = relatedTitlesDataSource;
+
+    }
+    return _readMoreListViewController;
+}
+
 - (WMFArticleFetcher*)articleFetcher {
     if (!_articleFetcher) {
         _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
@@ -128,8 +162,8 @@ NS_ASSUME_NONNULL_BEGIN
     return _headerGallery;
 }
 
+// TEMP: delete!
 - (WMFArticleViewController*)articleViewController {
-    // FIXME: delete!
     return nil;
 }
 
@@ -162,8 +196,14 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     [self.headerGallery didMoveToParentViewController:self];
 
-    // TODO: add dynamic readmore footer
     // TODO: lazily add & fetch readmore data when user is X points away from bottom of webview
+    [self addChildViewController:self.readMoreListViewController];
+    [browserContainer addSubview:self.readMoreListViewController.view];
+    [self.readMoreListViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.equalTo(self.view);
+        make.top.equalTo([self.webViewController.webView wmf_browserView].mas_bottom);
+    }];
+    [self.readMoreListViewController didMoveToParentViewController:self];
 
     if (self.article) {
         self.webViewController.article     = self.article;
@@ -173,6 +213,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
      HAX: need to manage positioning the browser view manually.
      using constraints prevents the browser view from resizing itself after DOM content has loaded. maybe we could
@@ -180,9 +221,22 @@ NS_ASSUME_NONNULL_BEGIN
     */
     UIView* browserView = [self.webViewController.webView wmf_browserView];
     [browserView setFrame:(CGRect){
-        .origin = CGPointMake(0, CGRectGetMaxY(self.headerGallery.view.frame)),
+        .origin = CGPointMake(0, headerBottom),
         .size = browserView.frame.size
     }];
+
+    /*
+     HAX: temp workaround until we create an article list subclass which can use a collection view that reports its
+     contentSize as its intrinsic contentsize
+     ... or add "cells" manually as individual views. collection view might be unnecessary here..? how to handle
+     selection if there's no collection view
+    */
+    CGFloat readMoreHeight = self.readMoreListViewController.collectionView.contentSize.height;
+    [self.readMoreListViewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(readMoreHeight));
+    }];
+    self.webViewController.webView.scrollView.contentSize =
+        CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(browserView.frame) + readMoreHeight);
 }
 
 - (void)setupSaveButton {
@@ -203,11 +257,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateInsetsForArticleViewController];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.navigationController setToolbarHidden:NO animated:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
@@ -221,21 +270,22 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateInsetsForArticleViewController {
-    CGFloat topInset = [self.navigationController.navigationBar frame].size.height
-                       + [[UIApplication sharedApplication] statusBarFrame].size.height;
-
-    UIEdgeInsets adjustedInsets = UIEdgeInsetsMake(topInset,
-                                                   0.0,
-                                                   self.tabBarController.tabBar.frame.size.height,
-                                                   0.0);
-
-    self.articleViewController.tableView.contentInset          = adjustedInsets;
-    self.articleViewController.tableView.scrollIndicatorInsets = adjustedInsets;
-
-    //adjust offset if we are at the top
-    if (self.articleViewController.tableView.contentOffset.y <= 0) {
-        self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
-    }
+    // TODO: remove
+//    CGFloat topInset = [self.navigationController.navigationBar frame].size.height
+//                       + [[UIApplication sharedApplication] statusBarFrame].size.height;
+//
+//    UIEdgeInsets adjustedInsets = UIEdgeInsetsMake(topInset,
+//                                                   0.0,
+//                                                   self.tabBarController.tabBar.frame.size.height,
+//                                                   0.0);
+//
+//    self.articleViewController.tableView.contentInset          = adjustedInsets;
+//    self.articleViewController.tableView.scrollIndicatorInsets = adjustedInsets;
+//
+//    //adjust offset if we are at the top
+//    if (self.articleViewController.tableView.contentOffset.y <= 0) {
+//        self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
+//    }
 }
 
 #pragma mark - WebView Transition
@@ -323,7 +373,7 @@ NS_ASSUME_NONNULL_BEGIN
 //        [self.navigationController setNavigationBarHidden:NO animated:NO];
 //        [self.contentNavigationController setNavigationBarHidden:YES animated:NO];
 //    } else {
-        [self.navigationController setNavigationBarHidden:YES animated:NO];
+//        [self.navigationController setNavigationBarHidden:YES animated:NO];
 //        [self.contentNavigationController setNavigationBarHidden:NO animated:NO];
 //    }
 }

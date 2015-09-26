@@ -60,7 +60,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 
-@interface WMFAppViewController ()<UITabBarControllerDelegate>
+@interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
@@ -97,8 +97,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController* navigationController = [self navigationControllerForTab:i];
-        navigationController.delegate            = self.navigationTransitionController;
-        navigationController.navigationBarHidden = NO;
+        navigationController.delegate            = self;
     }
 }
 
@@ -360,6 +359,26 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 - (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
     [self configureHomeViewController];
     [self configureSavedViewController];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    BOOL isTabRoot = navigationController.viewControllers.firstObject == viewController;
+    if (isTabRoot) {
+        [navigationController setToolbarHidden:YES animated:YES];
+    } else {
+        [self.rootTabBarController wmf_setTabBarVisible:NO animated:NO completion:nil];
+    }
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    BOOL isTabRoot = navigationController.viewControllers.firstObject == viewController;
+    if (isTabRoot) {
+        [self.rootTabBarController wmf_setTabBarVisible:YES animated:NO completion:nil];
+    } else {
+        [navigationController setToolbarHidden:NO animated:YES];
+    }
 }
 
 @end
