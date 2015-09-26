@@ -69,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.savedPageList            = savedPages;
         self.dataStore                = dataStore;
+        // necessary to make sure tabbar/toolbar transitions happen when they're supposed to if this class is
+        // instantiated programmatically
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
@@ -77,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype __nullable)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        // necessary to make sure tabbar/toolbar transitions happen when they're supposed to, if this class is
+        // referenced in a storyboard
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
@@ -216,16 +220,17 @@ NS_ASSUME_NONNULL_BEGIN
         self.webViewController.article     = self.article;
         [self.headerGallery setImagesFromArticle:self.article];
     }
+
+    [self webViewHacks];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)webViewHacks {
     CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
      HAX: need to manage positioning the browser view manually.
      using constraints prevents the browser view from resizing itself after DOM content has loaded. maybe we could
      write our own UIWebView (or WKWebView?) subclass which defines an intrinsic content size.
-    */
+     */
     UIView* browserView = [self.webViewController.webView wmf_browserView];
     [browserView setFrame:(CGRect){
         .origin = CGPointMake(0, headerBottom),
@@ -234,16 +239,21 @@ NS_ASSUME_NONNULL_BEGIN
 
     /*
      HAX: temp workaround until we create an article list subclass which can use a collection view that reports its
-     contentSize as its intrinsic contentsize
+     contentSize as its intrinsicContentSize
      ... or add "cells" manually as individual views. collection view might be unnecessary here..? how to handle
      selection if there's no collection view
-    */
+     */
     CGFloat readMoreHeight = self.readMoreListViewController.collectionView.contentSize.height;
     [self.readMoreListViewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(readMoreHeight));
     }];
     self.webViewController.webView.scrollView.contentSize =
-        CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(browserView.frame) + readMoreHeight);
+    CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(browserView.frame) + readMoreHeight);
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self webViewHacks];
 }
 
 - (void)setupSaveButton {
