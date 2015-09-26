@@ -19,6 +19,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
+#import "WMFCollectionViewPageLayout.h"
 
 // Model
 #import "MWKArticle.h"
@@ -31,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
+
+- (instancetype)init {
+    return [self initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+}
+
+#pragma mark - Accessors
 
 - (CIDetector*)faceDetector {
     if (!_faceDetector) {
@@ -76,6 +83,14 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         self.images = nil;
     }
+}
+
+#pragma mark - UIViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.collectionView registerClass:[WMFImageCollectionViewCell class]
+            forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
 }
 
 #pragma mark - UICollectionView Protocols

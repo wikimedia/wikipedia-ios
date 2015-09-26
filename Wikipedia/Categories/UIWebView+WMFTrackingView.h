@@ -13,4 +13,6 @@ typedef NS_ENUM (NSInteger, WMFTrackingViewLocation) {
 - (void)wmf_addTrackingView:(UIView*)view
                  atLocation:(WMFTrackingViewLocation)location;
 
+- (UIView*)wmf_browserView;
+
 @end

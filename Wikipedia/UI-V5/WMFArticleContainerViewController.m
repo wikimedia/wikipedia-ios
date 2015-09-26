@@ -12,18 +12,23 @@
 #import "WMFSaveButtonController.h"
 #import "WMFPreviewController.h"
 #import "WMFArticleContainerViewController_Transitioning.h"
+#import "WMFArticleHeaderImageGalleryViewController.h"
 
 // Model
 #import "MWKDataStore.h"
-#import "MWKArticle.h"
+#import "MWKArticle+WMFAnalyticsLogging.h"
 #import "MWKCitation.h"
 #import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 
+// Networking
+#import "WMFArticleFetcher.h"
 
 // View
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
+#import "UIWebView+WMFTrackingView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,14 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
-@property (nonatomic, strong) UINavigationController* contentNavigationController;
-@property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
 @property (nonatomic, strong, readwrite) WebViewController* webViewController;
+@property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 
-@property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
-
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
-
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 @end
@@ -75,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIViewController<WMFArticleContentController>*)currentArticleController {
-    return (id)[self.contentNavigationController topViewController];
+    return self.webViewController;
 }
 
 - (void)setArticle:(MWKArticle* __nullable)article {
@@ -83,22 +85,32 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    if (self.article) {
+        [self.articleFetcher cancelFetchForPageTitle:self.article.title];
+    }
+
     _article = article;
 
     self.saveButtonController.title = article.title;
 
-    if (self.isViewLoaded) {
-        self.articleViewController.article = article;
+    if (self.isViewLoaded && (self.article.isCached || !self.article)) {
         self.webViewController.article     = article;
+        [self.headerGallery setImagesFromArticle:article];
+    } else if (self.article) {
+        @weakify(self);
+        [self.articleFetcher fetchArticleForPageTitle:self.article.title progress:nil]
+        .then(^(MWKArticle* article) {
+            @strongify(self);
+            self.article = article;
+        });
     }
 }
 
-- (WMFArticleViewController*)articleViewController {
-    if (!_articleViewController) {
-        _articleViewController          = [WMFArticleViewController articleViewControllerWithDataStore:self.dataStore];
-        _articleViewController.delegate = self;
+- (WMFArticleFetcher*)articleFetcher {
+    if (!_articleFetcher) {
+        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
-    return _articleViewController;
+    return _articleFetcher;
 }
 
 - (WebViewController*)webViewController {
@@ -109,6 +121,18 @@ NS_ASSUME_NONNULL_BEGIN
     return _webViewController;
 }
 
+- (WMFArticleHeaderImageGalleryViewController*)headerGallery {
+    if (!_headerGallery) {
+        _headerGallery = [[WMFArticleHeaderImageGalleryViewController alloc] init];
+    }
+    return _headerGallery;
+}
+
+- (WMFArticleViewController*)articleViewController {
+    // FIXME: delete!
+    return nil;
+}
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -117,25 +141,48 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupSaveButton];
 
     // Manually adjusting scrollview offsets to compensate for embedded navigation controller
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 
-    [self updateInsetsForArticleViewController];
+//    [self updateInsetsForArticleViewController];
 
-    UINavigationController* nav = [[UINavigationController alloc] initWithRootViewController:self.articleViewController];
-    nav.navigationBarHidden = YES;
-    nav.delegate            = self;
-    [self addChildViewController:nav];
-    [self.view addSubview:nav.view];
-    [nav.view mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self addChildViewController:self.webViewController];
+    [self.view addSubview:self.webViewController.view];
+    [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
-    [nav didMoveToParentViewController:self];
-    self.contentNavigationController = nav;
+    [self.webViewController didMoveToParentViewController:self];
+
+    [self addChildViewController:self.headerGallery];
+    UIView* browserContainer = self.webViewController.webView.scrollView;
+    [browserContainer addSubview:self.headerGallery.view];
+    [self.headerGallery.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.equalTo(self.webViewController.webView);
+        make.top.equalTo(self.webViewController.webView.scrollView);
+        make.height.equalTo(@160.f);
+    }];
+    [self.headerGallery didMoveToParentViewController:self];
+
+    // TODO: add dynamic readmore footer
+    // TODO: lazily add & fetch readmore data when user is X points away from bottom of webview
 
     if (self.article) {
-        self.articleViewController.article = self.article;
         self.webViewController.article     = self.article;
+        [self.headerGallery setImagesFromArticle:self.article];
     }
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    /*
+     HAX: need to manage positioning the browser view manually.
+     using constraints prevents the browser view from resizing itself after DOM content has loaded. maybe we could
+     write our own UIWebView (or WKWebView?) subclass which defines an intrinsic content size.
+    */
+    UIView* browserView = [self.webViewController.webView wmf_browserView];
+    [browserView setFrame:(CGRect){
+        .origin = CGPointMake(0, CGRectGetMaxY(self.headerGallery.view.frame)),
+        .size = browserView.frame.size
+    }];
 }
 
 - (void)setupSaveButton {
@@ -194,7 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WebView Transition
 
 - (void)showWebViewAnimated:(BOOL)animated {
-    [self.contentNavigationController pushViewController:self.webViewController animated:YES];
+//    [self.contentNavigationController pushViewController:self.webViewController animated:YES];
 }
 
 - (void)showWebViewAtFragment:(NSString*)fragment animated:(BOOL)animated {
@@ -272,13 +319,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
-    if (viewController == self.articleViewController) {
-        [self.navigationController setNavigationBarHidden:NO animated:NO];
-        [self.contentNavigationController setNavigationBarHidden:YES animated:NO];
-    } else {
+//    if (viewController == self.articleViewController) {
+//        [self.navigationController setNavigationBarHidden:NO animated:NO];
+//        [self.contentNavigationController setNavigationBarHidden:YES animated:NO];
+//    } else {
         [self.navigationController setNavigationBarHidden:YES animated:NO];
-        [self.contentNavigationController setNavigationBarHidden:NO animated:NO];
-    }
+//        [self.contentNavigationController setNavigationBarHidden:NO animated:NO];
+//    }
 }
 
 #pragma mark - Popup
@@ -308,7 +355,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Analytics
 
 - (NSString*)analyticsName {
-    return [self.articleViewController analyticsName];
+    return [self.article analyticsName];
 }
 
 #pragma mark - WMFPreviewControllerDelegate

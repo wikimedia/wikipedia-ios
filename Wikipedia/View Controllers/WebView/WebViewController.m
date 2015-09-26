@@ -147,10 +147,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionHeadersViewController =
-        [[WMFSectionHeadersViewController alloc] initWithView:self.view
-                                                      webView:self.webView
-                                               topLayoutGuide:self.mas_topLayoutGuide];
+//    self.sectionHeadersViewController =
+//        [[WMFSectionHeadersViewController alloc] initWithView:self.view
+//                                                      webView:self.webView
+//                                               topLayoutGuide:self.mas_topLayoutGuide];
 
     self.sectionHeadersViewController.editSectionDelegate = self;
 
@@ -287,6 +287,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)autoScrollToLastScrollOffsetIfNecessary {
+    #warning FIXME: causing jumpiness. how do we store offsets relative to the browser view frame?
+    return;
     if (!self.jumpToFragment) {
         [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
     }
@@ -1523,7 +1525,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (UIScrollView*)refreshScrollView {
-    return self.webView.scrollView;
+    return nil;//self.webView.scrollView;
 }
 
 - (NSString*)refreshPromptString {
