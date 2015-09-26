@@ -116,13 +116,17 @@ NS_ASSUME_NONNULL_BEGIN
         self.webViewController.article     = article;
         [self.headerGallery setImagesFromArticle:article];
     } else if (self.article) {
-        @weakify(self);
-        [self.articleFetcher fetchArticleForPageTitle:self.article.title progress:nil]
-        .then(^(MWKArticle* article) {
-            @strongify(self);
-            self.article = article;
-        });
+        [self fetchCurrentArticle];
     }
+}
+
+- (void)fetchCurrentArticle {
+    @weakify(self);
+    [self.articleFetcher fetchArticleForPageTitle:self.article.title progress:nil]
+    .then(^(MWKArticle* article) {
+        @strongify(self);
+        self.article = article;
+    });
 }
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
@@ -178,8 +182,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setupSaveButton];
-
     // Manually adjusting scrollview offsets to compensate for embedded navigation controller
 //    self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -222,8 +224,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.webViewController.article     = self.article;
         [self.headerGallery setImagesFromArticle:self.article];
     }
-
-    [self webViewHacks];
 }
 
 - (void)webViewHacks {
@@ -253,20 +253,47 @@ NS_ASSUME_NONNULL_BEGIN
     CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(browserView.frame) + readMoreHeight);
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self webViewHacks];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self webViewHacks];
 }
 
-- (void)setupSaveButton {
-    UIBarButtonItem* saveBarButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:nil];
-    UIBarButtonItem* flexSpaceItem =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                      target:nil
-                                                      action:NULL];
-    self.toolbarItems         = @[flexSpaceItem, saveBarButton];
+- (UIBarItem*)paddingToolbarItem {
+    UIBarButtonItem* item =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    item.width = 10.f;
+    return item;
+}
+
+- (UIBarButtonItem*)saveToolbarItem {
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:nil];
+}
+
+- (UIBarButtonItem*)refreshToolbarItem {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                         target:self
+                                                         action:@selector(didTapRefresh)];
+}
+
+- (UIBarItem*)flexibleSpaceToolbarItem {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                         target:nil
+                                                         action:NULL];
+}
+
+- (void)setupToolbar {
+    UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
+    self.toolbarItems         = @[[self flexibleSpaceToolbarItem],
+                                  [self refreshToolbarItem],
+                                  [self paddingToolbarItem],
+                                  [self saveToolbarItem]];
     self.saveButtonController =
-        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveBarButton.customView
+        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
                                           savedPageList:self.savedPageList
                                                   title:self.article.title];
 }
@@ -305,6 +332,12 @@ NS_ASSUME_NONNULL_BEGIN
 //    if (self.articleViewController.tableView.contentOffset.y <= 0) {
 //        self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
 //    }
+}
+
+#pragma mark - Refresh
+
+- (void)didTapRefresh {
+    [self fetchCurrentArticle];
 }
 
 #pragma mark - WebView Transition
