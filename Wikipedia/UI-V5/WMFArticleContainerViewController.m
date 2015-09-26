@@ -224,9 +224,16 @@ NS_ASSUME_NONNULL_BEGIN
         self.webViewController.article     = self.article;
         [self.headerGallery setImagesFromArticle:self.article];
     }
+
+    [self.KVOControllerNonRetaining observe:self.webViewController.webView.scrollView
+                                    keyPath:WMF_SAFE_KEYPATH(self.webViewController.webView.scrollView, contentSize)
+                                    options:0
+                                      block:^(WMFArticleContainerViewController* observer, id object, NSDictionary *change) {
+        [observer layoutWebView];
+    }];
 }
 
-- (void)webViewHacks {
+- (void)layoutWebView {
     CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
      HAX: need to manage positioning the browser view manually.
@@ -238,7 +245,6 @@ NS_ASSUME_NONNULL_BEGIN
         .origin = CGPointMake(0, headerBottom),
         .size = browserView.frame.size
     }];
-
     /*
      HAX: temp workaround until we create an article list subclass which can use a collection view that reports its
      contentSize as its intrinsicContentSize
@@ -249,18 +255,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreListViewController.view mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(readMoreHeight));
     }];
-    self.webViewController.webView.scrollView.contentSize =
-    CGSizeMake(self.view.frame.size.width, CGRectGetMaxY(browserView.frame) + readMoreHeight);
+    CGFloat totalHeight = CGRectGetMaxY(browserView.frame) + readMoreHeight;
+    if (self.webViewController.webView.scrollView.contentSize.height < totalHeight) {
+        self.webViewController.webView.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self webViewHacks];
+    [self layoutWebView];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    [self webViewHacks];
+    [self layoutWebView];
 }
 
 - (UIBarItem*)paddingToolbarItem {
