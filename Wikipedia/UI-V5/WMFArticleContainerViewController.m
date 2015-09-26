@@ -72,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
         // necessary to make sure tabbar/toolbar transitions happen when they're supposed to if this class is
         // instantiated programmatically
         self.hidesBottomBarWhenPushed = YES;
+        [self setupToolbar];
     }
     return self;
 }
@@ -82,6 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
         // necessary to make sure tabbar/toolbar transitions happen when they're supposed to, if this class is
         // referenced in a storyboard
         self.hidesBottomBarWhenPushed = YES;
+        [self setupToolbar];
     }
     return self;
 }
