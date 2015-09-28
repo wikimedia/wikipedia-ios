@@ -127,26 +127,26 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.shareFunnel = nil;
+    self.shareFunnel            = nil;
     self.shareOptionsController = nil;
-    
+
     [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
     [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
     [self setAndObserveArticle:article];
-    
+
     self.saveButtonController.title = article.title;
-    
-    if(_article){
-        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
+
+    if (_article) {
+        self.shareFunnel            = [[WMFShareFunnel alloc] initWithArticle:_article];
         self.shareOptionsController =
-        [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
+            [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
     }
-    
+
     [self fetchArticle];
 }
 
-- (void)setAndObserveArticle:(MWKArticle*)article{
+- (void)setAndObserveArticle:(MWKArticle*)article {
     [self unobserveArticleUpdates];
 
     _article = article;
@@ -233,7 +233,6 @@ NS_ASSUME_NONNULL_BEGIN
         [self setAndObserveArticle:article];
     }
 }
-
 
 #pragma mark - ViewController
 
@@ -377,7 +376,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIBarButtonItem* shareButton =
         [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction handler:^(id sender){
         @strongify(self)
-        [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton: sender];
+        [self shareArticleWithTextSnippet :[self.webViewController selectedText] fromButton : sender];
     }];
     shareButton.tintColor = [UIColor blackColor];
     return shareButton;
@@ -481,8 +480,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button{
-    if(text.length == 0){
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button {
+    if (text.length == 0) {
         text = [self.article shareSnippet];
     }
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
@@ -567,11 +566,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentPopupForTitle:title];
 }
 
-- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text{
+- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
     [self.shareFunnel logHighlight];
 }
 
-- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text{
+- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareArticleWithTextSnippet:text fromButton:nil];
 }
 
@@ -638,7 +637,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
 }
-
 
 @end
 
