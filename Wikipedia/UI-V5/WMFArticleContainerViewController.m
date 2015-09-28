@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
+@property (nonatomic, strong) MASConstraint* headerHeightConstraint;
+
 @end
 
 @implementation WMFArticleContainerViewController
@@ -209,7 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.headerGallery.view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.equalTo(self.view);
         make.top.equalTo(self.webViewController.webView.scrollView);
-        make.height.equalTo(@160.f);
+        self.headerHeightConstraint = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
     }];
     [self.headerGallery didMoveToParentViewController:self];
 
@@ -238,7 +240,21 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (CGFloat)headerHeightForCurrentTraitCollection {
+    return [self headerHeightForTraitCollection:self.traitCollection];
+}
+
+- (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
+    switch (traitCollection.verticalSizeClass) {
+        case UIUserInterfaceSizeClassRegular:
+            return 160;
+        default:
+            return 0;
+    }
+}
+
 - (void)layoutWebViewSubviews {
+    [self.headerHeightConstraint setOffset:[self headerHeightForCurrentTraitCollection]];
     CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
      HAX: need to manage positioning the browser view manually.
@@ -250,7 +266,6 @@ NS_ASSUME_NONNULL_BEGIN
         .origin = CGPointMake(0, headerBottom),
         .size = browserView.frame.size
     }];
-
     CGFloat readMoreHeight = self.readMoreListViewController.view.frame.size.height;
     CGFloat totalHeight = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     if (self.webViewController.webView.scrollView.contentSize.height != totalHeight) {
@@ -332,6 +347,13 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateInsetsForArticleViewController];
         [self.previewController updatePreviewWithSizeChange:size];
     } completion:NULL];
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self layoutWebViewSubviews];
+    } completion:nil];
 }
 
 - (void)updateInsetsForArticleViewController {
