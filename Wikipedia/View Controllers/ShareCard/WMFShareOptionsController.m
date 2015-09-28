@@ -163,10 +163,25 @@ NS_ASSUME_NONNULL_BEGIN
     return [cardView wmf_snapshotImage];
 }
 
+- (void)setContainerViewControllerActionsEnabled:(BOOL)enabled{
+    self.containerViewController.navigationController.navigationBar.userInteractionEnabled = enabled;
+    [self.containerViewController.navigationItem.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.enabled = enabled;
+    }];
+    [self.containerViewController.navigationItem.rightBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.enabled = enabled;
+    }];
+    [self.containerViewController.toolbarItems enumerateObjectsUsingBlock:^(__kindof UIBarButtonItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.enabled = enabled;
+    }];
+}
+
 
 #pragma mark - Share Options
 
 - (void)presentShareOptions{
+    
+    [self setContainerViewControllerActionsEnabled:NO];
     
     UIView* containingView = self.containerViewController.view;
     
@@ -204,7 +219,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)dismissShareOptions {
+- (void)dismissShareOptionsWithCompletion:(dispatch_block_t)completion {
     
     UIView* containingView = self.containerViewController.view;
 
@@ -223,6 +238,10 @@ NS_ASSUME_NONNULL_BEGIN
         [self.shareOptions removeFromSuperview];
         self.grayOverlay = nil;
         self.shareOptions = nil;
+        [self setContainerViewControllerActionsEnabled:YES];
+        if(completion){
+            completion();
+        }
     }];
 }
 
@@ -231,20 +250,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)respondToDimAreaTapGesture:(UITapGestureRecognizer*)recognizer {
     [self.shareFunnel logAbandonedAfterSeeingShareAFact];
-    [self dismissShareOptions];
-    [self cleanup];
+    [self dismissShareOptionsWithCompletion:^{
+        [self cleanup];
+    }];
 }
 
 - (void)respondToTapForCardGesture:(UITapGestureRecognizer*)recognizer {
     [self.shareFunnel logShareAsImageTapped];
-    [self dismissShareOptions];
-    [self presentActivityViewControllerWithImage:self.shareImage title:[self titleForActivityWithCard]];
+    [self dismissShareOptionsWithCompletion:^{
+        [self presentActivityViewControllerWithImage:self.shareImage title:[self titleForActivityWithCard]];
+    }];
 }
 
 - (void)respondToTapForTextGesture:(UITapGestureRecognizer*)recognizer {
     [self.shareFunnel logShareAsTextTapped];
-    [self dismissShareOptions];
-    [self presentActivityViewControllerWithImage:nil title:[self titleForActivityTextOnly]];
+    [self dismissShareOptionsWithCompletion:^{
+        [self presentActivityViewControllerWithImage:nil title:[self titleForActivityTextOnly]];
+    }];
 }
 
 #pragma mark - Snippet and Title Conversion
