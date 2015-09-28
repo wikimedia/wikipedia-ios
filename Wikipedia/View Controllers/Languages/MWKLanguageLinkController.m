@@ -35,7 +35,11 @@ NSArray* WMFReadPreviouslySelectedLanguages() {
 
 /// Get the union of OS preferred languages & previously selected languages.
 static NSArray* WMFReadPreviousAndPreferredLanguages() {
-    NSMutableSet* preferredLanguages = [NSMutableSet setWithArray:[NSLocale preferredLanguages]];
+    NSMutableSet* preferredLanguages = [NSMutableSet setWithArray:[[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
+        NSLocale* locale = [NSLocale localeWithLocaleIdentifier:languageCode];
+        // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
+        return [locale objectForKey:NSLocaleLanguageCode];
+    }]];
     [preferredLanguages addObjectsFromArray:WMFReadPreviouslySelectedLanguages()];
     return [preferredLanguages allObjects];
 }
