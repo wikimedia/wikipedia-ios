@@ -10,8 +10,7 @@ import Foundation
 import Wikipedia
 
 extension WMFImageController {
-    public class func temporaryController() -> WMFImageController {
-        let downloader = SDWebImageDownloader()
+    public class func temporaryController(downloader: SDWebImageDownloader = SDWebImageDownloader()) -> WMFImageController {
         let cache = SDImageCache(namespace: "temp", inDirectory: WMFRandomTemporaryPath())
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: "temp")

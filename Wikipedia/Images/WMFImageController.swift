@@ -305,15 +305,13 @@ public class WMFImageController : NSObject {
     }
 
     public func cancelAllFetches() {
-        weak var wself = self;
-        dispatch_async(self.cancellingQueue) {
-            let sself = wself
-            let currentCancellables = sself?.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
-            sself?.cancellables.removeAllObjects()
-            dispatch_async(dispatch_get_global_queue(0, 0)) {
-                for cancellable in currentCancellables {
-                    cancellable.cancel()
-                }
+        var currentCancellables: [Cancellable]!
+        dispatch_sync(self.cancellingQueue) {
+            currentCancellables = self.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
+        }
+        dispatch_async(dispatch_get_global_queue(0, 0)) {
+            for cancellable in currentCancellables {
+                cancellable.cancel()
             }
         }
     }
