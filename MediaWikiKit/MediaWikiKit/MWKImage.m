@@ -96,6 +96,13 @@
     return firstFace ? [firstFace CGRectValue] : CGRectZero;
 }
 
+- (void)setAllNormalizedFaceBounds:(NSArray *)allNormalizedFaceBounds{
+    if(!allNormalizedFaceBounds){
+        allNormalizedFaceBounds = @[];
+    }
+    _allNormalizedFaceBounds = allNormalizedFaceBounds;
+}
+
 - (NSString*)sourceURLString {
     return self.sourceURL.absoluteString;
 }
