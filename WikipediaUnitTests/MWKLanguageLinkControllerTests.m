@@ -36,16 +36,11 @@
 }
 
 - (void)testDefaultsToDevicePreferredLanguages {
-    NSParameterAssert(self.controller.filteredPreferredLanguageCodes.count > 0);
-
     /*
-       using weaker "intersection" test since there might be a case where the sim preferred languages have
-       more than what's defined in the static language data
+       since we've asserted above that "en" or "en-US" is one of the OS preferred languages, we can assert that our
+       controller contains a language link for "en"
      */
-    XCTAssertTrue([[NSSet setWithArray:self.controller.filteredPreferredLanguageCodes]
-                   intersectsSet:
-                   [NSSet setWithArray:[NSLocale preferredLanguages]]]);
-
+    assertThat(self.controller.filteredPreferredLanguageCodes, contains(@"en", nil));
     [self verifyAllLanguageArrayProperties];
 }
 

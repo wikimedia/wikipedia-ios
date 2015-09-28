@@ -3,7 +3,7 @@
 #import "WMFArticleListCollectionViewController_Transitioning.h"
 #import "WMFArticleContainerViewController.h"
 #import "WMFArticleViewController.h"
-#import "UIView+WMFShapshotting.h"
+#import "UIView+WMFSnapshotting.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "WMFMath.h"
 

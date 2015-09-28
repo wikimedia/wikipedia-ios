@@ -22,6 +22,11 @@ FOUNDATION_EXPORT NSString* const MWKDataStoreValidImageSitePrefix;
  */
 extern NSString* MWKCreateImageURLWithPath(NSString* path);
 
+/**
+ * Subscribe to get notifications when an article is saved to the store
+ * The article saved is in the userInfo under the `MWKArticleKey`
+ * Notificaton is dispatched on the main thread
+ */
 extern NSString* const MWKArticleSavedNotification;
 extern NSString* const MWKArticleKey;
 

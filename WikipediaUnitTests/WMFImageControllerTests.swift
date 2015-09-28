@@ -11,6 +11,32 @@ import XCTest
 @testable import Wikipedia
 import PromiseKit
 
+
+/** 
+ Protocol which intercepts all HTTP requests and prevents them from ever starting.
+ 
+ Useful for reliably testing cancellation, since you're guaranteed to never get a successful or error response.
+ 
+ - warning: Be sure to unregister this class after your test!
+*/
+class HTTPHangingProtocol : NSURLProtocol {
+    override class func canInitWithRequest(request: NSURLRequest) -> Bool {
+        return request.URL?.scheme.hasPrefix("http") ?? false
+    }
+
+    override class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
+        return request
+    }
+
+    override func startLoading() {
+        // never start requests
+    }
+
+    override func stopLoading() {
+        // never started
+    }
+}
+
 class WMFImageControllerTests: XCTestCase {
     private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
 
@@ -23,9 +49,12 @@ class WMFImageControllerTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
-        imageController.deleteAllImages()
+        // might have been set to nil in one of the tests. delcared as implicitly unwrapped for convenience
+        imageController?.deleteAllImages()
         LSNocilla.sharedInstance().stop()
     }
+
+    // MARK: - Simple fetching
 
     func testReceivingDataResponseResolves() {
         let testURL = NSURL(string: "https://upload.wikimedia.org/foo")!
@@ -63,12 +92,14 @@ class WMFImageControllerTests: XCTestCase {
             }
     }
 
+    // MARK: - Cancellation
+
     func testCancelUnresolvedRequestCatchesWithCancellationError() {
-        /*
-         try to download an image from our repo on GH (as opposed to some external URL which might change)
-         at least if this changes, we can easily point to another image in the repo
-         */
-        let testURL = NSURL(string:"https://github.com/wikimedia/wikipedia-ios/blob/master/WikipediaUnitTests/Fixtures/golden-gate.jpg?raw=true")!
+        NSURLProtocol.registerClass(HTTPHangingProtocol)
+        defer {
+            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+        }
+        let testURL = NSURL(string:"https://foo")!
         expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
         pipe: { (err: ErrorType) -> Void in
             XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
@@ -76,12 +107,38 @@ class WMFImageControllerTests: XCTestCase {
         timeout: 5) { () -> Promise<WMFImageDownload> in
             let promise: Promise<WMFImageDownload> =
                 self.imageController.fetchImageWithURL(testURL, options: WMFImageController.backgroundImageFetchOptions)
-            self.imageController.cancelFetchForURL(testURL)
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC * 2)), dispatch_get_global_queue(0, 0)) {
+                self.imageController.cancelFetchForURL(testURL)
+            }
             return promise
         }
     }
 
+    func testDeallocCancelsUnresovledFetches() {
+        NSURLProtocol.registerClass(HTTPHangingProtocol)
+        defer {
+            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+        }
+        let testURL = NSURL(string:"https://github.com/wikimedia/wikipedia-ios/blob/master/WikipediaUnitTests/Fixtures/golden-gate.jpg?raw=true")!
+        expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
+            pipe: { (err: ErrorType) -> Void in
+                XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
+            },
+            timeout: 5) { () -> Promise<WMFImageDownload> in
+                let promise: Promise<WMFImageDownload> =
+                self.imageController.fetchImageWithURL(testURL, options: WMFImageController.backgroundImageFetchOptions)
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC * 2)), dispatch_get_global_queue(0, 0)) {
+                    self.imageController = nil
+                }
+                return promise
+        }
+    }
+
     func testCancelCacheRequestCatchesWithCancellationError() throws {
+        NSURLProtocol.registerClass(HTTPHangingProtocol)
+        defer {
+            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+        }
         // copy some test fixture image to a temp location
         let testFixtureDataPath = NSURL(string: wmf_bundle().resourcePath!)!.URLByAppendingPathComponent("golden-gate.jpg")
         let tempPath = NSURL(string:WMFRandomTemporaryFileOfType("jpg"))!
@@ -103,12 +160,16 @@ class WMFImageControllerTests: XCTestCase {
                 // then, attempt to retrieve it from the cache
                 .then() {
                   let promise = self.imageController.cachedImageWithURL(testURL)
-                  // but, cancel before the data is retrieved
-                  self.imageController.cancelFetchForURL(testURL)
+                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC * 2)), dispatch_get_global_queue(0, 0)) {
+                      // but, cancel before the data is retrieved
+                      self.imageController.cancelFetchForURL(testURL)
+                  }
                   return promise
                 }
         }
     }
+
+    // MARK: - Import
 
     func testImportImageMovesFileToCorrespondingPathInDiskCache() {
         let testFixtureDataPath =

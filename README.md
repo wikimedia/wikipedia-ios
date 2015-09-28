@@ -1,14 +1,14 @@
 # Wikipedia iOS
 The official Wikipedia iOS client.
 
-[![Build Status](https://travis-ci.org/wikimedia/wikipedia-ios.svg)](https://travis-ci.org/wikimedia/wikipedia-ios) [![codecov.io](http://codecov.io/github/wikimedia/wikipedia-ios/coverage.svg?branch=master)](http://codecov.io/github/wikimedia/wikipedia-ios?branch=master)
+[![Build Status](https://travis-ci.org/wikimedia/wikipedia-ios.svg)](https://travis-ci.org/wikimedia/wikipedia-ios) [![codecov.io](http://codecov.io/github/wikimedia/wikipedia-ios/coverage.svg?branch=master)](http://codecov.io/github/wikimedia/wikipedia-ios?branch=master) [![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.md)
 
-* OS target: iOS 6.0 or higher
+* OS target: iOS 8.0 or higher
 * Device target: iPhone, iPod, iPad
 * License: MIT-style
 * Source repo: https://github.com/wikimedia/wikipedia-ios
 * Code review:
-  * GitHub: (see above)
+  * GitHub: https://github.com/wikimedia/wikipedia-ios
   * Gerrit: https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z
 * Planning (bugs & features): https://phabricator.wikimedia.org/project/view/782/
 * IRC chat: #wikimedia-mobile on irc.freenode.net
@@ -18,7 +18,7 @@ The official Wikipedia iOS client.
 The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. If you have any questions, comments, or issues, the easiest way to talk to us is joining the #wikimedia-mobile channel on the freenode IRC server during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
 
 ## Building and Running
-This project requires [Xcode 6.4](https://itunes.apple.com/us/app/xcode/id497799835) or higher. The easiest way to get it is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id497799835) or higher. The easiest way to get it is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
 > Most of our dependencies are either committed directly to the repo, or not necessary for most development cases.  However, there might be some dependencies that require additional setup, like submodules.  To make sure they're installed and ready to go, run `make prebuild` to install any "pre-build" dependencies (like submodules).
 
@@ -54,7 +54,7 @@ We also maintain a mirror of this repository on Gerrit (see above), syncing the 
 - Add two or more of the [team members](#development-team) as reviewers for your patch
 
 ## Development Dependencies
-While typical application development is optimized to have as few dependencies as possible (i.e. cloning, building, and running should "Just Work"), certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which our recommended package manager.
+While typical application development is optimized to have as few dependencies as possible (i.e. cloning, building, and running should "Just Work"), certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which is our recommended package manager.
 
 > **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
 
@@ -64,10 +64,13 @@ As mentioned in [best practices and coding style](#best-practices-and-coding-sty
 > [BBUncrustifyPlugin](https://github.com/benoitsan/BBUncrustifyPlugin-Xcode) is an easy way to uncrustify files within the Xcode UI. You can install it from source or using [Alcatraz](http://alcatraz.io), the unofficial Xcode package/plugin manager.
 
 ### CocoaPods
-[CocoaPods](cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components (see `Podfile` for an up-to-date list). We have committed all of these dependnecies to the repository itself, removing the need to install the gem or run before building the project. However, if you want to do anything related to CocoaPods (such as upgrading the version of CocoaPods or adding a dependency), please refer to the [Working With Cocoapods documentation](docs/working-with-cocoapods.md).
+[CocoaPods](https://cocoapods.org) is a Ruby gem that the project uses to download and integrate third-party iOS components (see `Podfile` for an up-to-date list). We have committed all of these dependnecies to the repository itself, removing the need to install the gem or run before building the project. However, if you want to do anything related to CocoaPods (such as upgrading the version of CocoaPods or adding a dependency), please refer to the [Working With Cocoapods documentation](docs/working-with-cocoapods.md).
+
+### Carthage
+[Carthage](https://github.com/Carthage/Carthage) is another package manager which clones and compiles iOS and OS X frameworks. We use this mainly to manage Swift dependencies separate from other dependencies which aren't able to support frameworks yet. Carthage is installable via Homebrew.
 
 ### NPM
-[npm](npmjs.com) is a package manager for [nodejs](nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
+[npm](http://npmjs.com) is a package manager for [nodejs](nodejs.org). With it, we install various node modules as Javascript dependencies and development tools (see `www/package.json` for an up-to-date list). Similar to our native dependencies, we have committed certain files to the repository to remove node and npm as build dependencies in an effort to streamline typical application development. Please see [Wikipedia iOS Web Development](docs/web-dev.md) for more information about how to work with the web components in this project.
 
 ## Continuous Integration
 Continuous integration is performed via [Travis-CI](https://travis-ci.org). See the `travis` lane in `fastlane/Fastfile` and our `.travis.yml` for details.

@@ -18,8 +18,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "WMFShareCardViewController.h"
-#import "WMFShareFunnel.h"
-#import "WMFShareOptionsViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
 #import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
@@ -41,16 +39,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
-@property (nonatomic, strong) UIBarButtonItem* buttonSave;
-@property (nonatomic, strong) UIBarButtonItem* buttonShare;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
 @property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
-@property (strong, nonatomic) UIPopoverController* popover;
-@property (strong, nonatomic) WMFShareFunnel* shareFunnel;
-@property (strong, nonatomic) WMFShareOptionsViewController* shareOptionsViewController;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
@@ -114,17 +107,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self showLanguages];
     }];
 
-    self.buttonSave = [UIBarButtonItem wmf_buttonType:WMFButtonTypeHeart handler:^(id sender){
-        @strongify(self)
-        [self toggleSavedPage];
-        [self updateBottomBarButtonsEnabledState];
-    }];
-
-    self.buttonShare = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
-        @strongify(self)
-        [self shareUpArrowButtonPushed];
-    }];
-
     self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
         @strongify(self)
         [self editHistoryButtonPushed];
@@ -134,11 +116,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonSave,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
         self.buttonLanguages,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonShare
     ];
 }
 
@@ -182,7 +160,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
         //dispatching because the toc is expensive to create so we are waiting to update it after the web view renders.
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
+            [weakSelf.tocVC updateTocForArticle:weakSelf.article];
             [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
             [weakSelf.sectionHeadersViewController resetHeaders];
         });
@@ -335,7 +313,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateTOCButtonVisibility {
-    self.buttonTOC.enabled = ![SessionSingleton sharedInstance].currentArticle.isMain;
+    self.buttonTOC.enabled = !self.article.isMain;
 }
 
 #pragma mark - WMFSectionHeaderEditDelegate methods
@@ -374,7 +352,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)showSectionEditorForSection:(NSNumber*)sectionID {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.session.currentArticle.sections[[sectionID integerValue]];
+    sectionEditVC.section = self.article.sections[[sectionID integerValue]];
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
@@ -527,7 +505,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    if (self.session.currentArticle.isMain) {
+    if (self.article.isMain) {
         return;
     }
 
@@ -761,7 +739,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [strSelf.session.currentArticleSite titleWithInternalLink:href];
+                MWKTitle* pageTitle = [strSelf.article.site titleWithInternalLink:href];
                 [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
@@ -828,7 +806,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
          */
 
         UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
-                                                              action:@selector(shareButtonPushed:)];
+                                                              action:@selector(shareMenuItemTapped:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
         [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
@@ -839,10 +817,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [strSelf.session.currentArticle.images largestImageVariantForURL:selectedImageURL
+            MWKImage* selectedImage = [strSelf.article.images largestImageVariantForURL:selectedImageURL
                                                                                             cachedOnly:NO];
             NSCParameterAssert(selectedImage);
-            [strSelf presentGalleryForArticle:strSelf.session.currentArticle showingImage:selectedImage];
+            [strSelf presentGalleryForArticle:strSelf.article showingImage:selectedImage];
         }];
 
         self.unsafeToScroll = NO;
@@ -860,64 +838,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self fadeAlert];
    }
  */
-
-#pragma Saved Pages
-
-- (void)toggleSavedPage {
-    SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
-    MWKUserDataStore* store  = self.session.userDataStore;
-    MWKTitle* title          = self.session.currentArticle.title;
-
-    [store.savedPageList toggleSavedPageForTitle:title];
-    [store.savedPageList save].then(^(){
-        BOOL isSaved = [store.savedPageList isSaved:title];
-
-        if (isSaved) {
-            [self showPageSavedAlertMessageForTitle:self.session.currentArticle.title.text];
-            [funnel logSaveNew];
-        } else {
-            [self fadeAlert];
-            [funnel logDelete];
-        }
-    });
-}
-
-- (void)showPageSavedAlertMessageForTitle:(NSString*)title {
-    NSParameterAssert(title.length);
-    // First show saved message.
-    NSString* savedMessage = MWLocalizedString(@"share-menu-page-saved", nil);
-
-    NSMutableAttributedString* attributedSavedMessage =
-        [savedMessage attributedStringWithAttributes:@{}
-                                 substitutionStrings:@[title]
-                              substitutionAttributes:@[@{ NSFontAttributeName: [UIFont italicSystemFontOfSize:ALERT_FONT_SIZE] }]].mutableCopy;
-
-    CGFloat duration                  = 2.0;
-    BOOL AccessSavedPagesMessageShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"AccessSavedPagesMessageShown"];
-
-    if (!AccessSavedPagesMessageShown) {
-        duration = 5;
-        [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"AccessSavedPagesMessageShown"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-
-        NSString* accessMessage = [NSString stringWithFormat:@"\n%@", MWLocalizedString(@"share-menu-page-saved-access", nil)];
-
-        NSDictionary* d = @{
-            NSFontAttributeName: [UIFont wmf_glyphFontOfSize:ALERT_FONT_SIZE],
-            NSBaselineOffsetAttributeName: @2
-        };
-
-        NSAttributedString* attributedAccessMessage =
-            [accessMessage attributedStringWithAttributes:@{}
-                                      substitutionStrings:@[WIKIGLYPH_W, WIKIGLYPH_HEART]
-                                   substitutionAttributes:@[d, d]];
-
-
-        [attributedSavedMessage appendAttributedString:attributedAccessMessage];
-    }
-
-    [self showAlert:attributedSavedMessage type:ALERT_TYPE_BOTTOM duration:duration];
-}
 
 #pragma mark Web view scroll offset recording
 
@@ -958,11 +878,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
-    if (self.session.currentArticle.isMain) {
+    if (self.article.isMain) {
         return;
     }
 
-    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.session.currentArticle.title];
+    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.article.title];
 }
 
 #pragma mark Web view html content live location retrieval
@@ -1116,7 +1036,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     MWKHistoryList* historyList = self.session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
     if ([historyList countOfEntries] > 0) {
-        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.session.currentArticle.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }
 }
 
@@ -1139,7 +1059,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)reloadCurrentArticleOrMainPageWithMethod:(MWKHistoryDiscoveryMethod)method {
-    MWKTitle* page = self.session.currentArticle.title;
+    MWKTitle* page = self.article.title;
     if (page) {
         [self navigateToPage:page discoveryMethod:method];
     } else {
@@ -1198,7 +1118,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     if ([article isCached] && !needsRefresh) {
-        [self displayArticle:self.session.currentArticle.title];
+        [self displayArticle:self.article.title];
         [self fadeAlert];
         return;
     }
@@ -1254,7 +1174,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } else {
         self.isFetchingArticle = NO;
 
-        [self displayArticle:self.session.currentArticle.title];
+        [self displayArticle:self.article.title];
 
         NSString* errorMsg = error.localizedDescription;
         [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
@@ -1314,7 +1234,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 NSString* title = (NSString*)fetchedData;
                 if (title) {
-                    MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
+                    MWKTitle* pageTitle = [self.article.site titleWithString:title];
                     [self navigateToPage:pageTitle discoveryMethod:MWKHistoryDiscoveryMethodRandom];
                 }
             }
@@ -1367,7 +1287,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
-    for (MWKSection* section in self.session.currentArticle.sections) {
+    for (MWKSection* section in _article.sections) {
         NSString* html = nil;
 
         @try {
@@ -1437,12 +1357,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateBottomBarButtonsEnabledState {
-    self.buttonLanguages.enabled            = !(self.session.currentArticle.isMain && [self.session.currentArticle languagecount] > 0);
-    [self.buttonSave wmf_UIButton].selected = [self isCurrentArticleSaved];
+    self.buttonLanguages.enabled            = !(self.article.isMain && [self.article languagecount] > 0);
 }
 
 - (BOOL)isCurrentArticleSaved {
-    return [self.session.userDataStore.savedPageList isSaved:self.session.currentArticle.title];
+    return [self.session.userDataStore.savedPageList isSaved:self.article.title];
 }
 
 #pragma mark Scroll to last section after rotate
@@ -1480,7 +1399,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.session.currentArticleSite.language
+        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.article.site.language
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
@@ -1764,6 +1683,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return 0.75 * progress;
 }
 
+#pragma mark - Share Actions
+
+- (void)shareMenuItemTapped:(id)sender {
+    [self shareSnippet:self.selectedText];
+}
+
 #pragma mark - Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
@@ -1771,7 +1696,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         if ([self.selectedText isEqualToString:@""]) {
             return NO;
         }
-        [self textWasHighlighted];
+        [self.delegate webViewController:self didSelectText:self.selectedText];
         return YES;
     }
     return [super canPerformAction:action withSender:sender];
@@ -1783,29 +1708,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
 }
 
-- (void)textWasHighlighted {
-    if (!self.shareFunnel) {
-        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:[SessionSingleton sharedInstance].currentArticle];
-        [self.shareFunnel logHighlight];
-    }
-}
-
-- (void)shareButtonPushed:(id)sender {
-    [self shareSnippet:self.selectedText];
-}
-
-- (void)shareUpArrowButtonPushed {
-    [self shareSnippet:self.selectedText];
-}
-
 - (void)shareSnippet:(NSString*)snippet {
     [self.webView wmf_suppressSelection];
-
-    self.shareOptionsViewController =
-        [[WMFShareOptionsViewController alloc] initWithMWKArticle:[SessionSingleton sharedInstance].currentArticle
-                                                          snippet:snippet
-                                                   backgroundView:self.navigationController.view
-                                                         delegate:self];
+    [self.delegate webViewController:self didTapShareWithSelectedText:snippet];
 }
 
 - (void)editHistoryButtonPushed {
@@ -1813,73 +1718,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self presentViewController:nc animated:YES completion:nil];
 }
 
-#pragma mark - ShareTapDelegate methods
-- (void)didShowSharePreviewForMWKArticle:(MWKArticle*)article withText:(NSString*)text {
-    if (!self.shareFunnel) {
-        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:article];
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-}
 
-- (void)tappedBackgroundToAbandonWithText:(NSString*)text {
-    [self.shareFunnel logAbandonedAfterSeeingShareAFact];
-    [self releaseShareResources];
-}
-
-- (void)tappedShareCardWithText:(NSString*)text {
-    [self.shareFunnel logShareAsImageTapped];
-}
-
-- (void)tappedShareTextWithText:(NSString*)text {
-    [self.shareFunnel logShareAsTextTapped];
-}
-
-- (void)finishShareWithActivityItems:(NSArray*)activityItems text:(NSString*)text {
-    UIActivityViewController* shareActivityVC =
-        [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                          applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
-    NSMutableArray* exclusions = @[
-        UIActivityTypePrint,
-        UIActivityTypeAssignToContact,
-        UIActivityTypeSaveToCameraRoll
-    ].mutableCopy;
-
-    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        [exclusions addObject:UIActivityTypeAirDrop];
-        [exclusions addObject:UIActivityTypeAddToReadingList];
-    }
-
-    shareActivityVC.excludedActivityTypes = exclusions;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self presentViewController:shareActivityVC animated:YES completion:nil];
-    } else {
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
-        [self.popover presentPopoverFromBarButtonItem:self.buttonShare
-                             permittedArrowDirections:UIPopoverArrowDirectionAny
-                                             animated:YES];
-    }
-
-    [shareActivityVC setCompletionHandler:^(NSString* activityType, BOOL completed) {
-        if (completed) {
-            [self.shareFunnel logShareSucceededWithShareMethod:activityType];
-        } else {
-            [self.shareFunnel logShareFailedWithShareMethod:activityType];
-        }
-        [self releaseShareResources];
-    }];
-}
-
-- (void)releaseShareResources {
-    self.shareFunnel                = nil;
-    self.shareOptionsViewController = nil;
-}
 
 #pragma mark - Article loading convenience
 
 - (void)loadRandomArticle {
     [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
 
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
+    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:self.article.site.language
                                                                withManager:[QueuesSingleton sharedInstance].articleFetchManager
                                                         thenNotifyDelegate:self];
 }

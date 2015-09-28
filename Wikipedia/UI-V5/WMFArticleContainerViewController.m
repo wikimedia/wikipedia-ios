@@ -1,5 +1,7 @@
 #import "WMFArticleContainerViewController.h"
 
+#import "Wikipedia-Swift.h"
+
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -16,6 +18,8 @@
 #import "WMFRelatedTitleListDataSource.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "UITabBarController+WMFExtensions.h"
+#import "WMFShareFunnel.h"
+#import "WMFShareOptionsController.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -24,6 +28,8 @@
 #import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
+#import "MWKArticle+WMFSharing.h"
+#import "MWKArticlePreview.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -41,17 +47,30 @@ NS_ASSUME_NONNULL_BEGIN
  UINavigationControllerDelegate,
  WMFPreviewControllerDelegate>
 
+// Data
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
+@property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
+// Fetchers
+@property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
+
+// Children
+@property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
 @property (nonatomic, strong) WebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
 
-@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
-@property (nonatomic, strong, nullable) WMFPreviewController* previewController;
-@property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
+// TEMP: Remove
+@property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 
+// Logging
+@property (strong, nonatomic, nullable) WMFShareFunnel* shareFunnel;
+@property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
+
+// Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
 
 @end
@@ -106,29 +125,38 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    if (self.article) {
-        [self.articleFetcher cancelFetchForPageTitle:self.article.title];
+    self.shareFunnel = nil;
+    self.shareOptionsController = nil;
+    
+    [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
+    [self.articleFetcher cancelFetchForPageTitle:_article.title];
+
+    [self setAndObserveArticle:article];
+    
+    self.saveButtonController.title = article.title;
+    
+    if(_article){
+        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
+        self.shareOptionsController =
+        [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
     }
+    
+    [self fetchArticle];
+}
+
+- (void)setAndObserveArticle:(MWKArticle*)article{
+    [self unobserveArticleUpdates];
 
     _article = article;
 
-    self.saveButtonController.title = article.title;
+    [self observeArticleUpdates];
 
-    if (self.isViewLoaded && (self.article.isCached || !self.article)) {
-        self.webViewController.article = article;
-        [self.headerGallery setImagesFromArticle:article];
-    } else if (self.article) {
-        [self fetchCurrentArticle];
+    //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
+    // isViewLoaded is not enough.
+    if ([self isViewLoaded] && self.view.window) {
+        self.articleViewController.article = article;
+        self.webViewController.article     = article;
     }
-}
-
-- (void)fetchCurrentArticle {
-    @weakify(self);
-    [self.articleFetcher fetchArticleForPageTitle:self.article.title progress:nil]
-    .then(^(MWKArticle* article) {
-        @strongify(self);
-        self.article = article;
-    });
 }
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
@@ -149,6 +177,13 @@ NS_ASSUME_NONNULL_BEGIN
         _readMoreListViewController.dataSource = relatedTitlesDataSource;
     }
     return _readMoreListViewController;
+}
+
+- (WMFArticlePreviewFetcher*)articlePreviewFetcher {
+    if (!_articlePreviewFetcher) {
+        _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _articlePreviewFetcher;
 }
 
 - (WMFArticleFetcher*)articleFetcher {
@@ -179,6 +214,25 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
+#pragma mark - Article Notifications
+
+- (void)observeArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)unobserveArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)articleUpdatedWithNotification:(NSNotification*)note {
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    if ([self.article.title isEqualToTitle:article.title]) {
+        [self setAndObserveArticle:article];
+    }
+}
+
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -203,7 +257,6 @@ NS_ASSUME_NONNULL_BEGIN
        IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
        headers & footers
      */
-
     [self addChildViewController:self.headerGallery];
     UIView* browserContainer = self.webViewController.webView.scrollView;
     [browserContainer addSubview:self.headerGallery.view];
@@ -315,10 +368,24 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
+- (UIBarButtonItem*)shareToolbarItem {
+    @weakify(self);
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+        @strongify(self)
+        NSString* selectedText = nil;
+        if(self.contentNavigationController.topViewController == self.webViewController){
+            selectedText = [self.webViewController selectedText];
+        }
+        [self shareArticleWithTextSnippet:nil fromButton:sender];
+    }];
+}
+
 - (void)setupToolbar {
     UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
     self.toolbarItems = @[[self flexibleSpaceToolbarItem],
                           [self refreshToolbarItem],
+                          [self paddingToolbarItem],
+                          [self shareToolbarItem],
                           [self paddingToolbarItem],
                           [self saveToolbarItem]];
     self.saveButtonController =
@@ -326,9 +393,10 @@ NS_ASSUME_NONNULL_BEGIN
                                           savedPageList:self.savedPageList
                                                   title:self.article.title];
 
-    if (!self.article.isMain) {
-        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
-    }
+    // TODO: add TOC
+//    if (!self.article.isMain) {
+//        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -344,7 +412,6 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self updateInsetsForArticleViewController];
-        [self.previewController updatePreviewWithSizeChange:size];
     } completion:NULL];
 }
 
@@ -377,7 +444,51 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Toolbar Actions
 
 - (void)didTapRefresh {
-    [self fetchCurrentArticle];
+    [self fetchArticle];
+}
+
+#pragma mark - Article Fetching
+
+- (void)fetchArticle {
+    [self fetchArticleForTitle:self.article.title];
+}
+
+- (void)fetchArticleForTitle:(MWKTitle*)title {
+    @weakify(self);
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(MWKArticlePreview* articlePreview){
+        @strongify(self);
+        [self unobserveArticleUpdates];
+        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+        self.articleFetcherPromise = fullArticlePromise;
+        return fullArticlePromise;
+    }).then(^(MWKArticle* article){
+        @strongify(self);
+        [self setAndObserveArticle:article];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
+            [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
+        } else if (!self.presentingViewController) {
+            // only do error handling if not presenting gallery
+            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        }
+    }).finally(^{
+        @strongify(self);
+        self.articleFetcherPromise = nil;
+        [self observeArticleUpdates];
+    });
+}
+
+#pragma mark - Share
+
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button{
+    
+    if(text.length == 0){
+        text = [self.article shareSnippet];
+    }
+    
+    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromView:button];
 }
 
 #pragma mark - WebView Transition
@@ -458,6 +569,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentPopupForTitle:title];
 }
 
+- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text{
+    [self.shareFunnel logHighlight];
+}
+
+- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text{
+    [self shareArticleWithTextSnippet:text fromButton:nil];
+}
+
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
@@ -521,6 +640,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
 }
+
 
 @end
 
