@@ -1,7 +1,16 @@
 
-#import "UIView+WMFShapshotting.h"
+#import "UIView+WMFSnapshotting.h"
 
-@implementation UIView (WMFShapshotting)
+@implementation UIView (WMFSnapshotting)
+
+- (UIImage *)wmf_snapshotImage
+{
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 - (UIView*)wmf_addSnapshotToView:(UIView*)containerView afterScreenUpdates:(BOOL)afterUpdates {
     UIView* snapshot = [self snapshotViewAfterScreenUpdates:afterUpdates];

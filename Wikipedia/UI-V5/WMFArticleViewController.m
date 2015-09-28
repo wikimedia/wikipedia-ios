@@ -14,10 +14,8 @@
 
 // Models & Controllers
 #import "WMFArticleHeaderImageGalleryViewController.h"
-#import "WMFArticleFetcher.h"
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
-#import "MWKArticlePreview.h"
 #import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
 #import "MWKCitation.h"
@@ -55,12 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readwrite) WMFArticleControllerMode mode;
 @property (nonatomic, strong) NSArray* topLevelSections;
 @property (nonatomic, strong, readonly) NSIndexSet* indexSetOfTOCSections;
-
-#pragma mark Fetcher Properties
-
-@property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
-@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
-@property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 @property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
 @property (nonatomic, strong) WMFSearchResults* readMoreResults;
@@ -111,12 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self unobserveArticleUpdates];
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:[_article bestThumbnailImageURL]]];
-
-    // TODO cancel
-    [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
-    [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
     _article = article;
 
@@ -125,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self updateUI];
 
-    // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetch
+    // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetchxax
     // them, but not every time the card controller causes the ui to be updated (ie on scroll as it recycles article views).
     if (self.mode != WMFArticleControllerModeList) {
         if (self.article.title) {
@@ -136,8 +123,6 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self isViewLoaded]) {
         [self.tableView reloadData];
     }
-
-    [self observeAndFetchArticleIfNeeded];
 }
 
 - (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated {
@@ -148,22 +133,8 @@ NS_ASSUME_NONNULL_BEGIN
     _mode = mode;
 
     [self updateUIForMode:mode animated:animated];
-    [self observeAndFetchArticleIfNeeded];
 }
 
-- (WMFArticlePreviewFetcher*)articlePreviewFetcher {
-    if (!_articlePreviewFetcher) {
-        _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
-    }
-    return _articlePreviewFetcher;
-}
-
-- (WMFArticleFetcher*)articleFetcher {
-    if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
-    }
-    return _articleFetcher;
-}
 
 #pragma mark - Section Hierarchy Accessors
 
@@ -209,22 +180,6 @@ NS_ASSUME_NONNULL_BEGIN
     return parentSection.children[indexPath.item - 1];
 }
 
-#pragma mark - Article Notifications
-
-- (void)observeArticleUpdates {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
-}
-
-- (void)unobserveArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
-}
-
-- (void)articleUpdatedWithNotification:(NSNotification*)note {
-    MWKArticle* article = note.userInfo[MWKArticleKey];
-    if ([self.article.title isEqualToTitle:article.title]) {
-        self.article = article;
-    }
-}
 
 #pragma mark - Analytics
 
@@ -248,55 +203,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-#pragma mark - Article Fetching
-
-- (void)observeAndFetchArticleIfNeeded {
-    if (!self.article) {
-        // nothing to fetch or observe
-        return;
-    }
-
-    if (self.mode == WMFArticleControllerModeList) {
-        // don't update or fetch while in list mode
-        return;
-    }
-
-    if ([self.article isCached]) {
-        // observe immediately
-        [self observeArticleUpdates];
-    } else {
-        // fetch then observe
-        [self fetchArticle];
-    }
-}
-
-- (void)fetchArticle {
-    [self fetchArticleForTitle:self.article.title];
-}
-
-- (void)fetchArticleForTitle:(MWKTitle*)title {
-    @weakify(self);
-    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(MWKArticlePreview* articlePreview){
-        @strongify(self);
-        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
-        self.articleFetcherPromise = fullArticlePromise;
-        return fullArticlePromise;
-    }).then(^(MWKArticle* article){
-        @strongify(self);
-        self.article = article;
-    }).catch(^(NSError* error){
-        @strongify(self);
-        if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
-            [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
-        } else if (!self.presentingViewController) {
-            // only do error handling if not presenting gallery
-            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-        }
-    }).finally(^{
-        @strongify(self);
-        self.articleFetcherPromise = nil;
-    });
-}
+#pragma mark - Read More Fetching
 
 - (void)fetchReadMoreForTitle:(MWKTitle*)title {
     // Note: can't set the readMoreFetcher when the article changes because the article changes *a lot* because the
@@ -356,13 +263,11 @@ NS_ASSUME_NONNULL_BEGIN
     switch (mode) {
         case WMFArticleControllerModeNormal: {
             self.tableView.scrollEnabled = YES;
-            [self observeAndFetchArticleIfNeeded];
             break;
         }
         default: {
             [self.tableView setContentOffset:CGPointZero animated:animated];
             self.tableView.scrollEnabled = NO;
-            [self unobserveArticleUpdates];
             break;
         }
     }
@@ -607,10 +512,13 @@ NS_ASSUME_NONNULL_BEGIN
         detailGallery.article     = self.article;
         detailGallery.currentPage = index;
     } else {
-        if (![self.articleFetcher isFetchingArticleForTitle:self.article.title]) {
-            [self fetchArticle];
-        }
-        [detailGallery setArticleWithPromise:self.articleFetcherPromise];
+        
+        //FIX: maybe if we need native again
+        
+//        if (![self.articleFetcher isFetchingArticleForTitle:self.article.title]) {
+//            [self fetchArticle];
+//        }
+//        [detailGallery setArticleWithPromise:self.articleFetcherPromise];
     }
     [self presentViewController:detailGallery animated:YES completion:nil];
 }

@@ -1,11 +1,14 @@
 #import "WMFArticleContainerViewController.h"
 
+#import "Wikipedia-Swift.h"
+
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 
 // Controller
+#import "WMFArticleFetcher.h"
 #import "WMFArticleViewController.h"
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -20,7 +23,13 @@
 #import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
+#import "MWKArticle+WMFSharing.h"
+#import "MWKArticlePreview.h"
 
+
+//Sharing
+#import "WMFShareFunnel.h"
+#import "WMFShareOptionsController.h"
 
 // View
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -36,6 +45,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
+@property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
+
 @property (nonatomic, strong) UINavigationController* contentNavigationController;
 @property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
 @property (nonatomic, strong, readwrite) WebViewController* webViewController;
@@ -43,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
+
+@property (strong, nonatomic, null_resettable) WMFShareFunnel* shareFunnel;
+@property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
+@property (strong, nonatomic) UIPopoverController* popover;
 
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
@@ -83,14 +100,55 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    _article = article;
+    self.shareFunnel = nil;
+    self.shareOptionsController = nil;
+    
+    // TODO cancel
+    [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
+    [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
+    [self setAndObserveArticle:article];
+    
     self.saveButtonController.title = article.title;
+    
+    if(_article){
+        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
+        self.shareOptionsController =
+        [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
+    }
+    
+    [self fetchArticle];
+}
 
-    if (self.isViewLoaded) {
+- (void)setAndObserveArticle:(MWKArticle*)article{
+    
+    [self unobserveArticleUpdates];
+    
+    _article = article;
+    
+    [self observeArticleUpdates];
+    
+    //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
+    //isViewLoaded is not enough.
+    if ([self isViewLoaded] && self.view.window) {
         self.articleViewController.article = article;
         self.webViewController.article     = article;
     }
+}
+
+
+- (WMFArticlePreviewFetcher*)articlePreviewFetcher {
+    if (!_articlePreviewFetcher) {
+        _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _articlePreviewFetcher;
+}
+
+- (WMFArticleFetcher*)articleFetcher {
+    if (!_articleFetcher) {
+        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+    }
+    return _articleFetcher;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -109,12 +167,31 @@ NS_ASSUME_NONNULL_BEGIN
     return _webViewController;
 }
 
+#pragma mark - Article Notifications
+
+- (void)observeArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)unobserveArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)articleUpdatedWithNotification:(NSNotification*)note {
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    if ([self.article.title isEqualToTitle:article.title]) {
+        [self setAndObserveArticle:article];
+    }
+}
+
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setupSaveButton];
+    [self setupToolbar];
 
     // Manually adjusting scrollview offsets to compensate for embedded navigation controller
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -138,17 +215,33 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)setupSaveButton {
-    UIBarButtonItem* saveBarButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:nil];
-    UIBarButtonItem* flexSpaceItem =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                      target:nil
-                                                      action:NULL];
-    self.toolbarItems         = @[flexSpaceItem, saveBarButton];
+- (void)setupToolbar {
+    @weakify(self)
+    UIBarButtonItem * save = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
+        @strongify(self)
+        if (![self.article isCached]) {
+            [self fetchArticle];
+        }
+    }];
+    
+    UIBarButtonItem * share = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+        @strongify(self)
+        NSString* selectedText = nil;
+        if(self.contentNavigationController.topViewController == self.webViewController){
+            selectedText = [self.webViewController selectedText];
+        }
+        [self shareArticleWithTextSnippet:nil fromButton:sender];
+    }];
+
+    self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL],
+                          share,
+                          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:NULL],
+                          save];
+    
     self.saveButtonController =
-        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveBarButton.customView
-                                          savedPageList:self.savedPageList
-                                                  title:self.article.title];
+    [[WMFSaveButtonController alloc] initWithButton:[save wmf_UIButton]
+                                      savedPageList:self.savedPageList
+                                              title:self.article.title];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -189,6 +282,51 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.articleViewController.tableView.contentOffset.y <= 0) {
         self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
     }
+}
+
+
+#pragma mark - Article Fetching
+
+- (void)fetchArticle {
+    [self fetchArticleForTitle:self.article.title];
+}
+
+- (void)fetchArticleForTitle:(MWKTitle*)title {
+    @weakify(self);
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(MWKArticlePreview* articlePreview){
+        @strongify(self);
+        [self unobserveArticleUpdates];
+        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+        self.articleFetcherPromise = fullArticlePromise;
+        return fullArticlePromise;
+    }).then(^(MWKArticle* article){
+        @strongify(self);
+        [self setAndObserveArticle:article];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
+            [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
+        } else if (!self.presentingViewController) {
+            // only do error handling if not presenting gallery
+            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        }
+    }).finally(^{
+        @strongify(self);
+        self.articleFetcherPromise = nil;
+        [self observeArticleUpdates];
+    });
+}
+
+#pragma mark - Share
+
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button{
+    
+    if(text.length == 0){
+        text = [self.article shareSnippet];
+    }
+    
+    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromView:button];
 }
 
 #pragma mark - WebView Transition
@@ -269,6 +407,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentPopupForTitle:title];
 }
 
+- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text{
+    [self.shareFunnel logHighlight];
+}
+
+- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text{
+    [self shareArticleWithTextSnippet:text fromButton:nil];
+}
+
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
@@ -332,6 +478,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
 }
+
 
 @end
 

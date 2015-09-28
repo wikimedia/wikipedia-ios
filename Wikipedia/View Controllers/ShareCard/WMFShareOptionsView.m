@@ -14,7 +14,8 @@ static int const kCornerRadius = 4.2f;
 
 @implementation WMFShareOptionsView
 
-- (void)didMoveToSuperview {
+- (void)layoutSubviews{
+    [super layoutSubviews];
     [self.cardImageViewContainer wmf_roundCorners:UIRectCornerTopLeft | UIRectCornerTopRight toRadius:kCornerRadius];
     [self.shareAsCardLabel wmf_roundCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight toRadius:kCornerRadius];
     self.shareAsTextLabel.layer.cornerRadius       = kCornerRadius;

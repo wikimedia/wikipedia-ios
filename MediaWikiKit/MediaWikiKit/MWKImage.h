@@ -90,7 +90,7 @@
  *
  * @see CIDetector+WMFFaceDetection
  */
-@property (copy, nonatomic) NSArray* allNormalizedFaceBounds;
+@property (copy, nonatomic) NSArray<NSValue *>* allNormalizedFaceBounds;
 
 /**
  * Convenience accessor for the bounds of the first face in `allNormalizedFaceBounds`.

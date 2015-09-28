@@ -16,7 +16,7 @@
     CGRect focalRect    = CGRectZero;
     NSArray* focalRects = [self.leadImage.article.image allNormalizedFaceBounds];
     if (focalRects.count > 0) {
-        focalRect = WMFDenormalizeRectUsingSize(CGRectFromString([focalRects firstObject]), self.leadImage.size);
+        focalRect = WMFDenormalizeRectUsingSize([[focalRects firstObject] CGRectValue], self.leadImage.size);
     }
     return focalRect;
 }

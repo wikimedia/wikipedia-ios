@@ -95,7 +95,6 @@ static NSString* const kSelectionAssertVerbiage       = @"No selection provided"
 
 - (void)logShareButtonTappedResultingInSelection:(NSString*)selection {
     if (!selection) {
-        NSAssert(false, kSelectionAssertVerbiage);
         self.selection = @"";
     } else {
         self.selection = [selection wmf_safeSubstringToIndex:WMFEventLoggingMaxStringLength_Snippet];
