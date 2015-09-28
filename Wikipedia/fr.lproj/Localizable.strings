@@ -102,6 +102,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "search-recent-clear-cancel" = "Annuler";
 "search-recent-clear-delete-all" = "Supprimer tout";
+"settings-title" = "Paramètres";
 "main-menu-title" = "Plus";
 "main-menu-heading-about" = "À propos";
 "main-menu-language-title" = "Rechercher le wiki de langue $1";
@@ -286,3 +287,4 @@
 "page-similar-titles" = "Pages similaires";
 "captcha-reload" = "Afficher un autre captcha";
 "captcha-prompt" = "Entrer le texte du CAPTCHA dans l’image ci-dessus";
+"mwk-empty-title-error" = "Impossible d’effectuer l’opération avec un titre vide.";

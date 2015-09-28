@@ -103,6 +103,7 @@
 "search-recent-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "search-recent-clear-cancel" = "キャンセル";
 "search-recent-clear-delete-all" = "すべて削除";
+"settings-title" = "設定";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";
 "main-menu-language-title" = "$1版ウィキペディアを検索";

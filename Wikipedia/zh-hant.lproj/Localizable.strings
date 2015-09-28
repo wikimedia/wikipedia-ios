@@ -101,6 +101,7 @@
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
 "search-recent-clear-cancel" = "取消";
 "search-recent-clear-delete-all" = "刪除所有";
+"settings-title" = "設定";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "關於";
 "main-menu-language-title" = "搜尋 $1 的維基百科";

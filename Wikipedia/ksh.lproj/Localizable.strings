@@ -20,6 +20,8 @@
 "history-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "history-clear-cancel" = "Ophüre!";
 "history-clear-delete-all" = "Alle fottschmieße";
+"history-description" = "Do hä se velleisch alle fott jeschmeße. Et nähkste Mohl woh de obb en Sigg jeihß, kanns De op se zeröck jonn.";
+"history-none" = "Kein köözlesche Sigge heh.";
 "zero-interstitial-leave-app" = "Dat künnt Jäld koste för de Dahte ze övverdrahre. Wells De trozdämm op di Sigg ußerhallef jonn?";
 "zero-interstitial-continue" = "Jangk fott";
 "zero-interstitial-cancel" = "Bliehv heh";
@@ -73,6 +75,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "search-recent-clear-cancel" = "Ophüre";
 "search-recent-clear-delete-all" = "Alle fottschmieße";
+"settings-title" = "Enschtällonge";
 "main-menu-title" = "Mih";
 "main-menu-heading-about" = "Övver";
 "main-menu-language-title" = "En de <code lang=\"zxx\" xml:lang=\"zxx\" dir=\"ltr\">$1</code>-Wikkipehdija söhke";
@@ -108,6 +111,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Et Huh_Lahde es afjebroche";
 "saved-pages-refresh-cancel-alert-message" = "En de Wikkipehdija wähde de Atikelle alle nahslangs op ene neue schtand jebraaat. Klegg op\n„Aktualisieren“,!!FUZZYY!! öm alldemohlde de neuste Väsjohn vun alle Atikelle ze sinn ze krijje.";
 "saved-pages-refresh-cancel-alert-button" = "Aanjkumme.";
+"saved-pages-description" = "Faßjehallde Sigge sin janz johd. Kannze lässe, sälvs wann De kein Verbendong mem Näz häs, un wi op Lässezeische drop zohjriife.";
+"saved-pages-none" = "Noch kein faßjehallde Sigge.";
 "page-history-title" = "Väsjohne vun dä Sigg";
 "page-history-downloading" = "Ben dä Sigg iehr ällter Väsjohne aan lahde&nbsp;…";
 "navbar-title-mode-edit-wikitext" = "Ändere";
@@ -228,3 +233,4 @@
 "hockeyapp-alert-privacy" = "Jeheimhalldong vun $1";
 "page-issues" = "Problehme met heh dä Sigg";
 "page-similar-titles" = "Ähnlejje Sigge";
+"captcha-prompt" = "Jif dä <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span>-Täx vun dämm Belld en.";

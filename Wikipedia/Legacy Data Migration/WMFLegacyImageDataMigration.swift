@@ -115,7 +115,7 @@ public class WMFLegacyImageDataMigration : NSObject {
 
     /// Move an article's images into `imageController`, ignoring any errors.
     func migrateAllImagesInArticleWithTitle(title: MWKTitle) -> Promise<Void> {
-        if let images = legacyDataStore.existingArticleWithTitle(title)?.allImageURLs() as? [NSURL] {
+        if let images = legacyDataStore.existingArticleWithTitle(title)?.allImageURLs() {
             if images.count > 0 {
                 return images.reduce(Promise()) { (chain, url) -> Promise<Void> in
                     return chain.then(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in

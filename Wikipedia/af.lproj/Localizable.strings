@@ -1,6 +1,7 @@
 // Messages for Afrikaans (Afrikaans)
 // Exported from translatewiki.net
 // Author: Arnobarnard
+// Author: Naudefj
 
 "languages-title" = "Tale";
 "article-languages-label" = "Kies taal";
@@ -22,6 +23,7 @@
 "history-clear-confirmation-sub-heading" = "Hierdie aksie kan nie ongedaan gemaak word nie!";
 "history-clear-cancel" = "Kanselleer";
 "history-clear-delete-all" = "Skrap Alles";
+"history-none" = "Geen onlangse bladsye hier.";
 "zero-free-verbiage" = "Gratis Wikipedia toegang van jou diensverskaffer (datakostes kwytgeskeld)";
 "zero-charged-verbiage" = "Wikipedia Zero is af";
 "zero-charged-verbiage-extended" = "Laai van ander artikels mag datakostes veroorsaak. Gestoorde artikels is aflyn, gebruik geen data en is dus kosteloos.";
@@ -91,6 +93,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Hierdie aksie kan nie ongedaan gemaak word nie!";
 "search-recent-clear-cancel" = "Kanselleer";
 "search-recent-clear-delete-all" = "Skrap Alles";
+"settings-title" = "Voorkeure";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Aangaande";
 "main-menu-language-title" = "Soek in $1 Wikipedia";

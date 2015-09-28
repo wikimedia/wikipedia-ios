@@ -205,7 +205,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                                                                  insertIntoDataStore: dataStore)
 
         // copy all legacy data to a tmp folder for later comparison
-        let legacyImageDataPaths = (article.allImageURLs() as! [NSURL]).reduce([:] as [NSURL:String]) { memo, url in
+        let legacyImageDataPaths = article.allImageURLs().reduce(Dictionary<NSURL,String>()) { memo, url in
             let legacyImageData = dataStore.imageDataWithImage(MWKImage(article: article,
                 sourceURLString: url.absoluteString))
             assert(legacyImageData.length != 0, "Images in the test article must have data for this test")
@@ -235,7 +235,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     }
 
     func verifySuccessfulMigration(ofArticle article: MWKArticle, legacyImageDataPaths: [NSURL:String]) {
-        for url in article.allImageURLs() as! [NSURL] {
+        for url in article.allImageURLs() {
             XCTAssertTrue(self.imageMigration.imageController.hasDataOnDiskForImageWithURL(url),
                 "imageMigration didn't import image with url: \(url)")
 

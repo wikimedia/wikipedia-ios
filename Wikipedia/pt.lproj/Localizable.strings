@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Fúlvio
 // Author: Imperadeiro98
+// Author: Jkb8
 // Author: Macofe
 // Author: SandroHc
 // Author: Vitorvicentevalente
@@ -98,6 +99,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Apagar tudo";
+"settings-title" = "Definições";
 "main-menu-title" = "Mais";
 "main-menu-heading-about" = "Sobre";
 "main-menu-language-title" = "Pesquisar na Wikipédia em $1";

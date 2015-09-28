@@ -3,7 +3,7 @@
 #import "AppDelegate.h"
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
-#import "Wikipedia-Swift.h"
+
 #import "WMFLogFormatter.h"
 #import <PiwikTracker/PiwikTracker.h>
 
@@ -12,8 +12,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 
 @interface AppDelegate ()
 
-@property(nonatomic, strong) WMFAppViewController* appViewController;
-@property(nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
+@property (nonatomic, strong) WMFAppViewController* appViewController;
 
 @end
 
@@ -51,17 +50,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
     return _window;
 }
 
-- (WMFLegacyImageDataMigration*)imageMigration {
-    if (!_imageMigration) {
-        _imageMigration = [[WMFLegacyImageDataMigration alloc]
-                           initWithImageController:[WMFImageController sharedInstance]
-                                   legacyDataStore:[MWKDataStore new]];
-    }
-    return _imageMigration;
-}
-
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-    [self.imageMigration setupAndStart];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
 
@@ -97,5 +86,10 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+// TODO: fetch saved pages in the background
+//- (void)application:(UIApplication *)application
+//    performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+//}
 
 @end

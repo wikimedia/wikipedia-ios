@@ -23,6 +23,8 @@
 "history-clear-confirmation-sub-heading" = "Гэта дзеяньне немагчыма адмяніць!";
 "history-clear-cancel" = "Скасаваць";
 "history-clear-delete-all" = "Выдаліць усе";
+"history-description" = "Верагодна Вы выдалілі іх усе. Наступным разам, калі наведаеце старонку, Вы зможаце вярнуцца на яе проста адсюль.";
+"history-none" = "Тут няма прагледжаных старонак.";
 "zero-free-verbiage" = "Вольны доступ да Вікіпэдыі з вашага мабільнага апэратара (аплата за трафік не бярэцца)";
 "zero-charged-verbiage" = "Вікіпэдыя Zero адключаная";
 "zero-charged-verbiage-extended" = "Падчас загрузкі іншых артыкулаў можа брацца аплата. Прагляд захаваных оф-лайн артыкулаў не патрабуе выкарыстаньня перадачы зьвестак і таму зьяўляецца бясплатным.";
@@ -92,6 +94,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Гэта дзеяньне немагчыма адмяніць!";
 "search-recent-clear-cancel" = "Скасаваць";
 "search-recent-clear-delete-all" = "Выдаліць усе";
+"settings-title" = "Налады";
 "main-menu-title" = "Болей";
 "main-menu-heading-about" = "Пра";
 "main-menu-language-title" = "Пошук $1 Вікіпэдыі";
@@ -132,6 +135,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Абнаўленьне скасаванае";
 "saved-pages-refresh-cancel-alert-message" = "Артыкулы Вікіпэдыі абнаўляюцца бесьперапынна. Націсьніце «абнавіць», каб атрымаць апошнюю вэрсію ўсіх артыкулаў.";
 "saved-pages-refresh-cancel-alert-button" = "Зразумела";
+"saved-pages-description" = "Захаваныя старонкі — гэта выдатна. Карыстайцеся імі як закладкамі, Вы зможаце чытаць іх нават, калі Вы оф-лайн.";
+"saved-pages-none" = "Пакуль няма захаваных старонак.";
 "page-history-title" = "Гісторыя артыкула";
 "page-history-downloading" = "Загрузка гісторыі артыкула...";
 "navbar-title-mode-edit-wikitext" = "Рэдагаваць";
@@ -273,9 +278,5 @@
 "page-issues" = "Хібы старонкі";
 "page-similar-titles" = "Падобныя старонкі";
 "captcha-reload" = "Паказаць іншы тэкст CAPTCHA";
-"saved-pages-description" = "Захаваныя старонкі — гэта выдатна. Карыстайцеся імі як закладкамі, Вы зможаце чытаць іх нават, калі Вы оф-лайн.";
-"saved-pages-none" = "Пакуль няма захаваных старонак.";
-"history-none" = "Тут няма прагледжаных старонак.";
 "captcha-prompt" = "Увядзіце тэкст CAPTCHA з выявы вышэй";
-"history-description" = "Верагодна Вы выдалілі іх усе. Наступным разам, калі наведаеце старонку, Вы зможаце вярнуцца на яе проста адсюль.";
 "mwk-empty-title-error" = "Не атрымліваецца выканаць апэрацыю з пустой назвай.";

@@ -102,6 +102,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "search-recent-clear-cancel" = "Annuleren";
 "search-recent-clear-delete-all" = "Alles verwijderen";
+"settings-title" = "Instellingen";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";

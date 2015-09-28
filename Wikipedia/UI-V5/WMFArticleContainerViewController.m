@@ -1,11 +1,11 @@
 #import "WMFArticleContainerViewController.h"
-#import "WMFArticleContainerViewController_Transitioning.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "Wikipedia-Swift.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
+
 
 // Controller
 #import "WMFArticleFetcher.h"
@@ -13,6 +13,8 @@
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFSaveButtonController.h"
+#import "WMFPreviewController.h"
+#import "WMFArticleContainerViewController_Transitioning.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -24,20 +26,22 @@
 #import "MWKArticle+WMFSharing.h"
 #import "MWKArticlePreview.h"
 
-#import "WMFPreviewController.h"
 
 //Sharing
 #import "WMFShareFunnel.h"
 #import "WMFShareOptionsController.h"
 
-// Other
-#import "SessionSingleton.h"
+// View
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
-<WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate, UINavigationControllerDelegate, WMFPreviewControllerDelegate>
+<WMFWebViewControllerDelegate,
+ WMFArticleViewControllerDelegate,
+ UINavigationControllerDelegate,
+ WMFPreviewControllerDelegate>
+
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -384,7 +388,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
       didTapExternalLink:(NSURL* __nonnull)externalURL {
-    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
+//    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
 }
 
 #pragma mark - WMFArticleListItemController

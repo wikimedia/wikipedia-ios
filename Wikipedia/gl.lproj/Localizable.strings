@@ -25,6 +25,8 @@
 "history-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
 "history-clear-cancel" = "Cancelar";
 "history-clear-delete-all" = "Borrar todo";
+"history-description" = "Probablemente borrounas todas. A próxima vez que vaia a unha páxina pode recuperala desde aquí.";
+"history-none" = "Non hai páxinas recentes aquí.";
 "zero-free-verbiage" = "Acceso gratuíto á Wikipedia a través da súa operadora móbil (non se aplica ningunha tarifa de datos)";
 "zero-charged-verbiage" = "Wikipedia Zero está desactivada";
 "zero-charged-verbiage-extended" = "Cargar outros artigos pode facer que se aplique a súa tarifa de datos. Os artigos gardados e almacenados sen conexión non usan os datos e o seu acceso é gratuíto.";
@@ -94,6 +96,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Borrar todo";
+"settings-title" = "Configuración";
 "main-menu-title" = "Máis";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Procurar na Wikipedia en $1";
@@ -134,6 +137,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos de Wikipedia actualízanse todo o tempo. Prema actualizar para obter as últimas versións de tódolos artigos.";
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
+"saved-pages-description" = "As páxinas gardadas son bastante útiles. Pense nelas como marcadores que poden lerse mesmo cando estea sen conexión.";
+"saved-pages-none" = "Aínda non hai páxinas gardadas.";
 "page-history-title" = "Historial do artigo";
 "page-history-downloading" = "Cargando o historial do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -274,4 +279,6 @@
 "hockeyapp-alert-privacy" = "Confidencialidade de $1";
 "page-issues" = "Problemas na páxina";
 "page-similar-titles" = "Páxinas similares";
+"captcha-reload" = "Mostrar outro «captcha»";
+"captcha-prompt" = "Escriba o texto do CAPTCHA de arriba";
 "mwk-empty-title-error" = "Non se pode realizar a operación cun título baleiro.";

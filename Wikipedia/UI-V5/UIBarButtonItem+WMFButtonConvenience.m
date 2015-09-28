@@ -6,7 +6,7 @@
 @implementation UIBarButtonItem (WMFButtonConvenience)
 
 + (UIBarButtonItem*)wmf_buttonType:(WMFButtonType)type
-                           handler:(void (^)(id sender))action {
+                           handler:(void (^ __nullable)(id sender))action {
     return [[UIBarButtonItem alloc] initWithCustomView:[UIButton wmf_buttonType:type handler:action]];
 }
 

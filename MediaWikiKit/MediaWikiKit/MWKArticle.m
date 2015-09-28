@@ -414,10 +414,11 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
             self.entityDescription];
 }
 
-- (NSArray*)allImageURLs {
-    NSMutableArray* imageURLs = [[self.images.entries bk_map:^NSURL*(NSString* sourceURL) {
+- (NSSet<NSURL*>*)allImageURLs {
+    NSMutableSet<NSURL*>* imageURLs = [NSMutableSet setWithArray:
+                                       [self.images.entries bk_map:^NSURL*(NSString* sourceURL) {
         return [NSURL URLWithString:sourceURL];
-    }] mutableCopy];
+    }]];
 
     [imageURLs addObjectsFromArray:
      [[self.dataStore imageInfoForArticle:self] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageURL)]];

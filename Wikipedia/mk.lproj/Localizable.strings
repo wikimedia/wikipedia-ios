@@ -95,6 +95,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-delete-all" = "Избриши ги сите";
+"settings-title" = "Нагодувања";
 "main-menu-title" = "Повеќе";
 "main-menu-heading-about" = "За извршникот";
 "main-menu-language-title" = "Пребарување на викито на $1";

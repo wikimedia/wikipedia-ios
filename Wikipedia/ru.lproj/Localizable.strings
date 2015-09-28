@@ -103,6 +103,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "search-recent-clear-cancel" = "Отмена";
 "search-recent-clear-delete-all" = "Удалить всё";
+"settings-title" = "Настройки";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";

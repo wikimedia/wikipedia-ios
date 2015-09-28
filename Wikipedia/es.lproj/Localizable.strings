@@ -100,6 +100,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Borrar todas";
+"settings-title" = "Configuración";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Búsqueda en Wikipedia en $1";
