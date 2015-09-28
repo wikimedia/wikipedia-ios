@@ -220,7 +220,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     NSDictionary* export = [article dataExport];
     [self saveDictionary:export path:path name:@"Article.plist"];
     [self.articleCache setObject:article forKey:article.title];
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
+    dispatchOnMainQueue(^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKArticleSavedNotification object:self userInfo:@{MWKArticleKey: article}];
+    });
 }
 
 - (void)saveSection:(MWKSection*)section {
