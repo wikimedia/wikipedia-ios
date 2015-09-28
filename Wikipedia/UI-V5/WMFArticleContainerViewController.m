@@ -349,9 +349,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIBarButtonItem*)refreshToolbarItem {
-    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                         target:self
-                                                         action:@selector(didTapRefresh)];
+    UIBarButtonItem* refreshButton =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                      target:self
+                                                      action:@selector(didTapRefresh)];
+    refreshButton.tintColor = [UIColor blackColor];
+    return refreshButton;
 }
 
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
@@ -371,10 +374,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
-    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction handler:^(id sender){
+    UIBarButtonItem* shareButton =
+        [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction handler:^(id sender){
         @strongify(self)
-        [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
+        [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton: sender];
     }];
+    shareButton.tintColor = [UIColor blackColor];
+    return shareButton;
 }
 
 - (void)setupToolbar {
