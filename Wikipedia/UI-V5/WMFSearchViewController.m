@@ -128,7 +128,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController = [WMFArticleListCollectionViewController new];
     [self addChildViewController:self.resultsListController];
     [self.resultsListContainerView addSubview:self.resultsListController.view];
-    [self.resultsListController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.resultsListController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.top.and.bottom.equalTo(self.resultsListContainerView);
     }];
     [self configureArticleList];

@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.savedPageList             = savedPageList;
         self.numberOfExtractCharacters = numberOfExtractCharacters;
         self.relatedSearchFetcher      = fetcher;
-        self.resultLimit = resultLimit;
+        self.resultLimit               = resultLimit;
 
         self.cellClass = [WMFArticlePreviewCell class];
 

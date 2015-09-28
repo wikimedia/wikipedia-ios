@@ -18,7 +18,7 @@
     if (self) {
         self.imageView = [UIImageView new];
         [self.contentView addSubview:self.imageView];
-        [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.imageView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.edges.equalTo(self.contentView);
         }];
     }

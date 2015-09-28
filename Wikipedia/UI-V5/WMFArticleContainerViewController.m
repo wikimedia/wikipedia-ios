@@ -69,8 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
-        self.savedPageList            = savedPages;
-        self.dataStore                = dataStore;
+        self.savedPageList = savedPages;
+        self.dataStore     = dataStore;
         // necessary to make sure tabbar/toolbar transitions happen when they're supposed to if this class is
         // instantiated programmatically
         self.hidesBottomBarWhenPushed = YES;
@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (instancetype __nullable)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype __nullable)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         // necessary to make sure tabbar/toolbar transitions happen when they're supposed to, if this class is
@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.saveButtonController.title = article.title;
 
     if (self.isViewLoaded && (self.article.isCached || !self.article)) {
-        self.webViewController.article     = article;
+        self.webViewController.article = article;
         [self.headerGallery setImagesFromArticle:article];
     } else if (self.article) {
         [self fetchCurrentArticle];
@@ -133,21 +133,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
+        _readMoreListViewController             = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
         _readMoreListViewController.recentPages = self.savedPageList.dataStore.userDataStore.historyList;
-        _readMoreListViewController.dataStore = self.savedPageList.dataStore;
-        _readMoreListViewController.savedPages = self.savedPageList;
+        _readMoreListViewController.dataStore   = self.savedPageList.dataStore;
+        _readMoreListViewController.savedPages  = self.savedPageList;
         WMFRelatedTitleListDataSource* relatedTitlesDataSource =
-        [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.article.title
-                                                   dataStore:self.savedPageList.dataStore
-                                               savedPageList:self.savedPageList
-                                   numberOfExtractCharacters:200
-                                                 resultLimit:3];
+            [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.article.title
+                                                       dataStore:self.savedPageList.dataStore
+                                                   savedPageList:self.savedPageList
+                                       numberOfExtractCharacters:200
+                                                     resultLimit:3];
         // TODO: fetch lazily
         [relatedTitlesDataSource fetch];
         // TEMP: configure extract chars
         _readMoreListViewController.dataSource = relatedTitlesDataSource;
-
     }
     return _readMoreListViewController;
 }
@@ -193,22 +192,22 @@ NS_ASSUME_NONNULL_BEGIN
     [self.webViewController didMoveToParentViewController:self];
 
     /*
-     NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
-     issues when attempting a contentInset approach:
-     - doesn't work well for footers:
+       NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
+       issues when attempting a contentInset approach:
+       - doesn't work well for footers:
         - contentInset causes jumpiness when scrolling beyond _bottom_ of content
         - interferes w/ bouncing at the bottom
-     - forces you to manually set scrollView insets
-     - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
-     
-     IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
-     headers & footers
-    */
+       - forces you to manually set scrollView insets
+       - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
+
+       IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
+       headers & footers
+     */
 
     [self addChildViewController:self.headerGallery];
     UIView* browserContainer = self.webViewController.webView.scrollView;
     [browserContainer addSubview:self.headerGallery.view];
-    [self.headerGallery.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.headerGallery.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.equalTo(self.view);
         make.top.equalTo(self.webViewController.webView.scrollView);
         self.headerHeightConstraint = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
@@ -218,7 +217,7 @@ NS_ASSUME_NONNULL_BEGIN
     // TODO: lazily add & fetch readmore data when user is X points away from bottom of webview
     [self addChildViewController:self.readMoreListViewController];
     [browserContainer addSubview:self.readMoreListViewController.view];
-    [self.readMoreListViewController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.readMoreListViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.equalTo(self.view);
         make.top.equalTo([self.webViewController.webView wmf_browserView].mas_bottom);
     }];
@@ -228,14 +227,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreListViewController didMoveToParentViewController:self];
 
     if (self.article) {
-        self.webViewController.article     = self.article;
+        self.webViewController.article = self.article;
         [self.headerGallery setImagesFromArticle:self.article];
     }
 
     [self.KVOControllerNonRetaining observe:self.webViewController.webView.scrollView
                                     keyPath:WMF_SAFE_KEYPATH(self.webViewController.webView.scrollView, contentSize)
                                     options:0
-                                      block:^(WMFArticleContainerViewController* observer, id object, NSDictionary *change) {
+                                      block:^(WMFArticleContainerViewController* observer, id object, NSDictionary* change) {
         [observer layoutWebViewSubviews];
     }];
 }
@@ -257,17 +256,17 @@ NS_ASSUME_NONNULL_BEGIN
     [self.headerHeightConstraint setOffset:[self headerHeightForCurrentTraitCollection]];
     CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
     /*
-     HAX: need to manage positioning the browser view manually.
-     using constraints seems to prevent the browser view size and scrollview contentSize from being set
-     properly.
+       HAX: need to manage positioning the browser view manually.
+       using constraints seems to prevent the browser view size and scrollview contentSize from being set
+       properly.
      */
     UIView* browserView = [self.webViewController.webView wmf_browserView];
     [browserView setFrame:(CGRect){
-        .origin = CGPointMake(0, headerBottom),
-        .size = browserView.frame.size
-    }];
+         .origin = CGPointMake(0, headerBottom),
+         .size = browserView.frame.size
+     }];
     CGFloat readMoreHeight = self.readMoreListViewController.view.frame.size.height;
-    CGFloat totalHeight = CGRectGetMaxY(browserView.frame) + readMoreHeight;
+    CGFloat totalHeight    = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     if (self.webViewController.webView.scrollView.contentSize.height != totalHeight) {
         self.webViewController.webView.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);
     }
@@ -318,10 +317,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupToolbar {
     UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
-    self.toolbarItems         = @[[self flexibleSpaceToolbarItem],
-                                  [self refreshToolbarItem],
-                                  [self paddingToolbarItem],
-                                  [self saveToolbarItem]];
+    self.toolbarItems = @[[self flexibleSpaceToolbarItem],
+                          [self refreshToolbarItem],
+                          [self paddingToolbarItem],
+                          [self saveToolbarItem]];
     self.saveButtonController =
         [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
                                           savedPageList:self.savedPageList
@@ -349,9 +348,9 @@ NS_ASSUME_NONNULL_BEGIN
     } completion:NULL];
 }
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+- (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self layoutWebViewSubviews];
     } completion:nil];
 }
