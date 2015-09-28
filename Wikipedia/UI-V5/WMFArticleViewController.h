@@ -27,10 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
-- (void)updateUI;
-
-- (void)fetchArticle;
-
 @end
 
 NS_ASSUME_NONNULL_END

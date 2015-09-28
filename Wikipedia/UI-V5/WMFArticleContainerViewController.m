@@ -2,10 +2,13 @@
 #import "WMFArticleContainerViewController_Transitioning.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 
+#import "Wikipedia-Swift.h"
+
 // Frameworks
 #import <Masonry/Masonry.h>
 
 // Controller
+#import "WMFArticleFetcher.h"
 #import "WMFArticleViewController.h"
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -19,6 +22,7 @@
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
+#import "MWKArticlePreview.h"
 
 #import "WMFPreviewController.h"
 
@@ -36,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFWebViewControllerDelegate, WMFArticleViewControllerDelegate, UINavigationControllerDelegate, WMFPreviewControllerDelegate>
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
+
+@property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 @property (nonatomic, strong) UINavigationController* contentNavigationController;
 @property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
@@ -91,8 +99,12 @@ NS_ASSUME_NONNULL_BEGIN
     self.shareFunnel = nil;
     self.shareOptionsController = nil;
     
-    _article = article;
+    // TODO cancel
+    [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
+    [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
+    [self setAndObserveArticle:article];
+    
     self.saveButtonController.title = article.title;
     
     if(_article){
@@ -100,11 +112,39 @@ NS_ASSUME_NONNULL_BEGIN
         self.shareOptionsController =
         [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
     }
+    
+    [self fetchArticle];
+}
 
-    if (self.isViewLoaded) {
+- (void)setAndObserveArticle:(MWKArticle*)article{
+    
+    [self unobserveArticleUpdates];
+    
+    _article = article;
+    
+    [self observeArticleUpdates];
+    
+    //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
+    //isViewLoaded is not enough.
+    if ([self isViewLoaded] && self.view.window) {
         self.articleViewController.article = article;
         self.webViewController.article     = article;
     }
+}
+
+
+- (WMFArticlePreviewFetcher*)articlePreviewFetcher {
+    if (!_articlePreviewFetcher) {
+        _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _articlePreviewFetcher;
+}
+
+- (WMFArticleFetcher*)articleFetcher {
+    if (!_articleFetcher) {
+        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
+    }
+    return _articleFetcher;
 }
 
 - (WMFArticleViewController*)articleViewController {
@@ -122,6 +162,25 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return _webViewController;
 }
+
+#pragma mark - Article Notifications
+
+- (void)observeArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)unobserveArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)articleUpdatedWithNotification:(NSNotification*)note {
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    if ([self.article.title isEqualToTitle:article.title]) {
+        [self setAndObserveArticle:article];
+    }
+}
+
 
 #pragma mark - ViewController
 
@@ -157,7 +216,7 @@ NS_ASSUME_NONNULL_BEGIN
     UIBarButtonItem * save = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:^(id sender){
         @strongify(self)
         if (![self.article isCached]) {
-            [self.articleViewController fetchArticle];
+            [self fetchArticle];
         }
     }];
     
@@ -219,6 +278,39 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.articleViewController.tableView.contentOffset.y <= 0) {
         self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
     }
+}
+
+
+#pragma mark - Article Fetching
+
+- (void)fetchArticle {
+    [self fetchArticleForTitle:self.article.title];
+}
+
+- (void)fetchArticleForTitle:(MWKTitle*)title {
+    @weakify(self);
+    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(MWKArticlePreview* articlePreview){
+        @strongify(self);
+        [self unobserveArticleUpdates];
+        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+        self.articleFetcherPromise = fullArticlePromise;
+        return fullArticlePromise;
+    }).then(^(MWKArticle* article){
+        @strongify(self);
+        [self setAndObserveArticle:article];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
+            [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
+        } else if (!self.presentingViewController) {
+            // only do error handling if not presenting gallery
+            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        }
+    }).finally(^{
+        @strongify(self);
+        self.articleFetcherPromise = nil;
+        [self observeArticleUpdates];
+    });
 }
 
 #pragma mark - Share
