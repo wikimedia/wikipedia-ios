@@ -124,6 +124,9 @@
                                 <rect key="frame" x="0.0" y="118" width="600" height="438"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="EYM-yV-gSt" kind="embed" id="GWD-4r-gab"/>
+                                </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
                                 <rect key="frame" x="0.0" y="88" width="600" height="30"/>
@@ -183,6 +186,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="962" y="2881"/>
+        </scene>
+        <!--Search Results-->
+        <scene sceneID="nq0-Vz-Trd">
+            <objects>
+                <viewController title="Search Results" id="EYM-yV-gSt" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="z49-sG-3Nb"/>
+                        <viewControllerLayoutGuide type="bottom" id="wKQ-7V-0Yx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QB0-y9-20y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xrh-DM-dTD">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
+                                <collectionViewLayout key="collectionViewLayout" id="PbI-Tf-1fU" customClass="SelfSizingWaterfallCollectionViewLayout"/>
+                                <cells/>
+                                <connections>
+                                    <outlet property="delegate" destination="EYM-yV-gSt" id="y8G-pT-xk5"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wKQ-7V-0Yx" firstAttribute="top" secondItem="Xrh-DM-dTD" secondAttribute="bottom" id="2bX-wx-Ous"/>
+                            <constraint firstItem="Xrh-DM-dTD" firstAttribute="leading" secondItem="QB0-y9-20y" secondAttribute="leading" id="BfG-Ju-ExT"/>
+                            <constraint firstItem="Xrh-DM-dTD" firstAttribute="top" secondItem="QB0-y9-20y" secondAttribute="top" id="aKV-vp-pdi"/>
+                            <constraint firstAttribute="trailing" secondItem="Xrh-DM-dTD" secondAttribute="trailing" id="rpm-h4-lf1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="Xrh-DM-dTD" id="pH0-k3-amr"/>
+                        <outlet property="view" destination="QB0-y9-20y" id="08p-RW-ngN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nSq-U1-SDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="3758"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="DIN-EW-PiF">

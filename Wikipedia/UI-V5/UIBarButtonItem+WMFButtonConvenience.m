@@ -7,7 +7,10 @@
 
 + (UIBarButtonItem*)wmf_buttonType:(WMFButtonType)type
                            handler:(void (^ __nullable)(id sender))action {
-    return [[UIBarButtonItem alloc] initWithCustomView:[UIButton wmf_buttonType:type handler:action]];
+    UIButton* button = [UIButton wmf_buttonType:type handler:action];
+    UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithCustomView:button];
+    item.width = button.intrinsicContentSize.width;
+    return item;
 }
 
 - (UIButton*)wmf_UIButton {

@@ -15,7 +15,6 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 @interface WMFArticleListCollectionViewController : UIViewController
 
 @property (nonatomic, strong, readonly) UICollectionView* collectionView;
-@property (nonatomic, strong, readonly) UICollectionViewLayout* collectionViewLayout;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPages;

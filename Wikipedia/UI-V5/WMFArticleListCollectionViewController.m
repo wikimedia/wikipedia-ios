@@ -145,13 +145,20 @@
 
 - (void)loadView {
     [super loadView];
-    self.view                    = [[UIView alloc] init];
-    self.collectionView          = [[self class] createCollectionView];
-    self.collectionView.delegate = self;
-    [self.view addSubview:self.collectionView];
-    [self.collectionView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.top.and.bottom.equalTo(self.view);
-    }];
+    /*
+       Support programmatic or Storyboard instantiation by only instantiating views if they weren't set in the storyboard
+     */
+    if (!self.view) {
+        self.view = [[UIView alloc] init];
+    }
+    if (!self.collectionView) {
+        self.collectionView          = [[self class] createCollectionView];
+        self.collectionView.delegate = self;
+        [self.view addSubview:self.collectionView];
+        [self.collectionView mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.leading.trailing.top.and.bottom.equalTo(self.view);
+        }];
+    }
 }
 
 - (void)viewDidLoad {

@@ -38,6 +38,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UIWebView+WMFTrackingView.h"
+#import "NSArray+WMFLayoutDirectionUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,15 +64,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
 
-// TEMP: Remove
-@property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
-
 // Logging
 @property (strong, nonatomic, nullable) WMFShareFunnel* shareFunnel;
 @property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
+
+
+// WIP
+@property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
+@property (nonatomic, strong, nullable) WMFPreviewController* previewController;
 
 @end
 
@@ -119,7 +122,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self.webViewController;
 }
 
-// TEMP: make immutable
 - (void)setArticle:(MWKArticle* __nullable)article {
     if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
@@ -151,8 +153,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self observeArticleUpdates];
 
-    //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
-    // isViewLoaded is not enough.
+    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
+    // see http://stackoverflow.com/a/2777460/48311
     if ([self isViewLoaded] && self.view.window) {
         self.articleViewController.article = article;
         self.webViewController.article     = article;
@@ -251,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
        - doesn't work well for footers:
         - contentInset causes jumpiness when scrolling beyond _bottom_ of content
         - interferes w/ bouncing at the bottom
-       - forces you to manually set scrollView insets
+       - forces you to manually set scrollView offsets
        - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
 
        IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
@@ -364,30 +366,22 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         [self.webViewController tocToggle];
     }];
-
     return item;
 }
 
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction handler:^(id sender){
         @strongify(self)
-        NSString* selectedText = nil;
-        if(self.contentNavigationController.topViewController == self.webViewController){
-            selectedText = [self.webViewController selectedText];
-        }
-        [self shareArticleWithTextSnippet:nil fromButton:sender];
+        [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
     }];
 }
 
 - (void)setupToolbar {
     UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
-    self.toolbarItems = @[[self flexibleSpaceToolbarItem],
-                          [self refreshToolbarItem],
-                          [self paddingToolbarItem],
-                          [self shareToolbarItem],
-                          [self paddingToolbarItem],
-                          [self saveToolbarItem]];
+    self.toolbarItems = [@[[self flexibleSpaceToolbarItem], [self refreshToolbarItem],
+                           [self paddingToolbarItem], [self shareToolbarItem],
+                           [self paddingToolbarItem], saveToolbarItem] wmf_reverseArrayIfApplicationIsRTL];
     self.saveButtonController =
         [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
                                           savedPageList:self.savedPageList
@@ -482,11 +476,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Share
 
 - (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button{
-    
     if(text.length == 0){
         text = [self.article shareSnippet];
     }
-    
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromView:button];
 }
