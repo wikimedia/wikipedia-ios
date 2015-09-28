@@ -179,12 +179,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
-    dispatchOnMainQueue(^{
-        MWKArticle* article = note.userInfo[MWKArticleKey];
-        if ([self.article.title isEqualToTitle:article.title]) {
-            [self setAndObserveArticle:article];
-        }
-    });
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    if ([self.article.title isEqualToTitle:article.title]) {
+        [self setAndObserveArticle:article];
+    }
 }
 
 
