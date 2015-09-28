@@ -359,7 +359,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 - (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
     [self configureHomeViewController];
-    [self configureSavedViewController];
+    [self configureSearchViewController];
 }
 
 @end

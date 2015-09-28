@@ -984,8 +984,8 @@
 		0EF451F21B5458F700D621BD /* UITabBarController+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+WMFExtensions.m"; sourceTree = "<group>"; };
 		0EF451F41B545ED100D621BD /* WMFRecentPagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRecentPagesDataSource.h; sourceTree = "<group>"; };
 		0EF451F51B545ED100D621BD /* WMFRecentPagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRecentPagesDataSource.m; sourceTree = "<group>"; };
-		0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSError+WMFExtensions.h"; path = "../../NSError+WMFExtensions.h"; sourceTree = "<group>"; };
-		0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSError+WMFExtensions.m"; path = "../../NSError+WMFExtensions.m"; sourceTree = "<group>"; };
+		0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WMFExtensions.h"; sourceTree = "<group>"; };
+		0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WMFExtensions.m"; sourceTree = "<group>"; };
 		0EFB0EF71B31ECCB00D05C08 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		0EFB0EF81B31ECCB00D05C08 /* WMFGCDHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFGCDHelpers.h; sourceTree = "<group>"; };
 		0EFB0EFA1B31EE2D00D05C08 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
@@ -1962,6 +1962,8 @@
 			children = (
 				043B6E8C1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.h */,
 				043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */,
+				0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */,
+				0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */,
 				044687FE1BB358DF00B888CC /* UIView+IBExtras.swift */,
 				BCB669711A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.h */,
 				BCB669721A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m */,
@@ -2507,8 +2509,6 @@
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				0E2B06F91B2D128D00EA2F53 /* Search */,
 				0EFB48071B3BAFE900381F99 /* Article */,
-				0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */,
-				0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */,
 				0E2B06FA1B2D129B00EA2F53 /* Common */,
 				0E2B06F71B2D126700EA2F53 /* Data Sources */,
 				0EFB48081B3BAFF600381F99 /* Storyboards */,
