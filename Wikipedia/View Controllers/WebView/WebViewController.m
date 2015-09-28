@@ -1465,6 +1465,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToElementOnScreenBeforeRotate {
+    // FIXME: rotating portrait/landscape repeatedly causes the webview to scroll down instead of maintaining the same position
+    return;
     double finalScrollOffset = [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble];
 
     [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
