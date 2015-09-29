@@ -265,7 +265,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)autoScrollToLastScrollOffsetIfNecessary {
-    #warning FIXME: causing jumpiness. 
+    #warning FIXME: causing jumpiness.
     // also, need to store offsets relative to the browser view frame in case we change the layout
     return;
     if (!self.jumpToFragment) {

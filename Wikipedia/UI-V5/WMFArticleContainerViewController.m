@@ -625,8 +625,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFPreviewControllerDelegate
 
-- (void)previewController:(WMFPreviewController*)previewController
- didPresentViewController:(UIViewController*)viewController {
+- (void)   previewController:(WMFPreviewController*)previewController
+    didPresentViewController:(UIViewController*)viewController {
     self.previewController = nil;
 
     /* HACK: for some reason, the view controller is unusable when it comes back from the preview.
@@ -642,8 +642,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController pushViewController:vc animated:NO];
 }
 
-- (void)previewController:(WMFPreviewController*)previewController
- didDismissViewController:(UIViewController*)viewController {
+- (void)   previewController:(WMFPreviewController*)previewController
+    didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
 }
 
