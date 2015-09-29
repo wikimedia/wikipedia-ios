@@ -100,34 +100,33 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.shareFunnel = nil;
+    self.shareFunnel            = nil;
     self.shareOptionsController = nil;
-    
+
     // TODO cancel
     [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
     [self.articleFetcher cancelFetchForPageTitle:_article.title];
 
     [self setAndObserveArticle:article];
-    
+
     self.saveButtonController.title = article.title;
-    
-    if(_article){
-        self.shareFunnel = [[WMFShareFunnel alloc] initWithArticle:_article];
+
+    if (_article) {
+        self.shareFunnel            = [[WMFShareFunnel alloc] initWithArticle:_article];
         self.shareOptionsController =
-        [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
+            [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
     }
-    
+
     [self fetchArticle];
 }
 
-- (void)setAndObserveArticle:(MWKArticle*)article{
-    
+- (void)setAndObserveArticle:(MWKArticle*)article {
     [self unobserveArticleUpdates];
-    
+
     _article = article;
-    
+
     [self observeArticleUpdates];
-    
+
     //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
     //isViewLoaded is not enough.
     if ([self isViewLoaded] && self.view.window) {
@@ -135,7 +134,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.webViewController.article     = article;
     }
 }
-
 
 - (WMFArticlePreviewFetcher*)articlePreviewFetcher {
     if (!_articlePreviewFetcher) {
@@ -185,7 +183,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -223,11 +220,11 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchArticle];
         }
     }];
-    
-    UIBarButtonItem * share = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+
+    UIBarButtonItem* share = [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
         @strongify(self)
-        NSString* selectedText = nil;
-        if(self.contentNavigationController.topViewController == self.webViewController){
+        NSString * selectedText = nil;
+        if (self.contentNavigationController.topViewController == self.webViewController) {
             selectedText = [self.webViewController selectedText];
         }
         [self shareArticleWithTextSnippet:nil fromButton:sender];
@@ -237,11 +234,11 @@ NS_ASSUME_NONNULL_BEGIN
                           share,
                           [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:NULL],
                           save];
-    
+
     self.saveButtonController =
-    [[WMFSaveButtonController alloc] initWithButton:[save wmf_UIButton]
-                                      savedPageList:self.savedPageList
-                                              title:self.article.title];
+        [[WMFSaveButtonController alloc] initWithButton:[save wmf_UIButton]
+                                          savedPageList:self.savedPageList
+                                                  title:self.article.title];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -284,7 +281,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-
 #pragma mark - Article Fetching
 
 - (void)fetchArticle {
@@ -319,12 +315,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button{
-    
-    if(text.length == 0){
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button {
+    if (text.length == 0) {
         text = [self.article shareSnippet];
     }
-    
+
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromView:button];
 }
@@ -407,11 +402,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentPopupForTitle:title];
 }
 
-- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text{
+- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
     [self.shareFunnel logHighlight];
 }
 
-- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text{
+- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareArticleWithTextSnippet:text fromButton:nil];
 }
 
@@ -478,7 +473,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
 }
-
 
 @end
 

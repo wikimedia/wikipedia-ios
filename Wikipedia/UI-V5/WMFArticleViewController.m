@@ -135,7 +135,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateUIForMode:mode animated:animated];
 }
 
-
 #pragma mark - Section Hierarchy Accessors
 
 - (BOOL)isLeadSection:(NSUInteger)section {
@@ -179,7 +178,6 @@ NS_ASSUME_NONNULL_BEGIN
     // first item is always the parent section
     return parentSection.children[indexPath.item - 1];
 }
-
 
 #pragma mark - Analytics
 
@@ -512,9 +510,8 @@ NS_ASSUME_NONNULL_BEGIN
         detailGallery.article     = self.article;
         detailGallery.currentPage = index;
     } else {
-        
         //FIX: maybe if we need native again
-        
+
 //        if (![self.articleFetcher isFetchingArticleForTitle:self.article.title]) {
 //            [self fetchArticle];
 //        }

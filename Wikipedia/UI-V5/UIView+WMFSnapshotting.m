@@ -3,11 +3,10 @@
 
 @implementation UIView (WMFSnapshotting)
 
-- (UIImage *)wmf_snapshotImage
-{
+- (UIImage*)wmf_snapshotImage {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 0);
     [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 }
