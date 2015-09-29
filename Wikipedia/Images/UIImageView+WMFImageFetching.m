@@ -1,5 +1,5 @@
 
-#import "UIImageView+MWKImageInternal.h"
+#import "UIImageView+WMFImageFetchingInternal.h"
 #import "Wikipedia-Swift.h"
 
 #import <BlocksKit/BlocksKit.h>
@@ -54,7 +54,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 
 @end
 
-@implementation UIImageView (MWKImageInternal)
+@implementation UIImageView (WMFImageFetchingInternal)
 
 
 #pragma mark - Cached Image
@@ -190,7 +190,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 
 @end
 
-@implementation UIImageView (MWKImage)
+@implementation UIImageView (WMFImageFetching)
 
 - (void)wmf_reset {
     self.image = nil;

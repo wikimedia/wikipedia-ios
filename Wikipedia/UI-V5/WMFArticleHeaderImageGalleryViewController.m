@@ -14,7 +14,7 @@
 #import "CIDetector+WMFFaceDetection.h"
 
 // View
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 #import "WMFImageCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFContentOffset.h"

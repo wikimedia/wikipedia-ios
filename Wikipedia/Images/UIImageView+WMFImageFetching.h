@@ -1,10 +1,4 @@
-//
-//  UIImageView+MWKImage.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 8/17/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 
@@ -12,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImageView (MWKImage)
+@interface UIImageView (WMFImageFetching)
 
 /**
  *  Sets the image to nil. Cancels any image requests.

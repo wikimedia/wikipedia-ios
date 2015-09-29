@@ -6,7 +6,7 @@
 #import "MWKTitle.h"
 
 #import "UIView+WMFShadow.h"
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 #import "UIButton+WMFButton.h"
 
 @interface WMFSaveableTitleCollectionViewCell ()

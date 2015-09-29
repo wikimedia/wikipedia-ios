@@ -7,7 +7,7 @@
 //
 
 #import "WMFAsyncTestCase.h"
-#import "UIImageView+MWKImageInternal.h"
+#import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFFaceDetectionCache.h"
 #import "Wikipedia-Swift.h"
 

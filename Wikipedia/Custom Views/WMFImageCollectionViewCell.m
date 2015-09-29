@@ -8,7 +8,7 @@
 
 #import "WMFImageCollectionViewCell.h"
 #import "UIImageView+WMFContentOffset.h"
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 
 @implementation WMFImageCollectionViewCell
 

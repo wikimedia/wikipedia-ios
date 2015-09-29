@@ -1,5 +1,5 @@
 
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 
 @class MWKImage;
 @class WMFImageController;
