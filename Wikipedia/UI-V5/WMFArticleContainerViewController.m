@@ -275,12 +275,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)refreshToolbarItem {
     @weakify(self);
-    UIBarButtonItem* refreshButton =
-        [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id  _Nonnull sender) {
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id  _Nonnull sender) {
             @strongify(self);
-            [self didTapRefresh];
+            [self fetchArticle];
         }];
-    return refreshButton;
 }
 
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
@@ -291,21 +289,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)tableOfContentsToolbarItem {
     @weakify(self);
-    UIBarButtonItem* item = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
         @strongify(self);
         [self.webViewController tocToggle];
     }];
-    return item;
 }
 
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
-    UIBarButtonItem* shareButton =
-        [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
         @strongify(self);
         [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
     }];
-    return shareButton;
 }
 
 - (void)setupToolbar {
@@ -322,47 +317,6 @@ NS_ASSUME_NONNULL_BEGIN
 //    if (!self.article.isMain) {
 //        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
 //    }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self updateInsetsForArticleViewController];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
-        [self updateInsetsForArticleViewController];
-    } completion:NULL];
-}
-
-- (void)updateInsetsForArticleViewController {
-    // TODO: remove
-//    CGFloat topInset = [self.navigationController.navigationBar frame].size.height
-//                       + [[UIApplication sharedApplication] statusBarFrame].size.height;
-//
-//    UIEdgeInsets adjustedInsets = UIEdgeInsetsMake(topInset,
-//                                                   0.0,
-//                                                   self.tabBarController.tabBar.frame.size.height,
-//                                                   0.0);
-//
-//    self.articleViewController.tableView.contentInset          = adjustedInsets;
-//    self.articleViewController.tableView.scrollIndicatorInsets = adjustedInsets;
-//
-//    //adjust offset if we are at the top
-//    if (self.articleViewController.tableView.contentOffset.y <= 0) {
-//        self.articleViewController.tableView.contentOffset = CGPointMake(0, -topInset);
-//    }
-}
-
-#pragma mark - Toolbar Actions
-
-- (void)didTapRefresh {
-    [self fetchArticle];
 }
 
 #pragma mark - Article Fetching
@@ -491,18 +445,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareArticleWithTextSnippet:text fromButton:nil];
-}
-
-#pragma mark - UINavigationControllerDelegate
-
-- (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
-//    if (viewController == self.articleViewController) {
-//        [self.navigationController setNavigationBarHidden:NO animated:NO];
-//        [self.contentNavigationController setNavigationBarHidden:YES animated:NO];
-//    } else {
-//        [self.navigationController setNavigationBarHidden:YES animated:NO];
-//        [self.contentNavigationController setNavigationBarHidden:NO animated:NO];
-//    }
 }
 
 #pragma mark - Popup
