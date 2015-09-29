@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
+    transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
     transformer.transform( "widenImages", document );
     transformer.transform( "hideTables", document );
@@ -187,7 +188,9 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
-    if (href && refs.isReference(href)) {
+    if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
+        bridge.sendMessage( 'editClicked', { sectionId: hrefTarget.getAttribute( "data-id" ) });
+    } else if (href && refs.isReference(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
@@ -221,7 +224,7 @@ document.addEventListener("touchend", handleTouchEnded, false);
 
 })();
 
-},{"./bridge":1,"./refs":5,"./transformer":8,"./transforms/collapsePageIssuesAndDisambig":11,"./utilities":16}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":8,"./transforms/collapsePageIssuesAndDisambig":11,"./utilities":17}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -354,14 +357,16 @@ exports.sendNearbyReferences = sendNearbyReferences;
 
 },{"./bridge":1}],6:[function(require,module,exports){
 (function (global){
-var sectionHeaders = require("./sectionHeaders");
+// var sectionHeaders = require("./sectionHeaders");
 
+/*
 function scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId){
     var header = sectionHeaders.getSectionHeaderForId(fragmentId);
     if  (header.id != fragmentId){
         window.scrollBy(0, -header.getBoundingClientRect().height);
     }
 }
+*/
 
 function scrollToFragment(fragmentId){
     location.hash = '';
@@ -372,12 +377,12 @@ function scrollToFragment(fragmentId){
     static section header, so shift it down by the static section header 
     height in these cases.
     */
-    scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId);
+    //scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId);
 }
 
 global.scrollToFragment = scrollToFragment;
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./sectionHeaders":7}],7:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (global){
 var utilities = require("./utilities");
 
@@ -416,7 +421,7 @@ global.getSectionHeadersArray = getSectionHeadersArray;
 global.getSectionHeaderLocationsArray = getSectionHeaderLocationsArray;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./utilities":16}],8:[function(require,module,exports){
+},{"./utilities":17}],8:[function(require,module,exports){
 function Transformer() {
 }
 
@@ -444,10 +449,11 @@ module.exports = new Transformer();
 require("./transforms/collapseTables");
 require("./transforms/relocateFirstParagraph");
 require("./transforms/hideRedLinks");
+require("./transforms/disableFilePageEdit");
 require("./transforms/addImageOverflowContainers");
 require("./transforms/collapsePageIssuesAndDisambig");
 
-},{"./transforms/addImageOverflowContainers":10,"./transforms/collapsePageIssuesAndDisambig":11,"./transforms/collapseTables":12,"./transforms/hideRedLinks":13,"./transforms/relocateFirstParagraph":14}],10:[function(require,module,exports){
+},{"./transforms/addImageOverflowContainers":10,"./transforms/collapsePageIssuesAndDisambig":11,"./transforms/collapseTables":12,"./transforms/disableFilePageEdit":13,"./transforms/hideRedLinks":14,"./transforms/relocateFirstParagraph":15}],10:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -488,7 +494,7 @@ transformer.register( "addImageOverflowXContainers", function( content ) {
     }
 } );
 
-},{"../transformer":8,"../utilities":16}],11:[function(require,module,exports){
+},{"../transformer":8,"../utilities":17}],11:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -671,7 +677,7 @@ exports.issuesClicked = issuesClicked;
 exports.disambigClicked = disambigClicked;
 exports.closeClicked = closeClicked;
 
-},{"../transformer":8,"../utilities":16}],12:[function(require,module,exports){
+},{"../transformer":8,"../utilities":17}],12:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -834,7 +840,33 @@ transformer.register( "hideTables", function( content ) {
     }
 } );
 
-},{"../transformer":8,"../utilities":16}],13:[function(require,module,exports){
+},{"../transformer":8,"../utilities":17}],13:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( "disableFilePageEdit", function( content ) {
+    var filetoc = content.querySelector( '#filetoc' );
+    if (filetoc) {
+        // We're on a File: page! Do some quick hacks.
+        // In future, replace entire thing with a custom view most of the time.
+        // Hide edit sections
+        var editSections = content.querySelectorAll('.edit_section_button');
+        for (var i = 0; i < editSections.length; i++) {
+            editSections[i].style.display = 'none';
+        }
+        var fullImageLink = content.querySelector('.fullImageLink a');
+        if (fullImageLink) {
+            // Don't replace the a with a span, as it will break styles.
+            // Just disable clicking.
+            // Don't disable touchstart as this breaks scrolling!
+            fullImageLink.href = '';
+            fullImageLink.addEventListener( 'click', function( event ) {
+                event.preventDefault();
+            } );
+        }
+    }
+} );
+
+},{"../transformer":8}],14:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "hideRedlinks", function( content ) {
@@ -845,7 +877,7 @@ transformer.register( "hideRedlinks", function( content ) {
 	}
 } );
 
-},{"../transformer":8}],14:[function(require,module,exports){
+},{"../transformer":8}],15:[function(require,module,exports){
 var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
@@ -864,12 +896,21 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     var allPs = block_0.getElementsByTagName( "p" );
     if(!allPs) return;
 
+    var edit_section_button_0 = content.getElementById( "edit_section_button_0" );
+    if(!edit_section_button_0) return;
+
+    function moveAfter(newNode, referenceNode) {
+        // Based on: http://stackoverflow.com/a/4793630/135557
+        referenceNode.parentNode.insertBefore(newNode.parentNode.removeChild(newNode), referenceNode.nextSibling);
+    }
+
     for ( var i = 0; i < allPs.length; i++ ) {
         var p = allPs[i];
 
         // Narrow down to first P which is direct child of content_block_0 DIV.
         // (Don't want to yank P from somewhere in the middle of a table!)
         if  (p.parentNode != block_0) continue;
+
 
         // Ensure the P being pulled up has at least a couple lines of text.
         // Otherwise silly things like a empty P or P which only contains a
@@ -882,15 +923,37 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
         var pIsTooSmall = (p.offsetHeight < minHeight);
         if(pIsTooSmall) continue;
 
+
+        /*
+        // Note: this works - just not sure if needed?
+        // Sometimes P will be mostly image and not much text. Don't
+        // want to move these!
+        var pIsMostlyImage = false;
+        var imgs = p.getElementsByTagName('img');
+        for (var j = 0; j < imgs.length; j++) {
+            var thisImg = imgs[j];
+            // Get image height from img tag's height attribute - otherwise
+            // you'd have to wait for the image to render (if you used offsetHeight).
+            var thisImgHeight = thisImg.getAttribute("height");
+            if(thisImgHeight == 0) continue;
+            var imgHeightPercentOfParagraphTagHeight = thisImgHeight / p.offsetHeight;
+            if (imgHeightPercentOfParagraphTagHeight > 0.5){
+                pIsMostlyImage = true;
+                break;
+            }
+        }
+        if(pIsMostlyImage) continue;
+        */
+
         // Move the P! Place it just after the lead section edit button.
-        block_0.insertBefore(p, block_0.firstChild);
+        moveAfter(p, edit_section_button_0);
 
         // But only move one P!
         break;
     }
 });
 
-},{"../transformer":8}],15:[function(require,module,exports){
+},{"../transformer":8}],16:[function(require,module,exports){
 var transformer = require("../transformer");
 var utilities = require("../utilities");
 
@@ -998,7 +1061,7 @@ transformer.register( "widenImages", function( content ) {
     }
 } );
 
-},{"../transformer":8,"../utilities":16}],16:[function(require,module,exports){
+},{"../transformer":8,"../utilities":17}],17:[function(require,module,exports){
 
 function getDictionaryFromSrcset(srcset) {
     /*
@@ -1061,7 +1124,7 @@ exports.findClosest = findClosest;
 exports.httpGetSync = httpGetSync;
 exports.isNestedInTable = isNestedInTable;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 (function (global){
 
 var _topElement = null;
@@ -1092,4 +1155,4 @@ global.setPreRotationRelativeScrollOffset = setPreRotationRelativeScrollOffset;
 global.getPostRotationScrollOffset = getPostRotationScrollOffset;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
+},{}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])
