@@ -195,8 +195,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController          = [WebViewController wmf_initialViewControllerFromClassStoryboard];
-        _webViewController.delegate = self;
+        _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController.delegate             = self;
+        _webViewController.headerViewController = self.headerGallery;
+        // TODO: add "last edited by" & "wikipedia logo"
+        [_webViewController setFooterViewControllers:@[self.readMoreListViewController]];
     }
     return _webViewController;
 }
@@ -254,93 +257,9 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     [self.webViewController didMoveToParentViewController:self];
 
-    /*
-       NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
-       issues when attempting a contentInset approach:
-       - doesn't work well for footers:
-        - contentInset causes jumpiness when scrolling beyond _bottom_ of content
-        - interferes w/ bouncing at the bottom
-       - forces you to manually set scrollView offsets
-       - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
-
-       IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
-       headers & footers
-     */
-    [self addChildViewController:self.headerGallery];
-    UIView* browserContainer = self.webViewController.webView.scrollView;
-    [browserContainer addSubview:self.headerGallery.view];
-    [self.headerGallery.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.equalTo(self.view);
-        make.top.equalTo(self.webViewController.webView.scrollView);
-        self.headerHeightConstraint = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
-    }];
-    [self.headerGallery didMoveToParentViewController:self];
-
-    // TODO: lazily add & fetch readmore data when user is X points away from bottom of webview
-    [self addChildViewController:self.readMoreListViewController];
-    [browserContainer addSubview:self.readMoreListViewController.view];
-    [self.readMoreListViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.equalTo(self.view);
-        make.top.equalTo([self.webViewController.webView wmf_browserView].mas_bottom);
-    }];
-    [self.readMoreListViewController didMoveToParentViewController:self];
-
-    // TODO: add logo & authorship footer
-
-
     if (self.article) {
         [self updateChildrenWithArticle];
     }
-
-    [self.KVOControllerNonRetaining observe:self.webViewController.webView.scrollView
-                                    keyPath:WMF_SAFE_KEYPATH(self.webViewController.webView.scrollView, contentSize)
-                                    options:0
-                                      block:^(WMFArticleContainerViewController* observer, id object, NSDictionary* change) {
-        [observer layoutWebViewSubviews];
-    }];
-}
-
-- (CGFloat)headerHeightForCurrentTraitCollection {
-    return [self headerHeightForTraitCollection:self.traitCollection];
-}
-
-- (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
-    switch (traitCollection.verticalSizeClass) {
-        case UIUserInterfaceSizeClassRegular:
-            return 160;
-        default:
-            return 0;
-    }
-}
-
-- (void)layoutWebViewSubviews {
-    [self.headerHeightConstraint setOffset:[self headerHeightForCurrentTraitCollection]];
-    CGFloat headerBottom = CGRectGetMaxY(self.headerGallery.view.frame);
-    /*
-       HAX: need to manage positioning the browser view manually.
-       using constraints seems to prevent the browser view size and scrollview contentSize from being set
-       properly.
-     */
-    UIView* browserView = [self.webViewController.webView wmf_browserView];
-    [browserView setFrame:(CGRect){
-         .origin = CGPointMake(0, headerBottom),
-         .size = browserView.frame.size
-     }];
-    CGFloat readMoreHeight = self.readMoreListViewController.view.frame.size.height;
-    CGFloat totalHeight    = CGRectGetMaxY(browserView.frame) + readMoreHeight;
-    if (self.webViewController.webView.scrollView.contentSize.height != totalHeight) {
-        self.webViewController.webView.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self layoutWebViewSubviews];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self layoutWebViewSubviews];
 }
 
 - (UIBarItem*)paddingToolbarItem {
@@ -419,13 +338,6 @@ NS_ASSUME_NONNULL_BEGIN
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self updateInsetsForArticleViewController];
     } completion:NULL];
-}
-
-- (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self layoutWebViewSubviews];
-    } completion:nil];
 }
 
 - (void)updateInsetsForArticleViewController {
