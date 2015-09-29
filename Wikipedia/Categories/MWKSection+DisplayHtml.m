@@ -13,29 +13,57 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
     BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
 
     return
-        [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld' class='content_block'>%@</div></div>",
+        [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld' class='content_block'>%@%@</div></div>",
          (long)self.sectionId,
          (isMainPage ? @"" : [self getHeaderTag]),
          (long)self.sectionId,
+         ((self.sectionId == 0) && !isMainPage) ? [self getEditPencilAnchor] : @"",
          html
         ];
 }
 
 - (NSString*)getHeaderTag {
-    NSUInteger headingSize = [self getHeadingTagSize];
-    return
-        [NSString stringWithFormat:@"<h%ld class='section_heading' id='%@' sectionId='%d'>%@</h%ld>%@",
-         headingSize,
-         self.anchor,
-         self.sectionId,
-         [self isLeadSection] ? self.title.text : self.line,
-         headingSize,
-         [self isLeadSection] ? MWKSectionDisambigAndPageIssuesPlaceholderDiv : @""
-        ];
+    NSString* pencilAnchor = [self getEditPencilAnchor];
+
+    if (self.sectionId == 0) {
+        // Lead section.
+        return MWKSectionDisambigAndPageIssuesPlaceholderDiv;
+    } else {
+        // Non-lead section.
+        NSInteger headingTagSize = [self getHeadingTagSize];
+
+        return
+            [NSString stringWithFormat:@"<h%ld class='section_heading' data-id='%ld' id='%@'>%@%@</h%ld>",
+             (long)headingTagSize,
+             (long)self.sectionId,
+             self.anchor,
+             self.line,
+             pencilAnchor,
+             (long)headingTagSize
+            ];
+    }
 }
 
 - (NSInteger)getHeadingTagSize {
-    return MIN(MAX(self.level.integerValue, 1), 6);
+    // Varies <H#> tag size based on section level.
+
+    NSInteger size = self.level.integerValue;
+
+    // Don't go smaller than 1 - ie "<H1>"
+    size = MAX(size, 1);
+
+    // Don't go larger than 6 - ie "<H6>"
+    size = MIN(size, 6);
+
+    return size;
+}
+
+- (NSString*)getEditPencilAnchor {
+    return
+        [NSString stringWithFormat:@"<a class='edit_section_button' data-action='edit_section' data-id='%ld' id='edit_section_button_%ld'></a>",
+         (long)self.sectionId,
+         (long)self.sectionId
+        ];
 }
 
 @end
