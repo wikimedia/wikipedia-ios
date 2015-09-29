@@ -8,6 +8,7 @@
 
 #import "WMFAsyncTestCase.h"
 #import "UIImageView+MWKImageInternal.h"
+#import "WMFFaceDetectionCache.h"
 #import "Wikipedia-Swift.h"
 
 
@@ -22,6 +23,7 @@
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) MWKArticle* dummyArticle;
 @property (nonatomic, strong) WMFImageController* mockImageController;
+@property (nonatomic, strong) WMFFaceDetectionCache* faceDetectionCache;
 
 @end
 
@@ -37,48 +39,12 @@
                                                 dataStore:nil];
 
     self.mockImageController = mock([WMFImageController class]);
+    self.faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
+
 }
 
 - (void)tearDown {
     [super tearDown];
-}
-
-#pragma mark - Logic Tests
-
-- (void)testShouldNotAnimateWhenNeverAnimateIsSet {
-    assertThat(@(WMFApplyImageOptionsToAnimationFlag(WMFImageOptionNeverAnimate, YES)), isFalse());
-    assertThat(@(WMFApplyImageOptionsToAnimationFlag(WMFImageOptionNeverAnimate, NO)), isFalse());
-}
-
-- (void)testShouldAnimateWhenAlwaysAnimateIsSet {
-    assertThat(@(WMFApplyImageOptionsToAnimationFlag(WMFImageOptionAlwaysAnimate, YES)), isTrue());
-    assertThat(@(WMFApplyImageOptionsToAnimationFlag(WMFImageOptionAlwaysAnimate, NO)), isTrue());
-}
-
-- (void)testShouldReturnGivenAnimationFlagIfNoOptionsSet {
-    assertThat(@(WMFApplyImageOptionsToAnimationFlag(0, YES)), isTrue());
-    assertThat(@(WMFApplyImageOptionsToAnimationFlag(0, NO)), isFalse());
-}
-
-- (void)testShouldDetectFacesIfOptionIsSetAndImageDidNotDetectFaces {
-    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
-    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-    XCTAssertTrue(WMFShouldDetectFacesForMetadataWithOptions(testMetadata, WMFImageOptionCenterFace));
-}
-
-- (void)testShouldNotDetectFacesIfOptionIsSetAndImageDidDetectFaces {
-    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
-    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-    testMetadata.allNormalizedFaceBounds = @[];
-    XCTAssertFalse(WMFShouldDetectFacesForMetadataWithOptions(testMetadata, WMFImageOptionCenterFace));
-}
-
-- (void)testShouldNotDetectFacesIfOptionIsNotSet {
-    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
-    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-    XCTAssertFalse(WMFShouldDetectFacesForMetadataWithOptions(testMetadata, 0));
-    testMetadata.allNormalizedFaceBounds = @[];
-    XCTAssertFalse(WMFShouldDetectFacesForMetadataWithOptions(testMetadata, 0));
 }
 
 #pragma mark - Fetch Tests
@@ -93,21 +59,19 @@
     [given([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
-    XCTestExpectation* completionExpectation    = [self expectationWithDescription:@"completion block was called"];
-    XCTestExpectation* setImageBlockExpectation = [self expectationWithDescription:@"setImageBlock was called"];
-    [self.imageView
-     wmf_setImageFromMetadata:testMetadata
-                      options:WMFImageOptionCenterFace
-                    withBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        assertThat(imgView, is(self.imageView));
-        assertThat(img, is(successfulDownload.image));
-        assertThat(meta, is(testMetadata));
-        [setImageBlockExpectation fulfill];
-    }
-                   completion:^(BOOL finished) { [completionExpectation fulfill]; }
-                      onError:^(NSError* err) { XCTFail(@"Error callback erroneously called with error %@", err); }
-              usingController:self.mockImageController];
-
+    [self.imageView setWmf_imageController:self.mockImageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:YES]
+    .then(^(){
+        assertThat(self.imageView.image, is(successfulDownload.image));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
     XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
               @"Image controller should be set immediately after the method is called so it can be cancelled.");
 
@@ -121,6 +85,40 @@
     assertThat(@(testMetadata.didDetectFaces), isTrue());
 }
 
+- (void)testSuccessfullySettingImageFromURLWithCenterFaces {
+    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
+    WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
+                                                                           image:[UIImage new]
+                                                                          origin:[WMFImageDownload imageOriginNetwork]];
+    [given([self.mockImageController fetchImageWithURL:testURL])
+     willReturn:[AnyPromise promiseWithValue:successfulDownload]];
+    
+    [self.imageView setWmf_imageController:self.mockImageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:YES]
+    .then(^(){
+        assertThat(self.imageView.image, is(successfulDownload.image));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
+    XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
+              @"Image controller should be set immediately after the method is called so it can be cancelled.");
+    
+    XCTAssert(self.imageView.wmf_imageURL == testURL,
+              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
+    
+    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
+    
+    WaitForExpectations();
+}
+
+
+
 - (void)testSuccessfullySettingImageFromMetadataWithoutCenterFaces {
     NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
     MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
@@ -130,21 +128,19 @@
                                                                           origin:[WMFImageDownload imageOriginNetwork]];
     [given([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
+    
+    [self.imageView setWmf_imageController:self.mockImageController];
 
-    XCTestExpectation* completionExpectation    = [self expectationWithDescription:@"completion block was called"];
-    XCTestExpectation* setImageBlockExpectation = [self expectationWithDescription:@"setImageBlock was called"];
-    [self.imageView
-     wmf_setImageFromMetadata:testMetadata
-                      options:0
-                    withBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        assertThat(imgView, is(self.imageView));
-        assertThat(img, is(successfulDownload.image));
-        assertThat(meta, is(testMetadata));
-        [setImageBlockExpectation fulfill];
-    }
-                   completion:^(BOOL finished) { [completionExpectation fulfill]; }
-                      onError:^(NSError* err) { XCTFail(@"Error callback erroneously called with error %@", err); }
-              usingController:self.mockImageController];
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO]
+    .then(^(){
+        assertThat(self.imageView.image, is(successfulDownload.image));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
 
     XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
               @"Image controller should be set immediately after the method is called so it can be cancelled.");
@@ -159,6 +155,39 @@
     assertThat(@(testMetadata.didDetectFaces), isFalse());
 }
 
+- (void)testSuccessfullySettingImageFromURLWithoutCenterFaces {
+    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
+    WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
+                                                                           image:[UIImage new]
+                                                                          origin:[WMFImageDownload imageOriginNetwork]];
+    [given([self.mockImageController fetchImageWithURL:testURL])
+     willReturn:[AnyPromise promiseWithValue:successfulDownload]];
+    
+    [self.imageView setWmf_imageController:self.mockImageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:NO]
+    .then(^(){
+        assertThat(self.imageView.image, is(successfulDownload.image));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
+    XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
+              @"Image controller should be set immediately after the method is called so it can be cancelled.");
+    
+    XCTAssert(self.imageView.wmf_imageURL == testURL,
+              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
+    
+    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
+    
+    WaitForExpectations();
+}
+
+
 - (void)testSuccessfullySettingCachedImageWithoutCenterFaces {
     NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
     MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
@@ -166,34 +195,57 @@
 
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
-    XCTestExpectation* completionExpectation = [self expectationWithDescription:@"completion block was called"];
-    __block BOOL didSetImageSynchronously    = NO;
+    [self.imageView setWmf_imageController:self.mockImageController];
 
-    BOOL didSetCachedImage =
-        [self.imageView
-         wmf_setCachedImageForMetadata:testMetadata
-                               options:0
-                         setImageBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        assertThat(imgView, is(self.imageView));
-        assertThat(img, is(testImage));
-        assertThat(meta, is(testMetadata));
-        didSetImageSynchronously = YES;
-    }
-                            completion:^(BOOL finished) { [completionExpectation fulfill]; }
-                       usingController:self.mockImageController];
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
-    XCTAssertTrue(didSetImageSynchronously);
-
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO]
+    .then(^(){
+        assertThat(self.imageView.image, is(testImage));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
     XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
               @"Image controller should be set immediately after the method is called so it can be cancelled.");
 
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
-    XCTAssertTrue(didSetCachedImage);
-
     WaitForExpectations();
 
+    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
+}
+
+- (void)testSuccessfullySettingCachedImageURLWithoutCenterFaces {
+    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
+    UIImage* testImage     = [UIImage new];
+    
+    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    
+    [self.imageView setWmf_imageController:self.mockImageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:NO]
+    .then(^(){
+        assertThat(self.imageView.image, is(testImage));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
+    XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
+              @"Image controller should be set immediately after the method is called so it can be cancelled.");
+    
+    XCTAssert(self.imageView.wmf_imageURL == testURL,
+              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
+    
+    WaitForExpectations();
+    
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }
 
@@ -205,96 +257,107 @@
 
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
-    __block BOOL didSetImageSynchronously    = NO;
-    XCTestExpectation* completionExpectation = [self expectationWithDescription:@"completion block was called"];
+    [self.imageView setWmf_imageController:self.mockImageController];
 
-    BOOL didSetCachedImage =
-        [self.imageView
-         wmf_setCachedImageForMetadata:testMetadata
-                               options:WMFImageOptionCenterFace
-                         setImageBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        assertThat(imgView, is(self.imageView));
-        assertThat(img, is(testImage));
-        assertThat(meta, is(testMetadata));
-        didSetImageSynchronously = YES;
-    }
-                            completion:^(BOOL finished) { [completionExpectation fulfill]; }
-                       usingController:self.mockImageController];
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
-    XCTAssertTrue(didSetImageSynchronously);
-
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:YES]
+    .then(^(){
+        assertThat(self.imageView.image, is(testImage));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
     XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
               @"Image controller should be set immediately after the method is called so it can be cancelled.");
 
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
-    XCTAssertTrue(didSetCachedImage);
-
     WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }
 
-- (void)testFailureToSetUncachedImage {
+
+- (void)testSuccessfullySettingCachedImageURLWithCenterFaces {
     NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
-    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
-
-    // set imageController & imageMetadata here so we can verify they were set to `nil` when cached image fails to set
-    self.imageView.wmf_imageController = mock([WMFImageController class]);
-    self.imageView.wmf_imageMetadata   = [[MWKImage alloc] initWithArticle:self.dummyArticle
-                                                                 sourceURL:[NSURL URLWithString:@"//foo"]];
-
-    BOOL didSetCachedImage =
-        [self.imageView
-         wmf_setCachedImageForMetadata:testMetadata
-                               options:0
-                         setImageBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        XCTFail(@"Should not call setImageBlock when cached image fails to be set.");
-    }
-                            completion:^(BOOL finished) { XCTFail(@"Should not call completion when cached image fails to be set."); }
-                       usingController:self.mockImageController];
-
-    XCTAssertFalse(didSetCachedImage);
-
-    XCTAssertNil(self.imageView.wmf_imageController,
-                 @"Image controller should be set to nil even if we fail to set the cached image.");
-
-    XCTAssertNil(self.imageView.wmf_imageController,
-                 @"Image metadata should be set to nil even if we fail to set the cached image.");
+    UIImage* testImage     = [UIImage new];
+    
+    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    
+    [self.imageView setWmf_imageController:self.mockImageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:YES]
+    .then(^(){
+        assertThat(self.imageView.image, is(testImage));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
+    XCTAssert(self.imageView.wmf_imageController == self.mockImageController,
+              @"Image controller should be set immediately after the method is called so it can be cancelled.");
+    
+    XCTAssert(self.imageView.wmf_imageURL == testURL,
+              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
+    
+    WaitForExpectations();
+    
+    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }
 
-- (void)testFailureToSetCachedImageWithoutFaceDetection {
+
+- (void)testFailureToSetUncachedImageWithFetchError {
     NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
     MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-    UIImage* testImage     = [UIImage new];
+    NSError* testError     = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
+    [given([self.mockImageController fetchImageWithURL:testURL])
+     willReturn:[AnyPromise promiseWithValue:testError]];
 
-    // set imageController & imageMetadata here so we can verify they were set to `nil` when cached image fails to set
-    self.imageView.wmf_imageController = mock([WMFImageController class]);
-    self.imageView.wmf_imageMetadata   = [[MWKImage alloc] initWithArticle:self.dummyArticle
-                                                                 sourceURL:[NSURL URLWithString:@"//foo"]];
+    self.imageView.wmf_imageController = self.mockImageController;
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
-    BOOL didSetCachedImage =
-        [self.imageView
-         wmf_setCachedImageForMetadata:testMetadata
-                               options:WMFImageOptionCenterFace
-                         setImageBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        XCTFail(@"Should not call setImageBlock when cached image fails to be set.");
-    }
-                            completion:^(BOOL finished) { XCTFail(@"Should not call completion when cached image fails to be set."); }
-                       usingController:self.mockImageController];
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:YES]
+    .then(^(){
+        XCTFail(@"Promise fullfilled erroneously with url %@", [testURL description]);
+    })
+    .catch(^(NSError* error){
+        [promiseExpectation fulfill];
+    });
 
-    XCTAssertFalse(didSetCachedImage);
+    WaitForExpectations();
+}
 
-    XCTAssertNil(self.imageView.wmf_imageController,
-                 @"Image controller should be set to nil even if we fail to set the cached image.");
-
-    XCTAssertNil(self.imageView.wmf_imageController,
-                 @"Image metadata should be set to nil even if we fail to set the cached image.");
+- (void)testFailureToSetUncachedImageURLWithFetchError {
+    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
+    NSError* testError     = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];
+    
+    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
+    [given([self.mockImageController fetchImageWithURL:testURL])
+     willReturn:[AnyPromise promiseWithValue:testError]];
+    
+    self.imageView.wmf_imageController = self.mockImageController;
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:YES]
+    .then(^(){
+        XCTFail(@"Promise fullfilled erroneously with url %@", [testURL description]);
+    })
+    .catch(^(NSError* error){
+        [promiseExpectation fulfill];
+    });
+    
+    WaitForExpectations();
 }
 
 - (void)testShouldNotFetchCachedImage {
@@ -304,53 +367,63 @@
 
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
-    __block BOOL didSetImageSynchronously    = NO;
-    XCTestExpectation* completionExpectation = [self expectationWithDescription:@"completion block was called"];
+    [self.imageView setWmf_imageController:self.mockImageController];
 
-    [self.imageView
-     wmf_setImageFromMetadata:testMetadata
-                      options:0
-                    withBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        assertThat(imgView, is(self.imageView));
-        assertThat(img, is(testImage));
-        assertThat(meta, is(testMetadata));
-        didSetImageSynchronously = YES;
-    }
-                   completion:^(BOOL finished) { [completionExpectation fulfill]; }
-                      onError:^(NSError* err) { XCTFail(@"Error callback erroneously called with error %@", err); }
-              usingController:self.mockImageController];
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
-    XCTAssertTrue(didSetImageSynchronously);
+    [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO]
+    .then(^(){
+        assertThat(self.imageView.image, is(testImage));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
 
     WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:anything()];
 }
 
-- (void)testShouldCallErrorCallbackWhenFetchFails {
+- (void)testShouldNotFetchCachedImageURL {
     NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
-    MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
-    NSError* testError     = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];
-
-    [given([self.mockImageController fetchImageWithURL:testURL])
-     willReturn:[AnyPromise promiseWithValue:testError]];
-
-    XCTestExpectation* didCallError = [self expectationWithDescription:@"completion block was called"];
-
-    [self.imageView
-     wmf_setImageFromMetadata:testMetadata
-                      options:0
-                    withBlock:^(UIImageView* imgView, UIImage* img, MWKImage* meta) {
-        XCTFail(@"Should not invoke setImageBlock on error");
-    }
-                   completion:^(BOOL finished) { XCTFail(@"Should not invoke completion on error."); }
-                      onError:^(NSError* err) {
-        assertThat(err, is(testError));
-        [didCallError fulfill];
-    }
-              usingController:self.mockImageController];
-
+    UIImage* testImage     = [UIImage new];
+    
+    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    
+    [self.imageView setWmf_imageController:self.mockImageController];
+    
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.imageView wmf_setImageWithURL:testURL detectFaces:NO]
+    .then(^(){
+        assertThat(self.imageView.image, is(testImage));
+        [promiseExpectation fulfill];
+    })
+    .catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
+    });
+    
     WaitForExpectations();
+    
+    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:anything()];
 }
 
+
+- (void)testFailureOfImageCacheToDetectFacesOfImageWithNoFaces {
+    NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+    
+    [self.faceDetectionCache getFaceBoundsInImage:[UIImage new] URL:testURL]
+    .then(^(NSValue* bounds){
+        XCTAssert(CGRectIsEmpty([bounds CGRectValue]), @"Bounds should be null since the image has no data");
+        [promiseExpectation fulfill];
+    });
+    
+    WaitForExpectations();
+    
+    assertThat(@([self.faceDetectionCache imageAtURLRequiresFaceDetection:testURL]), isFalse());
+    assertThat([self.faceDetectionCache faceBoundsForURL:testURL], nilValue());
+
+}
 @end

@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param imageURL url of the image you want to set.
  *  @param detectFaces Set to YES to detect faces.
  */
-- (void)wmf_setImageWithURL:(NSURL*)imageURL detectFaces:(BOOL)detectFaces;
+- (AnyPromise*)wmf_setImageWithURL:(NSURL*)imageURL detectFaces:(BOOL)detectFaces;
 
 /**
  *  Set the receiver's @c image to the @c sourceURL of the given @c imageMetadata, optionally centering any faces found.
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param imageMetadata Metadata with the `sourceURL` of the image you want to set.
  *  @param detectFaces Set to YES to detect faces.
  */
-- (void)wmf_setImageWithMetadata:(MWKImage*)imageMetadata detectFaces:(BOOL)detectFaces;
+- (AnyPromise*)wmf_setImageWithMetadata:(MWKImage*)imageMetadata detectFaces:(BOOL)detectFaces;
 
 @end
 

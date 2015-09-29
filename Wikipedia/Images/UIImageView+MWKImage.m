@@ -83,6 +83,13 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     return _faceDetectionCache;
 }
 
+- (BOOL)wmf_imageRequiresFaceDetection{
+    if(self.wmf_imageURL){
+        return [[[self class] faceDetectionCache] imageAtURLRequiresFaceDetection:self.wmf_imageURL];
+    }else{
+        return [[[self class] faceDetectionCache] imageRequiresFaceDetection:self.wmf_imageMetadata];
+    }
+}
 - (NSValue*)wmf_faceBoundsInImage:(UIImage*)image{
     if(self.wmf_imageURL){
         return [[[self class] faceDetectionCache] faceBoundsForURL:self.wmf_imageURL];
@@ -140,9 +147,8 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
         return [self wmf_setImage:image faceBoundsValue:nil animated:animated];
     }
     
-    NSValue* faceBoundsValue = [self wmf_faceBoundsInImage:image];
-
-    if(faceBoundsValue){
+    if(![self wmf_imageRequiresFaceDetection]){
+        NSValue* faceBoundsValue = [self wmf_faceBoundsInImage:image];
         return [self wmf_setImage:image faceBoundsValue:faceBoundsValue animated:animated];
     }
     
@@ -194,19 +200,19 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     self.wmf_imageMetadata = nil;
 }
 
-- (void)wmf_setImageWithURL:(NSURL*)imageURL detectFaces:(BOOL)detectFaces{
+- (AnyPromise*)wmf_setImageWithURL:(NSURL*)imageURL detectFaces:(BOOL)detectFaces{
     [self wmf_cancelImageDownload];
     self.wmf_imageURL = imageURL;
     self.wmf_imageMetadata = nil;
-    [self wmf_fetchImageDetectFaces:detectFaces];
+    return [self wmf_fetchImageDetectFaces:detectFaces];
 }
 
 
-- (void)wmf_setImageWithMetadata:(MWKImage*)imageMetadata detectFaces:(BOOL)detectFaces{
+- (AnyPromise*)wmf_setImageWithMetadata:(MWKImage*)imageMetadata detectFaces:(BOOL)detectFaces{
     [self wmf_cancelImageDownload];
     self.wmf_imageMetadata = imageMetadata;
     self.wmf_imageURL = nil;
-    [self wmf_fetchImageDetectFaces:detectFaces];
+    return [self wmf_fetchImageDetectFaces:detectFaces];
 }
 
 @end

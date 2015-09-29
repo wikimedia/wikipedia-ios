@@ -23,6 +23,14 @@
     return self;
 }
 
+- (BOOL)imageAtURLRequiresFaceDetection:(NSURL*)url{
+    return ([self faceDetectionBoundsForURL:url] == nil);
+}
+
+- (BOOL)imageRequiresFaceDetection:(MWKImage*)imageMetadata{
+    return ![imageMetadata didDetectFaces];
+}
+
 - (NSValue*)faceBoundsForURL:(NSURL*)url{
     return [[self faceDetectionBoundsForURL:url] firstObject];
 }

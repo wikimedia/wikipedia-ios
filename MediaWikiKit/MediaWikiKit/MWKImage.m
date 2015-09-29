@@ -52,7 +52,7 @@
         self.mimeType                = [self optionalString:@"mimeType" dict:dict];
         self.width                   = [self optionalNumber:@"width" dict:dict];
         self.height                  = [self optionalNumber:@"height" dict:dict];
-        self.allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
+        _allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
             return [NSValue valueWithCGRect:CGRectFromString(rectString)];
         }];
     }
