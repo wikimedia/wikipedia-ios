@@ -265,7 +265,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)autoScrollToLastScrollOffsetIfNecessary {
-    #warning FIXME: causing jumpiness. how do we store offsets relative to the browser view frame?
+    #warning FIXME: causing jumpiness. 
+    // also, need to store offsets relative to the browser view frame in case we change the layout
     return;
     if (!self.jumpToFragment) {
         [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
