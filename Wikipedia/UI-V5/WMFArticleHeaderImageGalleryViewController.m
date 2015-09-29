@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
         return cell;
     }
 
-    [cell.imageView wmf_setImageWithFaceDetectionFromMetadata:self.images[indexPath.item]];
+    [cell.imageView wmf_setImageWithMetadata:self.images[indexPath.item] detectFaces:YES];
 
     return cell;
 }
