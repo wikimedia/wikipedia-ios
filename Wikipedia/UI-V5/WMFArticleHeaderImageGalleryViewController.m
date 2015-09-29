@@ -41,10 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
     [self.collectionView registerClass:[WMFImageCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
-
     self.collectionView.pagingEnabled = YES;
     WMFCollectionViewPageLayout* layout = (WMFCollectionViewPageLayout*)self.collectionViewLayout;
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0.f;
+    layout.minimumLineSpacing      = 0.f;
+    layout.sectionInset            = UIEdgeInsetsZero;
 }
 
 #pragma mark - Accessors

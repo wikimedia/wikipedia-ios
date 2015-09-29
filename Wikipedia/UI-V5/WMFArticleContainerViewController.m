@@ -20,6 +20,7 @@
 #import "UITabBarController+WMFExtensions.h"
 #import "WMFShareFunnel.h"
 #import "WMFShareOptionsController.h"
+#import "WMFImageGalleryViewController.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -46,7 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFWebViewControllerDelegate,
  WMFArticleViewControllerDelegate,
  UINavigationControllerDelegate,
- WMFPreviewControllerDelegate>
+ WMFPreviewControllerDelegate,
+ WMFArticleHeaderImageGalleryViewControllerDelegate,
+ WMFImageGalleryViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
@@ -153,12 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self observeArticleUpdates];
 
-    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
-    // see http://stackoverflow.com/a/2777460/48311
-    if ([self isViewLoaded] && self.view.window) {
-        self.articleViewController.article = article;
-        self.webViewController.article     = article;
-    }
+    [self updateChildrenWithArticle];
 }
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
@@ -205,8 +203,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleHeaderImageGalleryViewController*)headerGallery {
     if (!_headerGallery) {
-        _headerGallery = [[WMFArticleHeaderImageGalleryViewController alloc] init];
-        // TODO: add delegate callbacks for presenting full gallery
+        _headerGallery          = [[WMFArticleHeaderImageGalleryViewController alloc] init];
+        _headerGallery.delegate = self;
     }
     return _headerGallery;
 }
@@ -214,6 +212,16 @@ NS_ASSUME_NONNULL_BEGIN
 // TEMP: delete!
 - (WMFArticleViewController*)articleViewController {
     return nil;
+}
+
+- (void)updateChildrenWithArticle {
+    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
+    // see http://stackoverflow.com/a/2777460/48311
+    if ([self isViewLoaded] && self.view.window) {
+        self.articleViewController.article = self.article;
+        self.webViewController.article     = self.article;
+        [self.headerGallery setImagesFromArticle:self.article];
+    }
 }
 
 #pragma mark - Article Notifications
@@ -275,14 +283,13 @@ NS_ASSUME_NONNULL_BEGIN
         make.leading.trailing.equalTo(self.view);
         make.top.equalTo([self.webViewController.webView wmf_browserView].mas_bottom);
     }];
+    [self.readMoreListViewController didMoveToParentViewController:self];
 
     // TODO: add logo & authorship footer
 
-    [self.readMoreListViewController didMoveToParentViewController:self];
 
     if (self.article) {
-        self.webViewController.article = self.article;
-        [self.headerGallery setImagesFromArticle:self.article];
+        [self updateChildrenWithArticle];
     }
 
     [self.KVOControllerNonRetaining observe:self.webViewController.webView.scrollView
@@ -636,6 +643,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewController:(WMFPreviewController*)previewController didDismissViewController:(UIViewController*)viewController {
     self.previewController = nil;
+}
+
+#pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
+
+- (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
+     didSelectImageAtIndex:(NSUInteger)index {
+    NSParameterAssert(![self.presentingViewController isKindOfClass:[WMFImageGalleryViewController class]]);
+    WMFImageGalleryViewController* fullscreenGallery = [[WMFImageGalleryViewController alloc] initWithArticle:nil];
+    fullscreenGallery.delegate = self;
+    if (self.article.isCached) {
+        fullscreenGallery.article     = self.article;
+        fullscreenGallery.currentPage = index;
+    } else {
+        // TODO: simplify the "isCached"/"fetch if needed" logic here
+        if (!self.articleFetcherPromise) {
+            [self fetchArticle];
+        }
+        [fullscreenGallery setArticleWithPromise:self.articleFetcherPromise];
+    }
+    [self presentViewController:fullscreenGallery animated:YES completion:nil];
+}
+
+#pragma mark - WMFImageGalleryViewControllerDelegate
+
+- (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
+    self.headerGallery.currentPage = gallery.currentPage;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
