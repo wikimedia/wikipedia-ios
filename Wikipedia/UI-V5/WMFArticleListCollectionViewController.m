@@ -148,9 +148,6 @@
     /*
        Support programmatic or Storyboard instantiation by only instantiating views if they weren't set in the storyboard
      */
-    if (!self.view) {
-        self.view = [[UIView alloc] init];
-    }
     if (!self.collectionView) {
         self.collectionView          = [[self class] createCollectionView];
         self.collectionView.delegate = self;
