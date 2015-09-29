@@ -8,7 +8,7 @@ Note: as of Xcode 7.0 extensions ignore "@IBDesignable".
 So for now to see changes to these parameters update live in
 interface builder you need to add "@IBDesignable" to custom subclasses.
 */
-@IBDesignable extension UIView {
+extension UIView {
     
     @IBInspectable var borderWidth: CGFloat {
         get {
