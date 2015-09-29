@@ -61,8 +61,8 @@
     [self updateSavedButtonState];
 }
 
-- (SavedPagesFunnel*)savedPagesFunnel{
-    if(!_savedPagesFunnel){
+- (SavedPagesFunnel*)savedPagesFunnel {
+    if (!_savedPagesFunnel) {
         _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
     }
     return _savedPagesFunnel;
@@ -103,14 +103,14 @@
     [self unobserveSavedPages];
     [self.savedPageList toggleSavedPageForTitle:self.title];
     [self.savedPageList save];
-    
+
     BOOL isSaved = [self.savedPageList isSaved:self.title];
-    if(isSaved){
+    if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
-    }else{
+    } else {
         [self.savedPagesFunnel logDelete];
     }
-    
+
     [self observeSavedPages];
 }
 

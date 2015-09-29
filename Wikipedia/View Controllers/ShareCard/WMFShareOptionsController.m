@@ -45,28 +45,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFShareOptionsController
 
-- (void)cleanup{
-    
+- (void)cleanup {
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]];
     self.containerViewController = nil;
-    self.originButtonItem = nil;
-    self.originView = nil;
-    self.shareImage = nil;
-    self.snippet = nil;
+    self.originButtonItem        = nil;
+    self.originView              = nil;
+    self.shareImage              = nil;
+    self.snippet                 = nil;
 }
 
-
 - (instancetype)initWithArticle:(MWKArticle*)article
-                    shareFunnel:(WMFShareFunnel*)funnel{
-    
+                    shareFunnel:(WMFShareFunnel*)funnel {
     NSParameterAssert(article);
     NSParameterAssert(funnel);
     NSParameterAssert(article.title.desktopURL.absoluteString);
 
     self = [super init];
-    
+
     if (self) {
-        _article        = article;
+        _article     = article;
         _shareFunnel = funnel;
     }
     return self;
@@ -74,20 +71,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Public Presentation methods
 
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item{
-    self.snippet = [snippet copy];
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item {
+    self.snippet                 = [snippet copy];
     self.containerViewController = viewController;
-    self.originButtonItem = item;
-    self.originView = nil;
+    self.originButtonItem        = item;
+    self.originView              = nil;
     [self fetchImageThenShowShareCard];
 }
 
-
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view{
-    self.snippet = [snippet copy];
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view {
+    self.snippet                 = [snippet copy];
     self.containerViewController = viewController;
-    self.originButtonItem = nil;
-    self.originView = view;
+    self.originButtonItem        = nil;
+    self.originView              = view;
     [self fetchImageThenShowShareCard];
 }
 
@@ -107,18 +103,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Share Options Setup
 
 - (void)showShareOptionsWithImage:(nullable UIImage*)image {
-    
     [self setupBackgroundView];
 
     self.shareImage = [self cardImageWithArticleImage:image];
-    
+
     [self setupShareOptions];
-    
+
     [self presentShareOptions];
 }
 
-- (void)setupBackgroundView{
-    
+- (void)setupBackgroundView {
     UIView* containingView = self.containerViewController.view;
 
     UIView* grayOverlay = [[UIView alloc] initWithFrame:containingView.frame];
@@ -130,82 +124,76 @@ NS_ASSUME_NONNULL_BEGIN
                                              initWithTarget:self action:@selector(respondToDimAreaTapGesture:)];
     [grayOverlay addGestureRecognizer:tapRecognizer];
     grayOverlay.translatesAutoresizingMaskIntoConstraints = NO;
-    [grayOverlay mas_makeConstraints:^(MASConstraintMaker *make) {
-       
+    [grayOverlay mas_makeConstraints:^(MASConstraintMaker* make) {
         make.edges.equalTo(containingView);
     }];
 }
 
-- (void)setupShareOptions{
-    
+- (void)setupShareOptions {
     WMFShareOptionsView* shareOptionsView =
-    [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
+        [[[NSBundle mainBundle] loadNibNamed:@"ShareOptions" owner:self options:nil] objectAtIndex:0];
     shareOptionsView.cardImageViewContainer.userInteractionEnabled = YES;
     shareOptionsView.shareAsCardLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsTextLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsCardLabel.text                         = MWLocalizedString(@"share-as-image", nil);
     shareOptionsView.shareAsTextLabel.text                         = MWLocalizedString(@"share-as-text", nil);
     shareOptionsView.cardImageView.image                           = self.shareImage;
-    
+
     [self.containerViewController.view addSubview:shareOptionsView];
     self.shareOptions = shareOptionsView;
 }
 
 #pragma mark - Create Card Image
 
-- (UIImage*)cardImageWithArticleImage:(UIImage*)image{
+- (UIImage*)cardImageWithArticleImage:(UIImage*)image {
     WMFShareCardViewController* cardViewController =
-    [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
-    
+        [[WMFShareCardViewController alloc] initWithNibName:@"ShareCard" bundle:nil];
+
     UIView* cardView = cardViewController.view;
     [cardViewController fillCardWithMWKArticle:self.article snippet:self.snippet image:image];
-    
+
     return [cardView wmf_snapshotImage];
 }
 
-- (void)setContainerViewControllerActionsEnabled:(BOOL)enabled{
+- (void)setContainerViewControllerActionsEnabled:(BOOL)enabled {
     self.containerViewController.navigationController.navigationBar.userInteractionEnabled = enabled;
-    [self.containerViewController.navigationItem.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.containerViewController.navigationItem.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.enabled = enabled;
     }];
-    [self.containerViewController.navigationItem.rightBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.containerViewController.navigationItem.rightBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.enabled = enabled;
     }];
-    [self.containerViewController.toolbarItems enumerateObjectsUsingBlock:^(__kindof UIBarButtonItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.containerViewController.toolbarItems enumerateObjectsUsingBlock:^(__kindof UIBarButtonItem* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.enabled = enabled;
     }];
 }
 
-
 #pragma mark - Share Options
 
-- (void)presentShareOptions{
-    
+- (void)presentShareOptions {
     [self setContainerViewControllerActionsEnabled:NO];
-    
+
     UIView* containingView = self.containerViewController.view;
-    
-    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
+
+    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
 
         make.top.equalTo(containingView.mas_bottom);
     }];
-    
+
     [self.shareOptions layoutIfNeeded];
 
-    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
-    
+
         make.bottom.equalTo(self.containerViewController.mas_bottomLayoutGuide);
     }];
-    
+
     [UIView animateWithDuration:0.40 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
-        
         [self.shareOptions layoutIfNeeded];
         self.grayOverlay.alpha = 1.0;
-        
     } completion:^(BOOL finished) {
         UITapGestureRecognizer* tapForCardOnCardImageViewRecognizer = [[UITapGestureRecognizer alloc]
                                                                        initWithTarget:self action:@selector(respondToTapForCardGesture:)];
@@ -220,13 +208,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)dismissShareOptionsWithCompletion:(dispatch_block_t)completion {
-    
     UIView* containingView = self.containerViewController.view;
 
-    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [self.shareOptions mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.width.equalTo(containingView.mas_width);
         make.centerX.equalTo(containingView.mas_centerX);
-        
+
         make.top.equalTo(containingView.mas_bottom);
     }];
 
@@ -239,12 +226,11 @@ NS_ASSUME_NONNULL_BEGIN
         self.grayOverlay = nil;
         self.shareOptions = nil;
         [self setContainerViewControllerActionsEnabled:YES];
-        if(completion){
+        if (completion) {
             completion();
         }
     }];
 }
-
 
 #pragma mark - Tap Gestures
 
@@ -271,34 +257,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Snippet and Title Conversion
 
-- (NSString*)shareTitle{
+- (NSString*)shareTitle {
     return [self.article.title.text length] > 0 ? [self.article.title.text copy] : @"";
 }
 
-- (NSString*)snippetForTextOnlySharing{
+- (NSString*)snippetForTextOnlySharing {
     return [self.snippet length] > 0 ? [self.snippet copy] : @"";
 }
 
-- (NSString*)titleForActivityWithCard{
+- (NSString*)titleForActivityWithCard {
     return [MWLocalizedString(@"share-article-name-on-wikipedia", nil)
-                       stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
+            stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
 }
 
-- (NSString*)titleForActivityTextOnly{
+- (NSString*)titleForActivityTextOnly {
     if ([self snippetForTextOnlySharing].length == 0) {
         return [MWLocalizedString(@"share-article-name-on-wikipedia", nil)
-                           stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
+                stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle];
     } else {
         return [[MWLocalizedString(@"share-article-name-on-wikipedia-with-selected-text", nil)
-                            stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle]
-                           stringByReplacingOccurrencesOfString:@"$2" withString:[self snippetForTextOnlySharing]];
+                 stringByReplacingOccurrencesOfString:@"$1" withString:self.shareTitle]
+                stringByReplacingOccurrencesOfString:@"$2" withString:[self snippetForTextOnlySharing]];
     }
 }
 
 #pragma mark - Activity View Controller
 
 - (void)presentActivityViewControllerWithImage:(nullable UIImage*)image title:(NSString*)title {
-   
     NSString* parameter = image ? @"wprov=sfii1" : @"wprov=sfti1";
 
     NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
@@ -309,62 +294,57 @@ NS_ASSUME_NONNULL_BEGIN
     if (image) {
         [activityItems addObject:image];
     }
-    
+
     UIActivityViewController* shareActivityVC =
-    [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                      applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
-    
+        [[UIActivityViewController alloc] initWithActivityItems:activityItems
+                                          applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
+
     shareActivityVC.excludedActivityTypes = @[
-                                              UIActivityTypePrint,
-                                              UIActivityTypeAssignToContact,
-                                              UIActivityTypeAirDrop,
-                                              UIActivityTypeAddToReadingList
-                                              ];;
-    
-    [shareActivityVC setCompletionWithItemsHandler:^(NSString * __nullable activityType, BOOL completed, NSArray * __nullable returnedItems, NSError * __nullable activityError){
+        UIActivityTypePrint,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeAirDrop,
+        UIActivityTypeAddToReadingList
+    ];;
+
+    [shareActivityVC setCompletionWithItemsHandler:^(NSString* __nullable activityType, BOOL completed, NSArray* __nullable returnedItems, NSError* __nullable activityError){
         if (completed) {
             [self.shareFunnel logShareSucceededWithShareMethod:activityType];
         } else {
             [self.shareFunnel logShareFailedWithShareMethod:activityType];
         }
     }];
-    
+
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [self.containerViewController presentViewController:shareActivityVC animated:YES completion:nil];
     } else {
-        
-        self.popover = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
+        self.popover          = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
         self.popover.delegate = self;
-        
-        if(self.originButtonItem){
 
+        if (self.originButtonItem) {
             [self.popover presentPopoverFromBarButtonItem:self.originButtonItem
                                  permittedArrowDirections:UIPopoverArrowDirectionAny
                                                  animated:YES];
-        }else{
-            
+        } else {
             CGRect frame = self.originView.frame;
-            if(CGRectIsNull(frame)){
-                frame  = self.containerViewController.view.frame;
-            }else{
+            if (CGRectIsNull(frame)) {
+                frame = self.containerViewController.view.frame;
+            } else {
                 frame = [self.containerViewController.view convertRect:frame fromView:self.originView.superview];
             }
-            
+
             [self.popover presentPopoverFromRect:frame
                                           inView:self.containerViewController.view
                         permittedArrowDirections:UIPopoverArrowDirectionAny
                                         animated:YES];
         }
     }
-    
+
     [self cleanup];
 }
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+- (void)popoverControllerDidDismissPopover:(UIPopoverController*)popoverController {
     self.popover = nil;
 }
-
-
 
 @end
 
