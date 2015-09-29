@@ -274,11 +274,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIBarButtonItem*)refreshToolbarItem {
+    @weakify(self);
     UIBarButtonItem* refreshButton =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                      target:self
-                                                      action:@selector(didTapRefresh)];
-    refreshButton.tintColor = [UIColor blackColor];
+        [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id  _Nonnull sender) {
+            @strongify(self);
+            [self didTapRefresh];
+        }];
     return refreshButton;
 }
 
@@ -300,11 +301,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
     UIBarButtonItem* shareButton =
-        [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction handler:^(id sender){
-        @strongify(self)
-        [self shareArticleWithTextSnippet :[self.webViewController selectedText] fromButton : sender];
+        [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+        @strongify(self);
+        [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
     }];
-    shareButton.tintColor = [UIColor blackColor];
     return shareButton;
 }
 
