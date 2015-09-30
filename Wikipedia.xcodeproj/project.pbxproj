@@ -2404,6 +2404,7 @@
 				0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */,
 				0E366B3D1B2F5C4500ABFB86 /* WMFSearchFetcher.h */,
 				0E366B3E1B2F5C4500ABFB86 /* WMFSearchFetcher.m */,
+				BC32F6AB1BB5B35D007FDF65 /* Search.storyboard */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -2508,7 +2509,6 @@
 		0E94AFE81B2096D5000BC5EA /* UI-V5 */ = {
 			isa = PBXGroup;
 			children = (
-				BC32F6AB1BB5B35D007FDF65 /* Search.storyboard */,
 				0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */,
 				0EFB48091B3BB01300381F99 /* Style */,
 				0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */,
