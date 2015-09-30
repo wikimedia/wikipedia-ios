@@ -11,9 +11,6 @@
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFFaceDetectionCache.h"
 
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF DDLogLevelVerbose
-
 NS_ASSUME_NONNULL_BEGIN
 
 static const char* const MWKURLAssociationKey = "MWKURL";
@@ -65,11 +62,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 }
 
 - (NSURL*)wmf_imageURLToFetch{
-    NSURL* imageURL = self.wmf_imageURL;
-    if(!imageURL){
-        imageURL = self.wmf_imageMetadata.sourceURL;
-    }
-    return imageURL;
+    return self.wmf_imageURL ? : self.wmf_imageMetadata.sourceURL;
 }
 
 #pragma mark - Face Detection
@@ -113,7 +106,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     NSURL* imageURL = [self wmf_imageURLToFetch];
 
     if(!imageURL){
-        return [AnyPromise promiseWithValue:nil];
+        return [AnyPromise promiseWithValue:[NSError cancelledError]];
     }
     
     UIImage* cachedImage = [self wmf_cachedImage];
@@ -152,9 +145,14 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
         return [self wmf_setImage:image faceBoundsValue:faceBoundsValue animated:animated];
     }
     
+    NSURL* imageURL = [self wmf_imageURLToFetch];
     return [self wmf_getFaceBoundsInImage:image]
-    .then(^(NSValue* bounds) {
-        return [self wmf_setImage:image faceBoundsValue:bounds animated:animated];
+    .then(^id (NSValue* bounds) {
+        if (!WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+            return [NSError cancelledError];
+        } else {
+            return [self wmf_setImage:image faceBoundsValue:bounds animated:animated];
+        }
     });
 }
 
@@ -170,13 +168,18 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
         if (!CGRectIsEmpty(faceBounds)) {
             [self wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:faceBounds]
                                              image:image];
+        }else{
+            [self wmf_resetContentOffset];
         }
         
+        NSURL* imageURL = [self wmf_imageURLToFetch];
         [UIView transitionWithView:self
                           duration:animated ? [CATransaction animationDuration] : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-                            self.image = image;
+                            if (WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
+                                self.image = image;
+                            }
                         }
                         completion:^(BOOL finished) {
                             resolve(nil);
