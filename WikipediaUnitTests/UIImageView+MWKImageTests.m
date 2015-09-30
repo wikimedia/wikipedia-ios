@@ -78,6 +78,9 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
+              @"Face detection should have ran.");
+
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 
     WaitForExpectations();
@@ -110,8 +113,11 @@
               @"Image controller should be set immediately after the method is called so it can be cancelled.");
     
     XCTAssert(self.imageView.wmf_imageURL == testURL,
-              @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
-    
+              @"Image url should be set immediately after the method is called so it can be checked & cancelled.");
+
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == NO,
+              @"Face detection should have ran.");
+
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
     
     WaitForExpectations();
@@ -148,6 +154,9 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+              @"Face detection should NOT have ran.");
+
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 
     WaitForExpectations();
@@ -182,6 +191,9 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
     
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
+              @"Face detection should NOT have ran.");
+
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
     
     WaitForExpectations();
@@ -214,6 +226,9 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+              @"Face detection should NOT have ran.");
+
     WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
@@ -244,6 +259,9 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
     
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
+              @"Face detection should NOT have ran.");
+
     WaitForExpectations();
     
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
@@ -276,6 +294,9 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
+              @"Face detection should have ran.");
+
     WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
@@ -307,6 +328,9 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
     
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == NO,
+              @"Face detection should have ran.");
+
     WaitForExpectations();
     
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
@@ -354,6 +378,8 @@
         XCTFail(@"Promise fullfilled erroneously with url %@", [testURL description]);
     })
     .catch(^(NSError* error){
+        XCTAssert([error domain] == NSURLErrorDomain && [error code] == NSURLErrorCannotConnectToHost,
+                  @"Error shoudl be the one passed to the mock");
         [promiseExpectation fulfill];
     });
     
