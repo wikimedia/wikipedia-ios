@@ -172,14 +172,11 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
             [self wmf_resetContentOffset];
         }
         
-        NSURL* imageURL = [self wmf_imageURLToFetch];
         [UIView transitionWithView:self
                           duration:animated ? [CATransaction animationDuration] : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-                            if (WMF_EQUAL([self wmf_imageURLToFetch], isEqual:, imageURL)) {
-                                self.image = image;
-                            }
+                            self.image = image;
                         }
                         completion:^(BOOL finished) {
                             resolve(nil);
