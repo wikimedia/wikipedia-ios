@@ -6,7 +6,7 @@
 #import "MWKTitle.h"
 
 #import "UIView+WMFShadow.h"
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 #import "UIButton+WMFButton.h"
 
 @interface WMFSaveableTitleCollectionViewCell ()
@@ -44,8 +44,8 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.title           = nil;
-    self.imageURL        = nil;
+    self.title = nil;
+    [self.imageView wmf_reset];
     self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
 }
 
@@ -88,28 +88,11 @@
 }
 
 - (void)setImageURL:(NSURL*)imageURL {
-    [[WMFImageController sharedInstance] cancelFetchForURL:self.imageURL];
-    [self.imageView wmf_resetImageMetadata];
-
-    _imageURL = imageURL;
-    @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:imageURL]
-    .then(^id (WMFImageDownload* download) {
-        @strongify(self);
-        if ([self.imageURL isEqual:imageURL]) {
-            self.imageView.image = download.image;
-        }
-        return nil;
-    })
-    .catch(^(NSError* error){
-        //TODO: Show placeholder
-    });
+    [self.imageView wmf_setImageWithURL:imageURL detectFaces:YES];
 }
 
 - (void)setImage:(MWKImage*)image {
-    if (image) {
-        [self.imageView wmf_setImageWithFaceDetectionFromMetadata:image];
-    }
+    [self.imageView wmf_setImageWithMetadata:image detectFaces:YES];
 }
 
 @end

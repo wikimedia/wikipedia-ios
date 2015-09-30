@@ -27,7 +27,7 @@
  */
 - (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
-@property (copy, nonatomic) NSURL* imageURL;
+- (void)setImageURL:(NSURL*)imageURL;
 
 - (void)setImage:(MWKImage*)image;
 
