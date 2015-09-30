@@ -1,11 +1,9 @@
 #import "WMFArticleContainerViewController.h"
-
 #import "Wikipedia-Swift.h"
 
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
-
 
 // Controller
 #import "WMFArticleViewController.h"
@@ -96,10 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.savedPageList = savedPages;
         self.dataStore     = dataStore;
-        // necessary to make sure tabbar/toolbar transitions happen when they're supposed to if this class is
-        // instantiated programmatically
-        self.hidesBottomBarWhenPushed = YES;
-        [self setupToolbar];
+        [self commonInit];
     }
     return self;
 }
@@ -107,12 +102,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype __nullable)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        // necessary to make sure tabbar/toolbar transitions happen when they're supposed to, if this class is
-        // referenced in a storyboard
-        self.hidesBottomBarWhenPushed = YES;
-        [self setupToolbar];
+        [self commonInit];
     }
     return self;
+}
+
+- (void)commonInit {
+    // prevents the toolbar from being rendered above where the tabbar used to be
+    self.hidesBottomBarWhenPushed = YES;
+    [self setupToolbar];
 }
 
 #pragma mark - Accessors

@@ -366,7 +366,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
       willShowViewController:(UIViewController*)viewController
                     animated:(BOOL)animated {
     BOOL isToolbarEmpty = [viewController toolbarItems].count == 0;
-    [self.rootTabBarController wmf_setTabBarVisible:isToolbarEmpty animated:NO completion:nil];
     [navigationController setToolbarHidden:isToolbarEmpty];
 }
 
