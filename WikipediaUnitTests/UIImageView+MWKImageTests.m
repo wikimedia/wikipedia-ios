@@ -44,6 +44,7 @@
 
 - (void)tearDown {
     [super tearDown];
+    [[UIImageView faceDetectionCache] clearCache];
 }
 
 #pragma mark - Fetch Tests
@@ -64,7 +65,6 @@
 
     [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:YES]
     .then(^(){
-        assertThat(self.imageView.image, is(successfulDownload.image));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -77,14 +77,17 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
-              @"Face detection should have ran.");
-
-    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
-
     WaitForExpectations();
 
+    assertThat(self.imageView.image, is(successfulDownload.image));
+
     assertThat(@(testMetadata.didDetectFaces), isTrue());
+    
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
+              @"Face detection should have ran.");
+    
+    [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
+
 }
 
 - (void)testSuccessfullySettingImageFromURLWithCenterFaces {
@@ -101,7 +104,6 @@
 
     [self.imageView wmf_setImageWithURL:testURL detectFaces:YES]
     .then(^(){
-        assertThat(self.imageView.image, is(successfulDownload.image));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -114,12 +116,14 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image url should be set immediately after the method is called so it can be checked & cancelled.");
 
+    WaitForExpectations();
+
+    assertThat(self.imageView.image, is(successfulDownload.image));
+
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == NO,
               @"Face detection should have ran.");
-
+    
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
-
-    WaitForExpectations();
 }
 
 - (void)testSuccessfullySettingImageFromMetadataWithoutCenterFaces {
@@ -138,7 +142,6 @@
 
     [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO]
     .then(^(){
-        assertThat(self.imageView.image, is(successfulDownload.image));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -151,12 +154,15 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
-              @"Face detection should NOT have ran.");
 
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 
     WaitForExpectations();
+
+    assertThat(self.imageView.image, is(successfulDownload.image));
+
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+              @"Face detection should NOT have ran.");
 
     assertThat(@(testMetadata.didDetectFaces), isFalse());
 }
@@ -175,7 +181,6 @@
 
     [self.imageView wmf_setImageWithURL:testURL detectFaces:NO]
     .then(^(){
-        assertThat(self.imageView.image, is(successfulDownload.image));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -188,12 +193,15 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    WaitForExpectations();
+
+    assertThat(self.imageView.image, is(successfulDownload.image));
+
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
               @"Face detection should NOT have ran.");
 
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
 
-    WaitForExpectations();
 }
 
 - (void)testSuccessfullySettingCachedImageWithoutCenterFaces {
@@ -209,7 +217,6 @@
 
     [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:NO]
     .then(^(){
-        assertThat(self.imageView.image, is(testImage));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -222,10 +229,12 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    WaitForExpectations();
+
+    assertThat(self.imageView.image, is(testImage));
+
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
               @"Face detection should NOT have ran.");
-
-    WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }
@@ -242,7 +251,6 @@
 
     [self.imageView wmf_setImageWithURL:testURL detectFaces:NO]
     .then(^(){
-        assertThat(self.imageView.image, is(testImage));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -255,10 +263,12 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    WaitForExpectations();
+
+    assertThat(self.imageView.image, is(testImage));
+
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
               @"Face detection should NOT have ran.");
-
-    WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }
@@ -277,7 +287,6 @@
 
     [self.imageView wmf_setImageWithMetadata:testMetadata detectFaces:YES]
     .then(^(){
-        assertThat(self.imageView.image, is(testImage));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -290,10 +299,12 @@
     XCTAssert(self.imageView.wmf_imageMetadata == testMetadata,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    WaitForExpectations();
+
+    assertThat(self.imageView.image, is(testImage));
+
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
               @"Face detection should have ran.");
-
-    WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }
@@ -310,7 +321,6 @@
 
     [self.imageView wmf_setImageWithURL:testURL detectFaces:YES]
     .then(^(){
-        assertThat(self.imageView.image, is(testImage));
         [promiseExpectation fulfill];
     })
     .catch(^(NSError* error){
@@ -323,10 +333,12 @@
     XCTAssert(self.imageView.wmf_imageURL == testURL,
               @"Image metadata should be set immediately after the method is called so it can be checked & cancelled.");
 
+    WaitForExpectations();
+
+    assertThat(self.imageView.image, is(testImage));
+
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == NO,
               @"Face detection should have ran.");
-
-    WaitForExpectations();
 
     [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
 }

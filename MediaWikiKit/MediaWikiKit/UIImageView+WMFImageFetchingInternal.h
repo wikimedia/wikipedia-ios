@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIImageView (WMFAssociatedObjects)
+@interface UIImageView (WMFImageFetchingInternal)
 
 /**
  *   The cache used to hold any detected faces

@@ -84,22 +84,6 @@
 
 #pragma mark - Detection
 
-- (void)testDetectingFacesInFacelessImage {
-    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
-
-    UIImage* facelessImage = [UIImage imageNamed:@"golden-gate.jpg"
-                                        inBundle:[self wmf_bundle]
-                   compatibleWithTraitCollection:nil];
-    NSParameterAssert(facelessImage);
-
-    [self expectAnyPromiseToResolve:^AnyPromise*{
-        return [self.faceDetectionCache detectFaceBoundsInImage:facelessImage imageMetadata:self.image];
-    } timeout:WMFDefaultExpectationTimeout * 2 WMFExpectFromHere];
-
-    XCTAssertTrue(self.image.didDetectFaces);
-    XCTAssertFalse(self.image.hasFaces);
-}
-
 - (void)testShouldSetDidDetectFacesIfPassedNilFeatures {
     self.image                         = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
     self.image.allNormalizedFaceBounds = nil;

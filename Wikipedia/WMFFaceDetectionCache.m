@@ -91,4 +91,9 @@
     return [self.faceDetectionBoundsKeyedByURL objectForKey:url];
 }
 
+- (void)clearCache{
+    [self.faceDetectionBoundsKeyedByURL removeAllObjects];
+}
+
+
 @end

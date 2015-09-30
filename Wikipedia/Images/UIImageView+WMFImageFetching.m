@@ -19,7 +19,9 @@ static const char* const MWKImageAssociationKey = "MWKImage";
 
 static const char* const WMFImageControllerAssociationKey = "WMFImageController";
 
-@implementation UIImageView (WMFAssociatedObjects)
+@implementation UIImageView (WMFImageFetchingInternal)
+
+#pragma mark - Associated Objects
 
 - (WMFImageController* __nullable)wmf_imageController {
     WMFImageController* controller = [self bk_associatedValueForKey:WMFImageControllerAssociationKey];
@@ -48,11 +50,6 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 - (void)wmf_setImageURL:(nullable NSURL*)imageURL {
     [self bk_associateValue:imageURL withKey:MWKURLAssociationKey];
 }
-
-@end
-
-@implementation UIImageView (WMFImageFetchingInternal)
-
 
 #pragma mark - Cached Image
 

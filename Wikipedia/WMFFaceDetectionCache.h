@@ -13,4 +13,6 @@
 - (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata;
 - (NSValue*)faceBoundsForImageMetadata:(MWKImage*)imageMetadata;
 
+- (void)clearCache;
+
 @end
