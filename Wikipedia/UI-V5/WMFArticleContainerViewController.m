@@ -273,10 +273,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)refreshToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id  _Nonnull sender) {
-            @strongify(self);
-            [self fetchArticle];
-        }];
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id _Nonnull sender) {
+        @strongify(self);
+        [self fetchArticle];
+    }];
 }
 
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
