@@ -19,6 +19,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
+#import "WMFCollectionViewPageLayout.h"
 
 // Model
 #import "MWKArticle.h"
@@ -31,6 +32,24 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
+
+- (instancetype)init {
+    return [self initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.collectionView registerClass:[WMFImageCollectionViewCell class]
+            forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
+    self.collectionView.pagingEnabled = YES;
+    WMFCollectionViewPageLayout* layout = (WMFCollectionViewPageLayout*)self.collectionViewLayout;
+    layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0.f;
+    layout.minimumLineSpacing      = 0.f;
+    layout.sectionInset            = UIEdgeInsetsZero;
+}
+
+#pragma mark - Accessors
 
 - (CIDetector*)faceDetector {
     if (!_faceDetector) {

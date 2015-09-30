@@ -16,7 +16,7 @@
     // Reminder - this webView subview has the sizes we want constrain
     // "view" to, but the constraints themselves need to be added to
     // the webView's scrollView.
-    UIView* browserView = [self.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
+    UIView* browserView = [self wmf_browserView];
     NSParameterAssert(browserView);
     void (^ constrainEqually)(NSLayoutAttribute) = ^(NSLayoutAttribute attr) {
         [webScrollView addConstraint:
@@ -33,6 +33,10 @@
     constrainEqually([self layoutAttributeForTrackingViewLocation:location]);
     constrainEqually(NSLayoutAttributeLeading);
     constrainEqually(NSLayoutAttributeWidth);
+}
+
+- (UIView*)wmf_browserView {
+    return [self.scrollView wmf_firstSubviewOfClass:NSClassFromString(@"UIWebBrowserView")];
 }
 
 - (NSLayoutAttribute)layoutAttributeForTrackingViewLocation:(WMFTrackingViewLocation)location {

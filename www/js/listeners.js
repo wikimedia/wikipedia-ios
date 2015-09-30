@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     transformer.transform( "moveFirstGoodParagraphUp", document );
     transformer.transform( "hideRedlinks", document );
+    transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
     transformer.transform( "widenImages", document );
     transformer.transform( "hideTables", document );
@@ -86,7 +87,9 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
     var href = hrefTarget.getAttribute( "href" );
     var hrefClass = hrefTarget.getAttribute('class');
-    if (href && refs.isReference(href)) {
+    if (hrefTarget.getAttribute( "data-action" ) === "edit_section") {
+        bridge.sendMessage( 'editClicked', { sectionId: hrefTarget.getAttribute( "data-id" ) });
+    } else if (href && refs.isReference(href)) {
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {

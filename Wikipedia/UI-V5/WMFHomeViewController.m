@@ -39,6 +39,7 @@
 
 // Controllers
 #import "WMFLocationManager.h"
+#import "UITabBarController+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -168,11 +169,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self flowLayout].minimumLineSpacing  = 10.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setToolbarHidden:YES animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
