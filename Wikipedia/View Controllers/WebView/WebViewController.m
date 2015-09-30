@@ -816,7 +816,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
             MWKImage* selectedImage = [strSelf.article.images largestImageVariantForURL:selectedImageURL
-                                                                                            cachedOnly:NO];
+                                                                             cachedOnly:NO];
             NSCParameterAssert(selectedImage);
             [strSelf presentGalleryForArticle:strSelf.article showingImage:selectedImage];
         }];
@@ -1355,7 +1355,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)updateBottomBarButtonsEnabledState {
-    self.buttonLanguages.enabled            = !(self.article.isMain && [self.article languagecount] > 0);
+    self.buttonLanguages.enabled = !(self.article.isMain && [self.article languagecount] > 0);
 }
 
 - (BOOL)isCurrentArticleSaved {
@@ -1713,8 +1713,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
 }
-
-
 
 #pragma mark - Article loading convenience
 
