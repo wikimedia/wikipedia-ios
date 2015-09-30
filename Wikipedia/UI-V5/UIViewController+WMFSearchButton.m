@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFSearchButton)
 
-- (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate> *)delegate {
+- (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
     @weakify(self);
     @weakify(delegate);
     return [UIBarButtonItem wmf_buttonType:WMFButtonTypeMagnify handler:^(id sender) {

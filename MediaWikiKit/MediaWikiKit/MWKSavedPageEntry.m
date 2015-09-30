@@ -31,7 +31,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     NSParameterAssert(title);
     self = [self initWithSite:title.site];
     if (self) {
-        self.title               = title;
+        self.title = title;
         // defaults to true for instances since new image data will go to the correct location
         self.didMigrateImageData = YES;
     }

@@ -49,11 +49,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 + (UIViewController*)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
     searchVC.searchSite = site;
-    searchVC.dataStore = dataStore;
+    searchVC.dataStore  = dataStore;
     return [[UINavigationController alloc] initWithRootViewController:searchVC];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self configureNavigationItem];

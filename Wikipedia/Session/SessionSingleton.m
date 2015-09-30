@@ -57,7 +57,7 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
         self.zeroConfigState             = [[ZeroConfigState alloc] init];
         self.zeroConfigState.disposition = false;
 
-        self.dataStore     = dataStore;
+        self.dataStore = dataStore;
 
         _currentArticleSite = [self lastKnownSite];
     }

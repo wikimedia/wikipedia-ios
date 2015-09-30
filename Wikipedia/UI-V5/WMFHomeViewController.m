@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.navigationItem.titleView =
             [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
-        self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
+        self.navigationItem.leftBarButtonItem  = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
