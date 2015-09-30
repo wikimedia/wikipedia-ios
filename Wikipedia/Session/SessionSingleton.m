@@ -13,7 +13,6 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 @interface SessionSingleton ()
 
 @property (strong, nonatomic, readwrite) MWKDataStore* dataStore;
-@property (strong, nonatomic, readwrite) MWKUserDataStore* userDataStore;
 
 @property (strong, nonatomic) WMFAssetsFile* mainPages;
 
@@ -59,11 +58,14 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
         self.zeroConfigState.disposition = false;
 
         self.dataStore     = dataStore;
-        self.userDataStore = [dataStore userDataStore];
 
         _currentArticleSite = [self lastKnownSite];
     }
     return self;
+}
+
+- (MWKUserDataStore*)userDataStore {
+    return self.dataStore.userDataStore;
 }
 
 #pragma mark - Site
