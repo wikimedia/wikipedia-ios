@@ -32,7 +32,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     return controller;
 }
 
-- (void)setWmf_imageController:(WMFImageController* __nullable)imageController {
+- (void)wmf_setImageController:(nullable WMFImageController *)imageController{
     [self bk_associateValue:imageController withKey:WMFImageControllerAssociationKey];
 }
 
@@ -40,7 +40,7 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     return [self bk_associatedValueForKey:MWKImageAssociationKey];
 }
 
-- (void)setWmf_imageMetadata:(MWKImage* __nullable)imageMetadata {
+- (void)wmf_setImageMetadata:(nullable MWKImage *)imageMetadata{
     [self bk_associateValue:imageMetadata withKey:MWKImageAssociationKey];
 }
 
@@ -48,8 +48,8 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
     return [self bk_associatedValueForKey:MWKURLAssociationKey];
 }
 
-- (void)setWmf_imageURL:(MWKImage* __nullable)imageMetadata {
-    [self bk_associateValue:imageMetadata withKey:MWKURLAssociationKey];
+- (void)wmf_setImageURL:(nullable NSURL *)imageURL{
+    [self bk_associateValue:imageURL withKey:MWKURLAssociationKey];
 }
 
 @end
@@ -100,9 +100,9 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 
 - (AnyPromise*)wmf_getFaceBoundsInImage:(UIImage*)image{
     if(self.wmf_imageURL){
-        return [[[self class] faceDetectionCache] getFaceBoundsInImage:image URL:self.wmf_imageURL];
+        return [[[self class] faceDetectionCache] detectFaceBoundsInImage:image URL:self.wmf_imageURL];
     }else{
-        return [[[self class] faceDetectionCache] getFaceBoundsInImage:image imageMetadata:self.wmf_imageMetadata];
+        return [[[self class] faceDetectionCache] detectFaceBoundsInImage:image imageMetadata:self.wmf_imageMetadata];
     }
 }
 

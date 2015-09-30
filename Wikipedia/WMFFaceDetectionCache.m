@@ -39,7 +39,7 @@
     return [imageMetadata.allNormalizedFaceBounds firstObject];
 }
 
-- (AnyPromise*)getFaceBoundsInImage:(UIImage*)image URL:(NSURL*)url{
+- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image URL:(NSURL*)url{
     NSArray* savedBounds = [self faceDetectionBoundsForURL:url];
     if(savedBounds){
         return [AnyPromise promiseWithValue:[savedBounds firstObject]];
@@ -52,7 +52,7 @@
     }
 }
 
-- (AnyPromise*)getFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata{
+- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata{
     NSArray* savedBounds = imageMetadata.allNormalizedFaceBounds;
     if(savedBounds){
         return [AnyPromise promiseWithValue:[savedBounds firstObject]];

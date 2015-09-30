@@ -59,7 +59,7 @@
     [given([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
     
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
@@ -93,7 +93,7 @@
     [given([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
     
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
     
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
@@ -129,7 +129,7 @@
     [given([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
     
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
 
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
@@ -163,7 +163,7 @@
     [given([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
     
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
     
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
@@ -195,7 +195,7 @@
 
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
 
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
@@ -225,7 +225,7 @@
     
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
     
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
     
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
@@ -257,7 +257,7 @@
 
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
 
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
@@ -288,7 +288,7 @@
     
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
     
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
     
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
@@ -367,7 +367,7 @@
 
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
 
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
 
@@ -391,7 +391,7 @@
     
     [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
     
-    [self.imageView setWmf_imageController:self.mockImageController];
+    [self.imageView wmf_setImageController:self.mockImageController];
     
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
@@ -414,7 +414,7 @@
     NSURL* testURL         = [NSURL URLWithString:@"http://test/request.png"];
     XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
     
-    [self.faceDetectionCache getFaceBoundsInImage:[UIImage new] URL:testURL]
+    [self.faceDetectionCache detectFaceBoundsInImage:[UIImage new] URL:testURL]
     .then(^(NSValue* bounds){
         XCTAssert(CGRectIsEmpty([bounds CGRectValue]), @"Bounds should be null since the image has no data");
         [promiseExpectation fulfill];

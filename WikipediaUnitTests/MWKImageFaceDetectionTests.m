@@ -93,7 +93,7 @@
     NSParameterAssert(facelessImage);
 
     [self expectAnyPromiseToResolve:^AnyPromise*{
-        return [self.faceDetectionCache getFaceBoundsInImage:facelessImage imageMetadata:self.image];
+        return [self.faceDetectionCache detectFaceBoundsInImage:facelessImage imageMetadata:self.image];
     } timeout:WMFDefaultExpectationTimeout * 2 WMFExpectFromHere];
 
     XCTAssertTrue(self.image.didDetectFaces);
