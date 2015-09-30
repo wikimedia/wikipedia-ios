@@ -9,7 +9,6 @@
 #import "WMFImageCollectionViewCell.h"
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImageView+WMFImageFetching.h"
-#import "UIImageView+MWKImage.h"
 #import <Masonry/Masonry.h>
 
 @implementation WMFImageCollectionViewCell
