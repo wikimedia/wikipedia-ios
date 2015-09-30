@@ -1,11 +1,13 @@
-var sectionHeaders = require("./sectionHeaders");
+// var sectionHeaders = require("./sectionHeaders");
 
+/*
 function scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId){
     var header = sectionHeaders.getSectionHeaderForId(fragmentId);
     if  (header.id != fragmentId){
         window.scrollBy(0, -header.getBoundingClientRect().height);
     }
 }
+*/
 
 function scrollToFragment(fragmentId){
     location.hash = '';
@@ -16,7 +18,7 @@ function scrollToFragment(fragmentId){
     static section header, so shift it down by the static section header 
     height in these cases.
     */
-    scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId);
+    //scrollDownByTopMostSectionHeaderHeightIfNecessary(fragmentId);
 }
 
 global.scrollToFragment = scrollToFragment;

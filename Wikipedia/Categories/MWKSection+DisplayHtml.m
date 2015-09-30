@@ -12,30 +12,47 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 - (NSString*)displayHTML:(NSString*)html {
     BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
 
-    return
-        [NSString stringWithFormat:@"<div id='section_heading_and_content_block_%ld'>%@<div id='content_block_%ld' class='content_block'>%@</div></div>",
-         (long)self.sectionId,
-         (isMainPage ? @"" : [self getHeaderTag]),
-         (long)self.sectionId,
-         html
-        ];
+    return [NSString stringWithFormat:
+            @"<div id='section_heading_and_content_block_%d'>%@<div id='content_block_%d' class='content_block'>%@%@</div></div>",
+            self.sectionId,
+            (isMainPage ? @"" : [self getHeaderTag]),
+            self.sectionId,
+            (([self isLeadSection]) && !isMainPage) ? [self getEditPencilAnchor] : @"",
+            html
+    ];
 }
 
 - (NSString*)getHeaderTag {
-    NSUInteger headingSize = [self getHeadingTagSize];
-    return
-        [NSString stringWithFormat:@"<h%ld class='section_heading' id='%@' sectionId='%d'>%@</h%ld>%@",
-         headingSize,
-         self.anchor,
-         self.sectionId,
-         [self isLeadSection] ? self.title.text : self.line,
-         headingSize,
-         [self isLeadSection] ? MWKSectionDisambigAndPageIssuesPlaceholderDiv : @""
-        ];
+    NSString* pencilAnchor = [self getEditPencilAnchor];
+    if ([self isLeadSection]) {
+        return [NSString stringWithFormat:
+                @"<h1 class='section_heading' id='%@' sectionId='%d'>%@</h1>%@",
+                self.anchor,
+                self.sectionId,
+                self.title.text,
+                MWKSectionDisambigAndPageIssuesPlaceholderDiv];
+    } else {
+        short headingTagSize = [self getHeadingTagSize];
+        return [NSString stringWithFormat:
+                @"<h%d class='section_heading' data-id='%d' id='%@'>%@%@</h%d>",
+                headingTagSize,
+                self.sectionId,
+                self.anchor,
+                self.line,
+                pencilAnchor,
+                headingTagSize];
+    }
 }
 
-- (NSInteger)getHeadingTagSize {
-    return MIN(MAX(self.level.integerValue, 1), 6);
+- (short)getHeadingTagSize {
+    return WMFStrictClamp(1, self.level.integerValue, 6);
+}
+
+- (NSString*)getEditPencilAnchor {
+    return [NSString stringWithFormat:
+            @"<a class='edit_section_button' data-action='edit_section' data-id='%d' id='edit_section_button_%d'></a>",
+            self.sectionId,
+            self.sectionId];
 }
 
 @end

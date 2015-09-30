@@ -24,7 +24,6 @@
 #import "NSString+WMFGlyphs.h"
 #import "WMFStyleManager.h"
 
-
 // View Controllers
 #import "WMFHomeViewController.h"
 #import "WMFSearchViewController.h"
@@ -60,7 +59,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 
-@interface WMFAppViewController ()<UITabBarControllerDelegate>
+@interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
@@ -97,8 +96,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
     for (WMFAppTabType i = 0; i < WMFAppTabCount; i++) {
         UINavigationController* navigationController = [self navigationControllerForTab:i];
-        navigationController.delegate            = self.navigationTransitionController;
-        navigationController.navigationBarHidden = NO;
+        navigationController.delegate = self;
     }
 }
 
@@ -360,6 +358,15 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 - (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
     [self configureHomeViewController];
     [self configureSearchViewController];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController*)navigationController
+      willShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
+    BOOL isToolbarEmpty = [viewController toolbarItems].count == 0;
+    [navigationController setToolbarHidden:isToolbarEmpty];
 }
 
 @end

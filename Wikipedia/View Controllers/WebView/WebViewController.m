@@ -14,7 +14,6 @@
 #import "MWKLanguageLink.h"
 #import "Wikipedia-Swift.h"
 
-
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "WMFShareCardViewController.h"
@@ -28,6 +27,7 @@
 #import "WMFSectionHeaderEditProtocol.h"
 
 #import "UIWebView+WMFJavascriptContext.h"
+#import "UIWebView+WMFTrackingView.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -40,6 +40,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
+
+@property (nonatomic, strong) MASConstraint* headerHeight;
+@property (nonatomic, strong) UIView* footerContainerView;
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
@@ -125,10 +128,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.sectionHeadersViewController =
-        [[WMFSectionHeadersViewController alloc] initWithView:self.view
-                                                      webView:self.webView
-                                               topLayoutGuide:self.mas_topLayoutGuide];
+    [self loadHeadersAndFooters];
+
+//    self.sectionHeadersViewController =
+//        [[WMFSectionHeadersViewController alloc] initWithView:self.view
+//                                                      webView:self.webView
+//                                               topLayoutGuide:self.mas_topLayoutGuide];
 
     self.sectionHeadersViewController.editSectionDelegate = self;
 
@@ -223,13 +228,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self tocUpdateViewLayout];
 
-    [self.KVOControllerNonRetaining observe:self.webView.scrollView
-                                    keyPath:WMF_SAFE_KEYPATH(UIScrollView.new, contentSize)
-                                    options:NSKeyValueObservingOptionNew
-                                      block:^(WebViewController* observer, id object, NSDictionary* change) {
-        // Restrict the web view from scrolling horizonally.
-        [object preventHorizontalScrolling];
-    }];
+    [self observeWebScrollViewContentSize];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -243,7 +242,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self doStuffOnAppear];
+    [self layoutWebViewSubviews];
     [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self layoutWebViewSubviews];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -252,6 +257,150 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
 
     [super viewWillDisappear:animated];
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
+        [self layoutWebViewSubviews];
+    } completion:nil];
+}
+
+#pragma mark - KVO
+
+/**
+ *  Observe changes to @c webView.scrollView.contentSize so we can recompute it and layout subviews.
+ */
+- (void)observeWebScrollViewContentSize {
+    [self.KVOControllerNonRetaining observe:self.webView.scrollView
+                                    keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WebViewController* observer, id object, NSDictionary* change) {
+        [observer layoutWebViewSubviews];
+    }];
+}
+
+#pragma mark - Headers & Footers
+
+- (void)loadHeadersAndFooters {
+    /*
+       NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
+       issues when attempting a contentInset approach:
+       - doesn't work well for footers:
+       - contentInset causes jumpiness when scrolling beyond _bottom_ of content
+       - interferes w/ bouncing at the bottom
+       - forces you to manually set scrollView offsets
+       - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
+
+       IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
+       headers & footers
+     */
+    [self addHeaderView];
+    [self addFooterView];
+}
+
+- (void)addHeaderView {
+    if (!self.headerViewController) {
+        return;
+    }
+    [self.webView.scrollView addSubview:self.headerViewController.view];
+    [self.headerViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        // lead/trail must be constained to webview, the scrollview doesn't define a width
+        make.leading.and.trailing.equalTo(self.webView);
+        make.top.equalTo(self.webView.scrollView);
+        self.headerHeight = make.height.equalTo(@([self headerHeightForCurrentTraitCollection]));
+    }];
+    [self.headerViewController didMoveToParentViewController:self];
+}
+
+- (void)addFooterView {
+    [self addFooterContainerView];
+    [self addFooterViews];
+}
+
+- (void)addFooterContainerView {
+    self.footerContainerView = [UIView new];
+    [self.webView.scrollView addSubview:self.footerContainerView];
+    [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+        // lead/trail must be constained to webview, the scrollview doesn't define a width
+        make.leading.and.trailing.equalTo(self.webView);
+        make.top.equalTo([[self.webView wmf_browserView] mas_bottom]);
+        make.bottom.equalTo(self.webView.scrollView);
+    }];
+}
+
+- (void)addFooterViews {
+    NSParameterAssert(self.isViewLoaded);
+    [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
+                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
+                                                             UIViewController* childVC) {
+        [self.footerContainerView addSubview:childVC.view];
+        [childVC.view mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.leading.and.trailing.equalTo(self.footerContainerView);
+            make.top.equalTo(topAnchor);
+        }];
+        [childVC didMoveToParentViewController:self];
+        return childVC.view.mas_bottom;
+    }];
+    [self.footerViewControllers.lastObject.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.bottom.equalTo(self.footerContainerView);
+    }];
+}
+
+- (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
+    NSAssert(!self.footerViewControllers, @"Dynamic/re-configurable footer views is not supported.");
+    NSAssert(!self.isViewLoaded, @"Expected footers to be configured before viewDidLoad.");
+    _footerViewControllers = [footerViewControllers copy];
+    [_footerViewControllers bk_each:^(UIViewController* childVC) {
+        [self addChildViewController:childVC];
+        // didMoveToParent is called when they are added to the view
+    }];
+}
+
+- (void)setHeaderViewController:(UIViewController*)headerViewController {
+    NSAssert(!self.headerViewController, @"Dynamic/re-configurable header view is not supported.");
+    NSAssert(!self.isViewLoaded, @"Expected header to be configured before viewDidLoad.");
+    _headerViewController = headerViewController;
+    [self addChildViewController:self.headerViewController];
+    // didMoveToParent is called when it is added to the view
+}
+
+- (void)layoutWebViewSubviews {
+    [self.headerHeight setOffset:[self headerHeightForCurrentTraitCollection]];
+    CGFloat headerBottom = CGRectGetMaxY(self.headerViewController.view.frame);
+    /*
+       HAX: need to manage positioning the browser view manually.
+       using constraints seems to prevent the browser view size and scrollview contentSize from being set
+       properly.
+     */
+    UIView* browserView = [self.webView wmf_browserView];
+    [browserView setFrame:(CGRect){
+         .origin = CGPointMake(0, headerBottom),
+         .size = browserView.frame.size
+     }];
+    CGFloat readMoreHeight   = self.footerContainerView.frame.size.height;
+    CGFloat totalHeight      = CGRectGetMaxY(browserView.frame) + readMoreHeight;
+    CGFloat constrainedWidth = self.webView.scrollView.frame.size.width;
+    CGSize requiredSize      = CGSizeMake(constrainedWidth, totalHeight);
+    /*
+       HAX: It's important that we restrict the contentSize to the view's width to prevent awkward horizontal scrolling.
+     */
+    if (!CGSizeEqualToSize(requiredSize, self.webView.scrollView.contentSize)) {
+        self.webView.scrollView.contentSize = requiredSize;
+    }
+}
+
+- (CGFloat)headerHeightForCurrentTraitCollection {
+    return [self headerHeightForTraitCollection:self.traitCollection];
+}
+
+- (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
+    switch (traitCollection.verticalSizeClass) {
+        case UIUserInterfaceSizeClassRegular:
+            return 160;
+        default:
+            return 0;
+    }
 }
 
 #pragma mark - Utility
@@ -265,6 +414,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)autoScrollToLastScrollOffsetIfNecessary {
+    #warning FIXME: causing jumpiness.
+    // also, need to store offsets relative to the browser view frame in case we change the layout
+    return;
     if (!self.jumpToFragment) {
         [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
     }
@@ -1382,6 +1534,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToElementOnScreenBeforeRotate {
+    // FIXME: rotating portrait/landscape repeatedly causes the webview to scroll down instead of maintaining the same position
+    return;
     double finalScrollOffset = [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble];
 
     [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
@@ -1442,7 +1596,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (UIScrollView*)refreshScrollView {
-    return self.webView.scrollView;
+    return nil;//self.webView.scrollView;
 }
 
 - (NSString*)refreshPromptString {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Btv-Tg-s8D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Btv-Tg-s8D">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Article View Controller-->
@@ -88,7 +88,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFMinimalArticleContentCell" rowHeight="90" id="Ilq-jy-WyF" customClass="WMFMinimalArticleContentCell">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="272" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ilq-jy-WyF" id="TQF-Pl-fwa">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -125,7 +125,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFArticleSectionHeaderView" id="G26-fs-mMP" customClass="WMFArticleSectionHeaderView">
-                                <rect key="frame" x="0.0" y="0.0" width="576" height="44"/>
+                                <rect key="frame" x="0.0" y="362" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G26-fs-mMP" id="CqB-F2-Du1">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -154,7 +154,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ParentSectionCell" rowHeight="95" id="Az3-5t-77D" userLabel="ParentSectionCell" customClass="WMFArticleSectionCell">
-                                <rect key="frame" x="0.0" y="0.0" width="298" height="44"/>
+                                <rect key="frame" x="0.0" y="406" width="414" height="95"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Az3-5t-77D" id="m9K-gk-Nme">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -194,7 +194,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChildSectionCell" rowHeight="37" id="Gjv-rJ-5Sd" userLabel="ChildSectionCell" customClass="WMFArticleSectionCell">
-                                <rect key="frame" x="0.0" y="0.0" width="298" height="44"/>
+                                <rect key="frame" x="0.0" y="501" width="414" height="37"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gjv-rJ-5Sd" id="cqe-Ae-BjI">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -223,7 +223,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WMFArticleReadMoreCell" rowHeight="80" id="zjX-7k-CPE" customClass="WMFArticleReadMoreCell">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="538" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zjX-7k-CPE" id="nze-BW-utw">
                                     <autoresizingMask key="autoresizingMask"/>

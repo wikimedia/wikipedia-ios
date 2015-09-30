@@ -9,8 +9,21 @@
 #import "WMFImageCollectionViewCell.h"
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImageView+MWKImage.h"
+#import <Masonry/Masonry.h>
 
 @implementation WMFImageCollectionViewCell
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.imageView = [UIImageView new];
+        [self.contentView addSubview:self.imageView];
+        [self.imageView mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.edges.equalTo(self.contentView);
+        }];
+    }
+    return self;
+}
 
 - (void)prepareForReuse {
     [super prepareForReuse];

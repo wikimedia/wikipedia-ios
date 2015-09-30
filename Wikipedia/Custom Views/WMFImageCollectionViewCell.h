@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WMFImageCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView* imageView;
+@property (strong, nonatomic) IBOutlet UIImageView* imageView;
 @end

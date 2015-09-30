@@ -18,7 +18,7 @@
 
 @property (nonatomic, weak) id<WMFWebViewControllerDelegate> delegate;
 
-@property (nonatomic, weak) IBOutlet UIWebView* webView;
+@property (nonatomic, strong, readonly) UIWebView* webView;
 @property (nonatomic) BOOL referencesHidden;
 @property (nonatomic) BOOL scrollingToTop;
 
@@ -53,6 +53,15 @@
 
 
 - (NSString*)selectedText;
+
+#pragma mark - Header & Footers
+
+/**
+ *  An array of view controllers which will be displayed above the receiver's @c UIWebView content from top to bottom.
+ */
+@property (nonatomic, strong) UIViewController* headerViewController;
+
+@property (nonatomic, strong) NSArray<UIViewController*>* footerViewControllers;
 
 @end
 

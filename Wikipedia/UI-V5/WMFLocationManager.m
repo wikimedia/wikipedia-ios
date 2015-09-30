@@ -139,7 +139,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)stopHeadingUpdates {
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     self.orientationNotificationToken = nil;
     [self.locationManager stopUpdatingHeading];
 }
