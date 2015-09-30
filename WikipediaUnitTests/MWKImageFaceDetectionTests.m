@@ -101,7 +101,7 @@
 }
 
 - (void)testShouldSetDidDetectFacesIfPassedNilFeatures {
-    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
+    self.image                         = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
     self.image.allNormalizedFaceBounds = nil;
     XCTAssertTrue(self.image.didDetectFaces, @"Need to be able to handle cases where CIDetector passes nil.");
 }

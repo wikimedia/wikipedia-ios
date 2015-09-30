@@ -14,8 +14,7 @@
 
 @implementation WMFFaceDetectionCache
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.faceDetectionBoundsKeyedByURL = [[NSCache alloc] init];
@@ -23,42 +22,42 @@
     return self;
 }
 
-- (BOOL)imageAtURLRequiresFaceDetection:(NSURL*)url{
+- (BOOL)imageAtURLRequiresFaceDetection:(NSURL*)url {
     return ([self faceDetectionBoundsForURL:url] == nil);
 }
 
-- (BOOL)imageRequiresFaceDetection:(MWKImage*)imageMetadata{
+- (BOOL)imageRequiresFaceDetection:(MWKImage*)imageMetadata {
     return ![imageMetadata didDetectFaces];
 }
 
-- (NSValue*)faceBoundsForURL:(NSURL*)url{
+- (NSValue*)faceBoundsForURL:(NSURL*)url {
     return [[self faceDetectionBoundsForURL:url] firstObject];
 }
 
-- (NSValue*)faceBoundsForImageMetadata:(MWKImage*)imageMetadata{
+- (NSValue*)faceBoundsForImageMetadata:(MWKImage*)imageMetadata {
     return [imageMetadata.allNormalizedFaceBounds firstObject];
 }
 
-- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image URL:(NSURL*)url{
+- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image URL:(NSURL*)url {
     NSArray* savedBounds = [self faceDetectionBoundsForURL:url];
-    if(savedBounds){
+    if (savedBounds) {
         return [AnyPromise promiseWithValue:[savedBounds firstObject]];
-    }else {
+    } else {
         return [self getFaceBoundsInImage:image]
-        .then(^(NSArray* faceBounds) {
+               .then(^(NSArray* faceBounds) {
             [self cacheFaceDetectionBounds:faceBounds forURL:url];
             return [faceBounds firstObject];
         });
     }
 }
 
-- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata{
+- (AnyPromise*)detectFaceBoundsInImage:(UIImage*)image imageMetadata:(MWKImage*)imageMetadata {
     NSArray* savedBounds = imageMetadata.allNormalizedFaceBounds;
-    if(savedBounds){
+    if (savedBounds) {
         return [AnyPromise promiseWithValue:[savedBounds firstObject]];
-    }else{
+    } else {
         return [self getFaceBoundsInImage:image]
-        .then(^(NSArray* faceBounds) {
+               .then(^(NSArray* faceBounds) {
             imageMetadata.allNormalizedFaceBounds = faceBounds;
             [imageMetadata save];
             return [faceBounds firstObject];
@@ -66,9 +65,9 @@
     }
 }
 
-- (AnyPromise*)getFaceBoundsInImage:(UIImage*)image{
+- (AnyPromise*)getFaceBoundsInImage:(UIImage*)image {
     return [[CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector] wmf_detectFeaturelessFacesInImage:image]
-    .then(^(NSArray* features) {
+           .then(^(NSArray* features) {
         NSArray<NSValue*>* faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
         return faceBounds;
     });
@@ -76,21 +75,20 @@
 
 #pragma mark - Cache methods
 
-- (void)cacheFaceDetectionBounds:(NSArray*)bounds forURL:(NSURL*)url{
+- (void)cacheFaceDetectionBounds:(NSArray*)bounds forURL:(NSURL*)url {
     NSParameterAssert(url);
-    if(!url){
+    if (!url) {
         return;
     }
-    if(!bounds){
+    if (!bounds) {
         bounds = @[];
     }
-    
+
     [self.faceDetectionBoundsKeyedByURL setObject:bounds forKey:url];
 }
 
-- (NSArray*)faceDetectionBoundsForURL:(NSURL*)url{
+- (NSArray*)faceDetectionBoundsForURL:(NSURL*)url {
     return [self.faceDetectionBoundsKeyedByURL objectForKey:url];
 }
-
 
 @end

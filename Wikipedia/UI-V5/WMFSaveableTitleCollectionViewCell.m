@@ -44,7 +44,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.title           = nil;
+    self.title = nil;
     [self.imageView wmf_reset];
     self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
 }
