@@ -40,10 +40,12 @@
 // Controllers
 #import "WMFLocationManager.h"
 #import "UITabBarController+WMFExtensions.h"
+#import "UIViewController+WMFSearchButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate>
+@interface WMFHomeViewController ()
+<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -67,9 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.navigationItem.titleView =
             [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
-        self.navigationItem.rightBarButtonItems = @[
-            [self settingsBarButtonItem]
-        ];
+        self.navigationItem.leftBarButtonItem = [self settingsBarButtonItem];
+        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
 }
@@ -479,6 +480,16 @@ NS_ASSUME_NONNULL_BEGIN
     MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
     [self showArticleViewControllerForTitle:title animated:YES];
     return NO;
+}
+
+#pragma mark - WMFSearchPresentationDelegate
+
+- (MWKSite*)site {
+    return self.searchSite;
+}
+
+- (MWKUserDataStore*)userDataStore {
+    return self.dataStore.userDataStore;
 }
 
 @end

@@ -10,10 +10,11 @@
 
 #import <Masonry/Masonry.h>
 #import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import <PiwikTracker/PiwikTracker.h>
 #import "Wikipedia-Swift.h"
 
-
+#import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIViewController+Alert.h"
 
@@ -23,7 +24,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 <WMFRecentSearchesViewControllerDelegate, WMFArticleListTransitionProvider>
 
 @property (nonatomic, strong) MWKSite* searchSite;
-@property (nonatomic, strong) MWKUserDataStore* userDataStore;
+@property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
@@ -45,11 +46,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-- (instancetype)initWithSite:(MWKSite *)site userDataStore:(MWKUserDataStore*)userDataStore {
-    self = [super init];
++ (UIViewController*)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+    WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
+    searchVC.searchSite = site;
+    searchVC.dataStore = dataStore;
+    return [[UINavigationController alloc] initWithRootViewController:searchVC];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
     if (self) {
-        self.searchSite = site;
-        self.userDataStore = userDataStore;
+        [self configureNavigationItem];
     }
     return self;
 }
@@ -70,7 +77,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (WMFSearchFetcher*)fetcher {
     if (!_fetcher) {
-        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.userDataStore.dataStore];
+        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
     }
 
     return _fetcher;
@@ -82,7 +89,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchBar.text wmf_trim].length > 0 || [self.userDataStore.recentSearchList countOfEntries] == 0;
+        [self.searchBar.text wmf_trim].length > 0 || [self.dataStore.userDataStore.recentSearchList countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -110,17 +117,26 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureArticleList {
-    self.resultsListController.dataStore   = self.userDataStore.dataStore;
-    self.resultsListController.recentPages = self.userDataStore.historyList;
-    self.resultsListController.savedPages  = self.userDataStore.savedPageList;
+    self.resultsListController.dataStore   = self.dataStore;
+    self.resultsListController.recentPages = self.dataStore.userDataStore.historyList;
+    self.resultsListController.savedPages  = self.dataStore.userDataStore.savedPageList;
 }
 
 - (void)configureRecentSearchList {
-    self.recentSearchesViewController.recentSearches = self.userDataStore.recentSearchList;
+    self.recentSearchesViewController.recentSearches = self.dataStore.userDataStore.recentSearchList;
     self.recentSearchesViewController.delegate       = self;
 }
 
 #pragma mark - UIViewController
+
+- (void)configureNavigationItem {
+    @weakify(self);
+    self.navigationItem.rightBarButtonItem =
+        [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemStop handler:^(id sender) {
+        @strongify(self);
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -292,8 +308,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)saveLastSearch {
     if ([self currentSearchTerm]) {
         MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite searchTerm:[self currentSearchTerm]];
-        [self.userDataStore.recentSearchList addEntry:entry];
-        [self.userDataStore.recentSearchList save];
+        [self.dataStore.userDataStore.recentSearchList addEntry:entry];
+        [self.dataStore.userDataStore.recentSearchList save];
         [self.recentSearchesViewController reloadRecentSearches];
     }
 }

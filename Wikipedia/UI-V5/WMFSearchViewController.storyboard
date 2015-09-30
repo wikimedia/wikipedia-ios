@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cv0-Vi-jBW">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
-        <!--Search-->
-        <scene sceneID="Ijm-OL-UgQ">
-            <objects>
-                <navigationController extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="cv0-Vi-jBW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="search" id="CfH-lu-Ja9"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="M49-9C-IIr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
-                    </navigationBar>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="navigationBarHidden" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <segue destination="tkf-8P-b2O" kind="relationship" relationship="rootViewController" id="I2J-aE-P8Y"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mgM-hb-LiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="962" y="2115"/>
-        </scene>
         <!--Search View Controller-->
         <scene sceneID="25p-jW-rHl">
             <objects>
@@ -111,49 +90,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="962" y="2881"/>
-        </scene>
-        <!--Saved Pages List-->
-        <scene sceneID="r64-5z-ebS">
-            <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Saved" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qVm-oc-aaW" userLabel="Saved Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="cbI-aA-luO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="SelfSizingWaterfallCollectionViewLayout"/>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="qVm-oc-aaW" id="oec-qb-SMc"/>
-                            <outlet property="delegate" destination="qVm-oc-aaW" id="uJd-6E-G6k"/>
-                        </connections>
-                    </collectionView>
-                    <tabBarItem key="tabBarItem" title="Saved" id="V9D-BB-B3n"/>
-                    <navigationItem key="navigationItem" id="2Sy-ZF-kd0"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Buh-ul-uFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1689" y="2881"/>
-        </scene>
-        <!--Home View Controller-->
-        <scene sceneID="GQS-UF-SlV">
-            <objects>
-                <collectionViewController id="ijM-Cp-AID" customClass="WMFHomeViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="kwN-cC-rkY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" red="0.94499534368515015" green="0.94515722990036011" blue="0.94498521089553833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewLayout key="collectionViewLayout" id="PEa-JF-GrQ" customClass="SelfSizingWaterfallCollectionViewLayout"/>
-                        <cells/>
-                        <connections>
-                            <outlet property="delegate" destination="ijM-Cp-AID" id="SC7-eq-goH"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="mHo-1o-28h"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fWB-DA-BCh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="237" y="2881"/>
         </scene>
         <!--Recent Searches View Controller-->
         <scene sceneID="MGk-Bd-HA1">
@@ -242,30 +178,5 @@
             </objects>
             <point key="canvasLocation" x="1287" y="3692"/>
         </scene>
-        <!--Recent Pages List-->
-        <scene sceneID="bR7-pf-lJf">
-            <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Recent" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2yz-KN-V6a" userLabel="Recent Pages List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="TGO-DA-pJe">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="SelfSizingWaterfallCollectionViewLayout"/>
-                        <cells/>
-                        <connections>
-                            <outlet property="dataSource" destination="2yz-KN-V6a" id="dqQ-eP-Tyk"/>
-                            <outlet property="delegate" destination="2yz-KN-V6a" id="v1H-vu-Lg3"/>
-                        </connections>
-                    </collectionView>
-                    <tabBarItem key="tabBarItem" title="Recent" id="Hg0-Uc-GUG"/>
-                    <navigationItem key="navigationItem" id="HIJ-DO-oEV"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FrI-J3-ZJ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2367" y="2881"/>
-        </scene>
     </scenes>
-    <resources>
-        <image name="search" width="25" height="25"/>
-    </resources>
 </document>
