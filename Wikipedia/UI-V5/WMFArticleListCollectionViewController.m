@@ -161,7 +161,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.collectionView.dataSource = self.dataSource;
+    [self connectCollectionViewAndDataSource];
 
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;

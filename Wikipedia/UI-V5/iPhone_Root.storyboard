@@ -257,13 +257,15 @@
                         <collectionViewLayout key="collectionViewLayout" id="OM6-RR-VUO" customClass="SelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
-                            <outlet property="dataSource" destination="qVm-oc-aaW" id="oec-qb-SMc"/>
                             <outlet property="delegate" destination="qVm-oc-aaW" id="uJd-6E-G6k"/>
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Saved" id="V9D-BB-B3n"/>
                     <navigationItem key="navigationItem" id="2Sy-ZF-kd0"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="cbI-aA-luO" id="ek1-L5-0PK"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Buh-ul-uFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -367,13 +369,15 @@
                         <collectionViewLayout key="collectionViewLayout" id="ETy-nN-umd" customClass="SelfSizingWaterfallCollectionViewLayout"/>
                         <cells/>
                         <connections>
-                            <outlet property="dataSource" destination="2yz-KN-V6a" id="dqQ-eP-Tyk"/>
                             <outlet property="delegate" destination="2yz-KN-V6a" id="v1H-vu-Lg3"/>
                         </connections>
                     </collectionView>
                     <tabBarItem key="tabBarItem" title="Recent" id="Hg0-Uc-GUG"/>
                     <navigationItem key="navigationItem" id="HIJ-DO-oEV"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="collectionView" destination="TGO-DA-pJe" id="mZq-yP-J2L"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FrI-J3-ZJ1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
