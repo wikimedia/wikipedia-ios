@@ -17,11 +17,15 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIViewController+Alert.h"
+#import "UIButton+WMFButton.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @interface WMFSearchViewController ()
-<WMFRecentSearchesViewControllerDelegate, WMFArticleListTransitionProvider>
+<UISearchBarDelegate,
+ WMFRecentSearchesViewControllerDelegate,
+ WMFArticleListTransitionProvider,
+ UITextFieldDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;
@@ -29,14 +33,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
 
-@property (strong, nonatomic) IBOutlet UISearchBar* searchBar;
+@property (strong, nonatomic) IBOutlet UITextField* searchField;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTop;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint* suggestionButtonHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldTop;
 
 @property (nonatomic, assign, getter = isRecentSearchesHidden) BOOL recentSearchesHidden;
 
@@ -46,17 +53,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-+ (UIViewController*)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
++ (instancetype)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
     searchVC.searchSite = site;
     searchVC.dataStore  = dataStore;
-    return [[UINavigationController alloc] initWithRootViewController:searchVC];
+    searchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    searchVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    return searchVC;
 }
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self configureNavigationItem];
     }
     return self;
 }
@@ -79,7 +87,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if (!_fetcher) {
         _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
     }
-
     return _fetcher;
 }
 
@@ -89,7 +96,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateRecentSearchesVisibility:(BOOL)animated {
     BOOL hideRecentSearches =
-        [self.searchBar.text wmf_trim].length > 0 || [self.dataStore.userDataStore.recentSearchList countOfEntries] == 0;
+        [self.searchField.text wmf_trim].length > 0 || [self.dataStore.userDataStore.recentSearchList countOfEntries] == 0;
 
     [self setRecentSearchesHidden:hideRecentSearches animated:animated];
 }
@@ -99,10 +106,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated {
-    /*
-       HAX: Need to show/hide superviews since recent & results are in the same container. should use UIViewController
-       containment/transition API instead in the future.
-     */
     if (self.isRecentSearchesHidden == hidingRecentSearches) {
         return;
     }
@@ -110,10 +113,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     _recentSearchesHidden = hidingRecentSearches;
 
     [UIView animateWithDuration:animated ? [CATransaction animationDuration] : 0.0
+    delay:0 options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
         self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
         self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
-    }];
+    } completion:nil];
 }
 
 - (void)configureArticleList {
@@ -129,17 +133,26 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - UIViewController
 
-- (void)configureNavigationItem {
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
+- (void)configureSearchField {
     @weakify(self);
-    self.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemStop handler:^(id sender) {
+    self.searchField.rightView = [UIButton wmf_buttonType:WMFButtonTypeX handler:^(id sender) {
         @strongify(self);
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
+    self.searchField.rightViewMode = UITextFieldViewModeAlways;
+
+    // TODO: localize
+    [self.searchField setPlaceholder:@"Search Wikipedia"];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self configureSearchField];
 
     // TODO: localize
     self.title                                                    = @"Search";
@@ -147,28 +160,38 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     SelfSizingWaterfallCollectionViewLayout* resultLayout = [self.resultsListController flowLayout];
     resultLayout.minimumLineSpacing = 5.f;
     [self updateUIWithResults:nil];
-
-    // TODO: localize
-    [self.searchBar setPlaceholder:@"Search Wikipedia"];
-    self.searchBar.tintColor       = [UIColor darkGrayColor];
-    self.searchBar.searchBarStyle  = UISearchBarStyleMinimal;
-    self.searchBar.backgroundColor = [UIColor colorWithRed:0.9294 green:0.9294 blue:0.9294 alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self updateRecentSearchesVisibility:animated];
+    [self.searchFieldTop setConstant:-self.searchFieldHeight.constant];
+    [self.view layoutIfNeeded];
+    BOOL willAnimate = [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [self.searchFieldTop setConstant:0];
+        [self.view layoutIfNeeded];
+        [self updateRecentSearchesVisibility:animated];
+    }
+                        completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull transitionContext) {
+        [self.searchField becomeFirstResponder];
+    }];
+    NSParameterAssert(willAnimate);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker sharedInstance] sendView:@"Search"];
-    [self.searchBar becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self saveLastSearch];
+    [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [UIView animateWithDuration:0.35 animations:^{
+            [self.searchField resignFirstResponder];
+            self.searchFieldTop.constant = -self.searchFieldHeight.constant;
+            [self.view layoutIfNeeded];
+        }];
+    } completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -184,51 +207,44 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - UISearchBarDelegate
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar*)searchBar {
-    [self.searchBar setShowsCancelButton:YES animated:YES];
-
-    if (![[self currentSearchTerm] isEqualToString:self.searchBar.text]) {
-        [self searchForSearchTerm:self.searchBar.text];
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (![[self currentSearchTerm] isEqualToString:textField.text]) {
+        [self searchForSearchTerm:textField.text];
     }
 }
-
-- (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
-    if ([searchText wmf_trim].length == 0) {
+- (IBAction)textFieldDidChange {
+    NSString* query = self.searchField.text;
+    if ([query wmf_trim].length == 0) {
         [self didCancelSearch];
         return;
     }
 
-    [self.searchBar setShowsCancelButton:YES animated:YES];
-
     [self setRecentSearchesHidden:YES animated:YES];
 
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
-        if ([searchText isEqualToString:self.searchBar.text]) {
-            [self searchForSearchTerm:searchText];
+        if ([query isEqualToString:self.searchField.text]) {
+            [self searchForSearchTerm:query];
         }
     });
+    
+
 }
 
-- (void)searchBarTextDidEndEditing:(UISearchBar*)searchBar {
-    [self.searchBar setShowsCancelButton:searchBar.text.length animated:YES];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self saveLastSearch];
     [self updateRecentSearchesVisibility];
+    return YES;
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar*)searchBar {
-    [self saveLastSearch];
-    [self.searchBar resignFirstResponder];
-    [self.searchBar setShowsCancelButton:NO animated:YES];
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
     [self didCancelSearch];
+    return YES;
 }
 
 #pragma mark - Search
 
 - (void)didCancelSearch {
-    self.searchBar.text = nil;
+    self.searchField.text = nil;
     [self updateSearchSuggestion:nil];
     self.resultsListController.dataSource = nil;
     [self updateRecentSearchesVisibility];
@@ -242,7 +258,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.fetcher searchArticleTitlesForSearchTerm:searchTerm]
     .thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
         @strongify(self);
-        if (![results.searchTerm isEqualToString:self.searchBar.text]) {
+        if (![results.searchTerm isEqualToString:self.searchField.text]) {
             return [NSError cancelledError];
         }
 
@@ -317,7 +333,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
 - (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(MWKRecentSearchEntry*)searchTerm {
-    self.searchBar.text = searchTerm.searchTerm;
+    self.searchField.text = searchTerm.searchTerm;
     [self searchForSearchTerm:searchTerm.searchTerm];
     [self updateRecentSearchesVisibility];
 }
@@ -325,12 +341,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Actions
 
 - (IBAction)searchForSuggestion:(id)sender {
-    self.searchBar.text = [self searchSuggestion];
-    [self.searchBar setShowsCancelButton:YES animated:YES];
+    self.searchField.text = [self searchSuggestion];
     [UIView animateWithDuration:0.25 animations:^{
         [self updateSearchSuggestion:nil];
     }];
-    [self searchForSearchTerm:self.searchBar.text];
+    [self searchForSearchTerm:self.searchField.text];
 }
 
 @end

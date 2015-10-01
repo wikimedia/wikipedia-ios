@@ -33,6 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:searchViewController animated:YES completion:nil];
 }
 
+- (void)didSelectTitle:(nullable MWKTitle*)title {
+    if (title) {
+        // create & present article container
+    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        // push container
+    }];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
