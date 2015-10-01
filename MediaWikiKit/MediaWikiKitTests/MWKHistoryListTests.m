@@ -75,7 +75,10 @@
     MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr
                                                           discoveryMethod :MWKHistoryDiscoveryMethodSearch];
 
-    // HAX: need a difference on order of seconds for order to persist accurately due to date storage format
+    /*
+     HAX: dates are not precisely stored, so the difference must be >1s for the order to be persisted accurately. 
+     this shouldn't be a huge problem in practice because users (probably) won't save multiple pages in <1s
+    */
     sanFrancisco.date = [NSDate dateWithTimeIntervalSinceNow:5];
 
     [historyList addEntry:losAngeles];
@@ -87,8 +90,14 @@
 
     XCTAssertFalse(historyList.dirty, @"Dirty flag should be reset after saving.");
     MWKHistoryList* persistedList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
-    // HAX: dates are not exactly the same so we need to compare manually
-    assertThat([persistedList.entries valueForKey:@"title"], is(equalTo([historyList.entries valueForKey:@"title"])));
+
+    // HAX: dates aren't exactly persisted, so we need to compare manually
+    [persistedList.entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *actualEntry, NSUInteger idx, BOOL *_) {
+        MWKHistoryEntry* expectedEntry = self->historyList.entries[idx];
+        assertThat(actualEntry.title, is(expectedEntry.title));
+        assertThat(@(actualEntry.discoveryMethod), is(@(expectedEntry.discoveryMethod)));
+        assertThat(@([actualEntry.date timeIntervalSinceDate:expectedEntry.date]), is(lessThanOrEqualTo(@1)));
+    }];
 }
 
 - (void)testAddingIdenticalObjectUpdatesExistingEntryDate {
@@ -151,6 +160,7 @@
     NSAssert([[entry2.date laterDate:entry1.date] isEqualToDate:entry2.date],
              @"Test assumes new entries are created w/ the current date.");
     assertThat([historyList entries], is(@[entry2, entry1]));
+    assertThat([historyList mostRecentEntry], is(entry2));
 }
 
 - (void)testListOrderAfterAddingSameEntry {

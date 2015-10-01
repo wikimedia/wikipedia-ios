@@ -31,7 +31,7 @@
 }
 
 - (MWKHistoryEntry*)mostRecentEntry {
-    return [self.entries lastObject];
+    return [self.entries firstObject];
 }
 
 #pragma mark - Update Methods
