@@ -74,7 +74,7 @@
     return (id<MWKListObject>)[self objectInEntriesAtIndex : index];
 }
 
-- (id<MWKListObject> __nullable)entryForListIndex:(id <NSCopying>)listIndex {
+- (id<MWKListObject> __nullable)entryForListIndex:(id)listIndex {
     return [self.entries bk_match:^BOOL (id < MWKListObject > obj) {
         if ([[obj listIndex] isEqual:listIndex]) {
             return YES;
@@ -83,12 +83,12 @@
     }];
 }
 
-- (BOOL)containsEntryForListIndex:(id <NSCopying>)listIndex {
+- (BOOL)containsEntryForListIndex:(id)listIndex {
     id<MWKListObject> entry = [self entryForListIndex:listIndex];
     return (entry != nil);
 }
 
-- (void)updateEntryWithListIndex:(id <NSCopying>)listIndex update:(BOOL (^)(id<MWKListObject> entry))update {
+- (void)updateEntryWithListIndex:(id)listIndex update:(BOOL (^)(id<MWKListObject> entry))update {
     id<MWKListObject> obj = [self entryForListIndex:listIndex];
     if (update) {
         // prevent reseting "dirty" if block returns NO and dirty was already YES
@@ -101,7 +101,7 @@
     self.dirty = YES;
 }
 
-- (void)removeEntryWithListIndex:(id <NSCopying>)listIndex {
+- (void)removeEntryWithListIndex:(id)listIndex {
     id<MWKListObject> obj = [self entryForListIndex:listIndex];
     if (obj) {
         [self removeEntry:obj];

@@ -1,13 +1,13 @@
 
 #import "MWKList.h"
 #import "MWKHistoryEntry.h"
+#import "MWKTitle.h"
 
-@class MWKTitle;
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKHistoryList : MWKList<MWKHistoryEntry*>
+@interface MWKHistoryList : MWKList<MWKHistoryEntry*, MWKTitle*>
 
 /**
  *  Create history list and connect with data store.
@@ -20,8 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 @property (nonatomic, weak, readonly) MWKDataStore* dataStore;
-
-- (MWKHistoryEntry* __nullable)entryForTitle:(MWKTitle*)title;
 
 - (MWKHistoryEntry*)mostRecentEntry;
 
@@ -48,23 +46,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title;
 
 /**
- *  Remove a page from the user history
- *
- *  @param title The title of the page to remove
- */
-- (void)removePageFromHistoryWithTitle:(MWKTitle*)title;
-
-/**
  *  Remove the given history entries from the history
  *
  *  @param historyEntries An array of instances of MWKHistoryEntry
  */
 - (void)removeEntriesFromHistory:(NSArray*)historyEntries;
-
-/**
- *  Remove all history items.
- */
-- (void)removeAllEntriesFromHistory;
 
 - (NSArray*)dataExport;
 

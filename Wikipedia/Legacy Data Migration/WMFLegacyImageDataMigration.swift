@@ -80,7 +80,8 @@ public class WMFLegacyImageDataMigration : NSObject {
         let currentSavedPageList = legacyDataStore.userDataStore().savedPageList
         // grab the corresponding entry from the list on disk
         for migratedEntry: MWKSavedPageEntry in migratedEntries {
-            currentSavedPageList.updateEntryWithTitle(migratedEntry.title) { entry in
+            currentSavedPageList.updateEntryWithListIndex(migratedEntry.title) { entry in
+                let entry = entry as! MWKSavedPageEntry
                 if !entry.didMigrateImageData {
                     // mark as migrated if necessary, and mark the list as dirty
                     entry.didMigrateImageData = true
@@ -144,8 +145,8 @@ public class WMFLegacyImageDataMigration : NSObject {
 
     /// Mark the given entry as having its image data migrated.
     func markEntryAsMigrated(entry: MWKSavedPageEntry) {
-        savedPageList.updateEntryWithTitle(entry.title) { e in
-            e.didMigrateImageData = true
+        savedPageList.updateEntryWithListIndex(entry.title) { e in
+            (e as! MWKSavedPageEntry).didMigrateImageData = true
             return true
         }
     }

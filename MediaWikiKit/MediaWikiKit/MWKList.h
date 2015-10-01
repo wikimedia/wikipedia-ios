@@ -10,7 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MWKList <EntryType : id<MWKListObject>> : MWKDataObject<NSFastEnumeration>
+@interface MWKList <EntryType : id<MWKListObject>,
+                    IndexType : id<NSCopying,NSObject>>
+           : MWKDataObject<NSFastEnumeration>
 
 - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
@@ -29,15 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (EntryType)entryAtIndex:(NSUInteger)index;
 
-- (EntryType __nullable)entryForListIndex:(id <NSCopying>)listIndex;
+- (EntryType __nullable)entryForListIndex:(IndexType)listIndex;
 
-- (BOOL)containsEntryForListIndex:(id <NSCopying>)listIndex;
+- (BOOL)containsEntryForListIndex:(IndexType)listIndex;
 
-- (void)updateEntryWithListIndex:(id <NSCopying>)listIndex update:(BOOL (^)(EntryType __nullable entry))update;
+- (void)updateEntryWithListIndex:(IndexType)listIndex update:(BOOL (^)(EntryType entry))update;
 
 - (void)removeEntry:(EntryType)entry;
 
-- (void)removeEntryWithListIndex:(id <NSCopying>)listIndex;
+- (void)removeEntryWithListIndex:(IndexType)listIndex;
 
 - (void)removeAllEntries;
 

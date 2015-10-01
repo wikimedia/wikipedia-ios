@@ -146,7 +146,7 @@
                                                      discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
-    [historyList removePageFromHistoryWithTitle:entry1.title];
+    [historyList removeEntryWithListIndex:entry1.title];
     assertThat([historyList entries], is(@[entry2]));
 }
 

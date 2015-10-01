@@ -45,7 +45,7 @@
     return [self.entries lastObject];
 }
 
-- (MWKSavedPageEntry*)entryForTitle:(MWKTitle*)title {
+- (MWKSavedPageEntry*)entryForListIndex:(MWKTitle*)title {
     if ([title.text length] == 0) {
         return nil;
     }
@@ -63,7 +63,7 @@
 
 - (void)toggleSavedPageForTitle:(MWKTitle*)title {
     if ([self isSaved:title]) {
-        [self removeSavedPageWithTitle:title];
+        [self removeEntryWithListIndex:title];
     } else {
         [self addSavedPageWithTitle:title];
     }
@@ -84,19 +84,11 @@
     [super addEntry:entry];
 }
 
-- (void)updateEntryWithTitle:(MWKTitle*)title update:(BOOL (^)(MWKSavedPageEntry*))update {
-    [self updateEntryWithListIndex:title update:update];
-}
-
-- (void)removeSavedPageWithTitle:(MWKTitle*)title {
-    if (title == nil) {
+- (void)removeEntryWithListIndex:(id)listIndex {
+    if ([[listIndex text] length] == 0) {
         return;
     }
-    [self removeEntryWithListIndex:title];
-}
-
-- (void)removeAllSavedPages {
-    [super removeAllEntries];
+    [super removeEntryWithListIndex:listIndex];
 }
 
 #pragma mark - Save

@@ -26,10 +26,6 @@
 
 #pragma mark - Entry Access
 
-- (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
-    return [super entryForListIndex:title];
-}
-
 - (MWKHistoryEntry*)mostRecentEntry {
     return [self.entries firstObject];
 }
@@ -85,11 +81,11 @@
     }];
 }
 
-- (void)removePageFromHistoryWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)removeEntryWithListIndex:(id)listIndex {
+    if ([[listIndex text] length] == 0) {
         return;
     }
-    [self removeEntryWithListIndex:title];
+    [super removeEntryWithListIndex:listIndex];
 }
 
 - (void)removeEntriesFromHistory:(NSArray*)historyEntries {
@@ -99,10 +95,6 @@
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
         [self removeEntryWithListIndex:entry.title];
     }];
-}
-
-- (void)removeAllEntriesFromHistory {
-    [self removeAllEntries];
 }
 
 - (void)removeEntry:(id<MWKListObject>)entry {

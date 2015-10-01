@@ -1332,7 +1332,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)handleRedirectForTitle:(MWKTitle*)title {
-    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForTitle:title];
+    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForListIndex:title];
     MWKHistoryDiscoveryMethod discoveryMethod =
         (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
 
@@ -1459,7 +1459,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
-        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForTitle:article.title];
+        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForListIndex:article.title];
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
     } else {

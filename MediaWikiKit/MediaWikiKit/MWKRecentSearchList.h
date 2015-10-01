@@ -1,10 +1,11 @@
 
 #import "MWKList.h"
 #import "MWKRecentSearchEntry.h"
+#import "MWKTitle.h"
 
 @class MWKDataStore;
 
-@interface MWKRecentSearchList : MWKList<MWKRecentSearchEntry*>
+@interface MWKRecentSearchList : MWKList<MWKRecentSearchEntry*, NSString*>
 
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
@@ -28,7 +29,6 @@
  *  @return The task. The result is the MWKSavedPageEntry.
  */
 - (void)addEntry:(MWKRecentSearchEntry*)entry;
-
 
 - (NSArray*)dataExport;
 
