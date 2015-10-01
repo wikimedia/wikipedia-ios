@@ -38,6 +38,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
+/**
+ *  The discovery method associated with where this section's data originated from.
+ *
+ *  Defaults to @c MWKHistoryDiscoveryMethodSearch if not implemented.
+ *
+ *  @return A discovery method.
+ */
+- (MWKHistoryDiscoveryMethod)discoveryMethod;
+
 @end
 
 typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);

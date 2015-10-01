@@ -41,6 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllEntries;
 
+/**
+ *  Sort the receiver's entries in place with the given descriptors.
+ */
+- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors;
+
 /*
  * Indicates if the list has unsaved changes
  */

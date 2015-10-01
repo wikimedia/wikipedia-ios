@@ -43,6 +43,10 @@
 
 #pragma mark - Update Methods
 
+- (void)sortEntries {
+    [self sortEntriesWithDescriptors:[[self class] sortDescriptors]];
+}
+
 - (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (title == nil) {
         return;
@@ -59,7 +63,8 @@
     }
     if ([self containsEntryForListIndex:entry.title]) {
         [self updateEntryWithListIndex:entry.title update:^BOOL (MWKHistoryEntry* __nullable oldEntry) {
-            oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
+            oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ?
+                                       oldEntry.discoveryMethod : entry.discoveryMethod;
             oldEntry.date = [NSDate date];
             return YES;
         }];
@@ -67,6 +72,7 @@
         entry.date = [NSDate date];
         [super addEntry:entry];
     }
+    [self sortEntries];
 }
 
 - (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title {
@@ -96,7 +102,27 @@
 }
 
 - (void)removeAllEntriesFromHistory {
+    [self removeAllEntries];
+}
+
+- (void)removeEntry:(id<MWKListObject>)entry {
+    [super removeEntry:entry];
+    [self sortEntries];
+}
+
+- (void)removeAllEntries {
     [super removeAllEntries];
+    [self sortEntries];
+}
+
++ (NSArray<NSSortDescriptor*>*)sortDescriptors {
+    static NSArray<NSSortDescriptor*>* sortDescriptors;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], date)
+                                                          ascending:NO]];
+    });
+    return sortDescriptors;
 }
 
 #pragma mark - Save

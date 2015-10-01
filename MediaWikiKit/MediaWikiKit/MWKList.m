@@ -114,6 +114,10 @@
     self.dirty = YES;
 }
 
+- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors {
+    [self.mutableEntries sortUsingDescriptors:sortDesriptors];
+}
+
 #pragma mark - Save
 
 - (AnyPromise*)save {

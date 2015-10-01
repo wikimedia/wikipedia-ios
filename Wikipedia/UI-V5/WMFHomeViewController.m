@@ -407,16 +407,26 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
     if (title) {
-        [self showArticleViewControllerForTitle:title animated:YES];
+        MWKHistoryDiscoveryMethod discoveryMethod = MWKHistoryDiscoveryMethodSearch;
+        if ([controller respondsToSelector:@selector(discoveryMethod)]) {
+            discoveryMethod = [controller discoveryMethod];
+        }
+        [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:discoveryMethod];
     }
 }
 
 #pragma mark - Article Presentation
 
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title animated:(BOOL)animated {
+- (void)showArticleViewControllerForTitle:(MWKTitle*)title
+                                 animated:(BOOL)animated
+                          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     MWKArticle* article                                   = [self.dataStore articleWithTitle:title];
-    WMFArticleContainerViewController* articleContainerVC = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore savedPages:self.savedPages];
+    WMFArticleContainerViewController* articleContainerVC =
+        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore
+                                                                           recentPages:self.recentPages
+                                                                            savedPages:self.savedPages];
     articleContainerVC.article = article;
+    [self.recentPages addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
     [self.navigationController pushViewController:articleContainerVC animated:animated];
 }
 
@@ -477,7 +487,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
     MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
-    [self showArticleViewControllerForTitle:title animated:YES];
+    [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:MWKHistoryDiscoveryMethodLink];
     return NO;
 }
 
