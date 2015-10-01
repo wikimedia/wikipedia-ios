@@ -86,8 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Setup
 
 + (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
-                                                recentPages:(MWKHistoryList *)recentPages
-                                                 savedPages:(MWKSavedPageList *)savedPages {
+                                                recentPages:(MWKHistoryList*)recentPages
+                                                 savedPages:(MWKSavedPageList*)savedPages {
     return [[self alloc] initWithDataStore:dataStore recentPages:recentPages savedPages:savedPages];
 }
 

@@ -54,7 +54,7 @@
 
 - (void)testAddingOneEntry {
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                    discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+                                                    discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry];
     assertThat(historyList.entries, is(@[entry]));
 }
@@ -71,20 +71,20 @@
 
 - (void)testStatePersistsWhenSaved {
     MWKHistoryEntry* losAngeles = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                        discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+                                                         discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr
-                                                          discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+                                                           discoveryMethod :MWKHistoryDiscoveryMethodSearch];
 
     /*
-     HAX: dates are not precisely stored, so the difference must be >1s for the order to be persisted accurately. 
-     this shouldn't be a huge problem in practice because users (probably) won't save multiple pages in <1s
-    */
+       HAX: dates are not precisely stored, so the difference must be >1s for the order to be persisted accurately.
+       this shouldn't be a huge problem in practice because users (probably) won't save multiple pages in <1s
+     */
     sanFrancisco.date = [NSDate dateWithTimeIntervalSinceNow:5];
 
     [historyList addEntry:losAngeles];
     [historyList addEntry:sanFrancisco];
 
-    [self expectAnyPromiseToResolve:^AnyPromise *{
+    [self expectAnyPromiseToResolve:^AnyPromise*{
         return [self->historyList save];
     } timeout:WMFDefaultExpectationTimeout WMFExpectFromHere];
 
@@ -92,7 +92,7 @@
     MWKHistoryList* persistedList = [[MWKHistoryList alloc] initWithDataStore:dataStore];
 
     // HAX: dates aren't exactly persisted, so we need to compare manually
-    [persistedList.entries enumerateObjectsUsingBlock:^(MWKHistoryEntry *actualEntry, NSUInteger idx, BOOL *_) {
+    [persistedList.entries enumerateObjectsUsingBlock:^(MWKHistoryEntry* actualEntry, NSUInteger idx, BOOL* _) {
         MWKHistoryEntry* expectedEntry = self->historyList.entries[idx];
         assertThat(actualEntry.title, is(expectedEntry.title));
         assertThat(@(actualEntry.discoveryMethod), is(@(expectedEntry.discoveryMethod)));
@@ -113,10 +113,10 @@
 - (void)testAddingEquivalentObjectUpdatesExistingEntryDate {
     MWKTitle* title1        = [titleSFEn.site titleWithString:@"This is a title"];
     MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:title1
-                                                     discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     MWKTitle* copyOfTitle1        = [titleSFEn.site titleWithString:@"This is a title"];
     MWKHistoryEntry* copyOfEntry1 = [[MWKHistoryEntry alloc] initWithTitle:copyOfTitle1
-                                                     discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+                                                           discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
     [historyList addEntry:copyOfEntry1];
     assertThat(historyList.entries, is(@[entry1]));
@@ -152,9 +152,9 @@
 
 - (void)testListOrdersByDateDescending {
     MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                    discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                    discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     NSAssert([[entry2.date laterDate:entry1.date] isEqualToDate:entry2.date],
