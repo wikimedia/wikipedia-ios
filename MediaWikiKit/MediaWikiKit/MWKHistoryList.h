@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryEntry* __nullable)entryForTitle:(MWKTitle*)title;
 
-- (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry;
-
 - (MWKHistoryEntry*)mostRecentEntry;
 
 /**

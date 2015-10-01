@@ -83,7 +83,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                 result,
                 "Expected nil result after marking all entries as migrated, but got \(result). Current entries:\n"
                     + self.dataStore.userDataStore().savedPageList.entries.debugDescription)
-            let unmigratedEntries = self.dataStore.userDataStore().savedPageList.entries.filter() { $0.didMigrateImageData == false }
+            let unmigratedEntries = (self.dataStore.userDataStore().savedPageList.entries as! [MWKSavedPageEntry]).filter() { $0.didMigrateImageData == false }
             XCTAssertTrue(unmigratedEntries.isEmpty, "Expected data store to contain 0 unmigrated entries")
         },
         test: {

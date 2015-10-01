@@ -19,22 +19,15 @@
     self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;
+        [self sortEntries];
     }
     return self;
 }
 
 #pragma mark - Entry Access
 
-- (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index {
-    return [super entryAtIndex:index];
-}
-
 - (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
     return [super entryForListIndex:title];
-}
-
-- (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [super indexForEntry:entry];
 }
 
 - (MWKHistoryEntry*)mostRecentEntry {
@@ -63,13 +56,20 @@
     }
     if ([self containsEntryForListIndex:entry.title]) {
         [self updateEntryWithListIndex:entry.title update:^BOOL (MWKHistoryEntry* __nullable oldEntry) {
+            // FIXME: do we want to be defensive about carelessly created history entries?
+            // IOW: where does "Unknown" come from and should it overwrite the previous discovery method?
             oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ?
                                        oldEntry.discoveryMethod : entry.discoveryMethod;
-            oldEntry.date = [NSDate date];
+            if (oldEntry == entry && oldEntry.date == entry.date) {
+                // adding the same entry is equivalent to updating it's timestamp
+                oldEntry.date = [NSDate date];
+            } else {
+                // adding a manually-created entry updates the new one with its date
+                oldEntry.date = entry.date;
+            }
             return YES;
         }];
     } else {
-        entry.date = [NSDate date];
         [super addEntry:entry];
     }
     [self sortEntries];

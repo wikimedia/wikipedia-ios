@@ -37,7 +37,6 @@
     [entries enumerateObjectsUsingBlock:^(id < MWKListObject > obj, NSUInteger idx, BOOL* stop) {
         [self addEntry:obj];
     }];
-
     self.dirty = NO;
 }
 
