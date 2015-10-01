@@ -70,7 +70,7 @@
             "\ttitle: %@,\n"
             "\tdate: %@,\n"
             "\tdiscoveryMethod: %@,\n"
-            "\tscrollPosition: %d\n"
+            "\tscrollPosition: %f\n"
             "}",
             [super description],
             self.title,

@@ -37,14 +37,14 @@
     [self.list addEntry:savedEntry];
     [self.list toggleSavedPageForTitle:savedEntry.title];
     XCTAssertFalse([self.list isSaved:savedEntry.title]);
-    XCTAssertNil([self.list entryForTitle:savedEntry.title]);
+    XCTAssertNil([self.list entryForListIndex:savedEntry.title]);
 }
 
 - (void)testToggleUnsavedPageReturnsYesAndAddsToList {
     MWKSavedPageEntry* unsavedEntry = [self entryWithTitleText:@"foo"];
     [self.list toggleSavedPageForTitle:unsavedEntry.title];
     XCTAssertTrue([self.list isSaved:unsavedEntry.title]);
-    XCTAssertEqualObjects([self.list entryForTitle:unsavedEntry.title], unsavedEntry);
+    XCTAssertEqualObjects([self.list entryForListIndex:unsavedEntry.title], unsavedEntry);
 }
 
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {

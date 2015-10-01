@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Data
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong) MWKHistoryList* recentPages;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
@@ -85,14 +86,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Setup
 
 + (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
+                                                recentPages:(MWKHistoryList*)recentPages
                                                  savedPages:(MWKSavedPageList*)savedPages {
-    return [[self alloc] initWithDataStore:dataStore savedPages:savedPages];
+    return [[self alloc] initWithDataStore:dataStore recentPages:recentPages savedPages:savedPages];
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore savedPages:(MWKSavedPageList*)savedPages {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                      recentPages:(MWKHistoryList*)recentPages
+                       savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
         self.savedPageList = savedPages;
+        self.recentPages   = recentPages;
         self.dataStore     = dataStore;
         [self commonInit];
     }
@@ -317,6 +322,24 @@ NS_ASSUME_NONNULL_BEGIN
 //    }
 }
 
+#pragma mark - Article Navigation
+
+- (void)showArticleViewControllerForTitle:(MWKTitle*)title {
+    MWKArticle* article                          = [self.dataStore articleWithTitle:title];
+    WMFArticleContainerViewController* articleVC =
+        [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
+                                                         recentPages:self.recentPages
+                                                          savedPages:self.savedPageList];
+    articleVC.article = article;
+    [self showArticleViewController:articleVC];
+}
+
+- (void)showArticleViewController:(WMFArticleContainerViewController*)articleVC {
+    [self.recentPages addPageToHistoryWithTitle:articleVC.article.title
+                                discoveryMethod:MWKHistoryDiscoveryMethodLink];
+    [self.navigationController pushViewController:articleVC animated:YES];
+}
+
 #pragma mark - Article Fetching
 
 - (void)fetchArticle {
@@ -361,13 +384,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WebView Transition
 
-- (void)showWebViewAnimated:(BOOL)animated {
-//    [self.contentNavigationController pushViewController:self.webViewController animated:YES];
-}
-
 - (void)showWebViewAtFragment:(NSString*)fragment animated:(BOOL)animated {
     [self.webViewController scrollToFragment:fragment];
-    [self showWebViewAnimated:animated];
 }
 
 #pragma mark - WMFArticleViewControllerDelegate
@@ -448,25 +466,17 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Popup
 
 - (void)presentPopupForTitle:(MWKTitle*)title {
-    MWKArticle* article = [self.dataStore articleWithTitle:title];
-
-    WMFArticleContainerViewController* vc =
-        [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
-                                                          savedPages:self.savedPageList];
-    vc.article = article;
-
     //TODO: Disabling pop ups until Popup VC is redesigned.
     //Renable preview when this true
-
-    [self.navigationController pushViewController:vc animated:YES];
+    [self showArticleViewControllerForTitle:title];
 
     return;
 
-    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];
-    previewController.delegate = self;
-    [previewController presentPreviewAnimated:YES];
-
-    self.previewController = previewController;
+//    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];
+//    previewController.delegate = self;
+//    [previewController presentPreviewAnimated:YES];
+//
+//    self.previewController = previewController;
 }
 
 #pragma mark - Analytics
@@ -486,12 +496,7 @@ NS_ASSUME_NONNULL_BEGIN
      * Work around, make another view controller and push it instead.
      */
     WMFArticleContainerViewController* previewed = (id)viewController;
-
-    WMFArticleContainerViewController* vc =
-        [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
-                                                          savedPages:self.savedPageList];
-    vc.article = previewed.article;
-    [self.navigationController pushViewController:vc animated:NO];
+    [self showArticleViewControllerForTitle:previewed.article.title];
 }
 
 - (void)   previewController:(WMFPreviewController*)previewController

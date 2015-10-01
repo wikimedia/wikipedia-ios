@@ -7,6 +7,7 @@
 @class MWKDataStore;
 @class MWKSavedPageList;
 @class MWKArticle;
+@class MWKHistoryList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
     <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
 
 + (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
+                                                recentPages:(MWKHistoryList*)recentPages
                                                  savedPages:(MWKSavedPageList*)savedPages;
 
 @property (nonatomic, strong, readonly) WMFArticleViewController* articleViewController;
