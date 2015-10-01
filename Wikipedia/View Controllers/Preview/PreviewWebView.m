@@ -43,7 +43,7 @@
             [[requestURL scheme] isEqualToString:@"mailto"])
         && (navigationType == UIWebViewNavigationTypeLinkClicked)
         ) {
-        [self.externalLinksOpenerDelegate wmf_externalUrlOpener:requestURL];
+        [self.externalLinksOpenerDelegate wmf_openExternalUrl:requestURL];
         return NO;
     }
     return YES;

@@ -5,6 +5,6 @@
 
 @protocol WMFOpenExternalLinkDelegate
 
-- (void)wmf_externalUrlOpener:(NSURL*)url;
+- (void)wmf_openExternalUrl:(NSURL*)url;
 
 @end

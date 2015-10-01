@@ -90,10 +90,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 @implementation PreviewAndSaveViewController
 
-- (void)wmf_externalUrlOpener:(NSURL*)url {
-    [self wmf_openExternalUrl:url];
-}
-
 - (NSString*)getSummary {
     NSMutableArray* summaryArray = @[].mutableCopy;
 

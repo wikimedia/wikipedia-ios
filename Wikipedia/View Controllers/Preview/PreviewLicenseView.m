@@ -136,10 +136,10 @@ enum {
 - (void)actionSheet:(UIActionSheet*)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case BUTTON_TERMS:
-            [self.externalLinksOpenerDelegate wmf_externalUrlOpener:[NSURL URLWithString:TERMS_LINK]];
+            [self.externalLinksOpenerDelegate wmf_openExternalUrl:[NSURL URLWithString:TERMS_LINK]];
             break;
         case BUTTON_LICENSE:
-            [self.externalLinksOpenerDelegate wmf_externalUrlOpener:[NSURL URLWithString:LICENSE_LINK]];
+            [self.externalLinksOpenerDelegate wmf_openExternalUrl:[NSURL URLWithString:LICENSE_LINK]];
             break;
         default:
             NSLog(@"nooooo");
