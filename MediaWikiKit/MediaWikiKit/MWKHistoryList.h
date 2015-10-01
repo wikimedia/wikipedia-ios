@@ -1,13 +1,13 @@
 
 #import "MWKList.h"
+#import "MWKHistoryEntry.h"
 
 @class MWKTitle;
-@class MWKHistoryEntry;
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKHistoryList : MWKList
+@interface MWKHistoryList : MWKList<MWKHistoryEntry*>
 
 /**
  *  Create history list and connect with data store.
@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) MWKDataStore* dataStore;
 
-- (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index;
 - (MWKHistoryEntry* __nullable)entryForTitle:(MWKTitle*)title;
 
 - (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry;
@@ -37,15 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param discoveryMethod The method of discovery. MWKHistoryDiscoveryMethodUnknown is ignored if updating an existing                 
  *                         entry.
  */
-- (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
-
-/**
- *  Add an entry to the the user history
- *  Use this method if you needed to create an entry directly.
- *
- *  @param entry The entry to add
- */
-- (void)addEntry:(MWKHistoryEntry*)entry;
+- (void)addPageToHistoryWithTitle:(MWKTitle*)title
+                  discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
 /**
  *  Save the scroll position of a page
@@ -75,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Remove all history items.
  */
 - (void)removeAllEntriesFromHistory;
-
 
 - (NSArray*)dataExport;
 

@@ -74,7 +74,9 @@ public class WMFLegacyImageDataMigration : NSObject {
     /// Save the receiver's saved page list, making sure to preserve the current list on disk.
     func save() -> Promise<Void> {
         // for each entry that we migrated
-        let migratedEntries = savedPageList.entries.filter() { $0.didMigrateImageData == true } as! [MWKSavedPageEntry]
+        let migratedEntries = (savedPageList.entries as! [MWKSavedPageEntry]).filter() {
+            $0.didMigrateImageData == true
+        }
         let currentSavedPageList = legacyDataStore.userDataStore().savedPageList
         // grab the corresponding entry from the list on disk
         for migratedEntry: MWKSavedPageEntry in migratedEntries {

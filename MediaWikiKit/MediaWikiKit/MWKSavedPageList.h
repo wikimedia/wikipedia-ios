@@ -1,13 +1,13 @@
 
 #import "MWKList.h"
+#import "MWKSavedPageEntry.h"
 
 @class MWKTitle;
-@class MWKSavedPageEntry;
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKSavedPageList : MWKList
+@interface MWKSavedPageList : MWKList<MWKSavedPageEntry*>
 
 /**
  *  Create saved page list and connect with data store.
@@ -21,11 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 
-- (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index;
 - (MWKSavedPageEntry* __nullable)entryForTitle:(MWKTitle*)title;
 - (MWKSavedPageEntry*)           mostRecentEntry;
-
-- (NSUInteger)indexForEntry:(MWKSavedPageEntry*)entry;
 
 - (BOOL)isSaved:(MWKTitle*)title;
 
@@ -53,14 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSavedPageWithTitle:(MWKTitle*)title;
 
 /**
- *  Add an entry to the the user saved pages
- *  Use this method if you needed to create an entry directly.
- *
- *  @param entry The entry to add
- */
-- (void)addEntry:(MWKSavedPageEntry*)entry;
-
-/**
  *  Remove a saved page task
  *
  *  @param title The title of the page to remove
@@ -71,7 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Remove all saved pages
  */
 - (void)removeAllSavedPages;
-
 
 - (NSArray*)dataExport;
 

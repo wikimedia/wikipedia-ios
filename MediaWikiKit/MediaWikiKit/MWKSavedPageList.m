@@ -59,10 +59,6 @@
     return [self containsEntryForListIndex:title];
 }
 
-- (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [super indexForEntry:entry];
-}
-
 #pragma mark - Update Methods
 
 - (void)toggleSavedPageForTitle:(MWKTitle*)title {

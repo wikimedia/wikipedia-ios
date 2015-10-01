@@ -1,9 +1,10 @@
 
 #import "MWKList.h"
+#import "MWKRecentSearchEntry.h"
 
-@class MWKRecentSearchEntry, MWKDataStore;
+@class MWKDataStore;
 
-@interface MWKRecentSearchList : MWKList
+@interface MWKRecentSearchList : MWKList<MWKRecentSearchEntry*>
 
 @property (readonly, weak, nonatomic) MWKDataStore* dataStore;
 

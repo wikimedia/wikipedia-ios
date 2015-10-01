@@ -5,7 +5,7 @@
 
 @interface MWKList ()
 
-@property (nonatomic, strong) NSMutableArray* mutableEntries;
+@property (nonatomic, strong) NSMutableArray<id<MWKListObject>>* mutableEntries;
 @property (nonatomic, readwrite, assign) BOOL dirty;
 
 @end
