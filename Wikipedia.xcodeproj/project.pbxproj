@@ -211,6 +211,9 @@
 		0E4500B51B979F7000A33B55 /* WMFSectionSchemaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4500B41B979F7000A33B55 /* WMFSectionSchemaManager.m */; };
 		0E4500B81B97A26400A33B55 /* WMFSectionSchemaItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4500B71B97A26400A33B55 /* WMFSectionSchemaItem.m */; };
 		0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */; };
+		0E4D1CF81BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4D1CF71BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		0E4D1CFA1BBD8A83009BEB64 /* WMFTableOfContentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */; settings = {ASSET_TAGS = (); }; };
+		0E4D1CFF1BBDC857009BEB64 /* WMFTableOfContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */; settings = {ASSET_TAGS = (); }; };
 		0E582D351B82258300B2645B /* WMFArticlePreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E582D341B82258300B2645B /* WMFArticlePreviewCell.m */; };
 		0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */; };
 		0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */; };
@@ -908,6 +911,9 @@
 		0E4500B71B97A26400A33B55 /* WMFSectionSchemaItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSectionSchemaItem.m; sourceTree = "<group>"; };
 		0E466E531B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFScrollViewTopPanGestureRecognizer.h; sourceTree = "<group>"; };
 		0E466E541B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFScrollViewTopPanGestureRecognizer.m; sourceTree = "<group>"; };
+		0E4D1CF71BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTableOfContentsViewController.swift; sourceTree = "<group>"; };
+		0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFTableOfContentsCell.xib; sourceTree = "<group>"; };
+		0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTableOfContentsCell.swift; sourceTree = "<group>"; };
 		0E582D331B82258300B2645B /* WMFArticlePreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePreviewCell.h; sourceTree = "<group>"; };
 		0E582D341B82258300B2645B /* WMFArticlePreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewCell.m; sourceTree = "<group>"; };
 		0E5F285E1B6719AF008885A2 /* MWKArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKArticlePreview.h; sourceTree = "<group>"; };
@@ -2475,6 +2481,16 @@
 			name = Sections;
 			sourceTree = "<group>";
 		};
+		0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */ = {
+			isa = PBXGroup;
+			children = (
+				0E4D1CF71BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift */,
+				0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */,
+				0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */,
+			);
+			name = "Table of Contents";
+			sourceTree = "<group>";
+		};
 		0E7955BF1B2B389800B055A2 /* TGLStackedViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2621,8 +2637,9 @@
 			isa = PBXGroup;
 			children = (
 				0EA35C481B6BB85100D9CFE6 /* WMFArticleContainerViewController.h */,
-				BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */,
 				0EA35C491B6BB85100D9CFE6 /* WMFArticleContainerViewController.m */,
+				0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */,
+				BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */,
 				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
 				0E94AFF51B209882000BC5EA /* WMFArticleViewController.m */,
 				BC38634B1B7400E7003A2D38 /* WMFArticleListItemController.h */,
@@ -3418,7 +3435,7 @@
 						TestTargetID = D4991434181D51DE00E6073C;
 					};
 					D4991434181D51DE00E6073C = {
-						DevelopmentTeam = AKK7J2GV64;
+						DevelopmentTeam = 3VYQ758J3N;
 					};
 				};
 			};
@@ -3548,6 +3565,7 @@
 			files = (
 				04661DC81B4346C90045E970 /* WMFArticleViewController.storyboard in Resources */,
 				041E32391B72AB9A001D0E28 /* WMFSectionHeader.xib in Resources */,
+				0E4D1CFA1BBD8A83009BEB64 /* WMFTableOfContentsCell.xib in Resources */,
 				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				04016E1C1B3285B700D732FE /* AboutViewController.storyboard in Resources */,
 				04DA87771B30A9D600C948F8 /* AccountCreationViewController.storyboard in Resources */,
@@ -4102,6 +4120,7 @@
 				04224500197F5E09005DD0BF /* AbuseFilterAlert.m in Sources */,
 				BC3863521B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m in Sources */,
 				0ED6897B1B82422C00B30427 /* MWKLocationSearchResult.m in Sources */,
+				0E4D1CF81BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift in Sources */,
 				BCB669731A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */,
 				D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */,
@@ -4165,6 +4184,7 @@
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
 				BC505EEE1B594B5700537006 /* WMFImageCollectionViewCell.m in Sources */,
+				0E4D1CFF1BBDC857009BEB64 /* WMFTableOfContentsCell.swift in Sources */,
 				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
 				046D3CA01B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */,
 				BC505EEB1B59461400537006 /* WMFCollectionViewPageLayout.m in Sources */,
@@ -4363,8 +4383,8 @@
 				APP_ID_SUFFIX = .tfalpha;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 182;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -4390,6 +4410,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
@@ -4498,8 +4519,8 @@
 				APP_ID_SUFFIX = .tfbeta;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 182;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -4525,6 +4546,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
@@ -4636,8 +4658,8 @@
 				APP_ID_SUFFIX = .developer;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 182;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -4658,6 +4680,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4940,6 +4963,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
+				PROVISIONING_PROFILE = "99bc09b1-c8c7-4bd5-83e2-2c201034e970";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -4963,8 +4987,8 @@
 				APP_ID_SUFFIX = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 182;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -4985,6 +5009,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
