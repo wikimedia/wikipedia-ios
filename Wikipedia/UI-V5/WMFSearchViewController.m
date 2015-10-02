@@ -164,10 +164,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.searchFieldTop setConstant:-self.searchFieldHeight.constant];
+    self.searchFieldTop.constant = -self.searchFieldHeight.constant;
+    self.contentViewTop.constant = self.view.bounds.size.height;
     [self.view layoutIfNeeded];
     BOOL willAnimate = [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         [self.searchFieldTop setConstant:0];
+        self.contentViewTop.constant = self.searchFieldHeight.constant;
         [self.view layoutIfNeeded];
         [self updateRecentSearchesVisibility:animated];
     }
@@ -186,11 +188,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super viewWillDisappear:animated];
     [self saveLastSearch];
     [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-        [UIView animateWithDuration:0.35 animations:^{
-            [self.searchField resignFirstResponder];
-            self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-            [self.view layoutIfNeeded];
-        }];
+        [self.searchField resignFirstResponder];
+        self.searchFieldTop.constant = -self.searchFieldHeight.constant;
+        self.contentViewTop.constant = self.view.bounds.size.height;
+        [self.view layoutIfNeeded];
     } completion:nil];
 }
 
