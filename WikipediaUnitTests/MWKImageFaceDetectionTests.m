@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "MWKImage+FaceDetection.h"
+#import "WMFFaceDetectionCache.h"
 #import "WMFTestFixtureUtilities.h"
 #import "CIDetector+WMFFaceDetection.h"
 #import "WMFAsyncTestCase.h"
@@ -24,6 +24,7 @@
 @property (nonatomic, strong) MWKImage* image;
 @property (nonatomic, strong) MWKArticle* dummyArticle;
 @property (nonatomic, strong) MWKDataStore* mockDataStore;
+@property (nonatomic, strong) WMFFaceDetectionCache* faceDetectionCache;
 @end
 
 @implementation MWKImageFaceDetectionTests
@@ -33,6 +34,7 @@
     self.mockDataStore = mock([MWKDataStore class]);
     self.dummyArticle  = [[MWKArticle alloc] initWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"foo"]
                                                  dataStore:self.mockDataStore];
+    self.faceDetectionCache = [[WMFFaceDetectionCache alloc] init];
 }
 
 #pragma mark - Serialization
@@ -82,29 +84,9 @@
 
 #pragma mark - Detection
 
-- (void)testDetectingFacesInFacelessImage {
-    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
-
-    UIImage* facelessImage = [UIImage imageNamed:@"golden-gate.jpg"
-                                        inBundle:[self wmf_bundle]
-                   compatibleWithTraitCollection:nil];
-    NSParameterAssert(facelessImage);
-
-    [self expectAnyPromiseToResolve:^AnyPromise*{
-        CIDetector* sharedDetector = [CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector];
-        return [sharedDetector wmf_detectFeaturelessFacesInImage:facelessImage]
-        .then(^(NSArray* faces) {
-            [self.image setNormalizedFaceBoundsFromFeatures:faces inImage:facelessImage];
-        });
-    } timeout:WMFDefaultExpectationTimeout * 2 WMFExpectFromHere];
-
-    XCTAssertTrue(self.image.didDetectFaces);
-    XCTAssertFalse(self.image.hasFaces);
-}
-
 - (void)testShouldSetDidDetectFacesIfPassedNilFeatures {
-    self.image = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
-    [self.image setNormalizedFaceBoundsFromFeatures:nil inImage:nil];
+    self.image                         = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:[NSURL URLWithString:@"foo"]];
+    self.image.allNormalizedFaceBounds = nil;
     XCTAssertTrue(self.image.didDetectFaces, @"Need to be able to handle cases where CIDetector passes nil.");
 }
 

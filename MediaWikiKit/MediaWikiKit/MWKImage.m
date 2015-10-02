@@ -49,10 +49,10 @@
     NSString* sourceURL = [self requiredString:@"sourceURL" dict:dict];
     self = [self initWithArticle:article sourceURLString:sourceURL];
     if (self) {
-        self.mimeType                = [self optionalString:@"mimeType" dict:dict];
-        self.width                   = [self optionalNumber:@"width" dict:dict];
-        self.height                  = [self optionalNumber:@"height" dict:dict];
-        self.allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
+        self.mimeType            = [self optionalString:@"mimeType" dict:dict];
+        self.width               = [self optionalNumber:@"width" dict:dict];
+        self.height              = [self optionalNumber:@"height" dict:dict];
+        _allNormalizedFaceBounds = [dict[@"focalRects"] bk_map:^NSValue*(NSString* rectString) {
             return [NSValue valueWithCGRect:CGRectFromString(rectString)];
         }];
     }
@@ -94,6 +94,13 @@
 - (CGRect)firstFaceBounds {
     NSValue* firstFace = [self.allNormalizedFaceBounds firstObject];
     return firstFace ? [firstFace CGRectValue] : CGRectZero;
+}
+
+- (void)setAllNormalizedFaceBounds:(NSArray*)allNormalizedFaceBounds {
+    if (!allNormalizedFaceBounds) {
+        allNormalizedFaceBounds = @[];
+    }
+    _allNormalizedFaceBounds = allNormalizedFaceBounds;
 }
 
 - (NSString*)sourceURLString {

@@ -116,7 +116,8 @@ public class WMFLegacyImageDataMigration : NSObject {
 
     /// Mark the given entry as having its image data migrated.
     func markEntryAsMigrated(entry: MWKSavedPageEntry) {
-        legacyDataStore.userDataStore.savedPageList.updateEntryWithTitle(entry.title) { e in
+        legacyDataStore.userDataStore.savedPageList.updateEntryWithListIndex(entry.title) { e in
+            let e = e as! MWKSavedPageEntry
             e.didMigrateImageData = true
             return true
         }

@@ -14,7 +14,7 @@
 #import "CIDetector+WMFFaceDetection.h"
 
 // View
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 #import "WMFImageCollectionViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIImageView+WMFContentOffset.h"
@@ -120,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
         return cell;
     }
 
-    [cell.imageView wmf_setImageWithFaceDetectionFromMetadata:self.images[indexPath.item]];
+    [cell.imageView wmf_setImageWithMetadata:self.images[indexPath.item] detectFaces:YES];
 
     return cell;
 }

@@ -203,7 +203,10 @@
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     self.selectedArticle = [self.dataSource articleForIndexPath:indexPath];
 
-    WMFArticleContainerViewController* container = [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore savedPages:self.savedPages];
+    WMFArticleContainerViewController* container =
+        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore
+                                                                           recentPages:self.recentPages
+                                                                            savedPages:self.savedPages];
     container.article = self.selectedArticle;
 
     [self wmf_hideKeyboard];

@@ -8,7 +8,7 @@
 
 #import "WMFImageCollectionViewCell.h"
 #import "UIImageView+WMFContentOffset.h"
-#import "UIImageView+MWKImage.h"
+#import "UIImageView+WMFImageFetching.h"
 #import <Masonry/Masonry.h>
 
 @implementation WMFImageCollectionViewCell
@@ -27,8 +27,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    [self.imageView wmf_resetContentOffset];
-    [self.imageView wmf_resetImageMetadata];
+    [self.imageView wmf_reset];
     self.imageView.image       = [UIImage imageNamed:@"lead-default"];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 }

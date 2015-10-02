@@ -407,7 +407,7 @@
 - (void)deleteHistoryForIndexPath:(NSIndexPath*)indexPath {
     MWKHistoryEntry* historyEntry = self.historyDataArray[indexPath.section][@"data"][indexPath.row];
     if (historyEntry) {
-        [self.userDataStore.historyList removePageFromHistoryWithTitle:historyEntry.title];
+        [self.userDataStore.historyList removeEntryWithListIndex:historyEntry.title];
         [self.userDataStore.historyList save].then(^(){
             [self.tableView beginUpdates];
 
@@ -462,7 +462,7 @@
 }
 
 - (void)deleteAllHistoryItems {
-    [self.userDataStore.historyList removeAllEntriesFromHistory];
+    [self.userDataStore.historyList removeAllEntries];
     [self.userDataStore.historyList save].then(^(){
         // Remove any orphaned images.
         DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
