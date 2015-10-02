@@ -19,6 +19,7 @@
 #import "WMFShareFunnel.h"
 #import "WMFShareOptionsController.h"
 #import "WMFImageGalleryViewController.h"
+#import "UIViewController+WMFSearchButton.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -47,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
  UINavigationControllerDelegate,
  WMFPreviewControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
- WMFImageGalleryViewControllerDelegate>
+ WMFImageGalleryViewControllerDelegate,
+ WMFSearchPresentationDelegate>
 
 // Data
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
@@ -316,6 +318,8 @@ NS_ASSUME_NONNULL_BEGIN
                                           savedPageList:self.savedPageList
                                                   title:self.article.title];
 
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+
     // TODO: add TOC
 //    if (!self.article.isMain) {
 //        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
@@ -324,8 +328,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Navigation
 
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title {
-    MWKArticle* article                          = [self.dataStore articleWithTitle:title];
+- (void)showArticleViewControllerWithArticle:(MWKArticle*)article {
     WMFArticleContainerViewController* articleVC =
         [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
                                                          recentPages:self.recentPages
@@ -334,9 +337,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self showArticleViewController:articleVC];
 }
 
+- (void)showArticleViewControllerForTitle:(MWKTitle*)title {
+    [self showArticleViewControllerWithArticle:[self.dataStore articleWithTitle:title]];
+}
+
 - (void)showArticleViewController:(WMFArticleContainerViewController*)articleVC {
     [self.recentPages addPageToHistoryWithTitle:articleVC.article.title
                                 discoveryMethod:MWKHistoryDiscoveryMethodLink];
+    [self.recentPages save];
     [self.navigationController pushViewController:articleVC animated:YES];
 }
 
@@ -529,6 +537,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
     self.headerGallery.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WMFSearchPresentationDelegate
+
+- (MWKSite*)searchSite {
+    return self.article.site;
+}
+
+- (void)didSelectArticle:(MWKArticle *)article sender:(WMFSearchViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self showArticleViewControllerWithArticle:article];
+    }];
 }
 
 @end

@@ -22,11 +22,12 @@
 #import "WMFArticlePreviewCell.h"
 
 #import "WMFArticleContainerViewController.h"
+#import "UIViewController+WMFSearchButton.h"
 
 
 @interface WMFArticleListCollectionViewController ()
-<UICollectionViewDelegate>
-@property (strong, nonatomic) MWKArticle* selectedArticle;
+<UICollectionViewDelegate, WMFSearchPresentationDelegate>
+
 @property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
 @property (nonatomic, strong) IBOutlet UICollectionViewLayout* collectionViewLayout;
 
@@ -36,6 +37,28 @@
 
 @implementation WMFArticleListCollectionViewController
 @synthesize listTransition = _listTransition;
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (void)commonInit {
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+}
+
+#pragma mark - Accessors
 
 + (SelfSizingWaterfallCollectionViewLayout*)createLayout {
     return [SelfSizingWaterfallCollectionViewLayout new];
@@ -48,8 +71,6 @@
 + (UICollectionView*)createCollectionView {
     return [[[self collectionViewClass] alloc] initWithFrame:CGRectZero collectionViewLayout:[self createLayout]];
 }
-
-#pragma mark - Accessors
 
 - (id<WMFArticleListDynamicDataSource>)dynamicDataSource {
     if ([self.dataSource conformsToProtocol:@protocol(WMFArticleListDynamicDataSource)]) {
@@ -198,43 +219,53 @@
     } completion:NULL];
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - Article Selection
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    self.selectedArticle = [self.dataSource articleForIndexPath:indexPath];
+- (void)showArticle:(MWKArticle*)article {
+    if (self.delegate) {
+        [self.delegate didSelectArticle:article sender:self];
+        return;
+    }
 
     WMFArticleContainerViewController* container =
-        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore
-                                                                           recentPages:self.recentPages
-                                                                            savedPages:self.savedPages];
-    container.article = self.selectedArticle;
+    [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore
+                                                                       recentPages:self.recentPages
+                                                                        savedPages:self.savedPages];
+    container.article = article;
 
     [self wmf_hideKeyboard];
 
     [self.navigationController pushViewController:container animated:YES];
 
-    [self.recentPages addPageToHistoryWithTitle:self.selectedArticle.title
+    [self.recentPages addPageToHistoryWithTitle:article.title
                                 discoveryMethod:[self.dataSource discoveryMethod]];
     [self.recentPages save];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+    [self showArticle:[self.dataSource articleForIndexPath:indexPath]];
 }
 
 #pragma mark - WMFArticleListTransitioning
 
 - (UIView*)viewForTransition:(WMFArticleListTransition*)transition {
-    NSIndexPath* indexPath = [self.dataSource indexPathForArticle:self.selectedArticle];
-    if (!indexPath) {
-        return nil;
-    }
-    return [self.collectionView cellForItemAtIndexPath:indexPath];
+    // FIXME: this is going away soon
+    return nil;
 }
 
 - (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition {
-    NSIndexPath* indexPath     = [self.dataSource indexPathForArticle:self.selectedArticle];
-    NSIndexPath* next          = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
-    UICollectionViewCell* cell = [self.collectionView cellForItemAtIndexPath:next];
-    CGRect frame               = cell.frame;
-    frame.size.height = CGRectGetHeight(self.collectionView.frame) - frame.origin.y;
-    return frame;
+    // FIXME: this is going away soon
+    return CGRectZero;
+}
+
+#pragma mark - WMFSearchPresentationDelegate
+
+- (void)didSelectArticle:(MWKArticle *)article sender:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self showArticle:article];
+    }];
 }
 
 @end

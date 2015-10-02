@@ -25,7 +25,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 <UISearchBarDelegate,
  WMFRecentSearchesViewControllerDelegate,
  WMFArticleListTransitionProvider,
- UITextFieldDelegate>
+ UITextFieldDelegate,
+ WMFArticleSelectionDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;
@@ -124,6 +125,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.dataStore   = self.dataStore;
     self.resultsListController.recentPages = self.dataStore.userDataStore.historyList;
     self.resultsListController.savedPages  = self.dataStore.userDataStore.savedPageList;
+    self.resultsListController.delegate = self;
 }
 
 - (void)configureRecentSearchList {
@@ -348,6 +350,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self updateSearchSuggestion:nil];
     }];
     [self searchForSearchTerm:self.searchField.text];
+}
+
+#pragma mark - WMFArticleSelectionDelegate
+
+- (void)didSelectArticle:(MWKArticle *)article sender:(id)sender {
+    [self.searchResultDelegate didSelectArticle:article sender:self];
 }
 
 @end

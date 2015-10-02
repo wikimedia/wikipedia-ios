@@ -9,6 +9,8 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "WMFSearchViewController.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "WMFArticleContainerViewController.h"
+#import "SessionSingleton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,23 +25,25 @@ NS_ASSUME_NONNULL_BEGIN
         if (!delegate || !self) {
             return;
         }
-        UIViewController* searchVC =
-            [WMFSearchViewController searchViewControllerWithSite:[delegate site] dataStore:[delegate dataStore]];
+
+        MWKSite* searchSite;
+        if ([delegate respondsToSelector:@selector(searchSite)]) {
+            searchSite = [delegate searchSite];
+        } else {
+            // if the delegate doesn't have a specific site we should search from, default to the user's setting
+            searchSite = [[SessionSingleton sharedInstance] searchSite];
+        }
+
+        WMFSearchViewController* searchVC =
+            [WMFSearchViewController searchViewControllerWithSite:searchSite
+                                                        dataStore:[delegate dataStore]];
+        searchVC.searchResultDelegate = delegate;
         [self wmf_presentSearchViewController:searchVC];
     }];
 }
 
 - (void)wmf_presentSearchViewController:(UIViewController*)searchViewController {
     [self presentViewController:searchViewController animated:YES completion:nil];
-}
-
-- (void)didSelectTitle:(nullable MWKTitle*)title {
-    if (title) {
-        // create & present article container
-    }
-    [self dismissViewControllerAnimated:YES completion:^{
-        // push container
-    }];
 }
 
 @end

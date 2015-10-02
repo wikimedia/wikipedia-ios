@@ -7,16 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMFArticleSelectionDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MWKSite, MWKDataStore, WMFSearchViewController;
 
-@protocol WMFSearchPresentationDelegate <NSObject>
-
-- (MWKSite*)site;
+@protocol WMFSearchPresentationDelegate <WMFArticleSelectionDelegate>
 
 - (MWKDataStore*)dataStore;
+
+@optional
+
+- (MWKSite*)searchSite;
 
 @end
 

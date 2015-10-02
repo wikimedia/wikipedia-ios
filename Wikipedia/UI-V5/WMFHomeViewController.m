@@ -422,12 +422,19 @@ NS_ASSUME_NONNULL_BEGIN
                                  animated:(BOOL)animated
                           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     MWKArticle* article                                   = [self.dataStore articleWithTitle:title];
+    [self showViewControllerWithArticle:article animated:animated discoveryMethod:discoveryMethod];
+}
+
+- (void)showViewControllerWithArticle:(MWKArticle*)article
+                             animated:(BOOL)animated
+                      discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     WMFArticleContainerViewController* articleContainerVC =
         [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore
                                                                            recentPages:self.recentPages
                                                                             savedPages:self.savedPages];
     articleContainerVC.article = article;
-    [self.recentPages addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
+    [self.recentPages addPageToHistoryWithTitle:article.title discoveryMethod:discoveryMethod];
+    [self.recentPages save];
     [self.navigationController pushViewController:articleContainerVC animated:animated];
 }
 
@@ -494,12 +501,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFSearchPresentationDelegate
 
-- (MWKSite*)site {
-    return self.searchSite;
-}
-
-- (MWKUserDataStore*)userDataStore {
-    return self.dataStore.userDataStore;
+- (void)didSelectArticle:(MWKArticle *)article sender:(WMFSearchViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self showViewControllerWithArticle:article
+                                   animated:YES
+                            discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+    }];
 }
 
 @end
