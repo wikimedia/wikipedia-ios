@@ -1,5 +1,3 @@
-//  Created by Jaikumar Bhambhwani on 11/10/12.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 @interface NSString (Extras)
 
@@ -43,5 +41,8 @@
 - (BOOL)wmf_isEqualToStringIgnoringCase:(NSString*)string;
 
 - (NSString*)wmf_trim;
+
+- (NSString*)wmf_substringUpToString:(NSString*)string;
+- (NSString*)wmf_substringAfterString:(NSString*)string;
 
 @end

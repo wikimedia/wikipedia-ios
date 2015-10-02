@@ -1,5 +1,3 @@
-//  Created by Jaikumar Bhambhwani on 11/10/12.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "NSString+Extras.h"
 #import "TFHpple.h"
@@ -143,5 +141,18 @@
 - (NSString*)wmf_trim {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
+
+- (NSString*)wmf_substringUpToString:(NSString*)string{
+    return [[self componentsSeparatedByString:string] firstObject];
+}
+- (NSString*)wmf_substringAfterString:(NSString*)string{
+   NSArray* components = [self componentsSeparatedByString:string];
+    if([components count] > 2){
+        return components[1];
+    }else{
+        return [components lastObject];
+    }
+}
+
 
 @end
