@@ -12,6 +12,8 @@
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='coordinates'])][1]//text()";
 
 @interface MWKSection ()
@@ -19,20 +21,20 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 @property (readwrite, strong, nonatomic) MWKTitle* title;
 @property (readwrite, weak, nonatomic) MWKArticle* article;
 
-@property (readwrite, copy, nonatomic) NSNumber* toclevel;      // optional
-@property (readwrite, copy, nonatomic) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
-@property (readwrite, copy, nonatomic) NSString* line;          // optional; HTML
-@property (readwrite, copy, nonatomic) NSString* number;        // optional; can be "1.2.3"
-@property (readwrite, copy, nonatomic) NSString* index;         // optional; can be "T-3" for transcluded sections
-@property (readwrite, strong, nonatomic) MWKTitle* fromtitle; // optional
-@property (readwrite, copy, nonatomic) NSString* anchor;        // optional
+@property (readwrite, copy, nonatomic, nullable) NSNumber* toclevel;      // optional
+@property (readwrite, copy, nonatomic, nullable) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
+@property (readwrite, copy, nonatomic, nullable) NSString* line;          // optional; HTML
+@property (readwrite, copy, nonatomic, nullable) NSString* number;        // optional; can be "1.2.3"
+@property (readwrite, copy, nonatomic, nullable) NSString* index;         // optional; can be "T-3" for transcluded sections
+@property (readwrite, strong, nonatomic, nullable) MWKTitle* fromtitle; // optional
+@property (readwrite, copy, nonatomic, nullable) NSString* anchor;        // optional
 @property (readwrite, assign, nonatomic) int sectionId;           // required; -> id
 @property (readwrite, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
 
-@property (readwrite, copy, nonatomic) NSString* text;          // may be nil
-@property (readwrite, strong, nonatomic) MWKImageList* images;    // ?????
+@property (readwrite, copy, nonatomic, nullable) NSString* text;          // may be nil
+@property (readwrite, strong, nonatomic, nullable) MWKImageList* images;    // ?????
 
-@property (readwrite, strong, nonatomic) NSMutableArray* mutableChildren;
+@property (readwrite, strong, nonatomic, nullable) NSMutableArray* mutableChildren;
 
 @end
 
@@ -97,7 +99,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return (self.sectionId == 0);
 }
 
-- (MWKTitle*)sourceTitle {
+- (nullable MWKTitle*)sourceTitle {
     if (self.fromtitle) {
         // We probably came from a foreign template section!
         return self.fromtitle;
@@ -110,14 +112,14 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return [self.article.dataStore hasHTMLFileForSection:self];
 }
 
-- (NSString*)text {
+- (nullable NSString*)text {
     if (_text == nil) {
         _text = [self.article.dataStore sectionTextWithId:self.sectionId article:self.article];
     }
     return _text;
 }
 
-- (MWKImageList*)images {
+- (nullable MWKImageList*)images {
     if (_images == nil) {
         _images = [self.article.dataStore imageListWithArticle:self.article section:self];
     }
@@ -177,7 +179,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return @"";
 }
 
-- (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath {
+- (nullable NSArray*)elementsInTextMatchingXPath:(NSString*)xpath {
     NSParameterAssert(xpath.length);
     if (!self.text) {
         DDLogWarn(@"Trying to query section text before downloaded. Section: %@", self);
@@ -188,7 +190,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 #pragma mark - Section Hierarchy
 
-- (NSArray*)children {
+- (nullable NSArray*)children {
     return _mutableChildren;
 }
 
@@ -227,3 +229,5 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
