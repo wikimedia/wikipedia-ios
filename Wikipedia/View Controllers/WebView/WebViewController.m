@@ -28,6 +28,7 @@
 
 #import "UIWebView+WMFJavascriptContext.h"
 #import "UIWebView+WMFTrackingView.h"
+#import "UIWebView+ElementLocation.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -523,6 +524,21 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 #pragma mark Table of contents
+
+- (MWKSection*)currentVisibleSection{
+
+    NSInteger indexOfFirstOnscreenSection =
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
+                                                         count:self.article.sections.count];
+
+    if(indexOfFirstOnscreenSection > self.article.sections.count || indexOfFirstOnscreenSection < 0){
+        return [self.article.sections.entries firstObject];
+    }
+
+    return self.article.sections[indexOfFirstOnscreenSection];
+}
+
+
 
 - (BOOL)tocDrawerIsOpen {
     return !CGAffineTransformIsIdentity(self.webView.scrollView.transform);
@@ -1274,6 +1290,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     [self loadArticleWithTitleFromNetwork:title];
+}
+
+- (void)scrollToSection:(MWKSection*)section{
+    [self scrollToFragment:section.anchor];
 }
 
 - (void)scrollToFragment:(NSString*)fragment {
