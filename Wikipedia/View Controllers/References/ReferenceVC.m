@@ -10,6 +10,7 @@
 #import "Defines.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "MediaWikiKit.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 #define REFERENCE_LINK_COLOR @"#2b6fb2"
 
@@ -77,7 +78,7 @@
                 ||
                 [scheme isEqualToString:@"mailto"]
                 ) {
-                [[UIApplication sharedApplication] openURL:requestURL];
+                [self wmf_openExternalUrl:requestURL];
                 return NO;
             }
         }

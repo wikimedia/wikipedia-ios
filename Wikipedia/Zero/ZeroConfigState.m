@@ -2,7 +2,6 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "ZeroConfigState.h"
-#import <BlocksKit/BlocksKit+UIKit.h>
 
 @implementation ZeroConfigState
 
@@ -34,25 +33,6 @@
 
 - (BOOL)fakeZeroOn {
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"FakeZeroOn"];
-}
-
-- (void)showWarningIfNeededBeforeOpeningURL:(NSURL*)url {
-    NSParameterAssert(url);
-    if (self.disposition && [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"]) {
-        NSString* messageWithHost = [NSString stringWithFormat:@"%@\n\n%@",
-                                     MWLocalizedString(@"zero-interstitial-leave-app", nil),
-                                     url.host];
-        UIAlertView* zeroAlert = [UIAlertView bk_alertViewWithTitle:MWLocalizedString(@"zero-interstitial-title", nil)
-                                                            message:messageWithHost];
-        [zeroAlert bk_setCancelButtonWithTitle:MWLocalizedString(@"zero-interstitial-cancel", nil)
-                                       handler:nil];
-        [zeroAlert bk_addButtonWithTitle:MWLocalizedString(@"zero-interstitial-continue", nil) handler:^{
-            [[UIApplication sharedApplication] openURL:url];
-        }];
-        [zeroAlert show];
-    } else {
-        [[UIApplication sharedApplication] openURL:url];
-    }
 }
 
 @end

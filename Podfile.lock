@@ -54,6 +54,7 @@ PODS:
   - SDWebImage/Core (3.7.2)
   - SelfSizingWaterfallCollectionViewLayout (0.0.1)
   - SSDataSources (0.8.5)
+  - SVWebViewController (1.0)
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
@@ -76,6 +77,7 @@ DEPENDENCIES:
   - SDWebImage (from `./vendor/SDWebImage`)
   - SelfSizingWaterfallCollectionViewLayout (from `git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git`)
   - SSDataSources
+  - SVWebViewController (~> 1.0)
 
 EXTERNAL SOURCES:
   SDWebImage:
@@ -109,5 +111,6 @@ SPEC CHECKSUMS:
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SelfSizingWaterfallCollectionViewLayout: befdae95e51b6b0d9fbf0d58fe316324fb2f780a
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
+  SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.38.0
