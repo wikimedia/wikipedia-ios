@@ -18,7 +18,10 @@ public class WMFTableOfContentsCell: UITableViewCell {
     // MARK: - UIView
     public override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectedSectionIndicator.hidden = true
+        self.selectedSectionIndicator.alpha = 0.0
+        let bg = UIView.init(frame: self.bounds);
+        bg.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
+        self.selectedBackgroundView = bg
     }
     
     // MARK: - Accessors
@@ -46,9 +49,11 @@ public class WMFTableOfContentsCell: UITableViewCell {
     public override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if(selected){
-            self.selectedSectionIndicator.hidden = false
+            //HACK: I don't know why I have to set the color here, but I do. Something is setting it to clear background color
+            self.selectedSectionIndicator.backgroundColor = UIColor.wmf_tableOfContentsSelectionIndicatorColor()
+            self.selectedSectionIndicator.alpha = 1.0
         }else{
-            self.selectedSectionIndicator.hidden = true
+            self.selectedSectionIndicator.alpha = 0.0
         }
     }
     

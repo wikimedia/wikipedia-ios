@@ -18,6 +18,10 @@
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor;
 
++ (instancetype)wmf_tableOfContentsSelectionBackgroundColor;
+
++ (instancetype)wmf_tableOfContentsSelectionIndicatorColor;
+
 + (instancetype)wmf_tableOfContentsSectionTextColor;
 
 + (instancetype)wmf_tableOfContentsSubsectionTextColor;

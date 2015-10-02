@@ -24,7 +24,7 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WnM-xO-Ywd">
                         <rect key="frame" x="14" y="16" width="10" height="10"/>
                         <animations/>
-                        <color key="backgroundColor" red="0.19271615147590637" green="0.3342515230178833" blue="0.811298668384552" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.18405178189277649" green="0.33496212959289551" blue="0.82250326871871948" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="AUf-YD-XQT"/>
                             <constraint firstAttribute="width" constant="10" id="kD6-Nh-fQo"/>
@@ -33,7 +33,6 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="5"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>

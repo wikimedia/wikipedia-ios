@@ -492,6 +492,7 @@ WMFTableOfContentsViewControllerDelegate>
 #pragma mark - TableOfContentsViewControllerDelegate
 
 - (void)tableOfContentsController:(WMFTableOfContentsViewController *)controller didSelectSection:(MWKSection *)section{
+    [self.navigationController popViewControllerAnimated:YES];
     [self.webViewController scrollToSection:section];
 }
 
