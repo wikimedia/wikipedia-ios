@@ -37,13 +37,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint* suggestionButtonHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchFieldTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* searchFieldHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* searchFieldTop;
 
 @property (nonatomic, assign, getter = isRecentSearchesHidden) BOOL recentSearchesHidden;
 
@@ -55,10 +55,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 + (instancetype)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
-    searchVC.searchSite = site;
-    searchVC.dataStore  = dataStore;
+    searchVC.searchSite             = site;
+    searchVC.dataStore              = dataStore;
     searchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    searchVC.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    searchVC.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
     return searchVC;
 }
 
@@ -113,7 +113,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     _recentSearchesHidden = hidingRecentSearches;
 
     [UIView animateWithDuration:animated ? [CATransaction animationDuration] : 0.0
-    delay:0 options:UIViewAnimationOptionBeginFromCurrentState
+                          delay:0 options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
         self.recentSearchesContainerView.alpha = self.isRecentSearchesHidden ? 0.0 : 1.0;
         self.resultsListContainerView.alpha = 1.0 - self.recentSearchesContainerView.alpha;
@@ -167,13 +167,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
     self.contentViewTop.constant = self.view.bounds.size.height;
     [self.view layoutIfNeeded];
-    BOOL willAnimate = [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    BOOL willAnimate = [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.searchFieldTop setConstant:0];
         self.contentViewTop.constant = self.searchFieldHeight.constant;
         [self.view layoutIfNeeded];
         [self updateRecentSearchesVisibility:animated];
     }
-                        completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull transitionContext) {
+                                                                   completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull transitionContext) {
         [self.searchField becomeFirstResponder];
     }];
     NSParameterAssert(willAnimate);
@@ -187,7 +187,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self saveLastSearch];
-    [self.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+    [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.searchField resignFirstResponder];
         self.searchFieldTop.constant = -self.searchFieldHeight.constant;
         self.contentViewTop.constant = self.view.bounds.size.height;
@@ -208,11 +208,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - UISearchBarDelegate
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+- (void)textFieldDidBeginEditing:(UITextField*)textField {
     if (![[self currentSearchTerm] isEqualToString:textField.text]) {
         [self searchForSearchTerm:textField.text];
     }
 }
+
 - (IBAction)textFieldDidChange {
     NSString* query = self.searchField.text;
     if ([query wmf_trim].length == 0) {
@@ -227,17 +228,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [self searchForSearchTerm:query];
         }
     });
-    
-
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField*)textField {
     [self saveLastSearch];
     [self updateRecentSearchesVisibility];
     return YES;
 }
 
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
+- (BOOL)textFieldShouldClear:(UITextField*)textField {
     [self didCancelSearch];
     return YES;
 }
