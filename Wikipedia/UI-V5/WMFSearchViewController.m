@@ -154,6 +154,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self configureSearchField];
 
+    self.searchFieldTop.constant = -self.searchFieldHeight.constant;
+    [self.view layoutIfNeeded];
+
     // TODO: localize
     self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -164,18 +167,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-    self.contentViewTop.constant = self.view.bounds.size.height;
-    [self.view layoutIfNeeded];
-    BOOL willAnimate = [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self.searchFieldTop setConstant:0];
-        self.contentViewTop.constant = self.searchFieldHeight.constant;
+
+    [self.searchFieldTop setConstant:0];
+
+    BOOL willAnimate = [self.transitionCoordinator
+                        animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.view layoutIfNeeded];
         [self updateRecentSearchesVisibility:animated];
-    }
-                                                                   completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull transitionContext) {
         [self.searchField becomeFirstResponder];
-    }];
+    }
+                                        completion:nil];
     NSParameterAssert(willAnimate);
 }
 
@@ -187,10 +188,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self saveLastSearch];
+
+    self.searchFieldTop.constant = -self.searchField.bounds.size.height;
+
     [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.searchField resignFirstResponder];
-        self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-        self.contentViewTop.constant = self.view.bounds.size.height;
         [self.view layoutIfNeeded];
     } completion:nil];
 }
