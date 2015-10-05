@@ -35,19 +35,49 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTn-BU-cjO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.92931067943572998" green="0.9294700026512146" blue="0.92930072546005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ONi-h1-zDP"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjc-ni-9zr">
+                        <rect key="frame" x="34" y="0.0" width="286" height="1"/>
+                        <animations/>
+                        <color key="backgroundColor" red="0.92931067943572998" green="0.9294700026512146" blue="0.92930072546005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Xca-Js-lUH"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <animations/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="rjc-ni-9zr" secondAttribute="trailing" id="Fst-Ae-20o"/>
+                    <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="34" id="IZD-OX-Kru"/>
+                    <constraint firstItem="yTn-BU-cjO" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="LIP-aW-bkY"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="WnM-xO-Ywd" secondAttribute="trailing" constant="10" id="Tr2-mk-KE5"/>
+                    <constraint firstItem="yTn-BU-cjO" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="V9N-XU-Mpq"/>
                     <constraint firstAttribute="trailing" secondItem="ew3-L9-lHp" secondAttribute="trailing" constant="8" id="VmJ-Qh-cO8"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="KCX-Ys-ehz" secondAttribute="centerY" id="YvD-kf-ajm"/>
+                    <constraint firstAttribute="trailing" secondItem="yTn-BU-cjO" secondAttribute="trailing" id="dDO-SC-bun"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="WnM-xO-Ywd" secondAttribute="centerY" id="lrX-Jk-Lsp"/>
+                    <constraint firstAttribute="bottom" secondItem="rjc-ni-9zr" secondAttribute="bottom" constant="-1" id="lxy-Tp-pay"/>
+                    <constraint firstItem="rjc-ni-9zr" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="ujp-Lk-pDU"/>
                     <constraint firstItem="WnM-xO-Ywd" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="14" id="zHI-TZ-cZu"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="lxy-Tp-pay"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <animations/>
             <connections>
                 <outlet property="indentationConstraint" destination="Tr2-mk-KE5" id="t2k-NA-mrW"/>
+                <outlet property="leadSectionBorder" destination="yTn-BU-cjO" id="KXi-eC-Hfk"/>
+                <outlet property="sectionBorder" destination="rjc-ni-9zr" id="piG-GU-mwL"/>
                 <outlet property="sectionTitle" destination="ew3-L9-lHp" id="09m-Wa-PKk"/>
                 <outlet property="selectedSectionIndicator" destination="WnM-xO-Ywd" id="oAl-20-dvE"/>
             </connections>

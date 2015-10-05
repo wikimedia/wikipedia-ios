@@ -56,7 +56,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
             self.tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
         }
     }
-    
+
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +65,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
         self.clearsSelectionOnViewWillAppear = false
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
+        self.tableView.separatorStyle = .None
     }
     
     // MARK: - UITableViewDataSource
@@ -133,5 +134,6 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
         self.delegate?.tableOfContentsControllerDidCancel(self)
     }
 
+    
 
 }

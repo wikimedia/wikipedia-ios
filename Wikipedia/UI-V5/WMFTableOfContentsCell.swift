@@ -7,6 +7,8 @@ public class WMFTableOfContentsCell: UITableViewCell {
     @IBOutlet var sectionTitle: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
+    @IBOutlet var leadSectionBorder: UIView!
+    @IBOutlet var sectionBorder: UIView!
     
     // MARK: - Init
     public required init?(coder aDecoder: NSCoder) {
@@ -30,6 +32,8 @@ public class WMFTableOfContentsCell: UITableViewCell {
             self.sectionTitle.text = WMFTableOfContentsCell.titleText(self.section)
             self.sectionTitle.font = WMFTableOfContentsCell.titleFont(self.section)
             self.sectionTitle.textColor = WMFTableOfContentsCell.textColor(self.section)
+            self.leadSectionBorder.hidden = !WMFTableOfContentsCell.leadSectionBorderEnabled(self.section)
+            self.sectionBorder.hidden = !WMFTableOfContentsCell.topBorderEnabled(self.section)
             self.indentationConstraint.constant = WMFTableOfContentsCell.indentationWidth(self.section)
             self.setNeedsUpdateConstraints()
         }
@@ -43,6 +47,8 @@ public class WMFTableOfContentsCell: UITableViewCell {
     public override func prepareForReuse() {
         super.prepareForReuse()
         self.section = nil
+        self.leadSectionBorder.hidden = true
+        self.sectionBorder.hidden = true
         self.setSelected(false, animated: false)
     }
     
@@ -56,19 +62,38 @@ public class WMFTableOfContentsCell: UITableViewCell {
             self.selectedSectionIndicator.alpha = 0.0
         }
     }
+
+    // MARK: - Border
+    class func leadSectionBorderEnabled(section: MWKSection?) -> Bool{
+        guard let section = section else{
+            return false
+        }
+        if(section.isLeadSection()){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    class func topBorderEnabled(section: MWKSection?) -> Bool{
+        if let level = section?.toclevel?.integerValue {
+            if(level < 2){
+                return true
+            }else{
+                return false
+            }
+        }else{
+            return false
+        }
+    }
     
     // MARK: - Title
     class func titleText(section: MWKSection?) -> String?{
         guard let section = section else{
             return nil
         }
-        
         if(section.isLeadSection()){
-            if let text = section.article?.title.text{
-                return text
-            }else{
-                return nil
-            }
+            return "Introduction"
         }else{
             return section.line
         }
@@ -77,7 +102,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
     // MARK: - Font
     class func titleFont(section: MWKSection?) -> UIFont{
         if let level = section?.toclevel?.integerValue {
-            if(level == 0){
+            if(level < 2){
                 return UIFont.wmf_tableOfContentsSectionFont()
             }else{
                 return UIFont.wmf_tableOfContentsSubsectionFont()
@@ -89,7 +114,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
     
     class func textColor(section: MWKSection?) -> UIColor{
         if let level = section?.toclevel?.integerValue {
-            if(level == 0){
+            if(level < 2){
                 return UIColor.wmf_tableOfContentsSectionTextColor()
             }else{
                 return UIColor.wmf_tableOfContentsSubsectionTextColor()
