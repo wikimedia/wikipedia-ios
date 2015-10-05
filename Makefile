@@ -13,7 +13,7 @@ submodules: ##Install or update submodules
 	git submodule update --init --recursive
 
 prebuild: ##Install dependencies needed to build the project
-prebuild: submodules carthage-bootstrap
+prebuild: submodules carthage
 
 check-deps: ##Make sure dev prerequisites are installed
 check-deps: xcode-cltools-check exec-check node-check bundle-check
@@ -22,12 +22,9 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 #!!!!! Carthage
 #!!!!!
 
-get-carthage: ##Install Carthage via Homebrew
-	@brew install carthage || brew upgrade carthage
-
-carthage-bootstrap: ##Checkout and build dependencies in Cartfile
-carthage-bootstrap: get-carthage
-	@carthage bootstrap --platform iOS
+carthage: ##Checkout and build dependencies in Cartfile
+carthage:
+	@carthage update --platform iOS
 
 #!!!!!
 #!!!!! Travis
@@ -78,7 +75,7 @@ brew-check: ##Check that Homebrew is installed
 	fi
 
 # Append additional dependencies as quoted strings (i.e. BREW_FORMULAE = "f1" "f2" ...)
-BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool" "carthage"
+BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool"
 
 brew-install: ##Install executable dependencies via Homebrew
 brew-install: brew-check
