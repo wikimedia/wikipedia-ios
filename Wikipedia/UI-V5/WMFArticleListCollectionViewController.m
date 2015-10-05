@@ -221,7 +221,7 @@
 
 #pragma mark - Article Selection
 
-- (void)showArticle:(MWKArticle*)article {
+- (void)showArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (self.delegate) {
         [self.delegate didSelectArticle:article sender:self];
         return;
@@ -238,14 +238,15 @@
     [self.navigationController pushViewController:container animated:YES];
 
     [self.recentPages addPageToHistoryWithTitle:article.title
-                                discoveryMethod:[self.dataSource discoveryMethod]];
+                                discoveryMethod:discoveryMethod];
     [self.recentPages save];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self showArticle:[self.dataSource articleForIndexPath:indexPath]];
+    [self showArticle:[self.dataSource articleForIndexPath:indexPath]
+      discoveryMethod:[self.dataSource discoveryMethod]];
 }
 
 #pragma mark - WMFArticleListTransitioning
@@ -264,7 +265,7 @@
 
 - (void)didSelectArticle:(MWKArticle *)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self showArticle:article];
+        [self showArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     }];
 }
 
