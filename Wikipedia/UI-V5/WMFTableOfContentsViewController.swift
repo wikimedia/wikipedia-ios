@@ -5,24 +5,27 @@ import UIKit
 @objc public protocol WMFTableOfContentsViewControllerDelegate {
     
     func tableOfContentsController(controller: WMFTableOfContentsViewController, didSelectSection: MWKSection)
+    func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
 }
 
 
 // MARK: - Controller
-public class WMFTableOfContentsViewController: UITableViewController {
+public class WMFTableOfContentsViewController: UITableViewController, UIViewControllerTransitioningDelegate, WMFTableOfContentsPresentationControllerTapDelegate  {
     
     // MARK: - init
     public required init(sections: Array<MWKSection>, delegate: WMFTableOfContentsViewControllerDelegate) {
         self.sections = sections
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
+        self.modalPresentationStyle = .Custom
+        self.transitioningDelegate = self
     }
 
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    let delegate: WMFTableOfContentsViewControllerDelegate
+    weak var delegate: WMFTableOfContentsViewControllerDelegate?
     
     // MARK: - Sections
     let sections: Array<MWKSection>
@@ -63,7 +66,7 @@ public class WMFTableOfContentsViewController: UITableViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
     }
-
+    
     // MARK: - UITableViewDataSource
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -91,7 +94,44 @@ public class WMFTableOfContentsViewController: UITableViewController {
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let section = self.sectionAtIndexPath(indexPath) {
-            self.delegate.tableOfContentsController(self, didSelectSection: section)
+            self.delegate?.tableOfContentsController(self, didSelectSection: section)
         }
     }
+    
+    // MARK: - UIViewControllerTransitioningDelegate
+    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+        
+        if presented == self {
+            return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting, tapDelegate: self)
+        }
+        
+        return nil
+    }
+    
+    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if presented == self {
+            return WMFTableOfContentsAnimator(isPresenting: true)
+        }
+        else {
+            return nil
+        }
+    }
+    
+    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        if dismissed == self {
+            return WMFTableOfContentsAnimator(isPresenting: false)
+        }
+        else {
+            return nil
+        }
+    }
+    
+    // MARK: - WMFTableOfContentsPresentationControllerTapDelegate
+    public func tableOfContentsPresentationControllerDidTapBackground(controller: WMFTableOfContentsPresentationController) {
+        self.delegate?.tableOfContentsControllerDidCancel(self)
+    }
+
+
 }

@@ -48,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
  WMFPreviewControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
-WMFTableOfContentsViewControllerDelegate>
+ WMFTableOfContentsViewControllerDelegate
+>
 
 // Data
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
@@ -309,7 +310,7 @@ WMFTableOfContentsViewControllerDelegate>
     return [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
         @strongify(self);
         [self.tableOfContentsViewController selectAndScrollToSection:[self.webViewController currentVisibleSection] animated:NO];
-        [self.navigationController pushViewController:self.tableOfContentsViewController animated:YES];
+        [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
     }];
 }
 
@@ -492,8 +493,12 @@ WMFTableOfContentsViewControllerDelegate>
 #pragma mark - TableOfContentsViewControllerDelegate
 
 - (void)tableOfContentsController:(WMFTableOfContentsViewController *)controller didSelectSection:(MWKSection *)section{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
     [self.webViewController scrollToSection:section];
+}
+
+- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController *)controller{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
