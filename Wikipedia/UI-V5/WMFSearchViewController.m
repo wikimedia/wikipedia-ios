@@ -39,6 +39,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
+@property (weak, nonatomic) IBOutlet UIView *separatorView;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
@@ -140,13 +142,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureSearchField {
-    @weakify(self);
-    self.searchField.rightView = [UIButton wmf_buttonType:WMFButtonTypeX handler:^(id sender) {
-        @strongify(self);
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }];
-    self.searchField.rightViewMode = UITextFieldViewModeAlways;
-
+    [self.closeButton wmf_setButtonType:WMFButtonTypeX];
+    [self setSeparatorViewHidden:YES animated:NO];
     // TODO: localize
     [self.searchField setPlaceholder:@"Search Wikipedia"];
 }
@@ -177,6 +174,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.view layoutIfNeeded];
         [self updateRecentSearchesVisibility:animated];
         [self.searchField becomeFirstResponder];
+        [self setSeparatorViewHidden:NO animated:YES];
     }
                                         completion:nil];
     NSParameterAssert(willAnimate);
@@ -210,12 +208,29 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
-#pragma mark - UISearchBarDelegate
+#pragma mark - Separator View
+
+- (void)setSeparatorViewHidden:(BOOL)hidden animated:(BOOL)animated {
+    [UIView animateWithDuration:animated ? 0.25 : 0.0 animations:^{
+        self.separatorView.alpha = hidden ? 0.0 : 1.0;
+    }];
+}
+
+#pragma mark - Dismissal
+
+- (IBAction)didTapCloseButton:(id)sender {
+    [self.searchField resignFirstResponder];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField {
     if (![[self currentSearchTerm] isEqualToString:textField.text]) {
         [self searchForSearchTerm:textField.text];
     }
+    [self setSeparatorViewHidden:NO animated:YES];
 }
 
 - (IBAction)textFieldDidChange {
@@ -243,6 +258,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (BOOL)textFieldShouldClear:(UITextField*)textField {
     [self didCancelSearch];
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [self setSeparatorViewHidden:YES animated:YES];
 }
 
 #pragma mark - Search
