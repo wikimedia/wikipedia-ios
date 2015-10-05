@@ -38,7 +38,7 @@
 @implementation WMFArticleListCollectionViewController
 @synthesize listTransition = _listTransition;
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self commonInit];
@@ -46,7 +46,7 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -228,9 +228,9 @@
     }
 
     WMFArticleContainerViewController* container =
-    [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore
-                                                                       recentPages:self.recentPages
-                                                                        savedPages:self.savedPages];
+        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore
+                                                                           recentPages:self.recentPages
+                                                                            savedPages:self.savedPages];
     container.article = article;
 
     [self wmf_hideKeyboard];
@@ -263,7 +263,7 @@
 
 #pragma mark - WMFSearchPresentationDelegate
 
-- (void)didSelectArticle:(MWKArticle *)article sender:(id)sender {
+- (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self showArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     }];

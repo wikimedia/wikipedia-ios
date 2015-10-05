@@ -39,8 +39,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
-@property (weak, nonatomic) IBOutlet UIView *separatorView;
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIView* separatorView;
+@property (weak, nonatomic) IBOutlet UIButton* closeButton;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
@@ -127,7 +127,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.dataStore   = self.dataStore;
     self.resultsListController.recentPages = self.dataStore.userDataStore.historyList;
     self.resultsListController.savedPages  = self.dataStore.userDataStore.savedPageList;
-    self.resultsListController.delegate = self;
+    self.resultsListController.delegate    = self;
 }
 
 - (void)configureRecentSearchList {
@@ -223,7 +223,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField {
@@ -260,7 +259,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textFieldDidEndEditing:(UITextField*)textField {
     [self setSeparatorViewHidden:YES animated:YES];
 }
 
@@ -373,7 +372,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFArticleSelectionDelegate
 
-- (void)didSelectArticle:(MWKArticle *)article sender:(id)sender {
+- (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self.searchResultDelegate didSelectArticle:article sender:self];
 }
 

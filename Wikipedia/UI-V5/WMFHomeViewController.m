@@ -421,7 +421,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showArticleViewControllerForTitle:(MWKTitle*)title
                                  animated:(BOOL)animated
                           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    MWKArticle* article                                   = [self.dataStore articleWithTitle:title];
+    MWKArticle* article = [self.dataStore articleWithTitle:title];
     [self showViewControllerWithArticle:article animated:animated discoveryMethod:discoveryMethod];
 }
 
@@ -501,7 +501,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFSearchPresentationDelegate
 
-- (void)didSelectArticle:(MWKArticle *)article sender:(WMFSearchViewController*)sender {
+- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self showViewControllerWithArticle:article
                                    animated:YES

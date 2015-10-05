@@ -545,7 +545,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.article.site;
 }
 
-- (void)didSelectArticle:(MWKArticle *)article sender:(WMFSearchViewController*)sender {
+- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self showArticleViewControllerWithArticle:article];
     }];
