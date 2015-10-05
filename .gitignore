@@ -33,6 +33,9 @@ Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
 vendor/bundle
 .bundle
 
+# Carthage
+Carthage/
+
 # Fastlane
 fastlane/report.xml
 fastlane/Error*.png

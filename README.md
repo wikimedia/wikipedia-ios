@@ -18,11 +18,11 @@ The official Wikipedia iOS client.
 The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps team](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team). This README provides high-level guidelines for getting started with the project. If you have any questions, comments, or issues, the easiest way to talk to us is joining the #wikimedia-mobile channel on the freenode IRC server during Eastern and Pacific business hours. We'll also gladly accept any tickets filed against the [project in Phabricator](https://phabricator.wikimedia.org/project/view/782/).
 
 ## Building and Running
-This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id497799835) or higher. The easiest way to get it is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
+This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id497799835) or higher and [Carthage](#carthage) to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
 > Most of our dependencies are either committed directly to the repo, or not necessary for most development cases.  However, there might be some dependencies that require additional setup, like submodules.  To make sure they're installed and ready to go, run `make prebuild` to install any "pre-build" dependencies (like submodules).
 
-Once you have Xcode (and build dependencies) installed, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a bug report or messaging to us on IRC.
+Once you have Xcode (and build dependencies) installed, run `make prebuild` to ensure any build dependencies (mainly Carthage) are installed and built.  Then, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via a bug report or messaging to us on IRC.
 
 ## Development
 ### Architecture
@@ -30,7 +30,7 @@ Once you have Xcode (and build dependencies) installed, you should be able to op
 ### Best practices and coding style
 You can find our current thinking on [iOS best practices](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/BestPractices) and [coding style](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS/ObjectiveCStyleGuide) on our [team page](https://www.mediawiki.org/wiki/Wikimedia_Apps/Team/iOS). The [WMFCodingStyle](./WikipediaUnitTests/WMFCodingStyle.h) files are also canonical examples of our coding style, which are enforced using [uncrustify](#uncrustify).
 ### Dependencies
-We use [CocoaPods](#cocoapods) to manage third-party native dependencies and [npm](#npm) for web. You shouldn't need to run either of these tools to build, run, or modify the application source, but if you do, refer to the sections below to get set up.
+We use [CocoaPods](#cocoapods) and [Carthage](#carthage) to manage third-party native dependencies and [npm](#npm) for web.  We've committed our CocoaPods dependencies and npm build artifacts to the repo, so you'll only need to install Carthage in order to build the project.  You can run `make prebuild` to setup all "pre-build" dependencies (including Carthage, assuming you've already installed it).
 
 ## Testing
 The **Wikipedia** scheme is configured to execute the project's iOS unit tests, which can be run using the `Cmd+U` hotkey or the **Product->Test** menu bar action. In addition to unit testing, we enforce our coding style using [uncrustify](#uncrustify). You can also use the project's [Makefile](#makefile) to run both in one action: `make verify`.
@@ -54,7 +54,7 @@ We also maintain a mirror of this repository on Gerrit (see above), syncing the 
 - Add two or more of the [team members](#development-team) as reviewers for your patch
 
 ## Development Dependencies
-While typical application development is optimized to have as few dependencies as possible (i.e. cloning, building, and running should "Just Work"), certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which is our recommended package manager.
+We're doing what we can to optimize the build system to have as few dependencies as possible (i.e. cloning, building, and running should "Just Work"), but certain development and maintenance tasks will require the installation of specific tools. Many of these tools are installable using [Homebrew](http://brew.sh), which is our recommended package manager.
 
 > **Homebrew and many other tools require the Xcode command line tools, which can be installed by running `xcode-select --install` on newer versions of OS X. They can also be installed via Xcode or downloaded from the [Apple Developer downloads page](https://developer.apple.com/downloads) on older versions of OS X.**
 
