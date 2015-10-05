@@ -31,9 +31,10 @@ carthage:
 #!!!!!
 
 travis-get-deps: ##Install dependencies for building on Travis
-travis-get-deps: xcode-cltools-check prebuild
+travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
 	brew install carthage || brew upgrade carthage; \
+	carthage update --platform iOS; \
 	bundle install --without dev;
 
 #!!!!!
