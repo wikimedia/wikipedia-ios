@@ -8,9 +8,9 @@ UIApplication.sharedApplication().networkActivityIndicatorVisible = true
 when(fetchImage(), getLocation()).then { image, location in
     self.imageView.image = image;
     self.label.text = "Buy your cat a house in \(location)"
-}.ensure {
+}.always {
     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-}.report { error in
+}.error { error in
     UIAlertView(…).show()
 }
 ```
@@ -55,6 +55,8 @@ pod "PromiseKit", "~> 2.0"
 ```ruby
 github "mxcl/PromiseKit" ~> 2.0
 ```
+
+*Note*: In order to avoid linking nearly all system frameworks with PromiseKit, the convenience categories have not been included with the Carthage framework . You must manually copy the categories you need in from the Carthage checkout.
 
 ### Standalone Distributions
 
