@@ -34,15 +34,7 @@ travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
 	@brew update; \
 	brew install carthage || brew upgrade carthage; \
-	carthage update \
-	# skip OSX
-		--platform iOS \
-	# avoid GitHub API rate limits
-		--no-use-binaries \
-	# don't CodeSign on Travis
-	  --configuration Debug \
-	# for debugging
-		--verbose; \
+	carthage update --platform iOS --no-use-binaries --configuration Debug --verbose; \
 	bundle install --without dev;
 
 #!!!!!
