@@ -60,6 +60,8 @@ public class WMFTableOfContentsViewController: UITableViewController {
 
         self.tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(), forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier());
         self.clearsSelectionOnViewWillAppear = false
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
     }
 
     // MARK: - UITableViewDataSource
@@ -79,6 +81,14 @@ public class WMFTableOfContentsViewController: UITableViewController {
     }
     
     // MARK: - UITableViewDelegate
+    public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    public override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return WMFTableOfContentsHeader.wmf_viewFromClassNib()
+    }
+    
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let section = self.sectionAtIndexPath(indexPath) {
             self.delegate.tableOfContentsController(self, didSelectSection: section)
