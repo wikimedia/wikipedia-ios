@@ -5,18 +5,15 @@ class WMFTableOfContentsAnimator: NSObject, UIViewControllerAnimatedTransitionin
     
     // MARK: - init
     let isPresenting :Bool
-    let duration :NSTimeInterval = 0.5
     
     init(isPresenting: Bool) {
         self.isPresenting = isPresenting
-        
         super.init()
     }
     
-    
     // MARK: - UIViewControllerAnimatedTransitioning
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return self.duration
+        return self.isPresenting ? 0.5 : 0.8
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning)  {
@@ -41,7 +38,7 @@ class WMFTableOfContentsAnimator: NSObject, UIViewControllerAnimatedTransitionin
         containerView.addSubview(presentedControllerView)
         
         // Animate the presented view to it's final position
-        UIView.animateWithDuration(self.duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+        UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
             presentedControllerView.center.x -= containerView.bounds.size.width
             }, completion: {(completed: Bool) -> Void in
                 transitionContext.completeTransition(completed)
@@ -53,7 +50,7 @@ class WMFTableOfContentsAnimator: NSObject, UIViewControllerAnimatedTransitionin
         let containerView = transitionContext.containerView()!
         
         // Animate the presented view off the bottom of the view
-        UIView.animateWithDuration(self.duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+        UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
             presentedControllerView.center.x += containerView.bounds.size.width
             }, completion: {(completed: Bool) -> Void in
                 transitionContext.completeTransition(completed)

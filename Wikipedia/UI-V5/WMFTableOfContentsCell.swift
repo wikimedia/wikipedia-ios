@@ -4,6 +4,7 @@ import UIKit
 // MARK: - Cell
 public class WMFTableOfContentsCell: UITableViewCell {
 
+    @IBOutlet var sectionSelectionBackground: UIView!
     @IBOutlet var sectionTitle: UILabel!
     @IBOutlet var selectedSectionIndicator: UIView!
     @IBOutlet var indentationConstraint: NSLayoutConstraint!
@@ -21,9 +22,9 @@ public class WMFTableOfContentsCell: UITableViewCell {
     public override func awakeFromNib() {
         super.awakeFromNib()
         self.selectedSectionIndicator.alpha = 0.0
-        let bg = UIView.init(frame: self.bounds);
-        bg.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
-        self.selectedBackgroundView = bg
+        self.sectionSelectionBackground.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
+        self.sectionSelectionBackground.alpha = 0.0
+        self.selectionStyle = .None
     }
     
     // MARK: - Accessors
@@ -39,6 +40,16 @@ public class WMFTableOfContentsCell: UITableViewCell {
         }
     }
     
+    public func setSectionSelected(selected: Bool, animated: Bool) {
+        UIView.animateWithDuration(animated ? 0.3 : 0.0) { () -> Void in
+            if(selected){
+                self.sectionSelectionBackground.alpha = 1.0
+            }else{
+                self.sectionSelectionBackground.alpha = 0.0
+            }
+        }
+    }
+    
     // MARK: - UITableVIewCell
     public class func reuseIdentifier() -> String{
         return self.wmf_nibName()
@@ -50,6 +61,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
         self.leadSectionBorder.hidden = true
         self.sectionBorder.hidden = true
         self.setSelected(false, animated: false)
+        self.sectionSelectionBackground.alpha = 0.0
     }
     
     public override func setSelected(selected: Bool, animated: Bool) {

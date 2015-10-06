@@ -22,9 +22,9 @@
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="vXK-Fc-aAb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0V4-49-Be9"/>
-                <constraint firstItem="vXK-Fc-aAb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="34" id="8FG-oU-s8k"/>
-                <constraint firstAttribute="trailing" secondItem="vXK-Fc-aAb" secondAttribute="trailing" constant="8" id="RIy-UJ-H8U"/>
+                <constraint firstItem="vXK-Fc-aAb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="34" id="d32-Wp-bhY"/>
+                <constraint firstAttribute="trailing" secondItem="vXK-Fc-aAb" secondAttribute="trailing" constant="8" id="gqU-lv-vFc"/>
+                <constraint firstItem="vXK-Fc-aAb" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jpy-si-VBZ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>

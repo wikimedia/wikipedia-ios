@@ -14,6 +14,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bfs-Qt-Ofl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew3-L9-lHp">
                         <rect key="frame" x="34" y="11" width="278" height="21"/>
                         <animations/>
@@ -58,13 +63,17 @@
                     <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="34" id="IZD-OX-Kru"/>
                     <constraint firstItem="yTn-BU-cjO" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="LIP-aW-bkY"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="WnM-xO-Ywd" secondAttribute="trailing" constant="10" id="Tr2-mk-KE5"/>
+                    <constraint firstAttribute="bottom" secondItem="Bfs-Qt-Ofl" secondAttribute="bottom" id="UqM-FY-QuJ"/>
                     <constraint firstItem="yTn-BU-cjO" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="V9N-XU-Mpq"/>
+                    <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="VIr-yC-IiC"/>
                     <constraint firstAttribute="trailing" secondItem="ew3-L9-lHp" secondAttribute="trailing" constant="8" id="VmJ-Qh-cO8"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="KCX-Ys-ehz" secondAttribute="centerY" id="YvD-kf-ajm"/>
                     <constraint firstAttribute="trailing" secondItem="yTn-BU-cjO" secondAttribute="trailing" id="dDO-SC-bun"/>
+                    <constraint firstAttribute="trailing" secondItem="Bfs-Qt-Ofl" secondAttribute="trailing" id="g7K-oD-Wpv"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="centerY" secondItem="WnM-xO-Ywd" secondAttribute="centerY" id="lrX-Jk-Lsp"/>
                     <constraint firstAttribute="bottom" secondItem="rjc-ni-9zr" secondAttribute="bottom" constant="-1" id="lxy-Tp-pay"/>
                     <constraint firstItem="rjc-ni-9zr" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="ujp-Lk-pDU"/>
+                    <constraint firstItem="Bfs-Qt-Ofl" firstAttribute="top" secondItem="KCX-Ys-ehz" secondAttribute="top" id="x5g-e2-QgP"/>
                     <constraint firstItem="WnM-xO-Ywd" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="14" id="zHI-TZ-cZu"/>
                 </constraints>
                 <variation key="default">
@@ -78,6 +87,7 @@
                 <outlet property="indentationConstraint" destination="Tr2-mk-KE5" id="t2k-NA-mrW"/>
                 <outlet property="leadSectionBorder" destination="yTn-BU-cjO" id="KXi-eC-Hfk"/>
                 <outlet property="sectionBorder" destination="rjc-ni-9zr" id="piG-GU-mwL"/>
+                <outlet property="sectionSelectionBackground" destination="Bfs-Qt-Ofl" id="7AO-BD-fec"/>
                 <outlet property="sectionTitle" destination="ew3-L9-lHp" id="09m-Wa-PKk"/>
                 <outlet property="selectedSectionIndicator" destination="WnM-xO-Ywd" id="oAl-20-dvE"/>
             </connections>
