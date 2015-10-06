@@ -2,7 +2,6 @@
 .DS_Store
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
-# Only ignore top level build folder. We want to commit the contents of the Carthage/Build folder
 build/
 *.pbxuser
 !default.pbxuser
@@ -32,9 +31,6 @@ Wikipedia/Images.xcassets/AppIcon.appiconset/*.png
 # Bundler
 vendor/bundle
 .bundle
-
-# Carthage
-Carthage/
 
 # Fastlane
 fastlane/report.xml
