@@ -94,7 +94,7 @@ DEPENDENCIES:
   - Nocilla
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
-  - PiwikTracker (~> 3.3.0)
+  - PiwikTracker (from `https://github.com/wikimedia/piwik-sdk-ios.git`, branch `use-class-framework`)
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
   - SDWebImage (from `./vendor/SDWebImage`)
   - SelfSizingWaterfallCollectionViewLayout (from `git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git`)
@@ -105,6 +105,9 @@ EXTERNAL SOURCES:
   CocoaLumberjack:
     :branch: swift_2.0
     :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+  PiwikTracker:
+    :branch: use-class-framework
+    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   PromiseKit:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
@@ -117,6 +120,9 @@ CHECKOUT OPTIONS:
   CocoaLumberjack:
     :commit: 479279f102a8ab23084290697bafa77aac0d1bdf
     :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+  PiwikTracker:
+    :commit: 139d573808298222c01aed61396bc2d8b909b9d1
+    :git: https://github.com/wikimedia/piwik-sdk-ios.git
   PromiseKit:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git

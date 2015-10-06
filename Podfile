@@ -38,7 +38,7 @@ pod 'Masonry', '0.6.2'
 pod 'SelfSizingWaterfallCollectionViewLayout', :git => 'git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git'
 
 # Diagnostics
-pod 'PiwikTracker', '~> 3.3.0'
+pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git', :branch => 'use-class-framework'
 pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :branch => 'swift_2.0'
 pod 'HockeySDK', '~> 3.8.2'
 
