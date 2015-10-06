@@ -85,6 +85,21 @@ extern NSString* const MWKSectionShareSnippetXPath;
 ///
 
 /**
+ *  Section that is the direct ancestor of the receiver.
+ *
+ *  @return An @c MWKSection, or @c nil if it does not have a parent
+ */
+- (nullable MWKSection*)parentSection;
+
+/**
+ *  Section that is the furthest ancestor of the receiver.
+ *  Will return self if section has no parent
+ *
+ *  @return An @c MWKSection
+ */
+- (MWKSection*)rootSection;
+
+/**
  *  Sections that are descendants of the receiver.
  *
  *  @return An array of @c MWKSection objects, or @c nil if the hierarchy has not been built yet.
@@ -92,33 +107,33 @@ extern NSString* const MWKSectionShareSnippetXPath;
 - (nullable NSArray*)children;
 
 /**
- *  Check if the receiver could be considered the parent of another section.
+ *  Check if the receiver is the child of another section.
  *
  *  @param section The section to check.
  *
- *  @return @c YES if @c section has a @c level that is one greater than the receiver's @c level, otherwise @c NO.
+ *  @return @c YES if self.parentSection == section, otherwise @c NO.
  */
-- (BOOL)isParentOfSection:(MWKSection*)section;
+- (BOOL)isChildOfSection:(MWKSection*)section;
 
 /**
- *  Check if another section is a sibling of the receiver.
+ *  Check if the receiver is the decendent of another section.
  *
  *  @param section The section to check.
  *
- *  @return @c YES if @c section has a @c level equal to the receiver's, otherwise @c NO.
+ *  @return @c YES if the section is found by recursively searching self.parent, otherwise @c NO.
  */
-- (BOOL)isSiblingOfSection:(MWKSection*)section;
+- (BOOL)isDecendantOfSection:(MWKSection*)section;
 
 /**
- *  Check if the receiver is an ancestor of another section.
- *
- *  This is different from @c isParentOfSection: in that it can check for degrees of separation greater than 1.
+ *  Check if the receiver has the same root section as another section.
  *
  *  @param section The section to check.
  *
- *  @return @c YES if the receiver's @c level is less than the @c level of @c section, otherwise @c NO.
+ *  @return @c YES if self.rootSection == section.rootSection, otherwise @c NO.
  */
-- (BOOL)isAncestorOfSection:(MWKSection*)section;
+- (BOOL)sectionHasSameRootSection:(MWKSection*)section;
+
+
 
 #pragma mark - Internal
 

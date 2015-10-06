@@ -10,6 +10,34 @@
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
 
+
+@interface MWKSection (MWKSectionHierarchyBuilder)
+
+@end
+
+@implementation MWKSection (MWKSectionHierarchyBuilder)
+
+- (BOOL)isOneLevelAboveSection:(MWKSection*)section {
+    NSParameterAssert(section.level);
+    NSParameterAssert(self.level);
+    return section.level.integerValue - self.level.integerValue == 1;
+}
+
+- (BOOL)isAtSameLevelAsSection:(MWKSection*)section {
+    NSParameterAssert(section.level);
+    NSParameterAssert(self.level);
+    return [section.level isEqualToNumber:self.level];
+}
+
+- (BOOL)isAtLevelAboveSection:(MWKSection*)section {
+    NSParameterAssert(section.level);
+    NSParameterAssert(self.level);
+    return [section.level compare:self.level] == NSOrderedDescending;
+}
+
+@end
+
+
 @interface MWKSectionList ()
 
 @property (strong, nonatomic) NSArray* sections;
@@ -163,8 +191,14 @@
             currentParent = nil;
             return;
         }
-        if ([currentParent isAncestorOfSection:currentSection]) {
+        if ([currentParent isAtLevelAboveSection:currentSection]) {
             [currentParent addChild:currentSection];
+            MWKSection* lastChild = currentParent.children.lastObject;
+            if ([lastChild isAtSameLevelAsSection:currentSection] || ![lastChild isAtLevelAboveSection:currentSection]) {
+                [currentParent addChild:currentSection];
+            } else {
+                [lastChild addChild:currentSection];
+            }
         } else {
             currentParent = currentSection;
         }
@@ -178,7 +212,7 @@
         if (!section.level) {
             [topLevelSections addObject:section];
             currentParent = nil;
-        } else if (currentParent == nil || ![currentParent isAncestorOfSection:section]) {
+        } else if (currentParent == nil || ![currentParent isAtLevelAboveSection:section]) {
             currentParent = section;
             [topLevelSections addObject:section];
         }

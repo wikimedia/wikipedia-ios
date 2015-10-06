@@ -34,6 +34,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 @property (readwrite, copy, nonatomic, nullable) NSString* text;          // may be nil
 @property (readwrite, strong, nonatomic, nullable) MWKImageList* images;    // ?????
 
+@property (readwrite, weak, nonatomic, nullable) MWKSection* parent;
 @property (readwrite, strong, nonatomic, nullable) NSMutableArray* mutableChildren;
 
 @end
@@ -190,43 +191,56 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 #pragma mark - Section Hierarchy
 
+- (nullable MWKSection*)parentSection{
+    return self.parent;
+}
+
+- (MWKSection*)rootSection{
+    MWKSection* parent = self.parent;
+    if(!parent){
+        return self;
+    }
+    return [self.parent rootSection];
+}
+
+- (BOOL)isChildOfSection:(MWKSection*)section{
+    return [self.parent isEqualToSection:section];
+}
+
+- (BOOL)isDecendantOfSection:(MWKSection*)section{
+    MWKSection* parent = self.parent;
+    if(!parent){
+        return NO;
+    }
+    if([parent isEqualToSection:self.parent]){
+        return YES;
+    }
+    return [self.parent isDecendantOfSection:section];
+}
+
+- (BOOL)sectionHasSameRootSection:(MWKSection*)section{
+    return [[self rootSection] isEqualToSection:[section rootSection]];
+}
+
 - (nullable NSArray*)children {
     return _mutableChildren;
-}
-
-- (BOOL)isParentOfSection:(MWKSection*)section {
-    NSParameterAssert(section.level);
-    NSParameterAssert(self.level);
-    return section.level.integerValue - self.level.integerValue == 1;
-}
-
-- (BOOL)isSiblingOfSection:(MWKSection*)section {
-    NSParameterAssert(section.level);
-    NSParameterAssert(self.level);
-    return [section.level isEqualToNumber:self.level];
-}
-
-- (BOOL)isAncestorOfSection:(MWKSection*)section {
-    NSParameterAssert(section.level);
-    NSParameterAssert(self.level);
-    return [section.level compare:self.level] == NSOrderedDescending;
 }
 
 - (void)addChild:(MWKSection*)child {
     NSParameterAssert(child.level);
     NSAssert([child.level compare:self.level] == NSOrderedDescending,
              @"Illegal attempt to add %@ to sibling or descendant %@.", child, self);
-    MWKSection* lastChild = self.mutableChildren.lastObject;
-    if ([lastChild isSiblingOfSection:child] || ![lastChild isAncestorOfSection:child]) {
-        [self.mutableChildren addObject:child];
-    } else {
-        [lastChild addChild:child];
-    }
+    [self.mutableChildren addObject:child];
+    child.parent = self;
 }
 
 - (void)removeAllChildren {
     [self.mutableChildren removeAllObjects];
 }
+
+
+
+
 
 @end
 
