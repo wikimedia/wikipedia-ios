@@ -25,20 +25,20 @@
 		NSArray *paragraphElements = [self accessibilityElementsInParagraphAtIndex:idx layoutFrame:frame view:view attachmentViewProvider:block];
 		[elements addObjectsFromArray:paragraphElements];
 	}
-
+		
 	return elements;
 }
 
 - (NSArray *)accessibilityElementsInParagraphAtIndex:(NSUInteger)index layoutFrame:(DTCoreTextLayoutFrame *)frame view:(UIView *)view attachmentViewProvider:(DTAttachmentViewProvider)block
 {
 	NSMutableArray *elements = [NSMutableArray array];
-
+	
 	[self enumerateAccessibleGroupsInFrame:frame forParagraphAtIndex:index usingBlock:^(NSDictionary *attrs, NSRange substringRange, BOOL *stop, NSArray *runs) {
 		id element = [self accessibilityElementForTextInAttributedString:frame.attributedStringFragment atRange:substringRange attributes:attrs run:runs view:view attachmentViewProvider:block];
 		if (element)
 			[elements addObject:element];
 	}];
-
+	
 	return elements;
 }
 
@@ -47,14 +47,14 @@
 	NSValue *value = [frame.paragraphRanges objectAtIndex:index];
 	NSRange paragraphRange = value.rangeValue;
 	NSArray *lines = [frame linesInParagraphAtIndex:index];
-
+	
 	[frame.attributedStringFragment enumerateAttributesInRange:paragraphRange options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
 		NSMutableArray *runs = [NSMutableArray array];
 		for (DTCoreTextLayoutLine *line in lines)
 		{
 			[runs addObjectsFromArray:[line glyphRunsWithRange:range]];
 		}
-
+		
 		block(attrs, range, stop, runs);
 	}];
 }
@@ -62,7 +62,7 @@
 - (id)accessibilityElementForTextInAttributedString:(NSAttributedString *)attributedString atRange:(NSRange)range attributes:(NSDictionary *)attributes run:(NSArray *)runs view:(UIView *)view attachmentViewProvider:(DTAttachmentViewProvider)block
 {
 	DTTextAttachment *attachment = [attributes objectForKey:NSAttachmentAttributeName];
-
+	
 	if (attachment != nil)
 		return [self viewForAttachment:attachment attachmentViewProvider:block];
 	else
@@ -72,11 +72,11 @@
 - (DTAccessibilityElement *)accessibilityElementForTextInAttributedString:(NSAttributedString *)attributedString atRange:(NSRange)range attributes:(NSDictionary *)attributes run:(NSArray *)runs view:(UIView *)view
 {
 	NSString *text = [attributedString.string substringWithRange:range];
-
+	
 	DTAccessibilityElement *element = [[DTAccessibilityElement alloc] initWithParentView:view];
 	element.accessibilityLabel = text;
 	element.localCoordinateAccessibilityFrame = [self frameForRuns:runs];
-
+	
 	// We're trying to keep the accessibility frame behavior consistent with UIWebView, which seems to do a union of the rects for all the runs composing a single accessibility group,
 	// even if that spans across multiple lines.  Set the local coordinate activation point to support multi-line links. A link that is at the end of one line and
 	// wraps to the beginning of the next would have a rect that's the size of both lines combined.  The center of that rect would be outside the hit areas for either of the
@@ -86,24 +86,24 @@
 		DTCoreTextGlyphRun *run = [runs objectAtIndex:0];
 		element.localCoordinateAccessibilityActivationPoint = run.frame.origin;
 	}
-
+	
 	element.accessibilityTraits = UIAccessibilityTraitStaticText;
-
+	
 	if ([attributes objectForKey:DTLinkAttribute])
 		element.accessibilityTraits |= UIAccessibilityTraitLink;
-
+	
 	return element;
 }
 
 - (UIView *)viewForAttachment:(DTTextAttachment *)attachment attachmentViewProvider:(DTAttachmentViewProvider)block
 {
 	UIView *view = nil;
-
+	
 	if (block)
 	{
 		view = block(attachment);
 	}
-
+	
 	return view;
 }
 
@@ -112,7 +112,7 @@
 	CGRect frame = CGRectNull;
 	for (DTCoreTextGlyphRun *run in runs)
 		frame = CGRectUnion(frame, run.frame);
-
+	
 	return frame;
 }
 

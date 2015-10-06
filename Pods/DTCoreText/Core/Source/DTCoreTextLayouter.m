@@ -33,10 +33,10 @@
 		{
 			return nil;
 		}
-
+		
 		self.attributedString = attributedString;
 	}
-
+	
 	return self;
 }
 
@@ -49,19 +49,19 @@
 {
 	DTCoreTextLayoutFrame *newFrame = nil;
 	NSString *cacheKey = nil;
-
+	
 	// need to have a non zero
 	if (!(frame.size.width > 0 && frame.size.height > 0))
 	{
 		return nil;
 	}
-
+	
 	if (_shouldCacheLayoutFrames)
 	{
 		cacheKey = [NSString stringWithFormat:@"%lud-%@-%@", (unsigned long)[_attributedString hash], NSStringFromCGRect(frame), NSStringFromRange(range)];
-
+		
 		DTCoreTextLayoutFrame *cachedLayoutFrame = [_layoutFrameCache objectForKey:cacheKey];
-
+		
 		if (cachedLayoutFrame)
 		{
 			return cachedLayoutFrame;
@@ -72,12 +72,12 @@
 	{
 		newFrame = [[DTCoreTextLayoutFrame alloc] initWithFrame:frame layouter:self range:range];
 	};
-
+	
 	if (newFrame && _shouldCacheLayoutFrames)
 	{
 		[_layoutFrameCache setObject:newFrame forKey:cacheKey];
 	}
-
+	
 	return newFrame;
 }
 
@@ -101,8 +101,8 @@
 		{
 			_framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)self.attributedString);
 		}
-
-
+		
+		
 		return _framesetter;
 	}
 }
@@ -114,9 +114,9 @@
 		if (_attributedString != attributedString)
 		{
 			_attributedString = attributedString;
-
+			
 			[self _discardFramesetter];
-
+			
 			// clear the cache
 			[_layoutFrameCache removeAllObjects];
 		}
@@ -133,7 +133,7 @@
 	if (_shouldCacheLayoutFrames != shouldCacheLayoutFrames)
 	{
 		_shouldCacheLayoutFrames = shouldCacheLayoutFrames;
-
+		
 		if (shouldCacheLayoutFrames)
 		{
 			_layoutFrameCache = [[NSCache alloc] init];

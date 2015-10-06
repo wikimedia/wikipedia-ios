@@ -15,22 +15,22 @@ typedef NS_ENUM(NSUInteger, DTCustomColoredAccessoryType)
 	 An accessoring pointing to the right side
 	 */
 	DTCustomColoredAccessoryTypeRight = 0,
-
+	
 	/**
 	 An accessoring pointing to the left side
 	 */
 	DTCustomColoredAccessoryTypeLeft,
-
+	
 	/**
 	 An accessoring pointing upwards
 	 */
 	DTCustomColoredAccessoryTypeUp,
-
+	
 	/**
 	 An accessoring pointing downwards
 	 */
 	DTCustomColoredAccessoryTypeDown,
-
+    
     /**
      A front square drawn on top of a back square with the back square offset up and to the right
      */

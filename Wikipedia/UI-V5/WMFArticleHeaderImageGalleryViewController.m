@@ -24,6 +24,7 @@
 // Model
 #import "MWKArticle.h"
 #import "MWKImage.h"
+#import "MWKImageList.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -13,7 +13,7 @@
 {
 	UIColor *_accessoryColor;
 	UIColor *_highlightedColor;
-
+	
 	DTCustomColoredAccessoryType _type;
 }
 
@@ -31,7 +31,7 @@
 	ret.frontSquareAccessoryColor = color;
 	ret.type = type;
 	ret.backSquareAccessoryColor = color == [UIColor blackColor] ? [UIColor whiteColor] : [UIColor blackColor];
-
+	
 	return ret;
 }
 
@@ -42,7 +42,7 @@
 	ret.frontSquareAccessoryColor = color;
 	ret.type = DTCustomColoredAccessoryTypeSquare;
 	ret.backSquareAccessoryColor = backgroundColor;
-
+	
 	return ret;
 }
 
@@ -60,11 +60,11 @@
 - (void)drawRect:(CGRect)rect
 {
 	CGContextRef ctxt = UIGraphicsGetCurrentContext();
-
+	
 	const CGFloat R = 4.5;
-
+	
 	BOOL doFinal = true;
-
+	
 	switch (_type)
 	{
 		case DTCustomColoredAccessoryTypeRight:
@@ -72,72 +72,72 @@
 			// (x,y) is the tip of the arrow
 			CGFloat x = CGRectGetMaxX(self.bounds)-3.0;;
 			CGFloat y = CGRectGetMidY(self.bounds);
-
+			
 			CGContextMoveToPoint(ctxt, x-R, y-R);
 			CGContextAddLineToPoint(ctxt, x, y);
 			CGContextAddLineToPoint(ctxt, x-R, y+R);
-
+			
 			break;
 		}
-
+			
 		case DTCustomColoredAccessoryTypeLeft:
 		{
 			// (x,y) is the tip of the arrow
 			CGFloat x = CGRectGetMaxX(self.bounds)-10.0;;
 			CGFloat y = CGRectGetMidY(self.bounds);
-
+			
 			CGContextMoveToPoint(ctxt, x+R, y+R);
 			CGContextAddLineToPoint(ctxt, x, y);
 			CGContextAddLineToPoint(ctxt, x+R, y-R);
 			break;
 		}
-
+			
 		case DTCustomColoredAccessoryTypeUp:
 		{
 			// (x,y) is the tip of the arrow
 			CGFloat x = CGRectGetMaxX(self.bounds)-7.0;;
 			CGFloat y = CGRectGetMinY(self.bounds)+5.0;
-
+			
 			CGContextMoveToPoint(ctxt, x-R, y+R);
 			CGContextAddLineToPoint(ctxt, x, y);
 			CGContextAddLineToPoint(ctxt, x+R, y+R);
-
+			
 			break;
 		}
-
+			
 		case DTCustomColoredAccessoryTypeDown:
 		{
 			// (x,y) is the tip of the arrow
 			CGFloat x = CGRectGetMaxX(self.bounds)-7.0;;
 			CGFloat y = CGRectGetMaxY(self.bounds)-5.0;
-
+			
 			CGContextMoveToPoint(ctxt, x-R, y-R);
 			CGContextAddLineToPoint(ctxt, x, y);
 			CGContextAddLineToPoint(ctxt, x+R, y-R);
-
+			
 			break;
 		}
-
+			
 		case DTCustomColoredAccessoryTypeSquare:
 		{
 			doFinal = false;
-
+			
 			// (x,y) is the tip of the arrow
 			CGFloat x = CGRectGetMinX(self.bounds)+5.0;
 			CGFloat y = CGRectGetMinY(self.bounds)+1.0;
-
+			
 			CGFloat s = 9.0;
-
+			
 			CGContextMoveToPoint(ctxt, x, y);
 			CGContextAddLineToPoint(ctxt, x+s, y);
 			CGContextAddLineToPoint(ctxt, x+s, y+s);
 			CGContextAddLineToPoint(ctxt, x, y+s);
 			CGContextClosePath(ctxt);
-
+			
 			CGContextSetLineCap(ctxt, kCGLineCapSquare);
 			CGContextSetLineJoin(ctxt, kCGLineJoinMiter);
 			CGContextSetLineWidth(ctxt, 3);
-
+			
 			if (self.highlighted)
 			{
 				[self.highlightedColor setStroke];
@@ -147,22 +147,22 @@
 				_accessoryColor = self.backSquareAccessoryColor;
 				[self.accessoryColor setStroke];
 			}
-
+			
 			CGContextStrokePath(ctxt);
-
+			
 			x = CGRectGetMinX(self.bounds)+3.0;
 			y = CGRectGetMinY(self.bounds)+3.0;
-
+			
 			CGContextMoveToPoint(ctxt, x, y);
 			CGContextAddLineToPoint(ctxt, x+s, y);
 			CGContextAddLineToPoint(ctxt, x+s, y+s);
 			CGContextAddLineToPoint(ctxt, x, y+s);
 			CGContextClosePath(ctxt);
-
+			
 			CGContextSetLineCap(ctxt, kCGLineCapSquare);
 			CGContextSetLineJoin(ctxt, kCGLineJoinMiter);
 			CGContextSetLineWidth(ctxt, 3);
-
+			
 			if (self.highlighted)
 			{
 				[self.highlightedColor setStroke];
@@ -172,22 +172,22 @@
 				_accessoryColor = self.frontSquareAccessoryColor;
 				[self.accessoryColor setStroke];
 			}
-
+			
 			CGContextStrokePath(ctxt);
-
+			
 			break;
 		}
-
+			
 		default:
 			break;
 	}
-
+	
 	if (doFinal)
 	{
 		CGContextSetLineCap(ctxt, kCGLineCapSquare);
 		CGContextSetLineJoin(ctxt, kCGLineJoinMiter);
 		CGContextSetLineWidth(ctxt, 3);
-
+		
 		if (self.highlighted)
 		{
 			[self.highlightedColor setStroke];
@@ -196,7 +196,7 @@
 		{
 			[self.accessoryColor setStroke];
 		}
-
+		
 		CGContextStrokePath(ctxt);
 	}
 }
@@ -206,7 +206,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
 	[super setHighlighted:highlighted];
-
+	
 	[self setNeedsDisplay];
 }
 
@@ -216,7 +216,7 @@
 	{
 		return [UIColor blackColor];
 	}
-
+	
 	return _accessoryColor;
 }
 
@@ -226,7 +226,7 @@
 	{
 		return [UIColor whiteColor];
 	}
-
+	
 	return _highlightedColor;
 }
 

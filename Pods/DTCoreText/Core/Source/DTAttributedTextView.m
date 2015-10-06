@@ -30,7 +30,7 @@
 	// these are pass-through, i.e. store until the content view is created
 	DT_WEAK_VARIABLE id textDelegate;
 	NSAttributedString *_attributedString;
-
+	
 	BOOL _shouldDrawLinks;
 	BOOL _shouldDrawImages;
 }
@@ -38,16 +38,16 @@
 - (id)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
-
+	
 	if (self)
 	{
 		[self _setup];
 	}
-
+	
 	return self;
 }
 
-- (void)dealloc
+- (void)dealloc 
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -55,10 +55,10 @@
 - (void)layoutSubviews
 {
 	(void)[self attributedTextContentView];
-
+	
 	// layout custom subviews for visible area
 	[_attributedTextContentView layoutSubviewsInRect:self.bounds];
-
+  
   [super layoutSubviews];
 }
 
@@ -74,7 +74,7 @@
 	if (self.backgroundColor)
 	{
 		CGFloat alpha = [self.backgroundColor alphaComponent];
-
+		
 		if (alpha < 1.0)
 		{
 			self.opaque = NO;
@@ -89,10 +89,10 @@
 		self.backgroundColor = [DTColor whiteColor];
 		self.opaque = YES;
 	}
-
+	
 	self.autoresizesSubviews = NO;
 	self.clipsToBounds = YES;
-
+	
 	// defaults
 	_shouldDrawLinks = YES;
 	_shouldDrawImages = YES;
@@ -108,7 +108,7 @@
 - (void)scrollToAnchorNamed:(NSString *)anchorName animated:(BOOL)animated
 {
 	NSRange range = [self.attributedTextContentView.attributedString rangeOfAnchorNamed:anchorName];
-
+	
 	if (range.location != NSNotFound)
 	{
 		[self scrollRangeToVisible:range animated:animated];
@@ -119,11 +119,11 @@
 {
 	// get the line of the first index of the anchor range
 	DTCoreTextLayoutLine *line = [self.attributedTextContentView.layoutFrame lineContainingIndex:range.location];
-
+	
 	// make sure we don't scroll too far
 	CGFloat maxScrollPos = self.contentSize.height - self.bounds.size.height + self.contentInset.bottom + self.contentInset.top;
 	CGFloat scrollPos = MIN(line.frame.origin.y, maxScrollPos);
-
+	
 	// scroll
 	[self setContentOffset:CGPointMake(0, scrollPos) animated:animated];
 }
@@ -131,13 +131,13 @@
 - (void)relayoutText
 {
 	DTBlockPerformSyncIfOnMainThreadElseAsync(^{
-
+		
 		// need to reset the layouter because otherwise we get the old framesetter or cached layout frames
 		_attributedTextContentView.layouter=nil;
-
+		
 		// here we're layouting the entire string, might be more efficient to only relayout the paragraphs that contain these attachments
 		[_attributedTextContentView relayoutText];
-
+		
 		// layout custom subviews for visible area
 		[self setNeedsLayout];
 	});
@@ -149,17 +149,17 @@
 {
 	// the point is in the coordinate system of the receiver, need to convert into those of the content view first
 	CGPoint pointInContentView = [self.attributedTextContentView convertPoint:point fromView:self];
-
+	
 	return [self.attributedTextContentView closestCursorIndexToPoint:pointInContentView];
 }
 
 - (CGRect)cursorRectAtIndex:(NSInteger)index
 {
 	CGRect rectInContentView = [self.attributedTextContentView cursorRectAtIndex:index];
-
+	
 	// the point is in the coordinate system of the content view, need to convert into those of the receiver first
 	CGRect rect = [self.attributedTextContentView convertRect:rectInContentView toView:self];
-
+	
 	return rect;
 }
 
@@ -167,12 +167,12 @@
 - (void)contentViewDidLayout:(NSNotification *)notification
 {
 	DTBlockPerformSyncIfOnMainThreadElseAsync(^{
-
+		
 		NSDictionary *userInfo = [notification userInfo];
 		CGRect optimalFrame = [[userInfo objectForKey:@"OptimalFrame"] CGRectValue];
-
+		
 		CGRect frame = UIEdgeInsetsInsetRect(self.bounds, self.contentInset);
-
+		
 		// ignore possibly delayed layout notification for a different width
 		if (optimalFrame.size.width == frame.size.width)
 		{
@@ -189,44 +189,44 @@
 	{
 		// subclasses can specify a DTAttributedTextContentView subclass instead
 		Class classToUse = [self classForContentView];
-
+		
 		CGRect frame = UIEdgeInsetsInsetRect(self.bounds, self.contentInset);
-
+		
 		if (frame.size.width<=0 || frame.size.height<=0)
 		{
 			frame = CGRectZero;
 		}
-
+		
 		// make sure we always have a tiled layer
 		Class previousLayerClass = nil;
-
+		
 		// for DTAttributedTextContentView subclasses we force a tiled layer
 		if ([classToUse isSubclassOfClass:[DTAttributedTextContentView class]])
 		{
 			Class layerClass = [DTAttributedTextContentView layerClass];
-
+			
 			if (![layerClass isSubclassOfClass:[CATiledLayer class]])
 			{
 				[DTAttributedTextContentView setLayerClass:[DTTiledLayerWithoutFade class]];
 				previousLayerClass = layerClass;
 			}
 		}
-
+		
 		_attributedTextContentView = [[classToUse alloc] initWithFrame:frame];
-
+		
 		// restore previous layer class if we changed the layer class for the content view
 		if (previousLayerClass)
 		{
 			[DTAttributedTextContentView setLayerClass:previousLayerClass];
 		}
-
+		
 		_attributedTextContentView.userInteractionEnabled = YES;
 		_attributedTextContentView.backgroundColor = self.backgroundColor;
 		_attributedTextContentView.shouldLayoutCustomSubviews = NO; // we call layout when scrolling
-
+		
 		// adjust opaqueness based on background color alpha
 		CGFloat alpha = [self.backgroundColor alphaComponent];
-
+		
 		if (alpha < 1.0)
 		{
 			_attributedTextContentView.opaque = NO;
@@ -238,24 +238,24 @@
 
 		// set text delegate if it was set before instantiation of content view
 		_attributedTextContentView.delegate = textDelegate;
-
+		
 		// pass on setting
 		_attributedTextContentView.shouldDrawLinks = _shouldDrawLinks;
-
+		
 		// notification that tells us about the actual size of the content view
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentViewDidLayout:) name:DTAttributedTextContentViewDidFinishLayoutNotification object:_attributedTextContentView];
 
 		// temporary frame to specify the width
 		_attributedTextContentView.frame = frame;
-
+		
 		// set text we previously got, this also triggers a relayout
 		_attributedTextContentView.attributedString = _attributedString;
 
 		// this causes a relayout and the resulting notification will allow us to set the final frame
-
+		
 		[self addSubview:_attributedTextContentView];
-	}
-
+	}		
+	
 	return _attributedTextContentView;
 }
 
@@ -267,10 +267,10 @@
 		_attributedTextContentView.backgroundColor = [DTColor clearColor];
 		self.opaque = NO;
 	}
-	else
+	else 
 	{
 		super.backgroundColor = newColor;
-
+		
 		if (_attributedTextContentView.opaque)
 		{
 			_attributedTextContentView.backgroundColor = newColor;
@@ -283,10 +283,10 @@
 	if (!UIEdgeInsetsEqualToEdgeInsets(self.contentInset, contentInset))
 	{
 		[super setContentInset:contentInset];
-
+		
 		// height does not matter, that will be determined anyhow
 		CGRect contentFrame = CGRectMake(0, 0, self.frame.size.width - self.contentInset.left - self.contentInset.right, _attributedTextContentView.frame.size.height);
-
+		
 		_attributedTextContentView.frame = contentFrame;
 	}
 }
@@ -297,17 +297,17 @@
 	{
 		_backgroundView = [[UIView alloc] initWithFrame:self.bounds];
 		_backgroundView.backgroundColor	= [DTColor whiteColor];
-
+		
 		// default is no interaction because background should have no interaction
 		_backgroundView.userInteractionEnabled = NO;
 
 		[self insertSubview:_backgroundView belowSubview:self.attributedTextContentView];
-
+		
 		// make content transparent so that we see the background
 		_attributedTextContentView.backgroundColor = [DTColor clearColor];
 		_attributedTextContentView.opaque = NO;
-	}
-
+	}		
+	
 	return _backgroundView;
 }
 
@@ -317,7 +317,7 @@
 	{
 		[_backgroundView removeFromSuperview];
 		_backgroundView = backgroundView;
-
+		
 		if (_attributedTextContentView)
 		{
 			[self insertSubview:_backgroundView belowSubview:_attributedTextContentView];
@@ -326,14 +326,14 @@
 		{
 			[self addSubview:_backgroundView];
 		}
-
+		
 		if (_backgroundView)
 		{
 			// make content transparent so that we see the background
 			_attributedTextContentView.backgroundColor = [DTColor clearColor];
 			_attributedTextContentView.opaque = NO;
 		}
-		else
+		else 
 		{
 			_attributedTextContentView.backgroundColor = [DTColor whiteColor];
 			_attributedTextContentView.opaque = YES;
@@ -352,7 +352,7 @@
 	{
 		// pass it along if contentView already exists
 		_attributedTextContentView.attributedString = string;
-
+		
 		// this causes a relayout and the resulting notification will allow us to set the frame and contentSize
 	}
 }
@@ -365,16 +365,16 @@
 - (void)setFrame:(CGRect)frame
 {
 	CGRect oldFrame = self.frame;
-
+	
 	if (!CGRectEqualToRect(oldFrame, frame))
 	{
 		[super setFrame:frame]; // need to set own frame first because layout completion needs this updated frame
-
+		
 		if (oldFrame.size.width != frame.size.width)
 		{
 			// height does not matter, that will be determined anyhow
 			CGRect contentFrame = CGRectMake(0, 0, frame.size.width - self.contentInset.left - self.contentInset.right, _attributedTextContentView.frame.size.height);
-
+			
 			_attributedTextContentView.frame = contentFrame;
 		}
 	}
@@ -384,7 +384,7 @@
 {
 	// store unsafe pointer to delegate because we might not have a contentView yet
 	textDelegate = aTextDelegate;
-
+	
 	// set it if possible, otherwise it will be set in contentView lazy property
 	_attributedTextContentView.delegate = aTextDelegate;
 }

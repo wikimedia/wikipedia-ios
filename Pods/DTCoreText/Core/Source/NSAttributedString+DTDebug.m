@@ -14,12 +14,12 @@
 - (void)dumpRangesOfAttribute:(id)attribute
 {
 	NSMutableString *tmpString = [NSMutableString string];
-
+	
 	NSRange entireRange = NSMakeRange(0, [self length]);
 	[self enumerateAttribute:attribute inRange:entireRange options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
 		NSString *rangeString = [[self string] substringWithRange:range];
 		NSString *valueString;
-
+		
 		if ([value isKindOfClass:[NSArray class]])
 		{
 			valueString = [(NSArray *)value componentsJoinedByString:@", "];
@@ -28,10 +28,10 @@
 		{
 			valueString = [value debugDescription];
 		}
-
+		
 		[tmpString appendFormat:@"%@ %@ '%@'\n", NSStringFromRange(range), valueString, [rangeString stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"]];
 	}];
-
+	
 	printf("%s", [tmpString UTF8String]);
 }
 

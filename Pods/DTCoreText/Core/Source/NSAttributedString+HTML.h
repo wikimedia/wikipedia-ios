@@ -10,7 +10,7 @@
 
 /**
  Methods for generating an `NSAttributedString` from HTML data. Those methods exist on Mac but have not been ported (publicly) to iOS. This project aims to remedy this.
-
+ 
  For a list of available options to pass to any of these methods please refer to [DTHTMLAttributedStringBuilder initWithHTML:options:documentAttributes:].
  */
 
@@ -40,8 +40,8 @@
 - (id)initWithHTMLData:(NSData *)data baseURL:(NSURL *)baseURL documentAttributes:(NSDictionary * __autoreleasing*)docAttributes;
 
 /**
- Initializes and returns a new `NSAttributedString` object from the HTML contained in the given object and base URL.
-
+ Initializes and returns a new `NSAttributedString` object from the HTML contained in the given object and base URL. 
+ 
  @param data The data in HTML format from which to create the attributed string.
  @param options Specifies how the document should be loaded.
  @param docAttributes Currently not in used.
@@ -64,7 +64,7 @@
 
 /**
  Retrieves the range that an attribute with a given name is active for, beginning with the passed index
-
+ 
  Since a custom HTML attribute can occur in multiple individual attribute dictionaries this extends the range from the passed index outwards until the full range of the custom HTML attribute has been found. Those range extentions have to have an identical value, as established by comparing them to the value of the custom attribute at the index with isEqual:
  @param name The name of the custom attribute to remove
  @param index The string index to query

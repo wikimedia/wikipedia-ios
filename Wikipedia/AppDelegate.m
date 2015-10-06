@@ -52,7 +52,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
-    [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
+//    [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];

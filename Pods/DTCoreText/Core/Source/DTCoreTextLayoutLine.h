@@ -198,7 +198,7 @@
 
 /**
  Method to efficiently determine if the receiver is a horizontal rule.
-
+ 
  Note: This is used to shortcut drawing of text lines and to allow a horizontal rule line have an "endlessly wide" width so that it gets picked up by [DTCoreTextLayoutFrame linesVisibleInRect:].
  */
 - (BOOL)isHorizontalRule;
@@ -210,7 +210,7 @@
 
 /**
  Creates a version of the receiver that is justified to the given width.
-
+ 
  @param justificationFactor Full or partial justification. When set to `1.0` or greater, full justification is performed. If this parameter is set to less than `1.0`, varying degrees of partial justification are performed. If it is set to `0` or less, no justification is performed.
  @param justificationWidth The width to which the resultant line is justified. If justificationWidth is less than the actual width of the line, then negative justification is performed (that is, glyphs are squeezed together).
  */

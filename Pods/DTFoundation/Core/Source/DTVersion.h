@@ -70,19 +70,19 @@
 /**
  creates and returns a DTVersion object initialized using the provided string
  @param versionString The `NSString` to create a `DTVersion` from
- @returns A DTVersion object or <code>nil</code> if the string is not a valid version number
+ @returns A DTVersion object or <code>nil</code> if the string is not a valid version number 
  */
 + (DTVersion *)versionWithString:(NSString *)versionString;
 
 /**
  creates and retuns a DTVersion object initialized with the version information of the current application
- @returns A DTVersion object or <code>nil</code> if the string of the current application is not a valid version number
+ @returns A DTVersion object or <code>nil</code> if the string of the current application is not a valid version number 
  */
 + (DTVersion *)appBundleVersion;
 
 /**
  creates and retuns a DTVersion object initialized with the version information of the operating system
- @returns A DTVersion object or <code>nil</code> if the string of the current application is not a valid version number
+ @returns A DTVersion object or <code>nil</code> if the string of the current application is not a valid version number 
  */
 + (DTVersion *)osVersion;
 

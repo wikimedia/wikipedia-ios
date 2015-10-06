@@ -24,17 +24,17 @@ typedef NS_ENUM(NSUInteger, DTTextAttachmentVerticalAlignment)
 	 Baseline alignment (default)
 	 */
 	DTTextAttachmentVerticalAlignmentBaseline = 0,
-
+	
 	/**
 	 Align with top edge
 	 */
 	DTTextAttachmentVerticalAlignmentTop,
-
+	
 	/**
 	 Align with center
 	 */
 	DTTextAttachmentVerticalAlignmentCenter,
-
+	
 	/**
 	 Align with bottom edge
 	 */
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSUInteger, DTTextAttachmentVerticalAlignment)
 
 
 /**
- An object to represent an attachment in an HTML/rich text view.
+ An object to represent an attachment in an HTML/rich text view.  
  */
 @interface DTTextAttachment : NSObject <NSCoding>
 {
@@ -88,10 +88,10 @@ typedef NS_ENUM(NSUInteger, DTTextAttachmentVerticalAlignment)
  */
 
 /**
- Initialize and return a DTTextAttachment with the specified DTHTMLElement and options. Convenience initializer.
-	The element must have a valid tagName. The size of the returned text attachment is determined by the element, constrained by the option's key for DTMaxImageSize. Any valid image resource included in the element (denoted by the method attributeForKey: "src") is loaded and determines the text attachment size if it was not known before. If a size is too large the image is downsampled with sizeThatFitsKeepingAspectRatio() which preserves the aspect ratio.
- @param element A DTHTMLElement that must have a valid tag name and should have a size. Any element attributes are copied to the text attachment's elements.
- @param options An NSDictionary of options. Used to specify the max image size with the key DTMaxImageSize.
+ Initialize and return a DTTextAttachment with the specified DTHTMLElement and options. Convenience initializer. 
+	The element must have a valid tagName. The size of the returned text attachment is determined by the element, constrained by the option's key for DTMaxImageSize. Any valid image resource included in the element (denoted by the method attributeForKey: "src") is loaded and determines the text attachment size if it was not known before. If a size is too large the image is downsampled with sizeThatFitsKeepingAspectRatio() which preserves the aspect ratio. 
+ @param element A DTHTMLElement that must have a valid tag name and should have a size. Any element attributes are copied to the text attachment's elements. 
+ @param options An NSDictionary of options. Used to specify the max image size with the key DTMaxImageSize. 
  @returns Returns the appropriate subclass of the class cluster
  */
 + (DTTextAttachment *)textAttachmentWithElement:(DTHTMLElement *)element options:(NSDictionary *)options;
@@ -145,7 +145,7 @@ typedef NS_ENUM(NSUInteger, DTTextAttachmentVerticalAlignment)
 
 /**
  Updates the display size optionally passing a maximum size that it should not exceed.
-
+ 
  This method in contrast to using the displaySize property will use the originalSize and max display size to calculate missing dimensions.
  @param displaySize The new size to display the content with
  @param maxDisplaySize the maximum size that the content should be scaled to fit
@@ -169,7 +169,7 @@ typedef NS_ENUM(NSUInteger, DTTextAttachmentVerticalAlignment)
 
 /**
  The attributes dictionary of the attachment.
-
+ 
  If initialized from HTML, the values of this dictionary are transferred from the give HTML element.  If you wish to add custom attribute values to be written to and read from HTML, be aware that the attribute name will be lowercased in compliance with W3C recommendations.  Therefore, you may set a camel-case name and persist to HTML, but you will receive a lowercase name when the HTML is transformed into an attributed string.
  */
 @property (nonatomic, strong) NSDictionary *attributes;
@@ -180,7 +180,7 @@ typedef NS_ENUM(NSUInteger, DTTextAttachmentVerticalAlignment)
 
 /**
  Registers your own class for use when encountering a specific tag Name. If you register a class for a previously registered class (or one of the predefined ones (img, iframe, object, video) then this replaces this with the newer registration.
-
+ 
  These registrations are permanent during the run time of your app. Custom attachment classes must implement the initWithElement:options: initializer and can implement the DTTextAttachmentDrawing and/or DTTextAttachmentHTMLPersistence protocols.
  @param theClass The class to instantiate in textAttachmentWithElement:options: when encountering a tag with this name
  @param tagName The tag name to use this class for

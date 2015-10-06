@@ -19,6 +19,9 @@
 #import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
 #import "MWKCitation.h"
+#import "MWKTitle.h"
+#import "MWKSectionList.h"
+#import "MWKSection.h"
 
 // Views
 #import "WMFArticleTableHeaderView.h"
@@ -37,6 +40,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import "NSURL+WMFLinkParsing.h"
+#import "NSURL+Extras.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

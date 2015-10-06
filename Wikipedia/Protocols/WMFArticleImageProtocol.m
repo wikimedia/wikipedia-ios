@@ -2,13 +2,17 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFArticleImageProtocol.h"
-#import "NSURL+WMFRest.h"
 #import "SessionSingleton.h"
-#import "NSString+Extras.h"
 #import "Wikipedia-Swift.h"
+
+#import "MWKImage.h"
+#import "MWKArticle.h"
 
 #import "UIImage+WMFSerialization.h"
 #import "NSURLRequest+WMFUtilities.h"
+#import "NSString+Extras.h"
+#import "NSURL+Extras.h"
+#import "NSURL+WMFRest.h"
 
 // Set the level for logs in this file
 #undef LOG_LEVEL_DEF

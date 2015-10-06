@@ -7,7 +7,7 @@
 //
 
 
-/**
+/** 
  A collection of utility additions for `NSString`.
  */
 
@@ -18,8 +18,8 @@
  ---------------------------------------------------------------------------------------
  */
 
-/** Creates a new string that contains a generated UUID.
-
+/** Creates a new string that contains a generated UUID. 
+ 
  @return The path to the app's Caches folder.
  */
 + (NSString *)stringWithUUID;
@@ -30,8 +30,8 @@
  ---------------------------------------------------------------------------------------
  */
 
-/** creates an MD5 checksum
-
+/** creates an MD5 checksum 
+ 
  @return returns an MD5 hash for the receiver.
  */
 - (NSString *)md5Checksum;

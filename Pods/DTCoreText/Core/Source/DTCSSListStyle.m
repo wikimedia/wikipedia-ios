@@ -29,10 +29,10 @@
 @implementation DTCSSListStyle
 {
 	BOOL _inherit;
-
+	
 	DTCSSListStyleType _type;
 	DTCSSListStylePosition _position;
-
+	
 	NSString *_imageName;
 	NSInteger _startingItemNumber;
 }
@@ -40,16 +40,16 @@
 - (id)initWithStyles:(NSDictionary *)styles
 {
 	self = [super init];
-
+	
 	if (self)
 	{
 		// default
-		_position = DTCSSListStylePositionOutside;
+		_position = DTCSSListStylePositionOutside; 
 		_startingItemNumber = 1;
-
+		
 		[self updateFromStyleDictionary:styles];
 	}
-
+	
 	return self;
 }
 
@@ -80,10 +80,10 @@
 	{
 		return DTCSSListStyleTypeInvalid;
 	}
-
+	
 	// always compare lower case
 	string = [string lowercaseString];
-
+	
 	if ([string isEqualToString:@"inherit"])
 	{
 		return DTCSSListStyleTypeInherit;
@@ -95,11 +95,11 @@
 	else if ([string isEqualToString:@"circle"])
 	{
 		return DTCSSListStyleTypeCircle;
-	}
+	}	
 	else if ([string isEqualToString:@"square"])
 	{
 		return DTCSSListStyleTypeSquare;
-	}
+	}	
 	else if ([string isEqualToString:@"decimal"])
 	{
 		return DTCSSListStyleTypeDecimal;
@@ -107,7 +107,7 @@
 	else if ([string isEqualToString:@"decimal-leading-zero"])
 	{
 		return DTCSSListStyleTypeDecimalLeadingZero;
-	}
+	}        
 	else if ([string isEqualToString:@"disc"])
 	{
 		return DTCSSListStyleTypeDisc;
@@ -115,19 +115,19 @@
 	else if ([string isEqualToString:@"upper-alpha"]||[string isEqualToString:@"upper-latin"])
 	{
 		return DTCSSListStyleTypeUpperAlpha;
-	}
+	}		
 	else if ([string isEqualToString:@"lower-alpha"]||[string isEqualToString:@"lower-latin"])
 	{
 		return DTCSSListStyleTypeLowerAlpha;
-	}
+	}		
 	else if ([string isEqualToString:@"plus"])
 	{
 		return DTCSSListStyleTypePlus;
-	}
+	}        
 	else if ([string isEqualToString:@"underscore"])
 	{
 		return DTCSSListStyleTypeUnderscore;
-	}
+	}  
 	else
 	{
 		return DTCSSListStyleTypeNone;
@@ -140,10 +140,10 @@
 	{
 		return DTCSSListStylePositionInvalid;
 	}
-
+	
 	// always compare lower case
 	string = [string lowercaseString];
-
+	
 	if ([string isEqualToString:@"inherit"])
 	{
 		return DTCSSListStylePositionInherit;
@@ -155,7 +155,7 @@
 	else if ([string isEqualToString:@"outside"])
 	{
 		return DTCSSListStylePositionOutside;
-	}
+	}		
 	else
 	{
 		return DTCSSListStylePositionInherit;
@@ -172,7 +172,7 @@
 	}
 
 	_type = type;
-
+	
 	return YES;
 }
 
@@ -180,12 +180,12 @@
 - (BOOL)setPositionWithString:(NSString *)string
 {
 	DTCSSListStylePosition position = [DTCSSListStyle listStylePositionFromString:string];
-
+	
 	if (position == DTCSSListStylePositionInvalid)
 	{
 		return NO;
 	}
-
+	
 	_position = position;
 	return YES;
 }
@@ -193,7 +193,7 @@
 - (void)updateFromStyleDictionary:(NSDictionary *)styles
 {
 	NSString *shortHand = [[styles objectForKey:@"list-style"] lowercaseString];
-
+	
 	if (shortHand)
 	{
 		if ([shortHand isEqualToString:@"inherit"])
@@ -201,13 +201,13 @@
 			_inherit = YES;
 			return;
 		}
-
+		
 		NSArray *components = [shortHand componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-
+		
 		BOOL typeWasSet = NO;
 		BOOL positionWasSet = NO;
-
-
+		
+		
 		for (NSString *oneComponent in components)
 		{
 			if ([oneComponent hasPrefix:@"url"])
@@ -215,44 +215,44 @@
 				// list-style-image
 				NSString *urlString;
 				NSScanner *scanner = [NSScanner scannerWithString:oneComponent];
-
+				
 				if ([scanner scanCSSURL:&urlString])
 				{
 					self.imageName = urlString;
 					continue;
 				}
 			}
-
+			
 			if (!typeWasSet && [self setTypeWithString:oneComponent])
 			{
 				typeWasSet = YES;
 				continue;
 			}
-
+			
 			if (!positionWasSet && [self setPositionWithString:oneComponent])
 			{
 				positionWasSet = YES;
 				continue;
 			}
 		}
-
+		
 		return;
 	}
-
+	
 	// not a short hand, set from individual types
-
+	
 	[self setTypeWithString:[styles objectForKey:@"list-style-type"]];
 	[self setPositionWithString:[styles objectForKey:@"list-style-position"]];
-
+	
 	NSString *tmpStr =  [styles objectForKey:@"list-style-image"];
-
+	
 	if (tmpStr)
 	{
 		// extract just the name
-
+		
 		NSString *urlString;
 		NSScanner *scanner = [NSScanner scannerWithString:tmpStr];
-
+		
 		if ([scanner scanCSSURL:&urlString])
 		{
 			self.imageName = urlString;
@@ -271,13 +271,13 @@
 - (NSUInteger)hash
 {
 	NSUInteger calcHash = 7;
-
+	
 	calcHash = calcHash*31 + [_imageName hash];
 	calcHash = calcHash*31 + (NSUInteger)_type;
 	calcHash = calcHash*31 + (NSUInteger)_position;
 	calcHash = calcHash*31 + (NSUInteger)_startingItemNumber;
 	calcHash = calcHash*31 + (NSUInteger)_inherit;
-
+	
 	return calcHash;
 }
 
@@ -292,42 +292,42 @@
 	{
 		return NO;
 	}
-
+	
 	if (otherListStyle == self)
 	{
 		return YES;
 	}
-
+	
 	if (![otherListStyle isKindOfClass:[DTCSSListStyle class]])
 	{
 		return NO;
 	}
-
+	
 	if (_inherit != otherListStyle->_inherit)
 	{
 		return NO;
 	}
-
+	
 	if (_type != otherListStyle->_type)
 	{
 		return NO;
 	}
-
+	
 	if (_position != otherListStyle->_position)
 	{
 		return NO;
 	}
-
+	
 	if (_startingItemNumber != otherListStyle->_startingItemNumber)
 	{
 		return NO;
 	}
-
+	
 	if (_imageName == otherListStyle->_imageName)
 	{
 		return YES;
 	}
-
+	
 	return ([_imageName isEqualToString:otherListStyle->_imageName]);
 }
 
@@ -340,29 +340,29 @@
 	newStyle.position = self.position;
 	newStyle.imageName = self.imageName;
 	newStyle.startingItemNumber = self.startingItemNumber;
-
+	
 	return newStyle;
 }
-
+	
 #pragma mark Utilities
 
 - (NSString *)prefixWithCounter:(NSInteger)counter
 {
 	NSString *token = nil;
-
+	
 	DTCSSListStyleType listStyleType = _type;
-
+	
 	if (self.imageName)
 	{
 		listStyleType = DTCSSListStyleTypeImage;
 	}
-
-
-	switch (listStyleType)
+	
+	
+	switch (listStyleType) 
 	{
 		case DTCSSListStyleTypeNone:
 		case DTCSSListStyleTypeInherit:  // should never be called with inherit
-		case DTCSSListStyleTypeInvalid:
+		case DTCSSListStyleTypeInvalid:  
 		{
 			return nil;
 		}
@@ -419,12 +419,12 @@
 		{
 			token = @"_";
 		}
-	}
-
+	}	
+	
 	if (_position == DTCSSListStylePositionInside)
 	{
 		// iOS needs second tab, Mac ignores position outside
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE		
 		return [NSString stringWithFormat:@"\x09\x09%@", token];
 #else
 		return [NSString stringWithFormat:@"\x09%@\x09", token];
@@ -438,7 +438,7 @@
 
 - (BOOL)isOrdered
 {
-	switch (_type)
+	switch (_type) 
 	{
 		case DTCSSListStyleTypeDecimal:
 		case DTCSSListStyleTypeDecimalLeadingZero:
@@ -447,7 +447,7 @@
 		case DTCSSListStyleTypeLowerAlpha:
 		case DTCSSListStyleTypeLowerLatin:
 			return YES;
-
+			
 		default:
 			return NO;
 	}
@@ -463,4 +463,4 @@
 
 @end
 
-// TO DO: Implement image
+// TO DO: Implement image 

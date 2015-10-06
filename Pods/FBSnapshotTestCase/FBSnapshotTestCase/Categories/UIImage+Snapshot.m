@@ -41,7 +41,7 @@
 {
   CGRect bounds = view.bounds;
   NSAssert1(CGRectGetWidth(bounds), @"Zero width for view %@", view);
-  NSAssert1(CGRectGetHeight(bounds), @"Zero height for view %@", view);
+  NSAssert1(CGRectGetHeight(bounds), @"Zero height for view %@", view);  
 
   UIWindow *window = view.window;
   if (window == nil) {
@@ -49,7 +49,7 @@
     [window addSubview:view];
     [window makeKeyAndVisible];
   }
-
+  
   UIGraphicsBeginImageContextWithOptions(bounds.size, NO, 0);
   [view layoutIfNeeded];
   [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];

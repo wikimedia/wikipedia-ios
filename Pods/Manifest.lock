@@ -12,14 +12,13 @@ PODS:
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - CocoaLumberjack (2.0.1):
-    - CocoaLumberjack/Default (= 2.0.1)
-    - CocoaLumberjack/Extensions (= 2.0.1)
   - CocoaLumberjack/Core (2.0.1)
   - CocoaLumberjack/Default (2.0.1):
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.0.1):
+    - CocoaLumberjack/Extensions
   - DTCoreText (1.6.16):
     - DTFoundation/Core (~> 1.7.5)
     - DTFoundation/DTAnimatedGIF (~> 1.7.5)
@@ -32,7 +31,9 @@ PODS:
   - DTFoundation/UIKit (1.7.7):
     - DTFoundation/Core
   - FBSnapshotTestCase/Core (2.0.3)
-  - HockeySDK (3.6.2)
+  - HockeySDK (3.8.2):
+    - HockeySDK/AllFeaturesLib (= 3.8.2)
+  - HockeySDK/AllFeaturesLib (3.8.2)
   - hpple (0.2.0)
   - KVOController (1.0.3)
   - libextobjc/EXTScope (0.4.1):
@@ -46,9 +47,28 @@ PODS:
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
+  - OMGHTTPURLRQ (3.0.0):
+    - OMGHTTPURLRQ/RQ (= 3.0.0)
+  - OMGHTTPURLRQ/FormURLEncode (3.0.0)
+  - OMGHTTPURLRQ/RQ (3.0.0):
+    - OMGHTTPURLRQ/FormURLEncode
+    - OMGHTTPURLRQ/UserAgent
+  - OMGHTTPURLRQ/UserAgent (3.0.0)
   - PiwikTracker (3.3.0):
     - PiwikTracker/Core (= 3.3.0)
   - PiwikTracker/Core (3.3.0)
+  - PromiseKit (3.0.0):
+    - PromiseKit/Foundation (= 3.0.0)
+    - PromiseKit/QuartzCore (= 3.0.0)
+    - PromiseKit/UIKit (= 3.0.0)
+  - PromiseKit/CorePromise (3.0.0)
+  - PromiseKit/Foundation (3.0.0):
+    - OMGHTTPURLRQ (~> 3.0.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/QuartzCore (3.0.0):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (3.0.0):
+    - PromiseKit/CorePromise
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -61,10 +81,11 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization
   - BlocksKit/Core (~> 2.2)
   - BlocksKit/UIKit (~> 2.2)
-  - CocoaLumberjack (~> 2.0.0)
+  - CocoaLumberjack/Swift (from `https://github.com/CocoaLumberjack/CocoaLumberjack.git`,
+    branch `swift_2.0`)
   - DTCoreText (~> 1.6.16)
   - FBSnapshotTestCase/Core (~> 2.0.3)
-  - HockeySDK (= 3.6.2)
+  - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
   - KVOController
   - libextobjc/EXTScope (~> 0.4.1)
@@ -74,18 +95,31 @@ DEPENDENCIES:
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
   - PiwikTracker (~> 3.3.0)
+  - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
   - SDWebImage (from `./vendor/SDWebImage`)
   - SelfSizingWaterfallCollectionViewLayout (from `git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git`)
   - SSDataSources
   - SVWebViewController (~> 1.0)
 
 EXTERNAL SOURCES:
+  CocoaLumberjack:
+    :branch: swift_2.0
+    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+  PromiseKit:
+    :branch: swift-2.0-beta5
+    :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
   SelfSizingWaterfallCollectionViewLayout:
     :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 
 CHECKOUT OPTIONS:
+  CocoaLumberjack:
+    :commit: 479279f102a8ab23084290697bafa77aac0d1bdf
+    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+  PromiseKit:
+    :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
+    :git: https://github.com/mxcl/PromiseKit.git
   SelfSizingWaterfallCollectionViewLayout:
     :commit: 773f27fb72af798507f7250dc2470ae8c2d92675
     :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
@@ -94,11 +128,11 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
-  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  CocoaLumberjack: 3eefa3b3b4d42d4700fa4e9d9bbb33c4cc80aaae
   DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
   DTFoundation: c9b3362b83f0017389082ec067ede719826a579d
   FBSnapshotTestCase: d0eeca6bf87958e088b254396ae66873f971cfb1
-  HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
+  HockeySDK: 9f4ac41263acf9d8a4d59491a7f17af16529b935
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
@@ -107,10 +141,12 @@ SPEC CHECKSUMS:
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
+  OMGHTTPURLRQ: 45cd892e5643206a5a359307621df7678625ebec
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
+  PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SelfSizingWaterfallCollectionViewLayout: befdae95e51b6b0d9fbf0d58fe316324fb2f780a
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
 
-COCOAPODS: 0.38.0
+COCOAPODS: 0.38.2

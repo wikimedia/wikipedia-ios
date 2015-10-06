@@ -29,7 +29,7 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 	dispatch_once(&predicate, ^{
 		_tagNameCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
 	});
-
+	
 	return _tagNameCharacterSet;
 }
 
@@ -40,17 +40,17 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 	dispatch_once(&predicate, ^{
 		_tagAttributeNameCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-_:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
 	});
-
+	
 	return _tagAttributeNameCharacterSet;
 }
 
 + (NSCharacterSet *)ignorableWhitespaceCharacterSet
 {
 	static dispatch_once_t predicate;
-
+	
 	dispatch_once(&predicate, ^{
 		NSMutableCharacterSet *tmpSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
-
+		
 		// remove all special unicode space characters
 		[tmpSet removeCharactersInString:UNICODE_NON_BREAKING_SPACE];
 		[tmpSet removeCharactersInString:UNICODE_OGHAM_SPACE_MARK];
@@ -74,7 +74,7 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 
 		_ignorableWhitespaceCharacterSet = [tmpSet copy];
 	});
-
+	
 	return _ignorableWhitespaceCharacterSet;
 }
 
@@ -86,7 +86,7 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 	dispatch_once(&predicate, ^{
 		_quoteCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"'\""];
 	});
-
+	
 	return _quoteCharacterSet;
 }
 
@@ -97,10 +97,10 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 	dispatch_once(&predicate, ^{
 		NSMutableCharacterSet *tmpCharacterSet = [NSMutableCharacterSet characterSetWithCharactersInString:@"/>"];
 		[tmpCharacterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
+		
 		_nonQuotedAttributeEndCharacterSet = [tmpCharacterSet copy];
 	});
-
+	
 	return _nonQuotedAttributeEndCharacterSet;
 }
 
@@ -111,7 +111,7 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 
 	dispatch_once(&predicate, ^{
 		_cssStyleAttributeNameCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"-_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
-	});
+	});	
 	return _cssStyleAttributeNameCharacterSet;
 }
 
@@ -119,7 +119,7 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 + (NSCharacterSet *)cssLengthValueCharacterSet
 {
 	static dispatch_once_t predicate;
-
+	
 	dispatch_once(&predicate, ^{
 		_cssLengthValueCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@".0123456789"];
 	});
@@ -129,7 +129,7 @@ static NSCharacterSet *_cssLengthUnitCharacterSet = nil;
 + (NSCharacterSet *)cssLengthUnitCharacterSet
 {
 	static dispatch_once_t predicate;
-
+	
 	dispatch_once(&predicate, ^{
 		_cssLengthUnitCharacterSet = [NSCharacterSet characterSetWithCharactersInString:@"pxtem"];
 	});

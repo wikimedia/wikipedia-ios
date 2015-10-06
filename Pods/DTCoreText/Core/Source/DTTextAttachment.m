@@ -29,7 +29,7 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 {
 	NSURL *_hyperLinkURL;
 	NSString *_hyperLinkGUID;
-
+	
 	CGFloat _fontLeading;
 	CGFloat _fontAscent;
 	CGFloat _fontDescent;
@@ -43,9 +43,9 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 	{
 		return;
 	}
-
+	
 	_classForTagNameLookup = [[NSMutableDictionary alloc] init];
-
+	
 	// register standard tags
 	[DTTextAttachment registerClass:[DTImageTextAttachment class] forTagName:@"img"];
 	[DTTextAttachment registerClass:[DTVideoTextAttachment class] forTagName:@"video"];
@@ -56,14 +56,14 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 + (DTTextAttachment *)textAttachmentWithElement:(DTHTMLElement *)element options:(NSDictionary *)options
 {
 	Class class = [DTTextAttachment registeredClassForTagName:element.name];
-
+	
 	if (!class)
 	{
 		return nil;
 	}
 
 	DTTextAttachment *attachment = [class alloc];
-
+	
 	return [attachment initWithElement:element options:options];
 }
 
@@ -92,15 +92,15 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 - (id)initWithElement:(DTHTMLElement *)element options:(NSDictionary *)options
 {
 	self = [super init];
-
+	
 	if (self)
 	{
 		// width, height from tag
 		_originalSize = element.size; // initially not known
-
+		
 		// determine if there is a display size restriction
 		_maxImageSize = CGSizeZero;
-
+		
 		NSValue *maxImageSizeValue =[options objectForKey:DTMaxImageSize];
 		if (maxImageSizeValue)
 		{
@@ -110,13 +110,13 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 			_maxImageSize = [maxImageSizeValue sizeValue];
 #endif
 		}
-
+		
 		// set the display size from the original size, restricted to the max size
 		[self setDisplaySize:_originalSize withMaxDisplaySize:_maxImageSize];
 
 		_attributes = element.attributes;
 	}
-
+	
 	return self;
 }
 
@@ -129,7 +129,7 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 
 - (CGFloat)ascentForLayout
 {
-	switch (_verticalAlignment)
+	switch (_verticalAlignment) 
 	{
 		case DTTextAttachmentVerticalAlignmentBaseline:
 		{
@@ -138,11 +138,11 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 		case DTTextAttachmentVerticalAlignmentTop:
 		{
 			return _fontAscent;
-		}
+		}	
 		case DTTextAttachmentVerticalAlignmentCenter:
 		{
 			CGFloat halfHeight = (_fontAscent + _fontDescent) / 2.0f;
-
+			
 			return halfHeight - _fontDescent + _displaySize.height/2.0f;
 		}
 		case DTTextAttachmentVerticalAlignmentBottom:
@@ -154,22 +154,22 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 
 - (CGFloat)descentForLayout
 {
-	switch (_verticalAlignment)
+	switch (_verticalAlignment) 
 	{
 		case DTTextAttachmentVerticalAlignmentBaseline:
 		{
 			return 0;
-		}
+		}	
 		case DTTextAttachmentVerticalAlignmentTop:
 		{
 			return _displaySize.height - _fontAscent;
-		}
+		}	
 		case DTTextAttachmentVerticalAlignmentCenter:
 		{
 			CGFloat halfHeight = (_fontAscent + _fontDescent) / 2.0f;
-
+			
 			return halfHeight - _fontAscent + _displaySize.height/2.0f;
-		}
+		}	
 		case DTTextAttachmentVerticalAlignmentBottom:
 		{
 			return _fontDescent;
@@ -187,7 +187,7 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 	{
 		DTLogDebug(@"Replacing previously registered class '%@' for tag name '%@' with '%@'", NSStringFromClass(previousClass), tagName, NSStringFromClass(class));
 	}
-
+	
 	[_classForTagNameLookup setObject:class forKey:tagName];
 }
 
@@ -197,14 +197,14 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 }
 
 #pragma mark Properties
-/** Mutator for originalSize. Sets displaySize to the same value as originalSize.
+/** Mutator for originalSize. Sets displaySize to the same value as originalSize. 
  @param originalSize The CGSize to store in originalSize. */
 - (void)setOriginalSize:(CGSize)originalSize
 {
 	if (!CGSizeEqualToSize(originalSize, _originalSize))
 	{
 		_originalSize = originalSize;
-
+		
 		if (_displaySize.width==0 || _displaySize.height==0)
 		{
 			[self setDisplaySize:_originalSize withMaxDisplaySize:_maxImageSize];
@@ -242,7 +242,7 @@ static NSMutableDictionary *_classForTagNameLookup = nil;
 			displaySize = DTCGSizeThatFitsKeepingAspectRatio(displaySize, maxDisplaySize);
 		}
 	}
-
+	
 	_displaySize = displaySize;
 }
 
