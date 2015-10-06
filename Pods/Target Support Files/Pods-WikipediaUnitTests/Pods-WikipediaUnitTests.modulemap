@@ -1,0 +1,6 @@
+framework module Pods_WikipediaUnitTests {
+  umbrella header "Pods-WikipediaUnitTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

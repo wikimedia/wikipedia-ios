@@ -19,7 +19,7 @@
 - (DTCSSStylesheet *)stylesheet
 {
 	NSString *text = [self text];
-
+	
 	return [[DTCSSStylesheet alloc] initWithStyleBlock:text];
 }
 

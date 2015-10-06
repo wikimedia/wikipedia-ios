@@ -15,17 +15,17 @@ typedef NS_ENUM(NSUInteger, DTCSSListStyleType)
 	 The list style should be inherited from the parent
 	 */
     DTCSSListStyleTypeInherit = 0,
-
+	
 	/**
 	 No list style
 	 */
     DTCSSListStyleTypeNone,
-
+	
 	/**
 	 Circle bullet list style
 	 */
     DTCSSListStyleTypeCircle,
-
+	
 	/**
 	 Decimal number list style
 	 */
@@ -35,53 +35,53 @@ typedef NS_ENUM(NSUInteger, DTCSSListStyleType)
 	 Decimal number list style with a leading zero
 	 */
     DTCSSListStyleTypeDecimalLeadingZero,
-
+	
 	/**
 	 Disc bullet list style
 	 */
     DTCSSListStyleTypeDisc,
-
+	
 	/**
 	 Square bullet list style
 	 */
 	DTCSSListStyleTypeSquare,
-
+	
 	/**
 	 Numbered list style with uppercase letters
 	 */
     DTCSSListStyleTypeUpperAlpha,
-
+	
 	/**
 	 Numbered list style with uppercase letters
 	 */
     DTCSSListStyleTypeUpperLatin,
-
+	
 	/**
 	 Numbered list style with lowercase letters
 	 */
     DTCSSListStyleTypeLowerAlpha,
-
+	
 	/**
 	 Numbered list style with lowercase letters
 	 */
     DTCSSListStyleTypeLowerLatin,
-
+	
 	/**
 	 Plus bullet list style
 	 */
     DTCSSListStyleTypePlus,
-
+	
 	/**
 	 Underscore bullet list style
 	 */
     DTCSSListStyleTypeUnderscore,
-
-
+	
+	
 	/**
 	 Image bullet list style
 	 */
 	DTCSSListStyleTypeImage,
-
+	
 	/**
 	 Value used to represent an invalid list style
 	 */
@@ -97,17 +97,17 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 	 List position should be inherited
 	 */
 	DTCSSListStylePositionInherit = 0,
-
+	
 	/**
 	 List prefix position inside
 	 */
 	DTCSSListStylePositionInside,
-
+	
 	/**
 	 List prefix position outside
 	 */
 	DTCSSListStylePositionOutside,
-
+	
 	/**
 	 Value used to represent an invalid list style position
 	 */
@@ -135,7 +135,7 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 
 /**
  Convert a string into a marker position.
-
+ 
  @param string The string to convert
  */
 + (DTCSSListStylePosition)listStylePositionFromString:(NSString *)string;
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 
 /**
  Update the receiver from the CSS styles dictionary passed
-
+ 
  @param styles A dictionary of CSS styles.
  */
 - (void)updateFromStyleDictionary:(NSDictionary *)styles;
@@ -170,7 +170,7 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 
 /**
  Returns the prefix for lists of the receiver's settings.
-
+ 
  @param counter The counter value to use for ordered lists.
  @returns The prefix string to prepend to list items.
  */
@@ -184,9 +184,9 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 
 /**
  Sets the starting item number for the text list.
-
+ 
  The default value is `1`. This value will be used only for ordered lists, and ignored in other cases.
-
+ 
  @param itemNum The item number.
  */
 - (void)setStartingItemNumber:(NSInteger)itemNum;
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 
 /**
  Returns the starting item number for the text list.
-
+ 
  The default value is `1`. This value will be used only for ordered lists, and ignored in other cases.
  @returns The item number.
  */
@@ -219,17 +219,17 @@ typedef NS_ENUM(NSUInteger, DTCSSListStylePosition)
 
 /**
  Returns if the receiver is an ordered or unordered list
-
+ 
  @returns `YES` if the receiver is ordered, `NO` if it is unordered
  */
 - (BOOL)isOrdered;
 
 /**
  If the list style is inherited.
-
+ 
  @warn This is not implemented.
  */
-@property (nonatomic, assign) BOOL inherit;
+@property (nonatomic, assign) BOOL inherit; 
 
 
 /**

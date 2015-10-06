@@ -14,7 +14,7 @@
 {
 	NSMutableDictionary *dict = [[super attributesForAttributedStringRepresentation] mutableCopy];
 	[dict setObject:[NSNumber numberWithBool:YES] forKey:DTHorizontalRuleStyleAttribute];
-
+	
 	return dict;
 }
 

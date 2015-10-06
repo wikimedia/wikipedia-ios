@@ -42,10 +42,10 @@ static void DTCoreTextAddMissingSelector(Class aClass, SEL aSelector, SEL implem
 	if (method == NULL) {
 		method = class_getInstanceMethod(aClass, implementationSelector);
 		NSCAssert(method != NULL, @"missing implementation method");
-
+		
 		IMP methodImplementation = method_getImplementation(method);
 		const char *methodTypeEncoding = method_getTypeEncoding(method);
-
+		
 #if !defined(NS_BLOCK_ASSERTIONS)
 		BOOL rc = class_addMethod(aClass, aSelector, methodImplementation, methodTypeEncoding);
 		NSCAssert(rc, @"failed to add missing method");
@@ -76,19 +76,19 @@ static void DTCoreTextNSColorInitialization(void)
 {
 	size_t count = CGColorGetNumberOfComponents(cgColor);
 	const CGFloat *components = CGColorGetComponents(cgColor);
-
+	
 	// Grayscale
 	if (count == 2)
 	{
 		return [NSColor colorWithDeviceWhite:components[0] alpha:components[1]];
 	}
-
+	
 	// RGB
 	else if (count == 4)
 	{
 		return [NSColor colorWithDeviceRed:components[0] green:components[1] blue:components[2] alpha:components[3]];
 	}
-
+	
 	// neigher grayscale nor rgba
 	return nil;
 }
@@ -100,18 +100,18 @@ static void DTCoreTextNSColorInitialization(void)
 	if (color == NULL)
 	{
 		CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-
+		
 		NSColor *selfCopy = [self colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-
+		
 		CGFloat colorValues[4];
 		[selfCopy getRed:&colorValues[0] green:&colorValues[1] blue:&colorValues[2] alpha:&colorValues[3]];
-
+		
 		color = CGColorCreate(colorSpace, colorValues);
 		CGColorSpaceRelease(colorSpace);
-
+		
 		objc_setAssociatedObject(self, DTCoreTextCGColorKey, CFBridgingRelease(color), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 	}
-
+	
 	return color;
 }
 #endif // MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_7 || MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_7

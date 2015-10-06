@@ -88,11 +88,11 @@ void *DT__NewBase64Decode ( const char *inputBuffer, size_t length, size_t *outp
 	{
 		length = strlen(inputBuffer);
 	}
-
+    
 	size_t outputBufferSize =
 	((length+BASE64_UNIT_SIZE-1) / BASE64_UNIT_SIZE) * BINARY_UNIT_SIZE;
 	unsigned char *outputBuffer = (unsigned char *)malloc(outputBufferSize);
-
+    
 	size_t i = 0;
 	size_t j = 0;
 	while (i < length)
@@ -109,14 +109,14 @@ void *DT__NewBase64Decode ( const char *inputBuffer, size_t length, size_t *outp
 			{
 				accumulated[accumulateIndex] = decode;
 				accumulateIndex++;
-
+                
 				if (accumulateIndex == BASE64_UNIT_SIZE)
 				{
 					break;
 				}
 			}
 		}
-
+        
 		//
 		// Store the 6 bits from each of the 4 characters as 3 bytes
 		//
@@ -130,7 +130,7 @@ void *DT__NewBase64Decode ( const char *inputBuffer, size_t length, size_t *outp
 			outputBuffer[j + 2] = (unsigned char)((accumulated[2] << 6) | accumulated[3]);
 		j += accumulateIndex - 1;
 	}
-
+    
 	if (outputLength)
 	{
 		*outputLength = j;
@@ -157,12 +157,12 @@ void *DT__NewBase64Decode ( const char *inputBuffer, size_t length, size_t *outp
 char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines, size_t *outputLength)
 {
 	const unsigned char *inputBuffer = (const unsigned char *)buffer;
-
+	
 #define MAX_NUM_PADDING_CHARS 2
 #define OUTPUT_LINE_LENGTH 64
 #define INPUT_LINE_LENGTH ((OUTPUT_LINE_LENGTH / BASE64_UNIT_SIZE) * BINARY_UNIT_SIZE)
 #define CR_LF_SIZE 2
-
+    
 	//
 	// Byte accurate calculation of final buffer size
 	//
@@ -175,12 +175,12 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
 		outputBufferSize +=
 		(outputBufferSize / OUTPUT_LINE_LENGTH) * CR_LF_SIZE;
 	}
-
+    
 	//
 	// Include space for a terminating zero
 	//
 	outputBufferSize += 1;
-
+    
 	//
 	// Allocate the output buffer
 	//
@@ -189,19 +189,19 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
 	{
 		return NULL;
 	}
-
+    
 	size_t index = 0;
 	size_t index2 = 0;
 	const size_t lineLength = separateLines ? INPUT_LINE_LENGTH : length;
 	size_t lineEnd = lineLength;
-
+    
 	while (true)
 	{
 		if (lineEnd > length)
 		{
 			lineEnd = length;
 		}
-
+        
 		for (; index + BINARY_UNIT_SIZE - 1 < lineEnd; index += BINARY_UNIT_SIZE)
 		{
 			//
@@ -214,12 +214,12 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
                                                    | ((inputBuffer[index + 2] & 0xC0) >> 6)];
 			outputBuffer[index2++] = base64EncodeLookup[inputBuffer[index + 2] & 0x3F];
 		}
-
+        
 		if (lineEnd == length)
 		{
 			break;
 		}
-
+        
 		//
 		// Add the newline
 		//
@@ -227,7 +227,7 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
 		outputBuffer[index2++] = '\n';
 		lineEnd += lineLength;
 	}
-
+    
 	if (index + 1 < length)
 	{
 		//
@@ -250,7 +250,7 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
 		outputBuffer[index2++] = '=';
 	}
 	outputBuffer[index2] = 0;
-
+    
 	//
 	// Set the output length and return the buffer
 	//
@@ -277,7 +277,7 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
 {
     size_t outputLength = 0;
 	char *outputBuffer = DT__NewBase64Encode([data bytes], [data length], true, &outputLength);
-
+    
 	NSString *result = [[NSString alloc] initWithBytes:outputBuffer length:outputLength encoding:NSASCIIStringEncoding];
 	free(outputBuffer);
 	return result;
@@ -285,7 +285,7 @@ char *DT__NewBase64Encode(const void *buffer, size_t length, bool separateLines,
 
 + (NSData *)dataByDecodingString:(NSString *)string
 {
-	NSData *data = [string dataUsingEncoding:NSASCIIStringEncoding];
+   	NSData *data = [string dataUsingEncoding:NSASCIIStringEncoding];
 	size_t outputLength;
 	void *outputBuffer = DT__NewBase64Decode([data bytes], [data length], &outputLength);
 	NSData *result = [NSData dataWithBytes:outputBuffer length:outputLength];

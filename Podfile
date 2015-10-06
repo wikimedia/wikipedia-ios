@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, :deployment_target => '8.0'
 
+use_frameworks!
 inhibit_all_warnings!
 
 xcodeproj 'Wikipedia'
@@ -22,6 +23,7 @@ pod 'AnimatedGIFImageSerialization'
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2'
 pod 'BlocksKit/UIKit', '~> 2.2'
+pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
 
 # KVO
 pod 'KVOController'
@@ -36,9 +38,9 @@ pod 'Masonry', '0.6.2'
 pod 'SelfSizingWaterfallCollectionViewLayout', :git => 'git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git'
 
 # Diagnostics
-pod 'PiwikTracker', '~> 3.3.0'
-pod 'CocoaLumberjack', '~> 2.0.0'
-pod 'HockeySDK', '3.6.2'
+pod 'PiwikTracker', :git => 'https://github.com/wikimedia/piwik-sdk-ios.git', :branch => 'use-class-framework'
+pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :branch => 'swift_2.0'
+pod 'HockeySDK', '~> 3.8.2'
 
 target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4'

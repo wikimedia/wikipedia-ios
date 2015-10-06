@@ -8,7 +8,7 @@
 
 /**
  This class provides read/write access to extended file attributes of a file or folder. It wraps the standard xattr Posix functions to do that.
-
+ 
  Because the file system does not keep track of the data types saved in extended attributes this API so far reads and writes strings.
 */
 @interface DTExtendedFileAttributes : NSObject
@@ -21,7 +21,7 @@
 
 /**
  Creates an Extended File Attribute Manager.
-
+ 
  @param path The file path
  */
 - (id)initWithPath:(NSString *)path;
@@ -33,7 +33,7 @@
 
 /**
  Removes an extended file attribute from the receiver.
-
+ 
  @param attribute The name of the attribute.
  @returns `YES` if successful.
  */
@@ -42,9 +42,9 @@
 
 /**
  Sets the value of an extended file attribute for the receiver.
-
+ 
  If the value is `nil` then this is the same as calling <removeAttribute:>.
-
+ 
  @param value The string to save for this attribute.
  @param attribute The name of the attribute.
  @returns `YES` if successful.
@@ -54,7 +54,7 @@
 
 /**
  Gets the value of an extended file attribute from the receiver.
-
+ 
  @param attribute The name of the attribute.
  @returns The string for the value or `nil` if the value is not set.
  */

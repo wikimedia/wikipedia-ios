@@ -19,7 +19,7 @@ NSString *shadowContext = @"Shadow";
 	[self.layer renderInContext:UIGraphicsGetCurrentContext()];
 	UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
-
+	
 	return image;
 }
 
@@ -28,7 +28,7 @@ NSString *shadowContext = @"Shadow";
 	self.clipsToBounds = YES;
 	self.layer.cornerRadius = radius;
 	self.layer.borderWidth = width;
-
+	
 	if (color)
 	{
 		self.layer.borderColor = color.CGColor;
@@ -40,13 +40,13 @@ NSString *shadowContext = @"Shadow";
 	self.layer.shadowOpacity = alpha;
 	self.layer.shadowRadius = radius;
 	self.layer.shadowOffset = offset;
-
+	
 	if (color)
 	{
 		self.layer.shadowColor = [color CGColor];
 	}
-
-	// cannot have masking
+	
+	// cannot have masking	
 	self.layer.masksToBounds = NO;
 }
 
@@ -54,7 +54,7 @@ NSString *shadowContext = @"Shadow";
 {
 	CGPathRef oldPath = self.layer.shadowPath;
 	CGPathRef newPath = CGPathCreateWithRect(bounds, NULL);
-
+	
 	if (oldPath && duration>0)
 	{
 		CABasicAnimation *theAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
@@ -64,7 +64,7 @@ NSString *shadowContext = @"Shadow";
 		theAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
 		[self.layer addAnimation:theAnimation forKey:@"shadowPath"];
 	}
-
+	
 	self.layer.shadowPath = newPath;
 
 	CGPathRelease(newPath);

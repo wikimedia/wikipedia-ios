@@ -14,10 +14,10 @@ extern NSString *DTLinkButtonDidHighlightNotification;
 
 /**
  A button that corresponds to a hyperlink.
-
+ 
  Multiple parts of the same hyperlink synchronize their looks through the guid. You can show link text in a different color for normal and highlighted mode by setting the button images for these states.
  */
-@interface DTLinkButton : UIButton
+@interface DTLinkButton : UIButton 
 
 
 /**

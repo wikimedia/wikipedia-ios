@@ -29,53 +29,53 @@
 	DTTextAttachmentVerticalAlignment _textAttachmentAlignment;
 	NSURL *_link;
 	NSString *_anchorName;
-
+	
 	DTColor *_textColor;
 	DTColor *_backgroundColor;
-
+	
 	DTColor *_backgroundStrokeColor;
 	CGFloat _backgroundStrokeWidth;
 	CGFloat _backgroundCornerRadius;
-
+	
 	CTUnderlineStyle _underlineStyle;
-
+	
 	NSString *_beforeContent;
-
+	
 	NSString *_linkGUID;
-
+	
 	BOOL _strikeOut;
 	NSInteger _superscriptStyle;
-
+	
 	NSInteger _headerLevel;
-
+	
 	NSArray *_shadows;
-
+	
 	DTHTMLElementDisplayStyle _displayStyle;
 	DTHTMLElementFloatStyle _floatStyle;
-
+	
 	BOOL _isColorInherited;
-
+	
 	BOOL _preserveNewlines;
 	BOOL _containsAppleConvertedSpace;
-
+	
 	DTHTMLElementFontVariant _fontVariant;
-
+	
 	CGFloat _textScale;
 	CGSize _size;
-
+	
 	NSMutableArray *_children;
-
+	
 	NSDictionary *_styles;
-
+	
 	BOOL _didOutput;
-
+	
 	// margins/padding
 	DTEdgeInsets _margins;
 	DTEdgeInsets _padding;
-
+	
 	// indent of lists
 	CGFloat _listIndent;
-
+	
 	BOOL _shouldProcessCustomHTMLAttributes;
 }
 
@@ -292,7 +292,7 @@
 + (NSSet *)attributesToIgnoreForCustomAttributesAttribute;
 
 /**
- The CSS class names that are not to be added to the "class" custom attribute in the DTCustomAttributesAttribute key. Those are usually the class names
+ The CSS class names that are not to be added to the "class" custom attribute in the DTCustomAttributesAttribute key. Those are usually the class names 
  */
 @property(nonatomic, strong) NSSet *CSSClassNamesToIgnoreForCustomAttributes;
 

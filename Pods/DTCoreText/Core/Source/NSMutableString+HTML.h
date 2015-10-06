@@ -12,8 +12,8 @@
  */
 @interface NSMutableString (HTML)
 
-/**
- Removes the trailing whitespace from the receiver.
+/** 
+ Removes the trailing whitespace from the receiver. 
  */
 - (void)removeTrailingWhitespace;
 

@@ -29,6 +29,7 @@
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
 #import "MWKArticlePreview.h"
+#import "MWKHistoryList.h"
 
 // Networking
 #import "WMFArticleFetcher.h"

@@ -10,7 +10,7 @@ import UIKit
 import XCTest
 @testable import Wikipedia
 import PromiseKit
-
+import Nocilla
 
 /** 
  Protocol which intercepts all HTTP requests and prevents them from ever starting.

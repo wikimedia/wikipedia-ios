@@ -12,7 +12,7 @@
 
 #import <Masonry/Masonry.h>
 #import "Wikipedia-Swift.h"
-
+#import "NSString+Extras.h"
 
 #import "NSString+FormattedAttributedString.h"
 #import "UIViewController+Alert.h"

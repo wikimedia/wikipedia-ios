@@ -17,7 +17,7 @@ static NSUInteger __internalOperationCount = 0;
 	@synchronized(self)
 	{
 		__internalOperationCount++;
-
+		
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if (!self.isNetworkActivityIndicatorVisible && __internalOperationCount)
 			{
@@ -36,9 +36,9 @@ static NSUInteger __internalOperationCount = 0;
 			// nothing to do
 			return;
 		}
-
+		
 		__internalOperationCount--;
-
+		
 		dispatch_async(dispatch_get_main_queue(), ^{
 			if (self.isNetworkActivityIndicatorVisible && !__internalOperationCount)
 			{

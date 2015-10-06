@@ -38,14 +38,14 @@
 
 /**
  Creates and returns an image object synchronously by loading the image data from the specified URL and optionally caching it.
-
+ 
  Useful values for cachePolicy are:
-
+ 
  - NSURLRequestUseProtocolCachePolicy (default)
  - NSURLRequestReloadIgnoringLocalCacheData
  - NSURLRequestReturnCacheDataElseLoad
  - NSURLRequestReturnCacheDataDontLoad
-
+ 
  @param URL The URL to load the image from
  @param cachePolicy The cache policy to apply.
  @param error An optional output parameter to return an error if the loading fails
@@ -57,7 +57,7 @@
  /**
  @name Drawing
  */
-
+ 
 /**
  Mimicks the way images are drawn differently by UIImageView based on the set content mode.
  @param rect The rectangle to drawn in
@@ -68,10 +68,10 @@
 /**
  @name Working with Tiles
  */
-
+ 
 /**
  Cuts out a tile at the given row and column
-
+ 
  @param column The index of the column
  @param columns The total number of columns
  @param row The index of the row
@@ -82,7 +82,7 @@
 
 /**
  Cuts out a tile at the given clip rect relative to the bounds
-
+ 
  @param clipRect The clipping rect to extract
  @param bounds The bounds to which the clipRect is relative to
  @param scale The image scale
@@ -97,7 +97,7 @@
 
 /**
  Resizes the receiver to the given size.
-
+ 
  @param newSize The target image size
  @returns The resulting image
  */

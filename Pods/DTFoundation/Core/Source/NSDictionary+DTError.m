@@ -14,12 +14,12 @@
 + (NSDictionary *)dictionaryWithContentsOfURL:(NSURL *)URL error:(NSError **)error
 {
 	NSData *readData = [NSData dataWithContentsOfURL:URL options:0 error:error];
-
+	
 	if (!readData)
 	{
 		return nil;
 	}
-
+	
 	return [NSDictionary dictionaryWithContentsOfData:readData error:error];
 }
 
@@ -33,7 +33,7 @@
 {
 	CFErrorRef parseError = NULL;
 	NSDictionary *dictionary = (__bridge_transfer NSDictionary *)CFPropertyListCreateWithData(kCFAllocatorDefault, (__bridge CFDataRef)data, kCFPropertyListImmutable, NULL, (CFErrorRef *)&parseError);
-
+	
 	// we check if it is the correct type and only return it if it is
 	if ([dictionary isKindOfClass:[NSDictionary class]])
 	{
@@ -47,10 +47,10 @@
 			{
 				*error = (__bridge NSError *)parseError;
 			}
-
+			
 			CFRelease(parseError);
 		}
-
+		
 		return nil;
 	}
 }

@@ -8,9 +8,9 @@
 
 /**
  Utility class for encoding and decoding data in base64 format.
-
+ 
  This was formerly a category on `NSData` but since Matt Gallagher's category has become so enormously popular people where reporting more and more conflicts. Thus we decided to move it into a properly named class.
-
+ 
  Since all methods are class methods you never need to actually initialize it, doing so will raises a `DTAbstractClassException`.
  */
 

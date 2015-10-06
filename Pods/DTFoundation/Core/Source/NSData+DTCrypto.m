@@ -19,9 +19,9 @@
 - (NSData *)encryptedDataUsingSHA1WithKey:(NSData *)key
 {
     unsigned char cHMAC[CC_SHA1_DIGEST_LENGTH];
-
+    
     CCHmac(kCCHmacAlgSHA1, [key bytes], [key length], [self bytes], [self length], cHMAC);
-
+    
     return [NSData dataWithBytes:&cHMAC length:CC_SHA1_DIGEST_LENGTH];
 }
 
@@ -30,7 +30,7 @@
 	const char *cStr = [self bytes];
 	uint8_t digest[CC_MD5_DIGEST_LENGTH];
 	CC_MD5(cStr, (CC_LONG)[self length], digest);
-
+	
 	return [NSData dataWithBytes:digest length:CC_MD5_DIGEST_LENGTH];
 }
 
@@ -39,7 +39,7 @@
 	const char *cStr = [self bytes];
 	uint8_t digest[CC_SHA1_DIGEST_LENGTH];
 	CC_SHA1( cStr, (CC_LONG)[self length], digest );
-
+	
 	return [NSData dataWithBytes:digest length:CC_SHA1_DIGEST_LENGTH];
 }
 

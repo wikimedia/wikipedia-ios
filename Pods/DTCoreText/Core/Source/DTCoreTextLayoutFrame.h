@@ -30,17 +30,17 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 	 The default method for drawing draws links and attachments. Links are drawn non-highlighted
 	 */
 	DTCoreTextLayoutFrameDrawingDefault              = 1<<0,
-
+	
 	/**
 	 Links are not drawn, e.g. if they are displayed via custom buttons
 	 */
 	DTCoreTextLayoutFrameDrawingOmitLinks            = 1<<1,
-
+	
 	/**
 	 Text attachments are omitted from drawing, e.g. if they are displayed via custom views
 	 */
 	DTCoreTextLayoutFrameDrawingOmitAttachments      = 1<<2,
-
+	
 	/**
 	 If links are drawn they are displayed with the highlighted variant
 	 */
@@ -52,12 +52,12 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  This class represents a single frame of text and basically wraps CTFrame. It provides an array of text lines that fit in the given rectangle.
-
+ 
  Both styles of layouting are supported: open ended (suitable for scroll views) and limited to a given rectangle. To use the open-ended style specify `CGFLOAT_HEIGHT_UNKNOWN` for the <frame> height when creating a layout frame.
-
+ 
  The array of lines is built lazily the first time it is accessed or - for open-ended frames - when the frame property is being queried.
  */
-@interface DTCoreTextLayoutFrame : NSObject
+@interface DTCoreTextLayoutFrame : NSObject 
 {
 	CGRect _frame;
 
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Creates a Layout Frame with the given frame using the attributed string loaded into the layouter.
-
+ 
  @param frame The rectangle specifying origin and size of available for text. Specify `CGFLOAT_WIDTH_UNKNOWN` to not limit the width. Specify `CGFLOAT_HEIGHT_UNKNOWN` to not limit the height.
  @param layouter A reference to the layouter for this text box.
  */
@@ -85,7 +85,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Creates a Layout Frame with the given frame using the attributed string loaded into the layouter.
-
+ 
  @param frame The rectangle specifying origin and size of available for text. Specify `CGFLOAT_WIDTH_UNKNOWN` to not limit the width. Specify `CGFLOAT_HEIGHT_UNKNOWN` to not limit the height.
  @param layouter A reference to the layouter for the receiver. Note: The layouter owns the attributed string.
  @param range The range within the attributed string to layout into the receiver.
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Calculates the frame that is covered by the text content.
-
+ 
  The result is calculated by enumerating over all lines and creating a union over all their frames. This is different than the frame property since this gets calculated.
  @returns The area that is covered by the text content.
  @note The width depends on how many glyphs Core Text was able to fit into a line. A line that gets broken might not have glyphs all the way to the margin. The y origin is always adjusted to be the same as frame since the first line might have some leading. The height is the minimum height that fits all layout lines.
@@ -150,7 +150,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Draws the receiver into the given graphics context.
-
+ 
  @param context A graphics context to draw into
  @param options The drawing options. See DTCoreTextLayoutFrameDrawingOptions for available options.
  */
@@ -170,7 +170,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Retrieves the index of the text line that contains the given glyph index.
-
+ 
  @param index The index of the glyph
  @returns The index of the line containing this glyph
  */
@@ -179,7 +179,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Retrieves the frame of the glyph at the given glyph index.
-
+ 
  @param index The index of the glyph
  @returns The frame of this glyph
  */
@@ -199,16 +199,16 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  The text lines that are visible inside the given rectangle. Also incomplete lines are included.
-
+ 
  @param rect The rectangle
  @returns An array, sorted from top to bottom, of lines at least partially visible
  */
-- (NSArray *)linesVisibleInRect:(CGRect)rect;
+- (NSArray *)linesVisibleInRect:(CGRect)rect; 
 
 
 /**
  The text lines that are visible inside the given rectangle. Only fully visible lines are included.
-
+ 
  @param rect The rectangle
  @returns An array, sorted from top to bottom, of lines fully visible
  */
@@ -217,7 +217,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  The layout line that contains the given string index.
-
+ 
  @param index The string index
  @returns The layout line that this index belongs to
  */
@@ -226,7 +226,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Determins if the given line is the first in a paragraph.
-
+ 
  This is needed for example to determine whether paragraphSpaceBefore needs to be applied before it.
  @param line The Line
  @returns `YES` if the given line is the first in a paragraph
@@ -236,7 +236,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Determins if the given line is the last in a paragraph.
-
+ 
  This is needed for example to determine whether paragraph spacing needs to be applied after it.
  @param line The Line
  @returns `YES` if the given line is the last in a paragraph
@@ -246,12 +246,12 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Finds the appropriate baseline origin for a line to position it at the correct distance from a previous line.
-
+ 
  Support Layout options are:
-
+ 
  - DTCoreTextLayoutFrameLinePositioningAlgorithmWebKit,
  - DTCoreTextLayoutFrameLinePositioningAlgorithmLegacy
-
+ 
  @param line The line
  @param previousLine The line after which to position the line.
  @param options The layout options to employ for positioning lines
@@ -261,7 +261,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Finds the appropriate baseline origin for a line to position it at the correct distance from a previous line using the DTCoreTextLayoutFrameLinePositioningOptionAlgorithmLegacy algorithm.
-
+ 
  @warning This method is deprecated, use -[baselineOriginToPositionLine:afterLine:algorithm:] instead
  @param line The line
  @param previousLine The line after which to position the line.
@@ -288,30 +288,30 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  The array of all DTTextAttachment instances that belong to the receiver which also match the specified predicate.
-
+ 
  @param predicate A predicate that uses properties of <DTTextAttachment> to reduce the returned array
  @returns A filtered array of text attachments.
  */
 - (NSArray *)textAttachmentsWithPredicate:(NSPredicate *)predicate;
 
 
-/**
+/** 
  @name Getting Paragraph Info
  */
 
 
-/**
+/** 
  Finding which paragraph a given string index belongs to.
-
+ 
  @param stringIndex The index in the string to look for
  @returns The index of the paragraph, numbered from 0
  */
 - (NSUInteger)paragraphIndexContainingStringIndex:(NSUInteger)stringIndex;
 
 
-/**
+/** 
  Determines the paragraph range (of paragraph indexes) that encompass the entire given string Range.
-
+ 
  @param stringRange The string range for which the paragraph range is sought for
  @returns The range of paragraphs that fully enclose the string range
  */
@@ -320,7 +320,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  The text lines that belong to the specified paragraph.
-
+ 
  @param index The index of the paragraph
  @returns An array, sorted from top to bottom, of lines in this paragraph
  */
@@ -340,7 +340,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 
 /**
  Switches on the debug drawing mode where individual glph runs, baselines, et ceter get individually marked.
-
+ 
  @param debugFrames if the debug drawing should occur
  */
 + (void)setShouldDrawDebugFrames:(BOOL)debugFrames;

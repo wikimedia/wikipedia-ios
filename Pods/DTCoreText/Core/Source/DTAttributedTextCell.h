@@ -19,7 +19,7 @@
  */
 
 /**
- Creates a tableview cell with a given reuse identifier.
+ Creates a tableview cell with a given reuse identifier. 
  @param reuseIdentifier The reuse identifier to use for the cell
  @returns A prepared cell
  */
@@ -40,8 +40,8 @@
 @property (nonatomic, DT_WEAK_PROPERTY) IBOutlet id <DTAttributedTextContentViewDelegate> textDelegate;
 
 /**
- This method allows to set HTML text directly as content of the receiver.
-
+ This method allows to set HTML text directly as content of the receiver. 
+ 
  This will be converted to an attributed string.
  @param html The HTML string to set as the receiver's text content
  */
@@ -49,7 +49,7 @@
 
 /**
  This method allows to set HTML text directly as content of the receiver.
-
+ 
  This will be converted to an attributed string.
  @param html The HTML string to set as the receiver's text content
  @param options The options used for rendering the HTML
@@ -62,8 +62,8 @@
  */
 
 /**
- Determines the row height that is needed in a specific table view to show the entire text content.
-
+ Determines the row height that is needed in a specific table view to show the entire text content. 
+ 
  The table view is necessary because from this the method can know the style. Also the accessory type needs to be set before calling this method because this reduces the available space.
  @note This value is only useful for table views with variable row height.
  @param tableView The table view to determine the height for.
@@ -72,7 +72,7 @@
 
 /**
  Determines whether the cells built-in contentView is allowed to dictate the size available for text. If active then attributedTextContextView's height always matches the cell height.
-
+ 
  Set this to `YES` for use in fixed row height table views, leave it `NO` for flexible row height table views.
  */
 @property (nonatomic, assign) BOOL hasFixedRowHeight;

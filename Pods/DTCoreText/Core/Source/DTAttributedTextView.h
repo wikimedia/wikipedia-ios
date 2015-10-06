@@ -12,7 +12,7 @@
 
 /**
  This view is designed to be a replacement for `UITextView`. It is a `UIScrollView` subclass and creates a <DTAttributedTextContentView> as content view for displaying the text.
-
+ 
  The content view of type <DTAttributedTextContentView> is created lazily. You should not set values on it directly if you use it in conjunction with this class for scrolling.
  */
 
@@ -64,14 +64,14 @@
 
 /**
  If the content view of the receiver should draw links. Set to `NO` if displaying links as custom views via textDelegate;
-
+ 
  Defaults to `YES` if you supply your own link drawing  then set this property to NO and supply your custom view (e.g. <DTLinkButton>) via the <textDelegate>.
  */
 @property (nonatomic, assign) BOOL shouldDrawLinks;
 
 /**
  If the content view of the receiver should draw images. Set to `NO` if displaying images as custom views via textDelegate;
-
+ 
  Defaults to `YES` if you supply your own image drawing then set this property to NO and supply your custom image view (e.g. <DTLazyImageView>) via the <textDelegate>.
  */
 @property (nonatomic, assign) BOOL shouldDrawImages;
@@ -111,7 +111,7 @@
 
 /**
  Determines the closest string index to a point in the receiver's frame.
-
+ 
  This can be used to find the cursor position to position an input caret at.
  @param point The point
  @returns The resulting string index

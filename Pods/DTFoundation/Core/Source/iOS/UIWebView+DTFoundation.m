@@ -12,7 +12,7 @@
 
 - (NSString *)documentTitle
 {
-	return [self stringByEvaluatingJavaScriptFromString:@"document.title"];
+   	return [self stringByEvaluatingJavaScriptFromString:@"document.title"]; 
 }
 
 @end

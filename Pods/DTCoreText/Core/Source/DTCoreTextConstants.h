@@ -32,7 +32,7 @@
 extern NSString * const NSBaseURLDocumentOption;
 extern NSString * const NSTextEncodingNameDocumentOption;
 extern NSString * const NSTextSizeMultiplierDocumentOption;
-extern NSString * const NSAttachmentAttributeName;
+extern NSString * const NSAttachmentAttributeName; 
 #endif
 
 // custom options
@@ -104,22 +104,22 @@ typedef NS_ENUM(NSUInteger, DTHTMLElementDisplayStyle)
 	 The element is inline text
 	 */
 	DTHTMLElementDisplayStyleInline = 0, // default
-
+	
 	/**
 	 The element is not displayed
 	 */
 	DTHTMLElementDisplayStyleNone,
-
+	
 	/**
 	 The element is a block
 	 */
 	DTHTMLElementDisplayStyleBlock,
-
+	
 	/**
 	 The element is an item in a list
 	 */
 	DTHTMLElementDisplayStyleListItem,
-
+	
 	/**
 	 The element is a table
 	 */
@@ -135,14 +135,14 @@ typedef NS_ENUM(NSUInteger, DTHTMLElementFloatStyle)
 	 The element does not float
 	 */
 	DTHTMLElementFloatStyleNone = 0,
-
-
+	
+	
 	/**
 	 The element should float left-aligned
 	 */
 	DTHTMLElementFloatStyleLeft,
-
-
+	
+	
 	/**
 	 The element should float right-aligned
 	 */
@@ -158,12 +158,12 @@ typedef NS_ENUM(NSUInteger, DTHTMLElementFontVariant)
 	 The element inherts the font variant
 	 */
 	DTHTMLElementFontVariantInherit = 0,
-
+	
 	/**
 	 The element uses the normal font variant
 	 */
 	DTHTMLElementFontVariantNormal,
-
+	
 	/**
 	 The element should display in small caps
 	 */
@@ -179,7 +179,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameLinePositioningOptions)
 	 The line positioning algorithm is similar to how Safari positions lines
 	 */
 	DTCoreTextLayoutFrameLinePositioningOptionAlgorithmWebKit = 1,
-
+	
 	/**
 	 The line positioning algorithm is how it was before the implementation of DTCoreTextLayoutFrameLinePositioningOptionAlgorithmWebKit
 	 */
@@ -193,3 +193,4 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameLinePositioningOptions)
 
 // the value to use if the height is unknown
 #define CGFLOAT_HEIGHT_UNKNOWN 16777215.0f
+

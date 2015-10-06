@@ -17,7 +17,7 @@
  */
 
 /** Creates a shared file deleter.
- */
+ */ 
 + (DTAsyncFileDeleter *)sharedInstance;
 
 /**-------------------------------------------------------------------------------------
@@ -31,18 +31,18 @@
 
 
 /** Removes the file or directory at the specified path and immediately returns.
-
+ 
  This method moves the given item to a temporary name which is an instant operation. It then schedules an asynchronous background operation to actually remove the item.
-
- @param path A path string indicating the file or directory to remove. If the path specifies a directory, the contents of that directory are recursively removed.
+ 
+ @param path A path string indicating the file or directory to remove. If the path specifies a directory, the contents of that directory are recursively removed. 
  */
 - (void)removeItemAtPath:(NSString *)path;
 
 
 /** Removes the file or directory at the specified URL.
-
+ 
  This method moves the given item to a temporary name which is an instant operation. It then schedules an asynchronous background operation to actually remove the item.
-
+ 
  @param URL A file URL specifying the file or directory to remove. If the URL specifies a directory, the contents of that directory are recursively removed.
  */
 - (void)removeItemAtURL:(NSURL *)URL;
