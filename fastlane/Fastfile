@@ -13,7 +13,6 @@ platform :ios do
   before_all do
      ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
      ensure_git_status_clean
-     export_apple_id lane_context[SharedValues::LANE_NAME]
   end
 
   desc "Runs linting (and eventually static analysis)"
@@ -38,11 +37,6 @@ platform :ios do
     #   args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
     # end
     # xctool :test, args.join(' ')
-  end
-
-  desc "Runs all the unit tests."
-  lane :travis do
-    verify
   end
 
   desc "Increment the app's build number and commit the changes."
@@ -80,7 +74,7 @@ platform :ios do
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    deliver beta: true
+    pilot :upload
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
@@ -100,7 +94,7 @@ platform :ios do
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    deliver beta: true
+    pilot :upload
   end
 
   desc "Upload a developer build to Hockey."
