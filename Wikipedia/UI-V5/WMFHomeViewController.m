@@ -43,6 +43,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
+
 @interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
@@ -53,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
+@property (nonatomic, strong) NSDate* lastReloadDate;
 
 @end
 
@@ -145,6 +148,25 @@ NS_ASSUME_NONNULL_BEGIN
     return width;
 }
 
+- (BOOL)shouldAutomaticallyReloadHome{
+    //never loaded
+    if ([self.dataSource numberOfSections] == 0) {
+        return NO;
+    }
+
+    //never loaded
+    if(!self.lastReloadDate){
+        return YES;
+    }
+    
+    //minimum relaod time
+    if ([[NSDate date] timeIntervalSinceDate:self.lastReloadDate] > WMFHomeMinAutomaticReloadTime) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -200,14 +222,12 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isViewLoaded) {
         return;
     }
-
-    //never loaded
-    if ([self.dataSource numberOfSections] == 0) {
+    
+    if(![self shouldAutomaticallyReloadHome]){
         return;
     }
-
+    
     [self.schemaManager updateSchema];
-
     [self reloadSections];
 }
 
@@ -300,6 +320,8 @@ NS_ASSUME_NONNULL_BEGIN
                 break;
         }
     }];
+    
+    self.lastReloadDate = [NSDate date];
 }
 
 - (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
