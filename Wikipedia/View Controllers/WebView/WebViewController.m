@@ -39,7 +39,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem* buttonTOC;
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
@@ -93,18 +92,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return UIStatusBarAnimationFade;
 }
 
-- (void)setupTopMenuButtons {
-    @weakify(self)
-
-    self.buttonTOC = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents
-                                             handler:^(id sender){
-        @strongify(self)
-        [self tocToggle];
-    }];
-
-    self.navigationItem.rightBarButtonItem = self.buttonTOC;
-}
-
 - (void)setupBottomMenuButtons {
     @weakify(self)
     self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTranslate handler:^(id sender){
@@ -117,7 +104,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self editHistoryButtonPushed];
     }];
 
-//    self.navigationController.toolbarHidden = NO;
     self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
@@ -142,7 +128,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
 
-    [self setupTopMenuButtons];
     [self setupBottomMenuButtons];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
@@ -165,33 +150,17 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             [weakSelf hideProgressViewAnimated:YES];
         }];
 
-        //dispatching because the toc is expensive to create so we are waiting to update it after the web view renders.
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tocVC updateTocForArticle:weakSelf.article];
-            [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
             [weakSelf.sectionHeadersViewController resetHeaders];
         });
     }];
 
-    self.unsafeToScroll    = NO;
-    self.unsafeToToggleTOC = NO;
     self.lastScrollOffset  = CGPointZero;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(toggleSavedPage)
-                                                 name:@"SavePage"
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(searchFieldBecameFirstResponder)
-                                                 name:@"SearchFieldBecameFirstResponder"
-                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(zeroStateChanged:)
                                                  name:WMFURLCacheZeroStateChanged
                                                object:nil];
-
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
@@ -216,19 +185,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.webView.backgroundColor = [UIColor whiteColor];
 
-    [self tocSetupSwipeGestureRecognizers];
-
     // UIWebView has a bug which causes a black bar to appear at
     // bottom of the web view if toc quickly dragged on and offscreen.
     self.webView.opaque = NO;
 
     self.view.backgroundColor = CHROME_COLOR;
-
-    // Ensure toc show/hide animation scales the web view w/o vertical motion.
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-    self.webView.scrollView.layer.anchorPoint = CGPointMake((isRTL ? 1.0 : 0.0), 0.0);
-
-    [self tocUpdateViewLayout];
 
     [self observeWebScrollViewContentSize];
 }
@@ -237,8 +198,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [super viewWillAppear:animated];
 
     self.referencesHidden = YES;
-
-    [self updateTOCButtonVisibility];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -254,10 +213,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
-
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
-
     [super viewWillDisappear:animated];
 }
 
@@ -425,18 +381,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self saveWebViewScrollOffset];
 }
 
-- (void)tocUpdateViewLayout {
-    CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-    CGFloat tocWidth     = [self tocGetWidthForWebViewScale:webViewScale];
-    self.tocViewLeadingConstraint.constant = 0;
-    self.tocViewWidthConstraint.constant   = tocWidth;
-}
-
 - (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration {
-    if ([self tocDrawerIsOpen]) {
-        return;
-    }
-
     [super showAlert:alertText type:type duration:duration];
 }
 
@@ -464,10 +409,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)updateTOCButtonVisibility {
-    self.buttonTOC.enabled = !self.article.isMain;
-}
-
 #pragma mark - WMFSectionHeaderEditDelegate methods
 
 - (BOOL)isArticleEditable {
@@ -475,11 +416,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)editSection:(NSNumber*)sectionId {
-    if ([self tocDrawerIsOpen]) {
-        [self tocHide];
-        return;
-    }
-
     if (self.editable) {
         [self showSectionEditorForSection:sectionId];
     } else {
@@ -508,10 +444,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
 
-- (void)searchFieldBecameFirstResponder {
-    [self tocHide];
-}
-
 #pragma mark Angle from velocity vector
 
 - (CGFloat)getAngleInDegreesForVelocity:(CGPoint)velocity {
@@ -537,266 +469,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     return self.article.sections[indexOfFirstOnscreenSection];
-}
-
-
-
-- (BOOL)tocDrawerIsOpen {
-    return !CGAffineTransformIsIdentity(self.webView.scrollView.transform);
-}
-
-- (void)tocHideWithDuration:(NSNumber*)duration {
-    if ([self tocDrawerIsOpen]) {
-        // Note: don't put this on the mainQueue. It can cause problems
-        // if the toc needs to be hidden with 0 duration, such as when
-        // the device is rotated. (could wrap this in a block and add
-        // it to mainQueue if duration not 0, or directly call the block
-        // if duration is 0, but I don't think we need to.)
-
-        self.unsafeToToggleTOC = YES;
-
-        // Save the scroll position; if we're near the end of the page things will
-        // get reset correctly when we start to zoom out!
-        __block CGPoint origScrollPosition = self.webView.scrollView.contentOffset;
-
-        // Clear alerts
-        [self fadeAlert];
-
-        [UIView animateWithDuration:duration.floatValue
-                              delay:0.0f
-                            options:UIViewAnimationOptionBeginFromCurrentState
-                         animations:^{
-            self.webView.scrollView.transform = CGAffineTransformIdentity;
-
-            self.referencesContainerView.transform = CGAffineTransformIdentity;
-
-            self.tocViewLeadingConstraint.constant = 0;
-
-            [self.view layoutIfNeeded];
-        } completion:^(BOOL done) {
-            [self.tocVC didHide];
-            self.unsafeToToggleTOC = NO;
-            self.webView.scrollView.contentOffset = origScrollPosition;
-
-            [self.buttonTOC wmf_UIButton].selected = NO;
-
-            self.webViewBottomConstraint.constant = 0;
-        }];
-    }
-}
-
-- (CGFloat)tocGetWebViewBottomConstraintConstant {
-    /*
-       When the TOC is shown, "self.webView.scrollView.transform" is changed, but this
-       causes the height of the scrollView to be reduced, which doesn't mess anything up
-       visually, but does cause the area beneath the scrollView to no longer respond to
-       drag events.
-
-       To reproduce the dragging deadspot issue solved by this offset:
-        - set "self.webView.scrollView.layer.borderWidth = 10;"
-        - comment out the line where the value returned by this method is used
-        - run and open the TOC
-        - notice the area beneath the border is not properly draggable
-
-       So here we calculate the perfect bottom constraint constant to expand the "border"
-       to completely encompass the vertical height of the scaled (when TOC is shown) webview.
-     */
-    CGFloat scale  = [self tocGetWebViewScaleWhenTOCVisible];
-    CGFloat height = self.webView.scrollView.bounds.size.height;
-    return (height - (height * scale)) * (1.0f / scale);
-}
-
-- (void)tocShowWithDuration:(NSNumber*)duration {
-    if ([self tocDrawerIsOpen]) {
-        return;
-    }
-
-    self.webViewBottomConstraint.constant = [self tocGetWebViewBottomConstraintConstant];
-
-    self.unsafeToToggleTOC = YES;
-
-    // Hide any alerts immediately.
-    [self hideAlert];
-
-    [self.tocVC willShow];
-
-    [self tocUpdateViewLayout];
-    [self.view layoutIfNeeded];
-
-
-    [self.sectionHeadersViewController hideTopHeader];
-
-
-    [UIView animateWithDuration:duration.floatValue
-                          delay:0.0f
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                     animations:^{
-        self.referencesHidden = YES;
-
-        CGFloat webViewScale = [self tocGetWebViewScaleWhenTOCVisible];
-        CGAffineTransform xf = CGAffineTransformMakeScale(webViewScale, webViewScale);
-
-        self.webView.scrollView.transform = xf;
-        self.referencesContainerView.transform = xf;
-
-        CGFloat tocWidth = [self tocGetWidthForWebViewScale:webViewScale];
-        self.tocViewLeadingConstraint.constant = -tocWidth;
-
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL done) {
-        self.unsafeToToggleTOC = NO;
-        [self.buttonTOC wmf_UIButton].selected = YES;
-    }];
-}
-
-- (void)tocHide {
-    if (self.unsafeToToggleTOC) {
-        return;
-    }
-
-    [self tocHideWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
-}
-
-- (void)tocShow {
-    // Prevent toc reveal if pull to refresh in effect.
-    if (self.webView.scrollView.contentOffset.y < 0) {
-        return;
-    }
-
-    // Prevent toc reveal if loading article.
-    if (self.isFetchingArticle) {
-        return;
-    }
-
-    if (!self.referencesHidden) {
-        return;
-    }
-
-    if (self.article.isMain) {
-        return;
-    }
-
-    if (self.unsafeToToggleTOC) {
-        return;
-    }
-
-    [self tocShowWithDuration:TOC_TOGGLE_ANIMATION_DURATION];
-}
-
-- (void)tocToggle {
-    // Clear alerts
-    [self fadeAlert];
-
-    [self referencesHide];
-
-    if ([self tocDrawerIsOpen]) {
-        [self tocHide];
-    } else {
-        [self tocShow];
-    }
-}
-
-- (BOOL)shouldPanVelocityTriggerTOC:(CGPoint)panVelocity {
-    CGFloat angleFromHorizontalAxis = [self getAbsoluteHorizontalDegreesFromVelocity:panVelocity];
-    if (
-        (angleFromHorizontalAxis < TOC_SWIPE_TRIGGER_MAX_ANGLE)
-        &&
-        (fabs(panVelocity.x) > TOC_SWIPE_TRIGGER_MIN_X_VELOCITY)
-        ) {
-        return YES;
-    }
-    return NO;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
-    // Don't allow the web view's scroll view or the TOC's scroll view to start vertical scrolling if the
-    // angle and direction of the swipe are within tolerances to trigger TOC toggle. Needed because you
-    // don't want either of these to be scrolling vertically when the TOC is being revealed or hidden.
-    //WHOA! see this: http://stackoverflow.com/a/18834934
-    if (gestureRecognizer == self.panSwipeRecognizer) {
-        if (
-            (otherGestureRecognizer == self.webView.scrollView.panGestureRecognizer)
-            ||
-            (otherGestureRecognizer == self.tocVC.scrollView.panGestureRecognizer)
-            ) {
-            UIPanGestureRecognizer* otherPanRecognizer = (UIPanGestureRecognizer*)otherGestureRecognizer;
-            CGPoint velocity                           = [otherPanRecognizer velocityInView:otherGestureRecognizer.view];
-            if ([self shouldPanVelocityTriggerTOC:velocity]) {
-                // Kill vertical scroll before it starts if we're going to show TOC.
-                self.webView.scrollView.panGestureRecognizer.enabled = NO;
-                self.webView.scrollView.panGestureRecognizer.enabled = YES;
-                self.tocVC.scrollView.panGestureRecognizer.enabled   = NO;
-                self.tocVC.scrollView.panGestureRecognizer.enabled   = YES;
-            }
-        }
-    }
-    return YES;
-}
-
-- (void)tocSetupSwipeGestureRecognizers {
-    // Use pan instead for swipe so we can control speed at which swipe triggers. Idea from:
-    // http://www.mindtreatstudios.com/how-its-made/ios-gesture-recognizer-tips-tricks/
-
-    self.panSwipeRecognizer =
-        [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanSwipe:)];
-    self.panSwipeRecognizer.delegate               = self;
-    self.panSwipeRecognizer.minimumNumberOfTouches = 1;
-    [self.view addGestureRecognizer:self.panSwipeRecognizer];
-}
-
-- (void)handlePanSwipe:(UIPanGestureRecognizer*)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        CGPoint velocity = [recognizer velocityInView:recognizer.view];
-
-        if (![self shouldPanVelocityTriggerTOC:velocity] || self.webView.scrollView.isDragging) {
-            return;
-        }
-
-        // Device rtl value is checked since this is what would cause the other constraints to flip.
-        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
-
-        if (velocity.x < 0) {
-            //NSLog(@"swipe left");
-            if (isRTL) {
-                [self tocHide];
-            } else {
-                [self tocShow];
-            }
-        } else if (velocity.x > 0) {
-            //NSLog(@"swipe right");
-            if (isRTL) {
-                [self tocShow];
-            } else {
-                [self tocHide];
-            }
-        }
-    }
-}
-
-- (CGFloat)tocGetWebViewScaleWhenTOCVisible {
-    CGFloat scale = 1.0;
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.6f : 0.7f);
-    } else {
-        scale = (UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.42f : 0.55f);
-    }
-
-    // Adjust scale so it won't result in fractional pixel width when applied to web view width.
-    // This prevents the web view from jumping a bit w/long pages.
-    NSInteger i        = (NSInteger)self.view.frame.size.width * scale;
-    CGFloat cleanScale = (i / self.view.frame.size.width);
-
-    return cleanScale;
-}
-
-- (CGFloat)tocGetWidthForWebViewScale:(CGFloat)webViewScale {
-    return self.view.frame.size.width * (1.0f - webViewScale);
-}
-
-- (CGFloat)tocGetPercentOnscreen {
-    CGFloat defaultWebViewScaleWhenTOCVisible = [self tocGetWebViewScaleWhenTOCVisible];
-    CGFloat defaultTOCWidth                   = [self tocGetWidthForWebViewScale:defaultWebViewScaleWhenTOCVisible];
-    return 1.0f - (fabs(self.tocVC.view.frame.origin.x) / defaultTOCWidth);
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
@@ -852,23 +524,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } completion:^(BOOL done) {
         // Record the new scroll location.
         [self saveWebViewScrollOffset];
-        // Toggle toc.
-        if (hideTOC) {
-            [self tocHide];
-        }
     }];
-}
-
-- (void)updateTOCScrollPositionIfVisible {
-    if ([self tocDrawerIsOpen]) {
-        [self.tocVC updateTOCForWebviewScrollPositionAnimated:YES];
-    }
-}
-
-- (void)updateTOCScrollPositionWithoutAnimationIfHidden {
-    if (![self tocDrawerIsOpen]) {
-        [self.tocVC updateTOCForWebviewScrollPositionAnimated:NO];
-    }
 }
 
 #pragma mark UIContainerViewControllerCallbacks
@@ -895,11 +551,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
 
             NSString* href = payload[@"href"];
-
-            if ([strSelf tocDrawerIsOpen]) {
-                [strSelf tocHide];
-                return;
-            }
 
             if (!strSelf.referencesHidden) {
                 [strSelf referencesHide];
@@ -936,21 +587,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
             [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
 
-            // nonAnchorTouchEndedWithoutDragging is used so TOC may be hidden if user tapped, but did *not* drag.
-            // Used because UIWebView is difficult to attach one-finger touch events to.
-            [strSelf tocHide];
-
             [strSelf referencesHide];
         }];
 
         [_bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
             WebViewController* strSelf = weakSelf;
             if (!strSelf) {
-                return;
-            }
-
-            if ([strSelf tocDrawerIsOpen]) {
-                [strSelf tocHide];
                 return;
             }
 
@@ -989,22 +631,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             NSCParameterAssert(selectedImage);
             [strSelf presentGalleryForArticle:strSelf.article showingImage:selectedImage];
         }];
-
-        self.unsafeToScroll = NO;
     }
     return _bridge;
 }
-
-/*
-   #pragma mark History
-
-   - (void)textFieldDidBeginEditing:(UITextField*)textField {
-    // Ensure the web VC is the top VC.
-    [self dismissViewControllerAnimated:YES completion:nil];;
-
-    [self fadeAlert];
-   }
- */
 
 #pragma mark Web view scroll offset recording
 
@@ -1018,26 +647,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self scrollViewScrollingEnded:scrollView];
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView*)scrollView {
-    // If user quickly scrolls web view make toc update when user lifts finger.
-    // (in addition to when scroll ends)
-    if (scrollView == self.webView.scrollView) {
-        [self updateTOCScrollPositionIfVisible];
-    }
-}
-
 - (void)scrollViewScrollingEnded:(UIScrollView*)scrollView {
     if (scrollView == self.webView.scrollView) {
-        // Once we've started scrolling around don't allow the webview delegate to scroll
-        // to a saved position! Super annoying otherwise.
-        self.unsafeToScroll = YES;
-
         //[self printLiveContentLocationTestingOutputToConsole];
         //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
         [self saveWebViewScrollOffset];
-
-        [self updateTOCScrollPositionIfVisible];
-        [self updateTOCScrollPositionWithoutAnimationIfHidden];
 
         self.pullToRefreshView.alpha = 0.0f;
     }
@@ -1098,20 +712,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
     CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
 
-    if (![self tocDrawerIsOpen]) {
-        [self.sectionHeadersViewController updateTopHeaderForScrollOffsetY:scrollView.contentOffset.y];
-    }
+    [self.sectionHeadersViewController updateTopHeaderForScrollOffsetY:scrollView.contentOffset.y];
 
     if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
         [self wmf_hideKeyboard];
         //NSLog(@"Keyboard Hidden!");
     }
 
-    if (![self tocDrawerIsOpen]) {
-        [self adjustTopAndBottomMenuVisibilityOnScroll];
-        // No need to report scroll event to pull to refresh super vc if toc open.
-        [super scrollViewDidScroll:scrollView];
-    }
+    [self adjustTopAndBottomMenuVisibilityOnScroll];
+    [super scrollViewDidScroll:scrollView];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
@@ -1119,8 +728,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView*)scrollView {
-    [self updateTOCScrollPositionIfVisible];
-    [self updateTOCScrollPositionWithoutAnimationIfHidden];
     [self saveWebViewScrollOffset];
     self.scrollingToTop = NO;
 }
@@ -1129,7 +736,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)adjustTopAndBottomMenuVisibilityOnScroll {
     // This method causes the menus to hide when user scrolls down and show when they scroll up.
-    if (self.webView.scrollView.isDragging && ![self tocDrawerIsOpen]) {
+    if (self.webView.scrollView.isDragging) {
         CGFloat distanceScrolled  = self.scrollViewDragBeganVerticalOffset - self.webView.scrollView.contentOffset.y;
         CGFloat minPixelsScrolled = 20;
 
@@ -1177,10 +784,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)animateTopAndBottomMenuReveal {
-    // Toggle the menus closed on tap (only if they were showing).
-    if (![self tocDrawerIsOpen]) {
-        [self animateTopAndBottomMenuHidden:NO];
-    }
+    [self animateTopAndBottomMenuHidden:NO];
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView*)scrollView {
@@ -1453,9 +1057,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.protectionStatus = article.protection;
 
     [self updateBottomBarButtonsEnabledState];
-
-    [self updateTOCButtonVisibility];
-
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
     for (MWKSection* section in _article.sections) {
@@ -1518,10 +1119,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
 
-    if ([self tocDrawerIsOpen]) {
-        [self tocHide];
-    }
-
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProgress:0.85 animated:YES completion:NULL];
     });
@@ -1539,18 +1136,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
-
-
-    [self tocHideWithDuration:@0.0f];
-
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-
-    [self tocUpdateViewLayout];
-
     [self scrollToElementOnScreenBeforeRotate];
 }
 
@@ -1574,11 +1164,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
-//TODO: use this notification to update the search box's placeholder text when zero rated
-//        TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-//        textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text", nil);
-
-
 
         NSString* warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 
@@ -1634,11 +1219,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (BOOL)refreshShouldShow {
     return YES;
-//    return (![self tocDrawerIsOpen])
-//           &&
-//           (self.session.currentArticle != nil)
-//           &&
-//           (!ROOT.isAnimatingTopAndBottomMenuHidden);
 }
 
 #pragma mark Bottom menu bar
@@ -1646,11 +1226,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"BottomMenuViewController_embed2"]) {
         self.bottomMenuViewController = (BottomMenuViewController*)[segue destinationViewController];
-    }
-
-    if ([segue.identifier isEqualToString:@"TOCViewController_embed"]) {
-        self.tocVC       = (TOCViewController*)[segue destinationViewController];
-        self.tocVC.webVC = self;
     }
 }
 
@@ -1701,11 +1276,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    // Reminder: do tocHideWithDuration in willRotateToInterfaceOrientation, not here
-    // (even though it makes the toc animate offscreen nicely if it was onscreen) as
-    // it messes up in rtl langs for some reason, blanking out the screen.
-    //[self tocHideWithDuration:@0.0f];
-
     [self updateReferencesHeightAndBottomConstraints];
 }
 
@@ -1975,13 +1545,4 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     dialog.tag = WMFWebViewAlertZeroCharged;
     [dialog show];
 }
-
-/*
-   -(void)didReceiveMemoryWarning {
-
-    [self.session.zeroConfigState toggleFakeZeroOn];
-
-   }
- */
-
 @end

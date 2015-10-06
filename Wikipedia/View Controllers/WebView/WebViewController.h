@@ -38,8 +38,6 @@
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
-- (void)tocHide;
-- (void)tocToggle;
 - (void)saveWebViewScrollOffset;
 
 - (void)loadRandomArticle;
