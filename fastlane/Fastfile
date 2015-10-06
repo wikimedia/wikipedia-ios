@@ -74,7 +74,7 @@ platform :ios do
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    pilot :upload
+    pilot(skip_submission: true)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
@@ -94,7 +94,7 @@ platform :ios do
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    pilot :upload
+    pilot(skip_submission: false)
   end
 
   desc "Upload a developer build to Hockey."
