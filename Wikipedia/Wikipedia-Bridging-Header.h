@@ -14,6 +14,8 @@
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
 
+#import "ToCInteractionFunnel.h"
+
 #import <SDWebImage/SDWebImageManager.h>
 #import <SDWebImage/UIImage+MultiFormat.h>
 #import "SDWebImageManager+WMFCacheRemoval.h"
