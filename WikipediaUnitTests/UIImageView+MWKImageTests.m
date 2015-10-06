@@ -10,7 +10,9 @@
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFFaceDetectionCache.h"
 #import "Wikipedia-Swift.h"
-
+#import "MWKTitle.h"
+#import "MWKArticle.h"
+#import "MWKImage.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -38,7 +40,7 @@
     self.dummyArticle = [[MWKArticle alloc] initWithTitle:dummyTitle
                                                 dataStore:nil];
 
-    self.mockImageController = mock([WMFImageController class]);
+    self.mockImageController = MKTMock([WMFImageController class]);
     self.faceDetectionCache  = [[WMFFaceDetectionCache alloc] init];
 }
 
@@ -56,7 +58,7 @@
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
                                                                           origin:[WMFImageDownload imageOriginNetwork]];
-    [given([self.mockImageController fetchImageWithURL:testURL])
+    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
     [self.imageView wmf_setImageController:self.mockImageController];
@@ -94,7 +96,7 @@
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
                                                                           origin:[WMFImageDownload imageOriginNetwork]];
-    [given([self.mockImageController fetchImageWithURL:testURL])
+    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
     [self.imageView wmf_setImageController:self.mockImageController];
@@ -132,7 +134,7 @@
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
                                                                           origin:[WMFImageDownload imageOriginNetwork]];
-    [given([self.mockImageController fetchImageWithURL:testURL])
+    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
     [self.imageView wmf_setImageController:self.mockImageController];
@@ -171,7 +173,7 @@
     WMFImageDownload* successfulDownload = [[WMFImageDownload alloc] initWithUrl:testURL
                                                                            image:[UIImage new]
                                                                           origin:[WMFImageDownload imageOriginNetwork]];
-    [given([self.mockImageController fetchImageWithURL:testURL])
+    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:successfulDownload]];
 
     [self.imageView wmf_setImageController:self.mockImageController];
@@ -207,7 +209,7 @@
     MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
     UIImage* testImage     = [UIImage new];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
     [self.imageView wmf_setImageController:self.mockImageController];
 
@@ -234,14 +236,14 @@
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
               @"Face detection should NOT have ran.");
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:testURL];
 }
 
 - (void)testSuccessfullySettingCachedImageURLWithoutCenterFaces {
     NSURL* testURL     = [NSURL URLWithString:@"http://test/request.png"];
     UIImage* testImage = [UIImage new];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
     [self.imageView wmf_setImageController:self.mockImageController];
 
@@ -268,7 +270,7 @@
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
               @"Face detection should NOT have ran.");
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:testURL];
 }
 
 - (void)testSuccessfullySettingCachedImageWithCenterFaces {
@@ -277,7 +279,7 @@
     testMetadata.allNormalizedFaceBounds = @[];
     UIImage* testImage = [UIImage new];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
     [self.imageView wmf_setImageController:self.mockImageController];
 
@@ -304,14 +306,14 @@
     XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == NO,
               @"Face detection should have ran.");
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:testURL];
 }
 
 - (void)testSuccessfullySettingCachedImageURLWithCenterFaces {
     NSURL* testURL     = [NSURL URLWithString:@"http://test/request.png"];
     UIImage* testImage = [UIImage new];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
     [self.imageView wmf_setImageController:self.mockImageController];
 
@@ -338,7 +340,7 @@
     XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == NO,
               @"Face detection should have ran.");
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:testURL];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:testURL];
 }
 
 - (void)testFailureToSetUncachedImageWithFetchError {
@@ -346,8 +348,8 @@
     MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
     NSError* testError     = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
-    [given([self.mockImageController fetchImageWithURL:testURL])
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
+    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:testError]];
 
     self.imageView.wmf_imageController = self.mockImageController;
@@ -369,8 +371,8 @@
     NSURL* testURL     = [NSURL URLWithString:@"http://test/request.png"];
     NSError* testError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
-    [given([self.mockImageController fetchImageWithURL:testURL])
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:nil];
+    [MKTGiven([self.mockImageController fetchImageWithURL:testURL])
      willReturn:[AnyPromise promiseWithValue:testError]];
 
     self.imageView.wmf_imageController = self.mockImageController;
@@ -395,7 +397,7 @@
     MWKImage* testMetadata = [[MWKImage alloc] initWithArticle:self.dummyArticle sourceURL:testURL];
     UIImage* testImage     = [UIImage new];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
     [self.imageView wmf_setImageController:self.mockImageController];
 
@@ -412,14 +414,14 @@
 
     WaitForExpectations();
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:anything()];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:anything()];
 }
 
 - (void)testShouldNotFetchCachedImageURL {
     NSURL* testURL     = [NSURL URLWithString:@"http://test/request.png"];
     UIImage* testImage = [UIImage new];
 
-    [given([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
+    [MKTGiven([self.mockImageController cachedImageInMemoryWithURL:testURL]) willReturn:testImage];
 
     [self.imageView wmf_setImageController:self.mockImageController];
 
@@ -436,7 +438,7 @@
 
     WaitForExpectations();
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURL:anything()];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:anything()];
 }
 
 - (void)testFailureOfImageCacheToDetectFacesOfImageWithNoFaces {

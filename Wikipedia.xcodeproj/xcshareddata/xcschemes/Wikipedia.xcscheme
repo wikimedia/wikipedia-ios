@@ -56,6 +56,12 @@
                <Test
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
+               <Test
+                  Identifier = "WMFBackgroundTaskManagerTests">
+               </Test>
+               <Test
+                  Identifier = "WMFLegacyImageDataMigrationTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
