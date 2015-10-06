@@ -59,22 +59,18 @@ platform :ios do
     abort "Must specify BUILD_NUMBER enviroment variable!" unless ENV['BUILD_NUMBER']
     increment_build_number(build_number: ENV['BUILD_NUMBER'])
 
-    sigh(
-      adhoc: false,
-      force: true,
-      filename: 'build/alpha.mobileprovision'
-    )
-    ipa(
+    gym(
       configuration: "Alpha",
-      scheme: "Wikipedia Alpha",
-      embed: 'build/alpha.mobileprovision',
+      scheme: "Wikipedia Alpha"
     )
+
     hockey(
       notes: git_commit_log,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    pilot(skip_submission: true)
+
+    pilot(skip_submission: true, ipa: ENV['IPA_OUTPUT_PATH'])
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
