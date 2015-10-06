@@ -192,7 +192,6 @@
             return;
         }
         if ([currentParent isAtLevelAboveSection:currentSection]) {
-            [currentParent addChild:currentSection];
             MWKSection* lastChild = currentParent.children.lastObject;
             if ([lastChild isAtSameLevelAsSection:currentSection] || ![lastChild isAtLevelAboveSection:currentSection]) {
                 [currentParent addChild:currentSection];
