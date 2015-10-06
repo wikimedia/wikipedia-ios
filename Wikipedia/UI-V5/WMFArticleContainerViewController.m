@@ -217,7 +217,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFTableOfContentsViewController*)tableOfContentsViewController{
     if(!_tableOfContentsViewController){
-        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSections:self.article.sections.entries delegate:self];
+        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
     }
     return _tableOfContentsViewController;
 }
@@ -493,8 +493,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - TableOfContentsViewControllerDelegate
 
 - (void)tableOfContentsController:(WMFTableOfContentsViewController *)controller didSelectSection:(MWKSection *)section{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    [self.webViewController scrollToSection:section];
+    //Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
+    dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
+        [self dismissViewControllerAnimated:YES completion:NULL];
+        [self.webViewController scrollToSection:section];
+    });
 }
 
 - (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController *)controller{
