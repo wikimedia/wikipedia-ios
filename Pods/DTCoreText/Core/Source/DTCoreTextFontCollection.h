@@ -14,7 +14,7 @@
  Class representing a collection of fonts
  */
 
-@interface DTCoreTextFontCollection : NSObject
+@interface DTCoreTextFontCollection : NSObject 
 
 /**
  @name Creating Font Collections

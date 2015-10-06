@@ -153,10 +153,10 @@ public class WMFBackgroundTaskManager<T> {
         // start task, propagating its state to our internal promise (which is also rejected on expiration)
         processor(nextItem)
             .thenInBackground(resolveTask)
-            .report(policy: ErrorPolicy.AllErrors, rejectTask)
+            .error(policy: ErrorPolicy.AllErrors, rejectTask)
 
         taskPromise
-            .ensure() { () -> Void in
+            .always() { () -> Void in
                 // end the current background task whether we succeed or fail
                 stopTask(taskId)
             }
@@ -164,7 +164,7 @@ public class WMFBackgroundTaskManager<T> {
                 // try to continue recursively
                 self?.processNext()
             }
-            .report(policy: ErrorPolicy.AllErrors) { [weak self] error in
+            .error(policy: ErrorPolicy.AllErrors) { [weak self] error in
                 self?.reject(error)
         }
     }

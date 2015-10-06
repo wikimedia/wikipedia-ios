@@ -26,18 +26,18 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 {
 	NSURL *_url;
 	NSMutableURLRequest *_urlRequest;
-
+	
 	NSURLConnection *_connection;
 	NSMutableData *_receivedData;
-
+	
 	/* For progressive download */
 	CGImageSourceRef _imageSource;
 	CGFloat _fullHeight;
 	CGFloat _fullWidth;
 	NSUInteger _expectedSize;
-
+	
 	BOOL shouldShowProgressiveDownload;
-
+	
 	DT_WEAK_VARIABLE id<DTLazyImageViewDelegate> _delegate;
 }
 
@@ -45,7 +45,7 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 {
 	_delegate = nil; // to avoid late notification
 	[_connection cancel];
-
+	
 	if (_imageSource) CFRelease(_imageSource);
 }
 
@@ -56,16 +56,16 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 	{
 		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 			NSData *data = [NSData dataWithContentsOfURL:url];
-
+			
 			dispatch_async(dispatch_get_main_queue(), ^{
 				[self completeDownloadWithData:data];
 			});
 		});
-
+		
 		return;
 	}
-
-	@autoreleasepool
+	
+	@autoreleasepool 
 	{
 		if (!_urlRequest)
 		{
@@ -76,12 +76,12 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 			[_urlRequest setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
 			[_urlRequest setTimeoutInterval:10.0];
 		}
-
+		
 		_connection = [[NSURLConnection alloc] initWithRequest:_urlRequest delegate:self startImmediately:NO];
 		[_connection scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 
 		[[NSNotificationCenter defaultCenter] postNotificationName:DTLazyImageViewWillStartDownloadNotification object:self];
-
+		
 		[_connection start];
 	}
 }
@@ -89,32 +89,32 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 - (void)didMoveToSuperview
 {
 	[super didMoveToSuperview];
-
+	
 	if (!self.image && (_url || _urlRequest) && !_connection && self.superview)
 	{
 		UIImage *image = [_imageCache objectForKey:_url];
-
+		
 		if (image)
 		{
 			self.image = image;
 			_fullWidth = image.size.width;
 			_fullHeight = image.size.height;
-
+			
 			// this has to be synchronous
 			[self _notifyDelegate];
-
+			
 			return;
 		}
-
+		
 		[self loadImageAtURL:_url];
-	}
+	}	
 }
 
 - (void)cancelLoading
 {
 	[_connection cancel];
 	_connection = nil;
-
+	
 	_receivedData = nil;
 }
 
@@ -144,11 +144,11 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 	{
 		return;
 	}
-
+	
 	/* For progressive download */
 	const NSUInteger totalSize = [_receivedData length];
 	CGImageSourceUpdateData(_imageSource, (__bridge CFDataRef)_receivedData, (totalSize == _expectedSize) ? true : false);
-
+	
 	if (_fullHeight > 0 && _fullWidth > 0)
 	{
 		CGImageRef image = CGImageSourceCreateImageAtIndex(_imageSource, 0, NULL);
@@ -193,19 +193,19 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 - (void)completeDownloadWithData:(NSData *)data
 {
 	UIImage *image = [[UIImage alloc] initWithData:data];
-
+	
 	self.image = image;
 	_fullWidth = image.size.width;
 	_fullHeight = image.size.height;
 
 	[self _notifyDelegate];
-
+	
 	static dispatch_once_t predicate;
 
 	dispatch_once(&predicate, ^{
 		_imageCache = [[NSCache alloc] init];
 	});
-
+	
 	if (_url)
 	{
 		if (image)
@@ -224,41 +224,41 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 {
 	// every time we get an response it might be a forward, so we discard what data we have
 	_receivedData = nil;
-
+	
 	// does not fire for local file URLs
 	if ([response isKindOfClass:[NSHTTPURLResponse class]])
 	{
 		NSHTTPURLResponse *httpResponse = (id)response;
-
+		
 		if (![[httpResponse MIMEType] hasPrefix:@"image"])
 		{
 			[self cancelLoading];
 			return;
 		}
 	}
-
+	
 	/* For progressive download */
 	_fullWidth = _fullHeight = -1.0f;
 	_expectedSize = (NSUInteger)[response expectedContentLength];
-
+	
 	_receivedData = [[NSMutableData alloc] init];
 }
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
 	[_receivedData appendData:data];
-
+	
 	if (!&CGImageSourceCreateIncremental || !shouldShowProgressiveDownload)
 	{
 		// don't show progressive
 		return;
 	}
-
+	
 	if (!_imageSource)
 	{
 		_imageSource = CGImageSourceCreateIncremental(NULL);
 	}
-
+	
 	[self createAndShowProgressiveImage];
 }
 
@@ -273,16 +273,16 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 	if (_receivedData)
 	{
 		[self performSelectorOnMainThread:@selector(completeDownloadWithData:) withObject:_receivedData waitUntilDone:YES];
-
+		
 		_receivedData = nil;
 	}
-
+	
 	_connection = nil;
-
+	
 	/* For progressive download */
 	if (_imageSource)
 		CFRelease(_imageSource), _imageSource = NULL;
-
+	
 	CFRunLoopStop(CFRunLoopGetCurrent());
 
 	// success = no userInfo
@@ -293,11 +293,11 @@ NSString * const DTLazyImageViewDidFinishDownloadNotification = @"DTLazyImageVie
 {
 	_connection = nil;
 	_receivedData = nil;
-
+	
 	/* For progressive download */
 	if (_imageSource)
 		CFRelease(_imageSource), _imageSource = NULL;
-
+	
 	CFRunLoopStop(CFRunLoopGetCurrent());
 
 	// send completion notification, pack in error as well

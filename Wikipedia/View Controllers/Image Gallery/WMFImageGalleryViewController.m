@@ -42,6 +42,7 @@
 #import "MWKImage.h"
 #import "MWKLicense+ToGlyph.h"
 #import "MWKImageInfo+MWKImageComparison.h"
+#import "MWKArticle.h"
 
 // Networking
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"

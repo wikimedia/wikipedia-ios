@@ -5,13 +5,13 @@
 #import "MWKTitle.h"
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
+#import "MWKSavedPageList.h"
 
 // Controllers
 #import "WMFRelatedTitleListDataSource.h"
 
 // Frameworks
 #import "Wikipedia-Swift.h"
-
 
 // View
 #import "WMFArticlePreviewCell.h"

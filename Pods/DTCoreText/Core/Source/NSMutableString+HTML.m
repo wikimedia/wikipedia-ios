@@ -16,12 +16,12 @@
 - (void)removeTrailingWhitespace
 {
 	NSUInteger length = self.length;
-
+	
 	NSInteger lastIndex = length-1;
 	NSInteger index = lastIndex;
 	NSInteger whitespaceLength = 0;
-
-	while (index>=0 && IS_WHITESPACE([self characterAtIndex:index]))
+	
+	while (index>=0 && IS_WHITESPACE([self characterAtIndex:index])) 
 	{
 		index--;
 		whitespaceLength++;

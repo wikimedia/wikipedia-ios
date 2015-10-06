@@ -22,7 +22,7 @@
  This class is an Objective-C wrapper around `CTRun` and represents a glyph run. That is, a number of characters from the original `NSAttributedString` that share the same characteristics and attributes.
  */
 
-@interface DTCoreTextGlyphRun : NSObject
+@interface DTCoreTextGlyphRun : NSObject 
 {
 	NSRange _stringRange;
 }
@@ -114,7 +114,7 @@
 
 /**
  Returns `YES` if the receiver represents trailing whitespace in a line.
-
+ 
  This can be used to avoid drawing of background color, strikeout or underline for empty trailing white space glyph runs.
  */
 - (BOOL)isTrailingWhitespace;

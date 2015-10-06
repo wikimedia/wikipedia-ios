@@ -50,3 +50,4 @@
 - (BOOL)scanHTMLColor:(DTColor * __autoreleasing*)color HTMLName:(NSString * __autoreleasing*)name;
 
 @end
+

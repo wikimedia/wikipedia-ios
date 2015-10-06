@@ -1,1 +1,0 @@
-../../../../vendor/SDWebImage/SDWebImage/SDImageCache.h

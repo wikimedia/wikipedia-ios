@@ -23,7 +23,7 @@
 	{
 		return NO;
 	}
-
+	
 	// path must be same
 	if (![[self path] isEqualToString:[URL path]])
 	{

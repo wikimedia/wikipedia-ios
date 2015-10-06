@@ -13,7 +13,7 @@
 + (NSURL *)appStoreURLforApplicationIdentifier:(NSString *)identifier
 {
 	NSString *link = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%@?mt=8", identifier];
-
+	
 	return [NSURL URLWithString:link];
 }
 

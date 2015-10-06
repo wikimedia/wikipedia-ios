@@ -5,6 +5,7 @@
 #import <BlocksKit/BlocksKit.h>
 
 #import "MWKDataStore.h"
+#import "MWKImage.h"
 
 #import "UIImage+WMFNormalization.h"
 #import "UIImageView+WMFContentOffset.h"

@@ -8,6 +8,8 @@
 
 import Foundation
 import PromiseKit
+import SDWebImage
+import CocoaLumberjack
 
 ///
 /// @name Constants
@@ -234,7 +236,7 @@ public class WMFImageController : NSObject {
     */
     public func importImage(fromFile filepath: String, withURL url: NSURL) -> Promise<Void> {
         guard NSFileManager.defaultManager().fileExistsAtPath(filepath) else {
-            NSLog("Source file does not exist: \(filepath)")
+            DDLogInfo("Source file does not exist: \(filepath)")
             // Do not treat this as an error, as the image record could have been created w/o data ever being imported.
             return Promise<Void>()
         }

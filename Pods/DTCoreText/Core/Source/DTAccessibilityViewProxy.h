@@ -44,7 +44,7 @@
 @required
 /**
  Provides a view for an attachment, e.g. an imageView for images
-
+ 
  @param attachment The <DTTextAttachment> that the requested view should represent
  @param proxy The frame that the view should use to fit on top of the space reserved for the attachment.
  @returns The sender requesting the view.

@@ -48,8 +48,8 @@
 }
 
 - (void)testTogglePageWithEmptyTitleReturnsNilWithError {
-    MWKTitle* emptyTitle = mock([MWKTitle class]);
-    [given([emptyTitle text]) willReturn:@""];
+    MWKTitle* emptyTitle = MKTMock([MWKTitle class]);
+    [MKTGiven([emptyTitle text]) willReturn:@""];
     [self.list toggleSavedPageForTitle:emptyTitle];
     XCTAssertFalse([self.list isSaved:emptyTitle]);
 }

@@ -10,10 +10,10 @@
 //Promises
 #import "Wikipedia-Swift.h"
 
-
 //Models
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
+#import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

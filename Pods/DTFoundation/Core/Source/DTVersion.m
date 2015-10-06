@@ -35,7 +35,7 @@
 	{
 		return nil;
 	}
-
+	
 	NSInteger major = 0;
 	NSInteger minor = 0;
 	NSInteger maintenance = 0;
@@ -51,7 +51,7 @@
 	NSTextCheckingResult *match = [regex firstMatchInString:versionString
 	                                                options:0
 	                                                  range:NSMakeRange(0, [versionString length])];
-
+	
 	if (!match)
 	{
 		return nil;
@@ -91,15 +91,15 @@
 	{
 		return [[DTVersion alloc] initWithMajor:major minor:minor maintenance:maintenance build:build];
 	}
-
+		
 	return nil;
 }
 
-+ (DTVersion*)appBundleVersion
++ (DTVersion*)appBundleVersion 
 {
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
 	NSString *version = info[@"CFBundleVersion"];
-
+    
 	return [DTVersion versionWithString:version];
 }
 
@@ -107,7 +107,7 @@
 {
 	static dispatch_once_t onceToken;
 	static DTVersion *version = nil;
-
+	
 	dispatch_once(&onceToken, ^{
 #if TARGET_OS_IPHONE
 		NSString *versionStr = [[UIDevice currentDevice] systemVersion];
@@ -120,7 +120,7 @@
 		version = [DTVersion versionWithString:versionStr];
 #endif
 	});
-
+	
 	return version;
 }
 
@@ -183,11 +183,11 @@
 
 - (BOOL)isEqual:(id)object
 {
-	if ([object isKindOfClass:[DTVersion class]])
+	if ([object isKindOfClass:[DTVersion class]]) 
 	{
 		return [self isEqualToVersion:(DTVersion*)object];
 	}
-	if ([object isKindOfClass:[NSString class]])
+	if ([object isKindOfClass:[NSString class]]) 
 	{
 		return [self isEqualToString:(NSString*)object];
 	}
@@ -200,7 +200,7 @@
 	{
 		return NSOrderedDescending;
 	}
-
+	
 	if (self.major < version.major)
 	{
 		return NSOrderedAscending;
@@ -233,8 +233,8 @@
 	{
 		return NSOrderedDescending;
 	}
-
-
+	
+	
 	return NSOrderedSame;
 }
 

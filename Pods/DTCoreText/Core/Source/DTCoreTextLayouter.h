@@ -21,7 +21,7 @@
 /**
  This class owns an attributed string and is able to create layoutFrames for certain ranges in this string. Optionally it caches these layout frames.
  */
-@interface DTCoreTextLayouter : NSObject
+@interface DTCoreTextLayouter : NSObject 
 
 /**
  @name Creating a Layouter

@@ -10,7 +10,7 @@
 
 /**
  This is a special subclass of DTTextAttachment used to represent the dictation placeholder.
-
+ 
  When encountering such an element DTAttributedTextContentView does not call the delegate to provide a subclass but automatically creates and adds a DTDictationPlaceholderView.
  */
 

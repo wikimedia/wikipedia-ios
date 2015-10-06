@@ -15,7 +15,7 @@ static NSDictionary *entityReverseLookup = nil;
 
 @implementation NSString (HTML)
 
-- (NSUInteger)integerValueFromHex
+- (NSUInteger)integerValueFromHex 
 {
 	unsigned long result = 0;
 	sscanf([self UTF8String], "%lx", &result);
@@ -25,7 +25,7 @@ static NSDictionary *entityReverseLookup = nil;
 - (BOOL)isNumeric
 {
 	const char *s = [self UTF8String];
-
+	
 	for (size_t i=0;i<strlen(s);i++)
 	{
 		if ((s[i]<'0' || s[i]>'9') && (s[i] != '.'))
@@ -33,16 +33,16 @@ static NSDictionary *entityReverseLookup = nil;
 			return NO;
 		}
 	}
-
+	
 	return YES;
 }
 
 - (BOOL)isIgnorableWhitespace
 {
 	NSCharacterSet *whitespaceCharacterSet = [NSCharacterSet ignorableWhitespaceCharacterSet];
-
+	
 	NSString *tmpStr = [self stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-
+	
 	return [tmpStr length]==0;
 }
 
@@ -50,28 +50,28 @@ static NSDictionary *entityReverseLookup = nil;
 {
 	float result = 1;
 	sscanf([self UTF8String], "%f", &result);
-
+	
 	return result/100.0f;
 }
 
 - (NSString *)stringByNormalizingWhitespace
 {
 	NSInteger stringLength = [self length];
-
+	
 	// reserve buffer, same size as input
 	unichar *_characters = calloc(stringLength, sizeof(unichar));
 	[self getCharacters:_characters range:NSMakeRange(0, stringLength)];
-
+	
 	NSInteger outputLength = 0;
 	BOOL inWhite = NO;
-
-
+	
+	
 	// we output to the same buffer as the input was
 	for (NSInteger i = 0; i<stringLength; i++)
 	{
 		// c-array access is faster because it saves objc calls
 		unichar oneChar = _characters[i]; // [self characterAtIndex:i];
-
+		
 		// of whitespace chars only output one space for first
 		if (IS_WHITESPACE(oneChar))
 		{
@@ -79,7 +79,7 @@ static NSDictionary *entityReverseLookup = nil;
 			{
 				_characters[outputLength] = 32;
 				outputLength++;
-
+				
 				inWhite = YES;
 			}
 		}
@@ -88,17 +88,17 @@ static NSDictionary *entityReverseLookup = nil;
 			// all other characters we simply copy
 			_characters[outputLength] = oneChar;
 			outputLength++;
-
+			
 			inWhite = NO;
 		}
 	}
-
+	
 	// convert to objC-String
 	NSString *retString = [NSString stringWithCharacters:_characters length:outputLength];
-
+	
 	// free buffers
 	free(_characters);
-
+	
 	return retString;
 }
 
@@ -108,9 +108,9 @@ static NSDictionary *entityReverseLookup = nil;
 	{
 		return NO;
 	}
-
+	
 	unichar firstChar = [self characterAtIndex:0];
-
+	
 	return [characterSet characterIsMember:firstChar];
 }
 
@@ -120,9 +120,9 @@ static NSDictionary *entityReverseLookup = nil;
 	{
 		return NO;
 	}
-
+	
 	unichar lastChar = [self characterAtIndex:[self length]-1];
-
+	
 	return [characterSet characterIsMember:lastChar];
 }
 
@@ -130,7 +130,7 @@ static NSDictionary *entityReverseLookup = nil;
 - (NSString *)stringByAddingHTMLEntities
 {
 	static dispatch_once_t predicate;
-
+	
 	dispatch_once(&predicate, ^{
 		entityReverseLookup = [[NSDictionary alloc] initWithObjectsAndKeys:@"&quot;", [NSNumber numberWithInteger:0x22],
 									  @"&amp;", [NSNumber numberWithInteger:0x26],
@@ -380,20 +380,20 @@ static NSDictionary *entityReverseLookup = nil;
 									  @"&clubs;", [NSNumber numberWithInteger:0x2663],
 									  @"&hearts;", [NSNumber numberWithInteger:0x2665],
 									  @"&diams;", [NSNumber numberWithInteger:0x2666],
-									  @"<br />", [NSNumber numberWithInteger:0x2028],
+									  @"<br />", [NSNumber numberWithInteger:0x2028], 
 									  nil];
-
+		
 	});
-
+	
 	NSMutableString *tmpString = [NSMutableString string];
-
+	
 	for (NSUInteger i = 0; i<[self length]; i++)
 	{
 		unichar oneChar = [self characterAtIndex:i];
-
+		
 		NSNumber *subKey = [NSNumber numberWithInteger:oneChar];
 		NSString *entity = [entityReverseLookup objectForKey:subKey];
-
+		
 		if (entity)
 		{
 			[tmpString appendString:entity];
@@ -419,14 +419,14 @@ static NSDictionary *entityReverseLookup = nil;
 			}
 		}
 	}
-
+	
 	return tmpString;
 }
 
 - (NSString *)stringByReplacingHTMLEntities
 {
 	static dispatch_once_t predicate;
-	dispatch_once(&predicate, ^{
+	dispatch_once(&predicate, ^{		
 		entityLookup = [[NSDictionary alloc] initWithObjectsAndKeys:@"\x22", @"quot",
 							 @"\x26", @"amp",
 							 @"\x27", @"apos",
@@ -677,28 +677,28 @@ static NSDictionary *entityReverseLookup = nil;
 							 @"\u2665", @"hearts",
 							 @"\u2666", @"diams",
 							 nil];
-
+		
 	});
-
+	
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	[scanner setCharactersToBeSkipped:nil];
-
+	
 	NSMutableString *output = [NSMutableString string];
-
-
+	
+	
 	while (![scanner isAtEnd])
 	{
 		NSString *scanned = nil;
-
+		
 		if ([scanner scanUpToString:@"&" intoString:&scanned])
 		{
 			[output appendString:scanned];
 		}
-
+		
 		if ([scanner scanString:@"&" intoString:NULL])
 		{
 			NSString *afterAmpersand = nil;
-			if ([scanner scanUpToString:@";" intoString:&afterAmpersand])
+			if ([scanner scanUpToString:@";" intoString:&afterAmpersand]) 
 			{
 				if ([scanner scanString:@";" intoString:NULL])
 				{
@@ -707,15 +707,15 @@ static NSDictionary *entityReverseLookup = nil;
 						unichar ch = (unichar)[[afterAmpersand substringFromIndex:1] integerValue];
 						[output appendFormat:@"%C", ch];
 					}
-					else
+					else 
 					{
 						NSString *converted = [entityLookup objectForKey:afterAmpersand];
-
+						
 						if (converted)
 						{
 							[output appendString:converted];
 						}
-						else
+						else 
 						{
 							// not a valid sequence
 							[output appendString:@"&"];
@@ -723,31 +723,31 @@ static NSDictionary *entityReverseLookup = nil;
 							[output appendString:@";"];
 						}
 					}
-
+					
 				}
-				else
+				else 
 				{
-					// no semicolon
+					// no semicolon 
 					[output appendString:@"&"];
 					[output appendString:afterAmpersand];
 				}
 			}
 		}
 	}
-
-
+	
+	
 	return [NSString stringWithString:output];
 }
 
 - (NSString *)stringByAddingAppleConvertedSpace
 {
 	NSMutableString *output = [NSMutableString string];
-
+	
 	NSScanner *scanner = [NSScanner scannerWithString:self];
 	scanner.charactersToBeSkipped = nil;
-
+	
 	NSCharacterSet *spaceSet = [NSCharacterSet characterSetWithCharactersInString:@" "];
-
+	
 	while (![scanner isAtEnd])
 	{
 		NSString *part;
@@ -755,19 +755,19 @@ static NSDictionary *entityReverseLookup = nil;
 		{
 			[output appendString:part];
 		}
-
+		
 		NSString *spaces;
 		if ([scanner scanCharactersFromSet:spaceSet intoString:&spaces])
 		{
 			// first space always output as is
 			[output appendString:@" "];
-
+			
 			NSUInteger numSpaces = [spaces length]-1;
-
+			
 			if (numSpaces > 1)
 			{
 				[output appendString:@"<span class=\"Apple-converted-space\">"];
-
+				
 				// alternate nbsp; and normal space
 				for (NSUInteger i=0; i<numSpaces;i++)
 				{
@@ -780,12 +780,12 @@ static NSDictionary *entityReverseLookup = nil;
 						[output appendString:UNICODE_NON_BREAKING_SPACE];
 					}
 				}
-
+				
 				[output appendString:@"</span>"];
 			}
 		}
 	}
-
+	
 	return output;
 }
 

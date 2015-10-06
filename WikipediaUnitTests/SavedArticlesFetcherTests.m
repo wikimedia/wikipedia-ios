@@ -16,8 +16,8 @@
     self.downloadedArticles         = [NSMutableArray new];
     self.expectedFetchFinishedError = nil;
     self.tempDataStore              = [MWKDataStore temporaryDataStore];
-    self.mockArticleFetcher         = mock([WMFArticleFetcher class]);
-    self.mockImageController        = mock([WMFImageController class]);
+    self.mockArticleFetcher         = MKTMock([WMFArticleFetcher class]);
+    self.mockImageController        = MKTMock([WMFImageController class]);
     self.savedArticlesFetcher       =
         [[SavedArticlesFetcher alloc]
          initWithSavedPageList:self.savedPageList
@@ -47,7 +47,7 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
@@ -72,7 +72,7 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -104,10 +104,10 @@
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:firstArticle]];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -143,7 +143,7 @@
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -168,7 +168,7 @@
 
     NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:downloadError]];
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
@@ -177,7 +177,7 @@
 
     WaitForExpectations();
 
-    [MKTVerifyCount(self.mockImageController, never()) fetchImageWithURLInBackground:anything()];
+    [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURLInBackground:anything()];
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
@@ -196,10 +196,10 @@
 
     NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:downloadError]];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:secondArticle]];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -234,11 +234,11 @@
 
 
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:unresolvedSecondArticlePromise]];
 
     __block PMKResolver resolveSecondArticleRequest;
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
      willReturn:[AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         resolveSecondArticleRequest = resolve;
     }]];
@@ -288,7 +288,7 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
-    [given([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:firstArticle]];
 
     [self expectFetcherToFinishWithError:nil];

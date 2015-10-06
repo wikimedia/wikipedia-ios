@@ -4,7 +4,7 @@
 
 /* note that comments are only permitted before selectors and before the styles */
 
-/* DO NOT fiddle with this file if you want to have your own styles,
+/* DO NOT fiddle with this file if you want to have your own styles, 
    pass your own stylesheet via the option parameter to override these defaults */
 
 html
@@ -28,7 +28,7 @@ style
 	display:none;
 }
 
-body
+body 
 {
 	/* safari has a 8 px margin here */
 	display:block;
@@ -75,12 +75,12 @@ ol
 	-webkit-padding-start:27px;
 }
 
-ul ul, ol ul
+ul ul, ol ul 
 {
 	list-style-type: circle;
 }
 
-ol ol ul, ol ul ul, ul ol ul, ul ul ul
+ol ol ul, ol ul ul, ul ol ul, ul ul ul 
 {
 	list-style-type: square;
 }
@@ -90,7 +90,7 @@ code
 	font-family:Courier;
 }
 
-pre, xmp, plaintext, listing
+pre, xmp, plaintext, listing 
 {
 	display: block;
 	font-family: monospace;
@@ -101,7 +101,7 @@ pre, xmp, plaintext, listing
 /* color:-webkit-link */
 a
 {
-	color:#0000EE;
+	color:#0000EE; 
 	text-decoration:underline;
 }
 

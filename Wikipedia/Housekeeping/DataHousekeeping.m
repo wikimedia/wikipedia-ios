@@ -5,6 +5,7 @@
 #import "NSDate-Utilities.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
+#import "MediaWikiKit.h"
 
 #import <BlocksKit/BlocksKit.h>
 

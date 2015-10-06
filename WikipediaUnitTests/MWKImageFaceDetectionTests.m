@@ -31,7 +31,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.mockDataStore = mock([MWKDataStore class]);
+    self.mockDataStore = MKTMock([MWKDataStore class]);
     self.dummyArticle  = [[MWKArticle alloc] initWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"foo"]
                                                  dataStore:self.mockDataStore];
     self.faceDetectionCache = [[WMFFaceDetectionCache alloc] init];

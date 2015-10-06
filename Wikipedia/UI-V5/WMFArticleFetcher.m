@@ -15,8 +15,10 @@
 //Promises
 #import "Wikipedia-Swift.h"
 
-
 //Models
+#import "MWKTitle.h"
+#import "MWKSectionList.h"
+#import "MWKSection.h"
 #import "MWKArticlePreview.h"
 #import "MWKArticle.h"
 

@@ -15,21 +15,21 @@
 	// get beginning and end of paragraph containing the replaced range
 	CFIndex beginIndex;
 	CFIndex endIndex;
-
+	
 	CFStringGetParagraphBounds((__bridge CFStringRef)self, CFRangeMake(range.location, range.length), &beginIndex, &endIndex, NULL);
-
+	
 	if (parBegIndex)
 	{
 		*parBegIndex = beginIndex;
 	}
-
+	
 	if (parEndIndex)
 	{
 		*parEndIndex = endIndex;
 	}
-
+	
 	// endIndex is the first character of the following paragraph, so we don't need to add 1
-
+	
 	return NSMakeRange(beginIndex, endIndex - beginIndex);
 }
 
@@ -40,13 +40,13 @@
 	{
 		return YES;
 	}
-
+	
 	// beginning of any other paragraph is after NL
 	if ([self characterAtIndex:index-1] == '\n')
 	{
 		return YES;
 	}
-
+	
 	// no beginning
 	return NO;
 }
@@ -59,7 +59,7 @@
 - (NSUInteger)numberOfParagraphs
 {
 	NSUInteger retValue = 0;
-
+	
 	for (NSUInteger i=0; i<[self length]; i++)
 	{
 		if ([self characterAtIndex:i] == '\n')
@@ -67,7 +67,7 @@
 			retValue++;
 		}
 	}
-
+	
 	return retValue;
 }
 
