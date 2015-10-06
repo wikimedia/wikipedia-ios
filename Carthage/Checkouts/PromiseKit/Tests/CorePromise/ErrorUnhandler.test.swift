@@ -52,7 +52,7 @@ class ErrorHandlingTests_Swift: XCTestCase {
             PMKUnhandledErrorHandler = { err in
                 XCTFail()
             }
-            promise.error { error in
+            promise.report { error in
                 ex.fulfill()
             }
         }
@@ -66,7 +66,7 @@ class ErrorHandlingTests_Swift: XCTestCase {
             }
             promise.recover { error -> Promise<Int> in
                 return Promise(1)
-            }.always {
+            }.ensure {
                 ex.fulfill()
             }
         }
@@ -108,9 +108,9 @@ class ErrorHandlingTests_Swift: XCTestCase {
                 throw error
             }.then { x in
                 XCTFail()
-            }.always {
+            }.ensure {
                 ex1.fulfill()
-            }.error { err in
+            }.report { err in
                 ex2.fulfill()
             }
         }
@@ -133,9 +133,9 @@ class ErrorHandlingTests_Swift: XCTestCase {
         let ex4 = expectationWithDescription("")
 
         after(0.1).then { _ -> Void in r(Error.Test); ex1.fulfill() }
-        after(0.15).then { _ -> Void in r(Error.Test); ex2.fulfill() }.always { ex3.fulfill() }
+        after(0.15).then { _ -> Void in r(Error.Test); ex2.fulfill() }.ensure { ex3.fulfill() }
 
-        p.error { error in
+        p.report { error in
             ex4.fulfill()
         }
 
@@ -156,7 +156,7 @@ class ErrorHandlingTests_Swift: XCTestCase {
         Promise<Void> { _, reject in
             after(0.1).then {
                 throw Error.Test
-            }.error { err in
+            }.report { err in
                 reject(err)
             }
         }
@@ -183,7 +183,7 @@ class ErrorHandlingTests_Swift: XCTestCase {
 
         let anyp = AnyPromise(bound: p)
 
-        p.error { err in
+        p.report { err in
             ex1.fulfill()
         }
 

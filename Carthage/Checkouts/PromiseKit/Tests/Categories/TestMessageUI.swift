@@ -22,10 +22,10 @@ class Test_MessageUI_Swift: UIKitTestCase {
                 ex1.fulfill()
             }
         })
-        promise.error { _ -> Void in
+        promise.report { _ -> Void in
             XCTFail()
         }
-        promise.error(policy: .AllErrors) { _ -> Void in
+        promise.report(policy: .AllErrors) { _ -> Void in
             // seems necessary to give vc stack a bit of time
             after(0.5).then(ex2.fulfill)
             order = true
@@ -52,10 +52,10 @@ class Test_MessageUI_Swift: UIKitTestCase {
             }
         })
 
-        promise.error { _ -> Void in
+        promise.report { _ -> Void in
             XCTFail()
         }
-        promise.error(policy: .AllErrors) { _ -> Void in
+        promise.report(policy: .AllErrors) { _ -> Void in
             // seems necessary to give vc stack a bit of time
             after(0.5).then(ex2.fulfill)
             order = true

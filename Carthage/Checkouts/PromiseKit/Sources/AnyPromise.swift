@@ -1,6 +1,6 @@
 import Foundation.NSError
 
-@objc(AnyPromise) public class AnyPromise: NSObject {
+@objc(PMKAnyPromise) public class AnyPromise: NSObject {
 
     private var state: State
 

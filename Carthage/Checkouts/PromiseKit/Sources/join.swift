@@ -7,7 +7,7 @@ import Dispatch
 
      join(promise1, promise2, promise3).then { results in
          //…
-     }.error { error in
+     }.report { error in
          switch error {
          case Error.Join(let promises):
              //…

@@ -47,7 +47,7 @@ private func _when<T>(promises: [Promise<T>]) -> Promise<Void> {
 
      when(promise1, promise2).then { results in
          //…
-     }.error { error in
+     }.report { error in
          switch error {
          case Error.When(let index, NSURLError.NoConnection):
              //…
