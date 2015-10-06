@@ -16,6 +16,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
     public required init(sectionList: MWKSectionList, delegate: WMFTableOfContentsViewControllerDelegate) {
         self.sectionList = sectionList
         self.delegate = delegate
+        self.tableOfContentsFunnel = ToCInteractionFunnel.init()
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .Custom
         self.transitioningDelegate = self
@@ -25,7 +26,10 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
         fatalError("init(coder:) has not been implemented")
     }
 
+    let tableOfContentsFunnel: ToCInteractionFunnel
+
     weak var delegate: WMFTableOfContentsViewControllerDelegate?
+
     
     // MARK: - Sections
     let sectionList: MWKSectionList
@@ -128,6 +132,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
     
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.tableOfContentsFunnel.logOpen()
         //Compensate for status bar and header if the table view hasn't been scrolled
         if(self.tableViewContentOffsetIsCloseTo0()){
             self.tableView.contentOffset = CGPointMake(0, -self.tableView.tableHeaderView!.frame.size.height)
@@ -165,6 +170,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
     // MARK: - UITableViewDelegate
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let section = self.sectionAtIndexPath(indexPath) {
+            self.tableOfContentsFunnel.logClick()
             self.removeSectionHighlightFromAllRows()
             self.addSectionHighlightToSectionAndVisibleRowsIntheSameSectionAs(section, animated: true)
             self.delegate?.tableOfContentsController(self, didSelectSection: section)
@@ -200,6 +206,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
     
     // MARK: - WMFTableOfContentsPresentationControllerTapDelegate
     public func tableOfContentsPresentationControllerDidTapBackground(controller: WMFTableOfContentsPresentationController) {
+        self.tableOfContentsFunnel.logClose()
         self.delegate?.tableOfContentsControllerDidCancel(self)
     }
 
