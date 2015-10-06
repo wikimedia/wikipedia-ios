@@ -42,7 +42,7 @@
 
 - (NSString*)wmf_trim;
 
-- (NSString*)wmf_substringUpToString:(NSString*)string;
+- (NSString*)wmf_substringBeforeString:(NSString*)string;
 - (NSString*)wmf_substringAfterString:(NSString*)string;
 
 @end

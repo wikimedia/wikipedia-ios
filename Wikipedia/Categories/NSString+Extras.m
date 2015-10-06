@@ -142,7 +142,7 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
-- (NSString*)wmf_substringUpToString:(NSString*)string{
+- (NSString*)wmf_substringBeforeString:(NSString*)string{
     return [[self componentsSeparatedByString:string] firstObject];
 }
 - (NSString*)wmf_substringAfterString:(NSString*)string{
