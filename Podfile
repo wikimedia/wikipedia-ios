@@ -46,3 +46,5 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'Nocilla'
   pod 'FBSnapshotTestCase/Core', '~> 2.0.3'
 end
+
+pod 'SVWebViewController', '~> 1.0'

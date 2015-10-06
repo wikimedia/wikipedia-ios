@@ -10,36 +10,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MWKList : MWKDataObject<NSFastEnumeration>
+@interface MWKList <EntryType : id<MWKListObject>,
+                        IndexType : id<NSCopying, NSObject> >
+                                : MWKDataObject<NSFastEnumeration>
 
-- (instancetype)initWithEntries:(NSArray* __nullable)entries;
+                    - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
 /**
  *  Observable - observe to get KVO notifications
  */
-@property (nonatomic, strong, readonly)  NSArray* entries;
+                    @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
 
 - (NSUInteger)countOfEntries;
 
-- (void)addEntry:(id<MWKListObject>)entry;
+- (void)addEntry:(EntryType)entry;
 
-- (void)insertEntry:(id<MWKListObject>)entry atIndex:(NSUInteger)index;
+- (void)insertEntry:(EntryType)entry atIndex:(NSUInteger)index;
 
-- (NSUInteger)indexForEntry:(id<MWKListObject>)entry;
+- (NSUInteger)indexForEntry:(EntryType)entry;
 
-- (id<MWKListObject>)entryAtIndex:(NSUInteger)index;
+- (EntryType)entryAtIndex:(NSUInteger)index;
 
-- (id<MWKListObject> __nullable)entryForListIndex:(id <NSCopying>)listIndex;
+- (EntryType __nullable)entryForListIndex:(IndexType)listIndex;
 
-- (BOOL)containsEntryForListIndex:(id <NSCopying>)listIndex;
+- (BOOL)containsEntryForListIndex:(IndexType)listIndex;
 
-- (void)updateEntryWithListIndex:(id <NSCopying>)listIndex update:(BOOL (^)(id<MWKListObject> __nullable entry))update;
+- (void)updateEntryWithListIndex:(IndexType)listIndex update:(BOOL (^)(EntryType entry))update;
 
-- (void)removeEntry:(id<MWKListObject>)entry;
+- (void)removeEntry:(EntryType)entry;
 
-- (void)removeEntryWithListIndex:(id <NSCopying>)listIndex;
+- (void)removeEntryWithListIndex:(IndexType)listIndex;
 
 - (void)removeAllEntries;
+
+/**
+ *  Sort the receiver's entries in place with the given descriptors.
+ */
+- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors;
 
 /*
  * Indicates if the list has unsaved changes

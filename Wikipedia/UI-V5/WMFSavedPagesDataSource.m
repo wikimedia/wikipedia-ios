@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     if (savedEntry) {
-        [self.savedPageList removeSavedPageWithTitle:savedEntry.title];
+        [self.savedPageList removeEntryWithListIndex:savedEntry.title];
         [self.savedPageList save];
     }
 }

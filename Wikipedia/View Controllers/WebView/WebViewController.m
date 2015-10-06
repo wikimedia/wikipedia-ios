@@ -29,6 +29,7 @@
 #import "UIWebView+WMFJavascriptContext.h"
 #import "UIWebView+WMFTrackingView.h"
 #import "UIWebView+ElementLocation.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -919,7 +920,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 NSURL* url = [NSURL URLWithString:href];
                 NSCAssert(url, @"Failed to from URL from link %@", href);
                 if (url) {
-                    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:url];
+                    [strSelf wmf_openExternalUrl:url];
                 }
             }
         }];
@@ -1352,7 +1353,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)handleRedirectForTitle:(MWKTitle*)title {
-    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForTitle:title];
+    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForListIndex:title];
     MWKHistoryDiscoveryMethod discoveryMethod =
         (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
 
@@ -1479,7 +1480,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
         self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
-        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForTitle:article.title];
+        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForListIndex:article.title];
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
     } else {
@@ -1603,13 +1604,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         case WMFWebViewAlertZeroWebPage:
             if (1 == buttonIndex) {
                 NSURL* url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
-                [[UIApplication sharedApplication] openURL:url];
+                [self wmf_openExternalUrl:url];
             }
             break;
         case WMFWebViewAlertZeroInterstitial:
             if (1 == buttonIndex) {
                 NSURL* url = [NSURL URLWithString:self.externalUrl];
-                [[UIApplication sharedApplication] openURL:url];
+                [self wmf_openExternalUrl:url];
             }
             break;
     }
@@ -1974,5 +1975,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     dialog.tag = WMFWebViewAlertZeroCharged;
     [dialog show];
 }
+
+/*
+   -(void)didReceiveMemoryWarning {
+
+    [self.session.zeroConfigState toggleFakeZeroOn];
+
+   }
+ */
 
 @end

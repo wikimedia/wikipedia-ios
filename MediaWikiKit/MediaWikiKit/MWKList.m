@@ -5,7 +5,7 @@
 
 @interface MWKList ()
 
-@property (nonatomic, strong) NSMutableArray* mutableEntries;
+@property (nonatomic, strong) NSMutableArray<id<MWKListObject> >* mutableEntries;
 @property (nonatomic, readwrite, assign) BOOL dirty;
 
 @end
@@ -37,7 +37,6 @@
     [entries enumerateObjectsUsingBlock:^(id < MWKListObject > obj, NSUInteger idx, BOOL* stop) {
         [self addEntry:obj];
     }];
-
     self.dirty = NO;
 }
 
@@ -75,7 +74,7 @@
     return (id<MWKListObject>)[self objectInEntriesAtIndex : index];
 }
 
-- (id<MWKListObject> __nullable)entryForListIndex:(id <NSCopying>)listIndex {
+- (id<MWKListObject> __nullable)entryForListIndex:(id)listIndex {
     return [self.entries bk_match:^BOOL (id < MWKListObject > obj) {
         if ([[obj listIndex] isEqual:listIndex]) {
             return YES;
@@ -84,12 +83,12 @@
     }];
 }
 
-- (BOOL)containsEntryForListIndex:(id <NSCopying>)listIndex {
+- (BOOL)containsEntryForListIndex:(id)listIndex {
     id<MWKListObject> entry = [self entryForListIndex:listIndex];
     return (entry != nil);
 }
 
-- (void)updateEntryWithListIndex:(id <NSCopying>)listIndex update:(BOOL (^)(id<MWKListObject> entry))update {
+- (void)updateEntryWithListIndex:(id)listIndex update:(BOOL (^)(id<MWKListObject> entry))update {
     id<MWKListObject> obj = [self entryForListIndex:listIndex];
     if (update) {
         // prevent reseting "dirty" if block returns NO and dirty was already YES
@@ -102,7 +101,7 @@
     self.dirty = YES;
 }
 
-- (void)removeEntryWithListIndex:(id <NSCopying>)listIndex {
+- (void)removeEntryWithListIndex:(id)listIndex {
     id<MWKListObject> obj = [self entryForListIndex:listIndex];
     if (obj) {
         [self removeEntry:obj];
@@ -112,6 +111,10 @@
 - (void)removeAllEntries {
     [self.mutableEntries removeAllObjects];
     self.dirty = YES;
+}
+
+- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors {
+    [self.mutableEntries sortUsingDescriptors:sortDesriptors];
 }
 
 #pragma mark - Save

@@ -19,29 +19,22 @@
     self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;
+        [self sortEntries];
     }
     return self;
 }
 
 #pragma mark - Entry Access
 
-- (MWKHistoryEntry*)entryAtIndex:(NSUInteger)index {
-    return [super entryAtIndex:index];
-}
-
-- (MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
-    return [super entryForListIndex:title];
-}
-
-- (NSUInteger)indexForEntry:(MWKHistoryEntry*)entry {
-    return [super indexForEntry:entry];
-}
-
 - (MWKHistoryEntry*)mostRecentEntry {
-    return [self.entries lastObject];
+    return [self.entries firstObject];
 }
 
 #pragma mark - Update Methods
+
+- (void)sortEntries {
+    [self sortEntriesWithDescriptors:[[self class] sortDescriptors]];
+}
 
 - (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (title == nil) {
@@ -59,14 +52,23 @@
     }
     if ([self containsEntryForListIndex:entry.title]) {
         [self updateEntryWithListIndex:entry.title update:^BOOL (MWKHistoryEntry* __nullable oldEntry) {
-            oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
-            oldEntry.date = [NSDate date];
+            // FIXME: do we want to be defensive about carelessly created history entries?
+            // IOW: where does "Unknown" come from and should it overwrite the previous discovery method?
+            oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ?
+                                       oldEntry.discoveryMethod : entry.discoveryMethod;
+            if (oldEntry == entry && oldEntry.date == entry.date) {
+                // adding the same entry is equivalent to updating it's timestamp
+                oldEntry.date = [NSDate date];
+            } else {
+                // adding a manually-created entry updates the new one with its date
+                oldEntry.date = entry.date;
+            }
             return YES;
         }];
     } else {
-        entry.date = [NSDate date];
         [super addEntry:entry];
     }
+    [self sortEntries];
 }
 
 - (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title {
@@ -79,11 +81,11 @@
     }];
 }
 
-- (void)removePageFromHistoryWithTitle:(MWKTitle*)title {
-    if ([title.text length] == 0) {
+- (void)removeEntryWithListIndex:(id)listIndex {
+    if ([[listIndex text] length] == 0) {
         return;
     }
-    [self removeEntryWithListIndex:title];
+    [super removeEntryWithListIndex:listIndex];
 }
 
 - (void)removeEntriesFromHistory:(NSArray*)historyEntries {
@@ -95,8 +97,24 @@
     }];
 }
 
-- (void)removeAllEntriesFromHistory {
+- (void)removeEntry:(id<MWKListObject>)entry {
+    [super removeEntry:entry];
+    [self sortEntries];
+}
+
+- (void)removeAllEntries {
     [super removeAllEntries];
+    [self sortEntries];
+}
+
++ (NSArray<NSSortDescriptor*>*)sortDescriptors {
+    static NSArray<NSSortDescriptor*>* sortDescriptors;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], date)
+                                                          ascending:NO]];
+    });
+    return sortDescriptors;
 }
 
 #pragma mark - Save

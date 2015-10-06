@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath {
     MWKHistoryEntry* entry = [self recentPageForIndexPath:indexPath];
     if (entry) {
-        [self.recentPages removePageFromHistoryWithTitle:entry.title];
+        [self.recentPages removeEntryWithListIndex:entry.title];
         [self.recentPages save];
     }
 }
