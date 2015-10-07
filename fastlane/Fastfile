@@ -22,21 +22,16 @@ platform :ios do
 
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
-    xctest(
-      workspace: 'Wikipedia.xcworkspace',
-      scheme: 'Wikipedia',
-      destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0'
-    )
-
-    # xctool isn't 100% happy w/ Xcode 7
-    # args = [
-    #   'GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES',
-    #   'GCC_GENERATE_TEST_COVERAGE_FILES=YES'
-    # ]
-    # if options[:junit] then
-    #   args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
-    # end
-    # xctool :test, args.join(' ')
+    # xctest(
+    #   workspace: 'Wikipedia.xcworkspace',
+    #   scheme: 'Wikipedia',
+    #   destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0'
+    # )
+    args = []
+    if options[:junit] then
+      args.concat ['-reporter junit:build/reports/unit-tests.xml', '-reporter pretty']
+    end
+    xctool :test, args.join(' ')
   end
 
   desc "Increment the app's build number and commit the changes."
