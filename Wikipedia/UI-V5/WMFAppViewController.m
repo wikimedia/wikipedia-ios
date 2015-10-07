@@ -156,6 +156,10 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
     //TODO: restore any UI, show Today
 }
 
+- (void)pauseApp{
+    
+}
+
 #pragma mark - Utilities
 
 - (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
