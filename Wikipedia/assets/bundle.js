@@ -91,7 +91,7 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
             continue;
         }
         var rect = this.getElementRect(div);
-        if ( (rect.top >= 0) || ((rect.top + rect.height) >= 0)) {
+        if ( (rect.top >= -1) || ((rect.top + rect.height) >= 50)) {
             return i;
         }
     }
