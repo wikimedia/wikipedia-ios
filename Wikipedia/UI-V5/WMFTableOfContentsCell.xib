@@ -19,7 +19,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew3-L9-lHp">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew3-L9-lHp">
                         <rect key="frame" x="34" y="11" width="278" height="21"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -59,8 +59,10 @@
                 </subviews>
                 <animations/>
                 <constraints>
+                    <constraint firstItem="ew3-L9-lHp" firstAttribute="top" relation="greaterThanOrEqual" secondItem="rjc-ni-9zr" secondAttribute="bottom" constant="10" id="0QD-fI-cYK"/>
                     <constraint firstAttribute="trailing" secondItem="rjc-ni-9zr" secondAttribute="trailing" id="Fst-Ae-20o"/>
                     <constraint firstItem="rjc-ni-9zr" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" constant="34" id="IZD-OX-Kru"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ew3-L9-lHp" secondAttribute="bottom" constant="10" id="IjA-fh-GRc"/>
                     <constraint firstItem="yTn-BU-cjO" firstAttribute="leading" secondItem="KCX-Ys-ehz" secondAttribute="leading" id="LIP-aW-bkY"/>
                     <constraint firstItem="ew3-L9-lHp" firstAttribute="leading" secondItem="WnM-xO-Ywd" secondAttribute="trailing" constant="10" id="Tr2-mk-KE5"/>
                     <constraint firstAttribute="bottom" secondItem="Bfs-Qt-Ofl" secondAttribute="bottom" id="UqM-FY-QuJ"/>

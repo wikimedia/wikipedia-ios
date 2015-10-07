@@ -124,6 +124,8 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
         header.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 50.0)
         self.tableView.tableHeaderView = header
+        self.tableView.estimatedRowHeight = 44.0
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
