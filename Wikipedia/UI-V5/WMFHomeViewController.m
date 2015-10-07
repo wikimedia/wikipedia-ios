@@ -163,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.collectionView.dataSource = nil;
 
-    [self flowLayout].estimatedItemHeight = 210;
+    [self flowLayout].estimatedItemHeight = 380;
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = [[self class] defaultSectionInsets];
     [self flowLayout].minimumLineSpacing  = 10.0;
