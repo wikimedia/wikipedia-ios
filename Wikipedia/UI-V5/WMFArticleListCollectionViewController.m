@@ -23,6 +23,7 @@
 
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 
 @interface WMFArticleListCollectionViewController ()
@@ -221,32 +222,29 @@
 
 #pragma mark - Article Selection
 
-- (void)showArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (void)wmf_presentArticle:(MWKArticle*)article
+           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                 dataStore:(MWKDataStore*)dataStore
+               recentPages:(MWKHistoryList*)recentPages
+                savedPages:(MWKSavedPageList*)savedPages {
     if (self.delegate) {
         [self.delegate didSelectArticle:article sender:self];
         return;
     }
 
-    WMFArticleContainerViewController* container =
-        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:self.dataStore
-                                                                           recentPages:self.recentPages
-                                                                            savedPages:self.savedPages];
-    container.article = article;
-
     [self wmf_hideKeyboard];
 
-    [self.navigationController pushViewController:container animated:YES];
-
-    [self.recentPages addPageToHistoryWithTitle:article.title
-                                discoveryMethod:discoveryMethod];
-    [self.recentPages save];
+    [super wmf_presentArticle:article
+              discoveryMethod:discoveryMethod
+                    dataStore:dataStore
+                  recentPages:recentPages
+                   savedPages:savedPages];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self showArticle:[self.dataSource articleForIndexPath:indexPath]
-      discoveryMethod:[self.dataSource discoveryMethod]];
+    presentArticleWithDiscoveryMethod([self.dataSource articleForIndexPath:indexPath], [self.dataSource discoveryMethod]);
 }
 
 #pragma mark - WMFArticleListTransitioning
@@ -265,7 +263,7 @@
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self showArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+        presentArticleWithDiscoveryMethod(article, MWKHistoryDiscoveryMethodSearch);
     }];
 }
 

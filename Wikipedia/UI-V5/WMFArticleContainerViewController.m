@@ -20,6 +20,7 @@
 #import "WMFShareOptionsController.h"
 #import "WMFImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -54,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  WMFSearchPresentationDelegate>
 
 // Data
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong) MWKSavedPageList* savedPages;
 @property (nonatomic, strong) MWKHistoryList* recentPages;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
@@ -100,9 +101,9 @@ NS_ASSUME_NONNULL_BEGIN
                        savedPages:(MWKSavedPageList*)savedPages {
     self = [super init];
     if (self) {
-        self.savedPageList = savedPages;
-        self.recentPages   = recentPages;
-        self.dataStore     = dataStore;
+        self.savedPages  = savedPages;
+        self.recentPages = recentPages;
+        self.dataStore   = dataStore;
         [self commonInit];
     }
     return self;
@@ -169,13 +170,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController             = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
-        _readMoreListViewController.recentPages = self.savedPageList.dataStore.userDataStore.historyList;
-        _readMoreListViewController.dataStore   = self.savedPageList.dataStore;
-        _readMoreListViewController.savedPages  = self.savedPageList;
+        _readMoreListViewController.recentPages = self.savedPages.dataStore.userDataStore.historyList;
+        _readMoreListViewController.dataStore   = self.savedPages.dataStore;
+        _readMoreListViewController.savedPages  = self.savedPages;
         WMFRelatedTitleListDataSource* relatedTitlesDataSource =
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.article.title
-                                                       dataStore:self.savedPageList.dataStore
-                                                   savedPageList:self.savedPageList
+                                                       dataStore:self.savedPages.dataStore
+                                                   savedPageList:self.savedPages
                                        numberOfExtractCharacters:200
                                                      resultLimit:3];
         // TODO: fetch lazily
@@ -317,7 +318,7 @@ NS_ASSUME_NONNULL_BEGIN
                            [self paddingToolbarItem], saveToolbarItem] wmf_reverseArrayIfApplicationIsRTL];
     self.saveButtonController =
         [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
-                                          savedPageList:self.savedPageList
+                                          savedPageList:self.savedPages
                                                   title:self.article.title];
 
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
@@ -329,19 +330,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Article Navigation
-
-- (void)showArticleViewControllerWithArticle:(MWKArticle*)article {
-    WMFArticleContainerViewController* articleVC =
-        [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
-                                                         recentPages:self.recentPages
-                                                          savedPages:self.savedPageList];
-    articleVC.article = article;
-    [self showArticleViewController:articleVC];
-}
-
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title {
-    [self showArticleViewControllerWithArticle:[self.dataStore articleWithTitle:title]];
-}
 
 - (void)showArticleViewController:(WMFArticleContainerViewController*)articleVC {
     [self.recentPages addPageToHistoryWithTitle:articleVC.article.title
@@ -478,8 +466,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)presentPopupForTitle:(MWKTitle*)title {
     //TODO: Disabling pop ups until Popup VC is redesigned.
     //Renable preview when this true
-    [self showArticleViewControllerForTitle:title];
-
+    presentTitleWithDiscoveryMethod(title, MWKHistoryDiscoveryMethodLink);
     return;
 
 //    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];
@@ -506,7 +493,7 @@ NS_ASSUME_NONNULL_BEGIN
      * Work around, make another view controller and push it instead.
      */
     WMFArticleContainerViewController* previewed = (id)viewController;
-    [self showArticleViewControllerForTitle:previewed.article.title];
+    presentArticleWithDiscoveryMethod(previewed.article, MWKHistoryDiscoveryMethodLink);
 }
 
 - (void)   previewController:(WMFPreviewController*)previewController
@@ -549,7 +536,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self showArticleViewControllerWithArticle:article];
+        presentArticleWithDiscoveryMethod(article, MWKHistoryDiscoveryMethodSearch);
     }];
 }
 
