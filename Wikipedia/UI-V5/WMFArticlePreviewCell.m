@@ -6,13 +6,13 @@
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 
-CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
-CGFloat const WMFArticlePreviewCellImageHeight = 160;
-
 @interface WMFArticlePreviewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel* summaryLabel;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
 
 @end
 
@@ -25,17 +25,15 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    CGFloat const preferredMaxLayoutWidth = layoutAttributes.size.width - 2 * WMFArticlePreviewCellTextPadding;
+    CGFloat const preferredMaxLayoutWidth = layoutAttributes.size.width - (self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant);
 
     self.titleLabel.preferredMaxLayoutWidth       = preferredMaxLayoutWidth;
     self.descriptionLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
     self.summaryLabel.preferredMaxLayoutWidth     = preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    CGFloat height                                        =
-        WMFArticlePreviewCellImageHeight +
-        MIN(200, self.summaryLabel.intrinsicContentSize.height + 2 * WMFArticlePreviewCellTextPadding);
-    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
+    
+    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
     return preferredAttributes;
 }
 

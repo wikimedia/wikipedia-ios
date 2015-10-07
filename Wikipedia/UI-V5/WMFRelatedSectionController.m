@@ -163,13 +163,13 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 #pragma mark - Fetch
 
 - (NSUInteger)numberOfExtractCharactersToFetch {
-    CGFloat maxLabelWidth = [self.delegate maxItemWidth] - WMFArticlePreviewCellTextPadding * 2;
+    CGFloat maxLabelWidth = [self.delegate maxItemWidth];
     NSParameterAssert(maxLabelWidth > 0);
     UIFont* summaryHTMLFont           = [UIFont wmf_htmlBodyFont];
     CGFloat approximateCharacterWidth = summaryHTMLFont.xHeight;
     NSUInteger charsPerLine           = ceilf(maxLabelWidth / approximateCharacterWidth);
-    // and an extra half line to force UILabel to truncate the string
-    return charsPerLine * (WMFNumberOfExtractLines + 0.5);
+    // and some extra lines to force UILabel to truncate the string, and hopefully have enough for landscape to truncate it too
+    return charsPerLine * (WMFNumberOfExtractLines + 3.0);
 }
 
 - (void)fetchRelatedArticles {
