@@ -12,7 +12,6 @@
 #import "WikipediaZeroMessageFetcher.h"
 #import "SectionEditorViewController.h"
 #import "CommunicationBridge.h"
-#import "TOCViewController.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "MWLanguageInfo.h"
@@ -88,21 +87,15 @@ static int const kMinimumTextSelectionLength = 2;
 
 @property (nonatomic) CGFloat scrollViewDragBeganVerticalOffset;
 
-@property (nonatomic) BOOL unsafeToScroll;
-
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* tocViewLeadingConstraint;
 
-@property (strong, nonatomic) TOCViewController* tocVC;
-
 @property (strong, nonatomic) UIPanGestureRecognizer* panSwipeRecognizer;
 
 @property (strong, nonatomic) IBOutlet PaddedLabel* zeroStatusLabel;
-
-@property (nonatomic) BOOL unsafeToToggleTOC;
 
 @property (strong, nonatomic) ReferencesVC* referencesVC;
 @property (weak, nonatomic) IBOutlet UIView* referencesContainerView;
