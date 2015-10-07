@@ -66,13 +66,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return searchVC;
 }
 
-- (instancetype)initWithCoder:(NSCoder*)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-    }
-    return self;
-}
-
 #pragma mark - Accessors
 
 - (WMFArticleListTransition*)listTransition {
@@ -170,15 +163,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self.searchFieldTop setConstant:0];
 
-    BOOL willAnimate = [self.transitionCoordinator
-                        animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
+    [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.view layoutIfNeeded];
         [self updateRecentSearchesVisibility:animated];
         [self.searchField becomeFirstResponder];
         [self setSeparatorViewHidden:NO animated:YES];
-    }
-                                        completion:nil];
-    NSParameterAssert(willAnimate);
+    } completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
