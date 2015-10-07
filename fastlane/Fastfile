@@ -66,8 +66,8 @@ platform :ios do
 
     hockey(
       notes: git_commit_log,
-      notify: 0, # do not notify
-      status: 1, # do not make available for download
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
     )
 
     pilot(skip_submission: true, ipa: ENV['IPA_OUTPUT_PATH'])
@@ -87,8 +87,8 @@ platform :ios do
     )
     hockey(
       notes: git_commit_log,
-      notify: 0, # do not notify
-      status: 1, # do not make available for download
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
     )
     pilot(skip_submission: false)
   end
@@ -115,9 +115,9 @@ platform :ios do
 
     hockey(
       notes: git_commit_log,
-      notify: 2, # Notify all testers
-      status: 2, # Make available for download
-      release_type: 2 # 'alpha' release type
+      notify: '2', # Notify all testers
+      status: '2', # Make available for download
+      release_type: '2' # 'alpha' release type
     )
   end
 
@@ -140,9 +140,9 @@ platform :ios do
     )
     hockey(
       notes: git_commit_log,
-      notify: 0, # Do not notify
-      status: 2, # Make available for download
-      release_type: 0 # 'beta' release type
+      notify: '0', # Do not notify
+      status: '2', # Make available for download
+      release_type: '0' # 'beta' release type
     )
   end
 
@@ -160,9 +160,9 @@ platform :ios do
     )
     hockey(
       notes: git_commit_log,
-      notify: 0, # Do not notify
-      status: 1, # Do not make available for download
-      release_type: 1 # 'store' release type
+      notify: '0', # Do not notify
+      status: '1', # Do not make available for download
+      release_type: '1' # 'store' release type
     )
     deliver force: true
   end
