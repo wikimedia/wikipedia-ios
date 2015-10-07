@@ -14,30 +14,6 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
 
-
-
-
-
-/*
- 
-Todo:
-- don't do summary as attributed string! No need based on mocks (an no more links)
-- recent isn't captializing first descrip letter, feed is though.
-- fix bug (pre-dates my patch) causing recent to not show summary of newly browsed-to article
-    repro:
-        -choose top recent article
-        -click on link in that article
-        -click back button to go back to recent list
-        -top recent item will be the newly browsed-to link, but it's summary isn't showing until you scroll down a bit then back up
-    solution?:
-        -have the recent list call reloadData on view will appear?
-
- */
-
-
-
-
-
 @end
 
 @implementation WMFArticlePreviewCell

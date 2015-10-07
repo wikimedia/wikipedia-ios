@@ -5,7 +5,6 @@
 #import "WMFSaveButtonController.h"
 #import "MWKTitle.h"
 
-#import "UIView+WMFShadow.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "UIButton+WMFButton.h"
 
@@ -39,7 +38,6 @@
 - (void)configureContentView {
     self.clipsToBounds               = NO;
     self.contentView.backgroundColor = [UIColor whiteColor];
-    //[self.contentView wmf_setupShadow];
 }
 
 - (void)prepareForReuse {
