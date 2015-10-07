@@ -38,12 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
             [WMFSearchViewController searchViewControllerWithSite:searchSite
                                                         dataStore:[delegate dataStore]];
         searchVC.searchResultDelegate = delegate;
-        [self wmf_presentSearchViewController:searchVC];
+        [self presentViewController:searchVC animated:YES completion:nil];
     }];
-}
-
-- (void)wmf_presentSearchViewController:(UIViewController*)searchViewController {
-    [self presentViewController:searchViewController animated:YES completion:nil];
 }
 
 @end
