@@ -111,7 +111,6 @@ platform :ios do
     gym(
       configuration: "AdHoc",
       scheme: "Wikipedia AdHoc",
-      verbose: true,
       export_method: 'ad-hoc',
       use_legacy_build_api: true
     )
