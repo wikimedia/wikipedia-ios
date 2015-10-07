@@ -101,19 +101,18 @@ platform :ios do
     abort "Must specify BUILD_NUMBER enviroment variable!" unless ENV['BUILD_NUMBER']
     increment_build_number(build_number: ENV['BUILD_NUMBER'])
 
-    sigh(
-      adhoc: true
-    )
     # force iTunes file sharing to be enabled (normally disabled for release builds)
     ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
     # force debug menu to be shown
     ENV['WMF_FORCE_DEBUG_MENU'] = '1'
+
     gym(
       configuration: "AdHoc",
       scheme: "Wikipedia AdHoc",
       export_method: 'ad-hoc',
       use_legacy_build_api: true
     )
+
     hockey(
       notes: git_commit_log,
       notify: '2', # Notify all testers
