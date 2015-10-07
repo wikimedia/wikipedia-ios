@@ -34,16 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate;
 
-/**
- *  Present @c searchViewController as a result of the search button being pressed.
- *
- *  The default implementation uses a custom modal transition.
- *
- *  @param searchViewController A new search view controller which was created with the dependencies provided by
- *                              the delegate given to @c wmf_searchBarButtonItemWithDelegate:.
- */
-- (void)wmf_presentSearchViewController:(UIViewController*)searchViewController;
-
 @end
 
 NS_ASSUME_NONNULL_END
