@@ -86,7 +86,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="search"/>
                                         <connections>
-                                            <action selector="textFieldDidChange" destination="tkf-8P-b2O" eventType="editingChanged" id="hMP-VK-eC0"/>
+                                            <action selector="textFieldDidChange" destination="tkf-8P-b2O" eventType="editingChanged" id="mLE-Vh-4nI"/>
                                             <outlet property="delegate" destination="tkf-8P-b2O" id="G1h-jZ-arN"/>
                                         </connections>
                                     </textField>
@@ -171,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7p-O3-yFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="962" y="2880"/>
+            <point key="canvasLocation" x="625" y="2849"/>
         </scene>
         <!--Recent Searches View Controller-->
         <scene sceneID="MGk-Bd-HA1">

@@ -53,6 +53,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated;
 
+/**
+ *  Set the text of the search field programatically.
+ *
+ *  Sets the text on the receiver's @c searchField and updates the vertical separator's visibility.  This is solely
+ *  for cases when the user searches for something without typing it manually or clearing the search field.
+ *
+ *  @warning Use this instead of setting @c searchField.text directly.
+ *
+ *  @param text The string to show in the search field.
+ */
+- (void)setSearchFieldText:(NSString*)text;
+
 @end
 
 @implementation WMFSearchViewController
@@ -129,6 +141,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.recentSearchesViewController.delegate       = self;
 }
 
+- (void)setSearchFieldText:(NSString*)text {
+    self.searchField.text = text;
+    [self setSeparatorViewHidden:text.length == 0 animated:YES];
+}
+
 #pragma mark - UIViewController
 
 - (BOOL)prefersStatusBarHidden {
@@ -167,7 +184,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.view layoutIfNeeded];
         [self updateRecentSearchesVisibility:animated];
         [self.searchField becomeFirstResponder];
-        [self setSeparatorViewHidden:NO animated:YES];
     } completion:nil];
 }
 
@@ -220,12 +236,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     if (![[self currentSearchTerm] isEqualToString:textField.text]) {
         [self searchForSearchTerm:textField.text];
     }
-    [self setSeparatorViewHidden:NO animated:YES];
 }
 
 - (IBAction)textFieldDidChange {
     NSString* query = self.searchField.text;
-    if ([query wmf_trim].length == 0) {
+
+    BOOL isFieldEmpty = [query wmf_trim].length == 0;
+    [self setSeparatorViewHidden:isFieldEmpty animated:YES];
+
+    if (isFieldEmpty) {
         [self didCancelSearch];
         return;
     }
@@ -250,14 +269,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField*)textField {
-    [self setSeparatorViewHidden:YES animated:YES];
-}
-
 #pragma mark - Search
 
 - (void)didCancelSearch {
-    self.searchField.text = nil;
+    [self setSearchFieldText:nil];
     [self updateSearchSuggestion:nil];
     self.resultsListController.dataSource = nil;
     [self updateRecentSearchesVisibility];
@@ -336,7 +351,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)saveLastSearch {
     if ([self currentSearchTerm]) {
-        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite searchTerm:[self currentSearchTerm]];
+        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite
+                                                                      searchTerm:[self currentSearchTerm]];
         [self.dataStore.userDataStore.recentSearchList addEntry:entry];
         [self.dataStore.userDataStore.recentSearchList save];
         [self.recentSearchesViewController reloadRecentSearches];
@@ -345,8 +361,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFRecentSearchesViewControllerDelegate
 
-- (void)recentSearchController:(RecentSearchesViewController*)controller didSelectSearchTerm:(MWKRecentSearchEntry*)searchTerm {
-    self.searchField.text = searchTerm.searchTerm;
+- (void)recentSearchController:(RecentSearchesViewController*)controller
+           didSelectSearchTerm:(MWKRecentSearchEntry*)searchTerm {
+    [self setSearchFieldText:searchTerm.searchTerm];
     [self searchForSearchTerm:searchTerm.searchTerm];
     [self updateRecentSearchesVisibility];
 }
@@ -354,7 +371,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Actions
 
 - (IBAction)searchForSuggestion:(id)sender {
-    self.searchField.text = [self searchSuggestion];
+    [self setSearchFieldText:[self searchSuggestion]];
     [UIView animateWithDuration:0.25 animations:^{
         [self updateSearchSuggestion:nil];
     }];
