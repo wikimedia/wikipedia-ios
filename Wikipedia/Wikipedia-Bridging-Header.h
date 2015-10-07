@@ -1,3 +1,5 @@
+#import "Global.h"
+
 #import "WikipediaAppUtils.h"
 
 #import "WMFBlockDefinitions.h"

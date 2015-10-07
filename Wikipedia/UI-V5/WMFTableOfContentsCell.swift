@@ -106,8 +106,10 @@ public class WMFTableOfContentsCell: UITableViewCell {
         }
         if(section.isLeadSection()){
             return "Introduction"
+        }else if let line = section.line {
+            return line.wmf_stringByRemovingHTML()
         }else{
-            return section.line
+            return nil
         }
     }
     
