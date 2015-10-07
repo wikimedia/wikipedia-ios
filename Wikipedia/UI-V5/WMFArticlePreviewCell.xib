@@ -22,14 +22,14 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEK-59-fwO" userLabel="Title Label">
-                        <rect key="frame" x="16" y="160" width="329" height="37"/>
+                        <rect key="frame" x="16" y="172" width="329" height="37"/>
                         <animations/>
                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="32"/>
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbF-9q-HIn" userLabel="Description Label">
-                        <rect key="frame" x="16" y="203" width="329" height="53"/>
+                        <rect key="frame" x="16" y="215" width="329" height="41"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.60342281879194626" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,7 +64,7 @@
                 <constraint firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" constant="16" id="5bK-Ct-E22"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="6Mx-UL-OHQ"/>
                 <constraint firstItem="kPi-wU-UzV" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" id="8cS-b1-6Cf"/>
-                <constraint firstItem="pEK-59-fwO" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" id="Acr-mO-9PG"/>
+                <constraint firstItem="pEK-59-fwO" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="12" id="Acr-mO-9PG"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" id="Bwg-G1-AHL"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="KRS-m0-EXB"/>
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="Lc5-K9-mc9"/>
