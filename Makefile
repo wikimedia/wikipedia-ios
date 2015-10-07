@@ -24,7 +24,9 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 
 travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
-	@bundle install --without dev;
+	@brew update; \
+	brew upgrade xctool; \
+	bundle install --without dev;
 
 #!!!!!
 #!!!!! Xcode dependencies
