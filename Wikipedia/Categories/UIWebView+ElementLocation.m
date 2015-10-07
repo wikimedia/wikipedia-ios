@@ -88,7 +88,7 @@
     // by count index (if prefix is "things_" and count is 3 it will check "thing_0", "thing_1"
     // and "thing_2") to see if they are onscreen. Returns index of first one found to be so.
     NSString* strToEval =
-        [NSString stringWithFormat:@"window.elementLocation.getIndexOfFirstOnScreenElementWithTopGreaterThanY('%@', %lu, %f);", prefix, (unsigned long)count, self.scrollView.contentOffset.y];
+        [NSString stringWithFormat:@"window.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu);", prefix, (unsigned long)count];
     NSString* result = [self stringByEvaluatingJavaScriptFromString:strToEval];
     return (result) ? result.integerValue : -1;
 }

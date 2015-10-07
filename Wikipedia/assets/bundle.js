@@ -84,7 +84,7 @@ exports.getElementRectAsJson = function(element) {
     return JSON.stringify(this.getElementRect(element));
 };
 
-exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPrefix, elementCount){
+exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
     for (var i = 0; i < elementCount; ++i) {
         var div = document.getElementById(elementPrefix + i);
         if (div === null) {
