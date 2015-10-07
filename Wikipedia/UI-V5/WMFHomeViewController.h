@@ -15,6 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
 @property (nonatomic, strong) MWKHistoryList* recentPages;
 
+- (void)showArticleViewControllerForTitle:(MWKTitle*)title
+                                 animated:(BOOL)animated
+                          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+
 @end
 
 NS_ASSUME_NONNULL_END
