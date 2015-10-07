@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 + (UIEdgeInsets)defaultSectionInsets {
-    return UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
+    return UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0);
 }
 
 - (UIBarButtonItem*)settingsBarButtonItem {
@@ -163,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.collectionView.dataSource = nil;
 
-    [self flowLayout].estimatedItemHeight = 210;
+    [self flowLayout].estimatedItemHeight = 380;
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = [[self class] defaultSectionInsets];
     [self flowLayout].minimumLineSpacing  = 10.0;
