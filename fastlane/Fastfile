@@ -102,17 +102,16 @@ platform :ios do
     increment_build_number(build_number: ENV['BUILD_NUMBER'])
 
     sigh(
-      adhoc: true,
-      filename: 'build/dev.mobileprovision'
+      adhoc: true
     )
     # force iTunes file sharing to be enabled (normally disabled for release builds)
     ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
     # force debug menu to be shown
     ENV['WMF_FORCE_DEBUG_MENU'] = '1'
-    ipa(
+    gym(
       configuration: "AdHoc",
       scheme: "Wikipedia AdHoc",
-      embed: 'build/dev.mobileprovision',
+      verbose: true
     )
     hockey(
       notes: git_commit_log,
