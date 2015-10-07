@@ -111,7 +111,9 @@ platform :ios do
     gym(
       configuration: "AdHoc",
       scheme: "Wikipedia AdHoc",
-      verbose: true
+      verbose: true,
+      export_method: 'ad-hoc',
+      use_legacy_build_api: true
     )
     hockey(
       notes: git_commit_log,
