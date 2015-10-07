@@ -190,7 +190,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].sectionInset        = [[self class] defaultSectionInsets];
     [self flowLayout].minimumLineSpacing  = 10.0;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -218,7 +218,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 #pragma mark - Notifications
 
-- (void)applicationDidBecomeActiveWithNotification:(NSNotification*)note {
+- (void)applicationDidEnterForegroundWithNotification:(NSNotification*)note {
     if (!self.isViewLoaded) {
         return;
     }
