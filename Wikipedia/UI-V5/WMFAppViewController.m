@@ -58,6 +58,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
  */
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
+static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
@@ -153,7 +154,16 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 }
 
 - (void)resumeApp {
-    //TODO: restore any UI, show Today
+    if([self shouldShowHomeScreenOnLaunch]){
+        [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+        [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+    }else if([self shouldShowLastReadArticleOnLaunch]){
+        MWKTitle* lastRead = [self.session.userDataStore.historyList mostRecentEntry].title;
+        if(lastRead){
+            [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+            [self.homeViewController showArticleViewControllerForTitle:lastRead animated:NO discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+        }
+    }
 }
 
 - (void)pauseApp{
@@ -161,6 +171,40 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 }
 
 #pragma mark - Utilities
+
+- (BOOL)shouldShowHomeScreenOnLaunch{
+    NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    if(!resignActiveDate){
+        return NO;
+    }
+    
+    if(fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingHomeScreen){
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)shouldShowLastReadArticleOnLaunch{
+    NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    if(!resignActiveDate){
+        return NO;
+    }
+    
+    if(fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingHomeScreen){
+        if(![self homeViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeHome){
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)homeViewControllerIsDisplayingContent{
+    if([self navigationControllerForTab:WMFAppTabTypeHome].viewControllers.count > 1){
+        return YES;
+    }else{
+        return NO;
+    }
+}
 
 - (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
     return (UINavigationController*)[self.rootTabBarController viewControllers][tab];

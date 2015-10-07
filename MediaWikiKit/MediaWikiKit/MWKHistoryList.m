@@ -26,7 +26,7 @@
 
 #pragma mark - Entry Access
 
-- (MWKHistoryEntry*)mostRecentEntry {
+- (nullable MWKHistoryEntry*)mostRecentEntry {
     return [self.entries firstObject];
 }
 

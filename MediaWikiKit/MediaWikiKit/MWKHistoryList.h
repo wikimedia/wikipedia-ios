@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, readonly) MWKDataStore* dataStore;
 
-- (MWKHistoryEntry*)mostRecentEntry;
+- (nullable MWKHistoryEntry*)mostRecentEntry;
 
 /**
  *  Add a page to the user history.
