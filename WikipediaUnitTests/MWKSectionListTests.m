@@ -35,7 +35,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.dataStore = mock([MWKDataStore class]);
+    self.dataStore = MKTMock([MWKDataStore class]);
 }
 
 - (void)tearDown {
@@ -48,7 +48,7 @@
         [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
     MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
     assertThat(@(emptySectionList.count), is(equalToInt(0)));
-    [MKTVerifyCount(mockArticle.dataStore, never()) sectionWithId:anything() article:anything()];
+    [MKTVerifyCount(mockArticle.dataStore, MKTNever()) sectionWithId:anything() article:anything()];
 }
 
 - (void)testSectionListInitializationExeptionHandling {
@@ -59,8 +59,8 @@
     [self addEmptyFolderForSection:0 title:anything() mockDataStore:mockArticle.dataStore];
 
     // mock an exception, simulating the case where required fields are missing
-    [given([mockArticle.dataStore sectionWithId:anything()
-                                        article:mockArticle])
+    [MKTGiven([mockArticle.dataStore sectionWithId:anything()
+                                           article:mockArticle])
      willThrow:[NSException new]];
 
     MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
@@ -79,7 +79,7 @@
                                                                            attributes:nil
                                                                                 error:nil];
     NSParameterAssert(didCreateRandomPath);
-    [given([mockDataStore pathForTitle:anything()]) willReturn:randomDirectory];
+    [MKTGiven([mockDataStore pathForTitle:anything()]) willReturn:randomDirectory];
 }
 
 @end

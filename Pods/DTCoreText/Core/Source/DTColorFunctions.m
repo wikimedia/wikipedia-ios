@@ -28,7 +28,7 @@ NSUInteger _integerValueFromHexString(NSString *hexString)
 //- (BOOL)isNumeric
 //{
 //	const char *s = [self UTF8String];
-//
+//	
 //	for (size_t i=0;i<strlen(s);i++)
 //	{
 //		if ((s[i]<'0' || s[i]>'9') && (s[i] != '.'))
@@ -36,7 +36,7 @@ NSUInteger _integerValueFromHexString(NSString *hexString)
 //			return NO;
 //		}
 //	}
-//
+//	
 //	return YES;
 //}
 
@@ -47,18 +47,18 @@ DTColor *DTColorCreateWithHexString(NSString *hexString)
 	{
 		return nil;
 	}
-
+	
 	NSUInteger digits = [hexString length]/3;
 	CGFloat maxValue = (digits==1)?15.0:255.0;
-
+	
 	NSUInteger redValue = _integerValueFromHexString([hexString substringWithRange:NSMakeRange(0, digits)]);
 	NSUInteger greenValue = _integerValueFromHexString([hexString substringWithRange:NSMakeRange(digits, digits)]);
 	NSUInteger blueValue = _integerValueFromHexString([hexString substringWithRange:NSMakeRange(2*digits, digits)]);
-
+	
 	CGFloat red = redValue/maxValue;
 	CGFloat green = greenValue/maxValue;
 	CGFloat blue = blueValue/maxValue;
-
+	
 #if TARGET_OS_IPHONE
 	return [DTColor colorWithRed:red green:green blue:blue alpha:1.0];
 #else
@@ -72,53 +72,53 @@ DTColor *DTColorCreateWithHTMLName(NSString *name)
 	{
 		return DTColorCreateWithHexString([name substringFromIndex:1]);
 	}
-
+	
 	if ([name hasPrefix:@"rgba"])
 	{
 		NSString *rgbaName = [name stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"rgba() "]];
 		NSArray *rgba = [rgbaName componentsSeparatedByString:@","];
-
+		
 		if ([rgba count] != 4)
 		{
 			// Incorrect syntax
 			return nil;
 		}
-
+		
 		CGFloat red = (CGFloat)[[rgba objectAtIndex:0] floatValue] / 255;
 		CGFloat green = [[rgba objectAtIndex:1] floatValue] / 255;
 		CGFloat blue = [[rgba objectAtIndex:2] floatValue] / 255;
 		CGFloat alpha = [[rgba objectAtIndex:3] floatValue];
-
+		
 #if TARGET_OS_IPHONE
 		return [DTColor colorWithRed:red green:green blue:blue alpha:alpha];
 #else
 		return (DTColor *)[NSColor colorWithDeviceRed:red green:green blue:blue alpha:alpha];
 #endif
 	}
-
+	
 	if([name hasPrefix:@"rgb"])
 	{
 		NSString * rgbName = [name stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"rbg() "]];
 		NSArray* rgb = [rgbName componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
-
+		
 		if ([rgb count] != 3)
 		{
 			// Incorrect syntax
 			return nil;
 		}
-
+		
 		CGFloat red = [[rgb objectAtIndex:0] floatValue] / 255;
 		CGFloat green = [[rgb objectAtIndex:1] floatValue] / 255;
 		CGFloat blue = [[rgb objectAtIndex:2] floatValue] / 255;
 		CGFloat alpha = 1.0;
-
+		
 #if TARGET_OS_IPHONE
 		return [DTColor colorWithRed:red green:green blue:blue alpha:alpha];
 #else
 		return (DTColor *)[NSColor colorWithDeviceRed:red green:green blue:blue alpha:alpha];
 #endif
 	}
-
+	
 	static dispatch_once_t predicate;
 	dispatch_once(&predicate, ^{
 		colorLookup = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -271,9 +271,9 @@ DTColor *DTColorCreateWithHTMLName(NSString *name)
 							@"9ACD32", @"yellowgreen",
 							nil];
 	});
-
+	
 	NSString *hexString = [colorLookup objectForKey:[name lowercaseString]];
-
+	
 	return DTColorCreateWithHexString(hexString);
 }
 
@@ -282,23 +282,24 @@ NSString *DTHexStringFromDTColor(DTColor *color)
 	CGColorRef cgColor = color.CGColor;
 	size_t count = CGColorGetNumberOfComponents(cgColor);
 	const CGFloat *components = CGColorGetComponents(cgColor);
-
+	
 	static NSString *stringFormat = @"%02x%02x%02x";
-
+	
 	// Grayscale
 	if (count == 2)
 	{
 		NSUInteger white = (NSUInteger)(components[0] * (CGFloat)255);
 		return [NSString stringWithFormat:stringFormat, white, white, white];
 	}
-
+	
 	// RGB
 	else if (count == 4)
 	{
 		return [NSString stringWithFormat:stringFormat, (NSUInteger)(components[0] * (CGFloat)255),
 				  (NSUInteger)(components[1] * (CGFloat)255), (NSUInteger)(components[2] * (CGFloat)255)];
 	}
-
+	
 	// Unsupported color space
 	return nil;
 }
+

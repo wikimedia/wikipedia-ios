@@ -24,7 +24,7 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 {
 	NSURL *_URL;
 	NSString *_GUID;
-
+	
 	CGSize _minimumHitSize;
 	BOOL _showsTouchWhenHighlighted;
 }
@@ -37,13 +37,13 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 		self.userInteractionEnabled = YES;
 		self.enabled = YES;
 		self.opaque = NO;
-
+		
 		_showsTouchWhenHighlighted = YES;
-
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightNotification:) name:DTLinkButtonDidHighlightNotification object:nil];
 	}
-
-
+	
+	
 	return self;
 }
 
@@ -57,13 +57,13 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 - (void)drawRect:(CGRect)rect
 {
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
-
+	
 	if (self.highlighted)
 	{
 		if (_showsTouchWhenHighlighted)
 		{
 			CGRect imageRect = [self contentRectForBounds:self.bounds];
-
+			
 			UIBezierPath *roundedPath = [UIBezierPath bezierPathWithRoundedRect:imageRect cornerRadius:3.0f];
 			CGContextSetGrayFillColor(ctx, 0.73f, 0.4f);
 			[roundedPath fill];
@@ -78,25 +78,25 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 	CGRect bounds = self.bounds;
 	CGFloat widthExtend = 0;
 	CGFloat heightExtend = 0;
-
+	
 	if (bounds.size.width < _minimumHitSize.width)
 	{
 		widthExtend = _minimumHitSize.width - bounds.size.width;
 	}
-
+	
 	if (bounds.size.height < _minimumHitSize.height)
 	{
 		heightExtend = _minimumHitSize.height - bounds.size.height;
 	}
-
+	
 	if (widthExtend>0 || heightExtend>0)
 	{
 		UIEdgeInsets edgeInsets = UIEdgeInsetsMake(ceil(heightExtend/2.0f), ceil(widthExtend/2.0f), ceil(heightExtend/2.0f), ceil(widthExtend/2.0f));
-
+		
 		// extend bounds by the calculated necessary edge insets
 		bounds.size.width += edgeInsets.left + edgeInsets.right;
 		bounds.size.height += edgeInsets.top + edgeInsets.bottom;
-
+		
 		// apply bounds and insets
 		self.bounds = bounds;
 		self.contentEdgeInsets = edgeInsets;
@@ -115,11 +115,11 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 		// that was me
 		return;
 	}
-
+	
 	NSDictionary *userInfo = [notification userInfo];
-
+	
 	NSString *guid = [userInfo objectForKey:@"GUID"];
-
+	
 	if ([guid isEqualToString:_GUID])
 	{
 		BOOL highlighted = [[userInfo objectForKey:@"Highlighted"] boolValue];
@@ -136,12 +136,12 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 {
 	[super setHighlighted:highlighted];
 	[self setNeedsDisplay];
-
+	
 	// notify other parts of the same link
 	if (_GUID)
 	{
 		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:highlighted], @"Highlighted", _GUID, @"GUID", nil];
-
+		
 		[[NSNotificationCenter defaultCenter] postNotificationName:DTLinkButtonDidHighlightNotification object:self userInfo:userInfo];
 	}
 }
@@ -149,12 +149,12 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 - (void)setFrame:(CGRect)frame
 {
 	[super setFrame:frame];
-
+	
 	if (CGRectIsEmpty(frame))
 	{
 		return;
 	}
-
+	
 	[self _adjustBoundsIfNecessary];
 }
 
@@ -165,9 +165,9 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 	{
 		return;
 	}
-
+	
 	_minimumHitSize = minimumHitSize;
-
+	
 	[self _adjustBoundsIfNecessary];
 }
 

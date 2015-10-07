@@ -18,6 +18,7 @@
 #import "SessionSingleton.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 // View
 #import <Masonry/Masonry.h>
@@ -41,6 +42,7 @@
 #import "MWKImage.h"
 #import "MWKLicense+ToGlyph.h"
 #import "MWKImageInfo+MWKImageComparison.h"
+#import "MWKArticle.h"
 
 // Networking
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
@@ -476,7 +478,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         [cell.detailOverlayView setLicense:infoForImage.license owner:ownerOrFallback];
 
         cell.detailOverlayView.ownerTapCallback = ^{
-            [[UIApplication sharedApplication] openURL:infoForImage.license.URL];
+            [self wmf_openExternalUrl:infoForImage.license.URL];
         };
     }
 

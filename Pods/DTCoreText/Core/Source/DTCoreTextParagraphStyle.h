@@ -7,8 +7,8 @@
 //
 
 /**
- `DTCoreTextParagraphStyle` encapsulates the paragraph or ruler attributes used by the NSAttributedString classes on iOS. It is a replacement for `NSParagraphStyle` which is not implemented on iOS.
-
+ `DTCoreTextParagraphStyle` encapsulates the paragraph or ruler attributes used by the NSAttributedString classes on iOS. It is a replacement for `NSParagraphStyle` which is not implemented on iOS. 
+ 
  Since `NSAttributedString` instances use CTParagraphStyle object there are methods to bridge from and to these. Because of this distinction there is no need for a mutable variant of this class.
  */
 @interface DTCoreTextParagraphStyle : NSObject <NSCopying>
@@ -30,7 +30,7 @@
 
 /**
  Create a new paragraph style instance from a `CTParagraphStyle`.
-
+ 
  @param ctParagraphStyle the `CTParagraphStyle` from which to copy this new style's attributes.
  */
 + (DTCoreTextParagraphStyle *)paragraphStyleWithCTParagraphStyle:(CTParagraphStyleRef)ctParagraphStyle;
@@ -38,14 +38,14 @@
 
 /**
  Create a new paragraph style instance from a `CTParagraphStyle`.
-
+ 
  @param ctParagraphStyle the `CTParagraphStyle` from which to copy this new style's attributes.
  */
 - (id)initWithCTParagraphStyle:(CTParagraphStyleRef)ctParagraphStyle;
 
 /**
  Create a new `CTParagraphStyle` from the receiver for use as attribute in `NSAttributedString`
-
+ 
  @returns The `CTParagraphStyle` based on the receiver's attributes.
  */
 - (CTParagraphStyleRef)createCTParagraphStyle;
@@ -57,17 +57,17 @@
 #if DTCORETEXT_SUPPORT_NS_ATTRIBUTES
 /**
  Create a new paragraph style instance from an `NSParagraphStyle`.
-
+ 
  Note: on iOS no tab stops are supported.
  @param paragraphStyle the `NSParagraphStyle` from which to copy this new style's attributes.
  */
 + (DTCoreTextParagraphStyle *)paragraphStyleWithNSParagraphStyle:(NSParagraphStyle *)paragraphStyle;
 
 /**
- Create a new `NSParagraphStyle` from the receiver for use as attribute in `NSAttributedString`.
-
+ Create a new `NSParagraphStyle` from the receiver for use as attribute in `NSAttributedString`. 
+ 
  Note: This method is requires iOS 6 or greater. This does not support tab stops.
-
+ 
  @returns The `NSParagraphStyle` based on the receiver's attributes.
  */
 - (NSParagraphStyle *)NSParagraphStyle;
@@ -87,7 +87,7 @@
 
 /**
   The document-wide default tab interval.
-
+ 
  The default tab interval in points. Tabs after the last specified in tabStops are placed at integer multiples of this distance (if positive). Default return value is 0.0.
  */
 @property (nonatomic, assign) CGFloat defaultTabInterval;
@@ -100,14 +100,14 @@
 
 
 /**
- The space after the end of the paragraph.
+ The space after the end of the paragraph. 
  */
 @property (nonatomic, assign) CGFloat paragraphSpacing;
 
 
 /**
  The line height multiple.
-
+ 
  Internally line height multiples get converted into minimum and maximum line height.
  */
 @property (nonatomic, assign) CGFloat lineHeightMultiple;
@@ -126,8 +126,8 @@
 
 
 /**
-The distance in points from the margin of a text container to the end of lines.
-
+The distance in points from the margin of a text container to the end of lines. 
+ 
  @note This value is negative if it is to be measured from the trailing margin, positive if measured from the same margin as the headIndent.
  */
 @property (nonatomic, assign) CGFloat tailIndent;
@@ -147,7 +147,7 @@ The distance in points from the margin of a text container to the end of lines.
 
 /**
  The base writing direction for the receiver.
-
+ 
 */
 @property (nonatomic, assign) CTWritingDirection baseWritingDirection;
 
@@ -165,7 +165,7 @@ The distance in points from the margin of a text container to the end of lines.
 
 /**
   Adds a tab stop to the receiver.
-
+ 
  @param position the tab stop position
  @param alignment the tab alignment for this tab stop
  */
@@ -179,7 +179,7 @@ The distance in points from the margin of a text container to the end of lines.
 
 /**
  Create a representation suitable for CSS.
-
+ 
  @returns A string with the receiver's style encoded as CSS.
  */
 - (NSString *)cssStyleRepresentation;
@@ -190,7 +190,7 @@ The distance in points from the margin of a text container to the end of lines.
  ---------------------------------------------------------------------------------------
  */
 
-/**
+/** 
  Text lists containing the paragraph, nested from outermost to innermost. Each text list is a DTCSSListStyle object.
 */
 @property (nonatomic, copy) NSArray *textLists;
@@ -201,7 +201,7 @@ The distance in points from the margin of a text container to the end of lines.
  ---------------------------------------------------------------------------------------
  */
 
-/**
+/** 
  Text blocks containing the paragraph, nested from outermost to innermost, to array. Each text block is a DTTextBlock object.
  */
 @property (nonatomic, copy) NSArray *textBlocks;

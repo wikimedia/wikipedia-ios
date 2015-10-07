@@ -41,9 +41,9 @@ static const CGPoint DTAccessibilityElementNullActivationPoint = {CGFLOAT_MAX, C
 	{
 		point = [super accessibilityActivationPoint];
 	}
-
+	
 	point = [self.parentView.window convertPoint:point fromView:self.parentView];
-
+	
 	return point;
 }
 

@@ -55,7 +55,7 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 
         self.keychainCredentials         = [[KeychainCredentials alloc] init];
         self.zeroConfigState             = [[ZeroConfigState alloc] init];
-        self.zeroConfigState.disposition = false;
+        self.zeroConfigState.disposition = NO;
 
         self.dataStore = dataStore;
 

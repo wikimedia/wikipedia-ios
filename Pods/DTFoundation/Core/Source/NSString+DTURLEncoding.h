@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Cocoanetics. All rights reserved.
 //
 
-/**
+/** 
  A collection of useful additions for `NSString` to deal with URL encoding.
  */
 
@@ -19,9 +19,9 @@
 
 
 /** Encoding suitable for use in URLs.
-
+ 
  stringByAddingPercentEscapes does not replace serveral characters which are problematics in URLs.
-
+ 
  @return The encoded version of the receiver.
  */
 - (NSString *)stringByURLEncoding;

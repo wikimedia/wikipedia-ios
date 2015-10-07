@@ -14,7 +14,7 @@
 
 /**
  Moves the object at the specified indexes to the new location.
-
+ 
  @param indexes The indexes of the objects to move.
  @param idx The index in the mutable array at which to insert the objects.
  */

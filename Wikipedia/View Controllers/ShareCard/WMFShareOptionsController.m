@@ -22,6 +22,9 @@
 #import "WMFShareOptionsView.h"
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
+#import "MWKArticle.h"
+#import "NSURL+Extras.h"
+#import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

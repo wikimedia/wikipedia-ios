@@ -70,21 +70,21 @@
 }
 
 - (void)testInformingDelegateOfCitationTap {
-    id<WMFArticleNavigationDelegate> mockDelegate = mockProtocol(@protocol(WMFArticleNavigationDelegate));
+    id<WMFArticleNavigationDelegate> mockDelegate = MKTMockProtocol(@protocol(WMFArticleNavigationDelegate));
     NSURL* testURL                                = [NSURL URLWithString:[NSString stringWithFormat:@"#%@-0", WMFCitationFragmentSubstring]];
     [testURL wmf_informNavigationDelegate:mockDelegate withSender:nil];
     [MKTVerify(mockDelegate) articleNavigator:nil didTapCitationLink:testURL.fragment];
 }
 
 - (void)testInformingDelegateOfExternalLinkTap {
-    id<WMFArticleNavigationDelegate> mockDelegate = mockProtocol(@protocol(WMFArticleNavigationDelegate));
+    id<WMFArticleNavigationDelegate> mockDelegate = MKTMockProtocol(@protocol(WMFArticleNavigationDelegate));
     NSURL* testURL                                = [NSURL URLWithString:@"https://www.google.com"];
     [testURL wmf_informNavigationDelegate:mockDelegate withSender:nil];
     [MKTVerify(mockDelegate) articleNavigator:nil didTapExternalLink:testURL];
 }
 
 - (void)testInformingDelegateOfInternalLinkTap {
-    id<WMFArticleNavigationDelegate> mockDelegate = mockProtocol(@protocol(WMFArticleNavigationDelegate));
+    id<WMFArticleNavigationDelegate> mockDelegate = MKTMockProtocol(@protocol(WMFArticleNavigationDelegate));
     NSURL* testURL                                = [NSURL URLWithString:[NSString stringWithFormat:@"https://en.wikipedia.org%@Foo", WMFInternalLinkPathPrefix]];
     [testURL wmf_informNavigationDelegate:mockDelegate withSender:nil];
     MWKTitle* titleFromTestURL = [[MWKTitle alloc] initWithURL:testURL];

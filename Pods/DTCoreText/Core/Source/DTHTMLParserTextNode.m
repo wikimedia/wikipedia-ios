@@ -17,13 +17,13 @@
 - (id)initWithCharacters:(NSString *)characters
 {
 	self = [super init];
-
+	
 	if (self)
 	{
 		self.name = @"#TEXT#";
-
+		
 		_characters = characters;
-
+		
 	}
 	return self;
 }
@@ -43,7 +43,7 @@
 	{
 		[string appendString:@"   "];
 	}
-
+	
 	[string appendFormat:@"\"%@\"\n", [_characters stringByNormalizingWhitespace]];
 }
 

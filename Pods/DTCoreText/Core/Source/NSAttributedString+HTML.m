@@ -25,12 +25,12 @@
 - (id)initWithHTMLData:(NSData *)data baseURL:(NSURL *)base documentAttributes:(NSDictionary * __autoreleasing*)docAttributes
 {
 	NSDictionary *optionsDict = nil;
-
+	
 	if (base)
 	{
 		optionsDict = [NSDictionary dictionaryWithObject:base forKey:NSBaseURLDocumentOption];
 	}
-
+	
 	return [self initWithHTMLData:data options:optionsDict documentAttributes:docAttributes];
 }
 
@@ -41,20 +41,20 @@
 	{
 		return nil;
 	}
-
+	
 	DTHTMLAttributedStringBuilder *stringBuilder = [[DTHTMLAttributedStringBuilder alloc] initWithHTML:data options:options documentAttributes:docAttributes];
 
 	void (^callBackBlock)(DTHTMLElement *element) = [options objectForKey:DTWillFlushBlockCallBack];
-
+	
 	if (callBackBlock)
 	{
 		[stringBuilder setWillFlushCallback:callBackBlock];
 	}
-
+	
 	// This needs to be on a seprate line so that ARC can handle releasing the object properly
 	// return [stringBuilder generatedAttributedString]; shows leak in instruments
 	id string = [stringBuilder generatedAttributedString];
-
+	
 	return string;
 }
 
@@ -68,55 +68,55 @@
 - (NSRange)rangeOfHTMLAttribute:(NSString *)name atIndex:(NSUInteger)index
 {
 	NSRange rangeSoFar;
-
+	
 	NSDictionary *attributes = [self attribute:DTCustomAttributesAttribute atIndex:index effectiveRange:&rangeSoFar];
-
+	
 	NSAssert(attributes, @"No custom attribute '%@' at index %d", name, (int)index);
-
+	
 	// check if there is a value for this custom attribute name
 	id value = [attributes objectForKey:name];
-
+	
 	if (!attributes || !value)
 	{
 		return NSMakeRange(NSNotFound, 0);
 	}
-
+	
 	// search towards beginning
 	while (rangeSoFar.location>0)
 	{
 		NSRange extendedRange;
 		attributes = [self attribute:DTCustomAttributesAttribute atIndex:rangeSoFar.location-1 effectiveRange:&extendedRange];
-
+		
 		id extendedValue = [attributes objectForKey:name];
-
+		
 		// abort search if key not found or value not identical
 		if (!extendedValue || ![extendedValue isEqual:value])
 		{
 			break;
 		}
-
+		
 		rangeSoFar = NSUnionRange(rangeSoFar, extendedRange);
 	}
-
+	
 	NSUInteger length = [self length];
-
+	
 	// search towards end
 	while (NSMaxRange(rangeSoFar)<length)
 	{
 		NSRange extendedRange;
 		attributes = [self attribute:DTCustomAttributesAttribute atIndex:NSMaxRange(rangeSoFar) effectiveRange:&extendedRange];
-
+		
 		id extendedValue = [attributes objectForKey:name];
-
+		
 		// abort search if key not found or value not identical
 		if (!extendedValue || ![extendedValue isEqual:value])
 		{
 			break;
 		}
-
+		
 		rangeSoFar = NSUnionRange(rangeSoFar, extendedRange);
 	}
-
+	
 	return rangeSoFar;
 }
 

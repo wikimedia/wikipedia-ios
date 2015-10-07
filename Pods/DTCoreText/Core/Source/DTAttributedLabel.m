@@ -22,19 +22,19 @@
 {
 	// we want to relayout the text if height or width change
 	self.relayoutMask = DTAttributedTextContentViewRelayoutOnHeightChanged | DTAttributedTextContentViewRelayoutOnWidthChanged;
-
+	
 	self.layoutFrameHeightIsConstrainedByBounds = YES; // height is not flexible
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
-
+	
 	if (self)
 	{
 		[self setupAttributedLabel];
 	}
-
+	
 	return self;
 }
 
@@ -52,14 +52,14 @@
 	{
 		return CGSizeMake(-1, -1);  // UIViewNoIntrinsicMetric as of iOS 6
 	}
-
+	
 	//  we have a layout frame and from this we get the needed size
 	CGSize intrisicContentSize = [_layoutFrame intrinsicContentFrame].size;
 	return CGSizeMake(intrisicContentSize.width + _edgeInsets.left + _edgeInsets.right,
 					  intrisicContentSize.height + _edgeInsets.top + _edgeInsets.bottom);
 }
 
-#pragma mark - Properties
+#pragma mark - Properties 
 
 - (NSInteger)numberOfLines
 {

@@ -15,10 +15,10 @@
  */
 @interface UIImage (HTML)
 
-/**
+/** 
  Retrieve the NSData representation of a UIImage. Used to encode UIImages in DTTextAttachments.
-
- @returns The NSData representation of the UIImage instance receiving this message. Convenience method for UIImagePNGRepresentation().
+ 
+ @returns The NSData representation of the UIImage instance receiving this message. Convenience method for UIImagePNGRepresentation(). 
  */
 - (NSData *)dataForPNGRepresentation;
 
@@ -32,10 +32,10 @@
 @interface NSImage (HTML)
 
 
-/**
+/** 
  Retrieve the NSData representation of a NSImage.
-
- @returns The NSData representation of the NSImage instance receiving this message.
+ 
+ @returns The NSData representation of the NSImage instance receiving this message. 
  */
 - (NSData *)dataForPNGRepresentation;
 

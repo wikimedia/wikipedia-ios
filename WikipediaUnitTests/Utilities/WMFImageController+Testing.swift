@@ -8,6 +8,7 @@
 
 import Foundation
 import Wikipedia
+import SDWebImage
 
 extension WMFImageController {
     public class func temporaryController(downloader: SDWebImageDownloader = SDWebImageDownloader()) -> WMFImageController {

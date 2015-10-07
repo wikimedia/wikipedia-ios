@@ -12,7 +12,7 @@
 
 /**
  This class represents a CSS style sheet used for specifying formatting for certain CSS selectors.
-
+ 
  It supports matching styles by class, by id or by tag name. Hierarchy matching is not supported yet.
  */
 @interface DTCSSStylesheet : NSObject <NSCopying>
@@ -24,7 +24,7 @@
 
 /**
  Creates the default stylesheet.
-
+ 
  This stylesheet is based on the standard styles that Webkit provides for these tags. This stylesheet is loaded from an embedded copy of default.css.
  */
 + (DTCSSStylesheet *)defaultStyleSheet;
@@ -32,7 +32,7 @@
 
 /**
  Creates a stylesheet with a given style block
-
+ 
  @param css The CSS string for the style block
  */
 - (id)initWithStyleBlock:(NSString *)css;
@@ -45,15 +45,15 @@
 
 /**
  Parses a style block string and adds the found style rules to the receiver.
-
+ 
  @param css The CSS string for the style block
-*/
+*/ 
 - (void)parseStyleBlock:(NSString *)css;
 
 
 /**
  Merges styles from given stylesheet into the receiver
-
+ 
  @param stylesheet the stylesheet to merge
  */
 - (void)mergeStylesheet:(DTCSSStylesheet *)stylesheet;
@@ -65,7 +65,7 @@
 
 /**
  Returns a dictionary that contains the merged style for a given element and the applicable style rules from the receiver.
-
+ 
  @param element The HTML element.
  @param matchedSelectors The CSS selectors that caused a match
  @param ignoreInlineStyle If `YES` then the inline styles of the element will be ignored and only the receiver's styles used

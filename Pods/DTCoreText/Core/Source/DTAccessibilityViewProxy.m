@@ -25,17 +25,17 @@
 - (Class)class
 {
 	Class aClass = [[self proxiedView] class];
-
+	
 	if (!aClass)
 		aClass = [DTAccessibilityViewProxy class];
-
+	
 	return aClass;
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
 {
 	NSMethodSignature *signature = [UIView instanceMethodSignatureForSelector:sel];
-
+	
 	return signature;
 }
 

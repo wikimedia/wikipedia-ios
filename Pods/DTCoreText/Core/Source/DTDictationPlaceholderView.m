@@ -30,7 +30,7 @@
     if (self)
     {
         self.backgroundColor = [UIColor clearColor];
-
+        
         [self sizeToFit];
     }
     return self;
@@ -54,9 +54,9 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview
 {
     [super willMoveToSuperview:newSuperview];
-
+  
     [_phaseTimer invalidate], _phaseTimer = nil;
-
+    
     if (newSuperview)
     {
         _phaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(_phaseTimerTick:) userInfo:nil repeats:YES];
@@ -67,9 +67,9 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-
+    
     CGRect dotRect = CGRectMake(DOT_OUTSIDE_MARGIN, 4, DOT_WIDTH, DOT_WIDTH);
-
+    
     if (_phase==0)
     {
         CGContextSetFillColorWithColor(ctx, [self _darkDotColor].CGColor);
@@ -78,11 +78,11 @@
     {
         CGContextSetFillColorWithColor(ctx, [self _lightDotColor].CGColor);
     }
-
+    
     CGContextFillEllipseInRect(ctx, dotRect);
-
+    
     dotRect.origin.x = DOT_DISTANCE + CGRectGetMaxX(dotRect);
-
+    
     if (_phase==1)
     {
         CGContextSetFillColorWithColor(ctx, [self _darkDotColor].CGColor);
@@ -91,11 +91,11 @@
     {
         CGContextSetFillColorWithColor(ctx, [self _lightDotColor].CGColor);
     }
-
+    
     CGContextFillEllipseInRect(ctx, dotRect);
 
     dotRect.origin.x = DOT_DISTANCE + CGRectGetMaxX(dotRect);
-
+    
     if (_phase==2)
     {
         CGContextSetFillColorWithColor(ctx, [self _darkDotColor].CGColor);
@@ -104,7 +104,7 @@
     {
         CGContextSetFillColorWithColor(ctx, [self _lightDotColor].CGColor);
     }
-
+    
     CGContextFillEllipseInRect(ctx, dotRect);
 }
 

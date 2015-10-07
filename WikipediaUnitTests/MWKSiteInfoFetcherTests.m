@@ -44,8 +44,7 @@
 }
 
 - (void)testErrorHandling {
-    AFHTTPRequestOperationManager* mockReqManager =
-        mock([[NSBundle mainBundle] classNamed:NSStringFromClass([AFHTTPRequestOperationManager class])]);
+    AFHTTPRequestOperationManager* mockReqManager = MKTMock([AFHTTPRequestOperationManager class]);
     self.fetcher.requestManager = mockReqManager;
 
     MWKSite* testSite = [MWKSite siteWithCurrentLocale];
@@ -68,8 +67,7 @@
 }
 
 - (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture site:(MWKSite*)testSite {
-    AFHTTPRequestOperationManager* mockReqManager =
-        mock([[NSBundle mainBundle] classNamed:NSStringFromClass([AFHTTPRequestOperationManager class])]);
+    AFHTTPRequestOperationManager* mockReqManager = MKTMock([AFHTTPRequestOperationManager class]);
     self.fetcher.requestManager = mockReqManager;
 
     NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];

@@ -23,10 +23,10 @@ CTLineTruncationType DTCTLineTruncationTypeFromNSLineBreakMode(NSLineBreakMode l
 	{
 		case UILineBreakModeHeadTruncation:
 			return kCTLineTruncationStart;
-
+			
 		case UILineBreakModeMiddleTruncation:
 			return kCTLineTruncationMiddle;
-
+			
 		default:
 			return kCTLineTruncationEnd;
 	}
@@ -35,10 +35,10 @@ CTLineTruncationType DTCTLineTruncationTypeFromNSLineBreakMode(NSLineBreakMode l
 	{
 		case NSLineBreakByTruncatingHead:
 			return kCTLineTruncationStart;
-
+			
 		case NSLineBreakByTruncatingMiddle:
 			return kCTLineTruncationMiddle;
-
+			
 		default:
 			return kCTLineTruncationEnd;
 	}
@@ -73,22 +73,22 @@ CTTextAlignment DTNSTextAlignmentToCTTextAlignment(NSTextAlignment nsTextAlignme
 		{
 			return kCTTextAlignmentLeft;
 		}
-
+			
 		case NSTextAlignmentRight:
 		{
 			return kCTTextAlignmentRight;
 		}
-
+			
 		case NSTextAlignmentCenter:
 		{
 			return kCTTextAlignmentCenter;
 		}
-
+			
 		case NSTextAlignmentJustified:
 		{
 			return kCTTextAlignmentJustified;
 		}
-
+			
 		case NSTextAlignmentNatural:
 		{
 			return kCTTextAlignmentNatural;
@@ -98,17 +98,17 @@ CTTextAlignment DTNSTextAlignmentToCTTextAlignment(NSTextAlignment nsTextAlignme
 		{
 			return kCTTextAlignmentLeft;
 		}
-
+			
 		case NSRightTextAlignment:
 		{
 			return kCTTextAlignmentRight;
 		}
-
+			
 		case NSCenterTextAlignment:
 		{
 			return kCTTextAlignmentCenter;
 		}
-
+			
 		case NSJustifiedTextAlignment:
 		{
 			return kCTTextAlignmentJustified;
@@ -119,7 +119,7 @@ CTTextAlignment DTNSTextAlignmentToCTTextAlignment(NSTextAlignment nsTextAlignme
 			return kCTTextAlignmentNatural;
 		}
 #endif
-
+			
 		default:
 		{
 			DTLogError(@"Unknown alignment %d", (int)nsTextAlignment);
@@ -137,22 +137,22 @@ NSTextAlignment DTNSTextAlignmentFromCTTextAlignment(CTTextAlignment ctTextAlign
 		{
 			return NSTextAlignmentLeft;
 		}
-
+			
 		case kCTTextAlignmentRight:
 		{
 			return NSTextAlignmentRight;
 		}
-
+			
 		case kCTTextAlignmentCenter:
 		{
 			return NSTextAlignmentCenter;
 		}
-
+			
 		case kCTTextAlignmentJustified:
 		{
 			return NSTextAlignmentJustified;
 		}
-
+			
 		case kCTTextAlignmentNatural:
 		{
 			return NSTextAlignmentNatural;
@@ -165,22 +165,22 @@ NSTextAlignment DTNSTextAlignmentFromCTTextAlignment(CTTextAlignment ctTextAlign
 		{
 			return NSLeftTextAlignment;
 		}
-
+			
 		case kCTTextAlignmentRight:
 		{
 			return NSRightTextAlignment;
 		}
-
+			
 		case kCTTextAlignmentCenter:
 		{
 			return NSCenterTextAlignment;
 		}
-
+			
 		case kCTTextAlignmentJustified:
 		{
 			return NSJustifiedTextAlignment;
 		}
-
+			
 		case kCTTextAlignmentNatural:
 		{
 			return NSNaturalTextAlignment;
@@ -190,3 +190,5 @@ NSTextAlignment DTNSTextAlignmentFromCTTextAlignment(CTTextAlignment ctTextAlign
 }
 
 #endif
+
+

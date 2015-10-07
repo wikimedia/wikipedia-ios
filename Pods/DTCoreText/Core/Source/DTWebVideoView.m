@@ -18,27 +18,27 @@
 @implementation DTWebVideoView
 {
 	DTTextAttachment *_attachment;
-
+	
 	DT_WEAK_VARIABLE id <DTWebVideoViewDelegate> _delegate;
-
+	
 	UIWebView *_webView;
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self)
+    if (self) 
 	{
 		self.userInteractionEnabled = YES;
-
+		
 		_webView = [[UIWebView alloc] initWithFrame:self.bounds];
 		_webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self addSubview:_webView];
-
+		
 		[self disableScrolling];
-
+		
 		_webView.delegate = self;
-
+		
 		if ([_webView respondsToSelector:@selector(setAllowsInlineMediaPlayback:)])
 		{
 			_webView.allowsInlineMediaPlayback = YES;
@@ -50,7 +50,7 @@
 - (void)dealloc
 {
 	_webView.delegate = nil;
-
+	
 }
 
 
@@ -62,13 +62,13 @@
 		if ([oneView isKindOfClass:[UIScrollView class]])
 		{
 			UIScrollView *scrollView = (id)oneView;
-
+			
 			scrollView.scrollEnabled = NO;
 			scrollView.bounces = NO;
-
+			
 			return;
 		}
-	}
+	}	
 }
 
 #pragma mark UIWebViewDelegate
@@ -88,17 +88,17 @@
 	}
 
 	BOOL shouldOpenExternalURL = YES;
-
+	
 	if ([_delegate respondsToSelector:@selector(videoView:shouldOpenExternalURL:)])
 	{
 		shouldOpenExternalURL = [_delegate videoView:self shouldOpenExternalURL:[request URL]];
 	}
-
+	
 	if (shouldOpenExternalURL)
 	{
 		[[UIApplication sharedApplication] openURL:[request URL]];
 	}
-
+	
 	return NO;
 }
 
@@ -110,9 +110,9 @@
 {
 	if (_attachment != attachment)
 	{
-
+		
 		_attachment = attachment;
-
+		
 		if ([attachment isKindOfClass:[DTIframeTextAttachment class]])
 		{
 			NSURLRequest *request = [NSURLRequest requestWithURL:attachment.contentURL];

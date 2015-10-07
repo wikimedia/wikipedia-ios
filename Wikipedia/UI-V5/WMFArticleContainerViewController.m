@@ -30,6 +30,7 @@
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
 #import "MWKArticlePreview.h"
+#import "MWKHistoryList.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -39,6 +40,7 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UIWebView+WMFTrackingView.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -442,7 +444,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
       didTapExternalLink:(NSURL* __nonnull)externalURL {
-//    [[[SessionSingleton sharedInstance] zeroConfigState] showWarningIfNeededBeforeOpeningURL:externalURL];
+    [self wmf_openExternalUrl:externalURL];
 }
 
 #pragma mark - WMFArticleListItemController

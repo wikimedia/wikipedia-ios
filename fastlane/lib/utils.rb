@@ -2,17 +2,6 @@
 
 require 'git'
 
-LANE_APPLE_IDS = {
-    'ios alpha' => '981253550',
-    'ios beta' => '974795031',
-    'ios store' => '324715238'
-}.freeze
-
-def export_apple_id(lane)
-  ENV['WMF_APPLE_ID'] = LANE_APPLE_IDS[lane]
-  puts "Exported apple_id '#{ENV['WMF_APPLE_ID']}' for delivery from lane '#{lane}'."
-end
-
 # Returns true if the `NO_DEPLOY` env var is set to 1
 def deploy_disabled?
   ENV['NO_DEPLOY'] == '1'

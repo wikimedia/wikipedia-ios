@@ -1,5 +1,5 @@
 //  Created by Monte Hurd on 9/21/15.
-//  Copyright © 2015 Monte Hurd. All rights reserved.
+//  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 import UIKit
 
