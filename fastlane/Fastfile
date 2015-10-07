@@ -16,15 +16,6 @@ platform :ios do
      verify_xcode
   end
 
-  desc "Combines multiple lanes into CI for testing, bumping & deploying alphas."
-  lane :ci do
-    bump
-    verify(junit: true)
-    # Doing dev & alpha builds until alpha processing times go down
-    dev
-    alpha
-  end
-
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
     make 'lint' unless test_disabled?
