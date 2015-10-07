@@ -347,7 +347,6 @@
 		BC6BFC5F1B680A410074D0DA /* NSString+WMFGlyphs.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC5E1B680A410074D0DA /* NSString+WMFGlyphs.m */; };
 		BC6BFC611B684EF70074D0DA /* WMFArticleSummaryVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC601B684EF70074D0DA /* WMFArticleSummaryVisualTests.m */; };
 		BC6BFC681B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */; };
-		BC6DEB251B8FA3B90016A3CE /* Serializers in Sources */ = {isa = PBXBuildFile; fileRef = BC6DEB241B8FA3B90016A3CE /* Serializers */; };
 		BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC6E428A1BA9CB930059FBF6 /* InfoPlist.strings */; };
 		BC6E8B921B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B911B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m */; };
 		BC6E8B951B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B941B5E90B1003D9A39 /* UIImage+WMFImageProcessing.m */; };
@@ -1117,8 +1116,6 @@
 		BC6BFC651B6858250074D0DA /* WMFArticleViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleViewController_Private.h; sourceTree = "<group>"; };
 		BC6BFC661B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+WMFHTMLForSite.h"; sourceTree = "<group>"; };
 		BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WMFHTMLForSite.m"; sourceTree = "<group>"; };
-		BC6DEB231B8FA3B90016A3CE /* Serializers */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = Serializers; sourceTree = "<group>"; };
-		BC6DEB241B8FA3B90016A3CE /* Serializers */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; path = Serializers; sourceTree = "<group>"; };
 		BC6E42891BA9CB930059FBF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC6E428B1BA9CBEF0059FBF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC6E428C1BA9CC130059FBF6 /* frp */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = frp; path = frp.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2887,8 +2884,6 @@
 				BC092BA11B19135700093C59 /* WMFApiJsonResponseSerializer.m */,
 				BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */,
 				BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */,
-				BC6DEB231B8FA3B90016A3CE /* Serializers */,
-				BC6DEB241B8FA3B90016A3CE /* Serializers */,
 			);
 			name = Serializers;
 			sourceTree = "<group>";
@@ -3857,7 +3852,6 @@
 				BCB669A91A83F6C400C7B1FE /* MWKSection.m in Sources */,
 				BCB669B61A83F6C400C7B1FE /* MWKImageList.m in Sources */,
 				0EFB0F231B31EE2D00D05C08 /* ImageData.m in Sources */,
-				BC6DEB251B8FA3B90016A3CE /* Serializers in Sources */,
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
