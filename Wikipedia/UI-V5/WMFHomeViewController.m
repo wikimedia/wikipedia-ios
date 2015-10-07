@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 + (UIEdgeInsets)defaultSectionInsets {
-    return UIEdgeInsetsMake(10.0, 8.0, 0.0, 8.0);
+    return UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0);
 }
 
 - (UIBarButtonItem*)settingsBarButtonItem {
