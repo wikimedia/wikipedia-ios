@@ -16,7 +16,7 @@
 
 /**
  Determines the closest string index to a point in the receiver's frame.
-
+ 
  This can be used to find the cursor position to position an input caret at.
  @param point The point
  @returns The resulting string index

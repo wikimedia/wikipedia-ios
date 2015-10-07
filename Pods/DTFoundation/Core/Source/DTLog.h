@@ -20,7 +20,7 @@ extern NSUInteger DTCurrentLogLevel;
 
 /**
  There is a macro for each ASL log level:
-
+ 
  - DTLogEmergency (0)
  - DTLogAlert (1)
  - DTLogCritical (2)
@@ -40,37 +40,37 @@ typedef NS_ENUM(NSUInteger, DTLogLevel)
 	 Log level for *emergency* messages
 	 */
 	DTLogLevelEmergency = 0,
-
+	
 	/**
 	 Log level for *alert* messages
 	 */
 	DTLogLevelAlert     = 1,
-
+	
 	/**
 	 Log level for *critical* messages
 	 */
 	DTLogLevelCritical  = 2,
-
+	
 	/**
 	 Log level for *error* messages
 	 */
 	DTLogLevelError     = 3,
-
+	
 	/**
 	 Log level for *warning* messages
 	 */
 	DTLogLevelWarning   = 4,
-
+	
 	/**
 	 Log level for *notice* messages
 	 */
 	DTLogLevelNotice    = 5,
-
+	
 	/**
 	 Log level for *info* messages. This is the default log level for DTLog.
 	 */
 	DTLogLevelInfo      = 6,
-
+	
 	/**
 	 Log level for *debug* messages
 	 */

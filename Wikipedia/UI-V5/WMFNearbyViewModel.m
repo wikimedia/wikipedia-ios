@@ -20,6 +20,7 @@
 #import "CLLocation+WMFBearing.h"
 #import "WMFSearchResultDistanceProvider.h"
 #import "WMFSearchResultBearingProvider.h"
+#import "MWKSite.h"
 
 // Frameworks
 #import "Wikipedia-Swift.h"

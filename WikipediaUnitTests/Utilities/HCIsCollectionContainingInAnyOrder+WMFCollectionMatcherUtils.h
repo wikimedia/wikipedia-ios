@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "HCIsCollectionContainingInAnyOrder.h"
+#import <OCHamcrest/HCIsCollectionContainingInAnyOrder.h>
 
 @interface HCIsCollectionContainingInAnyOrder (WMFCollectionMatcherUtils)
 

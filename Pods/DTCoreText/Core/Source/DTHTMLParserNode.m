@@ -21,13 +21,13 @@
 - (id)initWithName:(NSString *)name attributes:(NSDictionary *)attributes
 {
 	self = [super init];
-
+	
 	if (self)
 	{
 		_name = [name copy];
 		[self setAttributes:attributes]; // property to allow overriding
 	}
-
+	
 	return self;
 }
 
@@ -40,7 +40,7 @@
 		{
 			_childNodes = [[NSMutableArray alloc] init];
 		}
-
+		
 		childNode.parentNode = self;
 		[_childNodes addObject:childNode];
 	}
@@ -81,39 +81,39 @@
 		{
 			[string appendString:@"   "];
 		}
-
+		
 		// write own name tag open
 		[string appendFormat:@"<%@", _name];
-
+		
 		// sort attribute names
 		NSArray *sortedKeys = [_attributes.allKeys sortedArrayUsingSelector:@selector(compare:)];
-
+		
 		for (NSString *oneKey in sortedKeys)
 		{
 			NSString *attribute = [_attributes objectForKey:oneKey];
 			[string appendFormat:@" %@=\"%@\"", oneKey, attribute];
 		}
-
+		
 		if (![_childNodes count])
 		{
 			[string appendString:@" \\>\n"];
 			return;
 		}
-
+		
 		[string appendFormat:@">\n"];
-
+		
 		// output attributes
 		for (DTHTMLParserNode *childNode in _childNodes)
 		{
 			[childNode _appendHTMLToString:string indentLevel:indentLevel+1];
 		}
-
+		
 		// indent to the level
 		for (NSUInteger i=0; i<indentLevel; i++)
 		{
 			[string appendString:@"   "];
 		}
-
+		
 		// write own name tag close
 		[string appendFormat:@"</%@>\n", _name];
 	}
@@ -124,9 +124,9 @@
 	@synchronized(self)
 	{
 		NSMutableString *tmpString = [NSMutableString string];
-
+		
 		[self _appendHTMLToString:tmpString indentLevel:0];
-
+		
 		return tmpString;
 	}
 }
@@ -136,7 +136,7 @@
 	@synchronized(self)
 	{
 		NSMutableString *text = [NSMutableString string];
-
+		
 		for (DTHTMLParserTextNode *oneChild in self.childNodes)
 		{
 			if ([oneChild isKindOfClass:[DTHTMLParserTextNode class]])
@@ -144,7 +144,7 @@
 				[text appendString:[oneChild characters]];
 			}
 		}
-
+		
 		return text;
 	}
 }

@@ -15,6 +15,7 @@
 #import "Wikipedia-Swift.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "NSString+Extras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIViewController+Alert.h"
 #import "UIButton+WMFButton.h"

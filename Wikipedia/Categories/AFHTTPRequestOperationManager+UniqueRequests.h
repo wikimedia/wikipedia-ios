@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 @interface AFHTTPRequestOperationManager (UniqueRequests)
 

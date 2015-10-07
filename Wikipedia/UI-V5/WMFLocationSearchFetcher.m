@@ -15,6 +15,8 @@
 //Models
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
+#import "MWKSite.h"
+#import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

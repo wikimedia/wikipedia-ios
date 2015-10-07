@@ -96,10 +96,6 @@
             argument = "-WMFFixtureRecordingEnabled NO"
             isEnabled = "YES">
          </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-FakeZeroOn NO"
-            isEnabled = "YES">
-         </CommandLineArgument>
       </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable

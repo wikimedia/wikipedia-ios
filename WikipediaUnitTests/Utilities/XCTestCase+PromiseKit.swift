@@ -20,7 +20,7 @@ func toResolve<T>() -> (Promise<T>) -> ((T) -> Void) -> Promise<Void> {
 }
 
 func toReport<T>(policy: ErrorPolicy = ErrorPolicy.AllErrorsExceptCancellation) -> (Promise<T>) -> ((ErrorType) -> Void) -> Void {
-    return { p in { errF in Promise<T>.report(p)(policy: policy, errF) } }
+    return { p in { errF in Promise<T>.error(p)(policy: policy, errF) } }
 }
 
 extension XCTestCase {

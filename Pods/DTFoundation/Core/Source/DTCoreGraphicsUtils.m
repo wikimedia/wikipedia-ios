@@ -12,9 +12,9 @@ CGSize DTCGSizeThatFitsKeepingAspectRatio(CGSize originalSize, CGSize sizeToFit)
 {
 	CGFloat necessaryZoomWidth = sizeToFit.width / originalSize.width;
 	CGFloat necessaryZoomHeight = sizeToFit.height / originalSize.height;
-
+	
 	CGFloat smallerZoom = MIN(necessaryZoomWidth, necessaryZoomHeight);
-
+	
 	return CGSizeMake(round(originalSize.width*smallerZoom), round(originalSize.height*smallerZoom));
 }
 
@@ -22,9 +22,9 @@ CGSize DTCGSizeThatFillsKeepingAspectRatio(CGSize originalSize, CGSize sizeToFit
 {
 	CGFloat necessaryZoomWidth = sizeToFit.width / originalSize.width;
 	CGFloat necessaryZoomHeight = sizeToFit.height / originalSize.height;
-
+	
 	CGFloat largerZoom = MAX(necessaryZoomWidth, necessaryZoomHeight);
-
+	
 	return CGSizeMake(round(originalSize.width*largerZoom), round(originalSize.height*largerZoom));
 }
 
@@ -32,12 +32,12 @@ BOOL DTCGSizeMakeWithDictionaryRepresentation(NSDictionary *dict, CGSize *size)
 {
 	NSNumber *widthNumber = dict[@"Width"];
 	NSNumber *heightNumber = dict[@"Height"];
-
+	
 	if (!widthNumber || !heightNumber)
 	{
 		return NO;
 	}
-
+	
 	if (size)
 	{
 #if CGFLOAT_IS_DOUBLE
@@ -48,7 +48,7 @@ BOOL DTCGSizeMakeWithDictionaryRepresentation(NSDictionary *dict, CGSize *size)
 		size->height = [heightNumber floatValue];
 #endif
 	}
-
+	
 	return YES;
 }
 
@@ -61,7 +61,7 @@ NSDictionary *DTCGSizeCreateDictionaryRepresentation(CGSize size)
 	NSNumber *widthNumber = [NSNumber numberWithFloat:size.width];
 	NSNumber *heightNumber = [NSNumber numberWithFloat:size.height];
 #endif
-
+	
     return @{@"Width": widthNumber,
              @"Height": heightNumber};
 }
@@ -73,12 +73,12 @@ BOOL DTCGRectMakeWithDictionaryRepresentation(NSDictionary *dict, CGRect *rect)
 	NSNumber *heightNumber = dict[@"Height"];
 	NSNumber *xNumber = dict[@"X"];
 	NSNumber *yNumber = dict[@"Y"];
-
+	
 	if (!widthNumber || !heightNumber || !xNumber || !yNumber)
 	{
 		return NO;
 	}
-
+	
 	if (rect)
 	{
 #if CGFLOAT_IS_DOUBLE
@@ -93,7 +93,7 @@ BOOL DTCGRectMakeWithDictionaryRepresentation(NSDictionary *dict, CGRect *rect)
 		rect->size.height = [heightNumber floatValue];
 #endif
 	}
-
+	
 	return YES;
 }
 
@@ -110,7 +110,7 @@ NSDictionary *DTCGRectCreateDictionaryRepresentation(CGRect rect)
 	NSNumber *xNumber = [NSNumber numberWithFloat:rect.origin.x];
 	NSNumber *yNumber = [NSNumber numberWithFloat:rect.origin.y];
 #endif
-
+	
     return @{@"Width": widthNumber,
              @"Height": heightNumber,
              @"X": xNumber,

@@ -29,7 +29,7 @@
 
 - (void)setUp {
     self.mockDelegate = mockProtocol(@protocol(FetchFinishedDelegate));
-    self.mockManager  = mock([AFHTTPRequestOperationManager class]);
+    self.mockManager  = MKTMock([AFHTTPRequestOperationManager class]);
     self.fetcher      = [[MWKLanguageLinkFetcher alloc] initWithManager:self.mockManager
                                                                delegate:self.mockDelegate];
 
@@ -54,8 +54,8 @@
 }
 
 - (void)testFetchingEmptyTitle {
-    MWKTitle* mockTitle = mock([MWKTitle class]);
-    [given([mockTitle text]) willReturn:@""];
+    MWKTitle* mockTitle = MKTMock([MWKTitle class]);
+    [MKTGiven([mockTitle text]) willReturn:@""];
 
     PushExpectation();
     [self.fetcher fetchLanguageLinksForTitle:mockTitle success:^(NSArray* langLinks) {

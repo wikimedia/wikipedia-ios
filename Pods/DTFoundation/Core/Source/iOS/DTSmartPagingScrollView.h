@@ -25,7 +25,7 @@
 
 /**
  Method to provide UIViews to be used for the pages
-
+ 
  The frame of the passed view will be adjusted to the page size of the scroll view
  @param smartPagingScrollView The scroll view asking
  @param index The index of the page to provide

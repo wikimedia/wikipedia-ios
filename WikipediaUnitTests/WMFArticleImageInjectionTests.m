@@ -84,11 +84,11 @@
 
 - (void)testPerformanceExample {
     [self measureBlock:^{
-        self.dataStore = mock([MWKDataStore class]);
+        self.dataStore = MKTMock([MWKDataStore class]);
         MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
         self.article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
 
-        [given([self.dataStore imageListWithArticle:anything() section:anything()])
+        [MKTGiven([self.dataStore imageListWithArticle:anything() section:anything()])
          willReturn:[[MWKImageList alloc] initWithArticle:self.article section:nil]];
 
         NSParameterAssert(self.article.images);
