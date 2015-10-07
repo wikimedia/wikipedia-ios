@@ -117,7 +117,7 @@ platform :ios do
     )
     hockey(
       notes: git_commit_log,
-      notify: '0', # Do not notify
+      notify: '2', # Notify all testers
       status: '2', # Make available for download
       release_type: '2' # 'alpha' release type
     )
