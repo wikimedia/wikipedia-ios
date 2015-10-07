@@ -31,6 +31,7 @@
 #import "WMFHomeSectionFooter.h"
 
 // Child View Controllers
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFArticleContainerViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -41,6 +42,7 @@
 #import "WMFLocationManager.h"
 #import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -155,6 +157,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
+}
+
+- (void)didTapSectionHeaderLink:(NSURL*)url {
+    presentTitleWithDiscoveryMethod([[MWKTitle alloc] initWithURL:url], MWKHistoryDiscoveryMethodLink);
 }
 
 #pragma mark - UIViewController
@@ -412,30 +418,8 @@ NS_ASSUME_NONNULL_BEGIN
         if ([controller respondsToSelector:@selector(discoveryMethod)]) {
             discoveryMethod = [controller discoveryMethod];
         }
-        [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:discoveryMethod];
+        presentTitleWithDiscoveryMethod(title, discoveryMethod);
     }
-}
-
-#pragma mark - Article Presentation
-
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title
-                                 animated:(BOOL)animated
-                          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    MWKArticle* article = [self.dataStore articleWithTitle:title];
-    [self showViewControllerWithArticle:article animated:animated discoveryMethod:discoveryMethod];
-}
-
-- (void)showViewControllerWithArticle:(MWKArticle*)article
-                             animated:(BOOL)animated
-                      discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    WMFArticleContainerViewController* articleContainerVC =
-        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore
-                                                                           recentPages:self.recentPages
-                                                                            savedPages:self.savedPages];
-    articleContainerVC.article = article;
-    [self.recentPages addPageToHistoryWithTitle:article.title discoveryMethod:discoveryMethod];
-    [self.recentPages save];
-    [self.navigationController pushViewController:articleContainerVC animated:animated];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
@@ -493,9 +477,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
-    MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
-    [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:MWKHistoryDiscoveryMethodLink];
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)url inRange:(NSRange)characterRange {
+    [self didTapSectionHeaderLink:url];
     return NO;
 }
 
@@ -503,13 +486,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self showViewControllerWithArticle:article
-                                   animated:YES
-                            discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+        presentArticleWithDiscoveryMethod(article, MWKHistoryDiscoveryMethodSearch);
     }];
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END
