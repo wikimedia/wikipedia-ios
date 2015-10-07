@@ -8,7 +8,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.clipsToBounds = NO;
-    [self.backgroundView wmf_setupShadow];
+    //[self.backgroundView wmf_setupShadow];
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);
