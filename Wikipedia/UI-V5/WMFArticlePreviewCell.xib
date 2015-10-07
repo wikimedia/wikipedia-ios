@@ -15,21 +15,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kPi-wU-UzV">
-                        <rect key="frame" x="16" y="0.0" width="329" height="160"/>
+                        <rect key="frame" x="16" y="16" width="329" height="160"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="160" id="5OZ-Kk-CoX"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEK-59-fwO" userLabel="Title Label">
-                        <rect key="frame" x="16" y="172" width="329" height="37"/>
+                        <rect key="frame" x="16" y="188" width="329" height="37"/>
                         <animations/>
                         <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="32"/>
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbF-9q-HIn" userLabel="Description Label">
-                        <rect key="frame" x="16" y="215" width="329" height="41"/>
+                        <rect key="frame" x="16" y="231" width="329" height="25"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.60342281879194626" alpha="1" colorSpace="calibratedWhite"/>
@@ -75,7 +81,7 @@
                 <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="dcl-4I-Qqp"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="top" secondItem="AVJ-4N-Dr6" secondAttribute="bottom" constant="6" id="fOj-LJ-MQN"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="gLf-OJ-CHa"/>
-                <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" id="gqX-Rl-5tH"/>
+                <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" constant="16" id="gqX-Rl-5tH"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="hgN-Xh-eTK"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="AVJ-4N-Dr6" secondAttribute="trailing" id="jet-NL-aB8"/>
                 <constraint firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" constant="16" id="lhd-tw-RNY"/>
