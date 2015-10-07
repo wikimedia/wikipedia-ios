@@ -6,13 +6,35 @@
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
 
-CGFloat const WMFArticlePreviewCellTextPadding = 8.0;
-CGFloat const WMFArticlePreviewCellImageHeight = 160;
-
 @interface WMFArticlePreviewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 @property (strong, nonatomic) IBOutlet UILabel* summaryLabel;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
+
+
+
+
+
+/*
+ 
+Todo:
+- fix bug (pre-dates my patch) causing recent to not show summary of newly browsed-to article
+    repro:
+        -choose top recent article
+        -click on link in that article
+        -click back button to go back to recent list
+        -top recent item will be the newly browsed-to link, but it's summary isn't showing until you scroll down a bit then back up
+    solution?:
+        -have the recent list call reloadData on view will appear?
+
+ */
+
+
+
+
 
 @end
 
@@ -25,17 +47,15 @@ CGFloat const WMFArticlePreviewCellImageHeight = 160;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    CGFloat const preferredMaxLayoutWidth = layoutAttributes.size.width - 2 * WMFArticlePreviewCellTextPadding;
+    CGFloat const preferredMaxLayoutWidth = layoutAttributes.size.width - (self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant);
 
     self.titleLabel.preferredMaxLayoutWidth       = preferredMaxLayoutWidth;
     self.descriptionLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
     self.summaryLabel.preferredMaxLayoutWidth     = preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    CGFloat height                                        =
-        WMFArticlePreviewCellImageHeight +
-        MIN(200, self.summaryLabel.intrinsicContentSize.height + 2 * WMFArticlePreviewCellTextPadding);
-    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
+    
+    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
     return preferredAttributes;
 }
 
