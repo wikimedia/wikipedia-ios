@@ -39,7 +39,7 @@
 - (void)configureContentView {
     self.clipsToBounds               = NO;
     self.contentView.backgroundColor = [UIColor whiteColor];
-    [self.contentView wmf_setupShadow];
+    //[self.contentView wmf_setupShadow];
 }
 
 - (void)prepareForReuse {
