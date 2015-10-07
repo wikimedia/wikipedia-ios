@@ -153,7 +153,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureSearchField {
-    [self.closeButton wmf_setButtonType:WMFButtonTypeX];
     [self setSeparatorViewHidden:YES animated:NO];
     // TODO: localize
     [self.searchField setPlaceholder:@"Search Wikipedia"];
