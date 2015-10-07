@@ -12,6 +12,8 @@
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='coordinates'])][1]//text()";
 
 @interface MWKSection ()
@@ -19,20 +21,21 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 @property (readwrite, strong, nonatomic) MWKTitle* title;
 @property (readwrite, weak, nonatomic) MWKArticle* article;
 
-@property (readwrite, copy, nonatomic) NSNumber* toclevel;      // optional
-@property (readwrite, copy, nonatomic) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
-@property (readwrite, copy, nonatomic) NSString* line;          // optional; HTML
-@property (readwrite, copy, nonatomic) NSString* number;        // optional; can be "1.2.3"
-@property (readwrite, copy, nonatomic) NSString* index;         // optional; can be "T-3" for transcluded sections
-@property (readwrite, strong, nonatomic) MWKTitle* fromtitle; // optional
-@property (readwrite, copy, nonatomic) NSString* anchor;        // optional
+@property (readwrite, copy, nonatomic, nullable) NSNumber* toclevel;      // optional
+@property (readwrite, copy, nonatomic, nullable) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
+@property (readwrite, copy, nonatomic, nullable) NSString* line;          // optional; HTML
+@property (readwrite, copy, nonatomic, nullable) NSString* number;        // optional; can be "1.2.3"
+@property (readwrite, copy, nonatomic, nullable) NSString* index;         // optional; can be "T-3" for transcluded sections
+@property (readwrite, strong, nonatomic, nullable) MWKTitle* fromtitle; // optional
+@property (readwrite, copy, nonatomic, nullable) NSString* anchor;        // optional
 @property (readwrite, assign, nonatomic) int sectionId;           // required; -> id
 @property (readwrite, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
 
-@property (readwrite, copy, nonatomic) NSString* text;          // may be nil
-@property (readwrite, strong, nonatomic) MWKImageList* images;    // ?????
+@property (readwrite, copy, nonatomic, nullable) NSString* text;          // may be nil
+@property (readwrite, strong, nonatomic, nullable) MWKImageList* images;    // ?????
 
-@property (readwrite, strong, nonatomic) NSMutableArray* mutableChildren;
+@property (readwrite, weak, nonatomic, nullable) MWKSection* parent;
+@property (readwrite, strong, nonatomic, nullable) NSMutableArray* mutableChildren;
 
 @end
 
@@ -97,7 +100,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return (self.sectionId == 0);
 }
 
-- (MWKTitle*)sourceTitle {
+- (nullable MWKTitle*)sourceTitle {
     if (self.fromtitle) {
         // We probably came from a foreign template section!
         return self.fromtitle;
@@ -110,14 +113,14 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return [self.article.dataStore hasHTMLFileForSection:self];
 }
 
-- (NSString*)text {
+- (nullable NSString*)text {
     if (_text == nil) {
         _text = [self.article.dataStore sectionTextWithId:self.sectionId article:self.article];
     }
     return _text;
 }
 
-- (MWKImageList*)images {
+- (nullable MWKImageList*)images {
     if (_images == nil) {
         _images = [self.article.dataStore imageListWithArticle:self.article section:self];
     }
@@ -177,7 +180,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     return @"";
 }
 
-- (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath {
+- (nullable NSArray*)elementsInTextMatchingXPath:(NSString*)xpath {
     NSParameterAssert(xpath.length);
     if (!self.text) {
         DDLogWarn(@"Trying to query section text before downloaded. Section: %@", self);
@@ -188,42 +191,57 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 #pragma mark - Section Hierarchy
 
-- (NSArray*)children {
+- (nullable MWKSection*)parentSection{
+    return self.parent;
+}
+
+- (MWKSection*)rootSection{
+    MWKSection* parent = self.parent;
+    if(!parent){
+        return self;
+    }
+    return [self.parent rootSection];
+}
+
+- (BOOL)isChildOfSection:(MWKSection*)section{
+    return [self.parent isEqualToSection:section];
+}
+
+- (BOOL)isDecendantOfSection:(MWKSection*)section{
+    MWKSection* parent = self.parent;
+    if(!parent){
+        return NO;
+    }
+    if([parent isEqualToSection:self.parent]){
+        return YES;
+    }
+    return [self.parent isDecendantOfSection:section];
+}
+
+- (BOOL)sectionHasSameRootSection:(MWKSection*)section{
+    return [[self rootSection] isEqualToSection:[section rootSection]];
+}
+
+- (nullable NSArray*)children {
     return _mutableChildren;
-}
-
-- (BOOL)isParentOfSection:(MWKSection*)section {
-    NSParameterAssert(section.level);
-    NSParameterAssert(self.level);
-    return section.level.integerValue - self.level.integerValue == 1;
-}
-
-- (BOOL)isSiblingOfSection:(MWKSection*)section {
-    NSParameterAssert(section.level);
-    NSParameterAssert(self.level);
-    return [section.level isEqualToNumber:self.level];
-}
-
-- (BOOL)isAncestorOfSection:(MWKSection*)section {
-    NSParameterAssert(section.level);
-    NSParameterAssert(self.level);
-    return [section.level compare:self.level] == NSOrderedDescending;
 }
 
 - (void)addChild:(MWKSection*)child {
     NSParameterAssert(child.level);
     NSAssert([child.level compare:self.level] == NSOrderedDescending,
              @"Illegal attempt to add %@ to sibling or descendant %@.", child, self);
-    MWKSection* lastChild = self.mutableChildren.lastObject;
-    if ([lastChild isSiblingOfSection:child] || ![lastChild isAncestorOfSection:child]) {
-        [self.mutableChildren addObject:child];
-    } else {
-        [lastChild addChild:child];
-    }
+    [self.mutableChildren addObject:child];
+    child.parent = self;
 }
 
 - (void)removeAllChildren {
     [self.mutableChildren removeAllObjects];
 }
 
+
+
+
+
 @end
+
+NS_ASSUME_NONNULL_END
