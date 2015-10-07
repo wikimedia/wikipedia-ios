@@ -8,7 +8,7 @@
 
 #import "UIViewController+WMFSearchButton.h"
 #import "WMFSearchViewController.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "WMFArticleContainerViewController.h"
 #import "SessionSingleton.h"
 
@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
     @weakify(self);
     @weakify(delegate);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeMagnify handler:^(id sender) {
+    return [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"search"]
+                                               style:UIBarButtonItemStylePlain
+                                             handler:^(id sender) {
         @strongify(self);
         @strongify(delegate);
         if (!delegate || !self) {

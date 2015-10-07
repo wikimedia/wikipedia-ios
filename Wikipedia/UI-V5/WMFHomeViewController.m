@@ -69,8 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.navigationItem.titleView =
-            [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
+        self.navigationItem.titleView          = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
         self.navigationItem.leftBarButtonItem  = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
