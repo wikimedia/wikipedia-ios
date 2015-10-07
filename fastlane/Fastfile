@@ -13,7 +13,6 @@ platform :ios do
   before_all do
      ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
      ensure_git_status_clean
-     verify_xcode
   end
 
   desc "Runs linting (and eventually static analysis)"
