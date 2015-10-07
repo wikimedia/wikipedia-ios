@@ -103,7 +103,6 @@ platform :ios do
 
     sigh(
       adhoc: true,
-      force: true,
       filename: 'build/dev.mobileprovision'
     )
     # force iTunes file sharing to be enabled (normally disabled for release builds)
