@@ -26,10 +26,11 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
     NSString* pencilAnchor = [self getEditPencilAnchor];
     if ([self isLeadSection]) {
         return [NSString stringWithFormat:
-                @"<h1 class='section_heading' id='%@' sectionId='%d'>%@</h1>%@",
+                @"<h1 class='section_heading' id='%@' sectionId='%d'>%@</h1><p id='entity_description'>%@</p>%@",
                 self.anchor,
                 self.sectionId,
                 self.title.text,
+                self.article.entityDescription ?: @"",
                 MWKSectionDisambigAndPageIssuesPlaceholderDiv];
     } else {
         short headingTagSize = [self getHeadingTagSize];
