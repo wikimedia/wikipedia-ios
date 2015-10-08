@@ -42,6 +42,8 @@
 #import "WMFLocationManager.h"
 #import "UITabBarController+WMFExtensions.h"
 
+#import "FBTweakViewController.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
@@ -192,6 +194,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].minimumLineSpacing  = 10.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksWereUpdatedWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -232,6 +236,14 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self reloadSections];
 }
 
+- (void)tweaksWereUpdatedWithNotification:(NSNotification*)note {
+    if (!self.isViewLoaded) {
+        return;
+    }
+    
+    [self.schemaManager updateSchema];
+    [self reloadSections];
+}
 #pragma mark - Data Source Configuration
 
 - (void)configureDataSource {
