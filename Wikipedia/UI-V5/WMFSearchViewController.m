@@ -173,9 +173,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     SelfSizingWaterfallCollectionViewLayout* resultLayout = [self.resultsListController flowLayout];
-    resultLayout.minimumLineSpacing = 0.f;
-    resultLayout.minimumInteritemSpacing = 0.f;
-    resultLayout.sectionInset = UIEdgeInsetsZero;
+    resultLayout.minimumLineSpacing                           = 0.f;
+    resultLayout.minimumInteritemSpacing                      = 0.f;
+    resultLayout.sectionInset                                 = UIEdgeInsetsZero;
     self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
 
     [self updateUIWithResults:nil];
@@ -211,12 +211,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     } completion:nil];
 }
 
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+- (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection
               withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
     if (self.traitCollection.verticalSizeClass != newCollection.verticalSizeClass) {
         [self.view setNeedsUpdateConstraints];
-        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
             [self.view layoutSubviews];
         } completion:nil];
     }

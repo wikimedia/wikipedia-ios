@@ -13,7 +13,7 @@
 #import "NSParagraphStyle+WMFParagraphStyles.h"
 #import "UIColor+WMFStyle.h"
 
-static CGFloat const WMFSearchResultImageWidth        = 40.f;
+static CGFloat const WMFSearchResultImageWidth                  = 40.f;
 static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
 
 @interface WMFSearchResultCell ()
@@ -58,7 +58,7 @@ static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
 - (void)updateTitleLabel {
     NSRange highlightRange =
         self.highlightSubstring.length ?
-        [self.title.text rangeOfString:self.highlightSubstring options:NSCaseInsensitiveSearch]
+        [self.title.text rangeOfString : self.highlightSubstring options:NSCaseInsensitiveSearch]
         : WMFRangeMakeNotFound();
     if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
         [super updateTitleLabel];

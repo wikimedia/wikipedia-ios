@@ -155,7 +155,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         });
     }];
 
-    self.lastScrollOffset  = CGPointZero;
+    self.lastScrollOffset = CGPointZero;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(zeroStateChanged:)
@@ -368,7 +368,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         NSString* jumpToThis = [self.jumpToFragment copy];
         self.jumpToFragment = nil;
         [[self.webView wmf_javascriptContext][@"scrollToFragment"] performSelector:@selector(callWithArguments:) withObject:@[jumpToThis] afterDelay:0.1];
-    }else{
+    } else {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
     }
@@ -461,13 +461,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark Table of contents
 
-- (MWKSection*)currentVisibleSection{
-
+- (MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
-    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
-                                                         count:self.article.sections.count];
+        [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
+                                                       count:self.article.sections.count];
 
-    if(indexOfFirstOnscreenSection > self.article.sections.count || indexOfFirstOnscreenSection < 0){
+    if (indexOfFirstOnscreenSection > self.article.sections.count || indexOfFirstOnscreenSection < 0) {
         return [self.article.sections.entries firstObject];
     }
 
@@ -900,7 +899,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self loadArticleWithTitleFromNetwork:title];
 }
 
-- (void)scrollToSection:(MWKSection*)section{
+- (void)scrollToSection:(MWKSection*)section {
     [self scrollToFragment:section.anchor];
 }
 
@@ -1167,7 +1166,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                                     withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
                                                              thenNotifyDelegate:self];
     } else {
-
         NSString* warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
 
         CGFloat duration = 5.0f;
@@ -1548,4 +1546,5 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     dialog.tag = WMFWebViewAlertZeroCharged;
     [dialog show];
 }
+
 @end
