@@ -268,20 +268,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupToolbar {
     UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
+
     self.toolbarItems = [@[[self flexibleSpaceToolbarItem], [self refreshToolbarItem],
                            [self paddingToolbarItem], [self shareToolbarItem],
                            [self paddingToolbarItem], saveToolbarItem] wmf_reverseArrayIfApplicationIsRTL];
+
     self.saveButtonController =
-    [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
-                                      savedPageList:self.savedPages
-                                              title:self.article.title];
+        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
+                                          savedPageList:self.savedPages
+                                                  title:self.article.title];
 
-
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+    NSMutableArray* rightBarButtonItems = [@[
+        [self wmf_searchBarButtonItemWithDelegate:self]
+    ] mutableCopy];
 
     if (!self.article.isMain) {
-        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
+       [rightBarButtonItems insertObject:[self tableOfContentsToolbarItem] atIndex:0];
     }
+
+    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
 }
 
 - (UIBarButtonItem*)paddingToolbarItem {
