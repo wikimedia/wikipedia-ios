@@ -25,6 +25,7 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
+#import "UIColor+WMFHexColor.h"
 
 @interface WMFArticleListCollectionViewController ()
 <UICollectionViewDelegate, WMFSearchPresentationDelegate>
@@ -187,10 +188,10 @@
 
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.collectionView.backgroundColor       = [UIColor clearColor];
+    self.collectionView.backgroundColor       = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
 
     [self flowLayout].numberOfColumns    = 1;
-    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 8.0, 10.0, 8.0);
+    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
     [self flowLayout].minimumLineSpacing = 10.0;
 }
 

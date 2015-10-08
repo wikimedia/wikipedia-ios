@@ -32,7 +32,6 @@
     self.webVC   = [[WebViewController alloc] initWithSession:self.session];
 
     // disable TOC stuff since it breaks when the WebVC isn't properly attached to a window/parent-VC
-    self.webVC.unsafeToToggleTOC = YES;
 }
 
 - (void)tearDown {

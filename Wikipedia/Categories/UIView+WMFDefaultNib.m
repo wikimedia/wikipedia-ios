@@ -1,17 +1,15 @@
-//
-//  UIView+WMFDefaultNib.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 3/6/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIView+WMFDefaultNib.h"
+#import "NSString+Extras.h"
 
 @implementation UIView (WMFDefaultNib)
 
 + (NSString*)wmf_nibName {
-    return NSStringFromClass(self);
+    /* Swift has "Namespaced" class names that prepend the module
+     * For instance: "Wikipedia.MyCellClassName"
+     * So we need to remove the "Wikipedia." for thsi to work
+    */
+    return [NSStringFromClass(self) wmf_substringAfterString:@"."];
 }
 
 + (instancetype)wmf_viewFromClassNib {
