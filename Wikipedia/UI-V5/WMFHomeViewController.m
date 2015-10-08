@@ -150,22 +150,22 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return width;
 }
 
-- (BOOL)shouldAutomaticallyReloadHome{
+- (BOOL)shouldAutomaticallyReloadHome {
     //never loaded
     if ([self.dataSource numberOfSections] == 0) {
         return NO;
     }
 
     //never loaded
-    if(!self.lastReloadDate){
+    if (!self.lastReloadDate) {
         return YES;
     }
-    
+
     //minimum relaod time
     if ([[NSDate date] timeIntervalSinceDate:self.lastReloadDate] > WMFHomeMinAutomaticReloadTime) {
         return YES;
     }
-    
+
     return NO;
 }
 
@@ -228,11 +228,11 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     if (!self.isViewLoaded) {
         return;
     }
-    
-    if(![self shouldAutomaticallyReloadHome]){
+
+    if (![self shouldAutomaticallyReloadHome]) {
         return;
     }
-    
+
     [self.schemaManager updateSchema];
     [self reloadSections];
 }
@@ -326,7 +326,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
                 break;
         }
     }];
-    
+
     self.lastReloadDate = [NSDate date];
 }
 

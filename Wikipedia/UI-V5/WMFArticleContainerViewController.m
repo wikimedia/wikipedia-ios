@@ -140,8 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.shareFunnel            = nil;
-    self.shareOptionsController = nil;
+    self.shareFunnel                   = nil;
+    self.shareOptionsController        = nil;
     self.tableOfContentsViewController = nil;
 
     [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
@@ -223,9 +223,8 @@ NS_ASSUME_NONNULL_BEGIN
     return _headerGallery;
 }
 
-
-- (WMFTableOfContentsViewController*)tableOfContentsViewController{
-    if(!_tableOfContentsViewController){
+- (WMFTableOfContentsViewController*)tableOfContentsViewController {
+    if (!_tableOfContentsViewController) {
         _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
     }
     return _tableOfContentsViewController;
@@ -279,11 +278,11 @@ NS_ASSUME_NONNULL_BEGIN
                                                   title:self.article.title];
 
     NSMutableArray* rightBarButtonItems = [@[
-        [self wmf_searchBarButtonItemWithDelegate:self]
-    ] mutableCopy];
+                                               [self wmf_searchBarButtonItemWithDelegate:self]
+                                           ] mutableCopy];
 
     if (!self.article.isMain) {
-       [rightBarButtonItems insertObject:[self tableOfContentsToolbarItem] atIndex:0];
+        [rightBarButtonItems insertObject:[self tableOfContentsToolbarItem] atIndex:0];
     }
 
     self.navigationItem.rightBarButtonItems = rightBarButtonItems;
@@ -291,7 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)paddingToolbarItem {
     UIBarButtonItem* item =
-    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     item.width = 10.f;
     return item;
 }
@@ -503,7 +502,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TableOfContentsViewControllerDelegate
 
-- (void)tableOfContentsController:(WMFTableOfContentsViewController *)controller didSelectSection:(MWKSection *)section{
+- (void)tableOfContentsController:(WMFTableOfContentsViewController*)controller didSelectSection:(MWKSection*)section {
     //Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
     dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
         [self dismissViewControllerAnimated:YES completion:NULL];
@@ -511,10 +510,9 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
-- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController *)controller{
+- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController*)controller {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
 
 #pragma mark - WMFPreviewControllerDelegate
 
