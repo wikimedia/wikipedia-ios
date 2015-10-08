@@ -61,19 +61,32 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
                                 <rect key="frame" x="0.0" y="64" width="600" height="30"/>
                                 <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="kmj-N8-U2n"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="8" maxX="10" maxY="8"/>
                                 <inset key="titleEdgeInsets" minX="6" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
                                 <connections>
                                     <action selector="searchForSuggestion:" destination="tkf-8P-b2O" eventType="touchUpInside" id="0Md-vC-UXr"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
+                                <rect key="frame" x="0.0" y="93" width="600" height="1"/>
+                                <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="3cp-hG-Zqm"/>
+                                    <constraint firstAttribute="width" constant="1" id="hQD-jE-l1Z"/>
+                                    <constraint firstAttribute="height" constant="32" id="y1h-bx-8Co"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="y1h-bx-8Co"/>
+                                        <exclude reference="hQD-jE-l1Z"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0q-nT-gUD" userLabel="Search Field Container">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
@@ -161,15 +174,24 @@
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" constant="64" id="8MZ-d6-S5y"/>
                             <constraint firstAttribute="trailing" secondItem="z9C-Lg-eam" secondAttribute="trailing" id="ApT-ET-2Yn"/>
                             <constraint firstItem="8Yb-zt-F5o" firstAttribute="top" secondItem="RWd-Ft-cEc" secondAttribute="bottom" id="GFD-6d-3AS"/>
+                            <constraint firstItem="B20-xN-XHO" firstAttribute="bottom" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="Iep-gI-SJU"/>
                             <constraint firstItem="d0q-nT-gUD" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="Iip-mE-iu2"/>
                             <constraint firstAttribute="bottom" secondItem="z9C-Lg-eam" secondAttribute="bottom" id="OIV-aR-Y7z"/>
                             <constraint firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="PWR-bM-Mco"/>
                             <constraint firstItem="RWd-Ft-cEc" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="SKm-w2-ofm"/>
                             <constraint firstAttribute="trailing" secondItem="d0q-nT-gUD" secondAttribute="trailing" id="Yqh-4E-GDY"/>
+                            <constraint firstItem="B20-xN-XHO" firstAttribute="trailing" secondItem="ukX-0p-5ey" secondAttribute="trailing" id="bGi-AS-7ZM"/>
                             <constraint firstAttribute="trailing" secondItem="RWd-Ft-cEc" secondAttribute="trailing" id="bg1-t7-VLE"/>
+                            <constraint firstItem="B20-xN-XHO" firstAttribute="leading" secondItem="ukX-0p-5ey" secondAttribute="leading" id="c62-Ku-cf6"/>
                             <constraint firstItem="z9C-Lg-eam" firstAttribute="top" secondItem="xp5-j8-6jN" secondAttribute="top" id="oMl-7j-x0b"/>
+                            <constraint firstItem="RWd-Ft-cEc" firstAttribute="top" secondItem="ukX-0p-5ey" secondAttribute="bottom" id="oNO-tz-5Jh"/>
                             <constraint firstItem="z9C-Lg-eam" firstAttribute="leading" secondItem="xp5-j8-6jN" secondAttribute="leading" id="qWq-Wf-LE1"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="oNO-tz-5Jh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="VPB-a3-QrM"/>
@@ -177,6 +199,7 @@
                     <connections>
                         <outlet property="closeButton" destination="Kjf-LF-NvO" id="lCI-I4-AM0"/>
                         <outlet property="contentViewTop" destination="8MZ-d6-S5y" id="1j0-Qt-BOC"/>
+                        <outlet property="contentViewTopToSuggestionBottom" destination="oNO-tz-5Jh" id="CoH-4t-P7O"/>
                         <outlet property="recentSearchesContainerView" destination="tpe-pb-Bgw" id="aD2-ul-dw2"/>
                         <outlet property="resultsListContainerView" destination="Ia7-49-Gwu" id="xdS-en-9mw"/>
                         <outlet property="searchField" destination="Nef-Ia-7Gd" id="zrH-a3-VLy"/>

@@ -69,28 +69,41 @@
                             </mask>
                         </variation>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g7u-2c-34H" userLabel="Separator View">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g7u-2c-34H" userLabel="Bottom Separator View">
                         <rect key="frame" x="0.0" y="59" width="458" height="1"/>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Mtn-TH-K6e"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CnF-Uo-FdK" userLabel="Top Separator View">
+                        <rect key="frame" x="0.0" y="-1" width="458" height="1"/>
+                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="xBc-Si-Prq"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="CnF-Uo-FdK" firstAttribute="leading" secondItem="Ynl-Yi-Av4" secondAttribute="leading" id="4Ck-Ft-YF9"/>
                 <constraint firstItem="H47-kH-Db1" firstAttribute="top" secondItem="Ynl-Yi-Av4" secondAttribute="top" id="4pz-Pf-lNR"/>
                 <constraint firstAttribute="bottom" secondItem="H47-kH-Db1" secondAttribute="bottom" id="BWk-wt-BHu"/>
                 <constraint firstAttribute="trailing" secondItem="H47-kH-Db1" secondAttribute="trailing" id="NxT-6H-6Cd"/>
                 <constraint firstItem="KcR-G1-H0y" firstAttribute="leading" secondItem="Ynl-Yi-Av4" secondAttribute="leading" constant="15" id="Ogz-Ip-ELz"/>
                 <constraint firstAttribute="trailing" secondItem="g7u-2c-34H" secondAttribute="trailing" id="OjD-IH-OWf"/>
                 <constraint firstAttribute="bottom" secondItem="g7u-2c-34H" secondAttribute="bottom" id="RVm-3m-IRp"/>
+                <constraint firstAttribute="trailing" secondItem="CnF-Uo-FdK" secondAttribute="trailing" id="WfB-f3-802"/>
                 <constraint firstItem="KcR-G1-H0y" firstAttribute="centerY" secondItem="Ynl-Yi-Av4" secondAttribute="centerY" id="YaP-UM-doi"/>
                 <constraint firstItem="H47-kH-Db1" firstAttribute="leading" secondItem="KcR-G1-H0y" secondAttribute="trailing" id="dMN-uk-MFC"/>
+                <constraint firstItem="CnF-Uo-FdK" firstAttribute="top" secondItem="Ynl-Yi-Av4" secondAttribute="top" constant="-1" id="g1h-Xy-2jg"/>
                 <constraint firstItem="g7u-2c-34H" firstAttribute="leading" secondItem="Ynl-Yi-Av4" secondAttribute="leading" id="mHp-7N-7Zb"/>
             </constraints>
             <size key="customSize" width="458" height="70"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="bottomTitleToTopDescriptionConstraint" destination="3ca-cb-ZIQ" id="7fv-6z-NIm"/>
                 <outlet property="imageView" destination="KcR-G1-H0y" id="b62-ya-wXY"/>
