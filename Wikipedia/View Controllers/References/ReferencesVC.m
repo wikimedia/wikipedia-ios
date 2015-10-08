@@ -6,7 +6,7 @@
 #import "WikiGlyphButton.h"
 #import "WikiGlyphLabel.h"
 #import "WikiGlyph_Chars.h"
-#import "WebViewController.h"
+#import "WMFWebViewController.h"
 #import "WikipediaAppUtils.h"
 #import "UIView+Debugging.h"
 #import "WMF_Colors.h"

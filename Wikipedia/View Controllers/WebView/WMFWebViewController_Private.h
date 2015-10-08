@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WebViewController.h"
+#import "WMFWebViewController.h"
 
 #import "WikipediaAppUtils.h"
 #import "WikipediaZeroMessageFetcher.h"
@@ -75,7 +75,7 @@ static NSInteger const kScrollIndicatorBackgroundColor = 0x000000;
 // Some dialects have complex characters, so we use 2 instead of 10
 static int const kMinimumTextSelectionLength = 2;
 
-@interface WebViewController ()
+@interface WMFWebViewController ()
 
 @property (nonatomic, strong, readwrite) IBOutlet UIWebView* webView;
 

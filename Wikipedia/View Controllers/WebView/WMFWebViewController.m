@@ -1,7 +1,7 @@
 //  Created by Brion on 10/27/13.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "WebViewController_Private.h"
+#import "WMFWebViewController_Private.h"
 #import <Masonry/Masonry.h>
 #import "NSString+WMFHTMLParsing.h"
 
@@ -37,7 +37,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
+@interface WMFWebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
@@ -54,7 +54,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @end
 
-@implementation WebViewController
+@implementation WMFWebViewController
 @synthesize article = _article;
 
 @synthesize siteInfoFetcher = _siteInfoFetcher;
@@ -141,7 +141,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.referencesVC = nil;
 
-    __weak WebViewController* weakSelf = self;
+    __weak WMFWebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf jumpToFragmentIfNecessary];
         [weakSelf autoScrollToLastScrollOffsetIfNecessary];
@@ -233,7 +233,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.KVOControllerNonRetaining observe:self.webView.scrollView
                                     keyPath:WMF_SAFE_KEYPATH(self.webView.scrollView, contentSize)
                                     options:NSKeyValueObservingOptionInitial
-                                      block:^(WebViewController* observer, id object, NSDictionary* change) {
+                                      block:^(WMFWebViewController* observer, id object, NSDictionary* change) {
         [observer layoutWebViewSubviews];
     }];
 }
@@ -545,9 +545,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (!_bridge) {
         _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
 
-        __weak WebViewController* weakSelf = self;
+        __weak WMFWebViewController* weakSelf = self;
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
+            WMFWebViewController* strSelf = weakSelf;
             if (!strSelf) {
                 return;
             }
@@ -579,7 +579,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         }];
 
         [_bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
+            WMFWebViewController* strSelf = weakSelf;
             if (!strSelf) {
                 return;
             }
@@ -593,7 +593,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         }];
 
         [_bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
+            WMFWebViewController* strSelf = weakSelf;
             if (!strSelf) {
                 return;
             }
@@ -621,7 +621,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
         [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
+            WMFWebViewController* strSelf = weakSelf;
             if (!strSelf) {
                 return;
             }

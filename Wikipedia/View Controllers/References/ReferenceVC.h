@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class WebViewController;
+@class WMFWebViewController;
 @interface ReferenceVC : UIViewController <UIWebViewDelegate>
 
 @property (assign, nonatomic) NSInteger index;
@@ -13,6 +13,6 @@
 @property (strong, nonatomic) NSString* linkId;
 @property (strong, nonatomic) NSString* linkText;
 
-@property (weak, nonatomic) WebViewController* webVC;
+@property (weak, nonatomic) WMFWebViewController* webVC;
 
 @end

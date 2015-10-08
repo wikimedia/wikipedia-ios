@@ -9,7 +9,7 @@
 
 @protocol WMFWebViewControllerDelegate;
 
-@interface WebViewController : PullToRefreshViewController
+@interface WMFWebViewController : PullToRefreshViewController
     <UIWebViewDelegate,
      UIScrollViewDelegate,
      UIGestureRecognizerDelegate,
@@ -70,9 +70,9 @@
 
 @protocol WMFWebViewControllerDelegate <NSObject>
 
-- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
-- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;
-- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
+- (void)webViewController:(WMFWebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
+- (void)webViewController:(WMFWebViewController*)controller didSelectText:(NSString*)text;
+- (void)webViewController:(WMFWebViewController*)controller didTapShareWithSelectedText:(NSString*)text;
 
 @end
 

@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WebViewController_Private.h"
+#import "WMFWebViewController_Private.h"
 #import "WebViewController+ImageGalleryPresentation.h"
 #import "WMFImageGalleryViewController.h"
 
-@implementation WebViewController (ImageGalleryPresentation)
+@implementation WMFWebViewController (ImageGalleryPresentation)
 
 - (void)presentGalleryForArticle:(MWKArticle*)article showingImage:(MWKImage*)selectedImage {
     [self cancelArticleLoading];
