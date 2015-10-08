@@ -166,10 +166,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
     }
 }
 
-- (void)pauseApp{
-    
-}
-
 #pragma mark - Utilities
 
 - (BOOL)shouldShowHomeScreenOnLaunch{

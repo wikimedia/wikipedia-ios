@@ -9,11 +9,7 @@ let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 extension NSUserDefaults {
     
     public func wmf_dateForKey(key: String) -> NSDate? {
-        if let date = self.objectForKey(key) as? NSDate {
-            return date
-        }else{
-            return nil
-        }
+        self.objectForKey(key) as? NSDate
     }
 
     public func wmf_appLaunchDate() -> NSDate? {
