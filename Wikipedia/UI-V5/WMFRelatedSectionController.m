@@ -21,7 +21,6 @@
 #import "UIFont+WMFStyle.h"
 
 static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
-static NSUInteger const WMFNumberOfExtractLines          = 4;
 static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @interface WMFRelatedSectionController ()
@@ -116,19 +115,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
           atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
-        previewCell.summaryLabel.numberOfLines = WMFNumberOfExtractLines;
         MWKRelatedSearchResult* result = object;
         previewCell.title           = [self titleForItemAtIndex:indexPath.row];
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
         [previewCell setSummaryHTML:result.extractHTML fromSite:self.title.site];
         [previewCell setSavedPageList:self.savedPageList];
-        NSAssert (^{
-            UIFont* actualFont = [previewCell.summaryLabel.attributedText attribute:NSFontAttributeName atIndex:0 effectiveRange:nil] ? : previewCell.summaryLabel.font;
-            UIFont* requiredFont = [UIFont wmf_htmlBodyFont];
-            return [actualFont.familyName isEqualToString:requiredFont.familyName]
-            && (fabs(actualFont.pointSize - requiredFont.pointSize) < 0.01);
-        } (), @"Expected previewCell to use standard HTML body font! Needed for numberOfExtactCharactersToFetch.");
     }
 }
 
@@ -142,7 +134,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
                                    initWithTitle:self.title
                                         dataStore:self.savedPageList.dataStore
                                     savedPageList:self.savedPageList
-                        numberOfExtractCharacters:[self numberOfExtractCharactersToFetch]
                                       resultLimit:WMFMaxRelatedSearchResultLimit
                                           fetcher:self.relatedSearchFetcher];
     }
@@ -165,16 +156,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 #pragma mark - Fetch
-
-- (NSUInteger)numberOfExtractCharactersToFetch {
-    CGFloat maxLabelWidth = [self.delegate maxItemWidth];
-    NSParameterAssert(maxLabelWidth > 0);
-    UIFont* summaryHTMLFont           = [UIFont wmf_htmlBodyFont];
-    CGFloat approximateCharacterWidth = summaryHTMLFont.xHeight;
-    NSUInteger charsPerLine           = ceilf(maxLabelWidth / approximateCharacterWidth);
-    // and some extra lines to force UILabel to truncate the string, and hopefully have enough for landscape to truncate it too
-    return charsPerLine * (WMFNumberOfExtractLines + 3.0);
-}
 
 - (void)fetchRelatedArticles {
     if (self.relatedSearchFetcher.isFetching) {
