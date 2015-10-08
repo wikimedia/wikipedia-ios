@@ -11,14 +11,7 @@
 @implementation UIColor (WMFStyle)
 
 + (instancetype)wmf_logoBlue {
-    // measured from WMF logo using DigitalColorMeter
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [self wmf_logoBlueWithAlpha:1.0];
-    });
-    return c;
+    return [self wmf_logoBlueWithAlpha:1.0];
 }
 
 + (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha {
@@ -27,13 +20,11 @@
 }
 
 + (instancetype)wmf_summaryTextColor {
-    static UIColor* c = nil;
+    return [UIColor colorWithRed:0.118 green:0.118 blue:0.118 alpha:1];
+}
 
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:0.118 green:0.118 blue:0.118 alpha:1];
-    });
-    return c;
++ (instancetype)wmf_lightGrayColor {
+    return [UIColor colorWithWhite:0.8671875 alpha:1.0];
 }
 
 
