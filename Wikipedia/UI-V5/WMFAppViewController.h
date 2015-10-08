@@ -9,6 +9,4 @@
 
 - (void)resumeApp;
 
-- (void)pauseApp;
-
 @end
