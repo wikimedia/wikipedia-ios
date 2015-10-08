@@ -52,7 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
  WMFPreviewControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
- WMFSearchPresentationDelegate>
+ WMFSearchPresentationDelegate,
+ WMFTableOfContentsViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
@@ -70,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
+@property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
 
 // Logging
 @property (strong, nonatomic, nullable) WMFShareFunnel* shareFunnel;
@@ -140,6 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.shareFunnel            = nil;
     self.shareOptionsController = nil;
+    self.tableOfContentsViewController = nil;
 
     [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
     [self.articleFetcher cancelFetchForPageTitle:_article.title];
@@ -220,6 +223,14 @@ NS_ASSUME_NONNULL_BEGIN
     return _headerGallery;
 }
 
+
+- (WMFTableOfContentsViewController*)tableOfContentsViewController{
+    if(!_tableOfContentsViewController){
+        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
+    }
+    return _tableOfContentsViewController;
+}
+
 // TEMP: delete!
 - (WMFArticleViewController*)articleViewController {
     return nil;
@@ -253,26 +264,29 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-#pragma mark - ViewController
+#pragma mark - Toolbar
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)setupToolbar {
+    UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
+    self.toolbarItems = [@[[self flexibleSpaceToolbarItem], [self refreshToolbarItem],
+                           [self paddingToolbarItem], [self shareToolbarItem],
+                           [self paddingToolbarItem], saveToolbarItem] wmf_reverseArrayIfApplicationIsRTL];
+    self.saveButtonController =
+    [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
+                                      savedPageList:self.savedPages
+                                              title:self.article.title];
 
-    [self addChildViewController:self.webViewController];
-    [self.view addSubview:self.webViewController.view];
-    [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.trailing.top.and.bottom.equalTo(self.view);
-    }];
-    [self.webViewController didMoveToParentViewController:self];
 
-    if (self.article) {
-        [self updateChildrenWithArticle];
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+
+    if (!self.article.isMain) {
+        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
     }
 }
 
-- (UIBarItem*)paddingToolbarItem {
+- (UIBarButtonItem*)paddingToolbarItem {
     UIBarButtonItem* item =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     item.width = 10.f;
     return item;
 }
@@ -295,14 +309,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                          action:NULL];
 }
 
-- (UIBarButtonItem*)tableOfContentsToolbarItem {
-    @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
-        @strongify(self);
-        [self.webViewController tocToggle];
-    }];
-}
-
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
     return [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
@@ -311,22 +317,30 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)setupToolbar {
-    UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
-    self.toolbarItems = [@[[self flexibleSpaceToolbarItem], [self refreshToolbarItem],
-                           [self paddingToolbarItem], [self shareToolbarItem],
-                           [self paddingToolbarItem], saveToolbarItem] wmf_reverseArrayIfApplicationIsRTL];
-    self.saveButtonController =
-        [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
-                                          savedPageList:self.savedPages
-                                                  title:self.article.title];
+- (UIBarButtonItem*)tableOfContentsToolbarItem {
+    @weakify(self);
+    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
+        @strongify(self);
+        [self.tableOfContentsViewController selectAndScrollToSection:[self.webViewController currentVisibleSection] animated:NO];
+        [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+    }];
+}
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+#pragma mark - ViewController
 
-    // TODO: add TOC
-//    if (!self.article.isMain) {
-//        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
-//    }
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    [self addChildViewController:self.webViewController];
+    [self.view addSubview:self.webViewController.view];
+    [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.trailing.top.and.bottom.equalTo(self.view);
+    }];
+    [self.webViewController didMoveToParentViewController:self];
+
+    if (self.article) {
+        [self updateChildrenWithArticle];
+    }
 }
 
 #pragma mark - Article Navigation
@@ -481,6 +495,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)analyticsName {
     return [self.article analyticsName];
 }
+
+#pragma mark - TableOfContentsViewControllerDelegate
+
+- (void)tableOfContentsController:(WMFTableOfContentsViewController *)controller didSelectSection:(MWKSection *)section{
+    //Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
+    dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
+        [self dismissViewControllerAnimated:YES completion:NULL];
+        [self.webViewController scrollToSection:section];
+    });
+}
+
+- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController *)controller{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 #pragma mark - WMFPreviewControllerDelegate
 

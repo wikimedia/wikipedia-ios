@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -13,19 +13,19 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eK1-tC-UDQ">
-                    <rect key="frame" x="8" y="0.0" width="584" height="50"/>
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More…" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1S-hp-bvc">
-                    <rect key="frame" x="16" y="15" width="535" height="21"/>
+                    <rect key="frame" x="8" y="15" width="551" height="21"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.36862745098039218" green="0.36862745098039218" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-gray-right" translatesAutoresizingMaskIntoConstraints="NO" id="HCU-Vn-uL3">
-                    <rect key="frame" x="559" y="13" width="25" height="25"/>
+                    <rect key="frame" x="567" y="13" width="25" height="25"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="25" id="Sjb-Oy-p3f"/>
@@ -36,8 +36,8 @@
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="eK1-tC-UDQ" firstAttribute="leading" secondItem="vQb-Od-Dsn" secondAttribute="leading" constant="8" id="8Uy-7J-8Oq"/>
-                <constraint firstAttribute="trailing" secondItem="eK1-tC-UDQ" secondAttribute="trailing" constant="8" id="AF9-qY-jEH"/>
+                <constraint firstItem="eK1-tC-UDQ" firstAttribute="leading" secondItem="vQb-Od-Dsn" secondAttribute="leading" id="8Uy-7J-8Oq"/>
+                <constraint firstAttribute="trailing" secondItem="eK1-tC-UDQ" secondAttribute="trailing" id="AF9-qY-jEH"/>
                 <constraint firstAttribute="trailing" secondItem="HCU-Vn-uL3" secondAttribute="trailing" constant="10" id="BWK-4u-Y44"/>
                 <constraint firstItem="HCU-Vn-uL3" firstAttribute="leading" secondItem="w1S-hp-bvc" secondAttribute="trailing" constant="8" id="JSJ-Bd-aUD"/>
                 <constraint firstAttribute="bottom" secondItem="eK1-tC-UDQ" secondAttribute="bottom" constant="30" id="Loq-Eb-hOh"/>
