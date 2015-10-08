@@ -2,6 +2,7 @@
 #import "MTLModel.h"
 
 typedef NS_ENUM (NSUInteger, WMFSectionSchemaItemType){
+    WMFSectionSchemaItemTypeContinueReading,
     WMFSectionSchemaItemTypeRecent,
     WMFSectionSchemaItemTypeSaved,
     WMFSectionSchemaItemTypeNearby,
@@ -10,6 +11,7 @@ typedef NS_ENUM (NSUInteger, WMFSectionSchemaItemType){
 @interface WMFSectionSchemaItem : MTLModel
 
 + (WMFSectionSchemaItem*)nearbyItem;
++ (WMFSectionSchemaItem*)continueReadingItemWithTitle:(MWKTitle*)title;
 + (WMFSectionSchemaItem*)recentItemWithTitle:(MWKTitle*)title;
 + (WMFSectionSchemaItem*)savedItemWithTitle:(MWKTitle*)title;
 

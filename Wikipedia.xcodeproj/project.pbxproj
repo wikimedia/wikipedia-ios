@@ -2268,8 +2268,6 @@
 		0E03E2861B83948B00C1FBD7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0E8726591B8CC9E7008EA2AC /* UIView+WMFShadow.h */,
-				0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */,
 				0EA0BF3A1B8AAB6300BA423E /* WMFSaveableTitleCollectionViewCell.h */,
 				BC550B0C1B9782C50082F298 /* WMFSaveableTitleCollectionViewCell+Subclass.h */,
 				0EA0BF3B1B8AAB6300BA423E /* WMFSaveableTitleCollectionViewCell.m */,
@@ -2307,7 +2305,7 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		0E2691031B86BBC0009B8605 /* Related Section */ = {
+		0E2691031B86BBC0009B8605 /* Related */ = {
 			isa = PBXGroup;
 			children = (
 				0E2690F71B86A9DB009B8605 /* WMFRelatedSectionController.h */,
@@ -2317,7 +2315,7 @@
 				BC550B161B9A75100082F298 /* WMFRelatedTitleListDataSource.h */,
 				BC550B171B9A75100082F298 /* WMFRelatedTitleListDataSource.m */,
 			);
-			name = "Related Section";
+			name = Related;
 			sourceTree = "<group>";
 		};
 		0E2691041B86BBD1009B8605 /* Fetcher */ = {
@@ -2384,6 +2382,8 @@
 		0E2B06FA1B2D129B00EA2F53 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0E8726591B8CC9E7008EA2AC /* UIView+WMFShadow.h */,
+				0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */,
 				0E366B491B308A2600ABFB86 /* UIStoryboard+WMFExtensions.h */,
 				0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */,
 				BC5620951B6B854E0013FFB0 /* WMFArticleNavigationDelegate.h */,
@@ -2449,8 +2449,8 @@
 				0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */,
 				0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */,
 				0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */,
-				0E2691031B86BBC0009B8605 /* Related Section */,
-				0ED6897C1B8246F400B30427 /* Nearby Section */,
+				0E2691031B86BBC0009B8605 /* Related */,
+				0ED6897C1B8246F400B30427 /* Nearby */,
 			);
 			name = Sections;
 			sourceTree = "<group>";
@@ -2532,14 +2532,14 @@
 			name = "Recent Searches";
 			sourceTree = "<group>";
 		};
-		0ED6897C1B8246F400B30427 /* Nearby Section */ = {
+		0ED6897C1B8246F400B30427 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
 				BC305C2E1BA0C97400E414B8 /* View Model */,
 				BC305C2F1BA0C98C00E414B8 /* Data Controllers */,
 				0E03E2A21B85310400C1FBD7 /* Views */,
 			);
-			name = "Nearby Section";
+			name = Nearby;
 			sourceTree = "<group>";
 		};
 		0EEAF0F61B8229E6000D4232 /* Home */ = {
