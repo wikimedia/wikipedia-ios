@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRelatedSearchFetcher* relatedSearchFetcher;
-@property (nonatomic, assign) NSUInteger numberOfExtractCharacters;
 @property (nonatomic, assign) NSUInteger resultLimit;
 @property (nonatomic, copy) NSArray* relatedTitleResults;
 
@@ -46,12 +45,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTitle:(MWKTitle*)title
                     dataStore:(MWKDataStore*)dataStore
                 savedPageList:(MWKSavedPageList*)savedPageList
-    numberOfExtractCharacters:(NSUInteger)numberOfExtractCharacters
                   resultLimit:(NSUInteger)resultLimit {
     return [self initWithTitle:title
                             dataStore:dataStore
                         savedPageList:savedPageList
-            numberOfExtractCharacters:numberOfExtractCharacters
                           resultLimit:resultLimit
                               fetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
@@ -59,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTitle:(MWKTitle*)title
                     dataStore:(MWKDataStore*)dataStore
                 savedPageList:(MWKSavedPageList*)savedPageList
-    numberOfExtractCharacters:(NSUInteger)numberOfExtractCharacters
                   resultLimit:(NSUInteger)resultLimit
                       fetcher:(WMFRelatedSearchFetcher*)fetcher {
     NSParameterAssert(title);
@@ -71,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.title                     = title;
         self.dataStore                 = dataStore;
         self.savedPageList             = savedPageList;
-        self.numberOfExtractCharacters = numberOfExtractCharacters;
         self.relatedSearchFetcher      = fetcher;
         self.resultLimit               = resultLimit;
 
@@ -105,7 +100,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise*)fetch {
     @weakify(self);
     return [self.relatedSearchFetcher fetchArticlesRelatedToTitle:self.title
-                                         numberOfExtactCharacters:self.numberOfExtractCharacters
                                                       resultLimit:self.resultLimit]
            .then(^(WMFRelatedSearchResults* searchResults) {
         @strongify(self);

@@ -40,7 +40,6 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
  *  Query a site for titles related to a given title.
  *
  *  @param title        The title for which to find related content, as well as the site to pull content from.
- *  @param extractChars The number of characters to extract from related titles.
  *  @param resultLimit  Maximum number of search results, limited to WMFMaxRelatedSearchResultLimit.
  *
  *  @return A promise which resolves to an instance of @c WMFRelatedSearchResults.
@@ -48,7 +47,6 @@ extern NSUInteger const WMFMaxRelatedSearchResultLimit;
  *  @see Fetching Extracts
  */
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
-                  numberOfExtactCharacters:(NSUInteger)extractChars
                                resultLimit:(NSUInteger)resultLimit;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
