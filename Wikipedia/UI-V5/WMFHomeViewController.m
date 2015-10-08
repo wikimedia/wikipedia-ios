@@ -277,12 +277,14 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
             header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
-            footer.moreLabel.text = controller.footerText;
-            @weakify(self);
-            footer.whenTapped = ^{
-                @strongify(self);
-                [self didTapFooterInSection:indexPath.section];
-            };
+            if([controller respondsToSelector:@selector(footerText)]){
+                footer.moreLabel.text = controller.footerText;
+                @weakify(self);
+                footer.whenTapped = ^{
+                    @strongify(self);
+                    [self didTapFooterInSection:indexPath.section];
+                };
+            }
         }
     };
 
@@ -390,6 +392,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
+    if(![controllerForSection respondsToSelector:@selector(extendedListDataSource)]){
+        return;
+    }
     WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
     extendedList.dataStore   = self.dataStore;
     extendedList.savedPages  = self.savedPages;
@@ -414,7 +419,12 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 }
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
-    return CGSizeMake([self contentWidth], 80.0);
+    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
+    if([controllerForSection respondsToSelector:@selector(footerText)]){
+        return CGSizeMake([self contentWidth], 80.0);
+    }else{
+        return CGSizeZero;
+    }
 }
 
 - (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
