@@ -199,11 +199,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 }
 
 - (BOOL)homeViewControllerIsDisplayingContent{
-    if([self navigationControllerForTab:WMFAppTabTypeHome].viewControllers.count > 1){
-        return YES;
-    }else{
-        return NO;
-    }
+    return [self navigationControllerForTab:WMFAppTabTypeHome].viewControllers.count > 1;
 }
 
 - (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
