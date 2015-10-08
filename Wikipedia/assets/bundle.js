@@ -84,14 +84,14 @@ exports.getElementRectAsJson = function(element) {
     return JSON.stringify(this.getElementRect(element));
 };
 
-exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPrefix, elementCount){
+exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
     for (var i = 0; i < elementCount; ++i) {
         var div = document.getElementById(elementPrefix + i);
         if (div === null) {
             continue;
         }
         var rect = this.getElementRect(div);
-        if ( (rect.top >= 0) || ((rect.top + rect.height) >= 0)) {
+        if ( (rect.top >= -1) || ((rect.top + rect.height) >= 50)) {
             return i;
         }
     }
