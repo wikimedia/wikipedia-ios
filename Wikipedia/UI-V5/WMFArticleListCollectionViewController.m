@@ -192,7 +192,7 @@
 
     [self flowLayout].numberOfColumns    = 1;
     [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
-    [self flowLayout].minimumLineSpacing = 10.0;
+    [self flowLayout].minimumLineSpacing = 1.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
