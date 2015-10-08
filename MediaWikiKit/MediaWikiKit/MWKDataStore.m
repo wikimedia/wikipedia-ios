@@ -19,8 +19,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @interface MWKDataStore ()
 
+@property (readwrite, strong, nonatomic) MWKUserDataStore* userDataStore;
 @property (readwrite, copy, nonatomic) NSString* basePath;
-@property (nonatomic, strong) NSCache* articleCache;
+@property (readwrite, strong, nonatomic) NSCache* articleCache;
 
 @end
 
@@ -51,6 +52,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         self.articleCache            = [[NSCache alloc] init];
         self.articleCache.countLimit = 50;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRecievememoryWarningWithNotifcation:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+        self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
     }
     return self;
 }
@@ -413,10 +415,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 #pragma mark - helper methods
-
-- (MWKUserDataStore*)userDataStore {
-    return [[MWKUserDataStore alloc] initWithDataStore:self];
-}
 
 - (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section {
     NSString* path;

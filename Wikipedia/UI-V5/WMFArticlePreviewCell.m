@@ -32,7 +32,7 @@
     self.summaryLabel.preferredMaxLayoutWidth     = preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    
+
     preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, [self.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
     return preferredAttributes;
 }

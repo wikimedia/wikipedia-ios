@@ -26,4 +26,9 @@
 
 + (instancetype)wmf_tableOfContentsSubsectionTextColor;
 
+/**
+ *  Color which is used in places like cell separators & various 1px lines in the interface.
+ */
++ (instancetype)wmf_lightGrayColor;
+
 @end
