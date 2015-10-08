@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)sectionIdentifier;
 
+- (UIImage*)headerIcon;
+
 - (NSAttributedString*)headerText;
 
 - (void)registerCellsInCollectionView:(UICollectionView*)collectionView;

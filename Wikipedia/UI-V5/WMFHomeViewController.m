@@ -271,10 +271,13 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             WMFHomeSectionHeader* header     = view;
+            header.icon.image = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-            [title addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0] range:NSMakeRange(0, title.length)];
-            [title addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.353 green:0.353 blue:0.353 alpha:1] range:NSMakeRange(0, title.length)];
+            [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, title.length)];
+            [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
+            header.titleView.tintColor = [UIColor wmf_homeSectionHeaderLinkTextColor];
             header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
