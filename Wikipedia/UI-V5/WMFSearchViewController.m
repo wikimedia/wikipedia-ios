@@ -49,7 +49,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* searchFieldHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* searchFieldTop;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTopToSuggestionBottom;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
 
 
@@ -167,6 +166,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self configureSearchField];
 
+    // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
     // TODO: localize
@@ -179,16 +179,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
 
     [self updateUIWithResults:nil];
+    [self updateRecentSearchesVisibility:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [self.searchFieldTop setConstant:0];
+    self.searchFieldTop.constant = 0;
+    [self.view setNeedsUpdateConstraints];
 
     [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.view layoutIfNeeded];
-        [self updateRecentSearchesVisibility:animated];
         [self.searchField becomeFirstResponder];
     } completion:nil];
 }
@@ -202,12 +203,23 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super viewWillDisappear:animated];
     [self saveLastSearch];
 
-    self.searchFieldTop.constant = -self.searchField.bounds.size.height;
+    self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
     [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self.searchField resignFirstResponder];
         [self.view layoutIfNeeded];
     } completion:nil];
+}
+
+- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+              withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    if (self.traitCollection.verticalSizeClass != newCollection.verticalSizeClass) {
+        [self.view setNeedsUpdateConstraints];
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            [self.view layoutSubviews];
+        } completion:nil];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -338,13 +350,20 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.view layoutIfNeeded];
 }
 
+- (CGFloat)searchFieldHeightForCurrentTraitCollection {
+    return self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 44 : 64;
+}
+
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    BOOL hasSuggestion = [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0;
+
+    self.searchFieldHeight.constant = [self searchFieldHeightForCurrentTraitCollection];
+
+    self.contentViewTop.constant = self.searchFieldHeight.constant;
+
     self.suggestionButtonHeightConstraint.constant =
-        hasSuggestion ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
-    self.contentViewTop.active = !hasSuggestion;
-    self.contentViewTopToSuggestionBottom.active = hasSuggestion;
+        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0 ?
+        [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
 }
 
 - (NSAttributedString*)getAttributedStringForSuggestion:(NSString*)suggestion {
