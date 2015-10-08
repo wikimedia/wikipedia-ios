@@ -41,7 +41,6 @@
  */
 typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeHome = 0,
-    WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
@@ -67,7 +66,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFHomeViewController* homeViewController;
-@property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
 
@@ -86,7 +84,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 - (void)loadMainUI {
     [self configureTabController];
     [self configureHomeViewController];
-    [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
     [[PiwikTracker sharedInstance] sendView:@"Home"];
@@ -106,14 +103,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
     self.homeViewController.dataStore   = self.session.dataStore;
     self.homeViewController.savedPages  = self.session.userDataStore.savedPageList;
     self.homeViewController.recentPages = self.session.userDataStore.historyList;
-}
-
-- (void)configureSearchViewController {
-    self.searchViewController.searchSite     = [self.session searchSite];
-    self.searchViewController.dataStore      = self.session.dataStore;
-    self.searchViewController.savedPages     = self.session.userDataStore.savedPageList;
-    self.searchViewController.recentPages    = self.session.userDataStore.historyList;
-    self.searchViewController.recentSearches = self.session.userDataStore.recentSearchList;
 }
 
 - (void)configureArticleListController:(WMFArticleListCollectionViewController*)controller {
@@ -252,10 +241,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
     return (WMFHomeViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
 }
 
-- (WMFSearchViewController*)searchViewController {
-    return (WMFSearchViewController*)[self rootViewControllerForTab:WMFAppTabTypeSearch];
-}
-
 - (WMFArticleListCollectionViewController*)savedArticlesViewController {
     return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
@@ -378,10 +363,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
             [[PiwikTracker sharedInstance] sendView:@"Home"];
         }
         break;
-        case WMFAppTabTypeSearch: {
-            [[PiwikTracker sharedInstance] sendView:@"Search"];
-        }
-        break;
         case WMFAppTabTypeSaved: {
             [[PiwikTracker sharedInstance] sendView:@"Saved"];
         }
@@ -397,7 +378,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 
 - (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
     [self configureHomeViewController];
-    [self configureSearchViewController];
 }
 
 #pragma mark - UINavigationControllerDelegate

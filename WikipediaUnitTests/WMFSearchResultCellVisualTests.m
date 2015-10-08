@@ -35,14 +35,11 @@ static NSString* const LongSearchResultDescription =
 - (void)setUp {
     [super setUp];
     self.searchResultCell = [WMFSearchResultCell wmf_viewFromClassNib];
-//    self.recordMode       = YES;
 }
 
 - (void)tearDown {
     [super tearDown];
 }
-
-#pragma mark - Short title, short description
 
 - (void)testShouldShowTitleAtTheTopAndDescriptionAtTheBottom {
     [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
@@ -50,31 +47,19 @@ static NSString* const LongSearchResultDescription =
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
-#pragma mark - Long title, short description
-
-- (void)testShouldShowDescriptionWhenTitleIsTwoLines {
-    [self populateTitleLabelWithString:MediumSearchResultTitle
-                           searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:ShortSearchResultDescription];
+- (void)testShouldCenterShortTitleWhenDescriptionIsEmpty {
+    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
+    [self.searchResultCell setSearchResultDescription:nil];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
-- (void)testShouldCollapseDescriptionWhenTitleExceedsTwoLines {
-    [self populateTitleLabelWithString:LongSearchResultTitle
-                           searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:ShortSearchResultDescription];
-    [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
-}
-
-- (void)testShouldTruncateAndShrinkTitleAtFourLines {
+- (void)testShouldTruncateAndShrinkTitle {
     NSString* reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
     [self populateTitleLabelWithString:reallyLongString
                            searchQuery:nil];
     [self.searchResultCell setSearchResultDescription:ShortSearchResultDescription];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
-
-#pragma mark - Long title, long description
 
 - (void)testShouldNotShowLongDescriptionWhenTitleExceedsTwoLines {
     NSString* reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
@@ -84,22 +69,12 @@ static NSString* const LongSearchResultDescription =
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
-#pragma mark - Short title, long desription
-
-- (void)testShouldTruncateLongDescriptionAndNotCollapseTitle {
+- (void)testShouldShowLongDescriptionWhenTitleIsShort {
     NSString* reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
-    [self populateTitleLabelWithString:MediumSearchResultTitle searchQuery:nil];
+    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
     [self.searchResultCell setSearchResultDescription:reallyLongString];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
-
-- (void)testShouldExpandDescriptionToMultipleLines {
-    [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:LongSearchResultDescription];
-    [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
-}
-
-#pragma mark - Title Highlighting
 
 - (void)testShouldHighlightMatchingSubstring {
     NSString* mediumTitleSubstring =

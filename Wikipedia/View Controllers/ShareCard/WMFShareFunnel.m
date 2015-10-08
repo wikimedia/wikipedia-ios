@@ -49,6 +49,7 @@ static NSString* const kSelectionAssertVerbiage       = @"No selection provided"
 @implementation WMFShareFunnel
 
 - (id)initWithArticle:(MWKArticle*)article {
+    NSParameterAssert(article);
     NSString* title = [[article title] text];
     // ...implicitly, the articleId is okay if the title is okay.
     // But in case the title is broken (and, implicitly, articleId is, too)
