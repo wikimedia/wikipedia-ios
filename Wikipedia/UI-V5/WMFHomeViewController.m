@@ -181,7 +181,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 }
 
 - (void)didTapSectionHeaderLink:(NSURL*)url {
-    presentTitleWithDiscoveryMethod([[MWKTitle alloc] initWithURL:url], MWKHistoryDiscoveryMethodLink);
+    [self wmf_presentTitle:[[MWKTitle alloc] initWithURL:url]
+           discoveryMethod:MWKHistoryDiscoveryMethodLink
+                 dataStore:self.dataStore];
 }
 
 #pragma mark - UIViewController
@@ -439,7 +441,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         if ([controller respondsToSelector:@selector(discoveryMethod)]) {
             discoveryMethod = [controller discoveryMethod];
         }
-        presentTitleWithDiscoveryMethod(title, discoveryMethod);
+        [self wmf_presentTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
     }
 }
 
@@ -505,9 +507,13 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 #pragma mark - WMFSearchPresentationDelegate
 
+- (MWKDataStore*)searchDataStore {
+    return self.dataStore;
+}
+
 - (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        presentArticleWithDiscoveryMethod(article, MWKHistoryDiscoveryMethodSearch);
+        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     }];
 }
 

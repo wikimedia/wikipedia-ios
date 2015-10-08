@@ -190,6 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleFetcher
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
         self.operationManager.requestSerializer  = [WMFArticleRequestSerializer serializer];

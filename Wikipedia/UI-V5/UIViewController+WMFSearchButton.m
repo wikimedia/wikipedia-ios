@@ -9,7 +9,6 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
-#import "WMFArticleContainerViewController.h"
 #import "SessionSingleton.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -38,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         WMFSearchViewController* searchVC =
             [WMFSearchViewController searchViewControllerWithSite:searchSite
-                                                        dataStore:[delegate dataStore]];
+                                                        dataStore:[delegate searchDataStore]];
         searchVC.searchResultDelegate = delegate;
         [self presentViewController:searchVC animated:YES completion:nil];
     }];

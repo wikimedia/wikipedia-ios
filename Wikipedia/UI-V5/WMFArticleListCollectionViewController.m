@@ -224,28 +224,20 @@
 #pragma mark - Article Selection
 
 - (void)wmf_presentArticle:(MWKArticle*)article
-           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-                 dataStore:(MWKDataStore*)dataStore
-               recentPages:(MWKHistoryList*)recentPages
-                savedPages:(MWKSavedPageList*)savedPages {
+           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+    [self wmf_hideKeyboard];
     if (self.delegate) {
         [self.delegate didSelectArticle:article sender:self];
         return;
     }
-
-    [self wmf_hideKeyboard];
-
-    [super wmf_presentArticle:article
-              discoveryMethod:discoveryMethod
-                    dataStore:dataStore
-                  recentPages:recentPages
-                   savedPages:savedPages];
+    [super wmf_presentArticle:article discoveryMethod:discoveryMethod];
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    presentArticleWithDiscoveryMethod([self.dataSource articleForIndexPath:indexPath], [self.dataSource discoveryMethod]);
+    [self wmf_presentArticle:[self.dataSource articleForIndexPath:indexPath]
+             discoveryMethod:[self.dataSource discoveryMethod]];
 }
 
 #pragma mark - WMFArticleListTransitioning
@@ -262,9 +254,13 @@
 
 #pragma mark - WMFSearchPresentationDelegate
 
+- (MWKDataStore*)searchDataStore {
+    return self.dataStore;
+}
+
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        presentArticleWithDiscoveryMethod(article, MWKHistoryDiscoveryMethodSearch);
+        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     }];
 }
 
