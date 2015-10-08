@@ -34,6 +34,8 @@ extern NSString* const MWKArticleKey;
 
 @property (readonly, copy, nonatomic) NSString* basePath;
 
+@property (readonly, strong, nonatomic) MWKUserDataStore* userDataStore;
+
 /**
  *  Path for the default main data store.
  *  Use this to intitialize a data store with the default path
@@ -41,8 +43,6 @@ extern NSString* const MWKArticleKey;
  *  @return The path
  */
 + (NSString*)mainDataStorePath;
-
-
 
 - (instancetype)initWithBasePath:(NSString*)basePath;
 
@@ -149,9 +149,6 @@ extern NSString* const MWKArticleKey;
 
 
 // Storage helper methods
-
-/// Returns a new `MWKUserDataStore` (i.e. _not_ a lazy property).
-- (MWKUserDataStore*)userDataStore;
 
 - (MWKImageList*)imageListWithArticle:(MWKArticle*)article section:(MWKSection*)section;
 

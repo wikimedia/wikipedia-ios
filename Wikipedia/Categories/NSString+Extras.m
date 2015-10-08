@@ -142,17 +142,17 @@
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
-- (NSString*)wmf_substringBeforeString:(NSString*)string{
+- (NSString*)wmf_substringBeforeString:(NSString*)string {
     return [[self componentsSeparatedByString:string] firstObject];
 }
-- (NSString*)wmf_substringAfterString:(NSString*)string{
-   NSArray* components = [self componentsSeparatedByString:string];
-    if([components count] > 2){
+
+- (NSString*)wmf_substringAfterString:(NSString*)string {
+    NSArray* components = [self componentsSeparatedByString:string];
+    if ([components count] > 2) {
         return components[1];
-    }else{
+    } else {
         return [components lastObject];
     }
 }
-
 
 @end

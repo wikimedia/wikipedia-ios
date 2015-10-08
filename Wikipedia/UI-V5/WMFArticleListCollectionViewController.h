@@ -1,6 +1,8 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFArticleListDataSource.h"
+#import "WMFArticleSelectionDelegate.h"
+
 @class SSArrayDataSource;
 
 @class MWKDataStore, MWKSavedPageList, MWKHistoryList, SelfSizingWaterfallCollectionViewLayout;
@@ -20,6 +22,13 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 @property (nonatomic, strong) MWKSavedPageList* savedPages;
 @property (nonatomic, strong) MWKHistoryList* recentPages;
 @property (nonatomic, strong, nullable) SSArrayDataSource<WMFArticleListDataSource>* dataSource;
+
+/**
+ *  Optional delegate which will is informed of selection.
+ *
+ *  If left @c nil, falls back to pushing an article container using its @c navigationController.
+ */
+@property (nonatomic, weak, nullable) id<WMFArticleSelectionDelegate> delegate;
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout;
 

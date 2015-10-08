@@ -17,6 +17,7 @@
 - (instancetype)initWithButton:(UIButton*)button
                  savedPageList:(MWKSavedPageList*)savedPageList
                          title:(MWKTitle*)title {
+    NSParameterAssert(savedPageList);
     self = [super init];
     if (self) {
         self.button        = button;

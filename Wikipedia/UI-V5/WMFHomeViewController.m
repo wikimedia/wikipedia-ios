@@ -32,6 +32,7 @@
 #import "WMFHomeSectionFooter.h"
 
 // Child View Controllers
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFArticleContainerViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -41,12 +42,15 @@
 // Controllers
 #import "WMFLocationManager.h"
 #import "UITabBarController+WMFExtensions.h"
+#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
-@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate>
+@interface WMFHomeViewController ()
+<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -69,11 +73,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.navigationItem.titleView =
-            [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
-        self.navigationItem.rightBarButtonItems = @[
-            [self settingsBarButtonItem]
-        ];
+        self.navigationItem.titleView          = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
+        self.navigationItem.leftBarButtonItem  = [self settingsBarButtonItem];
+        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
 }
@@ -149,22 +151,22 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return width;
 }
 
-- (BOOL)shouldAutomaticallyReloadHome{
+- (BOOL)shouldAutomaticallyReloadHome {
     //never loaded
     if ([self.dataSource numberOfSections] == 0) {
         return NO;
     }
 
     //never loaded
-    if(!self.lastReloadDate){
+    if (!self.lastReloadDate) {
         return YES;
     }
-    
+
     //minimum relaod time
     if ([[NSDate date] timeIntervalSinceDate:self.lastReloadDate] > WMFHomeMinAutomaticReloadTime) {
         return YES;
     }
-    
+
     return NO;
 }
 
@@ -177,6 +179,12 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
+}
+
+- (void)didTapSectionHeaderLink:(NSURL*)url {
+    [self wmf_presentTitle:[[MWKTitle alloc] initWithURL:url]
+           discoveryMethod:MWKHistoryDiscoveryMethodLink
+                 dataStore:self.dataStore];
 }
 
 #pragma mark - UIViewController
@@ -223,11 +231,11 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     if (!self.isViewLoaded) {
         return;
     }
-    
-    if(![self shouldAutomaticallyReloadHome]){
+
+    if (![self shouldAutomaticallyReloadHome]) {
         return;
     }
-    
+
     [self.schemaManager updateSchema];
     [self reloadSections];
 }
@@ -333,7 +341,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
                 break;
         }
     }];
-    
+
     self.lastReloadDate = [NSDate date];
 }
 
@@ -454,23 +462,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         if ([controller respondsToSelector:@selector(discoveryMethod)]) {
             discoveryMethod = [controller discoveryMethod];
         }
-        [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:discoveryMethod];
+        [self wmf_presentTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
     }
-}
-
-#pragma mark - Article Presentation
-
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title
-                                 animated:(BOOL)animated
-                          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    MWKArticle* article                                   = [self.dataStore articleWithTitle:title];
-    WMFArticleContainerViewController* articleContainerVC =
-        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore
-                                                                           recentPages:self.recentPages
-                                                                            savedPages:self.savedPages];
-    articleContainerVC.article = article;
-    [self.recentPages addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
-    [self.navigationController pushViewController:articleContainerVC animated:animated];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
@@ -528,13 +521,23 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
-    MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
-    [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:MWKHistoryDiscoveryMethodLink];
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)url inRange:(NSRange)characterRange {
+    [self didTapSectionHeaderLink:url];
     return NO;
 }
 
-@end
+#pragma mark - WMFSearchPresentationDelegate
 
+- (MWKDataStore*)searchDataStore {
+    return self.dataStore;
+}
+
+- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+    }];
+}
+
+@end
 
 NS_ASSUME_NONNULL_END
