@@ -73,6 +73,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @implementation WMFSearchViewController
 
 + (instancetype)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(site);
+    NSParameterAssert(dataStore);
     WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
     searchVC.searchSite             = site;
     searchVC.dataStore              = dataStore;

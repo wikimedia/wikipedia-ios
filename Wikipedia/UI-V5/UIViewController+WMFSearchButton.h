@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFSearchPresentationDelegate <WMFArticleSelectionDelegate>
 
-- (MWKDataStore*)dataStore;
+- (MWKDataStore*)searchDataStore;
 
 @optional
 
