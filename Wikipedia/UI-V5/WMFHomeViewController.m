@@ -7,6 +7,7 @@
 // Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
+#import "WMFContinueReadingSectionController.h"
 #import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFSectionSchemaManager.h"
@@ -305,6 +306,10 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return controller;
 }
 
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item{
+    return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
+}
+
 #pragma mark - Section Management
 
 - (void)reloadSections {
@@ -317,6 +322,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
                 break;
             case WMFSectionSchemaItemTypeNearby:
                 [self loadSectionForSectionController:self.nearbySectionController];
+                break;
+            case WMFSectionSchemaItemTypeContinueReading:
+                [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
                 break;
             default:
                 break;
