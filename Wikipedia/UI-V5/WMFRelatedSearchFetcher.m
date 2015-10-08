@@ -147,6 +147,7 @@ static NSUInteger const WMFNumberOfExtractCharacters = 525;
                // extracts
                @"exintro": @YES,
                @"exlimit": numResults,
+               @"explaintext": @"",
                @"exchars": @(WMFNumberOfExtractCharacters),
                // pageterms
                @"wbptterms": @"description",
