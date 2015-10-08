@@ -11,9 +11,10 @@
 #import "MWKTitle.h"
 #import "WMFRangeUtils.h"
 #import "NSParagraphStyle+WMFParagraphStyles.h"
+#import "UIColor+WMFStyle.h"
 
-static CGFloat const WMFSearchResultImageWidth        = 70.f;
-static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
+static CGFloat const WMFSearchResultImageWidth                  = 40.f;
+static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
 
 @interface WMFSearchResultCell ()
 
@@ -22,8 +23,6 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 @property (nonatomic, strong) IBOutlet UILabel* searchResultDescriptionLabel;
 
 @property (nonatomic, copy) NSString* highlightSubstring;
-
-@property (nonatomic, assign) BOOL shouldCollapseDescription;
 
 @end
 
@@ -52,21 +51,6 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 
 - (void)setSearchResultDescription:(NSString*)searchResultDescription {
     self.searchResultDescriptionLabel.text = searchResultDescription;
-    [self.searchResultDescriptionLabel layoutIfNeeded];
-}
-
-#pragma mark - Description Display Logic
-
-- (void)setShouldCollapseDescription:(BOOL)shouldCollapseDescription {
-    if (_shouldCollapseDescription == shouldCollapseDescription) {
-        return;
-    }
-
-    _shouldCollapseDescription = shouldCollapseDescription;
-
-    self.searchResultDescriptionLabel.hidden = shouldCollapseDescription;
-
-    [self setNeedsUpdateConstraints];
 }
 
 #pragma mark - WMFSaveableTitleCollectionViewCell
@@ -74,8 +58,7 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
 - (void)updateTitleLabel {
     NSRange highlightRange =
         self.highlightSubstring.length ?
-        [self.title.text rangeOfString : self.highlightSubstring
-         options:NSCaseInsensitiveSearch]
+        [self.title.text rangeOfString : self.highlightSubstring options:NSCaseInsensitiveSearch]
         : WMFRangeMakeNotFound();
     if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
         [super updateTitleLabel];
@@ -127,20 +110,14 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
     [super prepareForReuse];
     self.highlightSubstring = nil;
     [self setSearchResultDescription:nil];
-    self.shouldCollapseDescription = NO;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.shouldCollapseDescription = CGRectGetMaxY(self.searchResultDescriptionLabel.frame) > self.contentView.bounds.size.height;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
     CGFloat preferredMaxLayoutWidth =
         layoutAttributes.size.width
         - WMFSearchResultImageWidth
-        - 3.f * WMFSearchResultTitleLabelPadding
-        - self.saveButton.intrinsicContentSize.width;
+        - 3.f * WMFSearchResultTitleLabelHorizontalPadding;
+
     if (self.titleLabel.preferredMaxLayoutWidth != preferredMaxLayoutWidth) {
         self.titleLabel.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
     }
@@ -148,13 +125,8 @@ static CGFloat const WMFSearchResultTitleLabelPadding = 8.f;
     self.searchResultDescriptionLabel.preferredMaxLayoutWidth = self.titleLabel.preferredMaxLayoutWidth;
 
     UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, WMFSearchResultImageWidth);
+    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, WMFSearchResultImageWidth + 20.f);
     return preferredAttributes;
-}
-
-- (void)updateConstraints {
-    [super updateConstraints];
-    self.bottomTitleToTopDescriptionConstraint.active = !self.shouldCollapseDescription;
 }
 
 @end
