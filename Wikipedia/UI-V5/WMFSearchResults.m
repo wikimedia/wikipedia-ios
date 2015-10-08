@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGFloat)estimatedItemHeight {
-    return 70.f;
+    return 60.f;
 }
 
 @end

@@ -170,7 +170,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.title                                                    = @"Search";
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     SelfSizingWaterfallCollectionViewLayout* resultLayout = [self.resultsListController flowLayout];
-    resultLayout.minimumLineSpacing = 5.f;
+    resultLayout.minimumLineSpacing = 0.f;
+    resultLayout.minimumInteritemSpacing = 0.f;
+    resultLayout.sectionInset = UIEdgeInsetsZero;
+    self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
     [self updateUIWithResults:nil];
 }
 
