@@ -15,8 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerText;
 
-- (NSString*)footerText;
-
 - (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
 
 - (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath;
@@ -27,12 +25,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
+@optional
+
+/**
+ *  @return Return the "More" footer text that prompts a user to get more items from a section.
+ *  Not implementing this method means that no footer will be displayed
+ */
+- (NSString*)footerText;
+
 /**
  *  @return A data source which will provide a larger list of items from this section.
  */
 - (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource;
-
-@optional
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
 
