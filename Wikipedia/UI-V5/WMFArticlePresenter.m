@@ -1,6 +1,6 @@
 
 #import "WMFArticlePresenter.h"
-#import "WebViewController.h"
+#import "WMFWebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 
 @implementation WMFArticlePresenter
@@ -19,10 +19,10 @@
 }
 
 // Ensures the web view is foremost. Adds web view to nav stack if none found. Returns web view controller.
-- (WebViewController*)presentWebViewController {
-    WebViewController* webVC = (WebViewController*)[WMFArticlePresenter popToFirstViewControllerOfClass:[WebViewController class]];
+- (WMFWebViewController*)presentWebViewController {
+    WMFWebViewController* webVC = (WMFWebViewController*)[WMFArticlePresenter popToFirstViewControllerOfClass:[WMFWebViewController class]];
     if (!webVC) {
-        webVC = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        webVC = [WMFWebViewController wmf_initialViewControllerFromClassStoryboard];
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:webVC];
         [[WMFArticlePresenter root] presentViewController:nc animated:YES completion:nil];
     }
@@ -47,12 +47,12 @@
 }
 
 - (void)loadTodaysArticle {
-    WebViewController* webVC = (WebViewController*)[WMFArticlePresenter firstViewControllerOnNavStackOfClass:[WebViewController class]];
+    WMFWebViewController* webVC = (WMFWebViewController*)[WMFArticlePresenter firstViewControllerOnNavStackOfClass:[WMFWebViewController class]];
     [webVC loadTodaysArticle];
 }
 
 - (void)reloadCurrentArticleFromNetwork {
-    WebViewController* webVC = (WebViewController*)[WMFArticlePresenter firstViewControllerOnNavStackOfClass:[WebViewController class]];
+    WMFWebViewController* webVC = (WMFWebViewController*)[WMFArticlePresenter firstViewControllerOnNavStackOfClass:[WMFWebViewController class]];
     [webVC reloadCurrentArticleFromNetwork];
 }
 

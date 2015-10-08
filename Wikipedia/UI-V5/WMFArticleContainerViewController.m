@@ -7,7 +7,7 @@
 
 // Controller
 #import "WMFArticleViewController.h"
-#import "WebViewController.h"
+#import "WMFWebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFSaveButtonController.h"
 #import "WMFPreviewController.h"
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Children
 @property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
-@property (nonatomic, strong) WebViewController* webViewController;
+@property (nonatomic, strong) WMFWebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
 @property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
@@ -189,9 +189,9 @@ NS_ASSUME_NONNULL_BEGIN
     return _articleFetcher;
 }
 
-- (WebViewController*)webViewController {
+- (WMFWebViewController*)webViewController {
     if (!_webViewController) {
-        _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
+        _webViewController                      = [WMFWebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate             = self;
         _webViewController.headerViewController = self.headerGallery;
         // TODO: add "last edited by" & "wikipedia logo"
@@ -486,15 +486,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
+- (void)webViewController:(WMFWebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
     [self presentPopupForTitle:title];
 }
 
-- (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
+- (void)webViewController:(WMFWebViewController*)controller didSelectText:(NSString*)text {
     [self.shareFunnel logHighlight];
 }
 
-- (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
+- (void)webViewController:(WMFWebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareArticleWithTextSnippet:text fromButton:nil];
 }
 

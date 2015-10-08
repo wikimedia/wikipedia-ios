@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "WebViewController_Private.h"
+#import "WMFWebViewController_Private.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "WMFTestFixtureUtilities.h"
 
@@ -19,7 +19,7 @@
 #import <OCMockito/OCMockito.h>
 
 @interface ArticleLoadingTests : XCTestCase
-@property WebViewController* webVC;
+@property WMFWebViewController* webVC;
 @property SessionSingleton* session;
 @end
 
@@ -29,7 +29,7 @@
     [super setUp];
 
     self.session = [[SessionSingleton alloc] initWithDataStore:[MWKDataStore temporaryDataStore]];
-    self.webVC   = [[WebViewController alloc] initWithSession:self.session];
+    self.webVC   = [[WMFWebViewController alloc] initWithSession:self.session];
 
     // disable TOC stuff since it breaks when the WebVC isn't properly attached to a window/parent-VC
 }

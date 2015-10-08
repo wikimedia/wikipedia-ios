@@ -3,14 +3,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class WebViewController;
+@class WMFWebViewController;
 @interface ReferencesVC : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController* pageController;
 
 @property (strong, nonatomic) NSDictionary* payload;
 
-@property (weak, nonatomic) WebViewController* webVC;
+@property (weak, nonatomic) WMFWebViewController* webVC;
 
 @property (assign) CGFloat panelHeight;
 

@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WebViewController.h"
+#import "WMFWebViewController.h"
 
-@interface WebViewController (ImageGalleryPresentation)
+@interface WMFWebViewController (ImageGalleryPresentation)
 
 - (void)presentGalleryForArticle:(MWKArticle*)article showingImage:(MWKImage*)selectedImage;
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
@@ -9,7 +8,7 @@
         <!--Web View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController restorationIdentifier="WebViewController" storyboardIdentifier="WebViewController" extendedLayoutIncludesOpaqueBars="YES" id="vXZ-lx-hvc" customClass="WebViewController" sceneMemberID="viewController">
+                <viewController restorationIdentifier="WebViewController" storyboardIdentifier="WebViewController" extendedLayoutIncludesOpaqueBars="YES" id="vXZ-lx-hvc" customClass="WMFWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="C8y-0k-FBq"/>
                         <viewControllerLayoutGuide type="bottom" id="Xeb-oh-gct"/>
