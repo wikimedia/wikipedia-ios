@@ -5,7 +5,7 @@
 #import "PullToRefreshViewController.h"
 #import "WMFArticleContentController.h"
 
-@class BottomMenuViewController, CommunicationBridge;
+@class BottomMenuViewController, CommunicationBridge, MWKSection;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -38,8 +38,6 @@
 - (void)navigateToPage:(MWKTitle*)title
        discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
-- (void)tocHide;
-- (void)tocToggle;
 - (void)saveWebViewScrollOffset;
 
 - (void)loadRandomArticle;
@@ -49,8 +47,12 @@
 - (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
                                       duration:(CGFloat)duration
                                    thenHideTOC:(BOOL)hideTOC;
-- (void)scrollToFragment:(NSString*)fragment;
 
+
+- (void)scrollToFragment:(NSString*)fragment;
+- (void)scrollToSection:(MWKSection*)section;
+
+- (MWKSection*)currentVisibleSection;
 
 - (NSString*)selectedText;
 

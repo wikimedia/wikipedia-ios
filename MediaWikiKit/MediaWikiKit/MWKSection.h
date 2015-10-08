@@ -13,6 +13,8 @@
 @class MWKArticle;
 @class MWKImageList;
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString* const MWKSectionShareSnippetXPath;
 
 @interface MWKSection : MWKSiteDataObject
@@ -21,13 +23,13 @@ extern NSString* const MWKSectionShareSnippetXPath;
 @property (readonly, strong, nonatomic) MWKTitle* title;
 @property (readonly, weak, nonatomic) MWKArticle* article;
 
-@property (readonly, copy, nonatomic) NSNumber* toclevel;      // optional
-@property (readonly, copy, nonatomic) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
-@property (readonly, copy, nonatomic) NSString* line;          // optional; HTML
-@property (readonly, copy, nonatomic) NSString* number;        // optional; can be "1.2.3"
-@property (readonly, copy, nonatomic) NSString* index;         // optional; can be "T-3" for transcluded sections
-@property (readonly, strong, nonatomic) MWKTitle* fromtitle; // optional
-@property (readonly, copy, nonatomic) NSString* anchor;        // optional
+@property (readonly, copy, nonatomic, nullable) NSNumber* toclevel;      // optional
+@property (readonly, copy, nonatomic, nullable) NSNumber* level;         // optional; string in JSON, but seems to be number-safe?
+@property (readonly, copy, nonatomic, nullable) NSString* line;          // optional; HTML
+@property (readonly, copy, nonatomic, nullable) NSString* number;        // optional; can be "1.2.3"
+@property (readonly, copy, nonatomic, nullable) NSString* index;         // optional; can be "T-3" for transcluded sections
+@property (readonly, strong, nonatomic, nullable) MWKTitle* fromtitle; // optional
+@property (readonly, copy, nonatomic, nullable) NSString* anchor;        // optional
 @property (readonly, assign, nonatomic) int sectionId;           // required; -> id
 @property (readonly, assign, nonatomic) BOOL references;         // optional; marked by presence of key with empty string in JSON
 
@@ -39,13 +41,13 @@ extern NSString* const MWKSectionShareSnippetXPath;
  *
  * @return The HTML for this section of the receiver's `article` or `nil` if it doesn't exist on disk.
  */
-@property (readonly, copy, nonatomic /*, nullable*/) NSString* text;
-@property (readonly, strong, nonatomic) MWKImageList* images;
+@property (readonly, copy, nonatomic , nullable) NSString* text;
+@property (readonly, strong, nonatomic, nullable) MWKImageList* images;
 
 - (instancetype)initWithArticle:(MWKArticle*)article dict:(NSDictionary*)dict;
 
 - (BOOL)     isLeadSection;
-- (MWKTitle*)sourceTitle;
+- (nullable MWKTitle*)sourceTitle;
 
 - (BOOL)isEqualToSection:(MWKSection*)section;
 
@@ -76,47 +78,62 @@ extern NSString* const MWKSectionShareSnippetXPath;
  *
  * @return An array of `TFHppleElement` objects which match the given XPath query, or `nil` if there were no results.
  */
-- (NSArray*)elementsInTextMatchingXPath:(NSString*)xpath;
+- (nullable NSArray*)elementsInTextMatchingXPath:(NSString*)xpath;
 
 ///
 /// @name Section Hierarchy
 ///
 
 /**
+ *  Section that is the direct ancestor of the receiver.
+ *
+ *  @return An @c MWKSection, or @c nil if it does not have a parent
+ */
+- (nullable MWKSection*)parentSection;
+
+/**
+ *  Section that is the furthest ancestor of the receiver.
+ *  Will return self if section has no parent
+ *
+ *  @return An @c MWKSection
+ */
+- (MWKSection*)rootSection;
+
+/**
  *  Sections that are descendants of the receiver.
  *
  *  @return An array of @c MWKSection objects, or @c nil if the hierarchy has not been built yet.
  */
-- (NSArray*)children;
+- (nullable NSArray*)children;
 
 /**
- *  Check if the receiver could be considered the parent of another section.
+ *  Check if the receiver is the child of another section.
  *
  *  @param section The section to check.
  *
- *  @return @c YES if @c section has a @c level that is one greater than the receiver's @c level, otherwise @c NO.
+ *  @return @c YES if self.parentSection == section, otherwise @c NO.
  */
-- (BOOL)isParentOfSection:(MWKSection*)section;
+- (BOOL)isChildOfSection:(MWKSection*)section;
 
 /**
- *  Check if another section is a sibling of the receiver.
+ *  Check if the receiver is the decendent of another section.
  *
  *  @param section The section to check.
  *
- *  @return @c YES if @c section has a @c level equal to the receiver's, otherwise @c NO.
+ *  @return @c YES if the section is found by recursively searching self.parent, otherwise @c NO.
  */
-- (BOOL)isSiblingOfSection:(MWKSection*)section;
+- (BOOL)isDecendantOfSection:(MWKSection*)section;
 
 /**
- *  Check if the receiver is an ancestor of another section.
- *
- *  This is different from @c isParentOfSection: in that it can check for degrees of separation greater than 1.
+ *  Check if the receiver has the same root section as another section.
  *
  *  @param section The section to check.
  *
- *  @return @c YES if the receiver's @c level is less than the @c level of @c section, otherwise @c NO.
+ *  @return @c YES if self.rootSection == section.rootSection, otherwise @c NO.
  */
-- (BOOL)isAncestorOfSection:(MWKSection*)section;
+- (BOOL)sectionHasSameRootSection:(MWKSection*)section;
+
+
 
 #pragma mark - Internal
 
@@ -143,3 +160,5 @@ extern NSString* const MWKSectionShareSnippetXPath;
 - (BOOL)hasTextData;
 
 @end
+
+NS_ASSUME_NONNULL_END
