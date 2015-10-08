@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleContainerViewController
 @synthesize article = _article;
 
-- (instancetype)initWithNibName:(nullable NSString *)nibNameOrNil bundle:(nullable NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil bundle:(nullable NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self commonInit];
@@ -129,9 +129,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self setAndObserveArticle:article];
 
-    self.dataStore = article.dataStore;
-    self.savedPages = self.dataStore.userDataStore.savedPageList;
-    self.recentPages = self.dataStore.userDataStore.historyList;
+    self.dataStore                  = article.dataStore;
+    self.savedPages                 = self.dataStore.userDataStore.savedPageList;
+    self.recentPages                = self.dataStore.userDataStore.historyList;
     self.saveButtonController.title = article.title;
 
     // need to wait until article/dataStore are available before configuring the toolbar
@@ -140,8 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.shareFunnel                   = nil;
     self.shareOptionsController        = nil;
     self.tableOfContentsViewController = nil;
-    self.articlePreviewFetcher = nil;
-    self.articleFetcher = nil;
+    self.articlePreviewFetcher         = nil;
+    self.articleFetcher                = nil;
 
     [self fetchArticle];
 }
@@ -236,8 +236,8 @@ NS_ASSUME_NONNULL_BEGIN
     return _shareOptionsController;
 }
 
-- (void)setSavedPages:(nullable MWKSavedPageList *)savedPages {
-    _savedPages = savedPages;
+- (void)setSavedPages:(nullable MWKSavedPageList*)savedPages {
+    _savedPages                             = savedPages;
     self.saveButtonController.savedPageList = savedPages;
 }
 
@@ -312,7 +312,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFSaveButtonController*)saveButtonController {
     if (!_saveButtonController) {
-        _saveButtonController = [[WMFSaveButtonController alloc] init];
+        _saveButtonController        = [[WMFSaveButtonController alloc] init];
         _saveButtonController.button = [[self saveToolbarItem] customView];
     }
     return _saveButtonController;
