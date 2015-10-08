@@ -44,6 +44,10 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return WMFContinueReadingSectionIdentifier;
 }
 
+- (UIImage*)headerIcon{
+    return [UIImage imageNamed:@"home-continue-reading"];
+}
+
 - (NSAttributedString*)headerText {
     return [[NSAttributedString alloc] initWithString:@"Continue Reading" attributes:nil];
 }

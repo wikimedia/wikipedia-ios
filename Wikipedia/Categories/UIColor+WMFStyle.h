@@ -26,4 +26,8 @@
 
 + (instancetype)wmf_tableOfContentsSubsectionTextColor;
 
++ (instancetype)wmf_homeSectionHeaderTextColor;
+
++ (instancetype)wmf_homeSectionHeaderLinkTextColor;
+
 @end
