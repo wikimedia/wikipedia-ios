@@ -39,15 +39,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
 @property (weak, nonatomic) IBOutlet UIView* separatorView;
 @property (weak, nonatomic) IBOutlet UIButton* closeButton;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint* suggestionButtonHeightConstraint;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* searchFieldHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* searchFieldTop;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewTopToSuggestionBottom;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
+
 
 @property (nonatomic, assign, getter = isRecentSearchesHidden) BOOL recentSearchesHidden;
 
@@ -164,7 +168,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self configureSearchField];
 
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-    [self.view layoutIfNeeded];
 
     // TODO: localize
     self.title                                                    = @"Search";
@@ -174,6 +177,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     resultLayout.minimumInteritemSpacing = 0.f;
     resultLayout.sectionInset = UIEdgeInsetsZero;
     self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
+
     [self updateUIWithResults:nil];
 }
 
@@ -336,10 +340,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
+    BOOL hasSuggestion = [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal].length > 0;
     self.suggestionButtonHeightConstraint.constant =
-        [self.searchSuggestionButton attributedTitleForState:UIControlStateNormal] ?
-        [self.searchSuggestionButton wmf_heightAccountingForMultiLineText]
-        : 0;
+        hasSuggestion ? [self.searchSuggestionButton wmf_heightAccountingForMultiLineText] : 0;
+    self.contentViewTop.active = !hasSuggestion;
+    self.contentViewTopToSuggestionBottom.active = hasSuggestion;
 }
 
 - (NSAttributedString*)getAttributedStringForSuggestion:(NSString*)suggestion {
