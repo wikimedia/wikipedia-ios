@@ -1,6 +1,8 @@
 
 
 #import "AppDelegate.h"
+#import "Wikipedia-Swift.h"
+
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
 
@@ -51,6 +53,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 }
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+    [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
 
@@ -66,6 +69,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (void)applicationWillResignActive:(UIApplication*)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [[NSUserDefaults standardUserDefaults] wmf_setAppResignActiveDate:[NSDate date]];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication*)application {
@@ -80,6 +84,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (void)applicationDidBecomeActive:(UIApplication*)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
+    [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
     [self.appViewController resumeApp];
 }
 

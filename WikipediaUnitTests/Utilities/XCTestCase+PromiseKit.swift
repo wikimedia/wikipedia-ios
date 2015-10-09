@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Wikipedia
 import PromiseKit
 import XCTest
 
