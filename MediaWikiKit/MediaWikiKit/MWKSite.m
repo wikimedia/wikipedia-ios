@@ -136,4 +136,10 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     }
 }
 
+- (BOOL)isEqualToSite:(MWKSite*)other {
+    return WMF_EQUAL_PROPERTIES(self, language, isEqualToString:, other)
+    && WMF_EQUAL_PROPERTIES(self, domain, isEqualToString:, other);
+}
+
+
 @end
