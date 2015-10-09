@@ -70,7 +70,7 @@ BREW_FORMULAE = "uncrustify" "imagemagick" "gs" "xctool"
 
 brew-install: ##Install executable dependencies via Homebrew
 brew-install: brew-check
-	@brew install $(BREW_FORMULAE) || brew upgrade ${BREW_FORMULAE)
+	@brew install $(BREW_FORMULAE) || brew upgrade $(BREW_FORMULAE)
 
 # Append additional dependencies as quoted strings (i.e. EXEC_DEPS = "dep1" "dep2" ...)
 EXEC_DEPS = "uncrustify" "convert" "gs" "xctool"
