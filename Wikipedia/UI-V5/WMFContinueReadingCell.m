@@ -10,7 +10,7 @@
     self.title.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
     self.summary.preferredMaxLayoutWidth = preferredMaxLayoutWidth;
 
-    //HACK: can't call [self.title systemLayoutSizeFittingSize:CGSizeMake(preferredMaxLayoutWidth, CGFLOAT_MAX)];
+    //HACK: can't call [self systemLayoutSizeFittingSize:CGSizeMake(preferredMaxLayoutWidth, CGFLOAT_MAX)];
     // This causes an arithmetic crash from some sort of semi-infinite loop through this method
     CGSize titleSize = [self.title systemLayoutSizeFittingSize:CGSizeMake(preferredMaxLayoutWidth, CGFLOAT_MAX)];
     CGSize summarySize = [self.summary systemLayoutSizeFittingSize:CGSizeMake(preferredMaxLayoutWidth, CGFLOAT_MAX)];
