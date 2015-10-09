@@ -52,6 +52,11 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return [[NSAttributedString alloc] initWithString:@"Continue Reading" attributes:nil];
 }
 
+- (MWKHistoryDiscoveryMethod)discoveryMethod{
+    return MWKHistoryDiscoveryMethodReloadFromNetwork;
+}
+
+
 - (NSArray*)items {
     return @[self.title];
 }
