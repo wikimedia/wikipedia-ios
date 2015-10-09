@@ -36,7 +36,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
+@interface WebViewController () <WMFSectionHeaderEditDelegate, SectionEditorViewControllerDelegate, ReferencesVCDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
@@ -997,7 +997,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.referencesVC = [ReferencesVC wmf_initialViewControllerFromClassStoryboard];
 
-    self.referencesVC.webVC = self;
+    self.referencesVC.delegate = self;
     [self addChildViewController:self.referencesVC];
     self.referencesVC.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self.referencesContainerView addSubview:self.referencesVC.view];
@@ -1046,6 +1046,39 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self.referencesVC removeFromParentViewController];
         self.referencesVC = nil;
     }];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID{
+    NSString* eval = [NSString stringWithFormat:@"\
+                      document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
+                      document.getElementById('%@').style.backgroundColor = '#999';\
+                      document.getElementById('%@').style.borderRadius = 2;\
+                      ", linkID, linkID, linkID, linkID];
+    [self.webView stringByEvaluatingJavaScriptFromString:eval];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID{
+    NSString* eval = [NSString stringWithFormat:@"\
+                      document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
+                      ", linkID, linkID];
+    [self.webView stringByEvaluatingJavaScriptFromString:eval];
+}
+
+
+- (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController{
+    [self referencesHide];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment{
+    [self scrollToFragment:fragment];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title{
+    [self.delegate webViewController:self didTapOnLinkForTitle:title];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url{
+    [self wmf_openExternalUrl:url];
 }
 
 #pragma mark - Progress
