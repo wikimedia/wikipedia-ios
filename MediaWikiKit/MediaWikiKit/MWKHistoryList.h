@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MWKHistoryEntry*)mostRecentEntry;
 
+- (nullable MWKHistoryEntry*)entryForTitle:(MWKTitle*)title;
+
 /**
  *  Add a page to the user history.
  *
