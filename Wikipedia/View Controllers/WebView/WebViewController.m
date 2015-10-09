@@ -104,6 +104,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self loadHeadersAndFooters];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+
+    
 //    self.sectionHeadersViewController =
 //        [[WMFSectionHeadersViewController alloc] initWithView:self.view
 //                                                      webView:self.webView
@@ -195,6 +198,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
+    [self saveWebViewScrollOffset];
     [super viewWillDisappear:animated];
 }
 
@@ -205,7 +209,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } completion:nil];
 }
 
-#pragma mark - KVO
+#pragma mark - Observations
 
 /**
  *  Observe changes to @c webView.scrollView.contentSize so we can recompute it and layout subviews.
@@ -217,6 +221,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                       block:^(WebViewController* observer, id object, NSDictionary* change) {
         [observer layoutWebViewSubviews];
     }];
+}
+
+- (void)applicationWillResignActiveWithNotification:(NSNotification*)note{
+    
+    [self saveWebViewScrollOffset];
 }
 
 #pragma mark - Headers & Footers
@@ -358,7 +367,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)autoScrollToLastScrollOffsetIfNecessary {
     #warning FIXME: causing jumpiness.
     // also, need to store offsets relative to the browser view frame in case we change the layout
-    return;
     if (!self.jumpToFragment) {
         [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
     }
@@ -625,31 +633,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return _bridge;
 }
 
-#pragma mark Web view scroll offset recording
-
-- (void)scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self scrollViewScrollingEnded:scrollView];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
-    [self scrollViewScrollingEnded:scrollView];
-}
-
-- (void)scrollViewScrollingEnded:(UIScrollView*)scrollView {
-    if (scrollView == self.webView.scrollView) {
-        //[self printLiveContentLocationTestingOutputToConsole];
-        //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
-        [self saveWebViewScrollOffset];
-
-        self.pullToRefreshView.alpha = 0.0f;
-    }
-}
-
 - (void)saveWebViewScrollOffset {
     // Don't record scroll position of "main" pages.
     if (self.article.isMain) {
+        return;
+    }
+    if(!self.article){
         return;
     }
 
