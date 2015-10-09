@@ -15,14 +15,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIImageView (WMFContentOffset)
 
-- (void)wmf_setContentOffsetToCenterFeature:(CIFeature* __nullable)feature fromImage:(UIImage*)image {
-    if (feature) {
-        [self wmf_setContentOffsetToCenterRect:[image wmf_normalizeAndConvertCGCoordinateRect:feature.bounds]
-                                         image:image];
-    }
+- (void)wmf_cropContentsByVerticallyCenteringFrame:(CGRect)rect
+                               insideBoundsOfImage:(UIImage*)image {
+    CGRect verticallyCenteredFrame = CGRectMake(0,
+                                                rect.origin.y,
+                                                image.size.width,
+                                                rect.size.height);
+    [self wmf_cropContentsToFrame:verticallyCenteredFrame insideBoundsOfImage:image];
 }
 
-- (void)wmf_setContentOffsetToCenterRect:(CGRect)rect image:(UIImage*)image {
+- (void)wmf_cropContentsToFrame:(CGRect)rect insideBoundsOfImage:(UIImage*)image {
     CGPoint rectCenter  = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
     CGPoint imageCenter = CGPointMake(image.size.width / 2.f, image.size.height / 2.f);
 
@@ -41,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
                                           image.size.height - fabs(offset.y * 2.f))];
 }
 
-- (void)wmf_resetContentOffset {
+- (void)wmf_resetContentsRect {
     self.layer.contentsRect = CGRectMake(0, 0, 1, 1);
 }
 

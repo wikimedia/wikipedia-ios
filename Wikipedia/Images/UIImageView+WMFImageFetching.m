@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_reset {
     self.image = nil;
-    [self wmf_resetContentOffset];
+    [self wmf_resetContentsRect];
     [self wmf_cancelImageDownload];
     self.wmf_imageURL      = nil;
     self.wmf_imageMetadata = nil;

@@ -164,10 +164,10 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 
         CGRect faceBounds = [faceBoundsValue CGRectValue];
         if (!CGRectIsEmpty(faceBounds)) {
-            [self wmf_setContentOffsetToCenterRect:[image wmf_denormalizeRect:faceBounds]
-                                             image:image];
+            [self wmf_cropContentsByVerticallyCenteringFrame:[image wmf_denormalizeRect:faceBounds]
+                                         insideBoundsOfImage:image];
         } else {
-            [self wmf_resetContentOffset];
+            [self wmf_resetContentsRect];
         }
 
         [UIView transitionWithView:self
