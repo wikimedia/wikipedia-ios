@@ -31,6 +31,8 @@
 #import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
 #import "WMFNavigationTransitionController.h"
+#import "WMFArticleContainerViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -57,6 +59,9 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
  */
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
+static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
+
+static dispatch_once_t launchToken;
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
@@ -142,10 +147,57 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 }
 
 - (void)resumeApp {
-    //TODO: restore any UI, show Today
+    if(![self launchCompleted]){
+        return;
+    }
+    if([self shouldShowHomeScreenOnLaunch]){
+        [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+        [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+    }else if([self shouldShowLastReadArticleOnLaunch]){
+        MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+        if(lastRead){
+            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+            [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+            [self.homeViewController wmf_presentTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
+        }
+    }
 }
 
 #pragma mark - Utilities
+
+- (BOOL)launchCompleted{
+    return launchToken != 0;
+}
+
+- (BOOL)shouldShowHomeScreenOnLaunch{
+    NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    if(!resignActiveDate){
+        return NO;
+    }
+    
+    if(fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingHomeScreen){
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)shouldShowLastReadArticleOnLaunch{
+    NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    if(!resignActiveDate){
+        return NO;
+    }
+    
+    if(fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingHomeScreen){
+        if(![self homeViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeHome){
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL)homeViewControllerIsDisplayingContent{
+    return [self navigationControllerForTab:WMFAppTabTypeHome].viewControllers.count > 1;
+}
 
 - (UINavigationController*)navigationControllerForTab:(WMFAppTabType)tab {
     return (UINavigationController*)[self.rootTabBarController viewControllers][tab];
@@ -219,8 +271,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&launchToken, ^{
         [self showSplashView];
 
         [self runDataMigrationIfNeededWithCompletion:^{
@@ -229,6 +280,7 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
             [self loadMainUI];
             BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
             [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
         }];
     });
 }

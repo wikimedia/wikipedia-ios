@@ -73,6 +73,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return [WMFRelatedSectionIdentifierPrefix stringByAppendingString:self.title.text];
 }
 
+- (UIImage*)headerIcon{
+    return [UIImage imageNamed:@"home-recent"];
+}
+
 - (NSAttributedString*)headerText {
     NSMutableAttributedString* link = [[NSMutableAttributedString alloc] initWithString:self.title.text];
     [link addAttribute:NSLinkAttributeName value:self.title.desktopURL range:NSMakeRange(0, link.length)];

@@ -136,30 +136,10 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     }
 }
 
-#pragma mark - NSObject
-
-- (BOOL)isEqual:(id)object {
-    if (object == nil) {
-        return NO;
-    } else if ([object isKindOfClass:[MWKSite class]]) {
-        return [self isEqualToSite:object];
-    } else {
-        return NO;
-    }
-}
-
 - (BOOL)isEqualToSite:(MWKSite*)other {
     return WMF_EQUAL_PROPERTIES(self, language, isEqualToString:, other)
-           && WMF_EQUAL_PROPERTIES(self, domain, isEqualToString:, other);
+    && WMF_EQUAL_PROPERTIES(self, domain, isEqualToString:, other);
 }
 
-- (NSUInteger)hash {
-    return self.domain.hash ^ flipBitsWithAdditionalRotation(self.language.hash, 1);
-}
-
-- (id)copyWithZone:(NSZone*)zone {
-    // immutable
-    return self;
-}
 
 @end

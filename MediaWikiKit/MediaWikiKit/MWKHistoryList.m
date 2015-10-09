@@ -26,9 +26,14 @@
 
 #pragma mark - Entry Access
 
-- (MWKHistoryEntry*)mostRecentEntry {
+- (nullable MWKHistoryEntry*)mostRecentEntry {
     return [self.entries firstObject];
 }
+
+- (nullable MWKHistoryEntry*)entryForTitle:(MWKTitle*)title{
+    return [self entryForListIndex:title];
+}
+
 
 #pragma mark - Update Methods
 

@@ -7,6 +7,7 @@
 // Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
+#import "WMFContinueReadingSectionController.h"
 #import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFSectionSchemaManager.h"
@@ -278,19 +279,24 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             WMFHomeSectionHeader* header     = view;
+            header.icon.image = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-            [title addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:17.0] range:NSMakeRange(0, title.length)];
-            [title addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.353 green:0.353 blue:0.353 alpha:1] range:NSMakeRange(0, title.length)];
+            [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, title.length)];
+            [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
+            header.titleView.tintColor = [UIColor wmf_homeSectionHeaderLinkTextColor];
             header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
-            footer.moreLabel.text = controller.footerText;
-            @weakify(self);
-            footer.whenTapped = ^{
-                @strongify(self);
-                [self didTapFooterInSection:indexPath.section];
-            };
+            if([controller respondsToSelector:@selector(footerText)]){
+                footer.moreLabel.text = controller.footerText;
+                @weakify(self);
+                footer.whenTapped = ^{
+                    @strongify(self);
+                    [self didTapFooterInSection:indexPath.section];
+                };
+            }
         }
     };
 
@@ -311,6 +317,10 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return controller;
 }
 
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item{
+    return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
+}
+
 #pragma mark - Section Management
 
 - (void)reloadSections {
@@ -323,6 +333,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
                 break;
             case WMFSectionSchemaItemTypeNearby:
                 [self loadSectionForSectionController:self.nearbySectionController];
+                break;
+            case WMFSectionSchemaItemTypeContinueReading:
+                [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
                 break;
             default:
                 break;
@@ -398,6 +411,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
+    if(![controllerForSection respondsToSelector:@selector(extendedListDataSource)]){
+        return;
+    }
     WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
     extendedList.dataStore   = self.dataStore;
     extendedList.savedPages  = self.savedPages;
@@ -422,7 +438,12 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 }
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
-    return CGSizeMake([self contentWidth], 80.0);
+    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
+    if([controllerForSection respondsToSelector:@selector(footerText)]){
+        return CGSizeMake([self contentWidth], 80.0);
+    }else{
+        return CGSizeZero;
+    }
 }
 
 - (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
