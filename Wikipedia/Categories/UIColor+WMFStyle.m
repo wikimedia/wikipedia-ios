@@ -85,9 +85,9 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderTextColor{
++ (instancetype)wmf_homeSectionHeaderTextColor {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
@@ -95,16 +95,14 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor{
++ (instancetype)wmf_homeSectionHeaderLinkTextColor {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
     });
     return c;
 }
-
-
 
 @end

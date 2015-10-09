@@ -369,16 +369,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.article.title];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
 }
-
 
 #pragma mark - Article Navigation
 
