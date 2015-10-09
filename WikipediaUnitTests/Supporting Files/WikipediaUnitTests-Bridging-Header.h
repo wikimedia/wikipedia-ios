@@ -12,5 +12,3 @@
 #import "WMFRandomFileUtilities.h"
 #import "XCTestCase+MWKFixtures.h"
 #import "WMFImageController+Testing.h"
-
-#import <Nocilla/Nocilla.h>
