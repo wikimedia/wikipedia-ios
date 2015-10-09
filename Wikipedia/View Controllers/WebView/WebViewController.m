@@ -356,9 +356,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
-        NSString* jumpToThis = [self.jumpToFragment copy];
+        CGRect r = [self.webView getScreenRectForHtmlElementWithId:self.jumpToFragment];
+        if (!CGRectIsNull(r)) {
+            CGPoint p = CGPointMake(
+                                    self.webView.scrollView.contentOffset.x,
+                                    self.webView.scrollView.contentOffset.y + r.origin.y
+                                    );
+            [self.webView.scrollView setContentOffset:p animated:YES];
+        }
         self.jumpToFragment = nil;
-        [[self.webView wmf_javascriptContext][@"scrollToFragment"] performSelector:@selector(callWithArguments:) withObject:@[jumpToThis] afterDelay:0.1];
+        
     } else {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
