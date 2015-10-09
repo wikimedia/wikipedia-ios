@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 @import CoreLocation;
 
-@class MWKTitle, MWKLocationSearchResult;
+@class MWKTitle, MWKLocationSearchResult, MWKSite;
 
 @interface WMFLocationSearchResults : NSObject
 

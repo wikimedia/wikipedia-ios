@@ -9,7 +9,7 @@
 #import <SSDataSources/SSArrayDataSource.h>
 #import "WMFArticleListDataSource.h"
 
-@class WMFNearbyViewModel, WMFLocationManager;
+@class WMFNearbyViewModel, WMFLocationManager, MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 

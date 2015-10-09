@@ -1,5 +1,6 @@
 
 #import <Foundation/Foundation.h>
+#import "MWKHistoryEntry.h"
 
 @class SSSectionedDataSource, SSArrayDataSource, MWKSavedPageList;
 
