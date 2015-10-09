@@ -18,7 +18,6 @@
 
 #import "WMFShareCardViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
-#import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
