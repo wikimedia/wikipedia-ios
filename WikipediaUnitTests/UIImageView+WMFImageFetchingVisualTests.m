@@ -6,18 +6,16 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
+@import XCTest;
+@import FBSnapshotTestCase;
+
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "XCTestCase+PromiseKit.h"
 #import "WMFImageController+Testing.h"
-#import "WMFAsyncTestCase.h"
-#import "WMFTestFixtureUtilities.h"
+#import <Nocilla/Nocilla.h>
 
 #import "UIImageView+WMFImageFetchingInternal.h"
 #import "WMFFaceDetectionCache.h"
-
-#define HC_SHORTHAND 1
-#import <OCHamcrest/OCHamcrest.h>
-#import <Nocilla/Nocilla.h>
 
 @interface UIImageViewWMFImageFetchingVisualTests : FBSnapshotTestCase
 
@@ -35,11 +33,11 @@
     [[LSNocilla sharedInstance] start];
     self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
     self.imageView.wmf_imageController = [WMFImageController temporaryController];
-    [[UIImageView faceDetectionCache] clearCache];
 }
 
 - (void)tearDown {
     [[LSNocilla sharedInstance] stop];
+    [[UIImageView faceDetectionCache] clearCache];
     [self.imageView.wmf_imageController deleteAllImages];
     [super tearDown];
 }

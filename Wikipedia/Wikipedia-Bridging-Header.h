@@ -19,9 +19,6 @@
 // Diagnostics
 #import "ToCInteractionFunnel.h"
 
-// ObjC Frameworks & Framework Extensions
-#import <SDWebImage/SDWebImageManager.h>
-#import <SDWebImage/UIImage+MultiFormat.h>
+// ObjC Framework Categories
 #import "SDWebImageManager+WMFCacheRemoval.h"
 #import "SDImageCache+WMFPersistentCache.h"
-#import <KVOController/FBKVOController.h>
