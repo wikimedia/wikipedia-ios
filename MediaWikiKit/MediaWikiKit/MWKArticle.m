@@ -15,6 +15,7 @@
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import "MWKSection.h"
 #import "MWKCitation.h"
+#import "NSString+Extras.h"
 
 @import CoreText;
 
@@ -53,6 +54,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) MWKImage* thumbnail;
 @property (readwrite, strong, nonatomic) MWKImage* image;
 @property (readwrite, strong, nonatomic /*, nullable*/) NSArray* citations;
+@property (readwrite, strong, nonatomic) NSString* summary;
 
 @end
 
@@ -474,119 +476,45 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
 
 #pragma mark Section Paragraphs
 
-static NSString* const WMFParagraphSelector = @"/html/body/p";
-
-/**
- * @return An XPath selector used to select children of top-level paragraphs of an article's HTML.
- */
-+ (NSString*)paragraphChildSelector {
-    static NSString* paragraphChildSelector;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSArray* allowedTags = @[
-            @"b",
-            @"i",
-            @"span",
-            @"a",
-            @"sup",
-            @"blockquote",
-            @"br",
-            @"cite",
-            @"em",
-            @"header",
-            @"h1",
-            @"h2",
-            @"h3",
-            @"h4",
-            @"h5",
-            @"h6",
-            @"ul",
-            @"li",
-            @"ol",
-            @"q",
-            @"strike",
-            @"sub",
-            @"u",
-            @"ul"
-        ];
-
-        NSString* tagSelector = [[allowedTags bk_map:^NSString*(NSString* tag) {
-            return [@"self::" stringByAppendingString:tag];
-        }] componentsJoinedByString:@" or "];
-
-        paragraphChildSelector = [NSString stringWithFormat:
-                                  // top-level article paragraphs' text and
-                                  @"%@/text() | "
-                                  // children of top-level article paragraphs which is
-                                  "%@/*["
-                                  // one of allowed tags
-                                  "(%@)"
-                                  " and "
-                                  // excluding geo-coordinates
-                                  "not(*[@id = 'coordinates'])]"
-                                  , WMFParagraphSelector, WMFParagraphSelector, tagSelector];
-    });
-    return paragraphChildSelector;
-}
-
-- (NSAttributedString*)summaryHTML {
-    for (MWKSection* section in self.sections) {
-        NSArray* nonEmptyParagraphElements =
-            [[section elementsInTextMatchingXPath:WMFParagraphSelector] bk_reject:^BOOL (TFHppleElement* paragraphEl) {
-            return paragraphEl.children.count == 0;
-        }];
-        if (!nonEmptyParagraphElements.count) {
-            continue;
-        }
-        NSArray* nonEmptyParagraphsWithSelectedChildren =
-            [[nonEmptyParagraphElements bk_map:^NSString*(TFHppleElement* paragraphEl) {
-            return [[[[TFHpple hppleWithHTMLData:[paragraphEl.raw dataUsingEncoding:NSUTF8StringEncoding]]
-                      // select children of each paragraph
-                      searchWithXPathQuery:[MWKArticle paragraphChildSelector]]
-                     // get their "raw" HTML
-                     valueForKey:WMF_SAFE_KEYPATH(paragraphEl, raw)]
-                    // join
-                    componentsJoinedByString:@""];
-        }] bk_select:^BOOL (id stringOrNull) {
-            return [stringOrNull isKindOfClass:[NSString class]] && [stringOrNull length] > 0;
-        }];
-
-        if (!nonEmptyParagraphsWithSelectedChildren.count) {
-            continue;
-        }
-
-        NSArray* paragraphsWrappedWithParagraphTags =
-            [nonEmptyParagraphsWithSelectedChildren bk_map:^NSString*(NSString* thisParagraph) {
-            return [@[@"<p>", thisParagraph, @"</p>"] componentsJoinedByString : @""];
-        }];
-
-        NSData* xpathData = [[paragraphsWrappedWithParagraphTags componentsJoinedByString:@""] dataUsingEncoding:NSUTF8StringEncoding];
-
-        return [[NSAttributedString alloc] initWithHTMLData:xpathData site:self.site];
+- (NSString*)summary {
+    if (_summary) {
+        return _summary;
     }
+    
+    for (MWKSection* section in self.sections) {
+        NSString* summary = [section summary];
+        if (summary) {
+            _summary = summary;
+            return summary;
+        }
+    }
+    _summary = nil;
     return nil;
 }
 
-- (NSAttributedString*)summaryHTMLWithoutLinks {
-    NSMutableAttributedString* summary = [[self summaryHTML] mutableCopy];
-
-    [summary enumerateAttribute:NSLinkAttributeName inRange:NSMakeRange(0, summary.length) options:0 usingBlock:^(id value, NSRange range, BOOL* stop) {
-        [summary removeAttribute:NSLinkAttributeName range:range];
-        [summary removeAttribute:NSForegroundColorAttributeName range:range];
-    }];
-
-    NSMutableArray* superScripts = [NSMutableArray array];
-    [summary enumerateAttribute:(NSString*)kCTSuperscriptAttributeName inRange:NSMakeRange(0, summary.length) options:0 usingBlock:^(id value, NSRange range, BOOL* stop) {
-        if ([value integerValue] == 1) {
-            [superScripts addObject:[NSValue valueWithRange:range]];
-        }
-    }];
-
-    [superScripts enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSValue* obj, NSUInteger idx, BOOL* stop) {
-        [summary replaceCharactersInRange:[obj rangeValue] withString:@""];
-    }];
-
-    return summary;
++ (NSString*)cleanSummary:(NSString*)summary {
+    NSString *output;
+    
+    // Cleanups which need to happen before string is shortened.
+    output = [summary wmf_stringByRecursivelyRemovingParenthesizedContent];
+    output = [output wmf_stringByRemovingBracketedContent];
+    
+    // Now ok to shorten so remaining cleanups are faster.
+    output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
+    
+    // Cleanups safe to do on shortened string.
+    output = [[[[[[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
+                      stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                     stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                    wmf_stringByCollapsingConsecutiveNewlines]
+                   stringByReplacingOccurrencesOfString:@"\n" withString:@" "]
+                  wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
+                 wmf_stringByRemovingWhiteSpaceBeforePeriod]
+                wmf_stringByCollapsingConsecutiveSpaces]
+               wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons]
+              stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    return output;
 }
 
 @end

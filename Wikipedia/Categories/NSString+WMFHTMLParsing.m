@@ -44,13 +44,13 @@
 }
 
 - (NSString*)wmf_stringByCollapsingConsecutiveNewlines {
-    NSParameterAssert([NSThread isMainThread]);
     static NSRegularExpression* newlinesRegex;
-    if (!newlinesRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         newlinesRegex = [NSRegularExpression regularExpressionWithPattern:@"\n{2,}"
                                                                   options:0
                                                                     error:nil];
-    }
+    });
     return [newlinesRegex stringByReplacingMatchesInString:self
                                                    options:0
                                                      range:NSMakeRange(0, self.length)
@@ -60,12 +60,13 @@
 - (NSString*)wmf_stringByRecursivelyRemovingParenthesizedContent {
     // We probably don't want to handle ideographic parens
     static NSRegularExpression* parensRegex;
-    if (!parensRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         parensRegex = [NSRegularExpression
                        regularExpressionWithPattern:@"[(][^()]+[)]"
-                                            options:0
-                                              error:nil];
-    }
+                       options:0
+                       error:nil];
+    });
 
     NSString* string = [self copy];
     NSString* oldResult;
@@ -85,12 +86,15 @@
     // We don't care about ideographic brackets
     // Nested bracketing unseen thus far
     static NSRegularExpression* bracketedRegex;
-    if (!bracketedRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         bracketedRegex = [NSRegularExpression
                           regularExpressionWithPattern:@"\\[[^]]+]"
-                                               options:0
-                                                 error:nil];
-    }
+                          options:0
+                          error:nil];
+
+    });
+
     return [bracketedRegex stringByReplacingMatchesInString:self
                                                     options:0
                                                       range:NSMakeRange(0, self.length)
@@ -101,13 +105,18 @@
     // Unlike parens and brackets and unlike doubled up space in general,
     // we do not want whitespace preceding the comma, ideographic comma,
     // or semicolon
+
     static NSRegularExpression* spaceCommaColonRegex;
-    if (!spaceCommaColonRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         spaceCommaColonRegex = [NSRegularExpression
                                 regularExpressionWithPattern:@"\\s+([,、;])"
                                                      options:0
                                                        error:nil];
-    }
+
+        
+    });
+    
     return [spaceCommaColonRegex stringByReplacingMatchesInString:self
                                                           options:0
                                                             range:NSMakeRange(0, self.length)
@@ -117,12 +126,14 @@
 - (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriod {
     // Ideographic stops from TextExtracts, which were from OpenSearch
     static NSRegularExpression* spacePeriodRegex;
-    if (!spacePeriodRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         spacePeriodRegex = [NSRegularExpression
                             regularExpressionWithPattern:@"\\s+([\\.|。|．|｡])"
                                                  options:0
                                                    error:nil];
-    }
+    });
+    
     return [spacePeriodRegex stringByReplacingMatchesInString:self
                                                       options:0
                                                         range:NSMakeRange(0, self.length)
@@ -133,12 +144,14 @@
     // In practice, we rarely care about doubled up whitespace in the
     // string except for the actual space character
     static NSRegularExpression* spacesRegex;
-    if (!spacesRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         spacesRegex = [NSRegularExpression
                        regularExpressionWithPattern:@" {2,}"
                                             options:0
                                               error:nil];
-    }
+    });
+    
     return [spacesRegex stringByReplacingMatchesInString:self
                                                  options:0
                                                    range:NSMakeRange(0, self.length)
@@ -147,12 +160,14 @@
 
 - (NSString*)wmf_stringByCollapsingAllWhitespaceToSingleSpaces {
     static NSRegularExpression* whitespaceRegex;
-    if (!whitespaceRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         whitespaceRegex = [NSRegularExpression
                            regularExpressionWithPattern:@"\\s+"
                                                 options:0
                                                   error:nil];
-    }
+    });
+    
     return [whitespaceRegex stringByReplacingMatchesInString:self
                                                      options:0
                                                        range:NSMakeRange(0, self.length)
@@ -168,12 +183,14 @@
     // shouldn't be </p> closed until something like <ul>...</ul> is closed.
     // In fact, some sections have this layout, and some do not.
     static NSRegularExpression* leadTrailColonRegex;
-    if (!leadTrailColonRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         leadTrailColonRegex = [NSRegularExpression
                                regularExpressionWithPattern:@"^[\\s\n]+|[\\s\n:]+$"
                                                     options:0
                                                       error:nil];
-    }
+    });
+    
     return [leadTrailColonRegex stringByReplacingMatchesInString:self
                                                          options:0
                                                            range:NSMakeRange(0, self.length)

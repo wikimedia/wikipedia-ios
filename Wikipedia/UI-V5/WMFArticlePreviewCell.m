@@ -2,10 +2,6 @@
 #import "WMFArticlePreviewCell.h"
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 
-#import "NSAttributedString+WMFModify.h"
-#import "NSParagraphStyle+WMFParagraphStyles.h"
-#import "NSAttributedString+WMFHTMLForSite.h"
-
 @interface WMFArticlePreviewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
@@ -42,36 +38,12 @@
     self.descriptionLabel.text = descriptionText;
 }
 
-- (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText {
-    if (!summaryAttributedText.string.length) {
+- (void)setSummary:(NSString*)summary {
+    if (!summary.length) {
         self.summaryLabel.text = nil;
         return;
     }
-
-    summaryAttributedText = [summaryAttributedText
-                             wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                                         withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
-        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
-        style.lineBreakMode = NSLineBreakByTruncatingTail;
-        return style;
-    }];
-
-    NSMutableAttributedString* text = [summaryAttributedText mutableCopy];
-    [text addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_summaryTextColor] range:NSMakeRange(0, text.length)];
-
-    self.summaryLabel.attributedText = text;
-}
-
-- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site {
-    if (!summaryHTML.length) {
-        self.summaryLabel.text = nil;
-        return;
-    }
-
-    NSAttributedString* summaryAttributedText =
-        [[NSAttributedString alloc] initWithHTMLData:[summaryHTML dataUsingEncoding:NSUTF8StringEncoding] site:site];
-
-    [self setSummaryAttributedText:summaryAttributedText];
+    self.summaryLabel.text = summary;
 }
 
 @end

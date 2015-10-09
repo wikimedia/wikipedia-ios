@@ -13,12 +13,13 @@
 //Models
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
+
 #import "MWKTitle.h"
+#import "MWKArticle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
-static NSUInteger const WMFNumberOfExtractCharacters = 525;
 
 #pragma mark - Internal Class Declarations
 

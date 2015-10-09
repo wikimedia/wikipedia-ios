@@ -238,6 +238,25 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     [self.mutableChildren removeAllObjects];
 }
 
+// XPath selector which gets a pretty good summary (without html!).
+// Grabs text from first paragraph which has children and text from
+// elements after that. Huge benefit by not requiring separate html
+// stripping step!
+static NSString* const WMFSectionSummaryXPathSelector = @"(//p[count(*) > 0]/descendant-or-self::*/text() | //p[count(*) > 0]/following::*/text())";
+
+- (NSString *)summary {
+    NSArray* textNodes      = [self elementsInTextMatchingXPath:WMFSectionSummaryXPathSelector];
+    if (!textNodes || !textNodes.count) {
+        return nil;
+    }
+    NSMutableArray* results = @[].mutableCopy;
+    for (TFHppleElement* node in textNodes) {
+        [results addObject:node.raw];
+    }
+    NSString* summary = [results componentsJoinedByString:@""];
+    return [MWKArticle cleanSummary:summary];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.title           = article.title;
             cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             cell.image           = [article bestThumbnailImage];
-            [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
+            [cell setSummary:[article summary]];
             [cell setSavedPageList:self.savedPageList];
         };
     }
