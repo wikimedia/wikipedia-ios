@@ -501,6 +501,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
+- (void)webViewControllerDidReloadCurrentArticle:(WebViewController*)controller{
+    [self fetchArticle];
+}
+
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
     [self presentPopupForTitle:title];
 }
