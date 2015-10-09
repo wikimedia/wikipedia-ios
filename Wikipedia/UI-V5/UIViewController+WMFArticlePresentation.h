@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWKHistoryEntry.h"
 
 @class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore;
 

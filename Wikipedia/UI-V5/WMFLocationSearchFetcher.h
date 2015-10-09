@@ -3,6 +3,8 @@
 @import CoreLocation;
 #import "Wikipedia-Swift.h"
 
+@class MWKSite;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationSearchFetcher : NSObject
