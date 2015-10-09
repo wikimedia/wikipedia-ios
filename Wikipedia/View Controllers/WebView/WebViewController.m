@@ -132,14 +132,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-        [weakSelf jumpToFragmentIfNecessary];
-        [weakSelf autoScrollToLastScrollOffsetIfNecessary];
 
         [weakSelf updateProgress:1.0 animated:YES completion:^{
             [weakSelf hideProgressViewAnimated:YES];
         }];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
+        //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
+        dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+            [weakSelf jumpToFragmentIfNecessary];
+            [weakSelf autoScrollToLastScrollOffsetIfNecessary];
             [weakSelf.sectionHeadersViewController resetHeaders];
         });
     }];
@@ -643,6 +644,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.article.title];
+    [self.session.userDataStore.historyList save];
 }
 
 #pragma mark Web view html content live location retrieval
