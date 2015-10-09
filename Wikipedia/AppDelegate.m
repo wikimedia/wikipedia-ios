@@ -8,6 +8,7 @@
 
 #import "WMFLogFormatter.h"
 #import <PiwikTracker/PiwikTracker.h>
+#import "FBTweakShakeWindow.h"
 
 static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
 static NSString* const WMFPiwikSiteID    = @"4";
@@ -43,16 +44,20 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [consoleLogger setLogFormatter:[WMFLogFormatter new]];
     [DDLog addLogger:consoleLogger];
 #endif
+
 }
 
-- (UIWindow*)window {
+- (UIWindow *)window
+{
     if (!_window) {
-        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     return _window;
 }
 
+
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+    
     [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
