@@ -243,7 +243,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 // Grabs text from first paragraph which has children and text from
 // elements after that. Huge benefit by not requiring separate html
 // stripping step!
-static NSString* const WMFSectionSummaryXPathSelector = @"(//p[count(*) > 0]/descendant-or-self::*/text() | //p[count(*) > 0]/following::*/text())";
+static NSString* const WMFSectionSummaryXPathSelector = @"(//p[count(*) > 0]/descendant-or-self::* | //p[count(*) > 0]/following::*)[not(ancestor::table)]/text()";
 
 - (NSString *)summary {
     NSArray* textNodes      = [self elementsInTextMatchingXPath:WMFSectionSummaryXPathSelector];
