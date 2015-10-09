@@ -47,7 +47,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 @property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
-@property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
 @property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
@@ -812,91 +811,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-#pragma mark - Article loading
-
-- (WMFArticleFetcher*)articleFetcher {
-    if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.session.dataStore];
-    }
-
-    return _articleFetcher;
-}
-
-- (void)reloadCurrentArticleFromNetwork {
-    [self reloadCurrentArticleOrMainPageWithMethod:MWKHistoryDiscoveryMethodReloadFromNetwork];
-}
-
-- (void)reloadCurrentArticleFromCache {
-    [self reloadCurrentArticleOrMainPageWithMethod:MWKHistoryDiscoveryMethodReloadFromCache];
-}
-
-- (void)reloadCurrentArticleOrMainPageWithMethod:(MWKHistoryDiscoveryMethod)method {
-    MWKTitle* page = self.article.title;
-    if (page) {
-        [self navigateToPage:page discoveryMethod:method];
-    } else {
-        [self loadTodaysArticle];
-    }
-}
-
-- (void)navigateToPage:(MWKTitle*)title
-       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    NSString* cleanTitle = title.text;
-    NSParameterAssert(cleanTitle.length);
-
-    if ([title.text length] == 0) {
-        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
-        return;
-    }
-
-    //Force view to load if not already on screen
-    //We need to get HTML load process going even before we are in the view hierarchy
-    if (!self.isViewLoaded) {
-        [self view];
-    }
-
-    [self wmf_hideKeyboard];
-
-    [self cancelSearchLoading];
-
-    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
-        [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
-    }
-
-    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
-
-    self.jumpToFragment                        = title.fragment;
-    self.currentTitle                          = title;
-    self.session.currentArticle                = article;
-    self.session.currentArticleDiscoveryMethod = discoveryMethod;
-
-    BOOL needsRefresh = NO;
-    switch (self.session.currentArticleDiscoveryMethod) {
-        case MWKHistoryDiscoveryMethodSearch:
-        case MWKHistoryDiscoveryMethodRandom:
-        case MWKHistoryDiscoveryMethodLink:
-        case MWKHistoryDiscoveryMethodReloadFromNetwork:
-        case MWKHistoryDiscoveryMethodUnknown: {
-            needsRefresh = YES;
-            break;
-        }
-
-        case MWKHistoryDiscoveryMethodSaved:
-        case MWKHistoryDiscoveryMethodBackForward:
-        case MWKHistoryDiscoveryMethodReloadFromCache: {
-            needsRefresh = NO;
-            break;
-        }
-    }
-
-    if ([article isCached] && !needsRefresh) {
-        [self displayArticle:self.article.title];
-        [self fadeAlert];
-        return;
-    }
-
-    [self loadArticleWithTitleFromNetwork:title];
-}
+#pragma mark - Scroll To
 
 - (void)scrollToSection:(MWKSection*)section {
     [self scrollToFragment:section.anchor];
@@ -907,134 +822,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self jumpToFragmentIfNecessary];
 }
 
-- (void)cancelArticleLoading {
-//    [self.articleFetcher cancelCurrentFetch];
-}
-
-- (void)cancelSearchLoading {
-    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
-}
-
-- (void)loadArticleWithTitleFromNetwork:(MWKTitle*)title {
-    NSParameterAssert(title);
-    if ([title.text length] == 0) {
-        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
-        return;
-    }
-
-    [self showProgressViewAnimated:YES];
-    self.isFetchingArticle = YES;
-
-    [self.articleFetcher fetchArticleForPageTitle:title progress:^(CGFloat progress){
-        [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
-    }].then(^(MWKArticle* article){
-        [self handleFetchedArticle:article];
-    }).catch(^(NSError* error){
-        [self handleFetchArticleError:error];
-    });
-}
-
-- (void)handleFetchedArticle:(MWKArticle*)article {
-    self.isFetchingArticle = NO;
-
-    [self displayArticle:article.title];
-
-    [self hideAlert];
-}
-
-- (void)handleFetchArticleError:(NSError*)error {
-    MWKTitle* redirect = [[error userInfo] wmf_redirectTitle];
-
-    if (redirect) {
-        [self handleRedirectForTitle:redirect];
-    } else {
-        self.isFetchingArticle = NO;
-
-        [self displayArticle:self.article.title];
-
-        NSString* errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-    }
-}
-
-- (void)handleRedirectForTitle:(MWKTitle*)title {
-    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForListIndex:title];
-    MWKHistoryDiscoveryMethod discoveryMethod =
-        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
-
-    [self navigateToPage:title discoveryMethod:discoveryMethod];
-}
-
-#pragma mark - FetchFinishedDelegate
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-            {
-                NSDictionary* banner = (NSDictionary*)fetchedData;
-                if (banner) {
-//TODO: use this notification to update the search box's placeholder text when zero rated
-//                    TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-//                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
-
-
-
-                    //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
-                    NSString* title = banner[@"message"];
-                    self.zeroStatusLabel.text            = title;
-                    self.zeroStatusLabel.padding         = UIEdgeInsetsMake(3, 10, 3, 10);
-                    self.zeroStatusLabel.textColor       = banner[@"foreground"];
-                    self.zeroStatusLabel.backgroundColor = banner[@"background"];
-
-                    [self promptFirstTimeZeroOnWithTitleIfAppropriate:title];
-                }
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_FAILED:
-            {
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_CANCELLED:
-            {
-            }
-            break;
-        }
-    } else if ([sender isKindOfClass:[RandomArticleFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSString* title = (NSString*)fetchedData;
-                if (title) {
-                    MWKTitle* pageTitle = [self.article.site titleWithString:title];
-                    [self navigateToPage:pageTitle discoveryMethod:MWKHistoryDiscoveryMethodRandom];
-                }
-            }
-            break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                break;
-        }
-    }
-}
-
 #pragma mark Display article from data store
-
-- (void)displayArticle:(MWKTitle*)title {
-    NSParameterAssert(title.text);
-    if ([title.text length] == 0) {
-        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
-        return;
-    }
-
-    self.article = [self.session.dataStore articleWithTitle:title];
-}
 
 - (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod{
     _article = article;
@@ -1198,26 +986,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             }
             break;
     }
-}
-
-- (UIScrollView*)refreshScrollView {
-    return nil;//self.webView.scrollView;
-}
-
-- (NSString*)refreshPromptString {
-    return MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
-}
-
-- (NSString*)refreshRunningString {
-    return MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
-}
-
-- (void)refreshWasPulled {
-    [self reloadCurrentArticleFromNetwork];
-}
-
-- (BOOL)refreshShouldShow {
-    return YES;
 }
 
 #pragma mark Bottom menu bar
@@ -1458,30 +1226,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self presentViewController:nc animated:YES completion:nil];
 }
 
-#pragma mark - Article loading convenience
-
-- (void)loadRandomArticle {
-    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
-
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:self.article.site.language
-                                                               withManager:[QueuesSingleton sharedInstance].articleFetchManager
-                                                        thenNotifyDelegate:self];
-}
-
-- (void)loadTodaysArticle {
-    [self.siteInfoFetcher fetchInfoForSite:[[SessionSingleton sharedInstance] searchSite]
-                                   success:^(MWKSiteInfo* siteInfo) {
-        [self navigateToPage:siteInfo.mainPageTitle
-             discoveryMethod:MWKHistoryDiscoveryMethodSearch];
-    } failure:^(NSError* error) {
-        if ([error.domain isEqual:NSURLErrorDomain]
-            && error.code == NSURLErrorCannotFindHost) {
-            [self showLanguages];
-        } else {
-            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.0];
-        }
-    }];
-}
 
 - (MWKSiteInfoFetcher*)siteInfoFetcher {
     if (!_siteInfoFetcher) {

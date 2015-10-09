@@ -123,19 +123,11 @@ static int const kMinimumTextSelectionLength = 2;
 
 @property (strong, nonatomic) WMFProgressLineView* progressView;
 
-@property (assign, nonatomic) BOOL isFetchingArticle;
-
 /**
  * Designated initializer.
  * @param session The current session, defaults to `+[SessionSingleton sharedInstance]`.
  * @return A new `WebViewController` with the given session.
  */
 - (instancetype)initWithSession:(SessionSingleton*)session;
-
-- (void)displayArticle:(MWKTitle*)title;
-
-- (void)cancelArticleLoading;
-
-- (void)cancelSearchLoading;
 
 @end
