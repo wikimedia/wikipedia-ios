@@ -7,7 +7,7 @@
 //
 
 #import "MWKRelatedSearchResult.h"
-#import "MWKArticle.h"
+#import "MWKSection.h"
 
 @implementation MWKRelatedSearchResult
 
@@ -19,7 +19,7 @@
 
 + (MTLValueTransformer*)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* extract, BOOL* success, NSError* __autoreleasing* error) {
-        return [MWKArticle cleanSummary:extract];
+        return [MWKSection cleanSummary:extract];
     }];
 }
 

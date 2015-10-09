@@ -11,6 +11,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
+#import "NSString+Extras.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -254,7 +255,32 @@ static NSString* const WMFSectionSummaryXPathSelector = @"(//p[count(*) > 0]/des
         [results addObject:node.raw];
     }
     NSString* summary = [results componentsJoinedByString:@""];
-    return [MWKArticle cleanSummary:summary];
+    return [MWKSection cleanSummary:summary];
+}
+
++ (NSString*)cleanSummary:(NSString*)summary {
+    NSString *output;
+    
+    // Cleanups which need to happen before string is shortened.
+    output = [summary wmf_stringByRecursivelyRemovingParenthesizedContent];
+    output = [output wmf_stringByRemovingBracketedContent];
+    
+    // Now ok to shorten so remaining cleanups are faster.
+    output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
+    
+    // Cleanups safe to do on shortened string.
+    output = [[[[[[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
+                      stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+                     stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+                    wmf_stringByCollapsingConsecutiveNewlines]
+                   stringByReplacingOccurrencesOfString:@"\n" withString:@" "]
+                  wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
+                 wmf_stringByRemovingWhiteSpaceBeforePeriod]
+                wmf_stringByCollapsingConsecutiveSpaces]
+               wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons]
+              stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    return output;
 }
 
 @end
