@@ -46,7 +46,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 }
 
 - (NSString*)anchorAsElementId {
-    return self.anchor.length > 0 ? [NSString stringWithFormat:@"id='%@'", self.anchor] : @"";
+    return self.anchor.length > 0 ? [NSString stringWithFormat : @"id='%@'", self.anchor] : @"";
 }
 
 - (NSString*)articleEntityDescriptionAsParagraph {
