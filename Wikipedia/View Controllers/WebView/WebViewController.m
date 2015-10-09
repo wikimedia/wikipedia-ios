@@ -779,21 +779,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return YES;
 }
 
-#pragma mark Memory
-
-- (void)updateHistoryDateVisitedForArticleBeingNavigatedFrom {
-    // This is a quick hack to help with the natural back/forward behavior of the case
-    // where you go back and forth from some master article to others.
-    //
-    // Proper fix might be to store more of a 'tree' structure so that we know which
-    // 'leaf' to hang off of, but this works for now.
-    MWKHistoryList* historyList = self.session.userDataStore.historyList;
-    //NSLog(@"XXX %d", (int)historyList.length);
-    if ([historyList countOfEntries] > 0) {
-        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
-    }
-}
-
 #pragma mark - Scroll To
 
 - (void)scrollToSection:(MWKSection*)section {
@@ -895,10 +880,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     });
 }
 
-- (void)updateBottomBarButtonsEnabledState {
-    self.buttonLanguages.enabled = !(self.article.isMain && [self.article languagecount] > 0);
-}
-
 - (BOOL)isCurrentArticleSaved {
     return [self.session.userDataStore.savedPageList isSaved:self.article.title];
 }
@@ -926,12 +907,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 #pragma mark Bottom menu bar
-
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"BottomMenuViewController_embed2"]) {
-        self.bottomMenuViewController = (BottomMenuViewController*)[segue destinationViewController];
-    }
-}
 
 - (void)showProtectedDialog {
     UIAlertView* alert = [[UIAlertView alloc] init];
