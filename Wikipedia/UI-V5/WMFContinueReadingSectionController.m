@@ -33,9 +33,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     NSParameterAssert(delegate);
     self = [super init];
     if (self) {
-        self.title                = title;
+        self.title     = title;
         self.dataStore = dataStore;
-        self.delegate = delegate;
+        self.delegate  = delegate;
     }
     return self;
 }
@@ -44,7 +44,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return WMFContinueReadingSectionIdentifier;
 }
 
-- (UIImage*)headerIcon{
+- (UIImage*)headerIcon {
     return [UIImage imageNamed:@"home-continue-reading"];
 }
 
@@ -74,10 +74,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
           atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFContinueReadingCell class]]) {
         WMFContinueReadingCell* readingCell = (id)cell;
-        readingCell.title.text           = self.title.text;
+        readingCell.title.text   = self.title.text;
         readingCell.summary.text = [[self.dataStore existingArticleWithTitle:self.title].summaryHTML string];
     }
 }
-
 
 @end

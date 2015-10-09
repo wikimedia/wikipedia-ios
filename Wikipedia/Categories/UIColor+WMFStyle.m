@@ -37,13 +37,8 @@
 }
 
 + (instancetype)wmf_lightGrayColor {
-    static UIColor* c = nil;
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithWhite:0.8671875 alpha:1.0];
-    });
-    return c;
+    // #999999 in grayscale
+    return [UIColor colorWithWhite:0.59765625 alpha:1.0];
 }
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor {
@@ -90,9 +85,9 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderTextColor{
++ (instancetype)wmf_homeSectionHeaderTextColor {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
@@ -100,16 +95,14 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor{
++ (instancetype)wmf_homeSectionHeaderLinkTextColor {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
     });
     return c;
 }
-
-
 
 @end

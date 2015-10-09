@@ -66,9 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self wmf_setGlyphTitle:WMF_GLYPH_HEART color:[UIColor redColor] forState:UIControlStateSelected];
             break;
         case WMFButtonTypeTableOfContents:
-            [self wmf_setGlyphTitle:WMF_GLYPH_TOC_COLLAPSED color:nil forState:UIControlStateNormal];
-            [self wmf_setGlyphTitle:WMF_GLYPH_TOC_COLLAPSED color:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-            [self wmf_setGlyphTitle:WMF_GLYPH_TOC_EXPANDED color:nil forState:UIControlStateSelected];
+            [self setImage:[UIImage imageNamed:@"toc"] forState:UIControlStateNormal];
             break;
         case WMFButtonTypeX:
             [self wmf_setGlyphTitle:WMF_GLYPH_X color:nil forState:UIControlStateNormal];
@@ -99,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self wmf_setGlyphTitle:WMF_GLYPH_PENCIL color:[UIColor lightGrayColor] forState:UIControlStateDisabled];
             break;
         case WMFButtonTypeBookmark:
-            [self setImage:[UIImage imageNamed:@"unsaved"] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
             [self setImage:[UIImage imageNamed:@"saved"] forState:UIControlStateSelected];
             break;
         default:
