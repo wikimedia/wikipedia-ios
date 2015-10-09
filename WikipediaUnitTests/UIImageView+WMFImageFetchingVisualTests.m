@@ -28,10 +28,10 @@
 - (void)setUp {
     [super setUp];
 
-    self.recordMode = YES;
+//    self.recordMode = YES;
 
     [[LSNocilla sharedInstance] start];
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.imageView                     = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
     self.imageView.wmf_imageController = [WMFImageController temporaryController];
 }
 
@@ -56,11 +56,10 @@
     // !!!: Need to use different URLs to prevent reusing face detection data for different images
     NSURL* testURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://test/%@.jpg", imageFixtureName]];
 
-    UIImage* imageWithFaces = [UIImage imageNamed:imageFixtureName
-                                         inBundle:[self wmf_bundle]
-                    compatibleWithTraitCollection:nil];
+    UIImage* testImage =
+        [UIImage imageNamed:imageFixtureName inBundle:[self wmf_bundle] compatibleWithTraitCollection:nil];
 
-    NSAssert(imageWithFaces,
+    NSAssert(testImage,
              @"Couldn't find image fixture named %@. Make sure it's included in the unit testing target.",
              imageFixtureName);
 
