@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.title           = article.title;
             cell.descriptionText = searchResult.wikidataDescription;
             cell.image           = [article bestThumbnailImage];
-            [cell setSummaryHTML:searchResult.extractHTML fromSite:self.title.site];
+            [cell setSummary:searchResult.extract];
         };
     }
     return self;
