@@ -51,6 +51,7 @@
 #import "WMFURLCache.h"
 
 #import "WMFProgressLineView.h"
+#import "MWKHistoryEntry.h"
 
 //#import "UIView+Debugging.h"
 
@@ -78,6 +79,9 @@ static int const kMinimumTextSelectionLength = 2;
 @interface WebViewController ()
 
 @property (nonatomic, strong, readwrite) IBOutlet UIWebView* webView;
+
+@property (nonatomic, strong, nullable) MWKArticle* article;
+@property (nonatomic, assign) MWKHistoryDiscoveryMethod currentArticleDiscoveryMethod;
 
 @property (nonatomic, strong) SessionSingleton* session;
 

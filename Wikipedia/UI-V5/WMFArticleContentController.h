@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MWKHistoryEntry.h"
 
 @class MWKArticle;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol WMFArticleContentController <NSObject>
 
-@property (nonatomic, strong, nullable) MWKArticle* article;
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
 @end
+
+NS_ASSUME_NONNULL_END

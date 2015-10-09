@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, nullable) MWKHistoryList* recentPages;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
+@property (nonatomic, strong, nullable) MWKArticle* article;
 
 // Fetchers
 @property (nonatomic, strong, null_resettable) WMFArticlePreviewFetcher* articlePreviewFetcher;
@@ -86,10 +87,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
 
+@property (nonatomic, assign) MWKHistoryDiscoveryMethod discoveryMethod;
+
 @end
 
 @implementation WMFArticleContainerViewController
-@synthesize article = _article;
 
 - (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil bundle:(nullable NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -122,34 +124,36 @@ NS_ASSUME_NONNULL_BEGIN
     return self.webViewController;
 }
 
-- (void)setArticle:(MWKArticle* __nullable)article {
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod{
     if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
     }
-
+    
+    self.discoveryMethod = discoveryMethod;
     [self setAndObserveArticle:article];
-
+    
     self.dataStore                  = article.dataStore;
     self.savedPages                 = self.dataStore.userDataStore.savedPageList;
     self.recentPages                = self.dataStore.userDataStore.historyList;
     self.saveButtonController.title = article.title;
-
+    
     // need to wait until article/dataStore are available before configuring the toolbar
     [self setupToolbar];
-
+    
     self.shareFunnel                   = nil;
     self.shareOptionsController        = nil;
     self.tableOfContentsViewController = nil;
     self.articlePreviewFetcher         = nil;
     self.articleFetcher                = nil;
-
+    
     [self fetchArticle];
 }
+
 
 - (void)setAndObserveArticle:(MWKArticle*)article {
     [self unobserveArticleUpdates];
 
-    _article = article;
+    self.article = article;
 
     [self observeArticleUpdates];
     [self updateChildrenWithArticle];
@@ -250,8 +254,8 @@ NS_ASSUME_NONNULL_BEGIN
     // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
     // see http://stackoverflow.com/a/2777460/48311
     if ([self isViewLoaded] && self.view.window) {
-        self.articleViewController.article = self.article;
-        self.webViewController.article     = self.article;
+        [self.articleViewController setArticle:self.article discoveryMethod:self.discoveryMethod];
+        [self.webViewController setArticle:self.article discoveryMethod:self.discoveryMethod];
         [self.headerGallery setImagesFromArticle:self.article];
     }
 }

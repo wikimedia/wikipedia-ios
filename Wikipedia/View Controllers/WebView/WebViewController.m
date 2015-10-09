@@ -55,7 +55,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @end
 
 @implementation WebViewController
-@synthesize article = _article;
 
 @synthesize siteInfoFetcher = _siteInfoFetcher;
 
@@ -1037,52 +1036,51 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.article = [self.session.dataStore articleWithTitle:title];
 }
 
-- (void)setArticle:(MWKArticle* __nullable)article {
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod{
     _article = article;
-
-    #warning HAX: force the view to load
+    
+#warning HAX: force the view to load
     [self view];
-
-    #warning TODO: remove dependency on session current article
+    
+#warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
-
+    self.currentArticleDiscoveryMethod = discoveryMethod;
+    
     if (![article isCached]) {
         [self showProgressViewAnimated:NO];
-        [self loadArticleWithTitleFromNetwork:article.title];
         return;
     }
-
+    
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
-
+    
     self.editable         = article.editable;
     self.protectionStatus = article.protection;
-
-    [self updateBottomBarButtonsEnabledState];
+    
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
-
+    
     for (MWKSection* section in _article.sections) {
         NSString* html = nil;
-
+        
         @try {
             html = section.text;
         }@catch (NSException* exception) {
             NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
         }
-
+        
         if (!html) {
             html = MWLocalizedString(@"article-unable-to-load-section", nil);;
         }
-
+        
         // Structural html added around section html just before display.
         NSString* sectionHTMLWithID = [section displayHTML:html];
         [sectionTextArray addObject:sectionHTMLWithID];
     }
-
-    if (self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
+    
+    if (self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
+        self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
+        self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
+        self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
         MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForListIndex:article.title];
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
@@ -1090,11 +1088,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         CGPoint scrollOffset = CGPointMake(0, 0);
         self.lastScrollOffset = scrollOffset;
     }
-
+    
     // Join article sections text
     NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
     NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
-
+    
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && htmlStr);
     if (!safeToCrossBridge) {
@@ -1106,21 +1104,21 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         //TODO: output "could not load page" alert and/or show last page?
         return;
     }
-
+    
     [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html"];
-
+    
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
                  withPayload:@{
-         @"lang": languageInfo.code,
-         @"dir": languageInfo.dir,
-         @"uidir": uidir
-     }];
-
+                               @"lang": languageInfo.code,
+                               @"dir": languageInfo.dir,
+                               @"uidir": uidir
+                               }];
+    
     if (!self.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProgress:0.85 animated:YES completion:NULL];
     });
