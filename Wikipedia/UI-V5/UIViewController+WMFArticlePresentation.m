@@ -29,7 +29,7 @@
            discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSAssert(article.dataStore, @"Can't present an article w/o a data store!");
     WMFArticleContainerViewController* articleContainerVC = [[WMFArticleContainerViewController alloc] init];
-    articleContainerVC.article = article;
+    [articleContainerVC setArticle:article discoveryMethod:discoveryMethod];
     [article.dataStore.userDataStore.historyList addPageToHistoryWithTitle:article.title discoveryMethod:discoveryMethod];
     [article.dataStore.userDataStore.historyList save];
     [self.navigationController pushViewController:articleContainerVC animated:YES];

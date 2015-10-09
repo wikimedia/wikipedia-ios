@@ -70,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView* loadingMessageContainerView;
 
+@property (nonatomic, strong, nullable) MWKArticle* article;
+
 @end
 
 @implementation WMFArticleViewController
@@ -102,20 +104,21 @@ NS_ASSUME_NONNULL_BEGIN
     [_headerGalleryViewController setImagesFromArticle:self.article];
 }
 
-- (void)setArticle:(MWKArticle* __nullable)article {
+
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod{
     if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
     }
-
+    
     [[WMFImageController sharedInstance] cancelFetchForURL:[NSURL wmf_optionalURLWithString:[_article bestThumbnailImageURL]]];
-
+    
     _article = article;
-
+    
     [self.headerGalleryViewController setImagesFromArticle:article];
     self.topLevelSections = [_article.sections.topLevelSections wmf_arrayByRemovingFirstElement];
-
+    
     [self updateUI];
-
+    
     // Note: do not call "fetchReadMoreForTitle:" in updateUI! Because we don't save the read more results to the data store, we need to fetchxax
     // them, but not every time the card controller causes the ui to be updated (ie on scroll as it recycles article views).
     if (self.mode != WMFArticleControllerModeList) {
@@ -123,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMoreForTitle:self.article.title];
         }
     }
-
+    
     if ([self isViewLoaded]) {
         [self.tableView reloadData];
     }

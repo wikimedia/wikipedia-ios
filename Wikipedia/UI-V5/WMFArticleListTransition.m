@@ -153,7 +153,7 @@
     CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
     toView.frame = toViewFinalFrame;
     // Scroll the list to make the card we're dismissing visible (e.g. in case its index changed)
-    [self.listViewController scrollToArticleIfOffscreen:self.articleContainerViewController.article animated:NO];
+//    [self.listViewController scrollToArticleIfOffscreen:self.articleContainerViewController.article animated:NO];
 
     // Setup snapshot of cards overlapping the fullscreen article (when in the list)
     // !!!: adding overlapping cards to the container after setting frames prevents flickering when transition starts
