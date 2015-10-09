@@ -128,23 +128,9 @@ NS_ASSUME_NONNULL_BEGIN
            && WMF_EQUAL_PROPERTIES(self, fragment, isEqualToString:, otherTitle);
 }
 
-- (NSString*)description {
-    if (self.fragment) {
-        return [NSString stringWithFormat:@"%@:%@:%@#%@", self.site.domain, self.site.language, self.text, self.fragment];
-    } else {
-        return [NSString stringWithFormat:@"%@:%@:%@", self.site.domain, self.site.language, self.text];
-    }
-}
-
 - (NSUInteger)hash {
     return self.site.hash
-           ^ flipBitsWithAdditionalRotation(self.text.hash, 1)
-           ^ flipBitsWithAdditionalRotation(self.fragment.hash, 2);
-}
-
-- (instancetype)copyWithZone:(NSZone* __nullable)zone {
-    // immutable
-    return self;
+           ^ flipBitsWithAdditionalRotation(self.text.hash, 1);
 }
 
 @end

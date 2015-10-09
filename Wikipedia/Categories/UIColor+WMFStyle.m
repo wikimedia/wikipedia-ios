@@ -11,7 +11,14 @@
 @implementation UIColor (WMFStyle)
 
 + (instancetype)wmf_logoBlue {
-    return [self wmf_logoBlueWithAlpha:1.0];
+    // measured from WMF logo using DigitalColorMeter
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [self wmf_logoBlueWithAlpha:1.0];
+    });
+    return c;
 }
 
 + (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha {
@@ -20,11 +27,23 @@
 }
 
 + (instancetype)wmf_summaryTextColor {
-    return [UIColor colorWithRed:0.118 green:0.118 blue:0.118 alpha:1];
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:0.118 green:0.118 blue:0.118 alpha:1];
+    });
+    return c;
 }
 
 + (instancetype)wmf_lightGrayColor {
-    return [UIColor colorWithWhite:0.8671875 alpha:1.0];
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:0.8671875 alpha:1.0];
+    });
+    return c;
 }
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor {
@@ -70,5 +89,27 @@
     });
     return c;
 }
+
++ (instancetype)wmf_homeSectionHeaderTextColor{
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
+    });
+    return c;
+}
+
++ (instancetype)wmf_homeSectionHeaderLinkTextColor{
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
+    });
+    return c;
+}
+
+
 
 @end

@@ -71,6 +71,10 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return WMFNearbySectionIdentifier;
 }
 
+- (UIImage*)headerIcon{
+    return [UIImage imageNamed:@"home-nearby"];
+}
+
 - (NSAttributedString*)headerText {
     return [[NSAttributedString alloc] initWithString:@"Nearby your location" attributes:nil];
 }

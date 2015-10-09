@@ -16,6 +16,14 @@
     return item;
 }
 
++ (WMFSectionSchemaItem*)continueReadingItemWithTitle:(MWKTitle*)title{
+    WMFSectionSchemaItem* item = [[WMFSectionSchemaItem alloc] init];
+    item.type  = WMFSectionSchemaItemTypeContinueReading;
+    item.title = title;
+    return item;
+}
+
+
 + (WMFSectionSchemaItem*)recentItemWithTitle:(MWKTitle*)title {
     WMFSectionSchemaItem* item = [[WMFSectionSchemaItem alloc] init];
     item.type  = WMFSectionSchemaItemTypeRecent;
