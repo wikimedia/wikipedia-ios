@@ -31,6 +31,8 @@
 #import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
 #import "WMFNavigationTransitionController.h"
+#import "WMFArticleContainerViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -58,6 +60,8 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
+
+static dispatch_once_t launchToken;
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
@@ -143,19 +147,27 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 }
 
 - (void)resumeApp {
+    if(![self launchCompleted]){
+        return;
+    }
     if([self shouldShowHomeScreenOnLaunch]){
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
         [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
     }else if([self shouldShowLastReadArticleOnLaunch]){
-        MWKTitle* lastRead = [self.session.userDataStore.historyList mostRecentEntry].title;
+        MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
         if(lastRead){
+            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
             [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-            [self.homeViewController showArticleViewControllerForTitle:lastRead animated:NO discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+            [self.homeViewController wmf_presentTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
         }
     }
 }
 
 #pragma mark - Utilities
+
+- (BOOL)launchCompleted{
+    return launchToken != 0;
+}
 
 - (BOOL)shouldShowHomeScreenOnLaunch{
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
@@ -259,8 +271,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&launchToken, ^{
         [self showSplashView];
 
         [self runDataMigrationIfNeededWithCompletion:^{
@@ -269,6 +280,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
             [self loadMainUI];
             BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
             [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
         }];
     });
 }
