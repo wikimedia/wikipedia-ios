@@ -38,23 +38,18 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
 
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
-@property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
-@property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
 @end
 
 @implementation WebViewController
-
-@synthesize siteInfoFetcher = _siteInfoFetcher;
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -91,11 +86,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (void)setupBottomMenuButtons {
     @weakify(self)
-    self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTranslate handler:^(id sender){
-        @strongify(self)
-        [self showLanguages];
-    }];
-
     self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
         @strongify(self)
         [self editHistoryButtonPushed];
@@ -104,7 +94,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonLanguages,
     ];
 }
 
@@ -153,11 +142,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 
     self.lastScrollOffset = CGPointZero;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(zeroStateChanged:)
-                                                 name:WMFURLCacheZeroStateChanged
-                                               object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
@@ -941,52 +925,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                       thenHideTOC:NO];
 }
 
-#pragma mark Wikipedia Zero handling
-
-- (void)zeroStateChanged:(NSNotification*)notification {
-    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
-
-    if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.article.site.language
-                                                                    withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
-                                                             thenNotifyDelegate:self];
-    } else {
-        NSString* warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
-
-        CGFloat duration = 5.0f;
-
-        //[self showAlert:warnVerbiage type:ALERT_TYPE_TOP duration:duration];
-        self.zeroStatusLabel.text            = warnVerbiage;
-        self.zeroStatusLabel.backgroundColor = [UIColor redColor];
-        self.zeroStatusLabel.textColor       = [UIColor whiteColor];
-
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.zeroStatusLabel.text = @"";
-            self.zeroStatusLabel.padding = UIEdgeInsetsZero;
-        });
-
-        [self promptZeroOff];
-    }
-}
-
-- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (alertView.tag) {
-        case WMFWebViewAlertZeroCharged:
-        case WMFWebViewAlertZeroWebPage:
-            if (1 == buttonIndex) {
-                NSURL* url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
-                [self wmf_openExternalUrl:url];
-            }
-            break;
-        case WMFWebViewAlertZeroInterstitial:
-            if (1 == buttonIndex) {
-                NSURL* url = [NSURL URLWithString:self.externalUrl];
-                [self wmf_openExternalUrl:url];
-            }
-            break;
-    }
-}
-
 #pragma mark Bottom menu bar
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -1223,69 +1161,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)editHistoryButtonPushed {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
-}
-
-
-- (MWKSiteInfoFetcher*)siteInfoFetcher {
-    if (!_siteInfoFetcher) {
-        _siteInfoFetcher = [MWKSiteInfoFetcher new];
-        /*
-           HAX: Force this particular site info fetcher to share the article operation queue. This allows for the
-           cancellation of site info requests when going to the main page, e.g. when clicking a link after clicking
-           "Today" in the main menu.
-
-           This is done here and not for all site info fetchers to prevent unintended side effects.
-         */
-        _siteInfoFetcher.requestManager.operationQueue =
-            [[[QueuesSingleton sharedInstance] articleFetchManager] operationQueue];
-    }
-    return _siteInfoFetcher;
-}
-
-#pragma mark - Language variant loading
-
-- (void)showLanguages {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.downloadLanguagesForCurrentArticle = YES;
-    languagesVC.languageSelectionDelegate          = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
-}
-
-- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
-    [self navigateToPage:langData.title
-         discoveryMethod:MWKHistoryDiscoveryMethodSearch];
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Wikipedia Zero alert dialogs
-
-- (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
-        self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
-        UIAlertView* dialog = [[UIAlertView alloc]
-                               initWithTitle:title
-                                         message:MWLocalizedString(@"zero-learn-more", nil)
-                                        delegate:self
-                               cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                               otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
-                               , nil];
-        dialog.tag = WMFWebViewAlertZeroWebPage;
-        [dialog show];
-    }
-}
-
-- (void)promptZeroOff {
-    UIAlertView* dialog = [[UIAlertView alloc]
-                           initWithTitle:MWLocalizedString(@"zero-charged-verbiage", nil)
-                                     message:MWLocalizedString(@"zero-charged-verbiage-extended", nil)
-                                    delegate:self
-                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                           otherButtonTitles:nil
-                           , nil];
-    dialog.tag = WMFWebViewAlertZeroCharged;
-    [dialog show];
 }
 
 @end
