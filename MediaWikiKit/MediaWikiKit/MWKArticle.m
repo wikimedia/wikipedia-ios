@@ -15,7 +15,6 @@
 #import "NSAttributedString+WMFHTMLForSite.h"
 #import "MWKSection.h"
 #import "MWKCitation.h"
-#import "NSString+Extras.h"
 
 @import CoreText;
 
@@ -490,31 +489,6 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
     }
     _summary = nil;
     return nil;
-}
-
-+ (NSString*)cleanSummary:(NSString*)summary {
-    NSString *output;
-    
-    // Cleanups which need to happen before string is shortened.
-    output = [summary wmf_stringByRecursivelyRemovingParenthesizedContent];
-    output = [output wmf_stringByRemovingBracketedContent];
-    
-    // Now ok to shorten so remaining cleanups are faster.
-    output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
-    
-    // Cleanups safe to do on shortened string.
-    output = [[[[[[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
-                      stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-                     stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
-                    wmf_stringByCollapsingConsecutiveNewlines]
-                   stringByReplacingOccurrencesOfString:@"\n" withString:@" "]
-                  wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
-                 wmf_stringByRemovingWhiteSpaceBeforePeriod]
-                wmf_stringByCollapsingConsecutiveSpaces]
-               wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons]
-              stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    return output;
 }
 
 @end

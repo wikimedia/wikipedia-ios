@@ -144,8 +144,6 @@ static const NSUInteger WMFNumberOfExtractCharacters = 525;
  */
 - (NSSet<NSURL*>*)allImageURLs;
 
-+ (NSString*)cleanSummary:(NSString*)summary;
-
 - (NSString*)summary;
 
 @end
