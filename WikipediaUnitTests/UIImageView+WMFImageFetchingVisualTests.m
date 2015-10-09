@@ -32,6 +32,7 @@
 
     [[LSNocilla sharedInstance] start];
     self.imageView                     = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
+    self.imageView.contentMode         = UIViewContentModeScaleAspectFill;
     self.imageView.wmf_imageController = [WMFImageController temporaryController];
 }
 
@@ -48,6 +49,10 @@
 
 - (void)testCentersBothActorsFacesVertically {
     [self verifyCenteringOfFacesInFixtureNamed:@"Spider-Man_actors.jpg"];
+}
+
+- (void)testUsesSpecifiedContentModeBehaviorOnFeaturelessImage {
+    [self verifyCenteringOfFacesInFixtureNamed:@"golden-gate.jpg"];
 }
 
 #pragma mark - Utils
