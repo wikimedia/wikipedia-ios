@@ -278,18 +278,18 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            WMFHomeSectionHeader* header     = view;
-            header.icon.image = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            WMFHomeSectionHeader* header = view;
+            header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
             [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, title.length)];
             [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
-            header.titleView.tintColor = [UIColor wmf_homeSectionHeaderLinkTextColor];
+            header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
             header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
-            if([controller respondsToSelector:@selector(footerText)]){
+            if ([controller respondsToSelector:@selector(footerText)]) {
                 footer.moreLabel.text = controller.footerText;
                 @weakify(self);
                 footer.whenTapped = ^{
@@ -317,7 +317,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return controller;
 }
 
-- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item{
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
 }
 
@@ -411,7 +411,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
-    if(![controllerForSection respondsToSelector:@selector(extendedListDataSource)]){
+    if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
     WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
@@ -439,9 +439,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
     id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
-    if([controllerForSection respondsToSelector:@selector(footerText)]){
+    if ([controllerForSection respondsToSelector:@selector(footerText)]) {
         return CGSizeMake([self contentWidth], 80.0);
-    }else{
+    } else {
         return CGSizeZero;
     }
 }

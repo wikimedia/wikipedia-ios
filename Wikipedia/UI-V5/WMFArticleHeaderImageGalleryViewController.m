@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor           = [UIColor whiteColor];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self.collectionView registerClass:[WMFImageCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
