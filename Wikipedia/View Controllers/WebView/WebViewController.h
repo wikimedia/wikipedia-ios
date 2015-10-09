@@ -33,15 +33,7 @@
 - (void)referencesShow:(NSDictionary*)payload;
 - (void)referencesHide;
 
-- (void)reloadCurrentArticleFromNetwork;
-
-- (void)navigateToPage:(MWKTitle*)title
-       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
-
 - (void)saveWebViewScrollOffset;
-
-- (void)loadRandomArticle;
-- (void)loadTodaysArticle;
 
 //TODO: combine these into one method that accepts an animated parameter
 - (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
