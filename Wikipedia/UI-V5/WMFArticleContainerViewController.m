@@ -246,7 +246,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFSaveButtonController*)saveButtonController {
     if (!_saveButtonController) {
-        _saveButtonController        = [[WMFSaveButtonController alloc] init];
+        _saveButtonController = [[WMFSaveButtonController alloc] init];
         UIButton* saveButton = [UIButton wmf_buttonType:WMFButtonTypeBookmark handler:nil];
         [saveButton sizeToFit];
         _saveButtonController.button = saveButton;
@@ -290,17 +290,17 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    NSMutableArray<UIBarButtonItem*>* toolbarItems = [@[
+    NSMutableArray<UIBarButtonItem*>* toolbarItems = @[
         [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
         [self shareToolbarItem], [self flexibleSpaceToolbarItem],
         [self saveToolbarItem], [self flexibleSpaceToolbarItem],
-    ] mutableCopy];
+    ].mutableCopy;
 
     if (!self.article.isMain) {
         [toolbarItems addObject:[self tableOfContentsToolbarItem]];
     }
 
-    self.toolbarItems = toolbarItems;
+    self.toolbarItems                      = toolbarItems;
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 }
 
