@@ -1,39 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFHomeSectionHeader" id="DH9-hh-2Hp" customClass="WMFHomeSectionHeader">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jjj-bR-heh">
+                    <rect key="frame" x="15" y="17" width="22" height="22"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="MF9-CE-WAn"/>
+                        <constraint firstAttribute="height" constant="22" id="pyl-SG-TAa"/>
+                    </constraints>
+                </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-RH-fPG">
-                    <rect key="frame" x="2" y="12" width="310" height="37"/>
+                    <rect key="frame" x="41" y="12" width="271" height="33"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="Abw-0C-Eqo"/>
                     </constraints>
-                    <color key="textColor" red="0.28235294117647058" green="0.28235294117647058" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" red="0.59993284940719604" green="0.60003882646560669" blue="0.5999261736869812" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Abw-0C-Eqo"/>
+                        </mask>
+                    </variation>
                 </textView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Bj8-RH-fPG" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="2" id="LSd-Kj-rUk"/>
-                <constraint firstAttribute="centerY" secondItem="Bj8-RH-fPG" secondAttribute="centerY" id="kKV-Sq-4bq"/>
+                <constraint firstItem="Bj8-RH-fPG" firstAttribute="centerY" secondItem="Jjj-bR-heh" secondAttribute="centerY" id="9dt-1a-Eu3"/>
+                <constraint firstItem="Bj8-RH-fPG" firstAttribute="leading" secondItem="Jjj-bR-heh" secondAttribute="trailing" constant="4" id="D26-CB-FPk"/>
+                <constraint firstItem="Jjj-bR-heh" firstAttribute="leading" secondItem="DH9-hh-2Hp" secondAttribute="leading" constant="15" id="LkK-xR-eWd"/>
+                <constraint firstItem="Jjj-bR-heh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DH9-hh-2Hp" secondAttribute="top" constant="15" id="Pf6-9w-Mia"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Jjj-bR-heh" secondAttribute="bottom" constant="15" id="RuX-Xw-99Z"/>
                 <constraint firstAttribute="trailing" secondItem="Bj8-RH-fPG" secondAttribute="trailing" constant="8" id="tCh-p1-BwF"/>
+                <constraint firstItem="Jjj-bR-heh" firstAttribute="centerY" secondItem="DH9-hh-2Hp" secondAttribute="centerY" id="ynY-J2-Nk1"/>
             </constraints>
             <connections>
+                <outlet property="icon" destination="Jjj-bR-heh" id="L7u-mX-DgO"/>
                 <outlet property="titleView" destination="Bj8-RH-fPG" id="kLd-uI-lUi"/>
             </connections>
-            <point key="canvasLocation" x="198.5" y="358"/>
+            <point key="canvasLocation" x="198" y="356"/>
         </collectionReusableView>
     </objects>
 </document>
