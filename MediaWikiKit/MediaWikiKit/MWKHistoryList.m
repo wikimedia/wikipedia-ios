@@ -30,6 +30,16 @@
     return [self.entries firstObject];
 }
 
+- (nullable MWKHistoryEntry*)entryForTitle:(MWKTitle*)title{
+    return [self.entries bk_match:^BOOL(MWKHistoryEntry* obj) {
+        if([obj.title isEqualToTitle:title]){
+            return YES;
+        }
+        return NO;
+    }];
+}
+
+
 #pragma mark - Update Methods
 
 - (void)sortEntries {
