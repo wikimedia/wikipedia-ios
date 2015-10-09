@@ -425,8 +425,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)showSectionEditorForSection:(NSNumber*)sectionID {
     SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
     sectionEditVC.section = self.article.sections[[sectionID integerValue]];
+    sectionEditVC.delegate = self;
     [self.navigationController pushViewController:sectionEditVC animated:YES];
 }
+
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController{
+    [self.navigationController popToViewController:self animated:YES];
+    [self.delegate webViewControllerDidReloadCurrentArticle:self];
+}
+
 
 #pragma mark Angle from velocity vector
 

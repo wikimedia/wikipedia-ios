@@ -3,7 +3,13 @@
 
 #import "CaptchaViewController.h"
 
-@class MWKSection, SavedPagesFunnel, EditFunnel;
+@class MWKSection, SavedPagesFunnel, EditFunnel, PreviewAndSaveViewController;
+
+@protocol PreviewAndSaveViewControllerDelegate <NSObject>
+
+- (void)previewViewControllerDidSave:(PreviewAndSaveViewController*)previewViewController;
+
+@end
 
 @interface PreviewAndSaveViewController : UIViewController <CaptchaViewControllerRefresh>
 
@@ -15,5 +21,8 @@
 - (void)reloadCaptchaPushed:(id)sender;
 
 @property (strong, nonatomic) NSString* summaryText;
+
+@property (weak, nonatomic) id<PreviewAndSaveViewControllerDelegate> delegate;
+
 
 @end
