@@ -5,15 +5,6 @@
 #import "XCTestCase+WMFVisualTestConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"
 
-/**
- *  Verify correct appearance of a given view.
- *
- *  This is required to work around a bug in FBSnapshotTestCase that will mix up the suffix of the reference image folder.
- *
- *  @param view The view to verify.
- */
-#define WMFSnapshotVerifyView(view) FBSnapshotVerifyViewWithOptions((view), nil, [NSSet setWithObject:@"_64"], 0)
-
 @implementation FBSnapshotTestCase (WMFConvenience)
 
 - (void)wmf_visuallyVerifyMultilineLabelWithText:(id)stringOrAttributedString {
