@@ -100,7 +100,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "FB_REFERENCE_IMAGE_DIR"
-            value = "&quot;$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages&quot;"
+            value = "$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
