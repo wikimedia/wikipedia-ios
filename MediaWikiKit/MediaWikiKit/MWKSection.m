@@ -265,7 +265,7 @@ static NSString* const WMFSectionSummaryXPathSelector =
     for (TFHppleElement* node in textNodes) {
         [results addObject:node.raw];
     }
-    NSString* summary = [results componentsJoinedByString:@""];
+    NSString* summary = [results componentsJoinedByString:@" "];
     return [MWKSection cleanSummary:summary];
 }
 
@@ -280,18 +280,12 @@ static NSString* const WMFSectionSummaryXPathSelector =
     output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
     
     // Cleanups safe to do on shortened string.
-    output = [[[[[[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
-                      stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-                     stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
-                    wmf_stringByCollapsingConsecutiveNewlines]
-                   stringByReplacingOccurrencesOfString:@"\n" withString:@" "]
-                  wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
-                 wmf_stringByRemovingWhiteSpaceBeforePeriod]
-                wmf_stringByCollapsingConsecutiveSpaces]
-               wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons]
-              stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    return output;
+    return [[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
+                stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+               stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+              wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
+             wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
+            wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
 
 @end

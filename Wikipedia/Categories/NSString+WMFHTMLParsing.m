@@ -14,8 +14,7 @@
 
 - (NSString*)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation {
     NSString* result = [self wmf_stringByCollapsingAllWhitespaceToSingleSpaces];
-    result = [result wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons];
-    result = [result wmf_stringByRemovingWhiteSpaceBeforePeriod];
+    result = [result wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes];
     result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return result;
 }
@@ -31,14 +30,13 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString*)wmf_shareSnippetFromText {
-    return [[[[[[[[[[self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
+    return [[[[[[[[[self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
                     stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
                    stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
                   wmf_stringByCollapsingConsecutiveNewlines]
                  wmf_stringByRecursivelyRemovingParenthesizedContent]
                 wmf_stringByRemovingBracketedContent]
-               wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
-              wmf_stringByRemovingWhiteSpaceBeforePeriod]
+               wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
              wmf_stringByCollapsingConsecutiveSpaces]
             wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
@@ -101,37 +99,15 @@
                                                withTemplate:@""];
 }
 
-- (NSString*)wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons {
-    // Unlike parens and brackets and unlike doubled up space in general,
-    // we do not want whitespace preceding the comma, ideographic comma,
-    // or semicolon
-
-    static NSRegularExpression* spaceCommaColonRegex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        spaceCommaColonRegex = [NSRegularExpression
-                                regularExpressionWithPattern:@"\\s+([,、;])"
-                                                     options:0
-                                                       error:nil];
-
-        
-    });
-    
-    return [spaceCommaColonRegex stringByReplacingMatchesInString:self
-                                                          options:0
-                                                            range:NSMakeRange(0, self.length)
-                                                     withTemplate:@"$1"];
-}
-
-- (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriod {
+- (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes {
     // Ideographic stops from TextExtracts, which were from OpenSearch
     static NSRegularExpression* spacePeriodRegex;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         spacePeriodRegex = [NSRegularExpression
-                            regularExpressionWithPattern:@"\\s+([\\.|。|．|｡])"
-                                                 options:0
-                                                   error:nil];
+                            regularExpressionWithPattern:@"\\s+([\\.。．｡,、;\\-\u2014])"
+                            options:0
+                            error:nil];
     });
     
     return [spacePeriodRegex stringByReplacingMatchesInString:self

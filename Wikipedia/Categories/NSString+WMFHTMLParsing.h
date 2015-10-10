@@ -36,8 +36,7 @@
 - (NSString*)wmf_stringByCollapsingConsecutiveNewlines;
 - (NSString*)wmf_stringByRecursivelyRemovingParenthesizedContent;
 - (NSString*)wmf_stringByRemovingBracketedContent;
-- (NSString*)wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons;
-- (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriod;
+- (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes;
 - (NSString*)wmf_stringByCollapsingConsecutiveSpaces;
 - (NSString*)wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons;
 - (NSString*)wmf_stringByCollapsingAllWhitespaceToSingleSpaces;
