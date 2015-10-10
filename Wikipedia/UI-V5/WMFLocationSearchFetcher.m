@@ -121,8 +121,8 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFLocationSearchRequestSerializer
 
 - (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
-                              withParameters:(nullable id)parameters
-                                       error:(NSError* __autoreleasing*)error {
+                                       withParameters:(nullable id)parameters
+                                                error:(NSError* __autoreleasing*)error {
     NSDictionary* serializedParams = [self serializedParams:(WMFLocationSearchRequestParameters*)parameters];
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
