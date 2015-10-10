@@ -51,8 +51,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 #endif
 }
 
-- (UIWindow *)window
-{
+- (UIWindow*)window {
     if (!_window) {
         #if FB_TWEAK_ENABLED
         _window = [[FBTweakShakeWindow alloc] init];
@@ -64,9 +63,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
     return _window;
 }
 
-
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-
     [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 

@@ -372,7 +372,7 @@ static dispatch_once_t launchToken;
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-#if PIWIK_ENABLED 
+#if PIWIK_ENABLED
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {

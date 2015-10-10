@@ -237,7 +237,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     if (![self shouldAutomaticallyReloadHome]) {
         return;
     }
-    
+
     [self updateAndReloadSections];
 }
 
@@ -249,7 +249,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #endif
 }
 
-- (void)tweakDidChange:(FBTweak *)tweak {
+- (void)tweakDidChange:(FBTweak*)tweak {
     [self updateAndReloadSections];
 }
 
