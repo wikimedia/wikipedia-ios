@@ -252,7 +252,15 @@ static NSString* const WMFSectionSummaryXPathSelector =
 "["
 "   not(@id = 'coordinates')"
 "   and"
-"   not(ancestor::*[@id = 'coordinates'])"
+"   not(ancestor::*["
+"       @id = 'coordinates'"
+"       or"
+"       @class = 'IPA' "
+"       or"
+"       starts-with(@class, 'IPA ') "
+"       or"
+"       contains(@class, ' IPA ')"
+"   ])"
 "]"
 "/text()";
 
