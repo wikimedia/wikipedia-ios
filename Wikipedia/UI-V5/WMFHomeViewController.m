@@ -1,14 +1,15 @@
 #import "WMFHomeViewController.h"
 
 // Frameworks
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+@import SelfSizingWaterfallCollectionViewLayout;
+@import BlocksKit;
+@import Tweaks;
+@import SSDataSources;
 
 // Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
-#import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFSectionSchemaManager.h"
 #import "WMFSectionSchemaItem.h"
@@ -42,13 +43,11 @@
 #import "WMFLocationManager.h"
 #import "UITabBarController+WMFExtensions.h"
 
-#import "FBTweakViewController.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
-@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate>
+@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate, FBTweakObserver>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -194,8 +193,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].minimumLineSpacing  = 10.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksWereUpdatedWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
-
+    [self setupHomeTweaks];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -232,19 +230,27 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         return;
     }
     
-    [self.schemaManager updateSchema];
-    [self reloadSections];
+    [self updateAndReloadSections];
 }
 
-- (void)tweaksWereUpdatedWithNotification:(NSNotification*)note {
-    if (!self.isViewLoaded) {
-        return;
-    }
-    
+#pragma mark - Tweaks
+
+- (void)setupHomeTweaks {
+    FBTweak *tweak = FBTweakInline(@"Home", @"Continue Reading", @"Enabled", NO);
+    NSParameterAssert(tweak);
+    [tweak addObserver:self];
+}
+
+- (void)tweakDidChange:(FBTweak *)tweak {
+    [self updateAndReloadSections];
+}
+
+#pragma mark - Data Source Configuration
+
+- (void)updateAndReloadSections {
     [self.schemaManager updateSchema];
     [self reloadSections];
 }
-#pragma mark - Data Source Configuration
 
 - (void)configureDataSource {
     if ([self.dataSource numberOfSections] > 0) {

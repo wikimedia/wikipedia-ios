@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIsDictionaryContainingEntries.h"
 
@@ -7,8 +7,8 @@
 
 
 @interface HCIsDictionaryContainingEntries ()
-@property (readonly, nonatomic, copy) NSArray *keys;
-@property (readonly, nonatomic, copy) NSArray *valueMatchers;
+@property (nonatomic, copy, readonly) NSArray *keys;
+@property (nonatomic, copy, readonly) NSArray *valueMatchers;
 @end
 
 

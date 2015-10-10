@@ -1,11 +1,11 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import <Foundation/Foundation.h>
 
 
-/**
- Chain-of-responsibility for handling NSInvocation return types.
+/*!
+ * @brief Chain-of-responsibility for handling NSInvocation return types.
  */
 @interface HCReturnValueGetter : NSObject
 

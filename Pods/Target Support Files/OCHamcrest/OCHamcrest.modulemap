@@ -21,7 +21,7 @@ framework module OCHamcrest {
   private header "HCUnsignedLongLongReturnGetter.h"
   private header "HCUnsignedLongReturnGetter.h"
   private header "HCUnsignedShortReturnGetter.h"
-  private header "HCGenericTestFailureHandler.h"
-  private header "HCSenTestFailureHandler.h"
-  private header "HCXCTestFailureHandler.h"
+  private header "HCGenericTestFailureReporter.h"
+  private header "HCSenTestFailureReporter.h"
+  private header "HCXCTestFailureReporter.h"
 }

@@ -3,8 +3,8 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <PiwikTracker/PiwikTracker.h>
-#import <Masonry/Masonry.h>
+@import PiwikTracker;
+@import Masonry;
 
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -375,7 +375,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-
+#if DEBUG
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {
@@ -395,6 +395,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
         }
         break;
     }
+#endif
 }
 
 #pragma mark - Notifications

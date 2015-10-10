@@ -7,8 +7,11 @@
 #import "WMFAppViewController.h"
 
 #import "WMFLogFormatter.h"
-#import <PiwikTracker/PiwikTracker.h>
-#import "FBTweakShakeWindow.h"
+
+#if DEBUG
+@import PiwikTracker;
+@import Tweaks;
+#endif
 
 static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
 static NSString* const WMFPiwikSiteID    = @"4";
@@ -57,10 +60,13 @@ static NSString* const WMFPiwikSiteID    = @"4";
 
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-    
+
     [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
+
+#if DEBUG
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
+#endif
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];

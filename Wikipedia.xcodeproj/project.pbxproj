@@ -276,8 +276,8 @@
 		0EFB0F241B31EE2D00D05C08 /* Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F141B31EE2D00D05C08 /* Saved.m */; };
 		0EFB0F251B31EE2D00D05C08 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F161B31EE2D00D05C08 /* Section.m */; };
 		0EFB0F261B31EE2D00D05C08 /* SectionImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F181B31EE2D00D05C08 /* SectionImage.m */; };
-		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
+		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
 		BC060B3A1B456D030086EBFB /* AnyPromise+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC060B391B456D030086EBFB /* AnyPromise+WMFExtensions.m */; };
 		BC092B961B18E89200093C59 /* NSString+WMFPageUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC092B951B18E89200093C59 /* NSString+WMFPageUtilities.m */; };
 		BC092B9C1B18F8D700093C59 /* MWKSiteInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BC092B9B1B18F8D700093C59 /* MWKSiteInfo.m */; };
@@ -4764,7 +4764,7 @@
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
-					"FB_REFERENCE_IMAGE_DIR=\"$(PROJECT_DIR)/WikipediaUnitTests/Reference Snapshots\"",
+					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 					"MKT_SHORTHAND=1",
 					"HC_SHORTHAND=1",
 				);

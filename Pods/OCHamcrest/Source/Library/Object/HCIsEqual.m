@@ -1,12 +1,12 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIsEqual.h"
 
 
 @interface HCIsEqual ()
 
-@property (readonly, nonatomic, strong) id object;
+@property (nonatomic, strong, readonly) id object;
 @end
 
 
