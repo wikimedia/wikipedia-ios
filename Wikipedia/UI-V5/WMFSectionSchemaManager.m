@@ -23,7 +23,7 @@ static NSUInteger const numberOfSavedSections  = 3;
 
 @end
 
-static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24*60*60;
+static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24 * 60 * 60;
 
 @implementation WMFSectionSchemaManager
 
@@ -41,7 +41,7 @@ static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24*60*60;
     //get enough recents to reject any duplicates from saved
     NSArray* recents = [self titlesForMostRecentPages:numberOfRecentSections + numberOfSavedSections];
     NSArray* saved   = [self titlesForMostRecentSavedPages:numberOfSavedSections];
-    
+
     //reject duplicates
     recents = [recents bk_reject:^BOOL (MWKTitle* obj) {
         if ([saved containsObject:obj]) {
@@ -66,13 +66,13 @@ static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24*60*60;
     } else {
         [schema addObject:[WMFSectionSchemaItem nearbyItem]];
     }
-    
+
     //Add the last read item
     WMFSectionSchemaItem* lastRead = [self continueReadingSchemaItem];
-    if(lastRead){
+    if (lastRead) {
         [schema insertObject:lastRead atIndex:0];
     }
-    
+
     self.sectionSchema = schema;
 }
 
@@ -85,7 +85,7 @@ static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24*60*60;
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforedisplayingLastReadArticle;
     if (shouldShowContinueReading) {
         MWKTitle* lastRead = [self.recentPages mostRecentEntry].title;
-        if(lastRead){
+        if (lastRead) {
             return [WMFSectionSchemaItem continueReadingItemWithTitle:lastRead];
         }
     }

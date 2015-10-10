@@ -16,20 +16,8 @@
 
 @implementation WMFSaveableTitleCollectionViewCell
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    [self commonInit];
-}
-
-- (void)commonInit {
+- (void)configureCell {
+    [super configureCell];
     [self configureContentView];
     self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
     [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];

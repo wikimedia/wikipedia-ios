@@ -30,6 +30,10 @@
     return [self.entries firstObject];
 }
 
+- (nullable MWKHistoryEntry*)entryForTitle:(MWKTitle*)title {
+    return [self entryForListIndex:title];
+}
+
 #pragma mark - Update Methods
 
 - (void)sortEntries {

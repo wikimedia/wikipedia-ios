@@ -17,7 +17,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     var dataStore: MWKDataStore!
 
     var savedPageList: MWKSavedPageList {
-        return self.imageMigration.savedPageList
+        return self.dataStore.userDataStore.savedPageList
     }
 
     // Array of paths to temporary files that need to be cleaned up in tearDown
@@ -82,8 +82,8 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
             XCTAssertNil(
                 result,
                 "Expected nil result after marking all entries as migrated, but got \(result). Current entries:\n"
-                    + self.dataStore.userDataStore().savedPageList.entries.debugDescription)
-            let unmigratedEntries = (self.dataStore.userDataStore().savedPageList.entries as! [MWKSavedPageEntry]).filter() { $0.didMigrateImageData == false }
+                    + self.dataStore.userDataStore.savedPageList.entries.debugDescription)
+            let unmigratedEntries = (self.dataStore.userDataStore.savedPageList.entries as! [MWKSavedPageEntry]).filter() { $0.didMigrateImageData == false }
             XCTAssertTrue(unmigratedEntries.isEmpty, "Expected data store to contain 0 unmigrated entries")
         },
         test: {
@@ -124,7 +124,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         timeout: 10,
         pipe: {
             XCTAssertNil(self.imageMigration.unmigratedEntry(), "Should be no remaining unmigrated entries")
-            let migratedEntry = self.dataStore.userDataStore().savedPageList.entryForListIndex(article.title)!
+            let migratedEntry = self.dataStore.userDataStore.savedPageList.entryForListIndex(article.title)!
             XCTAssertTrue(migratedEntry.didMigrateImageData, "Expected article's saved page entry to be marked as migrated")
             self.verifySuccessfulMigration(ofArticle: article, legacyImageDataPaths: legacyImageDataPaths)
         },
@@ -139,13 +139,13 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         })
     }
 
-    func testMigratingMultipleArticlesWhileSavedPageListIsMutatedDoesNotAlterTheMutatedList() {
-        let (article1, legacyImageDataPaths1) = prepareArticleFixtureWithTempImages("Barack_Obama")
+    func testMigratingMultipleArticlesAfterSavedPageListIsMutatedDoesNotAlterTheMutatedList() {
+        let title1 = MWKTitle(string: "Barack_Obama", site: MWKSite.siteWithCurrentLocale())
         let (article2, legacyImageDataPaths2) = prepareArticleFixtureWithTempImages("Barack_Obama", titleText: "Dupe1")
         let titleToAddWhileMigrating = MWKTitle(string: "addedWhileMigrating", site: MWKSite.siteWithCurrentLocale())
 
         // create saved page entries for 1 & 2, which will be migrated
-        addUnmigratedentryForListIndex(article1.title)
+        addUnmigratedentryForListIndex(title1)
         addUnmigratedentryForListIndex(article2.title)
 
         expectPromise(toResolve(),
@@ -153,9 +153,9 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         pipe: {
             XCTAssertNil(self.imageMigration.unmigratedEntry(), "Should be no remaining unmigrated entries")
 
-            let currentSavedPageList = self.dataStore.userDataStore().savedPageList
+            let currentSavedPageList = self.savedPageList
 
-            XCTAssertNil(currentSavedPageList.entryForListIndex(article1.title),
+            XCTAssertNil(currentSavedPageList.entryForListIndex(title1),
                          "Entry for article1 should have remained deleted.")
 
             XCTAssertTrue(currentSavedPageList.entryForListIndex(article2.title)!.didMigrateImageData,
@@ -165,7 +165,6 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                           "Expected article3 to still be in the list and marked as migrated (by default).")
 
             // article 1 should still have been migrated, including deletion of legacy image data
-            self.verifySuccessfulMigration(ofArticle: article1, legacyImageDataPaths: legacyImageDataPaths1)
             self.verifySuccessfulMigration(ofArticle: article2, legacyImageDataPaths: legacyImageDataPaths2)
         },
         test: { () -> Promise<Void> in
@@ -173,21 +172,13 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
                 return self.savedPageList.save()
             }
             .then() { _ -> AnyPromise in
-                let imageMigrationEntries = self.imageMigration.savedPageList.entries as! [MWKSavedPageEntry]
-                let imageMigrationTitles: [MWKTitle] = imageMigrationEntries.map({ $0.title })
-                XCTAssertTrue(imageMigrationTitles.contains(article1.title))
-                XCTAssertTrue(imageMigrationTitles.contains(article2.title))
-
-                // make changes to saved page list on disk which shouldn't effect the image migration
-                let mainSavedPageList = self.dataStore.userDataStore().savedPageList
-
                 // remove article 1
-                mainSavedPageList.removeEntryWithListIndex(article1.title)
+                self.savedPageList.removeEntryWithListIndex(title1)
 
                 // save article 3
-                mainSavedPageList.addSavedPageWithTitle(titleToAddWhileMigrating)
+                self.savedPageList.addSavedPageWithTitle(titleToAddWhileMigrating)
 
-                return mainSavedPageList.save()
+                return self.savedPageList.save()
             }
             .then() { _ -> Promise<Void> in
                 self.imageMigration.setupAndStart()

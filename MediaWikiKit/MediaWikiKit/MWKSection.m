@@ -191,34 +191,34 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 #pragma mark - Section Hierarchy
 
-- (nullable MWKSection*)parentSection{
+- (nullable MWKSection*)parentSection {
     return self.parent;
 }
 
-- (MWKSection*)rootSection{
+- (MWKSection*)rootSection {
     MWKSection* parent = self.parent;
-    if(!parent){
+    if (!parent) {
         return self;
     }
     return [self.parent rootSection];
 }
 
-- (BOOL)isChildOfSection:(MWKSection*)section{
+- (BOOL)isChildOfSection:(MWKSection*)section {
     return [self.parent isEqualToSection:section];
 }
 
-- (BOOL)isDecendantOfSection:(MWKSection*)section{
+- (BOOL)isDecendantOfSection:(MWKSection*)section {
     MWKSection* parent = self.parent;
-    if(!parent){
+    if (!parent) {
         return NO;
     }
-    if([parent isEqualToSection:self.parent]){
+    if ([parent isEqualToSection:self.parent]) {
         return YES;
     }
     return [self.parent isDecendantOfSection:section];
 }
 
-- (BOOL)sectionHasSameRootSection:(MWKSection*)section{
+- (BOOL)sectionHasSameRootSection:(MWKSection*)section {
     return [[self rootSection] isEqualToSection:[section rootSection]];
 }
 
@@ -237,10 +237,6 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 - (void)removeAllChildren {
     [self.mutableChildren removeAllObjects];
 }
-
-
-
-
 
 @end
 
