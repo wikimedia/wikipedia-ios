@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCReturnValueGetter.h"
 
@@ -9,8 +9,8 @@
 @end
 
 @interface HCReturnValueGetter ()
-@property (readonly, nonatomic, assign) char const *handlerType;
-@property (readonly, nonatomic, strong) HCReturnValueGetter *successor;
+@property (nonatomic, assign, readonly) char const *handlerType;
+@property (nonatomic, strong, readonly) HCReturnValueGetter *successor;
 @end
 
 

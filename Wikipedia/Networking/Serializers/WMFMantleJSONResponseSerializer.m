@@ -63,8 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
+- (nullable id)responseObjectForResponse:(nullable NSURLResponse*)response
+                           data:(nullable NSData*)data
                           error:(NSError* __autoreleasing*)error {
     NSDictionary* json = [super responseObjectForResponse:response data:data error:error];
     if (!json) {
@@ -86,8 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMantleJSONObjectResponseSerializer
 
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
+- (nullable id)responseObjectForResponse:(nullable NSURLResponse*)response
+                           data:(nullable NSData*)data
                           error:(NSError* __autoreleasing*)error {
     NSDictionary* jsonObject = [super responseObjectForResponse:response data:data error:error];
     if (![jsonObject isKindOfClass:[NSDictionary class]]) {
@@ -108,8 +108,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMantleJSONDictionaryValueResponseSerializer
 
-- (id)responseObjectForResponse:(NSURLResponse*)response
-                           data:(NSData*)data
+- (nullable id)responseObjectForResponse:(nullable NSURLResponse*)response
+                           data:(nullable NSData*)data
                           error:(NSError* __autoreleasing*)error {
     id value = [super responseObjectForResponse:response data:data error:error];
     if (![value isKindOfClass:[NSDictionary class]]) {

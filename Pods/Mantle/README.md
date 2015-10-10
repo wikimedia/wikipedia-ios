@@ -233,13 +233,13 @@ typedef enum : NSUInteger {
 }
 
 + (NSValueTransformer *)assigneeJSONTransformer {
-    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:GHUser.class];
+    return [MTLJSONAdapter dictionaryTransformerWithModelClass:GHUser.class];
 }
 
 + (NSValueTransformer *)updatedAtJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [self.dateFormatter dateFromString:str];
-    } reverseBlock:^(NSDate *date) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
+        return [self.dateFormatter dateFromString:dateString];
+    } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
         return [self.dateFormatter stringFromDate:date];
     }];
 }
@@ -272,9 +272,9 @@ it easy to specify how new model data should be integrated.
 > There's no way to turn a `GHIssue` _back_ into JSON.
 
 This is where reversible transformers really come in handy. `+[MTLJSONAdapter
-JSONDictionaryFromModel:]` can transform any model object conforming to
+JSONDictionaryFromModel:error:]` can transform any model object conforming to
 `<MTLJSONSerializing>` back into a JSON dictionary. `+[MTLJSONAdapter
-JSONArrayForModels:]` is the same but turns an array of model objects into an JSON array of dictionaries.
+JSONArrayFromModels:error:]` is the same but turns an array of model objects into an JSON array of dictionaries.
 
 > If the interface of `GHIssue` changes down the road, existing archives might break.
 
@@ -294,7 +294,8 @@ XYUser *user = [MTLJSONAdapter modelOfClass:XYUser.class fromJSONDictionary:JSON
 ```
 
 ```objc
-NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:user];
+NSError *error = nil;
+NSDictionary *JSONDictionary = [MTLJSONAdapter JSONDictionaryFromModel:user error:&error];
 ```
 
 ### `+JSONKeyPathsByPropertyKey`
@@ -387,10 +388,9 @@ that are commonly represented as strings in JSON can be transformed to `NSDate`s
 like so:
 
 ```objc
-+ (NSValueTransformer *)createdAtJSONTransformer {
-    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^(NSString *str) {
-        return [self.dateFormatter dateFromString:str];
-    } reverseBlock:^(NSDate *date) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString *dateString, BOOL *success, NSError *__autoreleasing *error) {
+        return [self.dateFormatter dateFromString:dateString];
+    } reverseBlock:^id(NSDate *date, BOOL *success, NSError *__autoreleasing *error) {
         return [self.dateFormatter stringFromDate:date];
     }];
 }
