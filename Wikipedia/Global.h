@@ -39,6 +39,15 @@ static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key)
 
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
 
+// Need to do this here since we're only including Tweaks in certain configurations
+#ifndef FB_TWEAK_ENABLED
+    #if NDEBUG
+        #define FB_TWEAK_ENABLED 0
+    #else
+        #define FB_TWEAK_ENABLED 1
+    #endif
+#endif
+
 #ifndef PIWIK_ENABLED
     #if NDEBUG
         #define PIWIK_ENABLED 0
