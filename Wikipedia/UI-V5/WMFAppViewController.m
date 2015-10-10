@@ -33,6 +33,8 @@
 #import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
 #import "WMFNavigationTransitionController.h"
+#import "WMFArticleContainerViewController.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -43,7 +45,6 @@
  */
 typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeHome = 0,
-    WMFAppTabTypeSearch,
     WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
@@ -60,7 +61,9 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
  */
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
-static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
+static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24 * 60 * 60;
+
+static dispatch_once_t launchToken;
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
@@ -69,7 +72,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFHomeViewController* homeViewController;
-@property (nonatomic, strong, readonly) WMFSearchViewController* searchViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
 @property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
 
@@ -88,7 +90,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 - (void)loadMainUI {
     [self configureTabController];
     [self configureHomeViewController];
-    [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
 #if PIWIK_ENABLED
@@ -110,14 +111,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
     self.homeViewController.dataStore   = self.session.dataStore;
     self.homeViewController.savedPages  = self.session.userDataStore.savedPageList;
     self.homeViewController.recentPages = self.session.userDataStore.historyList;
-}
-
-- (void)configureSearchViewController {
-    self.searchViewController.searchSite     = [self.session searchSite];
-    self.searchViewController.dataStore      = self.session.dataStore;
-    self.searchViewController.savedPages     = self.session.userDataStore.savedPageList;
-    self.searchViewController.recentPages    = self.session.userDataStore.historyList;
-    self.searchViewController.recentSearches = self.session.userDataStore.recentSearchList;
 }
 
 - (void)configureArticleListController:(WMFArticleListCollectionViewController*)controller {
@@ -158,51 +151,55 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 }
 
 - (void)resumeApp {
-    if([self shouldShowHomeScreenOnLaunch]){
+    if (![self launchCompleted]) {
+        return;
+    }
+    if ([self shouldShowHomeScreenOnLaunch]) {
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
         [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-    }else if([self shouldShowLastReadArticleOnLaunch]){
-        MWKTitle* lastRead = [self.session.userDataStore.historyList mostRecentEntry].title;
-        if(lastRead){
+    } else if ([self shouldShowLastReadArticleOnLaunch]) {
+        MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+        if (lastRead) {
+            [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
             [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-            [self.homeViewController showArticleViewControllerForTitle:lastRead animated:NO discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
+            [self.homeViewController wmf_presentTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
         }
     }
 }
 
-- (void)pauseApp{
-    
-}
-
 #pragma mark - Utilities
 
-- (BOOL)shouldShowHomeScreenOnLaunch{
+- (BOOL)launchCompleted {
+    return launchToken != 0;
+}
+
+- (BOOL)shouldShowHomeScreenOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    if(!resignActiveDate){
+    if (!resignActiveDate) {
         return NO;
     }
-    
-    if(fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingHomeScreen){
+
+    if (fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingHomeScreen) {
         return YES;
     }
     return NO;
 }
 
-- (BOOL)shouldShowLastReadArticleOnLaunch{
+- (BOOL)shouldShowLastReadArticleOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    if(!resignActiveDate){
+    if (!resignActiveDate) {
         return NO;
     }
-    
-    if(fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingHomeScreen){
-        if(![self homeViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeHome){
+
+    if (fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingHomeScreen) {
+        if (![self homeViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeHome) {
             return YES;
         }
     }
     return NO;
 }
 
-- (BOOL)homeViewControllerIsDisplayingContent{
+- (BOOL)homeViewControllerIsDisplayingContent {
     return [self navigationControllerForTab:WMFAppTabTypeHome].viewControllers.count > 1;
 }
 
@@ -260,10 +257,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
     return (WMFHomeViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
 }
 
-- (WMFSearchViewController*)searchViewController {
-    return (WMFSearchViewController*)[self rootViewControllerForTab:WMFAppTabTypeSearch];
-}
-
 - (WMFArticleListCollectionViewController*)savedArticlesViewController {
     return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
@@ -282,8 +275,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    dispatch_once(&launchToken, ^{
         [self showSplashView];
 
         [self runDataMigrationIfNeededWithCompletion:^{
@@ -292,6 +284,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
             [self loadMainUI];
             BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
             [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
         }];
     });
 }
@@ -386,10 +379,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
             [[PiwikTracker sharedInstance] sendView:@"Home"];
         }
         break;
-        case WMFAppTabTypeSearch: {
-            [[PiwikTracker sharedInstance] sendView:@"Search"];
-        }
-        break;
         case WMFAppTabTypeSaved: {
             [[PiwikTracker sharedInstance] sendView:@"Saved"];
         }
@@ -406,7 +395,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 
 - (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
     [self configureHomeViewController];
-    [self configureSearchViewController];
 }
 
 #pragma mark - UINavigationControllerDelegate

@@ -11,13 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ *  View controller responsible for displaying article content.
+ */
 @interface WMFArticleContainerViewController : UIViewController
     <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
 
-+ (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
-                                                recentPages:(MWKHistoryList*)recentPages
-                                                 savedPages:(MWKSavedPageList*)savedPages;
-
+// TEMP: will be deleted soon
 @property (nonatomic, strong, readonly) WMFArticleViewController* articleViewController;
 
 @end

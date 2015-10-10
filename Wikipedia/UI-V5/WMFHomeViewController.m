@@ -33,6 +33,7 @@
 #import "WMFHomeSectionFooter.h"
 
 // Child View Controllers
+#import "UIViewController+WMFArticlePresentation.h"
 #import "WMFArticleContainerViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -42,12 +43,15 @@
 // Controllers
 #import "WMFLocationManager.h"
 #import "UITabBarController+WMFExtensions.h"
+#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
-@interface WMFHomeViewController ()<WMFHomeSectionControllerDelegate, UITextViewDelegate, FBTweakObserver>
+@interface WMFHomeViewController ()
+<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate, FBTweakObserver>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -70,11 +74,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.navigationItem.titleView =
-            [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wikipedia"]];
-        self.navigationItem.rightBarButtonItems = @[
-            [self settingsBarButtonItem]
-        ];
+        self.navigationItem.titleView          = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
+        self.navigationItem.leftBarButtonItem  = [self settingsBarButtonItem];
+        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
 }
@@ -150,22 +152,22 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return width;
 }
 
-- (BOOL)shouldAutomaticallyReloadHome{
+- (BOOL)shouldAutomaticallyReloadHome {
     //never loaded
     if ([self.dataSource numberOfSections] == 0) {
         return NO;
     }
 
     //never loaded
-    if(!self.lastReloadDate){
+    if (!self.lastReloadDate) {
         return YES;
     }
-    
+
     //minimum relaod time
     if ([[NSDate date] timeIntervalSinceDate:self.lastReloadDate] > WMFHomeMinAutomaticReloadTime) {
         return YES;
     }
-    
+
     return NO;
 }
 
@@ -178,6 +180,12 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
+}
+
+- (void)didTapSectionHeaderLink:(NSURL*)url {
+    [self wmf_presentTitle:[[MWKTitle alloc] initWithURL:url]
+           discoveryMethod:MWKHistoryDiscoveryMethodLink
+                 dataStore:self.dataStore];
 }
 
 #pragma mark - UIViewController
@@ -225,8 +233,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     if (!self.isViewLoaded) {
         return;
     }
-    
-    if(![self shouldAutomaticallyReloadHome]){
+
+    if (![self shouldAutomaticallyReloadHome]) {
         return;
     }
     
@@ -236,9 +244,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Tweaks
 
 - (void)setupHomeTweaks {
-    FBTweak *tweak = FBTweakInline(@"Home", @"Continue Reading", @"Enabled", NO);
-    NSParameterAssert(tweak);
-    [tweak addObserver:self];
+#if FB_TWEAK_ENABLED
+    [FBTweakInline(@"Home", @"Continue Reading", @"Enabled", NO) addObserver:self];
+#endif
 }
 
 - (void)tweakDidChange:(FBTweak *)tweak {
@@ -288,18 +296,18 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            WMFHomeSectionHeader* header     = view;
-            header.icon.image = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            WMFHomeSectionHeader* header = view;
+            header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
             [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, title.length)];
             [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
-            header.titleView.tintColor = [UIColor wmf_homeSectionHeaderLinkTextColor];
+            header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
             header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
-            if([controller respondsToSelector:@selector(footerText)]){
+            if ([controller respondsToSelector:@selector(footerText)]) {
                 footer.moreLabel.text = controller.footerText;
                 @weakify(self);
                 footer.whenTapped = ^{
@@ -327,7 +335,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return controller;
 }
 
-- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item{
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
 }
 
@@ -351,7 +359,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
                 break;
         }
     }];
-    
+
     self.lastReloadDate = [NSDate date];
 }
 
@@ -421,7 +429,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
-    if(![controllerForSection respondsToSelector:@selector(extendedListDataSource)]){
+    if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
     WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
@@ -449,9 +457,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
     id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
-    if([controllerForSection respondsToSelector:@selector(footerText)]){
+    if ([controllerForSection respondsToSelector:@selector(footerText)]) {
         return CGSizeMake([self contentWidth], 80.0);
-    }else{
+    } else {
         return CGSizeZero;
     }
 }
@@ -472,23 +480,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         if ([controller respondsToSelector:@selector(discoveryMethod)]) {
             discoveryMethod = [controller discoveryMethod];
         }
-        [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:discoveryMethod];
+        [self wmf_presentTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
     }
-}
-
-#pragma mark - Article Presentation
-
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title
-                                 animated:(BOOL)animated
-                          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    MWKArticle* article                                   = [self.dataStore articleWithTitle:title];
-    WMFArticleContainerViewController* articleContainerVC =
-        [WMFArticleContainerViewController articleContainerViewControllerWithDataStore:article.dataStore
-                                                                           recentPages:self.recentPages
-                                                                            savedPages:self.savedPages];
-    articleContainerVC.article = article;
-    [self.recentPages addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
-    [self.navigationController pushViewController:articleContainerVC animated:animated];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
@@ -546,13 +539,23 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 #pragma mark - UITextViewDelegate
 
-- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)URL inRange:(NSRange)characterRange {
-    MWKTitle* title = [[MWKTitle alloc] initWithURL:URL];
-    [self showArticleViewControllerForTitle:title animated:YES discoveryMethod:MWKHistoryDiscoveryMethodLink];
+- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)url inRange:(NSRange)characterRange {
+    [self didTapSectionHeaderLink:url];
     return NO;
 }
 
-@end
+#pragma mark - WMFSearchPresentationDelegate
 
+- (MWKDataStore*)searchDataStore {
+    return self.dataStore;
+}
+
+- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+    }];
+}
+
+@end
 
 NS_ASSUME_NONNULL_END

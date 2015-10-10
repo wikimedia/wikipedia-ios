@@ -26,10 +26,11 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
     NSString* pencilAnchor = [self getEditPencilAnchor];
     if ([self isLeadSection]) {
         return [NSString stringWithFormat:
-                @"<h1 class='section_heading' id='%@' sectionId='%d'>%@</h1>%@",
-                self.anchor,
+                @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@%@",
+                self.anchorAsElementId,
                 self.sectionId,
                 self.title.text,
+                [self articleEntityDescriptionAsParagraph],
                 MWKSectionDisambigAndPageIssuesPlaceholderDiv];
     } else {
         short headingTagSize = [self getHeadingTagSize];
@@ -41,6 +42,18 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
                 self.line,
                 pencilAnchor,
                 headingTagSize];
+    }
+}
+
+- (NSString*)anchorAsElementId {
+    return self.anchor.length > 0 ? [NSString stringWithFormat : @"id='%@'", self.anchor] : @"";
+}
+
+- (NSString*)articleEntityDescriptionAsParagraph {
+    if (self.article.entityDescription.length == 0) {
+        return @"";
+    } else {
+        return [NSString stringWithFormat:@"<p id='entity_description'>%@</p>", self.article.entityDescription];
     }
 }
 

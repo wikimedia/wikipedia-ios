@@ -4,16 +4,13 @@ import Foundation
 let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
+let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
 
 
 extension NSUserDefaults {
     
     public func wmf_dateForKey(key: String) -> NSDate? {
-        if let date = self.objectForKey(key) as? NSDate {
-            return date
-        }else{
-            return nil
-        }
+        return self.objectForKey(key) as? NSDate
     }
 
     public func wmf_appLaunchDate() -> NSDate? {
@@ -42,4 +39,23 @@ extension NSUserDefaults {
         self.setObject(date, forKey: WMFAppResignActiveDateKey)
         self.synchronize()
     }
+    
+    public func wmf_openArticleTitle() -> MWKTitle? {
+        if let data = self.dataForKey(WMFOpenArticleTitleKey){
+            return NSKeyedUnarchiver.unarchiveObjectWithData(data) as? MWKTitle
+        }else{
+            return nil
+        }
+    }
+    
+    public func wmf_setOpenArticleTitle(title: MWKTitle?) {
+        if let title = title {
+            let data = NSKeyedArchiver.archivedDataWithRootObject(title)
+            self.setObject(data, forKey: WMFOpenArticleTitleKey)
+        }else{
+            self.removeObjectForKey(WMFOpenArticleTitleKey)
+        }
+        self.synchronize()
+    }
+
 }

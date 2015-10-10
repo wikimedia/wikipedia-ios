@@ -7,8 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Wikipedia-Swift.h"
-
+#import <PromiseKit/PromiseKit.h>
 #import "WMFAsyncTestCase.h"
 
 /// Macro to make passing the last to arguments easier

@@ -71,7 +71,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return WMFNearbySectionIdentifier;
 }
 
-- (UIImage*)headerIcon{
+- (UIImage*)headerIcon {
     return [UIImage imageNamed:@"home-nearby"];
 }
 

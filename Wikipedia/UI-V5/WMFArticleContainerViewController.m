@@ -19,6 +19,8 @@
 #import "WMFShareFunnel.h"
 #import "WMFShareOptionsController.h"
 #import "WMFImageGalleryViewController.h"
+#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -50,18 +52,18 @@ NS_ASSUME_NONNULL_BEGIN
  WMFPreviewControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
- WMFTableOfContentsViewControllerDelegate
->
+ WMFSearchPresentationDelegate,
+ WMFTableOfContentsViewControllerDelegate>
 
 // Data
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
-@property (nonatomic, strong) MWKHistoryList* recentPages;
-@property (nonatomic, strong) MWKDataStore* dataStore;
+@property (nonatomic, strong, nullable) MWKDataStore* dataStore;
+@property (nonatomic, strong, nullable) MWKSavedPageList* savedPages;
+@property (nonatomic, strong, nullable) MWKHistoryList* recentPages;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Fetchers
-@property (nonatomic, strong) WMFArticlePreviewFetcher* articlePreviewFetcher;
-@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong, null_resettable) WMFArticlePreviewFetcher* articlePreviewFetcher;
+@property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
@@ -78,7 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
 
-
 // WIP
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
 @property (nonatomic, strong, nullable) WMFPreviewController* previewController;
@@ -88,22 +89,9 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleContainerViewController
 @synthesize article = _article;
 
-#pragma mark - Setup
-
-+ (instancetype)articleContainerViewControllerWithDataStore:(MWKDataStore*)dataStore
-                                                recentPages:(MWKHistoryList*)recentPages
-                                                 savedPages:(MWKSavedPageList*)savedPages {
-    return [[self alloc] initWithDataStore:dataStore recentPages:recentPages savedPages:savedPages];
-}
-
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
-                      recentPages:(MWKHistoryList*)recentPages
-                       savedPages:(MWKSavedPageList*)savedPages {
-    self = [super init];
+- (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil bundle:(nullable NSBundle*)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.savedPageList = savedPages;
-        self.recentPages   = recentPages;
-        self.dataStore     = dataStore;
         [self commonInit];
     }
     return self;
@@ -120,7 +108,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)commonInit {
     // prevents the toolbar from being rendered above where the tabbar used to be
     self.hidesBottomBarWhenPushed = YES;
-    [self setupToolbar];
 }
 
 #pragma mark - Accessors
@@ -138,22 +125,21 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.shareFunnel            = nil;
-    self.shareOptionsController = nil;
-    self.tableOfContentsViewController = nil;
-
-    [self.articlePreviewFetcher cancelFetchForPageTitle:_article.title];
-    [self.articleFetcher cancelFetchForPageTitle:_article.title];
-
     [self setAndObserveArticle:article];
 
+    self.dataStore                  = article.dataStore;
+    self.savedPages                 = self.dataStore.userDataStore.savedPageList;
+    self.recentPages                = self.dataStore.userDataStore.historyList;
     self.saveButtonController.title = article.title;
 
-    if (_article) {
-        self.shareFunnel            = [[WMFShareFunnel alloc] initWithArticle:_article];
-        self.shareOptionsController =
-            [[WMFShareOptionsController alloc] initWithArticle:self.article shareFunnel:self.shareFunnel];
-    }
+    // need to wait until article/dataStore are available before configuring the toolbar
+    [self setupToolbar];
+
+    self.shareFunnel                   = nil;
+    self.shareOptionsController        = nil;
+    self.tableOfContentsViewController = nil;
+    self.articlePreviewFetcher         = nil;
+    self.articleFetcher                = nil;
 
     [self fetchArticle];
 }
@@ -164,20 +150,19 @@ NS_ASSUME_NONNULL_BEGIN
     _article = article;
 
     [self observeArticleUpdates];
-
     [self updateChildrenWithArticle];
 }
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController             = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
-        _readMoreListViewController.recentPages = self.savedPageList.dataStore.userDataStore.historyList;
-        _readMoreListViewController.dataStore   = self.savedPageList.dataStore;
-        _readMoreListViewController.savedPages  = self.savedPageList;
+        _readMoreListViewController.recentPages = self.recentPages;
+        _readMoreListViewController.dataStore   = self.dataStore;
+        _readMoreListViewController.savedPages  = self.savedPages;
         WMFRelatedTitleListDataSource* relatedTitlesDataSource =
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.article.title
-                                                       dataStore:self.savedPageList.dataStore
-                                                   savedPageList:self.savedPageList
+                                                       dataStore:self.dataStore
+                                                   savedPageList:self.savedPages
                                        numberOfExtractCharacters:200
                                                      resultLimit:3];
         // TODO: fetch lazily
@@ -221,17 +206,52 @@ NS_ASSUME_NONNULL_BEGIN
     return _headerGallery;
 }
 
-
-- (WMFTableOfContentsViewController*)tableOfContentsViewController{
-    if(!_tableOfContentsViewController){
+- (WMFTableOfContentsViewController*)tableOfContentsViewController {
+    if (!_tableOfContentsViewController) {
         _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
     }
     return _tableOfContentsViewController;
 }
 
+- (nullable WMFShareFunnel*)shareFunnel {
+    if (!self.article) {
+        return nil;
+    }
+    if (!_shareFunnel) {
+        _shareFunnel = [[WMFShareFunnel alloc] initWithArticle:self.article];
+    }
+    return _shareFunnel;
+}
+
+- (nullable WMFShareOptionsController*)shareOptionsController {
+    if (!self.article) {
+        return nil;
+    }
+    if (!_shareOptionsController) {
+        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:self.article
+                                                                         shareFunnel:self.shareFunnel];
+    }
+    return _shareOptionsController;
+}
+
+- (void)setSavedPages:(nullable MWKSavedPageList*)savedPages {
+    _savedPages                             = savedPages;
+    self.saveButtonController.savedPageList = savedPages;
+}
+
 // TEMP: delete!
 - (WMFArticleViewController*)articleViewController {
     return nil;
+}
+
+- (WMFSaveButtonController*)saveButtonController {
+    if (!_saveButtonController) {
+        _saveButtonController = [[WMFSaveButtonController alloc] init];
+        UIButton* saveButton = [UIButton wmf_buttonType:WMFButtonTypeBookmark handler:nil];
+        [saveButton sizeToFit];
+        _saveButtonController.button = saveButton;
+    }
+    return _saveButtonController;
 }
 
 - (void)updateChildrenWithArticle {
@@ -265,34 +285,40 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Toolbar
 
 - (void)setupToolbar {
-    UIBarButtonItem* saveToolbarItem = [self saveToolbarItem];
-    self.toolbarItems = [@[[self flexibleSpaceToolbarItem], [self refreshToolbarItem],
-                           [self paddingToolbarItem], [self shareToolbarItem],
-                           [self paddingToolbarItem], saveToolbarItem] wmf_reverseArrayIfApplicationIsRTL];
-    self.saveButtonController =
-    [[WMFSaveButtonController alloc] initWithButton:(UIButton*)saveToolbarItem.customView
-                                      savedPageList:self.savedPageList
-                                              title:self.article.title];
-    
-    if (!self.article.isMain) {
-        self.navigationItem.rightBarButtonItem = [self tableOfContentsToolbarItem];
+    if (!self.article) {
+        self.toolbarItems = nil;
+        return;
     }
+
+    NSMutableArray<UIBarButtonItem*>* toolbarItems = @[
+        [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
+        [self shareToolbarItem], [self flexibleSpaceToolbarItem],
+        [self saveToolbarItem], [self flexibleSpaceToolbarItem],
+    ].mutableCopy;
+
+    if (!self.article.isMain) {
+        [toolbarItems addObject:[self tableOfContentsToolbarItem]];
+    }
+
+    self.toolbarItems                      = toolbarItems;
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 }
 
 - (UIBarButtonItem*)paddingToolbarItem {
     UIBarButtonItem* item =
-    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     item.width = 10.f;
     return item;
 }
 
 - (UIBarButtonItem*)saveToolbarItem {
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:nil];
+    return [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];;
 }
 
 - (UIBarButtonItem*)refreshToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id _Nonnull sender) {
+    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                           handler:^(id _Nonnull sender) {
         @strongify(self);
         [self fetchArticle];
     }];
@@ -306,7 +332,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                           handler:^(id sender){
         @strongify(self);
         [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
     }];
@@ -314,13 +341,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)tableOfContentsToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
+    UIBarButtonItem* tocToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"toc"]
+                                                                          style:UIBarButtonItemStylePlain
+                                                                        handler:^(id sender){
         @strongify(self);
         [self.tableOfContentsViewController selectAndScrollToSection:[self.webViewController currentVisibleSection] animated:NO];
         [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
     }];
+    tocToolbarItem.tintColor = [UIColor blackColor];
+    return tocToolbarItem;
 }
-
 
 #pragma mark - ViewController
 
@@ -339,21 +369,22 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-#pragma mark - Article Navigation
-
-- (void)showArticleViewControllerForTitle:(MWKTitle*)title {
-    MWKArticle* article                          = [self.dataStore articleWithTitle:title];
-    WMFArticleContainerViewController* articleVC =
-        [[WMFArticleContainerViewController alloc] initWithDataStore:self.dataStore
-                                                         recentPages:self.recentPages
-                                                          savedPages:self.savedPageList];
-    articleVC.article = article;
-    [self showArticleViewController:articleVC];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.article.title];
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+}
+
+#pragma mark - Article Navigation
 
 - (void)showArticleViewController:(WMFArticleContainerViewController*)articleVC {
     [self.recentPages addPageToHistoryWithTitle:articleVC.article.title
                                 discoveryMethod:MWKHistoryDiscoveryMethodLink];
+    [self.recentPages save];
     [self.navigationController pushViewController:articleVC animated:YES];
 }
 
@@ -485,8 +516,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)presentPopupForTitle:(MWKTitle*)title {
     //TODO: Disabling pop ups until Popup VC is redesigned.
     //Renable preview when this true
-    [self showArticleViewControllerForTitle:title];
-
+    [self wmf_presentTitle:title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
     return;
 
 //    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];
@@ -504,7 +534,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - TableOfContentsViewControllerDelegate
 
-- (void)tableOfContentsController:(WMFTableOfContentsViewController *)controller didSelectSection:(MWKSection *)section{
+- (void)tableOfContentsController:(WMFTableOfContentsViewController*)controller didSelectSection:(MWKSection*)section {
     //Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
     dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
         [self dismissViewControllerAnimated:YES completion:NULL];
@@ -512,10 +542,9 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
-- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController *)controller{
+- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController*)controller {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
 
 #pragma mark - WMFPreviewControllerDelegate
 
@@ -528,7 +557,7 @@ NS_ASSUME_NONNULL_BEGIN
      * Work around, make another view controller and push it instead.
      */
     WMFArticleContainerViewController* previewed = (id)viewController;
-    [self showArticleViewControllerForTitle:previewed.article.title];
+    [self wmf_presentArticle:previewed.article discoveryMethod:MWKHistoryDiscoveryMethodLink];
 }
 
 - (void)   previewController:(WMFPreviewController*)previewController
@@ -561,6 +590,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
     self.headerGallery.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - WMFSearchPresentationDelegate
+
+- (MWKDataStore*)searchDataStore {
+    return self.dataStore;
+}
+
+- (MWKSite*)searchSite {
+    return self.article.site;
+}
+
+- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+    }];
 }
 
 @end
