@@ -353,7 +353,6 @@
 		BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */; };
 		BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BF3FE1B19209900362968 /* XCTestCase+WMFLocaleTesting.m */; };
 		BC6BFC5F1B680A410074D0DA /* NSString+WMFGlyphs.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC5E1B680A410074D0DA /* NSString+WMFGlyphs.m */; };
-		BC6BFC611B684EF70074D0DA /* WMFArticleSummaryVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC601B684EF70074D0DA /* WMFArticleSummaryVisualTests.m */; };
 		BC6BFC681B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */; };
 		BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC6E428A1BA9CB930059FBF6 /* InfoPlist.strings */; };
 		BC6E8B921B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6E8B911B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m */; };
@@ -1133,7 +1132,6 @@
 		BC6BF3FE1B19209900362968 /* XCTestCase+WMFLocaleTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+WMFLocaleTesting.m"; sourceTree = "<group>"; };
 		BC6BFC5D1B680A410074D0DA /* NSString+WMFGlyphs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WMFGlyphs.h"; sourceTree = "<group>"; };
 		BC6BFC5E1B680A410074D0DA /* NSString+WMFGlyphs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WMFGlyphs.m"; sourceTree = "<group>"; };
-		BC6BFC601B684EF70074D0DA /* WMFArticleSummaryVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleSummaryVisualTests.m; sourceTree = "<group>"; };
 		BC6BFC651B6858250074D0DA /* WMFArticleViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleViewController_Private.h; sourceTree = "<group>"; };
 		BC6BFC661B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+WMFHTMLForSite.h"; sourceTree = "<group>"; };
 		BC6BFC671B685CD50074D0DA /* NSAttributedString+WMFHTMLForSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+WMFHTMLForSite.m"; sourceTree = "<group>"; };
@@ -2823,7 +2821,6 @@
 				042DA8511BB1F1E900FFE587 /* MWKSectionHasTextDataTests.m */,
 				BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */,
 				BCAFC5CF1AFD5E7D004615BA /* MWKArticleExtractionTests.m */,
-				BC6BFC601B684EF70074D0DA /* WMFArticleSummaryVisualTests.m */,
 				BC5FE5741B1DFF5400273BC0 /* ArticleFetcherTests.m */,
 				BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */,
 				BC8210CB1B4EB2390010BF7B /* NSURLExtrasTests.m */,
@@ -3789,7 +3786,6 @@
 			files = (
 				BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BCB608261BC81E970088086A /* WMFImageController+Testing.m in Sources */,
-				BC6BFC611B684EF70074D0DA /* WMFArticleSummaryVisualTests.m in Sources */,
 				0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
 				BC7B76A01B861F7100774FBC /* MWKSectionListHierarchyTests.m in Sources */,
 				BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */,
