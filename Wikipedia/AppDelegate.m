@@ -53,7 +53,12 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (UIWindow *)window
 {
     if (!_window) {
-        _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        #if FB_TWEAK_ENABLED
+        _window = [[FBTweakShakeWindow alloc] init];
+        #else
+        _window = [[UIWindow alloc] init];
+        #endif
+        _window.frame = [[UIScreen mainScreen] bounds];
     }
     return _window;
 }
