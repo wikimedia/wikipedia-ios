@@ -18,9 +18,5 @@
 
 #import "ToCInteractionFunnel.h"
 
-#import <SDWebImage/SDWebImageManager.h>
-#import <SDWebImage/UIImage+MultiFormat.h>
 #import "SDWebImageManager+WMFCacheRemoval.h"
 #import "SDImageCache+WMFPersistentCache.h"
-
-#import <KVOController/FBKVOController.h>

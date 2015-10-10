@@ -3,7 +3,9 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
+#if PIWIK_ENABLED
 @import PiwikTracker;
+#endif
 @import Masonry;
 
 // Networking
@@ -89,7 +91,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
     [self configureSearchViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
+#if PIWIK_ENABLED
     [[PiwikTracker sharedInstance] sendView:@"Home"];
+#endif
 }
 
 - (void)configureTabController {
@@ -375,7 +379,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-#if DEBUG
+#if PIWIK_ENABLED 
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {

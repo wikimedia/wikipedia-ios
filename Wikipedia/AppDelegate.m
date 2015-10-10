@@ -8,13 +8,15 @@
 
 #import "WMFLogFormatter.h"
 
-#if DEBUG
+#if PIWIK_ENABLED
 @import PiwikTracker;
-@import Tweaks;
-#endif
-
 static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
 static NSString* const WMFPiwikSiteID    = @"4";
+#endif
+
+#if FB_TWEAK_ENABLED
+@import Tweaks;
+#endif
 
 @interface AppDelegate ()
 
@@ -69,7 +71,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
 
-#if DEBUG
+#if PIWIK_ENABLED
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
 #endif
 
