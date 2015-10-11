@@ -9,6 +9,7 @@
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
+@property (strong, nonatomic) NSDictionary* summaryLabelAttributesFromIB;
 
 @end
 
@@ -39,11 +40,16 @@
 }
 
 - (void)setSummary:(NSString*)summary {
+    if (!self.summaryLabelAttributesFromIB) {
+        NSRange r = NSMakeRange(0, 1);
+        self.summaryLabelAttributesFromIB = [self.summaryLabel.attributedText attributesAtIndex:0 effectiveRange:&r];
+    }
+
     if (!summary.length) {
-        self.summaryLabel.text = nil;
+        self.summaryLabel.attributedText = nil;
         return;
     }
-    self.summaryLabel.text = summary;
+    self.summaryLabel.attributedText = [[NSAttributedString alloc] initWithString:summary attributes:self.summaryLabelAttributesFromIB];
 }
 
 @end
