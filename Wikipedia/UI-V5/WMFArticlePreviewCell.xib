@@ -18,7 +18,7 @@
                         <rect key="frame" x="18" y="24" width="325" height="160"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="160" id="5OZ-Kk-CoX"/>
+                            <constraint firstAttribute="height" priority="999" constant="160" id="5OZ-Kk-CoX"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -63,7 +63,7 @@
                         <rect key="frame" x="18" y="319" width="25" height="25"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="05Y-0E-4AK"/>
+                            <constraint firstAttribute="height" priority="999" constant="25" id="05Y-0E-4AK"/>
                             <constraint firstAttribute="width" constant="25" id="Trm-rO-83J"/>
                         </constraints>
                         <state key="normal" image="saved">
@@ -101,6 +101,7 @@
             <size key="customSize" width="361" height="364"/>
             <connections>
                 <outlet property="descriptionLabel" destination="vbF-9q-HIn" id="Mv9-pV-4Z5"/>
+                <outlet property="imageHeightConstraint" destination="5OZ-Kk-CoX" id="TAb-rv-16S"/>
                 <outlet property="imageView" destination="kPi-wU-UzV" id="0Ag-gE-eDC"/>
                 <outlet property="paddingConstraintAboveDescription" destination="a4q-aQ-EEg" id="eOU-Hc-Gd9"/>
                 <outlet property="paddingConstraintBelowDescription" destination="swo-n1-a9c" id="4Wa-lQ-GiC"/>

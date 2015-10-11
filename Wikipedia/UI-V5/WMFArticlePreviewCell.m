@@ -13,9 +13,12 @@
 @property (strong, nonatomic) NSDictionary* summaryLabelAttributesFromIB;
 @property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
 @property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
+@property (nonatomic) CGFloat heightOfImageFromIB;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintAboveDescription;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintBelowDescription;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* imageHeightConstraint;
 
 @end
 
@@ -36,6 +39,7 @@
     self.summaryLabelAttributesFromIB = [self.summaryLabel.attributedText attributesAtIndex:0 effectiveRange:&r];
     self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
     self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
+    self.heightOfImageFromIB = self.imageHeightConstraint.constant;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -77,6 +81,32 @@
         return;
     }
     self.summaryLabel.attributedText = [[NSAttributedString alloc] initWithString:summary attributes:self.summaryLabelAttributesFromIB];
+}
+
+- (void)setImageURL:(NSURL*)imageURL {
+    [super setImageURL:imageURL];
+    if (imageURL) {
+        [self restoreImageToFullHeight];
+    }else{
+        [self collapseImageHeightToZero];
+    }
+}
+
+- (void)setImage:(MWKImage*)image {
+    [super setImage:image];
+    if (image) {
+        [self restoreImageToFullHeight];
+    }else{
+        [self collapseImageHeightToZero];
+    }
+}
+
+-(void)collapseImageHeightToZero{
+    self.imageHeightConstraint.constant = 0;
+}
+
+-(void)restoreImageToFullHeight{
+    self.imageHeightConstraint.constant = self.heightOfImageFromIB;
 }
 
 @end

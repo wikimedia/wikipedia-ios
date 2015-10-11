@@ -16,4 +16,7 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
 
 - (void)setSummary:(NSString*)summary;
 
+- (void)setImage:(MWKImage*)image;
+- (void)setImageURL:(NSURL*)imageURL;
+
 @end
