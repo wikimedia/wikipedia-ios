@@ -9,7 +9,13 @@
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
+
 @property (strong, nonatomic) NSDictionary* summaryLabelAttributesFromIB;
+@property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
+@property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintAboveDescription;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintBelowDescription;
 
 @end
 
@@ -19,6 +25,17 @@
     [super prepareForReuse];
     self.descriptionText   = nil;
     self.summaryLabel.text = nil;
+}
+
+-(void)awakeFromNib {
+    [self rememberSettingsFromIB];
+}
+
+-(void)rememberSettingsFromIB {
+    NSRange r = NSMakeRange(0, 1);
+    self.summaryLabelAttributesFromIB = [self.summaryLabel.attributedText attributesAtIndex:0 effectiveRange:&r];
+    self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
+    self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -37,14 +54,24 @@
 - (void)setDescriptionText:(NSString*)descriptionText {
     _descriptionText           = descriptionText;
     self.descriptionLabel.text = descriptionText;
+    if (!self.descriptionLabel.text || self.descriptionLabel.text.length == 0) {
+        [self removeDescriptionVerticalPadding];
+    }else{
+        [self restoreDescriptionVerticalPadding];
+    }
+}
+
+-(void)removeDescriptionVerticalPadding{
+    self.paddingConstraintAboveDescription.constant = 0;
+    self.paddingConstraintBelowDescription.constant = 0;
+}
+
+-(void)restoreDescriptionVerticalPadding{
+    self.paddingConstraintAboveDescription.constant = self.paddingAboveDescriptionFromIB;
+    self.paddingConstraintBelowDescription.constant = self.paddingBelowDescriptionFromIB;
 }
 
 - (void)setSummary:(NSString*)summary {
-    if (!self.summaryLabelAttributesFromIB) {
-        NSRange r = NSMakeRange(0, 1);
-        self.summaryLabelAttributesFromIB = [self.summaryLabel.attributedText attributesAtIndex:0 effectiveRange:&r];
-    }
-
     if (!summary.length) {
         self.summaryLabel.attributedText = nil;
         return;

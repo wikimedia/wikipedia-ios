@@ -38,7 +38,7 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbF-9q-HIn" userLabel="Description Label">
-                        <rect key="frame" x="18" y="231" width="325" height="39"/>
+                        <rect key="frame" x="18" y="231" width="325" height="40"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.60342281879194626" alpha="1" colorSpace="calibratedWhite"/>
@@ -46,14 +46,14 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVJ-4N-Dr6" userLabel="Summary Label">
-                        <rect key="frame" x="18" y="274" width="325" height="27"/>
+                        <rect key="frame" x="18" y="275" width="325" height="26"/>
                         <animations/>
                         <attributedString key="attributedText">
                             <fragment content="Label">
                                 <attributes>
                                     <color key="NSColor" red="0.11798221617937088" green="0.11801020056009293" blue="0.1179804727435112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <font key="NSFont" size="16" name=".AppleSystemUIFont"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.35" tighteningFactorForTruncation="0.0"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.3500000000000001" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
@@ -102,6 +102,8 @@
             <connections>
                 <outlet property="descriptionLabel" destination="vbF-9q-HIn" id="Mv9-pV-4Z5"/>
                 <outlet property="imageView" destination="kPi-wU-UzV" id="0Ag-gE-eDC"/>
+                <outlet property="paddingConstraintAboveDescription" destination="a4q-aQ-EEg" id="eOU-Hc-Gd9"/>
+                <outlet property="paddingConstraintBelowDescription" destination="swo-n1-a9c" id="4Wa-lQ-GiC"/>
                 <outlet property="paddingConstraintLeading" destination="sKA-Cq-ZRU" id="a4k-sp-pl3"/>
                 <outlet property="paddingConstraintTrailing" destination="lhd-tw-RNY" id="Mb2-RE-7jZ"/>
                 <outlet property="saveButton" destination="yjn-Ua-PWa" id="8bw-XV-UHt"/>
