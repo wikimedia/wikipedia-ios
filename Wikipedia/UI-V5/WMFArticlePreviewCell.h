@@ -16,14 +16,4 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
 
 - (void)setSummary:(NSString*)summary;
 
-/**
- *  Get/set style attributes of the label used to display the article's summary.
- *
- *  @warning Do not set the text directly, use `setSummary:`.
- *
- *  @return The label used to display the `summary`.
- */
-- (UILabel*)summaryLabel;
-
-
 @end
