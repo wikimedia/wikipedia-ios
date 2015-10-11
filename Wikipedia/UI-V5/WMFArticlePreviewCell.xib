@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kPi-wU-UzV">
-                        <rect key="frame" x="16" y="16" width="329" height="160"/>
+                        <rect key="frame" x="18" y="24" width="325" height="160"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="160" id="5OZ-Kk-CoX"/>
@@ -31,36 +31,36 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pEK-59-fwO" userLabel="Title Label">
-                        <rect key="frame" x="16" y="188" width="329" height="37"/>
+                        <rect key="frame" x="18" y="198" width="325" height="29"/>
                         <animations/>
-                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="32"/>
+                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbF-9q-HIn" userLabel="Description Label">
-                        <rect key="frame" x="16" y="231" width="329" height="42"/>
+                        <rect key="frame" x="18" y="231" width="325" height="39"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.60342281879194626" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVJ-4N-Dr6" userLabel="Summary Label">
-                        <rect key="frame" x="16" y="279" width="329" height="22"/>
+                        <rect key="frame" x="18" y="274" width="325" height="27"/>
                         <animations/>
                         <attributedString key="attributedText">
                             <fragment content="Label">
                                 <attributes>
                                     <color key="NSColor" red="0.11798221617937088" green="0.11801020056009293" blue="0.1179804727435112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <font key="NSFont" metaFont="system" size="14"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.3" tighteningFactorForTruncation="0.0"/>
+                                    <font key="NSFont" size="16" name=".AppleSystemUIFont"/>
+                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.35" tighteningFactorForTruncation="0.0"/>
                                 </attributes>
                             </fragment>
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjn-Ua-PWa" userLabel="Save Button">
-                        <rect key="frame" x="16" y="319" width="25" height="25"/>
+                        <rect key="frame" x="18" y="319" width="25" height="25"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="05Y-0E-4AK"/>
@@ -79,7 +79,7 @@
             <constraints>
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="1AD-7u-pfh"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="6Mx-UL-OHQ"/>
-                <constraint firstItem="pEK-59-fwO" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="12" id="Acr-mO-9PG"/>
+                <constraint firstItem="pEK-59-fwO" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="14" id="Acr-mO-9PG"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="AjG-bP-iPb"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" id="Bwg-G1-AHL"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="KRS-m0-EXB"/>
@@ -87,16 +87,16 @@
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="NJN-7y-JCI"/>
                 <constraint firstItem="pEK-59-fwO" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="NMJ-eL-rUG"/>
                 <constraint firstAttribute="bottom" secondItem="yjn-Ua-PWa" secondAttribute="bottom" constant="20" id="Rb7-rE-ZTT"/>
-                <constraint firstItem="vbF-9q-HIn" firstAttribute="top" secondItem="pEK-59-fwO" secondAttribute="bottom" constant="6" id="a4q-aQ-EEg"/>
+                <constraint firstItem="vbF-9q-HIn" firstAttribute="top" secondItem="pEK-59-fwO" secondAttribute="bottom" constant="4" id="a4q-aQ-EEg"/>
                 <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="dcl-4I-Qqp"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="top" secondItem="AVJ-4N-Dr6" secondAttribute="bottom" constant="18" id="fOj-LJ-MQN"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="gLf-OJ-CHa"/>
-                <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" constant="16" id="gqX-Rl-5tH"/>
+                <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" constant="24" id="gqX-Rl-5tH"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="hgN-Xh-eTK"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="AVJ-4N-Dr6" secondAttribute="trailing" id="jet-NL-aB8"/>
-                <constraint firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" constant="16" id="lhd-tw-RNY"/>
-                <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" constant="16" id="sKA-Cq-ZRU"/>
-                <constraint firstItem="AVJ-4N-Dr6" firstAttribute="top" secondItem="vbF-9q-HIn" secondAttribute="bottom" constant="6" id="swo-n1-a9c"/>
+                <constraint firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" constant="18" id="lhd-tw-RNY"/>
+                <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="4oB-M2-f0E" secondAttribute="leading" constant="18" id="sKA-Cq-ZRU"/>
+                <constraint firstItem="AVJ-4N-Dr6" firstAttribute="top" secondItem="vbF-9q-HIn" secondAttribute="bottom" constant="4" id="swo-n1-a9c"/>
             </constraints>
             <size key="customSize" width="361" height="364"/>
             <connections>
