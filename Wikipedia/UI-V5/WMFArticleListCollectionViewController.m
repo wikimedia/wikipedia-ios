@@ -16,7 +16,7 @@
 #import "WMFArticleViewController.h"
 
 #import <SSDataSources/SSDataSources.h>
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
+#import "WMFEditingCollectionViewLayout.h"
 #import <Masonry/Masonry.h>
 
 #import "WMFArticlePreviewCell.h"
@@ -28,10 +28,9 @@
 #import "UIColor+WMFHexColor.h"
 
 @interface WMFArticleListCollectionViewController ()
-<UICollectionViewDelegate, WMFSearchPresentationDelegate>
+<UICollectionViewDelegate, WMFSearchPresentationDelegate, WMFEditingCollectionViewLayoutDelegate>
 
 @property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
-@property (nonatomic, strong) IBOutlet UICollectionViewLayout* collectionViewLayout;
 
 + (Class)collectionViewClass;
 
@@ -62,16 +61,12 @@
 
 #pragma mark - Accessors
 
-+ (SelfSizingWaterfallCollectionViewLayout*)createLayout {
-    return [SelfSizingWaterfallCollectionViewLayout new];
-}
-
 + (Class)collectionViewClass {
     return [UICollectionView class];
 }
 
 + (UICollectionView*)createCollectionView {
-    return [[[self collectionViewClass] alloc] initWithFrame:CGRectZero collectionViewLayout:[self createLayout]];
+    return [[[self collectionViewClass] alloc] initWithFrame:CGRectZero collectionViewLayout:[SelfSizingWaterfallCollectionViewLayout new]];
 }
 
 - (id<WMFArticleListDynamicDataSource>)dynamicDataSource {
@@ -120,8 +115,20 @@
     [_dataSource setSavedPageList:savedPages];
 }
 
+- (WMFEditingCollectionViewLayout*)editingLayout {
+    id layout = self.collectionView.collectionViewLayout;
+    if([layout isKindOfClass:[WMFEditingCollectionViewLayout class]]){
+        return layout;
+    }
+    return nil;
+}
+
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
-    return (id)self.collectionView.collectionViewLayout;
+    id layout = self.collectionView.collectionViewLayout;
+    if([layout isKindOfClass:[SelfSizingWaterfallCollectionViewLayout class]]){
+        return layout;
+    }
+    return nil;
 }
 
 - (NSString*)debugDescription {
@@ -164,6 +171,13 @@
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
 }
 
+- (void)setupEditingLayout{
+    WMFEditingCollectionViewLayout* layout = [[WMFEditingCollectionViewLayout alloc] init];
+    layout.editingDelegate = self;
+    self.collectionView.collectionViewLayout = layout;
+}
+
+
 #pragma mark - UIViewController
 
 - (void)loadView {
@@ -183,7 +197,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    [self setupEditingLayout];
     [self connectCollectionViewAndDataSource];
 
     self.extendedLayoutIncludesOpaqueBars     = YES;
@@ -239,6 +254,21 @@
     [self wmf_presentArticle:[self.dataSource articleForIndexPath:indexPath]
              discoveryMethod:[self.dataSource discoveryMethod]];
 }
+
+- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath{
+    return NO;
+}
+
+- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
+    return [self.dataSource canDeleteItemAtIndexpath:indexPath];
+}
+
+- (void)editingLayout:(WMFEditingCollectionViewLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath{
+    if([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]){
+        [self.dataSource deleteArticleAtIndexPath:indexPath];        
+    }
+}
+
 
 #pragma mark - WMFArticleListTransitioning
 
