@@ -173,4 +173,21 @@
                                                     withTemplate:@""];
 }
 
+- (NSString*)wmf_summaryFromText {
+    // Cleanups which need to happen before string is shortened.
+    NSString *output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
+    output = [output wmf_stringByRemovingBracketedContent];
+    
+    // Now ok to shorten so remaining cleanups are faster.
+    output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
+    
+    // Cleanups safe to do on shortened string.
+    return [[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
+                stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+               stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+              wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
+             wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
+            wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
+}
+
 @end

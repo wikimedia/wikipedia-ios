@@ -7,7 +7,7 @@
 //
 
 #import "MWKRelatedSearchResult.h"
-#import "MWKSection.h"
+#import "NSString+WMFHTMLParsing.h"
 
 @implementation MWKRelatedSearchResult
 
@@ -19,7 +19,7 @@
 
 + (MTLValueTransformer*)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* extract, BOOL* success, NSError* __autoreleasing* error) {
-        return [MWKSection cleanSummary:extract];
+        return [extract wmf_summaryFromText];
     }];
 }
 
