@@ -117,7 +117,7 @@
 
 - (WMFEditingCollectionViewLayout*)editingLayout {
     id layout = self.collectionView.collectionViewLayout;
-    if([layout isKindOfClass:[WMFEditingCollectionViewLayout class]]){
+    if ([layout isKindOfClass:[WMFEditingCollectionViewLayout class]]) {
         return layout;
     }
     return nil;
@@ -125,7 +125,7 @@
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
     id layout = self.collectionView.collectionViewLayout;
-    if([layout isKindOfClass:[SelfSizingWaterfallCollectionViewLayout class]]){
+    if ([layout isKindOfClass:[SelfSizingWaterfallCollectionViewLayout class]]) {
         return layout;
     }
     return nil;
@@ -171,12 +171,11 @@
     [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
 }
 
-- (void)setupEditingLayout{
+- (void)setupEditingLayout {
     WMFEditingCollectionViewLayout* layout = [[WMFEditingCollectionViewLayout alloc] init];
-    layout.editingDelegate = self;
+    layout.editingDelegate                   = self;
     self.collectionView.collectionViewLayout = layout;
 }
-
 
 #pragma mark - UIViewController
 
@@ -197,7 +196,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self setupEditingLayout];
     [self connectCollectionViewAndDataSource];
 
@@ -255,20 +254,19 @@
              discoveryMethod:[self.dataSource discoveryMethod]];
 }
 
-- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath{
+- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
 }
 
-- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath{
+- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath {
     return [self.dataSource canDeleteItemAtIndexpath:indexPath];
 }
 
-- (void)editingLayout:(WMFEditingCollectionViewLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath{
-    if([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]){
-        [self.dataSource deleteArticleAtIndexPath:indexPath];        
+- (void)editingLayout:(WMFEditingCollectionViewLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
+    if ([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]) {
+        [self.dataSource deleteArticleAtIndexPath:indexPath];
     }
 }
-
 
 #pragma mark - WMFArticleListTransitioning
 
