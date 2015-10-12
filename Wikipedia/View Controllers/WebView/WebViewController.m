@@ -36,7 +36,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <WMFSectionHeaderEditDelegate, SectionEditorViewControllerDelegate, ReferencesVCDelegate>
+@interface WebViewController () <WMFSectionHeaderEditDelegate, ReferencesVCDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
@@ -111,8 +111,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 //        [[WMFSectionHeadersViewController alloc] initWithView:self.view
 //                                                      webView:self.webView
 //                                               topLayoutGuide:self.mas_topLayoutGuide];
-
-    self.sectionHeadersViewController.editSectionDelegate = self;
+//
+//    self.sectionHeadersViewController.editSectionDelegate = self;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
@@ -409,22 +409,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-#pragma mark - WMFSectionHeaderEditDelegate methods
-
-- (BOOL)isArticleEditable {
-    return self.editable;
-}
-
-- (void)editSection:(NSNumber*)sectionId {
-    if (self.editable) {
-        [self showSectionEditorForSection:sectionId];
-    } else {
-        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-        [self showProtectedDialog];
-    }
-}
-
 #pragma mark Sync config/ios.json if necessary
 
 - (void)downloadAssetsFilesIfNecessary {
@@ -434,20 +418,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
                                                       withManager:[QueuesSingleton sharedInstance].assetsFetchManager
                                                            maxAge:kWMFMaxAgeDefault];
-}
-
-#pragma mark Edit section
-
-- (void)showSectionEditorForSection:(NSNumber*)sectionID {
-    SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.article.sections[[sectionID integerValue]];
-    sectionEditVC.delegate = self;
-    [self.navigationController pushViewController:sectionEditVC animated:YES];
-}
-
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController{
-    [self.navigationController popToViewController:self animated:YES];
-    [self.delegate webViewControllerDidReloadCurrentArticle:self];
 }
 
 
@@ -549,27 +519,27 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (!_bridge) {
         _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
 
-        __weak WebViewController* weakSelf = self;
+        @weakify(self);
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
             NSString* href = payload[@"href"];
 
-            if (!strSelf.referencesHidden) {
-                [strSelf referencesHide];
+            if (!(self).referencesHidden) {
+                [(self) referencesHide];
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [strSelf.article.site titleWithInternalLink:href];
-                [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
+                MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
+                [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"#"]) {
-                    weakSelf.jumpToFragment = [href substringFromIndex:1];
-                    [weakSelf jumpToFragmentIfNecessary];
+                    self.jumpToFragment = [href substringFromIndex:1];
+                    [self jumpToFragmentIfNecessary];
                 } else if ([href hasPrefix:@"//"]) {
                     // Expand protocol-relative link to https -- secure by default!
                     href = [@"https:" stringByAppendingString:href];
@@ -577,33 +547,42 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 NSURL* url = [NSURL URLWithString:href];
                 NSCAssert(url, @"Failed to from URL from link %@", href);
                 if (url) {
-                    [strSelf wmf_openExternalUrl:url];
+                    [self wmf_openExternalUrl:url];
                 }
             }
         }];
 
         [_bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
-            //NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
-
             // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
-            [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
+            [self performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
 
-            [strSelf referencesHide];
+            [self referencesHide];
         }];
 
         [_bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
-
             //NSLog(@"referenceClicked: %@", payload);
-            [strSelf referencesShow:payload];
+            [self referencesShow:payload];
+        }];
+        
+        [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            @strongify(self);
+            if (!self) {
+                return;
+            }
+            
+            NSUInteger sectionIndex = (NSUInteger)[payload[@"sectionId"] integerValue];
+            if(sectionIndex < [self.article.sections count]){
+                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+            }
         }];
 
         /*
@@ -625,17 +604,17 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
         [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [strSelf.article.images largestImageVariantForURL:selectedImageURL
+            MWKImage* selectedImage = [self.article.images largestImageVariantForURL:selectedImageURL
                                                                              cachedOnly:NO];
             NSCParameterAssert(selectedImage);
-            [strSelf presentGalleryForArticle:strSelf.article showingImage:selectedImage];
+            [self presentGalleryForArticle:self.article showingImage:selectedImage];
         }];
     }
     return _bridge;
@@ -815,9 +794,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
     
-    self.editable         = article.editable;
-    self.protectionStatus = article.protection;
-    
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
     
     for (MWKSection* section in _article.sections) {
@@ -876,7 +852,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                @"uidir": uidir
                                }];
     
-    if (!self.editable) {
+    if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
     

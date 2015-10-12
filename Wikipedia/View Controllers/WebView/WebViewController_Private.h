@@ -10,7 +10,6 @@
 
 #import "WikipediaAppUtils.h"
 #import "WikipediaZeroMessageFetcher.h"
-#import "SectionEditorViewController.h"
 #import "CommunicationBridge.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
@@ -26,7 +25,6 @@
 #import "LanguagesViewController.h"
 #import "MWKSection+DisplayHtml.h"
 #import "EditFunnel.h"
-#import "ProtectedEditAttemptFunnel.h"
 #import "DataHousekeeping.h"
 #import "NSDate-Utilities.h"
 #import "AccountCreationViewController.h"
@@ -109,15 +107,8 @@ static int const kMinimumTextSelectionLength = 2;
 
 @property (copy) NSString* jumpToFragment;
 
-@property (nonatomic) BOOL editable;
-@property (copy) MWKProtectionStatus* protectionStatus;
-
-// These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
-@property (strong, nonatomic) MWKTitle* currentTitle;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
-
-@property (nonatomic) BOOL isCurrentArticleMain;
 
 @property (nonatomic) BOOL keyboardIsVisible;
 
