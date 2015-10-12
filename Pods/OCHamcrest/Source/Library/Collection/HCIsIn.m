@@ -1,11 +1,11 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIsIn.h"
 
 
 @interface HCIsIn ()
-@property (readonly, nonatomic, strong) id collection;
+@property (nonatomic, strong, readonly) id collection;
 @end
 
 @implementation HCIsIn

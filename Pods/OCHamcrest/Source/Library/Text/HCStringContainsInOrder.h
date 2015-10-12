@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import <OCHamcrest/HCBaseMatcher.h>
 
@@ -17,28 +17,24 @@
 
 FOUNDATION_EXPORT id HC_stringContainsInOrder(NSString *substring, ...) NS_REQUIRES_NIL_TERMINATION;
 
-/**
- stringContainsInOrder(firstString, ...) -
- Matches if object is a string containing a given list of substrings in relative order.
-
- @param firstString,...  A comma-separated list of strings ending with @c nil.
-
- This matcher first checks whether the evaluated object is a string. If so, it checks whether it
- contains a given list of strings, in relative order to each other. The searches are performed
- starting from the beginning of the evaluated string.
-
- Example:
-
- @par
- @ref stringContainsInOrder(@"bc", @"fg", @"jkl", nil)
-
- will match "abcdefghijklm".
-
- (In the event of a name clash, don't \#define @c HC_SHORTHAND and use the synonym
- @c HC_stringContainsInOrder instead.)
-
- @ingroup text_matchers
- */
 #ifdef HC_SHORTHAND
-    #define stringContainsInOrder HC_stringContainsInOrder
+/*!
+ * @brief stringContainsInOrder(firstString, ...) -
+ * Matches if object is a string containing a given list of substrings in relative order.
+ * @param firstString,... A comma-separated list of strings ending with <code>nil</code>.
+ * @discussion This matcher first checks whether the evaluated object is a string. If so, it checks
+ * whether it contains a given list of strings, in relative order to each other. The searches are
+ * performed starting from the beginning of the evaluated string.
+ *
+ * Example:
+ * <ul>
+ *   <li><code>stringContainsInOrder(\@"bc", \@"fg", \@"jkl", nil)</code></li>
+ * </ul>
+ * will match "abcdefghijklm".
+ *
+ * @attribute Name Clash
+ * In the event of a name clash, don't <code>#define HC_SHORTHAND</code> and use the synonym
+ * HC_stringContainsInOrder instead.
+ */
+#define stringContainsInOrder HC_stringContainsInOrder
 #endif

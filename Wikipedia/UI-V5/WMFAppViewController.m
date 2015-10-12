@@ -3,8 +3,10 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <PiwikTracker/PiwikTracker.h>
-#import <Masonry/Masonry.h>
+#if PIWIK_ENABLED
+@import PiwikTracker;
+#endif
+@import Masonry;
 
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -59,7 +61,7 @@ typedef NS_ENUM (NSUInteger, WMFAppTabType){
  */
 static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
-static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24*60*60;
+static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24 * 60 * 60;
 
 static dispatch_once_t launchToken;
 
@@ -90,7 +92,9 @@ static dispatch_once_t launchToken;
     [self configureHomeViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
+#if PIWIK_ENABLED
     [[PiwikTracker sharedInstance] sendView:@"Home"];
+#endif
 }
 
 - (void)configureTabController {
@@ -147,15 +151,15 @@ static dispatch_once_t launchToken;
 }
 
 - (void)resumeApp {
-    if(![self launchCompleted]){
+    if (![self launchCompleted]) {
         return;
     }
-    if([self shouldShowHomeScreenOnLaunch]){
+    if ([self shouldShowHomeScreenOnLaunch]) {
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
         [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-    }else if([self shouldShowLastReadArticleOnLaunch]){
+    } else if ([self shouldShowLastReadArticleOnLaunch]) {
         MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-        if(lastRead){
+        if (lastRead) {
             [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
             [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
             [self.homeViewController wmf_presentTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
@@ -165,37 +169,37 @@ static dispatch_once_t launchToken;
 
 #pragma mark - Utilities
 
-- (BOOL)launchCompleted{
+- (BOOL)launchCompleted {
     return launchToken != 0;
 }
 
-- (BOOL)shouldShowHomeScreenOnLaunch{
+- (BOOL)shouldShowHomeScreenOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    if(!resignActiveDate){
+    if (!resignActiveDate) {
         return NO;
     }
-    
-    if(fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingHomeScreen){
+
+    if (fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeRefreshingHomeScreen) {
         return YES;
     }
     return NO;
 }
 
-- (BOOL)shouldShowLastReadArticleOnLaunch{
+- (BOOL)shouldShowLastReadArticleOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    if(!resignActiveDate){
+    if (!resignActiveDate) {
         return NO;
     }
-    
-    if(fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingHomeScreen){
-        if(![self homeViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeHome){
+
+    if (fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingHomeScreen) {
+        if (![self homeViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeHome) {
             return YES;
         }
     }
     return NO;
 }
 
-- (BOOL)homeViewControllerIsDisplayingContent{
+- (BOOL)homeViewControllerIsDisplayingContent {
     return [self navigationControllerForTab:WMFAppTabTypeHome].viewControllers.count > 1;
 }
 
@@ -368,7 +372,7 @@ static dispatch_once_t launchToken;
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-
+#if PIWIK_ENABLED
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {
@@ -384,6 +388,7 @@ static dispatch_once_t launchToken;
         }
         break;
     }
+#endif
 }
 
 #pragma mark - Notifications

@@ -9,7 +9,8 @@
 #ifndef Wikipedia_WikipediaUnitTests_Prefix_pch
 #define Wikipedia_WikipediaUnitTests_Prefix_pch
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 #import "Global.h"
+#import "WMFTestFixtureUtilities.h"
 
 #endif

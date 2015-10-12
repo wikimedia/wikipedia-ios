@@ -5,14 +5,17 @@
 #import "WMFLogging.h"
 #import "WMFGCDHelpers.h"
 #import "WMFMath.h"
-#import <BlocksKit/BlocksKit.h>
 #import "NSError+WMFExtensions.h"
 #import "NSObjectUtilities.h"
 #import "WMFOutParamUtils.h"
 #import "UIColor+WMFStyle.h"
 
-#import <libextobjc/EXTScope.h>
-#import <KVOController/FBKVOController.h>
+@import libextobjc;
+@import KVOController;
+@import BlocksKit;
+@import Tweaks;
+
+// Need to import it this way since umbrella header doesn't have AnyPromise declarations
 #import <PromiseKit/PromiseKit.h>
 
 #import "WMFBlockDefinitions.h"
@@ -35,5 +38,12 @@ static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key)
 
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
 
+#ifndef PIWIK_ENABLED
+    #if NDEBUG
+        #define PIWIK_ENABLED 0
+    #else
+        #define PIWIK_ENABLED 1
+    #endif
+#endif
 
 #endif

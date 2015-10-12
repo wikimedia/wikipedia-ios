@@ -1,6 +1,4 @@
-
-#import <UIKit/UIKit.h>
-#import "MWKHistoryEntry.h"
+@import UIKit;
 
 @class MWKSite;
 @class MWKDataStore;

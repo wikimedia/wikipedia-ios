@@ -1,5 +1,7 @@
 
 #import "MWKDataObject.h"
+#import "WMFBlockDefinitions.h"
+
 @class AnyPromise;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -14,12 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
                         IndexType : id<NSCopying, NSObject> >
                                 : MWKDataObject<NSFastEnumeration>
 
-- (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
+                    - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
 /**
  *  Observable - observe to get KVO notifications
  */
-@property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
+                    @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
 
 - (NSUInteger)countOfEntries;
 

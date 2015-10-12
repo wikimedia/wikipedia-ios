@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import <OCHamcrest/HCBaseMatcher.h>
 
@@ -14,20 +14,17 @@
 
 FOUNDATION_EXPORT id HC_isIn(id aCollection);
 
-/**
- isIn(aCollection) -
- Matches if evaluated object is present in a given collection.
-
- @param aCollection  The collection to search.
-
- This matcher invokes @c -containsObject: on @a aCollection to determine if the evaluated object
- is an element of the collection.
-
- (In the event of a name clash, don't \#define @c HC_SHORTHAND and use the synonym
- @c HC_isIn instead.)
-
- @ingroup collection_matchers
- */
 #ifdef HC_SHORTHAND
-    #define isIn HC_isIn
+/*!
+ * @brief isIn(aCollection) -
+ * Matches if evaluated object is present in a given collection.
+ * @param aCollection The collection to search.
+ * @discussion This matcher invokes <code>-containsObject:</code> on <em>aCollection</em> to
+ * determine if the evaluated object is an element of the collection.
+ *
+ * @attribute Name Clash
+ * In the event of a name clash, don't <code>#define HC_SHORTHAND</code> and use the synonym
+ * HC_isIn instead.
+ */
+#define isIn HC_isIn
 #endif

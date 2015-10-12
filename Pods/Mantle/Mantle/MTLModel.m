@@ -8,8 +8,8 @@
 
 #import "NSError+MTLModelException.h"
 #import "MTLModel.h"
-#import "EXTRuntimeExtensions.h"
-#import "EXTScope.h"
+#import <Mantle/EXTRuntimeExtensions.h>
+#import <Mantle/EXTScope.h>
 #import "MTLReflection.h"
 #import <objc/runtime.h>
 
@@ -230,9 +230,19 @@ static BOOL MTLValidateAndSetValue(id obj, NSString *key, id value, BOOL forceUp
 	@onExit {
 		free(attributes);
 	};
-
-	if (attributes->readonly && attributes->ivar == NULL) {
+	
+	BOOL hasGetter = [self instancesRespondToSelector:attributes->getter];
+	BOOL hasSetter = [self instancesRespondToSelector:attributes->setter];
+	if (!attributes->dynamic && attributes->ivar == NULL && !hasGetter && !hasSetter) {
 		return MTLPropertyStorageNone;
+	} else if (attributes->readonly && attributes->ivar == NULL) {
+		if ([self isEqual:MTLModel.class]) {
+			return MTLPropertyStorageNone;
+		} else {
+			// Check superclass in case the subclass redeclares a property that
+			// falls through
+			return [self.superclass storageBehaviorForPropertyWithKey:propertyKey];
+		}
 	} else {
 		return MTLPropertyStoragePermanent;
 	}
@@ -283,7 +293,9 @@ static BOOL MTLValidateAndSetValue(id obj, NSString *key, id value, BOOL forceUp
 #pragma mark NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-	return [[self.class allocWithZone:zone] initWithDictionary:self.dictionaryValue error:NULL];
+	MTLModel *copy = [[self.class allocWithZone:zone] init];
+	[copy setValuesForKeysWithDictionary:self.dictionaryValue];
+	return copy;
 }
 
 #pragma mark NSObject

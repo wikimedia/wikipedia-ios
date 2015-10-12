@@ -88,8 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-@property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
-
 
 // WIP
 @property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
@@ -258,6 +256,16 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
+- (WMFSaveButtonController*)saveButtonController {
+    if (!_saveButtonController) {
+        _saveButtonController = [[WMFSaveButtonController alloc] init];
+        UIButton* saveButton = [UIButton wmf_buttonType:WMFButtonTypeBookmark handler:nil];
+        [saveButton sizeToFit];
+        _saveButtonController.button = saveButton;
+    }
+    return _saveButtonController;
+}
+
 - (void)updateChildrenWithArticle {
     // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
     // see http://stackoverflow.com/a/2777460/48311
@@ -293,19 +301,19 @@ NS_ASSUME_NONNULL_BEGIN
         self.toolbarItems = nil;
         return;
     }
-    self.toolbarItems = [@[[self flexibleSpaceToolbarItem], [self refreshToolbarItem],
-                           [self paddingToolbarItem], [self shareToolbarItem],
-                           [self paddingToolbarItem], [self saveToolbarItem]] wmf_reverseArrayIfApplicationIsRTL];
 
-    NSMutableArray* rightBarButtonItems = [@[
-                                               [self wmf_searchBarButtonItemWithDelegate:self]
-                                           ] mutableCopy];
+    NSMutableArray<UIBarButtonItem*>* toolbarItems = @[
+        [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
+        [self shareToolbarItem], [self flexibleSpaceToolbarItem],
+        [self saveToolbarItem], [self flexibleSpaceToolbarItem],
+    ].mutableCopy;
 
     if (!self.article.isMain) {
-        [rightBarButtonItems insertObject:[self tableOfContentsToolbarItem] atIndex:0];
+        [toolbarItems addObject:[self tableOfContentsToolbarItem]];
     }
 
-    self.navigationItem.rightBarButtonItems = rightBarButtonItems;
+    self.toolbarItems                      = toolbarItems;
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 }
 
 - (UIBarButtonItem*)paddingToolbarItem {
@@ -316,23 +324,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIBarButtonItem*)saveToolbarItem {
-    if (!_saveToolbarItem) {
-        _saveToolbarItem = [UIBarButtonItem wmf_buttonType:WMFButtonTypeBookmark handler:nil];
-    }
-    return _saveToolbarItem;
-}
-
-- (WMFSaveButtonController*)saveButtonController {
-    if (!_saveButtonController) {
-        _saveButtonController        = [[WMFSaveButtonController alloc] init];
-        _saveButtonController.button = [[self saveToolbarItem] customView];
-    }
-    return _saveButtonController;
+    return [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];;
 }
 
 - (UIBarButtonItem*)refreshToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeReload handler:^(id _Nonnull sender) {
+    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                           handler:^(id _Nonnull sender) {
         @strongify(self);
         [self fetchArticle];
     }];
@@ -346,7 +344,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)shareToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeShare handler:^(id sender){
+    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                           handler:^(id sender){
         @strongify(self);
         [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
     }];
@@ -354,11 +353,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)tableOfContentsToolbarItem {
     @weakify(self);
-    return [UIBarButtonItem wmf_buttonType:WMFButtonTypeTableOfContents handler:^(id sender){
+    UIBarButtonItem* tocToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"toc"]
+                                                                          style:UIBarButtonItemStylePlain
+                                                                        handler:^(id sender){
         @strongify(self);
         [self.tableOfContentsViewController selectAndScrollToSection:[self.webViewController currentVisibleSection] animated:NO];
         [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
     }];
+    tocToolbarItem.tintColor = [UIColor blackColor];
+    return tocToolbarItem;
 }
 
 #pragma mark - ViewController
@@ -378,16 +381,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.article.title];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
 }
-
 
 #pragma mark - Article Navigation
 
