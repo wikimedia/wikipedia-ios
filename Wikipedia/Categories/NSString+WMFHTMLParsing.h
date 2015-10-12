@@ -1,7 +1,5 @@
 #import <Foundation/Foundation.h>
 
-static const NSUInteger WMFNumberOfExtractCharacters = 525;
-
 @interface NSString (WMFHTMLParsing)
 
 /// Parse the receiver as HTML and return the content of any text nodes found.

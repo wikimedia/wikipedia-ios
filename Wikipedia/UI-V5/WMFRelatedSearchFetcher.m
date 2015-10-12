@@ -15,7 +15,7 @@
 #import "MWKRelatedSearchResult.h"
 
 #import "MWKTitle.h"
-#import "NSString+WMFHTMLParsing.h"
+#import "WMFNumberOfExtractCharacters.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
