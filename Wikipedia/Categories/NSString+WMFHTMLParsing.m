@@ -2,6 +2,7 @@
 #import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
 #import "NSString+Extras.h"
+#import "WMFNumberOfExtractCharacters.h"
 
 @implementation NSString (WMFHTMLParsing)
 
