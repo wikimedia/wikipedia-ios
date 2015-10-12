@@ -3,7 +3,7 @@
 What is OCHamcrest?
 -------------------
 
-[![Build Status](https://travis-ci.org/hamcrest/OCHamcrest.svg?branch=master)](https://travis-ci.org/hamcrest/OCHamcrest) [![Coverage Status](https://coveralls.io/repos/hamcrest/OCHamcrest/badge.png?branch=master)](https://coveralls.io/r/hamcrest/OCHamcrest?branch=master) [![Cocoapods Version](https://cocoapod-badges.herokuapp.com/v/OCHamcrest/badge.png)](http://cocoapods.org/?q=ochamcrest)
+[![Build Status](https://travis-ci.org/hamcrest/OCHamcrest.svg?branch=master)](https://travis-ci.org/hamcrest/OCHamcrest) [![Coverage Status](https://coveralls.io/repos/hamcrest/OCHamcrest/badge.svg?branch=master)](https://coveralls.io/r/hamcrest/OCHamcrest?branch=master) [![Cocoapods Version](https://cocoapod-badges.herokuapp.com/v/OCHamcrest/badge.png)](https://cocoapods.org/pods/OCHamcrest)
 
 OCHamcrest is an iOS and Mac OS X library providing:
 
@@ -86,12 +86,12 @@ XCTest's `XCTAssertEqualObjects` function, we'll use OCHamcrest's `assertThat`
 construct and a predefined matcher:
 
 ```obj-c
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrest/OCHamcrest.h>
 
-@interface BiscuitTest : SenTestCase
+@interface BiscuitTest : XCTestCase
 @end
 
 @implementation BiscuitTest
@@ -213,15 +213,15 @@ wrapping non-matcher arguments in `equalTo`.
 How can I assert on an asynchronous call?
 -----------------------------------------
 
-`assertThatAfter` will keep trying to evaluate an expression until the matcher
+`assertWithTimeout` will keep evaluating an expression until the matcher
 is satisfied or a timeout is reached. For example,
 
 ```obj-c
-assertThatAfter(5, futureValueOf(self.someString), is(equalTo(@"expected")));
+assertWithTimeout(5, thatEventually(self.someString), is(@"expected"));
 ```
 
-This checks several times for this string to be @"expected" before timing out
-after 5 seconds. `futureValueOf` is a convenience function to create a block.
+This repeatedly checks for this string to evaluate to "expected" before timing out
+after 5 seconds. `thatEventually` is a convenience function to create a block.
 
 
 Writing custom matchers

@@ -1,13 +1,13 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIsCloseTo.h"
 
 
 @interface HCIsCloseTo ()
 
-@property (readonly, nonatomic, assign) double value;
-@property (readonly, nonatomic, assign) double delta;
+@property (nonatomic, assign, readonly) double value;
+@property (nonatomic, assign, readonly) double delta;
 @end
 
 

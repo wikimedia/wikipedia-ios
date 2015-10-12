@@ -80,6 +80,19 @@
                                        error:errorPtr];
 }
 
+- (NSString *)getReferenceImageDirectoryWithDefault:(NSString *)dir
+{
+  NSString *envReferenceImageDirectory = [NSProcessInfo processInfo].environment[@"FB_REFERENCE_IMAGE_DIR"];
+  if (envReferenceImageDirectory) {
+    return envReferenceImageDirectory;
+  }
+  if (dir && dir.length > 0) {
+    return dir;
+  }
+  return [[NSBundle bundleForClass:self.class].resourcePath stringByAppendingPathComponent:@"ReferenceImages"];
+}
+
+
 #pragma mark - Private API
 
 - (BOOL)_compareSnapshotOfViewOrLayer:(id)viewOrLayer

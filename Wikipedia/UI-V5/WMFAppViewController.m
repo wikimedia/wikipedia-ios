@@ -3,8 +3,10 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#import <PiwikTracker/PiwikTracker.h>
-#import <Masonry/Masonry.h>
+#if PIWIK_ENABLED
+@import PiwikTracker;
+#endif
+@import Masonry;
 
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -90,7 +92,9 @@ static dispatch_once_t launchToken;
     [self configureHomeViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
+#if PIWIK_ENABLED
     [[PiwikTracker sharedInstance] sendView:@"Home"];
+#endif
 }
 
 - (void)configureTabController {
@@ -368,7 +372,7 @@ static dispatch_once_t launchToken;
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-
+#if PIWIK_ENABLED
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
     switch (tab) {
         case WMFAppTabTypeHome: {
@@ -384,6 +388,7 @@ static dispatch_once_t launchToken;
         }
         break;
     }
+#endif
 }
 
 #pragma mark - Notifications

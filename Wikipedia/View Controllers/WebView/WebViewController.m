@@ -2,7 +2,12 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WebViewController_Private.h"
-#import <Masonry/Masonry.h>
+
+#import "Wikipedia-Swift.h"
+
+@import Masonry;
+@import BlocksKit.BlocksKit_UIKit;
+
 #import "NSString+WMFHTMLParsing.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -12,9 +17,6 @@
 #import "MWKSiteInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKLanguageLink.h"
-#import "Wikipedia-Swift.h"
-
-#import <BlocksKit/BlocksKit+UIKit.h>
 
 #import "WMFShareCardViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
