@@ -78,10 +78,10 @@ PODS:
   - Tweaks (HEAD based on 2.0.0)
 
 DEPENDENCIES:
-  - AFNetworking/NSURLConnection (~> 2.5)
+  - AFNetworking/NSURLConnection (~> 2.6.0)
   - AnimatedGIFImageSerialization
-  - BlocksKit/Core (~> 2.2)
-  - BlocksKit/UIKit (~> 2.2)
+  - BlocksKit/Core (~> 2.2.0)
+  - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (from `https://github.com/CocoaLumberjack/CocoaLumberjack.git`,
     branch `swift_2.0`)
   - DTCoreText (~> 1.6.16)
@@ -90,16 +90,16 @@ DEPENDENCIES:
   - hpple (~> 0.2)
   - KVOController
   - libextobjc/EXTScope (~> 0.4.1)
-  - Mantle
+  - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
   - Nocilla
-  - OCHamcrest (~> 4.1)
-  - OCMockito (~> 1.4)
+  - OCHamcrest (~> 4.2.0)
+  - OCMockito (~> 1.4.0)
   - PiwikTracker
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
   - SDWebImage (from `./vendor/SDWebImage`)
   - SelfSizingWaterfallCollectionViewLayout (from `git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git`)
-  - SSDataSources
+  - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
   - Tweaks (HEAD)
 
