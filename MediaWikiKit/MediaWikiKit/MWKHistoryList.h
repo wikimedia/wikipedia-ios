@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The task. The result is the MWKHistoryEntry.
  */
-- (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title;
+- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title;
 
 /**
  *  Remove the given history entries from the history
