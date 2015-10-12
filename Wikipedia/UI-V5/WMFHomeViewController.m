@@ -1,14 +1,15 @@
 #import "WMFHomeViewController.h"
 
 // Frameworks
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+@import SelfSizingWaterfallCollectionViewLayout;
+@import BlocksKit;
+@import Tweaks;
+@import SSDataSources;
 
 // Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
-#import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFSectionSchemaManager.h"
 #import "WMFSectionSchemaItem.h"
@@ -50,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 @interface WMFHomeViewController ()
-<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate>
+<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate, FBTweakObserver>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -200,6 +201,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].minimumLineSpacing  = 10.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [self setupHomeTweaks];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -228,7 +230,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Notifications
 
 - (void)applicationDidEnterForegroundWithNotification:(NSNotification*)note {
-    if (!self.isViewLoaded) {
+    if (!self.isViewLoaded || !self.view.window) {
         return;
     }
 
@@ -236,11 +238,28 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         return;
     }
 
-    [self.schemaManager updateSchema];
-    [self reloadSections];
+    [self updateAndReloadSections];
+}
+
+#pragma mark - Tweaks
+
+- (void)setupHomeTweaks {
+    [FBTweakInline(@"Home", @"Continue Reading", @"Enabled", NO) addObserver:self];
+}
+
+- (void)tweakDidChange:(FBTweak*)tweak {
+    if (!self.isViewLoaded || !self.view.window) {
+        return;
+    }
+    [self updateAndReloadSections];
 }
 
 #pragma mark - Data Source Configuration
+
+- (void)updateAndReloadSections {
+    [self.schemaManager updateSchema];
+    [self reloadSections];
+}
 
 - (void)configureDataSource {
     if ([self.dataSource numberOfSections] > 0) {
@@ -278,18 +297,18 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            WMFHomeSectionHeader* header     = view;
-            header.icon.image = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            WMFHomeSectionHeader* header = view;
+            header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
             [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, title.length)];
             [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
-            header.titleView.tintColor = [UIColor wmf_homeSectionHeaderLinkTextColor];
+            header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
             header.titleView.delegate       = self;
         } else {
             WMFHomeSectionFooter* footer = view;
-            if([controller respondsToSelector:@selector(footerText)]){
+            if ([controller respondsToSelector:@selector(footerText)]) {
                 footer.moreLabel.text = controller.footerText;
                 @weakify(self);
                 footer.whenTapped = ^{
@@ -317,7 +336,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return controller;
 }
 
-- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item{
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
 }
 
@@ -411,7 +430,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
-    if(![controllerForSection respondsToSelector:@selector(extendedListDataSource)]){
+    if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
     WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
@@ -439,9 +458,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
     id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
-    if([controllerForSection respondsToSelector:@selector(footerText)]){
+    if ([controllerForSection respondsToSelector:@selector(footerText)]) {
         return CGSizeMake([self contentWidth], 80.0);
-    }else{
+    } else {
         return CGSizeZero;
     }
 }

@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import <OCHamcrest/HCBaseMatcher.h>
 
@@ -14,32 +14,33 @@
 
 FOUNDATION_EXPORT id HC_is(id match);
 
-/**
- is(aMatcher) -
- Decorates another matcher, or provides a shortcut to the frequently used @ref is(equalTo(x)).
-
- @param aMatcher  The matcher to satisfy, or an expected value for @ref equalTo matching.
-
- This matcher compares the evaluated object to the given matcher.
-
- If the @a aMatcher argument is a matcher, its behavior is retained, but the test may be more
- expressive. For example:
- @li <code>@ref assertThat(@(value), equalTo(@5))</code>
- @li <code>@ref assertThat(@(value), is(equalTo(@5)))</code>
-
- If the @a aMatcher argument is not a matcher, it is wrapped in an @ref equalTo matcher. This
- makes the following statements equivalent:
- @li <code>@ref assertThat(cheese, equalTo(smelly))</code>
- @li <code>@ref assertThat(cheese, is(equalTo(smelly)))</code>
- @li <code>@ref assertThat(cheese, is(smelly))</code>
-
- Choose the style that makes your expression most readable. This will vary depending on context.
-
- (In the event of a name clash, don't \#define @c HC_SHORTHAND and use the synonym
- @c HC_is instead.)
-
- @ingroup decorator_matchers
- */
 #ifdef HC_SHORTHAND
-    #define is HC_is
+/*!
+ * @brief is(aMatcher) -
+ * Decorates another matcher, or provides a shortcut to the frequently used <code>is(equalTo(x))</code>.
+ * @param aMatcher The matcher to satisfy, or an expected value for @ref equalTo matching.
+ * @discussion This matcher compares the evaluated object to the given matcher.
+ *
+ * If <em>aMatcher</em>is a matcher, its behavior is retained, but the test may be more expressive.
+ * For example:
+ * <ul>
+ *   <li><code>assertThat(\@(value), equalTo(\@5))</code></li>
+ *   <li><code>assertThat(\@(value), is(equalTo(\@5)))</code></li>
+ * </ul>
+ *
+ * If <em>aMatcher</em>is not a matcher, it is wrapped in an @ref equalTo matcher. This makes the
+ * following statements equivalent:
+ * <ul>
+ *   <li><code>assertThat(cheese, equalTo(smelly))</code></li>
+ *   <li><code>assertThat(cheese, is(equalTo(smelly)))</code></li>
+ *   <li><code>assertThat(cheese, is(smelly))</code></li>
+ * </ul>
+ *
+ * Choose the style that makes your expression most readable. This will vary depending on context.
+ *
+ * @attribute Name Clash
+ * In the event of a name clash, don't <code>#define HC_SHORTHAND</code> and use the synonym
+ * HC_is instead.
+ */
+#define is HC_is
 #endif

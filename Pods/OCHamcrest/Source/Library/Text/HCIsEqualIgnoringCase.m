@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIsEqualIgnoringCase.h"
 
@@ -7,7 +7,7 @@
 
 
 @interface HCIsEqualIgnoringCase ()
-@property (readonly, nonatomic, copy) NSString *string;
+@property (nonatomic, copy, readonly) NSString *string;
 @end
 
 @implementation HCIsEqualIgnoringCase
