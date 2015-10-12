@@ -12,6 +12,7 @@
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
 #import "NSString+Extras.h"
+#import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -269,11 +270,9 @@ static NSString* const WMFSectionSummaryXPathSelector =
     if (!textNodes || !textNodes.count) {
         return nil;
     }
-    NSMutableArray* results = @[].mutableCopy;
-    for (TFHppleElement* node in textNodes) {
-        [results addObject:node.raw];
-    }
-    return [[results componentsJoinedByString:@" "] wmf_summaryFromText];
+    return [[[textNodes bk_map:^id (TFHppleElement* node) {
+        return node.raw;
+    }] componentsJoinedByString:@" "] wmf_summaryFromText];
 }
 
 @end
