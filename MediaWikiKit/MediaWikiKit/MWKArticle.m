@@ -487,7 +487,6 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
             return summary;
         }
     }
-    _summary = nil;
     return nil;
 }
 
