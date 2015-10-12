@@ -245,7 +245,6 @@
 		0EBB287C1B70350C00D8E1D8 /* UIView+WMFSnapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBB287B1B70350C00D8E1D8 /* UIView+WMFSnapshotting.m */; };
 		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
-		0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
 		0ECC99EF1B67D43500004E47 /* WMFArticleRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99EE1B67D43500004E47 /* WMFArticleRequestSerializer.m */; };
 		0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC99F11B67DDB600004E47 /* WMFArticleResponseSerializer.m */; };
 		0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED44D771B28DA4D00F284BA /* UICollectionView+WMFExtensions.m */; };
@@ -3790,7 +3789,6 @@
 				BC6BF4001B19213600362968 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				BCB608261BC81E970088086A /* WMFImageController+Testing.m in Sources */,
 				BC6BFC611B684EF70074D0DA /* WMFArticleSummaryVisualTests.m in Sources */,
-				0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
 				BC7B76A01B861F7100774FBC /* MWKSectionListHierarchyTests.m in Sources */,
 				BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */,
 				04D2F0D11B88330700E42A76 /* FBSnapshotTestCase+WMFConvenience.m in Sources */,
@@ -4374,7 +4372,6 @@
 		0E4F85D71AC1BF56004CA3CD /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -4425,21 +4422,10 @@
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
-					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
-					"$(PROJECT_DIR)/OldDataSchema/**",
-				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -4470,34 +4456,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AnimatedGIFImageSerialization\"",
-					"\"${PODS_ROOT}/Headers/Public/BlocksKit\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/HockeySDK\"",
-					"\"${PODS_ROOT}/Headers/Public/KVOController\"",
-					"\"${PODS_ROOT}/Headers/Public/Mantle\"",
-					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
-					"\"${PODS_ROOT}/Headers/Public/Nocilla\"",
-					"\"${PODS_ROOT}/Headers/Public/OCHamcrest\"",
-					"\"${PODS_ROOT}/Headers/Public/OCMockito\"",
-					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
-					"\"${PODS_ROOT}/Headers/Public/hpple\"",
-					"\"${PODS_ROOT}/Headers/Public/libextobjc\"",
-					"$(SDKROOT)/usr/include/libxml2",
-					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
 				);
 				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Bridging-Header.h";
@@ -4508,7 +4473,6 @@
 		A69698A61AC9D08700208A11 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -4559,21 +4523,10 @@
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SDKROOT)/usr/include/libxml2",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
-					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
-					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
-					"$(PROJECT_DIR)/OldDataSchema/**",
-				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -4604,34 +4557,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AnimatedGIFImageSerialization\"",
-					"\"${PODS_ROOT}/Headers/Public/BlocksKit\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/HockeySDK\"",
-					"\"${PODS_ROOT}/Headers/Public/KVOController\"",
-					"\"${PODS_ROOT}/Headers/Public/Mantle\"",
-					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
-					"\"${PODS_ROOT}/Headers/Public/Nocilla\"",
-					"\"${PODS_ROOT}/Headers/Public/OCHamcrest\"",
-					"\"${PODS_ROOT}/Headers/Public/OCMockito\"",
-					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
-					"\"${PODS_ROOT}/Headers/Public/hpple\"",
-					"\"${PODS_ROOT}/Headers/Public/libextobjc\"",
-					"$(SDKROOT)/usr/include/libxml2",
-					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
 				);
 				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Bridging-Header.h";
@@ -4642,7 +4574,6 @@
 		BC12F23E1B7968900042DB3C /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -4696,16 +4627,9 @@
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/OldDataSchema/**",
-				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -4737,10 +4661,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4750,32 +4670,14 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AnimatedGIFImageSerialization\"",
-					"\"${PODS_ROOT}/Headers/Public/BlocksKit\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/HockeySDK\"",
-					"\"${PODS_ROOT}/Headers/Public/KVOController\"",
-					"\"${PODS_ROOT}/Headers/Public/Mantle\"",
-					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
-					"\"${PODS_ROOT}/Headers/Public/Nocilla\"",
-					"\"${PODS_ROOT}/Headers/Public/OCHamcrest\"",
-					"\"${PODS_ROOT}/Headers/Public/OCMockito\"",
-					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
-					"\"${PODS_ROOT}/Headers/Public/hpple\"",
-					"\"${PODS_ROOT}/Headers/Public/libextobjc\"",
-					"$(SDKROOT)/usr/include/libxml2",
-					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
 				);
 				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OldDataSchema/**\" $(inherited)";
 			};
 			name = AdHoc;
 		};
@@ -4789,10 +4691,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -4802,32 +4700,14 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AnimatedGIFImageSerialization\"",
-					"\"${PODS_ROOT}/Headers/Public/BlocksKit\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/HockeySDK\"",
-					"\"${PODS_ROOT}/Headers/Public/KVOController\"",
-					"\"${PODS_ROOT}/Headers/Public/Mantle\"",
-					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
-					"\"${PODS_ROOT}/Headers/Public/Nocilla\"",
-					"\"${PODS_ROOT}/Headers/Public/OCHamcrest\"",
-					"\"${PODS_ROOT}/Headers/Public/OCMockito\"",
-					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
-					"\"${PODS_ROOT}/Headers/Public/hpple\"",
-					"\"${PODS_ROOT}/Headers/Public/libextobjc\"",
-					"$(SDKROOT)/usr/include/libxml2",
-					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
 				);
 				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OldDataSchema/**\" $(inherited)";
 			};
 			name = Debug;
 		};
@@ -4841,46 +4721,23 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
+					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
-					"\"${PODS_ROOT}/Headers/Public/AnimatedGIFImageSerialization\"",
-					"\"${PODS_ROOT}/Headers/Public/BlocksKit\"",
-					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
-					"\"${PODS_ROOT}/Headers/Public/HockeySDK\"",
-					"\"${PODS_ROOT}/Headers/Public/KVOController\"",
-					"\"${PODS_ROOT}/Headers/Public/Mantle\"",
-					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
-					"\"${PODS_ROOT}/Headers/Public/Nocilla\"",
-					"\"${PODS_ROOT}/Headers/Public/OCHamcrest\"",
-					"\"${PODS_ROOT}/Headers/Public/OCMockito\"",
-					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
-					"\"${PODS_ROOT}/Headers/Public/hpple\"",
-					"\"${PODS_ROOT}/Headers/Public/libextobjc\"",
-					"$(SDKROOT)/usr/include/libxml2",
-					"\"$(TARGET_TEMP_DIR)/../$(PROJECT_NAME).build/DerivedSources\"",
 				);
 				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Debugipedia.app/Debugipedia";
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/OldDataSchema/**\" $(inherited)";
 			};
 			name = Release;
 		};
 		D4991468181D51DF00E6073C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -4927,7 +4784,6 @@
 		D4991469181D51DF00E6073C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -4979,16 +4835,9 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/OldDataSchema/**",
-				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -5022,17 +4871,10 @@
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/OldDataSchema/**",
-				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
