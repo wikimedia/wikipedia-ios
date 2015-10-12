@@ -7,9 +7,7 @@
 #import "WMFSectionSchemaItem.h"
 #import "Wikipedia-Swift.h"
 
-#if FB_TWEAK_ENABLED
 @import Tweaks;
-#endif
 
 static NSUInteger const numberOfRecentSections = 3;
 static NSUInteger const numberOfSavedSections  = 3;
@@ -78,10 +76,8 @@ static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24 * 60 * 6
 
 - (WMFSectionSchemaItem*)continueReadingSchemaItem {
     NSDate* resignActiveDate       = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    BOOL shouldShowContinueReading =
-#if FB_TWEAK_ENABLED
+    BOOL const shouldShowContinueReading =
         FBTweakValue(@"Home", @"Continue Reading", @"Enabled", NO) ||
-#endif
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforedisplayingLastReadArticle;
     if (shouldShowContinueReading) {
         MWKTitle* lastRead = [self.recentPages mostRecentEntry].title;

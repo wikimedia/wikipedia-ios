@@ -244,9 +244,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Tweaks
 
 - (void)setupHomeTweaks {
-#if FB_TWEAK_ENABLED
     [FBTweakInline(@"Home", @"Continue Reading", @"Enabled", NO) addObserver:self];
-#endif
 }
 
 - (void)tweakDidChange:(FBTweak*)tweak {

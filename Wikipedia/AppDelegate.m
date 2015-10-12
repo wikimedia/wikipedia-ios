@@ -8,15 +8,11 @@
 
 #import "WMFLogFormatter.h"
 
-#if PIWIK_ENABLED
 @import PiwikTracker;
 static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
 static NSString* const WMFPiwikSiteID    = @"4";
-#endif
 
-#if FB_TWEAK_ENABLED
 @import Tweaks;
-#endif
 
 @interface AppDelegate ()
 
@@ -53,12 +49,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 
 - (UIWindow*)window {
     if (!_window) {
-        #if FB_TWEAK_ENABLED
-        _window = [[FBTweakShakeWindow alloc] init];
-        #else
-        _window = [[UIWindow alloc] init];
-        #endif
-        _window.frame = [[UIScreen mainScreen] bounds];
+        _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     return _window;
 }

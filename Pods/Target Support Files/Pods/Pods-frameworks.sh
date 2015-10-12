@@ -136,11 +136,13 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/Mantle.framework"
   install_framework "Pods/Masonry.framework"
   install_framework "Pods/OMGHTTPURLRQ.framework"
+  install_framework "Pods/PiwikTracker.framework"
   install_framework "Pods/PromiseKit.framework"
   install_framework "Pods/SDWebImage.framework"
   install_framework "Pods/SSDataSources.framework"
   install_framework "Pods/SVWebViewController.framework"
   install_framework "Pods/SelfSizingWaterfallCollectionViewLayout.framework"
+  install_framework "Pods/Tweaks.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi

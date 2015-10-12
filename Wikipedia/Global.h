@@ -13,6 +13,7 @@
 @import libextobjc;
 @import KVOController;
 @import BlocksKit;
+@import Tweaks;
 
 // Need to import it this way since umbrella header doesn't have AnyPromise declarations
 #import <PromiseKit/PromiseKit.h>
@@ -38,15 +39,6 @@ static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key)
 }
 
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
-
-// Need to do this here since we're only including Tweaks in certain configurations
-#ifndef FB_TWEAK_ENABLED
-    #if NDEBUG
-        #define FB_TWEAK_ENABLED 0
-    #else
-        #define FB_TWEAK_ENABLED 1
-    #endif
-#endif
 
 #ifndef PIWIK_ENABLED
     #if NDEBUG
