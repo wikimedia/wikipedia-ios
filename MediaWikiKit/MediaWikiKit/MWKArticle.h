@@ -11,7 +11,6 @@
 #import "MWKSiteDataObject.h"
 
 static const NSInteger kMWKArticleSectionNone = -1;
-static const NSUInteger WMFNumberOfExtractCharacters = 525;
 
 @class MWKDataStore;
 @class MWKSection;

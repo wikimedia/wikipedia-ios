@@ -273,27 +273,7 @@ static NSString* const WMFSectionSummaryXPathSelector =
     for (TFHppleElement* node in textNodes) {
         [results addObject:node.raw];
     }
-    NSString* summary = [results componentsJoinedByString:@" "];
-    return [MWKSection cleanSummary:summary];
-}
-
-+ (NSString*)cleanSummary:(NSString*)summary {
-    NSString *output;
-    
-    // Cleanups which need to happen before string is shortened.
-    output = [summary wmf_stringByRecursivelyRemovingParenthesizedContent];
-    output = [output wmf_stringByRemovingBracketedContent];
-    
-    // Now ok to shorten so remaining cleanups are faster.
-    output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
-    
-    // Cleanups safe to do on shortened string.
-    return [[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
-                stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-               stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
-              wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
-             wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
-            wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
+    return [[results componentsJoinedByString:@" "] wmf_summaryFromText];
 }
 
 @end
