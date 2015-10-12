@@ -10,7 +10,7 @@
 
 static NSString* const WMFNumericTransformerErrorDomain = @"WMFNumericTransformerErrorDomain";
 
-typedef NS_ENUM(NSInteger, WMFNumericTransformerErrorCode) {
+typedef NS_ENUM (NSInteger, WMFNumericTransformerErrorCode) {
     WMFNumericTransformerErrorDomainInvalidString
 };
 
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, WMFNumericTransformerErrorCode) {
 + (instancetype)wmf_numericValueTransformer {
     NSValueTransformer<MTLTransformerErrorHandling>* validatingNumberTransformer =
         [MTLValueTransformer mtl_validatingTransformerForClass:[NSNumber class]];
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(id stringOrNumber, BOOL *success, NSError *__autoreleasing *error) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (id stringOrNumber, BOOL* success, NSError* __autoreleasing* error) {
         if ([stringOrNumber isKindOfClass:[NSString class]]) {
             double value = 0.0;
             if ([[NSScanner scannerWithString:stringOrNumber] scanDouble:&value]) {
