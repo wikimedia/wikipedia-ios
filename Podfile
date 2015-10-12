@@ -1,6 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc']
+# Configurations which are not compiled for release on the App Store
+# NOT_APP_STORE_CONFIGS = ['Debug', 'Alpha', 'Beta', 'AdHoc'].freeze
 
 platform :ios, :deployment_target => '8.0'
 
@@ -26,7 +27,7 @@ pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2.0'
 pod 'BlocksKit/UIKit', '~> 2.2.0'
 pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
-pod 'Tweaks', :head, :configurations => NOT_APP_STORE_CONFIGS
+pod 'Tweaks', :head
 
 # KVO
 pod 'KVOController'
@@ -41,7 +42,7 @@ pod 'Masonry', '0.6.2'
 pod 'SelfSizingWaterfallCollectionViewLayout', :git => 'git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git'
 
 # Diagnostics
-pod 'PiwikTracker', :configurations => NOT_APP_STORE_CONFIGS
+pod 'PiwikTracker'
 pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :branch => 'swift_2.0'
 pod 'HockeySDK', '~> 3.8.2'
 
