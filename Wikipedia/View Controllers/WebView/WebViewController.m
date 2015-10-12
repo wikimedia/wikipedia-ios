@@ -629,7 +629,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return;
     }
 
-    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.article.title];
+    [self.session.userDataStore.historyList setPageScrollPosition:self.webView.scrollView.contentOffset.y onPageInHistoryWithTitle:self.article.title];
     [self.session.userDataStore.historyList save];
 }
 

@@ -76,7 +76,7 @@
     [self sortEntries];
 }
 
-- (void)savePageScrollPosition:(CGFloat)scrollposition toPageInHistoryWithTitle:(MWKTitle*)title {
+- (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title{
     if ([title.text length] == 0) {
         return;
     }
