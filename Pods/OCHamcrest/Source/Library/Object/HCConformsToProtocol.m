@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 //  Contribution by Todd Farrell
 //
 
@@ -9,7 +9,7 @@
 
 
 @interface HCConformsToProtocol ()
-@property (readonly, nonatomic, strong) Protocol *protocol;
+@property (nonatomic, strong, readonly) Protocol *protocol;
 @end
 
 @implementation HCConformsToProtocol

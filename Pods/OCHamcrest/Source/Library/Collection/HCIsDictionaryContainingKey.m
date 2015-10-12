@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIsDictionaryContainingKey.h"
 
@@ -8,7 +8,7 @@
 
 
 @interface HCIsDictionaryContainingKey ()
-@property (readonly, nonatomic, strong) id <HCMatcher> keyMatcher;
+@property (nonatomic, strong, readonly) id <HCMatcher> keyMatcher;
 @end
 
 

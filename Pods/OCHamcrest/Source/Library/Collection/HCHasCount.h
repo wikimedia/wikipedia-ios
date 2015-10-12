@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import <OCHamcrest/HCBaseMatcher.h>
 
@@ -14,41 +14,33 @@
 
 FOUNDATION_EXPORT id HC_hasCount(id <HCMatcher> matcher);
 
-/**
- hasCount(aMatcher) -
- Matches if object's @c -count satisfies a given matcher.
-
- @param aMatcher  The matcher to satisfy.
-
- This matcher invokes @c -count on the evaluated object to get the number of elements it
- contains, passing the result to @a aMatcher for evaluation.
-
- (In the event of a name clash, don't \#define @c HC_SHORTHAND and use the synonym
- @c HC_hasCount instead.)
-
- @ingroup collection_matchers
- */
 #ifdef HC_SHORTHAND
-    #define hasCount HC_hasCount
+/*!
+ * @brief hasCount(aMatcher) -
+ * Matches if object's <code>-count</code> satisfies a given matcher.
+ * @param aMatcher The matcher to satisfy.
+ * @discussion This matcher invokes <code>-count</code> on the evaluated object to get the number of
+ * elements it contains, passing the result to <em>aMatcher</em> for evaluation.
+ *
+ * @attribute Name Clash
+ * In the event of a name clash, don't <code>#define HC_SHORTHAND</code> and use the synonym HC_hasCount instead.
+ */
+#define hasCount HC_hasCount
 #endif
 
 
 FOUNDATION_EXPORT id HC_hasCountOf(NSUInteger count);
 
-/**
- hasCountOf(value) -
- Matches if object's @c -count equals a given value.
-
- @param value  @c NSUInteger value to compare against as the expected value.
-
- This matcher invokes @c -count on the evaluated object to get the number of elements it
- contains, comparing the result to @a value for equality.
-
- (In the event of a name clash, don't \#define @c HC_SHORTHAND and use the synonym
- @c HC_hasCountOf instead.)
-
- @ingroup collection_matchers
- */
 #ifdef HC_SHORTHAND
-    #define hasCountOf HC_hasCountOf
+/*!
+ * @brief hasCountOf(value) -
+ * Matches if object's <code>-count</code> equals a given value.
+ * @param value NSUInteger value to compare against as the expected value.
+ * @discussion This matcher invokes <code>-count</code> on the evaluated object to get the number of
+ * elements it contains, comparing the result to value for equality.
+ *
+ * @attribute Name Clash
+ * In the event of a name clash, don't <code>#define HC_SHORTHAND</code> and use the synonym HC_hasCountOf instead.
+ */
+#define hasCountOf HC_hasCountOf
 #endif
