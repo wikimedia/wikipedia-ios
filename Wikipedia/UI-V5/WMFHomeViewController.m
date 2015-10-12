@@ -230,7 +230,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Notifications
 
 - (void)applicationDidEnterForegroundWithNotification:(NSNotification*)note {
-    if (!self.isViewLoaded) {
+    if (!self.isViewLoaded || !self.view.window) {
         return;
     }
 
@@ -248,6 +248,9 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 }
 
 - (void)tweakDidChange:(FBTweak*)tweak {
+    if (!self.isViewLoaded || !self.view.window) {
+        return;
+    }
     [self updateAndReloadSections];
 }
 
