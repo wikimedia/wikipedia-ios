@@ -16,11 +16,16 @@
 #import "WMFRelatedTitleListDataSource.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "UITabBarController+WMFExtensions.h"
-#import "WMFShareFunnel.h"
 #import "WMFShareOptionsController.h"
 #import "WMFImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import "SectionEditorViewController.h"
+
+//Funnel
+#import "WMFShareFunnel.h"
+#import "ProtectedEditAttemptFunnel.h"
+
 
 // Model
 #import "MWKDataStore.h"
@@ -32,6 +37,8 @@
 #import "MWKArticle+WMFSharing.h"
 #import "MWKArticlePreview.h"
 #import "MWKHistoryList.h"
+#import "MWKProtectionStatus.h"
+#import "MWKSectionList.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -53,7 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
- WMFTableOfContentsViewControllerDelegate>
+ WMFTableOfContentsViewControllerDelegate,
+ SectionEditorViewControllerDelegate>
 
 // Data
 @property (nonatomic, strong, nullable) MWKDataStore* dataStore;
@@ -501,8 +509,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)webViewControllerDidReloadCurrentArticle:(WebViewController*)controller{
-    [self fetchArticle];
+- (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section{
+    [self showEditorForSection:section];
 }
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
@@ -612,6 +620,37 @@ NS_ASSUME_NONNULL_BEGIN
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     }];
+}
+
+#pragma mark - Edit Section
+
+- (void)showEditorForSection:(MWKSection*)section {
+    if (self.article.editable) {
+        SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+        sectionEditVC.section = section;
+        sectionEditVC.delegate = self;
+        [self.navigationController pushViewController:sectionEditVC animated:YES];
+    } else {
+        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+        [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+        [self showProtectedDialog];
+    }
+}
+
+- (void)showProtectedDialog {
+    UIAlertView* alert = [[UIAlertView alloc] init];
+    alert.title   = MWLocalizedString(@"page_protected_can_not_edit_title", nil);
+    alert.message = MWLocalizedString(@"page_protected_can_not_edit", nil);
+    [alert addButtonWithTitle:@"OK"];
+    alert.cancelButtonIndex = 0;
+    [alert show];
+}
+
+#pragma mark - SectionEditorViewControllerDelegate
+
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController{
+    [self.navigationController popToViewController:self animated:YES];
+    [self fetchArticle];
 }
 
 @end
