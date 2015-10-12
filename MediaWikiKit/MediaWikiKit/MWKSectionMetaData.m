@@ -1,5 +1,6 @@
 
 #import "MWKSectionMetaData.h"
+#import "MTLValueTransformer+WMFNumericValueTransformer.h"
 
 @implementation MWKSectionMetaData
 
@@ -13,6 +14,10 @@
 
         return indexPath;
     }];
+}
+
++ (NSValueTransformer*)levelJSONTransformer {
+    return [MTLValueTransformer wmf_numericValueTransformer];
 }
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
