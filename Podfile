@@ -47,7 +47,7 @@ pod 'HockeySDK', '~> 3.8.2'
 
 target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
-  pod 'OCHamcrest', '~> 4.1.0'
+  pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
   pod 'FBSnapshotTestCase/Core', '~> 2.0.3'
 end
