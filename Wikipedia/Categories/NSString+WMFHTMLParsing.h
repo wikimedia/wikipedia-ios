@@ -45,4 +45,9 @@ static const NSUInteger WMFNumberOfExtractCharacters = 525;
 
 - (NSString*)wmf_summaryFromText;
 
+/**
+ * Decode any "&amp;" strings.
+ */
+- (NSString*)wmf_decodeHTMLAmp;
+
 @end

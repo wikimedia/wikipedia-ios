@@ -30,13 +30,12 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString*)wmf_shareSnippetFromText {
-    return [[[[[[[[[self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
-                    stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-                   stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
-                  wmf_stringByCollapsingConsecutiveNewlines]
-                 wmf_stringByRecursivelyRemovingParenthesizedContent]
-                wmf_stringByRemovingBracketedContent]
-               wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
+    return [[[[[[[[self wmf_decodeHTMLAmp]
+                  wmf_decodeHTMLGreaterAndLessThan]
+                 wmf_stringByCollapsingConsecutiveNewlines]
+                wmf_stringByRecursivelyRemovingParenthesizedContent]
+               wmf_stringByRemovingBracketedContent]
+              wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
              wmf_stringByCollapsingConsecutiveSpaces]
             wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
@@ -173,6 +172,15 @@
                                                     withTemplate:@""];
 }
 
+- (NSString*)wmf_decodeHTMLAmp {
+    return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+}
+
+- (NSString*)wmf_decodeHTMLGreaterAndLessThan {
+    return [[self stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+            stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+}
+
 - (NSString*)wmf_summaryFromText {
     // Cleanups which need to happen before string is shortened.
     NSString *output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
@@ -182,9 +190,8 @@
     output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
     
     // Cleanups safe to do on shortened string.
-    return [[[[[[output stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
-                stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-               stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
+    return [[[[[output wmf_decodeHTMLAmp]
+               wmf_decodeHTMLGreaterAndLessThan]
               wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
              wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
             wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
