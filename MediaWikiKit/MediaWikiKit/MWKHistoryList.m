@@ -45,9 +45,9 @@
     if (title == nil) {
         return nil;
     }
-    
+
     MWKHistoryEntry* entry = [self entryForTitle:title];
-    if(!entry){
+    if (!entry) {
         MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
         entry.date = [NSDate date];
     }

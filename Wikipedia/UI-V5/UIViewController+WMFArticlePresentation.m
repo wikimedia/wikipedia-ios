@@ -25,11 +25,10 @@
     NSParameterAssert(dataStore);
     MWKHistoryEntry* historyEntry = [dataStore.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
     [dataStore.userDataStore.historyList save];
-    
+
     WMFArticleContainerViewController* articleContainerVC = [[WMFArticleContainerViewController alloc] initWithArticleTitle:title dataStore:dataStore];
-    
+
     [self.navigationController pushViewController:articleContainerVC animated:YES];
 }
-
 
 @end

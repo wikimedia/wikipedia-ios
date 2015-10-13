@@ -182,8 +182,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 - (void)didTapSectionHeaderLink:(NSURL*)url {
     [self wmf_pushArticleViewControllerWithTitle:[[MWKTitle alloc] initWithURL:url]
-           discoveryMethod:MWKHistoryDiscoveryMethodLink
-                 dataStore:self.dataStore];
+                                 discoveryMethod:MWKHistoryDiscoveryMethodLink
+                                       dataStore:self.dataStore];
 }
 
 #pragma mark - UIViewController

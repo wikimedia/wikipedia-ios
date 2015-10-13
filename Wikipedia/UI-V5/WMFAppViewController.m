@@ -157,7 +157,7 @@ static dispatch_once_t launchToken;
     if (![self launchCompleted]) {
         return;
     }
-    
+
     [self downloadAssetsFilesIfNecessary];
     [self performHousekeepingIfNecessary];
 
@@ -347,7 +347,6 @@ static dispatch_once_t launchToken;
     return self.splashView.hidden == NO;
 }
 
-
 #pragma mark - House Keeping
 
 - (void)performHousekeepingIfNecessary {
@@ -368,12 +367,11 @@ static dispatch_once_t launchToken;
 - (void)downloadAssetsFilesIfNecessary {
     // Sync config/ios.json at most once per day.
     [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
-    
+
     (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
                                                       withManager:[QueuesSingleton sharedInstance].assetsFetchManager
                                                            maxAge:kWMFMaxAgeDefault];
 }
-
 
 #pragma mark - Migration
 

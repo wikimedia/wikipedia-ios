@@ -112,7 +112,7 @@
     }
 }
 
-- (BOOL)discoveryMethodRequiresScrollPositionRestore{
+- (BOOL)discoveryMethodRequiresScrollPositionRestore {
     if (self.discoveryMethod == MWKHistoryDiscoveryMethodSaved ||
         self.discoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
         self.discoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
@@ -121,7 +121,6 @@
     }
     return NO;
 }
-
 
 #pragma mark - MWKListObject
 

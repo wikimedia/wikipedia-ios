@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleContainerViewController : UIViewController
     <WMFAnalyticsLogging>
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore *)dataStore;
+- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
 
 @property (nonatomic, strong, readonly) MWKTitle* articleTitle;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;

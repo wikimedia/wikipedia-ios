@@ -90,20 +90,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleContainerViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore *)dataStore{
-
+- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
 
     self = [super init];
     if (self) {
         self.articleTitle = title;
-        self.dataStore = dataStore;
+        self.dataStore    = dataStore;
         [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;
     }
@@ -116,25 +114,25 @@ NS_ASSUME_NONNULL_BEGIN
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
 }
 
-- (void)setArticle:(nullable MWKArticle *)article{
+- (void)setArticle:(nullable MWKArticle*)article {
     // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
     // see http://stackoverflow.com/a/2777460/48311
 //    NSAssert([self isViewLoaded] && self.view.window, @"Cannot set article before viewDidLoad");
-    
-    _article = article;
+
+    _article                       = article;
     self.webViewController.article = _article;
     [self.headerGallery setImagesFromArticle:_article];
 }
 
-- (MWKHistoryList*)recentPages{
+- (MWKHistoryList*)recentPages {
     return self.dataStore.userDataStore.historyList;
 }
 
-- (MWKSavedPageList*)savedPages{
+- (MWKSavedPageList*)savedPages {
     return self.dataStore.userDataStore.savedPageList;
 }
 
-- (MWKHistoryEntry*)historyEntry{
+- (MWKHistoryEntry*)historyEntry {
     return [self.recentPages entryForTitle:self.articleTitle];
 }
 
@@ -220,16 +218,16 @@ NS_ASSUME_NONNULL_BEGIN
         _saveButtonController = [[WMFSaveButtonController alloc] init];
         UIButton* saveButton = [UIButton wmf_buttonType:WMFButtonTypeBookmark handler:nil];
         [saveButton sizeToFit];
-        _saveButtonController.button = saveButton;
+        _saveButtonController.button        = saveButton;
         _saveButtonController.savedPageList = self.savedPages;
-        _saveButtonController.title = self.articleTitle;
+        _saveButtonController.title         = self.articleTitle;
     }
     return _saveButtonController;
 }
 
 #pragma mark - Notifications and Observations
 
-- (void)applicationWillResignActiveWithNotification:(NSNotification*)note{
+- (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
     [self saveWebViewScrollOffset];
 }
 
@@ -249,7 +247,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
 }
 
-
 #pragma mark - Toolbar
 
 - (void)setupToolbar {
@@ -259,13 +256,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     NSMutableArray<UIBarButtonItem*>* toolbarItems = [@[
-        [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
-        [self shareToolbarItem], [self flexibleSpaceToolbarItem],
-        [self saveToolbarItem]
-    ] mutableCopy];
+                                                          [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
+                                                          [self shareToolbarItem], [self flexibleSpaceToolbarItem],
+                                                          [self saveToolbarItem]
+                                                      ] mutableCopy];
 
     if (!self.article.isMain) {
-        [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem],[self tableOfContentsToolbarItem]]];
+        [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], [self tableOfContentsToolbarItem]]];
     }
 
     self.toolbarItems                      = toolbarItems;
@@ -324,13 +321,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
     [self setupWebView];
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
-    
+
     [self fetchArticle];
     [self setupToolbar];
 }
@@ -348,7 +345,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Web View Setup
 
-- (void)setupWebView{
+- (void)setupWebView {
     [self addChildViewController:self.webViewController];
     [self.view addSubview:self.webViewController.view];
     [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -365,7 +362,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     CGFloat offset = [self.webViewController currentVerticalOffset];
-    if(offset > 0){
+    if (offset > 0) {
         [self.recentPages setPageScrollPosition:offset onPageInHistoryWithTitle:self.articleTitle];
         [self.recentPages save];
     }
@@ -377,7 +374,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self unobserveArticleUpdates];
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:NULL]
-    .then(^(MWKArticle* article) {
+                                 .then(^(MWKArticle* article) {
         @strongify(self);
         [self saveWebViewScrollOffset];
         self.article = article;
@@ -396,16 +393,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Scroll Position and Fragments
 
-- (void)scrollWebViewToRequestedPosition{
-    if(self.articleTitle.fragment){
+- (void)scrollWebViewToRequestedPosition {
+    if (self.articleTitle.fragment) {
         [self.webViewController scrollToFragment:self.articleTitle.fragment];
-    }else if([self.historyEntry discoveryMethodRequiresScrollPositionRestore] && self.historyEntry.scrollPosition > 0){
+    } else if ([self.historyEntry discoveryMethodRequiresScrollPositionRestore] && self.historyEntry.scrollPosition > 0) {
         [self.webViewController scrollToVerticalOffset:self.historyEntry.scrollPosition];
     }
     [self markFragmentAsProcessed];
 }
 
-- (void)markFragmentAsProcessed{
+- (void)markFragmentAsProcessed {
     //Create a title without the fragment so it wont be followed anymore
     self.articleTitle = [[MWKTitle alloc] initWithSite:self.articleTitle.site normalizedTitle:self.articleTitle.text fragment:nil];
 }
@@ -428,11 +425,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)webViewController:(WebViewController *)controller didLoadArticle:(MWKArticle *)article{
+- (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
     [self scrollWebViewToRequestedPosition];
 }
 
-- (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section{
+- (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
     [self showEditorForSection:section];
 }
 
