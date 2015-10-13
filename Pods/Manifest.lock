@@ -111,7 +111,7 @@ EXTERNAL SOURCES:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: "./vendor/SDWebImage"
+    :path: ./vendor/SDWebImage
   SelfSizingWaterfallCollectionViewLayout:
     :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 

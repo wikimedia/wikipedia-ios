@@ -54,3 +54,16 @@ target 'WikipediaUnitTests', :exclusive => true do
 end
 
 pod 'SVWebViewController', '~> 1.0'
+
+post_install do |installer_representation|
+  installer_representation.pods_project.targets.each do |target|
+    if target.name == "Tweaks"
+      target.build_configurations.each do |config|
+        if config.name != 'Release'
+          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FB_TWEAK_ENABLED=1']
+        end
+      end
+    end
+  end
+end
+
