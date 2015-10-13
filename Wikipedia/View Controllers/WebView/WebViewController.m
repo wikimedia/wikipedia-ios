@@ -375,12 +375,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)autoScrollToLastScrollOffsetIfNecessary {
-    #warning FIXME: causing jumpiness.
     // also, need to store offsets relative to the browser view frame in case we change the layout
-    if (!self.jumpToFragment) {
+    if (!CGPointEqualToPoint(self.lastScrollOffset, CGPointZero) && !self.jumpToFragment) {
         [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
     }
-    [self saveWebViewScrollOffset];
 }
 
 - (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration {
@@ -822,9 +820,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
         MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForListIndex:article.title];
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
-        self.lastScrollOffset = scrollOffset;
-    } else {
-        CGPoint scrollOffset = CGPointMake(-self.webView.scrollView.contentInset.left, -self.webView.scrollView.contentInset.top);
         self.lastScrollOffset = scrollOffset;
     }
     
