@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCHasCount.h"
 
@@ -7,7 +7,7 @@
 
 
 @interface HCHasCount ()
-@property (readonly, nonatomic, strong) id <HCMatcher> countMatcher;
+@property (nonatomic, strong, readonly) id <HCMatcher> countMatcher;
 @end
 
 @implementation HCHasCount

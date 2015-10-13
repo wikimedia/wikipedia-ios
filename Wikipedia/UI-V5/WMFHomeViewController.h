@@ -1,5 +1,4 @@
-
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class MWKSite;
 @class MWKDataStore;

@@ -122,9 +122,9 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 
 @implementation WMFRelatedSearchRequestSerializer
 
-- (NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
-                              withParameters:(id)parameters
-                                       error:(NSError* __autoreleasing*)error {
+- (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
+                                       withParameters:(nullable id)parameters
+                                                error:(NSError* __autoreleasing*)error {
     NSDictionary* serializedParams = [self serializedParams:(WMFRelatedSearchRequestParameters*)parameters];
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }

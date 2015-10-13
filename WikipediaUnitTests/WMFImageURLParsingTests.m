@@ -37,6 +37,12 @@
                is(equalTo(@"Access_to_drinking_water_in_third_world.svg")));
 }
 
+- (void)testImageWithPeriodInFileNameExample {
+    NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg/360px-Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg";
+    assertThat(WMFParseImageNameFromSourceURL(testURL),
+               is(equalTo(@"Claude_Monet%2C_1870%2C_Le_port_de_Trouville_%28Breakwater_at_Trouville%2C_Low_Tide%29%2C_oil_on_canvas%2C_54_x_65.7_cm%2C_Museum_of_Fine_Arts%2C_Budapest.jpg")));
+}
+
 - (void)testPrefixFromNoPrefixFileName {
     NSString* testURL = @"//upload.wikimedia.org/wikipedia/commons/thumb/4/41/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg/Iceberg_with_hole_near_Sandersons_Hope_2007-07-28_2.jpg";
 

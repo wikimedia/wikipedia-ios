@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCThrowsException.h"
 
@@ -16,7 +16,7 @@ static void HCRequireMatcher(id obj)
 
 
 @interface HCThrowsException()
-@property (readonly, nonatomic, strong) id <HCMatcher> exceptionMatcher;
+@property (nonatomic, strong, readonly) id <HCMatcher> exceptionMatcher;
 @end
 
 @implementation HCThrowsException

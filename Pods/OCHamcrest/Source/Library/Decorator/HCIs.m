@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCIs.h"
 
@@ -7,7 +7,7 @@
 
 
 @interface HCIs ()
-@property (readonly, nonatomic, strong) id <HCMatcher> matcher;
+@property (nonatomic, strong, readonly) id <HCMatcher> matcher;
 @end
 
 @implementation HCIs

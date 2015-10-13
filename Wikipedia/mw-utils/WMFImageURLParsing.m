@@ -6,7 +6,7 @@ static NSRegularExpression* WMFImageURLParsingRegex() {
     dispatch_once(&onceToken, ^{
         // TODO: try to read serialized regex from disk to prevent needless pattern compilation on next app run
         NSError* patternCompilationError;
-        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-([^.]*\\.[^.]*).*$"
+        imageNameFromURLRegex = [NSRegularExpression regularExpressionWithPattern:@"^\\d+px-([^.]*(\\.[^.$]{4,})*\\.[^.]*).*$"
                                                                           options:0
                                                                             error:&patternCompilationError];
         NSCParameterAssert(!patternCompilationError);

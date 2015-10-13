@@ -1,14 +1,13 @@
 #import "WMFHomeViewController.h"
 
 // Frameworks
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+@import SelfSizingWaterfallCollectionViewLayout;
+@import SSDataSources;
 
 // Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
-#import <SSDataSources/SSDataSources.h>
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFSectionSchemaManager.h"
 #import "WMFSectionSchemaItem.h"
@@ -50,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 @interface WMFHomeViewController ()
-<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate>
+<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate, FBTweakObserver>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -200,6 +199,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].minimumLineSpacing  = 1.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [self setupHomeTweaks];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -228,7 +228,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Notifications
 
 - (void)applicationDidEnterForegroundWithNotification:(NSNotification*)note {
-    if (!self.isViewLoaded) {
+    if (!self.isViewLoaded || !self.view.window) {
         return;
     }
 
@@ -236,11 +236,28 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         return;
     }
 
-    [self.schemaManager updateSchema];
-    [self reloadSections];
+    [self updateAndReloadSections];
+}
+
+#pragma mark - Tweaks
+
+- (void)setupHomeTweaks {
+    [FBTweakInline(@"Home", @"Continue Reading", @"Enabled", NO) addObserver:self];
+}
+
+- (void)tweakDidChange:(FBTweak*)tweak {
+    if (!self.isViewLoaded || !self.view.window) {
+        return;
+    }
+    [self updateAndReloadSections];
 }
 
 #pragma mark - Data Source Configuration
+
+- (void)updateAndReloadSections {
+    [self.schemaManager updateSchema];
+    [self reloadSections];
+}
 
 - (void)configureDataSource {
     if ([self.dataSource numberOfSections] > 0) {
