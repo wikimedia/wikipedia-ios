@@ -21,7 +21,7 @@
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MAX (25.0f * MENUS_SCALE_MULTIPLIER)
 
-@interface SectionEditorViewController() <PreviewAndSaveViewControllerDelegate>
+@interface SectionEditorViewController () <PreviewAndSaveViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView* editTextView;
 @property (strong, nonatomic) NSString* unmodifiedWikiText;
@@ -212,14 +212,13 @@
     previewVC.wikiText         = self.editTextView.text;
     previewVC.funnel           = self.funnel;
     previewVC.savedPagesFunnel = self.savedPagesFunnel;
-    previewVC.delegate = self;
+    previewVC.delegate         = self;
     [self.navigationController pushViewController:previewVC animated:YES];
 }
 
-- (void)previewViewControllerDidSave:(PreviewAndSaveViewController*)previewViewController{
+- (void)previewViewControllerDidSave:(PreviewAndSaveViewController*)previewViewController {
     [self.delegate sectionEditorFinishedEditing:self];
 }
-
 
 #pragma mark Keyboard
 

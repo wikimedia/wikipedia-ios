@@ -129,30 +129,29 @@ NS_ASSUME_NONNULL_BEGIN
     return self.webViewController;
 }
 
-- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod{
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
     }
-    
+
     self.discoveryMethod = discoveryMethod;
     [self setAndObserveArticle:article];
-    
+
     self.dataStore                  = article.dataStore;
     self.savedPages                 = self.dataStore.userDataStore.savedPageList;
     self.recentPages                = self.dataStore.userDataStore.historyList;
     self.saveButtonController.title = article.title;
-    
+
     // need to wait until article/dataStore are available before configuring the toolbar
     [self setupToolbar];
-    
+
     self.shareFunnel                   = nil;
     self.shareOptionsController        = nil;
     self.tableOfContentsViewController = nil;
     self.articleFetcher                = nil;
-    
+
     [self fetchArticle];
 }
-
 
 - (void)setAndObserveArticle:(MWKArticle*)article {
     [self unobserveArticleUpdates];
@@ -498,7 +497,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section{
+- (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
     [self showEditorForSection:section];
 }
 
@@ -616,7 +615,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showEditorForSection:(MWKSection*)section {
     if (self.article.editable) {
         SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-        sectionEditVC.section = section;
+        sectionEditVC.section  = section;
         sectionEditVC.delegate = self;
         [self.navigationController pushViewController:sectionEditVC animated:YES];
     } else {
@@ -637,7 +636,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - SectionEditorViewControllerDelegate
 
-- (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController{
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self.navigationController popToViewController:self animated:YES];
     [self fetchArticle];
 }
