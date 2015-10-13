@@ -359,7 +359,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Utility
 
-- (CGFloat)clientBoundingVerticalRectOffset {
+- (CGFloat)clientBoundingRectVerticalOffset {
     NSParameterAssert(self.isViewLoaded);
     CGRect headerIntersection =
         CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerViewController.view.frame);
