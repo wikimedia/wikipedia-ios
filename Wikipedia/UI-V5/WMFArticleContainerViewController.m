@@ -71,7 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MWKArticle* article;
 
 // Fetchers
-@property (nonatomic, strong, null_resettable) WMFArticlePreviewFetcher* articlePreviewFetcher;
 @property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
@@ -149,7 +148,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.shareFunnel                   = nil;
     self.shareOptionsController        = nil;
     self.tableOfContentsViewController = nil;
-    self.articlePreviewFetcher         = nil;
     self.articleFetcher                = nil;
     
     [self fetchArticle];
@@ -183,13 +181,6 @@ NS_ASSUME_NONNULL_BEGIN
         _readMoreListViewController.dataSource = relatedTitlesDataSource;
     }
     return _readMoreListViewController;
-}
-
-- (WMFArticlePreviewFetcher*)articlePreviewFetcher {
-    if (!_articlePreviewFetcher) {
-        _articlePreviewFetcher = [[WMFArticlePreviewFetcher alloc] init];
-    }
-    return _articlePreviewFetcher;
 }
 
 - (WMFArticleFetcher*)articleFetcher {
@@ -408,13 +399,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
     @weakify(self);
-    [self.articlePreviewFetcher fetchArticlePreviewForPageTitle:title progress:NULL].then(^(MWKArticlePreview* articlePreview){
-        @strongify(self);
-        [self unobserveArticleUpdates];
-        AnyPromise* fullArticlePromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
-        self.articleFetcherPromise = fullArticlePromise;
-        return fullArticlePromise;
-    }).then(^(MWKArticle* article){
+    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL]
+                                 .then(^(MWKArticle* article) {
         @strongify(self);
         [self setAndObserveArticle:article];
     }).catch(^(NSError* error){

@@ -1,5 +1,6 @@
-
 #import <Mantle/Mantle.h>
+
+@class MWKSectionMetaData;
 
 @interface MWKArticlePreview : MTLModel<MTLJSONSerializing>
 
@@ -10,8 +11,7 @@
 @property (nonatomic, copy, readonly) NSString* wikidataDescription;
 @property (nonatomic, copy, readonly) NSString* htmlSummary;
 
-//An array of MWKSectionMetaData objects
-@property (nonatomic, strong, readonly) NSArray* sections;
+@property (nonatomic, strong, readonly) NSArray<MWKSectionMetaData*>* sections;
 
 @property (nonatomic, strong, readonly) NSDate* lastModified;
 @property (nonatomic, copy, readonly) NSString* lastModifiedBy;
