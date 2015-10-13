@@ -340,7 +340,7 @@
     NSArray* array                = dict[@"data"];
     MWKHistoryEntry* historyEntry = array[indexPath.row];
 
-    [self wmf_presentTitle:historyEntry.title discoveryMethod:historyEntry.discoveryMethod dataStore:self.userDataStore.dataStore];
+    [self wmf_pushArticleViewControllerWithTitle:historyEntry.title discoveryMethod:historyEntry.discoveryMethod dataStore:self.userDataStore.dataStore];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {

@@ -212,25 +212,17 @@
     } completion:NULL];
 }
 
-#pragma mark - Article Selection
-
-- (void)wmf_presentArticle:(MWKArticle*)article
-           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    [self wmf_hideKeyboard];
-    if (self.delegate) {
-        [self.delegate didSelectArticle:article sender:self];
-        return;
-    }
-    [super wmf_presentArticle:article discoveryMethod:discoveryMethod];
-}
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self wmf_presentArticle:[self.dataSource articleForIndexPath:indexPath]
-             discoveryMethod:[self.dataSource discoveryMethod]];
-}
-
+    [self wmf_hideKeyboard];
+    MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
+    if (self.delegate) {
+        [self.delegate didSelectArticle:article sender:self];
+        return;
+    }
+    [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:[self.dataSource discoveryMethod] dataStore:self.dataStore];
 }
 
 #pragma mark - WMFSearchPresentationDelegate
@@ -241,7 +233,7 @@
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
 }
 

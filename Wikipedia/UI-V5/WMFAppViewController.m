@@ -169,7 +169,7 @@ static dispatch_once_t launchToken;
         if (lastRead) {
             [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
             [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-            [self.homeViewController wmf_presentTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
+            [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
         }
     }
 }

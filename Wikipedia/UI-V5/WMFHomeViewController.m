@@ -181,7 +181,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 }
 
 - (void)didTapSectionHeaderLink:(NSURL*)url {
-    [self wmf_presentTitle:[[MWKTitle alloc] initWithURL:url]
+    [self wmf_pushArticleViewControllerWithTitle:[[MWKTitle alloc] initWithURL:url]
            discoveryMethod:MWKHistoryDiscoveryMethodLink
                  dataStore:self.dataStore];
 }
@@ -479,7 +479,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         if ([controller respondsToSelector:@selector(discoveryMethod)]) {
             discoveryMethod = [controller discoveryMethod];
         }
-        [self wmf_presentTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+        [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
     }
 }
 
@@ -551,7 +551,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
 }
 
