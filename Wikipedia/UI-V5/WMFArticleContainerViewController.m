@@ -399,6 +399,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleForTitle:(MWKTitle*)title {
     @weakify(self);
+    [self unobserveArticleUpdates];
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL]
                                  .then(^(MWKArticle* article) {
         @strongify(self);
