@@ -18,4 +18,8 @@
     [self setContentOffset:self.wmf_topContentOffset animated:animated];
 }
 
+- (CGRect)wmf_contentFrame {
+    return CGRectOffset(self.bounds, 0, self.contentOffset.y);
+}
+
 @end
