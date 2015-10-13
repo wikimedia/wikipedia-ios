@@ -20,7 +20,8 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeReload,
     WMFButtonTypeCaretLeft,
     WMFButtonTypePencil,
-    WMFButtonTypeBookmark
+    WMFButtonTypeBookmark,
+    WMFButtonTypeBookmarkMini
 };
 
 NS_ASSUME_NONNULL_BEGIN

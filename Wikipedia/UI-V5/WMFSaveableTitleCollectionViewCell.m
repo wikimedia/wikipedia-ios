@@ -29,7 +29,7 @@
     [super configureCell];
     [self configureContentView];
     [self configureImageViewWithPlaceholder];
-    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
+    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmarkMini];
 }
 
 - (void)configureContentView {

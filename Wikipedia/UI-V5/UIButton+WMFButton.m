@@ -100,6 +100,10 @@ NS_ASSUME_NONNULL_BEGIN
             [self setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
             [self setImage:[UIImage imageNamed:@"saved"] forState:UIControlStateSelected];
             break;
+        case WMFButtonTypeBookmarkMini:
+            [self setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"save-filled-mini"] forState:UIControlStateSelected];
+            break;
         default:
             break;
     }
