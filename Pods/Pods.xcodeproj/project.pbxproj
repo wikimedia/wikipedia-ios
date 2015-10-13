@@ -6766,6 +6766,37 @@
 			};
 			name = Alpha;
 		};
+		0A464CA62E9BDDEDB21384B658E47BD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_TWEAK_ENABLED=1",
+				);
+				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Tweaks/Tweaks.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Tweaks;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		0BA4CB4E8B5D6FB5410BEDC49E28565E /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F647D5D74E439C7B3F57F0E57DEBF713 /* SVWebViewController.xcconfig */;
@@ -7486,33 +7517,6 @@
 			};
 			name = Release;
 		};
-		2D972C847CCF498DAF394EA021FDE9B1 /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Tweaks/Tweaks.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Tweaks;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = AdHoc;
-		};
 		2DA21D3302B7D5088C28ED5D3C8CF865 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30B90B25CDA8E61FE4718329FF37A191 /* AFNetworking.xcconfig */;
@@ -7830,33 +7834,6 @@
 				MODULEMAP_FILE = "Target Support Files/Mantle/Mantle.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = Mantle;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Beta;
-		};
-		4A4DC84D40E723AF56EB5173A3C40400 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Tweaks/Tweaks.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = Tweaks;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -9032,6 +9009,37 @@
 			};
 			name = Debug;
 		};
+		ADC78C1752B2EC26A34736D7D8181FAA /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_TWEAK_ENABLED=1",
+				);
+				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Tweaks/Tweaks.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Tweaks;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Beta;
+		};
 		B01877AF286C00E353655A0D316A503F /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 047F6B44FBEDEF0D0D7A1A59894BA741 /* SelfSizingWaterfallCollectionViewLayout.xcconfig */;
@@ -9769,33 +9777,6 @@
 			};
 			name = AdHoc;
 		};
-		D8D0AF9BD0972593706B68C0A18E0577 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Tweaks/Tweaks.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = Tweaks;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		DEBA70B96A93F23760ECCBA43F0B107D /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17CEA980289945738A79616BD9B56002 /* PromiseKit.xcconfig */;
@@ -10123,7 +10104,7 @@
 			};
 			name = Alpha;
 		};
-		F0EFFE4AEB94A300E5581B68C8739830 /* Alpha */ = {
+		F23E82774EACE7A14627407C65CF9120 /* Alpha */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
 			buildSettings = {
@@ -10135,6 +10116,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_TWEAK_ENABLED=1",
+				);
 				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -10264,6 +10249,37 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		FDDF9CF64CB87CD4F62977D07FAE852F /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFC7F51A856FF3EDD8A43F01F7254231 /* Tweaks.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Tweaks/Tweaks-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"FB_TWEAK_ENABLED=1",
+				);
+				INFOPLIST_FILE = "Target Support Files/Tweaks/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Tweaks/Tweaks.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Tweaks;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = AdHoc;
 		};
 		FF10628BE5254C6443063FEE9E33F8C8 /* Beta */ = {
 			isa = XCBuildConfiguration;
@@ -10562,10 +10578,10 @@
 		B88C62AC67F539E92E1D422A25F05D6D /* Build configuration list for PBXNativeTarget "Tweaks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2D972C847CCF498DAF394EA021FDE9B1 /* AdHoc */,
-				F0EFFE4AEB94A300E5581B68C8739830 /* Alpha */,
-				4A4DC84D40E723AF56EB5173A3C40400 /* Beta */,
-				D8D0AF9BD0972593706B68C0A18E0577 /* Debug */,
+				FDDF9CF64CB87CD4F62977D07FAE852F /* AdHoc */,
+				F23E82774EACE7A14627407C65CF9120 /* Alpha */,
+				ADC78C1752B2EC26A34736D7D8181FAA /* Beta */,
+				0A464CA62E9BDDEDB21384B658E47BD0 /* Debug */,
 				1BB8010A669A5DE466806FCC52B3B074 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
