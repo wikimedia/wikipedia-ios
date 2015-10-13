@@ -21,7 +21,13 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeCaretLeft,
     WMFButtonTypePencil,
     WMFButtonTypeBookmark,
-    WMFButtonTypeBookmarkMini
+    WMFButtonTypeBookmarkMini,
+    WMFButtonTypeCloseMini,
+    WMFButtonTypeFeaturedMini,
+    WMFButtonTypeNearbyMini,
+    WMFButtonTypeRecentMini,
+    WMFButtonTypeShareMini,
+    WMFButtonTypeTrendingMini
 };
 
 NS_ASSUME_NONNULL_BEGIN
