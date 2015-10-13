@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -22,7 +22,9 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="67a-h2-5a6">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
                                 </view>
+                                <animations/>
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWd-Ft-cEc" userLabel="Content View">
@@ -60,12 +62,14 @@
                                     </containerView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B20-xN-XHO" userLabel="Search Bottom Separator View">
                                         <rect key="frame" x="0.0" y="29" width="600" height="1"/>
+                                        <animations/>
                                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="3cp-hG-Zqm"/>
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="ukX-0p-5ey" firstAttribute="leading" secondItem="RWd-Ft-cEc" secondAttribute="leading" id="0xc-XM-pQH"/>
@@ -89,6 +93,7 @@
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Wikipedia" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Nef-Ia-7Gd">
                                         <rect key="frame" x="15" y="20" width="530" height="44"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="yTR-XN-7TS"/>
                                         </constraints>
@@ -101,6 +106,7 @@
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3z-uC-8hv" userLabel="Separator View">
                                         <rect key="frame" x="553" y="26" width="1" height="32"/>
+                                        <animations/>
                                         <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="Ueg-eb-KMn"/>
@@ -109,17 +115,19 @@
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjf-LF-NvO" userLabel="Close Button">
                                         <rect key="frame" x="569" y="35" width="14" height="14"/>
+                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="GVE-TW-em9"/>
                                             <constraint firstAttribute="width" constant="14" id="RBi-LN-aNC"/>
                                         </constraints>
-                                        <state key="normal" image="close-big"/>
+                                        <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="didTapCloseButton:" destination="tkf-8P-b2O" eventType="touchUpInside" id="tKu-w0-suh"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CjY-C1-VXL" userLabel="Separator View">
                                         <rect key="frame" x="0.0" y="63" width="600" height="1"/>
+                                        <animations/>
                                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="AJu-FC-BHq"/>
@@ -134,6 +142,7 @@
                                         </variation>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="0Cz-C0-e2t"/>
@@ -289,6 +298,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close-big" width="37" height="36"/>
+        <image name="close" width="18" height="18"/>
     </resources>
 </document>
