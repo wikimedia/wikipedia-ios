@@ -212,7 +212,6 @@
     } completion:NULL];
 }
 
-
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {

@@ -118,7 +118,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [super viewDidLoad];
 
     [self loadHeadersAndFooters];
-    
+
     self.referencesHidden = YES;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
@@ -143,7 +143,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.view.backgroundColor = CHROME_COLOR;
 
     [self observeWebScrollViewContentSize];
-    
+
     [self displayArticle];
 }
 
@@ -198,7 +198,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [observer layoutWebViewSubviews];
     }];
 }
-
 
 #pragma mark - Headers & Footers
 
@@ -342,7 +341,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
-    } else{
+    } else {
         CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
         if (!CGRectIsNull(r)) {
             CGPoint elementOrigin =
@@ -359,21 +358,21 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
-    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
-                                                   count:self.article.sections.count];
-    
+        [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
+                                                       count:self.article.sections.count];
+
     if (indexOfFirstOnscreenSection > self.article.sections.count || indexOfFirstOnscreenSection < 0) {
         return [self.article.sections.entries firstObject];
     }
-    
+
     return self.article.sections[indexOfFirstOnscreenSection];
 }
 
-- (void)scrollToVerticalOffset:(CGFloat)offset{
+- (void)scrollToVerticalOffset:(CGFloat)offset {
     [self.webView.scrollView setContentOffset:CGPointMake(0, offset) animated:NO];
 }
 
-- (CGFloat)currentVerticalOffset{
+- (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
 }
 
@@ -453,7 +452,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             [self updateProgress:1.0 animated:YES completion:^{
                 [self hideProgressViewAnimated:YES];
             }];
-            
+
             //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
             dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
                 [self.delegate webViewController:self didLoadArticle:self.article];
@@ -557,8 +556,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return _bridge;
 }
 
-
-
 #pragma mark Web view html content live location retrieval
 
 - (void)printLiveContentLocationTestingOutputToConsole {
@@ -587,12 +584,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Display article
 
-- (void)setArticle:(MWKArticle*)article{
+- (void)setArticle:(MWKArticle*)article {
     _article = article;
-    
+
 #warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
-    
+
     // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
     // see http://stackoverflow.com/a/2777460/48311
     if ([self isViewLoaded] && self.view.window) {
@@ -600,16 +597,16 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)displayArticle{
-    if(!self.article){
+- (void)displayArticle {
+    if (!self.article) {
         return;
     }
-    
+
     NSString* html = [self.article articleHTML];
-    
+
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
-    
+
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
     if (!safeToCrossBridge) {
@@ -621,9 +618,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         //TODO: output "could not load page" alert and/or show last page?
         return;
     }
-    
+
     [self.bridge loadHTML:html withAssetsFile:@"index.html"];
-    
+
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
                  withPayload:@{
