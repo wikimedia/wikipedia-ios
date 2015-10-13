@@ -416,7 +416,7 @@
     }
 
     ReferenceVC* refVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReferenceVC"];
-    refVC.delegate    = self;
+    refVC.delegate = self;
     refVC.index    = index;
     refVC.html     = self.refs[index];
     refVC.linkId   = self.linkIds[index];
@@ -425,26 +425,25 @@
     return refVC;
 }
 
-- (void)referenceViewController:(ReferenceVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID{
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
     [self.delegate referenceViewController:self didShowReferenceWithLinkID:linkID];
 }
 
-- (void)referenceViewController:(ReferenceVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID{
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
     [self.delegate referenceViewController:self didFinishShowingReferenceWithLinkID:linkID];
 }
 
-- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment{
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment {
     [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:fragment];
 }
 
-- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title{
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title {
     [self.delegate referenceViewController:self didSelectReferenceWithTitle:title];
 }
 
-- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url{
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
     [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:url];
 }
-
 
 - (UIViewController*)pageViewController:(UIPageViewController*)pageViewController
      viewControllerBeforeViewController:(UIViewController*)viewController {

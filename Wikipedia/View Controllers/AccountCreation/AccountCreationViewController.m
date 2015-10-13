@@ -372,7 +372,6 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
         [self dismissViewControllerAnimated:YES completion:nil];
-        
     } onFail:^(){
         [self enableProgressiveButton:YES];
     }];

@@ -49,7 +49,7 @@
                 NSString* title        = [encodedTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 MWKTitle* pageTitle    = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
                 [self.delegate referenceViewController:self didSelectReferenceWithTitle:pageTitle];
-                
+
                 return NO;
             }
 

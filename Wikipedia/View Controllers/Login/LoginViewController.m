@@ -187,7 +187,6 @@
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
         [self dismissViewControllerAnimated:YES completion:nil];
-                      
     } onFail:^{
         [self enableProgressiveButton:YES];
     }];

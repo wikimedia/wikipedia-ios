@@ -53,7 +53,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 /**
  *  Calculates the amount needed to compensate to specific HTML element locations.
  *
- *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to 
+ *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to
  *  animate the navigation.  However, we can't use the values provided by the webview as-is, since we've added a header
  *  view on top of the browser view.  This has the effect of offsetting the bounding rects of HTML elements by the amount
  *  of the header view which is currently on screen.  As a result, we calculate the amount of the header view that is showing,
@@ -123,7 +123,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
-    
+
 //    self.sectionHeadersViewController =
 //        [[WMFSectionHeadersViewController alloc] initWithView:self.view
 //                                                      webView:self.webView
@@ -143,7 +143,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-
         [weakSelf updateProgress:1.0 animated:YES completion:^{
             [weakSelf hideProgressViewAnimated:YES];
         }];
@@ -231,8 +230,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 }
 
-- (void)applicationWillResignActiveWithNotification:(NSNotification*)note{
-    
+- (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
     [self saveWebViewScrollOffset];
 }
 
@@ -427,7 +425,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                            maxAge:kWMFMaxAgeDefault];
 }
 
-
 #pragma mark Angle from velocity vector
 
 - (CGFloat)getAngleInDegreesForVelocity:(CGPoint)velocity {
@@ -579,15 +576,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             //NSLog(@"referenceClicked: %@", payload);
             [self referencesShow:payload];
         }];
-        
+
         [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
             @strongify(self);
             if (!self) {
                 return;
             }
-            
+
             NSUInteger sectionIndex = (NSUInteger)[payload[@"sectionId"] integerValue];
-            if(sectionIndex < [self.article.sections count]){
+            if (sectionIndex < [self.article.sections count]) {
                 [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
             }
         }];
@@ -619,7 +616,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
             MWKImage* selectedImage = [self.article.images largestImageVariantForURL:selectedImageURL
-                                                                             cachedOnly:NO];
+                                                                          cachedOnly:NO];
             NSCParameterAssert(selectedImage);
             [self presentGalleryForArticle:self.article showingImage:selectedImage];
         }];
@@ -632,7 +629,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (self.article.isMain) {
         return;
     }
-    if(!self.article){
+    if (!self.article) {
         return;
     }
 
@@ -780,7 +777,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
         [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
-    } else{
+    } else {
         self.jumpToFragment = fragment;
         [self jumpToFragmentIfNecessary];
     }
@@ -788,44 +785,44 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark Display article from data store
 
-- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod{
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     _article = article;
-    
+
 #warning HAX: force the view to load
     [self view];
-    
+
 #warning TODO: remove dependency on session current article
-    self.session.currentArticle = article;
+    self.session.currentArticle        = article;
     self.currentArticleDiscoveryMethod = discoveryMethod;
-    
+
     if (![article isCached]) {
         [self showProgressViewAnimated:NO];
         return;
     }
-    
+
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
-    
+
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
-    
+
     for (MWKSection* section in _article.sections) {
         NSString* html = nil;
-        
+
         @try {
             html = section.text;
         }@catch (NSException* exception) {
             NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
         }
-        
+
         if (!html) {
             html = MWLocalizedString(@"article-unable-to-load-section", nil);;
         }
-        
+
         // Structural html added around section html just before display.
         NSString* sectionHTMLWithID = [section displayHTML:html];
         [sectionTextArray addObject:sectionHTMLWithID];
     }
-    
+
     if (self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
         self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
         self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
@@ -834,11 +831,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
     }
-    
+
     // Join article sections text
     NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
     NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
-    
+
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && htmlStr);
     if (!safeToCrossBridge) {
@@ -850,21 +847,21 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         //TODO: output "could not load page" alert and/or show last page?
         return;
     }
-    
+
     [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html"];
-    
+
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
                  withPayload:@{
-                               @"lang": languageInfo.code,
-                               @"dir": languageInfo.dir,
-                               @"uidir": uidir
-                               }];
-    
+         @"lang": languageInfo.code,
+         @"dir": languageInfo.dir,
+         @"uidir": uidir
+     }];
+
     if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProgress:0.85 animated:YES completion:NULL];
     });
@@ -1031,7 +1028,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID{
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
     NSString* eval = [NSString stringWithFormat:@"\
                       document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
                       document.getElementById('%@').style.backgroundColor = '#999';\
@@ -1040,27 +1037,26 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.webView stringByEvaluatingJavaScriptFromString:eval];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID{
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
     NSString* eval = [NSString stringWithFormat:@"\
                       document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
                       ", linkID, linkID];
     [self.webView stringByEvaluatingJavaScriptFromString:eval];
 }
 
-
-- (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController{
+- (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController {
     [self referencesHide];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment{
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment {
     [self scrollToFragment:fragment];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title{
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title {
     [self.delegate webViewController:self didTapOnLinkForTitle:title];
 }
 
-- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url{
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
     [self wmf_openExternalUrl:url];
 }
 
