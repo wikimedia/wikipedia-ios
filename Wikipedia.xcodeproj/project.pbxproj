@@ -471,6 +471,9 @@
 		BCEC77951AC9C74700D9DDA5 /* NSArray+WMFShuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC77941AC9C74700D9DDA5 /* NSArray+WMFShuffle.m */; };
 		BCF012331AD2FA38008D3675 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
 		BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1E20B1B4C590F00B10877 /* WMFBackgroundTestManagerTests.swift */; };
+		BCF455321BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF455311BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		BCF4553A1BCC7128007C748A /* MWKArticlePreviewSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */; settings = {ASSET_TAGS = (); }; };
+		BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */ = {isa = PBXBuildFile; fileRef = BCF4553C1BCC73BB007C748A /* mobileview-preview.json */; settings = {ASSET_TAGS = (); }; };
 		BCF7FC9B1B7B9ADE00CDFB8C /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */; };
 		BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */; };
 		BCF8DCA61B70055F00149C26 /* WMFFixtureRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */; };
@@ -1425,6 +1428,10 @@
 		BCF2C5E41BA9D9290063412D /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5E61BA9D9540063412D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BCF2C5E71BA9D9560063412D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		BCF455301BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MTLValueTransformer+WMFNumericValueTransformer.h"; path = "Serializers/MTLValueTransformer+WMFNumericValueTransformer.h"; sourceTree = "<group>"; };
+		BCF455311BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MTLValueTransformer+WMFNumericValueTransformer.m"; path = "Serializers/MTLValueTransformer+WMFNumericValueTransformer.m"; sourceTree = "<group>"; };
+		BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreviewSerializationTests.m; sourceTree = "<group>"; };
+		BCF4553C1BCC73BB007C748A /* mobileview-preview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "mobileview-preview.json"; sourceTree = "<group>"; };
 		BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLogFormatter.m; sourceTree = "<group>"; };
 		BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Transitioning.h; sourceTree = "<group>"; };
 		BCF7FC9D1B7BA61B00CDFB8C /* WMFArticleListCollectionViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListCollectionViewController_Transitioning.h; sourceTree = "<group>"; };
@@ -2826,6 +2833,7 @@
 				BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */,
 				BC5EA3AB1BB1BAE100AA196A /* SavedArticlesFetcherTests.h */,
 				BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */,
+				BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -2908,6 +2916,8 @@
 				BC092BA11B19135700093C59 /* WMFApiJsonResponseSerializer.m */,
 				BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */,
 				BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */,
+				BCF455301BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.h */,
+				BCF455311BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m */,
 			);
 			name = Serializers;
 			sourceTree = "<group>";
@@ -3046,6 +3056,7 @@
 				BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */,
 				BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */,
 				BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */,
+				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3538,6 +3549,7 @@
 				BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */,
 				BCCEC1241B1F68CF00A8B522 /* organization-anon.json in Resources */,
 				BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */,
+				BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */,
 				BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */,
 				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
 				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
@@ -3821,6 +3833,7 @@
 				BC0FED661AAA0268002488D7 /* MWKSiteTests.m in Sources */,
 				0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */,
 				BCA9575D1ABE473800B62AE8 /* LegacyCoreDataMigratorTests.m in Sources */,
+				BCF4553A1BCC7128007C748A /* MWKArticlePreviewSerializationTests.m in Sources */,
 				BCDD703A1BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m in Sources */,
 				BCCE8EBC1B4D7F590009FBBC /* XCTestCase+SwiftDefaults.swift in Sources */,
 				BCAFC5D01AFD5E7D004615BA /* MWKArticleExtractionTests.m in Sources */,
@@ -4112,6 +4125,7 @@
 				BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */,
 				04C9509D19EF02980013F3C0 /* EventLogger.m in Sources */,
 				0EFB0F1B1B31EE2D00D05C08 /* ArticleDataContextSingleton.m in Sources */,
+				BCF455321BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				BC6E8B981B5EB4B2003D9A39 /* UIImage+WMFNormalization.m in Sources */,
 				0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */,
 				0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */,
