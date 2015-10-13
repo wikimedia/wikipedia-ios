@@ -367,10 +367,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             [self.webView.scrollView setContentOffset:p animated:YES];
         }
         self.jumpToFragment = nil;
-        
-    } else {
-        // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
     }
 }
 
@@ -770,8 +766,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToFragment:(NSString*)fragment {
-    self.jumpToFragment = fragment;
-    [self jumpToFragmentIfNecessary];
+    if (fragment.length == 0) {
+        // No section so scroll to top. (Used when "Introduction" is selected.)
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
+    } else{
+        self.jumpToFragment = fragment;
+        [self jumpToFragmentIfNecessary];
+    }
 }
 
 #pragma mark Display article from data store
