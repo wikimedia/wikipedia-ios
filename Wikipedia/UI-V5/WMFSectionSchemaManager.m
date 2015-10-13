@@ -76,10 +76,9 @@ static NSTimeInterval const WMFTimeBeforedisplayingLastReadArticle = 24 * 60 * 6
 
 - (WMFSectionSchemaItem*)continueReadingSchemaItem {
     NSDate* resignActiveDate             = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    BOOL continueReadingTweakValue       = FBTweakValue(@"Home", @"Continue Reading", @"Enabled", NO);
     BOOL const shouldShowContinueReading =
-        continueReadingTweakValue
-        || fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforedisplayingLastReadArticle;
+        FBTweakValue(@"Home", @"Continue Reading", @"Enabled", NO) ||
+        fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforedisplayingLastReadArticle;
     if (shouldShowContinueReading) {
         MWKTitle* lastRead = [self.recentPages mostRecentEntry].title;
         if (lastRead) {
