@@ -40,7 +40,7 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbF-9q-HIn" userLabel="Description Label">
-                        <rect key="frame" x="18" y="231" width="325" height="39"/>
+                        <rect key="frame" x="18" y="231" width="325" height="40"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.60342281879194626" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,7 +48,7 @@
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVJ-4N-Dr6" userLabel="Summary Label">
-                        <rect key="frame" x="18" y="274" width="325" height="26"/>
+                        <rect key="frame" x="18" y="275" width="325" height="26"/>
                         <animations/>
                         <attributedString key="attributedText">
                             <fragment content="Label">
@@ -62,13 +62,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjn-Ua-PWa" userLabel="Save Button">
-                        <rect key="frame" x="12" y="318" width="27" height="26"/>
+                        <rect key="frame" x="14" y="319" width="25" height="25"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="999" constant="26" id="05Y-0E-4AK"/>
-                            <constraint firstAttribute="width" constant="27" id="Trm-rO-83J"/>
+                            <constraint firstAttribute="height" priority="999" constant="25" id="05Y-0E-4AK"/>
+                            <constraint firstAttribute="width" constant="25" id="Trm-rO-83J"/>
                         </constraints>
-                        <state key="normal" image="save-filled-mini">
+                        <state key="normal" image="save-mini">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -84,7 +84,7 @@
                 <constraint firstItem="pEK-59-fwO" firstAttribute="top" secondItem="kPi-wU-UzV" secondAttribute="bottom" constant="14" id="Acr-mO-9PG"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="AjG-bP-iPb"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="pEK-59-fwO" secondAttribute="trailing" id="Bwg-G1-AHL"/>
-                <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" constant="-6" id="KRS-m0-EXB"/>
+                <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" constant="-4" id="KRS-m0-EXB"/>
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="leading" secondItem="pEK-59-fwO" secondAttribute="leading" id="Lc5-K9-mc9"/>
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="NJN-7y-JCI"/>
                 <constraint firstItem="pEK-59-fwO" firstAttribute="trailing" secondItem="kPi-wU-UzV" secondAttribute="trailing" id="NMJ-eL-rUG"/>
@@ -92,7 +92,6 @@
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="top" secondItem="pEK-59-fwO" secondAttribute="bottom" constant="4" id="a4q-aQ-EEg"/>
                 <constraint firstItem="pEK-59-fwO" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="dcl-4I-Qqp"/>
                 <constraint firstItem="yjn-Ua-PWa" firstAttribute="top" secondItem="AVJ-4N-Dr6" secondAttribute="bottom" constant="18" id="fOj-LJ-MQN"/>
-                <constraint firstItem="yjn-Ua-PWa" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="gLf-OJ-CHa"/>
                 <constraint firstItem="kPi-wU-UzV" firstAttribute="top" secondItem="4oB-M2-f0E" secondAttribute="top" constant="24" id="gqX-Rl-5tH"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="leading" secondItem="kPi-wU-UzV" secondAttribute="leading" id="hgN-Xh-eTK"/>
                 <constraint firstItem="vbF-9q-HIn" firstAttribute="trailing" secondItem="AVJ-4N-Dr6" secondAttribute="trailing" id="jet-NL-aB8"/>
@@ -101,11 +100,6 @@
                 <constraint firstItem="AVJ-4N-Dr6" firstAttribute="top" secondItem="vbF-9q-HIn" secondAttribute="bottom" constant="4" id="swo-n1-a9c"/>
             </constraints>
             <size key="customSize" width="361" height="364"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="gLf-OJ-CHa"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="descriptionLabel" destination="vbF-9q-HIn" id="Mv9-pV-4Z5"/>
                 <outlet property="imageHeightConstraint" destination="5OZ-Kk-CoX" id="TAb-rv-16S"/>
@@ -122,6 +116,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="save-filled-mini" width="12" height="17"/>
+        <image name="save-mini" width="12" height="17"/>
     </resources>
 </document>
