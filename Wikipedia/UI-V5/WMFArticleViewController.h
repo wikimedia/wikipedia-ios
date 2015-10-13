@@ -2,7 +2,6 @@
 #import <UIKit/UIKit.h>
 #import "WMFArticleNavigationDelegate.h"
 #import "WMFAnalyticsLogging.h"
-#import "WMFArticleContentController.h"
 #import "WMFArticleListItemController.h"
 
 @class MWKDataStore;
@@ -18,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface WMFArticleViewController : UITableViewController
-    <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
+    <WMFArticleListItemController, WMFAnalyticsLogging>
 
 + (instancetype)articleViewControllerWithDataStore:(MWKDataStore*)dataStore;
 
