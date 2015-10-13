@@ -141,6 +141,12 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSAttributedString*)summaryHTMLWithoutLinks;
 
+
+/**
+ *  @return The HTML for the article (all of the sections)
+ */
+- (NSString*)articleHTML;
+
 @end
 
 @interface MWKArticle ()

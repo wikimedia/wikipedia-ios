@@ -38,4 +38,6 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
 + (NSString*)stringForDiscoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 + (MWKHistoryDiscoveryMethod)discoveryMethodForString:(NSString*)string;
 
+- (BOOL)discoveryMethodRequiresScrollPositionRestore;
+
 @end

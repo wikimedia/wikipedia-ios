@@ -13,8 +13,8 @@
 #import "NSURL+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "NSAttributedString+WMFHTMLForSite.h"
-#import "MWKSection.h"
 #import "MWKCitation.h"
+#import "MWKSection+DisplayHtml.h"
 
 @import CoreText;
 
@@ -588,5 +588,36 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
 
     return summary;
 }
+
+- (NSString*)articleHTML{
+    
+    NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
+    
+    for (MWKSection* section in self.sections) {
+        NSString* html = nil;
+        
+        @try {
+            html = section.text;
+        }@catch (NSException* exception) {
+            NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
+        }
+        
+        if (!html) {
+            html = MWLocalizedString(@"article-unable-to-load-section", nil);;
+        }
+        
+        // Structural html added around section html just before display.
+        NSString* sectionHTMLWithID = [section displayHTML:html];
+        [sectionTextArray addObject:sectionHTMLWithID];
+    }
+    
+    // Join article sections text
+    NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
+    NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
+    
+    return htmlStr;
+    
+}
+
 
 @end

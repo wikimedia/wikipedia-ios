@@ -34,8 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param discoveryMethod The method of discovery. MWKHistoryDiscoveryMethodUnknown is ignored if updating an existing
  *                         entry.
  */
-- (void)addPageToHistoryWithTitle:(MWKTitle*)title
-                  discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (MWKHistoryEntry* )addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
 /**
  *  Save the scroll position of a page
