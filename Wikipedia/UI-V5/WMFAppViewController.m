@@ -8,9 +8,15 @@
 #endif
 @import Masonry;
 
+//Utility
+#import "NSDate-Utilities.h"
+#import "DataHousekeeping.h"
+
 // Networking
 #import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
+#import "AssetsFileFetcher.h"
+#import "QueuesSingleton.h"
 
 // Model
 #import "MediaWikiKit.h"
@@ -154,6 +160,10 @@ static dispatch_once_t launchToken;
     if (![self launchCompleted]) {
         return;
     }
+    
+    [self downloadAssetsFilesIfNecessary];
+    [self performHousekeepingIfNecessary];
+
     if ([self shouldShowHomeScreenOnLaunch]) {
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
         [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
@@ -346,6 +356,34 @@ static dispatch_once_t launchToken;
 - (BOOL)isShowingSplashView {
     return self.splashView.hidden == NO;
 }
+
+
+#pragma mark - House Keeping
+
+- (void)performHousekeepingIfNecessary {
+    NSDate* lastHousekeepingDate        = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
+    NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
+    //NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
+    if (daysSinceLastHouseKeeping > 1) {
+        //NSLog(@"Performing housekeeping...");
+        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+#pragma mark - Download Assets
+
+- (void)downloadAssetsFilesIfNecessary {
+    // Sync config/ios.json at most once per day.
+    [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
+    
+    (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
+                                                      withManager:[QueuesSingleton sharedInstance].assetsFetchManager
+                                                           maxAge:kWMFMaxAgeDefault];
+}
+
 
 #pragma mark - Migration
 
