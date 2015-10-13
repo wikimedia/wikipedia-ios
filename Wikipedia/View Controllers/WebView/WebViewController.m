@@ -824,7 +824,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
         self.lastScrollOffset = scrollOffset;
     } else {
-        CGPoint scrollOffset = CGPointMake(0, 0);
+        CGPoint scrollOffset = CGPointMake(-self.webView.scrollView.contentInset.left, -self.webView.scrollView.contentInset.top);
         self.lastScrollOffset = scrollOffset;
     }
     
