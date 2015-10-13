@@ -1,13 +1,9 @@
 @import UIKit;
-#import "WMFArticleContentController.h"
-#import "WMFArticleListItemController.h"
 #import "WMFAnalyticsLogging.h"
 
-@class WMFArticleViewController;
 @class MWKDataStore;
-@class MWKSavedPageList;
-@class MWKArticle;
-@class MWKHistoryList;
+@class MWKTitle;
+@class MWKHistoryEntry;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,10 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  View controller responsible for displaying article content.
  */
 @interface WMFArticleContainerViewController : UIViewController
-    <WMFArticleContentController, WMFArticleListItemController, WMFAnalyticsLogging>
+    <WMFAnalyticsLogging>
 
-// TEMP: will be deleted soon
-@property (nonatomic, strong, readonly) WMFArticleViewController* articleViewController;
+- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore *)dataStore;
+
+@property (nonatomic, strong, readonly) MWKTitle* articleTitle;
+@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
 @end
 
