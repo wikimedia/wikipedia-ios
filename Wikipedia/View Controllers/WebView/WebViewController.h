@@ -3,9 +3,8 @@
 
 #import <UIKit/UIKit.h>
 #import "PullToRefreshViewController.h"
-#import "WMFArticleContentController.h"
 
-@class BottomMenuViewController, CommunicationBridge, MWKSection;
+@class MWKSection, MWKArticle;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -13,14 +12,13 @@
     <UIWebViewDelegate,
      UIScrollViewDelegate,
      UIGestureRecognizerDelegate,
-     UIAlertViewDelegate,
-     WMFArticleContentController>
+     UIAlertViewDelegate>
+
+@property (nonatomic, strong, nullable) MWKArticle* article;
 
 @property (nonatomic, weak) id<WMFWebViewControllerDelegate> delegate;
 
 @property (nonatomic, strong, readonly) UIWebView* webView;
-@property (nonatomic) BOOL referencesHidden;
-@property (nonatomic) BOOL scrollingToTop;
 
 /**
  * Currently-selected text in the webview, if there is any.
@@ -28,25 +26,13 @@
  */
 @property (nonatomic, strong, readonly) NSString* selectedText;
 
-@property (weak, nonatomic) BottomMenuViewController* bottomMenuViewController;
-
-- (void)referencesShow:(NSDictionary*)payload;
-- (void)referencesHide;
-
-- (void)saveWebViewScrollOffset;
-
-//TODO: combine these into one method that accepts an animated parameter
-- (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
-                                      duration:(CGFloat)duration
-                                   thenHideTOC:(BOOL)hideTOC;
-
-
 - (void)scrollToFragment:(NSString*)fragment;
-- (void)scrollToSection:(MWKSection*)section;
 
+- (void)scrollToSection:(MWKSection*)section;
 - (MWKSection*)currentVisibleSection;
 
-- (NSString*)selectedText;
+- (void)scrollToVerticalOffset:(CGFloat)offset;
+- (CGFloat)currentVerticalOffset;
 
 #pragma mark - Header & Footers
 
@@ -62,6 +48,7 @@
 
 @protocol WMFWebViewControllerDelegate <NSObject>
 
+- (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article;
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section;
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title;
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text;

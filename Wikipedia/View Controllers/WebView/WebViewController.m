@@ -10,6 +10,12 @@
 
 #import "NSString+WMFHTMLParsing.h"
 
+#import "MWKArticle.h"
+#import "MWKSection.h"
+#import "MWKSectionList.h"
+#import "MWKSite.h"
+#import "MWKImageList.h"
+
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "RandomArticleFetcher.h"
 #import "MWKSiteInfoFetcher.h"
@@ -46,8 +52,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
 
-@property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
-
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
 /**
@@ -67,6 +71,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @end
 
 @implementation WebViewController
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -89,17 +97,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationFade;
-}
+#pragma mark - Tool Bar
 
 - (void)setupBottomMenuButtons {
     @weakify(self)
@@ -120,16 +118,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [super viewDidLoad];
 
     [self loadHeadersAndFooters];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
-
-
-//    self.sectionHeadersViewController =
-//        [[WMFSectionHeadersViewController alloc] initWithView:self.view
-//                                                      webView:self.webView
-//                                               topLayoutGuide:self.mas_topLayoutGuide];
-//
-//    self.sectionHeadersViewController.editSectionDelegate = self;
+    
+    self.referencesHidden = YES;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
@@ -141,28 +131,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
 
-    __weak WebViewController* weakSelf = self;
-    [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-        [weakSelf updateProgress:1.0 animated:YES completion:^{
-            [weakSelf hideProgressViewAnimated:YES];
-        }];
-
-        //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
-        dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-            [weakSelf autoScrollToLastScrollOffsetIfNecessary];
-            [weakSelf jumpToFragmentIfNecessary];
-            [weakSelf.sectionHeadersViewController resetHeaders];
-        });
-    }];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-
     [self fadeAlert];
 
     // Ensure web view can appear beneath translucent nav bar when scrolled up
@@ -170,30 +138,17 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         subview.clipsToBounds = NO;
     }
 
-    // Ensure the keyboard hides if the web view is scrolled
-    // We already are delegate from PullToRefreshViewController
-    //self.webView.scrollView.delegate = self;
-
     self.webView.backgroundColor = [UIColor whiteColor];
-
-    // UIWebView has a bug which causes a black bar to appear at
-    // bottom of the web view if toc quickly dragged on and offscreen.
-    self.webView.opaque = NO;
 
     self.view.backgroundColor = CHROME_COLOR;
 
     [self observeWebScrollViewContentSize];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    self.referencesHidden = YES;
+    
+    [self displayArticle];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self doStuffOnAppear];
     [self layoutWebViewSubviews];
     [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
@@ -204,8 +159,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
-    [self saveWebViewScrollOffset];
     [super viewWillDisappear:animated];
 }
 
@@ -214,6 +167,24 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
         [self layoutWebViewSubviews];
     } completion:nil];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationFade;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self scrollToElementOnScreenBeforeRotate];
 }
 
 #pragma mark - Observations
@@ -230,9 +201,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }];
 }
 
-- (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
-    [self saveWebViewScrollOffset];
-}
 
 #pragma mark - Headers & Footers
 
@@ -357,7 +325,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-#pragma mark - Utility
+#pragma mark - Alert
+
+- (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration {
+    [super showAlert:alertText type:type duration:duration];
+}
+
+#pragma mark - Scrolling
 
 - (CGFloat)clientBoundingRectVerticalOffset {
     NSParameterAssert(self.isViewLoaded);
@@ -366,89 +340,43 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return headerIntersection.size.height;
 }
 
-- (void)jumpToFragmentIfNecessary {
-    if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
-        CGRect r = [self.webView getScreenRectForHtmlElementWithId:self.jumpToFragment];
+- (void)scrollToFragment:(NSString*)fragment {
+    if (fragment.length == 0) {
+        // No section so scroll to top. (Used when "Introduction" is selected.)
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
+    } else{
+        CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
         if (!CGRectIsNull(r)) {
             CGPoint elementOrigin =
                 CGPointMake(self.webView.scrollView.contentOffset.x,
                             self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
             [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
         }
-        self.jumpToFragment = nil;
     }
 }
 
-- (void)autoScrollToLastScrollOffsetIfNecessary {
-    // also, need to store offsets relative to the browser view frame in case we change the layout
-    if (!CGPointEqualToPoint(self.lastScrollOffset, CGPointZero) && !self.jumpToFragment) {
-        [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
-    }
+- (void)scrollToSection:(MWKSection*)section {
+    [self scrollToFragment:section.anchor];
 }
-
-- (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration {
-    [super showAlert:alertText type:type duration:duration];
-}
-
-- (void)doStuffOnAppear {
-    // Don't move this to viewDidLoad - this is because viewDidLoad may only get
-    // called very occasionally as app suspend/resume probably doesn't cause
-    // viewDidLoad to fire.
-    [self downloadAssetsFilesIfNecessary];
-
-    [self performHousekeepingIfNecessary];
-
-    //[self.view randomlyColorSubviews];
-}
-
-- (void)performHousekeepingIfNecessary {
-    NSDate* lastHousekeepingDate        = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
-    NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
-    //NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
-    if (daysSinceLastHouseKeeping > 1) {
-        //NSLog(@"Performing housekeeping...");
-        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-        [dataHouseKeeping performHouseKeeping];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-#pragma mark Sync config/ios.json if necessary
-
-- (void)downloadAssetsFilesIfNecessary {
-    // Sync config/ios.json at most once per day.
-    [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
-
-    (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
-                                                      withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                           maxAge:kWMFMaxAgeDefault];
-}
-
-#pragma mark Angle from velocity vector
-
-- (CGFloat)getAngleInDegreesForVelocity:(CGPoint)velocity {
-    // Returns angle from 0 to 360 (ccw from right)
-    return (atan2(velocity.y, -velocity.x) / M_PI * 180 + 180);
-}
-
-- (CGFloat)getAbsoluteHorizontalDegreesFromVelocity:(CGPoint)velocity {
-    // Returns deviation from horizontal axis in degrees.
-    return (atan2(fabs(velocity.y), fabs(velocity.x)) / M_PI * 180);
-}
-
-#pragma mark Table of contents
 
 - (MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
-        [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
-                                                       count:self.article.sections.count];
-
+    [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
+                                                   count:self.article.sections.count];
+    
     if (indexOfFirstOnscreenSection > self.article.sections.count || indexOfFirstOnscreenSection < 0) {
         return [self.article.sections.entries firstObject];
     }
-
+    
     return self.article.sections[indexOfFirstOnscreenSection];
+}
+
+- (void)scrollToVerticalOffset:(CGFloat)offset{
+    [self.webView.scrollView setContentOffset:CGPointMake(0, offset) animated:NO];
+}
+
+- (CGFloat)currentVerticalOffset{
+    return self.webView.scrollView.contentOffset.y;
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
@@ -502,8 +430,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         // can be controlled and action can be taken after animation completes.
         self.webView.scrollView.contentOffset = point;
     } completion:^(BOOL done) {
-        // Record the new scroll location.
-        [self saveWebViewScrollOffset];
     }];
 }
 
@@ -524,6 +450,19 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
 
         @weakify(self);
+        [_bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
+            @strongify(self);
+            [self updateProgress:1.0 animated:YES completion:^{
+                [self hideProgressViewAnimated:YES];
+            }];
+            
+            //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
+            dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+                [self.delegate webViewController:self didLoadArticle:self.article];
+                [self.sectionHeadersViewController resetHeaders];
+            });
+        }];
+
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
             @strongify(self);
             if (!self) {
@@ -542,8 +481,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"#"]) {
-                    self.jumpToFragment = [href substringFromIndex:1];
-                    [self jumpToFragmentIfNecessary];
+                    [self scrollToFragment:[href substringFromIndex:1]];
                 } else if ([href hasPrefix:@"//"]) {
                     // Expand protocol-relative link to https -- secure by default!
                     href = [@"https:" stringByAppendingString:href];
@@ -561,9 +499,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             if (!self) {
                 return;
             }
-
-            // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
-            [self performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
 
             [self referencesHide];
         }];
@@ -624,18 +559,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return _bridge;
 }
 
-- (void)saveWebViewScrollOffset {
-    // Don't record scroll position of "main" pages.
-    if (self.article.isMain) {
-        return;
-    }
-    if (!self.article) {
-        return;
-    }
 
-    [self.session.userDataStore.historyList setPageScrollPosition:self.webView.scrollView.contentOffset.y onPageInHistoryWithTitle:self.article.title];
-    [self.session.userDataStore.historyList save];
-}
 
 #pragma mark Web view html content live location retrieval
 
@@ -663,193 +587,45 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.webView.scrollView setContentOffset:p animated:YES];
 }
 
-#pragma mark Web view limit scroll up
+#pragma mark - Display article
 
-- (void)keyboardDidShow:(NSNotification*)note {
-    self.keyboardIsVisible = YES;
-}
-
-- (void)keyboardWillHide:(NSNotification*)note {
-    self.keyboardIsVisible = NO;
-}
-
-#pragma mark Scroll hiding keyboard threshold
-
-- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
-    // Hide the keyboard if it was visible when the results are scrolled, but only if
-    // the results have been scrolled in excess of some small distance threshold first.
-    // This prevents tiny scroll adjustments, which seem to occur occasionally for some
-    // reason, from causing the keyboard to hide when the user is typing on it!
-    CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
-    CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
-
-    [self.sectionHeadersViewController updateTopHeaderForScrollOffsetY:scrollView.contentOffset.y];
-
-    if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
-        [self wmf_hideKeyboard];
-        //NSLog(@"Keyboard Hidden!");
-    }
-
-    [self adjustTopAndBottomMenuVisibilityOnScroll];
-    [super scrollViewDidScroll:scrollView];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    self.scrollViewDragBeganVerticalOffset = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView*)scrollView {
-    [self saveWebViewScrollOffset];
-    self.scrollingToTop = NO;
-}
-
-#pragma mark Menus auto show-hide on scroll / reveal on tap
-
-- (void)adjustTopAndBottomMenuVisibilityOnScroll {
-    // This method causes the menus to hide when user scrolls down and show when they scroll up.
-    if (self.webView.scrollView.isDragging) {
-        CGFloat distanceScrolled  = self.scrollViewDragBeganVerticalOffset - self.webView.scrollView.contentOffset.y;
-        CGFloat minPixelsScrolled = 20;
-
-        // Reveal menus if scroll velocity is a bit fast. Point is to avoid showing the menu
-        // if the user is *slowly* scrolling. This is how Safari seems to handle things.
-        CGPoint scrollVelocity = [self.webView.scrollView.panGestureRecognizer velocityInView:self.view];
-        if (distanceScrolled > 0) {
-            // When pulling down let things scroll a bit faster before menus reveal is triggered.
-            if (scrollVelocity.y < 350.0f) {
-                return;
-            }
-        } else {
-            // When pushing up set a lower scroll velocity threshold to hide menus.
-            if (scrollVelocity.y > -250.0f) {
-                return;
-            }
-        }
-
-        if (fabs(distanceScrolled) < minPixelsScrolled) {
-            return;
-        }
-        [self animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
-
-        [self referencesHide];
-    }
-}
-
-- (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
-    // Don't toggle if hidden state isn't different or if it's already toggling.
-    if ((self.navigationController.isNavigationBarHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
-        return;
-    }
-
-    self.isAnimatingTopAndBottomMenuHidden = YES;
-
-    // Queue it up so web view doesn't get blanked out.
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [UIView animateWithDuration:0.12f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            // Not using the animated variant intentionally!
-            [self.navigationController setNavigationBarHidden:hidden];
-        } completion:^(BOOL done){
-            self.isAnimatingTopAndBottomMenuHidden = NO;
-        }];
-    }];
-}
-
-- (void)animateTopAndBottomMenuReveal {
-    [self animateTopAndBottomMenuHidden:NO];
-}
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView*)scrollView {
-    self.scrollingToTop = YES;
-    [self referencesHide];
-
-    // Called when the title bar is tapped.
-    [self animateTopAndBottomMenuReveal];
-    return YES;
-}
-
-#pragma mark - Scroll To
-
-- (void)scrollToSection:(MWKSection*)section {
-    [self scrollToFragment:section.anchor];
-}
-
-- (void)scrollToFragment:(NSString*)fragment {
-    if (fragment.length == 0) {
-        // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
-    } else {
-        self.jumpToFragment = fragment;
-        [self jumpToFragmentIfNecessary];
-    }
-}
-
-#pragma mark Display article from data store
-
-- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (void)setArticle:(MWKArticle*)article{
     _article = article;
-
-#warning HAX: force the view to load
-    [self view];
-
+    
 #warning TODO: remove dependency on session current article
-    self.session.currentArticle        = article;
-    self.currentArticleDiscoveryMethod = discoveryMethod;
+    self.session.currentArticle = article;
+    
+    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
+    // see http://stackoverflow.com/a/2777460/48311
+    if ([self isViewLoaded] && self.view.window) {
+        [self displayArticle];
+    }
+}
 
-    if (![article isCached]) {
-        [self showProgressViewAnimated:NO];
+- (void)displayArticle{
+    if(!self.article){
         return;
     }
-
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
+    
+    NSString* html = [self.article articleHTML];
+    
+    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
-
-    NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
-
-    for (MWKSection* section in _article.sections) {
-        NSString* html = nil;
-
-        @try {
-            html = section.text;
-        }@catch (NSException* exception) {
-            NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
-        }
-
-        if (!html) {
-            html = MWLocalizedString(@"article-unable-to-load-section", nil);;
-        }
-
-        // Structural html added around section html just before display.
-        NSString* sectionHTMLWithID = [section displayHTML:html];
-        [sectionTextArray addObject:sectionHTMLWithID];
-    }
-
-    if (self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
-        self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
-        self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
-        self.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
-        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForListIndex:article.title];
-        CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
-        self.lastScrollOffset = scrollOffset;
-    }
-
-    // Join article sections text
-    NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
-    NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
-
+    
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
-    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && htmlStr);
+    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
     if (!safeToCrossBridge) {
         NSLog(@"\n\nUnsafe to cross JS bridge!");
         NSLog(@"\tlanguageInfo.code = %@", languageInfo.code);
         NSLog(@"\tlanguageInfo.dir = %@", languageInfo.dir);
         NSLog(@"\tuidir = %@", uidir);
-        NSLog(@"\thtmlStr is nil = %d\n\n", (htmlStr == nil));
+        NSLog(@"\thtmlStr is nil = %d\n\n", (html == nil));
         //TODO: output "could not load page" alert and/or show last page?
         return;
     }
-
-    [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html"];
-
+    
+    [self.bridge loadHTML:html withAssetsFile:@"index.html"];
+    
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
                  withPayload:@{
@@ -867,19 +643,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     });
 }
 
-- (BOOL)isCurrentArticleSaved {
-    return [self.session.userDataStore.savedPageList isSaved:self.article.title];
-}
-
 #pragma mark Scroll to last section after rotate
-
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self scrollToElementOnScreenBeforeRotate];
-    } completion:nil];
-}
 
 - (void)scrollToElementOnScreenBeforeRotate {
     double finalScrollOffset =
