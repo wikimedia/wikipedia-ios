@@ -40,14 +40,20 @@
     [self sortEntriesWithDescriptors:[[self class] sortDescriptors]];
 }
 
-- (void)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+    NSParameterAssert(title);
     if (title == nil) {
-        return;
+        return nil;
     }
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
-    entry.date = [NSDate date];
-
+    
+    MWKHistoryEntry* entry = [self entryForTitle:title];
+    if(!entry){
+        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+        entry.date = [NSDate date];
+    }
+    entry.discoveryMethod = discoveryMethod;
     [self addEntry:entry];
+    return entry;
 }
 
 - (void)addEntry:(MWKHistoryEntry*)entry {
@@ -56,8 +62,6 @@
     }
     if ([self containsEntryForListIndex:entry.title]) {
         [self updateEntryWithListIndex:entry.title update:^BOOL (MWKHistoryEntry* __nullable oldEntry) {
-            // FIXME: do we want to be defensive about carelessly created history entries?
-            // IOW: where does "Unknown" come from and should it overwrite the previous discovery method?
             oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ?
                                        oldEntry.discoveryMethod : entry.discoveryMethod;
             if (oldEntry == entry && oldEntry.date == entry.date) {
