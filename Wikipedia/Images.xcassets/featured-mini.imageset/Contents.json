@@ -2,16 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "featured-mini.pdf",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "featured-mini.pdf"
     }
   ],
   "info" : {
