@@ -62,7 +62,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
  *
  *  @return The vertical offset to apply to client bounding rects received from the web view.
  */
-- (CGFloat)clientBoundingVerticalRectOffset;
+- (CGFloat)clientBoundingRectVerticalOffset;
 
 @end
 
@@ -372,7 +372,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         if (!CGRectIsNull(r)) {
             CGPoint elementOrigin =
                 CGPointMake(self.webView.scrollView.contentOffset.x,
-                            self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingVerticalRectOffset]);
+                            self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
             [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
         }
         self.jumpToFragment = nil;
@@ -873,21 +873,18 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark Scroll to last section after rotate
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self scrollToElementOnScreenBeforeRotate];
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
+        [self scrollToElementOnScreenBeforeRotate];
+    } completion:nil];
 }
 
 - (void)scrollToElementOnScreenBeforeRotate {
-    // FIXME: rotating portrait/landscape repeatedly causes the webview to scroll down instead of maintaining the same position
-    return;
-    double finalScrollOffset = [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble];
-
+    double finalScrollOffset =
+        [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble]
+        + [self clientBoundingRectVerticalOffset];
     [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
                          duration:0
                       thenHideTOC:NO];
