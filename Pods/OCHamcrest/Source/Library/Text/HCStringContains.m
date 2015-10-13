@@ -1,5 +1,5 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCStringContains.h"
 
@@ -28,6 +28,11 @@
 
 
 id <HCMatcher> HC_containsString(NSString *aString)
+{
+    return HC_containsSubstring(aString);
+}
+
+id <HCMatcher> HC_containsSubstring(NSString *aString)
 {
     return [HCStringContains stringContains:aString];
 }

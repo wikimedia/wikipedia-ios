@@ -101,7 +101,7 @@ typedef union {
     imageEqual = (memcmp(referenceImagePixels, imagePixels, referenceImageSizeBytes) == 0);
   } else {
     // Go through each pixel in turn and see if it is different
-    const NSInteger pixelCount = self.size.width * self.size.height;
+    const NSInteger pixelCount = referenceImageSize.width * referenceImageSize.height;
 
     FBComparePixel *p1 = referenceImagePixels;
     FBComparePixel *p2 = imagePixels;

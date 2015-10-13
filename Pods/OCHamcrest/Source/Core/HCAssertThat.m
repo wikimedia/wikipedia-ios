@@ -1,13 +1,13 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCAssertThat.h"
 
 #import "HCStringDescription.h"
 #import "HCMatcher.h"
 #import "HCTestFailure.h"
-#import "HCTestFailureHandler.h"
-#import "HCTestFailureHandlerChain.h"
+#import "HCTestFailureReporter.h"
+#import "HCTestFailureReporterChain.h"
 #import <libkern/OSAtomic.h>
 
 
@@ -28,7 +28,7 @@ static void reportMismatch(id testCase, id actual, id <HCMatcher> matcher,
                                                             fileName:[NSString stringWithUTF8String:fileName]
                                                           lineNumber:(NSUInteger)lineNumber
                                                               reason:describeMismatch(matcher, actual)];
-    HCTestFailureHandler *chain = HC_testFailureHandlerChain();
+    HCTestFailureReporter *chain = [HCTestFailureReporterChain reporterChain];
     [chain handleFailure:failure];
 }
 
@@ -43,9 +43,14 @@ void HC_assertThatAfterWithLocation(id testCase, NSTimeInterval maxTime,
                                     HCAssertThatAfterActualBlock actualBlock, id<HCMatcher> matcher,
                                     const char *fileName, int lineNumber)
 {
+    HC_assertWithTimeoutAndLocation(testCase, maxTime, actualBlock, matcher, fileName, lineNumber);
+}
+
+void HC_assertWithTimeoutAndLocation(id testCase, NSTimeInterval timeout, HCFutureValue actualBlock, id <HCMatcher> matcher, const char *fileName, int lineNumber)
+{
     BOOL match;
     id actual;
-    NSDate *expiryDate = [NSDate dateWithTimeIntervalSinceNow:maxTime];
+    NSDate *expiryDate = [NSDate dateWithTimeIntervalSinceNow:timeout];
     while (1)
     {
         actual = actualBlock();

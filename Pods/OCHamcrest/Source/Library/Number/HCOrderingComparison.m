@@ -1,14 +1,14 @@
 //  OCHamcrest by Jon Reid, http://qualitycoding.org/about/
-//  Copyright 2014 hamcrest.org. See LICENSE.txt
+//  Copyright 2015 hamcrest.org. See LICENSE.txt
 
 #import "HCOrderingComparison.h"
 
 
 @interface HCOrderingComparison ()
-@property (readonly, nonatomic, strong) id expected;
-@property (readonly, nonatomic, assign) NSComparisonResult minCompare;
-@property (readonly, nonatomic, assign) NSComparisonResult maxCompare;
-@property (readonly, nonatomic, copy) NSString *comparisonDescription;
+@property (nonatomic, strong, readonly) id expected;
+@property (nonatomic, assign, readonly) NSComparisonResult minCompare;
+@property (nonatomic, assign, readonly) NSComparisonResult maxCompare;
+@property (nonatomic, copy, readonly) NSString *comparisonDescription;
 @end
 
 @implementation HCOrderingComparison

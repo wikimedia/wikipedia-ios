@@ -5,11 +5,12 @@
 #import "SessionSingleton.h"
 
 // Frameworks
-#import <Masonry/Masonry.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
+@import Masonry;
+#if PIWIK_ENABLED
+@import PiwikTracker;
+#endif
 
 //Analytics
-#import <PiwikTracker/PiwikTracker.h>
 #import "MWKArticle+WMFAnalyticsLogging.h"
 
 // Models & Controllers
@@ -194,15 +195,19 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)logPreview {
+#if PIWIK_ENABLED
     if (self.mode == WMFArticleControllerModePopup && self.article.title.text) {
         [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article-Preview", [self analyticsName]]];
     }
+#endif
 }
 
 - (void)logPageView {
+#if PIWIK_ENABLED
     if (self.mode == WMFArticleControllerModeNormal && self.article.title.text) {
         [[PiwikTracker sharedInstance] sendViewsFromArray:@[@"Article", [self analyticsName]]];
     }
+#endif
 }
 
 #pragma mark - Read More Fetching
