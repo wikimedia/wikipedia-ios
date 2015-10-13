@@ -31,6 +31,7 @@
 #import "UIWebView+WMFTrackingView.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -48,6 +49,20 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
+
+/**
+ *  Calculates the amount needed to compensate to specific HTML element locations.
+ *
+ *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to 
+ *  animate the navigation.  However, we can't use the values provided by the webview as-is, since we've added a header
+ *  view on top of the browser view.  This has the effect of offsetting the bounding rects of HTML elements by the amount
+ *  of the header view which is currently on screen.  As a result, we calculate the amount of the header view that is showing,
+ *  and return it from this method in order to get the <i>actual</i> bounding rect, compensated for our header view if
+ *  necessary.
+ *
+ *  @return The vertical offset to apply to client bounding rects received from the web view.
+ */
+- (CGFloat)clientBoundingVerticalRectOffset;
 
 @end
 
@@ -346,15 +361,21 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Utility
 
+- (CGFloat)clientBoundingVerticalRectOffset {
+    NSParameterAssert(self.isViewLoaded);
+    CGRect headerIntersection =
+        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerViewController.view.frame);
+    return headerIntersection.size.height;
+}
+
 - (void)jumpToFragmentIfNecessary {
     if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
         CGRect r = [self.webView getScreenRectForHtmlElementWithId:self.jumpToFragment];
         if (!CGRectIsNull(r)) {
-            CGPoint p = CGPointMake(
-                                    self.webView.scrollView.contentOffset.x,
-                                    self.webView.scrollView.contentOffset.y + r.origin.y
-                                    );
-            [self.webView.scrollView setContentOffset:p animated:YES];
+            CGPoint elementOrigin =
+                CGPointMake(self.webView.scrollView.contentOffset.x,
+                            self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingVerticalRectOffset]);
+            [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
         }
         self.jumpToFragment = nil;
     }
