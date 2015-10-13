@@ -39,7 +39,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <WMFSectionHeaderEditDelegate, ReferencesVCDelegate>
+@interface WebViewController () <ReferencesVCDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
