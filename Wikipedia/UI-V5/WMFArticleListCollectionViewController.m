@@ -1,5 +1,4 @@
 #import "WMFArticleListCollectionViewController.h"
-#import "WMFArticleListCollectionViewController_Transitioning.h"
 
 #import "UICollectionView+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
@@ -38,7 +37,6 @@
 @end
 
 @implementation WMFArticleListCollectionViewController
-@synthesize listTransition = _listTransition;
 
 - (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -79,13 +77,6 @@
         return (id<WMFArticleListDynamicDataSource>)self.dataSource;
     }
     return nil;
-}
-
-- (WMFArticleListTransition*)listTransition {
-    if (!_listTransition) {
-        _listTransition = [[WMFArticleListTransition alloc] initWithListCollectionViewController:self];
-    }
-    return _listTransition;
 }
 
 - (void)setDataSource:(SSArrayDataSource<WMFArticleListDataSource>* __nullable)dataSource {
@@ -240,16 +231,6 @@
              discoveryMethod:[self.dataSource discoveryMethod]];
 }
 
-#pragma mark - WMFArticleListTransitioning
-
-- (UIView*)viewForTransition:(WMFArticleListTransition*)transition {
-    // FIXME: this is going away soon
-    return nil;
-}
-
-- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition {
-    // FIXME: this is going away soon
-    return CGRectZero;
 }
 
 #pragma mark - WMFSearchPresentationDelegate

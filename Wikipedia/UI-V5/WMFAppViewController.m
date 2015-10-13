@@ -38,7 +38,6 @@
 #import "WMFArticleListCollectionViewController.h"
 #import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
-#import "WMFNavigationTransitionController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
@@ -84,8 +83,6 @@ static dispatch_once_t launchToken;
 @property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
-
-@property (nonatomic, strong) WMFNavigationTransitionController* navigationTransitionController;
 
 @end
 
@@ -238,13 +235,6 @@ static dispatch_once_t launchToken;
             [[SavedArticlesFetcher alloc] initWithSavedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
-}
-
-- (WMFNavigationTransitionController*)navigationTransitionController {
-    if (!_navigationTransitionController) {
-        _navigationTransitionController = [WMFNavigationTransitionController new];
-    }
-    return _navigationTransitionController;
 }
 
 - (SessionSingleton*)session {
