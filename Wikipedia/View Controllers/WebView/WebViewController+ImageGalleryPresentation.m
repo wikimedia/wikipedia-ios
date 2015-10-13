@@ -9,6 +9,8 @@
 #import "WebViewController_Private.h"
 #import "WebViewController+ImageGalleryPresentation.h"
 #import "WMFImageGalleryViewController.h"
+#import "MWKArticle.h"
+#import "MWKImageList.h"
 
 @implementation WebViewController (ImageGalleryPresentation)
 
