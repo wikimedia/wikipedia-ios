@@ -123,14 +123,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.scrollingToTop = NO;
-
-    self.panSwipeRecognizer = nil;
-
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
-
-    self.referencesVC = nil;
 
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
@@ -147,8 +141,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         });
     }];
 
-    self.lastScrollOffset = CGPointZero;
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification object:nil];
@@ -158,8 +150,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                                                  name:UIKeyboardWillHideNotification object:nil];
 
     [self fadeAlert];
-
-    self.scrollViewDragBeganVerticalOffset = 0.0f;
 
     // Ensure web view can appear beneath translucent nav bar when scrolled up
     for (UIView* subview in self.webView.subviews) {
