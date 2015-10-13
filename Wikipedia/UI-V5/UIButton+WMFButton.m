@@ -104,6 +104,24 @@ NS_ASSUME_NONNULL_BEGIN
             [self setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
             [self setImage:[UIImage imageNamed:@"save-filled-mini"] forState:UIControlStateSelected];
             break;
+        case WMFButtonTypeCloseMini:
+            [self setImage:[UIImage imageNamed:@"close-mini"] forState:UIControlStateNormal];
+            break;
+        case WMFButtonTypeFeaturedMini:
+            [self setImage:[UIImage imageNamed:@"featured-mini"] forState:UIControlStateNormal];
+            break;
+        case WMFButtonTypeNearbyMini:
+            [self setImage:[UIImage imageNamed:@"nearby-mini"] forState:UIControlStateNormal];
+            break;
+        case WMFButtonTypeRecentMini:
+            [self setImage:[UIImage imageNamed:@"recent-mini"] forState:UIControlStateNormal];
+            break;
+        case WMFButtonTypeShareMini:
+            [self setImage:[UIImage imageNamed:@"share-mini"] forState:UIControlStateNormal];
+            break;
+        case WMFButtonTypeTrendingMini:
+            [self setImage:[UIImage imageNamed:@"trending-mini"] forState:UIControlStateNormal];
+            break;
         default:
             break;
     }
