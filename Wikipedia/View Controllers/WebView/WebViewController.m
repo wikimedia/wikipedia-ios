@@ -141,8 +141,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
         //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
         dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
-            [weakSelf jumpToFragmentIfNecessary];
             [weakSelf autoScrollToLastScrollOffsetIfNecessary];
+            [weakSelf jumpToFragmentIfNecessary];
             [weakSelf.sectionHeadersViewController resetHeaders];
         });
     }];
