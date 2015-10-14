@@ -74,6 +74,7 @@
     [list addEntry:self.testObjects[0]];
     [list removeEntry:self.testObjects[0]];
     assertThat(list.entries, isEmpty());
+    assertThat(@(list.dirty), isTrue());
 }
 
 - (void)testAddThenRemoveByListIndex {
@@ -81,6 +82,7 @@
     [list addEntry:self.testObjects[0]];
     [list removeEntryWithListIndex:[self.testObjects[0] listIndex]];
     assertThat(list.entries, isEmpty());
+    assertThat(@(list.dirty), isTrue());
 }
 
 - (void)testKVO {
