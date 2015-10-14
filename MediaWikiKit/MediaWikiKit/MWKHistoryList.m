@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
     static NSArray<NSSortDescriptor*>* sortDescriptors;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:WMF_SAFE_KEYPATH([MWKHistoryEntry new], date)
+        sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date.timeIntervalSinceReferenceDate"
                                                           ascending:NO]];
     });
     return sortDescriptors;

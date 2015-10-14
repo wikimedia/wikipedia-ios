@@ -13,11 +13,11 @@
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
-@interface MWKHistoryListTests : MWKTestCase
+@interface MWKHistoryListUniquenessTests : MWKTestCase
 
 @end
 
-@implementation MWKHistoryListTests {
+@implementation MWKHistoryListUniquenessTests {
     MWKSite* siteEn;
     MWKSite* siteFr;
     MWKTitle* titleSFEn;

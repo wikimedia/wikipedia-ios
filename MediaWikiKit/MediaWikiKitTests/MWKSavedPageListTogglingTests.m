@@ -16,11 +16,11 @@
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
-@interface MWKSavedPageListTests : XCTestCase
+@interface MWKSavedPageListTogglingTests : XCTestCase
 @property (nonatomic, strong) MWKSavedPageList* list;
 @end
 
-@implementation MWKSavedPageListTests
+@implementation MWKSavedPageListTogglingTests
 
 - (void)setUp {
     self.list = [[MWKSavedPageList alloc] init];

@@ -9,9 +9,8 @@
 #import "MWKListTestBase.h"
 
 /**
- *  Verifies whether an @c MWKList (or subclass) behaves properly when entries are appended to the end,
- *  as well as they are removed.
+ *  Verifies whether an @c MWKList (or subclass) behaves properly when entries are inserted at arbitrary indices.
  */
-@interface MWKListAppendingTests : MWKListTestBase
+@interface MWKListInsertionTests : MWKListTestBase
 
 @end
