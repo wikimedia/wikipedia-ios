@@ -7,19 +7,12 @@
 //
 
 #import "MWKSavedPageList+ImageMigration.h"
-#import "MWKList+Subclass.h"
-#import "MWKSavedPageEntry+ImageMigration.h"
+#import "MWKSavedPageList+ImageMigrationTesting.h"
 
 @implementation MWKSavedPageList (ImageMigration)
 
 - (void)markImageDataAsMigratedForEntryWithTitle:(MWKTitle*)title {
-    return [self updateEntryWithListIndex:title update:^BOOL (MWKSavedPageEntry* entry) {
-        if (entry.didMigrateImageData) {
-            return NO;
-        }
-        entry.didMigrateImageData = YES;
-        return YES;
-    }];
+    [self markImageDataAsMigrated:YES forEntryWithTitle:title];
 }
 
 @end

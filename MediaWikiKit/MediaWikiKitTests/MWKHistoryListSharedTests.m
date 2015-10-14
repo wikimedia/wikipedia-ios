@@ -17,12 +17,9 @@
 #pragma mark - MWKListTestBase
 
 + (id)uniqueListEntry {
-    MWKTitle* randomTitle =
-    [[MWKTitle alloc] initWithURL:
-    [NSURL URLWithString:
-     [NSString stringWithFormat:@"https://en.wikipedia.org/wiki/%@", [[NSUUID UUID] UUIDString]]]];
     MWKHistoryDiscoveryMethod randomDiscoveryMethod = arc4random() % 7;
-    return [[MWKHistoryEntry alloc] initWithTitle:randomTitle discoveryMethod:randomDiscoveryMethod];
+    return [[MWKHistoryEntry alloc] initWithTitle:[MWKTitle random]
+                                  discoveryMethod:randomDiscoveryMethod];
 }
 
 + (Class)listClass {

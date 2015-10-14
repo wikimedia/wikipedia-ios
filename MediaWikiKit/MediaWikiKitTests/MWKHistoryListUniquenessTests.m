@@ -9,6 +9,7 @@
 #import "MWKTestCase.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "XCTestCase+PromiseKit.h"
+#import "MWKList+Subclass.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>

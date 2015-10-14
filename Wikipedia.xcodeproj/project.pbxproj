@@ -345,6 +345,10 @@
 		BC5BC4991BCEA7D800062619 /* MWKListSharedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4961BCEA6E800062619 /* MWKListSharedTests.m */; settings = {ASSET_TAGS = (); }; };
 		BC5BC49D1BCEACDD00062619 /* MWKHistoryListSharedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC49C1BCEACDD00062619 /* MWKHistoryListSharedTests.m */; settings = {ASSET_TAGS = (); }; };
 		BC5BC4A61BCEF52200062619 /* MWKSavedPageList+ImageMigration.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4A51BCEF52200062619 /* MWKSavedPageList+ImageMigration.m */; settings = {ASSET_TAGS = (); }; };
+		BC5BC4AB1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4AA1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m */; settings = {ASSET_TAGS = (); }; };
+		BC5BC4B01BCEF9BD00062619 /* MWKTitle+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4AE1BCEF9B800062619 /* MWKTitle+Random.m */; settings = {ASSET_TAGS = (); }; };
+		BC5BC4B31BCEFA6400062619 /* MWKSite+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4B21BCEFA6400062619 /* MWKSite+Random.m */; settings = {ASSET_TAGS = (); }; };
+		BC5BC4B81BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4B71BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m */; settings = {ASSET_TAGS = (); }; };
 		BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */; };
 		BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1811B738DFB005BE5BA /* MWKCitation.m */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
@@ -1125,6 +1129,13 @@
 		BC5BC4A41BCEF52200062619 /* MWKSavedPageList+ImageMigration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSavedPageList+ImageMigration.h"; sourceTree = "<group>"; };
 		BC5BC4A51BCEF52200062619 /* MWKSavedPageList+ImageMigration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSavedPageList+ImageMigration.m"; sourceTree = "<group>"; };
 		BC5BC4A71BCEF62800062619 /* MWKSavedPageEntry+ImageMigration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSavedPageEntry+ImageMigration.h"; sourceTree = "<group>"; };
+		BC5BC4AA1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKRecentSearchesSharedTests.m; sourceTree = "<group>"; };
+		BC5BC4AD1BCEF9B800062619 /* MWKTitle+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKTitle+Random.h"; sourceTree = "<group>"; };
+		BC5BC4AE1BCEF9B800062619 /* MWKTitle+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKTitle+Random.m"; sourceTree = "<group>"; };
+		BC5BC4B11BCEFA6400062619 /* MWKSite+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSite+Random.h"; sourceTree = "<group>"; };
+		BC5BC4B21BCEFA6400062619 /* MWKSite+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSite+Random.m"; sourceTree = "<group>"; };
+		BC5BC4B61BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSavedPageList+ImageMigrationTesting.h"; sourceTree = "<group>"; };
+		BC5BC4B71BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSavedPageList+ImageMigrationTesting.m"; sourceTree = "<group>"; };
 		BC5EA3AB1BB1BAE100AA196A /* SavedArticlesFetcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcherTests.h; sourceTree = "<group>"; };
 		BC5FA1751B72859B005BE5BA /* NSURL+WMFLinkParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+WMFLinkParsing.h"; sourceTree = "<group>"; };
 		BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsing.m"; sourceTree = "<group>"; };
@@ -2769,6 +2780,7 @@
 				BC5BC4921BCEA6B400062619 /* MWKListTestBase.m */,
 				BC5BC4951BCEA6E800062619 /* MWKListSharedTests.h */,
 				BC5BC4961BCEA6E800062619 /* MWKListSharedTests.m */,
+				BC5BC4AC1BCEF95100062619 /* Recent Searches */,
 				BC5BC49A1BCEAC4A00062619 /* History List */,
 				BC5BC49B1BCEAC5200062619 /* Saved Page List */,
 			);
@@ -2793,6 +2805,25 @@
 				BC725ECB1B6182C800E0A64C /* MWKSavedPageListTogglingTests.m */,
 			);
 			name = "Saved Page List";
+			sourceTree = "<group>";
+		};
+		BC5BC4AC1BCEF95100062619 /* Recent Searches */ = {
+			isa = PBXGroup;
+			children = (
+				BC5BC4AA1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m */,
+			);
+			name = "Recent Searches";
+			sourceTree = "<group>";
+		};
+		BC5BC4B41BCEFADF00062619 /* Random */ = {
+			isa = PBXGroup;
+			children = (
+				BC5BC4AD1BCEF9B800062619 /* MWKTitle+Random.h */,
+				BC5BC4AE1BCEF9B800062619 /* MWKTitle+Random.m */,
+				BC5BC4B11BCEFA6400062619 /* MWKSite+Random.h */,
+				BC5BC4B21BCEFA6400062619 /* MWKSite+Random.m */,
+			);
+			name = Random;
 			sourceTree = "<group>";
 		};
 		BC628C791B389E2B00B3F85C /* Images */ = {
@@ -2934,6 +2965,7 @@
 				043C69251B856C2A00941051 /* XCTestCase+WMFVisualTestConvenience.m */,
 				04D2F0CE1B8832FB00E42A76 /* FBSnapshotTestCase+WMFConvenience.h */,
 				04D2F0CF1B8832FB00E42A76 /* FBSnapshotTestCase+WMFConvenience.m */,
+				BC5BC4B41BCEFADF00062619 /* Random */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -2943,6 +2975,8 @@
 			children = (
 				BC5BC4A41BCEF52200062619 /* MWKSavedPageList+ImageMigration.h */,
 				BC5BC4A51BCEF52200062619 /* MWKSavedPageList+ImageMigration.m */,
+				BC5BC4B61BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.h */,
+				BC5BC4B71BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m */,
 				BCA9AEA91B82942000B49320 /* UIImageView+WMFImageFetching.h */,
 				BCA9AEAA1B82942000B49320 /* UIImageView+WMFImageFetching.m */,
 				BC7B769A1B83D8F300774FBC /* UIImageView+WMFImageFetchingInternal.h */,
@@ -3828,6 +3862,7 @@
 				BCB608221BC814170088086A /* UIImageView+WMFImageFetchingVisualTests.m in Sources */,
 				BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */,
 				BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */,
+				BC5BC4B81BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */,
 				BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */,
 				043B6E8F1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */,
@@ -3840,6 +3875,7 @@
 				BC725ECC1B6182C800E0A64C /* MWKSavedPageListTogglingTests.m in Sources */,
 				BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */,
 				BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */,
+				BC5BC4AB1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m in Sources */,
 				BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */,
 				04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */,
 				BC5BC4991BCEA7D800062619 /* MWKListSharedTests.m in Sources */,
@@ -3899,6 +3935,7 @@
 				043C69261B856C2A00941051 /* XCTestCase+WMFVisualTestConvenience.m in Sources */,
 				BC550B151B98936F0082F298 /* UIView+VisualTestSizingUtils.m in Sources */,
 				BCD41E001B11D1B200231BB1 /* XCTestCase+MWKFixtures.m in Sources */,
+				BC5BC4B31BCEFA6400062619 /* MWKSite+Random.m in Sources */,
 				BCCE8EBA1B4D5DD90009FBBC /* XCTestCase+PromiseKit.swift in Sources */,
 				BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */,
 				04A807341B7738C6007F4EDD /* NSArray+PredicateTests.m in Sources */,
@@ -3906,6 +3943,7 @@
 				BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */,
 				04A1C4FC1B94F10600B47788 /* WMFSaveButtonControllerTests.m in Sources */,
 				BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */,
+				BC5BC4B01BCEF9BD00062619 /* MWKTitle+Random.m in Sources */,
 				BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */,
 				BC5BC49D1BCEACDD00062619 /* MWKHistoryListSharedTests.m in Sources */,
 			);
