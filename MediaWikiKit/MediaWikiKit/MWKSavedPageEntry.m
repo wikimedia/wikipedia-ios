@@ -6,7 +6,9 @@
 //  Copyright (c) 2014 Wikimedia Foundation. All rights reserved.
 //
 
-#import "MediaWikiKit.h"
+#import "MWKSavedPageEntry+ImageMigration.h"
+#import "MWKSite.h"
+#import "MWKTitle.h"
 #import "NSObjectUtilities.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
 

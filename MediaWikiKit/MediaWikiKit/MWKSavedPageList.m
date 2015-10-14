@@ -1,5 +1,6 @@
 
 #import "MediaWikiKit.h"
+#import "MWKList+Subclass.h"
 
 @interface MWKSavedPageList ()
 
