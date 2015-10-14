@@ -1,5 +1,5 @@
 
-#import "MWKList.h"
+#import "MWKList+Subclass.h"
 #import "Wikipedia-Swift.h"
 
 
