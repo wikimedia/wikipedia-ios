@@ -165,9 +165,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFi-pu-2yl">
-                                            <rect key="frame" x="369" y="10" width="25" height="25"/>
+                                            <rect key="frame" x="382" y="10" width="12" height="22"/>
                                             <animations/>
-                                            <state key="normal" image="arrow-gray-right">
+                                            <state key="normal" image="chevron-right">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
@@ -361,7 +361,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow-gray-right" width="25" height="25"/>
+        <image name="chevron-right" width="12" height="21"/>
         <image name="lead-default" width="640" height="512"/>
         <image name="logo-placeholder-search" width="55" height="55"/>
     </resources>
