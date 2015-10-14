@@ -20,6 +20,7 @@
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
 #import "WMFCollectionViewPageLayout.h"
+#import "UICollectionViewCell+WMFExtensions.h"
 
 // Model
 #import "MWKArticle.h"
@@ -118,7 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
         [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
                                                   forIndexPath:indexPath];
     if (self.images.count == 0) {
-        cell.imageView.image       = [UIImage imageNamed:@"image-placeholder"];
+        cell.imageView.tintColor = [UIColor wmf_lightGrayColor];
+        cell.imageView.image       = [UICollectionViewCell wmf_placeholderImage];
         cell.imageView.contentMode = UIViewContentModeCenter;
         return cell;
     }

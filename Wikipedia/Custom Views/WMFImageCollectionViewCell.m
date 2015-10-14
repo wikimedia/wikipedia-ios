@@ -12,6 +12,7 @@
 #import <Masonry/Masonry.h>
 #import "UIColor+WMFHexColor.h"
 #import "UIColor+WMFStyle.h"
+#import "UICollectionViewCell+WMFExtensions.h"
 
 @implementation WMFImageCollectionViewCell
 
@@ -41,12 +42,8 @@
 - (void)configureImageViewWithPlaceholder {
     self.imageView.contentMode = UIViewContentModeCenter;
     self.imageView.backgroundColor = [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
-    self.imageView.image = [self placeholderImage];
+    self.imageView.image = [UICollectionViewCell wmf_placeholderImage];
     self.imageView.tintColor = [UIColor wmf_lightGrayColor];
-}
-
--(UIImage*)placeholderImage {
-    return [[UIImage imageNamed:@"image-placeholder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 @end
