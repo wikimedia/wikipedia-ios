@@ -26,12 +26,9 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wnonnull"
 
-- (void)testPrunesEntriesWithEmptyOrAbsentTitles {
+- (void)testPrunesEntriesWithEmptyTitles {
     MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:nil];
     [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"Foo"] discoveryMethod:MWKHistoryDiscoveryMethodLink];
-    assertThat(@([list countOfEntries]), is(@1));
-
-    [list addPageToHistoryWithTitle:nil discoveryMethod:MWKHistoryDiscoveryMethodLink];
     assertThat(@([list countOfEntries]), is(@1));
 
     [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@""] discoveryMethod:MWKHistoryDiscoveryMethodLink];
