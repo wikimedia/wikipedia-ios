@@ -24,6 +24,7 @@
         [self.imageView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.edges.equalTo(self.contentView);
         }];
+        self.imageView.clipsToBounds = YES;
     }
     return self;
 }
