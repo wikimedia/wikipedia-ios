@@ -19,7 +19,7 @@
                         <constraint firstAttribute="height" constant="22" id="pyl-SG-TAa"/>
                     </constraints>
                 </imageView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-RH-fPG">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-RH-fPG">
                     <rect key="frame" x="41" y="12" width="271" height="33"/>
                     <animations/>
                     <constraints>
