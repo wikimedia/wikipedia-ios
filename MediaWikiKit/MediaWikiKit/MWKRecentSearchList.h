@@ -19,17 +19,6 @@
  */
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
-- (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index;
-
-/**
- *  Add an entry to the search history
- *
- *  @param entry The entry to add
- *
- *  @return The task. The result is the MWKSavedPageEntry.
- */
-- (void)addEntry:(MWKRecentSearchEntry*)entry;
-
 - (NSArray*)dataExport;
 
 @end
