@@ -3,14 +3,28 @@
 
 #import <UIKit/UIKit.h>
 
-@class WebViewController;
+@class WebViewController, ReferencesVC, MWKTitle;
+
+@protocol ReferencesVCDelegate <NSObject>
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID;
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID;
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment;
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title;
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url;
+
+- (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController;
+
+@end
+
 @interface ReferencesVC : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
 @property (strong, nonatomic) UIPageViewController* pageController;
 
 @property (strong, nonatomic) NSDictionary* payload;
 
-@property (weak, nonatomic) WebViewController* webVC;
+@property (weak, nonatomic) id<ReferencesVCDelegate> delegate;
 
 @property (assign) CGFloat panelHeight;
 

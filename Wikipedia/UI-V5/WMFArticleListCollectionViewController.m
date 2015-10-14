@@ -1,5 +1,4 @@
 #import "WMFArticleListCollectionViewController.h"
-#import "WMFArticleListCollectionViewController_Transitioning.h"
 
 #import "UICollectionView+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
@@ -38,7 +37,6 @@
 @end
 
 @implementation WMFArticleListCollectionViewController
-@synthesize listTransition = _listTransition;
 
 - (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -79,13 +77,6 @@
         return (id<WMFArticleListDynamicDataSource>)self.dataSource;
     }
     return nil;
-}
-
-- (WMFArticleListTransition*)listTransition {
-    if (!_listTransition) {
-        _listTransition = [[WMFArticleListTransition alloc] initWithListCollectionViewController:self];
-    }
-    return _listTransition;
 }
 
 - (void)setDataSource:(SSArrayDataSource<WMFArticleListDataSource>* __nullable)dataSource {
@@ -221,35 +212,16 @@
     } completion:NULL];
 }
 
-#pragma mark - Article Selection
+#pragma mark - UICollectionViewDelegate
 
-- (void)wmf_presentArticle:(MWKArticle*)article
-           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     [self wmf_hideKeyboard];
+    MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
     if (self.delegate) {
         [self.delegate didSelectArticle:article sender:self];
         return;
     }
-    [super wmf_presentArticle:article discoveryMethod:discoveryMethod];
-}
-
-#pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self wmf_presentArticle:[self.dataSource articleForIndexPath:indexPath]
-             discoveryMethod:[self.dataSource discoveryMethod]];
-}
-
-#pragma mark - WMFArticleListTransitioning
-
-- (UIView*)viewForTransition:(WMFArticleListTransition*)transition {
-    // FIXME: this is going away soon
-    return nil;
-}
-
-- (CGRect)frameOfOverlappingListItemsForTransition:(WMFArticleListTransition*)transition {
-    // FIXME: this is going away soon
-    return CGRectZero;
+    [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:[self.dataSource discoveryMethod] dataStore:self.dataStore];
 }
 
 #pragma mark - WMFSearchPresentationDelegate
@@ -260,7 +232,7 @@
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
 }
 

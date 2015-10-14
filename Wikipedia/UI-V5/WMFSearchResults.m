@@ -4,6 +4,8 @@
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
+#import "MWKHistoryEntry.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 

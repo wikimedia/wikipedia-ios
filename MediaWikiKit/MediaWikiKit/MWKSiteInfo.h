@@ -8,7 +8,7 @@
 
 #import "MWKDataObject.h"
 
-@class MWKTitle;
+@class MWKTitle, MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 

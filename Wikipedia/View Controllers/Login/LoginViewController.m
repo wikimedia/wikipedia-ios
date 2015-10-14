@@ -47,15 +47,6 @@
 
 @implementation LoginViewController
 
-- (BOOL)prefersStatusBarHidden {
-    return [self isEditorOnNavStack];
-}
-
-- (BOOL)isEditorOnNavStack {
-    id editor = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[SectionEditorViewController class]];
-    return (editor) ? YES : NO;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -112,9 +103,6 @@
 
     self.usernameUnderlineHeight.constant = 1.0f / [UIScreen mainScreen].scale;
     self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
-
-    // Hide the account creation button if the AccountCreationViewController is on modal stack.
-    self.createAccountButton.hidden = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[AccountCreationViewController class]] ? YES : NO;
 
     /*
        PreviewAndSaveViewController *previewAndSaveVC = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[PreviewAndSaveViewController class]];
@@ -198,11 +186,7 @@
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:1.0f];
 
-        if ([self isEditorOnNavStack]) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [[WMFArticlePresenter sharedInstance] performSelector:@selector(presentCurrentArticle) withObject:nil afterDelay:1.2f];
-        }
+        [self dismissViewControllerAnimated:YES completion:nil];
     } onFail:^{
         [self enableProgressiveButton:YES];
     }];

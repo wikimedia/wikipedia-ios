@@ -6,21 +6,24 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // Controller
-#import "WMFArticleViewController.h"
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFSaveButtonController.h"
-#import "WMFPreviewController.h"
 #import "WMFArticleContainerViewController_Transitioning.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFRelatedTitleListDataSource.h"
 #import "WMFArticleListCollectionViewController.h"
 #import "UITabBarController+WMFExtensions.h"
-#import "WMFShareFunnel.h"
 #import "WMFShareOptionsController.h"
 #import "WMFImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import "SectionEditorViewController.h"
+
+//Funnel
+#import "WMFShareFunnel.h"
+#import "ProtectedEditAttemptFunnel.h"
+
 
 // Model
 #import "MWKDataStore.h"
@@ -32,6 +35,8 @@
 #import "MWKArticle+WMFSharing.h"
 #import "MWKArticlePreview.h"
 #import "MWKHistoryList.h"
+#import "MWKProtectionStatus.h"
+#import "MWKSectionList.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -47,30 +52,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
 <WMFWebViewControllerDelegate,
- WMFArticleViewControllerDelegate,
  UINavigationControllerDelegate,
- WMFPreviewControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
- WMFTableOfContentsViewControllerDelegate>
+ WMFTableOfContentsViewControllerDelegate,
+ SectionEditorViewControllerDelegate>
+
+@property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
+@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 // Data
-@property (nonatomic, strong, nullable) MWKDataStore* dataStore;
-@property (nonatomic, strong, nullable) MWKSavedPageList* savedPages;
-@property (nonatomic, strong, nullable) MWKHistoryList* recentPages;
-@property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
+@property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
+@property (nonatomic, strong, readonly) MWKHistoryEntry* historyEntry;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
+@property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
 
 // Fetchers
 @property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
-@property (nonatomic, strong, readwrite) WMFArticleViewController* articleViewController;
 @property (nonatomic, strong) WebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
 @property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
+@property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Logging
 @property (strong, nonatomic, nullable) WMFShareFunnel* shareFunnel;
@@ -79,76 +86,54 @@ NS_ASSUME_NONNULL_BEGIN
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
 
-// WIP
-@property (nonatomic, weak, readonly) UIViewController<WMFArticleContentController>* currentArticleController;
-@property (nonatomic, strong, nullable) WMFPreviewController* previewController;
-
 @end
 
 @implementation WMFArticleContainerViewController
-@synthesize article = _article;
 
-- (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil bundle:(nullable NSBundle*)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype __nullable)initWithCoder:(NSCoder*)aDecoder {
-    self = [super initWithCoder:aDecoder];
+- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(title);
+    NSParameterAssert(dataStore);
+
+    self = [super init];
     if (self) {
-        [self commonInit];
+        self.articleTitle = title;
+        self.dataStore    = dataStore;
+        [self observeArticleUpdates];
+        self.hidesBottomBarWhenPushed = YES;
     }
     return self;
-}
-
-- (void)commonInit {
-    // prevents the toolbar from being rendered above where the tabbar used to be
-    self.hidesBottomBarWhenPushed = YES;
 }
 
 #pragma mark - Accessors
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.article.title];
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
 }
 
-- (UIViewController<WMFArticleContentController>*)currentArticleController {
-    return self.webViewController;
+- (void)setArticle:(nullable MWKArticle*)article {
+    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
+    // see http://stackoverflow.com/a/2777460/48311
+//    NSAssert([self isViewLoaded] && self.view.window, @"Cannot set article before viewDidLoad");
+
+    _article                       = article;
+    self.webViewController.article = _article;
+    [self.headerGallery setImagesFromArticle:_article];
 }
 
-- (void)setArticle:(MWKArticle* __nullable)article {
-    if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
-        return;
-    }
-
-    [self setAndObserveArticle:article];
-
-    self.dataStore                  = article.dataStore;
-    self.savedPages                 = self.dataStore.userDataStore.savedPageList;
-    self.recentPages                = self.dataStore.userDataStore.historyList;
-    self.saveButtonController.title = article.title;
-
-    // need to wait until article/dataStore are available before configuring the toolbar
-    [self setupToolbar];
-
-    self.shareFunnel                   = nil;
-    self.shareOptionsController        = nil;
-    self.tableOfContentsViewController = nil;
-    self.articleFetcher                = nil;
-
-    [self fetchArticle];
+- (MWKHistoryList*)recentPages {
+    return self.dataStore.userDataStore.historyList;
 }
 
-- (void)setAndObserveArticle:(MWKArticle*)article {
-    [self unobserveArticleUpdates];
+- (MWKSavedPageList*)savedPages {
+    return self.dataStore.userDataStore.savedPageList;
+}
 
-    _article = article;
-
-    [self observeArticleUpdates];
-    [self updateChildrenWithArticle];
+- (MWKHistoryEntry*)historyEntry {
+    return [self.recentPages entryForTitle:self.articleTitle];
 }
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
@@ -158,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
         _readMoreListViewController.dataStore   = self.dataStore;
         _readMoreListViewController.savedPages  = self.savedPages;
         WMFRelatedTitleListDataSource* relatedTitlesDataSource =
-            [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.article.title
+            [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle
                                                        dataStore:self.dataStore
                                                    savedPageList:self.savedPages
                                                      resultLimit:3];
@@ -197,6 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFTableOfContentsViewController*)tableOfContentsViewController {
+    NSParameterAssert(self.article);
     if (!_tableOfContentsViewController) {
         _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
     }
@@ -204,6 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFShareFunnel*)shareFunnel {
+    NSParameterAssert(self.article);
     if (!self.article) {
         return nil;
     }
@@ -214,6 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFShareOptionsController*)shareOptionsController {
+    NSParameterAssert(self.article);
     if (!self.article) {
         return nil;
     }
@@ -224,37 +212,30 @@ NS_ASSUME_NONNULL_BEGIN
     return _shareOptionsController;
 }
 
-- (void)setSavedPages:(nullable MWKSavedPageList*)savedPages {
-    _savedPages                             = savedPages;
-    self.saveButtonController.savedPageList = savedPages;
-}
-
-// TEMP: delete!
-- (WMFArticleViewController*)articleViewController {
-    return nil;
-}
-
 - (WMFSaveButtonController*)saveButtonController {
     if (!_saveButtonController) {
         _saveButtonController = [[WMFSaveButtonController alloc] init];
         UIButton* saveButton = [UIButton wmf_buttonType:WMFButtonTypeBookmark handler:nil];
         [saveButton sizeToFit];
-        _saveButtonController.button = saveButton;
+        _saveButtonController.button        = saveButton;
+        _saveButtonController.savedPageList = self.savedPages;
+        _saveButtonController.title         = self.articleTitle;
     }
     return _saveButtonController;
 }
 
-- (void)updateChildrenWithArticle {
-    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
-    // see http://stackoverflow.com/a/2777460/48311
-    if ([self isViewLoaded] && self.view.window) {
-        self.articleViewController.article = self.article;
-        self.webViewController.article     = self.article;
-        [self.headerGallery setImagesFromArticle:self.article];
-    }
+#pragma mark - Notifications and Observations
+
+- (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
+    [self saveWebViewScrollOffset];
 }
 
-#pragma mark - Article Notifications
+- (void)articleUpdatedWithNotification:(NSNotification*)note {
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    if ([self.articleTitle isEqualToTitle:article.title]) {
+        self.article = article;
+    }
+}
 
 - (void)observeArticleUpdates {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
@@ -265,13 +246,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
 }
 
-- (void)articleUpdatedWithNotification:(NSNotification*)note {
-    MWKArticle* article = note.userInfo[MWKArticleKey];
-    if ([self.article.title isEqualToTitle:article.title]) {
-        [self setAndObserveArticle:article];
-    }
-}
-
 #pragma mark - Toolbar
 
 - (void)setupToolbar {
@@ -280,14 +254,14 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    NSMutableArray<UIBarButtonItem*>* toolbarItems = @[
-        [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
-        [self shareToolbarItem], [self flexibleSpaceToolbarItem],
-        [self saveToolbarItem], [self flexibleSpaceToolbarItem],
-    ].mutableCopy;
+    NSMutableArray<UIBarButtonItem*>* toolbarItems = [@[
+                                                          [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
+                                                          [self shareToolbarItem], [self flexibleSpaceToolbarItem],
+                                                          [self saveToolbarItem]
+                                                      ] mutableCopy];
 
     if (!self.article.isMain) {
-        [toolbarItems addObject:[self tableOfContentsToolbarItem]];
+        [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], [self tableOfContentsToolbarItem]]];
     }
 
     self.toolbarItems                      = toolbarItems;
@@ -347,54 +321,65 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+
+    [self setupWebView];
+
+    self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
+
+    [self fetchArticle];
+    [self setupToolbar];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self saveWebViewScrollOffset];
+    [super viewWillDisappear:animated];
+    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+}
+
+#pragma mark - Web View Setup
+
+- (void)setupWebView {
     [self addChildViewController:self.webViewController];
     [self.view addSubview:self.webViewController.view];
     [self.webViewController.view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
     [self.webViewController didMoveToParentViewController:self];
+}
 
-    if (self.article) {
-        [self updateChildrenWithArticle];
+#pragma mark - Save Offset
+
+- (void)saveWebViewScrollOffset {
+    // Don't record scroll position of "main" pages.
+    if (self.article.isMain) {
+        return;
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.article.title];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
-}
-
-#pragma mark - Article Navigation
-
-- (void)showArticleViewController:(WMFArticleContainerViewController*)articleVC {
-    [self.recentPages addPageToHistoryWithTitle:articleVC.article.title
-                                discoveryMethod:MWKHistoryDiscoveryMethodLink];
-    [self.recentPages save];
-    [self.navigationController pushViewController:articleVC animated:YES];
+    CGFloat offset = [self.webViewController currentVerticalOffset];
+    if (offset > 0) {
+        [self.recentPages setPageScrollPosition:offset onPageInHistoryWithTitle:self.articleTitle];
+        [self.recentPages save];
+    }
 }
 
 #pragma mark - Article Fetching
 
 - (void)fetchArticle {
-    [self fetchArticleForTitle:self.article.title];
-}
-
-- (void)fetchArticleForTitle:(MWKTitle*)title {
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL]
+    [self unobserveArticleUpdates];
+    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:NULL]
                                  .then(^(MWKArticle* article) {
         @strongify(self);
-        [self setAndObserveArticle:article];
+        [self saveWebViewScrollOffset];
+        self.article = article;
     }).catch(^(NSError* error){
         @strongify(self);
-        if ([error wmf_isWMFErrorOfType:WMFErrorTypeRedirected]) {
-            [self fetchArticleForTitle:[[error userInfo] wmf_redirectTitle]];
-        } else if (!self.presentingViewController) {
+        if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
@@ -403,6 +388,22 @@ NS_ASSUME_NONNULL_BEGIN
         self.articleFetcherPromise = nil;
         [self observeArticleUpdates];
     });
+}
+
+#pragma mark - Scroll Position and Fragments
+
+- (void)scrollWebViewToRequestedPosition {
+    if (self.articleTitle.fragment) {
+        [self.webViewController scrollToFragment:self.articleTitle.fragment];
+    } else if ([self.historyEntry discoveryMethodRequiresScrollPositionRestore] && self.historyEntry.scrollPosition > 0) {
+        [self.webViewController scrollToVerticalOffset:self.historyEntry.scrollPosition];
+    }
+    [self markFragmentAsProcessed];
+}
+
+- (void)markFragmentAsProcessed {
+    //Create a title without the fragment so it wont be followed anymore
+    self.articleTitle = [[MWKTitle alloc] initWithSite:self.articleTitle.site normalizedTitle:self.articleTitle.text fragment:nil];
 }
 
 #pragma mark - Share
@@ -421,71 +422,18 @@ NS_ASSUME_NONNULL_BEGIN
     [self.webViewController scrollToFragment:fragment];
 }
 
-#pragma mark - WMFArticleViewControllerDelegate
-
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-      didTapCitationLink:(NSString* __nonnull)citationFragment {
-    if (self.article.isCached) {
-        [self showCitationWithFragment:citationFragment];
-    } else {
-        // TODO: fetch all sections before attempting to parse citations natively
-//        if (!self.articleFetcherPromise) {
-//            [self fetchArticle];
-//        }
-//        @weakify(self);
-//        self.articleFetcherPromise.then(^(MWKArticle* _) {
-//            @strongify(self);
-//            [self showCitationWithFragment:citationFragment];
-//        });
-    }
-}
-
-- (void)articleViewController:(WMFArticleViewController* __nonnull)articleViewController
-    didTapSectionWithFragment:(NSString* __nonnull)fragment {
-    [self showWebViewAtFragment:fragment animated:YES];
-}
-
-- (void)showCitationWithFragment:(NSString*)fragment {
-    // TODO: parse citations natively, then show citation popup control
-//    NSParameterAssert(self.article.isCached);
-//    MWKCitation* tappedCitation = [self.article.citations bk_match:^BOOL (MWKCitation* citation) {
-//        return [citation.citationIdentifier isEqualToString:fragment];
-//    }];
-//    DDLogInfo(@"Tapped citation %@", tappedCitation);
-//    if (!tappedCitation) {
-//        DDLogWarn(@"Failed to parse citation for article %@", self.article);
-//    }
-
-    // TEMP: show webview until we figure out what to do w/ ReferencesVC
-    [self showWebViewAtFragment:fragment animated:YES];
-}
-
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-        didTapLinkToPage:(MWKTitle* __nonnull)title {
-    [self presentPopupForTitle:title];
-}
-
-- (void)articleNavigator:(id<WMFArticleNavigation> __nullable)sender
-      didTapExternalLink:(NSURL* __nonnull)externalURL {
-    [self wmf_openExternalUrl:externalURL];
-}
-
-#pragma mark - WMFArticleListItemController
-
-- (WMFArticleControllerMode)mode {
-    // TEMP: WebVC (and currentArticleController) will eventually conform to this
-    return self.articleViewController.mode;
-}
-
-- (void)setMode:(WMFArticleControllerMode)mode animated:(BOOL)animated {
-    // TEMP: WebVC (and currentArticleController) will eventually conform to this
-    [self.articleViewController setMode:mode animated:animated];
-}
-
 #pragma mark - WMFWebViewControllerDelegate
 
+- (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
+    [self scrollWebViewToRequestedPosition];
+}
+
+- (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
+    [self showEditorForSection:section];
+}
+
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
-    [self presentPopupForTitle:title];
+    [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
 }
 
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
@@ -494,21 +442,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareArticleWithTextSnippet:text fromButton:nil];
-}
-
-#pragma mark - Popup
-
-- (void)presentPopupForTitle:(MWKTitle*)title {
-    //TODO: Disabling pop ups until Popup VC is redesigned.
-    //Renable preview when this true
-    [self wmf_presentTitle:title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
-    return;
-
-//    WMFPreviewController* previewController = [[WMFPreviewController alloc] initWithPreviewViewController:vc containingViewController:self tabBarController:self.navigationController.tabBarController];
-//    previewController.delegate = self;
-//    [previewController presentPreviewAnimated:YES];
-//
-//    self.previewController = previewController;
 }
 
 #pragma mark - Analytics
@@ -531,25 +464,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark - WMFPreviewControllerDelegate
-
-- (void)   previewController:(WMFPreviewController*)previewController
-    didPresentViewController:(UIViewController*)viewController {
-    self.previewController = nil;
-
-    /* HACK: for some reason, the view controller is unusable when it comes back from the preview.
-     * Trying to display it causes much ballyhooing about constraints.
-     * Work around, make another view controller and push it instead.
-     */
-    WMFArticleContainerViewController* previewed = (id)viewController;
-    [self wmf_presentArticle:previewed.article discoveryMethod:MWKHistoryDiscoveryMethodLink];
-}
-
-- (void)   previewController:(WMFPreviewController*)previewController
-    didDismissViewController:(UIViewController*)viewController {
-    self.previewController = nil;
-}
-
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
@@ -557,11 +471,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(![self.presentingViewController isKindOfClass:[WMFImageGalleryViewController class]]);
     WMFImageGalleryViewController* fullscreenGallery = [[WMFImageGalleryViewController alloc] initWithArticle:nil];
     fullscreenGallery.delegate = self;
-    if (self.article.isCached) {
+    if (self.article) {
         fullscreenGallery.article     = self.article;
         fullscreenGallery.currentPage = index;
     } else {
-        // TODO: simplify the "isCached"/"fetch if needed" logic here
         if (!self.articleFetcherPromise) {
             [self fetchArticle];
         }
@@ -589,8 +502,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_presentArticle:article discoveryMethod:MWKHistoryDiscoveryMethodSearch];
+        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
+}
+
+#pragma mark - Edit Section
+
+- (void)showEditorForSection:(MWKSection*)section {
+    if (self.article.editable) {
+        SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
+        sectionEditVC.section  = section;
+        sectionEditVC.delegate = self;
+        [self.navigationController pushViewController:sectionEditVC animated:YES];
+    } else {
+        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
+        [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
+        [self showProtectedDialog];
+    }
+}
+
+- (void)showProtectedDialog {
+    UIAlertView* alert = [[UIAlertView alloc] init];
+    alert.title   = MWLocalizedString(@"page_protected_can_not_edit_title", nil);
+    alert.message = MWLocalizedString(@"page_protected_can_not_edit", nil);
+    [alert addButtonWithTitle:@"OK"];
+    alert.cancelButtonIndex = 0;
+    [alert show];
+}
+
+#pragma mark - SectionEditorViewControllerDelegate
+
+- (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
+    [self.navigationController popToViewController:self animated:YES];
+    [self fetchArticle];
 }
 
 @end

@@ -17,6 +17,7 @@
 #import "MWKLocationSearchResult.h"
 #import "MWKArticle.h"
 #import "WMFLocationSearchResults.h"
+#import "MWKHistoryEntry.h"
 
 // Views
 #import "WMFNearbySearchResultCell.h"

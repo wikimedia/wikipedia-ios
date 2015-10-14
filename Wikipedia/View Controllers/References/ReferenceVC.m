@@ -22,13 +22,6 @@
 
 @implementation ReferenceVC
 
-/*
-   -(void)dealloc
-   {
-    NSLog(@"dealloc'ing REFERENCE VC!");
-   }
- */
-
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString* domain             = [SessionSingleton sharedInstance].currentArticleSite.language;
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:domain];
@@ -45,15 +38,7 @@
 
             // Jump to fragment.
             if ([requestURL.absoluteString hasPrefix:[NSString stringWithFormat:@"%@%@", baseUrl, @"#"]]) {
-                CGRect r = [self.webVC.webView getScreenRectForHtmlElementWithId:requestURL.fragment];
-                if (!CGRectIsNull(r)) {
-                    CGPoint p = CGPointMake(
-                        self.webVC.webView.scrollView.contentOffset.x,
-                        self.webVC.webView.scrollView.contentOffset.y + r.origin.y
-                        );
-                    [self.webVC.webView.scrollView setContentOffset:p animated:YES];
-                }
-                ;
+                [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:requestURL.fragment];
                 return NO;
             }
 
@@ -63,9 +48,8 @@
                 NSString* encodedTitle = [href substringWithRange:NSMakeRange(6, href.length - 6)];
                 NSString* title        = [encodedTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 MWKTitle* pageTitle    = [[SessionSingleton sharedInstance].currentArticleSite titleWithString:title];
-                [self.webVC navigateToPage:pageTitle
-                           discoveryMethod:MWKHistoryDiscoveryMethodLink];
-                [self.webVC referencesHide];
+                [self.delegate referenceViewController:self didSelectReferenceWithTitle:pageTitle];
+
                 return NO;
             }
 
@@ -78,7 +62,7 @@
                 ||
                 [scheme isEqualToString:@"mailto"]
                 ) {
-                [self wmf_openExternalUrl:requestURL];
+                [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:requestURL];
                 return NO;
             }
         }
@@ -157,39 +141,12 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    NSString* eval = [NSString stringWithFormat:@"\
-        document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
-        document.getElementById('%@').style.backgroundColor = '#999';\
-        document.getElementById('%@').style.borderRadius = 2;\
-        ", self.linkId, self.linkId, self.linkId, self.linkId];
-
-    [self.webVC.webView stringByEvaluatingJavaScriptFromString:eval];
+    [self.delegate referenceViewController:self didShowReferenceWithLinkID:self.linkId];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    NSString* eval = [NSString stringWithFormat:@"\
-        document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
-        ", self.linkId, self.linkId];
-
-    [self.webVC.webView stringByEvaluatingJavaScriptFromString:eval];
-
+    [self.delegate referenceViewController:self didFinishShowingReferenceWithLinkID:self.linkId];
     [super viewWillDisappear:animated];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-   #pragma mark - Navigation
-
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-   {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
 
 @end

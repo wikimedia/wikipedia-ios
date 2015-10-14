@@ -2,6 +2,7 @@
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKTitle.h"
+#import "MWKSite.h"
 
 @interface WMFLocationSearchResults ()
 

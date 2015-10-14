@@ -18,20 +18,16 @@
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (void)wmf_presentTitle:(MWKTitle*)title
-         discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-               dataStore:(MWKDataStore*)dataStore {
-    MWKArticle* article = [dataStore articleWithTitle:title];
-    [self wmf_presentArticle:article discoveryMethod:discoveryMethod];
-}
+- (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
+                               discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                                     dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(title);
+    NSParameterAssert(dataStore);
+    MWKHistoryEntry* historyEntry = [dataStore.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
+    [dataStore.userDataStore.historyList save];
 
-- (void)wmf_presentArticle:(MWKArticle*)article
-           discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    NSAssert(article.dataStore, @"Can't present an article w/o a data store!");
-    WMFArticleContainerViewController* articleContainerVC = [[WMFArticleContainerViewController alloc] init];
-    articleContainerVC.article = article;
-    [article.dataStore.userDataStore.historyList addPageToHistoryWithTitle:article.title discoveryMethod:discoveryMethod];
-    [article.dataStore.userDataStore.historyList save];
+    WMFArticleContainerViewController* articleContainerVC = [[WMFArticleContainerViewController alloc] initWithArticleTitle:title dataStore:dataStore];
+
     [self.navigationController pushViewController:articleContainerVC animated:YES];
 }
 

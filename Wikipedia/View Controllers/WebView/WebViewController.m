@@ -10,6 +10,12 @@
 
 #import "NSString+WMFHTMLParsing.h"
 
+#import "MWKArticle.h"
+#import "MWKSection.h"
+#import "MWKSectionList.h"
+#import "MWKSite.h"
+#import "MWKImageList.h"
+
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "RandomArticleFetcher.h"
 #import "MWKSiteInfoFetcher.h"
@@ -20,7 +26,6 @@
 
 #import "WMFShareCardViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
-#import "WMFArticlePresenter.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "WMFArticleViewController.h"
 #import "PageHistoryViewController.h"
@@ -32,6 +37,7 @@
 #import "UIWebView+WMFTrackingView.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -39,27 +45,36 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
-@interface WebViewController () <LanguageSelectionDelegate, FetchFinishedDelegate, WMFSectionHeaderEditDelegate>
+@interface WebViewController () <ReferencesVCDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem* buttonLanguages;
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
 
-@property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
-@property (readonly, strong, nonatomic) MWKSiteInfoFetcher* siteInfoFetcher;
-@property (strong, nonatomic) WMFArticleFetcher* articleFetcher;
-@property (strong, nonatomic) NSString* wikipediaZeroLearnMoreExternalUrl;
-
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
+
+/**
+ *  Calculates the amount needed to compensate to specific HTML element locations.
+ *
+ *  Used when scrolling to fragments instead of setting @c location.hash since setting the offset manually allows us to
+ *  animate the navigation.  However, we can't use the values provided by the webview as-is, since we've added a header
+ *  view on top of the browser view.  This has the effect of offsetting the bounding rects of HTML elements by the amount
+ *  of the header view which is currently on screen.  As a result, we calculate the amount of the header view that is showing,
+ *  and return it from this method in order to get the <i>actual</i> bounding rect, compensated for our header view if
+ *  necessary.
+ *
+ *  @return The vertical offset to apply to client bounding rects received from the web view.
+ */
+- (CGFloat)clientBoundingRectVerticalOffset;
 
 @end
 
 @implementation WebViewController
-@synthesize article = _article;
 
-@synthesize siteInfoFetcher = _siteInfoFetcher;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -82,25 +97,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationFade;
-}
+#pragma mark - Tool Bar
 
 - (void)setupBottomMenuButtons {
     @weakify(self)
-    self.buttonLanguages = [UIBarButtonItem wmf_buttonType:WMFButtonTypeTranslate handler:^(id sender){
-        @strongify(self)
-        [self showLanguages];
-    }];
-
     self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
         @strongify(self)
         [self editHistoryButtonPushed];
@@ -109,7 +109,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.toolbarItems = @[
         self.buttonEditHistory,
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-        self.buttonLanguages,
     ];
 }
 
@@ -120,12 +119,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     [self loadHeadersAndFooters];
 
-//    self.sectionHeadersViewController =
-//        [[WMFSectionHeadersViewController alloc] initWithView:self.view
-//                                                      webView:self.webView
-//                                               topLayoutGuide:self.mas_topLayoutGuide];
-
-    self.sectionHeadersViewController.editSectionDelegate = self;
+    self.referencesHidden = YES;
 
     [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
     [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
@@ -134,77 +128,27 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
 
-    self.scrollingToTop = NO;
-
-    self.panSwipeRecognizer = nil;
-
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
 
-    self.referencesVC = nil;
-
-    __weak WebViewController* weakSelf = self;
-    [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
-        [weakSelf jumpToFragmentIfNecessary];
-        [weakSelf autoScrollToLastScrollOffsetIfNecessary];
-
-        [weakSelf updateProgress:1.0 animated:YES completion:^{
-            [weakSelf hideProgressViewAnimated:YES];
-        }];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.sectionHeadersViewController resetHeaders];
-        });
-    }];
-
-    self.lastScrollOffset = CGPointZero;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(zeroStateChanged:)
-                                                 name:WMFURLCacheZeroStateChanged
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification object:nil];
-
     [self fadeAlert];
-
-    self.scrollViewDragBeganVerticalOffset = 0.0f;
 
     // Ensure web view can appear beneath translucent nav bar when scrolled up
     for (UIView* subview in self.webView.subviews) {
         subview.clipsToBounds = NO;
     }
 
-    // Ensure the keyboard hides if the web view is scrolled
-    // We already are delegate from PullToRefreshViewController
-    //self.webView.scrollView.delegate = self;
-
     self.webView.backgroundColor = [UIColor whiteColor];
-
-    // UIWebView has a bug which causes a black bar to appear at
-    // bottom of the web view if toc quickly dragged on and offscreen.
-    self.webView.opaque = NO;
 
     self.view.backgroundColor = CHROME_COLOR;
 
     [self observeWebScrollViewContentSize];
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    self.referencesHidden = YES;
+    [self displayArticle];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self doStuffOnAppear];
     [self layoutWebViewSubviews];
     [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
@@ -215,7 +159,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
     [super viewWillDisappear:animated];
 }
 
@@ -226,7 +169,23 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     } completion:nil];
 }
 
-#pragma mark - KVO
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
+- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
+    return UIStatusBarAnimationFade;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
+        [self scrollToElementOnScreenBeforeRotate];
+    } completion:nil];
+}
+
+#pragma mark - Observations
 
 /**
  *  Observe changes to @c webView.scrollView.contentSize so we can recompute it and layout subviews.
@@ -363,105 +322,39 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-#pragma mark - Utility
-
-- (void)jumpToFragmentIfNecessary {
-    if (self.jumpToFragment && (self.jumpToFragment.length > 0)) {
-        NSString* jumpToThis = [self.jumpToFragment copy];
-        self.jumpToFragment = nil;
-        [[self.webView wmf_javascriptContext][@"scrollToFragment"] performSelector:@selector(callWithArguments:) withObject:@[jumpToThis] afterDelay:0.1];
-    } else {
-        // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
-    }
-}
-
-- (void)autoScrollToLastScrollOffsetIfNecessary {
-    #warning FIXME: causing jumpiness.
-    // also, need to store offsets relative to the browser view frame in case we change the layout
-    return;
-    if (!self.jumpToFragment) {
-        [self.webView.scrollView setContentOffset:self.lastScrollOffset animated:NO];
-    }
-    [self saveWebViewScrollOffset];
-}
+#pragma mark - Alert
 
 - (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration {
     [super showAlert:alertText type:type duration:duration];
 }
 
-- (void)doStuffOnAppear {
-    // Don't move this to viewDidLoad - this is because viewDidLoad may only get
-    // called very occasionally as app suspend/resume probably doesn't cause
-    // viewDidLoad to fire.
-    [self downloadAssetsFilesIfNecessary];
+#pragma mark - Scrolling
 
-    [self performHousekeepingIfNecessary];
-
-    //[self.view randomlyColorSubviews];
+- (CGFloat)clientBoundingRectVerticalOffset {
+    NSParameterAssert(self.isViewLoaded);
+    CGRect headerIntersection =
+        CGRectIntersection(self.webView.scrollView.wmf_contentFrame, self.headerViewController.view.frame);
+    return headerIntersection.size.height;
 }
 
-- (void)performHousekeepingIfNecessary {
-    NSDate* lastHousekeepingDate        = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
-    NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
-    //NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
-    if (daysSinceLastHouseKeeping > 1) {
-        //NSLog(@"Performing housekeeping...");
-        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-        [dataHouseKeeping performHouseKeeping];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-#pragma mark - WMFSectionHeaderEditDelegate methods
-
-- (BOOL)isArticleEditable {
-    return self.editable;
-}
-
-- (void)editSection:(NSNumber*)sectionId {
-    if (self.editable) {
-        [self showSectionEditorForSection:sectionId];
+- (void)scrollToFragment:(NSString*)fragment {
+    if (fragment.length == 0) {
+        // No section so scroll to top. (Used when "Introduction" is selected.)
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
     } else {
-        ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
-        [funnel logProtectionStatus:[[self.protectionStatus allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
-        [self showProtectedDialog];
+        CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
+        if (!CGRectIsNull(r)) {
+            CGPoint elementOrigin =
+                CGPointMake(self.webView.scrollView.contentOffset.x,
+                            self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
+            [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
+        }
     }
 }
 
-#pragma mark Sync config/ios.json if necessary
-
-- (void)downloadAssetsFilesIfNecessary {
-    // Sync config/ios.json at most once per day.
-    [[QueuesSingleton sharedInstance].assetsFetchManager.operationQueue cancelAllOperations];
-
-    (void)[[AssetsFileFetcher alloc] initAndFetchAssetsFileOfType:WMFAssetsFileTypeConfig
-                                                      withManager:[QueuesSingleton sharedInstance].assetsFetchManager
-                                                           maxAge:kWMFMaxAgeDefault];
+- (void)scrollToSection:(MWKSection*)section {
+    [self scrollToFragment:section.anchor];
 }
-
-#pragma mark Edit section
-
-- (void)showSectionEditorForSection:(NSNumber*)sectionID {
-    SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
-    sectionEditVC.section = self.article.sections[[sectionID integerValue]];
-    [self.navigationController pushViewController:sectionEditVC animated:YES];
-}
-
-#pragma mark Angle from velocity vector
-
-- (CGFloat)getAngleInDegreesForVelocity:(CGPoint)velocity {
-    // Returns angle from 0 to 360 (ccw from right)
-    return (atan2(velocity.y, -velocity.x) / M_PI * 180 + 180);
-}
-
-- (CGFloat)getAbsoluteHorizontalDegreesFromVelocity:(CGPoint)velocity {
-    // Returns deviation from horizontal axis in degrees.
-    return (atan2(fabs(velocity.y), fabs(velocity.x)) / M_PI * 180);
-}
-
-#pragma mark Table of contents
 
 - (MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
@@ -473,6 +366,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 
     return self.article.sections[indexOfFirstOnscreenSection];
+}
+
+- (void)scrollToVerticalOffset:(CGFloat)offset {
+    [self.webView.scrollView setContentOffset:CGPointMake(0, offset) animated:NO];
+}
+
+- (CGFloat)currentVerticalOffset {
+    return self.webView.scrollView.contentOffset.y;
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
@@ -526,8 +427,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         // can be controlled and action can be taken after animation completes.
         self.webView.scrollView.contentOffset = point;
     } completion:^(BOOL done) {
-        // Record the new scroll location.
-        [self saveWebViewScrollOffset];
     }];
 }
 
@@ -547,27 +446,39 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (!_bridge) {
         _bridge = [[CommunicationBridge alloc] initWithWebView:self.webView];
 
-        __weak WebViewController* weakSelf = self;
+        @weakify(self);
+        [_bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
+            @strongify(self);
+            [self updateProgress:1.0 animated:YES completion:^{
+                [self hideProgressViewAnimated:YES];
+            }];
+
+            //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
+            dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
+                [self.delegate webViewController:self didLoadArticle:self.article];
+                [self.sectionHeadersViewController resetHeaders];
+            });
+        }];
+
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
             NSString* href = payload[@"href"];
 
-            if (!strSelf.referencesHidden) {
-                [strSelf referencesHide];
+            if (!(self).referencesHidden) {
+                [(self) referencesHide];
             }
 
             if ([href wmf_isInternalLink]) {
-                MWKTitle* pageTitle = [strSelf.article.site titleWithInternalLink:href];
-                [weakSelf.delegate webViewController:weakSelf didTapOnLinkForTitle:pageTitle];
+                MWKTitle* pageTitle = [self.article.site titleWithInternalLink:href];
+                [(self).delegate webViewController:(self) didTapOnLinkForTitle:pageTitle];
             } else {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"#"]) {
-                    weakSelf.jumpToFragment = [href substringFromIndex:1];
-                    [weakSelf jumpToFragmentIfNecessary];
+                    [self scrollToFragment:[href substringFromIndex:1]];
                 } else if ([href hasPrefix:@"//"]) {
                     // Expand protocol-relative link to https -- secure by default!
                     href = [@"https:" stringByAppendingString:href];
@@ -575,33 +486,39 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                 NSURL* url = [NSURL URLWithString:href];
                 NSCAssert(url, @"Failed to from URL from link %@", href);
                 if (url) {
-                    [strSelf wmf_openExternalUrl:url];
+                    [self wmf_openExternalUrl:url];
                 }
             }
         }];
 
         [_bridge addListener:@"nonAnchorTouchEndedWithoutDragging" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
-            //NSLog(@"nonAnchorTouchEndedWithoutDragging = %@", payload);
-
-            // Tiny delay prevents menus from occasionally appearing when user swipes to reveal toc.
-            [strSelf performSelector:@selector(animateTopAndBottomMenuReveal) withObject:nil afterDelay:0.05];
-
-            [strSelf referencesHide];
+            [self referencesHide];
         }];
 
         [_bridge addListener:@"referenceClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
+                return;
+            }
+            //NSLog(@"referenceClicked: %@", payload);
+            [self referencesShow:payload];
+        }];
+
+        [_bridge addListener:@"editClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
-            //NSLog(@"referenceClicked: %@", payload);
-            [strSelf referencesShow:payload];
+            NSUInteger sectionIndex = (NSUInteger)[payload[@"sectionId"] integerValue];
+            if (sectionIndex < [self.article.sections count]) {
+                [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
+            }
         }];
 
         /*
@@ -623,51 +540,20 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
         [_bridge addListener:@"imageClicked" withBlock:^(NSString* type, NSDictionary* payload) {
-            WebViewController* strSelf = weakSelf;
-            if (!strSelf) {
+            @strongify(self);
+            if (!self) {
                 return;
             }
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [strSelf.article.images largestImageVariantForURL:selectedImageURL
-                                                                             cachedOnly:NO];
+            MWKImage* selectedImage = [self.article.images largestImageVariantForURL:selectedImageURL
+                                                                          cachedOnly:NO];
             NSCParameterAssert(selectedImage);
-            [strSelf presentGalleryForArticle:strSelf.article showingImage:selectedImage];
+            [self presentGalleryForArticle:self.article showingImage:selectedImage];
         }];
     }
     return _bridge;
-}
-
-#pragma mark Web view scroll offset recording
-
-- (void)scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate {
-    if (!decelerate) {
-        [self scrollViewScrollingEnded:scrollView];
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
-    [self scrollViewScrollingEnded:scrollView];
-}
-
-- (void)scrollViewScrollingEnded:(UIScrollView*)scrollView {
-    if (scrollView == self.webView.scrollView) {
-        //[self printLiveContentLocationTestingOutputToConsole];
-        //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
-        [self saveWebViewScrollOffset];
-
-        self.pullToRefreshView.alpha = 0.0f;
-    }
-}
-
-- (void)saveWebViewScrollOffset {
-    // Don't record scroll position of "main" pages.
-    if (self.article.isMain) {
-        return;
-    }
-
-    [self.session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:self.article.title];
 }
 
 #pragma mark Web view html content live location retrieval
@@ -696,420 +582,44 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self.webView.scrollView setContentOffset:p animated:YES];
 }
 
-#pragma mark Web view limit scroll up
+#pragma mark - Display article
 
-- (void)keyboardDidShow:(NSNotification*)note {
-    self.keyboardIsVisible = YES;
-}
-
-- (void)keyboardWillHide:(NSNotification*)note {
-    self.keyboardIsVisible = NO;
-}
-
-#pragma mark Scroll hiding keyboard threshold
-
-- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
-    // Hide the keyboard if it was visible when the results are scrolled, but only if
-    // the results have been scrolled in excess of some small distance threshold first.
-    // This prevents tiny scroll adjustments, which seem to occur occasionally for some
-    // reason, from causing the keyboard to hide when the user is typing on it!
-    CGFloat distanceScrolled     = self.scrollViewDragBeganVerticalOffset - scrollView.contentOffset.y;
-    CGFloat fabsDistanceScrolled = fabs(distanceScrolled);
-
-    [self.sectionHeadersViewController updateTopHeaderForScrollOffsetY:scrollView.contentOffset.y];
-
-    if (self.keyboardIsVisible && fabsDistanceScrolled > HIDE_KEYBOARD_ON_SCROLL_THRESHOLD) {
-        [self wmf_hideKeyboard];
-        //NSLog(@"Keyboard Hidden!");
-    }
-
-    [self adjustTopAndBottomMenuVisibilityOnScroll];
-    [super scrollViewDidScroll:scrollView];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    self.scrollViewDragBeganVerticalOffset = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView*)scrollView {
-    [self saveWebViewScrollOffset];
-    self.scrollingToTop = NO;
-}
-
-#pragma mark Menus auto show-hide on scroll / reveal on tap
-
-- (void)adjustTopAndBottomMenuVisibilityOnScroll {
-    // This method causes the menus to hide when user scrolls down and show when they scroll up.
-    if (self.webView.scrollView.isDragging) {
-        CGFloat distanceScrolled  = self.scrollViewDragBeganVerticalOffset - self.webView.scrollView.contentOffset.y;
-        CGFloat minPixelsScrolled = 20;
-
-        // Reveal menus if scroll velocity is a bit fast. Point is to avoid showing the menu
-        // if the user is *slowly* scrolling. This is how Safari seems to handle things.
-        CGPoint scrollVelocity = [self.webView.scrollView.panGestureRecognizer velocityInView:self.view];
-        if (distanceScrolled > 0) {
-            // When pulling down let things scroll a bit faster before menus reveal is triggered.
-            if (scrollVelocity.y < 350.0f) {
-                return;
-            }
-        } else {
-            // When pushing up set a lower scroll velocity threshold to hide menus.
-            if (scrollVelocity.y > -250.0f) {
-                return;
-            }
-        }
-
-        if (fabs(distanceScrolled) < minPixelsScrolled) {
-            return;
-        }
-        [self animateTopAndBottomMenuHidden:((distanceScrolled > 0) ? NO : YES)];
-
-        [self referencesHide];
-    }
-}
-
-- (void)animateTopAndBottomMenuHidden:(BOOL)hidden {
-    // Don't toggle if hidden state isn't different or if it's already toggling.
-    if ((self.navigationController.isNavigationBarHidden == hidden) || self.isAnimatingTopAndBottomMenuHidden) {
-        return;
-    }
-
-    self.isAnimatingTopAndBottomMenuHidden = YES;
-
-    // Queue it up so web view doesn't get blanked out.
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        [UIView animateWithDuration:0.12f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            // Not using the animated variant intentionally!
-            [self.navigationController setNavigationBarHidden:hidden];
-        } completion:^(BOOL done){
-            self.isAnimatingTopAndBottomMenuHidden = NO;
-        }];
-    }];
-}
-
-- (void)animateTopAndBottomMenuReveal {
-    [self animateTopAndBottomMenuHidden:NO];
-}
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView*)scrollView {
-    self.scrollingToTop = YES;
-    [self referencesHide];
-
-    // Called when the title bar is tapped.
-    [self animateTopAndBottomMenuReveal];
-    return YES;
-}
-
-#pragma mark Memory
-
-- (void)updateHistoryDateVisitedForArticleBeingNavigatedFrom {
-    // This is a quick hack to help with the natural back/forward behavior of the case
-    // where you go back and forth from some master article to others.
-    //
-    // Proper fix might be to store more of a 'tree' structure so that we know which
-    // 'leaf' to hang off of, but this works for now.
-    MWKHistoryList* historyList = self.session.userDataStore.historyList;
-    //NSLog(@"XXX %d", (int)historyList.length);
-    if ([historyList countOfEntries] > 0) {
-        [self.session.userDataStore.historyList addPageToHistoryWithTitle:self.article.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
-    }
-}
-
-#pragma mark - Article loading
-
-- (WMFArticleFetcher*)articleFetcher {
-    if (!_articleFetcher) {
-        _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.session.dataStore];
-    }
-
-    return _articleFetcher;
-}
-
-- (void)reloadCurrentArticleFromNetwork {
-    [self reloadCurrentArticleOrMainPageWithMethod:MWKHistoryDiscoveryMethodReloadFromNetwork];
-}
-
-- (void)reloadCurrentArticleFromCache {
-    [self reloadCurrentArticleOrMainPageWithMethod:MWKHistoryDiscoveryMethodReloadFromCache];
-}
-
-- (void)reloadCurrentArticleOrMainPageWithMethod:(MWKHistoryDiscoveryMethod)method {
-    MWKTitle* page = self.article.title;
-    if (page) {
-        [self navigateToPage:page discoveryMethod:method];
-    } else {
-        [self loadTodaysArticle];
-    }
-}
-
-- (void)navigateToPage:(MWKTitle*)title
-       discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    NSString* cleanTitle = title.text;
-    NSParameterAssert(cleanTitle.length);
-
-    if ([title.text length] == 0) {
-        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
-        return;
-    }
-
-    //Force view to load if not already on screen
-    //We need to get HTML load process going even before we are in the view hierarchy
-    if (!self.isViewLoaded) {
-        [self view];
-    }
-
-    [self wmf_hideKeyboard];
-
-    [self cancelSearchLoading];
-
-    if (discoveryMethod != MWKHistoryDiscoveryMethodBackForward && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromNetwork && discoveryMethod != MWKHistoryDiscoveryMethodReloadFromCache) {
-        [self updateHistoryDateVisitedForArticleBeingNavigatedFrom];
-    }
-
-    MWKArticle* article = [self.session.dataStore articleWithTitle:title];
-
-    self.jumpToFragment                        = title.fragment;
-    self.currentTitle                          = title;
-    self.session.currentArticle                = article;
-    self.session.currentArticleDiscoveryMethod = discoveryMethod;
-
-    BOOL needsRefresh = NO;
-    switch (self.session.currentArticleDiscoveryMethod) {
-        case MWKHistoryDiscoveryMethodSearch:
-        case MWKHistoryDiscoveryMethodRandom:
-        case MWKHistoryDiscoveryMethodLink:
-        case MWKHistoryDiscoveryMethodReloadFromNetwork:
-        case MWKHistoryDiscoveryMethodUnknown: {
-            needsRefresh = YES;
-            break;
-        }
-
-        case MWKHistoryDiscoveryMethodSaved:
-        case MWKHistoryDiscoveryMethodBackForward:
-        case MWKHistoryDiscoveryMethodReloadFromCache: {
-            needsRefresh = NO;
-            break;
-        }
-    }
-
-    if ([article isCached] && !needsRefresh) {
-        [self displayArticle:self.article.title];
-        [self fadeAlert];
-        return;
-    }
-
-    [self loadArticleWithTitleFromNetwork:title];
-}
-
-- (void)scrollToSection:(MWKSection*)section {
-    [self scrollToFragment:section.anchor];
-}
-
-- (void)scrollToFragment:(NSString*)fragment {
-    self.jumpToFragment = fragment;
-    [self jumpToFragmentIfNecessary];
-}
-
-- (void)cancelArticleLoading {
-//    [self.articleFetcher cancelCurrentFetch];
-}
-
-- (void)cancelSearchLoading {
-    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
-}
-
-- (void)loadArticleWithTitleFromNetwork:(MWKTitle*)title {
-    NSParameterAssert(title);
-    if ([title.text length] == 0) {
-        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
-        return;
-    }
-
-    [self showProgressViewAnimated:YES];
-    self.isFetchingArticle = YES;
-
-    [self.articleFetcher fetchArticleForPageTitle:title progress:^(CGFloat progress){
-        [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES completion:NULL];
-    }].then(^(MWKArticle* article){
-        [self handleFetchedArticle:article];
-    }).catch(^(NSError* error){
-        [self handleFetchArticleError:error];
-    });
-}
-
-- (void)handleFetchedArticle:(MWKArticle*)article {
-    self.isFetchingArticle = NO;
-
-    [self displayArticle:article.title];
-
-    [self hideAlert];
-}
-
-- (void)handleFetchArticleError:(NSError*)error {
-    MWKTitle* redirect = [[error userInfo] wmf_redirectTitle];
-
-    if (redirect) {
-        [self handleRedirectForTitle:redirect];
-    } else {
-        self.isFetchingArticle = NO;
-
-        [self displayArticle:self.article.title];
-
-        NSString* errorMsg = error.localizedDescription;
-        [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
-    }
-}
-
-- (void)handleRedirectForTitle:(MWKTitle*)title {
-    MWKHistoryEntry* history                  = [self.session.userDataStore.historyList entryForListIndex:title];
-    MWKHistoryDiscoveryMethod discoveryMethod =
-        (history) ? history.discoveryMethod : MWKHistoryDiscoveryMethodSearch;
-
-    [self navigateToPage:title discoveryMethod:discoveryMethod];
-}
-
-#pragma mark - FetchFinishedDelegate
-
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if ([sender isKindOfClass:[WikipediaZeroMessageFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED:
-            {
-                NSDictionary* banner = (NSDictionary*)fetchedData;
-                if (banner) {
-//TODO: use this notification to update the search box's placeholder text when zero rated
-//                    TopMenuTextFieldContainer* textFieldContainer = [ROOT.topMenuViewController getNavBarItem:NAVBAR_TEXT_FIELD];
-//                    textFieldContainer.textField.placeholder = MWLocalizedString(@"search-field-placeholder-text-zero", nil);
-
-
-
-                    //[self showAlert:title type:ALERT_TYPE_TOP duration:2];
-                    NSString* title = banner[@"message"];
-                    self.zeroStatusLabel.text            = title;
-                    self.zeroStatusLabel.padding         = UIEdgeInsetsMake(3, 10, 3, 10);
-                    self.zeroStatusLabel.textColor       = banner[@"foreground"];
-                    self.zeroStatusLabel.backgroundColor = banner[@"background"];
-
-                    [self promptFirstTimeZeroOnWithTitleIfAppropriate:title];
-                }
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_FAILED:
-            {
-            }
-            break;
-
-            case FETCH_FINAL_STATUS_CANCELLED:
-            {
-            }
-            break;
-        }
-    } else if ([sender isKindOfClass:[RandomArticleFetcher class]]) {
-        switch (status) {
-            case FETCH_FINAL_STATUS_SUCCEEDED: {
-                NSString* title = (NSString*)fetchedData;
-                if (title) {
-                    MWKTitle* pageTitle = [self.article.site titleWithString:title];
-                    [self navigateToPage:pageTitle discoveryMethod:MWKHistoryDiscoveryMethodRandom];
-                }
-            }
-            break;
-            case FETCH_FINAL_STATUS_CANCELLED:
-                break;
-            case FETCH_FINAL_STATUS_FAILED:
-                //[self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                break;
-        }
-    }
-}
-
-#pragma mark Display article from data store
-
-- (void)displayArticle:(MWKTitle*)title {
-    NSParameterAssert(title.text);
-    if ([title.text length] == 0) {
-        [self showAlert:MWLocalizedString(@"article-unable-to-load-article", nil) type:ALERT_TYPE_TOP duration:2];
-        return;
-    }
-
-    self.article = [self.session.dataStore articleWithTitle:title];
-}
-
-- (void)setArticle:(MWKArticle* __nullable)article {
+- (void)setArticle:(MWKArticle*)article {
     _article = article;
 
-    #warning HAX: force the view to load
-    [self view];
-
-    #warning TODO: remove dependency on session current article
+#warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
 
-    if (![article isCached]) {
-        [self showProgressViewAnimated:NO];
-        [self loadArticleWithTitleFromNetwork:article.title];
+    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
+    // see http://stackoverflow.com/a/2777460/48311
+    if ([self isViewLoaded] && self.view.window) {
+        [self displayArticle];
+    }
+}
+
+- (void)displayArticle {
+    if (!self.article) {
         return;
     }
 
-    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.title.site.language];
+    NSString* html = [self.article articleHTML];
+
+    MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
     NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
 
-    self.editable         = article.editable;
-    self.protectionStatus = article.protection;
-
-    [self updateBottomBarButtonsEnabledState];
-    NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
-
-    for (MWKSection* section in _article.sections) {
-        NSString* html = nil;
-
-        @try {
-            html = section.text;
-        }@catch (NSException* exception) {
-            NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
-        }
-
-        if (!html) {
-            html = MWLocalizedString(@"article-unable-to-load-section", nil);;
-        }
-
-        // Structural html added around section html just before display.
-        NSString* sectionHTMLWithID = [section displayHTML:html];
-        [sectionTextArray addObject:sectionHTMLWithID];
-    }
-
-    if (self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodSaved ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
-        self.session.currentArticleDiscoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
-        MWKHistoryEntry* historyEntry = [self.session.userDataStore.historyList entryForListIndex:article.title];
-        CGPoint scrollOffset          = CGPointMake(0, historyEntry.scrollPosition);
-        self.lastScrollOffset = scrollOffset;
-    } else {
-        CGPoint scrollOffset = CGPointMake(0, 0);
-        self.lastScrollOffset = scrollOffset;
-    }
-
-    // Join article sections text
-    NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
-    NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
-
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
-    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && htmlStr);
+    BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
     if (!safeToCrossBridge) {
         NSLog(@"\n\nUnsafe to cross JS bridge!");
         NSLog(@"\tlanguageInfo.code = %@", languageInfo.code);
         NSLog(@"\tlanguageInfo.dir = %@", languageInfo.dir);
         NSLog(@"\tuidir = %@", uidir);
-        NSLog(@"\thtmlStr is nil = %d\n\n", (htmlStr == nil));
+        NSLog(@"\thtmlStr is nil = %d\n\n", (html == nil));
         //TODO: output "could not load page" alert and/or show last page?
         return;
     }
 
-    [self.bridge loadHTML:htmlStr withAssetsFile:@"index.html"];
+    [self.bridge loadHTML:html withAssetsFile:@"index.html"];
 
     // NSLog(@"languageInfo = %@", languageInfo.code);
     [self.bridge sendMessage:@"setLanguage"
@@ -1119,7 +629,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
          @"uidir": uidir
      }];
 
-    if (!self.editable) {
+    if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
 
@@ -1128,109 +638,18 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     });
 }
 
-- (void)updateBottomBarButtonsEnabledState {
-    self.buttonLanguages.enabled = !(self.article.isMain && [self.article languagecount] > 0);
-}
-
-- (BOOL)isCurrentArticleSaved {
-    return [self.session.userDataStore.savedPageList isSaved:self.article.title];
-}
-
 #pragma mark Scroll to last section after rotate
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self scrollToElementOnScreenBeforeRotate];
-}
-
 - (void)scrollToElementOnScreenBeforeRotate {
-    // FIXME: rotating portrait/landscape repeatedly causes the webview to scroll down instead of maintaining the same position
-    return;
-    double finalScrollOffset = [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble];
-
+    double finalScrollOffset =
+        [[[self.webView wmf_javascriptContext][@"getPostRotationScrollOffset"] callWithArguments:nil] toDouble]
+        + [self clientBoundingRectVerticalOffset];
     [self tocScrollWebViewToPoint:CGPointMake(0, finalScrollOffset)
                          duration:0
                       thenHideTOC:NO];
 }
 
-#pragma mark Wikipedia Zero handling
-
-- (void)zeroStateChanged:(NSNotification*)notification {
-    [[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager.operationQueue cancelAllOperations];
-
-    if ([[[notification userInfo] objectForKey:@"state"] boolValue]) {
-        (void)[[WikipediaZeroMessageFetcher alloc] initAndFetchMessageForDomain:self.article.site.language
-                                                                    withManager:[QueuesSingleton sharedInstance].zeroRatedMessageFetchManager
-                                                             thenNotifyDelegate:self];
-    } else {
-        NSString* warnVerbiage = MWLocalizedString(@"zero-charged-verbiage", nil);
-
-        CGFloat duration = 5.0f;
-
-        //[self showAlert:warnVerbiage type:ALERT_TYPE_TOP duration:duration];
-        self.zeroStatusLabel.text            = warnVerbiage;
-        self.zeroStatusLabel.backgroundColor = [UIColor redColor];
-        self.zeroStatusLabel.textColor       = [UIColor whiteColor];
-
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.zeroStatusLabel.text = @"";
-            self.zeroStatusLabel.padding = UIEdgeInsetsZero;
-        });
-
-        [self promptZeroOff];
-    }
-}
-
-- (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    switch (alertView.tag) {
-        case WMFWebViewAlertZeroCharged:
-        case WMFWebViewAlertZeroWebPage:
-            if (1 == buttonIndex) {
-                NSURL* url = [NSURL URLWithString:self.wikipediaZeroLearnMoreExternalUrl];
-                [self wmf_openExternalUrl:url];
-            }
-            break;
-        case WMFWebViewAlertZeroInterstitial:
-            if (1 == buttonIndex) {
-                NSURL* url = [NSURL URLWithString:self.externalUrl];
-                [self wmf_openExternalUrl:url];
-            }
-            break;
-    }
-}
-
-- (UIScrollView*)refreshScrollView {
-    return nil;//self.webView.scrollView;
-}
-
-- (NSString*)refreshPromptString {
-    return MWLocalizedString(@"article-pull-to-refresh-prompt", nil);
-}
-
-- (NSString*)refreshRunningString {
-    return MWLocalizedString(@"article-pull-to-refresh-is-refreshing", nil);
-}
-
-- (void)refreshWasPulled {
-    [self reloadCurrentArticleFromNetwork];
-}
-
-- (BOOL)refreshShouldShow {
-    return YES;
-}
-
 #pragma mark Bottom menu bar
-
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"BottomMenuViewController_embed2"]) {
-        self.bottomMenuViewController = (BottomMenuViewController*)[segue destinationViewController];
-    }
-}
 
 - (void)showProtectedDialog {
     UIAlertView* alert = [[UIAlertView alloc] init];
@@ -1314,7 +733,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
     self.referencesVC = [ReferencesVC wmf_initialViewControllerFromClassStoryboard];
 
-    self.referencesVC.webVC = self;
+    self.referencesVC.delegate = self;
     [self addChildViewController:self.referencesVC];
     self.referencesVC.view.translatesAutoresizingMaskIntoConstraints = NO;
     [self.referencesContainerView addSubview:self.referencesVC.view];
@@ -1363,6 +782,38 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [self.referencesVC removeFromParentViewController];
         self.referencesVC = nil;
     }];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
+    NSString* eval = [NSString stringWithFormat:@"\
+                      document.getElementById('%@').oldBackgroundColor = document.getElementById('%@').style.backgroundColor;\
+                      document.getElementById('%@').style.backgroundColor = '#999';\
+                      document.getElementById('%@').style.borderRadius = 2;\
+                      ", linkID, linkID, linkID, linkID];
+    [self.webView stringByEvaluatingJavaScriptFromString:eval];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
+    NSString* eval = [NSString stringWithFormat:@"\
+                      document.getElementById('%@').style.backgroundColor = document.getElementById('%@').oldBackgroundColor;\
+                      ", linkID, linkID];
+    [self.webView stringByEvaluatingJavaScriptFromString:eval];
+}
+
+- (void)referenceViewControllerCloseReferences:(ReferencesVC*)referenceViewController {
+    [self referencesHide];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment {
+    [self scrollToFragment:fragment];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title {
+    [self.delegate webViewController:self didTapOnLinkForTitle:title];
+}
+
+- (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
+    [self wmf_openExternalUrl:url];
 }
 
 #pragma mark - Progress
@@ -1460,93 +911,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)editHistoryButtonPushed {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
-}
-
-#pragma mark - Article loading convenience
-
-- (void)loadRandomArticle {
-    [[QueuesSingleton sharedInstance].articleFetchManager.operationQueue cancelAllOperations];
-
-    (void)[[RandomArticleFetcher alloc] initAndFetchRandomArticleForDomain:self.article.site.language
-                                                               withManager:[QueuesSingleton sharedInstance].articleFetchManager
-                                                        thenNotifyDelegate:self];
-}
-
-- (void)loadTodaysArticle {
-    [self.siteInfoFetcher fetchInfoForSite:[[SessionSingleton sharedInstance] searchSite]
-                                   success:^(MWKSiteInfo* siteInfo) {
-        [self navigateToPage:siteInfo.mainPageTitle
-             discoveryMethod:MWKHistoryDiscoveryMethodSearch];
-    } failure:^(NSError* error) {
-        if ([error.domain isEqual:NSURLErrorDomain]
-            && error.code == NSURLErrorCannotFindHost) {
-            [self showLanguages];
-        } else {
-            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.0];
-        }
-    }];
-}
-
-- (MWKSiteInfoFetcher*)siteInfoFetcher {
-    if (!_siteInfoFetcher) {
-        _siteInfoFetcher = [MWKSiteInfoFetcher new];
-        /*
-           HAX: Force this particular site info fetcher to share the article operation queue. This allows for the
-           cancellation of site info requests when going to the main page, e.g. when clicking a link after clicking
-           "Today" in the main menu.
-
-           This is done here and not for all site info fetchers to prevent unintended side effects.
-         */
-        _siteInfoFetcher.requestManager.operationQueue =
-            [[[QueuesSingleton sharedInstance] articleFetchManager] operationQueue];
-    }
-    return _siteInfoFetcher;
-}
-
-#pragma mark - Language variant loading
-
-- (void)showLanguages {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.downloadLanguagesForCurrentArticle = YES;
-    languagesVC.languageSelectionDelegate          = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
-}
-
-- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
-    [self navigateToPage:langData.title
-         discoveryMethod:MWKHistoryDiscoveryMethodSearch];
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - Wikipedia Zero alert dialogs
-
-- (void)promptFirstTimeZeroOnWithTitleIfAppropriate:(NSString*)title {
-    if (![SessionSingleton sharedInstance].zeroConfigState.zeroOnDialogShownOnce) {
-        [[SessionSingleton sharedInstance].zeroConfigState setZeroOnDialogShownOnce];
-        self.wikipediaZeroLearnMoreExternalUrl = MWLocalizedString(@"zero-webpage-url", nil);
-        UIAlertView* dialog = [[UIAlertView alloc]
-                               initWithTitle:title
-                                         message:MWLocalizedString(@"zero-learn-more", nil)
-                                        delegate:self
-                               cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                               otherButtonTitles:MWLocalizedString(@"zero-learn-more-learn-more", nil)
-                               , nil];
-        dialog.tag = WMFWebViewAlertZeroWebPage;
-        [dialog show];
-    }
-}
-
-- (void)promptZeroOff {
-    UIAlertView* dialog = [[UIAlertView alloc]
-                           initWithTitle:MWLocalizedString(@"zero-charged-verbiage", nil)
-                                     message:MWLocalizedString(@"zero-charged-verbiage-extended", nil)
-                                    delegate:self
-                           cancelButtonTitle:MWLocalizedString(@"zero-learn-more-no-thanks", nil)
-                           otherButtonTitles:nil
-                           , nil];
-    dialog.tag = WMFWebViewAlertZeroCharged;
-    [dialog show];
 }
 
 @end
