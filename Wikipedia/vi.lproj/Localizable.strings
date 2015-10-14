@@ -100,6 +100,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "search-recent-clear-cancel" = "Hủy bỏ";
 "search-recent-clear-delete-all" = "Xóa Toàn bộ";
+"settings-title" = "Cài đặt";
 "main-menu-title" = "Khác";
 "main-menu-heading-about" = "Giới thiệu";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";

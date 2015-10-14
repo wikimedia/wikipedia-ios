@@ -2,10 +2,6 @@
 #import "WMFArticlePreviewCell.h"
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 
-#import "NSAttributedString+WMFModify.h"
-#import "NSParagraphStyle+WMFParagraphStyles.h"
-#import "NSAttributedString+WMFHTMLForSite.h"
-
 @interface WMFArticlePreviewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
@@ -14,6 +10,15 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
 
+@property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
+@property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
+@property (nonatomic) CGFloat heightOfImageFromIB;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintAboveDescription;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintBelowDescription;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint* imageHeightConstraint;
+
 @end
 
 @implementation WMFArticlePreviewCell
@@ -21,7 +26,18 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.descriptionText   = nil;
-    self.summaryLabel.text = nil;
+    self.summaryLabel.attributedText = nil;
+}
+
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    [self rememberSettingsFromIB];
+}
+
+-(void)rememberSettingsFromIB {
+    self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
+    self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
+    self.heightOfImageFromIB = self.imageHeightConstraint.constant;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -40,38 +56,70 @@
 - (void)setDescriptionText:(NSString*)descriptionText {
     _descriptionText           = descriptionText;
     self.descriptionLabel.text = descriptionText;
+    if (self.descriptionLabel.text.length == 0) {
+        [self removeDescriptionVerticalPadding];
+    }else{
+        [self restoreDescriptionVerticalPadding];
+    }
 }
 
-- (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText {
-    if (!summaryAttributedText.string.length) {
-        self.summaryLabel.text = nil;
-        return;
-    }
-
-    summaryAttributedText = [summaryAttributedText
-                             wmf_attributedStringChangingAttribute:NSParagraphStyleAttributeName
-                                                         withBlock:^NSParagraphStyle*(NSParagraphStyle* paragraphStyle){
-        NSMutableParagraphStyle* style = paragraphStyle.mutableCopy;
-        style.lineBreakMode = NSLineBreakByTruncatingTail;
-        return style;
-    }];
-
-    NSMutableAttributedString* text = [summaryAttributedText mutableCopy];
-    [text addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_summaryTextColor] range:NSMakeRange(0, text.length)];
-
-    self.summaryLabel.attributedText = text;
+-(void)removeDescriptionVerticalPadding{
+    self.paddingConstraintAboveDescription.constant = 0;
+    self.paddingConstraintBelowDescription.constant = 0;
 }
 
-- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site {
-    if (!summaryHTML.length) {
-        self.summaryLabel.text = nil;
+-(void)restoreDescriptionVerticalPadding{
+    self.paddingConstraintAboveDescription.constant = self.paddingAboveDescriptionFromIB;
+    self.paddingConstraintBelowDescription.constant = self.paddingBelowDescriptionFromIB;
+}
+
+- (void)setSummary:(NSString*)summary {
+    if (!summary.length) {
+        self.summaryLabel.attributedText = nil;
         return;
     }
+    self.summaryLabel.attributedText = [[NSAttributedString alloc] initWithString:summary attributes:self.summaryAttributes];
+}
 
-    NSAttributedString* summaryAttributedText =
-        [[NSAttributedString alloc] initWithHTMLData:[summaryHTML dataUsingEncoding:NSUTF8StringEncoding] site:site];
+- (NSDictionary*)summaryAttributes {
+    static NSDictionary* attributes;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableParagraphStyle* pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.lineHeightMultiple = 1.35;
+        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0],
+                       NSForegroundColorAttributeName: [UIColor blackColor],
+                       NSParagraphStyleAttributeName: pStyle};
+    });
+    return attributes;
+}
 
-    [self setSummaryAttributedText:summaryAttributedText];
+- (void)setImageURL:(NSURL*)imageURL {
+    [super setImageURL:imageURL];
+    if (imageURL) {
+        [self restoreImageToFullHeight];
+    }else{
+        [self collapseImageHeightToZero];
+    }
+}
+
+- (void)setImage:(MWKImage*)image {
+    [super setImage:image];
+    if (image) {
+        [self restoreImageToFullHeight];
+    }else{
+        [self collapseImageHeightToZero];
+    }
+}
+
+-(void)collapseImageHeightToZero{
+    self.imageHeightConstraint.constant = 0;
+}
+
+-(void)restoreImageToFullHeight{
+    self.imageHeightConstraint.constant = self.heightOfImageFromIB;
 }
 
 @end

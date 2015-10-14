@@ -7,6 +7,7 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "MediaWikiKit.h"
+#import "NSString+WMFHTMLParsing.h"
 
 @implementation NSString (Extras)
 
@@ -66,7 +67,7 @@
     NSString* result = [results componentsJoinedByString:@""];
 
     // Also decode any "&amp;" strings.
-    result = [result stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    result = [result wmf_decodeHTMLAmp];
 
     return result;
 }

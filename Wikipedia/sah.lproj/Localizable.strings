@@ -9,6 +9,7 @@
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
 "article-read-more-title" = "Бу туһунан сиһилии";
 "article-unable-to-load-section" = "Бу салааны көрдөрөр табыллыбата. Ыстатыйаны саҥаттан арыйан көр, баҕар оччоҕо сатаныа.";
+"article-unable-to-load-article" = "Ыстатыйаны хачайдаан ылар сатаммата.";
 "info-box-title" = "Кылгас чахчылар";
 "info-box-close-text" = "Сап";
 "table-title-other" = "Сиһилии";
@@ -21,6 +22,8 @@
 "history-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "history-clear-cancel" = "Салҕаама";
 "history-clear-delete-all" = "Барытын сот";
+"history-description" = "Арааһа барытын соппуккун быһыылаах. Аныгыскыга, ханнык эрэ сирэйгэ киирэ сылдьыбыт буоллаххына, ону мантан буолуоххун сөп буолуо.";
+"history-none" = "Соторутааҕыта көрүллүбүт сирэй суох эбит.";
 "zero-free-verbiage" = "Бикипиэдьийэҕэ босхо киириини мобил оператор хааччыйыыта (трафик төлөммөт)";
 "zero-charged-verbiage" = "Wikipedia Zero арахсыбыт";
 "zero-charged-verbiage-extended" = "Ыстатыйаны хачайдаан ыларга төлөбүр ылыахтарын сөп. Эрдэ хараллыбыт ыстатыйалары хачайдыыр ирдэммэт, онон босхо.";
@@ -90,6 +93,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";
 "search-recent-clear-cancel" = "Салҕаама";
 "search-recent-clear-delete-all" = "Барытын сот";
+"settings-title" = "Туруоруулар";
 "main-menu-title" = "Эбии";
 "main-menu-heading-about" = "Бу туһунан";
 "main-menu-language-title" = "$1 Бикипиэдьийэни көрдөөһүн";
@@ -130,6 +134,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Саҥардыы тохтотулунна";
 "saved-pages-refresh-cancel-alert-message" = "Бикипиэдьийэ ыстатытыйалара куруук уларыйа тураллар. Саҥарт диэни баттаатаххына тиһэх көннөрүүлэрин көрүөҥ.";
 "saved-pages-refresh-cancel-alert-button" = "Бу өйдөнөр";
+"saved-pages-description" = "Көмпүүтэргэр хараллыбыт сирэй үчүгэйэ диэн - хаһан баҕарар ааҕыахха сөп, интэриниэккэ киирбэккэ даҕаны.";
+"saved-pages-none" = "Хараллыбыт сирэй суох эбит.";
 "page-history-title" = "Сирэй устуоруйата";
 "page-history-downloading" = "Сирэй устуоруйата хачайданар...";
 "navbar-title-mode-edit-wikitext" = "Уларыт";
@@ -174,6 +180,7 @@
 "about-libraries-license" = "Лиссиэнсийэ";
 "about-repositories" = "харалта";
 "about-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
+"about-product-of" = "$1 бородуукта";
 "about-wikimedia-foundation" = "Викимедиа пуондата";
 "share-menu-save-page" = "Сирэйи бигэргэт";
 "share-menu-page-saved" = "Ситимэ суох ааҕарга харалынна.";
@@ -269,3 +276,6 @@
 "hockeyapp-alert-privacy" = "Бүк охсунуу $1";
 "page-issues" = "Сирэйгэ ыйытыылар";
 "page-similar-titles" = "Майгынныыр сирэйдэр";
+"captcha-reload" = "Атын куоду көрдөр";
+"captcha-prompt" = "Капча ойууттан тиэкиһин суруйан ыл";
+"mwk-empty-title-error" = "Ааттаматах буолан дьайыыны оҥорор табыллыбата.";

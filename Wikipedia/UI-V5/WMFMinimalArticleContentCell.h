@@ -5,6 +5,6 @@
 
 @interface WMFMinimalArticleContentCell : UITableViewCell
 
-- (void)setAttributedText:(NSAttributedString*)attributedText;
+- (void)setText:(NSString*)text;
 
 @end

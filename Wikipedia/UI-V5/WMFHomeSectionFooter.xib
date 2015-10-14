@@ -3,71 +3,59 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WMFHomeSectionFooter" id="vQb-Od-Dsn" customClass="WMFHomeSectionFooter">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="350" height="78"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eK1-tC-UDQ">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                    <rect key="frame" x="0.0" y="0.0" width="350" height="52"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More…" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1S-hp-bvc">
+                            <rect key="frame" x="16" y="16" width="298" height="20.5"/>
+                            <animations/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.36862745098039218" green="0.36862745098039218" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="chevron-right" translatesAutoresizingMaskIntoConstraints="NO" id="HCU-Vn-uL3">
+                            <rect key="frame" x="322" y="20" width="12" height="14"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="14" id="j67-yO-wWv"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="More…" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w1S-hp-bvc">
-                    <rect key="frame" x="8" y="15" width="551" height="21"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.36862745098039218" green="0.36862745098039218" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-gray-right" translatesAutoresizingMaskIntoConstraints="NO" id="HCU-Vn-uL3">
-                    <rect key="frame" x="567" y="13" width="25" height="25"/>
-                    <animations/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="25" id="Sjb-Oy-p3f"/>
-                        <constraint firstAttribute="height" constant="25" id="Z4m-lO-PPW"/>
+                        <constraint firstItem="w1S-hp-bvc" firstAttribute="leading" secondItem="eK1-tC-UDQ" secondAttribute="leading" constant="16" id="2X9-AB-828"/>
+                        <constraint firstItem="HCU-Vn-uL3" firstAttribute="centerY" secondItem="w1S-hp-bvc" secondAttribute="centerY" id="cch-w9-OVZ"/>
+                        <constraint firstItem="w1S-hp-bvc" firstAttribute="top" secondItem="eK1-tC-UDQ" secondAttribute="top" constant="16" id="fxo-3L-BwK"/>
+                        <constraint firstAttribute="bottom" secondItem="w1S-hp-bvc" secondAttribute="bottom" constant="16" id="owu-bq-vue"/>
+                        <constraint firstItem="HCU-Vn-uL3" firstAttribute="leading" secondItem="w1S-hp-bvc" secondAttribute="trailing" constant="8" id="rAc-JK-rIo"/>
+                        <constraint firstAttribute="trailing" secondItem="HCU-Vn-uL3" secondAttribute="trailing" constant="16" id="v99-et-cCT"/>
                     </constraints>
-                </imageView>
+                </view>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="eK1-tC-UDQ" firstAttribute="leading" secondItem="vQb-Od-Dsn" secondAttribute="leading" id="8Uy-7J-8Oq"/>
-                <constraint firstAttribute="trailing" secondItem="eK1-tC-UDQ" secondAttribute="trailing" id="AF9-qY-jEH"/>
-                <constraint firstAttribute="trailing" secondItem="HCU-Vn-uL3" secondAttribute="trailing" constant="10" id="BWK-4u-Y44"/>
-                <constraint firstItem="HCU-Vn-uL3" firstAttribute="leading" secondItem="w1S-hp-bvc" secondAttribute="trailing" constant="8" id="JSJ-Bd-aUD"/>
-                <constraint firstAttribute="bottom" secondItem="eK1-tC-UDQ" secondAttribute="bottom" constant="30" id="Loq-Eb-hOh"/>
-                <constraint firstItem="w1S-hp-bvc" firstAttribute="leading" secondItem="vQb-Od-Dsn" secondAttribute="leading" constant="10" id="MJk-IO-ooz"/>
-                <constraint firstItem="w1S-hp-bvc" firstAttribute="centerY" secondItem="HCU-Vn-uL3" secondAttribute="centerY" id="iRE-y3-Baf"/>
-                <constraint firstAttribute="trailing" secondItem="HCU-Vn-uL3" secondAttribute="trailing" constant="-8" id="kml-uK-dCs"/>
-                <constraint firstAttribute="centerY" secondItem="w1S-hp-bvc" secondAttribute="centerY" id="mVb-C7-PfE"/>
-                <constraint firstItem="eK1-tC-UDQ" firstAttribute="top" secondItem="vQb-Od-Dsn" secondAttribute="top" id="o5d-H9-bW3"/>
-                <constraint firstItem="eK1-tC-UDQ" firstAttribute="trailing" secondItem="HCU-Vn-uL3" secondAttribute="trailing" constant="8" id="oNW-LZ-mfc"/>
-                <constraint firstAttribute="trailingMargin" secondItem="w1S-hp-bvc" secondAttribute="trailing" constant="8" id="sFh-jU-6qg"/>
-                <constraint firstItem="eK1-tC-UDQ" firstAttribute="leading" secondItem="w1S-hp-bvc" secondAttribute="leading" constant="-8" id="uBq-x4-TZl"/>
-                <constraint firstItem="eK1-tC-UDQ" firstAttribute="centerY" secondItem="w1S-hp-bvc" secondAttribute="centerY" id="wMY-cG-Z3z"/>
+                <constraint firstItem="eK1-tC-UDQ" firstAttribute="leading" secondItem="vQb-Od-Dsn" secondAttribute="leading" id="7Sc-lf-LV2"/>
+                <constraint firstItem="eK1-tC-UDQ" firstAttribute="top" secondItem="vQb-Od-Dsn" secondAttribute="top" id="V3h-Y4-993"/>
+                <constraint firstAttribute="trailing" secondItem="eK1-tC-UDQ" secondAttribute="trailing" id="eNI-SN-2yi"/>
             </constraints>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="MJk-IO-ooz"/>
-                    <exclude reference="mVb-C7-PfE"/>
-                    <exclude reference="sFh-jU-6qg"/>
-                    <exclude reference="BWK-4u-Y44"/>
-                    <exclude reference="kml-uK-dCs"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="backgroundView" destination="eK1-tC-UDQ" id="AKL-wW-MnT"/>
                 <outlet property="moreLabel" destination="w1S-hp-bvc" id="MoV-Wa-IqR"/>
             </connections>
-            <point key="canvasLocation" x="719" y="258"/>
+            <point key="canvasLocation" x="594" y="257"/>
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="arrow-gray-right" width="25" height="25"/>
+        <image name="chevron-right" width="12" height="21"/>
     </resources>
 </document>

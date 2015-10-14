@@ -7,21 +7,19 @@
 //
 
 #import "MWKRelatedSearchResult.h"
-#import <hpple/TFHpple.h>
+#import "NSString+WMFHTMLParsing.h"
 
 @implementation MWKRelatedSearchResult
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     NSMutableDictionary* jsonKeyPaths = [[super JSONKeyPathsByPropertyKey] mutableCopy];
-    jsonKeyPaths[WMF_SAFE_KEYPATH(MWKRelatedSearchResult.new, extractHTML)] = @"extract";
+    jsonKeyPaths[WMF_SAFE_KEYPATH(MWKRelatedSearchResult.new, extract)] = @"extract";
     return jsonKeyPaths;
 }
 
-+ (MTLValueTransformer*)extractHTMLJSONTransformer {
++ (MTLValueTransformer*)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* extract, BOOL* success, NSError* __autoreleasing* error) {
-        NSData* extractData = [extract dataUsingEncoding:NSUTF8StringEncoding];
-        return [[[[TFHpple hppleWithHTMLData:extractData] searchWithXPathQuery:@"/html/body/p/* | /html/body/p/text()"]
-                 valueForKey:WMF_SAFE_KEYPATH([TFHppleElement new], raw)] componentsJoinedByString:@" "];
+        return [extract wmf_summaryFromText];
     }];
 }
 

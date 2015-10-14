@@ -407,7 +407,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFMinimalArticleContentCell*)contentCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFMinimalArticleContentCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFMinimalArticleContentCell wmf_nibName]];
-    [cell setAttributedText:[self.article summaryHTML]];
+    [cell setText:[self.article summary]];
     return cell;
 }
 

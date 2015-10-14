@@ -9,10 +9,12 @@
 // Author: Mirek2
 // Author: Mormegil
 
+"languages-title" = "Jazyky";
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-cancel" = "Zrušit";
 "article-languages-downloading" = "Nahrávání článků v dalších jazycích…";
 "article-languages-filter-placeholder" = "Filtr jazyka";
+"article-unable-to-load-article" = "Není možné načíst článek.";
 "info-box-title" = "Stručná fakta";
 "info-box-close-text" = "Zavřít";
 "table-title-other" = "Další informace";
@@ -36,13 +38,17 @@
 "zero-wikipedia-zero-heading" = "Wikipedie Zero";
 "account-creation-captcha-required" = "Vyžadováno CAPTCHA ověření.";
 "account-creation-logging-in" = "Přihlašování…";
+"account-creation-passwords-mismatched" = "Hesla se neshodují.";
 "account-creation-saving" = "Ukládá se…";
 "account-creation-login" = "Již máte účet? Přihlaste se.";
 "account-creation-username-placeholder-text" = "Uživatelské jméno";
 "account-creation-password-placeholder-text" = "Heslo";
 "account-creation-password-confirm-placeholder-text" = "Potvrzení hesla";
 "account-creation-email-placeholder-text" = "E-mail (volitelné)";
+"account-creation-missing-fields" = "Pro vytvoření účtu musíte zadat uživatelské jméno, heslo a potvrzení hesla.";
 "login-name-not-found" = "Pro přihlášení je požádováno uživatelské jméno.";
+"login-name-illegal" = "Zadali jste nepovolené uživatelské heslo.";
+"login-name-does-not-exist" = "Zadané uživatelské jméno neexistuje.";
 "login-password-empty" = "K přihlášení je vyžadováno heslo.";
 "login-password-wrong" = "Zadané heslo je nesprávné.";
 "login-throttled" = "Přihlásili jste se v krátké době přílíš mnohokrát.";
@@ -64,6 +70,8 @@
 "search-no-matches" = "Nenalezena shoda pro hledaný výraz.";
 "search-field-placeholder-text" = "Hledat ve Wikipedii";
 "search-field-placeholder-text-zero" = "Hledat ve Wikipedii Zero";
+"search-loading-section-zero" = "Načítání první části článku...";
+"search-loading-section-remaining" = "Načítání zbylé části článku...";
 "search-loading-article-loaded" = "Článek načten.";
 "search-cancel" = "Zrušit";
 "search-titles" = "Názvy";
@@ -74,6 +82,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Tato operace nemůže být vrácena zpět!";
 "search-recent-clear-cancel" = "Zrušit";
 "search-recent-clear-delete-all" = "Smazat vše";
+"settings-title" = "Nastavení";
 "main-menu-title" = "Více";
 "main-menu-language-toggle-show" = "Zobrazit jazyky";
 "main-menu-language-toggle-hide" = "Skrýt jazyky";
@@ -97,7 +106,6 @@
 "main-menu-nearby" = "Poblíž";
 "main-menu-more" = "Více…";
 "saved-pages-title" = "Uložené stránky";
-// Fuzzy
 "saved-pages-clear-delete-all" = "Smazat vše";
 "saved-pages-none" = "Zatím žádné uložené stránky.";
 "page-history-title" = "Historie článku";
@@ -106,9 +114,25 @@
 "navbar-title-mode-login" = "Přihlásit se";
 "navbar-title-mode-edit-wikitext-preview" = "Náhled";
 "navbar-title-mode-edit-wikitext-save" = "Uložit";
+"edit-summary-choice-linked-words" = "Přidány odkazy";
+"edit-summary-choice-fixed-grammar" = "Oprava gramatiky";
+"edit-summary-choice-fixed-inaccuracy" = "Oprava nepřesnosti";
+"edit-summary-choice-fixed-styling" = "Oprava stylu";
+"edit-summary-choice-fixed-typos" = "Oprava překlepu";
+"edit-summary-choice-added-category" = "Přidána kategorie";
+"edit-summary-choice-added-missing-info" = "Přidána chybějící informace";
+"edit-summary-choice-added-clarification" = "Přidáno upřesnění";
 "edit-summary-choice-other" = "Ostatní";
+"about-contributors" = "přispěvatelé";
+"about-translators" = "překladatelé";
+"about-libraries" = "použité knihovny";
+"about-libraries-license" = "Licence";
+"about-wikimedia-foundation" = "Nadace Wikimedia";
 "share-menu-save-page" = "Uložit článek";
 "share-menu-page-saved" = "Článek uložen";
+"share-custom-menu-item" = "Sdílet";
+"share-as-image" = "Sdílet jako obrázek";
+"share-as-text" = "Sdílet jako text";
 "timestamp-just-now" = "právě teď";
 "button-next" = "Další";
 "button-done" = "Hotovo";
@@ -116,8 +140,26 @@
 "onboarding-create-account" = "Vytvořit účet";
 "onboarding-login" = "Přihlásit se";
 "onboarding-skip" = "Přeskočit";
+"onboarding-wikipedia" = "Wikipedie";
 "onboarding-free-encyclopedia" = "Otevřená encyklopedie";
+"page_protected_can_not_edit_title" = "Tato stránka je chráněná";
+"license-footer-text" = "Obsah je dostupný pod $1";
 "license-footer-name" = "CC BY-SA 3.0";
+"table-of-contents-heading" = "Obsah";
+"menu-edit-accessibility-label" = "Editovat";
+"menu-close-accessibility-label" = "Zavřít";
+"menu-preview-accessibility-label" = "Náhled";
+"menu-back-accessibility-label" = "Zpět";
+"menu-forward-accessibility-label" = "Vpřed";
+"menu-w-accessibility-label" = "Menu";
+"menu-toc-accessibility-label" = "Obsah";
+"menu-search-accessibility-label" = "Hledat";
+"menu-reload-accessibility-label" = "Aktualizovat";
+"menu-cancel-accessibility-label" = "Zrušit";
+"menu-share-accessibility-label" = "Sdílet";
+"menu-more-accessibility-label" = "Další nastavení";
+"menu-trash-accessibility-label" = "Smazat";
+"menu-language-accessibility-label" = "Jazyky";
 "nearby-title" = "Poblíž";
 "nearby-distance-label-meters" = "$1 {{PLURAL:$1|metr|metry|metrů}}";
 "nearby-distance-label-km" = "$1 km";
@@ -128,8 +170,7 @@
 "migration-update-progress-label" = "Přesun místních dat";
 "migration-update-progress-count-label" = "Přesun článku $1 z $2";
 "migration-prompt-title" = "Zdá se, že máme historii!";
-// Fuzzy
-"migration-prompt-message" = "Potřebujeme přemístit Vaše uložené & poslední stránky. To může chvíli trvat...";
+"migration-prompt-message" = "Potřebujeme přemístit Vaše uložené a poslední stránky. To může chvíli trvat...";
 "migration-confirm-button-title" = "Přesunout mé věci";
 "image-gallery-fetch-image-info-error-title" = "Nelze stahovat obrázky";
 "image-gallery-fetch-image-info-error-ok" = "OK";

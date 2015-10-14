@@ -160,7 +160,6 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
             faceBoundsValue:(nullable NSValue*)faceBoundsValue
                    animated:(BOOL)animated {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        self.contentMode = UIViewContentModeScaleAspectFill;
 
         CGRect faceBounds = [faceBoundsValue CGRectValue];
         if (!CGRectIsEmpty(faceBounds)) {
@@ -174,7 +173,9 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
                           duration:animated ? [CATransaction animationDuration] : 0.0
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-            self.image = image;
+                            self.contentMode = UIViewContentModeScaleAspectFill;
+                            self.backgroundColor = [UIColor whiteColor];
+                            self.image = image;
         }
                         completion:^(BOOL finished) {
             resolve(nil);

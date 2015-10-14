@@ -10,6 +10,6 @@
 
 @interface MWKRelatedSearchResult : MWKSearchResult
 
-@property (nonatomic, copy, readonly) NSString* extractHTML;
+@property (nonatomic, copy, readonly) NSString* extract;
 
 @end

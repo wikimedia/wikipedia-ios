@@ -30,6 +30,8 @@
 "history-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "history-clear-cancel" = "Batalkan";
 "history-clear-delete-all" = "Hapus Semua";
+"history-description" = "Anda mungkin menghapus semua dari mereka. Lain kali Anda pergi ke halaman Anda dapat kembali ke sana dari sini.";
+"history-none" = "Tidak ada halaman terbaru di sini.";
 "zero-free-verbiage" = "Akses Wikipedia gratis dari operator selular (biaya data dibebaskan)";
 "zero-charged-verbiage" = "Wikipedia Nol dimatikan";
 "zero-charged-verbiage-extended" = "Pemuatan artikel lain mungkin dikenakan biaya data. Artikel yang disimpan secara luring tidak menggunakan data dan gratis.";
@@ -99,6 +101,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-delete-all" = "Hapus Semua";
+"settings-title" = "Pengaturan";
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
@@ -139,6 +142,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Pembaruan dibatalkan";
 "saved-pages-refresh-cancel-alert-message" = "Artikel Wikipedia diperbarui setiap saat. Ketuk segarkan untuk mendapatkan versi terbaru dari semua artikel.";
 "saved-pages-refresh-cancel-alert-button" = "Mengerti";
+"saved-pages-description" = "Halaman tersimpan cukup mengagumkan. Menganggap mereka sebagai penanda yang dapat Anda baca bahkan ketika Anda sedang luring.";
+"saved-pages-none" = "Tidak ada halaman yang disimpan.";
 "page-history-title" = "Versi terdahulu artikel";
 "page-history-downloading" = "Memuat riwayat artikel...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
@@ -279,4 +284,6 @@
 "hockeyapp-alert-privacy" = "Privasi $1";
 "page-issues" = "Masalah halaman";
 "page-similar-titles" = "Halaman yang serupa";
+"captcha-reload" = "Tampilkan captcha yang lain";
+"captcha-prompt" = "Masukkan teks CAPTCHA dari gambar yang di atas";
 "mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";
