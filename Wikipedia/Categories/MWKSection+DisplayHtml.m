@@ -4,6 +4,7 @@
 #import "MWKSection+DisplayHtml.h"
 #import "SessionSingleton.h"
 #import "Defines.h"
+#import "NSString+Extras.h"
 
 static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div class='issues_container' id='issues_container'><a href='#issues_container_close_button' id='issues_container_close_button' style='float:right;'>X</a></div>";
 
@@ -66,7 +67,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
     if (self.article.entityDescription.length == 0) {
         return @"";
     } else {
-        return [NSString stringWithFormat:@"<p id='entity_description'>%@</p>", self.article.entityDescription];
+        return [NSString stringWithFormat:@"<p id='entity_description'>%@</p>", [self.article.entityDescription wmf_stringByCapitalizingFirstCharacter]];
     }
 }
 
