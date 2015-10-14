@@ -88,6 +88,11 @@ static dispatch_once_t launchToken;
 
 @implementation WMFAppViewController
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - Setup
 
 - (void)loadMainUI {
@@ -138,6 +143,16 @@ static dispatch_once_t launchToken;
     }
 }
 
+#pragma mark - Notifications
+
+- (void)appDidBecomeActiveWithNotification:(NSNotification*)note{
+    [self resumeApp];
+}
+
+- (void)appWillResignActiveWithNotification:(NSNotification*)note{
+    [self pauseApp];
+}
+
 #pragma mark - Public
 
 + (WMFAppViewController*)initialAppViewControllerFromDefaultStoryBoard {
@@ -151,15 +166,15 @@ static dispatch_once_t launchToken;
 
     [window setRootViewController:self];
     [window makeKeyAndVisible];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)resumeApp {
     if (![self launchCompleted]) {
         return;
     }
-
-    [self downloadAssetsFilesIfNecessary];
-    [self performHousekeepingIfNecessary];
 
     if ([self shouldShowHomeScreenOnLaunch]) {
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
@@ -172,6 +187,12 @@ static dispatch_once_t launchToken;
             [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
         }
     }
+}
+
+- (void)pauseApp{
+    
+    [self downloadAssetsFilesIfNecessary];
+    [self performHousekeepingIfNecessary];
 }
 
 #pragma mark - Utilities
