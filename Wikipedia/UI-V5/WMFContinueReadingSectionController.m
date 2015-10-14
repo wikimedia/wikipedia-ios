@@ -79,7 +79,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     if ([cell isKindOfClass:[WMFContinueReadingCell class]]) {
         WMFContinueReadingCell* readingCell = (id)cell;
         readingCell.title.text   = self.title.text;
-        readingCell.summary.text = [[self.dataStore existingArticleWithTitle:self.title].summaryHTML string];
+        readingCell.summary.text = [self.dataStore existingArticleWithTitle:self.title].summary;
     }
 }
 

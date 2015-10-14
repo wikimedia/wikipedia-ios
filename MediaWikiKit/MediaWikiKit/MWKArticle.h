@@ -12,7 +12,6 @@
 
 static const NSInteger kMWKArticleSectionNone = -1;
 
-
 @class MWKDataStore;
 @class MWKSection;
 @class MWKSectionList;
@@ -66,6 +65,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) MWKImageList* images;
 @property (readonly, strong, nonatomic) MWKImage* thumbnail;
 @property (readonly, strong, nonatomic) MWKImage* image;
+
+@property (readonly, strong, nonatomic) NSString* summary;
 
 - (MWKImage*)bestThumbnailImage;
 
@@ -127,20 +128,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (BOOL)isCached;
 
-///
-/// @name Extraction
-///
-
-/**
- * @return Summary of the receiver as an attributed string built from HTML.
- */
-- (NSAttributedString*)summaryHTML;
-
-/**
- *  @return Same as summary, but without links
- */
-- (NSAttributedString*)summaryHTMLWithoutLinks;
-
 
 /**
  *  @return The HTML for the article (all of the sections)
@@ -161,5 +148,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
  *  @return Set of all image URLs shown in the receiver.
  */
 - (NSSet<NSURL*>*)allImageURLs;
+
+- (NSString*)summary;
 
 @end

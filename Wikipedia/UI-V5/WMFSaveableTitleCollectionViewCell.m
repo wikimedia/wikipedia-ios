@@ -8,6 +8,10 @@
 #import "UIImageView+WMFImageFetching.h"
 #import "UIButton+WMFButton.h"
 
+#import "UIColor+WMFStyle.h"
+#import "UIColor+WMFHexColor.h"
+#import "UIImage+WMFStyle.h"
+
 @interface WMFSaveableTitleCollectionViewCell ()
 
 @property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
@@ -16,11 +20,17 @@
 
 @implementation WMFSaveableTitleCollectionViewCell
 
+- (void)configureImageViewWithPlaceholder {
+    self.imageView.contentMode = UIViewContentModeCenter;
+    self.imageView.backgroundColor = [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
+    self.imageView.image = [UIImage wmf_placeholderImage];
+}
+
 - (void)configureCell {
     [super configureCell];
     [self configureContentView];
-    self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
-    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmark];
+    [self configureImageViewWithPlaceholder];
+    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmarkMini];
 }
 
 - (void)configureContentView {
@@ -32,14 +42,10 @@
     [super prepareForReuse];
     self.title = nil;
     [self.imageView wmf_reset];
-    self.imageView.image = [UIImage imageNamed:[[self class] defaultImageName]];
+    [self configureImageViewWithPlaceholder];
 }
 
 #pragma mark - Accessors
-
-+ (NSString*)defaultImageName {
-    return @"lead-default";
-}
 
 - (void)setSaveButton:(UIButton*)saveButton {
     self.saveButtonController.button = saveButton;

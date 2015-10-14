@@ -146,7 +146,6 @@ NS_ASSUME_NONNULL_BEGIN
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle
                                                        dataStore:self.dataStore
                                                    savedPageList:self.savedPages
-                                       numberOfExtractCharacters:200
                                                      resultLimit:3];
         // TODO: fetch lazily
         [relatedTitlesDataSource fetch];

@@ -6,7 +6,7 @@
 #import "MediaWikiKit.h"
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
-
+#import "NSString+Extras.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,9 +33,9 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [self articleForIndexPath:indexPath];
-            [cell setSummaryAttributedText:[article summaryHTMLWithoutLinks]];
+            [cell setSummary:[article summary]];
             cell.title           = article.title;
-            cell.descriptionText = article.entityDescription;
+            cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             cell.image           = [article bestThumbnailImage];
             [cell setSavedPageList:self.savedPageList];
         };

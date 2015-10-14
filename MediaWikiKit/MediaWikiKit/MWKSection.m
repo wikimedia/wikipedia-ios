@@ -11,6 +11,8 @@
 #import "NSString+WMFHTMLParsing.h"
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
+#import "NSString+Extras.h"
+#import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -236,6 +238,41 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 
 - (void)removeAllChildren {
     [self.mutableChildren removeAllObjects];
+}
+
+// XPath selector which gets a pretty good summary (without html!).
+// Grabs text from first paragraph which has children and text from
+// elements after that. Huge benefit by not requiring separate html
+// stripping step!
+static NSString* const WMFSectionSummaryXPathSelector = @"\
+(\
+   //p[count(*) > 0 and not(ancestor::table)]/descendant-or-self::*\
+   |\
+   //p[count(*) > 0 and not(ancestor::table)]/following::*\
+)\
+[\
+   not(@id = 'coordinates')\
+   and\
+   not(ancestor::*[\
+       @id = 'coordinates'\
+       or\
+       @class = 'IPA'\
+       or\
+       starts-with(@class, 'IPA ')\
+       or\
+       contains(@class, ' IPA ')\
+   ])\
+]\
+/text()";
+
+- (NSString *)summary {
+    NSArray* textNodes      = [self elementsInTextMatchingXPath:WMFSectionSummaryXPathSelector];
+    if (!textNodes || !textNodes.count) {
+        return nil;
+    }
+    return [[[textNodes bk_map:^id (TFHppleElement* node) {
+        return node.raw;
+    }] componentsJoinedByString:@" "] wmf_summaryFromText];
 }
 
 @end

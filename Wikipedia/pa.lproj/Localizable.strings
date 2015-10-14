@@ -2,13 +2,18 @@
 // Exported from translatewiki.net
 // Author: Aalam
 // Author: Babanwalia
+// Author: Nachhattardhammu
 // Author: Satdeep gill
+// Author: ਪ੍ਰਚਾਰਕ
 
+"languages-title" = "ਭਾਸ਼ਾਵਾਂ";
 "article-languages-label" = "ਬੋਲੀ ਚੁਣੋ";
 "article-languages-cancel" = "ਰੱਦ ਕਰੋ";
 "article-languages-downloading" = "ਲੇਖ ਦੀਆਂ ਬੋਲੀਆਂ ਲੱਦ ਰਿਹਾ ਹੈ...";
 "article-languages-filter-placeholder" = "ਭਾਸ਼ਾਈ ਛਾਨਣੀ";
 "article-read-more-title" = "ਹੋਰ ਪੜ੍ਹੋ";
+"article-unable-to-load-section" = "ੲਿਹ ਭਾਗ ਨਹੀਂ ਆ ਰਿਹਾ। ਸਮੱਸਿਅਾ ਦੇ ਹੱਲ ਲੲੀ ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
+"article-unable-to-load-article" = "ਲੇਖ ਨਹੀਂ ਅਾ ਰਿਹਾ";
 "info-box-title" = "ਵਿਸ਼ੇਸ਼ ਤੱਥ";
 "info-box-close-text" = "ਬੰਦ ਕਰੋ";
 "table-title-other" = "ਹੋਰ ਜਾਣਕਾਰੀ";
@@ -21,6 +26,7 @@
 "history-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "history-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "history-clear-delete-all" = "ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
+"history-none" = "ਕੋੲੀ ਹਾਲੀਅਾ ਸਫ਼ਾ ਨਹੀਂ";
 "zero-free-verbiage" = "ਤੁਹਾਡੇ ਮੋਬਾਈਲ ਚਾਲਕ ਵੱਲੋਂ ਵਿਕੀਪੀਡੀਆ ਤੱਕ ਮੁਫ਼ਤ ਪਹੁੰਚ (ਡਾਟਾ ਦਾ ਖ਼ਰਚਾ ਮਾਫ਼)";
 "zero-charged-verbiage" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ ਬੰਦ ਹੈ";
 "zero-charged-verbiage-extended" = "ਹੋਰ ਲੇਖ ਲਿਆਉਣ 'ਤੇ ਡਾਟੇ ਦਾ ਖ਼ਰਚਾ ਪੈ ਸਕਦਾ ਹੈ। ਲੀਹੋਂ ਲਹਿ ਕੇ ਸਾਂਭੇ ਗਏ ਲੇਖ ਡਾਟਾ ਨਹੀਂ ਵਰਤਦੇ ਅਤੇ ਮੁਫ਼ਤ ਹਨ।";
@@ -45,6 +51,7 @@
 "account-creation-password-placeholder-text" = "ਪਛਾਣ-ਸ਼ਬਦ";
 "account-creation-password-confirm-placeholder-text" = "ਪਛਾਣ ਸ਼ਬਦ ਤਸਦੀਕ ਕਰੋ";
 "account-creation-email-placeholder-text" = "ਈਮੇਲ (ਚੋਣਵੀਂ)";
+"account-creation-missing-fields" = "ਅਾਪਣਾ ਖਾਤਾ ਬਣਾੳੁਣ ਲੲੀ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਗੁਪਤ-ਸ਼ਬਦ ਭਰੋ";
 "login-name-not-found" = "ਦਾਖ਼ਲ ਹੋਣ ਵਾਸਤੇ ਵਰਤੋਂਕਾਰ-ਨਾਂ ਲੁੜੀਂਦਾ ਹੈ।";
 "login-name-illegal" = "ਤੁਸੀਂ ਇੱਕ ਗ਼ੈਰ-ਕਨੂੰਨੀ ਵਰਤੋਂਕਾਰ ਨਾਂ ਦਿੱਤਾ।";
 "login-name-does-not-exist" = "ਤੁਹਾਡੇ ਵੱਲੋਂ ਦਿੱਤਾ ਗਿਆ ਵਰਤੋਂਕਾਰ ਨਾਂ ਹੋਂਦ ਵਿੱਚ ਨਹੀਂ ਹੈ।";
@@ -88,8 +95,11 @@
 "search-recent-clear-confirmation-sub-heading" = "ਇਸ ਕਾਰਜ ਨੂੰ ਰੱਦ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ!";
 "search-recent-clear-cancel" = "ਰੱਦ ਕਰੋ";
 "search-recent-clear-delete-all" = "ਸਭ ਮਿਟਾਓ";
+"settings-title" = "ਮੁਰੰਮਤਾਂ";
 "main-menu-title" = "ਹੋਰ";
+"main-menu-heading-about" = "ਸਾਡੇ ਬਾਰੇ";
 "main-menu-language-title" = "$1 ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਭਾਲੋ਼";
+"main-menu-faq" = "ਅਕਸਰ ਪੁੱਛੇ ਜਾਣ ਵਾਲੇ ਪ੍ਰਸ਼ਨ";
 "main-menu-language-toggle-show" = "ਬੋਲੀਆਂ ਵਿਖਾਉ";
 "main-menu-language-toggle-hide" = "ਬੋਲੀਆਂ ਲੁਕਾਉ";
 "main-menu-language-selection-saved" = "ਬੋਲੀ ਦੀ ਚੋਣ ਸਾਂਭੀ ਗਈ";
@@ -112,19 +122,21 @@
 "main-menu-terms-of-use" = "ਵਰਤੋਂ ਦੀਆਂ ਸ਼ਰਤਾਂ";
 "main-menu-rate-app" = "ਐਪ ਨੂੰ ਦਰਜਾ ਦਿਉ";
 "main-menu-heading-zero" = "ਵਿਕੀਪੀਡੀਆ ਜ਼ੀਰੋ";
-// Fuzzy
-"main-menu-heading-legal" = "ਕਨੂੰਨੀ ਜਾਣਕਾਰੀ";
+"main-menu-heading-legal" = "ਪਰਦੇਦਾਰੀ ਅਤੇ ਸ਼ਰਤਾਂ";
 "main-menu-show-today" = "ਅੱਜ";
 "main-menu-nearby" = "ਨੇੜੇ-ਤੇੜੇ";
 "main-menu-more" = "ਹੋਰ...";
+"main-menu-debug-crash" = "ਟੁੱਟ ਗਿਅਾ";
 "saved-pages-title" = "ਸਾਂਭੇ ਸਫ਼ੇ";
 "saved-pages-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਸਾਂਭੀਆਂ ਚੀਜ਼ਾਂ ਮਿਟਾਉਣੀਆਂ ਹਨ?";
 "saved-pages-clear-confirmation-sub-heading" = "ਇਹ ਕਾਰਵਾਈ ਅਣ-ਕੀਤੀ ਨਹੀਂ ਹੋ ਸਕਦੀ!";
 "saved-pages-clear-cancel" = "ਰੱਦ ਕਰੋ";
-// Fuzzy
 "saved-pages-clear-delete-all" = "ਸਾਰਾ ਕੁਝ ਮਿਟਾਉ";
-"page-history-title" = "ਲੇਖ ਦਾ ਇਤਿਹਾਸ";
-// Fuzzy
+"saved-pages-refresh-cancel-alert-title" = "ਨਵੀਨੀਕਰਨ ਰੱਦ ਕੀਤਾ ਗਿਅਾ ਹੈ";
+"saved-pages-refresh-cancel-alert-message" = "ਵਿਕੀਪੀਡੀਅਾ ਦੇ ਲੇਖਾਂ ਦਾ ਹਰ ਸਮੇਂ ਨਵੀਨੀਕਰਨ ਹੁੰਦਾ ਰਹਿੰਦਾ ਹੈ। ਲੇਖ ਦੇ ਨਵੇਂ ਸੰਸਕਰਨ ਲੲੀ ਮੁੜ-ਤਾਜ਼ਾ ਕਰੋ।";
+"saved-pages-refresh-cancel-alert-button" = "ਜਾਣਦਾ ਹਾਂ।";
+"saved-pages-none" = "ਹਾਲੇ ਤੱਕ ਕੋੲੀ ਸਫ਼ਾ ਨਹੀ ਸੰਭਾਲਿਅਾ ਗਿਅਾ।";
+"page-history-title" = "ਲੇਖ ਦਾ ਅਤੀਤ";
 "page-history-downloading" = "ਲੇਖ ਦਾ ਅਤੀਤ ਲੱਦਿਆ ਜਾ ਰਿਹਾ ਹੈ...";
 "navbar-title-mode-edit-wikitext" = "ਸੋਧ";
 "navbar-title-mode-login" = "ਦਾਖ਼ਲਾ";
@@ -137,7 +149,6 @@
 "navbar-title-mode-edit-wikitext-captcha" = "ਜਲਦੀ ਤਸਦੀਕੀ ਲੁੜੀਂਦੀ";
 "navbar-title-mode-edit-wikitext-summary" = "ਆਪਣੀ ਸੋਧ ਦਾ ਵੇਰਵਾ ਦਿਉ";
 "navbar-title-mode-edit-wikitext-save" = "ਸਾਂਭੋ";
-// Fuzzy
 "edit-summary-choice-linked-words" = "ਕੜੀਆਂ ਜੋੜੀਆਂ";
 "edit-summary-choice-fixed-grammar" = "ਵਿਆਕਰਨ ਸਹੀ ਕੀਤੀ";
 "edit-summary-choice-fixed-inaccuracy" = "ਗ਼ਲਤੀ ਸਹੀ ਕੀਤੀ";
@@ -148,8 +159,7 @@
 "edit-summary-choice-added-clarification" = "ਸਫ਼ਾਈ ਜੋੜੀ";
 "edit-summary-choice-other" = "ਹੋਰ";
 "edit-summary-description" = "ਕੋਈ ਖ਼ਾਸ ਸਾਰ ਸਹਿ-ਸੰਪਾਦਕਾਂ ਦੀ ਤੁਹਾਡੀਆਂ ਸੋਧਾਂ ਦੀ ਛੇਤੀ ਪੜਚੋਲ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੀ ਹੈ। ਤੁਸੀਂ ਹੇਠਲੀਆਂ ਨਿਸ਼ਾਨਦੇਹੀਆਂ 'ਚੋਂ ਵੀ ਚੁਣ ਸਕਦੇ ਹੋ।";
-// Fuzzy
-"edit-summary-field-placeholder-text" = "ਹੋਰ ਤਰੀਕੇ ਜਿਹਨਾਂ ਨਾਲ਼ ਤੁਸੀਂ ਇਸ ਸਫ਼ੇ ਨੂੰ ਸੁਧਾਰਿਆ";
+"edit-summary-field-placeholder-text" = "ਹੋਰ ਤਰੀਕੇ ਜਿਨ੍ਹਾਂ ਨਾਲ਼ ਤੁਸੀਂ ਇਸ ਸਫ਼ੇ ਨੂੰ ਸੁਧਾਰਿਆ";
 "edit-summary-title" = "ਤੁਸੀਂ ਇਹ ਸਫ਼ਾ ਕਿਵੇਂ ਸੁਧਾਰਿਆ?";
 "fetching-random-article" = "ਰਲ਼ਵਾਂ ਲੇਖ ਲਿਆ ਰਿਹਾ ਹੈ";
 "article-pull-to-refresh-prompt" = "ਲੇਖ ਮੁੜ-ਤਾਜ਼ਾ ਕਰਨ ਵਾਸਤੇ ਖਿੱਚੋ";
@@ -164,6 +174,9 @@
 "about-contributors" = "ਯੋਗਦਾਨੀ";
 "about-translators" = "ਅਨੁਵਾਦਕ";
 "about-libraries-license" = "ਲਸੰਸ";
+"about-repositories" = "ਖਜ਼ਾਨਾਂ";
+"about-send-feedback" = "ਅੈਪ ਸੰਬੰਧੀ ਸਲਾਹ ਭੇਜੋ";
+"about-product-of" = "$1 ਦਾ ਸਾਮਾਨ";
 "about-wikimedia-foundation" = "ਵਿਕੀਮੀਡੀਆ ਫ਼ਾਊਂਡੇਸ਼ਨ";
 "share-menu-save-page" = "ਸਫ਼ਾ ਸਾਂਭੋ";
 "share-menu-page-saved" = "ਲੀਹੋਂ ਲਹਿ ਕੇ ਪੜ੍ਹਨ ਵਾਸਤੇ ਸਾਂਭਿਆ ਗਿਆ।";
@@ -178,10 +191,8 @@
 "timestamp-days" = "%d ਦਿਨ ਪਹਿਲਾਂ";
 "timestamp-months" = "%d ਮਹੀਨੇ ਪਹਿਲਾਂ";
 "timestamp-years" = "%d ਵਰ੍ਹੇ ਪਹਿਲਾਂ";
-// Fuzzy
-"lastmodified-by-user" = "$2 ਵੱਲੋਂ $1 ਬਦਲਿਆ ਗਿਆ";
-// Fuzzy
-"lastmodified-by-anon" = "ਕਿਸੇ ਗੁੰਮਨਾਮ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ $1 ਬਦਲਿਆ ਗਿਆ";
+"lastmodified-by-user" = "$2 ਵੱਲੋਂ $1 ਸੋਧਿਅਾ ਗਿਆ";
+"lastmodified-by-anon" = "ਕਿਸੇ ਗੁੰਮਨਾਮ ਵਰਤੋਂਕਾਰ ਵੱਲੋਂ $1 ਸੋਧਿਅਾ ਗਿਆ";
 "button-next" = "ਅੱਗੇ";
 "button-done" = "ਹੋ ਗਿਆ";
 "button-save" = "ਸਾਂਭੋ";
@@ -223,6 +234,7 @@
 "menu-share-accessibility-label" = "ਸਾਂਝਾ ਕਰੋ";
 "menu-more-accessibility-label" = "ਹੋਰ ਸੈਟਿੰਗਾਂ";
 "menu-trash-accessibility-label" = "ਮਿਟਾਉ";
+"menu-language-accessibility-label" = "ਭਾਸ਼ਾਵਾਂ";
 "nearby-title" = "ਨੇੜੇ-ਤੇੜੇ";
 "nearby-distance-label-meters" = "$1 ਮੀਟਰ";
 "nearby-distance-label-km" = "$1 ਕਿ.ਮੀ.";
@@ -233,15 +245,26 @@
 "nearby-loading" = "ਨੇੜੇ-ਤੇੜੇ ਦੇ ਲੇਖ ਲੱਦ ਰਿਹ ਹੈ...";
 "nearby-loaded" = "ਨੇੜੇ-ਤੇੜੇ ਦੇ ਲੇਖ ਲੱਦੇ ਗਏ";
 "nearby-none" = "ਕੋਈ ਨੇੜੇ-ਤੇੜੇ ਦੇ ਲੇਖ ਨਹੀਂ ਲੱਭੇ। ਮੁੜ-ਤਾਜ਼ਾ ਕਰਨ ਵਾਸਤੇ ਖਿੱਚੋ ਜਾਂ ਬਾਅਦ 'ਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
-"nearby-open-in-maps" = "ਨਕਸ਼ਿਆਂ 'ਚ ਖੋਲ੍ਹੋ";
+"nearby-open-in-maps" = "ਨਕਸ਼ੇ 'ਚ ਖੋਲ੍ਹੋ";
 "nearby-cancel" = "ਰੱਦ ਕਰੋ";
 "nearby-location-updates-denied" = "ਏਸ ਐਪ ਕੋਲ਼ ਟਿਕਾਣੇ ਬਾਬਤ ਨਵੀਨੀਕਰਨ ਲੈਣ ਦੀ ਇਜਾਜ਼ਤ ਨਹੀਂ ਹੈ।";
 "nearby-location-updates-enable" = "ਟਿਕਾਣੇ ਬਾਬਤ ਨਵੀਨੀਕਰਨ ਚਾਲੂ ਕਰਨ ਵਾਸਤੇ ਸੈਟਿੰਗ ਐਪ ਖੋਲ੍ਹੋ ਅਤੇ ਹੇਠ ਲਿਖਿਆ ਚੁਣੋ:";
 "nearby-location-updates-settings-menu" = "ਪਰਦੇਦਾਰੀ > ਟਿਕਾਣਾ ਸੇਵਾਵਾਂ > ਵਿਕੀਪੀਡੀਆ";
 "nearby-location-general-error" = "ਟਿਕਾਣਾ ਪਤਾ ਨਹੀਂ ਲੱਗ ਰਿਹਾ। ਮੁੜ-ਤਾਜ਼ਾ ਕਰਨ ਵਾਸਤੇ ਖਿੱਚੋ ਜਾਂ ਬਾਅਦ 'ਚ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 "nearby-wifi" = "ਵਾਈ-ਫ਼ਾਈ ਚਾਲੂ ਕਰਨ ਨਾਲ਼ ਤੁਹਾਡੇ ਜੰਤਰ ਨੂੰ ਤੁਹਾਡੇ ਟਿਕਾਣੇ ਦੀ ਚੰਗੇਰੀ ਤਰਾਂ ਪਤਾ ਲਾਉਣ ਵਿੱਚ ਮਦਦ ਮਿਲ ਸਕਦੀ ਹੈ।";
+"migration-update-progress-label" = "ਅਾਮ ਅੰਕੜਿਅਾਂ ਦਾ ਪ੍ਰਵਾਸ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ।";
+"migration-update-progress-count-label" = "$2 ਦੇ ਲੇਖ $1 ਦਾ ਪ੍ਰਵਾਸ ਹੋ ਰਿਹਾ ਹੈ।";
 "migration-skip-button-title" = "ਇਸਨੂੰ ਮਿਟਾਓ";
+"image-gallery-unknown-owner" = "ਚੜ੍ਹਾੳੁਣ ਵਾਲਾ ਅਣ-ਪਛਾਤਾ ਹੈ";
+"image-gallery-fetch-image-info-error-title" = "ਚਿੱਤਰ ਡਾੳੂਨਲੋਡ ਨਹੀਂ ਹੋ ਰਿਹਾ";
+"image-gallery-fetch-image-info-error-message" = "ੲਿਸ ਲੇਖ ਲੲੀ ਚਿੱਤਰ ਡਾੳੂਨਲੋਡ ਨਹੀਂ ਹੋ ਰਿਹਾ। ਲੇਖ ਨੂੰ ਮੁੜ-ਤਾਜ਼ਾ ਕਰਕੇ ਫ਼ਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
 "image-gallery-fetch-image-info-error-ok" = "ਠੀਕ";
+"hockeyapp-alert-title" = "ਮੁਅਾਫ਼ ਕਰਨਾ, ਬੀਤੇ ਸਮੇਂ ਅੈਪ ਟੁੱਟ ਗੲੀ";
 "hockeyapp-alert-send-report" = "ਰਿਪੋਰਟ ਭੇਜੋ";
 "hockeyapp-alert-always-send" = "ਹਮੇਸ਼ਾ ਭੇਜੋ";
 "hockeyapp-alert-do-not-send" = "ਨਾ ਭੇਜੋ";
+"hockeyapp-alert-privacy" = "$1 ਦੀ ਨਿੱਜਤਾ";
+"page-issues" = "ਸਫ਼ੇ ਸੰਬੰਧੀ ਮੁੱਦੇ";
+"page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
+"captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
+"captcha-prompt" = "ੳੁੱਪਰ ਦਿੱਤੇ ਚਿੱਤਰ ਵਿੱਚੋਂ ਕੈਪਚਾ ਲਿਖਿ";

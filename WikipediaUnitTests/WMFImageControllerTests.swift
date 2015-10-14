@@ -58,7 +58,7 @@ class WMFImageControllerTests: XCTestCase {
 
     func testReceivingDataResponseResolves() {
         let testURL = NSURL(string: "https://upload.wikimedia.org/foo")!
-        let stubbedData = UIImagePNGRepresentation(UIImage(named: "lead-default")!)
+        let stubbedData = UIImagePNGRepresentation(UIImage(named: "image-placeholder")!)
 
         LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
