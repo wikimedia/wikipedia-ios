@@ -22,8 +22,8 @@
 - (void)testReadPerformance {
     NSMutableArray* entries = [NSMutableArray arrayWithCapacity:1000];
     for (int i = 0; i < 1000; i++) {
-        MWKTitle* title        = [[MWKSite siteWithCurrentLocale] titleWithString:[[NSUUID UUID] UUIDString]];
-        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:MWKHistoryDiscoveryMethodLink];
+        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:[MWKTitle random]
+                                                        discoveryMethod:MWKHistoryDiscoveryMethodLink];
         [entries addObject:entry];
     }
 

@@ -48,28 +48,6 @@
     [super tearDown];
 }
 
-- (void)testInitialStateWithEmptyDataStore {
-    XCTAssertEqual([historyList countOfEntries], 0, @"Should have length 0 initially");
-    XCTAssertFalse(self->historyList.dirty, @"Should not be dirty initially");
-}
-
-- (void)testAddingOneEntry {
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                    discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    [historyList addEntry:entry];
-    assertThat(historyList.entries, is(@[entry]));
-}
-
-- (void)testAddingTwoDifferentTitles {
-    MWKHistoryEntry* losAngeles = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                         discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr
-                                                           discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    [historyList addEntry:losAngeles];
-    [historyList addEntry:sanFrancisco];
-    assertThat(historyList.entries, is(@[sanFrancisco, losAngeles]));
-}
-
 - (void)testStatePersistsWhenSaved {
     MWKHistoryEntry* losAngeles = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
                                                          discoveryMethod :MWKHistoryDiscoveryMethodSearch];
@@ -132,23 +110,6 @@
     [historyList addEntry:en];
     [historyList addEntry:fr];
     assertThat([historyList entries], is(@[fr, en]));
-}
-
-- (void)testEmptyDirtyAfterAdd {
-    [historyList addEntry:[[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch]];
-    XCTAssertTrue(historyList.dirty, @"Should be dirty after adding");
-}
-
-- (void)testAdd2ThenRemove {
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    [historyList addEntry:entry1];
-    [historyList addEntry:entry2];
-    [historyList removeEntryWithListIndex:entry1.title];
-    assertThat([historyList entries], is(@[entry2]));
 }
 
 - (void)testListOrdersByDateDescending {

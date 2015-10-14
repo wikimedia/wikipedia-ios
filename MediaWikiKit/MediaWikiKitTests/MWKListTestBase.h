@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKListTestBase : XCTestCase
 
 /// An array of test objects created in @c setUp.
-@property (nonatomic, strong) NSArray* testObjects;
+@property (nonatomic, strong, nullable) NSArray* testObjects;
 
 /**
  *  @return A unique entry object for use with the receiver's @c listClass.
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A new @c MWKList (or subclass) initialized with the given entries.
  */
-- (MWKList*)listWithEntries:(NSArray*)entries;
+- (MWKList*)listWithEntries:(nullable NSArray*)entries;
 
 @end
 

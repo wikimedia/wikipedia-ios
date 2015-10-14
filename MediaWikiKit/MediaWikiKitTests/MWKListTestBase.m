@@ -8,6 +8,8 @@
 
 #import "MWKListTestBase.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation MWKListDummyEntry
 
 - (instancetype)init {
@@ -45,7 +47,7 @@
     return [MWKList class];
 }
 
-- (MWKList*)listWithEntries:(NSArray*)entries {
+- (MWKList*)listWithEntries:(nullable NSArray*)entries {
     return [[[[self class] listClass] alloc] initWithEntries:entries];
 }
 
@@ -56,3 +58,5 @@
 
 
 @end
+
+NS_ASSUME_NONNULL_END
