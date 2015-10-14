@@ -4,6 +4,7 @@
 // Author: Fendo99
 // Author: Milicevic01
 // Author: Rancher
+// Author: Сербијана
 
 "languages-title" = "Језици";
 "article-languages-label" = "Изаберите језик";
@@ -63,6 +64,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-delete-all" = "Обриши све";
+"settings-title" = "Подешавања";
 "main-menu-title" = "Више";
 "main-menu-heading-about" = "О";
 "main-menu-language-title" = "Претрага Википедије";

@@ -60,6 +60,7 @@
 "search-recent-clear-confirmation-heading" = "Ezabatu azken bilaketa guztiak?";
 "search-recent-clear-cancel" = "Utzi";
 "search-recent-clear-delete-all" = "Denak ezabatu";
+"settings-title" = "Ezarpenak";
 "main-menu-title" = "Gehiago";
 "main-menu-heading-about" = "Honi buruz";
 "main-menu-language-title" = "Bilatu $1 Wikipedia";
@@ -80,6 +81,7 @@
 "main-menu-nearby" = "Gertukoak";
 "main-menu-more" = "Gehiago...";
 "saved-pages-title" = "Gordetako orrialdeak";
+"saved-pages-clear-confirmation-heading" = "Ezabatu gordetako elementu guztiak?";
 "saved-pages-clear-cancel" = "Utzi";
 "saved-pages-clear-delete-all" = "Dena ezabatu";
 "saved-pages-none" = "Hizkuntzaren izena";
@@ -103,6 +105,7 @@
 "edit-summary-choice-other" = "Beste";
 "about-title" = "Honi buruz";
 "about-wikipedia" = "Wikipedia";
+"about-contributors" = "ekarleak";
 "about-translators" = "itzultzaileak";
 "about-libraries" = "Erabilitako liburutegiak";
 "about-libraries-license" = "Lizentzia";

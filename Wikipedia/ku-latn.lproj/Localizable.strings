@@ -48,6 +48,7 @@
 "search-recent-title" = "Lêgerînên dawî";
 "search-recent-clear-cancel" = "Betal bike";
 "search-recent-clear-delete-all" = "Hemûyan Jê Bibe";
+"settings-title" = "Eyar";
 "main-menu-title" = "Bêhtir";
 "main-menu-heading-about" = "Derbarê";
 "main-menu-language-toggle-show" = "Zimanan nîşan bide";
@@ -125,3 +126,4 @@
 "hockeyapp-alert-do-not-send" = "Neşîne";
 "page-issues" = "Pirsgirêkên rûpelê";
 "page-similar-titles" = "Peyamên wek hev";
+"captcha-reload" = "Captcha'yek din nîşan bide";
