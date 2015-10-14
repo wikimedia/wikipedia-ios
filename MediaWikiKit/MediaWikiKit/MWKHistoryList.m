@@ -1,6 +1,8 @@
 
 #import "MediaWikiKit.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MWKHistoryList ()
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
@@ -145,3 +147,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

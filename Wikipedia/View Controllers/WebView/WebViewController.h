@@ -14,7 +14,7 @@
      UIGestureRecognizerDelegate,
      UIAlertViewDelegate>
 
-@property (nonatomic, strong, nullable) MWKArticle* article;
+@property (nonatomic, strong) MWKArticle* article;
 
 @property (nonatomic, weak) id<WMFWebViewControllerDelegate> delegate;
 
