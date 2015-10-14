@@ -238,13 +238,6 @@
     [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:[self.dataSource discoveryMethod] dataStore:self.dataStore];
 }
 
-#pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self wmf_presentArticle:[self.dataSource articleForIndexPath:indexPath]
-             discoveryMethod:[self.dataSource discoveryMethod]];
-}
-
 - (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
 }
