@@ -10,7 +10,6 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
 
-@property (strong, nonatomic) NSDictionary* summaryLabelAttributesFromIB;
 @property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
 @property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
 @property (nonatomic) CGFloat heightOfImageFromIB;
@@ -27,7 +26,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.descriptionText   = nil;
-    self.summaryLabel.text = nil;
+    self.summaryLabel.attributedText = nil;
 }
 
 -(void)awakeFromNib {
@@ -36,8 +35,6 @@
 }
 
 -(void)rememberSettingsFromIB {
-    NSRange r = NSMakeRange(0, 1);
-    self.summaryLabelAttributesFromIB = [self.summaryLabel.attributedText attributesAtIndex:0 effectiveRange:&r];
     self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
     self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
     self.heightOfImageFromIB = self.imageHeightConstraint.constant;
@@ -81,7 +78,22 @@
         self.summaryLabel.attributedText = nil;
         return;
     }
-    self.summaryLabel.attributedText = [[NSAttributedString alloc] initWithString:summary attributes:self.summaryLabelAttributesFromIB];
+    self.summaryLabel.attributedText = [[NSAttributedString alloc] initWithString:summary attributes:self.summaryAttributes];
+}
+
+- (NSDictionary*)summaryAttributes {
+    static NSDictionary* attributes;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableParagraphStyle* pStyle = [[NSMutableParagraphStyle alloc] init];
+        pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+        pStyle.baseWritingDirection = NSWritingDirectionNatural;
+        pStyle.lineHeightMultiple = 1.35;
+        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0],
+                       NSForegroundColorAttributeName: [UIColor blackColor],
+                       NSParagraphStyleAttributeName: pStyle};
+    });
+    return attributes;
 }
 
 - (void)setImageURL:(NSURL*)imageURL {
