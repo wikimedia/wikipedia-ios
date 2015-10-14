@@ -103,12 +103,10 @@
 
 - (void)removeEntry:(id<MWKListObject>)entry {
     [super removeEntry:entry];
-    [self sortEntries];
 }
 
 - (void)removeAllEntries {
     [super removeAllEntries];
-    [self sortEntries];
 }
 
 + (NSArray<NSSortDescriptor*>*)sortDescriptors {
