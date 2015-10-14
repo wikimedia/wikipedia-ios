@@ -67,8 +67,11 @@ static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
     }
 }
 
-+ (NSString*)defaultImageName {
-    return @"logo-placeholder-search";
+- (void)configureImageViewWithPlaceholder {
+    [super configureImageViewWithPlaceholder];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.backgroundColor = [UIColor whiteColor];
+    self.imageView.tintColor = [UIColor wmf_lightGrayColor];
 }
 
 #pragma mark - Highlighting

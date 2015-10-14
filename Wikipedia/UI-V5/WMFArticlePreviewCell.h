@@ -14,18 +14,9 @@ extern CGFloat const WMFArticlePreviewCellImageHeight;
  */
 @property (copy, nonatomic) NSString* descriptionText;
 
-- (void)setSummaryHTML:(NSString*)summaryHTML fromSite:(MWKSite*)site;
+- (void)setSummary:(NSString*)summary;
 
-- (void)setSummaryAttributedText:(NSAttributedString*)summaryAttributedText;
-
-/**
- *  Get/set style attributes of the label used to display the article's summary.
- *
- *  @warning Do not set the text directly, use `setSummaryHTML:fromSite:` and `setSummaryAttributedText:`.
- *
- *  @return The label used to display the `summaryHTML` and `summaryAttributedText`.
- */
-- (UILabel*)summaryLabel;
-
+- (void)setImage:(MWKImage*)image;
+- (void)setImageURL:(NSURL*)imageURL;
 
 @end

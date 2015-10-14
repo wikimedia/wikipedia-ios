@@ -46,13 +46,13 @@
 
 - (void)testRemovalOfSpaceBeforeCommaAndSemicolon {
     NSString* string = @"fish , squids ; eagles  , crows";
-    XCTAssertEqualObjects([string wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons],
+    XCTAssertEqualObjects([string wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes],
                           @"fish, squids; eagles, crows");
 }
 
 - (void)testRemovalOfSpaceBeforePeriod {
     NSString* string = @"Yes . No 。 Maybe ． So ｡";
-    XCTAssertEqualObjects([string wmf_stringByRemovingWhiteSpaceBeforePeriod],
+    XCTAssertEqualObjects([string wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes],
                           @"Yes. No。 Maybe． So｡");
 }
 

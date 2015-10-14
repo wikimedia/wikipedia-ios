@@ -25,13 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTitle:(MWKTitle*)title
                     dataStore:(MWKDataStore*)dataStore
                 savedPageList:(MWKSavedPageList*)savedPageList
-    numberOfExtractCharacters:(NSUInteger)numberOfExtractCharacters
                   resultLimit:(NSUInteger)resultLimit;
 
 - (instancetype)initWithTitle:(MWKTitle*)title
                     dataStore:(MWKDataStore*)dataStore
                 savedPageList:(MWKSavedPageList*)savedPageList
-    numberOfExtractCharacters:(NSUInteger)numberOfExtractCharacters
                   resultLimit:(NSUInteger)resultLimit
                       fetcher:(WMFRelatedSearchFetcher*)fetcher NS_DESIGNATED_INITIALIZER;
 
