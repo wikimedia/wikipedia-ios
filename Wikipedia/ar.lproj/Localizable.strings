@@ -1,5 +1,6 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
+// Author: Haytham morsy
 // Author: Meno25
 // Author: Musab Moahmmed
 // Author: Omda4wady
@@ -25,6 +26,7 @@
 "history-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "history-clear-cancel" = "إلغاء";
 "history-clear-delete-all" = "حذف الكل";
+"history-none" = "لا توجد صفحات جديدة هنا.";
 "zero-charged-verbiage" = "ويكيبيديا زيرو معطلة";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "مغادرة ويكيبيديا زيرو";
@@ -74,6 +76,7 @@
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
 "search-recent-clear-cancel" = "إلغاء";
 "search-recent-clear-delete-all" = "حذف الكل";
+"settings-title" = "إعدادات";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
 "main-menu-faq" = "الأسئلة المتكررة";

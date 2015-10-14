@@ -92,6 +92,7 @@
 "search-recent-clear-confirmation-heading" = "সাম্প্রতিক সব অনুসন্ধান মুছে ফেলবেন?";
 "search-recent-clear-cancel" = "বাতিল";
 "search-recent-clear-delete-all" = "সব মুছে ফেলুন";
+"settings-title" = "সেটিংস";
 "main-menu-title" = "আরও";
 "main-menu-heading-about" = "পরিচিতি";
 "main-menu-language-title" = "$1 ভাষার উইকিতে অনুসন্ধান";
@@ -251,6 +252,9 @@
 "nearby-cancel" = "বাতিল";
 "nearby-location-updates-settings-menu" = "গোপনীয়তা > অবস্থান পরিষেবা > উইকিপিডিয়া";
 "nearby-location-general-error" = "অবস্থান নির্ণয় করা যাচ্ছে না। পুনঃসতেজ করতে টানুন বা পরে আবার চেষ্টা করুন।";
+"migration-skip-button-title" = "এটি মুছুন";
+"image-gallery-unknown-owner" = "আপলোডকারী অজানা।";
+"image-gallery-fetch-image-info-error-title" = "চিত্র ডাউনলোড করতে অক্ষম";
 "image-gallery-fetch-image-info-error-ok" = "ঠিক আছে";
 "hockeyapp-alert-do-not-send" = "পাঠাবেন না";
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";

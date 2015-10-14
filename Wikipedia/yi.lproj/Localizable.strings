@@ -66,6 +66,7 @@
 "search-recent-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע זוכן?";
 "search-recent-clear-cancel" = "אַנולירן";
 "search-recent-clear-delete-all" = "אויסמעקן אלץ";
+"settings-title" = "איינשטעלונגען";
 "main-menu-title" = "נאך";
 "main-menu-heading-about" = "וועגן";
 "main-menu-language-title" = "זוכן $1 וויקיפעדיע";
@@ -185,6 +186,8 @@
 "migration-update-progress-label" = "מיגרירן לאקאלע דאטן";
 "migration-skip-button-title" = "אויסמעקן";
 "image-gallery-fetch-image-info-error-ok" = "יאָ";
+"hockeyapp-alert-question" = "צי ווילט איר שיקן א קראך־באריכט צו $1 כדי וויקימעדיע קען רעצענזירן אייער קראך?";
+"hockeyapp-alert-question-with-response-field" = "צי ווילט איר שיקן א קראך־באריכט צו $1 כדי וויקימעדיע קען רעצענזירן אייער קראך? זײַט אזוי גוט און באשרייבט וואס האט פאסירט ווען דער קראך איז געשען:";
 "hockeyapp-alert-send-report" = "שיקן באריכט";
 "hockeyapp-alert-always-send" = "אלעמאל שיקן";
 "hockeyapp-alert-do-not-send" = "נישט שיקן";

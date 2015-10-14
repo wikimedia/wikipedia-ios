@@ -1,5 +1,6 @@
 // Messages for Traditional Chinese (中文（繁體）‎)
 // Exported from translatewiki.net
+// Author: Bowleerin
 // Author: Cathypilot0117
 // Author: Cwlin0416
 // Author: Kc kennylau
@@ -286,3 +287,4 @@
 "page-similar-titles" = "相似頁面";
 "captcha-reload" = "顯示其他驗證碼";
 "captcha-prompt" = "輸入上圖中的驗證碼文字";
+"mwk-empty-title-error" = "無法執行有空白標題的操作。";
