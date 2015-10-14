@@ -20,7 +20,7 @@
 #import "UIImageView+WMFContentOffset.h"
 #import "UIImage+WMFNormalization.h"
 #import "WMFCollectionViewPageLayout.h"
-#import "UICollectionViewCell+WMFExtensions.h"
+#import "UIImage+WMFStyle.h"
 
 // Model
 #import "MWKArticle.h"
@@ -120,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                   forIndexPath:indexPath];
     if (self.images.count == 0) {
         cell.imageView.tintColor = [UIColor wmf_lightGrayColor];
-        cell.imageView.image       = [UICollectionViewCell wmf_placeholderImage];
+        cell.imageView.image       = [UIImage wmf_placeholderImage];
         cell.imageView.contentMode = UIViewContentModeCenter;
         return cell;
     }

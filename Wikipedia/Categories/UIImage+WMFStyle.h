@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UICollectionViewCell (WMFExtensions)
+@interface UIImage (WMFStyle)
 
 +(UIImage*)wmf_placeholderImage;
 
