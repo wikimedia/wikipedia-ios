@@ -1,6 +1,6 @@
 #import "WMFSaveableTitleCollectionViewCell.h"
 
-@class MWKImage;
+@class MWKImage, MWKSite;
 
 extern CGFloat const WMFArticlePreviewCellTextPadding;
 extern CGFloat const WMFArticlePreviewCellImageHeight;

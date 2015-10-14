@@ -9,14 +9,13 @@
 #import "WebViewController_Private.h"
 #import "WebViewController+ImageGalleryPresentation.h"
 #import "WMFImageGalleryViewController.h"
+#import "MWKArticle.h"
+#import "MWKImageList.h"
 
 @implementation WebViewController (ImageGalleryPresentation)
 
 - (void)presentGalleryForArticle:(MWKArticle*)article showingImage:(MWKImage*)selectedImage {
-    [self cancelArticleLoading];
-    [self cancelSearchLoading];
-
-    if (!self.session.currentArticle.images || self.session.currentArticle.images.count == 0) {
+    if (!self.article.images || self.article.images.count == 0) {
         return;
     }
 

@@ -76,7 +76,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:@"Nearby your location" attributes:nil];
+    return [[NSAttributedString alloc] initWithString:@"Nearby" attributes:nil];
 }
 
 - (NSString*)footerText {

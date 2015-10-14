@@ -17,6 +17,8 @@
 #import "UIView+WMFRTLMirroring.h"
 #import "Wikipedia-Swift.h"
 #import "MediaWikiKit.h"
+#import "UIViewController+WMFArticlePresentation.h"
+
 
 #define HISTORY_RESULT_HEIGHT (80.0 * MENUS_SCALE_MULTIPLIER)
 #define HISTORY_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
@@ -338,8 +340,7 @@
     NSArray* array                = dict[@"data"];
     MWKHistoryEntry* historyEntry = array[indexPath.row];
 
-    [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:historyEntry.title
-                                                  discoveryMethod:historyEntry.discoveryMethod];
+    [self wmf_pushArticleViewControllerWithTitle:historyEntry.title discoveryMethod:historyEntry.discoveryMethod dataStore:self.userDataStore.dataStore];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {

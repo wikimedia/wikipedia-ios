@@ -10,25 +10,18 @@
 
 #import "WikipediaAppUtils.h"
 #import "WikipediaZeroMessageFetcher.h"
-#import "SectionEditorViewController.h"
 #import "CommunicationBridge.h"
 #import "SessionSingleton.h"
-#import "QueuesSingleton.h"
 #import "MWLanguageInfo.h"
 #import "Defines.h"
 #import "UIScrollView+NoHorizontalScrolling.h"
-#import "UIViewController+WMFHideKeyboard.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"
 #import "UIViewController+Alert.h"
 #import "NSString+Extras.h"
 #import "PaddedLabel.h"
 #import "LanguagesViewController.h"
-#import "MWKSection+DisplayHtml.h"
 #import "EditFunnel.h"
-#import "ProtectedEditAttemptFunnel.h"
-#import "DataHousekeeping.h"
-#import "NSDate-Utilities.h"
 #import "AccountCreationViewController.h"
 #import "WikiGlyph_Chars.h"
 #import "UINavigationController+TopActionSheet.h"
@@ -38,7 +31,6 @@
 #import "WikiGlyphLabel.h"
 #import "NSString+FormattedAttributedString.h"
 #import "SavedPagesFunnel.h"
-#import "AssetsFileFetcher.h"
 
 #import "DataMigrationProgressViewController.h"
 #import "UIFont+WMFStyle.h"
@@ -51,6 +43,7 @@
 #import "WMFURLCache.h"
 
 #import "WMFProgressLineView.h"
+#import "MWKHistoryEntry.h"
 
 //#import "UIView+Debugging.h"
 
@@ -83,10 +76,6 @@ static int const kMinimumTextSelectionLength = 2;
 
 @property (strong, nonatomic) CommunicationBridge* bridge;
 
-@property (nonatomic) CGPoint lastScrollOffset;
-
-@property (nonatomic) CGFloat scrollViewDragBeganVerticalOffset;
-
 @property (strong, nonatomic) NSDictionary* adjacentHistoryIDs;
 @property (strong, nonatomic) NSString* externalUrl;
 
@@ -103,23 +92,11 @@ static int const kMinimumTextSelectionLength = 2;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewBottomConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* referencesContainerViewHeightConstraint;
 
-@property (copy) NSString* jumpToFragment;
-
-@property (nonatomic) BOOL editable;
-@property (copy) MWKProtectionStatus* protectionStatus;
-
-// These are presently only used by updateHistoryDateVisitedForArticleBeingNavigatedFrom method.
-@property (strong, nonatomic) MWKTitle* currentTitle;
-
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
 
-@property (nonatomic) BOOL isCurrentArticleMain;
-
-@property (nonatomic) BOOL keyboardIsVisible;
+@property (nonatomic) BOOL referencesHidden;
 
 @property (strong, nonatomic) WMFProgressLineView* progressView;
-
-@property (assign, nonatomic) BOOL isFetchingArticle;
 
 /**
  * Designated initializer.
@@ -127,11 +104,5 @@ static int const kMinimumTextSelectionLength = 2;
  * @return A new `WebViewController` with the given session.
  */
 - (instancetype)initWithSession:(SessionSingleton*)session;
-
-- (void)displayArticle:(MWKTitle*)title;
-
-- (void)cancelArticleLoading;
-
-- (void)cancelSearchLoading;
 
 @end

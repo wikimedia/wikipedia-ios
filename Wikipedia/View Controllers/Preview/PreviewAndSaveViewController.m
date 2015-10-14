@@ -546,9 +546,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
                 [self.funnel logSavedRevision:[fetchedData[@"newrevid"] intValue]];
-
-                [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
-                [[WMFArticlePresenter sharedInstance] reloadCurrentArticleFromNetwork];
+                [self.delegate previewViewControllerDidSave:self];
             }
             break;
 
