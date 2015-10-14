@@ -133,6 +133,19 @@ NS_ASSUME_NONNULL_BEGIN
            ^ flipBitsWithAdditionalRotation(self.text.hash, 1);
 }
 
+#pragma mark - MTLModel
+
+// Need to specify storage properties since text & site are readonly, which Mantle interprets as transitory.
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
+    #define IS_MWKTITLE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKTitle new], key)]
+    if (IS_MWKTITLE_KEY(text) || IS_MWKTITLE_KEY(site)) {
+        return MTLPropertyStoragePermanent;
+    } else {
+        // all other properties are computed from site and/or text
+        return MTLPropertyStorageNone;
+    }
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
