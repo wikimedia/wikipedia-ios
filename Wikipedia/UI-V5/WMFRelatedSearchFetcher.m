@@ -13,7 +13,9 @@
 //Models
 #import "WMFRelatedSearchResults.h"
 #import "MWKRelatedSearchResult.h"
+
 #import "MWKTitle.h"
+#import "WMFNumberOfExtractCharacters.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,7 +26,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 @interface WMFRelatedSearchRequestParameters : NSObject
 @property (nonatomic, strong) MWKTitle* title;
 @property (nonatomic, assign) NSUInteger numberOfResults;
-@property (nonatomic, assign) NSUInteger numberOfExtractCharacters;
 
 @end
 
@@ -59,11 +60,9 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 }
 
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
-                  numberOfExtactCharacters:(NSUInteger)extractChars
                                resultLimit:(NSUInteger)resultLimit {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
         [self fetchArticlesRelatedToTitle:title
-                 numberOfExtactCharacters:extractChars
                               resultLimit:resultLimit
                             useDesktopURL:NO
                                  resolver:resolve];
@@ -71,7 +70,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 }
 
 - (void)fetchArticlesRelatedToTitle:(MWKTitle*)title
-           numberOfExtactCharacters:(NSUInteger)extractChars
                         resultLimit:(NSUInteger)resultLimit
                       useDesktopURL:(BOOL)useDeskTopURL
                            resolver:(PMKResolver)resolve {
@@ -81,7 +79,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
     params.title                     = title;
     params.numberOfResults           = resultLimit;
-    params.numberOfExtractCharacters = extractChars;
 
     [self.operationManager GET:url.absoluteString
                     parameters:params
@@ -92,7 +89,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
                        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
             [self fetchArticlesRelatedToTitle:title
-                     numberOfExtactCharacters:extractChars
                                   resultLimit:resultLimit
                                 useDesktopURL:YES
                                      resolver:resolve];
@@ -152,7 +148,8 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
                // extracts
                @"exintro": @YES,
                @"exlimit": numResults,
-               @"exchars": @(params.numberOfExtractCharacters),
+               @"explaintext": @"",
+               @"exchars": @(WMFNumberOfExtractCharacters),
                // pageterms
                @"wbptterms": @"description",
                // pageimage

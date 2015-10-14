@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -93,8 +93,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xrh-DM-dTD">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="438"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xrh-DM-dTD">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                                 <collectionViewLayout key="collectionViewLayout" id="PbI-Tf-1fU" customClass="SelfSizingWaterfallCollectionViewLayout"/>
                                 <cells/>
@@ -201,8 +201,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label">
-                                <rect key="frame" x="25" y="8" width="492" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label">
+                                <rect key="frame" x="25" y="28" width="492" height="40"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="MJn-Fv-Xfk"/>
@@ -211,16 +211,16 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7SS-UN-pgW" userLabel="Trash Button" customClass="WikiGlyphButton">
-                                <rect key="frame" x="525" y="8" width="75" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7SS-UN-pgW" userLabel="Trash Button" customClass="WikiGlyphButton">
+                                <rect key="frame" x="525" y="28" width="75" height="40"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="75" id="1mE-o0-SnE"/>
                                 </constraints>
                             </view>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
-                                <rect key="frame" x="0.0" y="48" width="600" height="459"/>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
+                                <rect key="frame" x="0.0" y="68" width="600" height="532"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -284,7 +284,7 @@
         <scene sceneID="Lqf-ge-2v5">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Saved" image="saved" id="tEK-7k-93Q"/>
+                    <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" id="tEK-7k-93Q"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ScF-IW-gDl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -303,7 +303,7 @@
         <scene sceneID="2zr-9G-QMd">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recent" image="history" id="ZNo-7p-3PU"/>
+                    <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" id="ZNo-7p-3PU"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rIL-t0-IJM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -322,7 +322,7 @@
         <scene sceneID="my8-ht-Vqg">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="home" id="fCG-Qf-VzW"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="tabbar-home" id="fCG-Qf-VzW"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -339,9 +339,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="history" width="25" height="25"/>
-        <image name="home" width="25" height="25"/>
         <image name="logo-onboarding" width="210" height="192"/>
-        <image name="saved" width="25" height="25"/>
+        <image name="tabbar-home" width="25" height="23"/>
+        <image name="tabbar-recent" width="24" height="23"/>
+        <image name="tabbar-save" width="17" height="23"/>
     </resources>
 </document>
