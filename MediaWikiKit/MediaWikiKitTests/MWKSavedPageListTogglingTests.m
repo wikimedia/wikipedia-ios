@@ -16,6 +16,9 @@
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
+
 @interface MWKSavedPageListTogglingTests : XCTestCase
 @property (nonatomic, strong) MWKSavedPageList* list;
 @end
@@ -52,6 +55,13 @@
     [MKTGiven([emptyTitle text]) willReturn:@""];
     [self.list toggleSavedPageForTitle:emptyTitle];
     XCTAssertFalse([self.list isSaved:emptyTitle]);
+}
+
+- (void)testAddingExistingSavedPageIsIgnored {
+    NSString* entryTitleText = @"foo";
+    [self.list addEntry:[self entryWithTitleText:entryTitleText]];
+    [self.list addEntry:[self entryWithTitleText:entryTitleText]];
+    assertThat(self.list.entries, is(@[[self entryWithTitleText:entryTitleText]]));
 }
 
 @end
