@@ -593,20 +593,9 @@ static NSString* const WMFParagraphSelector = @"/html/body/p";
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
     for (MWKSection* section in self.sections) {
-        NSString* html = nil;
-
-        @try {
-            html = section.text;
-        }@catch (NSException* exception) {
-            NSAssert(html, @"html was not created from section %@: %@", section.title, section.text);
-        }
-
-        if (!html) {
-            html = MWLocalizedString(@"article-unable-to-load-section", nil);;
-        }
-
+   
         // Structural html added around section html just before display.
-        NSString* sectionHTMLWithID = [section displayHTML:html];
+        NSString* sectionHTMLWithID = [section displayHTML];
         [sectionTextArray addObject:sectionHTMLWithID];
     }
 
