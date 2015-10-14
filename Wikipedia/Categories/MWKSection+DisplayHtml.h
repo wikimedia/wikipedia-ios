@@ -12,6 +12,6 @@
    it can be changed later if necessary (to a div etc).
  */
 
-- (NSString*)displayHTML:(NSString*)html;
+- (NSString*)displayHTML;
 
 @end

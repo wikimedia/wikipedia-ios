@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import "MWKHistoryEntry.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;

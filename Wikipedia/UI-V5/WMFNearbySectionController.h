@@ -1,7 +1,7 @@
 
 #import "WMFHomeSectionController.h"
 
-@class WMFLocationManager, WMFNearbyViewModel;
+@class WMFLocationManager, WMFNearbyViewModel, MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MWKHistoryEntry.h"
 
 @class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore;
 
@@ -28,19 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param discoveryMethod  How the title was discovered.
  *  @param dataStore        The data store the title will be read from or should be written to.
  */
-- (void)wmf_presentTitle:(MWKTitle*)title
-         discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
-               dataStore:(MWKDataStore*)dataStore;
-
-/**
- *  Default way to present an article.
- *
- *  Creates and shows a new view controller after injecting it with the given dependencies.
- *
- *  @param article          The article to present, if not complete it will be fetched from the network.
- *  @param discoveryMethod  How the article was discovered.
- */
-- (void)wmf_presentArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
+                               discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                                     dataStore:(MWKDataStore*)dataStore;
 
 @end
 

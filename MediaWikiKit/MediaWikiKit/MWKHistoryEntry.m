@@ -112,6 +112,16 @@
     }
 }
 
+- (BOOL)discoveryMethodRequiresScrollPositionRestore {
+    if (self.discoveryMethod == MWKHistoryDiscoveryMethodSaved ||
+        self.discoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
+        self.discoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
+        self.discoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - MWKListObject
 
 - (id <NSCopying>)listIndex {

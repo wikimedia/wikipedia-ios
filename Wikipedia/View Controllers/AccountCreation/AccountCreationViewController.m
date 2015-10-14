@@ -19,7 +19,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFArticlePresenter.h"
 #import "SectionEditorViewController.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
@@ -49,15 +48,6 @@
 @end
 
 @implementation AccountCreationViewController
-
-- (BOOL)isEditorOnNavStack {
-    id editor = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[SectionEditorViewController class]];
-    return (editor) ? YES : NO;
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return [self isEditorOnNavStack];
-}
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     // Disable horizontal scrolling.
@@ -164,9 +154,6 @@
     self.loginButton.text                   = MWLocalizedString(@"account-creation-login", nil);
     self.loginButton.userInteractionEnabled = YES;
     [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
-
-    // Hide the login button if the LoginViewController is on modal stack.
-    self.loginButton.hidden = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[LoginViewController class]] ? YES : NO;
 
     /*
        id previewAndSaveVC = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[PreviewAndSaveViewController class]];
@@ -384,12 +371,7 @@
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
         [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
-
-        if ([self isEditorOnNavStack]) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
-        }
+        [self dismissViewControllerAnimated:YES completion:nil];
     } onFail:^(){
         [self enableProgressiveButton:YES];
     }];

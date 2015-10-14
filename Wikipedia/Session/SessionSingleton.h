@@ -64,13 +64,6 @@ extern NSString* const WMFSearchLanguageDidChangeNotification;
  */
 @property (nonatomic, strong) MWKArticle* currentArticle;
 
-
-/**
- *  The way the current article was discovered.
- *  Same caviates as the currentArticle
- */
-@property (nonatomic, assign) MWKHistoryDiscoveryMethod currentArticleDiscoveryMethod;
-
 @property (strong, nonatomic, readonly) NSString* searchApiUrl;
 
 @property (nonatomic) BOOL fallback __deprecated; //< Is this really necessary?

@@ -1,7 +1,7 @@
 #import "WMFSearchViewController.h"
 
 #import "RecentSearchesViewController.h"
-#import "WMFArticleListCollectionViewController_Transitioning.h"
+#import "WMFArticleListCollectionViewController.h"
 
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
@@ -25,7 +25,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @interface WMFSearchViewController ()
 <UISearchBarDelegate,
  WMFRecentSearchesViewControllerDelegate,
- WMFArticleListTransitionProvider,
  UITextFieldDelegate,
  WMFArticleSelectionDelegate>
 
@@ -84,10 +83,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 #pragma mark - Accessors
-
-- (WMFArticleListTransition*)listTransition {
-    return self.resultsListController.listTransition;
-}
 
 - (NSString*)currentSearchTerm {
     return [(WMFSearchResults*)self.resultsListController.dataSource searchTerm];
