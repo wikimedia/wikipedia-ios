@@ -21,7 +21,7 @@
 #define PAGE_CONTROL_MAX_REFS 10
 #define PAGE_CONTROL_DOT_COLOR 0x2b6fb2
 
-@interface ReferencesVC ()
+@interface ReferencesVC ()<ReferenceVCDelegate>
 
 @property (strong, nonatomic) UIPageControl* topPageControl;
 @property (strong, nonatomic) WikiGlyphButton* xButton;
@@ -180,7 +180,7 @@
 
 - (void)xButtonTap:(UITapGestureRecognizer*)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        [self.webVC referencesHide];
+        [self.delegate referenceViewControllerCloseReferences:self];
     }
 }
 
@@ -306,23 +306,24 @@
     if (!elementId) {
         return;
     }
-    CGRect r = [self.webVC.webView getScreenRectForHtmlElementWithId:elementId];
-    if (!CGRectIsNull(r)) {
-        CGFloat vSpaceAboveRefsPanel = self.webVC.view.bounds.size.height - self.panelHeight;
-
-        // Only scroll up if the refs link would be below the refs panel.
-        if ((r.origin.y + r.size.height) > (vSpaceAboveRefsPanel)) {
-            // Calculate the distance needed to scroll the refs link to the vertical center of the
-            // part of the article web view not covered by the refs panel.
-            CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (r.size.height / 2.0);
-
-            CGPoint p = CGPointMake(
-                self.webVC.webView.scrollView.contentOffset.x,
-                self.webVC.webView.scrollView.contentOffset.y + (r.origin.y - distanceFromVerticalCenter)
-                );
-            [self.webVC.webView.scrollView setContentOffset:p animated:YES];
-        }
-    }
+    //TODO: scroll to ref
+//    CGRect r = [self.webVC.webView getScreenRectForHtmlElementWithId:elementId];
+//    if (!CGRectIsNull(r)) {
+//        CGFloat vSpaceAboveRefsPanel = self.webVC.view.bounds.size.height - self.panelHeight;
+//
+//        // Only scroll up if the refs link would be below the refs panel.
+//        if ((r.origin.y + r.size.height) > (vSpaceAboveRefsPanel)) {
+//            // Calculate the distance needed to scroll the refs link to the vertical center of the
+//            // part of the article web view not covered by the refs panel.
+//            CGFloat distanceFromVerticalCenter = ((vSpaceAboveRefsPanel) / 2.0) - (r.size.height / 2.0);
+//
+//            CGPoint p = CGPointMake(
+//                self.webVC.webView.scrollView.contentOffset.x,
+//                self.webVC.webView.scrollView.contentOffset.y + (r.origin.y - distanceFromVerticalCenter)
+//                );
+//            [self.webVC.webView.scrollView setContentOffset:p animated:YES];
+//        }
+//    }
     ;
 }
 
@@ -415,13 +416,33 @@
     }
 
     ReferenceVC* refVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ReferenceVC"];
-    refVC.webVC    = self.webVC;
+    refVC.delegate = self;
     refVC.index    = index;
     refVC.html     = self.refs[index];
     refVC.linkId   = self.linkIds[index];
     refVC.linkText = self.linkText[index];
 
     return refVC;
+}
+
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didShowReferenceWithLinkID:(NSString*)linkID {
+    [self.delegate referenceViewController:self didShowReferenceWithLinkID:linkID];
+}
+
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didFinishShowingReferenceWithLinkID:(NSString*)linkID {
+    [self.delegate referenceViewController:self didFinishShowingReferenceWithLinkID:linkID];
+}
+
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectInternalReferenceWithFragment:(NSString*)fragment {
+    [self.delegate referenceViewController:self didSelectInternalReferenceWithFragment:fragment];
+}
+
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectReferenceWithTitle:(MWKTitle*)title {
+    [self.delegate referenceViewController:self didSelectReferenceWithTitle:title];
+}
+
+- (void)referenceViewController:(ReferenceVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
+    [self.delegate referenceViewController:self didSelectExternalReferenceWithURL:url];
 }
 
 - (UIViewController*)pageViewController:(UIPageViewController*)pageViewController

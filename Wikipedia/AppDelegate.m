@@ -90,7 +90,6 @@ static NSString* const WMFPiwikSiteID    = @"4";
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 
     [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
-    [self.appViewController resumeApp];
 }
 
 - (void)applicationWillTerminate:(UIApplication*)application {

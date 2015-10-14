@@ -43,7 +43,6 @@
 #import <HockeySDK/HockeySDK.h>
 
 // Other
-#import "WMFArticlePresenter.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #pragma mark - Defines
@@ -523,7 +522,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
                         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
                     }
                 }
-                [[WMFArticlePresenter sharedInstance] presentCurrentArticle];
             }
             break;
 

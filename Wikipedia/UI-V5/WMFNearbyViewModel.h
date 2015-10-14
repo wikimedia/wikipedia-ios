@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class MWKTitle;
+@class MWKSite;
 @class WMFLocationManager;
 @class WMFLocationSearchFetcher;
 @class WMFLocationSearchResults;

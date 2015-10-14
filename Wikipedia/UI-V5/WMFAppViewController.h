@@ -7,6 +7,4 @@
 
 - (void)launchAppInWindow:(UIWindow*)window;
 
-- (void)resumeApp;
-
 @end

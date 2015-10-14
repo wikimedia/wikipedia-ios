@@ -71,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) UIView* loadingMessageContainerView;
 
+@property (nonatomic, strong, nullable) MWKArticle* article;
+
 @end
 
 @implementation WMFArticleViewController
@@ -103,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
     [_headerGalleryViewController setImagesFromArticle:self.article];
 }
 
-- (void)setArticle:(MWKArticle* __nullable)article {
+- (void)setArticle:(MWKArticle*)article discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
         return;
     }

@@ -9,7 +9,20 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 
 @implementation MWKSection (DisplayHtml)
 
-- (NSString*)displayHTML:(NSString*)html {
+- (NSString*)displayHTML {
+    
+    NSString* html = nil;
+
+    @try {
+        html = self.text;
+    }@catch (NSException* exception) {
+        NSAssert(html, @"html was not created from section %@: %@", self.title, self.text);
+    }
+    
+    if (!html) {
+        html = MWLocalizedString(@"article-unable-to-load-section", nil);;
+    }
+
     BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
 
     return [NSString stringWithFormat:

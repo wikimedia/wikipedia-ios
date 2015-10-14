@@ -128,6 +128,12 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (BOOL)isCached;
 
+
+/**
+ *  @return The HTML for the article (all of the sections)
+ */
+- (NSString*)articleHTML;
+
 @end
 
 @interface MWKArticle ()

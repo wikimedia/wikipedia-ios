@@ -8,6 +8,8 @@
 
 #import "WebViewController.h"
 
+@class MWKArticle, MWKImage;
+
 @interface WebViewController (ImageGalleryPresentation)
 
 - (void)presentGalleryForArticle:(MWKArticle*)article showingImage:(MWKImage*)selectedImage;
