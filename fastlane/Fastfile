@@ -64,7 +64,7 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
 
-    pilot(skip_submission: true, ipa: ENV['IPA_OUTPUT_PATH'])
+    pilot(skip_submission: true, changelog: git_commit_log)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
@@ -84,7 +84,7 @@ platform :ios do
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    pilot(skip_submission: false)
+    pilot(skip_submission: false, changelog: git_commit_log)
   end
 
   desc "Upload a developer build to Hockey."
