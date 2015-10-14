@@ -104,14 +104,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)removeEntry:(id<MWKListObject>)entry {
-    [super removeEntry:entry];
-}
-
-- (void)removeAllEntries {
-    [super removeAllEntries];
-}
-
 + (NSArray<NSSortDescriptor*>*)sortDescriptors {
     static NSArray<NSSortDescriptor*>* sortDescriptors;
     static dispatch_once_t onceToken;
