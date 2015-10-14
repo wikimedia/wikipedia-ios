@@ -12,16 +12,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MWKList <EntryType : id<MWKListObject>,
-                        IndexType : id<NSCopying, NSObject> >
-                                : MWKDataObject<NSFastEnumeration>
+/**
+ * Abstract base class for homogeneous lists of model objects.
+ *
+ * Can be specialized to contain instances of @c EntryType, which are queryable by index or an associated key of type
+ * @c IndexType.
+ */
+@interface MWKList
+<EntryType : id<MWKListObject>, IndexType : id<NSCopying, NSObject> > : MWKDataObject<NSFastEnumeration>
+// Note: ObjC generics give uncrustify a headache: https://github.com/bengardner/uncrustify/issues/404
 
-                    - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
+ - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
 /**
  *  Observable - observe to get KVO notifications
  */
-                    @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
+ @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
 
 - (NSUInteger)countOfEntries;
 
