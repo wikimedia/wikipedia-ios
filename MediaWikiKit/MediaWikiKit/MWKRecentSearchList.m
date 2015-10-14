@@ -47,12 +47,6 @@
     [self insertEntry:entry atIndex:0];
 }
 
-#pragma mark - Entry Access
-
-- (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
-    return [super entryAtIndex:index];
-}
-
 #pragma mark - Save
 
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {

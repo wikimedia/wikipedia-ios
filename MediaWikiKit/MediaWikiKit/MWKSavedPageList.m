@@ -37,10 +37,6 @@
 
 #pragma mark - Entry Access
 
-- (MWKSavedPageEntry*)entryAtIndex:(NSUInteger)index {
-    return [super entryAtIndex:index];
-}
-
 - (MWKSavedPageEntry*)mostRecentEntry {
     return [self.entries lastObject];
 }
@@ -82,6 +78,13 @@
         return;
     }
     [super addEntry:entry];
+}
+
+- (void)insertEntry:(MWKSavedPageEntry*)entry atIndex:(NSUInteger)index {
+    if ([self isSaved:entry.title]) {
+        return;
+    }
+    [super insertEntry:entry atIndex:index];
 }
 
 - (void)removeEntryWithListIndex:(id)listIndex {
