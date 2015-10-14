@@ -2761,8 +2761,29 @@
 				BC5BC4921BCEA6B400062619 /* MWKListTestBase.m */,
 				BC5BC4951BCEA6E800062619 /* MWKListSharedTests.h */,
 				BC5BC4961BCEA6E800062619 /* MWKListSharedTests.m */,
+				BC5BC49A1BCEAC4A00062619 /* History List */,
+				BC5BC49B1BCEAC5200062619 /* Saved Page List */,
 			);
 			name = MWKList;
+			sourceTree = "<group>";
+		};
+		BC5BC49A1BCEAC4A00062619 /* History List */ = {
+			isa = PBXGroup;
+			children = (
+				BCB669D01A83F6D300C7B1FE /* MWKHistoryListTests.m */,
+				BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */,
+				BCFE02771B41FA12003752B7 /* MWKHistoryListPerformanceTests.m */,
+			);
+			name = "History List";
+			sourceTree = "<group>";
+		};
+		BC5BC49B1BCEAC5200062619 /* Saved Page List */ = {
+			isa = PBXGroup;
+			children = (
+				BCFE026E1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m */,
+				BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */,
+			);
+			name = "Saved Page List";
 			sourceTree = "<group>";
 		};
 		BC628C791B389E2B00B3F85C /* Images */ = {
@@ -3038,14 +3059,9 @@
 				BCB669CD1A83F6D300C7B1FE /* MWKDataStorePathTests.m */,
 				BCB669CE1A83F6D300C7B1FE /* MWKDataStoreStorageTests.m */,
 				BCB669CF1A83F6D300C7B1FE /* MWKImageStorageTests.m */,
-				BCB669D01A83F6D300C7B1FE /* MWKHistoryListTests.m */,
 				BC5BC4941BCEA6D600062619 /* MWKList */,
 				BCB66A0F1A851C9B00C7B1FE /* MWKImageListTests.m */,
 				BCB58F7D1A8D1B8400465627 /* MWKImageInfo+MWKImageComparisonTests.m */,
-				BCFE02691B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m */,
-				BCFE026E1B41B482003752B7 /* MWKSavedPageListCorruptDataTests.m */,
-				BCFE02771B41FA12003752B7 /* MWKHistoryListPerformanceTests.m */,
-				BC725ECB1B6182C800E0A64C /* MWKSavedPageListTests.m */,
 			);
 			name = MediaWikiKitTests;
 			path = ../MediaWikiKit/MediaWikiKitTests;
