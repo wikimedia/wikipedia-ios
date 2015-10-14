@@ -196,7 +196,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].estimatedItemHeight = 380;
     [self flowLayout].numberOfColumns     = 1;
     [self flowLayout].sectionInset        = [[self class] defaultSectionInsets];
-    [self flowLayout].minimumLineSpacing  = 10.0;
+    [self flowLayout].minimumLineSpacing  = 1.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self setupHomeTweaks];

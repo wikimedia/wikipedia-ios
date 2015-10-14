@@ -37,11 +37,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView* imageView;
 
 /**
- *  @return The name of a bundled image which will be set to the receiver's @c imageView when preparing for reuse.
- */
-+ (NSString*)defaultImageName;
-
-/**
  *  Update the receiver's @c titleLabel with the new value set to @c title.
  *
  *  The default implementation sets the label's @c text to the title's @c text.
@@ -49,5 +44,7 @@
  *  @param title The new title.
  */
 - (void)updateTitleLabel;
+
+- (void)configureImageViewWithPlaceholder;
 
 @end

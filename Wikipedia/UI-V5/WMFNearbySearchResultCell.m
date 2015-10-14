@@ -41,8 +41,9 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @implementation WMFNearbySearchResultCell
 
-+ (NSString*)defaultImageName {
-    return @"logo-placeholder-nearby.png";
+- (void)configureImageViewWithPlaceholder {
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
 }
 
 - (void)prepareForReuse {

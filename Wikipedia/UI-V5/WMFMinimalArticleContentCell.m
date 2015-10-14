@@ -19,8 +19,8 @@
     return self;
 }
 
-- (void)setAttributedText:(NSAttributedString*)attributedText {
-    self.textView.attributedText = attributedText;
+- (void)setText:(NSString*)text {
+    self.textView.text = text;
 }
 
 - (void)prepareForReuse {

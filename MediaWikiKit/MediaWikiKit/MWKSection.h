@@ -159,6 +159,8 @@ extern NSString* const MWKSectionShareSnippetXPath;
  */
 - (BOOL)hasTextData;
 
+- (NSString *)summary;
+
 @end
 
 NS_ASSUME_NONNULL_END

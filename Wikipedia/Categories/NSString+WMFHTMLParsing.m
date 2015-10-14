@@ -2,6 +2,7 @@
 #import "WikipediaAppUtils.h"
 #import <hpple/TFHpple.h>
 #import "NSString+Extras.h"
+#import "WMFNumberOfExtractCharacters.h"
 
 @implementation NSString (WMFHTMLParsing)
 
@@ -14,8 +15,7 @@
 
 - (NSString*)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation {
     NSString* result = [self wmf_stringByCollapsingAllWhitespaceToSingleSpaces];
-    result = [result wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons];
-    result = [result wmf_stringByRemovingWhiteSpaceBeforePeriod];
+    result = [result wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes];
     result = [result stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     return result;
 }
@@ -31,26 +31,24 @@
 #pragma mark - String simplification and cleanup
 
 - (NSString*)wmf_shareSnippetFromText {
-    return [[[[[[[[[[self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"]
-                    stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
-                   stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"]
-                  wmf_stringByCollapsingConsecutiveNewlines]
-                 wmf_stringByRecursivelyRemovingParenthesizedContent]
-                wmf_stringByRemovingBracketedContent]
-               wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons]
-              wmf_stringByRemovingWhiteSpaceBeforePeriod]
+    return [[[[[[[[self wmf_decodeHTMLAmp]
+                  wmf_decodeHTMLGreaterAndLessThan]
+                 wmf_stringByCollapsingConsecutiveNewlines]
+                wmf_stringByRecursivelyRemovingParenthesizedContent]
+               wmf_stringByRemovingBracketedContent]
+              wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
              wmf_stringByCollapsingConsecutiveSpaces]
             wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
 
 - (NSString*)wmf_stringByCollapsingConsecutiveNewlines {
-    NSParameterAssert([NSThread isMainThread]);
     static NSRegularExpression* newlinesRegex;
-    if (!newlinesRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         newlinesRegex = [NSRegularExpression regularExpressionWithPattern:@"\n{2,}"
                                                                   options:0
                                                                     error:nil];
-    }
+    });
     return [newlinesRegex stringByReplacingMatchesInString:self
                                                    options:0
                                                      range:NSMakeRange(0, self.length)
@@ -60,12 +58,13 @@
 - (NSString*)wmf_stringByRecursivelyRemovingParenthesizedContent {
     // We probably don't want to handle ideographic parens
     static NSRegularExpression* parensRegex;
-    if (!parensRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         parensRegex = [NSRegularExpression
                        regularExpressionWithPattern:@"[(][^()]+[)]"
-                                            options:0
-                                              error:nil];
-    }
+                       options:0
+                       error:nil];
+    });
 
     NSString* string = [self copy];
     NSString* oldResult;
@@ -85,44 +84,32 @@
     // We don't care about ideographic brackets
     // Nested bracketing unseen thus far
     static NSRegularExpression* bracketedRegex;
-    if (!bracketedRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         bracketedRegex = [NSRegularExpression
                           regularExpressionWithPattern:@"\\[[^]]+]"
-                                               options:0
-                                                 error:nil];
-    }
+                          options:0
+                          error:nil];
+
+    });
+
     return [bracketedRegex stringByReplacingMatchesInString:self
                                                     options:0
                                                       range:NSMakeRange(0, self.length)
                                                withTemplate:@""];
 }
 
-- (NSString*)wmf_stringByRemovingWhiteSpaceBeforeCommasAndSemicolons {
-    // Unlike parens and brackets and unlike doubled up space in general,
-    // we do not want whitespace preceding the comma, ideographic comma,
-    // or semicolon
-    static NSRegularExpression* spaceCommaColonRegex;
-    if (!spaceCommaColonRegex) {
-        spaceCommaColonRegex = [NSRegularExpression
-                                regularExpressionWithPattern:@"\\s+([,、;])"
-                                                     options:0
-                                                       error:nil];
-    }
-    return [spaceCommaColonRegex stringByReplacingMatchesInString:self
-                                                          options:0
-                                                            range:NSMakeRange(0, self.length)
-                                                     withTemplate:@"$1"];
-}
-
-- (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriod {
+- (NSString*)wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes {
     // Ideographic stops from TextExtracts, which were from OpenSearch
     static NSRegularExpression* spacePeriodRegex;
-    if (!spacePeriodRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         spacePeriodRegex = [NSRegularExpression
-                            regularExpressionWithPattern:@"\\s+([\\.|。|．|｡])"
-                                                 options:0
-                                                   error:nil];
-    }
+                            regularExpressionWithPattern:@"\\s+([\\.。．｡,、;\\-\u2014])"
+                            options:0
+                            error:nil];
+    });
+    
     return [spacePeriodRegex stringByReplacingMatchesInString:self
                                                       options:0
                                                         range:NSMakeRange(0, self.length)
@@ -133,12 +120,14 @@
     // In practice, we rarely care about doubled up whitespace in the
     // string except for the actual space character
     static NSRegularExpression* spacesRegex;
-    if (!spacesRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         spacesRegex = [NSRegularExpression
                        regularExpressionWithPattern:@" {2,}"
                                             options:0
                                               error:nil];
-    }
+    });
+    
     return [spacesRegex stringByReplacingMatchesInString:self
                                                  options:0
                                                    range:NSMakeRange(0, self.length)
@@ -147,12 +136,14 @@
 
 - (NSString*)wmf_stringByCollapsingAllWhitespaceToSingleSpaces {
     static NSRegularExpression* whitespaceRegex;
-    if (!whitespaceRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         whitespaceRegex = [NSRegularExpression
                            regularExpressionWithPattern:@"\\s+"
                                                 options:0
                                                   error:nil];
-    }
+    });
+    
     return [whitespaceRegex stringByReplacingMatchesInString:self
                                                      options:0
                                                        range:NSMakeRange(0, self.length)
@@ -168,16 +159,43 @@
     // shouldn't be </p> closed until something like <ul>...</ul> is closed.
     // In fact, some sections have this layout, and some do not.
     static NSRegularExpression* leadTrailColonRegex;
-    if (!leadTrailColonRegex) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         leadTrailColonRegex = [NSRegularExpression
                                regularExpressionWithPattern:@"^[\\s\n]+|[\\s\n:]+$"
                                                     options:0
                                                       error:nil];
-    }
+    });
+    
     return [leadTrailColonRegex stringByReplacingMatchesInString:self
                                                          options:0
                                                            range:NSMakeRange(0, self.length)
                                                     withTemplate:@""];
+}
+
+- (NSString*)wmf_decodeHTMLAmp {
+    return [self stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+}
+
+- (NSString*)wmf_decodeHTMLGreaterAndLessThan {
+    return [[self stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"]
+            stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+}
+
+- (NSString*)wmf_summaryFromText {
+    // Cleanups which need to happen before string is shortened.
+    NSString *output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
+    output = [output wmf_stringByRemovingBracketedContent];
+    
+    // Now ok to shorten so remaining cleanups are faster.
+    output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
+    
+    // Cleanups safe to do on shortened string.
+    return [[[[[output wmf_decodeHTMLAmp]
+               wmf_decodeHTMLGreaterAndLessThan]
+              wmf_stringByCollapsingAllWhitespaceToSingleSpaces]
+             wmf_stringByRemovingWhiteSpaceBeforePeriodsCommasSemicolonsAndDashes]
+            wmf_stringByRemovingLeadingOrTrailingSpacesNewlinesOrColons];
 }
 
 @end
