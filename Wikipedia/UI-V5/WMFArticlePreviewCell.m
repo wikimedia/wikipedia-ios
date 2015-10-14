@@ -56,7 +56,7 @@
 - (void)setDescriptionText:(NSString*)descriptionText {
     _descriptionText           = descriptionText;
     self.descriptionLabel.text = descriptionText;
-    if (!self.descriptionLabel.text || self.descriptionLabel.text.length == 0) {
+    if (self.descriptionLabel.text.length == 0) {
         [self removeDescriptionVerticalPadding];
     }else{
         [self restoreDescriptionVerticalPadding];
