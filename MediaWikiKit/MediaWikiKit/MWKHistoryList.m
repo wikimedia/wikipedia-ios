@@ -48,7 +48,7 @@
 
     MWKHistoryEntry* entry = [self entryForTitle:title];
     if (!entry) {
-        MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+        entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
         entry.date = [NSDate date];
     }
     entry.discoveryMethod = discoveryMethod;
