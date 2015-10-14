@@ -300,10 +300,6 @@ static dispatch_once_t launchToken;
     return YES;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
-}
-
 #pragma mark - Onboarding
 
 - (BOOL)shouldShowOnboarding {
