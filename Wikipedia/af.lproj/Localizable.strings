@@ -1,6 +1,7 @@
 // Messages for Afrikaans (Afrikaans)
 // Exported from translatewiki.net
 // Author: Arnobarnard
+// Author: Fwolff
 // Author: Naudefj
 
 "languages-title" = "Tale";
@@ -134,6 +135,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Opdatering gekanselleer";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels word heeltyd opdateer. Kliek herlaai om die nuutste weergawes van al die artikels te verkry.";
 "saved-pages-refresh-cancel-alert-button" = "Ek verstaan";
+"saved-pages-description" = "Gestoorde bladsye is wonderlik. Dink aan hulle as boekmerke wat u kan lees selfs as u vanlyn is.";
+"saved-pages-none" = "Nog geen gestoorde bladsye nie.";
 "page-history-title" = "Artikelgeskiedenis";
 "page-history-downloading" = "Laai artikelgeskiedenis...";
 "navbar-title-mode-edit-wikitext" = "Wysig";
@@ -274,3 +277,5 @@
 "hockeyapp-alert-privacy" = "$1 privaatheid";
 "page-issues" = "Bladprobleme";
 "page-similar-titles" = "Soortgelyke bladsye";
+"captcha-reload" = "Wys 'n ander captcha";
+"captcha-prompt" = "Tik CAPTCHA-teks op die prentjie bó";

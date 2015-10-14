@@ -93,6 +93,7 @@
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun pue desfacese!";
 "search-recent-clear-cancel" = "Encaboxar";
 "search-recent-clear-delete-all" = "Desaniciar too";
+"settings-title" = "Configuración";
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Tocante a";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";

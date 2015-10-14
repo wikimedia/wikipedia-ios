@@ -4,6 +4,7 @@
 // Author: Jack Phoenix
 // Author: McSalama
 // Author: Nike
+// Author: Pyscowicz
 // Author: SMAUG
 // Author: Silvonen
 // Author: Stryn
@@ -264,15 +265,19 @@
 "nearby-location-general-error" = "Sijainnin määritys ei onnistu. Vedä päivittääksesi tai yritä uudelleen myöhemmin.";
 "nearby-wifi" = "Langattoman verkkoyhteyden käyttöönotto voi auttaa laitettasi määrittämään sijaintisi paremmin.";
 "migration-update-progress-label" = "Siirretään paikallisia tietoja";
+"migration-prompt-title" = "Näyttää siltä, että meillä on historiaa!";
+"migration-confirm-button-title" = "Siirrä juttuni yli";
 "migration-skip-button-title" = "Poista se";
 "image-gallery-unknown-owner" = "Tuntematon tallentaja.";
 "image-gallery-fetch-image-info-error-title" = "Kuvien lataaminen epäonnistui";
 "image-gallery-fetch-image-info-error-message" = "Kuvien lataaminen tähän artikkeliin ei onnistu. Päivitä artikkeli ja yritä uudelleen.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
+"hockeyapp-alert-question" = "Haluaisitko lähettää kaatumisraportin $1:lle niin Wikimapia voi tarkastaa kaatumisen?";
 "hockeyapp-alert-title" = "Anteeksi, sovellus kaatui viime kerralla";
 "hockeyapp-alert-send-report" = "Lähetä raportti";
 "hockeyapp-alert-always-send" = "Lähetä aina";
 "hockeyapp-alert-do-not-send" = "Älä lähetä";
+"hockeyapp-alert-privacy" = "$1 tietosuoja";
 "page-issues" = "Sivun ongelmat";
 "page-similar-titles" = "Samankaltaiset sivut";
 "captcha-reload" = "Näytä toinen CAPTCHA";

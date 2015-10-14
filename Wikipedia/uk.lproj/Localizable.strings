@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Andriykopanytsia
 // Author: Base
+// Author: NickK
 // Author: Sir-nik
 // Author: Ата
 // Author: Дар'я Козлова
@@ -76,7 +77,7 @@
 "wikitext-upload-save-sign-in-benefits" = "Так співредактори можуть з'єднатися з Вами і Ви можете бачити, які статті Ви відредагували.";
 "wikitext-upload-save-anonymously" = "Зберегти анонімно";
 "wikitext-upload-save-anonymously-warning" = "Редагування буде приписано ІР-адресі Вашого пристрою. Якщо Ви $1, це буде більш конфіденційно.";
-"wikitext-upload-save-terms-and-license" = "Зберігаючи зміни, Ви погоджуєтесь із $1 й остаточно робите Ваш внесок під ліценцією $2.";
+"wikitext-upload-save-terms-and-license" = "Зберігаючи зміни, Ви погоджуєтесь із $1 й невідклично публікуєте Ваш внесок під ліценцією $2.";
 "wikitext-upload-save-terms-name" = "Умови використання";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Відкрити посилання";
