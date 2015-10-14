@@ -42,10 +42,6 @@
 
 - (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSParameterAssert(title);
-    if (title == nil) {
-        return nil;
-    }
-
     MWKHistoryEntry* entry = [self entryForTitle:title];
     if (!entry) {
         entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
