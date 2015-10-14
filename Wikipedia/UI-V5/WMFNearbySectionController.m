@@ -76,7 +76,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:@"Nearby" attributes:nil];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-nearby", nil) attributes:nil];
 }
 
 - (NSString*)footerText {

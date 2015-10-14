@@ -80,8 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFArticleListDynamicDataSource
 
 - (NSString* __nullable)displayTitle {
-    // TODO: localize
-    return @"Nearby";
+    return MWLocalizedString(@"main-menu-nearby", nil);
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath* __nonnull)indexPath {
