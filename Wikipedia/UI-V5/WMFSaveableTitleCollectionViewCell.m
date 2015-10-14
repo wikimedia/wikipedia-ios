@@ -10,6 +10,7 @@
 
 #import "UIColor+WMFStyle.h"
 #import "UIColor+WMFHexColor.h"
+#import "UICollectionViewCell+WMFExtensions.h"
 
 @interface WMFSaveableTitleCollectionViewCell ()
 
@@ -22,7 +23,7 @@
 - (void)configureImageViewWithPlaceholder {
     self.imageView.contentMode = UIViewContentModeCenter;
     self.imageView.backgroundColor = [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
-    self.imageView.image = [self placeholderImage];
+    self.imageView.image = [UICollectionViewCell wmf_placeholderImage];
 }
 
 - (void)configureCell {
@@ -45,10 +46,6 @@
 }
 
 #pragma mark - Accessors
-
--(UIImage*)placeholderImage {
-    return [[UIImage imageNamed:@"image-placeholder"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-}
 
 - (void)setSaveButton:(UIButton*)saveButton {
     self.saveButtonController.button = saveButton;
