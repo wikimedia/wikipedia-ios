@@ -375,7 +375,6 @@
 		BC7925F41B9F2C55003C9522 /* CLLocation+WMFBearing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7925F31B9F2C55003C9522 /* CLLocation+WMFBearing.m */; };
 		BC7925F61B9F31A9003C9522 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7925F51B9F31A9003C9522 /* CLLocation+WMFBearingTests.m */; };
 		BC79E8E51BC83210008BF0B2 /* WMFLegacyImageDataMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1E2111B4C780C00B10877 /* WMFLegacyImageDataMigrationTests.swift */; settings = {ASSET_TAGS = (); }; };
-		BC7B09B01BD0216C00BBC3A2 /* 4.1.7 in Resources */ = {isa = PBXBuildFile; fileRef = BC7B09AF1BD0216C00BBC3A2 /* 4.1.7 */; settings = {ASSET_TAGS = (); }; };
 		BC7B09B21BD028E400BBC3A2 /* MWKListLegacyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */; settings = {ASSET_TAGS = (); }; };
 		BC7B09B51BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */; settings = {ASSET_TAGS = (); }; };
 		BC7B09B71BD05DDD00BBC3A2 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4B71BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m */; settings = {ASSET_TAGS = (); }; };
@@ -491,6 +490,7 @@
 		BCF455321BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF455311BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
 		BCF4553A1BCC7128007C748A /* MWKArticlePreviewSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */; settings = {ASSET_TAGS = (); }; };
 		BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */ = {isa = PBXBuildFile; fileRef = BCF4553C1BCC73BB007C748A /* mobileview-preview.json */; settings = {ASSET_TAGS = (); }; };
+		BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */ = {isa = PBXBuildFile; fileRef = BCF73DA61BD064AD000A13DB /* 4.1.7 */; settings = {ASSET_TAGS = (); }; };
 		BCF7FC9B1B7B9ADE00CDFB8C /* WMFLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */; };
 		BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF7FC9F1B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m */; };
 		BCF8DCA61B70055F00149C26 /* WMFFixtureRecording.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */; };
@@ -1233,7 +1233,6 @@
 		BC7A4A231B17B3510003E73E /* NSObjectUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectUtilities.h; sourceTree = "<group>"; };
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
 		BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAsyncTestCase.m; path = ../WMFAsyncTestCase.m; sourceTree = "<group>"; };
-		BC7B09AF1BD0216C00BBC3A2 /* 4.1.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 4.1.7; path = "../../../App Test Data/4.1.7"; sourceTree = "<group>"; };
 		BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKListLegacyTests.m; sourceTree = "<group>"; };
 		BC7B09B31BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+DataStoreFixtureTesting.h"; sourceTree = "<group>"; };
 		BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+DataStoreFixtureTesting.m"; sourceTree = "<group>"; };
@@ -1482,6 +1481,7 @@
 		BCF455311BCC6C2F007C748A /* MTLValueTransformer+WMFNumericValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MTLValueTransformer+WMFNumericValueTransformer.m"; path = "Serializers/MTLValueTransformer+WMFNumericValueTransformer.m"; sourceTree = "<group>"; };
 		BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreviewSerializationTests.m; sourceTree = "<group>"; };
 		BCF4553C1BCC73BB007C748A /* mobileview-preview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "mobileview-preview.json"; sourceTree = "<group>"; };
+		BCF73DA61BD064AD000A13DB /* 4.1.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 4.1.7; sourceTree = "<group>"; };
 		BCF7FC9A1B7B9ADE00CDFB8C /* WMFLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLogFormatter.m; sourceTree = "<group>"; };
 		BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Transitioning.h; sourceTree = "<group>"; };
 		BCF7FC9E1B7BAFB100CDFB8C /* WMFListTransitionProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFListTransitionProvider.h; sourceTree = "<group>"; };
@@ -2809,6 +2809,7 @@
 				BC5BC4961BCEA6E800062619 /* MWKListSharedTests.m */,
 				BC5BC4BB1BCF298D00062619 /* MWKDataStoreListTests.h */,
 				BC5BC4BC1BCF298D00062619 /* MWKDataStoreListTests.m */,
+				BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */,
 				BC5BC4AC1BCEF95100062619 /* Recent Searches */,
 				BC5BC49A1BCEAC4A00062619 /* History List */,
 				BC5BC49B1BCEAC5200062619 /* Saved Page List */,
@@ -2839,7 +2840,6 @@
 				BC676DA61BCF34120041CB92 /* MWKSavedPageListSharedTests.m */,
 				BC5B38E91BD00A8D00EE380A /* MWKSavedPageEntry+Random.h */,
 				BC5B38EA1BD00A8D00EE380A /* MWKSavedPageEntry+Random.m */,
-				BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */,
 			);
 			name = "Saved Page List";
 			sourceTree = "<group>";
@@ -3156,7 +3156,7 @@
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
-				BC7B09AF1BD0216C00BBC3A2 /* 4.1.7 */,
+				BCF73DA61BD064AD000A13DB /* 4.1.7 */,
 				BCF8DCA71B7009B100149C26 /* MobileView */,
 				BC5620A41B6BC3700013FFB0 /* mobileview */,
 				BC8210D61B4F048F0010BF7B /* Barack_Obama */,
@@ -3668,7 +3668,7 @@
 				BC8210D01B4EE3FA0010BF7B /* ArticleWithoutImages.dataexport.json in Resources */,
 				BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */,
 				BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */,
-				BC7B09B01BD0216C00BBC3A2 /* 4.1.7 in Resources */,
+				BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */,
 				BCCEC1241B1F68CF00A8B522 /* organization-anon.json in Resources */,
 				BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */,
 				BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */,
