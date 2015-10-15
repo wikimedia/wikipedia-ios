@@ -2,24 +2,14 @@
 #import "MWKList.h"
 #import "MWKHistoryEntry.h"
 #import "MWKTitle.h"
+#import "MWKDataStoreList.h"
 
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKHistoryList : MWKList<MWKHistoryEntry*, MWKTitle*>
-
-/**
- *  Create history list and connect with data store.
- *  Will import any saved data from the data store on initialization
- *
- *  @param dataStore The data store to use for retrival and saving
- *
- *  @return The history list
- */
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
-
-@property (nonatomic, weak, readonly) MWKDataStore* dataStore;
+<MWKDataStoreList>
 
 - (nullable MWKHistoryEntry*)mostRecentEntry;
 
@@ -58,4 +48,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-
