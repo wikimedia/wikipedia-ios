@@ -11,29 +11,46 @@
 #import "MWKSavedPageList.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
-#import "MWKSavedPageEntry.h"
+#import "MWKSavedPageEntry+Random.h"
 
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
-@interface MWKSavedPageListTests : XCTestCase
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
+
+@interface MWKSavedPageListTogglingTests : XCTestCase
 @property (nonatomic, strong) MWKSavedPageList* list;
 @end
 
-@implementation MWKSavedPageListTests
+@implementation MWKSavedPageListTogglingTests
 
 - (void)setUp {
     self.list = [[MWKSavedPageList alloc] init];
 }
 
-- (MWKSavedPageEntry*)entryWithTitleText:(NSString*)titleText {
-    MWKTitle* title =
-        [[MWKTitle alloc] initWithSite:[MWKSite siteWithCurrentLocale] normalizedTitle:titleText fragment:nil];
-    return [[MWKSavedPageEntry alloc] initWithTitle:title];
+#pragma mark - Manual Saving
+
+- (void)testAddedTitlesArePrepended {
+    MWKSavedPageEntry* e1 = [MWKSavedPageEntry random];
+    MWKSavedPageEntry* e2 = [MWKSavedPageEntry random];
+    [self.list addEntry:e1];
+    [self.list addEntry:e2];
+    assertThat(self.list.entries, is(@[e2, e1]));
+    assertThat(self.list.mostRecentEntry, is(e2));
 }
 
+- (void)testAddingExistingSavedPageIsIgnored {
+    MWKSavedPageEntry* entry = [MWKSavedPageEntry random];
+    [self.list addEntry:entry];
+    [self.list addEntry:[[MWKSavedPageEntry alloc] initWithTitle:entry.title]];
+    assertThat(self.list.entries, is(@[entry]));
+}
+
+#pragma mark - Toggling
+
 - (void)testTogglingSavedPageReturnsNoAndRemovesFromList {
-    MWKSavedPageEntry* savedEntry = [self entryWithTitleText:@"foo"];
+    MWKSavedPageEntry* savedEntry = [MWKSavedPageEntry random];
     [self.list addEntry:savedEntry];
     [self.list toggleSavedPageForTitle:savedEntry.title];
     XCTAssertFalse([self.list isSaved:savedEntry.title]);
@@ -41,7 +58,7 @@
 }
 
 - (void)testToggleUnsavedPageReturnsYesAndAddsToList {
-    MWKSavedPageEntry* unsavedEntry = [self entryWithTitleText:@"foo"];
+    MWKSavedPageEntry* unsavedEntry = [MWKSavedPageEntry random];
     [self.list toggleSavedPageForTitle:unsavedEntry.title];
     XCTAssertTrue([self.list isSaved:unsavedEntry.title]);
     XCTAssertEqualObjects([self.list entryForListIndex:unsavedEntry.title], unsavedEntry);

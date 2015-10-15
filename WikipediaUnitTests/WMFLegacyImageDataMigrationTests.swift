@@ -118,7 +118,7 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         let (article, legacyImageDataPaths) = prepareArticleFixtureWithTempImages("Barack_Obama")
 
         // mark Barack_Obama as an unmigrated entry
-        addUnmigratedentryForListIndex(article.title)
+        addUnmigratedEntryForListIndex(article.title)
 
         expectPromise(toResolve(),
         timeout: 10,
@@ -145,8 +145,8 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         let titleToAddWhileMigrating = MWKTitle(string: "addedWhileMigrating", site: MWKSite.siteWithCurrentLocale())
 
         // create saved page entries for 1 & 2, which will be migrated
-        addUnmigratedentryForListIndex(title1)
-        addUnmigratedentryForListIndex(article2.title)
+        addUnmigratedEntryForListIndex(title1)
+        addUnmigratedEntryForListIndex(article2.title)
 
         expectPromise(toResolve(),
         timeout: 10,
@@ -211,13 +211,9 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
         return (article, legacyImageDataPaths)
     }
 
-    func addUnmigratedentryForListIndex(title: MWKTitle) {
+    func addUnmigratedEntryForListIndex(title: MWKTitle) {
         savedPageList.addSavedPageWithTitle(title)
-        savedPageList.updateEntryWithListIndex(title, update: { entry in
-            let entry = entry as! MWKSavedPageEntry
-            entry.didMigrateImageData = false
-            return true
-        })
+        savedPageList.markImageDataAsMigrated(false, forEntryWithTitle: title)
     }
 
     func verifySuccessfulMigration(articles: [MWKArticle], legacyImageDataPaths: [NSURL:String]) {
@@ -249,8 +245,8 @@ class WMFLegacyImageDataMigrationTests : XCTestCase {
     func addEntryWithTitleText(text: String, didMigrate migrated: Bool) -> MWKSavedPageEntry {
         let title = MWKTitle(site: MWKSite.siteWithCurrentLocale(), normalizedTitle: text, fragment: nil)
         let entry = MWKSavedPageEntry(title: title)
-        entry.didMigrateImageData = migrated
         savedPageList.addEntry(entry)
+        savedPageList.markImageDataAsMigrated(migrated, forEntryWithTitle: title)
         return entry
     }
 }

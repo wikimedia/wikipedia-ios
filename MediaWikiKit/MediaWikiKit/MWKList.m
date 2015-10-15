@@ -1,7 +1,6 @@
 
-#import "MWKList.h"
+#import "MWKList+Subclass.h"
 #import "Wikipedia-Swift.h"
-
 
 @interface MWKList ()
 
@@ -31,13 +30,24 @@
     return self;
 }
 
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([self isKindOfClass:[self class]]) {
+        return WMF_EQUAL(self.entries, isEqualToArray:, [(MWKList*)object entries]);
+    } else {
+        return NO;
+    }
+}
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.entries];
+}
+
 #pragma mark - Import
 
 - (void)importEntries:(NSArray*)entries {
-    [entries enumerateObjectsUsingBlock:^(id < MWKListObject > obj, NSUInteger idx, BOOL* stop) {
-        [self addEntry:obj];
-    }];
-    self.dirty = NO;
+    [self.mutableEntries setArray:entries];
 }
 
 #pragma mark - NSFastEnumeration

@@ -8,29 +8,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKTitle : MTLModel <NSCopying>
 
-/// The site this title belongs to
+#pragma mark - Permanent Properties
+
+/**
+ *  The site associated with the receiver.
+ */
 @property (readonly, strong, nonatomic) MWKSite* site;
 
-/// Normalized title component only (decoded, no underscores)
+/**
+ *  The normalized page title string (decoded, no underscores or percent escapes).
+ */
 @property (readonly, copy, nonatomic) NSString* text;
 
-/// Text with spaces removed
-@property (readonly, copy, nonatomic) NSString* dataBaseKey;
-
-/// Text with spaces removed and special characters escaped for a URL
-@property (readonly, copy, nonatomic) NSString* escapedURLText;
-
-/// Fragment passed in designated initializer.
-@property (readonly, copy, nonatomic, nullable) NSString* fragment;
-
-/// Percent-escaped fragment, prefixed with @c #, or an empty string if absent.
-@property (readonly, copy, nonatomic) NSString* escapedFragment;
-
-/// Absolute URL to mobile view of this article
-@property (readonly, copy, nonatomic) NSURL* mobileURL;
-
-/// Absolute URL to desktop view of this article
-@property (readonly, copy, nonatomic) NSURL* desktopURL;
+#pragma mark - Initialization
 
 /**
  * Initializes a new title belonging to @c site with an optional fragment.
@@ -70,9 +60,31 @@ NS_ASSUME_NONNULL_BEGIN
 /// Convenience factory method wrapping `initWithString:site:`.
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site;
 
+#pragma mark - Comparison
+
 - (BOOL)isEqualToTitle:(MWKTitle*)title;
 
 - (BOOL)isEqualToTitleIncludingFragment:(MWKTitle*)title;
+
+#pragma mark - Computed Properties
+
+/// Text with spaces removed
+@property (readonly, copy, nonatomic) NSString* dataBaseKey;
+
+/// Text with spaces removed and special characters escaped for a URL
+@property (readonly, copy, nonatomic) NSString* escapedURLText;
+
+/// Fragment passed in designated initializer.
+@property (readonly, copy, nonatomic, nullable) NSString* fragment;
+
+/// Percent-escaped fragment, prefixed with @c #, or an empty string if absent.
+@property (readonly, copy, nonatomic) NSString* escapedFragment;
+
+/// Absolute URL to mobile view of this article
+@property (readonly, copy, nonatomic) NSURL* mobileURL;
+
+/// Absolute URL to desktop view of this article
+@property (readonly, copy, nonatomic) NSURL* desktopURL;
 
 @end
 
