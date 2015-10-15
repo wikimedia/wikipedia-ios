@@ -7,6 +7,7 @@
 //
 
 #import "MWKListSharedTests.h"
+#import "MWKHistoryEntry+MWKRandom.h"
 
 @interface MWKHistoryListSharedTests : MWKListSharedTests
 
@@ -17,9 +18,7 @@
 #pragma mark - MWKListTestBase
 
 + (id)uniqueListEntry {
-    MWKHistoryDiscoveryMethod randomDiscoveryMethod = arc4random() % 7;
-    return [[MWKHistoryEntry alloc] initWithTitle:[MWKTitle random]
-                                  discoveryMethod:randomDiscoveryMethod];
+    return [MWKHistoryEntry random];
 }
 
 + (Class)listClass {

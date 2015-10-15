@@ -8,11 +8,15 @@
 
 #import "MWKSite+Random.h"
 
+#import <BlocksKit/BlocksKit.h>
+
 @implementation MWKSite (Random)
 
 + (instancetype)random {
+    NSArray<NSString*>* languageCodes = [NSLocale ISOLanguageCodes];
+    NSUInteger randomIndex = arc4random() % languageCodes.count;
     return [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain
-                                  language:[[NSSet setWithArray:[NSLocale availableLocaleIdentifiers]] anyObject]];
+                                  language:languageCodes[randomIndex]];
 }
 
 @end

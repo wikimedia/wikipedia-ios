@@ -7,10 +7,10 @@
 //
 
 #import "MWKTitle.h"
+#import "MWKRandom.h"
 
 @interface MWKTitle (Random)
-
-+ (instancetype)random;
+<MWKRandom>
 
 + (instancetype)randomWithFragment:(NSString*)fragment;
 
