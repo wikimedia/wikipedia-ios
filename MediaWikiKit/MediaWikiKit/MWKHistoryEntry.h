@@ -11,14 +11,51 @@
 
 @class MWKTitle;
 
-typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod){
+typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod) {
+    /**
+     * Title discovered by unknown means.
+     */
     MWKHistoryDiscoveryMethodUnknown,
+
+    /**
+     * Discovered via a generic search (e.g. wiki, nearby, or related).
+     */
     MWKHistoryDiscoveryMethodSearch,
+
+    /**
+     * Discovered via the random feature.
+     */
     MWKHistoryDiscoveryMethodRandom,
+
+    /**
+     * Discovered by tapping a link.
+     */
     MWKHistoryDiscoveryMethodLink,
+
+    ///
+    /// @name Legacy Discovery Methods
+    ///
+
+    /**
+     * "Discovered" by navigating back (or forward).
+     */
     MWKHistoryDiscoveryMethodBackForward,
+
+    /**
+     * "Discovered" by selecting an entry in the saved page list.
+     */
     MWKHistoryDiscoveryMethodSaved,
+
+    /**
+     * "Discovered" by reloading the latest revision of a title.
+     * @warning This method is considered "unknown" when written to disk
+     */
     MWKHistoryDiscoveryMethodReloadFromNetwork,
+
+    /**
+     * "Discovered" by loading the current version from disk.
+     * @warning This method is considered "unknown" when written to disk
+     */
     MWKHistoryDiscoveryMethodReloadFromCache,
 };
 
