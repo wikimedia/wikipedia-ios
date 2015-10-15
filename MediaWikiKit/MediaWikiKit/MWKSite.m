@@ -144,8 +144,8 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 #pragma mark - MTLModel
 
 // Need to specify storage properties since domain & language are readonly, which Mantle interprets as transitory.
-+ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString *)propertyKey {
-#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKSite new], key)]
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
+#define IS_MWKSITE_KEY(key) [propertyKey isEqualToString : WMF_SAFE_KEYPATH([MWKSite new], key)]
     if (IS_MWKSITE_KEY(domain) || IS_MWKSITE_KEY(language)) {
         return MTLPropertyStoragePermanent;
     } else {

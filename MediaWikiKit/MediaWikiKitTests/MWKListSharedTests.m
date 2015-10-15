@@ -34,7 +34,7 @@
 #pragma mark - Mutation
 
 - (void)testContainsAddedEntry {
-    MWKList* list = [self listWithEntries:nil];
+    MWKList* list                = [self listWithEntries:nil];
     id<MWKListObject> firstEntry = [self.testObjects firstObject];
     [list addEntry:firstEntry];
     assertThat([list entryAtIndex:0], is(firstEntry));
@@ -44,7 +44,7 @@
 }
 
 - (void)testDoesNotContainRemovedEntries {
-    MWKList* list = [self listWithEntries:self.testObjects];
+    MWKList* list                = [self listWithEntries:self.testObjects];
     id<MWKListObject> firstEntry = [self.testObjects firstObject];
     [list removeEntryWithListIndex:[firstEntry listIndex]];
     assertThat(@([list containsEntryForListIndex:[firstEntry listIndex]]), isFalse());
@@ -93,8 +93,8 @@
                         keyPath:WMF_SAFE_KEYPATH(list, entries)
                         options:0
                           block:^(id observer, id object, NSDictionary* change) {
-                              [observations addObject:change];
-                          }];
+        [observations addObject:change];
+    }];
 
     [list addEntry:self.testObjects[0]];
     [list removeEntry:self.testObjects[0]];

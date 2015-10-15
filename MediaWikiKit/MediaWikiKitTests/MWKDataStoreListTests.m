@@ -44,7 +44,7 @@
 }
 
 - (void)testSavedListIsEqualToListWithAddedEntries {
-    [self verifyListRoundTripAfter:^(MWKList *list) {
+    [self verifyListRoundTripAfter:^(MWKList* list) {
         [self.testObjects bk_each:^(id entry) {
             [list addEntry:entry];
         }];
@@ -52,7 +52,7 @@
 }
 
 - (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
-    [self verifyListRoundTripAfter:^(MWKList *list) {
+    [self verifyListRoundTripAfter:^(MWKList* list) {
         [self.testObjects bk_each:^(id entry) {
             [list addEntry:entry];
         }];
@@ -63,10 +63,10 @@
 
 #pragma mark - Utils
 
-- (void)verifyListRoundTripAfter:(void(^)(MWKList*))mutatingBlock {
+- (void)verifyListRoundTripAfter:(void (^)(MWKList*))mutatingBlock {
     MWKList* list = [self listWithDataStore];
     mutatingBlock(list);
-    expectResolution(^AnyPromise *{
+    expectResolution(^AnyPromise*{
         return [list save];
     });
     assertThat([self listWithDataStore], is(equalTo(list)));

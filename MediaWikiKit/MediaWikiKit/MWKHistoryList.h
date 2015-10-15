@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKHistoryList : MWKList<MWKHistoryEntry*, MWKTitle*>
-<MWKDataStoreList>
+    < MWKDataStoreList >
 
 - (nullable MWKHistoryEntry*)mostRecentEntry;
 

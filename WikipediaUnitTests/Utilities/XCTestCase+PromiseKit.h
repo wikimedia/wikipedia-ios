@@ -18,7 +18,7 @@
 
 /// Shorthand macro to expect a promise to resolve with the given timeout.
 #define expectResolutionWithTimeout(timeoutSecs, promiseBlock) \
-[self expectAnyPromiseToResolve:(promiseBlock) timeout:(timeoutSecs) WMFExpectFromHere]
+    [self expectAnyPromiseToResolve : (promiseBlock)timeout : (timeoutSecs)WMFExpectFromHere]
 
 /**
  * Utility for testing promises in ObjC.

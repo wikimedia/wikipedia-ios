@@ -9,7 +9,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSavedPageList : MWKList<MWKSavedPageEntry*, MWKTitle*>
-<MWKDataStoreList>
+    < MWKDataStoreList >
 
 - (MWKSavedPageEntry* __nullable)entryForListIndex:(MWKTitle*)title;
 - (MWKSavedPageEntry*)           mostRecentEntry;
