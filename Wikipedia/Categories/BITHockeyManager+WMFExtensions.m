@@ -32,6 +32,9 @@ static NSString* const kHockeyAppDoNotSendStringsKey                 = @"hockeya
 - (void)wmf_setupAndStart {
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:[[NSBundle mainBundle] wmf_hockeyappIdentifier]];
     [[BITHockeyManager sharedHockeyManager] startManager];
+    #if DEBUG
+    [BITHockeyManager sharedHockeyManager].debugLogEnabled = YES;
+    #endif
     [BITHockeyManager sharedHockeyManager].updateManager.updateSetting = BITUpdateCheckManually;
     [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
     [[BITHockeyManager sharedHockeyManager] wmf_setupCrashNotificationAlert];
