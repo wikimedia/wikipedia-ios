@@ -87,7 +87,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Accessors
 
 + (UIEdgeInsets)defaultSectionInsets {
-    return UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0);
+    return UIEdgeInsetsMake(1.0, 0.0, 0.0, 0.0);
 }
 
 - (UIBarButtonItem*)settingsBarButtonItem {
@@ -296,7 +296,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
             header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
             NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-            [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14.0] range:NSMakeRange(0, title.length)];
+            [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(0, title.length)];
             [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
             header.titleView.attributedText = title;
             header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
@@ -305,6 +305,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
             WMFHomeSectionFooter* footer = view;
             if ([controller respondsToSelector:@selector(footerText)]) {
                 footer.moreLabel.text = controller.footerText;
+                footer.moreLabel.textColor = [UIColor wmf_homeSectionFooterTextColor];
                 @weakify(self);
                 footer.whenTapped = ^{
                     @strongify(self);
@@ -448,13 +449,15 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - UICollectionViewDelegate
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSUInteger)section {
-    return CGSizeMake([self contentWidth], 50.0);
+    CGFloat height = (section == 0) ? 104 : 78;
+    return CGSizeMake([self contentWidth], height);
 }
 
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
     id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
     if ([controllerForSection respondsToSelector:@selector(footerText)]) {
-        return CGSizeMake([self contentWidth], 80.0);
+        CGFloat height = (section == self.dataSource.numberOfSections - 1) ? 104 : 78;
+        return CGSizeMake([self contentWidth], height);
     } else {
         return CGSizeZero;
     }
