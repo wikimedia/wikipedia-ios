@@ -582,10 +582,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             }
             break;
             case SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH: {
-                if (![[BITHockeyManager sharedHockeyManager] crashManager]) {
-                    DDLogError(@"Crash manager was not setup!");
-                }
-                [[[BITHockeyManager sharedHockeyManager] crashManager] generateTestCrash];
+                [[self class] generateTestCrash];
                 break;
             }
             case SECONDARY_MENU_ROW_INDEX_FAQ: {
@@ -614,6 +611,15 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
         ];
     } else {
         performTapAction();
+    }
+}
+
++ (void)generateTestCrash {
+    if ([[BITHockeyManager sharedHockeyManager] crashManager]) {
+        DDLogWarn(@"Generating test crash!");
+        __builtin_trap();
+    } else {
+        DDLogError(@"Crash manager was not setup!");
     }
 }
 
