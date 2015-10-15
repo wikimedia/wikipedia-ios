@@ -7,9 +7,9 @@
 //
 
 #import "MWKSite.h"
+#import "MWKRandom.h"
 
 @interface MWKSite (Random)
-
-+ (instancetype)random;
+<MWKRandom>
 
 @end
