@@ -64,7 +64,8 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
 
-    pilot(skip_submission: true, changelog: git_commit_log)
+    # Note: skipping submission means that the changelog isn't added
+    pilot(skip_submission: false, changelog: git_commit_log)
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
