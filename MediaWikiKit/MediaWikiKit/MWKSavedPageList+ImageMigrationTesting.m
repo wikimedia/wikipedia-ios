@@ -10,7 +10,7 @@
 #import "MWKList+Subclass.h"
 #import "MWKSavedPageEntry+ImageMigration.h"
 
-@implementation MWKSavedPageList (ImageMigrationTesting)
+@implementation MWKSavedPageList (ImageMigrationInternal)
 
 - (void)markImageDataAsMigrated:(BOOL)didMigrate forEntryWithTitle:(MWKTitle*)title {
     return [self updateEntryWithListIndex:title update:^BOOL (MWKSavedPageEntry* entry) {

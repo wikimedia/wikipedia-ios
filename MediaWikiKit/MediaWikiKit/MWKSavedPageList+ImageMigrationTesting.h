@@ -8,7 +8,7 @@
 
 #import "MWKSavedPageList.h"
 
-@interface MWKSavedPageList (ImageMigrationTesting)
+@interface MWKSavedPageList (ImageMigrationInternal)
 
 - (void)markImageDataAsMigrated:(BOOL)didMigrate forEntryWithTitle:(MWKTitle*)title;
 
