@@ -28,6 +28,8 @@
 
 + (instancetype)wmf_homeSectionHeaderTextColor;
 
++ (instancetype)wmf_homeSectionFooterTextColor;
+
 + (instancetype)wmf_homeSectionHeaderLinkTextColor;
 
 /**
