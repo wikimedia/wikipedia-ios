@@ -43,7 +43,7 @@ static CGFloat const WMFImagePadding = 8.0;
 
 - (void)configureImageViewWithPlaceholder {
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.image = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
+    self.imageView.image       = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
 }
 
 - (void)prepareForReuse {
