@@ -11,8 +11,6 @@
 #import "MWKSavedPageList.h"
 #import "Wikipedia-Swift.h"
 
-#import <BlocksKit/BlocksKit.h>
-
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
