@@ -33,6 +33,10 @@
     return self;
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.site, self.searchTerm];
+}
+
 #pragma mark - MWKListObject
 
 - (id <NSCopying>)listIndex {
