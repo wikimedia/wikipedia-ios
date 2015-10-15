@@ -377,6 +377,8 @@
 		BC7925F61B9F31A9003C9522 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7925F51B9F31A9003C9522 /* CLLocation+WMFBearingTests.m */; };
 		BC79E8E51BC83210008BF0B2 /* WMFLegacyImageDataMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF1E2111B4C780C00B10877 /* WMFLegacyImageDataMigrationTests.swift */; settings = {ASSET_TAGS = (); }; };
 		BC7B09B01BD0216C00BBC3A2 /* 4.1.7 in Resources */ = {isa = PBXBuildFile; fileRef = BC7B09AF1BD0216C00BBC3A2 /* 4.1.7 */; settings = {ASSET_TAGS = (); }; };
+		BC7B09B21BD028E400BBC3A2 /* MWKListLegacyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */; settings = {ASSET_TAGS = (); }; };
+		BC7B09B51BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */; settings = {ASSET_TAGS = (); }; };
 		BC7B769E1B84CD2A00774FBC /* UIImageView+MWKImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B769D1B84CD2A00774FBC /* UIImageView+MWKImageTests.m */; };
 		BC7B76A01B861F7100774FBC /* MWKSectionListHierarchyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
@@ -1232,6 +1234,9 @@
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
 		BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAsyncTestCase.m; path = ../WMFAsyncTestCase.m; sourceTree = "<group>"; };
 		BC7B09AF1BD0216C00BBC3A2 /* 4.1.7 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = 4.1.7; path = "../../../App Test Data/4.1.7"; sourceTree = "<group>"; };
+		BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKListLegacyTests.m; sourceTree = "<group>"; };
+		BC7B09B31BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+DataStoreFixtureTesting.h"; sourceTree = "<group>"; };
+		BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+DataStoreFixtureTesting.m"; sourceTree = "<group>"; };
 		BC7B769A1B83D8F300774FBC /* UIImageView+WMFImageFetchingInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WMFImageFetchingInternal.h"; sourceTree = "<group>"; };
 		BC7B769D1B84CD2A00774FBC /* UIImageView+MWKImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MWKImageTests.m"; sourceTree = "<group>"; };
 		BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionListHierarchyTests.m; sourceTree = "<group>"; };
@@ -2832,6 +2837,7 @@
 				BC676DA61BCF34120041CB92 /* MWKSavedPageListSharedTests.m */,
 				BC5B38E91BD00A8D00EE380A /* MWKSavedPageEntry+Random.h */,
 				BC5B38EA1BD00A8D00EE380A /* MWKSavedPageEntry+Random.m */,
+				BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */,
 			);
 			name = "Saved Page List";
 			sourceTree = "<group>";
@@ -3182,6 +3188,8 @@
 				BCA676521AC05FE200A16160 /* NSBundle+TestAssets.m */,
 				BCA676531AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.h */,
 				BCA676541AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.m */,
+				BC7B09B31BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.h */,
+				BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */,
 			);
 			name = "Fixture Utilities";
 			sourceTree = "<group>";
@@ -3981,11 +3989,13 @@
 				BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */,
 				BC5FE5751B1DFF5400273BC0 /* ArticleFetcherTests.m in Sources */,
 				04A1C4FC1B94F10600B47788 /* WMFSaveButtonControllerTests.m in Sources */,
+				BC7B09B51BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m in Sources */,
 				BC5B38EF1BD00C4E00EE380A /* MWKHistoryEntry+MWKRandom.m in Sources */,
 				BCF7FCA01B7BDA4800CDFB8C /* MWKArticleEqualityCheckTests.m in Sources */,
 				BC5BC4B01BCEF9BD00062619 /* MWKTitle+Random.m in Sources */,
 				BCAFC5ED1B02490A004615BA /* WMFRandomFileUtilities.m in Sources */,
 				BC5BC49D1BCEACDD00062619 /* MWKHistoryListSharedTests.m in Sources */,
+				BC7B09B21BD028E400BBC3A2 /* MWKListLegacyTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
