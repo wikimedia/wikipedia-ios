@@ -2,6 +2,7 @@
 
 // Model
 #import "MediaWikiKit.h"
+#import "MWKSavedPageList+ImageMigration.h"
 
 // Utilities
 #import "WikipediaAppUtils.h"

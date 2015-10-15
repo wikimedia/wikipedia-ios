@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKDataStore (TemporaryDataStore)
+@interface MWKDataStore (Testing)
 
 /**
  * Create a data store which persists objects in a random folder in the application's @c tmp directory.

@@ -12,22 +12,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MWKList <EntryType : id<MWKListObject>,
-                        IndexType : id<NSCopying, NSObject> >
-                                : MWKDataObject<NSFastEnumeration>
+typedef id<MWKListObject> MWKListEntry;
+typedef id<NSCopying, NSObject> MWKListIndex;
 
-                    - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
+/**
+ * Abstract base class for homogeneous lists of model objects.
+ *
+ * Can be specialized to contain instances of @c EntryType, which are queryable by index or an associated key of type
+ * @c IndexType.
+ */
+@interface MWKList
+<EntryType : MWKListEntry, IndexType :  MWKListIndex> : MWKDataObject<NSFastEnumeration>
+// Note: ObjC generics give uncrustify a headache: https://github.com/bengardner/uncrustify/issues/404
+
+ - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
 
 /**
  *  Observable - observe to get KVO notifications
  */
-                    @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
+ @property (nonatomic, strong, readonly) NSArray<EntryType>* entries;
+
+ #pragma mark - Querying the List
 
 - (NSUInteger)countOfEntries;
-
-- (void)addEntry:(EntryType)entry;
-
-- (void)insertEntry:(EntryType)entry atIndex:(NSUInteger)index;
 
 - (NSUInteger)indexForEntry:(EntryType)entry;
 
@@ -37,7 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)containsEntryForListIndex:(IndexType)listIndex;
 
-- (void)updateEntryWithListIndex:(IndexType)listIndex update:(BOOL (^)(EntryType entry))update;
+#pragma mark - Mutating the List
+
+- (void)addEntry:(EntryType)entry;
 
 - (void)removeEntry:(EntryType)entry;
 
@@ -45,34 +54,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeAllEntries;
 
-/**
- *  Sort the receiver's entries in place with the given descriptors.
- */
-- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors;
-
-/*
- * Indicates if the list has unsaved changes
- */
-@property (nonatomic, assign, readonly) BOOL dirty;
+#pragma mark - Persisting Changes to the List
 
 /**
- *  Save changes.
+ *  Persists the current @c entries in the receiver, if it was mutated since the last time it was saved.
  *
- *  @return The task. Result will be nil.
+ *  @return Promise which resolves to @c nil after saving successfully.
  */
 - (AnyPromise*)save;
-
-
-@end
-
-
-@interface MWKList (Subclasses)
-
-/**
- *  Subclasses must implement to support saving
- *  If unimplemented, the save method will resolve the promise with an error
- */
-- (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler;
 
 @end
 

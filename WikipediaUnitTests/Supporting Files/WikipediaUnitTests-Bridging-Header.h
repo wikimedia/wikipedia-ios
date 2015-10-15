@@ -12,3 +12,4 @@
 #import "WMFRandomFileUtilities.h"
 #import "XCTestCase+MWKFixtures.h"
 #import "WMFImageController+Testing.h"
+#import "MWKSavedPageList+ImageMigrationTesting.h"
