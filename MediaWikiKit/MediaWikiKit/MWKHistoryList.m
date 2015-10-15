@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(title);
     MWKHistoryEntry* entry = [self entryForTitle:title];
     if (!entry) {
-        entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+        entry      = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
         entry.date = [NSDate date];
     }
     entry.discoveryMethod = discoveryMethod;

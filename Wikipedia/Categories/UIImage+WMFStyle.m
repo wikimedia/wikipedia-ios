@@ -5,7 +5,7 @@
 
 @implementation UIImage (WMFStyle)
 
-+(UIImage*)wmf_placeholderImage {
++ (UIImage*)wmf_placeholderImage {
     static UIImage* img;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

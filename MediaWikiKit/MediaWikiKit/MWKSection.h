@@ -159,7 +159,7 @@ extern NSString* const MWKSectionShareSnippetXPath;
  */
 - (BOOL)hasTextData;
 
-- (NSString *)summary;
+- (NSString*)summary;
 
 @end
 

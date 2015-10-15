@@ -119,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
         [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
                                                   forIndexPath:indexPath];
     if (self.images.count == 0) {
-        cell.imageView.tintColor = [UIColor wmf_lightGrayColor];
+        cell.imageView.tintColor   = [UIColor wmf_lightGrayColor];
         cell.imageView.image       = [UIImage wmf_placeholderImage];
         cell.imageView.contentMode = UIViewContentModeCenter;
         return cell;
