@@ -36,7 +36,7 @@
 
 - (void)testReordersLegacySavedPageList {
     NSArray<MWKSavedPageEntry*>* legacyEntries =
-        [[self.dataStore savedPageListData][MWKSavedPageExportedEntriesKey] bk_map:^id(NSDictionary* entryData) {
+        [[self.dataStore savedPageListData][MWKSavedPageExportedEntriesKey] bk_map:^id (NSDictionary* entryData) {
         MWKSavedPageEntry* entry;
         XCTAssertNoThrow((entry = [[MWKSavedPageEntry alloc] initWithDict:entryData]),
                          @"not expecting invalid entries for this test");
@@ -48,11 +48,11 @@
 
     // migration from legacy/unknown schema puts the last-saved entry first
     assertThat([list.entries valueForKeyPath:@"title.text"], contains(
-        @"Freemanbreen",
-        @"Glacier",
-        @"Crevasse",
-        @"Ice sheet", nil
-    ));
+                   @"Freemanbreen",
+                   @"Glacier",
+                   @"Crevasse",
+                   @"Ice sheet", nil
+                   ));
 
     expectResolution(^{
         // need to modify the list in order for it to save

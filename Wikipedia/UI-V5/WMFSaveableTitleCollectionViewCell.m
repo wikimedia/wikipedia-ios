@@ -21,9 +21,9 @@
 @implementation WMFSaveableTitleCollectionViewCell
 
 - (void)configureImageViewWithPlaceholder {
-    self.imageView.contentMode = UIViewContentModeCenter;
+    self.imageView.contentMode     = UIViewContentModeCenter;
     self.imageView.backgroundColor = [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
-    self.imageView.image = [UIImage wmf_placeholderImage];
+    self.imageView.image           = [UIImage wmf_placeholderImage];
 }
 
 - (void)configureCell {

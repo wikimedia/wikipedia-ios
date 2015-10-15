@@ -46,8 +46,8 @@
 
 #pragma mark - Data Update
 
-- (void)importEntries:(NSArray *)entries {
-    [super importEntries:[entries bk_select:^BOOL(MWKRecentSearchEntry* entry) {
+- (void)importEntries:(NSArray*)entries {
+    [super importEntries:[entries bk_select:^BOOL (MWKRecentSearchEntry* entry) {
         return [self isEntryValid:entry];
     }]];
 }

@@ -23,7 +23,7 @@
     NSMutableArray* entries = [NSMutableArray arrayWithCapacity:1000];
     for (int i = 0; i < 1000; i++) {
         MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:[MWKTitle random]
-                                                        discoveryMethod:MWKHistoryDiscoveryMethodLink];
+                                                        discoveryMethod :MWKHistoryDiscoveryMethodLink];
         [entries addObject:entry];
     }
 

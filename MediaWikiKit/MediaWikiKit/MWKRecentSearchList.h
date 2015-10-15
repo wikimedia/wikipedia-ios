@@ -7,7 +7,7 @@
 @class MWKDataStore;
 
 @interface MWKRecentSearchList : MWKList<MWKRecentSearchEntry*, NSString*>
-<MWKDataStoreList>
+    < MWKDataStoreList >
 
 - (NSArray*)dataExport;
 

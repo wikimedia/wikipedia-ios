@@ -55,8 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[MWKListDummyEntry alloc] init];
 }
 
-
-
 @end
 
 NS_ASSUME_NONNULL_END

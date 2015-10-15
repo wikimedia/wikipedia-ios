@@ -15,7 +15,7 @@
  *
  *  @return Whether or not the list should be considered dirty after the update.
  */
-typedef BOOL (^MWKListUpdateBlock)(MWKListEntry entry);
+typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
 
 @interface MWKList (Subclasses)
 

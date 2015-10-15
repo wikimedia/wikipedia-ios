@@ -14,7 +14,7 @@
 
 + (instancetype)random {
     NSArray<NSString*>* languageCodes = [NSLocale ISOLanguageCodes];
-    NSUInteger randomIndex = arc4random() % languageCodes.count;
+    NSUInteger randomIndex            = arc4random() % languageCodes.count;
     return [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain
                                   language:languageCodes[randomIndex]];
 }

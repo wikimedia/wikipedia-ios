@@ -77,8 +77,8 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
     NSURL* url          = [searchSite apiEndpoint:useDeskTopURL];
 
     WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
-    params.title                     = title;
-    params.numberOfResults           = resultLimit;
+    params.title           = title;
+    params.numberOfResults = resultLimit;
 
     [self.operationManager GET:url.absoluteString
                     parameters:params
