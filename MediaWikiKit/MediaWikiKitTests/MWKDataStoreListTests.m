@@ -43,11 +43,21 @@
     return [[listClass alloc] initWithDataStore:self.tempDataStore];
 }
 
-- (void)testAddedEntriesAreIdenticalWhenReadFromDataStore {
+- (void)testSavedListIsEqualToListWithAddedEntries {
     [self verifyListRoundTripAfter:^(MWKList *list) {
         [self.testObjects bk_each:^(id entry) {
             [list addEntry:entry];
         }];
+    }];
+}
+
+- (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
+    [self verifyListRoundTripAfter:^(MWKList *list) {
+        [self.testObjects bk_each:^(id entry) {
+            [list addEntry:entry];
+        }];
+        [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
+        [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
     }];
 }
 
