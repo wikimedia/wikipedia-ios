@@ -1,6 +1,12 @@
-
-#import "MediaWikiKit.h"
+#import "MWKSavedPageList.h"
+#import "MWKSavedPageEntry.h"
+#import "MWKDataStore.h"
+#import "MWKSavedPageListDataExportConstants.h"
 #import "MWKList+Subclass.h"
+#import "Wikipedia-Swift.h"
+
+NSString* const MWKSavedPageExportedEntriesKey       = @"entries";
+NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
 @interface MWKSavedPageList ()
 
@@ -13,7 +19,8 @@
 #pragma mark - Setup
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
-    NSArray* entries = [[dataStore savedPageListData] bk_map:^id (id obj) {
+    NSArray* entries =
+        [[MWKSavedPageList savedEntryDataFromExportedData:[dataStore savedPageListData]] bk_map:^id (id obj) {
         @try {
             return [[MWKSavedPageEntry alloc] initWithDict:obj];
         } @catch (NSException* e) {
@@ -36,8 +43,8 @@
     return self;
 }
 
-- (void)importEntries:(NSArray *)entries {
-    NSArray<MWKSavedPageEntry*>* validEntries = [entries bk_reject:^BOOL(MWKSavedPageEntry* entry) {
+- (void)importEntries:(NSArray*)entries {
+    NSArray<MWKSavedPageEntry*>* validEntries = [entries bk_reject:^BOOL (MWKSavedPageEntry* entry) {
         return entry.title.text.length == 0;
     }];
     NSArray<MWKSavedPageEntry*>* uniqueValidEntries = [[NSOrderedSet orderedSetWithArray:validEntries] array];
@@ -110,12 +117,39 @@
     }
 }
 
+#pragma mark - Schema Migration
+
++ (NSArray<NSDictionary*>*)savedEntryDataFromExportedData:(NSDictionary*)savedPageListData {
+    NSNumber* schemaVersionValue                = savedPageListData[MWKSavedPageExportedSchemaVersionKey];
+    MWKSavedPageListSchemaVersion schemaVersion = MWKSavedPageListSchemaVersionUnknown;
+    if (schemaVersionValue) {
+        schemaVersion = schemaVersionValue.unsignedIntegerValue;
+    }
+    switch (schemaVersion) {
+        case MWKSavedPageListSchemaVersionCurrent:
+            return savedPageListData[MWKSavedPageExportedEntriesKey];
+        case MWKSavedPageListSchemaVersionUnknown:
+            return [MWKSavedPageList savedEntryDataFromListWithUnknownSchema:savedPageListData];
+    }
+}
+
++ (NSArray<NSDictionary*>*)savedEntryDataFromListWithUnknownSchema:(NSDictionary*)data {
+    return [data[MWKSavedPageExportedEntriesKey] wmf_reverseArray];
+}
+
 #pragma mark - Export
 
-- (NSArray*)dataExport {
-    return [self.entries bk_map:^id (MWKSavedPageEntry* obj) {
-        return [obj dataExport];
+- (NSArray<NSDictionary*>*)exportedEntries {
+    return [self.entries bk_map:^NSDictionary*(MWKSavedPageEntry* entry) {
+        return [entry dataExport];
     }];
+}
+
+- (NSDictionary*)dataExport {
+    return @{
+               MWKSavedPageExportedSchemaVersionKey: @(MWKSavedPageListSchemaVersionCurrent),
+               MWKSavedPageExportedEntriesKey: [self exportedEntries]
+    };
 }
 
 @end

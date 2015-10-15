@@ -261,9 +261,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 }
 
 - (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error {
-    NSString* path       = self.basePath;
-    NSDictionary* export = @{@"entries": [list dataExport]};
-    return [self saveDictionary:export path:path name:@"SavedPages.plist" error:error];
+    return [self saveDictionary:[list dataExport]
+                           path:self.basePath
+                           name:@"SavedPages.plist"
+                          error:error];
 }
 
 - (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error {
@@ -393,11 +394,10 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return dict[@"entries"];
 }
 
-- (NSArray*)savedPageListData {
+- (NSDictionary*)savedPageListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"SavedPages.plist"];
-    NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    return dict[@"entries"];
+    return [NSDictionary dictionaryWithContentsOfFile:filePath];
 }
 
 - (NSArray*)recentSearchListData {

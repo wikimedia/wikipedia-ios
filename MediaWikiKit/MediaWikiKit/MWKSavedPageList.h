@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addSavedPageWithTitle:(MWKTitle*)title;
 
-- (NSArray*)dataExport;
+- (NSDictionary*)dataExport;
 
 @end
 

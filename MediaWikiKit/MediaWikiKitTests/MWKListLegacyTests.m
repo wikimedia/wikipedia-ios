@@ -9,7 +9,9 @@
 #import <XCTest/XCTest.h>
 #import "XCTestCase+DataStoreFixtureTesting.h"
 #import "MWKSavedPageList.h"
+#import "MWKSavedPageListDataExportConstants.h"
 #import "Wikipedia-Swift.h"
+#import "XCTestCase+PromiseKit.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -33,7 +35,8 @@
 #pragma mark - Saved Pages
 
 - (void)testReordersLegacySavedPageList {
-    NSArray<MWKSavedPageEntry*>* legacyEntries = [[self.dataStore savedPageListData] bk_map:^id(NSDictionary* entryData) {
+    NSArray<MWKSavedPageEntry*>* legacyEntries =
+        [[self.dataStore savedPageListData][MWKSavedPageExportedEntriesKey] bk_map:^id(NSDictionary* entryData) {
         MWKSavedPageEntry* entry;
         XCTAssertNoThrow((entry = [[MWKSavedPageEntry alloc] initWithDict:entryData]),
                          @"not expecting invalid entries for this test");
@@ -43,7 +46,25 @@
 
     MWKSavedPageList* list = self.dataStore.userDataStore.savedPageList;
 
-    assertThat(list.entries, is(equalTo([legacyEntries wmf_reverseArray])));
+    // migration from legacy/unknown schema puts the last-saved entry first
+    assertThat([list.entries valueForKeyPath:@"title.text"], contains(
+        @"Freemanbreen",
+        @"Glacier",
+        @"Crevasse",
+        @"Ice sheet", nil
+    ));
+
+    expectResolution(^{
+        // need to modify the list in order for it to save
+        [list removeEntry:list.mostRecentEntry];
+        return [list save];
+    });
+
+    // a migrated list should save as the current version
+    MWKDataStore* dataStore2 = [[MWKDataStore alloc] initWithBasePath:self.dataStore.basePath];
+    assertThat(dataStore2.savedPageListData, hasEntry(MWKSavedPageExportedSchemaVersionKey,
+                                                      @(MWKSavedPageListSchemaVersionCurrent)));
+    assertThat(dataStore2.userDataStore.savedPageList, is(equalTo(list)));
 }
 
 @end
