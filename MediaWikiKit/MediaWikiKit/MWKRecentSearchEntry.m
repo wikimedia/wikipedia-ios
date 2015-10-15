@@ -37,6 +37,17 @@
     return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.site, self.searchTerm];
 }
 
+WMF_SYNTHESIZE_IS_EQUAL(MWKRecentSearchEntry, isEqualToRecentSearch:)
+
+- (BOOL)isEqualToRecentSearch:(MWKRecentSearchEntry*)rhs {
+    return WMF_RHS_PROP_EQUAL(site, isEqualToSite:)
+           && WMF_RHS_PROP_EQUAL(searchTerm, isEqualToString:);
+}
+
+- (NSUInteger)hash {
+    return self.searchTerm.hash ^ flipBitsWithAdditionalRotation(self.site.hash, 1);
+}
+
 #pragma mark - MWKListObject
 
 - (id <NSCopying>)listIndex {
