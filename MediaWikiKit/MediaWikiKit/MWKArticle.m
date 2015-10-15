@@ -479,7 +479,7 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
     if (_summary) {
         return _summary;
     }
-    
+
     for (MWKSection* section in self.sections) {
         NSString* summary = [section summary];
         if (summary) {
@@ -494,7 +494,6 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
     NSMutableArray* sectionTextArray = [[NSMutableArray alloc] init];
 
     for (MWKSection* section in self.sections) {
-   
         // Structural html added around section html just before display.
         NSString* sectionHTMLWithID = [section displayHTML];
         [sectionTextArray addObject:sectionHTMLWithID];
