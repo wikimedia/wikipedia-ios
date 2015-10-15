@@ -71,6 +71,10 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
     return self.didMigrateImageData ^ flipBitsWithAdditionalRotation(self.title.hash, 1);
 }
 
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ %@", [super description], self.title];
+}
+
 #pragma mark - MWKListObject
 
 - (id <NSCopying>)listIndex {
