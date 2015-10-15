@@ -1237,6 +1237,7 @@
 		BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKListLegacyTests.m; sourceTree = "<group>"; };
 		BC7B09B31BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+DataStoreFixtureTesting.h"; sourceTree = "<group>"; };
 		BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+DataStoreFixtureTesting.m"; sourceTree = "<group>"; };
+		BC7B09B61BD03FAD00BBC3A2 /* MWKSavedPageListDataExportConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSavedPageListDataExportConstants.h; sourceTree = "<group>"; };
 		BC7B769A1B83D8F300774FBC /* UIImageView+WMFImageFetchingInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WMFImageFetchingInternal.h"; sourceTree = "<group>"; };
 		BC7B769D1B84CD2A00774FBC /* UIImageView+MWKImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MWKImageTests.m"; sourceTree = "<group>"; };
 		BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionListHierarchyTests.m; sourceTree = "<group>"; };
@@ -2583,6 +2584,7 @@
 			children = (
 				BCB6698B1A83F6C300C7B1FE /* MWKSavedPageList.h */,
 				BCB6698C1A83F6C300C7B1FE /* MWKSavedPageList.m */,
+				BC7B09B61BD03FAD00BBC3A2 /* MWKSavedPageListDataExportConstants.h */,
 				BCB669891A83F6C300C7B1FE /* MWKSavedPageEntry.h */,
 				BC5BC4A71BCEF62800062619 /* MWKSavedPageEntry+ImageMigration.h */,
 				BCB6698A1A83F6C300C7B1FE /* MWKSavedPageEntry.m */,

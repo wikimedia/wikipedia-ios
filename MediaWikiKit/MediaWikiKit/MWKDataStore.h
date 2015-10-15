@@ -143,7 +143,7 @@ extern NSString* const MWKArticleKey;
 
 
 - (NSArray*)historyListData;
-- (NSArray*)savedPageListData;
+- (NSDictionary*)savedPageListData;
 - (NSArray*)recentSearchListData;
 
 
