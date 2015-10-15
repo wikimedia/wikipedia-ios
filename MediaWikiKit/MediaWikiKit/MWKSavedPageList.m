@@ -36,10 +36,18 @@
     return self;
 }
 
+- (void)importEntries:(NSArray *)entries {
+    NSArray<MWKSavedPageEntry*>* validEntries = [entries bk_reject:^BOOL(MWKSavedPageEntry* entry) {
+        return entry.title.text.length == 0;
+    }];
+    NSArray<MWKSavedPageEntry*>* uniqueValidEntries = [[NSOrderedSet orderedSetWithArray:validEntries] array];
+    [super importEntries:uniqueValidEntries];
+}
+
 #pragma mark - Entry Access
 
 - (MWKSavedPageEntry*)mostRecentEntry {
-    return [self.entries lastObject];
+    return [self.entries firstObject];
 }
 
 - (MWKSavedPageEntry*)entryForListIndex:(MWKTitle*)title {
@@ -70,22 +78,14 @@
     if ([title.text length] == 0) {
         return;
     }
-    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
-    [self addEntry:entry];
+    [self addEntry:[[MWKSavedPageEntry alloc] initWithTitle:title]];
 }
 
 - (void)addEntry:(MWKSavedPageEntry*)entry {
     if ([self isSaved:entry.title]) {
         return;
     }
-    [super addEntry:entry];
-}
-
-- (void)insertEntry:(MWKSavedPageEntry*)entry atIndex:(NSUInteger)index {
-    if ([self isSaved:entry.title]) {
-        return;
-    }
-    [super insertEntry:entry atIndex:index];
+    [self insertEntry:entry atIndex:0];
 }
 
 - (void)removeEntryWithListIndex:(id)listIndex {
