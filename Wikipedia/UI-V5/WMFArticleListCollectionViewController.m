@@ -25,6 +25,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 
 #import "UIColor+WMFHexColor.h"
+#import <BlocksKit/BlocksKit.h>
 
 @interface WMFArticleListCollectionViewController ()
 <UICollectionViewDelegate, WMFSearchPresentationDelegate, WMFEditingCollectionViewLayoutDelegate>
@@ -54,6 +55,7 @@
 }
 
 - (void)commonInit {
+    [self observeArticleUpdates];
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 }
 
@@ -126,10 +128,34 @@
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
 }
 
-- (void)refreshVisibleCells {
-    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:
-     ^(WMFArticlePreviewCell* cell, NSIndexPath* path, BOOL* _) {
+#pragma mark - Stay Fresh... yo
+
+- (void)observeArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)unobserveArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)articleUpdatedWithNotification:(NSNotification*)note {
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    [self refreshAnyVisibleCellsWhichAreShowingTitle:article.title];
+}
+
+- (void)refreshAnyVisibleCellsWhichAreShowingTitle:(MWKTitle*)title {
+    NSArray* indexPathsToRefresh = [[self.collectionView indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* path) {
+        WMFArticlePreviewCell* cell = (WMFArticlePreviewCell*)[self.collectionView cellForItemAtIndexPath:path];
+        return (cell.title == title);
     }];
+    if (indexPathsToRefresh.count > 0) {
+        [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
+    }
+}
+
+- (void)dealloc {
+    [self unobserveArticleUpdates];
 }
 
 #pragma mark - DataSource and Collection View Wiring
