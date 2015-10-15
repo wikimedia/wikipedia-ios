@@ -88,8 +88,7 @@ static dispatch_once_t launchToken;
 
 @implementation WMFAppViewController
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -145,11 +144,11 @@ static dispatch_once_t launchToken;
 
 #pragma mark - Notifications
 
-- (void)appDidBecomeActiveWithNotification:(NSNotification*)note{
+- (void)appDidBecomeActiveWithNotification:(NSNotification*)note {
     [self resumeApp];
 }
 
-- (void)appWillResignActiveWithNotification:(NSNotification*)note{
+- (void)appWillResignActiveWithNotification:(NSNotification*)note {
     [self pauseApp];
 }
 
@@ -166,7 +165,7 @@ static dispatch_once_t launchToken;
 
     [window setRootViewController:self];
     [window makeKeyAndVisible];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 }
@@ -189,8 +188,7 @@ static dispatch_once_t launchToken;
     }
 }
 
-- (void)pauseApp{
-    
+- (void)pauseApp {
     [self downloadAssetsFilesIfNecessary];
     [self performHousekeepingIfNecessary];
 }

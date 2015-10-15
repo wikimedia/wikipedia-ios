@@ -304,7 +304,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         } else {
             WMFHomeSectionFooter* footer = view;
             if ([controller respondsToSelector:@selector(footerText)]) {
-                footer.moreLabel.text = controller.footerText;
+                footer.moreLabel.text      = controller.footerText;
                 footer.moreLabel.textColor = [UIColor wmf_homeSectionFooterTextColor];
                 @weakify(self);
                 footer.whenTapped = ^{
