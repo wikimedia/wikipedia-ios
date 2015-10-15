@@ -314,6 +314,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (CGFloat)headerHeightForTraitCollection:(UITraitCollection*)traitCollection {
+    if (self.article.isMain || !self.article.imageURL) {
+        return 0;
+    }
     switch (traitCollection.verticalSizeClass) {
         case UIUserInterfaceSizeClassRegular:
             return 210;
