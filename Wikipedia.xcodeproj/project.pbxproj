@@ -350,7 +350,6 @@
 		BC5BC4AB1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4AA1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m */; settings = {ASSET_TAGS = (); }; };
 		BC5BC4B01BCEF9BD00062619 /* MWKTitle+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4AE1BCEF9B800062619 /* MWKTitle+Random.m */; settings = {ASSET_TAGS = (); }; };
 		BC5BC4B31BCEFA6400062619 /* MWKSite+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4B21BCEFA6400062619 /* MWKSite+Random.m */; settings = {ASSET_TAGS = (); }; };
-		BC5BC4B81BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4B71BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m */; settings = {ASSET_TAGS = (); }; };
 		BC5BC4BE1BCF2A2600062619 /* MWKDataStoreListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4BC1BCF298D00062619 /* MWKDataStoreListTests.m */; settings = {ASSET_TAGS = (); }; };
 		BC5FA1771B72859B005BE5BA /* NSURL+WMFLinkParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1761B72859B005BE5BA /* NSURL+WMFLinkParsing.m */; };
 		BC5FA1821B738DFB005BE5BA /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5FA1811B738DFB005BE5BA /* MWKCitation.m */; };
@@ -379,6 +378,7 @@
 		BC7B09B01BD0216C00BBC3A2 /* 4.1.7 in Resources */ = {isa = PBXBuildFile; fileRef = BC7B09AF1BD0216C00BBC3A2 /* 4.1.7 */; settings = {ASSET_TAGS = (); }; };
 		BC7B09B21BD028E400BBC3A2 /* MWKListLegacyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B09B11BD028E400BBC3A2 /* MWKListLegacyTests.m */; settings = {ASSET_TAGS = (); }; };
 		BC7B09B51BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B09B41BD02C8800BBC3A2 /* XCTestCase+DataStoreFixtureTesting.m */; settings = {ASSET_TAGS = (); }; };
+		BC7B09B71BD05DDD00BBC3A2 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5BC4B71BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m */; settings = {ASSET_TAGS = (); }; };
 		BC7B769E1B84CD2A00774FBC /* UIImageView+MWKImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B769D1B84CD2A00774FBC /* UIImageView+MWKImageTests.m */; };
 		BC7B76A01B861F7100774FBC /* MWKSectionListHierarchyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7B769F1B861F7100774FBC /* MWKSectionListHierarchyTests.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
@@ -3906,7 +3906,6 @@
 				BCB608221BC814170088086A /* UIImageView+WMFImageFetchingVisualTests.m in Sources */,
 				BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */,
 				BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */,
-				BC5BC4B81BCEFDBF00062619 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */,
 				BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */,
 				043B6E8F1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				BC98781A1BCF307B003835EA /* MWKRecentSearchDataStoreTests.m in Sources */,
@@ -4340,6 +4339,7 @@
 				04616DFC1AE706C600815BCE /* WMFLocalizationProtocol.m in Sources */,
 				04C43AC0183442FC006C643B /* NSString+Extras.m in Sources */,
 				04D686FE1AB2949C0009B44A /* WikiGlyphLabel.m in Sources */,
+				BC7B09B71BD05DDD00BBC3A2 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */,
 				04A9C2931B4B51E0008B996F /* WMFArticleSectionHeaderView.m in Sources */,
 				04CCCFEE1935093A00E3F60C /* SecondaryMenuRowView.m in Sources */,
 				0442F57B19006DCC00F55DF9 /* PageHistoryLabel.m in Sources */,
