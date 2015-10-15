@@ -20,6 +20,16 @@ typedef BOOL (^MWKListUpdateBlock)(MWKListEntry entry);
 @interface MWKList (Subclasses)
 
 /**
+ *  Invoked during @c initWithEntries: to set the receiver's internal @c entries to the given objects.
+ *
+ *  Override this method to perform any preprocessing on the entries before they're set.  Your implementation should
+ *  call @c super at the end.
+ *
+ *  @param entries The entries to be set in the receiver.
+ */
+- (void)importEntries:(NSArray*)entries;
+
+/**
  *  Update the entry associated with @c listIndex, updating the internal @c dirty flag if necessary.
  *
  *  @param listIndex The index of the entry to update.

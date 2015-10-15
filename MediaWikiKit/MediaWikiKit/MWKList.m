@@ -47,10 +47,7 @@
 #pragma mark - Import
 
 - (void)importEntries:(NSArray*)entries {
-    [entries enumerateObjectsUsingBlock:^(id < MWKListObject > obj, NSUInteger idx, BOOL* stop) {
-        [self addEntry:obj];
-    }];
-    self.dirty = NO;
+    [self.mutableEntries setArray:entries];
 }
 
 #pragma mark - NSFastEnumeration
