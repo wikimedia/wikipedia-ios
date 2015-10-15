@@ -47,10 +47,10 @@ NS_ASSUME_NONNULL_BEGIN
                 savedPageList:(MWKSavedPageList*)savedPageList
                   resultLimit:(NSUInteger)resultLimit {
     return [self initWithTitle:title
-                            dataStore:dataStore
-                        savedPageList:savedPageList
-                          resultLimit:resultLimit
-                              fetcher:[[WMFRelatedSearchFetcher alloc] init]];
+                     dataStore:dataStore
+                 savedPageList:savedPageList
+                   resultLimit:resultLimit
+                       fetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
 - (instancetype)initWithTitle:(MWKTitle*)title
@@ -64,11 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(fetcher);
     self = [super initWithItems:nil];
     if (self) {
-        self.title                     = title;
-        self.dataStore                 = dataStore;
-        self.savedPageList             = savedPageList;
-        self.relatedSearchFetcher      = fetcher;
-        self.resultLimit               = resultLimit;
+        self.title                = title;
+        self.dataStore            = dataStore;
+        self.savedPageList        = savedPageList;
+        self.relatedSearchFetcher = fetcher;
+        self.resultLimit          = resultLimit;
 
         self.cellClass = [WMFArticlePreviewCell class];
 
