@@ -11,7 +11,8 @@
 @implementation MWKSite (Random)
 
 + (instancetype)random {
-    return [[NSSet setWithArray:[NSLocale availableLocaleIdentifiers]] anyObject];
+    return [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain
+                                  language:[[NSSet setWithArray:[NSLocale availableLocaleIdentifiers]] anyObject]];
 }
 
 @end
