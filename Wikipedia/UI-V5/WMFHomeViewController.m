@@ -87,7 +87,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 #pragma mark - Accessors
 
 + (UIEdgeInsets)defaultSectionInsets {
-    return UIEdgeInsetsMake(10.0, 0.0, 0.0, 0.0);
+    return UIEdgeInsetsMake(1.0, 0.0, 0.0, 0.0);
 }
 
 - (UIBarButtonItem*)settingsBarButtonItem {
