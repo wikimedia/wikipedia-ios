@@ -5,6 +5,6 @@
 
 @interface UIImage (WMFStyle)
 
-+(UIImage*)wmf_placeholderImage;
++ (UIImage*)wmf_placeholderImage;
 
 @end

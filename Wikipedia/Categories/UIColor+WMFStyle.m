@@ -97,7 +97,7 @@
 
 + (instancetype)wmf_homeSectionFooterTextColor {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];

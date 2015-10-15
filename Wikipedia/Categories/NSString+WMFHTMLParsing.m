@@ -62,8 +62,8 @@
     dispatch_once(&onceToken, ^{
         parensRegex = [NSRegularExpression
                        regularExpressionWithPattern:@"[(][^()]+[)]"
-                       options:0
-                       error:nil];
+                                            options:0
+                                              error:nil];
     });
 
     NSString* string = [self copy];
@@ -88,9 +88,8 @@
     dispatch_once(&onceToken, ^{
         bracketedRegex = [NSRegularExpression
                           regularExpressionWithPattern:@"\\[[^]]+]"
-                          options:0
-                          error:nil];
-
+                                               options:0
+                                                 error:nil];
     });
 
     return [bracketedRegex stringByReplacingMatchesInString:self
@@ -106,10 +105,10 @@
     dispatch_once(&onceToken, ^{
         spacePeriodRegex = [NSRegularExpression
                             regularExpressionWithPattern:@"\\s+([\\.。．｡,、;\\-\u2014])"
-                            options:0
-                            error:nil];
+                                                 options:0
+                                                   error:nil];
     });
-    
+
     return [spacePeriodRegex stringByReplacingMatchesInString:self
                                                       options:0
                                                         range:NSMakeRange(0, self.length)
@@ -127,7 +126,7 @@
                                             options:0
                                               error:nil];
     });
-    
+
     return [spacesRegex stringByReplacingMatchesInString:self
                                                  options:0
                                                    range:NSMakeRange(0, self.length)
@@ -143,7 +142,7 @@
                                                 options:0
                                                   error:nil];
     });
-    
+
     return [whitespaceRegex stringByReplacingMatchesInString:self
                                                      options:0
                                                        range:NSMakeRange(0, self.length)
@@ -166,7 +165,7 @@
                                                     options:0
                                                       error:nil];
     });
-    
+
     return [leadTrailColonRegex stringByReplacingMatchesInString:self
                                                          options:0
                                                            range:NSMakeRange(0, self.length)
@@ -184,12 +183,12 @@
 
 - (NSString*)wmf_summaryFromText {
     // Cleanups which need to happen before string is shortened.
-    NSString *output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
+    NSString* output = [self wmf_stringByRecursivelyRemovingParenthesizedContent];
     output = [output wmf_stringByRemovingBracketedContent];
-    
+
     // Now ok to shorten so remaining cleanups are faster.
     output = [output wmf_safeSubstringToIndex:WMFNumberOfExtractCharacters];
-    
+
     // Cleanups safe to do on shortened string.
     return [[[[[output wmf_decodeHTMLAmp]
                wmf_decodeHTMLGreaterAndLessThan]

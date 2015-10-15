@@ -115,7 +115,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
           atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
-        MWKRelatedSearchResult* result = object;
+        MWKRelatedSearchResult* result     = object;
         previewCell.title           = [self titleForItemAtIndex:indexPath.row];
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;
@@ -132,10 +132,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
          */
         _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
                                    initWithTitle:self.title
-                                        dataStore:self.savedPageList.dataStore
-                                    savedPageList:self.savedPageList
-                                      resultLimit:WMFMaxRelatedSearchResultLimit
-                                          fetcher:self.relatedSearchFetcher];
+                                       dataStore:self.savedPageList.dataStore
+                                   savedPageList:self.savedPageList
+                                     resultLimit:WMFMaxRelatedSearchResultLimit
+                                         fetcher:self.relatedSearchFetcher];
     }
     return _relatedTitleDataSource;
 }
