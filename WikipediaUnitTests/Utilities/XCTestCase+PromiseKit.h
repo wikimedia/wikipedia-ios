@@ -13,6 +13,13 @@
 /// Macro to make passing the last to arguments easier
 #define WMFExpectFromHere testMethod : _cmd line : __LINE__
 
+/// Shorthand macro to expect a promise to resolve within the default timeout.
+#define expectResolution(promiseBlock) expectResolutionWithTimeout(WMFDefaultExpectationTimeout, (promiseBlock))
+
+/// Shorthand macro to expect a promise to resolve with the given timeout.
+#define expectResolutionWithTimeout(timeoutSecs, promiseBlock) \
+[self expectAnyPromiseToResolve:(promiseBlock) timeout:(timeoutSecs) WMFExpectFromHere]
+
 /**
  * Utility for testing promises in ObjC.
  *
