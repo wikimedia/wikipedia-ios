@@ -32,8 +32,6 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout;
 
-- (void)refreshVisibleCells;
-
 - (void)scrollToArticle:(MWKArticle*)article animated:(BOOL)animated;
 
 - (void)scrollToArticleIfOffscreen:(MWKArticle*)article animated:(BOOL)animated;
