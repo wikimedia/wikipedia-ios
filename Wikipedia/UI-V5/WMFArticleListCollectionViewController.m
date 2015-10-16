@@ -144,13 +144,11 @@
 }
 
 - (void)refreshAnyVisibleCellsWhichAreShowingTitle:(MWKTitle*)title {
-    NSArray* indexPathsToRefresh = [[self.collectionView indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* path) {
-        WMFArticlePreviewCell* cell = (WMFArticlePreviewCell*)[self.collectionView cellForItemAtIndexPath:path];
-        return (cell.title == title);
+    NSArray* indexPathsToRefresh = [[self.collectionView indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* indexPath) {
+        MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
+        return [article.title isEqualToTitle:title];
     }];
-    if (indexPathsToRefresh.count > 0) {
-        [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
-    }
+    [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
 }
 
 - (void)dealloc {
