@@ -55,7 +55,6 @@
 }
 
 - (void)commonInit {
-    [self observeArticleUpdates];
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 }
 
@@ -131,7 +130,7 @@
 #pragma mark - Stay Fresh... yo
 
 - (void)observeArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [self unobserveArticleUpdates];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
 }
 
@@ -224,6 +223,8 @@
     [self flowLayout].numberOfColumns    = 1;
     [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
     [self flowLayout].minimumLineSpacing = 1.0;
+
+    [self observeArticleUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
