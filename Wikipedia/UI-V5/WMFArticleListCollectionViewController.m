@@ -25,6 +25,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 
 #import "UIColor+WMFHexColor.h"
+#import <BlocksKit/BlocksKit.h>
 
 @interface WMFArticleListCollectionViewController ()
 <UICollectionViewDelegate, WMFSearchPresentationDelegate, WMFEditingCollectionViewLayoutDelegate>
@@ -126,10 +127,32 @@
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
 }
 
-- (void)refreshVisibleCells {
-    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:
-     ^(WMFArticlePreviewCell* cell, NSIndexPath* path, BOOL* _) {
+#pragma mark - Stay Fresh... yo
+
+- (void)observeArticleUpdates {
+    [self unobserveArticleUpdates];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)unobserveArticleUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+}
+
+- (void)articleUpdatedWithNotification:(NSNotification*)note {
+    MWKArticle* article = note.userInfo[MWKArticleKey];
+    [self refreshAnyVisibleCellsWhichAreShowingTitle:article.title];
+}
+
+- (void)refreshAnyVisibleCellsWhichAreShowingTitle:(MWKTitle*)title {
+    NSArray* indexPathsToRefresh = [[self.collectionView indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* indexPath) {
+        MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
+        return [article.title isEqualToTitle:title];
     }];
+    [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
+}
+
+- (void)dealloc {
+    [self unobserveArticleUpdates];
 }
 
 #pragma mark - DataSource and Collection View Wiring
@@ -198,6 +221,8 @@
     [self flowLayout].numberOfColumns    = 1;
     [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
     [self flowLayout].minimumLineSpacing = 1.0;
+
+    [self observeArticleUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
