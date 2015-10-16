@@ -151,4 +151,6 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (NSString*)summary;
 
+- (NSArray<MWKSection*>*)sectionsWithFakeReadMoreSection;
+
 @end

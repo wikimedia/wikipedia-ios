@@ -36,7 +36,6 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 }
 
 - (NSString*)getHeaderTag {
-    NSString* pencilAnchor = [self getEditPencilAnchor];
     if ([self isLeadSection]) {
         return [NSString stringWithFormat:
                 @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@%@",
@@ -53,7 +52,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
                 self.sectionId,
                 self.anchor,
                 self.line,
-                pencilAnchor,
+                [self.anchor isEqualToString:@"TOC_Read_More"] ? @"" : [self getEditPencilAnchor],
                 headingTagSize];
     }
 }

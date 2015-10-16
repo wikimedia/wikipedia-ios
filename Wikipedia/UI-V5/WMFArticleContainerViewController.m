@@ -184,7 +184,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFTableOfContentsViewController*)tableOfContentsViewController {
     NSParameterAssert(self.article);
     if (!_tableOfContentsViewController) {
-        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
+        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:[self.article sectionsWithFakeReadMoreSection] delegate:self];
     }
     return _tableOfContentsViewController;
 }

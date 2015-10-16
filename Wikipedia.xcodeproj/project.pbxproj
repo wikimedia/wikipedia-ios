@@ -1411,7 +1411,6 @@
 		BCCE8EB91B4D5DD90009FBBC /* XCTestCase+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+PromiseKit.swift"; sourceTree = "<group>"; };
 		BCCE8EBB1B4D7F590009FBBC /* XCTestCase+SwiftDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+SwiftDefaults.swift"; sourceTree = "<group>"; };
 		BCCED2CF1AE03BE20094EB7E /* MWKSectionListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionListTests.m; sourceTree = "<group>"; };
-		BCCED2D21AE041BD0094EB7E /* MWKSectionList_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSectionList_Private.h; sourceTree = "<group>"; };
 		BCD41DD41B1079A600231BB1 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-gate.jpg"; sourceTree = "<group>"; };
 		BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainPageMobileView.json; sourceTree = "<group>"; };
@@ -3103,7 +3102,6 @@
 				BCB6699E1A83F6C300C7B1FE /* MWKImageList.h */,
 				BCB6699F1A83F6C300C7B1FE /* MWKImageList.m */,
 				BCB669A01A83F6C300C7B1FE /* MWKSectionList.h */,
-				BCCED2D21AE041BD0094EB7E /* MWKSectionList_Private.h */,
 				BCB669A11A83F6C300C7B1FE /* MWKSectionList.m */,
 				BC5FA1801B738DFB005BE5BA /* MWKCitation.h */,
 				BC5FA1811B738DFB005BE5BA /* MWKCitation.m */,

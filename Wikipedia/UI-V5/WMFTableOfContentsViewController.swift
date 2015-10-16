@@ -13,8 +13,8 @@ import UIKit
 public class WMFTableOfContentsViewController: UITableViewController, UIViewControllerTransitioningDelegate, WMFTableOfContentsPresentationControllerTapDelegate  {
     
     // MARK: - init
-    public required init(sectionList: MWKSectionList, delegate: WMFTableOfContentsViewControllerDelegate) {
-        self.sectionList = sectionList
+    public required init(sectionList: Array<MWKSection>?, delegate: WMFTableOfContentsViewControllerDelegate) {
+        self.sections = sectionList
         self.delegate = delegate
         self.tableOfContentsFunnel = ToCInteractionFunnel.init()
         super.init(nibName: nil, bundle: nil)
@@ -32,21 +32,17 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
 
     
     // MARK: - Sections
-    let sectionList: MWKSectionList
+    let sections: Array<MWKSection>?
     
-    func sections() -> Array<MWKSection>? {
-        return self.sectionList.entries as? Array<MWKSection>
-    }
-
     func sectionAtIndexPath(indexPath: NSIndexPath) -> MWKSection? {
-        guard indexPath.row < self.sections()?.count else {
+        guard indexPath.row < self.sections?.count else {
             return nil
         }
-        return self.sections()?[indexPath.row]
+        return self.sections?[indexPath.row]
     }
     
     func indexPathForSection(section: MWKSection) -> NSIndexPath? {
-        if let row = self.sections()?.indexOf(section) {
+        if let row = self.sections?.indexOf(section) {
             return NSIndexPath.init(forRow: row, inSection: 0)
         } else {
             return nil
@@ -127,7 +123,7 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
     
     // MARK: - UITableViewDataSource
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = self.sections() {
+        if let sections = self.sections {
             return sections.count
         }else{
             return 0
