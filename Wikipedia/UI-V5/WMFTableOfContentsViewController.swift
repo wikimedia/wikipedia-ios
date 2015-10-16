@@ -106,24 +106,12 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
         }
     }
     
-    func tableViewContentOffsetIsCloseTo0() -> Bool{
-        let offset = self.tableView.tableHeaderView!.frame.size.height - UIApplication.sharedApplication().statusBarFrame.size.height
-        if(self.tableView.contentOffset.y > offset-0.1 && self.tableView.contentOffset.y < offset+0.1){
-            return true
-        }else{
-            return false
-        }
-    }
-
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
 
         self.tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(), forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier());
         self.clearsSelectionOnViewWillAppear = false
-        let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-        header.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 50.0)
-        self.tableView.tableHeaderView = header
         self.tableView.estimatedRowHeight = 44.0
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
@@ -135,19 +123,6 @@ public class WMFTableOfContentsViewController: UITableViewController, UIViewCont
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.tableOfContentsFunnel.logOpen()
-        //Compensate for status bar and header if the table view hasn't been scrolled
-        if(self.tableViewContentOffsetIsCloseTo0()){
-            self.tableView.contentOffset = CGPointMake(0, -self.tableView.tableHeaderView!.frame.size.height)
-        }
-    }
-
-    public override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        /* Hack: Bug in the header view. Teh header view resizes to a height of 70 (the orginal height + status bar?)
-         * BUT does not adjust the origin, so the header view overlaps the first cell.
-         * Not clear why but reseting the height here seems to fix it
-        */
-        self.tableView.tableHeaderView?.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 50.0)
     }
     
     // MARK: - UITableViewDataSource

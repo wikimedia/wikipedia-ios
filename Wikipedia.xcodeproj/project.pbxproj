@@ -255,8 +255,6 @@
 		0EF17AF11BCC50ED00ACF54A /* WMFEditingCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF17AF01BCC50ED00ACF54A /* WMFEditingCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
 		0EF451F31B5458F700D621BD /* UITabBarController+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF451F21B5458F700D621BD /* UITabBarController+WMFExtensions.m */; };
 		0EF451F61B545ED100D621BD /* WMFRecentPagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF451F51B545ED100D621BD /* WMFRecentPagesDataSource.m */; };
-		0EFAF77D1BC2DE0200A76D34 /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EFAF77C1BC2DE0200A76D34 /* WMFTableOfContentsHeader.swift */; settings = {ASSET_TAGS = (); }; };
-		0EFAF77F1BC2DE1200A76D34 /* WMFTableOfContentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EFAF77E1BC2DE1200A76D34 /* WMFTableOfContentsHeader.xib */; settings = {ASSET_TAGS = (); }; };
 		0EFB0EF51B31DE7200D05C08 /* NSError+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */; };
 		0EFB0F191B31EE2D00D05C08 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0EFB1B31EE2D00D05C08 /* Article.m */; };
 		0EFB0F1A1B31EE2D00D05C08 /* ArticleData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0EFD1B31EE2D00D05C08 /* ArticleData.xcdatamodeld */; };
@@ -996,8 +994,6 @@
 		0EF451F21B5458F700D621BD /* UITabBarController+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+WMFExtensions.m"; sourceTree = "<group>"; };
 		0EF451F41B545ED100D621BD /* WMFRecentPagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRecentPagesDataSource.h; sourceTree = "<group>"; };
 		0EF451F51B545ED100D621BD /* WMFRecentPagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFRecentPagesDataSource.m; sourceTree = "<group>"; };
-		0EFAF77C1BC2DE0200A76D34 /* WMFTableOfContentsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTableOfContentsHeader.swift; sourceTree = "<group>"; };
-		0EFAF77E1BC2DE1200A76D34 /* WMFTableOfContentsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFTableOfContentsHeader.xib; sourceTree = "<group>"; };
 		0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+WMFExtensions.h"; sourceTree = "<group>"; };
 		0EFB0EF41B31DE7200D05C08 /* NSError+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+WMFExtensions.m"; sourceTree = "<group>"; };
 		0EFB0EF71B31ECCB00D05C08 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
@@ -2532,8 +2528,6 @@
 			isa = PBXGroup;
 			children = (
 				0E4D1CF71BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift */,
-				0EFAF77C1BC2DE0200A76D34 /* WMFTableOfContentsHeader.swift */,
-				0EFAF77E1BC2DE1200A76D34 /* WMFTableOfContentsHeader.xib */,
 				0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */,
 				0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */,
 				0E2143041BBF178500609E5D /* WMFTableOfContentsPresentationController.swift */,
@@ -3734,7 +3728,6 @@
 				04AEF0F61B2E8F6300EFE858 /* ReferencesVC.storyboard in Resources */,
 				0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */,
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
-				0EFAF77F1BC2DE1200A76D34 /* WMFTableOfContentsHeader.xib in Resources */,
 				0E94AFEA1B209721000BC5EA /* iPhone_Root.storyboard in Resources */,
 				04DA877F1B30D29800C948F8 /* SavedPagesViewController.storyboard in Resources */,
 				04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */,
@@ -4360,7 +4353,6 @@
 				BC32A1D71B4B14C000A286DE /* WMFBackgroundTaskManager.swift in Sources */,
 				0433263F1B0D3574009DB316 /* WMFArticleImageProtocol.m in Sources */,
 				D4B0AE0219365F7C00F0AC90 /* EventLoggingFunnel.m in Sources */,
-				0EFAF77D1BC2DE0200A76D34 /* WMFTableOfContentsHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
