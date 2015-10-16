@@ -343,7 +343,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)scrollToFragment:(NSString*)fragment {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:YES];
     } else {
         CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
         if (!CGRectIsNull(r)) {
@@ -363,11 +363,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     NSInteger indexOfFirstOnscreenSection =
         [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                        count:self.article.sections.count];
-
-    if (indexOfFirstOnscreenSection > self.article.sections.count || indexOfFirstOnscreenSection < 0) {
-        return [self.article.sections.entries firstObject];
-    }
-
     return self.article.sections[indexOfFirstOnscreenSection];
 }
 
