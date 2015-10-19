@@ -196,7 +196,7 @@
     self.collectionView.backgroundColor       = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
 
     [self flowLayout].numberOfColumns    = 1;
-    [self flowLayout].sectionInset       = UIEdgeInsetsMake(1.0, 0.0, 1.0, 0.0);
+    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
     [self flowLayout].minimumLineSpacing = 1.0;
 }
 

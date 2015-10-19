@@ -52,7 +52,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
                 self.sectionId,
                 self.anchor,
                 self.line,
-                [self.anchor isEqualToString:@"TOC_Read_More"] ? @"" : [self getEditPencilAnchor],
+                [self getEditPencilAnchor],
                 headingTagSize];
     }
 }

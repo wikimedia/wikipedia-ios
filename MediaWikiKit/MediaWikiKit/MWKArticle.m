@@ -499,31 +499,11 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
         [sectionTextArray addObject:sectionHTMLWithID];
     }
 
-    [sectionTextArray addObject:@"<br>"];
-    [sectionTextArray addObject:[[self fakeReadMoreSection] displayHTML]];
-
     // Join article sections text
     NSString* joint   = @"";     //@"<div style=\"height:20px;\"></div>";
     NSString* htmlStr = [sectionTextArray componentsJoinedByString:joint];
 
     return htmlStr;
-}
-
-- (MWKSection*)fakeReadMoreSection {
-    return [[MWKSection alloc] initWithArticle:self
-                                          dict:@{
-                @"line": MWCurrentArticleLanguageLocalizedString(@"article-read-more-title", nil),
-                @"id": @(self.sections.entries.count),
-                @"toclevel": @(1),
-                @"text": @"",
-                @"anchor": @"TOC_Read_More"
-            }];
-}
-
-- (NSArray<MWKSection*>*)sectionsWithFakeReadMoreSection {
-    NSMutableArray* sections = [self.sections.entries mutableCopy];
-    [sections addObject:[self fakeReadMoreSection]];
-    return sections;
 }
 
 @end

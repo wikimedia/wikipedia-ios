@@ -341,29 +341,17 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToFragment:(NSString*)fragment {
-// Temp fix! See note below about bug with animated scroll approach...
-    if (fragment) {
-        NSString* jumpToThis = [fragment copy];
-        [[self.webView wmf_javascriptContext][@"scrollToFragment"] performSelector:@selector(callWithArguments:) withObject:@[jumpToThis] afterDelay:0.1];
+    if (fragment.length == 0) {
+        // No section so scroll to top. (Used when "Introduction" is selected.)
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:YES];
     } else {
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:NO];
-    }
-
-    return;
-
-// Bug with animated scrolling method below:
-// - scroll to bottom of read more items at bottom of article
-// - open TOC and select a section above "Read more"
-// - doesn't work
-// I think it's because clientBoundingRectVerticalOffset doesn't return anything if we've scrolled the web view completely up off the screen for some reason.
-// It's as if the web view is asleep - somehow doing the hash method above isn't affected though...
-
-    CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
-    if (!CGRectIsNull(r)) {
-        CGPoint elementOrigin =
-            CGPointMake(self.webView.scrollView.contentOffset.x,
-                        self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
-        [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
+        CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
+        if (!CGRectIsNull(r)) {
+            CGPoint elementOrigin =
+                CGPointMake(self.webView.scrollView.contentOffset.x,
+                            self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
+            [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
+        }
     }
 }
 
@@ -375,10 +363,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     NSInteger indexOfFirstOnscreenSection =
         [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                        count:self.article.sections.count];
-    if (indexOfFirstOnscreenSection < 0) {
-        return [[self.article sectionsWithFakeReadMoreSection] lastObject];
-    }
-
     return self.article.sections[indexOfFirstOnscreenSection];
 }
 
