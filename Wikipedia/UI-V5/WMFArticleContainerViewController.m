@@ -102,7 +102,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.articleTitle = title;
         self.dataStore    = dataStore;
-        [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
@@ -115,10 +114,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
-    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
-    // see http://stackoverflow.com/a/2777460/48311
-//    NSAssert([self isViewLoaded] && self.view.window, @"Cannot set article before viewDidLoad");
-
     _article                       = article;
     self.webViewController.article = _article;
     [self.headerGallery setImagesFromArticle:_article];
