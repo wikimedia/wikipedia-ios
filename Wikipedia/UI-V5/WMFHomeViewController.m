@@ -50,7 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 @interface WMFHomeViewController ()
-<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate, FBTweakObserver>
+<WMFHomeSectionControllerDelegate,
+ UITextViewDelegate,
+ WMFSearchPresentationDelegate,
+ FBTweakObserver,
+ WMFArticlePreviewingDelegate>
 
 @property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
 
@@ -201,6 +205,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [self setupHomeTweaks];
+
+    [self wmf_previewTitlesInView:self.collectionView delegate:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -554,6 +560,18 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
+}
+
+#pragma mark - WMFArticlePreviewingDelegate
+
+- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(nonnull UICollectionView *)view {
+    NSIndexPath* previewIndexPath  = [view indexPathForItemAtPoint:point];
+    id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
+    if (!sectionController) {
+        return nil;
+    }
+    return [[WMFArticlePreviewTuple alloc] initWithTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
+                                         discoveryMethod:[sectionController discoveryMethod]];
 }
 
 @end
