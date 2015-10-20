@@ -439,7 +439,7 @@ NS_ASSUME_NONNULL_BEGIN
      *  So we "fake" it here so we don't crash when trying to insert
      *  sections immediately after unloading them
      */
-    dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
         if (completion) {
             completion();
         }
