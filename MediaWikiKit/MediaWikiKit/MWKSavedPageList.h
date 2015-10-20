@@ -2,24 +2,14 @@
 #import "MWKList.h"
 #import "MWKSavedPageEntry.h"
 #import "MWKTitle.h"
+#import "MWKDataStoreList.h"
 
 @class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MWKSavedPageList : MWKList<MWKSavedPageEntry*, MWKTitle*>
-
-/**
- *  Create saved page list and connect with data store.
- *  Will import any saved data from the data store on initialization
- *
- *  @param dataStore The data store to use for retrival and saving
- *
- *  @return The saved page list
- */
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
-
-@property (readonly, weak, nonatomic) MWKDataStore* dataStore;
+    < MWKDataStoreList >
 
 - (MWKSavedPageEntry* __nullable)entryForListIndex:(MWKTitle*)title;
 - (MWKSavedPageEntry*)           mostRecentEntry;
@@ -40,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addSavedPageWithTitle:(MWKTitle*)title;
 
-- (NSArray*)dataExport;
+- (NSDictionary*)dataExport;
 
 @end
 

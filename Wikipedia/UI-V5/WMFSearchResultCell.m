@@ -69,9 +69,9 @@ static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
 
 - (void)configureImageViewWithPlaceholder {
     [super configureImageViewWithPlaceholder];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.contentMode     = UIViewContentModeScaleAspectFit;
     self.imageView.backgroundColor = [UIColor whiteColor];
-    self.imageView.tintColor = [UIColor wmf_lightGrayColor];
+    self.imageView.tintColor       = [UIColor wmf_lightGrayColor];
 }
 
 #pragma mark - Highlighting

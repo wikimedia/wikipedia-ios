@@ -6,8 +6,6 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import "WMFAppViewController.h"
 
-#import "WMFLogFormatter.h"
-
 @import PiwikTracker;
 static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
 static NSString* const WMFPiwikSiteID    = @"4";
@@ -39,12 +37,6 @@ static NSString* const WMFPiwikSiteID    = @"4";
          @"SendUsageReports": @YES,
          @"AccessSavedPagesMessageShown": @NO
      }];
-
-#if DEBUG
-    id<DDLogger> consoleLogger = [DDTTYLogger sharedInstance];
-    [consoleLogger setLogFormatter:[WMFLogFormatter new]];
-    [DDLog addLogger:consoleLogger];
-#endif
 }
 
 - (UIWindow*)window {

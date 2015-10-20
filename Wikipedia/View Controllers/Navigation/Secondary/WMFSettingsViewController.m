@@ -502,6 +502,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     NSDictionary* userInfo           = [notification userInfo];
     SecondaryMenuRowView* tappedItem = userInfo[@"tappedItem"];
 
+    DDLogInfo(@"Tapped settings item: %@", tappedItem.textLabel.text);
+
     if (tappedItem.tag == SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING
         || tappedItem.tag == SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS) {
         animationDuration = 0.0f;
@@ -580,7 +582,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             }
             break;
             case SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH: {
-                [[[BITHockeyManager sharedHockeyManager] crashManager] generateTestCrash];
+                [[self class] generateTestCrash];
                 break;
             }
             case SECONDARY_MENU_ROW_INDEX_FAQ: {
@@ -609,6 +611,15 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
         ];
     } else {
         performTapAction();
+    }
+}
+
++ (void)generateTestCrash {
+    if ([[BITHockeyManager sharedHockeyManager] crashManager]) {
+        DDLogWarn(@"Generating test crash!");
+        __builtin_trap();
+    } else {
+        DDLogError(@"Crash manager was not setup!");
     }
 }
 

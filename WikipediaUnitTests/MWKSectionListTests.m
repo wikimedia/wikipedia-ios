@@ -59,9 +59,11 @@
     [self addEmptyFolderForSection:0 title:anything() mockDataStore:mockArticle.dataStore];
 
     // mock an exception, simulating the case where required fields are missing
-    [MKTGiven([mockArticle.dataStore sectionWithId:anything()
-                                           article:mockArticle])
-     willThrow:[NSException new]];
+    [[MKTGiven([self.dataStore sectionWithId:0 article:mockArticle])
+      withMatcher:anything() forArgument:0]
+     willThrow:[NSException exceptionWithName:@"MWKSectionListTestException"
+                                       reason:@"to verify initialization behavior"
+                                     userInfo:nil]];
 
     MWKSectionList* emptySectionList = [[MWKSectionList alloc] initWithArticle:mockArticle];
     assertThat(@(emptySectionList.count), is(equalToInt(0)));

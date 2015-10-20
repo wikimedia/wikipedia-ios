@@ -11,10 +11,9 @@
 #import "WMFOutParamUtils.h"
 #import "UIColor+WMFStyle.h"
 
-@import libextobjc;
-@import KVOController;
-@import BlocksKit;
-@import Tweaks;
+#import <libextobjc/EXTScope.h>
+#import <KVOController/FBKVOController.h>
+#import <BlocksKit/BlocksKit.h>
 
 // Need to import it this way since umbrella header doesn't have AnyPromise declarations
 #import <PromiseKit/PromiseKit.h>

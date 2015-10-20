@@ -23,6 +23,6 @@
 ///
 
 /// Whether or not image data was migrated from `MWKDataStore` to `WMFImageController`.
-@property (nonatomic) BOOL didMigrateImageData;
+@property (nonatomic, readonly) BOOL didMigrateImageData;
 
 @end
