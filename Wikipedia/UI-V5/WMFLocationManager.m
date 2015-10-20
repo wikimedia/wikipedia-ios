@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
 
 /**
- *  CLLocationmanager doesn't always listen to the request for stoping location updates
+ *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
  *  We use this to ignore events after a stop has been requested
  */
 @property (nonatomic, assign) BOOL locationUpdatesStopped;

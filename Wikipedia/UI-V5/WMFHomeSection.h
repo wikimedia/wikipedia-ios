@@ -1,8 +1,10 @@
 
-@import Mantle;
+#import <Mantle/Mantle.h>
 @import CoreLocation;
 
 @class MWKTitle, MWKHistoryEntry, MWKSavedPageEntry;
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
     WMFHomeSectionTypeContinueReading,
@@ -15,12 +17,12 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 
 @interface WMFHomeSection : MTLModel
 
-+ (WMFHomeSection*)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (WMFHomeSection*)todaySection;
-+ (WMFHomeSection*)nearbySectionWithLocation:(CLLocation*)location date:(NSDate*)date;
-+ (WMFHomeSection*)randomSection;
-+ (WMFHomeSection*)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
-+ (WMFHomeSection*)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
++ (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
++ (instancetype)todaySection;
++ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location date:(nullable NSDate*)date;
++ (instancetype)randomSection;
++ (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
++ (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 
 @property (nonatomic, assign, readonly) WMFHomeSectionType type;
 @property (nonatomic, strong, readonly) NSDate* dateCreated;
@@ -33,3 +35,5 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 
 
 @end
+
+NS_ASSUME_NONNULL_END

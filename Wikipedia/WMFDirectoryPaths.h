@@ -1,12 +1,6 @@
 
 @import Foundation;
 
-#ifndef WMFDirectoryPaths_h
-#define WMFDirectoryPaths_h
-
-
-#endif /* WMFDirectoryPaths_h */
-
 static inline NSString* documentsDirectory() {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
