@@ -61,7 +61,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
         if let indexPath = indexPathForSection(section) {
             removeSectionHighlightFromAllRows()
             tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
-            addSectionHighlightToSectionAndVisibleRowsIntheSameSectionAs(section, animated: false)
+            addHighlightOfItemsRelatedTo(section, animated: false)
         }
     }
     
@@ -89,17 +89,15 @@ public class WMFTableOfContentsViewController: UITableViewController,
         }
     }
     
-    public func addSectionHighlightToSectionAndVisibleRowsIntheSameSectionAs(section: MWKSection, animated: Bool) {
+    public func addHighlightOfItemsRelatedTo(item: TableOfContentsItem, animated: Bool) {
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
         }
         for (_, indexPath) in visibleIndexPaths.enumerate() {
-            if let subSection = sectionAtIndexPath(indexPath) {
-                if (subSection.sectionHasSameRootSection(section)) {
-                    if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
-                        cell.setSectionSelected(true, animated: animated)
-                    }
-                }
+            if let subSection: TableOfContentsItem = sectionAtIndexPath(indexPath),
+                   cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
+                cell.setSectionSelected(subSection.shouldBeHighlightedAlongWithItem(item),
+                                        animated: animated)
             }
         }
     }
@@ -108,8 +106,8 @@ public class WMFTableOfContentsViewController: UITableViewController,
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(), forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier());
+        tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
+                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier());
         clearsSelectionOnViewWillAppear = false
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -136,7 +134,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(WMFTableOfContentsCell.reuseIdentifier(), forIndexPath: indexPath) as! WMFTableOfContentsCell
         if let section = sectionAtIndexPath(indexPath) {
-            cell.section = section
+            cell.setItem(section)
             cell.setSectionSelected(sectionShouldBeHighlighted(section), animated: false)
         }
         
@@ -148,7 +146,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
         if let section = sectionAtIndexPath(indexPath) {
             tableOfContentsFunnel.logClick()
             removeSectionHighlightFromAllRows()
-            addSectionHighlightToSectionAndVisibleRowsIntheSameSectionAs(section, animated: true)
+            addHighlightOfItemsRelatedTo(section, animated: true)
             delegate?.tableOfContentsController(self, didSelectSection: section)
         }
     }
