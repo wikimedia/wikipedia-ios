@@ -28,7 +28,10 @@
 #import <BlocksKit/BlocksKit.h>
 
 @interface WMFArticleListCollectionViewController ()
-<UICollectionViewDelegate, WMFSearchPresentationDelegate, WMFEditingCollectionViewLayoutDelegate>
+<UICollectionViewDelegate,
+ WMFSearchPresentationDelegate,
+ WMFEditingCollectionViewLayoutDelegate,
+ WMFArticlePreviewingDelegate>
 
 @property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
 
@@ -223,6 +226,8 @@
     [self flowLayout].minimumLineSpacing = 1.0;
 
     [self observeArticleUpdates];
+
+    [self wmf_previewTitlesInView:self.collectionView delegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -283,6 +288,14 @@
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
+}
+
+#pragma mark - WMFArticlePreviewingDelegate
+
+- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(nonnull UICollectionView *)view {
+    NSIndexPath* previewIndexPath  = [view indexPathForItemAtPoint:point];
+    return [[WMFArticlePreviewTuple alloc] initWithTitle:[[self.dataSource articleForIndexPath:previewIndexPath] title]
+                                         discoveryMethod:[self.dataSource discoveryMethod]];
 }
 
 @end
