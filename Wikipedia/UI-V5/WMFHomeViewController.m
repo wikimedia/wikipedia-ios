@@ -3,7 +3,7 @@
 // Frameworks
 @import SelfSizingWaterfallCollectionViewLayout;
 @import SSDataSources;
-#import <Tweaks/FBTweakInline.h>
+@import Tweaks;
 
 // Sections
 #import "WMFNearbySectionController.h"
