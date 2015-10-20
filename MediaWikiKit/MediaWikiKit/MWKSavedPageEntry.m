@@ -37,7 +37,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     self = [self initWithSite:title.site];
     if (self) {
         self.title = title;
-        self.date = [NSDate date];
+        self.date  = [NSDate date];
         // defaults to true for instances since new image data will go to the correct location
         self.didMigrateImageData = YES;
     }
@@ -56,10 +56,10 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 
         if (schemaVersion.unsignedIntegerValue > MWKSavedPageEntrySchemaVersion1) {
             self.date = [self requiredDate:@"date" dict:dict];
-        }else{
+        } else {
             self.date = [NSDate date];
         }
-        
+
         if (schemaVersion.unsignedIntegerValue == MWKSavedPageEntrySchemaVersion1) {
             self.didMigrateImageData =
                 [[self requiredNumber:MWKSavedPageEntryDidMigrateImageDataKey dict:dict] boolValue];
@@ -71,15 +71,22 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     return self;
 }
 
-WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKSavedPageEntry class]]) {
+        return [self isEqualToEntry:object];
+    } else {
+        return NO;
+    }
+}
 
 - (BOOL)isEqualToEntry:(MWKSavedPageEntry*)rhs {
-    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
-           && self.didMigrateImageData == rhs.didMigrateImageData;
+    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:);
 }
 
 - (NSUInteger)hash {
-    return self.didMigrateImageData ^ flipBitsWithAdditionalRotation(self.title.hash, 1);
+    return self.title.hash;
 }
 
 - (NSString*)description {
