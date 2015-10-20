@@ -117,9 +117,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
-    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
-    // see http://stackoverflow.com/a/2777460/48311
-//    NSAssert([self isViewLoaded] && self.view.window, @"Cannot set article before viewDidLoad");
+    if (_article == article) {
+        return;
+    }
+
+    _tableOfContentsViewController = nil;
+    _shareFunnel                   = nil;
+    _shareOptionsController        = nil;
+    [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
     _article                       = article;
     self.webViewController.article = _article;
@@ -187,7 +192,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFTableOfContentsViewController*)tableOfContentsViewController {
-    NSParameterAssert(self.article);
+    if (!self.article) {
+        return nil;
+    }
     if (!_tableOfContentsViewController) {
         _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
     }
