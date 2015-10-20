@@ -19,7 +19,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
     public required init(sectionList: MWKSectionList, delegate: WMFTableOfContentsViewControllerDelegate) {
         self.sectionList = sectionList
         self.delegate = delegate
-        tableOfContentsFunnel = ToCInteractionFunnel.init()
+        tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .Custom
         transitioningDelegate = self
@@ -44,7 +44,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
     
     func indexPathForSection(section: MWKSection) -> NSIndexPath? {
         if let row = sections()?.indexOf(section) {
-            return NSIndexPath.init(forRow: row, inSection: 0)
+            return NSIndexPath(forRow: row, inSection: 0)
         } else {
             return nil
         }
