@@ -1,9 +1,11 @@
 
-@import Mantle;
+#import <Mantle/Mantle.h>
 
 @class MWKSavedPageList, MWKHistoryList, WMFHomeSection;
 
 @protocol WMFHomeSectionSchemaDelegate;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHomeSectionSchema : MTLModel
 
@@ -36,7 +38,7 @@
 - (void)update;
 
 /**
- *  The same as above, but always performs an update even if 
+ *  The same as above, but always performs an update even if
  *  the business rules would dicatate otherwise.
  *  This is most useful for user inititiated updates
  *
@@ -58,3 +60,5 @@
 - (void)sectionSchemaDidUpdateSections:(WMFHomeSectionSchema*)schema;
 
 @end
+
+NS_ASSUME_NONNULL_END

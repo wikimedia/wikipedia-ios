@@ -12,12 +12,14 @@
 @import Tweaks;
 @import CoreLocation;
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSUInteger const WMFMaximumNumberOfNonStaticSections = 20;
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
 
-static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0; //500 meters
+static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 static NSString* const WMFHomeSectionsFileName      = @"WMFHomeSections";
 static NSString* const WMFHomeSectionsFileExtension = @"plist";
@@ -113,7 +115,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 #pragma mark - Sections
 
 - (void)updateSections:(NSArray*)sections {
-    self.sections = [sections sortedArrayWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
+    self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
     [self.delegate sectionSchemaDidUpdateSections:self];
@@ -214,7 +216,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (WMFHomeSection*)randomSection {
     WMFHomeSection* random = nil;
 
-    MWKHistoryEntry* lastEntry = [[self historyEntriesSortedByDateDecending] firstObject];
+    MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
 
     if (![lastEntry.date isThisWeek]) {
         random = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
@@ -297,10 +299,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return [sections wmf_arrayByTrimmingToLength:WMFMaximumNumberOfNonStaticSections];
 }
 
-- (NSArray<WMFHomeSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
+- (NSArray<WMFHomeSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
     NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFHomeSection new], title)];
 
-    NSArray<MWKHistoryEntry*>* entries = [[self historyEntriesSortedByDateDecending] wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
+    NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
         return [existingTitles containsObject:obj.title];
@@ -311,10 +313,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }] wmf_arrayByTrimmingToLength:maxLength];
 }
 
-- (NSArray<WMFHomeSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
+- (NSArray<WMFHomeSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
     NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFHomeSection new], title)];
 
-    NSArray<MWKSavedPageEntry*>* entries = [[self savedEntriesSortedByDateDecending] wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
+    NSArray<MWKSavedPageEntry*>* entries = [self.savedPages.entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
         return [existingTitles containsObject:obj.title];
@@ -323,19 +325,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return [[entries bk_map:^id (MWKSavedPageEntry* obj) {
         return [WMFHomeSection savedSectionWithSavedPageEntry:obj];
     }] wmf_arrayByTrimmingToLength:maxLength];
-}
-
-#pragma mark - History and Saved Page Helpers
-
-- (NSArray<MWKHistoryEntry*>*)historyEntriesSortedByDateDecending {
-    return self.historyPages.entries; //already sorted
-}
-
-- (NSArray<MWKSavedPageEntry*>*)savedEntriesSortedByDateDecending {
-    return [self.savedPages.entries sortedArrayWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (MWKSavedPageEntry* _Nonnull obj1, MWKSavedPageEntry* _Nonnull obj2) {
-        //negative makes this sort decending instead of ascending
-        return -[obj1.date compare:obj2.date];
-    }];
 }
 
 #pragma mark - WMFLocationManagerDelegate
@@ -368,10 +357,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 + (void)saveSchemaToDisk:(WMFHomeSectionSchema*)schema {
-    if (![NSKeyedArchiver archiveRootObject:schema toFile:[[self schemaFileURL] path]]) {
-        //TODO: not sure what to do with an error here
-        DDLogError(@"Failed to save sections to disk!");
-    }
+    dispatchOnBackgroundQueue(^{
+        if (![NSKeyedArchiver archiveRootObject:schema toFile:[[self schemaFileURL] path]]) {
+            //TODO: not sure what to do with an error here
+            DDLogError(@"Failed to save sections to disk!");
+        }
+    });
 }
 
 + (WMFHomeSectionSchema*)loadSchemaFromDisk {
@@ -379,3 +370,5 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
