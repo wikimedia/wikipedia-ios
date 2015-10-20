@@ -15,33 +15,33 @@ public class WMFTableOfContentsCell: UITableViewCell {
     public required init?(coder aDecoder: NSCoder) {
         section = nil
         super.init(coder: aDecoder);
-        self.indentationWidth = 10
+        indentationWidth = 10
     }
     
     // MARK: - UIView
     public override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectedSectionIndicator.alpha = 0.0
-        self.sectionSelectionBackground.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
-        self.sectionSelectionBackground.alpha = 0.0
-        self.selectionStyle = .None
+        selectedSectionIndicator.alpha = 0.0
+        sectionSelectionBackground.backgroundColor = UIColor.wmf_tableOfContentsSelectionBackgroundColor()
+        sectionSelectionBackground.alpha = 0.0
+        selectionStyle = .None
     }
     
     // MARK: - Accessors
     public var section: MWKSection?{
         didSet(section) {
-            self.sectionTitle.text = WMFTableOfContentsCell.titleText(self.section)
-            self.sectionTitle.font = WMFTableOfContentsCell.titleFont(self.section)
-            self.sectionTitle.textColor = WMFTableOfContentsCell.textColor(self.section)
-            self.leadSectionBorder.hidden = !WMFTableOfContentsCell.leadSectionBorderEnabled(self.section)
-            self.sectionBorder.hidden = !WMFTableOfContentsCell.topBorderEnabled(self.section)
-            self.indentationConstraint.constant = WMFTableOfContentsCell.indentationWidth(self.section)
-            self.setNeedsUpdateConstraints()
+            sectionTitle.text = WMFTableOfContentsCell.titleText(section)
+            sectionTitle.font = WMFTableOfContentsCell.titleFont(section)
+            sectionTitle.textColor = WMFTableOfContentsCell.textColor(section)
+            leadSectionBorder.hidden = !WMFTableOfContentsCell.leadSectionBorderEnabled(section)
+            sectionBorder.hidden = !WMFTableOfContentsCell.topBorderEnabled(section)
+            indentationConstraint.constant = WMFTableOfContentsCell.indentationWidth(section)
+            setNeedsUpdateConstraints()
         }
     }
     
     public func setSectionSelected(selected: Bool, animated: Bool) {
-        UIView.animateWithDuration(animated ? 0.3 : 0.0) { () -> Void in
+        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
             if(selected){
                 self.sectionSelectionBackground.alpha = 1.0
             }else{
@@ -52,26 +52,26 @@ public class WMFTableOfContentsCell: UITableViewCell {
     
     // MARK: - UITableVIewCell
     public class func reuseIdentifier() -> String{
-        return self.wmf_nibName()
+        return wmf_nibName()
     }
     
     public override func prepareForReuse() {
         super.prepareForReuse()
-        self.section = nil
-        self.leadSectionBorder.hidden = true
-        self.sectionBorder.hidden = true
-        self.setSelected(false, animated: false)
-        self.sectionSelectionBackground.alpha = 0.0
+        section = nil
+        leadSectionBorder.hidden = true
+        sectionBorder.hidden = true
+        setSelected(false, animated: false)
+        sectionSelectionBackground.alpha = 0.0
     }
     
     public override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if(selected){
             //HACK: I don't know why I have to set the color here, but I do. Something is setting it to clear background color
-            self.selectedSectionIndicator.backgroundColor = UIColor.wmf_tableOfContentsSelectionIndicatorColor()
-            self.selectedSectionIndicator.alpha = 1.0
+            selectedSectionIndicator.backgroundColor = UIColor.wmf_tableOfContentsSelectionIndicatorColor()
+            selectedSectionIndicator.alpha = 1.0
         }else{
-            self.selectedSectionIndicator.alpha = 0.0
+            selectedSectionIndicator.alpha = 0.0
         }
     }
 
@@ -161,9 +161,4 @@ public class WMFTableOfContentsCell: UITableViewCell {
         }
         return indentationWidth
     }
-    
-
-    
-
 }
-
