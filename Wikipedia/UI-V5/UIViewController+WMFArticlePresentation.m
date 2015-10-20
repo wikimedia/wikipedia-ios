@@ -19,7 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewHandler : NSObject
-<UIViewControllerPreviewingDelegate>
+    <UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<WMFArticlePreviewingDelegate> delegate;
 @property (nonatomic, assign) MWKHistoryDiscoveryMethod previewDiscoveryMethod;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_previewTitlesInView:(UIView*)view delegate:(id<WMFArticlePreviewingDelegate>)delegate {
     WMFArticlePreviewHandler* handler = [WMFArticlePreviewHandler new];
-    handler.delegate = delegate;
+    handler.delegate             = delegate;
     handler.sourceViewController = self;
     [self registerForPreviewingWithDelegate:handler sourceView:view];
 }
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     self = [super init];
     if (self) {
-        self.previewedTitle = title;
+        self.previewedTitle  = title;
         self.discoveryMethod = discoveryMethod;
     }
     return self;
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController *)viewControllerToCommit {
+     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
     [self.sourceViewController wmf_pushArticleViewController:viewControllerToCommit
                                              discoveryMethod:self.previewDiscoveryMethod];
 }

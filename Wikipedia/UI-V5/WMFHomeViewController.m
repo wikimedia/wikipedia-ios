@@ -564,14 +564,14 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 #pragma mark - WMFArticlePreviewingDelegate
 
-- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(nonnull UICollectionView *)view {
-    NSIndexPath* previewIndexPath  = [view indexPathForItemAtPoint:point];
+- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(nonnull UICollectionView*)view {
+    NSIndexPath* previewIndexPath                  = [view indexPathForItemAtPoint:point];
     id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
     if (!sectionController) {
         return nil;
     }
     return [[WMFArticlePreviewTuple alloc] initWithTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
-                                         discoveryMethod:[sectionController discoveryMethod]];
+                                         discoveryMethod :[sectionController discoveryMethod]];
 }
 
 @end
