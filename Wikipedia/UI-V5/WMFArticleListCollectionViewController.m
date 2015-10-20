@@ -292,10 +292,10 @@
 
 #pragma mark - WMFArticlePreviewingDelegate
 
-- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(nonnull UICollectionView *)view {
-    NSIndexPath* previewIndexPath  = [view indexPathForItemAtPoint:point];
+- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(nonnull UICollectionView*)view {
+    NSIndexPath* previewIndexPath = [view indexPathForItemAtPoint:point];
     return [[WMFArticlePreviewTuple alloc] initWithTitle:[[self.dataSource articleForIndexPath:previewIndexPath] title]
-                                         discoveryMethod:[self.dataSource discoveryMethod]];
+                                         discoveryMethod :[self.dataSource discoveryMethod]];
 }
 
 @end
