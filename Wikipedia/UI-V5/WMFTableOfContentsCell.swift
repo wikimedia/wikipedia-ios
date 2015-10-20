@@ -80,7 +80,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
         guard let section = section else{
             return false
         }
-        if(section.isLeadSection()){
+        if(section.sectionId == 1){
             return true
         }else{
             return false
@@ -105,7 +105,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
             return nil
         }
         if(section.isLeadSection()){
-            return "Introduction"
+            return section.title.text
         }else if let line = section.line {
             return line.wmf_stringByRemovingHTML()
         }else{
