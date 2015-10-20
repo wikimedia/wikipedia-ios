@@ -8,8 +8,6 @@
 $:.unshift File.dirname(__FILE__)
 require 'lib/utils.rb'
 
-release_notes git_commit_log
-
 automatic_release false
 
 copyright "#{Time.now.year} Wikimedia Foundation"

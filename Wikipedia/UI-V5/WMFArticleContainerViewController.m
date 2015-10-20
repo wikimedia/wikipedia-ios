@@ -104,6 +104,8 @@ NS_ASSUME_NONNULL_BEGIN
         self.dataStore    = dataStore;
         [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;
+        [self setupToolbar];
+        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
 }
@@ -122,6 +124,9 @@ NS_ASSUME_NONNULL_BEGIN
     _article                       = article;
     self.webViewController.article = _article;
     [self.headerGallery setImagesFromArticle:_article];
+
+    // need to remove TOC button if article is main
+    [self setupToolbar];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -249,23 +254,20 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Toolbar
 
 - (void)setupToolbar {
-    if (!self.article) {
-        self.toolbarItems = nil;
-        return;
-    }
-
-    NSMutableArray<UIBarButtonItem*>* toolbarItems = [@[
-                                                          [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
-                                                          [self shareToolbarItem], [self flexibleSpaceToolbarItem],
-                                                          [self saveToolbarItem]
-                                                      ] mutableCopy];
+    NSMutableArray<UIBarButtonItem*>* toolbarItems =
+        [NSMutableArray arrayWithObjects:
+         [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
+         [self shareToolbarItem], [self flexibleSpaceToolbarItem],
+         [self saveToolbarItem], nil];
 
     if (!self.article.isMain) {
         [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], [self tableOfContentsToolbarItem]]];
     }
 
-    self.toolbarItems                      = toolbarItems;
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+    if (self.toolbarItems.count != toolbarItems.count) {
+        // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
+        [self setToolbarItems:toolbarItems animated:YES];
+    }
 }
 
 - (UIBarButtonItem*)paddingToolbarItem {
@@ -326,9 +328,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupWebView];
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
-
     [self fetchArticle];
-    [self setupToolbar];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

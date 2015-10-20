@@ -11,7 +11,6 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 @implementation MWKSection (DisplayHtml)
 
 - (NSString*)displayHTML {
-    
     NSString* html = nil;
 
     @try {
@@ -19,7 +18,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
     }@catch (NSException* exception) {
         NSAssert(html, @"html was not created from section %@: %@", self.title, self.text);
     }
-    
+
     if (!html) {
         html = MWLocalizedString(@"article-unable-to-load-section", nil);;
     }
@@ -37,7 +36,6 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 }
 
 - (NSString*)getHeaderTag {
-    NSString* pencilAnchor = [self getEditPencilAnchor];
     if ([self isLeadSection]) {
         return [NSString stringWithFormat:
                 @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@%@",
@@ -54,7 +52,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
                 self.sectionId,
                 self.anchor,
                 self.line,
-                pencilAnchor,
+                [self getEditPencilAnchor],
                 headingTagSize];
     }
 }

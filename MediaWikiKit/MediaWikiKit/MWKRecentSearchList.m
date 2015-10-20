@@ -1,6 +1,7 @@
 
 
 #import "MWKRecentSearchList.h"
+#import "MWKList+Subclass.h"
 #import "MediaWikiKit.h"
 
 @interface MWKRecentSearchList ()
@@ -37,20 +38,26 @@
     return self;
 }
 
+#pragma mark - Validation
+
+- (BOOL)isEntryValid:(MWKRecentSearchEntry*)entry {
+    return entry.searchTerm.length > 0 && entry.site;
+}
+
 #pragma mark - Data Update
 
+- (void)importEntries:(NSArray*)entries {
+    [super importEntries:[entries bk_select:^BOOL (MWKRecentSearchEntry* entry) {
+        return [self isEntryValid:entry];
+    }]];
+}
+
 - (void)addEntry:(MWKRecentSearchEntry*)entry {
-    if (entry.searchTerm == nil) {
+    if (![self isEntryValid:entry]) {
         return;
     }
     [self removeEntryWithListIndex:entry.searchTerm];
     [self insertEntry:entry atIndex:0];
-}
-
-#pragma mark - Entry Access
-
-- (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
-    return [super entryAtIndex:index];
 }
 
 #pragma mark - Save

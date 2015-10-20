@@ -1,5 +1,6 @@
 
 #import "MediaWikiKit.h"
+#import "MWKList+Subclass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(title);
     MWKHistoryEntry* entry = [self entryForTitle:title];
     if (!entry) {
-        entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+        entry      = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
         entry.date = [NSDate date];
     }
     entry.discoveryMethod = discoveryMethod;
@@ -101,14 +102,6 @@ NS_ASSUME_NONNULL_BEGIN
     [historyEntries enumerateObjectsUsingBlock:^(MWKHistoryEntry* entry, NSUInteger idx, BOOL* stop) {
         [self removeEntryWithListIndex:entry.title];
     }];
-}
-
-- (void)removeEntry:(id<MWKListObject>)entry {
-    [super removeEntry:entry];
-}
-
-- (void)removeAllEntries {
-    [super removeAllEntries];
 }
 
 + (NSArray<NSSortDescriptor*>*)sortDescriptors {

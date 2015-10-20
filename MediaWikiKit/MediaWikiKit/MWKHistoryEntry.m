@@ -73,7 +73,7 @@
             "\tscrollPosition: %f\n"
             "}",
             [super description],
-            self.title,
+            self.title.description,
             self.date,
             [MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod],
             self.scrollPosition];

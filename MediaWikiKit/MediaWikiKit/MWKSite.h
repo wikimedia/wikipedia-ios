@@ -21,17 +21,8 @@ extern NSString* const WMFDefaultSiteDomain;
 @property (nonatomic, copy, readonly) NSString* language;
 
 ///
-/// @name Computed Properties
+/// @name Initialization
 ///
-
-- (NSURL*)URL;
-
-- (NSURL*)mobileURL;
-
-- (NSURL*)apiEndpoint;
-- (NSURL*)mobileApiEndpoint;
-
-- (NSURL*)apiEndpoint:(BOOL)isMobile;
 
 - (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language NS_DESIGNATED_INITIALIZER;
 
@@ -58,6 +49,23 @@ extern NSString* const WMFDefaultSiteDomain;
 + (instancetype)siteWithCurrentLocale;
 
 - (BOOL)isEqualToSite:(MWKSite* __nullable)other;
+
+///
+/// @name Computed Properties
+///
+
+- (NSURL*)URL;
+
+- (NSURL*)mobileURL;
+
+- (NSURL*)apiEndpoint;
+- (NSURL*)mobileApiEndpoint;
+
+- (NSURL*)apiEndpoint:(BOOL)isMobile;
+
+///
+/// @name User Interface Properties
+///
 
 - (UIUserInterfaceLayoutDirection)layoutDirection;
 

@@ -142,9 +142,9 @@ extern NSString* const MWKArticleKey;
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;
 
 
-- (NSArray*)historyListData;
-- (NSArray*)savedPageListData;
-- (NSArray*)recentSearchListData;
+- (NSArray*)     historyListData;
+- (NSDictionary*)savedPageListData;
+- (NSArray*)     recentSearchListData;
 
 
 

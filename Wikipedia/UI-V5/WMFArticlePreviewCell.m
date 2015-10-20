@@ -25,19 +25,19 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.descriptionText   = nil;
+    self.descriptionText             = nil;
     self.summaryLabel.attributedText = nil;
 }
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     [self rememberSettingsFromIB];
 }
 
--(void)rememberSettingsFromIB {
+- (void)rememberSettingsFromIB {
     self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
     self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
-    self.heightOfImageFromIB = self.imageHeightConstraint.constant;
+    self.heightOfImageFromIB           = self.imageHeightConstraint.constant;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -58,17 +58,17 @@
     self.descriptionLabel.text = descriptionText;
     if (self.descriptionLabel.text.length == 0) {
         [self removeDescriptionVerticalPadding];
-    }else{
+    } else {
         [self restoreDescriptionVerticalPadding];
     }
 }
 
--(void)removeDescriptionVerticalPadding{
+- (void)removeDescriptionVerticalPadding {
     self.paddingConstraintAboveDescription.constant = 0;
     self.paddingConstraintBelowDescription.constant = 0;
 }
 
--(void)restoreDescriptionVerticalPadding{
+- (void)restoreDescriptionVerticalPadding {
     self.paddingConstraintAboveDescription.constant = self.paddingAboveDescriptionFromIB;
     self.paddingConstraintBelowDescription.constant = self.paddingBelowDescriptionFromIB;
 }
@@ -100,7 +100,7 @@
     [super setImageURL:imageURL];
     if (imageURL) {
         [self restoreImageToFullHeight];
-    }else{
+    } else {
         [self collapseImageHeightToZero];
     }
 }
@@ -109,16 +109,16 @@
     [super setImage:image];
     if (image) {
         [self restoreImageToFullHeight];
-    }else{
+    } else {
         [self collapseImageHeightToZero];
     }
 }
 
--(void)collapseImageHeightToZero{
+- (void)collapseImageHeightToZero {
     self.imageHeightConstraint.constant = 0;
 }
 
--(void)restoreImageToFullHeight{
+- (void)restoreImageToFullHeight {
     self.imageHeightConstraint.constant = self.heightOfImageFromIB;
 }
 
