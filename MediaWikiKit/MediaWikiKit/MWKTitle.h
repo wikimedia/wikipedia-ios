@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKTitle : MTLModel <NSCopying>
+@interface MWKTitle : MTLModel
 
 /// The site this title belongs to
 @property (readonly, strong, nonatomic) MWKSite* site;
