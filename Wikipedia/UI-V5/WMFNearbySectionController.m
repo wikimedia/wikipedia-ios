@@ -117,7 +117,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
            withObject:(id)object
      inCollectionView:(UICollectionView*)collectionView
           atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFNearbySearchResultCell class]]) {
+    if ([cell isKindOfClass:[WMFNearbySearchResultCell class]] && [object isKindOfClass:[MWKLocationSearchResult class]]) {
         WMFNearbySearchResultCell* nearbyCell = (id)cell;
         MWKLocationSearchResult* result       = object;
         NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
@@ -127,7 +127,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         [nearbyCell setSavedPageList:self.savedPageList];
         [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
         [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
-    } else {
+    } else if ([cell isKindOfClass:[WMFNearbySectionEmptyCell class]] && (object == self.emptySectionObject)) {
         WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             @weakify(self);

@@ -16,6 +16,8 @@
 #import "MWKUserDataStore.h"
 #import "WMFArticleContainerViewController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation UIViewController (WMFArticlePresentation)
 
 - (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
@@ -23,12 +25,24 @@
                                      dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
-    MWKHistoryEntry* historyEntry = [dataStore.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:discoveryMethod];
-    [dataStore.userDataStore.historyList save];
+    WMFArticleContainerViewController* articleContainerVC =
+        [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
+                                                              dataStore:dataStore
+                                                        discoveryMethod:discoveryMethod];
+    [self wmf_pushArticleViewController:articleContainerVC];
+}
 
-    WMFArticleContainerViewController* articleContainerVC = [[WMFArticleContainerViewController alloc] initWithArticleTitle:title dataStore:dataStore];
-
-    [self.navigationController pushViewController:articleContainerVC animated:YES];
+- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController {
+    MWKHistoryList* historyList = articleViewController.dataStore.userDataStore.historyList;
+    [historyList addPageToHistoryWithTitle:articleViewController.articleTitle
+                           discoveryMethod:articleViewController.discoveryMethod];
+    [historyList save];
+    NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
+             articleViewController,
+             self);
+    [self.navigationController pushViewController:articleViewController animated:YES];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

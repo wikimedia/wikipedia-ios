@@ -5,7 +5,7 @@ group :dev do
 end
 
 group :ci do
-  gem 'fastlane', '~> 1.32.0'
+  gem 'fastlane', '~> 1.33.0'
   gem 'git', '~> 1.2'
 end
 
