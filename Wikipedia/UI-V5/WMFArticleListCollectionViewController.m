@@ -287,7 +287,7 @@
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewControllerWithTitle:article.title
-                                     discoveryMethod:self.dataSource.discoveryMethod
+                                     discoveryMethod:MWKHistoryDiscoveryMethodSearch
                                            dataStore:self.dataStore];
     }];
 }
