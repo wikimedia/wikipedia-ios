@@ -403,8 +403,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFArticleSelectionDelegate
 
-- (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
-    [self.searchResultDelegate didSelectArticle:article sender:self];
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+    [self.searchResultDelegate didSelectTitle:title sender:self discoveryMethod:discoveryMethod];
+}
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self.searchResultDelegate didCommitToPreviewedArticleViewController:articleViewController sender:self];
 }
 
 @end

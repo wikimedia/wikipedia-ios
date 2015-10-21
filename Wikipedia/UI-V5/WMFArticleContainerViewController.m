@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+@property (nonatomic, assign, readwrite) MWKHistoryDiscoveryMethod discoveryMethod;
 
 // Data
 @property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
@@ -94,14 +95,17 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (instancetype)initWithArticleTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithArticleTitle:(MWKTitle*)title
+                           dataStore:(MWKDataStore*)dataStore
+                     discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
 
     self = [super init];
     if (self) {
-        self.articleTitle = title;
-        self.dataStore    = dataStore;
+        self.articleTitle    = title;
+        self.dataStore       = dataStore;
+        self.discoveryMethod = discoveryMethod;
         [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;
         [self setupToolbar];
@@ -504,12 +508,21 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKSite*)searchSite {
-    return self.article.site;
+    return self.articleTitle.site;
 }
 
-- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
+        [self wmf_pushArticleViewControllerWithTitle:title
+                                     discoveryMethod:discoveryMethod
+                                           dataStore:self.dataStore];
+    }];
+}
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_pushArticleViewController:articleViewController];
     }];
 }
 
