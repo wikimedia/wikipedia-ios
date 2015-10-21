@@ -42,19 +42,6 @@
 
 @implementation WMFArticleListCollectionViewController
 
-- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-                      viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[[self.dataSource articleForIndexPath:previewIndexPath] title]
-                                                                 dataStore:[self dataStore]];
-}
-
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
-    [self wmf_pushArticleViewController:viewControllerToCommit
-                        discoveryMethod:MWKHistoryDiscoveryMethod3dTouchPop];
-}
-
 - (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -300,8 +287,25 @@
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
+        [self wmf_pushArticleViewControllerWithTitle:article.title
+                                     discoveryMethod:self.dataSource.discoveryMethod
+                                           dataStore:self.dataStore];
     }];
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+    NSIndexPath* previewIndexPath = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
+    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[[self.dataSource articleForIndexPath:previewIndexPath] title]
+                                                                 dataStore:[self dataStore]
+                                                           discoveryMethod:self.dataSource.discoveryMethod];
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+    [self wmf_pushArticleViewController:viewControllerToCommit];
 }
 
 @end

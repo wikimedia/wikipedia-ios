@@ -33,8 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
                                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                                      dataStore:(MWKDataStore*)dataStore;
 
-- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                      discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController;
 
 @end
 

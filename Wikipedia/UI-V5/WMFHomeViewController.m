@@ -72,23 +72,6 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 @implementation WMFHomeViewController
 
-- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-                      viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath                  = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
-    id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
-    if (!sectionController) {
-        return nil;
-    }
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
-                                                                 dataStore:[self dataStore]];
-}
-
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
-    [self wmf_pushArticleViewController:viewControllerToCommit
-                        discoveryMethod:MWKHistoryDiscoveryMethod3dTouchPop];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -579,6 +562,25 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
     }];
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+    NSIndexPath* previewIndexPath                  = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
+    id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
+    if (!sectionController) {
+        return nil;
+    }
+    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
+                                                                 dataStore:[self dataStore]
+                                                           discoveryMethod:[sectionController discoveryMethod]];
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+    [self wmf_pushArticleViewController:viewControllerToCommit];
 }
 
 @end
