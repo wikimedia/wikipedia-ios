@@ -34,15 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate;
 
-/**
- *  Default implemenation of "commit" for an article from search.
- *
- *  @param articleViewController The view controller to commit.
- *  @param sender                The object that previewed it.
- */
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender;
-
 @end
 
 NS_ASSUME_NONNULL_END

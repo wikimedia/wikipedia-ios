@@ -43,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController pushViewController:articleViewController animated:YES];
 }
 
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_pushArticleViewController:articleViewController];
+    }];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -35,6 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController;
 
+
+// TEMP: "default" implementation for responding to commit delegation
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END
