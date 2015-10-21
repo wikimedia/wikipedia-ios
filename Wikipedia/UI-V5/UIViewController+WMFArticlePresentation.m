@@ -37,7 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
     [historyList addPageToHistoryWithTitle:articleViewController.articleTitle
                            discoveryMethod:articleViewController.discoveryMethod];
     [historyList save];
-    NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a discovery controller.");
+    NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
+             articleViewController,
+             self);
     [self.navigationController pushViewController:articleViewController animated:YES];
 }
 
