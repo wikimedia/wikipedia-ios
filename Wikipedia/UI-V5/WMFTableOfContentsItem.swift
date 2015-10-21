@@ -54,10 +54,14 @@ public protocol TableOfContentsItem {
     func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool
 }
 
+// MARK: - TOC Item Defaults
+
 extension TableOfContentsItem {
-    func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
+    public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
         return false
     }
 
-    var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.Default } }
+    public var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.Default } }
+
+    public var indentationLevel: UInt { get { return 0 } }
 }
