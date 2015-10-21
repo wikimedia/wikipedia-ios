@@ -34,7 +34,6 @@
  UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
-@property (nonatomic, assign) MWKHistoryDiscoveryMethod previewDiscoveryMethod;
 
 + (Class)collectionViewClass;
 

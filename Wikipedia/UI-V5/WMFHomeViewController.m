@@ -66,8 +66,6 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 
 @property (nonatomic, strong) NSDate* lastReloadDate;
 
-@property (nonatomic, assign) MWKHistoryDiscoveryMethod previewDiscoveryMethod;
-
 @end
 
 @implementation WMFHomeViewController
