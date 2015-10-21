@@ -180,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = 1;
     queue.qualityOfService            = NSQualityOfServiceUserInteractive;
-    self.collectionViewUpdateQueue = queue;
+    self.collectionViewUpdateQueue    = queue;
 
 
     self.collectionView.dataSource = nil;
@@ -343,7 +343,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
         [self unloadSectionForSectionController:obj];
     }];
-    
+
     [self.collectionView performBatchUpdates:^{
         [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
             switch (obj.type) {
@@ -418,19 +418,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
         [self unloadSectionForSectionController:obj];
     }];
-
-//    /**
-//     *  Hack: it isn't safe to manipulate the collection view after
-//     *  we remove everything until the visual update completes.
-//     *  Unfortunately there is no async API for this operation.
-//     *  So we "fake" it here so we don't crash when trying to insert
-//     *  sections immediately after unloading them
-//     */
-//    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-//        if (completion) {
-//            completion();
-//        }
-//    });
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {
