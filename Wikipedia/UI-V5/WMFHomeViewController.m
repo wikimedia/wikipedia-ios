@@ -488,8 +488,8 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethodForSectionController:(id<WMFHomeSectionController>)sectionController {
-    if ([controller respondsToSelector:@selector(discoveryMethod)]) {
-        return [controller discoveryMethod];
+    if ([sectionController respondsToSelector:@selector(discoveryMethod)]) {
+        return [sectionController discoveryMethod];
     } else {
         return MWKHistoryDiscoveryMethodSearch;
     }
