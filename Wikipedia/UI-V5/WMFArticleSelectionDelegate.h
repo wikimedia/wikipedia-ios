@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MWKHistoryEntry.h"
 
-@class MWKArticle;
+@class MWKTitle;
+@class WMFArticleContainerViewController;
 
 @protocol WMFArticleSelectionDelegate <NSObject>
 
-- (void)didSelectArticle:(MWKArticle*)article sender:(id)sender;
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender;
 
 @end
