@@ -13,6 +13,7 @@
     <MWKListObject>
 
 @property (readonly, strong, nonatomic) MWKTitle* title;
+@property (readonly, strong, nonatomic) NSDate* date;
 
 - (instancetype)initWithTitle:(MWKTitle*)title;
 - (instancetype)initWithDict:(NSDictionary*)dict;

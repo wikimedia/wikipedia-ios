@@ -54,7 +54,6 @@
 - (void)testSavedListIsEqualToListWithAddedAndRemovedEntries {
     [self verifyListRoundTripAfter:^(MWKList* list) {
         [self.testObjects bk_each:^(id entry) {
-            [list addEntry:entry];
         }];
         [list removeEntryWithListIndex:[self.testObjects.firstObject listIndex]];
         [list removeEntryWithListIndex:[self.testObjects.lastObject listIndex]];
@@ -65,11 +64,20 @@
 
 - (void)verifyListRoundTripAfter:(void (^)(MWKList*))mutatingBlock {
     MWKList* list = [self listWithDataStore];
+
     mutatingBlock(list);
-    expectResolution(^AnyPromise*{
-        return [list save];
+
+    XCTestExpectation* promiseExpectation = [self expectationWithDescription:@"promise was fullfilled"];
+
+    [list save].then(^(id obj){
+        [promiseExpectation fulfill];
     });
-    assertThat([self listWithDataStore], is(equalTo(list)));
+
+    WaitForExpectations();
+
+    MWKList* otherList = [self listWithDataStore];
+
+    assertThat(otherList, is(equalTo(list)));
 }
 
 @end

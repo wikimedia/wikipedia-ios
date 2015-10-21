@@ -3,15 +3,15 @@
 // Frameworks
 @import SelfSizingWaterfallCollectionViewLayout;
 @import SSDataSources;
-#import <Tweaks/FBTweakInline.h>
+@import Tweaks;
 
 // Sections
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
-#import "WMFSectionSchemaManager.h"
-#import "WMFSectionSchemaItem.h"
+#import "WMFHomeSectionSchema.h"
+#import "WMFHomeSection.h"
 
 // Models
 #import "MWKDataStore.h"
@@ -47,20 +47,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
-
 @interface WMFHomeViewController ()
-<WMFHomeSectionControllerDelegate, UITextViewDelegate, WMFSearchPresentationDelegate, FBTweakObserver>
+<WMFHomeSectionSchemaDelegate,
+ WMFHomeSectionControllerDelegate,
+ UITextViewDelegate,
+ WMFSearchPresentationDelegate>
 
-@property (nonatomic, strong) WMFSectionSchemaManager* schemaManager;
+@property (nonatomic, strong) WMFHomeSectionSchema* schemaManager;
 
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
 @property (nonatomic, strong) NSMutableDictionary* sectionControllers;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
-
-@property (nonatomic, strong) NSDate* lastReloadDate;
 
 @end
 
@@ -104,9 +103,10 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     self.nearbySectionController.searchSite = searchSite;
 }
 
-- (WMFSectionSchemaManager*)schemaManager {
+- (WMFHomeSectionSchema*)schemaManager {
     if (!_schemaManager) {
-        _schemaManager = [[WMFSectionSchemaManager alloc] initWithSavedPages:self.savedPages recentPages:self.recentPages];
+        _schemaManager          = [WMFHomeSectionSchema schemaWithSavedPages:self.savedPages history:self.recentPages];
+        _schemaManager.delegate = self;
     }
     return _schemaManager;
 }
@@ -151,25 +151,6 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     return width;
 }
 
-- (BOOL)shouldAutomaticallyReloadHome {
-    //never loaded
-    if ([self.dataSource numberOfSections] == 0) {
-        return NO;
-    }
-
-    //never loaded
-    if (!self.lastReloadDate) {
-        return YES;
-    }
-
-    //minimum relaod time
-    if ([[NSDate date] timeIntervalSinceDate:self.lastReloadDate] > WMFHomeMinAutomaticReloadTime) {
-        return YES;
-    }
-
-    return NO;
-}
-
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -200,7 +181,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self flowLayout].minimumLineSpacing  = 1.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [self setupHomeTweaks];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -233,29 +214,21 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         return;
     }
 
-    if (![self shouldAutomaticallyReloadHome]) {
+    //never loaded, do not reload
+    if ([self.dataSource numberOfSections] == 0) {
         return;
     }
 
-    [self updateAndReloadSections];
+    [self.schemaManager update];
 }
 
 #pragma mark - Tweaks
 
-- (void)setupHomeTweaks {
-    [FBTweakInline(@"Home", @"Continue Reading", @"Debug Enabled", NO) addObserver:self];
-}
-
-- (void)tweakDidChange:(FBTweak*)tweak {
-    [self updateAndReloadSections];
+- (void)tweaksDidChangeWithNotification:(NSNotification*)note {
+    [self.schemaManager update];
 }
 
 #pragma mark - Data Source Configuration
-
-- (void)updateAndReloadSections {
-    [self.schemaManager updateSchema];
-    [self reloadSections];
-}
 
 - (void)configureDataSource {
     if ([self.dataSource numberOfSections] > 0) {
@@ -319,46 +292,52 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self.collectionView registerNib:[WMFHomeSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
     [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
-    [self reloadSections];
-
     self.dataSource.collectionView = self.collectionView;
+    [self reloadSectionsWitCompletion:^{
+        [self.schemaManager update];
+    }];
 }
 
 #pragma mark - Related Sections
 
-- (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFSectionSchemaItem*)item {
+- (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFHomeSection*)item {
     WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title
                                                                                                delegate:self];
     [controller setSavedPageList:self.savedPages];
     return controller;
 }
 
-- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFSectionSchemaItem*)item {
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFHomeSection*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
 }
 
 #pragma mark - Section Management
 
-- (void)reloadSections {
-    [self unloadAllSections];
-    [self.schemaManager.sectionSchema enumerateObjectsUsingBlock:^(WMFSectionSchemaItem* obj, NSUInteger idx, BOOL* stop) {
-        switch (obj.type) {
-            case WMFSectionSchemaItemTypeRecent:
-            case WMFSectionSchemaItemTypeSaved:
-                [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
-                break;
-            case WMFSectionSchemaItemTypeNearby:
-                [self loadSectionForSectionController:self.nearbySectionController];
-                break;
-            case WMFSectionSchemaItemTypeContinueReading:
-                [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
-                break;
-            default:
-                break;
+- (void)reloadSectionsWitCompletion:(nullable dispatch_block_t)completion {
+    [self unloadAllSectionsWithCompletion:^{
+        [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
+            switch (obj.type) {
+                case WMFHomeSectionTypeHistory:
+                case WMFHomeSectionTypeSaved:
+                    [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
+                    break;
+                case WMFHomeSectionTypeNearby:
+                    [self loadSectionForSectionController:self.nearbySectionController];
+                    break;
+                case WMFHomeSectionTypeContinueReading:
+                    [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
+                    break;
+                case WMFHomeSectionTypeToday:
+                case WMFHomeSectionTypeRandom:
+                default:
+                    break;
+            }
+        }];
+
+        if (completion) {
+            completion();
         }
     }];
-
-    self.lastReloadDate = [NSDate date];
 }
 
 - (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
@@ -438,13 +417,33 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
-- (void)unloadAllSections {
+- (void)unloadAllSectionsWithCompletion:(nullable dispatch_block_t)completion {
     if ([self.dataSource numberOfSections] == 0) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
+    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
+        obj.delegate = nil;
+    }];
+
     [self.sectionControllers removeAllObjects];
     [self.dataSource removeAllSections];
+
+    /**
+     *  Hack: it isn't safe to manipulate the collection view after
+     *  we remove everything until the visual update completes.
+     *  Unfortunately there is no async API for this operation.
+     *  So we "fake" it here so we don't crash when trying to insert
+     *  sections immediately after unloading them
+     */
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        if (completion) {
+            completion();
+        }
+    });
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -482,6 +481,12 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
         }
         [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
     }
+}
+
+#pragma mark - WMFHomeSectionSchemaDelegate
+
+- (void)sectionSchemaDidUpdateSections:(WMFHomeSectionSchema*)schema {
+    [self reloadSectionsWitCompletion:NULL];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
