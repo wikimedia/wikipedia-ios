@@ -253,7 +253,7 @@ static NSString* const WMFSectionSummaryXPathSelector = @"\
 [\
    not(@id = 'coordinates')\
    and\
-   not(ancestor::*[\
+   not(ancestor::table or ancestor::*[\
        @id = 'coordinates'\
        or\
        @class = 'IPA'\

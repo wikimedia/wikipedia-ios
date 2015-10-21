@@ -54,7 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
  UITextViewDelegate,
- WMFSearchPresentationDelegate>
+ WMFSearchPresentationDelegate,
+ UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) WMFHomeSectionSchema* schemaManager;
 
@@ -223,6 +224,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self flowLayout].minimumLineSpacing  = 1.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+
+    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
 }
 
@@ -560,11 +564,16 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
     if (title) {
-        MWKHistoryDiscoveryMethod discoveryMethod = MWKHistoryDiscoveryMethodSearch;
-        if ([controller respondsToSelector:@selector(discoveryMethod)]) {
-            discoveryMethod = [controller discoveryMethod];
-        }
+        MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
         [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+    }
+}
+
+- (MWKHistoryDiscoveryMethod)discoveryMethodForSectionController:(id<WMFHomeSectionController>)sectionController {
+    if ([sectionController respondsToSelector:@selector(discoveryMethod)]) {
+        return [sectionController discoveryMethod];
+    } else {
+        return MWKHistoryDiscoveryMethodSearch;
     }
 }
 
@@ -642,10 +651,36 @@ NS_ASSUME_NONNULL_BEGIN
     return self.dataStore;
 }
 
-- (void)didSelectArticle:(MWKArticle*)article sender:(WMFSearchViewController*)sender {
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:MWKHistoryDiscoveryMethodSearch dataStore:self.dataStore];
+        [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
     }];
+}
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_pushArticleViewController:articleViewController];
+    }];
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+    NSIndexPath* previewIndexPath                  = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
+    id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
+    if (!sectionController) {
+        return nil;
+    }
+    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
+                                                                 dataStore:[self dataStore]
+                                                           discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+    [self wmf_pushArticleViewController:viewControllerToCommit];
 }
 
 @end

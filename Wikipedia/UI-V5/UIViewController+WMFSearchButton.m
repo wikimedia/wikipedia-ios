@@ -10,6 +10,7 @@
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
