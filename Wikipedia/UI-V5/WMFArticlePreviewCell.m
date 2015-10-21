@@ -12,7 +12,6 @@
 
 @property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
 @property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
-@property (nonatomic) CGFloat heightOfImageFromIB;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintAboveDescription;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintBelowDescription;
@@ -37,7 +36,6 @@
 - (void)rememberSettingsFromIB {
     self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
     self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
-    self.heightOfImageFromIB           = self.imageHeightConstraint.constant;
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
@@ -119,7 +117,14 @@
 }
 
 - (void)restoreImageToFullHeight {
-    self.imageHeightConstraint.constant = self.heightOfImageFromIB;
+    self.imageHeightConstraint.constant = [self sixteenByNineHeightForImageWithSameHeightForLandscape];
+}
+
+- (CGFloat)sixteenByNineHeightForImageWithSameHeightForLandscape {
+    // Design said landscape should use same height used for portrait.
+    CGFloat horizontalPadding = self.paddingConstraintLeading.constant + self.paddingConstraintTrailing.constant;
+    CGFloat ratio             = (9.0 / 16.0);
+    return floor((MIN(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds)) - horizontalPadding) * ratio);
 }
 
 @end
