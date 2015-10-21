@@ -27,7 +27,7 @@ void _WMFRecordFixtureWithBlock(NSString* folder,
     NSCParameterAssert(folder.length);
     NSCParameterAssert(filename.length);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"WMFFixtureRecordingEnabled"]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"WMFFixtureRecordingEnabled"] || NSClassFromString(@"XCTestCase")) {
             return;
         }
         const char* const fixtureDir = getenv(WMFFixtureDirectoryEnvKey);
