@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MWKHistoryEntry.h"
+#import "WMFArticleSelectionDelegate.h"
 
 @class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore, WMFArticleContainerViewController;
 
@@ -34,11 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
                                      dataStore:(MWKDataStore*)dataStore;
 
 - (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController;
-
-
-// TEMP: "default" implementation for responding to commit delegation
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender;
 
 @end
 

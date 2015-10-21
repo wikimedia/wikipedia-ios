@@ -258,10 +258,14 @@
     [self wmf_hideKeyboard];
     MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
     if (self.delegate) {
-        [self.delegate didSelectArticle:article sender:self];
+        [self.delegate didSelectTitle:article.title
+                               sender:self
+                      discoveryMethod:self.dataSource.discoveryMethod];
         return;
     }
-    [self wmf_pushArticleViewControllerWithTitle:article.title discoveryMethod:[self.dataSource discoveryMethod] dataStore:self.dataStore];
+    [self wmf_pushArticleViewControllerWithTitle:article.title
+                                 discoveryMethod:[self.dataSource discoveryMethod]
+                                       dataStore:self.dataStore];
 }
 
 - (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath {
@@ -284,11 +288,18 @@
     return self.dataStore;
 }
 
-- (void)didSelectArticle:(MWKArticle*)article sender:(id)sender {
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:article.title
-                                     discoveryMethod:MWKHistoryDiscoveryMethodSearch
+        [self wmf_pushArticleViewControllerWithTitle:title
+                                     discoveryMethod:discoveryMethod
                                            dataStore:self.dataStore];
+    }];
+}
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_pushArticleViewController:articleViewController];
     }];
 }
 
@@ -297,7 +308,11 @@
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
     NSIndexPath* previewIndexPath = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[[self.dataSource articleForIndexPath:previewIndexPath] title]
+    if (!previewIndexPath) {
+        return nil;
+    }
+    MWKTitle* title = [[self.dataSource articleForIndexPath:previewIndexPath] title];
+    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:self.dataSource.discoveryMethod];
 }
