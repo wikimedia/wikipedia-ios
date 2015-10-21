@@ -3,6 +3,7 @@
 #define Wikipedia_Global_h
 
 #import "WMFLogging.h"
+#import "WMFDirectoryPaths.h"
 #import "WMFGCDHelpers.h"
 #import "WMFMath.h"
 #import "NSError+WMFExtensions.h"

@@ -11,6 +11,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) CLLocationManager* locationManager;
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
 
+/**
+ *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
+ *  We use this to ignore events after a stop has been requested
+ */
+@property (nonatomic, assign) BOOL locationUpdatesStopped;
+
 @end
 
 @implementation WMFLocationManager
@@ -75,11 +81,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSParameterAssert([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse);
 
+    self.locationUpdatesStopped = NO;
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
 
 - (void)stopMonitoringLocation {
+    self.locationUpdatesStopped = YES;
     [self stopLocationUpdates];
     [self stopHeadingUpdates];
 }
@@ -139,6 +147,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)stopHeadingUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self.orientationNotificationToken];
     self.orientationNotificationToken = nil;
     [self.locationManager stopUpdatingHeading];
 }
@@ -150,6 +159,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations {
+    if (self.locationUpdatesStopped) {
+        return;
+    }
     if (locations.count == 0) {
         return;
     }
@@ -157,10 +169,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
+    if (self.locationUpdatesStopped) {
+        return;
+    }
     [self.delegate nearbyController:self didUpdateHeading:newHeading];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
+    if (self.locationUpdatesStopped) {
+        return;
+    }
     [self.delegate nearbyController:self didReceiveError:error];
 }
 
