@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKTitle : MTLModel <NSCopying>
+@interface MWKTitle : MTLModel
 
 #pragma mark - Permanent Properties
 

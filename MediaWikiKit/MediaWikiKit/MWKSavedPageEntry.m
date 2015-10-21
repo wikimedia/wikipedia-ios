@@ -15,7 +15,8 @@
 typedef NS_ENUM (NSUInteger, MWKSavedPageEntrySchemaVersion) {
     MWKSavedPageEntrySchemaVersionUnknown = 0,
     MWKSavedPageEntrySchemaVersion1       = 1,
-    MWKSavedPageEntrySchemaVersionCurrent = MWKSavedPageEntrySchemaVersion1
+    MWKSavedPageEntrySchemaVersion2       = 2,
+    MWKSavedPageEntrySchemaVersionCurrent = MWKSavedPageEntrySchemaVersion2
 };
 
 static NSString* const MWKSavedPageEntrySchemaVersionKey = @"schemaVerison";
@@ -25,8 +26,10 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 @interface MWKSavedPageEntry ()
 
 @property (readwrite, strong, nonatomic) MWKTitle* title;
+@property (readwrite, strong, nonatomic) NSDate* date;
 
 @end
+
 @implementation MWKSavedPageEntry
 
 - (instancetype)initWithTitle:(MWKTitle*)title {
@@ -34,6 +37,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     self = [self initWithSite:title.site];
     if (self) {
         self.title = title;
+        self.date  = [NSDate date];
         // defaults to true for instances since new image data will go to the correct location
         self.didMigrateImageData = YES;
     }
@@ -49,6 +53,13 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     if (self) {
         self.title = [self requiredTitle:@"title" dict:dict];
         NSNumber* schemaVersion = dict[MWKSavedPageEntrySchemaVersionKey];
+
+        if (schemaVersion.unsignedIntegerValue > MWKSavedPageEntrySchemaVersion1) {
+            self.date = [self requiredDate:@"date" dict:dict];
+        } else {
+            self.date = [NSDate date];
+        }
+
         if (schemaVersion.unsignedIntegerValue == MWKSavedPageEntrySchemaVersion1) {
             self.didMigrateImageData =
                 [[self requiredNumber:MWKSavedPageEntryDidMigrateImageDataKey dict:dict] boolValue];
@@ -60,15 +71,22 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
     return self;
 }
 
-WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[MWKSavedPageEntry class]]) {
+        return [self isEqualToEntry:object];
+    } else {
+        return NO;
+    }
+}
 
 - (BOOL)isEqualToEntry:(MWKSavedPageEntry*)rhs {
-    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
-           && self.didMigrateImageData == rhs.didMigrateImageData;
+    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:);
 }
 
 - (NSUInteger)hash {
-    return self.didMigrateImageData ^ flipBitsWithAdditionalRotation(self.title.hash, 1);
+    return self.title.hash;
 }
 
 - (NSString*)description {
@@ -89,6 +107,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKSavedPageEntry, isEqualToEntry:)
     [dict wmf_maybeSetObject:self.site.domain forKey:@"domain"];
     [dict wmf_maybeSetObject:self.site.language forKey:@"language"];
     [dict wmf_maybeSetObject:self.title.text forKey:@"title"];
+    [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
     return [NSDictionary dictionaryWithDictionary:dict];
 }
 

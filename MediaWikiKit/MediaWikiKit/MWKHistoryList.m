@@ -45,12 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSParameterAssert(title);
-    MWKHistoryEntry* entry = [self entryForTitle:title];
-    if (!entry) {
-        entry      = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
-        entry.date = [NSDate date];
-    }
-    entry.discoveryMethod = discoveryMethod;
+    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
     [self addEntry:entry];
     return entry;
 }
@@ -59,22 +54,12 @@ NS_ASSUME_NONNULL_BEGIN
     if ([entry.title.text length] == 0) {
         return;
     }
-    if ([self containsEntryForListIndex:entry.title]) {
-        [self updateEntryWithListIndex:entry.title update:^BOOL (MWKHistoryEntry* __nullable oldEntry) {
-            oldEntry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ?
-                                       oldEntry.discoveryMethod : entry.discoveryMethod;
-            if (oldEntry == entry && oldEntry.date == entry.date) {
-                // adding the same entry is equivalent to updating it's timestamp
-                oldEntry.date = [NSDate date];
-            } else {
-                // adding a manually-created entry updates the new one with its date
-                oldEntry.date = entry.date;
-            }
-            return YES;
-        }];
-    } else {
-        [super addEntry:entry];
+    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.listIndex];
+    if (oldEntry) {
+        entry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
+        [self removeEntry:oldEntry];
     }
+    [super addEntry:entry];
     [self sortEntries];
 }
 

@@ -33,7 +33,7 @@
 - (BOOL)isEqual:(id)object {
     if (self == object) {
         return YES;
-    } else if ([self isKindOfClass:[self class]]) {
+    } else if ([object isKindOfClass:[self class]]) {
         return WMF_EQUAL(self.entries, isEqualToArray:, [(MWKList*)object entries]);
     } else {
         return NO;
