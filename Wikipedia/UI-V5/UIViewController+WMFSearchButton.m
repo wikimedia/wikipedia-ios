@@ -44,11 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender {
-    [self wmf_pushArticleViewController:articleViewController];
-}
-
 @end
 
 NS_ASSUME_NONNULL_END
