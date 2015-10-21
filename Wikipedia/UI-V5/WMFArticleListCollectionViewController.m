@@ -305,7 +305,11 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
-    [self wmf_pushArticleViewController:viewControllerToCommit];
+    if (self.delegate) {
+        [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
+    } else {
+        [self wmf_pushArticleViewController:viewControllerToCommit];
+    }
 }
 
 @end

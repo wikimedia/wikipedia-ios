@@ -10,6 +10,7 @@
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
+#import "UIViewController+WMFArticlePresentation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -41,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
         searchVC.searchResultDelegate = delegate;
         [self presentViewController:searchVC animated:YES completion:nil];
     }];
+}
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self wmf_pushArticleViewController:articleViewController];
 }
 
 @end

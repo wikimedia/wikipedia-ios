@@ -103,8 +103,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super init];
     if (self) {
-        self.articleTitle = title;
-        self.dataStore    = dataStore;
+        self.articleTitle    = title;
+        self.dataStore       = dataStore;
         self.discoveryMethod = discoveryMethod;
         [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;

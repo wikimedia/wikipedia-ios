@@ -407,4 +407,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchResultDelegate didSelectArticle:article sender:self];
 }
 
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender {
+    [self.searchResultDelegate didCommitToPreviewedArticleViewController:articleViewController sender:self];
+}
+
 @end

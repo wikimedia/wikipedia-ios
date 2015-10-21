@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class MWKArticle;
+@class WMFArticleContainerViewController;
 
 @protocol WMFArticleSelectionDelegate <NSObject>
 
 - (void)didSelectArticle:(MWKArticle*)article sender:(id)sender;
+
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                                           sender:(id)sender;
 
 @end
