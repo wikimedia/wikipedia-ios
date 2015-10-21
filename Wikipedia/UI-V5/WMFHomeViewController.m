@@ -482,11 +482,16 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
     if (title) {
-        MWKHistoryDiscoveryMethod discoveryMethod = MWKHistoryDiscoveryMethodSearch;
-        if ([controller respondsToSelector:@selector(discoveryMethod)]) {
-            discoveryMethod = [controller discoveryMethod];
-        }
+        MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
         [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+    }
+}
+
+- (MWKHistoryDiscoveryMethod)discoveryMethodForSectionController:(id<WMFHomeSectionController>)sectionController {
+    if ([controller respondsToSelector:@selector(discoveryMethod)]) {
+        return [controller discoveryMethod];
+    } else {
+        return MWKHistoryDiscoveryMethodSearch;
     }
 }
 
@@ -573,7 +578,7 @@ static NSTimeInterval WMFHomeMinAutomaticReloadTime = 600.0;
     }
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
                                                                  dataStore:[self dataStore]
-                                                           discoveryMethod:[sectionController discoveryMethod]];
+                                                           discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
