@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Type for siteinfo API responses.
 /// @see https://www.mediawiki.org/wiki/API:Siteinfo
-@interface MWKSiteInfo : NSObject <NSCopying>
+@interface MWKSiteInfo : NSObject
 
 /// Site described by the receiver.
 @property (readonly, copy, nonatomic) MWKSite* site;
