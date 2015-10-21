@@ -98,8 +98,8 @@
                                                            discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
     [historyList addEntry:copyOfEntry1];
-    assertThat(historyList.entries, is(@[entry1]));
-    assertThat(entry1.date, is(copyOfEntry1.date));
+    assertThat(historyList.entries, equalTo(@[copyOfEntry1]));
+    assertThat([historyList mostRecentEntry].date, equalTo(copyOfEntry1.date));
 }
 
 - (void)testAddingTheSameTitleFromDifferentSites {
@@ -128,15 +128,14 @@
 - (void)testListOrderAfterAddingSameEntry {
     MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
                                                      discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    entry1.date = [[NSDate date] dateByAddingTimeInterval:-60]; //the past
     MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
                                                      discoveryMethod :MWKHistoryDiscoveryMethodSearch];
     [historyList addEntry:entry1];
-    NSDate* initialDate = entry1.date;
     [historyList addEntry:entry2];
+    assertThat([historyList entries], is(@[entry2, entry1])); //ordered by date
     [historyList addEntry:entry1];
-    NSDate* updatedDate = entry1.date;
-    assertThat([initialDate laterDate:updatedDate], is(updatedDate));
-    assertThat([historyList entries], is(@[entry1, entry2]));
+    assertThat([historyList entries], is(@[entry2, entry1])); //ordered by date
     XCTAssertTrue(historyList.dirty);
 }
 
