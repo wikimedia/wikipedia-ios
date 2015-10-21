@@ -1,5 +1,7 @@
 #import "WMFHomeViewController.h"
 
+#import "Wikipedia-Swift.h"
+
 // Frameworks
 @import SelfSizingWaterfallCollectionViewLayout;
 @import SSDataSources;
@@ -57,7 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFHomeSectionSchema* schemaManager;
 
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
-@property (nonatomic, strong) NSMutableDictionary* sectionControllers;
+@property (nonatomic, strong) NSMutableDictionary<NSString*, id<WMFHomeSectionController> >* sectionControllersBySectionID;
+@property (nonatomic, strong) NSMutableDictionary< WMFHomeSection*, id<WMFHomeSectionController> >* sectionControllersBySection;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
@@ -70,6 +73,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    [self.sectionControllersBySection removeAllObjects];
 }
 
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
@@ -138,11 +146,18 @@ NS_ASSUME_NONNULL_BEGIN
     return _dataSource;
 }
 
-- (NSMutableDictionary*)sectionControllers {
-    if (!_sectionControllers) {
-        _sectionControllers = [NSMutableDictionary new];
+- (NSMutableDictionary<NSString*, id<WMFHomeSectionController> >*)sectionControllersBySectionID {
+    if (!_sectionControllersBySectionID) {
+        _sectionControllersBySectionID = [NSMutableDictionary new];
     }
-    return _sectionControllers;
+    return _sectionControllersBySectionID;
+}
+
+- (NSMutableDictionary<WMFHomeSection*, id<WMFHomeSectionController> >*)sectionControllersBySection {
+    if (_sectionControllersBySection == nil) {
+        _sectionControllersBySection = [NSMutableDictionary new];
+    }
+    return _sectionControllersBySection;
 }
 
 - (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
@@ -171,6 +186,24 @@ NS_ASSUME_NONNULL_BEGIN
                                        dataStore:self.dataStore];
 }
 
+- (void)didTapFooterInSection:(NSUInteger)section {
+    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
+    NSParameterAssert(controllerForSection);
+    if (!controllerForSection) {
+        DDLogError(@"Unexpected footer tap for missing section %lu.", section);
+        return;
+    }
+    if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
+        return;
+    }
+    WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
+    extendedList.dataStore   = self.dataStore;
+    extendedList.savedPages  = self.savedPages;
+    extendedList.recentPages = self.recentPages;
+    extendedList.dataSource  = [controllerForSection extendedListDataSource];
+    [self.navigationController pushViewController:extendedList animated:YES];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -179,7 +212,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = 1;
     queue.qualityOfService            = NSQualityOfServiceUserInteractive;
-    self.collectionViewUpdateQueue = queue;
+    self.collectionViewUpdateQueue    = queue;
 
 
     self.collectionView.dataSource = nil;
@@ -308,20 +341,57 @@ NS_ASSUME_NONNULL_BEGIN
     [self.schemaManager update];
 }
 
-#pragma mark - Related Sections
+#pragma mark - Sections
 
-- (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFHomeSection*)item {
-    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title
-                                                                                               delegate:self];
-    [controller setSavedPageList:self.savedPages];
+- (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
+    SSSection* section = [self.dataSource sectionAtIndex:index];
+    return self.sectionControllersBySectionID[section.sectionIdentifier];
+}
+
+- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller {
+    return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:[controller sectionIdentifier]];
+}
+
+- (id<WMFHomeSectionController>)sectionControllerForSection:(WMFHomeSection*)section {
+    switch (section.type) {
+        case WMFHomeSectionTypeHistory:
+        case WMFHomeSectionTypeSaved:
+            return [self relatedSectionControllerForSection:section];
+            break;
+        case WMFHomeSectionTypeNearby:
+            return self.nearbySectionController;
+            break;
+        case WMFHomeSectionTypeContinueReading:
+            return [self continueReadingSectionControllerForSection:section];
+            break;
+        case WMFHomeSectionTypeToday:
+        case WMFHomeSectionTypeRandom:
+        default:
+            return nil;
+            break;
+    }
+}
+
+- (WMFRelatedSectionController*)relatedSectionControllerForSection:(WMFHomeSection*)section {
+    WMFRelatedSectionController* controller = [self.sectionControllersBySection bk_match:^BOOL (WMFHomeSection* key, id < WMFHomeSectionController > obj) {
+        return [self section:section isLikeSection:key];
+    }];
+
+    if (!controller) {
+        controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:section.title
+                                                                      delegate:self];
+        [controller setSavedPageList:self.savedPages];
+        self.sectionControllersBySection[section] = controller;
+    }
+
     return controller;
 }
 
-- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFHomeSection*)item {
+- (WMFContinueReadingSectionController*)continueReadingSectionControllerForSection:(WMFHomeSection*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
 }
 
-#pragma mark - Section Management
+#pragma mark - Section Loading
 
 - (void)reloadSectionsOnOperationQueue {
     @weakify(self);
@@ -336,50 +406,30 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)reloadSectionsWithCompletion:(nullable dispatch_block_t)completion {
-    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
+    WMFHomeSection* sectionToRestore = [self currentFocusedSection];
+    [self.sectionControllersBySectionID enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
         [self unloadSectionForSectionController:obj];
     }];
-    
+
     [self.collectionView performBatchUpdates:^{
         [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
-            switch (obj.type) {
-                case WMFHomeSectionTypeHistory:
-                case WMFHomeSectionTypeSaved:
-                    [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
-                    break;
-                case WMFHomeSectionTypeNearby:
-                    [self loadSectionForSectionController:self.nearbySectionController];
-                    break;
-                case WMFHomeSectionTypeContinueReading:
-                    [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
-                    break;
-                case WMFHomeSectionTypeToday:
-                case WMFHomeSectionTypeRandom:
-                default:
-                    break;
-            }
+            [self loadSectionForSectionController:[self sectionControllerForSection:obj]];
         }];
     } completion:^(BOOL finished) {
+        WMFHomeSection* newSectionToRestore = [self sectionMostLikeSection:sectionToRestore];
+        [self scrollToSection:newSectionToRestore animated:NO];
+
         if (completion) {
             completion();
         }
     }];
 }
 
-- (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    SSSection* section = [self.dataSource sectionAtIndex:index];
-    return self.sectionControllers[section.sectionIdentifier];
-}
-
-- (NSInteger)indexForSectionController:(id<WMFHomeSectionController>)controller {
-    return (NSInteger)[self.dataSource indexOfSectionWithIdentifier:[controller sectionIdentifier]];
-}
-
 - (void)loadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     if (!controller) {
         return;
     }
-    self.sectionControllers[controller.sectionIdentifier] = controller;
+    self.sectionControllersBySectionID[controller.sectionIdentifier] = controller;
 
     [controller registerCellsInCollectionView:self.collectionView];
 
@@ -400,7 +450,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSUInteger index = [self indexForSectionController:controller];
 
     if (controller.sectionIdentifier) {
-        [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
+        [self.sectionControllersBySectionID removeObjectForKey:controller.sectionIdentifier];
     }
 
     if (index == NSNotFound) {
@@ -410,41 +460,75 @@ NS_ASSUME_NONNULL_BEGIN
     [self.dataSource removeSectionAtIndex:index];
 }
 
-- (void)unloadAllSections {
-    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
-        [self unloadSectionForSectionController:obj];
-    }];
+#pragma mark - Focused Section Restore
 
-//    /**
-//     *  Hack: it isn't safe to manipulate the collection view after
-//     *  we remove everything until the visual update completes.
-//     *  Unfortunately there is no async API for this operation.
-//     *  So we "fake" it here so we don't crash when trying to insert
-//     *  sections immediately after unloading them
-//     */
-//    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-//        if (completion) {
-//            completion();
-//        }
-//    });
+- (WMFHomeSection*)currentFocusedSection {
+    // If we are close to the top, no reason to do this.
+    if (self.collectionView.contentOffset.y < 44) {
+        return nil;
+    }
+
+    CGPoint center = CGPointMake(CGRectGetMidX(self.view.bounds), CGRectGetMidY(self.view.bounds));
+    center.y += self.collectionView.contentOffset.y;
+
+    NSIndexPath* indexpath = [self.collectionView indexPathForItemAtPoint:center];
+    if (!indexpath) {
+        return nil;
+    }
+
+    WMFHomeSection* section = [[self.schemaManager sections] wmf_safeObjectAtIndex:indexpath.section];
+    return section;
 }
 
-- (void)didTapFooterInSection:(NSUInteger)section {
-    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
-    NSParameterAssert(controllerForSection);
-    if (!controllerForSection) {
-        DDLogError(@"Unexpected footer tap for missing section %lu.", section);
+- (BOOL)section:(WMFHomeSection*)section isLikeSection:(WMFHomeSection*)otherSection {
+    switch (section.type) {
+        case WMFHomeSectionTypeContinueReading:
+        case WMFHomeSectionTypeToday:
+        case WMFHomeSectionTypeRandom:
+        case WMFHomeSectionTypeNearby: {
+            return otherSection.type == section.type;
+        }
+        break;
+        case WMFHomeSectionTypeHistory:
+        case WMFHomeSectionTypeSaved: {
+            return [otherSection.title isEqualToTitle:section.title];
+        }
+        break;
+        default: {
+            return NO;
+        }
+        break;
+    }
+}
+
+- (WMFHomeSection*)sectionMostLikeSection:(WMFHomeSection*)section {
+    if (!section) {
+        return nil;
+    }
+
+    WMFHomeSection* newSection = [[self.schemaManager sections] bk_match:^BOOL (WMFHomeSection* obj) {
+        return [self section:section isLikeSection:obj];
+    }];
+
+    return newSection;
+}
+
+#pragma mark - Scroll To Section
+
+- (void)scrollToSection:(WMFHomeSection*)section animated:(BOOL)animated {
+    if (!section) {
         return;
     }
-    if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
+    NSUInteger sectionIndex = [[self.schemaManager sections] indexOfObject:section];
+    if (sectionIndex == NSNotFound) {
         return;
     }
-    WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
-    extendedList.dataStore   = self.dataStore;
-    extendedList.savedPages  = self.savedPages;
-    extendedList.recentPages = self.recentPages;
-    extendedList.dataSource  = [controllerForSection extendedListDataSource];
-    [self.navigationController pushViewController:extendedList animated:YES];
+
+    if ([self.collectionView numberOfItemsInSection:sectionIndex] == 0) {
+        return;
+    }
+
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -504,6 +588,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
+
     [self.collectionView performBatchUpdates:^{
         [self.dataSource setItems:items inSection:section];
     } completion:NULL];
@@ -515,6 +600,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
+
     [self.collectionView performBatchUpdates:^{
         [self.dataSource appendItems:items toSection:section];
     } completion:NULL];
