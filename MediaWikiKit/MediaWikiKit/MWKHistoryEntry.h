@@ -57,6 +57,8 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod) {
      * @warning This method is considered "unknown" when written to disk
      */
     MWKHistoryDiscoveryMethodReloadFromCache,
+
+    MWKHistoryDiscoveryMethod3dTouchPop
 };
 
 @interface MWKHistoryEntry : MWKSiteDataObject

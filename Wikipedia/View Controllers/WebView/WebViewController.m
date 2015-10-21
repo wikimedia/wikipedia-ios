@@ -293,10 +293,14 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
        properly.
      */
     UIView* browserView = [self.webView wmf_browserView];
-    [browserView setFrame:(CGRect){
-         .origin = CGPointMake(0, headerBottom),
-         .size = browserView.frame.size
-     }];
+
+    if (floor(browserView.frame.origin.y) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
+        [browserView setFrame:(CGRect){
+             .origin = CGPointMake(0, headerBottom),
+             .size = browserView.frame.size
+         }];
+    }
+
     CGFloat readMoreHeight   = self.footerContainerView.frame.size.height;
     CGFloat totalHeight      = CGRectGetMaxY(browserView.frame) + readMoreHeight;
     CGFloat constrainedWidth = self.webView.scrollView.frame.size.width;
