@@ -13,11 +13,16 @@ public class WMFTableOfContentsViewController: UITableViewController,
 
     weak var delegate: WMFTableOfContentsViewControllerDelegate?
 
-    let sectionList: MWKSectionList
+    let items: [TableOfContentsItem]
 
-    // MARK: - init
+    // MARK: - Init
     public required init(sectionList: MWKSectionList, delegate: WMFTableOfContentsViewControllerDelegate) {
-        self.sectionList = sectionList
+        items = {
+            // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
+            var xs = sectionList.entries.map() { $0 as! TableOfContentsItem }
+            xs.append(TableOfContentsReadMoreItem())
+            return xs
+        }()
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
@@ -31,19 +36,8 @@ public class WMFTableOfContentsViewController: UITableViewController,
 
     // MARK: - Sections
 
-    func sections() -> Array<MWKSection>? {
-        return sectionList.entries as? Array<MWKSection>
-    }
-    
-    func sectionAtIndexPath(indexPath: NSIndexPath) -> MWKSection? {
-        guard indexPath.row < sections()?.count else {
-            return nil
-        }
-        return sections()?[indexPath.row]
-    }
-    
     func indexPathForSection(section: MWKSection) -> NSIndexPath? {
-        if let row = sections()?.indexOf(section) {
+        if let row = items.indexOf({ ($0 as? MWKSection)?.isEqual(section) ?? false }) {
             return NSIndexPath(forRow: row, inSection: 0)
         } else {
             return nil
@@ -59,7 +53,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
 
     public func selectAndScrollToSection(section: MWKSection, animated: Bool) {
         if let indexPath = indexPathForSection(section) {
-            removeSectionHighlightFromAllRows()
+            deselectAllRows()
             tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
             addHighlightOfItemsRelatedTo(section, animated: false)
         }
@@ -67,22 +61,11 @@ public class WMFTableOfContentsViewController: UITableViewController,
     
     // MARK: - Highlight Sections
 
-    public func sectionShouldBeHighlighted(section: MWKSection) -> Bool {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            if let selectedSection = sectionAtIndexPath(indexPath) {
-                if selectedSection.sectionHasSameRootSection(section) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
-    public func removeSectionHighlightFromAllRows() {
-        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
+    public func deselectAllRows() {
+        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
             return
         }
-        for (_, element) in visibleIndexPaths.enumerate() {
+        for (_, element) in selectedIndexPaths.enumerate() {
             if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
                 cell.setSectionSelected(false, animated: false)
             }
@@ -94,10 +77,9 @@ public class WMFTableOfContentsViewController: UITableViewController,
             return
         }
         for (_, indexPath) in visibleIndexPaths.enumerate() {
-            if let subSection: TableOfContentsItem = sectionAtIndexPath(indexPath),
+            if let otherItem: TableOfContentsItem = items[indexPath.row],
                    cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
-                cell.setSectionSelected(subSection.shouldBeHighlightedAlongWithItem(item),
-                                        animated: animated)
+                cell.setSectionSelected(otherItem.shouldBeHighlightedAlongWithItem(item), animated: animated)
             }
         }
     }
@@ -121,32 +103,37 @@ public class WMFTableOfContentsViewController: UITableViewController,
         super.viewWillAppear(animated)
         tableOfContentsFunnel.logOpen()
     }
+
+    public override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        deselectAllRows()
+    }
     
     // MARK: - UITableViewDataSource
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let sections = sections() {
-            return sections.count
-        }else{
-            return 0
-        }
+        return items.count
     }
 
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(WMFTableOfContentsCell.reuseIdentifier(), forIndexPath: indexPath) as! WMFTableOfContentsCell
-        if let section = sectionAtIndexPath(indexPath) {
-            cell.setItem(section)
-            cell.setSectionSelected(sectionShouldBeHighlighted(section), animated: false)
+        let selectedItems: [TableOfContentsItem] = tableView.indexPathsForSelectedRows?.map() { items[$0.row] } ?? []
+        let item = items[indexPath.row]
+        let shouldHighlight = selectedItems.reduce(false) { shouldHighlight, selectedItem in
+            shouldHighlight || item.shouldBeHighlightedAlongWithItem(selectedItem)
         }
-        
+        cell.setItem(item)
+        cell.setSectionSelected(shouldHighlight, animated: false)
         return cell
     }
     
     // MARK: - UITableViewDelegate
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let section = sectionAtIndexPath(indexPath) {
-            tableOfContentsFunnel.logClick()
-            removeSectionHighlightFromAllRows()
-            addHighlightOfItemsRelatedTo(section, animated: true)
+        let item = items[indexPath.row]
+        deselectAllRows()
+        tableOfContentsFunnel.logClick()
+        addHighlightOfItemsRelatedTo(item, animated: true)
+
+        if let section = item as? MWKSection {
             delegate?.tableOfContentsController(self, didSelectSection: section)
         }
     }
