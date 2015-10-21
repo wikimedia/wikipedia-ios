@@ -9,17 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MWKHistoryEntry.h"
 
-@class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore, WMFArticlePreviewTuple;
+@class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore, WMFArticleContainerViewController;
 
 NS_ASSUME_NONNULL_BEGIN
-
-@protocol WMFArticlePreviewingDelegate <NSObject>
-
-- (nullable WMFArticlePreviewTuple*)previewDataForTitleAtPoint:(CGPoint)point inView:(UIView*)view;
-
-- (MWKDataStore*)dataStore;
-
-@end
 
 /**
  *  Informal protocol for presenting an article.
@@ -41,26 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
                                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                                      dataStore:(MWKDataStore*)dataStore;
 
-
-/**
- *  Register for notifications to preview (peek) a title contained in the given view.
- *
- *  @param view     The view in which titles are displayed (e.g. search results).
- *  @param delegate The delegate providing information needed to preview & commit titles.
- */
-- (void)wmf_previewTitlesInView:(UIView*)view delegate:(id<WMFArticlePreviewingDelegate>)delegate;
-
-@end
-
-/**
- *  Dummy class for encapsulating the title to preview, and its originating discovery method.
- */
-@interface WMFArticlePreviewTuple : NSObject
-
-@property (nonatomic, strong, nonnull) MWKTitle* previewedTitle;
-@property (nonatomic, assign) MWKHistoryDiscoveryMethod discoveryMethod;
-
-- (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController
+                      discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
 @end
 
