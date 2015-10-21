@@ -22,7 +22,7 @@
     self = [self initWithSite:title.site];
     if (self) {
         self.title           = title;
-        self.date = [NSDate date];
+        self.date            = [NSDate date];
         self.discoveryMethod = discoveryMethod;
         self.scrollPosition  = 0.0;
     }
