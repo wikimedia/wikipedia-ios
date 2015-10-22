@@ -48,6 +48,8 @@
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
+#import "UIWebView+WMFJavascriptContext.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
@@ -57,7 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
  WMFTableOfContentsViewControllerDelegate,
- SectionEditorViewControllerDelegate>
+ SectionEditorViewControllerDelegate,
+ UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -340,7 +343,23 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
     [self fetchArticle];
+
+
+
+[self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
+
+// there's a "previewingGestureRecognizerForFailureRelationship"...
+
+    
+    
 }
+
+
+
+
+
+
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -557,6 +576,71 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchArticle];
 }
 
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+
+//return
+//[[WMFArticleContainerViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"http://en.wikipedia.org/wiki/Cat"]]
+//                                                      dataStore:self.dataStore
+//                                                discoveryMethod:self.discoveryMethod];
+
+
+    
+    JSValue *element = [[self.webViewController.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
+    
+    if([element hasProperty:@"tagName"]){
+        JSValue *v = [element valueForProperty:@"tagName"];
+        //NSLog(@"tagName = %@", [v toString]);
+        if ([[v toString] isEqualToString:@"A"]){
+            
+            /*
+             - ensure it follows links to other lang wikis!
+             - could use utilities.findClosest(event.target, 'A')
+             - exclude refs for now?
+             */
+
+            JSValue *href = [element valueForProperty:@"href"];
+NSLog(@"\n\nlink pressed: href = %@\n\n", [href toString]);
+
+            
+            
+            MWKTitle* title = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:[href toString]]];
+            //NSLog(@"title = %@", title);
+
+//return nil;
+
+//BUG! The WMFArticleContainerViewController below gets dealloc'ed right away...
+            return
+            [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
+                                                                  dataStore:self.dataStore
+                                                            discoveryMethod:self.discoveryMethod];
+        }
+    }
+    
+NSLog(@"\n\nnon-link pressed: element = %@\n\n", element);
+    
+    return nil;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+    [self wmf_pushArticleViewController:viewControllerToCommit];
+}
+
 @end
+
 
 NS_ASSUME_NONNULL_END
