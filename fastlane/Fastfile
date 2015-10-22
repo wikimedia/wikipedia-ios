@@ -48,10 +48,10 @@ platform :ios do
 
   desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
   lane :alpha do
-    sigh(
-      adhoc: false,
-      force: true
-    )
+    # sigh(
+    #   adhoc: false,
+    #   force: true
+    # )
 
     gym(
       configuration: "Alpha",
@@ -93,11 +93,11 @@ platform :ios do
 
   desc "Upload a developer build to Hockey."
   lane :dev do
-    sigh(
-      adhoc: true,
-      # Fastlane has issues forcing AdHoc profiles
-      force: false
-    )
+    # sigh(
+    #   adhoc: true,
+    #   # Fastlane has issues forcing AdHoc profiles
+    #   force: false
+    # )
 
     # force iTunes file sharing to be enabled (normally disabled for release builds)
     ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
