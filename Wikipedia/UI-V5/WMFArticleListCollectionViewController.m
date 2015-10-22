@@ -227,7 +227,9 @@
 
     [self observeArticleUpdates];
 
-    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -311,6 +313,9 @@
     if (!previewIndexPath) {
         return nil;
     }
+
+    previewingContext.sourceRect = [(UICollectionView*)previewingContext.sourceView cellForItemAtIndexPath:previewIndexPath].frame;
+
     MWKTitle* title = [[self.dataSource articleForIndexPath:previewIndexPath] title];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]

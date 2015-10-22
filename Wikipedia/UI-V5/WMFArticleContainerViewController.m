@@ -48,7 +48,7 @@
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
-#import "UIWebView+WMFJavascriptContext.h"
+@import JavaScriptCore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -344,22 +344,10 @@ NS_ASSUME_NONNULL_BEGIN
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
     [self fetchArticle];
 
-
-
-[self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
-
-// there's a "previewingGestureRecognizerForFailureRelationship"...
-
-    
-    
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+        [self configureLinkPreviewingDelegation];
+    }
 }
-
-
-
-
-
-
-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -576,62 +564,26 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchArticle];
 }
 
-
-
-
-
-
-
-
-
-
-
-
 #pragma mark - UIViewControllerPreviewingDelegate
+
+- (void)configureLinkPreviewingDelegation {
+    id <UIViewControllerPreviewing>pc = [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
+    for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
+        [r requireGestureRecognizerToFail:pc.previewingGestureRecognizerForFailureRelationship];
+    }
+}
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-
-//return
-//[[WMFArticleContainerViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"http://en.wikipedia.org/wiki/Cat"]]
-//                                                      dataStore:self.dataStore
-//                                                discoveryMethod:self.discoveryMethod];
-
-
-    
-    JSValue *element = [[self.webViewController.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
-    
-    if([element hasProperty:@"tagName"]){
-        JSValue *v = [element valueForProperty:@"tagName"];
-        //NSLog(@"tagName = %@", [v toString]);
-        if ([[v toString] isEqualToString:@"A"]){
-            
-            /*
-             - ensure it follows links to other lang wikis!
-             - could use utilities.findClosest(event.target, 'A')
-             - exclude refs for now?
-             */
-
-            JSValue *href = [element valueForProperty:@"href"];
-NSLog(@"\n\nlink pressed: href = %@\n\n", [href toString]);
-
-            
-            
-            MWKTitle* title = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:[href toString]]];
-            //NSLog(@"title = %@", title);
-
-//return nil;
-
-//BUG! The WMFArticleContainerViewController below gets dealloc'ed right away...
-            return
-            [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                                  dataStore:self.dataStore
-                                                            discoveryMethod:self.discoveryMethod];
-        }
+    JSValue* element          = [self.webViewController htmlElementAtLocation:location];
+    MWKTitle* titleForElement = [self.webViewController titleForHTMLElement:element];
+    if (titleForElement) {
+        self.webViewController.isPeeking = YES;
+        previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:element];
+        return [[WMFArticleContainerViewController alloc] initWithArticleTitle:titleForElement
+                                                                     dataStore:self.dataStore
+                                                               discoveryMethod:self.discoveryMethod];
     }
-    
-NSLog(@"\n\nnon-link pressed: element = %@\n\n", element);
-    
     return nil;
 }
 
@@ -641,6 +593,5 @@ NSLog(@"\n\nnon-link pressed: element = %@\n\n", element);
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END

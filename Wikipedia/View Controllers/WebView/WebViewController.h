@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "PullToRefreshViewController.h"
 
-@class MWKSection, MWKArticle;
+@class MWKSection, MWKArticle, MWKTitle, JSValue;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong, readonly) UIWebView* webView;
 
+@property (nonatomic) BOOL isPeeking;
+
 /**
  * Currently-selected text in the webview, if there is any.
  * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.
@@ -33,6 +35,10 @@
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
 - (CGFloat)currentVerticalOffset;
+
+- (JSValue*)htmlElementAtLocation:(CGPoint)location;
+- (MWKTitle*)titleForHTMLElement:(JSValue*)element;
+- (CGRect)rectForHTMLElement:(JSValue*)element;
 
 #pragma mark - Header & Footers
 
