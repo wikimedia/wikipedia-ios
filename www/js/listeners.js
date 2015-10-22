@@ -119,9 +119,6 @@ function maybeSendMessageForTarget(event, hrefTarget){
     return true;
 }
 
-//WARNING! TEMPORARY FOR TESTING FORCE TOUCH. DO NO MERGE!
-if(0){
 document.addEventListener("touchend", handleTouchEnded, false);
-}
 
 })();

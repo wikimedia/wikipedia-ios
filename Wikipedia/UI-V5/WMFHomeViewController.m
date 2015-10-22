@@ -183,7 +183,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 
-    [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
 }
@@ -586,6 +588,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (!sectionController) {
         return nil;
     }
+
+    previewingContext.sourceRect = [(UICollectionView*)previewingContext.sourceView cellForItemAtIndexPath:previewIndexPath].frame;
+
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:[self discoveryMethodForSectionController:sectionController]];

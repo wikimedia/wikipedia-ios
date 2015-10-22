@@ -228,12 +228,9 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
     return true;
 }
- 
-//WARNING! TEMPORARY FOR TESTING FORCE TOUCH. DO NO MERGE!
-if(0){
+
 document.addEventListener("touchend", handleTouchEnded, false);
-}
- 
+
 })();
 
 },{"./bridge":1,"./refs":5,"./transformer":8,"./transforms/collapsePageIssuesAndDisambig":11,"./utilities":17}],4:[function(require,module,exports){
