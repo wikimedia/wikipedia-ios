@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+- (UIImage*)headerButtonIcon;
+- (void)performHeaderButtonAction;
+
 /**
  *  @return Return the "More" footer text that prompts a user to get more items from a section.
  *  Not implementing this method means that no footer will be displayed

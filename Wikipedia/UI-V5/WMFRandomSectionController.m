@@ -24,7 +24,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
-@property (nonatomic, strong) id result;
+@property (nonatomic, strong) NSDictionary* result;
 
 @end
 
@@ -69,8 +69,20 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     return [[NSAttributedString alloc] initWithString:@"Random" attributes:nil];
 }
 
+- (UIImage*)headerButtonIcon {
+    return [UIImage imageNamed:@"reload-mini"];
+}
+
+- (void)performHeaderButtonAction {
+    [self getNewRandomArticle];
+}
+
 - (NSArray*)items {
     return @[self.result];
+}
+
+- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+    return [self.searchSite titleWithString:self.result[@"title"]];
 }
 
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
