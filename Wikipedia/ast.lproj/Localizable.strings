@@ -46,7 +46,7 @@
 "account-creation-login" = "¿Yá tienes una cuenta? Anicia sesión.";
 "account-creation-username-placeholder-text" = "Nome d'usuariu";
 "account-creation-password-placeholder-text" = "Contraseña";
-"account-creation-password-confirm-placeholder-text" = "Vuelve a escribir la contraseña";
+"account-creation-password-confirm-placeholder-text" = "Confirmar la contraseña";
 "account-creation-email-placeholder-text" = "Corréu electrónicu (opcional)";
 "account-creation-missing-fields" = "Tienes d'escribir un nome d'usuariu, una contraseña, y la confirmación de la contraseña pa crear una cuenta.";
 "login-name-not-found" = "Ye necesariu un nome d'usuariu p'aniciar sesión.";

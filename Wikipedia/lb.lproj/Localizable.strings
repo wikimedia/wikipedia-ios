@@ -153,6 +153,7 @@
 "edit-summary-choice-added-missing-info" = "Informatiounen déi gefeelt hunn derbäigesat";
 "edit-summary-choice-added-clarification" = "Erklärung derbäigesat";
 "edit-summary-choice-other" = "Anerer";
+"edit-summary-description" = "E spezifesche Resumé hëlleft aneren Editeure fir Är Ännerungen séier nozekucken. Dir kënnt och Tags (Markéierungen) hei drënner eraussichen.";
 "edit-summary-field-placeholder-text" = "Aner Manéiere wéi Dir den Artikel verbessert hutt";
 "edit-summary-title" = "Wéi hutt Dir den Artikel verbessert?";
 "fetching-random-article" = "Zoufällegen Artikel ofrufen";
@@ -268,3 +269,4 @@
 "page-similar-titles" = "Ähnlech Säiten";
 "captcha-reload" = "En anere Captcha weisen";
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
+"mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";

@@ -17,6 +17,7 @@
 "history-section-yesterday" = "Jäßtere";
 "history-section-lastweek" = "Läz Woch";
 "history-section-lastmonth" = "Läz Mohnd";
+"history-clear-confirmation-heading" = "Wells De alle neujere Änderonge fott schmiiße?";
 "history-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "history-clear-cancel" = "Ophüre!";
 "history-clear-delete-all" = "Alle fottschmieße";
@@ -105,6 +106,7 @@
 "main-menu-heading-debug" = "Noh Fähler Söhke";
 "main-menu-debug-crash" = "För de Wand loufe lohße";
 "saved-pages-title" = "Jesescherte Sigge";
+"saved-pages-clear-confirmation-heading" = "Wells De alle jesescherte Saache fott schmiiße?";
 "saved-pages-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "saved-pages-clear-cancel" = "Ophüre";
 "saved-pages-clear-delete-all" = "Alle fottschmiiße";
@@ -120,7 +122,10 @@
 "navbar-title-mode-login-and-save" = "Ennlogge un faßhallde";
 "navbar-title-mode-create-account" = "Ene neue Zohjang aanmälde";
 "navbar-title-mode-create-account-and-save" = "Ene neue Zohjang aanmälde un faßhallde";
+"navbar-title-mode-edit-wikitext-warning" = "Problehme beim Änndere";
+"navbar-title-mode-edit-wikitext-disallow" = "Problehme beim Änndere";
 "navbar-title-mode-edit-wikitext-preview" = "Vörschou";
+"navbar-title-mode-edit-wikitext-captcha" = "Flögg_ens Pröhve es nühdesch";
 "navbar-title-mode-edit-wikitext-summary" = "Donn Ding Änderong beschrihve";
 "navbar-title-mode-edit-wikitext-save" = "Faßhalde";
 "edit-summary-choice-linked-words" = "Lengks derbei jedonn";
@@ -132,9 +137,11 @@
 "edit-summary-choice-added-missing-info" = "Derbei jedonn, wat jefählt hät";
 "edit-summary-choice-added-clarification" = "Klohschtällong derbei jedonn";
 "edit-summary-choice-other" = "Annder";
+"edit-summary-description" = "En jenoue ersammefaßong fellef der Anndere, Ding Änderonge nohzelohre. Do kanns och vun heh dä Makkehronge jädd ußsöhke.";
 "edit-summary-field-placeholder-text" = "Wat De veräßert häs";
 "edit-summary-title" = "Wi häs De di Sigg bäßer jemaat?";
 "fetching-random-article" = "Ben ene zohfällejje Atikel aam holle";
+"article-pull-to-refresh-prompt" = "Trick, öm dä Atikel neuj_anzezeije.";
 "article-pull-to-refresh-is-refreshing" = "Ben dä Atikell neu aam lahde";
 "credits-wikimedia-repos" = "Repossetohreje vun de Wikkimehdija Schtefftong";
 "credits-gerrit-repo" = "De Äpp „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">main</code>“ (<i xml:lang=\"en\" lang=\"en\" dir=\"ltr\" title=\"a free, web-based team code collaboration tool integrated closely with the distributed version control system Git\">Gerrit</i>)";
@@ -183,6 +190,7 @@
 "license-footer-text" = "Dä Ennhalld es ze hann onger $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Enhalld";
+"abuse-filter-warning-subheading" = "En Dinger Änderong kann et ein udder andere derbeij sin vun:";
 "abuse-filter-warning-caps" = "En GRUHẞSCHREFF jeschrevve";
 "abuse-filter-warning-blanking" = "Atikelle läddesch maache udder <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„för jewöhnlesch angmaß övverdrahre Nohreeschte udder Meddeijlonge, di wä se kritt jaa nit han well,“\">SPAM</i> verbreijde.";
 "abuse-filter-warning-irrelevant" = "Bellder üdder Lengks noh ußerhallf ohne ene Wäät";
@@ -233,4 +241,6 @@
 "hockeyapp-alert-privacy" = "Jeheimhalldong vun $1";
 "page-issues" = "Problehme met heh dä Sigg";
 "page-similar-titles" = "Ähnlejje Sigge";
+"captcha-reload" = "En annder Kaptscha";
 "captcha-prompt" = "Jif dä <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span>-Täx vun dämm Belld en.";
+"mwk-empty-title-error" = "Medd_ene läddeje Övverschreff jeiht dat nit ze maache.";
