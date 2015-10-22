@@ -31,7 +31,7 @@
 "history-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "history-clear-cancel" = "Annuleren";
 "history-clear-delete-all" = "Alles verwijderen";
-"history-description" = "U heeft ze vast allemaal verwijderd. De volgende keer als u een pagina bezoekt, kunt u hem hier terugvinden.";
+"history-description" = "U heeft ze waarschijnlijk allemaal verwijderd. De volgende keer als u een pagina bezoekt, kunt u hem hier terugvinden.";
 "history-none" = "Geen recente pagina's.";
 "zero-free-verbiage" = "Gratis toegang tot Wikipedia van uw mobiele provider (geen kosten voor gegevens)";
 "zero-charged-verbiage" = "Wikipedia Zero staat uit";
@@ -71,7 +71,7 @@
 "wikitext-downloading" = "Inhoud laden...";
 "wikitext-download-failed" = "De laatste versie kon niet geladen worden.";
 "wikitext-download-success" = "Inhoud geladen.";
-"wikitext-preview-changes" = "Voorbeeld van uw wijzigingen ophalen...";
+"wikitext-preview-changes" = "Voorvertoning van uw wijzigingen aan het ophalen...";
 "wikitext-preview-changes-none" = "Er zijn geen wijzigingen gemaakt om een voorbeeld van te geven.";
 "wikitext-upload-result-unknown" = "Het was niet mogelijk het resultaat van de geüploade wikitekst te bepalen.";
 "wikitext-upload-captcha-error" = "CAPTCHA-vertificatiefout.";
@@ -150,8 +150,8 @@
 "navbar-title-mode-edit-wikitext" = "Bewerken";
 "navbar-title-mode-login" = "Aanmelden";
 "navbar-title-mode-login-and-save" = "Aanmelden en opslaan";
-"navbar-title-mode-create-account" = "Gebruiker aanmaken";
-"navbar-title-mode-create-account-and-save" = "Gebruiker aanmaken en opslaan";
+"navbar-title-mode-create-account" = "Account aanmaken";
+"navbar-title-mode-create-account-and-save" = "Account aanmaken en opslaan";
 "navbar-title-mode-edit-wikitext-warning" = "Bewerkingsproblemen";
 "navbar-title-mode-edit-wikitext-disallow" = "Bewerkingsproblemen";
 "navbar-title-mode-edit-wikitext-preview" = "Voorvertoning";
@@ -208,11 +208,11 @@
 "lastmodified-by-user" = "$1 bewerkt door $2";
 "lastmodified-by-anon" = "$1 bewerkt door een anonieme gebruiker";
 "button-next" = "Volgende";
-"button-done" = "Gereed";
+"button-done" = "Afgerond";
 "button-save" = "Opslaan";
-"onboarding-create-account" = "Registreren";
+"onboarding-create-account" = "Account aanmaken";
 "onboarding-login" = "Aanmelden";
-"onboarding-already-have-account" = "Hebt u al een gebruiker? $1";
+"onboarding-already-have-account" = "Hebt u al een account? $1";
 "onboarding-skip" = "Overslaan";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "De vrije encyclopedie";
@@ -285,6 +285,6 @@
 "hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
-"captcha-reload" = "Andere captcha weergeven";
+"captcha-reload" = "Andere CAPTCHA weergeven";
 "captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";

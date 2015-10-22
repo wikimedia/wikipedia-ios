@@ -11,6 +11,7 @@
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
 "article-languages-filter-placeholder" = "Hizkuntza Iragazkia";
 "article-read-more-title" = "Irakurri gehiago";
+"info-box-title" = "Datu azkarrak";
 "info-box-close-text" = "Itxi";
 "table-title-other" = "Informazio gehiago";
 "history-label" = "Berriak";
@@ -67,10 +68,14 @@
 "main-menu-faq" = "Maiz egiten diren galderak";
 "main-menu-language-toggle-show" = "Erakutsi hizkuntzak";
 "main-menu-language-toggle-hide" = "Ezkutatu hizkuntzak";
+"main-menu-language-selection-saved" = "Hizkuntza hautaketa gordea";
 "main-menu-account-title-logged-out" = "Kontua";
 "main-menu-account-title-logged-in" = "Saioa $1 bezala hasia";
 "main-menu-account-login" = "Saioa hasi";
 "main-menu-account-logout" = "Saioa itxi";
+"main-menu-show-title" = "Erakutsi gehiago...";
+"main-menu-show-saved" = "Gordetako orrialdeak";
+"main-menu-current-article-save" = "Gorde $1 offline irakurtzeko";
 "main-menu-random" = "Ausazkoa";
 "main-menu-credits" = "Kredituak";
 "main-menu-privacy-policy" = "Pribatutasun politika";
@@ -85,6 +90,8 @@
 "saved-pages-clear-cancel" = "Utzi";
 "saved-pages-clear-delete-all" = "Dena ezabatu";
 "saved-pages-none" = "Hizkuntzaren izena";
+"page-history-title" = "Artikuluaren historia";
+"page-history-downloading" = "Artikuluaren historia kargatzen...";
 "navbar-title-mode-edit-wikitext" = "Aldatu";
 "navbar-title-mode-login" = "Saioa hasi";
 "navbar-title-mode-login-and-save" = "Saioa hasi eta gorde";
@@ -129,6 +136,7 @@
 "onboarding-skip" = "Utzi";
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Entziklopedia askea";
+"preference_title_eventlogging_opt_in" = "Bidali erabilpen iruzkina";
 "page_protected_can_not_edit" = "Ez duzu orrialde hau aldatzeko baimenik";
 "page_protected_can_not_edit_title" = "Orrialde hau babestuta dago";
 "license-footer-name" = "CC-BY-SA 3.0";
