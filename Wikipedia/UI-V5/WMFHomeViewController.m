@@ -14,6 +14,7 @@
 #import "WMFHomeSection.h"
 
 // Models
+#import "WMFAsyncBlockOperation.h"
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
@@ -61,6 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
+
+@property (nonatomic, strong) NSOperationQueue* collectionViewUpdateQueue;
 
 @end
 
@@ -174,6 +177,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
+    queue.maxConcurrentOperationCount = 1;
+    queue.qualityOfService            = NSQualityOfServiceUserInteractive;
+    self.collectionViewUpdateQueue    = queue;
+
+
     self.collectionView.dataSource = nil;
 
     [self flowLayout].estimatedItemHeight = 380;
@@ -244,12 +253,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.cellCreationBlock = (id) ^ (id object, id parentView, NSIndexPath * indexPath){
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        NSParameterAssert(controller);
         return [controller dequeueCellForCollectionView:self.collectionView atIndexPath:indexPath];
     };
 
     self.dataSource.cellConfigureBlock = ^(id cell, id object, id parentView, NSIndexPath* indexPath){
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        NSParameterAssert(controller);
         [controller configureCell:cell withObject:object inCollectionView:parentView atIndexPath:indexPath];
     };
 
@@ -297,9 +308,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
     self.dataSource.collectionView = self.collectionView;
-    [self reloadSectionsWitCompletion:^{
-        [self.schemaManager update];
-    }];
+    [self reloadSectionsOnOperationQueue];
+    [self.schemaManager update];
 }
 
 #pragma mark - Related Sections
@@ -317,8 +327,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
-- (void)reloadSectionsWitCompletion:(nullable dispatch_block_t)completion {
-    [self unloadAllSectionsWithCompletion:^{
+- (void)reloadSectionsOnOperationQueue {
+    @weakify(self);
+    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
+        dispatchOnMainQueue(^{
+            @strongify(self);
+            [self reloadSectionsWithCompletion:^{
+                [operation finish];
+            }];
+        });
+    }];
+}
+
+- (void)reloadSectionsWithCompletion:(nullable dispatch_block_t)completion {
+    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
+        [self unloadSectionForSectionController:obj];
+    }];
+
+    [self.collectionView performBatchUpdates:^{
         [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
             switch (obj.type) {
                 case WMFHomeSectionTypeHistory:
@@ -337,7 +363,7 @@ NS_ASSUME_NONNULL_BEGIN
                     break;
             }
         }];
-
+    } completion:^(BOOL finished) {
         if (completion) {
             completion();
         }
@@ -364,43 +390,34 @@ NS_ASSUME_NONNULL_BEGIN
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
 
-    [self.collectionView performBatchUpdates:^{
-        [self.dataSource appendSection:section];
-        controller.delegate = self;
-    } completion:NULL];
-}
-
-- (void)insertSectionForSectionController:(id<WMFHomeSectionController>)controller atIndex:(NSUInteger)index {
-    if (!controller) {
-        return;
-    }
-    self.sectionControllers[controller.sectionIdentifier] = controller;
-
-    [controller registerCellsInCollectionView:self.collectionView];
-
-    SSSection* section = [SSSection sectionWithItems:[controller items]];
-    section.sectionIdentifier = controller.sectionIdentifier;
-
-    [self.collectionView performBatchUpdates:^{
-        [self.dataSource insertSection:section atIndex:index];
-        controller.delegate = self;
-    } completion:NULL];
+    [self.dataSource appendSection:section];
+    controller.delegate = self;
 }
 
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     if (!controller) {
         return;
     }
+
+    controller.delegate = nil;
+
     NSUInteger index = [self indexForSectionController:controller];
+
+    if (controller.sectionIdentifier) {
+        [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
+    }
 
     if (index == NSNotFound) {
         return;
     }
 
-    [self.collectionView performBatchUpdates:^{
-        [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
-        [self.dataSource removeSectionAtIndex:index];
-    } completion:NULL];
+    [self.dataSource removeSectionAtIndex:index];
+}
+
+- (void)unloadAllSections {
+    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
+        [self unloadSectionForSectionController:obj];
+    }];
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {
@@ -419,35 +436,6 @@ NS_ASSUME_NONNULL_BEGIN
     extendedList.recentPages = self.recentPages;
     extendedList.dataSource  = [controllerForSection extendedListDataSource];
     [self.navigationController pushViewController:extendedList animated:YES];
-}
-
-- (void)unloadAllSectionsWithCompletion:(nullable dispatch_block_t)completion {
-    if ([self.dataSource numberOfSections] == 0) {
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-
-    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
-        obj.delegate = nil;
-    }];
-
-    [self.sectionControllers removeAllObjects];
-    [self.dataSource removeAllSections];
-
-    /**
-     *  Hack: it isn't safe to manipulate the collection view after
-     *  we remove everything until the visual update completes.
-     *  Unfortunately there is no async API for this operation.
-     *  So we "fake" it here so we don't crash when trying to insert
-     *  sections immediately after unloading them
-     */
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        if (completion) {
-            completion();
-        }
-    });
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -495,7 +483,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFHomeSectionSchemaDelegate
 
 - (void)sectionSchemaDidUpdateSections:(WMFHomeSectionSchema*)schema {
-    [self reloadSectionsWitCompletion:NULL];
+    [self reloadSectionsOnOperationQueue];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate

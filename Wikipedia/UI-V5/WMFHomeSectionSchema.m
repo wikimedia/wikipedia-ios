@@ -114,7 +114,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Sections
 
-- (void)updateSections:(NSArray*)sections {
+- (void)setSections:(NSArray<WMFHomeSection*>*)sections {
+    sections  = [self removeUnimplementedSectionTypesFromSection:sections];
+    _sections = sections;
+}
+
+- (void)updateSections:(NSArray<WMFHomeSection*>*)sections {
     self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
@@ -175,6 +180,22 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     [sections addObject:[self nearbySectionWithLocation:location]];
 
     [self updateSections:sections];
+}
+
+- (NSArray<WMFHomeSection*>*)removeUnimplementedSectionTypesFromSection:(NSArray<WMFHomeSection*>*)sections {
+    return [sections bk_reject:^BOOL (WMFHomeSection* section) {
+        switch (section.type) {
+            case WMFHomeSectionTypeToday:
+            case WMFHomeSectionTypeRandom: {
+                return YES;
+            }
+            break;
+            default: {
+                return NO;
+            }
+            break;
+        }
+    }];
 }
 
 #pragma mmrk - Create Schema Items
