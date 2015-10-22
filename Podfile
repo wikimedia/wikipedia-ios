@@ -55,15 +55,20 @@ end
 
 pod 'SVWebViewController', '~> 1.0'
 
-post_install do |installer_representation|
-  installer_representation.pods_project.targets.each do |target|
-    if target.name == "Tweaks"
-      target.build_configurations.each do |config|
-        if config.name != 'Release'
-          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FB_TWEAK_ENABLED=1']
-        end
-      end
-    end
+post_install do |installer|
+  plist_buddy = "/usr/libexec/PlistBuddy"
+  version = `#{plist_buddy} -c "Print CFBundleShortVersionString" Wikipedia/Wikipedia-Info.plist`.strip
+
+  def enable_tweaks(target)
+    target.build_configurations.each { |c|
+      c.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FB_TWEAK_ENABLED=1'] unless c.name == "Release"
+    }
   end
+
+  installer.pods_project.targets.each { |target|
+    enable_tweaks(target) if target.name == "Tweaks"
+    puts "Updating #{target} version number to #{version}"
+    `#{plist_buddy} -c "Set CFBundleShortVersionString #{version}" "Pods/Target Support Files/#{target}/Info.plist"`
+  }
 end
 
