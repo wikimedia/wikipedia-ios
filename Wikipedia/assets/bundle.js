@@ -43,6 +43,7 @@ module.exports = new Bridge();
 })(module);
 
 },{}],2:[function(require,module,exports){
+(function (global){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -98,6 +99,14 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
     return -1;
 };
 
+function getElementFromPoint(x, y){
+    return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
+}
+
+global.getElementFromPoint = getElementFromPoint;
+
+
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 (function () {
 var bridge = require("./bridge");
@@ -219,9 +228,12 @@ function maybeSendMessageForTarget(event, hrefTarget){
     }
     return true;
 }
-
+ 
+//WARNING! TEMPORARY FOR TESTING FORCE TOUCH. DO NO MERGE!
+if(0){
 document.addEventListener("touchend", handleTouchEnded, false);
-
+}
+ 
 })();
 
 },{"./bridge":1,"./refs":5,"./transformer":8,"./transforms/collapsePageIssuesAndDisambig":11,"./utilities":17}],4:[function(require,module,exports){
