@@ -54,7 +54,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
         tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
         addHighlightOfItemsRelatedTo(item, animated: false)
     }
-    
+
     // MARK: - Selection
 
     public func deselectAllRows() {
@@ -67,7 +67,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
             }
         }
     }
-    
+
     public func addHighlightOfItemsRelatedTo(item: TableOfContentsItem, animated: Bool) {
         guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
@@ -79,7 +79,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
             }
         }
     }
-    
+
     // MARK: - UIViewController
 
     public override func viewDidLoad() {
@@ -89,12 +89,12 @@ public class WMFTableOfContentsViewController: UITableViewController,
         clearsSelectionOnViewWillAppear = false
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+
         automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
         tableView.separatorStyle = .None
     }
-    
+
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableOfContentsFunnel.logOpen()
@@ -104,7 +104,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
         super.viewDidDisappear(animated)
         deselectAllRows()
     }
-    
+
     // MARK: - UITableViewDataSource
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -121,7 +121,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
         cell.setSectionSelected(shouldHighlight, animated: false)
         return cell
     }
-    
+
     // MARK: - UITableViewDelegate
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
@@ -136,10 +136,10 @@ public class WMFTableOfContentsViewController: UITableViewController,
         if presented == self {
             return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting, tapDelegate: self)
         }
-        
+
         return nil
     }
-    
+
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if presented == self {
             return WMFTableOfContentsAnimator(isPresenting: true)
@@ -148,7 +148,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
             return nil
         }
     }
-    
+
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if dismissed == self {
             return WMFTableOfContentsAnimator(isPresenting: false)
@@ -157,7 +157,7 @@ public class WMFTableOfContentsViewController: UITableViewController,
             return nil
         }
     }
-    
+
     // MARK: - WMFTableOfContentsPresentationControllerTapDelegate
 
     public func tableOfContentsPresentationControllerDidTapBackground(controller: WMFTableOfContentsPresentationController) {

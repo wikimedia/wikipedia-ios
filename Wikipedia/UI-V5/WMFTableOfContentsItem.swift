@@ -65,3 +65,4 @@ extension TableOfContentsItem {
 
     public var indentationLevel: UInt { get { return 0 } }
 }
+
