@@ -4,6 +4,7 @@
 @import SelfSizingWaterfallCollectionViewLayout;
 @import SSDataSources;
 @import Tweaks;
+@import BlocksKit;
 
 // Sections
 #import "WMFNearbySectionController.h"
@@ -295,6 +296,16 @@ NS_ASSUME_NONNULL_BEGIN
             header.titleView.attributedText = title;
             header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
             header.titleView.delegate       = self;
+
+            if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
+                header.rightButtonEnabled = YES;
+                [header.rightButton bk_addEventHandler:^(id sender) {
+                    [controller performHeaderButtonAction];
+                } forControlEvents:UIControlEventTouchUpInside];
+            } else {
+                header.rightButtonEnabled = NO;
+                [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+            }
         } else {
             WMFHomeSectionFooter* footer = view;
             if ([controller respondsToSelector:@selector(footerText)]) {
