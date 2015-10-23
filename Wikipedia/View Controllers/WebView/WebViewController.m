@@ -372,10 +372,19 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToFragment:(NSString*)fragment {
+    [self scrollToFragment:fragment animated:YES];
+}
+
+- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:YES];
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
     } else {
+        if (!animated) {
+            [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"scrollToFragment"
+                                                            withArguments:@[fragment]];
+            return;
+        }
         CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
         if (!CGRectIsNull(r)) {
             CGPoint elementOrigin =
@@ -386,8 +395,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)scrollToSection:(MWKSection*)section {
-    [self scrollToFragment:section.anchor];
+- (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated {
+    [self scrollToFragment:section.anchor animated:animated];
 }
 
 - (nullable MWKSection*)currentVisibleSection {
@@ -403,6 +412,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
+}
+
+- (BOOL)isWebContentVisible {
+    return CGRectIntersectsRect(self.webView.scrollView.wmf_contentFrame, self.webView.wmf_browserView.frame);
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
