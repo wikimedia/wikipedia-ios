@@ -88,7 +88,7 @@
  *  Checks all html elements in the web view which have id's of format prefix string followed
  *  by count index (if prefix is "things_" and count is 3 it will check "thing_0", "thing_1"
  *  and "thing_2") to see if they are onscreen. Returns index of first one found to be so.
-*/
+ */
 - (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count {
     // HAX: Apparently passing NSNumber is no good, need to wrap in JSValue
     JSValue* jsCount = [JSValue valueWithInt32:(int32_t)count
