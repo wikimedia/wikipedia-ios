@@ -10,7 +10,7 @@
 
 @class WMFTableOfContentsViewController, WebViewController;
 
-typedef NS_ENUM(NSInteger, WMFArticleFooterViewIndex) {
+typedef NS_ENUM (NSInteger, WMFArticleFooterViewIndex) {
     WMFArticleFooterViewIndexReadMore = 0
 };
 
