@@ -19,7 +19,7 @@
 }
 
 - (CGRect)wmf_contentFrame {
-    return CGRectOffset(self.frame, 0, self.contentOffset.y);
+    return UIEdgeInsetsInsetRect(CGRectOffset(self.frame, 0, self.contentOffset.y), self.contentInset);
 }
 
 @end
