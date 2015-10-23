@@ -5,7 +5,6 @@
 @interface WMFContinueReadingSectionController : NSObject <WMFHomeSectionController>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore
-                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate;
+                           dataStore:(MWKDataStore*)dataStore;
 
 @end

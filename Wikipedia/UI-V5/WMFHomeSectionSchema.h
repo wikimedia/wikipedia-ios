@@ -46,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)update:(BOOL)force;
 
-
 /**
  *  Reset the schema - removes all items and restores back to the "startingSchema"
  *  Call this when you clear out the feed.
