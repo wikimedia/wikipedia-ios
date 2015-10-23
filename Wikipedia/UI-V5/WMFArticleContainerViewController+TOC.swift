@@ -16,7 +16,8 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
         dispatchOnMainQueueAfterDelayInSeconds(0.25) {
             self.dismissViewControllerAnimated(true, completion: nil)
             if let section = item as? MWKSection {
-                self.webViewController.scrollToSection(section)
+                // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
+                self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
             } else if let footerItem = item as? TableOfContentsFooterItem {
                 self.webViewController.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
             } else {
