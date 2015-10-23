@@ -18,6 +18,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
             if let section = item as? MWKSection {
                 self.webViewController.scrollToSection(section)
             } else if let _ = item as? TableOfContentsReadMoreItem {
+                self.webViewController.scrollToFooterAtIndex(0)
             }
         }
     }

@@ -43,6 +43,10 @@
 
 @property (nonatomic, strong) NSArray<UIViewController*>* footerViewControllers;
 
+- (void)scrollToFooterAtIndex:(NSUInteger)index;
+
+- (NSInteger)visibleFooterIndex;
+
 @end
 
 

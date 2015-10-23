@@ -201,6 +201,18 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Headers & Footers
 
+- (void)scrollToFooterAtIndex:(NSUInteger)index {
+    UIView* footerView       = self.footerViewControllers[index].view;
+    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:footerView.frame.origin
+                                                            fromView:self.footerContainerView];
+    footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
+    [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
+}
+
+- (NSInteger)visibleFooterIndex {
+    return NSNotFound;
+}
+
 - (void)loadHeadersAndFooters {
     /*
        NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
