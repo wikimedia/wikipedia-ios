@@ -926,7 +926,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (MWKTitle*)titleForHTMLElement:(JSValue*)element {
     if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
-        NSURL* url = [NSURL URLWithString:[[element valueForProperty:@"href"] toString]];
+        NSString *urlString = [[element valueForProperty:@"href"] toString];
+        // Don't peek external links (temporarily).
+        if (![urlString wmf_isInternalLink]) {
+            return nil;
+        }
+        NSURL* url = [NSURL URLWithString:urlString];
         // Don't peek intra-page fragment links - such as references.
         if ([url wmf_isIntraPageFragment]) {
             return nil;
