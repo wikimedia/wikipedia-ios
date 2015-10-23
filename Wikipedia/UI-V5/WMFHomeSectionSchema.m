@@ -185,8 +185,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (NSArray<WMFHomeSection*>*)removeUnimplementedSectionTypesFromSection:(NSArray<WMFHomeSection*>*)sections {
     return [sections bk_reject:^BOOL (WMFHomeSection* section) {
         switch (section.type) {
-            case WMFHomeSectionTypeToday:
-            case WMFHomeSectionTypeRandom: {
+            case WMFHomeSectionTypeToday: {
                 return YES;
             }
             break;

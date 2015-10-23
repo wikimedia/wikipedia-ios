@@ -1,16 +1,19 @@
 
 #import "WMFHomeSectionController.h"
 
-@class WMFLocationManager, WMFNearbyViewModel, MWKSite;
+@class WMFLocationManager, WMFNearbyViewModel, MWKSite, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbySectionController : NSObject <WMFHomeSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site
+               savedPageList:(MWKSavedPageList*)savedPageList
              locationManager:(WMFLocationManager*)locationManager;
 
-- (instancetype)initWithSite:(MWKSite*)site viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSite:(MWKSite*)site
+               savedPageList:(MWKSavedPageList*)savedPageList
+                   viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong) MWKSite* searchSite;
 

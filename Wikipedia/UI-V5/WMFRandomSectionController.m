@@ -32,22 +32,16 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site {
+- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
+    NSParameterAssert(savedPageList);
     self = [super init];
     if (self) {
-        self.searchSite = site;
+        self.searchSite    = site;
+        self.savedPageList = savedPageList;
+        [self getNewRandomArticle];
     }
     return self;
-}
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
-    /*
-       HAX: can't fetch titles until we get the saved page list, since it's needed to create articles
-       and configure cells
-     */
-    _savedPageList = savedPageList;
-    [self getNewRandomArticle];
 }
 
 - (WMFRandomArticleFetcher*)fetcher {
@@ -78,7 +72,11 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 - (NSArray*)items {
-    return @[self.result];
+    if (self.result) {
+        return @[self.result];
+    } else {
+        return nil;
+    }
 }
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {

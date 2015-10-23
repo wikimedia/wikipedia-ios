@@ -4,7 +4,7 @@
 #import "WMFRelatedSearchFetcher.h"
 #import "MWKTitle.h"
 #import "WMFRelatedSearchResults.h"
-#import "MWKRelatedSearchResult.h"
+#import "MWKSearchResult.h"
 #import "MWKSavedPageList.h"
 
 // Controllers
@@ -39,22 +39,22 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate {
+                       savedPageList:(MWKSavedPageList*)savedPageList {
     return [self initWithArticleTitle:title
-                             delegate:delegate
+                        savedPageList:savedPageList
                  relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate
+                       savedPageList:(MWKSavedPageList*)savedPageList
                 relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
+    NSParameterAssert(savedPageList);
     NSParameterAssert(relatedSearchFetcher);
     self = [super init];
     if (self) {
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
-        self.delegate             = delegate;
     }
     return self;
 }
@@ -115,7 +115,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
           atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
-        MWKRelatedSearchResult* result     = object;
+        MWKSearchResult* result            = object;
         previewCell.title           = [self titleForItemAtIndex:indexPath.row];
         previewCell.descriptionText = result.wikidataDescription;
         previewCell.imageURL        = result.thumbnailURL;

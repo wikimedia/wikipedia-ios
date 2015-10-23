@@ -2,6 +2,7 @@
 #import "MWKSearchResult.h"
 #import "NSURL+Extras.h"
 #import "NSString+Extras.h"
+#import "NSString+WMFHTMLParsing.h"
 
 @implementation MWKSearchResult
 
@@ -26,12 +27,19 @@
     }];
 }
 
++ (MTLValueTransformer*)extractJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* extract, BOOL* success, NSError* __autoreleasing* error) {
+        return [extract wmf_summaryFromText];
+    }];
+}
+
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
                WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
-               WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description"
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract"
     };
 }
 

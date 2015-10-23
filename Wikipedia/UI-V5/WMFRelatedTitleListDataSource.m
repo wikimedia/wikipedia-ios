@@ -21,7 +21,7 @@
 // Model
 #import "MWKTitle.h"
 #import "MWKArticle.h"
-#import "MWKRelatedSearchResult.h"
+#import "MWKSearchResult.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryEntry.h"
 #import "MWKDataStore.h"
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKRelatedSearchResult* searchResult = self.relatedTitleResults[indexPath.item];
+            MWKSearchResult* searchResult = self.relatedTitleResults[indexPath.item];
             [cell setSavedPageList:self.savedPageList];
             cell.title           = article.title;
             cell.descriptionText = searchResult.wikidataDescription;
@@ -109,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableArray* mutableResults = [searchResults.results mutableCopy];
         NSArray* items = [mutableResults bk_reduce:[NSMutableArray arrayWithCapacity:self.relatedTitleResults.count]
                                          withBlock:^(NSMutableArray* articles,
-                                                     MWKRelatedSearchResult* relatedSearchResult) {
+                                                     MWKSearchResult* relatedSearchResult) {
             MWKTitle* title = [[MWKTitle alloc] initWithString:relatedSearchResult.displayTitle
                                                           site:self.title.site];
             NSError* error;

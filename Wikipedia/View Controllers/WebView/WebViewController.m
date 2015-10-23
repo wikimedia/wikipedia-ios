@@ -17,7 +17,6 @@
 #import "MWKImageList.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "RandomArticleFetcher.h"
 #import "MWKSiteInfoFetcher.h"
 #import "WMFArticleFetcher.h"
 #import "MWKSiteInfo.h"

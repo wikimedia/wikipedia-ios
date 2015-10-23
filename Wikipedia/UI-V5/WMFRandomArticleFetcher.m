@@ -3,7 +3,12 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFApiJsonResponseSerializer.h"
+#import "WMFMantleJSONResponseSerializer.h"
+#import "WMFNumberOfExtractCharacters.h"
+
+
 #import "MWKSite.h"
+#import "MWKSearchResult.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -24,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.responseSerializer = [WMFApiJsonResponseSerializer serializer];
-        self.operationManager      = manager;
+        manager.responseSerializer = [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
+                                                                                                fromKeypath:@"query.pages"];
+        self.operationManager = manager;
     }
     return self;
 }
@@ -43,20 +50,13 @@ NS_ASSUME_NONNULL_BEGIN
                      useDesktopURL:(BOOL)useDeskTopURL
                           resolver:(PMKResolver)resolve {
     NSURL* url           = [site apiEndpoint:useDeskTopURL];
-    NSDictionary* params = @{
-        @"action": @"query",
-        @"list": @"random",
-        @"rnlimit": @"1",
-        @"rnnamespace": @"0",
-        @"format": @"json"
-    };
+    NSDictionary* params = [[self class] params];
 
     [self.operationManager GET:url.absoluteString
                     parameters:params
                        success:^(AFHTTPRequestOperation* operation, id response) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        NSArray* randomArticles = (NSArray*)response[@"query"][@"random"];
-        NSDictionary* article = [randomArticles objectAtIndex:0];
+        MWKSearchResult* article = [response firstObject];
         resolve(article);
     } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
@@ -66,6 +66,30 @@ NS_ASSUME_NONNULL_BEGIN
             resolve(error);
         }
     }];
+}
+
++ (NSDictionary*)params {
+    return @{
+               @"action": @"query",
+               @"prop": @"extracts|pageterms|pageimages",
+               //random
+               @"generator": @"random",
+               @"grnnamespace": @0,
+               @"grnfilterredir": @"all",
+               @"grnlimit": @"1",
+               // extracts
+               @"exintro": @YES,
+               @"exlimit": @"1",
+               @"explaintext": @"",
+               @"exchars": @(WMFNumberOfExtractCharacters),
+               // pageterms
+               @"wbptterms": @"description",
+               // pageimage
+               @"piprop": @"thumbnail",
+               @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+               @"pilimit": @"1",
+               @"format": @"json",
+    };
 }
 
 @end
