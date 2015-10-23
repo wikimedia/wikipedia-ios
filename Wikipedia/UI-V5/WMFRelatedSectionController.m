@@ -55,17 +55,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     if (self) {
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
+        self.savedPageList        = savedPageList;
+        [self fetchRelatedArticles];
     }
     return self;
-}
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
-    /*
-       HAX: can't fetch titles until we get the saved page list, since it's needed to create articles
-          and configure cells
-     */
-    _savedPageList = savedPageList;
-    [self fetchRelatedArticles];
 }
 
 - (id)sectionIdentifier {

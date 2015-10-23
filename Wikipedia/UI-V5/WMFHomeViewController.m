@@ -320,7 +320,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFHomeSection*)item {
-    return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
+    return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFHomeSection*)item {
