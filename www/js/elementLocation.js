@@ -52,3 +52,10 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
     }
     return -1;
 };
+
+function getElementFromPoint(x, y){
+    return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
+}
+
+global.getElementFromPoint = getElementFromPoint;
+

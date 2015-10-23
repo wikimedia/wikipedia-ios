@@ -49,4 +49,8 @@
     return queryItem ? (queryItem.value ? : @"") : nil;
 }
 
+- (BOOL)wmf_isIntraPageFragment {
+    return ([self.path isEqualToString:@"/"] && self.fragment);
+}
+
 @end

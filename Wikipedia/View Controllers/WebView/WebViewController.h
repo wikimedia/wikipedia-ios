@@ -4,7 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "PullToRefreshViewController.h"
 
-@class MWKSection, MWKArticle;
+@class MWKSection, MWKArticle, MWKTitle, JSValue;
 
 @protocol WMFWebViewControllerDelegate;
 
@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<WMFWebViewControllerDelegate> delegate;
 
 @property (nonatomic, strong, nullable, readonly) UIWebView* webView;
+
+@property (nonatomic) BOOL isPeeking;
 
 /**
  * Currently-selected text in the webview, if there is any.
@@ -59,6 +61,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
 - (CGFloat)currentVerticalOffset;
+
+- (JSValue*)htmlElementAtLocation:(CGPoint)location;
+- (NSURL*)urlForHTMLElement:(JSValue*)element;
+- (CGRect)rectForHTMLElement:(JSValue*)element;
 
 /**
  *  Check if web content is visible.

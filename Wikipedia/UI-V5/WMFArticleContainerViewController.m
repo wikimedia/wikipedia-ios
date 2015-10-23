@@ -48,6 +48,14 @@
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
+#import "NSString+WMFPageUtilities.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "NSURL+Extras.h"
+
+@import SafariServices;
+
+@import JavaScriptCore;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
@@ -56,7 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
- SectionEditorViewControllerDelegate>
+ WMFTableOfContentsViewControllerDelegate,
+ SectionEditorViewControllerDelegate,
+ UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -321,6 +331,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
     [self fetchArticle];
+
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+        [self configureLinkPreviewingDelegation];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -522,6 +536,59 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self.navigationController popToViewController:self animated:YES];
     [self fetchArticle];
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (void)configureLinkPreviewingDelegation {
+    id <UIViewControllerPreviewing>pc = [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
+    for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
+        [r requireGestureRecognizerToFail:pc.previewingGestureRecognizerForFailureRelationship];
+    }
+}
+
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+    JSValue* peekElement = [self.webViewController htmlElementAtLocation:location];
+    if (!peekElement) {
+        return nil;
+    }
+
+    NSURL* peekURL = [self.webViewController urlForHTMLElement:peekElement];
+    if (!peekURL) {
+        return nil;
+    }
+
+    UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
+    if (peekVC) {
+        self.webViewController.isPeeking = YES;
+        previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
+        return peekVC;
+    }
+
+    return nil;
+}
+
+- (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
+    if (![url wmf_isInternalLink]) {
+        return [[SFSafariViewController alloc] initWithURL:url];
+    } else {
+        if (![url wmf_isIntraPageFragment]) {
+            return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]
+                                                                         dataStore:self.dataStore
+                                                                   discoveryMethod:self.discoveryMethod];
+        }
+    }
+    return nil;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController*)viewControllerToCommit {
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
+    } else {
+        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    }
 }
 
 @end

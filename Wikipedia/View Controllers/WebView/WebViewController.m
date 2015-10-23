@@ -15,6 +15,7 @@
 #import "MWKSectionList.h"
 #import "MWKSite.h"
 #import "MWKImageList.h"
+#import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "RandomArticleFetcher.h"
@@ -38,6 +39,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
+#import "NSURL+Extras.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -117,6 +119,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.isPeeking = NO;
     [self loadHeadersAndFooters];
 
     self.referencesHidden = YES;
@@ -132,11 +135,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.zeroStatusLabel.text = @"";
 
     [self fadeAlert];
-
-    // Ensure web view can appear beneath translucent nav bar when scrolled up
-    for (UIView* subview in self.webView.subviews) {
-        subview.clipsToBounds = NO;
-    }
 
     self.webView.backgroundColor = [UIColor whiteColor];
 
@@ -505,6 +503,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
             @strongify(self);
             if (!self) {
+                return;
+            }
+
+            if (self.isPeeking) {
+                self.isPeeking = NO;
                 return;
             }
 
@@ -953,6 +956,29 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)editHistoryButtonPushed {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
+}
+
+#pragma mark - Previewing
+
+- (JSValue*)htmlElementAtLocation:(CGPoint)location {
+    return [[self.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
+}
+
+- (NSURL*)urlForHTMLElement:(JSValue*)element {
+    if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
+        NSString* urlString = [[element valueForProperty:@"href"] toString];
+        return (!urlString) ? nil : [NSURL URLWithString:urlString];
+    }
+    return nil;
+}
+
+- (CGRect)rectForHTMLElement:(JSValue*)element {
+    JSValue* rect  = [element invokeMethod:@"getBoundingClientRect" withArguments:@[]];
+    CGFloat left   = (CGFloat)[[rect valueForProperty:@"left"] toDouble];
+    CGFloat right  = (CGFloat)[[rect valueForProperty:@"right"] toDouble];
+    CGFloat top    = (CGFloat)[[rect valueForProperty:@"top"] toDouble];
+    CGFloat bottom = (CGFloat)[[rect valueForProperty:@"bottom"] toDouble];
+    return CGRectMake(left, top + self.webView.scrollView.contentOffset.y, right - left, bottom - top);
 }
 
 @end
