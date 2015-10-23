@@ -43,6 +43,7 @@ module.exports = new Bridge();
 })(module);
 
 },{}],2:[function(require,module,exports){
+(function (global){
 //  Created by Monte Hurd on 12/28/13.
 //  Used by methods in "UIWebView+ElementLocation.h" category.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
@@ -98,6 +99,14 @@ exports.getIndexOfFirstOnScreenElement = function(elementPrefix, elementCount){
     return -1;
 };
 
+function getElementFromPoint(x, y){
+    return document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
+}
+
+global.getElementFromPoint = getElementFromPoint;
+
+
+}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],3:[function(require,module,exports){
 (function () {
 var bridge = require("./bridge");
