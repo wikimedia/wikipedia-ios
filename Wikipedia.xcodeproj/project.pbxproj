@@ -476,6 +476,7 @@
 		BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE91B11CC5800231BB1 /* user-loggedin.json */; };
 		BCD41E001B11D1B200231BB1 /* XCTestCase+MWKFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD41DFE1B11D17100231BB1 /* XCTestCase+MWKFixtures.m */; };
 		BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */; };
+		BCDBCC6E1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */; settings = {ASSET_TAGS = (); }; };
 		BCDD703A1BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */; settings = {ASSET_TAGS = (); }; };
 		BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD51B0CF0C7003F054B /* LegacyCoreDataMigrator.m */; };
 		BCE24FDE1B0CF0C7003F054B /* LegacyDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD81B0CF0C7003F054B /* LegacyDataMigrator.m */; };
@@ -1441,6 +1442,8 @@
 		BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageInfoController_Private.h; path = "Image Gallery/WMFImageInfoController_Private.h"; sourceTree = "<group>"; };
 		BCDB75BD1AB0DFC40005593F /* WMFRangeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFRangeUtils.h; sourceTree = "<group>"; };
 		BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
+		BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticleContainerViewController+TOC.swift"; sourceTree = "<group>"; };
+		BCDBCC6F1BDA5BFC002298FC /* WMFArticleContainerViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Private.h; sourceTree = "<group>"; };
 		BCDBEBE81BB32E7600841C20 /* SavedArticlesFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher_Testing.h; sourceTree = "<group>"; };
 		BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcherTests.m; sourceTree = "<group>"; };
 		BCE24FD41B0CF0C7003F054B /* LegacyCoreDataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyCoreDataMigrator.h; sourceTree = "<group>"; };
@@ -2693,6 +2696,8 @@
 				B0F711021BCC68560040BB42 /* WMFNumberOfExtractCharacters.h */,
 				0EA35C481B6BB85100D9CFE6 /* WMFArticleContainerViewController.h */,
 				0EA35C491B6BB85100D9CFE6 /* WMFArticleContainerViewController.m */,
+				BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */,
+				BCDBCC6F1BDA5BFC002298FC /* WMFArticleContainerViewController_Private.h */,
 				0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */,
 				BCF7FC9C1B7BA42A00CDFB8C /* WMFArticleContainerViewController_Transitioning.h */,
 				0E94AFF41B209882000BC5EA /* WMFArticleViewController.h */,
@@ -4091,6 +4096,7 @@
 				041E32371B72AB9A001D0E28 /* WMFSectionHeadersViewController.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
 				041E323A1B72AB9A001D0E28 /* WMFSectionHeaderModel.m in Sources */,
+				BCDBCC6E1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				BCA96E771AAA35EE009A61FA /* UIView+WMFDefaultNib.m in Sources */,
 				0EBB287C1B70350C00D8E1D8 /* UIView+WMFSnapshotting.m in Sources */,
 				0E94AFFB1B20A22C000BC5EA /* WMFStyleManager.m in Sources */,

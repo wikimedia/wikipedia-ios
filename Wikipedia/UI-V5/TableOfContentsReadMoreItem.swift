@@ -10,6 +10,5 @@ import Foundation
 
 public class TableOfContentsReadMoreItem : NSObject, TableOfContentsItem {
     public let titleText: String = localizedStringForKeyFallingBackOnEnglish("article-read-more-title")
-
     public let itemType: TableOfContentsItemType = TableOfContentsItemType.Primary
 }
