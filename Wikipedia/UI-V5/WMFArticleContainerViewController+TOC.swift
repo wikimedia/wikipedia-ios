@@ -34,8 +34,8 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
 extension WMFArticleContainerViewController {
     /**
     Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
-    
-    - note: This must be done in Swift because `WMFTableOfContentsViewControllerDelegate` is not an ObjC protocol, 
+
+    - note: This must be done in Swift because `WMFTableOfContentsViewControllerDelegate` is not an ObjC protocol,
             and therefore cannot be referenced in Objective-C.
 
     - returns: A new view controller or `nil` if the receiver's `article.sections` is `nil`.
