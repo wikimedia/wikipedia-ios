@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIWebView+ElementLocation.h"
+#import "UIWebView+WMFJavascriptContext.h"
 
 @implementation UIWebView (ElementLocation)
 
@@ -83,14 +84,24 @@
     return r;
 }
 
+/**
+ *  Checks all html elements in the web view which have id's of format prefix string followed
+ *  by count index (if prefix is "things_" and count is 3 it will check "thing_0", "thing_1"
+ *  and "thing_2") to see if they are onscreen. Returns index of first one found to be so.
+*/
 - (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count {
-    // Checks all html elements in the web view which have id's of format prefix string followed
-    // by count index (if prefix is "things_" and count is 3 it will check "thing_0", "thing_1"
-    // and "thing_2") to see if they are onscreen. Returns index of first one found to be so.
-    NSString* strToEval =
-        [NSString stringWithFormat:@"window.elementLocation.getIndexOfFirstOnScreenElement('%@', %lu);", prefix, (unsigned long)count];
-    NSString* result = [self stringByEvaluatingJavaScriptFromString:strToEval];
-    return (result) ? result.integerValue : -1;
+    // HAX: Apparently passing NSNumber is no good, need to wrap in JSValue
+    JSValue* jsCount = [JSValue valueWithInt32:(int32_t)count
+                                     inContext:self.wmf_javascriptContext];
+    JSValue* location =
+        [[self wmf_strictValueForKey:@"elementLocation"] invokeMethod:@"getIndexOfFirstOnScreenElement"
+                                                        withArguments:@[prefix, jsCount]];
+    if (!location) {
+        DDLogWarn(@"Unable to query webview %@ for location of element for %@ ", self, prefix);
+        return NSNotFound;
+    }
+    NSInteger index = location.toInt32;
+    return index < 0 ? NSNotFound : index;
 }
 
 @end
