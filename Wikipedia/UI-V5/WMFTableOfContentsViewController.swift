@@ -19,13 +19,8 @@ public class WMFTableOfContentsViewController: UITableViewController,
     let items: [TableOfContentsItem]
 
     // MARK: - Init
-    public required init(sectionList: MWKSectionList, delegate: WMFTableOfContentsViewControllerDelegate) {
-        items = {
-            // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
-            var xs = sectionList.entries.map() { $0 as! TableOfContentsItem }
-            xs.append(TableOfContentsReadMoreItem())
-            return xs
-        }()
+    public required init(items: [TableOfContentsItem], delegate: WMFTableOfContentsViewControllerDelegate) {
+        self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
