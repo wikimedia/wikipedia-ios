@@ -36,7 +36,7 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 - (void)prepareLayout {
     [super prepareLayout];
 
-    if (!self.moveGestureRecognizer) {
+    if (!self.moveGestureRecognizer && !self.previewingEnabled) {
         self.moveGestureRecognizer          = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
         self.moveGestureRecognizer.delegate = self;
         [self.collectionView addGestureRecognizer:self.moveGestureRecognizer];
@@ -80,7 +80,6 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 - (IBAction)handleLongPress:(UILongPressGestureRecognizer*)recognizer {
     static CGPoint startCenter;
     static CGPoint startLocation;
-
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan: {
             startLocation = [recognizer locationInView:self.collectionView];
