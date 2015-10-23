@@ -39,7 +39,10 @@ extension WMFArticleContainerViewController {
     */
     public func createTableOfContentsViewController() -> WMFTableOfContentsViewController? {
         if let sections = self.article?.sections {
-           return WMFTableOfContentsViewController(sectionList: sections, delegate: self)
+            // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
+            var items = sections.entries.map() { $0 as! TableOfContentsItem }
+            items.append(TableOfContentsReadMoreItem())
+            return WMFTableOfContentsViewController(items: items, delegate: self)
         } else {
             return nil
         }
