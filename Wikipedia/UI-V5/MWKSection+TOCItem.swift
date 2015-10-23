@@ -1,0 +1,56 @@
+//
+//  MWKSection+TOCItem.swift
+//  Wikipedia
+//
+//  Created by Brian Gerstle on 10/20/15.
+//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
+//
+
+import Foundation
+
+extension MWKSection : TableOfContentsItem {
+    public var titleText: String {
+        get {
+            if(isLeadSection()) {
+                return title.text
+            } else {
+                return line?.wmf_stringByRemovingHTML() ?? ""
+            }
+        }
+    }
+
+    public var itemType: TableOfContentsItemType {
+        get {
+            return level?.intValue <= 2 ? TableOfContentsItemType.Primary : TableOfContentsItemType.Secondary
+        }
+    }
+
+    public var borderType: TableOfContentsBorderType {
+        get {
+            if isLeadSection() {
+                return TableOfContentsBorderType.FullWidth
+            } else if let level = level?.unsignedIntegerValue where level <= 2 {
+                return TableOfContentsBorderType.Default
+            } else {
+                return TableOfContentsBorderType.None
+            }
+        }
+    }
+
+    public var indentationLevel: UInt {
+        get {
+            if let level = toclevel?.unsignedIntegerValue where level > 0 {
+                return max(UInt(level - 1), 0)
+            } else {
+                return 0
+            }
+        }
+    }
+
+    public func shouldBeHighlightedAlongWithItem(item: TableOfContentsItem) -> Bool {
+        guard let sectionItem = item as? MWKSection else {
+            return false
+        }
+        return sectionItem.sectionHasSameRootSection(self)
+    }
+}

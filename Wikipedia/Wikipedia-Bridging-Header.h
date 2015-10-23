@@ -17,6 +17,10 @@
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
 
+// View Controllers
+#import "WMFArticleContainerViewController_Private.h"
+#import "WebViewController.h"
+
 // Diagnostics
 #import "ToCInteractionFunnel.h"
 

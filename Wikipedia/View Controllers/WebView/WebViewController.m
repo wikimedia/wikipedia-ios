@@ -15,6 +15,7 @@
 #import "MWKSectionList.h"
 #import "MWKSite.h"
 #import "MWKImageList.h"
+#import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "MWKSiteInfoFetcher.h"
@@ -37,6 +38,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
+#import "NSURL+Extras.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -116,6 +118,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.isPeeking = NO;
     [self loadHeadersAndFooters];
 
     self.referencesHidden = YES;
@@ -131,11 +134,6 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     self.zeroStatusLabel.text = @"";
 
     [self fadeAlert];
-
-    // Ensure web view can appear beneath translucent nav bar when scrolled up
-    for (UIView* subview in self.webView.subviews) {
-        subview.clipsToBounds = NO;
-    }
 
     self.webView.backgroundColor = [UIColor whiteColor];
 
@@ -199,6 +197,33 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 #pragma mark - Headers & Footers
+
+- (void)scrollToFooterAtIndex:(NSUInteger)index {
+    UIView* footerView       = self.footerViewControllers[index].view;
+    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:footerView.frame.origin
+                                                            fromView:self.footerContainerView];
+    footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
+    [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
+}
+
+- (NSInteger)visibleFooterIndex {
+    CGRect const scrollViewContentFrame = self.webView.scrollView.wmf_contentFrame;
+    if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
+        return NSNotFound;
+    }
+    return
+        [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL (__kindof UIView* _Nonnull footerView,
+                                                                           NSUInteger idx,
+                                                                           BOOL* _Nonnull stop) {
+        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:footerView.frame
+                                                                     fromView:self.footerContainerView];
+        if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+}
 
 - (void)loadHeadersAndFooters {
     /*
@@ -344,10 +369,19 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToFragment:(NSString*)fragment {
+    [self scrollToFragment:fragment animated:YES];
+}
+
+- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:YES];
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
     } else {
+        if (!animated) {
+            [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"scrollToFragment"
+                                                            withArguments:@[fragment]];
+            return;
+        }
         CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
         if (!CGRectIsNull(r)) {
             CGPoint elementOrigin =
@@ -358,15 +392,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)scrollToSection:(MWKSection*)section {
-    [self scrollToFragment:section.anchor];
+- (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated {
+    [self scrollToFragment:section.anchor animated:animated];
 }
 
-- (MWKSection*)currentVisibleSection {
+- (nullable MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
         [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                        count:self.article.sections.count];
-    return self.article.sections[indexOfFirstOnscreenSection];
+    return indexOfFirstOnscreenSection == NSNotFound ? nil : self.article.sections[indexOfFirstOnscreenSection];
 }
 
 - (void)scrollToVerticalOffset:(CGFloat)offset {
@@ -375,6 +409,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
+}
+
+- (BOOL)isWebContentVisible {
+    return CGRectIntersectsRect(self.webView.scrollView.wmf_contentFrame, self.webView.wmf_browserView.frame);
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
@@ -464,6 +502,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [_bridge addListener:@"linkClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
             @strongify(self);
             if (!self) {
+                return;
+            }
+
+            if (self.isPeeking) {
+                self.isPeeking = NO;
                 return;
             }
 
@@ -912,6 +955,29 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 - (void)editHistoryButtonPushed {
     UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:[PageHistoryViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:nc animated:YES completion:nil];
+}
+
+#pragma mark - Previewing
+
+- (JSValue*)htmlElementAtLocation:(CGPoint)location {
+    return [[self.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
+}
+
+- (NSURL*)urlForHTMLElement:(JSValue*)element {
+    if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
+        NSString* urlString = [[element valueForProperty:@"href"] toString];
+        return (!urlString) ? nil : [NSURL URLWithString:urlString];
+    }
+    return nil;
+}
+
+- (CGRect)rectForHTMLElement:(JSValue*)element {
+    JSValue* rect  = [element invokeMethod:@"getBoundingClientRect" withArguments:@[]];
+    CGFloat left   = (CGFloat)[[rect valueForProperty:@"left"] toDouble];
+    CGFloat right  = (CGFloat)[[rect valueForProperty:@"right"] toDouble];
+    CGFloat top    = (CGFloat)[[rect valueForProperty:@"top"] toDouble];
+    CGFloat bottom = (CGFloat)[[rect valueForProperty:@"bottom"] toDouble];
+    return CGRectMake(left, top + self.webView.scrollView.contentOffset.y, right - left, bottom - top);
 }
 
 @end
