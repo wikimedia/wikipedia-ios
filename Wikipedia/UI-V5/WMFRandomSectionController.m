@@ -11,6 +11,7 @@
 
 #import "MWKSite.h"
 #import "MWKSavedPageList.h"
+#import "MWKSearchResult.h"
 
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
@@ -24,7 +25,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
-@property (nonatomic, strong) NSDictionary* result;
+@property (nonatomic, strong) MWKSearchResult* result;
 
 @end
 
@@ -80,7 +81,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    return [self.searchSite titleWithString:self.result[@"title"]];
+    return [self.searchSite titleWithString:self.result.displayTitle];
 }
 
 - (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
@@ -97,11 +98,11 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
           atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
         WMFArticlePreviewCell* previewCell = (id)cell;
-//        MWKRelatedSearchResult* result     = object;
-//        previewCell.title           = [self titleForItemAtIndex:indexPath.row];
-//        previewCell.descriptionText = result.wikidataDescription;
-//        previewCell.imageURL        = result.thumbnailURL;
-//        [previewCell setSummary:result.extract];
+        MWKSearchResult* result            = object;
+        previewCell.title           = [self titleForItemAtIndex:indexPath.row];
+        previewCell.descriptionText = result.wikidataDescription;
+        previewCell.imageURL        = result.thumbnailURL;
+        [previewCell setSummary:result.extract];
         [previewCell setSavedPageList:self.savedPageList];
     }
 }
