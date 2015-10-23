@@ -215,9 +215,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         return NSNotFound;
     }
     return
-    [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL(__kindof UIView * _Nonnull footerView,
-                                                                      NSUInteger idx,
-                                                                      BOOL * _Nonnull stop) {
+        [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL (__kindof UIView* _Nonnull footerView,
+                                                                           NSUInteger idx,
+                                                                           BOOL* _Nonnull stop) {
         CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:footerView.frame
                                                                      fromView:self.footerContainerView];
         if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
