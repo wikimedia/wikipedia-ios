@@ -6,9 +6,6 @@
 #import "WMFNetworkUtilities.h"
 #import "MWKTitle.h"
 
-// Reminder: For caching reasons, don't do "(scale * 320)" here.
-#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
-
 @implementation WMFArticleRequestSerializer
 
 

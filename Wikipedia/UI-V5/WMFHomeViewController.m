@@ -9,6 +9,7 @@
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
+#import "WMFRandomSectionController.h"
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFHomeSectionSchema.h"
 #import "WMFHomeSection.h"
@@ -118,8 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                    locationManager  :self.locationManager];
-        [_nearbySectionController setSavedPageList:self.savedPages];
+                                                                      savedPageList:self.savedPages
+                                                                    locationManager:self.locationManager];
     }
     return _nearbySectionController;
 }
@@ -312,17 +313,18 @@ NS_ASSUME_NONNULL_BEGIN
     [self.schemaManager update];
 }
 
-#pragma mark - Related Sections
+#pragma mark - Section Controller Creation
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFHomeSection*)item {
-    WMFRelatedSectionController* controller = [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title
-                                                                                               delegate:self];
-    [controller setSavedPageList:self.savedPages];
-    return controller;
+    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title savedPageList:self.savedPages];
 }
 
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFHomeSection*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore delegate:self];
+}
+
+- (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFHomeSection*)item {
+    return [[WMFRandomSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
 }
 
 #pragma mark - Section Management
@@ -357,8 +359,10 @@ NS_ASSUME_NONNULL_BEGIN
                 case WMFHomeSectionTypeContinueReading:
                     [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
                     break;
-                case WMFHomeSectionTypeToday:
                 case WMFHomeSectionTypeRandom:
+                    [self loadSectionForSectionController:[self randomSectionControllerForSchemaItem:obj]];
+                    break;
+                case WMFHomeSectionTypeToday:
                 default:
                     break;
             }

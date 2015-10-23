@@ -40,18 +40,25 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site locationManager:(WMFLocationManager*)locationManager {
+- (instancetype)initWithSite:(MWKSite*)site
+               savedPageList:(MWKSavedPageList*)savedPageList
+             locationManager:(WMFLocationManager*)locationManager {
     return [self initWithSite:site
+                savedPageList:savedPageList
                     viewModel:[[WMFNearbyViewModel alloc] initWithSite:site
                                                            resultLimit:3
                                                        locationManager:locationManager]];
 }
 
-- (instancetype)initWithSite:(MWKSite*)site viewModel:(WMFNearbyViewModel*)viewModel {
+- (instancetype)initWithSite:(MWKSite*)site
+               savedPageList:(MWKSavedPageList*)savedPageList
+                   viewModel:(WMFNearbyViewModel*)viewModel {
     NSParameterAssert(site);
+    NSParameterAssert(savedPageList);
     NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
+        self.savedPageList      = savedPageList;
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
         self.emptySectionObject = @"EmptySection";

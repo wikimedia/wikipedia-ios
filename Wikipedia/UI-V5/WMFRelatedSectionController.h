@@ -7,10 +7,10 @@
 @interface WMFRelatedSectionController : NSObject <WMFHomeSectionController>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate;
+                       savedPageList:(MWKSavedPageList*)savedPageList;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                            delegate:(id<WMFHomeSectionControllerDelegate>)delegate
+                       savedPageList:(MWKSavedPageList*)savedPageList
                 relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong, readonly) MWKTitle* title;
