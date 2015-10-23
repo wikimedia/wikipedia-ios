@@ -29,14 +29,21 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
 }
 
 extension WMFArticleContainerViewController {
+    /**
+    Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
+    
+    - note: This must be done in Swift because `WMFTableOfContentsViewControllerDelegate` is not an ObjC protocol, 
+            and therefore cannot be referenced in Objective-C.
+
+    - returns: A new view controller or `nil` if the receiver's `article.sections` is `nil`.
+    */
     public func createTableOfContentsViewController() -> WMFTableOfContentsViewController? {
-        if let article = self.article {
-           return WMFTableOfContentsViewController(sectionList: article.sections, delegate: self)
+        if let sections = self.article?.sections {
+           return WMFTableOfContentsViewController(sectionList: sections, delegate: self)
         } else {
             return nil
         }
     }
-
 
     public var tableOfContentsToolbarItem: UIBarButtonItem  {
         get {
