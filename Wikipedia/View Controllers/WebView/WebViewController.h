@@ -37,7 +37,7 @@
 - (CGFloat)currentVerticalOffset;
 
 - (JSValue*)htmlElementAtLocation:(CGPoint)location;
-- (MWKTitle*)titleForHTMLElement:(JSValue*)element;
+- (NSURL*)urlForHTMLElement:(JSValue*)element;
 - (CGRect)rectForHTMLElement:(JSValue*)element;
 
 #pragma mark - Header & Footers
