@@ -61,7 +61,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:@"Random" attributes:nil];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-random", nil) attributes:nil];
 }
 
 - (UIImage*)headerButtonIcon {
