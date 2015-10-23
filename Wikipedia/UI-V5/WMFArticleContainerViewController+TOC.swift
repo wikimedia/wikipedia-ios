@@ -17,8 +17,10 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
             self.dismissViewControllerAnimated(true, completion: nil)
             if let section = item as? MWKSection {
                 self.webViewController.scrollToSection(section)
-            } else if let _ = item as? TableOfContentsReadMoreItem {
-                self.webViewController.scrollToFooterAtIndex(0)
+            } else if let footerItem = item as? TableOfContentsFooterItem {
+                self.webViewController.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
+            } else {
+                fatalError("Unsupported selection of TOC item \(item)")
             }
         }
     }
@@ -63,8 +65,12 @@ extension WMFArticleContainerViewController {
     public func didTapTableOfContentsButton(sender: AnyObject?) {
         if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
             tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
-        } else if webViewController.visibleFooterIndex() == 0 {
-            tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
+        } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController.visibleFooterIndex()) {
+            switch footerIndex {
+            case .ReadMore:
+                tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
+            }
+
         } else {
             fatalError("Couldn't find current position of user at current offset!")
         }

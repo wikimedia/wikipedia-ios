@@ -178,6 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
         _webViewController.delegate             = self;
         _webViewController.headerViewController = self.headerGallery;
         // TODO: add "last edited by" & "wikipedia logo"
+        // !!!: be sure to add footers in the order specified by WMFArticleFooterViewIndex
         [_webViewController setFooterViewControllers:@[self.readMoreListViewController]];
     }
     return _webViewController;
