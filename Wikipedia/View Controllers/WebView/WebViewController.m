@@ -924,19 +924,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     return [[self.webView wmf_javascriptContext][@"getElementFromPoint"] callWithArguments:@[@(location.x), @(location.y)]];
 }
 
-- (MWKTitle*)titleForHTMLElement:(JSValue*)element {
+- (NSURL*)urlForHTMLElement:(JSValue*)element {
     if ([[[element valueForProperty:@"tagName"] toString] isEqualToString:@"A"] && [element valueForProperty:@"href"]) {
-        NSString *urlString = [[element valueForProperty:@"href"] toString];
-        // Don't peek external links (temporarily).
-        if (![urlString wmf_isInternalLink]) {
-            return nil;
-        }
-        NSURL* url = [NSURL URLWithString:urlString];
-        // Don't peek intra-page fragment links - such as references.
-        if ([url wmf_isIntraPageFragment]) {
-            return nil;
-        }
-        return [[MWKTitle alloc] initWithURL:url];
+        NSString* urlString = [[element valueForProperty:@"href"] toString];
+        return (!urlString) ? nil : [NSURL URLWithString:urlString];
     }
     return nil;
 }
