@@ -19,7 +19,7 @@
 }
 
 - (CGRect)wmf_contentFrame {
-    return CGRectOffset(self.bounds, 0, self.contentOffset.y);
+    return CGRectOffset(self.frame, 0, self.contentOffset.y);
 }
 
 @end
