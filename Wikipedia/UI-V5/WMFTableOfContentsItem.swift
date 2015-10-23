@@ -64,16 +64,4 @@ extension TableOfContentsItem {
     public var borderType: TableOfContentsBorderType { get { return TableOfContentsBorderType.Default } }
 
     public var indentationLevel: UInt { get { return 0 } }
-
-    public func isEqual(object: AnyObject?) -> Bool {
-        if let item = object as? TableOfContentsItem {
-            return self === item
-                   || (titleText == item.titleText
-                       && itemType == item.itemType
-                       && borderType == item.borderType
-                       && indentationLevel == item.indentationLevel)
-        } else {
-            return false
-        }
-    }
 }
