@@ -1,8 +1,11 @@
 
 import UIKit
 
-@objc public protocol WMFTableOfContentsViewControllerDelegate {
-    func tableOfContentsController(controller: WMFTableOfContentsViewController, didSelectSection: MWKSection)
+public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
+
+    func tableOfContentsController(controller: WMFTableOfContentsViewController,
+                                   didSelectItem item: TableOfContentsItem)
+
     func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
 }
 
@@ -36,30 +39,29 @@ public class WMFTableOfContentsViewController: UITableViewController,
 
     // MARK: - Sections
 
-    func indexPathForSection(section: MWKSection) -> NSIndexPath? {
-        if let row = items.indexOf({ ($0 as? MWKSection)?.isEqual(section) ?? false }) {
+    func indexPathForItem(item: TableOfContentsItem) -> NSIndexPath? {
+        if let row = items.indexOf({ item.isEqual($0) }) {
             return NSIndexPath(forRow: row, inSection: 0)
         } else {
             return nil
         }
     }
-    
-    // MARK: - Select and Scroll to Section
-    public func scrollToSection(section: MWKSection, animated: Bool) {
-        if let indexPath = indexPathForSection(section) {
-            tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: animated)
-        }
+
+    public func scrollToItem(item: TableOfContentsItem, animated: Bool) {
+        tableView.scrollToRowAtIndexPath(indexPathForItem(item)!,
+                                         atScrollPosition: UITableViewScrollPosition.Top,
+                                         animated: animated)
     }
 
-    public func selectAndScrollToSection(section: MWKSection, animated: Bool) {
-        if let indexPath = indexPathForSection(section) {
+    public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
+        if let indexPath = indexPathForItem(item) {
             deselectAllRows()
             tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
-            addHighlightOfItemsRelatedTo(section, animated: false)
+            addHighlightOfItemsRelatedTo(item, animated: false)
         }
     }
     
-    // MARK: - Highlight Sections
+    // MARK: - Selection
 
     public func deselectAllRows() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
@@ -132,12 +134,9 @@ public class WMFTableOfContentsViewController: UITableViewController,
         deselectAllRows()
         tableOfContentsFunnel.logClick()
         addHighlightOfItemsRelatedTo(item, animated: true)
-
-        if let section = item as? MWKSection {
-            delegate?.tableOfContentsController(self, didSelectSection: section)
-        }
+        delegate?.tableOfContentsController(self, didSelectItem: item)
     }
-    
+
     // MARK: - UIViewControllerTransitioningDelegate
     public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
         if presented == self {

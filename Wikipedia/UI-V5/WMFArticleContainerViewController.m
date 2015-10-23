@@ -1,4 +1,4 @@
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleContainerViewController_Private.h"
 #import "Wikipedia-Swift.h"
 
 // Frameworks
@@ -56,7 +56,6 @@ NS_ASSUME_NONNULL_BEGIN
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
- WMFTableOfContentsViewControllerDelegate,
  SectionEditorViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
@@ -64,7 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readwrite) MWKHistoryDiscoveryMethod discoveryMethod;
 
 // Data
-@property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
 @property (nonatomic, strong, readonly) MWKHistoryEntry* historyEntry;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -74,10 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
-@property (nonatomic, strong) WebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
-@property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Logging
@@ -196,11 +192,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFTableOfContentsViewController*)tableOfContentsViewController {
-    if (!self.article) {
-        return nil;
-    }
     if (!_tableOfContentsViewController) {
-        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
+        _tableOfContentsViewController = [self createTableOfContentsViewController];
     }
     return _tableOfContentsViewController;
 }
@@ -314,19 +307,6 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
     }];
-}
-
-- (UIBarButtonItem*)tableOfContentsToolbarItem {
-    @weakify(self);
-    UIBarButtonItem* tocToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"toc"]
-                                                                          style:UIBarButtonItemStylePlain
-                                                                        handler:^(id sender){
-        @strongify(self);
-        [self.tableOfContentsViewController selectAndScrollToSection:[self.webViewController currentVisibleSection] animated:NO];
-        [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
-    }];
-    tocToolbarItem.tintColor = [UIColor blackColor];
-    return tocToolbarItem;
 }
 
 #pragma mark - ViewController
@@ -459,20 +439,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)analyticsName {
     return [self.article analyticsName];
-}
-
-#pragma mark - TableOfContentsViewControllerDelegate
-
-- (void)tableOfContentsController:(WMFTableOfContentsViewController*)controller didSelectSection:(MWKSection*)section {
-    //Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
-    dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
-        [self dismissViewControllerAnimated:YES completion:NULL];
-        [self.webViewController scrollToSection:section];
-    });
-}
-
-- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController*)controller {
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
