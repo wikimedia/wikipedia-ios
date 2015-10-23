@@ -64,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
- WMFTableOfContentsViewControllerDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate>
 
