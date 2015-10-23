@@ -8,6 +8,8 @@
 
 @property (nonatomic, weak) id<WMFEditingCollectionViewLayoutDelegate> editingDelegate;
 
+@property (nonatomic) BOOL previewingEnabled;
+
 @end
 
 

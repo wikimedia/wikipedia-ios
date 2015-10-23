@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)wmf_valueForQueryKey:(NSString*)queryKey;
 
+/**
+ * Determine if url links to different spot on *same* page.
+ */
+- (BOOL)wmf_isIntraPageFragment;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,4 +1,4 @@
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleContainerViewController_Private.h"
 #import "Wikipedia-Swift.h"
 
 // Frameworks
@@ -48,6 +48,14 @@
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
+#import "NSString+WMFPageUtilities.h"
+#import "NSURL+WMFLinkParsing.h"
+#import "NSURL+Extras.h"
+
+@import SafariServices;
+
+@import JavaScriptCore;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleContainerViewController ()
@@ -56,15 +64,14 @@ NS_ASSUME_NONNULL_BEGIN
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
- WMFTableOfContentsViewControllerDelegate,
- SectionEditorViewControllerDelegate>
+ SectionEditorViewControllerDelegate,
+ UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 @property (nonatomic, assign, readwrite) MWKHistoryDiscoveryMethod discoveryMethod;
 
 // Data
-@property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
 @property (nonatomic, strong, readonly) MWKHistoryEntry* historyEntry;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -74,10 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
-@property (nonatomic, strong) WebViewController* webViewController;
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
-@property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Logging
@@ -182,6 +187,7 @@ NS_ASSUME_NONNULL_BEGIN
         _webViewController.delegate             = self;
         _webViewController.headerViewController = self.headerGallery;
         // TODO: add "last edited by" & "wikipedia logo"
+        // !!!: be sure to add footers in the order specified by WMFArticleFooterViewIndex
         [_webViewController setFooterViewControllers:@[self.readMoreListViewController]];
     }
     return _webViewController;
@@ -196,11 +202,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFTableOfContentsViewController*)tableOfContentsViewController {
-    if (!self.article) {
-        return nil;
-    }
     if (!_tableOfContentsViewController) {
-        _tableOfContentsViewController = [[WMFTableOfContentsViewController alloc] initWithSectionList:self.article.sections delegate:self];
+        _tableOfContentsViewController = [self createTableOfContentsViewController];
     }
     return _tableOfContentsViewController;
 }
@@ -316,19 +319,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (UIBarButtonItem*)tableOfContentsToolbarItem {
-    @weakify(self);
-    UIBarButtonItem* tocToolbarItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"toc"]
-                                                                          style:UIBarButtonItemStylePlain
-                                                                        handler:^(id sender){
-        @strongify(self);
-        [self.tableOfContentsViewController selectAndScrollToSection:[self.webViewController currentVisibleSection] animated:NO];
-        [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
-    }];
-    tocToolbarItem.tintColor = [UIColor blackColor];
-    return tocToolbarItem;
-}
-
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -340,6 +330,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
     [self fetchArticle];
+
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
+        [self configureLinkPreviewingDelegation];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -461,20 +455,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.article analyticsName];
 }
 
-#pragma mark - TableOfContentsViewControllerDelegate
-
-- (void)tableOfContentsController:(WMFTableOfContentsViewController*)controller didSelectSection:(MWKSection*)section {
-    //Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
-    dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
-        [self dismissViewControllerAnimated:YES completion:NULL];
-        [self.webViewController scrollToSection:section];
-    });
-}
-
-- (void)tableOfContentsControllerDidCancel:(WMFTableOfContentsViewController*)controller {
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
@@ -555,6 +535,59 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self.navigationController popToViewController:self animated:YES];
     [self fetchArticle];
+}
+
+#pragma mark - UIViewControllerPreviewingDelegate
+
+- (void)configureLinkPreviewingDelegation {
+    id <UIViewControllerPreviewing>pc = [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
+    for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
+        [r requireGestureRecognizerToFail:pc.previewingGestureRecognizerForFailureRelationship];
+    }
+}
+
+- (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+                      viewControllerForLocation:(CGPoint)location {
+    JSValue* peekElement = [self.webViewController htmlElementAtLocation:location];
+    if (!peekElement) {
+        return nil;
+    }
+
+    NSURL* peekURL = [self.webViewController urlForHTMLElement:peekElement];
+    if (!peekURL) {
+        return nil;
+    }
+
+    UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
+    if (peekVC) {
+        self.webViewController.isPeeking = YES;
+        previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
+        return peekVC;
+    }
+
+    return nil;
+}
+
+- (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
+    if (![url wmf_isInternalLink]) {
+        return [[SFSafariViewController alloc] initWithURL:url];
+    } else {
+        if (![url wmf_isIntraPageFragment]) {
+            return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]
+                                                                         dataStore:self.dataStore
+                                                                   discoveryMethod:self.discoveryMethod];
+        }
+    }
+    return nil;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UIViewController*)viewControllerToCommit {
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
+    } else {
+        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    }
 }
 
 @end
