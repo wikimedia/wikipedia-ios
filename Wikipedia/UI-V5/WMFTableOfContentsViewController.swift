@@ -42,18 +42,17 @@ public class WMFTableOfContentsViewController: UITableViewController,
         }
     }
 
-    public func scrollToItem(item: TableOfContentsItem, animated: Bool) {
-        tableView.scrollToRowAtIndexPath(indexPathForItem(item)!,
-                                         atScrollPosition: UITableViewScrollPosition.Top,
-                                         animated: animated)
+    public func selectAndScrollToItem(atIndex index: Int, animated: Bool) {
+        selectAndScrollToItem(items[index], animated: animated)
     }
 
     public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
-        if let indexPath = indexPathForItem(item) {
-            deselectAllRows()
-            tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
-            addHighlightOfItemsRelatedTo(item, animated: false)
+        guard let indexPath = indexPathForItem(item) else {
+            fatalError("No indexPath known for TOC item \(item)")
         }
+        deselectAllRows()
+        tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
+        addHighlightOfItemsRelatedTo(item, animated: false)
     }
     
     // MARK: - Selection

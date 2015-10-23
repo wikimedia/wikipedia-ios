@@ -210,7 +210,22 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (NSInteger)visibleFooterIndex {
-    return NSNotFound;
+    CGRect const scrollViewContentFrame = self.webView.scrollView.wmf_contentFrame;
+    if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
+        return NSNotFound;
+    }
+    return
+    [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL(__kindof UIView * _Nonnull footerView,
+                                                                      NSUInteger idx,
+                                                                      BOOL * _Nonnull stop) {
+        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:footerView.frame
+                                                                     fromView:self.footerContainerView];
+        if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
 }
 
 - (void)loadHeadersAndFooters {
@@ -375,11 +390,11 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self scrollToFragment:section.anchor];
 }
 
-- (MWKSection*)currentVisibleSection {
+- (nullable MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
         [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                        count:self.article.sections.count];
-    return self.article.sections[indexOfFirstOnscreenSection];
+    return indexOfFirstOnscreenSection == NSNotFound ? nil : self.article.sections[indexOfFirstOnscreenSection];
 }
 
 - (void)scrollToVerticalOffset:(CGFloat)offset {
