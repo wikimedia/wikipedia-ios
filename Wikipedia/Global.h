@@ -36,6 +36,9 @@ static inline NSString* localizedStringForKeyFallingBackOnEnglish(NSString* key)
     return [englishBundle localizedStringForKey:key value:@"" table:nil];
 }
 
+//TODO: when refactoring networking, this should be scoped to those classes
+#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
+
 #define MWLocalizedString(key, throwaway) localizedStringForKeyFallingBackOnEnglish(key)
 
 #ifndef PIWIK_ENABLED

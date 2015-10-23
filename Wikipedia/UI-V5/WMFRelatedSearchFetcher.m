@@ -12,9 +12,9 @@
 
 //Models
 #import "WMFRelatedSearchResults.h"
-#import "MWKRelatedSearchResult.h"
-
+#import "MWKSearchResult.h"
 #import "MWKTitle.h"
+
 #import "WMFNumberOfExtractCharacters.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -48,7 +48,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFRelatedSearchRequestSerializer serializer];
         manager.responseSerializer =
-            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKRelatedSearchResult class]
+            [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
                                                                        fromKeypath:@"query.pages"];
         self.operationManager = manager;
     }
@@ -117,8 +117,6 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 @end
 
 #pragma mark - Request Serializer
-
-#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
 
 @implementation WMFRelatedSearchRequestSerializer
 

@@ -115,9 +115,6 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFLocationSearchRequestParameters : NSObject
 @end
 
-// Reminder: For caching reasons, don't do "(scale * 320)" here.
-#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
-
 @implementation WMFLocationSearchRequestSerializer
 
 - (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request

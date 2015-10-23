@@ -9,6 +9,8 @@
 
 @property (nonatomic, copy, readonly) NSString* wikidataDescription;
 
+@property (nonatomic, copy, readonly) NSString* extract;
+
 @property (nonatomic, copy, readonly) NSURL* thumbnailURL;
 
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -23,24 +23,41 @@
                             </constraints>
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-RH-fPG">
-                            <rect key="frame" x="41" y="10" width="283" height="33"/>
+                            <rect key="frame" x="41" y="10" width="248" height="33"/>
                             <animations/>
                             <color key="textColor" red="0.59993284940719604" green="0.60003882646560669" blue="0.5999261736869812" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                         </textView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xrx-Qc-5Ak">
+                            <rect key="frame" x="297" y="16" width="20" height="20"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="70b-FA-qXi"/>
+                                <constraint firstAttribute="width" constant="20" id="xlv-R5-td0"/>
+                            </constraints>
+                            <state key="normal" image="reload-mini"/>
+                        </button>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Jjj-bR-heh" firstAttribute="leading" secondItem="Tl8-Cq-oia" secondAttribute="leading" constant="15" id="2LK-P4-iLT"/>
                         <constraint firstItem="Bj8-RH-fPG" firstAttribute="leading" secondItem="Jjj-bR-heh" secondAttribute="trailing" constant="4" id="7gO-wm-hWM"/>
+                        <constraint firstItem="Xrx-Qc-5Ak" firstAttribute="leading" secondItem="Bj8-RH-fPG" secondAttribute="trailing" constant="8" id="Mk0-Ce-DAV"/>
+                        <constraint firstAttribute="trailing" secondItem="Xrx-Qc-5Ak" secondAttribute="trailing" constant="15" id="RoG-W3-A11"/>
+                        <constraint firstItem="Xrx-Qc-5Ak" firstAttribute="centerY" secondItem="Jjj-bR-heh" secondAttribute="centerY" id="Xnn-zx-Ydm"/>
                         <constraint firstAttribute="trailing" secondItem="Bj8-RH-fPG" secondAttribute="trailing" constant="8" id="bjl-ec-6t8"/>
                         <constraint firstItem="Jjj-bR-heh" firstAttribute="centerY" secondItem="Tl8-Cq-oia" secondAttribute="centerY" id="deG-33-Wou"/>
                         <constraint firstAttribute="height" constant="52" id="eG9-vz-zBl"/>
                         <constraint firstItem="Bj8-RH-fPG" firstAttribute="centerY" secondItem="Tl8-Cq-oia" secondAttribute="centerY" id="hUX-Q7-UpL"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="bjl-ec-6t8"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <animations/>
@@ -52,9 +69,14 @@
             </constraints>
             <connections>
                 <outlet property="icon" destination="Jjj-bR-heh" id="L7u-mX-DgO"/>
+                <outlet property="rightButton" destination="Xrx-Qc-5Ak" id="S2b-Ks-riA"/>
+                <outlet property="rightButtonWidthConstraint" destination="xlv-R5-td0" id="1Qv-EQ-OFB"/>
                 <outlet property="titleView" destination="Bj8-RH-fPG" id="kLd-uI-lUi"/>
             </connections>
             <point key="canvasLocation" x="213" y="148"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="reload-mini" width="35" height="39"/>
+    </resources>
 </document>

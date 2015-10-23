@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 
+- (UIImage*)headerButtonIcon;
+- (void)    performHeaderButtonAction;
+
 /**
  *  @return Return the "More" footer text that prompts a user to get more items from a section.
  *  Not implementing this method means that no footer will be displayed
@@ -42,8 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource;
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
 /**
  *  The discovery method associated with where this section's data originated from.
