@@ -27,7 +27,8 @@
 /**
  *  The frame representing the visible area of the receiver's content.
  *
- *  Calculated by applying the receiver's @c contentOffset to its @c bounds.
+ *  Incorporates the receiver's @c contentOffset and @c contentInset, ensuring that any content offscreen or under
+ *  elements assumed to be taken up by @c contentInset are outside the returned @c CGRect.
  *
  *  @return A @c CGRect describing the origin and size of the visible content.
  */
