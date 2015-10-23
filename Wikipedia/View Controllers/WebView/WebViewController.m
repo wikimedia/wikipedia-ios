@@ -199,6 +199,33 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 #pragma mark - Headers & Footers
 
+- (void)scrollToFooterAtIndex:(NSUInteger)index {
+    UIView* footerView       = self.footerViewControllers[index].view;
+    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:footerView.frame.origin
+                                                            fromView:self.footerContainerView];
+    footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
+    [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
+}
+
+- (NSInteger)visibleFooterIndex {
+    CGRect const scrollViewContentFrame = self.webView.scrollView.wmf_contentFrame;
+    if (!CGRectIntersectsRect(scrollViewContentFrame, self.footerContainerView.frame)) {
+        return NSNotFound;
+    }
+    return
+        [self.footerContainerView.subviews indexOfObjectPassingTest:^BOOL (__kindof UIView* _Nonnull footerView,
+                                                                           NSUInteger idx,
+                                                                           BOOL* _Nonnull stop) {
+        CGRect absoluteFooterViewFrame = [self.webView.scrollView convertRect:footerView.frame
+                                                                     fromView:self.footerContainerView];
+        if (CGRectIntersectsRect(scrollViewContentFrame, absoluteFooterViewFrame)) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+}
+
 - (void)loadHeadersAndFooters {
     /*
        NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
@@ -343,10 +370,19 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToFragment:(NSString*)fragment {
+    [self scrollToFragment:fragment animated:YES];
+}
+
+- (void)scrollToFragment:(NSString*)fragment animated:(BOOL)animated {
     if (fragment.length == 0) {
         // No section so scroll to top. (Used when "Introduction" is selected.)
-        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:YES];
+        [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 1, 1, 1) animated:animated];
     } else {
+        if (!animated) {
+            [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"scrollToFragment"
+                                                            withArguments:@[fragment]];
+            return;
+        }
         CGRect r = [self.webView getScreenRectForHtmlElementWithId:fragment];
         if (!CGRectIsNull(r)) {
             CGPoint elementOrigin =
@@ -357,15 +393,15 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     }
 }
 
-- (void)scrollToSection:(MWKSection*)section {
-    [self scrollToFragment:section.anchor];
+- (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated {
+    [self scrollToFragment:section.anchor animated:animated];
 }
 
-- (MWKSection*)currentVisibleSection {
+- (nullable MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
         [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
                                                        count:self.article.sections.count];
-    return self.article.sections[indexOfFirstOnscreenSection];
+    return indexOfFirstOnscreenSection == NSNotFound ? nil : self.article.sections[indexOfFirstOnscreenSection];
 }
 
 - (void)scrollToVerticalOffset:(CGFloat)offset {
@@ -374,6 +410,10 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 - (CGFloat)currentVerticalOffset {
     return self.webView.scrollView.contentOffset.y;
+}
+
+- (BOOL)isWebContentVisible {
+    return CGRectIntersectsRect(self.webView.scrollView.wmf_contentFrame, self.webView.wmf_browserView.frame);
 }
 
 - (BOOL)rectIntersectsWebViewTop:(CGRect)rect {
