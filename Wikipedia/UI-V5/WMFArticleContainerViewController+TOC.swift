@@ -62,8 +62,13 @@ extension WMFArticleContainerViewController {
 
     public func didTapTableOfContentsButton(sender: AnyObject?) {
         if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
-            self.tableOfContentsViewController!.selectAndScrollToItem(item, animated: true)
-            presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
+            tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
+        } else if webViewController.visibleFooterIndex() == 0 {
+            tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
+        } else {
+            fatalError("Couldn't find current position of user at current offset!")
         }
+        presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
+
     }
 }
