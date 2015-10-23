@@ -90,12 +90,9 @@
  *  and "thing_2") to see if they are onscreen. Returns index of first one found to be so.
  */
 - (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count {
-    // HAX: Apparently passing NSNumber is no good, need to wrap in JSValue
-    JSValue* jsCount = [JSValue valueWithInt32:(int32_t)count
-                                     inContext:self.wmf_javascriptContext];
     JSValue* location =
         [[self wmf_strictValueForKey:@"elementLocation"] invokeMethod:@"getIndexOfFirstOnScreenElement"
-                                                        withArguments:@[prefix, jsCount]];
+                                                        withArguments:@[prefix, @(count)]];
     if (!location) {
         DDLogWarn(@"Unable to query webview %@ for location of element for %@ ", self, prefix);
         return NSNotFound;
