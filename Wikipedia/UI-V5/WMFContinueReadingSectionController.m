@@ -26,7 +26,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore{
+                           dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
     self = [super init];
