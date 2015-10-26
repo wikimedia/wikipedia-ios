@@ -23,11 +23,14 @@
 }
 
 - (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated {
-    if (offset.x == offset.x && offset.y == offset.y) {
+    if (isnan(offset.x) && isnan(offset.y)) {
+        #if DEBUG
+        // log warning, but still scroll, if we get an out-of-bounds offset
         if (self.contentSize.width < offset.x || self.contentSize.height < offset.y) {
-            DDLogWarn(@"Attempting to scroll to offset %@ which exceeds contentSize scroll view %@",
-                      NSStringFromCGPoint(offset), self);
+            DDLogDebug(@"Attempting to scroll to offset %@ which exceeds contentSize scroll view %@",
+                       NSStringFromCGPoint(offset), self);
         }
+        #endif
         [self setContentOffset:offset animated:animated];
     } else {
         DDLogError(@"Ignoring invalid offset %@ for scroll view %@", NSStringFromCGPoint(offset), self);
