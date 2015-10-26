@@ -91,6 +91,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
+@property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 
 @end
 
@@ -139,7 +143,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.webViewController.article = _article;
     [self.headerGallery setImagesFromArticle:_article];
 
-    // need to remove TOC button if article is main
     [self setupToolbar];
 }
 
@@ -258,24 +261,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)observeArticleUpdates {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(articleUpdatedWithNotification:) name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(articleUpdatedWithNotification:)
+                                                 name:MWKArticleSavedNotification
+                                               object:nil];
 }
 
 - (void)unobserveArticleUpdates {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
 }
 
-#pragma mark - Toolbar
+#pragma mark - Toolbar Setup
 
 - (void)setupToolbar {
+    [self updateToolbarItemsIfNeeded];
+    [self updateToolbarItemEnabledState];
+}
+
+- (void)updateToolbarItemsIfNeeded {
     NSMutableArray<UIBarButtonItem*>* toolbarItems =
         [NSMutableArray arrayWithObjects:
-         [self refreshToolbarItem], [self flexibleSpaceToolbarItem],
-         [self shareToolbarItem], [self flexibleSpaceToolbarItem],
-         [self saveToolbarItem], nil];
+         self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
+         self.shareToolbarItem, [self flexibleSpaceToolbarItem],
+         self.saveToolbarItem, nil];
 
     if (!self.article.isMain) {
-        [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], [self tableOfContentsToolbarItem]]];
+        [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], self.tableOfContentsToolbarItem]];
     }
 
     if (self.toolbarItems.count != toolbarItems.count) {
@@ -284,6 +295,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+- (void)updateToolbarItemEnabledState {
+    self.refreshToolbarItem.enabled         = self.article != nil;
+    self.tableOfContentsToolbarItem.enabled = self.article != nil;
+    self.shareToolbarItem.enabled           = self.article != nil;
+}
+
+#pragma mark - Toolbar Items
+
 - (UIBarButtonItem*)paddingToolbarItem {
     UIBarButtonItem* item =
         [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
@@ -291,17 +310,35 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
+- (UIBarButtonItem*)tableOfContentsToolbarItem {
+    if (!_tableOfContentsToolbarItem) {
+        _tableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
+                                                                       style:UIBarButtonItemStylePlain
+                                                                      target:self
+                                                                      action:@selector(didTapTableOfContentsButton:)];
+        _tableOfContentsToolbarItem.tintColor = [UIColor blackColor];
+        return _tableOfContentsToolbarItem;
+    }
+    return _tableOfContentsToolbarItem;
+}
+
 - (UIBarButtonItem*)saveToolbarItem {
-    return [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];;
+    if (!_saveToolbarItem) {
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];
+    }
+    return _saveToolbarItem;
 }
 
 - (UIBarButtonItem*)refreshToolbarItem {
-    @weakify(self);
-    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                           handler:^(id _Nonnull sender) {
-        @strongify(self);
-        [self fetchArticle];
-    }];
+    if (!_refreshToolbarItem) {
+        @weakify(self);
+        _refreshToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                              handler:^(id _Nonnull sender) {
+            @strongify(self);
+            [self fetchArticle];
+        }];
+    }
+    return _refreshToolbarItem;
 }
 
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
@@ -311,12 +348,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIBarButtonItem*)shareToolbarItem {
-    @weakify(self);
-    return [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                           handler:^(id sender){
-        @strongify(self);
-        [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
-    }];
+    if (!_shareToolbarItem) {
+        @weakify(self);
+        _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                                                            handler:^(id sender){
+            @strongify(self);
+            [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
+        }];
+    }
+    return _shareToolbarItem;
 }
 
 #pragma mark - ViewController
