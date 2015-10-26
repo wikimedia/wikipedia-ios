@@ -280,10 +280,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateToolbarItemsIfNeeded {
     NSMutableArray<UIBarButtonItem*>* toolbarItems =
-    [NSMutableArray arrayWithObjects:
-     self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
-     self.shareToolbarItem, [self flexibleSpaceToolbarItem],
-     self.saveToolbarItem, nil];
+        [NSMutableArray arrayWithObjects:
+         self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
+         self.shareToolbarItem, [self flexibleSpaceToolbarItem],
+         self.saveToolbarItem, nil];
 
     if (!self.article.isMain) {
         [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], self.tableOfContentsToolbarItem]];
@@ -296,9 +296,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemEnabledState {
-    self.refreshToolbarItem.enabled = self.article != nil;
+    self.refreshToolbarItem.enabled         = self.article != nil;
     self.tableOfContentsToolbarItem.enabled = self.article != nil;
-    self.shareToolbarItem.enabled = self.article != nil;
+    self.shareToolbarItem.enabled           = self.article != nil;
 }
 
 #pragma mark - Toolbar Items
@@ -351,7 +351,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_shareToolbarItem) {
         @weakify(self);
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                           handler:^(id sender){
+                                                                            handler:^(id sender){
             @strongify(self);
             [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
         }];
