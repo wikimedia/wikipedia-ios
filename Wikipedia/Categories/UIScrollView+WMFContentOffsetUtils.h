@@ -34,4 +34,18 @@
  */
 - (CGRect)wmf_contentFrame;
 
+
+/**
+ *  Set offset if within bounds and valid (i.e. not NaN).
+ *
+ *  Use this when setting offsets that might have invalid values, e.g. those obtained from the
+ *  web view.
+ *
+ *  @param offset   The offset to apply.
+ *  @param animated Whether or not to animate scrolling to given offset.
+ *
+ *  @see setContentOffset:animated:
+ */
+- (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated;
+
 @end

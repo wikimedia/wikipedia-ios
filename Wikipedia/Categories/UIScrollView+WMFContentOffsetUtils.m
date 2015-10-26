@@ -22,4 +22,19 @@
     return UIEdgeInsetsInsetRect(CGRectOffset(self.frame, 0, self.contentOffset.y), self.contentInset);
 }
 
+- (void)wmf_safeSetContentOffset:(CGPoint)offset animated:(BOOL)animated {
+    if (isnan(offset.x) && isnan(offset.y)) {
+        #if DEBUG
+        // log warning, but still scroll, if we get an out-of-bounds offset
+        if (self.contentSize.width < offset.x || self.contentSize.height < offset.y) {
+            DDLogDebug(@"Attempting to scroll to offset %@ which exceeds contentSize scroll view %@",
+                       NSStringFromCGPoint(offset), self);
+        }
+        #endif
+        [self setContentOffset:offset animated:animated];
+    } else {
+        DDLogError(@"Ignoring invalid offset %@ for scroll view %@", NSStringFromCGPoint(offset), self);
+    }
+}
+
 @end
