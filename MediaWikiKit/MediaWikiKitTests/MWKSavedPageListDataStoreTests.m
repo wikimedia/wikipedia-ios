@@ -7,6 +7,7 @@
 //
 
 #import "MWKDataStoreListTests.h"
+#import "MWKSavedPageEntry+ImageMigration.h"
 
 @interface MWKSavedPageListDataStoreTests : MWKDataStoreListTests
 
@@ -19,7 +20,11 @@
 }
 
 + (id)uniqueListEntry {
-    return [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    static BOOL migrated = NO;
+    migrated ^= YES;
+    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    entry.didMigrateImageData = migrated;
+    return entry;
 }
 
 @end
