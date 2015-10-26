@@ -324,7 +324,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)saveToolbarItem {
     if (!_saveToolbarItem) {
-        return [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];
     }
     return _saveToolbarItem;
 }
