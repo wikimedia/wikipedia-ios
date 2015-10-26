@@ -51,18 +51,6 @@ extension WMFArticleContainerViewController {
         }
     }
 
-    public var tableOfContentsToolbarItem: UIBarButtonItem  {
-        get {
-            // unfortunately BlocksKit "handler" API doesn't port to Swift well due to "bk_" prefix
-            let tocToolbarItem = UIBarButtonItem(image: UIImage(named:"toc"),
-                                                 style: UIBarButtonItemStyle.Plain,
-                                                 target: self,
-                                                 action: Selector("didTapTableOfContentsButton:"))
-            tocToolbarItem.tintColor = UIColor.blackColor()
-            return tocToolbarItem
-        }
-    }
-
     public func didTapTableOfContentsButton(sender: AnyObject?) {
         if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
             tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)

@@ -14,6 +14,8 @@ typedef NS_ENUM (NSInteger, WMFArticleFooterViewIndex) {
     WMFArticleFooterViewIndexReadMore = 0
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFArticleContainerViewController ()
 
 // Data
@@ -21,6 +23,8 @@ typedef NS_ENUM (NSInteger, WMFArticleFooterViewIndex) {
 
 // Children
 @property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
-@property (nonatomic, strong, nonnull) WebViewController* webViewController;
+@property (nonatomic, strong) WebViewController* webViewController;
 
 @end
+
+NS_ASSUME_NONNULL_END
