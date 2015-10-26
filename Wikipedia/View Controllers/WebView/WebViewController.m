@@ -387,7 +387,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
             CGPoint elementOrigin =
                 CGPointMake(self.webView.scrollView.contentOffset.x,
                             self.webView.scrollView.contentOffset.y + r.origin.y + [self clientBoundingRectVerticalOffset]);
-            [self.webView.scrollView setContentOffset:elementOrigin animated:YES];
+            [self.webView.scrollView wmf_safeSetContentOffset:elementOrigin animated:YES];
         }
     }
 }
@@ -404,7 +404,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)scrollToVerticalOffset:(CGFloat)offset {
-    [self.webView.scrollView setContentOffset:CGPointMake(0, offset) animated:NO];
+    [self.webView.scrollView wmf_safeSetContentOffset:CGPointMake(0, offset) animated:NO];
 }
 
 - (CGFloat)currentVerticalOffset {
@@ -462,9 +462,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
                           delay:0.0f
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
-        // Not using "setContentOffset:animated:" so duration of animation
-        // can be controlled and action can be taken after animation completes.
-        self.webView.scrollView.contentOffset = point;
+        [self.webView.scrollView wmf_safeSetContentOffset:point animated:NO];
     } completion:^(BOOL done) {
     }];
 }
