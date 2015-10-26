@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--Search View Controller-->
@@ -92,7 +92,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Wikipedia" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="Nef-Ia-7Gd">
-                                        <rect key="frame" x="15" y="20" width="530" height="44"/>
+                                        <rect key="frame" x="15" y="20" width="533" height="44"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="yTR-XN-7TS"/>
@@ -105,7 +105,7 @@
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3z-uC-8hv" userLabel="Separator View">
-                                        <rect key="frame" x="553" y="26" width="1" height="32"/>
+                                        <rect key="frame" x="556" y="26" width="1" height="32"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -114,12 +114,9 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjf-LF-NvO" userLabel="Close Button">
-                                        <rect key="frame" x="569" y="35" width="14" height="14"/>
+                                        <rect key="frame" x="557" y="20" width="43" height="44"/>
                                         <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="14" id="GVE-TW-em9"/>
-                                            <constraint firstAttribute="width" constant="14" id="RBi-LN-aNC"/>
-                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="close"/>
                                         <connections>
                                             <action selector="didTapCloseButton:" destination="tkf-8P-b2O" eventType="touchUpInside" id="tKu-w0-suh"/>
@@ -149,14 +146,16 @@
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="leading" secondItem="Nef-Ia-7Gd" secondAttribute="trailing" constant="8" id="3jR-gx-E0p"/>
                                     <constraint firstAttribute="bottom" secondItem="Nef-Ia-7Gd" secondAttribute="bottom" id="5tS-6M-np1"/>
                                     <constraint firstAttribute="trailing" secondItem="CjY-C1-VXL" secondAttribute="trailing" id="Fh7-xw-CE6"/>
-                                    <constraint firstItem="Kjf-LF-NvO" firstAttribute="leading" secondItem="a3z-uC-8hv" secondAttribute="trailing" constant="15" id="Hd1-Zn-NoC"/>
+                                    <constraint firstItem="Kjf-LF-NvO" firstAttribute="leading" secondItem="a3z-uC-8hv" secondAttribute="trailing" id="Hd1-Zn-NoC"/>
+                                    <constraint firstAttribute="trailing" secondItem="a3z-uC-8hv" secondAttribute="trailing" constant="43" id="KI7-ee-FBM"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="KTK-FL-Ful"/>
                                     <constraint firstItem="Nef-Ia-7Gd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="d0q-nT-gUD" secondAttribute="top" id="MQH-Lt-0Hg"/>
-                                    <constraint firstAttribute="trailing" secondItem="Kjf-LF-NvO" secondAttribute="trailing" constant="17" id="dhk-Qt-ipY"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kjf-LF-NvO" secondAttribute="trailing" id="dhk-Qt-ipY"/>
                                     <constraint firstItem="Nef-Ia-7Gd" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="15" id="f6B-qa-3hz"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="gwj-4Q-d0l"/>
                                     <constraint firstItem="CjY-C1-VXL" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" id="lMJ-N6-2N9"/>
                                     <constraint firstAttribute="bottom" secondItem="CjY-C1-VXL" secondAttribute="bottom" id="mz2-Z2-aN1"/>
+                                    <constraint firstItem="Kjf-LF-NvO" firstAttribute="height" secondItem="Nef-Ia-7Gd" secondAttribute="height" id="olR-5u-Pe9"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
