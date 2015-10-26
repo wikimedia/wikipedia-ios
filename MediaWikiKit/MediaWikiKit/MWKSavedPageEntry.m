@@ -60,7 +60,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
             self.date = [NSDate date];
         }
 
-        if (schemaVersion.unsignedIntegerValue == MWKSavedPageEntrySchemaVersion1) {
+        if (schemaVersion.unsignedIntegerValue >= MWKSavedPageEntrySchemaVersion1) {
             self.didMigrateImageData =
                 [[self requiredNumber:MWKSavedPageEntryDidMigrateImageDataKey dict:dict] boolValue];
         } else {
