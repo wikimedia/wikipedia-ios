@@ -12,8 +12,6 @@
 
 #import "MediaWikiKit.h"
 
-#import "WMFArticleViewController.h"
-
 #import <SSDataSources/SSDataSources.h>
 #import "WMFEditingCollectionViewLayout.h"
 #import <Masonry/Masonry.h>
