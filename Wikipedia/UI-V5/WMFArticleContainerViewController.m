@@ -371,9 +371,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
     [self fetchArticle];
 
-    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){9, 0, 0}]) {
-        [self configureLinkPreviewingDelegation];
-    }
+    [self configureLinkPreviewingDelegationIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -579,7 +577,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewControllerPreviewingDelegate
 
-- (void)configureLinkPreviewingDelegation {
+- (void)configureLinkPreviewingDelegationIfNeeded {
+    if (self.traitCollection.forceTouchCapability != UIForceTouchCapabilityAvailable) {
+        return;
+    }
     id <UIViewControllerPreviewing>pc = [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
     for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
         [r requireGestureRecognizerToFail:pc.previewingGestureRecognizerForFailureRelationship];
