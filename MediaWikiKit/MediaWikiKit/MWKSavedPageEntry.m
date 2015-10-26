@@ -82,15 +82,17 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 }
 
 - (BOOL)isEqualToEntry:(MWKSavedPageEntry*)rhs {
-    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:);
+    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
+           && self.didMigrateImageData == rhs.didMigrateImageData;
 }
 
 - (NSUInteger)hash {
-    return self.title.hash;
+    return self.title.hash ^ self.didMigrateImageData;
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.title];
+    return [NSString stringWithFormat:@"%@ %@, didMigrateImageData: %d",
+            [super description], self.title, self.didMigrateImageData];
 }
 
 #pragma mark - MWKListObject
