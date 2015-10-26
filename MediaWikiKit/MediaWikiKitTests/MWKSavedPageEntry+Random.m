@@ -7,12 +7,15 @@
 //
 
 #import "MWKSavedPageEntry+Random.h"
+#import "MWKSavedPageEntry+ImageMigration.h"
 #import "MWKTitle+Random.h"
 
 @implementation MWKSavedPageEntry (Random)
 
 + (instancetype)random {
-    return [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    entry.didMigrateImageData = arc4random() % 2 == 0;
+    return entry;
 }
 
 @end
