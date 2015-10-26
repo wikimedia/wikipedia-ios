@@ -247,7 +247,7 @@ public class WMFImageController : NSObject {
             }
 
             if strongSelf.hasDataOnDiskForImageWithURL(url) {
-                NSLog("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
+                DDLogDebug("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
                 try NSFileManager.defaultManager().removeItemAtPath(filepath)
                 return
             }
@@ -262,13 +262,13 @@ public class WMFImageController : NSObject {
                                                        withIntermediateDirectories: true,
                                                        attributes: nil)
             } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
-                NSLog("Ignoring file exists error for path \(fileExistsError)")
+                DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
             }
 
             do {
                 try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: diskCacheURL)
             } catch let fileExistsError as NSError where fileExistsError.code == NSFileWriteFileExistsError {
-                NSLog("Ignoring file exists error for path \(fileExistsError)")
+                DDLogDebug("Ignoring file exists error for path \(fileExistsError)")
             }
         }
     }
