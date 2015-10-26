@@ -634,9 +634,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 #warning TODO: remove dependency on session current article
     self.session.currentArticle = article;
 
-    // HAX: Need to check the window to see if we are on screen, isViewLoaded is not enough.
-    // see http://stackoverflow.com/a/2777460/48311
-    if ([self isViewLoaded] && self.view.window) {
+    if ([self isViewLoaded]) {
         [self displayArticle];
     }
 }
