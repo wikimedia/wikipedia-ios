@@ -105,7 +105,7 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor {
++ (instancetype)wmf_blueTintColor {
     static UIColor* c = nil;
 
     static dispatch_once_t onceToken;
@@ -113,6 +113,10 @@
         c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
     });
     return c;
+}
+
++ (instancetype)wmf_homeSectionHeaderLinkTextColor {
+    return [self wmf_blueTintColor];
 }
 
 @end
