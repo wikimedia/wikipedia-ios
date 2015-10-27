@@ -41,7 +41,7 @@ class WMFTableOfContentsAnimator: NSObject, UIViewControllerAnimatedTransitionin
         UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
             presentedControllerView.center.x -= containerView.bounds.size.width
             }, completion: {(completed: Bool) -> Void in
-                transitionContext.completeTransition(completed)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         })
     }
     
@@ -53,7 +53,7 @@ class WMFTableOfContentsAnimator: NSObject, UIViewControllerAnimatedTransitionin
         UIView.animateWithDuration(self.transitionDuration(transitionContext), delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
             presentedControllerView.center.x += containerView.bounds.size.width
             }, completion: {(completed: Bool) -> Void in
-                transitionContext.completeTransition(completed)
+                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
         })
     }
 }
