@@ -889,6 +889,64 @@ transformer.register( "hideRedlinks", function( content ) {
 },{"../transformer":8}],15:[function(require,module,exports){
 var transformer = require("../transformer");
 
+function findFirstGoodParagraphIn( nodes ) {
+    var minHeight = 40;
+    var firstGoodParagraphIndex;
+    var i;
+    
+    for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].tagName === 'P') {
+            // Ensure the P being pulled up has at least a couple lines of text.
+            // Otherwise silly things like a empty P or P which only contains a
+            // BR tag will get pulled up (see articles on "Chemical Reaction" and
+            // "Hawaii").
+            // Trick for quickly determining element height:
+            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
+            // http://stackoverflow.com/a/1343350/135557
+            var pIsTooSmall = (nodes[i].offsetHeight < minHeight);
+            if (pIsTooSmall) continue;
+            
+            firstGoodParagraphIndex = i;
+            break;
+        }
+    }
+    
+    return firstGoodParagraphIndex;
+}
+
+function addNode( span, node ) {
+    span.appendChild( node.parentNode.removeChild( node ) );
+}
+
+function addTrailingNodes( span, nodes, startIndex ) {
+    for ( var i = startIndex; i < nodes.length; i++ ) {
+        if ( nodes[i].tagName === 'P' ) {
+            break;
+        }
+        addNode( span, nodes[i] );
+    }
+}
+
+// Create a lead span to be moved to the top of the page, consisting of the first
+// qualifying <p> element encountered and any subsequent non-<p> elements until
+// the next <p> is encountered.
+//
+// Simply moving the first <p> element up may result in elements appearing
+// between the first paragraph as designated by <p></p> tags and other elements
+// (such as an unnumbered list) that may also be intended as part of the first
+// display paragraph.  See T111958.
+function createLeadSpan( childNodes ) {
+    var leadSpan = document.createElement( "span" );
+    var firstGoodParagraphIndex = findFirstGoodParagraphIn( childNodes );
+    
+    if (firstGoodParagraphIndex) {
+        addNode( leadSpan, childNodes[firstGoodParagraphIndex] );
+        addTrailingNodes( leadSpan, childNodes, firstGoodParagraphIndex + 1 );
+    }
+    
+    return leadSpan;
+}
+
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     /*
     Instead of moving the infobox down beneath the first P tag,
@@ -902,65 +960,23 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     var block_0 = content.getElementById( "content_block_0" );
     if(!block_0) return;
 
-    var allPs = block_0.getElementsByTagName( "p" );
-    if(!allPs) return;
+    var block_0_children = block_0.childNodes;
+    if (!block_0_children) return;
 
     var edit_section_button_0 = content.getElementById( "edit_section_button_0" );
     if(!edit_section_button_0) return;
-
-    function moveAfter(newNode, referenceNode) {
-        // Based on: http://stackoverflow.com/a/4793630/135557
-        referenceNode.parentNode.insertBefore(newNode.parentNode.removeChild(newNode), referenceNode.nextSibling);
-    }
-
-    for ( var i = 0; i < allPs.length; i++ ) {
-        var p = allPs[i];
-
-        // Narrow down to first P which is direct child of content_block_0 DIV.
-        // (Don't want to yank P from somewhere in the middle of a table!)
-        if  (p.parentNode != block_0) continue;
+                     
+    var leadSpan = createLeadSpan(block_0_children);
+    block_0.insertBefore( leadSpan, edit_section_button_0.nextSibling );
+} );
 
 
-        // Ensure the P being pulled up has at least a couple lines of text.
-        // Otherwise silly things like a empty P or P which only contains a
-        // BR tag will get pulled up (see articles on "Chemical Reaction" and
-        // "Hawaii").
-        // Trick for quickly determining element height:
-        //      https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.offsetHeight
-        //      http://stackoverflow.com/a/1343350/135557
-        var minHeight = 40;
-        var pIsTooSmall = (p.offsetHeight < minHeight);
-        if(pIsTooSmall) continue;
 
 
-        /*
-        // Note: this works - just not sure if needed?
-        // Sometimes P will be mostly image and not much text. Don't
-        // want to move these!
-        var pIsMostlyImage = false;
-        var imgs = p.getElementsByTagName('img');
-        for (var j = 0; j < imgs.length; j++) {
-            var thisImg = imgs[j];
-            // Get image height from img tag's height attribute - otherwise
-            // you'd have to wait for the image to render (if you used offsetHeight).
-            var thisImgHeight = thisImg.getAttribute("height");
-            if(thisImgHeight == 0) continue;
-            var imgHeightPercentOfParagraphTagHeight = thisImgHeight / p.offsetHeight;
-            if (imgHeightPercentOfParagraphTagHeight > 0.5){
-                pIsMostlyImage = true;
-                break;
-            }
-        }
-        if(pIsMostlyImage) continue;
-        */
 
-        // Move the P! Place it just after the lead section edit button.
-        moveAfter(p, edit_section_button_0);
 
-        // But only move one P!
-        break;
-    }
-});
+
+
 
 },{"../transformer":8}],16:[function(require,module,exports){
 var transformer = require("../transformer");
