@@ -256,6 +256,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString* query = self.searchField.text;
 
+    DDLogDebug(@"Search field text changed to: %@", query);
+
     BOOL isFieldEmpty = [query wmf_trim].length == 0;
     [self setSeparatorViewHidden:isFieldEmpty animated:YES];
 
@@ -268,7 +270,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         if ([query isEqualToString:self.searchField.text]) {
+            DDLogDebug(@"Searching for %@ after delay.", query);
             [self searchForSearchTerm:query];
+        } else {
+            DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
         }
     });
 }
@@ -295,6 +300,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
     if ([searchTerm wmf_trim].length == 0) {
+        DDLogDebug(@"Ignoring whitespace-only query.");
         return;
     }
     @weakify(self);
@@ -316,21 +322,24 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         }];
 
         if ([results.articles count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+            DDLogInfo(@"Unsufficient results, performing full-text search.");
             return [self.fetcher searchFullArticleTextForSearchTerm:searchTerm appendToPreviousResults:results];
         }
-
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
-        if ([searchTerm isEqualToString:results.searchTerm]) {
-            if (results.articles.count == 0) {
-                [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
-            }
-            self.resultsListController.dataSource = results;
+        @strongify(self);
+        if (![searchTerm isEqualToString:results.searchTerm]) {
+            DDLogInfo(@"Ignoring results for %@ since query has changed to %@", results.searchTerm, searchTerm);
+            return;
         }
+        if (results.articles.count == 0) {
+            [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
+        }
+        self.resultsListController.dataSource = results;
     }).catch(^(NSError* error){
+        @strongify(self);
         [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
-
-        NSLog(@"%@", [error description]);
+        DDLogError(@"Encountered search error: %@", error);
     });
 }
 
