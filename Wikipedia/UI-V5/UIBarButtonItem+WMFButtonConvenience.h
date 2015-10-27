@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 // If self.customView is UIButton return it else return nil.
 - (UIButton*)wmf_UIButton;
 
++ (UIBarButtonItem*)wmf_barButtonItemOfFixedWidth:(CGFloat)width;
+
 @end
 
 NS_ASSUME_NONNULL_END

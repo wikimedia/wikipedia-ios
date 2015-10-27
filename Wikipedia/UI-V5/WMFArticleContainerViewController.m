@@ -19,6 +19,7 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "SectionEditorViewController.h"
+#import "LanguagesViewController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -37,6 +38,7 @@
 #import "MWKHistoryList.h"
 #import "MWKProtectionStatus.h"
 #import "MWKSectionList.h"
+#import "MWKLanguageLink.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -65,7 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
  WMFImageGalleryViewControllerDelegate,
  WMFSearchPresentationDelegate,
  SectionEditorViewControllerDelegate,
- UIViewControllerPreviewingDelegate>
+ UIViewControllerPreviewingDelegate,
+ LanguageSelectionDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
@@ -93,6 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
 @property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
+@property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 
@@ -121,6 +125,21 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
+}
+
+#pragma mark - Article languages
+
+- (void)showLanguagePicker {
+    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.downloadLanguagesForCurrentArticle = YES;
+    languagesVC.languageSelectionDelegate          = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+}
+
+- (void)languageSelected:(MWKLanguageLink*)langLink sender:(LanguagesViewController*)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_pushArticleViewControllerWithTitle:langLink.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
+    }];
 }
 
 #pragma mark - Accessors
@@ -282,8 +301,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray<UIBarButtonItem*>* toolbarItems =
         [NSMutableArray arrayWithObjects:
          self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
-         self.shareToolbarItem, [self flexibleSpaceToolbarItem],
-         self.saveToolbarItem, nil];
+         self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
+         self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:18.f],
+         self.languagesToolbarItem,
+         nil];
 
     if (!self.article.isMain) {
         [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], self.tableOfContentsToolbarItem]];
@@ -299,16 +320,10 @@ NS_ASSUME_NONNULL_BEGIN
     self.refreshToolbarItem.enabled         = self.article != nil;
     self.tableOfContentsToolbarItem.enabled = self.article != nil;
     self.shareToolbarItem.enabled           = self.article != nil;
+    self.languagesToolbarItem.enabled       = self.article.languagecount > 1;
 }
 
 #pragma mark - Toolbar Items
-
-- (UIBarButtonItem*)paddingToolbarItem {
-    UIBarButtonItem* item =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    item.width = 10.f;
-    return item;
-}
 
 - (UIBarButtonItem*)tableOfContentsToolbarItem {
     if (!_tableOfContentsToolbarItem) {
@@ -316,7 +331,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(didTapTableOfContentsButton:)];
-        _tableOfContentsToolbarItem.tintColor = [UIColor blackColor];
+        _tableOfContentsToolbarItem.tintColor = [UIColor wmf_logoBlue];
         return _tableOfContentsToolbarItem;
     }
     return _tableOfContentsToolbarItem;
@@ -337,6 +352,7 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(self);
             [self fetchArticle];
         }];
+        _refreshToolbarItem.tintColor = [UIColor wmf_logoBlue];
     }
     return _refreshToolbarItem;
 }
@@ -355,8 +371,20 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(self);
             [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
         }];
+        _shareToolbarItem.tintColor = [UIColor wmf_logoBlue];
     }
     return _shareToolbarItem;
+}
+
+- (UIBarButtonItem*)languagesToolbarItem {
+    if (!_languagesToolbarItem) {
+        _languagesToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"language"]
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:self
+                                                                action:@selector(showLanguagePicker)];
+        _languagesToolbarItem.tintColor = [UIColor wmf_logoBlue];
+    }
+    return _languagesToolbarItem;
 }
 
 #pragma mark - ViewController
