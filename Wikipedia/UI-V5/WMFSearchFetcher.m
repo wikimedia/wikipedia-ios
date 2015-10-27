@@ -49,7 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
         self.resolver = resolve;
 
         self.fetcher = [[SearchResultFetcher alloc] init];
-        self.operation = [self.fetcher searchForTerm:searchTerm searchType:type searchReason:SEARCH_REASON_UNKNOWN language:self.searchSite.language maxResults:self.maxSearchResults withManager:self.operationManager thenNotifyDelegate:self];
+        self.operation = [self.fetcher searchForTerm:searchTerm
+                                          searchType:type
+                                        searchReason:SEARCH_REASON_UNKNOWN
+                                            language:self.searchSite.language
+                                          maxResults:self.maxSearchResults
+                                         withManager:self.operationManager
+                                  thenNotifyDelegate:self];
     }];
 }
 
@@ -67,13 +73,18 @@ NS_ASSUME_NONNULL_BEGIN
                status:(FetchFinalStatus)status
                 error:(NSError*)error {
     if (self.resolver) {
-        if (!error) {
-            self.resolver([self searchResultsFromFetcher:sender]);
-        } else {
+        if (error) {
+            DDLogDebug(@"Resolving operation %@ with error %@", self.operation, fetchedData);
             self.resolver(error);
+        } else {
+            WMFSearchResults* results = [self searchResultsFromFetcher:sender];
+            DDLogDebug(@"Resolving operation %@ with results %@", self.operation, results);
+            self.resolver(results);
         }
         self.operation = nil;
         self.resolver  = nil;
+    } else {
+        DDLogWarn(@"No resolver set for results %@ from operation %@", error ?: fetchedData, self.operation);
     }
 }
 
