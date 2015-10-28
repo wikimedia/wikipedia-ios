@@ -1,110 +1,208 @@
 
 #import "WMFSearchFetcher.h"
+#import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "WMFSearchResults.h"
-#import "Wikipedia-Swift.h"
-#import "MWKSite.h"
-#import "MWKTitle.h"
-#import "MWKArticle.h"
+#import "WMFMantleJSONResponseSerializer.h"
 
-NSUInteger const kWMFmaxSearchResults = 24;
+#import "WMFSearchResults.h"
+#import "MWKSearchResult.h"
+
+#import "Wikipedia-Swift.h"
+#import "PromiseKit.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSearchFetcher ()<FetchFinishedDelegate>
+NSUInteger const WMFMaxSearchResultLimit = 20;
 
-@property (nonatomic, strong, readwrite) MWKSite* searchSite;
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+@interface WMFSearchResults (WMFSearchTermWriting)
+@property (nonatomic, copy, readwrite) NSString* searchTerm;
+@end
+
+#pragma mark - Internal Class Declarations
+
+@interface WMFSearchRequestParameters : NSObject
+@property (nonatomic, strong) NSString* searchTerm;
+@property (nonatomic, assign) NSUInteger numberOfResults;
+@property (nonatomic, assign) BOOL fullTextSearch;
+
+@end
+
+@interface WMFSearchRequestSerializer : AFHTTPRequestSerializer
+@end
+
+
+#pragma mark - Fetcher Implementation
+
+@interface WMFSearchFetcher ()
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
-
-@property (nonatomic, strong) SearchResultFetcher* fetcher;
-
-@property (nonatomic, strong, nullable) AFHTTPRequestOperation* operation;
-@property (nonatomic, copy, nullable) PMKResolver resolver;
-
-@property (nonatomic, strong, nullable) WMFSearchResults* previousResults;
 
 @end
 
 @implementation WMFSearchFetcher
 
-- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        self.searchSite       = site;
-        self.dataStore        = dataStore;
-        self.maxSearchResults = kWMFmaxSearchResults;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        self.operationManager      = manager;
+        manager.requestSerializer  = [WMFSearchRequestSerializer serializer];
+        manager.responseSerializer =
+            [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFSearchResults class]
+                                                          fromKeypath:@"query"];
+        self.operationManager = manager;
     }
     return self;
 }
 
-- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm searchType:(SearchType)type {
-    [self.operation cancel];
+- (AnyPromise*)fetchArticlesForSearchTerm:(NSString*)searchTerm
+                                     site:(MWKSite*)site
+                              resultLimit:(NSUInteger)resultLimit {
+    return [self fetchArticlesForSearchTerm:searchTerm site:site resultLimit:resultLimit fullTextSearch:NO appendToPreviousResults:nil];
+}
 
+- (AnyPromise*)fetchArticlesForSearchTerm:(NSString*)searchTerm
+                                     site:(MWKSite*)site
+                              resultLimit:(NSUInteger)resultLimit
+                           fullTextSearch:(BOOL)fullTextSearch
+                  appendToPreviousResults:(nullable WMFSearchResults*)results {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        self.resolver = resolve;
-
-        self.fetcher = [[SearchResultFetcher alloc] init];
-        self.operation = [self.fetcher searchForTerm:searchTerm searchType:type searchReason:SEARCH_REASON_UNKNOWN language:self.searchSite.language maxResults:self.maxSearchResults withManager:self.operationManager thenNotifyDelegate:self];
+        [self fetchArticlesForSearchTerm:searchTerm site:site resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:results useDesktopURL:NO resolver:resolve];
     }];
 }
 
-- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm {
-    return [self searchArticleTitlesForSearchTerm:searchTerm searchType:SEARCH_TYPE_TITLES];
-}
+- (void)fetchArticlesForSearchTerm:(NSString*)searchTerm
+                              site:(MWKSite*)site
+                       resultLimit:(NSUInteger)resultLimit
+                    fullTextSearch:(BOOL)fullTextSearch
+           appendToPreviousResults:(nullable WMFSearchResults*)previousResults
+                     useDesktopURL:(BOOL)useDeskTopURL
+                          resolver:(PMKResolver)resolve {
+    NSURL* url = [site apiEndpoint:useDeskTopURL];
 
-- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(nullable WMFSearchResults*)results {
-    self.previousResults = results;
-    return [self searchArticleTitlesForSearchTerm:searchTerm searchType:SEARCH_TYPE_IN_ARTICLES];
-}
+    WMFSearchRequestParameters* params = [WMFSearchRequestParameters new];
+    params.searchTerm      = searchTerm;
+    params.numberOfResults = resultLimit;
+    params.fullTextSearch  = fullTextSearch;
 
-- (void)fetchFinished:(id)sender
-          fetchedData:(id)fetchedData
-               status:(FetchFinalStatus)status
-                error:(NSError*)error {
-    if (self.resolver) {
-        if (!error) {
-            self.resolver([self searchResultsFromFetcher:sender]);
-        } else {
-            self.resolver(error);
+    [self.operationManager GET:url.absoluteString
+                    parameters:params
+                       success:^(AFHTTPRequestOperation* operation, id response) {
+        [[MWNetworkActivityIndicatorManager sharedManager] pop];
+
+        WMFSearchResults* searchResults = response;
+        searchResults.searchTerm = searchTerm;
+
+        if (previousResults) {
+            NSArray* results = [searchResults.results bk_reject:^BOOL (MWKSearchResult* obj) {
+                return ([previousResults.results containsObject:obj]);
+            }];
+
+            results = [previousResults.results arrayByAddingObjectsFromArray:results];
+            searchResults = [[WMFSearchResults alloc] initWithSearchTerm:searchResults.searchTerm results:results searchSuggestion:searchResults.searchSuggestion];
         }
-        self.operation = nil;
-        self.resolver  = nil;
+        resolve(searchResults);
     }
-}
-
-- (WMFSearchResults*)searchResultsFromFetcher:(SearchResultFetcher*)resultsFetcher {
-    NSArray* articles = [resultsFetcher.searchResults bk_map:^id (NSDictionary* obj) {
-        MWKTitle* title = [MWKTitle titleWithString:obj[@"title"] site:self.searchSite];
-        MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
-                                                      dataStore:self.dataStore
-                                              searchResultsDict:obj];
-        return article;
+                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
+            [self fetchArticlesForSearchTerm:searchTerm site:site resultLimit:resultLimit fullTextSearch:fullTextSearch appendToPreviousResults:previousResults useDesktopURL:YES resolver:resolve];
+        } else {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            resolve(error);
+        }
     }];
-
-    WMFSearchResults* results = nil;
-
-    if (self.previousResults) {
-        articles = [articles bk_reject:^BOOL (MWKArticle* obj) {
-            return ([self.previousResults.articles containsObject:obj]);
-        }];
-
-        articles             = [[self.previousResults articles] arrayByAddingObjectsFromArray:articles];
-        results              = [[WMFSearchResults alloc] initWithSearchTerm:self.previousResults.searchTerm articles:articles searchSuggestion:self.previousResults.searchSuggestion];
-        self.previousResults = nil;
-    } else {
-        results = [[WMFSearchResults alloc] initWithSearchTerm:resultsFetcher.searchTerm articles:articles searchSuggestion:resultsFetcher.searchSuggestion];
-    }
-
-
-
-    return results;
 }
 
 @end
+
+#pragma mark - Internal Class Implementations
+
+@implementation WMFSearchRequestParameters
+
+- (void)setNumberOfResults:(NSUInteger)numberOfResults {
+    if (numberOfResults > WMFMaxSearchResultLimit) {
+        DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
+                   numberOfResults, WMFMaxSearchResultLimit);
+        numberOfResults = WMFMaxSearchResultLimit;
+    }
+    _numberOfResults = numberOfResults;
+}
+
+@end
+
+#pragma mark - Request Serializer
+
+static NSNumber* WMFSearchThumbnailWidth() {
+    static NSNumber* WMFSearchThumbnailWidth;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        WMFSearchThumbnailWidth = @([[UIScreen mainScreen] scale] * 70.f);
+    });
+    return WMFSearchThumbnailWidth;
+}
+
+@implementation WMFSearchRequestSerializer
+
+- (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
+                                       withParameters:(nullable id)parameters
+                                                error:(NSError* __autoreleasing*)error {
+    NSDictionary* serializedParams = [self serializedParams:(WMFSearchRequestParameters*)parameters];
+    return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
+}
+
+- (NSDictionary*)serializedParams:(WMFSearchRequestParameters*)params {
+    NSNumber* numResults = @(params.numberOfResults);
+
+    if (params.fullTextSearch) {
+        return @{
+                   @"action": @"query",
+                   @"generator": @"prefixsearch",
+                   @"gpssearch": params.searchTerm,
+                   @"gpsnamespace": @0,
+                   @"gpslimit": numResults,
+                   @"prop": @"pageterms|pageimages",
+                   @"piprop": @"thumbnail",
+                   @"wbptterms": @"description",
+                   @"pithumbsize": WMFSearchThumbnailWidth(),
+                   @"pilimit": numResults,
+                   // -- Parameters causing prefix search to efficiently return suggestion.
+                   @"list": @"search",
+                   @"srsearch": params.searchTerm,
+                   @"srnamespace": @0,
+                   @"srwhat": @"text",
+                   @"srinfo": @"suggestion",
+                   @"srprop": @"",
+                   @"sroffset": @0,
+                   @"srlimit": @1,
+                   //                       @"redirects": @1,
+                   // --
+                   @"continue": @"",
+                   @"format": @"json"
+        };
+    } else {
+        return @{
+                   @"action": @"query",
+                   @"prop": @"pageterms|pageimages",
+                   @"wbptterms": @"description",
+                   @"generator": @"search",
+                   @"gsrsearch": params.searchTerm,
+                   @"gsrnamespace": @0,
+                   @"gsrwhat": @"text",
+                   @"gsrinfo": @"",
+                   @"gsrprop": @"redirecttitle",
+                   @"gsroffset": @0,
+                   @"gsrlimit": numResults,
+                   @"piprop": @"thumbnail",
+                   @"pithumbsize": WMFSearchThumbnailWidth(),
+                   @"pilimit": numResults,
+                   @"continue": @"",
+                   @"format": @"json"
+                   //                       @"redirects": @1,
+        };
+    }
+}
+
+@end
+
 
 NS_ASSUME_NONNULL_END

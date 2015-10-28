@@ -1,25 +1,24 @@
 
 #import <Foundation/Foundation.h>
-#import "SearchResultFetcher.h"
 
 @class MWKSite;
 @class WMFSearchResults;
-@class MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSUInteger const WMFMaxSearchResultLimit;
+
 @interface WMFSearchFetcher : NSObject
 
-@property (nonatomic, strong, readonly) MWKSite* searchSite;
-@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+- (AnyPromise*)fetchArticlesForSearchTerm:(NSString*)searchTerm
+                                     site:(MWKSite*)site
+                              resultLimit:(NSUInteger)resultLimit;
 
-- (instancetype)initWithSearchSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
-
-@property (nonatomic, assign) NSUInteger maxSearchResults;
-
-- (AnyPromise*)searchArticleTitlesForSearchTerm:(NSString*)searchTerm;
-
-- (AnyPromise*)searchFullArticleTextForSearchTerm:(NSString*)searchTerm appendToPreviousResults:(nullable WMFSearchResults*)results;
+- (AnyPromise*)fetchArticlesForSearchTerm:(NSString*)searchTerm
+                                     site:(MWKSite*)site
+                              resultLimit:(NSUInteger)resultLimit
+                           fullTextSearch:(BOOL)fullTextSearch
+                  appendToPreviousResults:(nullable WMFSearchResults*)results;
 
 @end
 
