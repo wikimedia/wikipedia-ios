@@ -77,6 +77,10 @@
 
     MWKList* otherList = [self listWithDataStore];
 
+    [self verifyList:list isEqualToList:otherList];
+}
+
+- (void)verifyList:(MWKList*)list isEqualToList:(MWKList*)otherList {
     assertThat(otherList, is(equalTo(list)));
 }
 

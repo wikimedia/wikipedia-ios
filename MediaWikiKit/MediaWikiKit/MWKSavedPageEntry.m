@@ -82,12 +82,11 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 }
 
 - (BOOL)isEqualToEntry:(MWKSavedPageEntry*)rhs {
-    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
-           && self.didMigrateImageData == rhs.didMigrateImageData;
+    return WMF_RHS_PROP_EQUAL(title, isEqualToTitle:);
 }
 
 - (NSUInteger)hash {
-    return self.title.hash ^ self.didMigrateImageData;
+    return self.title.hash;
 }
 
 - (NSString*)description {
