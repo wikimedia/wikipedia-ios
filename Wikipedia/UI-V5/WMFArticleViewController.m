@@ -15,8 +15,9 @@
 
 // Models & Controllers
 #import "WMFArticleHeaderImageGalleryViewController.h"
-#import "WMFSearchFetcher.h"
-#import "WMFSearchResults.h"
+#import "WMFRelatedSearchFetcher.h"
+#import "WMFRelatedSearchResults.h"
+#import "MWKSearchResult.h"
 #import "MWKArticle.h"
 #import "WMFImageGalleryViewController.h"
 #import "MWKCitation.h"
@@ -59,8 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray* topLevelSections;
 @property (nonatomic, strong, readonly) NSIndexSet* indexSetOfTOCSections;
 
-@property (nonatomic, strong) WMFSearchFetcher* readMoreFetcher;
-@property (nonatomic, strong) WMFSearchResults* readMoreResults;
+@property (nonatomic, strong) WMFRelatedSearchFetcher* readMoreFetcher;
+@property (nonatomic, strong) WMFRelatedSearchResults* readMoreResults;
 
 #pragma mark Header Properties
 
@@ -142,6 +143,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateUIForMode:mode animated:animated];
 }
 
+- (WMFRelatedSearchFetcher*)readMoreFetcher{
+    if(!_readMoreFetcher){
+        _readMoreFetcher = [[WMFRelatedSearchFetcher alloc] init];
+    }
+    return _readMoreFetcher;
+}
+
+
 #pragma mark - Section Hierarchy Accessors
 
 - (BOOL)isLeadSection:(NSUInteger)section {
@@ -215,20 +224,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Read More Fetching
 
 - (void)fetchReadMoreForTitle:(MWKTitle*)title {
-    // Note: can't set the readMoreFetcher when the article changes because the article changes *a lot* because the
-    // card collection view controller sets it a lot as you scroll through the cards. "fetchReadMoreForTitle:" however
-    // is only called when the card is expanded, so self.readMoreFetcher is set here as well so it's not needlessly
-    // repeatedly set.
-    self.readMoreFetcher =
-        [[WMFSearchFetcher alloc] initWithSearchSite:self.article.title.site dataStore:self.dataStore];
-    self.readMoreFetcher.maxSearchResults = 3;
-
+   
     @weakify(self)
-    [self.readMoreFetcher searchFullArticleTextForSearchTerm :[@"morelike:" stringByAppendingString:title.text] appendToPreviousResults : nil]
-    .then(^(WMFSearchResults* results) {
+     [self.readMoreFetcher fetchArticlesRelatedToTitle:title resultLimit:3]
+    .then(^(WMFRelatedSearchResults* results) {
         @strongify(self)
         self.readMoreResults = results;
-
         if (self.isViewLoaded) {
             [self.tableView reloadData];
         }
@@ -391,7 +392,7 @@ NS_ASSUME_NONNULL_BEGIN
         // parent + children
         return [[[self parentSectionForTableSection:section] children] count] + 1;
     } else {
-        return self.readMoreResults.articleCount;
+        return self.readMoreResults.results.count;
     }
 }
 
@@ -433,15 +434,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleReadMoreCell*)readMoreCellAtIndexPath:(NSIndexPath*)indexPath {
     WMFArticleReadMoreCell* cell = [self.tableView dequeueReusableCellWithIdentifier:[WMFArticleReadMoreCell wmf_nibName]];
-    MWKArticle* readMoreArticle  = self.readMoreResults.articles[indexPath.row];
-    cell.titleLabel.text       = readMoreArticle.title.text;
-    cell.descriptionLabel.text = readMoreArticle.entityDescription;
+    MWKSearchResult* readMoreResult  = self.readMoreResults.results[indexPath.row];
+    cell.titleLabel.text       = readMoreResult.displayTitle;
+    cell.descriptionLabel.text = readMoreResult.wikidataDescription;
 
     // Not sure why long titles won't wrap without this... the TOC cells seem to...
     [cell setNeedsDisplay];
     [cell layoutIfNeeded];
 
-    NSURL* url = [NSURL wmf_optionalURLWithString:readMoreArticle.thumbnailURL];
+    NSURL* url = readMoreResult.thumbnailURL;
     [[WMFImageController sharedInstance] fetchImageWithURL:url].then(^(WMFImageDownload* download){
         cell.thumbnailImageView.image = download.image;
     }).catch(^(NSError* error){
@@ -505,7 +506,8 @@ NS_ASSUME_NONNULL_BEGIN
         [self.delegate articleViewController:self
                    didTapSectionWithFragment:[[self sectionForIndexPath:indexPath] anchor]];
     } else {
-        MWKTitle* readMoreTitle = [(MWKArticle*)self.readMoreResults.articles[indexPath.item] title];
+        MWKSearchResult* readMoreResult = self.readMoreResults.results[indexPath.item];
+        MWKTitle* readMoreTitle = [[self.readMoreResults title].site titleWithString:readMoreResult.displayTitle];
         [self.delegate articleNavigator:nil didTapLinkToPage:readMoreTitle];
     }
 }
