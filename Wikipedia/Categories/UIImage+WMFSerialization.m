@@ -45,7 +45,7 @@
         }
     }
 
-    DDLogWarn(@"Unknown Image Type, falling back on PNG");
+    DDLogWarn(@"Unknown Image Type %@, falling back on PNG", mimeType);
     *outMimeType = @"image/png";
     return [self wmf_pngRepresentation];
 }

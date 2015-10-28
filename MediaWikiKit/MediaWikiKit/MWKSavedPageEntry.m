@@ -60,7 +60,7 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
             self.date = [NSDate date];
         }
 
-        if (schemaVersion.unsignedIntegerValue == MWKSavedPageEntrySchemaVersion1) {
+        if (schemaVersion.unsignedIntegerValue >= MWKSavedPageEntrySchemaVersion1) {
             self.didMigrateImageData =
                 [[self requiredNumber:MWKSavedPageEntryDidMigrateImageDataKey dict:dict] boolValue];
         } else {
@@ -90,7 +90,8 @@ static NSString* const MWKSavedPageEntryDidMigrateImageDataKey = @"didMigrateIma
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@", [super description], self.title];
+    return [NSString stringWithFormat:@"%@ %@, didMigrateImageData: %d",
+            [super description], self.title, self.didMigrateImageData];
 }
 
 #pragma mark - MWKListObject
