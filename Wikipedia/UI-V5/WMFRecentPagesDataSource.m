@@ -1,9 +1,10 @@
 
 #import "WMFRecentPagesDataSource.h"
+#import "MWKDataStore.h"
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
+#import "MWKSavedPageList.h"
 #import "MWKArticle.h"
-#import "MediaWikiKit.h"
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
@@ -13,16 +14,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRecentPagesDataSource ()
 
 @property (nonatomic, strong, readwrite) MWKHistoryList* recentPages;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @end
 
 @implementation WMFRecentPagesDataSource
 
-- (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages {
+- (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages savedPages:(MWKSavedPageList*)savedPages {
+    NSParameterAssert(recentPages);
+    NSParameterAssert(savedPages);
     self = [super initWithTarget:recentPages keyPath:WMF_SAFE_KEYPATH(recentPages, entries)];
     if (self) {
-        self.recentPages = recentPages;
+        self.recentPages   = recentPages;
+        self.savedPageList = savedPages;
 
         self.cellClass = [WMFArticlePreviewCell class];
 
@@ -32,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKArticle* article = [self articleForIndexPath:indexPath];
+            MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
             [cell setSummary:[article summary]];
             cell.title           = article.title;
             cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
@@ -48,14 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
 }
 
-- (NSArray*)articles {
-    return [[self.recentPages entries] bk_map:^id (id obj) {
-        return [self articleForEntry:obj];
+- (NSArray*)titles {
+    return [[self.recentPages entries] bk_map:^id (MWKHistoryEntry* obj) {
+        return obj.title;
     }];
-}
-
-- (MWKArticle*)articleForEntry:(MWKHistoryEntry*)entry {
-    return [[self dataStore] articleWithTitle:entry.title];
 }
 
 - (MWKDataStore*)dataStore {
@@ -66,8 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
     return @"Recent";
 }
 
-- (NSUInteger)articleCount {
-    return [[self recentPages] countOfEntries];
+- (NSUInteger)titleCount {
+    return [self.recentPages countOfEntries];
 }
 
 - (MWKHistoryEntry*)recentPageForIndexPath:(NSIndexPath*)indexPath {
@@ -75,17 +75,23 @@ NS_ASSUME_NONNULL_BEGIN
     return entry;
 }
 
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* entry = [self recentPageForIndexPath:indexPath];
-    return [self articleForEntry:entry];
+- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
+    MWKHistoryEntry* savedEntry = [self recentPageForIndexPath:indexPath];
+    return savedEntry.title;
 }
 
-- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article {
-    NSUInteger index = [self.articles indexOfObject:article];
+- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
+    NSUInteger index = [[self.recentPages entries] indexOfObjectPassingTest:^BOOL (MWKHistoryEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        if ([obj.title isEqualToTitle:title]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+
     if (index == NSNotFound) {
         return nil;
     }
-
     return [NSIndexPath indexPathForItem:index inSection:0];
 }
 

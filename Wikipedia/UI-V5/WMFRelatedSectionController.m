@@ -83,7 +83,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSArray*)items {
-    return [self.relatedTitleDataSource.relatedTitleResults
+    return [self.relatedTitleDataSource.relatedSearchResults.results
             wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
 }
 
@@ -133,8 +133,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return _relatedTitleDataSource;
 }
 
-- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
-    if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedTitleResults) {
+- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
+    if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedSearchResults) {
         [self.relatedTitleDataSource fetch];
     }
     return self.relatedTitleDataSource;
@@ -156,7 +156,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     }
     @weakify(self);
     [self.relatedTitleDataSource fetch]
-    .then(^(WMFRelatedSearchResults* _){
+    .then(^(WMFRelatedSearchResults* results){
         @strongify(self);
         [self.delegate controller:self didSetItems:self.items];
     })

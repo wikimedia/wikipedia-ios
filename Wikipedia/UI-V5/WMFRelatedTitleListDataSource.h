@@ -8,19 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import <SSDataSources/SSArrayDataSource.h>
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WMFRelatedSearchResults;
 @class WMFRelatedSearchFetcher;
 @class MWKSavedPageList;
 @class MWKDataStore;
 @class MWKTitle;
 
 @interface WMFRelatedTitleListDataSource : SSArrayDataSource
-    <WMFArticleListDataSource>
+    <WMFTitleListDataSource>
 
-@property (nonatomic, copy, readonly) NSArray* relatedTitleResults;
+@property (nonatomic, strong, readonly, nullable) WMFRelatedSearchResults* relatedSearchResults;
 
 - (instancetype)initWithTitle:(MWKTitle*)title
                     dataStore:(MWKDataStore*)dataStore

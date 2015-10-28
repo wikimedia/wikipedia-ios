@@ -1,14 +1,14 @@
 #import <SSDataSources/SSDataSources.h>
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 
 @class MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSavedPagesDataSource : SSArrayDataSource<WMFArticleListDataSource>
+@interface WMFSavedPagesDataSource : SSArrayDataSource<WMFTitleListDataSource>
 
 @property (nonatomic, strong, readonly) NSArray* articles;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 
 - (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages;
 

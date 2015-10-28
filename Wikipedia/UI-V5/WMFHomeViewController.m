@@ -40,7 +40,7 @@
 #import "WMFArticleContainerViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 #import "WMFArticleListCollectionViewController.h"
 
 // Controllers
@@ -477,10 +477,8 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
-    extendedList.dataStore   = self.dataStore;
-    extendedList.savedPages  = self.savedPages;
-    extendedList.recentPages = self.recentPages;
-    extendedList.dataSource  = [controllerForSection extendedListDataSource];
+    extendedList.dataStore  = self.dataStore;
+    extendedList.dataSource = [controllerForSection extendedListDataSource];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 

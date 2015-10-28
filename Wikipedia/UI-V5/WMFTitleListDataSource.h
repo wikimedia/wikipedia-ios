@@ -4,21 +4,21 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
 
-@protocol WMFArticleListDataSource <NSObject>
+@protocol WMFTitleListDataSource <NSObject>
 
 - (nullable NSString*)displayTitle;
 
-@property (nonatomic, strong, readonly) NSArray* articles;
+@property (nonatomic, strong, readonly) NSArray* titles;
 
-- (NSUInteger) articleCount;
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath;
-- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article;
+- (NSUInteger)titleCount;
+
+- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath;
+
+- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title;
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod;
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
 @optional
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol WMFArticleListDynamicDataSource <WMFArticleListDataSource>
+@protocol WMFArticleListDynamicDataSource <WMFTitleListDataSource>
 
 - (void)startUpdating;
 

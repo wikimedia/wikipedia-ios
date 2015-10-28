@@ -150,7 +150,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self.viewModel.locationSearchResults.results.count > index;
 }
 
-- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
+- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
 }
 

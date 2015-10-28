@@ -5,6 +5,7 @@
 
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
+#import "WMFSearchDataSource.h"
 
 #import "MediaWikiKit.h"
 
@@ -85,16 +86,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Accessors
 
 - (NSString*)currentSearchTerm {
-    return [(WMFSearchResults*)self.resultsListController.dataSource searchTerm];
+    return [[(WMFSearchDataSource*)self.resultsListController.dataSource searchResults] searchTerm];
 }
 
 - (NSString*)searchSuggestion {
-    return [(WMFSearchResults*)self.resultsListController.dataSource searchSuggestion];
+    return [[(WMFSearchDataSource*)self.resultsListController.dataSource searchResults] searchSuggestion];
 }
 
 - (WMFSearchFetcher*)fetcher {
     if (!_fetcher) {
-        _fetcher = [[WMFSearchFetcher alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+        _fetcher = [[WMFSearchFetcher alloc] init];
     }
     return _fetcher;
 }
@@ -131,8 +132,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)configureArticleList {
     self.resultsListController.dataStore   = self.dataStore;
-    self.resultsListController.recentPages = self.dataStore.userDataStore.historyList;
-    self.resultsListController.savedPages  = self.dataStore.userDataStore.savedPageList;
     self.resultsListController.delegate    = self;
 }
 
@@ -304,8 +303,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     @weakify(self);
-    [self.fetcher searchArticleTitlesForSearchTerm:searchTerm]
-    .thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
+    [self.fetcher fetchArticlesForSearchTerm:searchTerm site:self.searchSite resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
         @strongify(self);
         if (![results.searchTerm isEqualToString:self.searchField.text]) {
             return [NSError cancelledError];
@@ -315,27 +313,32 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
-        self.resultsListController.dataSource = results;
+        
+        WMFSearchDataSource* dataSource = [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results savedPages:self.dataStore.userDataStore.savedPageList];
+        
+        self.resultsListController.dataSource = dataSource;
 
         [UIView animateWithDuration:0.25 animations:^{
             [self updateUIWithResults:results];
         }];
 
-        if ([results.articles count] < kWMFMinResultsBeforeAutoFullTextSearch) {
-            DDLogInfo(@"Unsufficient results, performing full-text search.");
-            return [self.fetcher searchFullArticleTextForSearchTerm:searchTerm appendToPreviousResults:results];
+        if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
+            return [self.fetcher fetchArticlesForSearchTerm:searchTerm site:self.searchSite resultLimit:WMFMaxSearchResultLimit fullTextSearch:YES appendToPreviousResults:results];
         }
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
-        @strongify(self);
-        if (![searchTerm isEqualToString:results.searchTerm]) {
-            DDLogInfo(@"Ignoring results for %@ since query has changed to %@", results.searchTerm, searchTerm);
-            return;
+        if ([searchTerm isEqualToString:results.searchTerm]) {
+            if (results.results.count == 0) {
+                [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
+            }
+            
+            WMFSearchDataSource* dataSource = [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results savedPages:self.dataStore.userDataStore.savedPageList];
+
+            self.resultsListController.dataSource = dataSource;
         }
-        if (results.articles.count == 0) {
+        if (results.results.count == 0) {
             [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
         }
-        self.resultsListController.dataSource = results;
     }).catch(^(NSError* error){
         @strongify(self);
         [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
