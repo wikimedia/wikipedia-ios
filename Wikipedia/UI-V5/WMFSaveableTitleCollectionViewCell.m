@@ -31,6 +31,8 @@
     [self configureContentView];
     [self configureImageViewWithPlaceholder];
     [self.saveButton wmf_setButtonType:WMFButtonTypeBookmarkMini];
+    self.saveButton.tintColor            = [UIColor wmf_blueTintColor];
+    [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
 }
 
 - (void)configureContentView {

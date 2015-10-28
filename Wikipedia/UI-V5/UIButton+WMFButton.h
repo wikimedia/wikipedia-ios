@@ -13,7 +13,6 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeHeart,
     WMFButtonTypeTableOfContents,
     WMFButtonTypeX,
-    WMFButtonTypeXWhite,
     WMFButtonTypeTrash,
     WMFButtonTypeTranslate,
     WMFButtonTypeMagnify,

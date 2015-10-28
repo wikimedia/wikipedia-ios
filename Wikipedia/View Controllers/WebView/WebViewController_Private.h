@@ -20,7 +20,6 @@
 #import "UIViewController+Alert.h"
 #import "NSString+Extras.h"
 #import "PaddedLabel.h"
-#import "LanguagesViewController.h"
 #import "EditFunnel.h"
 #import "AccountCreationViewController.h"
 #import "WikiGlyph_Chars.h"

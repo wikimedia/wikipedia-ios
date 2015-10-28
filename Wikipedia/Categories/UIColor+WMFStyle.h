@@ -14,6 +14,8 @@
 
 + (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha;
 
++ (instancetype)wmf_blueTintColor;
+
 + (instancetype)wmf_summaryTextColor;
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor;
