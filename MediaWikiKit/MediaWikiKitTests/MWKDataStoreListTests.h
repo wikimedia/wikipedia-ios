@@ -21,7 +21,7 @@
 /**
  *  Assert equality of two lists.
  *
- *  Default implementation checks `isEqual:` of both lists' entries. Override this method to 
+ *  Default implementation checks `isEqual:` of both lists' entries. Override this method to
  *  add additional verification, but call @c super if you need `isEqual:` checked as well.
  *
  *  @param list      A list which was exercised by a test.

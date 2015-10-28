@@ -30,7 +30,7 @@
     return entry;
 }
 
-- (void)verifyList:(MWKList *)list isEqualToList:(MWKList *)otherList {
+- (void)verifyList:(MWKList*)list isEqualToList:(MWKList*)otherList {
     [super verifyList:list isEqualToList:otherList];
     NSString* didMigrateImageData = WMF_SAFE_KEYPATH([MWKSavedPageEntry new], didMigrateImageData);
     assertThat([list.entries valueForKey:didMigrateImageData], is([otherList.entries valueForKey:didMigrateImageData]));
