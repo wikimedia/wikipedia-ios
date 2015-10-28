@@ -100,6 +100,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 
+// Previewing
+@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
+
 @end
 
 @implementation WMFArticleContainerViewController
@@ -278,7 +281,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemsIfNeeded {
-    
     if (!self.saveButtonController) {
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
     }
@@ -386,8 +388,16 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
     [self fetchArticle];
+}
 
-    [self configureLinkPreviewingDelegationIfNeeded];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self registerForPreviewingIfAvailable];
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -593,13 +603,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UIViewControllerPreviewingDelegate
 
-- (void)configureLinkPreviewingDelegationIfNeeded {
-    if (self.traitCollection.forceTouchCapability != UIForceTouchCapabilityAvailable) {
-        return;
-    }
-    id <UIViewControllerPreviewing>pc = [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
-    for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
-        [r requireGestureRecognizerToFail:pc.previewingGestureRecognizerForFailureRelationship];
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        [self unregisterForPreviewing];
+        self.linkPreviewingContext =
+            [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
+        for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
+            [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
+        }
+    } unavailable:^{
+        [self unregisterForPreviewing];
+    }];
+}
+
+- (void)unregisterForPreviewing {
+    if (self.linkPreviewingContext) {
+        [self unregisterForPreviewingWithContext:self.linkPreviewingContext];
+        self.linkPreviewingContext = nil;
     }
 }
 
