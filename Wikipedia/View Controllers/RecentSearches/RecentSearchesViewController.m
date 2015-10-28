@@ -14,7 +14,6 @@
 #import "MWKRecentSearchEntry.h"
 #import "UIView+TemporaryAnimatedXF.h"
 #import "Defines.h"
-#import "SearchResultFetcher.h"
 
 static CGFloat const cellHeight           = 68.f;
 static CGFloat const trashFontSize        = 30.f;
