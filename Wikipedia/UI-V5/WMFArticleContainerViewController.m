@@ -600,7 +600,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UIViewControllerPreviewingDelegate
 
 - (void)configureLinkPreviewingDelegationIfNeeded {
-    if (self.traitCollection.forceTouchCapability != UIForceTouchCapabilityAvailable) {
+    if (![self wmf_isForceTouchAvailable]) {
         return;
     }
     id <UIViewControllerPreviewing>pc = [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];

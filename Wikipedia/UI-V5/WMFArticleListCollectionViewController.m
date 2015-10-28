@@ -26,6 +26,7 @@
 
 #import "UIColor+WMFHexColor.h"
 #import <BlocksKit/BlocksKit.h>
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleListCollectionViewController ()
 <UICollectionViewDelegate,
@@ -227,8 +228,9 @@
 
     [self observeArticleUpdates];
 
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    if ([self wmf_isForceTouchAvailable]) {
+        [self registerForPreviewingWithDelegate:self
+                                     sourceView:self.collectionView];
         ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
     }
 }

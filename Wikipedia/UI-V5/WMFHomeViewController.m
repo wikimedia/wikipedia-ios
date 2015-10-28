@@ -1,4 +1,5 @@
 #import "WMFHomeViewController.h"
+#import "Wikipedia-Swift.h"
 
 // Frameworks
 @import SelfSizingWaterfallCollectionViewLayout;
@@ -198,8 +199,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    if ([self wmf_isForceTouchAvailable]) {
+        [self registerForPreviewingWithDelegate:self
+                                     sourceView:self.collectionView];
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
