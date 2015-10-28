@@ -524,7 +524,6 @@
 		D499143D181D51DE00E6073C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D499143C181D51DE00E6073C /* UIKit.framework */; };
 		D4991445181D51DE00E6073C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991444181D51DE00E6073C /* main.m */; };
 		D4991449181D51DE00E6073C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4991448181D51DE00E6073C /* AppDelegate.m */; };
-		D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */; };
 		D4B0AE0219365F7C00F0AC90 /* EventLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */; };
 		D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE041936604700F0AC90 /* EditFunnel.m */; };
 		D4B0AE0819366A0A00F0AC90 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4B0AE0719366A0A00F0AC90 /* CreateAccountFunnel.m */; };
@@ -1584,8 +1583,6 @@
 		D4991448181D51DE00E6073C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D4991453181D51DE00E6073C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = wikipedia/Images.xcassets; sourceTree = "<group>"; };
 		D499145A181D51DF00E6073C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		D49B2ED0196C687C002F035D /* PullToRefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullToRefreshViewController.h; path = PullToRefresh/PullToRefreshViewController.h; sourceTree = "<group>"; };
-		D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullToRefreshViewController.m; path = PullToRefresh/PullToRefreshViewController.m; sourceTree = "<group>"; };
 		D4B0AE0019365F7C00F0AC90 /* EventLoggingFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventLoggingFunnel.h; path = EventLogging/EventLoggingFunnel.h; sourceTree = "<group>"; };
 		D4B0AE0119365F7C00F0AC90 /* EventLoggingFunnel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventLoggingFunnel.m; path = EventLogging/EventLoggingFunnel.m; sourceTree = "<group>"; };
 		D4B0AE031936604700F0AC90 /* EditFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditFunnel.h; path = EventLogging/EditFunnel.h; sourceTree = "<group>"; };
@@ -1985,7 +1982,6 @@
 				04C91CE8195517030035ED1B /* Onboarding */,
 				04F27B6D18FE0F2E00EDD838 /* PageHistory */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
-				D49B2ECF196C684F002F035D /* PullToRefresh */,
 				04C757621A1A9DC50084AC39 /* RecentSearches */,
 				04CCA0BD19830837000E982A /* References */,
 				044BD6B218849AD000FFE4BE /* SectionEditor */,
@@ -3479,15 +3475,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D49B2ECF196C684F002F035D /* PullToRefresh */ = {
-			isa = PBXGroup;
-			children = (
-				D49B2ED0196C687C002F035D /* PullToRefreshViewController.h */,
-				D49B2ED1196C687C002F035D /* PullToRefreshViewController.m */,
-			);
-			name = PullToRefresh;
-			sourceTree = "<group>";
-		};
 		D4B0ADFF19365F4600F0AC90 /* EventLogging */ = {
 			isa = PBXGroup;
 			children = (
@@ -4058,7 +4045,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04DA87861B310E7D00C948F8 /* RecentSearchesViewController.m in Sources */,
-				D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */,
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				BCB669A61A83F6C400C7B1FE /* MWKDataObject.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
