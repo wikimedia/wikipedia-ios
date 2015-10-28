@@ -121,8 +121,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.discoveryMethod = discoveryMethod;
         [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;
-        [self setupToolbar];
-        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
 }
@@ -253,18 +251,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _shareOptionsController;
 }
 
-- (WMFSaveButtonController*)saveButtonController {
-    if (!_saveButtonController) {
-        _saveButtonController = [[WMFSaveButtonController alloc] init];
-        UIButton* saveButton = [UIButton wmf_buttonType:WMFButtonTypeBookmark handler:nil];
-        [saveButton sizeToFit];
-        _saveButtonController.button        = saveButton;
-        _saveButtonController.savedPageList = self.savedPages;
-        _saveButtonController.title         = self.articleTitle;
-    }
-    return _saveButtonController;
-}
-
 #pragma mark - Notifications and Observations
 
 - (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
@@ -298,6 +284,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemsIfNeeded {
+    
+    if (!self.saveButtonController) {
+        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
+    }
+
     NSMutableArray<UIBarButtonItem*>* toolbarItems =
         [NSMutableArray arrayWithObjects:
          self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
@@ -339,7 +330,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithCustomView:self.saveButtonController.button];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     return _saveToolbarItem;
 }
@@ -391,6 +382,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self setupToolbar];
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
