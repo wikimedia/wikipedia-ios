@@ -284,7 +284,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemsIfNeeded {
-    
     if (!self.saveButtonController) {
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
     }
@@ -330,7 +329,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem           = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem.tintColor = [UIColor wmf_logoBlue];
     }
     return _saveToolbarItem;
 }
