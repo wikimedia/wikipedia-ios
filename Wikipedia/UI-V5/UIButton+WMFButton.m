@@ -69,10 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self setImage:[UIImage imageNamed:@"toc"] forState:UIControlStateNormal];
             break;
         case WMFButtonTypeX:
-            [self wmf_setGlyphTitle:WMF_GLYPH_X color:nil forState:UIControlStateNormal];
-            break;
-        case WMFButtonTypeXWhite:
-            [self wmf_setGlyphTitle:WMF_GLYPH_X color:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
             break;
         case WMFButtonTypeTrash:
             [self wmf_setGlyphTitle:WMF_GLYPH_TRASH color:nil forState:UIControlStateNormal];
@@ -103,6 +100,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFButtonTypeBookmarkMini:
             [self setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
             [self setImage:[UIImage imageNamed:@"save-filled-mini"] forState:UIControlStateSelected];
+            [self setTitle:@"Save for later" forState:UIControlStateNormal];
+            [self setTitle:@"Saved for later" forState:UIControlStateSelected];
             break;
         case WMFButtonTypeCloseMini:
             [self setImage:[UIImage imageNamed:@"close-mini"] forState:UIControlStateNormal];
@@ -142,7 +141,6 @@ NS_ASSUME_NONNULL_BEGIN
     switch (type) {
         case WMFButtonTypeW:
         case WMFButtonTypeX:
-        case WMFButtonTypeXWhite:
         case WMFButtonTypeTranslate:
         case WMFButtonTypeMagnify:
         case WMFButtonTypeReload:

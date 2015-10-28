@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
                //random
                @"generator": @"random",
                @"grnnamespace": @0,
-               @"grnfilterredir": @"all",
+               @"grnfilterredir": @"nonredirects",
                @"grnlimit": @"1",
                // extracts
                @"exintro": @YES,

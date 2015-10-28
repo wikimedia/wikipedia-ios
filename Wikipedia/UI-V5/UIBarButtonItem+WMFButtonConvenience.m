@@ -17,4 +17,11 @@
     return [self.customView isKindOfClass:[UIButton class]] ? (UIButton*)self.customView : nil;
 }
 
++ (UIBarButtonItem*)wmf_barButtonItemOfFixedWidth:(CGFloat)width {
+    UIBarButtonItem* item =
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    item.width = width;
+    return item;
+}
+
 @end

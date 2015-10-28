@@ -216,6 +216,7 @@
 		0E582D351B82258300B2645B /* WMFArticlePreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E582D341B82258300B2645B /* WMFArticlePreviewCell.m */; };
 		0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */; };
 		0E66B92A1BE0145E00B61F69 /* WMFSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66B9291BE0145E00B61F69 /* WMFSearchDataSource.m */; };
+		0E66B9271BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66B9261BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m */; };
 		0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */; };
 		0E7955C71B2B389800B055A2 /* TGLStackedLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */; };
 		0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */; };
@@ -926,6 +927,8 @@
 		0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreview.m; sourceTree = "<group>"; };
 		0E66B9281BE0145E00B61F69 /* WMFSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchDataSource.h; sourceTree = "<group>"; };
 		0E66B9291BE0145E00B61F69 /* WMFSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchDataSource.m; sourceTree = "<group>"; };
+		0E66B9251BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTitleInsetRespectingButton.h; sourceTree = "<group>"; };
+		0E66B9261BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTitleInsetRespectingButton.m; sourceTree = "<group>"; };
 		0E6FAFB31B7D5740000E5A46 /* WMFHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeViewController.h; sourceTree = "<group>"; };
 		0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeViewController.m; sourceTree = "<group>"; };
 		0E7955C21B2B389800B055A2 /* TGLStackedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLStackedLayout.h; sourceTree = "<group>"; };
@@ -2346,6 +2349,8 @@
 				0ED689701B822D3B00B30427 /* WMFHomeSectionFooter.h */,
 				0ED689711B822D3B00B30427 /* WMFHomeSectionFooter.m */,
 				0E03E2A81B85750C00C1FBD7 /* WMFHomeSectionFooter.xib */,
+				0E66B9251BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.h */,
+				0E66B9261BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -4271,6 +4276,7 @@
 				0433542218A023FE009305F0 /* UIViewController+WMFHideKeyboard.m in Sources */,
 				0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */,
 				BC505EFD1B5D462700537006 /* CIDetector+WMFFaceDetection.m in Sources */,
+				0E66B9271BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m in Sources */,
 				04CCA0C319830A44000E982A /* ReferenceVC.m in Sources */,
 				BCB669B71A83F6C400C7B1FE /* MWKSectionList.m in Sources */,
 				0E2143071BBF187300609E5D /* WMFTableOfContentsAnimator.swift in Sources */,
