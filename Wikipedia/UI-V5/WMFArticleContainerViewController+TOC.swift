@@ -1,10 +1,3 @@
-//
-//  WMFArticleContainerViewController+TOC.swift
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 10/23/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 import Foundation
 import BlocksKit
@@ -12,17 +5,19 @@ import BlocksKit
 extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDelegate {
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
+                                            
+        if let section = item as? MWKSection {
+            // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
+            self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
+        } else if let footerItem = item as? TableOfContentsFooterItem {
+            self.webViewController.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
+        } else {
+            assertionFailure("Unsupported selection of TOC item \(item)")
+        }
+        
         // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
         dispatchOnMainQueueAfterDelayInSeconds(0.25) {
             self.dismissViewControllerAnimated(true, completion: nil)
-            if let section = item as? MWKSection {
-                // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-                self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
-            } else if let footerItem = item as? TableOfContentsFooterItem {
-                self.webViewController.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
-            } else {
-                fatalError("Unsupported selection of TOC item \(item)")
-            }
         }
     }
 
@@ -40,14 +35,12 @@ extension WMFArticleContainerViewController {
 
     - returns: A new view controller or `nil` if the receiver's `article.sections` is `nil`.
     */
-    public func createTableOfContentsViewController() -> WMFTableOfContentsViewController? {
+    public func createTableOfContentsViewController() {
         if let sections = self.article?.sections {
             // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
             var items = sections.entries.map() { $0 as! TableOfContentsItem }
             items.append(TableOfContentsReadMoreItem())
-            return WMFTableOfContentsViewController(items: items, delegate: self)
-        } else {
-            return nil
+            self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: self, items: items, delegate: self)
         }
     }
 
@@ -59,9 +52,8 @@ extension WMFArticleContainerViewController {
             case .ReadMore:
                 tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
             }
-
         } else {
-            fatalError("Couldn't find current position of user at current offset!")
+            assertionFailure("Couldn't find current position of user at current offset!")
         }
         presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
 
