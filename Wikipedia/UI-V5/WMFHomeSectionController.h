@@ -4,7 +4,7 @@
 
 @class SSSectionedDataSource, SSArrayDataSource, MWKSavedPageList;
 
-@protocol WMFHomeSectionControllerDelegate, WMFArticleListDataSource;
+@protocol WMFHomeSectionControllerDelegate, WMFTitleListDataSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  @return A data source which will provide a larger list of items from this section.
  */
-- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource;
+- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource;
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
 

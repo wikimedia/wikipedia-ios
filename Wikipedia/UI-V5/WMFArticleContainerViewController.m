@@ -181,10 +181,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleListCollectionViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController             = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
-        _readMoreListViewController.recentPages = self.recentPages;
-        _readMoreListViewController.dataStore   = self.dataStore;
-        _readMoreListViewController.savedPages  = self.savedPages;
+        _readMoreListViewController           = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
+        _readMoreListViewController.dataStore = self.dataStore;
         WMFRelatedTitleListDataSource* relatedTitlesDataSource =
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle
                                                        dataStore:self.dataStore

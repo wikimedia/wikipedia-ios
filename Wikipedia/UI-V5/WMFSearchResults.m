@@ -4,8 +4,7 @@
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
-#import "MWKHistoryEntry.h"
-
+#import "MWKSearchResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,81 +12,37 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite) NSString* searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readwrite) NSArray* results;
 
 @end
 
 @implementation WMFSearchResults
 
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
-                          articles:(nullable NSArray*)articles
+                           results:(nullable NSArray*)results
                   searchSuggestion:(nullable NSString*)suggestion {
-    self = [super initWithItems:articles];
+    self = [super init];
     if (self) {
         self.searchTerm       = searchTerm;
+        self.results          = results;
         self.searchSuggestion = suggestion;
-
-        self.cellClass = [WMFSearchResultCell class];
-
-        @weakify(self);
-        self.cellConfigureBlock = ^(WMFSearchResultCell* cell,
-                                    MWKArticle* article,
-                                    UICollectionView* collectionView,
-                                    NSIndexPath* indexPath) {
-            @strongify(self);
-            [cell setTitle:article.title highlightingSubstring:self.searchTerm];
-            [cell setSearchResultDescription:article.entityDescription];
-            cell.image = [article bestThumbnailImage];
-            [cell setSavedPageList:self.savedPageList];
-        };
     }
     return self;
 }
 
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFSearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFSearchResultCell identifier]];
++ (NSValueTransformer*)resultsJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSDictionary* value, BOOL* success, NSError* __autoreleasing* error) {
+        NSArray* pages = [value allValues];
+        NSValueTransformer* transformer = [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSearchResult class]];
+        return [transformer transformedValue:pages];
+    }];
 }
 
-- (nullable NSString*)displayTitle {
-    return self.searchTerm;
-}
-
-- (NSArray*)articles {
-    return [self allItems];
-}
-
-- (NSUInteger)articleCount {
-    return [self.articles count];
-}
-
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
-    return self.articles[indexPath.row];
-}
-
-- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article {
-    NSUInteger index = [self.articles indexOfObject:article];
-    if (index == NSNotFound) {
-        return nil;
-    }
-
-    return [NSIndexPath indexPathForItem:index inSection:0];
-}
-
-- (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
-    return NO;
-}
-
-- (BOOL)noResults {
-    return (self.searchTerm && [self.articles count] == 0);
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
-}
-
-- (CGFloat)estimatedItemHeight {
-    return 60.f;
++ (NSDictionary*)JSONKeyPathsByPropertyKey {
+    return @{
+               WMF_SAFE_KEYPATH(WMFSearchResults.new, results): @"pages",
+               WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
+    };
 }
 
 @end

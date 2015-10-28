@@ -122,9 +122,7 @@ static dispatch_once_t launchToken;
 }
 
 - (void)configureArticleListController:(WMFArticleListCollectionViewController*)controller {
-    controller.dataStore   = self.session.dataStore;
-    controller.savedPages  = self.session.userDataStore.savedPageList;
-    controller.recentPages = self.session.userDataStore.historyList;
+    controller.dataStore = self.session.dataStore;
 }
 
 - (void)configureSavedViewController {
@@ -139,7 +137,7 @@ static dispatch_once_t launchToken;
     [self configureArticleListController:self.recentArticlesViewController];
     if (!self.recentArticlesViewController.dataSource) {
         self.recentArticlesViewController.dataSource =
-            [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self userDataStore].historyList];
+            [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self userDataStore].historyList savedPages:[self userDataStore].savedPageList];
     }
 }
 
