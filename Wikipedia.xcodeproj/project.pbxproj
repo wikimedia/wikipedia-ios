@@ -2508,6 +2508,7 @@
 			children = (
 				BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */,
 				BC7FA4BF1BD6A687006CA1A3 /* View Controller */,
+				0E9DFEB11BDEBAEA0032606E /* Animation */,
 				BC7FA4C01BD6A693006CA1A3 /* Cell */,
 				BC7FA4C11BD6A69E006CA1A3 /* Items */,
 			);
@@ -2607,6 +2608,15 @@
 				0E94AFEC1B20976A000BC5EA /* WMFAppViewController.m */,
 			);
 			name = "App View Controller";
+			sourceTree = "<group>";
+		};
+		0E9DFEB11BDEBAEA0032606E /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				0E2143041BBF178500609E5D /* WMFTableOfContentsPresentationController.swift */,
+				0E2143061BBF187300609E5D /* WMFTableOfContentsAnimator.swift */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 		0EA1791D1BD95910004FF529 /* Random */ = {
@@ -2919,8 +2929,6 @@
 			isa = PBXGroup;
 			children = (
 				0E4D1CF71BBD7F49009BEB64 /* WMFTableOfContentsViewController.swift */,
-				0E2143041BBF178500609E5D /* WMFTableOfContentsPresentationController.swift */,
-				0E2143061BBF187300609E5D /* WMFTableOfContentsAnimator.swift */,
 			);
 			name = "View Controller";
 			sourceTree = "<group>";
