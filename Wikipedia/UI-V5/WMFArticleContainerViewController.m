@@ -318,7 +318,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(didTapTableOfContentsButton:)];
-        _tableOfContentsToolbarItem.tintColor = [UIColor wmf_logoBlue];
         return _tableOfContentsToolbarItem;
     }
     return _tableOfContentsToolbarItem;
@@ -326,7 +325,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem           = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     return _saveToolbarItem;
 }
@@ -339,7 +338,6 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(self);
             [self fetchArticle];
         }];
-        _refreshToolbarItem.tintColor = [UIColor wmf_logoBlue];
     }
     return _refreshToolbarItem;
 }
@@ -358,7 +356,6 @@ NS_ASSUME_NONNULL_BEGIN
             @strongify(self);
             [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
         }];
-        _shareToolbarItem.tintColor = [UIColor wmf_logoBlue];
     }
     return _shareToolbarItem;
 }
@@ -369,7 +366,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(showLanguagePicker)];
-        _languagesToolbarItem.tintColor = [UIColor wmf_logoBlue];
     }
     return _languagesToolbarItem;
 }

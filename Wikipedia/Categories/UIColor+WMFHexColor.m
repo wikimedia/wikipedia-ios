@@ -13,4 +13,13 @@
                            alpha:alpha];
 }
 
+- (NSString*)wmf_hexString {
+    // From: http://stackoverflow.com/a/26341062
+    const CGFloat* components = CGColorGetComponents(self.CGColor);
+    return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
+            lroundf(components[0] * 255),
+            lroundf(components[1] * 255),
+            lroundf(components[2] * 255)];
+}
+
 @end
