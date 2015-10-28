@@ -255,6 +255,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString* query = self.searchField.text;
 
+    DDLogDebug(@"Search field text changed to: %@", query);
+
     BOOL isFieldEmpty = [query wmf_trim].length == 0;
     [self setSeparatorViewHidden:isFieldEmpty animated:YES];
 
@@ -267,7 +269,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
         if ([query isEqualToString:self.searchField.text]) {
+            DDLogDebug(@"Searching for %@ after delay.", query);
             [self searchForSearchTerm:query];
+        } else {
+            DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
         }
     });
 }
@@ -294,6 +299,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
     if ([searchTerm wmf_trim].length == 0) {
+        DDLogDebug(@"Ignoring whitespace-only query.");
         return;
     }
     @weakify(self);
@@ -319,7 +325,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm site:self.searchSite resultLimit:WMFMaxSearchResultLimit fullTextSearch:YES appendToPreviousResults:results];
         }
-
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
         if ([searchTerm isEqualToString:results.searchTerm]) {
@@ -331,10 +336,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
             self.resultsListController.dataSource = dataSource;
         }
+        if (results.results.count == 0) {
+            [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
+        }
     }).catch(^(NSError* error){
+        @strongify(self);
         [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
-
-        NSLog(@"%@", [error description]);
+        DDLogError(@"Encountered search error: %@", error);
     });
 }
 

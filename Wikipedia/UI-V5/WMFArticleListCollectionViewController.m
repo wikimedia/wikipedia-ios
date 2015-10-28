@@ -24,6 +24,7 @@
 
 #import "UIColor+WMFHexColor.h"
 #import <BlocksKit/BlocksKit.h>
+#import "Wikipedia-Swift.h"
 
 @interface WMFArticleListCollectionViewController ()
 <UICollectionViewDelegate,
@@ -32,6 +33,7 @@
  UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 + (Class)collectionViewClass;
 
@@ -196,11 +198,25 @@
     [self flowLayout].minimumLineSpacing = 1.0;
 
     [self observeArticleUpdates];
+}
 
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        [self unregisterPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self
+                                                              sourceView:self.collectionView];
         ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
+    } unavailable:^{
+        [self unregisterPreviewing];
+    }];
+}
+
+- (void)unregisterPreviewing {
+    if (self.previewingContext) {
+        [self unregisterForPreviewingWithContext:self.previewingContext];
+        self.previewingContext = nil;
     }
+    ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -208,6 +224,12 @@
     NSParameterAssert(self.dataStore);
     [self connectCollectionViewAndDataSource];
     [[self dynamicDataSource] startUpdating];
+    [self registerForPreviewingIfAvailable];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection*)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
