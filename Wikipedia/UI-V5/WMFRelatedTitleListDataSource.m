@@ -35,8 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRelatedSearchFetcher* relatedSearchFetcher;
+@property (nonatomic, strong, readwrite, nullable) WMFRelatedSearchResults* relatedSearchResults;
+
 @property (nonatomic, assign) NSUInteger resultLimit;
-@property (nonatomic, copy) NSArray* relatedTitleResults;
 
 @end
 
@@ -74,15 +75,15 @@ NS_ASSUME_NONNULL_BEGIN
 
         @weakify(self);
         self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
-                                    MWKArticle* article,
+                                    MWKSearchResult* searchResult,
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKSearchResult* searchResult = self.relatedTitleResults[indexPath.item];
+            MWKTitle* title = [self.title.site titleWithString:searchResult.displayTitle];
             [cell setSavedPageList:self.savedPageList];
-            cell.title           = article.title;
+            cell.title           = title;
             cell.descriptionText = searchResult.wikidataDescription;
-            cell.image           = [article bestThumbnailImage];
+            [cell setImageURL:searchResult.thumbnailURL];
             [cell setSummary:searchResult.extract];
         };
     }
@@ -104,50 +105,42 @@ NS_ASSUME_NONNULL_BEGIN
            .then(^(WMFRelatedSearchResults* searchResults) {
         @strongify(self);
         if (!self) {
-            return;
+            return (id)nil;
         }
-        NSMutableArray* mutableResults = [searchResults.results mutableCopy];
-        NSArray* items = [mutableResults bk_reduce:[NSMutableArray arrayWithCapacity:self.relatedTitleResults.count]
-                                         withBlock:^(NSMutableArray* articles,
-                                                     MWKSearchResult* relatedSearchResult) {
-            MWKTitle* title = [[MWKTitle alloc] initWithString:relatedSearchResult.displayTitle
-                                                          site:self.title.site];
-            NSError* error;
-            NSDictionary* resultJSON = [MTLJSONAdapter JSONDictionaryFromModel:relatedSearchResult error:&error];
-            if (!resultJSON) {
-                DDLogError(@"Unexpected error re-serializing search result %@. Error: %@",
-                           relatedSearchResult, error);
-                [mutableResults removeObject:relatedSearchResult];
-                return articles;
-            }
-            MWKArticle* article = [[MWKArticle alloc]
-                                   initWithTitle:title
-                                        dataStore:self.dataStore
-                                searchResultsDict:resultJSON];
-            [articles addObject:article];
-            return articles;
-        }];
-        self.relatedTitleResults = [mutableResults copy];;
-        [self updateItems:items];
+        self.relatedSearchResults = searchResults;
+        [self updateItems:searchResults.results];
+        return (id)searchResults;
     });
 }
 
 #pragma mark - WMFArticleListDataSource
 
-- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article {
-    return [NSIndexPath indexPathForItem:[self.allItems indexOfObject:article] inSection:0];
+- (MWKSearchResult*)searchResultForIndexPath:(NSIndexPath*)indexPath {
+    MWKSearchResult* result = self.relatedSearchResults.results[indexPath.row];
+    return result;
 }
 
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
-    return self.allItems[indexPath.item];
+- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
+    MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
+    return [self.title.site titleWithString:result.displayTitle];
 }
 
-- (NSArray*)articles {
-    return self.allItems;
+- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
+    NSUInteger index = [self.titles indexOfObject:title];
+    if (index == NSNotFound) {
+        return nil;
+    }
+    return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
-- (NSUInteger)articleCount {
-    return self.allItems.count;
+- (NSArray*)titles {
+    return [self.relatedSearchResults.results bk_map:^id (MWKSearchResult* obj) {
+        return [self.title.site titleWithString:obj.displayTitle];
+    }];
+}
+
+- (NSUInteger)titleCount {
+    return [self.relatedSearchResults.results count];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {

@@ -1,7 +1,7 @@
 #import <SSDataSources/SSDataSources.h>
 #import "WMFArticleListDataSource.h"
 
-@class MWKHistoryList;
+@class MWKHistoryList, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,8 +10,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray* articles;
 
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 
-- (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages;
+- (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages savedPages:(MWKSavedPageList*)savedPages;
 
 @end
 

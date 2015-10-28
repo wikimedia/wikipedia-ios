@@ -8,17 +8,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString*)displayTitle;
 
-@property (nonatomic, strong, readonly) NSArray* articles;
+@property (nonatomic, strong, readonly) NSArray* titles;
 
-- (NSUInteger) articleCount;
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath;
-- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article;
+- (NSUInteger)titleCount;
+
+- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath;
+
+- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title;
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod;
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList;
 
 @optional
 
