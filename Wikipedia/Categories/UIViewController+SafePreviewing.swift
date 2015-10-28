@@ -9,13 +9,14 @@
 import Foundation
 
 extension UIViewController {
-    public var wmf_isForceTouchAvailable: Bool {
-        get {
-            if #available(iOS 9, *) {
-                return self.traitCollection.forceTouchCapability == UIForceTouchCapability.Available
-            } else {
-                return false
-            }
+    public func wmf_ifForceTouchAvailable(then: Void->Void, unavailable: Void->Void) {
+        guard #available(iOS 9, *) else {
+            return
+        }
+        if self.traitCollection.forceTouchCapability == UIForceTouchCapability.Available {
+            then()
+        } else {
+            unavailable()
         }
     }
 }
