@@ -28,7 +28,7 @@
     NSParameterAssert(site);
     NSParameterAssert(searchResults);
     NSParameterAssert(savedPages);
-    self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
+    self = [super initWithItems:searchResults.results];
     if (self) {
         self.searchSite    = site;
         self.searchResults = searchResults;
