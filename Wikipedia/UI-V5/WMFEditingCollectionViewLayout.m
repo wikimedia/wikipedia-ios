@@ -307,7 +307,7 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
     if ([gestureRecognizer isEqual:self.deletePanGesture]) {
         CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self.collectionView];
-        if (velocity.y > 10 || velocity.y < -10) {
+        if (velocity.y > 50 || velocity.y < -50) {
             return NO;
         } else {
             return YES;
