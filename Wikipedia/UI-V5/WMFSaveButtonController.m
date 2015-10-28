@@ -27,6 +27,19 @@
     return self;
 }
 
+- (instancetype)initWithBarButtonItem:(UIBarButtonItem*)barButtonItem
+                        savedPageList:(MWKSavedPageList*)savedPageList
+                                title:(MWKTitle*)title {
+    NSParameterAssert(savedPageList);
+    self = [super init];
+    if (self) {
+        self.barButtonItem = barButtonItem;
+        self.title         = title;
+        self.savedPageList = savedPageList;
+    }
+    return self;
+}
+
 - (void)dealloc {
     [self unobserveSavedPages];
 }
@@ -62,6 +75,15 @@
     [self updateSavedButtonState];
 }
 
+- (void)setBarButtonItem:(UIBarButtonItem*)barButtonItem {
+    [_barButtonItem setTarget:nil];
+    [_barButtonItem setAction:nil];
+    _barButtonItem = barButtonItem;
+    [_barButtonItem setTarget:self];
+    [_barButtonItem setAction:@selector(toggleSave:)];
+    [self updateSavedButtonState];
+}
+
 - (SavedPagesFunnel*)savedPagesFunnel {
     if (!_savedPagesFunnel) {
         _savedPagesFunnel = [[SavedPagesFunnel alloc] init];
@@ -93,7 +115,13 @@
 #pragma mark - Save State
 
 - (void)updateSavedButtonState {
-    self.button.selected = [self isSaved];
+    BOOL isSaved = [self isSaved];
+    self.button.selected = isSaved;
+    if (isSaved) {
+        self.barButtonItem.image = [UIImage imageNamed:@"save-filled"];
+    } else {
+        self.barButtonItem.image = [UIImage imageNamed:@"save"];
+    }
 }
 
 - (BOOL)isSaved {
