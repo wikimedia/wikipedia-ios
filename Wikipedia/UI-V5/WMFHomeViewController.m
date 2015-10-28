@@ -232,7 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerForPreviewingIfAvailable];
 }
 
-- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
