@@ -307,7 +307,7 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
     if ([gestureRecognizer isEqual:self.deletePanGesture]) {
         CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self.collectionView];
-        if (velocity.y > 0 || velocity.y < 0) {
+        if (velocity.y > 50 || velocity.y < -50) {
             return NO;
         } else {
             return YES;
@@ -371,6 +371,15 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
                 CGPoint currentCenter = self.movingCellCenter;
                 currentCenter.x               += translation.x;
                 self.movingSnapshotView.center = currentCenter;
+                
+                CGFloat percentageOnScreen = CGRectGetMaxX(self.movingSnapshotView.frame) / self.collectionView.bounds.size.width;
+                
+                if(percentageOnScreen > 1){
+                    //If greater than 1, it means we are moving the left instead of right
+                    //Instead lets subtract to get the proper alpha
+                    percentageOnScreen = 1 - (percentageOnScreen - 1);
+                }
+                self.movingSnapshotView.alpha = percentageOnScreen;
             }
         }
         break;
