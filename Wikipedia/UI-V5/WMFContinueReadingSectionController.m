@@ -42,7 +42,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (UIImage*)headerIcon {
-    return [UIImage imageNamed:@"home-continue-reading"];
+    return [UIImage imageNamed:@"home-continue-reading-mini"];
 }
 
 - (NSAttributedString*)headerText {
