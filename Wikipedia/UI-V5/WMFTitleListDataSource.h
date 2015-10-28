@@ -4,7 +4,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
 
-@protocol WMFArticleListDataSource <NSObject>
+@protocol WMFTitleListDataSource <NSObject>
 
 - (nullable NSString*)displayTitle;
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol WMFArticleListDynamicDataSource <WMFArticleListDataSource>
+@protocol WMFArticleListDynamicDataSource <WMFTitleListDataSource>
 
 - (void)startUpdating;
 

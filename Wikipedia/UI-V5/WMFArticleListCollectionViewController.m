@@ -78,7 +78,7 @@
     return nil;
 }
 
-- (void)setDataSource:(SSArrayDataSource<WMFArticleListDataSource>* __nullable)dataSource {
+- (void)setDataSource:(SSArrayDataSource<WMFTitleListDataSource>* __nullable)dataSource {
     if ([_dataSource isEqual:dataSource]) {
         return;
     }

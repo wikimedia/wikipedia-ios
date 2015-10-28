@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SSDataSources/SSArrayDataSource.h>
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKTitle;
 
 @interface WMFRelatedTitleListDataSource : SSArrayDataSource
-    <WMFArticleListDataSource>
+    <WMFTitleListDataSource>
 
 @property (nonatomic, strong, readonly, nullable) WMFRelatedSearchResults* relatedSearchResults;
 
