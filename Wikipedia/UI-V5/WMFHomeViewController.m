@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSOperationQueue* collectionViewUpdateQueue;
 
+@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+
 @end
 
 @implementation WMFHomeViewController
@@ -199,11 +201,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
 
-    if ([self wmf_isForceTouchAvailable]) {
-        [self registerForPreviewingWithDelegate:self
-                                     sourceView:self.collectionView];
-    }
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
 }
 
@@ -228,6 +225,32 @@ NS_ASSUME_NONNULL_BEGIN
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
         [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
     } completion:NULL];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self registerForPreviewingIfAvailable];
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
+}
+
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        [self unregisterForPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+    } unavailable:^{
+        [self unregisterForPreviewing];
+    }];
+}
+
+- (void)unregisterForPreviewing {
+    if (self.previewingContext) {
+        [self unregisterForPreviewingWithContext:self.previewingContext];
+        self.previewingContext = nil;
+    }
 }
 
 #pragma mark - Notifications

@@ -35,6 +35,7 @@
  UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
+@property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 + (Class)collectionViewClass;
 
@@ -227,12 +228,25 @@
     [self flowLayout].minimumLineSpacing = 1.0;
 
     [self observeArticleUpdates];
+}
 
-    if ([self wmf_isForceTouchAvailable]) {
-        [self registerForPreviewingWithDelegate:self
-                                     sourceView:self.collectionView];
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        [self unregisterPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self
+                                                              sourceView:self.collectionView];
         ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
+    } unavailable:^{
+        [self unregisterPreviewing];
+    }];
+}
+
+- (void)unregisterPreviewing {
+    if (self.previewingContext) {
+        [self unregisterForPreviewingWithContext:self.previewingContext];
+        self.previewingContext = nil;
     }
+    ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -242,6 +256,12 @@
     NSParameterAssert(self.savedPages);
     [self connectCollectionViewAndDataSource];
     [[self dynamicDataSource] startUpdating];
+    [self registerForPreviewingIfAvailable];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
