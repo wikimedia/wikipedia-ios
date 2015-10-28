@@ -1,39 +1,49 @@
 
 import UIKit
 
+
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 
+    /**
+     The delegate is responsible for dismissing the view controller
+     */
     func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                    didSelectItem item: TableOfContentsItem)
 
+    /**
+     The delegate is responsible for dismissing the view controller
+     */
     func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
 }
 
-public class WMFTableOfContentsViewController: UITableViewController,
-                                               UIViewControllerTransitioningDelegate,
-                                               WMFTableOfContentsPresentationControllerTapDelegate  {
+public class WMFTableOfContentsViewController: UITableViewController, WMFTableOfContentsAnimatorDelegate {
+    
     let tableOfContentsFunnel: ToCInteractionFunnel
-
-    weak var delegate: WMFTableOfContentsViewControllerDelegate?
 
     let items: [TableOfContentsItem]
 
+    //optional becuase it requires a reference to self to inititialize
+    var animator: WMFTableOfContentsAnimator?
+
+    weak var delegate: WMFTableOfContentsViewControllerDelegate?
+
     // MARK: - Init
-    public required init(items: [TableOfContentsItem], delegate: WMFTableOfContentsViewControllerDelegate) {
+    public required init(presentingViewController: UIViewController, items: [TableOfContentsItem], delegate: WMFTableOfContentsViewControllerDelegate) {
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
         super.init(nibName: nil, bundle: nil)
+        self.animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
+        self.animator?.delegate = self
         modalPresentationStyle = .Custom
-        transitioningDelegate = self
+        transitioningDelegate = self.animator
     }
-
+    
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Sections
-
     func indexPathForItem(item: TableOfContentsItem) -> NSIndexPath? {
         if let row = items.indexOf({ item.isEqual($0) }) {
             return NSIndexPath(forRow: row, inSection: 0)
@@ -56,7 +66,6 @@ public class WMFTableOfContentsViewController: UITableViewController,
     }
 
     // MARK: - Selection
-
     public func deselectAllRows() {
         guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
             return
@@ -81,7 +90,6 @@ public class WMFTableOfContentsViewController: UITableViewController,
     }
 
     // MARK: - UIViewController
-
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
@@ -131,37 +139,10 @@ public class WMFTableOfContentsViewController: UITableViewController,
         delegate?.tableOfContentsController(self, didSelectItem: item)
     }
 
-    // MARK: - UIViewControllerTransitioningDelegate
-    public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-        if presented == self {
-            return WMFTableOfContentsPresentationController(presentedViewController: presented, presentingViewController: presenting, tapDelegate: self)
-        }
-
-        return nil
-    }
-
-    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented == self {
-            return WMFTableOfContentsAnimator(isPresenting: true)
-        }
-        else {
-            return nil
-        }
-    }
-
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed == self {
-            return WMFTableOfContentsAnimator(isPresenting: false)
-        }
-        else {
-            return nil
-        }
-    }
-
-    // MARK: - WMFTableOfContentsPresentationControllerTapDelegate
-
-    public func tableOfContentsPresentationControllerDidTapBackground(controller: WMFTableOfContentsPresentationController) {
+    public func tableOfContentsAnimatorDidTapBackground(controller: WMFTableOfContentsAnimator) {
         tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
     }
+
 }
+
