@@ -50,11 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
         self.cellClass = [WMFNearbySearchResultCell class];
         @weakify(self);
         self.cellConfigureBlock = ^(WMFNearbySearchResultCell* nearbyCell,
-                                    MWKArticle* article,
+                                    MWKLocationSearchResult* result,
                                     id parentView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.item];
             [nearbyCell setSavedPageList:self.savedPageList];
             [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
             [nearbyCell setSearchResultDescription:result.wikidataDescription];
@@ -91,20 +90,32 @@ NS_ASSUME_NONNULL_BEGIN
     return MWKHistoryDiscoveryMethodSearch;
 }
 
-- (NSArray*)articles {
-    return self.allItems;
+- (NSArray*)titles {
+    return [self.viewModel.locationSearchResults.results bk_map:^id (MWKLocationSearchResult* obj) {
+        return [self.site titleWithString:obj.displayTitle];
+    }];
 }
 
-- (NSUInteger)articleCount {
-    return self.allItems.count;
+- (NSUInteger)titleCount {
+    return self.viewModel.locationSearchResults.results.count;
 }
 
-- (MWKArticle*)articleForIndexPath:(NSIndexPath* __nonnull)indexPath {
-    return [self itemAtIndexPath:indexPath];
+- (MWKLocationSearchResult*)searchResultForIndexPath:(NSIndexPath*)indexPath {
+    MWKLocationSearchResult* result = self.viewModel.locationSearchResults.results[indexPath.row];
+    return result;
 }
 
-- (NSIndexPath*)indexPathForArticle:(MWKArticle* __nonnull)article {
-    return [self indexPathForItem:article];
+- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
+    MWKLocationSearchResult* result = [self searchResultForIndexPath:indexPath];
+    return [self.site titleWithString:result.displayTitle];
+}
+
+- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
+    NSUInteger index = [self.titles indexOfObject:title];
+    if (index == NSNotFound) {
+        return nil;
+    }
+    return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
 - (void)startUpdating {
@@ -132,17 +143,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel
        didUpdateResults:(WMFLocationSearchResults*)locationSearchResults {
     // TEMP: remove this when artilce lists can handle article placeholders
-    [self updateItems:[locationSearchResults.results bk_map:^MWKArticle*(MWKLocationSearchResult* locResult) {
-        MWKTitle* title = [[MWKTitle alloc] initWithString:locResult.displayTitle
-                                                      site:locationSearchResults.searchSite];
-        NSError* error;
-        NSDictionary* serializedSearchResult = [MTLJSONAdapter JSONDictionaryFromModel:locResult error:&error];
-        NSAssert(serializedSearchResult, @"Failed to serialize location search result %@. Error %@", locResult, error);
-        MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
-                                                      dataStore:nil
-                                              searchResultsDict:serializedSearchResult];
-        return article;
-    }]];
+
+    [self updateItems:locationSearchResults.results];
 }
 
 @end

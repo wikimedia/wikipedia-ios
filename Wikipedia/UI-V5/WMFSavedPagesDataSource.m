@@ -1,9 +1,9 @@
 
 #import "WMFSavedPagesDataSource.h"
+#import "MWKDataStore.h"
+#import "MWKArticle.h"
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageEntry.h"
-#import "MWKArticle.h"
-#import "MediaWikiKit.h"
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
@@ -12,11 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSavedPagesDataSource ()
 
+@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
+
 @end
 
 @implementation WMFSavedPagesDataSource
 
 - (nonnull instancetype)initWithSavedPagesList:(MWKSavedPageList*)savedPages {
+    NSParameterAssert(savedPages);
     self = [super initWithTarget:savedPages keyPath:WMF_SAFE_KEYPATH(savedPages, entries)];
     if (self) {
         self.savedPageList = savedPages;
@@ -29,10 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            MWKArticle* article = [self articleForIndexPath:indexPath];
+            MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
             cell.title           = article.title;
             cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             cell.image           = [article bestThumbnailImage];
+
             [cell setSummary:[article summary]];
             [cell setSavedPageList:self.savedPageList];
         };
@@ -45,14 +49,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
 }
 
-- (NSArray*)articles {
-    return [[self.savedPageList entries] bk_map:^id (id obj) {
-        return [self articleForEntry:obj];
+- (NSArray*)titles {
+    return [[self.savedPageList entries] bk_map:^id (MWKSavedPageEntry* obj) {
+        return obj.title;
     }];
 }
 
-- (MWKArticle*)articleForEntry:(MWKSavedPageEntry*)entry {
-    return [[self dataStore] articleWithTitle:entry.title];
+- (NSUInteger)titleCount {
+    return [[self savedPageList] countOfEntries];
 }
 
 - (MWKDataStore*)dataStore {
@@ -63,26 +67,21 @@ NS_ASSUME_NONNULL_BEGIN
     return [MWLocalizedString(@"saved-pages-title", nil) capitalizedString];
 }
 
-- (NSUInteger)articleCount {
-    return [[self savedPageList] countOfEntries];
-}
-
 - (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self.savedPageList entryAtIndex:indexPath.row];
     return savedEntry;
 }
 
-- (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
+- (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
-    return [self articleForEntry:savedEntry];
+    return savedEntry.title;
 }
 
-- (NSIndexPath*)indexPathForArticle:(MWKArticle*)article {
-    NSUInteger index = [self.articles indexOfObject:article];
+- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
+    NSUInteger index = [self.titles indexOfObject:title];
     if (index == NSNotFound) {
         return nil;
     }
-
     return [NSIndexPath indexPathForItem:index inSection:0];
 }
 

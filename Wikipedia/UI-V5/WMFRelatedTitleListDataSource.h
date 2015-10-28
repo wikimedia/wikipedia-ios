@@ -12,6 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class WMFRelatedSearchResults;
 @class WMFRelatedSearchFetcher;
 @class MWKSavedPageList;
 @class MWKDataStore;
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRelatedTitleListDataSource : SSArrayDataSource
     <WMFArticleListDataSource>
 
-@property (nonatomic, copy, readonly) NSArray* relatedTitleResults;
+@property (nonatomic, strong, readonly, nullable) WMFRelatedSearchResults* relatedSearchResults;
 
 - (instancetype)initWithTitle:(MWKTitle*)title
                     dataStore:(MWKDataStore*)dataStore
