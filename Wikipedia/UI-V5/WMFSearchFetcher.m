@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSUInteger const WMFMaxSearchResultLimit = 20;
+NSUInteger const WMFMaxSearchResultLimit = 24;
 
 @interface WMFSearchResults (WMFSearchTermWriting)
 @property (nonatomic, copy, readwrite) NSString* searchTerm;
@@ -153,7 +153,7 @@ static NSNumber* WMFSearchThumbnailWidth() {
 - (NSDictionary*)serializedParams:(WMFSearchRequestParameters*)params {
     NSNumber* numResults = @(params.numberOfResults);
 
-    if (params.fullTextSearch) {
+    if (!params.fullTextSearch) {
         return @{
                    @"action": @"query",
                    @"generator": @"prefixsearch",
@@ -174,7 +174,7 @@ static NSNumber* WMFSearchThumbnailWidth() {
                    @"srprop": @"",
                    @"sroffset": @0,
                    @"srlimit": @1,
-                   //                       @"redirects": @1,
+                   @"redirects": @1,
                    // --
                    @"continue": @"",
                    @"format": @"json"
@@ -196,8 +196,8 @@ static NSNumber* WMFSearchThumbnailWidth() {
                    @"pithumbsize": WMFSearchThumbnailWidth(),
                    @"pilimit": numResults,
                    @"continue": @"",
-                   @"format": @"json"
-                   //                       @"redirects": @1,
+                   @"format": @"json",
+                   @"redirects": @1,
         };
     }
 }
