@@ -81,7 +81,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.titles indexOfObject:title];
+    NSUInteger index = [[self.recentPages entries] indexOfObjectPassingTest:^BOOL (MWKHistoryEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        if ([obj.title isEqualToTitle:title]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+
     if (index == NSNotFound) {
         return nil;
     }
