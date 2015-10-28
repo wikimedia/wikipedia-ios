@@ -284,7 +284,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemsIfNeeded {
-    
     if (!self.saveButtonController) {
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
     }

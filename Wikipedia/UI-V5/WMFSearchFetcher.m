@@ -84,7 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.operation = nil;
         self.resolver  = nil;
     } else {
-        DDLogWarn(@"No resolver set for results %@ from operation %@", error ?: fetchedData, self.operation);
+        DDLogWarn(@"No resolver set for results %@ from operation %@", error ? : fetchedData, self.operation);
     }
 }
 
