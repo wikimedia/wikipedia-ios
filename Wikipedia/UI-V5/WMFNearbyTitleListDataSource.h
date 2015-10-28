@@ -7,7 +7,7 @@
 //
 
 #import <SSDataSources/SSArrayDataSource.h>
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 
 @class WMFNearbyViewModel, WMFLocationManager, MWKSite;
 

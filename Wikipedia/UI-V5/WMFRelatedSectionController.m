@@ -133,7 +133,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return _relatedTitleDataSource;
 }
 
-- (SSArrayDataSource<WMFArticleListDataSource>*)extendedListDataSource {
+- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
     if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedSearchResults) {
         [self.relatedTitleDataSource fetch];
     }

@@ -1,6 +1,6 @@
 
 #import <UIKit/UIKit.h>
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 #import "WMFArticleSelectionDelegate.h"
 
 @class SSArrayDataSource;
@@ -19,7 +19,7 @@ typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
 @property (nonatomic, strong, readonly) UICollectionView* collectionView;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong, nullable) SSArrayDataSource<WMFArticleListDataSource>* dataSource;
+@property (nonatomic, strong, nullable) SSArrayDataSource<WMFTitleListDataSource>* dataSource;
 
 /**
  *  Optional delegate which will is informed of selection.

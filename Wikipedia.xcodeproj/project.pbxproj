@@ -927,7 +927,7 @@
 		0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeViewController.m; sourceTree = "<group>"; };
 		0E7955C21B2B389800B055A2 /* TGLStackedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLStackedLayout.h; sourceTree = "<group>"; };
 		0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLStackedLayout.m; sourceTree = "<group>"; };
-		0E7C6D4C1B3106A800F1F985 /* WMFArticleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFArticleListDataSource.h; sourceTree = "<group>"; };
+		0E7C6D4C1B3106A800F1F985 /* WMFTitleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTitleListDataSource.h; sourceTree = "<group>"; };
 		0E7E602A1B7CFA1E00ED1C69 /* WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnalyticsLogging.h; sourceTree = "<group>"; };
 		0E7E602B1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKTitle+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
 		0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKTitle+WMFAnalyticsLogging.m"; sourceTree = "<group>"; };
@@ -2407,7 +2407,7 @@
 		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0E7C6D4C1B3106A800F1F985 /* WMFArticleListDataSource.h */,
+				0E7C6D4C1B3106A800F1F985 /* WMFTitleListDataSource.h */,
 				0E2B06F41B2CE45800EA2F53 /* WMFSavedPagesDataSource.h */,
 				0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */,
 				0EF451F41B545ED100D621BD /* WMFRecentPagesDataSource.h */,

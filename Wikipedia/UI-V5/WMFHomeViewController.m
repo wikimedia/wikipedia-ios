@@ -39,7 +39,7 @@
 #import "WMFArticleContainerViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 #import "WMFArticleListCollectionViewController.h"
 
 // Controllers

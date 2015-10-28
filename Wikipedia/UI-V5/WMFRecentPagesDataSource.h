@@ -1,11 +1,11 @@
 #import <SSDataSources/SSDataSources.h>
-#import "WMFArticleListDataSource.h"
+#import "WMFTitleListDataSource.h"
 
 @class MWKHistoryList, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRecentPagesDataSource : SSArrayDataSource<WMFArticleListDataSource>
+@interface WMFRecentPagesDataSource : SSArrayDataSource<WMFTitleListDataSource>
 
 @property (nonatomic, strong, readonly) NSArray* articles;
 
