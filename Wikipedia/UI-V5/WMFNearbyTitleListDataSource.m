@@ -111,7 +111,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.titles indexOfObject:title];
+    NSUInteger index = [self.viewModel.locationSearchResults.results indexOfObjectPassingTest:^BOOL (MWKLocationSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        if ([obj.displayTitle isEqualToString:title.text]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+
     if (index == NSNotFound) {
         return nil;
     }
