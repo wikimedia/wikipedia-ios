@@ -12,7 +12,8 @@
 @implementation MWKSavedPageEntry (Random)
 
 + (instancetype)random {
-    return [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithTitle:[MWKTitle random]];
+    return entry;
 }
 
 @end

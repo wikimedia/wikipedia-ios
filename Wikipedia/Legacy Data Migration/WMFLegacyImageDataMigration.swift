@@ -80,7 +80,7 @@ public class WMFLegacyImageDataMigration : NSObject {
 
     /// Migrate all images in `entry` into `imageController`, then mark it as migrated.
     func migrateEntry(entry: MWKSavedPageEntry) -> Promise<Void> {
-        NSLog("Migrating entry \(entry)")
+        DDLogDebug("Migrating entry \(entry)")
         return migrateAllImagesInArticleWithTitle(entry.title)
         .then() { [weak self] in
             self?.markEntryAsMigrated(entry)
