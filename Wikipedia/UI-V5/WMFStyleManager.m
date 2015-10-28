@@ -1,5 +1,6 @@
 
 #import "WMFStyleManager.h"
+#import "UIColor+WMFStyle.h"
 
 static WMFStyleManager* _styleManager = nil;
 
@@ -17,6 +18,7 @@ static WMFStyleManager* _styleManager = nil;
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"chevron-left"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"chevron-left"]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.305 green:0.305 blue:0.296 alpha:1]];
+    [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];
 }
 
 @end

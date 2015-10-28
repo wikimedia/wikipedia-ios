@@ -7,6 +7,7 @@
 //
 
 #import "UIColor+WMFStyle.h"
+//#import "UIColor+WMFHexColor.h"
 
 @implementation UIColor (WMFStyle)
 
@@ -111,6 +112,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
+        // Quick hex string for changing article anchor color in misc.less
+        // NSLog(@"hex = %@", [c wmf_hexString]);
     });
     return c;
 }

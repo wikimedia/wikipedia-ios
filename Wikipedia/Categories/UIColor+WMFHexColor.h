@@ -8,4 +8,6 @@
 + (UIColor*)wmf_colorWithHex:(NSInteger)hex
                        alpha:(CGFloat)alpha;
 
+- (NSString*)wmf_hexString;
+
 @end
