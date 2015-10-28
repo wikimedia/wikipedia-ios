@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
                WMF_SAFE_KEYPATH(WMFSearchResults.new, results): @"pages",
-               WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"query.searchinfo.suggestion",
+               WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
     };
 }
 
