@@ -88,8 +88,6 @@
 
     _dataSource = dataSource;
 
-    [_dataSource setSavedPageList:self.savedPages];
-
     //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
     //isViewLoaded is not enough.
     if ([self isViewLoaded] && self.view.window) {
@@ -103,11 +101,6 @@
     }
 
     self.title = [_dataSource displayTitle];
-}
-
-- (void)setSavedPages:(MWKSavedPageList* __nonnull)savedPages {
-    _savedPages = savedPages;
-    [_dataSource setSavedPageList:savedPages];
 }
 
 - (WMFEditingCollectionViewLayout*)editingLayout {
@@ -148,8 +141,8 @@
 
 - (void)refreshAnyVisibleCellsWhichAreShowingTitle:(MWKTitle*)title {
     NSArray* indexPathsToRefresh = [[self.collectionView indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* indexPath) {
-        MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
-        return [article.title isEqualToTitle:title];
+        MWKTitle* otherTitle = [self.dataSource titleForIndexPath:indexPath];
+        return [title isEqualToTitle:otherTitle];
     }];
     [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
 }
@@ -165,27 +158,6 @@
     if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
         [self flowLayout].estimatedItemHeight = _dataSource.estimatedItemHeight;
     }
-}
-
-#pragma mark - Scrolling
-
-- (void)scrollToArticle:(MWKArticle*)article animated:(BOOL)animated {
-    NSIndexPath* indexPath = [self.dataSource indexPathForArticle:article];
-    if (!indexPath) {
-        return;
-    }
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
-}
-
-- (void)scrollToArticleIfOffscreen:(MWKArticle*)article animated:(BOOL)animated {
-    NSIndexPath* indexPath = [self.dataSource indexPathForArticle:article];
-    if (!indexPath) {
-        return;
-    }
-    if ([self.collectionView cellForItemAtIndexPath:indexPath]) {
-        return;
-    }
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:animated];
 }
 
 - (void)setupEditingLayout {
@@ -236,8 +208,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSParameterAssert(self.dataStore);
-    NSParameterAssert(self.recentPages);
-    NSParameterAssert(self.savedPages);
     [self connectCollectionViewAndDataSource];
     [[self dynamicDataSource] startUpdating];
 }
@@ -259,14 +229,14 @@
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     [self wmf_hideKeyboard];
-    MWKArticle* article = [self.dataSource articleForIndexPath:indexPath];
+    MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
-        [self.delegate didSelectTitle:article.title
+        [self.delegate didSelectTitle:title
                                sender:self
                       discoveryMethod:self.dataSource.discoveryMethod];
         return;
     }
-    [self wmf_pushArticleViewControllerWithTitle:article.title
+    [self wmf_pushArticleViewControllerWithTitle:title
                                  discoveryMethod:[self.dataSource discoveryMethod]
                                        dataStore:self.dataStore];
 }
@@ -317,7 +287,7 @@
 
     previewingContext.sourceRect = [(UICollectionView*)previewingContext.sourceView cellForItemAtIndexPath:previewIndexPath].frame;
 
-    MWKTitle* title = [[self.dataSource articleForIndexPath:previewIndexPath] title];
+    MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:self.dataSource.discoveryMethod];
