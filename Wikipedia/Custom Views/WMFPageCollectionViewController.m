@@ -48,7 +48,7 @@
 }
 
 - (void)primitiveSetCurrentPage:(NSUInteger)page {
-    NSParameterAssert(page < [self.collectionView numberOfItemsInSection:0]);
+    NSParameterAssert(page < [self collectionView:self.collectionView numberOfItemsInSection:0]);
     _currentPage = page;
 }
 
