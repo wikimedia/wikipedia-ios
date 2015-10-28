@@ -161,6 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.headerGallery setImagesFromArticle:_article];
 
     [self setupToolbar];
+    [self createTableOfContentsViewController];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -219,13 +220,6 @@ NS_ASSUME_NONNULL_BEGIN
         _headerGallery.delegate = self;
     }
     return _headerGallery;
-}
-
-- (WMFTableOfContentsViewController*)tableOfContentsViewController {
-    if (!_tableOfContentsViewController) {
-        _tableOfContentsViewController = [self createTableOfContentsViewController];
-    }
-    return _tableOfContentsViewController;
 }
 
 - (nullable WMFShareFunnel*)shareFunnel {
