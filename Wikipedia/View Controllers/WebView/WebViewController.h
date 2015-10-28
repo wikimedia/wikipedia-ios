@@ -2,7 +2,6 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "PullToRefreshViewController.h"
 
 @class MWKSection, MWKArticle, MWKTitle, JSValue;
 
@@ -10,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WebViewController : PullToRefreshViewController
+@interface WebViewController : UIViewController
     <UIWebViewDelegate,
      UIScrollViewDelegate,
      UIGestureRecognizerDelegate,
