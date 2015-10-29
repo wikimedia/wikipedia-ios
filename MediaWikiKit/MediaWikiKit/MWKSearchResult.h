@@ -13,4 +13,6 @@
 
 @property (nonatomic, copy, readonly) NSURL* thumbnailURL;
 
+@property (nonatomic, copy, readonly) NSNumber* index;
+
 @end
