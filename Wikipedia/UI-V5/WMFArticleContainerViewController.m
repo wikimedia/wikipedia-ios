@@ -323,7 +323,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem           = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     return _saveToolbarItem;
 }
@@ -600,9 +600,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
         [self unregisterForPreviewing];
+        UIView* previewView = [self.webViewController.webView wmf_browserView];
         self.linkPreviewingContext =
-            [self registerForPreviewingWithDelegate:self sourceView:[self.webViewController.webView wmf_browserView]];
-        for (UIGestureRecognizer* r in [self.webViewController.webView wmf_browserView].gestureRecognizers) {
+            [self registerForPreviewingWithDelegate:self sourceView:previewView];
+        for (UIGestureRecognizer* r in previewView.gestureRecognizers) {
             [r requireGestureRecognizerToFail:self.linkPreviewingContext.previewingGestureRecognizerForFailureRelationship];
         }
     } unavailable:^{
