@@ -4,7 +4,7 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
 
-#import "WMFSearchResults.h"
+#import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
 
 #import "Wikipedia-Swift.h"
@@ -47,9 +47,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     if (self) {
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFSearchRequestSerializer serializer];
-        manager.responseSerializer =
-            [WMFMantleJSONResponseSerializer serializerForInstancesOf:[WMFSearchResults class]
-                                                          fromKeypath:@"query"];
+        manager.responseSerializer = [WMFSearchResults responseSerializer];
         self.operationManager = manager;
     }
     return self;

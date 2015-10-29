@@ -34,8 +34,17 @@ NS_ASSUME_NONNULL_BEGIN
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSDictionary* value, BOOL* success, NSError* __autoreleasing* error) {
         NSArray* pages = [value allValues];
         NSValueTransformer* transformer = [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSearchResult class]];
-        return [transformer transformedValue:pages];
+        return [[transformer transformedValue:pages] sortedArrayUsingDescriptors:@[[self indexSortDescriptor]]];
     }];
+}
+
++ (NSSortDescriptor*)indexSortDescriptor {
+    static NSSortDescriptor* indexSortDescriptor;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        indexSortDescriptor = [[NSSortDescriptor alloc] initWithKey:WMF_SAFE_KEYPATH(MWKSearchResult.new, index) ascending:YES];
+    });
+    return indexSortDescriptor;
 }
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
