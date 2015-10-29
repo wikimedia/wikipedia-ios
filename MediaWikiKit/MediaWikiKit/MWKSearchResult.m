@@ -39,7 +39,8 @@
                WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
-               WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract"
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index"
     };
 }
 
