@@ -323,7 +323,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)saveToolbarItem {
     if (!_saveToolbarItem) {
-        _saveToolbarItem           = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
+        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     return _saveToolbarItem;
 }
