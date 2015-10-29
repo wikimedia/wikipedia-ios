@@ -22,7 +22,7 @@
 
 - (void)testSerializesPrefixResultsInOrderOfIndex {
     NSString* fixtureName = @"BarackSearch";
-    NSData* resultData = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixtureName ofType:@"json"];
+    NSData* resultData    = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixtureName ofType:@"json"];
 
     NSArray<NSDictionary*>* resultJSONObjects =
         [[[[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName] valueForKeyPath:@"query.pages"] allValues];
