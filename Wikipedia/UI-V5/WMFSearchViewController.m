@@ -131,8 +131,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureArticleList {
-    self.resultsListController.dataStore   = self.dataStore;
-    self.resultsListController.delegate    = self;
+    self.resultsListController.dataStore = self.dataStore;
+    self.resultsListController.delegate  = self;
 }
 
 - (void)configureRecentSearchList {
@@ -313,9 +313,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
-        
+
         WMFSearchDataSource* dataSource = [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results savedPages:self.dataStore.userDataStore.savedPageList];
-        
+
         self.resultsListController.dataSource = dataSource;
 
         [UIView animateWithDuration:0.25 animations:^{
@@ -331,7 +331,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             if (results.results.count == 0) {
                 [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
             }
-            
+
             WMFSearchDataSource* dataSource = [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results savedPages:self.dataStore.userDataStore.savedPageList];
 
             self.resultsListController.dataSource = dataSource;
