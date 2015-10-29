@@ -9,7 +9,6 @@
 #import "UIButton+WMFButton.h"
 
 #import "UIColor+WMFStyle.h"
-#import "UIColor+WMFHexColor.h"
 #import "UIImage+WMFStyle.h"
 
 @interface WMFSaveableTitleCollectionViewCell ()
@@ -22,9 +21,9 @@
 
 - (void)configureImageViewWithPlaceholder {
     self.imageView.contentMode     = UIViewContentModeCenter;
-    self.imageView.backgroundColor = [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
+    self.imageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
+    self.imageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
     self.imageView.image           = [UIImage wmf_placeholderImage];
-    self.imageView.tintColor       = [UIColor wmf_lightGrayColor];
 }
 
 - (void)configureCell {
