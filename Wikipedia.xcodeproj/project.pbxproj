@@ -391,6 +391,9 @@
 		BC905A131B44815900523DFE /* SDImageCache+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */; };
 		BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */; };
 		BC93553E1BE094CD00697CB0 /* UIViewController+SafePreviewing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC93553D1BE094CD00697CB0 /* UIViewController+SafePreviewing.swift */; };
+		BC9355401BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC93553F1BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m */; };
+		BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9355411BE1A71900697CB0 /* BarackSearch.json */; };
+		BC9355461BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9355451BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
 		BC98781A1BCF307B003835EA /* MWKRecentSearchDataStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9878191BCF307B003835EA /* MWKRecentSearchDataStoreTests.m */; };
@@ -911,8 +914,6 @@
 		0E66B9291BE0145E00B61F69 /* WMFSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchDataSource.m; sourceTree = "<group>"; };
 		0E6FAFB31B7D5740000E5A46 /* WMFHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHomeViewController.h; sourceTree = "<group>"; };
 		0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeViewController.m; sourceTree = "<group>"; };
-		0E7955C21B2B389800B055A2 /* TGLStackedLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGLStackedLayout.h; sourceTree = "<group>"; };
-		0E7955C31B2B389800B055A2 /* TGLStackedLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGLStackedLayout.m; sourceTree = "<group>"; };
 		0E7C6D4C1B3106A800F1F985 /* WMFTitleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTitleListDataSource.h; sourceTree = "<group>"; };
 		0E7E602A1B7CFA1E00ED1C69 /* WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnalyticsLogging.h; sourceTree = "<group>"; };
 		0E7E602B1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKTitle+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
@@ -1257,6 +1258,10 @@
 		BC92A76E1AFA83D2003C4212 /* WMFSharing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSharing.h; path = ShareCard/WMFSharing.h; sourceTree = "<group>"; };
 		BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+WMFSharingTests.m"; sourceTree = "<group>"; };
 		BC93553D1BE094CD00697CB0 /* UIViewController+SafePreviewing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+SafePreviewing.swift"; sourceTree = "<group>"; };
+		BC93553F1BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultsSerializationTests.m; sourceTree = "<group>"; };
+		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
+		BC9355441BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WMFSearchResults+ResponseSerializer.h"; path = "../../WMFSearchResults+ResponseSerializer.h"; sourceTree = "<group>"; };
+		BC9355451BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "WMFSearchResults+ResponseSerializer.m"; path = "../../WMFSearchResults+ResponseSerializer.m"; sourceTree = "<group>"; };
 		BC955BC51A82BEFD000EF9E4 /* MWKImageInfoFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKImageInfoFetcher.h; sourceTree = "<group>"; };
 		BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageInfoFetcher.m; sourceTree = "<group>"; };
 		BC955BCD1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestOperationManager+WMFConfig.h"; path = "Queues/AFHTTPRequestOperationManager+WMFConfig.h"; sourceTree = "<group>"; };
@@ -2418,6 +2423,8 @@
 				0E94AFF21B209857000BC5EA /* WMFSearchViewController.m */,
 				0E366B381B2F33BC00ABFB86 /* WMFSearchResults.h */,
 				0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */,
+				BC9355441BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.h */,
+				BC9355451BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.m */,
 				0E366B3D1B2F5C4500ABFB86 /* WMFSearchFetcher.h */,
 				0E366B3E1B2F5C4500ABFB86 /* WMFSearchFetcher.m */,
 				BC32F6AB1BB5B35D007FDF65 /* WMFSearchViewController.storyboard */,
@@ -3011,6 +3018,7 @@
 				BC5EA3AB1BB1BAE100AA196A /* SavedArticlesFetcherTests.h */,
 				BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */,
 				BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */,
+				BC93553F1BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3234,6 +3242,7 @@
 				BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */,
 				BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */,
 				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
+				BC9355411BE1A71900697CB0 /* BarackSearch.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3706,6 +3715,7 @@
 				BCCEC1261B1F68CF00A8B522 /* protection-obama.json in Resources */,
 				BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */,
 				BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */,
+				BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */,
 				BCCEC1281B1F68CF00A8B522 /* section1-end.json in Resources */,
 				BCCEC1291B1F68CF00A8B522 /* TemplateIcon2x.png in Resources */,
 				BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */,
@@ -3959,6 +3969,7 @@
 				BC725ECC1B6182C800E0A64C /* MWKSavedPageListTogglingTests.m in Sources */,
 				BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */,
 				BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */,
+				BC9355401BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m in Sources */,
 				BC5BC4AB1BCEF94B00062619 /* MWKRecentSearchesSharedTests.m in Sources */,
 				BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */,
 				04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */,
@@ -4146,6 +4157,7 @@
 				0EFB0F1D1B31EE2D00D05C08 /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */,
 				0EF451F61B545ED100D621BD /* WMFRecentPagesDataSource.m in Sources */,
+				BC9355461BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */,
 				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
 				0E2690FF1B86B002009B8605 /* WMFRelatedSearchResults.m in Sources */,
