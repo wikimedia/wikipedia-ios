@@ -39,4 +39,8 @@
  */
 + (instancetype)wmf_lightGrayColor;
 
++ (instancetype)wmf_placeholderImageTintColor;
+
++ (instancetype)wmf_placeholderImageBackgroundColor;
+
 @end

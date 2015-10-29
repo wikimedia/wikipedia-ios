@@ -40,6 +40,14 @@
     return [UIColor colorWithWhite:0.7 alpha:1.0];
 }
 
++ (instancetype)wmf_placeholderImageTintColor {
+    return [UIColor colorWithWhite:0.7 alpha:1.0];
+}
+
++ (instancetype)wmf_placeholderImageBackgroundColor {
+    return [UIColor colorWithWhite:0.96 alpha:1.0];
+}
+
 + (instancetype)wmf_tableOfContentsHeaderTextColor {
     return [self wmf_tableOfContentsSectionTextColor];
 }
