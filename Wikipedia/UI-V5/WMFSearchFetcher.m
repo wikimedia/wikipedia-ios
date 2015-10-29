@@ -48,7 +48,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.requestSerializer  = [WMFSearchRequestSerializer serializer];
         manager.responseSerializer = [WMFSearchResults responseSerializer];
-        self.operationManager = manager;
+        self.operationManager      = manager;
     }
     return self;
 }
