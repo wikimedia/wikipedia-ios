@@ -118,14 +118,9 @@ NS_ASSUME_NONNULL_BEGIN
         (WMFImageCollectionViewCell*)
         [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
                                                   forIndexPath:indexPath];
-    if (self.images.count == 0) {
-        cell.imageView.tintColor   = [UIColor wmf_lightGrayColor];
-        cell.imageView.image       = [UIImage wmf_placeholderImage];
-        cell.imageView.contentMode = UIViewContentModeCenter;
-        return cell;
+    if (self.images.count != 0) {
+        [cell.imageView wmf_setImageWithMetadata:self.images[indexPath.item] detectFaces:YES];
     }
-
-    [cell.imageView wmf_setImageWithMetadata:self.images[indexPath.item] detectFaces:YES];
 
     return cell;
 }

@@ -17,7 +17,7 @@
 // Utils
 #import "WMFMath.h"
 #import "NSString+WMFDistance.h"
-
+#import "UIColor+WMFStyle.h"
 
 static CGFloat const WMFTextPadding    = 8.0;
 static CGFloat const WMFDistanceHeight = 20.0;
@@ -41,11 +41,6 @@ static CGFloat const WMFImagePadding = 8.0;
 
 @implementation WMFNearbySearchResultCell
 
-- (void)configureImageViewWithPlaceholder {
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.image       = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
-}
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self setSearchResultDescription:nil];
@@ -55,7 +50,7 @@ static CGFloat const WMFImagePadding = 8.0;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.imageView.image                            = [UIImage imageNamed:@"logo-placeholder-nearby.png"];
+    [self configureImageViewWithPlaceholder];
     self.imageView.layer.cornerRadius               = self.imageView.bounds.size.width / 2;
     self.imageView.layer.borderWidth                = 1.0 / [UIScreen mainScreen].scale;
     self.imageView.layer.borderColor                = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;

@@ -37,8 +37,7 @@
 }
 
 + (instancetype)wmf_lightGrayColor {
-    // #999999 in grayscale
-    return [UIColor colorWithWhite:0.59765625 alpha:1.0];
+    return [UIColor colorWithWhite:0.7 alpha:1.0];
 }
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor {
