@@ -371,10 +371,10 @@ typedef NS_ENUM (NSInteger, TGLStackedViewControllerScrollDirection) {
                 CGPoint currentCenter = self.movingCellCenter;
                 currentCenter.x               += translation.x;
                 self.movingSnapshotView.center = currentCenter;
-                
+
                 CGFloat percentageOnScreen = CGRectGetMaxX(self.movingSnapshotView.frame) / self.collectionView.bounds.size.width;
-                
-                if(percentageOnScreen > 1){
+
+                if (percentageOnScreen > 1) {
                     //If greater than 1, it means we are moving the left instead of right
                     //Instead lets subtract to get the proper alpha
                     percentageOnScreen = 1 - (percentageOnScreen - 1);
