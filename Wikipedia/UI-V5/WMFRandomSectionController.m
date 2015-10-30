@@ -65,7 +65,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 - (UIImage*)headerButtonIcon {
-    return [UIImage imageNamed:@"reload-mini"];
+    return [UIImage imageNamed:@"refresh-mini"];
 }
 
 - (void)performHeaderButtonAction {

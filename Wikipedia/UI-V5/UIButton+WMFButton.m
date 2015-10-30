@@ -103,6 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
             [self setTitle:@"Save for later" forState:UIControlStateNormal];
             [self setTitle:@"Saved for later" forState:UIControlStateSelected];
             break;
+        case WMFButtonTypeClose:
+            [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+            break;
         case WMFButtonTypeCloseMini:
             [self setImage:[UIImage imageNamed:@"close-mini"] forState:UIControlStateNormal];
             break;
