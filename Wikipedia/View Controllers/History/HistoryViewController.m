@@ -330,7 +330,7 @@
 
 - (UIImage*)placeholderThumbnailImage {
     if (!_placeholderThumbnailImage) {
-        _placeholderThumbnailImage = [UIImage imageNamed:@"logo-placeholder-search.png"];
+        _placeholderThumbnailImage = [UIImage imageNamed:@"image-placeholder"];
     }
     return _placeholderThumbnailImage;
 }

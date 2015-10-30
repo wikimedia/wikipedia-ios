@@ -25,7 +25,7 @@
 #import "WMFImageGalleryCollectionViewCell.h"
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIFont+WMFStyle.h"
-#import "WikiGlyph_Chars.h"
+#import "UIButton+WMFButton.h"
 #import "UICollectionViewFlowLayout+NSCopying.h"
 #import "UICollectionViewFlowLayout+WMFItemSizeThatFits.h"
 #import "WMFCollectionViewPageLayout.h"
@@ -233,48 +233,19 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         make.height.mas_equalTo(WMFImageGalleryTopGradientHeight);
     }];
 
-    UIButton* closeButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    // the title must be set first!
-    closeButton.titleLabel.font = [UIFont wmf_glyphFontOfSize:22.f];
-    [closeButton setTitle:WIKIGLYPH_X forState:UIControlStateNormal];
-
-    // apply visual effects
-    [closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [closeButton setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [closeButton.titleLabel wmf_applyDropShadow];
-
-    // setup actions
-    [closeButton addTarget:self
-                    action:@selector(closeButtonTapped:)
-          forControlEvents:UIControlEventTouchUpInside];
-
+    @weakify(self)
+    UIButton * closeButton = [UIButton wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
+        @strongify(self)
+        [self closeButtonTapped : sender];
+    }];
+    closeButton.tintColor = [UIColor whiteColor];
     [self.view addSubview:closeButton];
     _closeButton = closeButton;
 
     [self.closeButton mas_makeConstraints:^(MASConstraintMaker* make) {
-        // size is doubled to increase hit area
-        float const sizeScaleFactor = 2.f;
-        CGSize const glyphIntrinsicSize = [self.closeButton.titleLabel intrinsicContentSize];
-        CGSize const glyphScaledSize = CGSizeMake(glyphIntrinsicSize.width * sizeScaleFactor,
-                                                  glyphIntrinsicSize.height * sizeScaleFactor);
-        make.size.mas_equalTo(glyphScaledSize);
-
-        // these offsets account for padding in the glyph
-        // TODO: centralize/standardize glyph offsets
-        float const glyphHorizPadding = glyphIntrinsicSize.width * 0.25;
-        float const glyphVertPadding = glyphIntrinsicSize.height * 0.25;
-
-        /*
-           align "x" with 20pt leading offset, same as cell's image description. need to account for extra-hit-area
-           padding as well as the glyph's intrinsic padding
-         */
-        make.leading.equalTo(self.view.mas_leading).with.offset(20.f
-                                                                - glyphIntrinsicSize.width / 2.f
-                                                                - glyphHorizPadding);
-        // top of "x" is 10 pts from the top of the view
-        make.top.equalTo(self.view.mas_top).with.offset(10.f
-                                                        - glyphIntrinsicSize.height / 2.f
-                                                        - glyphVertPadding);
+        make.width.and.height.mas_equalTo(60.f);
+        make.leading.equalTo(self.view.mas_leading);
+        make.top.equalTo(self.view.mas_top);
     }];
 
     UITapGestureRecognizer* chromeTapGestureRecognizer =

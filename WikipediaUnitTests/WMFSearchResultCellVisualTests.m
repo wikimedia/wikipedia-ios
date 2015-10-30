@@ -34,6 +34,7 @@ static NSString* const LongSearchResultDescription =
 
 - (void)setUp {
     [super setUp];
+    //self.recordMode = YES;
     self.searchResultCell = [WMFSearchResultCell wmf_viewFromClassNib];
 }
 
