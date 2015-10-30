@@ -5,6 +5,12 @@ import UIKit
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 
     /**
+     Notifies the delegate that the controller will display
+     Use this to update the ToC if needed
+     */
+    func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController)
+
+    /**
      The delegate is responsible for dismissing the view controller
      */
     func tableOfContentsController(controller: WMFTableOfContentsViewController,
@@ -105,6 +111,7 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
     }
 
