@@ -3,6 +3,20 @@ import Foundation
 import BlocksKit
 
 extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDelegate {
+    
+    public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
+        if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
+            tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
+        } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController.visibleFooterIndex()) {
+            switch footerIndex {
+            case .ReadMore:
+                tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
+            }
+        } else {
+            assertionFailure("Couldn't find current position of user at current offset!")
+        }
+    }
+
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
                                             
@@ -45,16 +59,6 @@ extension WMFArticleContainerViewController {
     }
 
     public func didTapTableOfContentsButton(sender: AnyObject?) {
-        if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
-            tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
-        } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController.visibleFooterIndex()) {
-            switch footerIndex {
-            case .ReadMore:
-                tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
-            }
-        } else {
-            assertionFailure("Couldn't find current position of user at current offset!")
-        }
         presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
 
     }
