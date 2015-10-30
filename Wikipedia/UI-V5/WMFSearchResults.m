@@ -5,6 +5,7 @@
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKSearchResult.h"
+#import "MWKSearchRedirectMapping.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
++ (NSValueTransformer*)redirectMappingsJSONTransformer {
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[MWKSearchRedirectMapping class]];
+}
+
 + (NSSortDescriptor*)indexSortDescriptor {
     static NSSortDescriptor* indexSortDescriptor;
     static dispatch_once_t onceToken;
@@ -50,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
                WMF_SAFE_KEYPATH(WMFSearchResults.new, results): @"pages",
+               WMF_SAFE_KEYPATH(WMFSearchResults.new, redirectMappings): @"redirects",
                WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
     };
 }
