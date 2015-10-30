@@ -97,7 +97,9 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
             }];
 
             results = [previousResults.results arrayByAddingObjectsFromArray:results];
-            searchResults = [[WMFSearchResults alloc] initWithSearchTerm:searchResults.searchTerm results:results searchSuggestion:searchResults.searchSuggestion];
+            //Grab the previous search suggestion if none is returned
+            NSString* searchSuggestion = searchResults.searchSuggestion.length > 0 ? searchResults.searchSuggestion : previousResults.searchSuggestion;
+            searchResults = [[WMFSearchResults alloc] initWithSearchTerm:searchResults.searchTerm results:results searchSuggestion:searchSuggestion];
         }
         resolve(searchResults);
     }
