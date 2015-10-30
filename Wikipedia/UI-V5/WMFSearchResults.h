@@ -1,8 +1,7 @@
 
-@import Foundation;
 #import <Mantle/Mantle.h>
 
-@class MWKSearchResult;
+@class MWKSearchResult, MWKSearchRedirectMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,6 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSString* searchTerm;
 @property (nonatomic, strong, readonly) NSArray<MWKSearchResult*>* results;
+@property (nonatomic, strong, readonly) NSArray<MWKSearchRedirectMapping*>* redirectMappings;
+
 @property (nonatomic, copy, nullable, readonly) NSString* searchSuggestion;
 
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm

@@ -11,6 +11,8 @@
 #import "MWKSavedPageList.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchResult.h"
+#import "MWKSearchRedirectMapping.h"
+#import "NSString+Extras.h"
 #import "WMFSearchResultCell.h"
 #import "UIView+WMFDefaultNib.h"
 
@@ -44,12 +46,30 @@
             @strongify(self);
             MWKTitle* title = [self titleForIndexPath:indexPath];
             [cell setTitle:title highlightingSubstring:self.searchResults.searchTerm];
-            [cell setSearchResultDescription:result.wikidataDescription];
+            [cell setSearchResultDescription:[self descriptionForSearchResult:result]];
             [cell setImageURL:result.thumbnailURL];
             [cell setSavedPageList:self.savedPageList];
         };
     }
     return self;
+}
+
+- (NSString*)descriptionForSearchResult:(MWKSearchResult*)result{
+    MWKSearchRedirectMapping* mapping = [self redirectMappingForResult:result];
+    if(!mapping){
+        return result.wikidataDescription;
+    }
+    NSString* description = result.wikidataDescription ? [@"\n" stringByAppendingString : [result.wikidataDescription wmf_stringByCapitalizingFirstCharacter]] : @"";
+    return [NSString stringWithFormat:@"Redirected from: %@%@", mapping.redirectFromTitle, description];
+}
+
+- (MWKSearchRedirectMapping*)redirectMappingForResult:(MWKSearchResult*)result {
+    return [self.searchResults.redirectMappings bk_match:^BOOL (MWKSearchRedirectMapping* obj) {
+        if ([result.displayTitle isEqualToString:obj.redirectToTitle]) {
+            return YES;
+        }
+        return NO;
+    }];
 }
 
 - (void)setCollectionView:(UICollectionView* __nullable)collectionView {
