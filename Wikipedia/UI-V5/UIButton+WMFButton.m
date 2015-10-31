@@ -124,6 +124,9 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFButtonTypeTrendingMini:
             [self setImage:[UIImage imageNamed:@"trending-mini"] forState:UIControlStateNormal];
             break;
+        case WMFButtonTypeClearMini:
+            [self setImage:[UIImage imageNamed:@"clear-mini"] forState:UIControlStateNormal];
+            break;
         default:
             break;
     }

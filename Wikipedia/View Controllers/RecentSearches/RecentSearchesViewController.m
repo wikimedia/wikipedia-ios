@@ -3,29 +3,24 @@
 
 #import "RecentSearchesViewController.h"
 #import "RecentSearchCell.h"
-#import "WikiGlyphButton.h"
-#import "WikiGlyphLabel.h"
-#import "WikiGlyph_Chars.h"
+#import "UIButton+WMFButton.h"
 #import "WikipediaAppUtils.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "Wikipedia-Swift.h"
 #import "UIColor+WMFHexColor.h"
 #import "MWKRecentSearchList.h"
 #import "MWKRecentSearchEntry.h"
-#import "UIView+TemporaryAnimatedXF.h"
+#import <Masonry/Masonry.h>
 #import "Defines.h"
 
-static CGFloat const cellHeight           = 68.f;
-static CGFloat const trashFontSize        = 30.f;
-static NSInteger const trashColor         = 0x777777;
-static NSString* const pListFileName      = @"Recent.plist";
-static NSUInteger const recentSearchLimit = 100.f;
+static NSString* const pListFileName = @"Recent.plist";
 
 @interface RecentSearchesViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableView* table;
 @property (strong, nonatomic) IBOutlet UILabel* headingLabel;
-@property (strong, nonatomic) IBOutlet WikiGlyphButton* trashButton;
+@property (strong, nonatomic) IBOutlet UIView* trashButtonContainer;
+@property (strong, nonatomic) UIButton* trashButton;
 
 @end
 
@@ -39,15 +34,16 @@ static NSUInteger const recentSearchLimit = 100.f;
     [self setupTable];
 
     [self updateTrashButtonEnabledState];
-
-    [self.table setBackgroundColor:[UIColor clearColor]];
-    self.table.backgroundView.backgroundColor = [UIColor clearColor];
-    self.table.rowHeight                      = cellHeight;
 }
 
 - (void)setupTable {
-    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.table registerNib:[UINib nibWithNibName:@"RecentSearchCell" bundle:nil] forCellReuseIdentifier:@"RecentSearchCell"];
+
+    self.table.estimatedRowHeight = 52.f;
+    self.table.rowHeight          = UITableViewAutomaticDimension;
+
+    [self.table setBackgroundView:nil];
+    [self.table setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)reloadRecentSearches {
@@ -56,20 +52,24 @@ static NSUInteger const recentSearchLimit = 100.f;
 }
 
 - (void)setupHeadingLabel {
-    self.headingLabel.text = MWLocalizedString(@"search-recent-title", nil);
+    self.headingLabel.text = [MWLocalizedString(@"search-recent-title", nil) wmf_stringByCapitalizingAllCharactersIfDeviceLocaleIsEnglish];
 }
 
 - (void)setupTrashButton {
-    self.trashButton.backgroundColor = [UIColor clearColor];
-    [self.trashButton.label setWikiText:WIKIGLYPH_TRASH color:[UIColor wmf_colorWithHex:trashColor alpha:1.0f]
-                                   size:trashFontSize
-                         baselineOffset:1];
+    @weakify(self)
+    self.trashButton = [UIButton wmf_buttonType:WMFButtonTypeClearMini handler:^(id sender){
+        @strongify(self)
+        [self showDeleteAllDialog];
+    }];
+    self.trashButton.tintColor = [UIColor wmf_lightGrayColor];
+    [self.trashButtonContainer addSubview:self.trashButton];
+
+    [self.trashButton mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.trailing.top.and.bottom.equalTo(self.trashButtonContainer);
+    }];
 
     self.trashButton.accessibilityLabel  = MWLocalizedString(@"menu-trash-accessibility-label", nil);
     self.trashButton.accessibilityTraits = UIAccessibilityTraitButton;
-
-    [self.trashButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                   action:@selector(trashButtonTapped)]];
 }
 
 - (void)updateTrashButtonEnabledState {
@@ -84,19 +84,6 @@ static NSUInteger const recentSearchLimit = 100.f;
 - (void)removeAllTerms {
     [self.recentSearches removeAllEntries];
     [self.recentSearches save];
-}
-
-- (void)trashButtonTapped {
-    if (!self.trashButton.enabled) {
-        return;
-    }
-
-    [self.trashButton animateAndRewindXF:CATransform3DMakeScale(1.2f, 1.2f, 1.0f)
-                              afterDelay:0.0
-                                duration:0.1
-                                    then:^{
-        [self showDeleteAllDialog];
-    }];
 }
 
 - (void)showDeleteAllDialog {
@@ -158,6 +145,10 @@ static NSUInteger const recentSearchLimit = 100.f;
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self.delegate recentSearchController:self didSelectSearchTerm:[self.recentSearches entryAtIndex:indexPath.row]];
+}
+
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.01f;
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {

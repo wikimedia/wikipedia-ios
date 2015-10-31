@@ -97,7 +97,7 @@
 "search-within-articles" = "Within articles";
 "search-did-you-mean" = "Did you mean $1?";
 
-"search-recent-title" = "Recent searches";
+"search-recent-title" = "Recently searched";
 "search-recent-clear-confirmation-heading" = "Delete all recent searches?";
 "search-recent-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "search-recent-clear-cancel" = "Cancel";

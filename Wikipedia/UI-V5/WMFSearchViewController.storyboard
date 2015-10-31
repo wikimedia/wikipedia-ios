@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="tkf-8P-b2O">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -218,28 +218,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label">
-                                <rect key="frame" x="25" y="8" width="492" height="40"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="MJn-Fv-Xfk"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7SS-UN-pgW" userLabel="Trash Button" customClass="WikiGlyphButton">
-                                <rect key="frame" x="525" y="8" width="75" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZi-qL-C8i" userLabel="Header container">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="58"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGx-k7-AQ1" userLabel="Title Label">
+                                        <rect key="frame" x="20" y="22" width="526" height="34"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="MJn-Fv-Xfk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7SS-UN-pgW" userLabel="Trash Button Container">
+                                        <rect key="frame" x="546" y="22" width="54" height="34"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="54" id="1mE-o0-SnE"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="1mE-o0-SnE"/>
+                                    <constraint firstAttribute="trailing" secondItem="7SS-UN-pgW" secondAttribute="trailing" id="558-B6-0gL"/>
+                                    <constraint firstItem="bGx-k7-AQ1" firstAttribute="top" secondItem="XZi-qL-C8i" secondAttribute="top" constant="22" id="DGE-B4-HgK"/>
+                                    <constraint firstItem="7SS-UN-pgW" firstAttribute="leading" secondItem="bGx-k7-AQ1" secondAttribute="trailing" id="EVB-7W-REA"/>
+                                    <constraint firstItem="bGx-k7-AQ1" firstAttribute="leading" secondItem="XZi-qL-C8i" secondAttribute="leading" constant="20" id="J6c-sp-zUb"/>
+                                    <constraint firstAttribute="bottom" secondItem="bGx-k7-AQ1" secondAttribute="bottom" constant="2" id="JyX-hW-R5L"/>
+                                    <constraint firstItem="7SS-UN-pgW" firstAttribute="bottom" secondItem="bGx-k7-AQ1" secondAttribute="bottom" id="yYG-aa-XzQ"/>
+                                    <constraint firstItem="7SS-UN-pgW" firstAttribute="top" secondItem="bGx-k7-AQ1" secondAttribute="top" id="zTb-KP-cV3"/>
                                 </constraints>
                             </view>
-                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
-                                <rect key="frame" x="0.0" y="48" width="600" height="488"/>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
+                                <rect key="frame" x="0.0" y="58" width="600" height="478"/>
                                 <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Rqy-g9-mNA" id="5go-DG-2bZ"/>
                                     <outlet property="delegate" destination="Rqy-g9-mNA" id="qWP-b9-11L"/>
@@ -250,21 +271,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="U8y-aI-ssO" firstAttribute="top" secondItem="ka6-Dy-C8P" secondAttribute="bottom" id="0eP-KB-sYM"/>
-                            <constraint firstItem="bGx-k7-AQ1" firstAttribute="top" secondItem="wQU-Qf-hyW" secondAttribute="bottom" constant="8" id="8g7-OL-dpp"/>
+                            <constraint firstItem="XZi-qL-C8i" firstAttribute="leading" secondItem="un9-Tr-mR7" secondAttribute="leading" id="76d-re-iJD"/>
+                            <constraint firstItem="XZi-qL-C8i" firstAttribute="top" secondItem="wQU-Qf-hyW" secondAttribute="bottom" id="Dr9-aT-b4Z"/>
                             <constraint firstAttribute="trailing" secondItem="ka6-Dy-C8P" secondAttribute="trailing" id="Nxp-8p-jAo"/>
-                            <constraint firstItem="bGx-k7-AQ1" firstAttribute="leading" secondItem="un9-Tr-mR7" secondAttribute="leading" constant="25" id="Rqc-W8-ezB"/>
                             <constraint firstItem="ka6-Dy-C8P" firstAttribute="leading" secondItem="un9-Tr-mR7" secondAttribute="leading" id="T76-im-h7m"/>
-                            <constraint firstItem="ka6-Dy-C8P" firstAttribute="top" secondItem="bGx-k7-AQ1" secondAttribute="bottom" id="YB4-03-c48"/>
-                            <constraint firstItem="7SS-UN-pgW" firstAttribute="top" secondItem="bGx-k7-AQ1" secondAttribute="top" id="cHr-cY-eOK"/>
-                            <constraint firstItem="7SS-UN-pgW" firstAttribute="bottom" secondItem="bGx-k7-AQ1" secondAttribute="bottom" id="ehK-vH-ktM"/>
-                            <constraint firstAttribute="trailing" secondItem="7SS-UN-pgW" secondAttribute="trailing" id="hBO-Jx-cJe"/>
-                            <constraint firstItem="7SS-UN-pgW" firstAttribute="leading" secondItem="bGx-k7-AQ1" secondAttribute="trailing" constant="8" symbolic="YES" id="hC9-Qy-49A"/>
+                            <constraint firstAttribute="trailing" secondItem="XZi-qL-C8i" secondAttribute="trailing" id="Tgh-st-MuS"/>
+                            <constraint firstItem="ka6-Dy-C8P" firstAttribute="top" secondItem="XZi-qL-C8i" secondAttribute="bottom" id="w1f-Hx-HoA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="headingLabel" destination="bGx-k7-AQ1" id="c8h-qY-42y"/>
                         <outlet property="table" destination="ka6-Dy-C8P" id="ONG-nR-ET1"/>
-                        <outlet property="trashButton" destination="7SS-UN-pgW" id="svA-sm-1IW"/>
+                        <outlet property="trashButtonContainer" destination="7SS-UN-pgW" id="6mT-BT-eaR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zrx-j4-pdr" userLabel="First Responder" sceneMemberID="firstResponder"/>
