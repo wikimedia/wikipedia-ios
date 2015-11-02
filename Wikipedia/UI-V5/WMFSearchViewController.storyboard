@@ -239,9 +239,6 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="54" id="1mE-o0-SnE"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <animations/>
