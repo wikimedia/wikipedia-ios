@@ -404,7 +404,7 @@ NS_ASSUME_NONNULL_BEGIN
                 case WMFHomeSectionTypeRandom:
                     [self loadSectionForSectionController:[self randomSectionControllerForSchemaItem:obj]];
                     break;
-                case WMFHomeSectionTypeToday:
+                case WMFHomeSectionTypeMainPage:
                 default:
                     break;
             }
