@@ -103,14 +103,6 @@
     return self;
 }
 
-- (NSString*)wmf_stringByCapitalizingAllCharactersIfDeviceLocaleIsEnglish {
-    // Reminder: TWN has in the past rejected all-caps strings because there are complications
-    // with translation/meaning of all-caps in other languages. The recommendation
-    // was to submit strings to TWN with non-all-caps, and at display time force the string
-    // to all caps.
-    return [self uppercaseStringWithLocale:[NSLocale currentLocale]];
-}
-
 - (NSLocale*)getLocaleForCurrentSearchDomain {
     NSString* domain = [SessionSingleton sharedInstance].currentArticleSite.language;
 
