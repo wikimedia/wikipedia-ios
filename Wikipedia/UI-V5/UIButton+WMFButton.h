@@ -27,7 +27,8 @@ typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeNearbyMini,
     WMFButtonTypeRecentMini,
     WMFButtonTypeShareMini,
-    WMFButtonTypeTrendingMini
+    WMFButtonTypeTrendingMini,
+    WMFButtonTypeClearMini
 };
 
 NS_ASSUME_NONNULL_BEGIN

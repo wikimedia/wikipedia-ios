@@ -37,7 +37,7 @@
 }
 
 + (instancetype)wmf_lightGrayColor {
-    return [UIColor colorWithWhite:0.7 alpha:1.0];
+    return [UIColor colorWithWhite:0.870588 alpha:1.0];
 }
 
 + (instancetype)wmf_placeholderImageTintColor {
