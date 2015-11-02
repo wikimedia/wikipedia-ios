@@ -42,6 +42,11 @@ static NSString* const pListFileName = @"Recent.plist";
     self.table.estimatedRowHeight = 52.f;
     self.table.rowHeight          = UITableViewAutomaticDimension;
 
+    /*
+       HAX: Used grouped table layout to get, for free, separators above the first cell
+       and below the last cell, but grouped layout adds a background which causes the
+       translucency effect to break. Nil'ing out the background view fixes it.
+     */
     [self.table setBackgroundView:nil];
     [self.table setBackgroundColor:[UIColor clearColor]];
 }
