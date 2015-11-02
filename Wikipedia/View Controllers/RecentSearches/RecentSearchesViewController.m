@@ -57,7 +57,11 @@ static NSString* const pListFileName = @"Recent.plist";
 }
 
 - (void)setupHeadingLabel {
-    self.headingLabel.text = [MWLocalizedString(@"search-recent-title", nil) wmf_stringByCapitalizingAllCharactersIfDeviceLocaleIsEnglish];
+    // Reminder: TWN has in the past rejected all-caps strings because there are complications
+    // with translation/meaning of all-caps in other languages. The recommendation
+    // was to submit strings to TWN with non-all-caps, and at display time force the string
+    // to all caps.
+    self.headingLabel.text = [MWLocalizedString(@"search-recent-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
 - (void)setupTrashButton {

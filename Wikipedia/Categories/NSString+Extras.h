@@ -32,8 +32,6 @@
 
 - (NSString*)wmf_stringByCapitalizingFirstCharacter;
 
-- (NSString*)wmf_stringByCapitalizingAllCharactersIfDeviceLocaleIsEnglish;
-
 - (BOOL)wmf_containsString:(NSString*)string;
 
 - (BOOL)wmf_caseInsensitiveContainsString:(NSString*)string;
