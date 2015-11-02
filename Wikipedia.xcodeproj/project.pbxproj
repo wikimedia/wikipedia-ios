@@ -214,6 +214,8 @@
 		0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */; };
 		0E76D1A01BE3D8B300937DC3 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D19F1BE3D8B300937DC3 /* MWKSearchRedirectMapping.m */; };
 		0E76D1A61BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D1A51BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m */; };
+		0E76D1AA1BE7DF9D00937DC3 /* WMFMainPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */; };
+		0E76D1AB1BE7DF9D00937DC3 /* WMFMainPageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */; };
 		0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */; };
 		0E7E60311B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E60301B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m */; };
 		0E7E60341B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E60331B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m */; };
@@ -920,6 +922,9 @@
 		0E76D19F1BE3D8B300937DC3 /* MWKSearchRedirectMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSearchRedirectMapping.m; sourceTree = "<group>"; };
 		0E76D1A41BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+WMFDesktopRetry.h"; sourceTree = "<group>"; };
 		0E76D1A51BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+WMFDesktopRetry.m"; sourceTree = "<group>"; };
+		0E76D1A71BE7DF9D00937DC3 /* WMFMainPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFMainPageCell.h; sourceTree = "<group>"; };
+		0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMainPageCell.m; sourceTree = "<group>"; };
+		0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFMainPageCell.xib; sourceTree = "<group>"; };
 		0E7C6D4C1B3106A800F1F985 /* WMFTitleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTitleListDataSource.h; sourceTree = "<group>"; };
 		0E7E602A1B7CFA1E00ED1C69 /* WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnalyticsLogging.h; sourceTree = "<group>"; };
 		0E7E602B1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKTitle+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
@@ -2513,6 +2518,9 @@
 				0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */,
 				0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */,
 				0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */,
+				0E76D1A71BE7DF9D00937DC3 /* WMFMainPageCell.h */,
+				0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */,
+				0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */,
 				0E2691031B86BBC0009B8605 /* Related */,
 				0ED6897C1B8246F400B30427 /* Nearby */,
 				0E1B049F1BC59DEF00506F7D /* Continue Reading */,
@@ -3765,6 +3773,7 @@
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
 				0E03E2A71B8574F800C1FBD7 /* WMFHomeSectionHeader.xib in Resources */,
+				0E76D1AB1BE7DF9D00937DC3 /* WMFMainPageCell.xib in Resources */,
 				04016E201B329D4500D732FE /* PageHistoryViewController.storyboard in Resources */,
 				04AEF0F01B2E87A800EFE858 /* WebViewController.storyboard in Resources */,
 				04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */,
@@ -4380,6 +4389,7 @@
 				BCB848781AAAABF80077EC24 /* WMFMath.m in Sources */,
 				D4B0AE051936604700F0AC90 /* EditFunnel.m in Sources */,
 				BC6E8B921B5E8DB7003D9A39 /* CIContext+WMFImageProcessing.m in Sources */,
+				0E76D1AA1BE7DF9D00937DC3 /* WMFMainPageCell.m in Sources */,
 				0487048319F8262600B7D307 /* FetcherBase.m in Sources */,
 				D4F277FE194235B50032BA38 /* ToCInteractionFunnel.m in Sources */,
 				BC7FA4BE1BD6A28D006CA1A3 /* WMFTableOfContentsItem.swift in Sources */,
