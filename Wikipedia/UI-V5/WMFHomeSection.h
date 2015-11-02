@@ -19,7 +19,7 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
 + (instancetype)mainPageSection;
-+ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location date:(nullable NSDate*)date;
++ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)randomSection;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
@@ -33,6 +33,8 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 //non-nil for Nearby
 @property (nonatomic, strong, readonly) CLLocation* location;
 
+
+- (NSComparisonResult)compare:(WMFHomeSection*)section;
 
 @end
 
