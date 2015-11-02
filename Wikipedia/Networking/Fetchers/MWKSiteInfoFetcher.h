@@ -1,31 +1,16 @@
-//
-//  MWKSiteInfoFetcher.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 5/29/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
-#import "FetcherBase.h"
+@import Foundation;
 
 @class MWKSiteInfo;
 @class MWKSite;
-@class AFHTTPRequestOperationManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWKSiteInfoFetcher : FetcherBase
-@property (strong, nonatomic) AFHTTPRequestOperationManager* requestManager;
+@interface MWKSiteInfoFetcher : NSObject
 
-/// Attempt to fetch siteinfo for the given site.
-- (void)fetchInfoForSite:(MWKSite*)site
-                 success:(void (^)(MWKSiteInfo*))success
-                 failure:(void (^)(NSError*))failure;
+- (AnyPromise*)fetchSiteInfoForSite:(MWKSite*)site;
 
-- (void)fetchInfoForSite:(MWKSite*)site
-                 success:(void (^)(MWKSiteInfo*))success
-                 failure:(void (^)(NSError*))failure
-           callbackQueue:(dispatch_queue_t)queue;
+@property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
 
