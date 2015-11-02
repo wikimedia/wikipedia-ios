@@ -7,6 +7,7 @@
 //
 
 #import "WMFArticleHeaderImageGalleryViewController.h"
+@import Masonry;
 
 // Utils
 #import "Wikipedia-Swift.h"
@@ -39,10 +40,24 @@ NS_ASSUME_NONNULL_BEGIN
     return [self initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
 }
 
+- (void)addDivider {
+    UIView* divider = [[UIView alloc] initWithFrame:CGRectZero];
+    divider.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    [self.view addSubview:divider];
+    [divider mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.leading.equalTo(self.view.mas_leading);
+        make.trailing.equalTo(self.view.mas_trailing);
+        make.height.equalTo(@0.5);
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor           = [UIColor whiteColor];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    [self addDivider];
+
     [self.collectionView registerClass:[WMFImageCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
     self.collectionView.pagingEnabled = YES;
