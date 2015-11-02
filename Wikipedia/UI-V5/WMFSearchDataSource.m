@@ -54,9 +54,9 @@
     return self;
 }
 
-- (NSString*)descriptionForSearchResult:(MWKSearchResult*)result{
+- (NSString*)descriptionForSearchResult:(MWKSearchResult*)result {
     MWKSearchRedirectMapping* mapping = [self redirectMappingForResult:result];
-    if(!mapping){
+    if (!mapping) {
         return result.wikidataDescription;
     }
     NSString* description = result.wikidataDescription ? [@"\n" stringByAppendingString : [result.wikidataDescription wmf_stringByCapitalizingFirstCharacter]] : @"";

@@ -14,12 +14,16 @@
 }
 
 - (NSString*)wmf_hexString {
-    // From: http://stackoverflow.com/a/26341062
-    const CGFloat* components = CGColorGetComponents(self.CGColor);
-    return [NSString stringWithFormat:@"#%02lX%02lX%02lX",
-            lroundf(components[0] * 255),
-            lroundf(components[1] * 255),
-            lroundf(components[2] * 255)];
+    CGFloat red;
+    CGFloat green;
+    CGFloat blue;
+    CGFloat alpha;
+    [self getRed:&red green:&green blue:&blue alpha:&alpha];
+    return [NSString stringWithFormat:@"%02x%02x%02x%02x",
+            (int)(255.0 * red),
+            (int)(255.0 * green),
+            (int)(255.0 * blue),
+            (int)(255.0 * alpha)];
 }
 
 @end
