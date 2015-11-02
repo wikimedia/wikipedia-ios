@@ -320,3 +320,7 @@
 "captcha-prompt" = "Enter CAPTCHA text from image above";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
+
+"home-continue-reading-heading" = "Continue Reading";
+"home-continue-related-heading" = "Because you read $1";
+"home-more-like-footer" = "More like $1";
