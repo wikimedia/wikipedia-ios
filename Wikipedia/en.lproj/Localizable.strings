@@ -226,6 +226,8 @@
 "button-next" = "Next";
 "button-done" = "Done";
 "button-save" = "Save";
+"button-save-for-later" = "Save for later";
+"button-saved-for-later" = "Saved for later";
 
 "onboarding-create-account" = "Create account";
 "onboarding-login" = "Log in";
@@ -324,3 +326,4 @@
 "home-continue-reading-heading" = "Continue Reading";
 "home-continue-related-heading" = "Because you read $1";
 "home-more-like-footer" = "More like $1";
+"home-nearby-footer" = "More from nearby your location";
