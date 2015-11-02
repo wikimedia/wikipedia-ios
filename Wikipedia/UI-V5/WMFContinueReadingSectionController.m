@@ -46,7 +46,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:@"Continue Reading" attributes:nil];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-continue-reading-heading", nil) attributes:nil];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {

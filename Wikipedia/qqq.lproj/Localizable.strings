@@ -290,3 +290,6 @@
 "captcha-reload" = "Title for button used to request another CAPTCHA to solve";
 "captcha-prompt" = "Text prompting user to solve a CAPTCHA";
 "mwk-empty-title-error" = "Error description for when an operation couldn't be performed since no title was specified.";
+"home-continue-reading-heading" = "Heading for presenting user option to continue reading the last article they were reading the last time they used the app.";
+"home-continue-related-heading" = "Heading for presenting user option to read articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
+"home-more-like-footer" = "Footer for presenting user option to see list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
