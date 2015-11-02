@@ -212,6 +212,8 @@
 "button-next" = "Button text for next button used in various places.\n{{Identical|Next}}";
 "button-done" = "Button text for done button used in various places.\n{{Identical|Done}}";
 "button-save" = "Button text for save button used in various places.\n{{Identical|Save}}";
+"button-save-for-later" = "Longer button text for save button used in various places.";
+"button-saved-for-later" = "Longer button text for already saved button used in various places.";
 "onboarding-create-account" = "Button text prompting first time users to create an account";
 "onboarding-login" = "{{Identical|Log in}}";
 "onboarding-already-have-account" = "Button text prompting first time users to log in to existing account. Parameters:\n* $1 - login button text";
@@ -292,4 +294,5 @@
 "mwk-empty-title-error" = "Error description for when an operation couldn't be performed since no title was specified.";
 "home-continue-reading-heading" = "Heading for presenting user option to continue reading the last article they were reading the last time they used the app.";
 "home-continue-related-heading" = "Heading for presenting user option to read articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
-"home-more-like-footer" = "Footer for presenting user option to see list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
+"home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
+"home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
