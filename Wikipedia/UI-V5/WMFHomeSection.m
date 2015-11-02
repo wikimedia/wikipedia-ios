@@ -32,9 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)todaySection {
++ (instancetype)mainPageSection {
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type = WMFHomeSectionTypeToday;
+    item.type = WMFHomeSectionTypeMainPage;
     return item;
 }
 

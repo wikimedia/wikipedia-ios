@@ -97,7 +97,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 + (NSArray*)startingSchema {
-    return @[[WMFHomeSection todaySection],
+    return @[[WMFHomeSection mainPageSection],
              [WMFHomeSection nearbySectionWithLocation:nil date:nil],
              [WMFHomeSection randomSection]];
 }
@@ -113,11 +113,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 #pragma mark - Sections
-
-- (void)setSections:(NSArray<WMFHomeSection*>*)sections {
-    sections  = [self removeUnimplementedSectionTypesFromSection:sections];
-    _sections = sections;
-}
 
 - (void)updateSections:(NSArray<WMFHomeSection*>*)sections {
     self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
@@ -182,21 +177,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     [self updateSections:sections];
 }
 
-- (NSArray<WMFHomeSection*>*)removeUnimplementedSectionTypesFromSection:(NSArray<WMFHomeSection*>*)sections {
-    return [sections bk_reject:^BOOL (WMFHomeSection* section) {
-        switch (section.type) {
-            case WMFHomeSectionTypeToday: {
-                return YES;
-            }
-            break;
-            default: {
-                return NO;
-            }
-            break;
-        }
-    }];
-}
-
 #pragma mmrk - Create Schema Items
 
 - (NSArray*)staticSections {
@@ -219,7 +199,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     //Add today
-    WMFHomeSection* today = [self todaySection];
+    WMFHomeSection* today = [self mainPageSection];
     if (today) {
         [sections addObject:today];
     }
@@ -270,20 +250,20 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return nearby;
 }
 
-- (WMFHomeSection*)todaySection {
-    WMFHomeSection* today = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeToday) {
+- (WMFHomeSection*)mainPageSection {
+    WMFHomeSection* main = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeMainPage) {
             return YES;
         }
         return NO;
     }];
 
     //If it's a new day and we havent created a new today section, create it now
-    if (!today || ![today.dateCreated isToday]) {
-        today = [WMFHomeSection todaySection];
+    if (!main || ![main.dateCreated isToday]) {
+        main = [WMFHomeSection mainPageSection];
     }
 
-    return today;
+    return main;
 }
 
 - (WMFHomeSection*)continueReadingSection {

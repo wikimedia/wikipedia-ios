@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
     WMFHomeSectionTypeContinueReading,
-    WMFHomeSectionTypeToday,
+    WMFHomeSectionTypeMainPage,
     WMFHomeSectionTypeRandom,
     WMFHomeSectionTypeNearby,
     WMFHomeSectionTypeHistory,
@@ -18,7 +18,7 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 @interface WMFHomeSection : MTLModel
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (instancetype)todaySection;
++ (instancetype)mainPageSection;
 + (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location date:(nullable NSDate*)date;
 + (instancetype)randomSection;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
