@@ -4,6 +4,7 @@
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
 
@@ -62,40 +63,21 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 - (AnyPromise*)fetchArticlesRelatedToTitle:(MWKTitle*)title
                                resultLimit:(NSUInteger)resultLimit {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticlesRelatedToTitle:title
-                              resultLimit:resultLimit
-                            useDesktopURL:NO
-                                 resolver:resolve];
-    }];
-}
+        WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
+        params.title = title;
+        params.numberOfResults = resultLimit;
 
-- (void)fetchArticlesRelatedToTitle:(MWKTitle*)title
-                        resultLimit:(NSUInteger)resultLimit
-                      useDesktopURL:(BOOL)useDeskTopURL
-                           resolver:(PMKResolver)resolve {
-    MWKSite* searchSite = title.site;
-    NSURL* url          = [searchSite apiEndpoint:useDeskTopURL];
-
-    WMFRelatedSearchRequestParameters* params = [WMFRelatedSearchRequestParameters new];
-    params.title           = title;
-    params.numberOfResults = resultLimit;
-
-    [self.operationManager GET:url.absoluteString
-                    parameters:params
-                       success:^(AFHTTPRequestOperation* operation, id response) {
-        [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        resolve([[WMFRelatedSearchResults alloc] initWithTitle:title results:response]);
-    }
-                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        if ([url isEqual:[searchSite mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
-            [self fetchArticlesRelatedToTitle:title
-                                  resultLimit:resultLimit
-                                useDesktopURL:YES
-                                     resolver:resolve];
-        } else {
+        [self.operationManager wmf_GETWithSite:title.site
+                                    parameters:params
+                                         retry:NULL
+                                       success:^(AFHTTPRequestOperation* operation, id responseObject) {
+            [[MWNetworkActivityIndicatorManager sharedManager] pop];
+            resolve([[WMFRelatedSearchResults alloc] initWithTitle:title results:responseObject]);
+        }
+                                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
             resolve(error);
-        }
+        }];
     }];
 }
 

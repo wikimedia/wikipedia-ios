@@ -213,6 +213,7 @@
 		0E66B92A1BE0145E00B61F69 /* WMFSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66B9291BE0145E00B61F69 /* WMFSearchDataSource.m */; };
 		0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */; };
 		0E76D1A01BE3D8B300937DC3 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D19F1BE3D8B300937DC3 /* MWKSearchRedirectMapping.m */; };
+		0E76D1A61BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D1A51BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m */; };
 		0E7E602D1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E602C1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.m */; };
 		0E7E60311B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E60301B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m */; };
 		0E7E60341B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E60331B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m */; };
@@ -917,6 +918,8 @@
 		0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHomeViewController.m; sourceTree = "<group>"; };
 		0E76D19E1BE3D8B300937DC3 /* MWKSearchRedirectMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSearchRedirectMapping.h; sourceTree = "<group>"; };
 		0E76D19F1BE3D8B300937DC3 /* MWKSearchRedirectMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSearchRedirectMapping.m; sourceTree = "<group>"; };
+		0E76D1A41BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+WMFDesktopRetry.h"; sourceTree = "<group>"; };
+		0E76D1A51BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+WMFDesktopRetry.m"; sourceTree = "<group>"; };
 		0E7C6D4C1B3106A800F1F985 /* WMFTitleListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTitleListDataSource.h; sourceTree = "<group>"; };
 		0E7E602A1B7CFA1E00ED1C69 /* WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAnalyticsLogging.h; sourceTree = "<group>"; };
 		0E7E602B1B7CFA9500ED1C69 /* MWKTitle+WMFAnalyticsLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKTitle+WMFAnalyticsLogging.h"; sourceTree = "<group>"; };
@@ -2096,6 +2099,8 @@
 				BCB58F761A8D081E00465627 /* NSArray+BKIndex.h */,
 				BCB58F771A8D081E00465627 /* NSArray+BKIndex.m */,
 				BC86B9341A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.h */,
+				0E76D1A41BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.h */,
+				0E76D1A51BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m */,
 				BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */,
 				BC86B93B1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.h */,
 				BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */,
@@ -4087,6 +4092,7 @@
 				0EA1791C1BD95908004FF529 /* WMFRandomSectionController.m in Sources */,
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
+				0E76D1A61BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */,
 				BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */,
