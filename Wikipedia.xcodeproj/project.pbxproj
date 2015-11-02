@@ -2521,15 +2521,11 @@
 				0E03E2921B84392100C1FBD7 /* WMFHomeSectionController.h */,
 				0E03E2971B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.h */,
 				0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */,
-				0E76D1A11BE7C5A100937DC3 /* WMFMainPageSectionController.h */,
-				0E76D1A21BE7C5A100937DC3 /* WMFMainPageSectionController.m */,
-				0E76D1A71BE7DF9D00937DC3 /* WMFMainPageCell.h */,
-				0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */,
-				0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */,
-				0E2691031B86BBC0009B8605 /* Related */,
-				0ED6897C1B8246F400B30427 /* Nearby */,
 				0E1B049F1BC59DEF00506F7D /* Continue Reading */,
+				0EAED8481BE7F3A0006B01E6 /* Main Page */,
 				0EA1791D1BD95910004FF529 /* Random */,
+				0ED6897C1B8246F400B30427 /* Nearby */,
+				0E2691031B86BBC0009B8605 /* Related */,
 			);
 			name = Sections;
 			sourceTree = "<group>";
@@ -2694,6 +2690,18 @@
 				BCB669921A83F6C300C7B1FE /* MWKRecentSearchEntry.m */,
 			);
 			name = "Recent Searches";
+			sourceTree = "<group>";
+		};
+		0EAED8481BE7F3A0006B01E6 /* Main Page */ = {
+			isa = PBXGroup;
+			children = (
+				0E76D1A11BE7C5A100937DC3 /* WMFMainPageSectionController.h */,
+				0E76D1A21BE7C5A100937DC3 /* WMFMainPageSectionController.m */,
+				0E76D1A71BE7DF9D00937DC3 /* WMFMainPageCell.h */,
+				0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */,
+				0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */,
+			);
+			name = "Main Page";
 			sourceTree = "<group>";
 		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {

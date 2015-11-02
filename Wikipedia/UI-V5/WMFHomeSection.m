@@ -25,6 +25,81 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (NSComparisonResult)compare:(WMFHomeSection*)section {
+    NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
+    switch (self.type) {
+        case WMFHomeSectionTypeContinueReading: {
+            return NSOrderedAscending;
+        }
+        break;
+
+        case WMFHomeSectionTypeMainPage: {
+            switch (section.type) {
+                case WMFHomeSectionTypeContinueReading: {
+                    return NSOrderedDescending;
+                }
+                break;
+                case WMFHomeSectionTypeRandom:
+                case WMFHomeSectionTypeNearby: {
+                    return NSOrderedAscending;
+                }
+                break;
+                default:
+                    return -[self.dateCreated compare:section.dateCreated];
+                    break;
+            }
+        }
+        break;
+
+        case WMFHomeSectionTypeRandom: {
+            switch (section.type) {
+                case WMFHomeSectionTypeContinueReading:
+                case WMFHomeSectionTypeMainPage: {
+                    return NSOrderedDescending;
+                }
+                break;
+                case WMFHomeSectionTypeNearby: {
+                    return NSOrderedAscending;
+                }
+                break;
+                default:
+                    return -[self.dateCreated compare:section.dateCreated];
+                    break;
+            }
+        }
+        break;
+
+        case WMFHomeSectionTypeNearby: {
+            switch (section.type) {
+                case WMFHomeSectionTypeContinueReading:
+                case WMFHomeSectionTypeMainPage:
+                case WMFHomeSectionTypeRandom: {
+                    return NSOrderedDescending;
+                }
+                break;
+                default:
+                    return -[self.dateCreated compare:section.dateCreated];
+                    break;
+            }
+        }
+        break;
+
+        default: {
+            switch (section.type) {
+                case WMFHomeSectionTypeContinueReading:
+                    return NSOrderedDescending;
+                default:
+                    return -[self.dateCreated compare:section.dateCreated];
+                    break;
+            }
+            break;
+
+            return -[self.dateCreated compare:section.dateCreated];
+        }
+        break;
+    }
+}
+
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title {
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type  = WMFHomeSectionTypeContinueReading;
@@ -38,13 +113,10 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location date:(nullable NSDate*)date {
++ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location {
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type     = WMFHomeSectionTypeNearby;
     item.location = location;
-    if (date) {
-        item.dateCreated = date;
-    }
     return item;
 }
 
