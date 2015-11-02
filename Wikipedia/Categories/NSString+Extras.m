@@ -107,9 +107,8 @@
     // Reminder: TWN has in the past rejected all-caps strings because there are complications
     // with translation/meaning of all-caps in other languages. The recommendation
     // was to submit strings to TWN with non-all-caps, and at display time force the string
-    // to all caps, but *only* for English.
-    NSString* deviceLanguageCode = [[NSLocale preferredLanguages] objectAtIndex:0];
-    return ([deviceLanguageCode isEqualToString:@"en"] || [[deviceLanguageCode substringToIndex:3] isEqualToString:@"en-"]) ? [self uppercaseString] : self;
+    // to all caps.
+    return [self uppercaseStringWithLocale:[NSLocale currentLocale]];
 }
 
 - (NSLocale*)getLocaleForCurrentSearchDomain {
