@@ -184,6 +184,8 @@ static const char* const WMFImageControllerAssociationKey = "WMFImageController"
 
 - (void)wmf_cancelImageDownload {
     [self.wmf_imageController cancelFetchForURL:[self wmf_imageURLToFetch]];
+    self.wmf_imageURL      = nil;
+    self.wmf_imageMetadata = nil;
 }
 
 @end
