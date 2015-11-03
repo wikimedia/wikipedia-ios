@@ -8,6 +8,8 @@
 
 #import "MWKList.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Block passed to lists when an entry is being updated.
  *
@@ -16,6 +18,7 @@
  *  @return Whether or not the list should be considered dirty after the update.
  */
 typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
+
 
 @interface MWKList (Subclasses)
 
@@ -27,7 +30,7 @@ typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
  *
  *  @param entries The entries to be set in the receiver.
  */
-- (void)importEntries:(NSArray*)entries;
+- (void)importEntries:(nullable NSArray*)entries;
 
 /**
  *  Update the entry associated with @c listIndex, updating the internal @c dirty flag if necessary.
@@ -48,9 +51,13 @@ typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
 - (void)insertEntry:(MWKListEntry)entry atIndex:(NSUInteger)index;
 
 /**
- *  Sort the receiver's entries in place with the given descriptors.
+ *  Return sort descriptors used for sorting the list.
+ *  Sorting will occur whenever the list is updated.
+ *  The defualt implementation will return nil which results in no sorting
+ *
+ *  @return The sort descriptors to use for sorting the entries
  */
-- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors;
+- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors;
 
 /*
  * Indicates if the list has been mutated since the last save.
@@ -64,3 +71,5 @@ typedef BOOL (^ MWKListUpdateBlock)(MWKListEntry entry);
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END
