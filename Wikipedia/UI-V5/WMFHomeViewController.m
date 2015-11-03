@@ -89,11 +89,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (NSString* __nullable)title {
-    // TODO: localize
-    return @"Home";
-}
-
 #pragma mark - Accessors
 
 + (UIEdgeInsets)defaultSectionInsets {
@@ -186,6 +181,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.title = MWLocalizedString(@"home-title", nil);
 
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = 1;

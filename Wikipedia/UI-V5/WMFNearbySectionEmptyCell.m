@@ -4,7 +4,8 @@
 @implementation WMFNearbySectionEmptyCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.emptyTextLabel.text = MWLocalizedString(@"home-nearby-nothing", nil);
+    [self.reloadButton setTitle:MWLocalizedString(@"home-nearby-check-again", nil) forState:UIControlStateNormal];
 }
 
 - (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
