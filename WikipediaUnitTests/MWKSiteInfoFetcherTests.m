@@ -18,6 +18,8 @@
 #import "WMFTestFixtureUtilities.h"
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
 
+#import <Nocilla/Nocilla.h>
+
 #define MOCKITO_SHORTHAND 1
 #import <OCMockito/OCMockito.h>
 
@@ -33,6 +35,12 @@
 - (void)setUp {
     [super setUp];
     self.fetcher = [MWKSiteInfoFetcher new];
+    [[LSNocilla sharedInstance] start];
+}
+
+- (void)tearDown {
+    [[LSNocilla sharedInstance] stop];
+    [super tearDown];
 }
 
 - (void)testENWikiFixture {
@@ -43,48 +51,61 @@
     [self runSuccessfulCallbackTestWithFixture:@"NOWikiSiteInfo" site:[MWKSite siteWithLanguage:@"no"]];
 }
 
-- (void)testErrorHandling {
-    AFHTTPRequestOperationManager* mockReqManager = MKTMock([AFHTTPRequestOperationManager class]);
-    self.fetcher.requestManager = mockReqManager;
+- (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture site:(MWKSite*)testSite {
+    NSString* json               = [[self wmf_bundle] wmf_stringFromContentsOfFile:fixture ofType:@"json"];
+    NSDictionary* jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
 
-    MWKSite* testSite = [MWKSite siteWithCurrentLocale];
+    NSRegularExpression* anyRequestFromTestSite =
+        [NSRegularExpression regularExpressionWithPattern:
+         [NSString stringWithFormat:@"%@.*", [[testSite apiEndpoint:YES] absoluteString]] options:0 error:nil];
 
-    NSError* expectedError = [NSError errorWithDomain:@"foo" code:1 userInfo:nil];
+    stubRequest(@"GET", anyRequestFromTestSite)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(json);
 
-    [self.fetcher fetchInfoForSite:testSite
-                           success:^(MWKSiteInfo* siteInfo) {}
-                           failure:^(NSError* e){
-        assertThat(e, is(expectedError));
-    }];
+    XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
 
-    MKTArgumentCaptor* failureBlockCaptor = [[MKTArgumentCaptor alloc] init];
-    [MKTVerify(mockReqManager) wmf_idempotentGET:testSite.apiEndpoint.absoluteString
-                                      parameters:anything()
-                                         success:anything()
-                                         failure:[failureBlockCaptor capture]];
-    void (^ failureCallback)(AFHTTPRequestOperation* op, NSError* err) = [failureBlockCaptor value];
-    failureCallback(nil, expectedError);
+    [self.fetcher fetchSiteInfoForSite:testSite]
+    .then(^(MWKSiteInfo* result){
+        assertThat(result.site, is(equalTo(testSite)));
+        assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
-- (void)runSuccessfulCallbackTestWithFixture:(NSString*)fixture site:(MWKSite*)testSite {
-    AFHTTPRequestOperationManager* mockReqManager = MKTMock([AFHTTPRequestOperationManager class]);
-    self.fetcher.requestManager = mockReqManager;
+- (void)testDesktopFallback {
+    MWKSite* testSite            = [MWKSite siteWithLanguage:@"en"];
+    NSString* json               = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"ENWikiSiteInfo" ofType:@"json"];
+    NSDictionary* jsonDictionary = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"ENWikiSiteInfo"];
 
-    NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixture];
+    NSError* fallbackError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorSecureConnectionFailed userInfo:nil];
 
-    [self.fetcher fetchInfoForSite:testSite
-                           success:^(MWKSiteInfo* siteInfo) {
-        assertThat(siteInfo.mainPageTitleText, is([fixtureJSON valueForKeyPath:@"query.general.mainpage"]));
-    }
-                           failure:^(NSError* e){}];
+    NSRegularExpression* anyRequestFromTestSiteDesktop =
+        [NSRegularExpression regularExpressionWithPattern:
+         [NSString stringWithFormat:@"%@.*", [[testSite URL] absoluteString]] options:0 error:nil];
 
-    MKTArgumentCaptor* successBlockCaptor = [[MKTArgumentCaptor alloc] init];
-    [MKTVerify(mockReqManager) wmf_idempotentGET:testSite.apiEndpoint.absoluteString
-                                      parameters:anything()
-                                         success:[successBlockCaptor capture]
-                                         failure:anything()];
-    void (^ responseCallback)(AFHTTPRequestOperation* op, NSDictionary* json) = [successBlockCaptor value];
-    responseCallback(nil, fixtureJSON);
+    stubRequest(@"GET", @"https://en.m.wikipedia.org/w/api.php?action=query&format=json&meta=siteinfo&siprop=general")
+    .andFailWithError(fallbackError);
+
+    stubRequest(@"GET", anyRequestFromTestSiteDesktop)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(json);
+
+    XCTestExpectation* expectation = [self expectationWithDescription:@"response"];
+
+    [self.fetcher fetchSiteInfoForSite:testSite]
+    .then(^(MWKSiteInfo* result){
+        assertThat(result.site, is(equalTo(testSite)));
+        assertThat(result.mainPageTitleText, is(equalTo([jsonDictionary valueForKeyPath:@"query.general.mainpage"])));
+        [expectation fulfill];
+    }).catch(^(NSError* error){
+        NSLog(@"%@", [error localizedDescription]);
+    });
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 #pragma mark - (Flaky) Integration Tests
