@@ -226,6 +226,8 @@
 "button-next" = "Next";
 "button-done" = "Done";
 "button-save" = "Save";
+"button-save-for-later" = "Save for later";
+"button-saved-for-later" = "Saved for later";
 
 "onboarding-create-account" = "Create account";
 "onboarding-login" = "Log in";
@@ -320,3 +322,11 @@
 "captcha-prompt" = "Enter CAPTCHA text from image above";
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
+
+"home-title" = "Home";
+"home-continue-reading-heading" = "Continue Reading";
+"home-continue-related-heading" = "Because you read $1";
+"home-more-like-footer" = "More like $1";
+"home-nearby-footer" = "More from nearby your location";
+"home-nearby-nothing" = "Nothing nearby";
+"home-nearby-check-again" = "Check again";
