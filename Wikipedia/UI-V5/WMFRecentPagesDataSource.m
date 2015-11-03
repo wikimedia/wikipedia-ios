@@ -5,7 +5,7 @@
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
-#import "WMFArticlePreviewCell.h"
+#import "WMFArticleListCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 
@@ -28,19 +28,18 @@ NS_ASSUME_NONNULL_BEGIN
         self.recentPages   = recentPages;
         self.savedPageList = savedPages;
 
-        self.cellClass = [WMFArticlePreviewCell class];
+        self.cellClass = [WMFArticleListCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+        self.cellConfigureBlock = ^(WMFArticleListCell* cell,
                                     MWKHistoryEntry* entry,
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            [cell setSummary:[article summary]];
-            cell.title           = article.title;
-            cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-            cell.image           = [article bestThumbnailImage];
+            [cell setTitle:article.title];
+            [cell setSearchResultDescription:[article.entityDescription wmf_stringByCapitalizingFirstCharacter]];
+            [cell setImage:[article bestThumbnailImage]];
             [cell setSavedPageList:self.savedPageList];
         };
     }
@@ -49,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setCollectionView:(UICollectionView* __nullable)collectionView {
     [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+    [self.collectionView registerNib:[WMFArticleListCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCell identifier]];
 }
 
 - (NSArray*)titles {
