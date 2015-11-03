@@ -18,11 +18,7 @@
 #import "MWKTitle.h"
 
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "MWKSiteInfoFetcher.h"
-#import "WMFArticleFetcher.h"
-#import "MWKSiteInfo.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "MWKLanguageLink.h"
 
 #import "WMFShareCardViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
