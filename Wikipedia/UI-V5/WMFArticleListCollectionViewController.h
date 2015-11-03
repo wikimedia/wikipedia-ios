@@ -3,16 +3,9 @@
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleSelectionDelegate.h"
 
-@class SSBaseDataSource;
-
-@class MWKDataStore, MWKSavedPageList, MWKHistoryList, SelfSizingWaterfallCollectionViewLayout;
+@class SSBaseDataSource, MWKDataStore, SelfSizingWaterfallCollectionViewLayout;
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM (NSUInteger, WMFArticleListMode) {
-    WMFArticleListModeNormal = 0,
-    WMFArticleListModeOffScreen
-};
 
 @interface WMFArticleListCollectionViewController : UIViewController
 

@@ -1,10 +1,3 @@
-//
-//  UIColor+WMFStyle.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/31/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 
@@ -17,6 +10,8 @@
 + (instancetype)wmf_blueTintColor;
 
 + (instancetype)wmf_summaryTextColor;
+
++ (instancetype)wmf_articleListBackgroundColor;
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor;
 

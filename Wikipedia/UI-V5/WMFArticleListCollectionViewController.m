@@ -41,24 +41,10 @@
 
 @implementation WMFArticleListCollectionViewController
 
-- (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
+#pragma mark - Tear Down
 
-- (instancetype)initWithCoder:(NSCoder*)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self commonInit];
-    }
-    return self;
-}
-
-- (void)commonInit {
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+- (void)dealloc {
+    [self unobserveArticleUpdates];
 }
 
 #pragma mark - Accessors
@@ -147,10 +133,6 @@
     [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
 }
 
-- (void)dealloc {
-    [self unobserveArticleUpdates];
-}
-
 #pragma mark - DataSource and Collection View Wiring
 
 - (void)connectCollectionViewAndDataSource {
@@ -164,6 +146,27 @@
     WMFEditingCollectionViewLayout* layout = [[WMFEditingCollectionViewLayout alloc] init];
     layout.editingDelegate                   = self;
     self.collectionView.collectionViewLayout = layout;
+}
+
+#pragma mark - Previewing
+
+- (void)registerForPreviewingIfAvailable {
+    [self wmf_ifForceTouchAvailable:^{
+        [self unregisterPreviewing];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self
+                                                              sourceView:self.collectionView];
+        ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
+    } unavailable:^{
+        [self unregisterPreviewing];
+    }];
+}
+
+- (void)unregisterPreviewing {
+    if (self.previewingContext) {
+        [self unregisterForPreviewingWithContext:self.previewingContext];
+        self.previewingContext = nil;
+    }
+    ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
 }
 
 #pragma mark - UIViewController
@@ -186,6 +189,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+
     [self setupEditingLayout];
     [self connectCollectionViewAndDataSource];
 
@@ -200,25 +205,6 @@
     [self observeArticleUpdates];
 }
 
-- (void)registerForPreviewingIfAvailable {
-    [self wmf_ifForceTouchAvailable:^{
-        [self unregisterPreviewing];
-        self.previewingContext = [self registerForPreviewingWithDelegate:self
-                                                              sourceView:self.collectionView];
-        ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
-    } unavailable:^{
-        [self unregisterPreviewing];
-    }];
-}
-
-- (void)unregisterPreviewing {
-    if (self.previewingContext) {
-        [self unregisterForPreviewingWithContext:self.previewingContext];
-        self.previewingContext = nil;
-    }
-    ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSParameterAssert(self.dataStore);
@@ -227,14 +213,14 @@
     [self registerForPreviewingIfAvailable];
 }
 
-- (void)traitCollectionDidChange:(UITraitCollection*)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    [self registerForPreviewingIfAvailable];
-}
-
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[self dynamicDataSource] stopUpdating];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection*)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
@@ -260,6 +246,8 @@
                                  discoveryMethod:[self.dataSource discoveryMethod]
                                        dataStore:self.dataStore];
 }
+
+#pragma mark - WMFEditingCollectionViewLayoutDelegate
 
 - (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath {
     return NO;
