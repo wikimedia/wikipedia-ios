@@ -237,6 +237,8 @@
 		0EA179201BD97B6F004FF529 /* WMFRandomArticleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA1791F1BD97B6F004FF529 /* WMFRandomArticleFetcher.m */; };
 		0EA35C4A1B6BB85100D9CFE6 /* WMFArticleContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA35C491B6BB85100D9CFE6 /* WMFArticleContainerViewController.m */; };
 		0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */; };
+		0EAED84D1BE903E2006B01E6 /* WMFTableOfContentsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAED84C1BE903E2006B01E6 /* WMFTableOfContentsHeader.swift */; };
+		0EAED84F1BE903EE006B01E6 /* WMFTableOfContentsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EAED84E1BE903EE006B01E6 /* WMFTableOfContentsHeader.xib */; };
 		0EB101C81B69C8E1001BE1FB /* MWKSectionMetaData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB101C71B69C8E1001BE1FB /* MWKSectionMetaData.m */; };
 		0EBB287C1B70350C00D8E1D8 /* UIView+WMFSnapshotting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBB287B1B70350C00D8E1D8 /* UIView+WMFSnapshotting.m */; };
 		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
@@ -966,6 +968,8 @@
 		0EA35C491B6BB85100D9CFE6 /* WMFArticleContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleContainerViewController.m; sourceTree = "<group>"; };
 		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
+		0EAED84C1BE903E2006B01E6 /* WMFTableOfContentsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTableOfContentsHeader.swift; sourceTree = "<group>"; };
+		0EAED84E1BE903EE006B01E6 /* WMFTableOfContentsHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFTableOfContentsHeader.xib; sourceTree = "<group>"; };
 		0EB101C61B69C8E1001BE1FB /* MWKSectionMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSectionMetaData.h; sourceTree = "<group>"; };
 		0EB101C71B69C8E1001BE1FB /* MWKSectionMetaData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSectionMetaData.m; sourceTree = "<group>"; };
 		0EBB287A1B70350C00D8E1D8 /* UIView+WMFSnapshotting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFSnapshotting.h"; sourceTree = "<group>"; };
@@ -2536,7 +2540,7 @@
 				BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */,
 				BC7FA4BF1BD6A687006CA1A3 /* View Controller */,
 				0E9DFEB11BDEBAEA0032606E /* Animation */,
-				BC7FA4C01BD6A693006CA1A3 /* Cell */,
+				BC7FA4C01BD6A693006CA1A3 /* Views */,
 				BC7FA4C11BD6A69E006CA1A3 /* Items */,
 			);
 			name = "Table of Contents";
@@ -2970,13 +2974,15 @@
 			name = "View Controller";
 			sourceTree = "<group>";
 		};
-		BC7FA4C01BD6A693006CA1A3 /* Cell */ = {
+		BC7FA4C01BD6A693006CA1A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */,
 				0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */,
+				0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */,
+				0EAED84C1BE903E2006B01E6 /* WMFTableOfContentsHeader.swift */,
+				0EAED84E1BE903EE006B01E6 /* WMFTableOfContentsHeader.xib */,
 			);
-			name = Cell;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		BC7FA4C11BD6A69E006CA1A3 /* Items */ = {
@@ -3775,6 +3781,7 @@
 				0E4D1CFA1BBD8A83009BEB64 /* WMFTableOfContentsCell.xib in Resources */,
 				D46CD8C518A1AC4F0042959E /* Localizable.strings in Resources */,
 				04016E1C1B3285B700D732FE /* AboutViewController.storyboard in Resources */,
+				0EAED84F1BE903EE006B01E6 /* WMFTableOfContentsHeader.xib in Resources */,
 				04DA87771B30A9D600C948F8 /* AccountCreationViewController.storyboard in Resources */,
 				04DA87811B30E0C600C948F8 /* HistoryViewController.storyboard in Resources */,
 				04AEF0F41B2E8CA100EFE858 /* SectionEditorViewController.storyboard in Resources */,
@@ -4092,6 +4099,7 @@
 				BCB669A61A83F6C400C7B1FE /* MWKDataObject.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				042BEAEF1A92EE66002CF320 /* UIWebView+WMFTrackingView.m in Sources */,
+				0EAED84D1BE903E2006B01E6 /* WMFTableOfContentsHeader.swift in Sources */,
 				BC505F061B5D683A00537006 /* NSArray+WMFLayoutDirectionUtilities.m in Sources */,
 				C99844571A8C1F23001D58FD /* UIWebView+WMFSuppressSelection.m in Sources */,
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
