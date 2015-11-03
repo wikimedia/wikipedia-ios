@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFSearchResultCell.h"
+#import "WMFArticleListCell.h"
 #import "WMFSaveableTitleCollectionViewCell+Subclass.h"
 #import "MWKTitle.h"
 #import "WMFRangeUtils.h"
@@ -16,7 +16,7 @@
 static CGFloat const WMFSearchResultImageWidth                  = 40.f;
 static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
 
-@interface WMFSearchResultCell ()
+@interface WMFArticleListCell ()
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint* bottomTitleToTopDescriptionConstraint;
 
@@ -26,7 +26,7 @@ static CGFloat const WMFSearchResultTitleLabelHorizontalPadding = 15.f;
 
 @end
 
-@implementation WMFSearchResultCell
+@implementation WMFArticleListCell
 
 #pragma mark - Style
 

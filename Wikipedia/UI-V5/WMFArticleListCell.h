@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WMFSaveableTitleCollectionViewCell.h"
 
-@interface WMFSearchResultCell : WMFSaveableTitleCollectionViewCell
+@interface WMFArticleListCell : WMFSaveableTitleCollectionViewCell
 
 - (void)setTitle:(MWKTitle*)title highlightingSubstring:(NSString*)substring;
 

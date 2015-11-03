@@ -327,8 +327,8 @@
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC550B071B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */; };
-		BC550B0B1B977C9D0082F298 /* WMFSearchResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B0A1B977C9D0082F298 /* WMFSearchResultCell.m */; };
-		BC550B101B97949E0082F298 /* WMFSearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */; };
+		BC550B0B1B977C9D0082F298 /* WMFArticleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B0A1B977C9D0082F298 /* WMFArticleListCell.m */; };
+		BC550B101B97949E0082F298 /* WMFArticleListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC550B0F1B97949E0082F298 /* WMFArticleListCell.xib */; };
 		BC550B121B98908E0082F298 /* WMFSearchResultCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */; };
 		BC550B151B98936F0082F298 /* UIView+VisualTestSizingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */; };
 		BC550B181B9A75100082F298 /* WMFRelatedTitleListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BC550B171B9A75100082F298 /* WMFRelatedTitleListDataSource.m */; };
@@ -1105,10 +1105,10 @@
 		BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoResponseSerializer.m; path = Serializers/MWKImageInfoResponseSerializer.m; sourceTree = "<group>"; };
 		BC550B051B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DTCSSStylesheet+WMFStylesheets.h"; sourceTree = "<group>"; };
 		BC550B061B97776D0082F298 /* DTCSSStylesheet+WMFStylesheets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DTCSSStylesheet+WMFStylesheets.m"; sourceTree = "<group>"; };
-		BC550B091B977C9C0082F298 /* WMFSearchResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultCell.h; sourceTree = "<group>"; };
-		BC550B0A1B977C9D0082F298 /* WMFSearchResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultCell.m; sourceTree = "<group>"; };
+		BC550B091B977C9C0082F298 /* WMFArticleListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleListCell.h; sourceTree = "<group>"; };
+		BC550B0A1B977C9D0082F298 /* WMFArticleListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleListCell.m; sourceTree = "<group>"; };
 		BC550B0C1B9782C50082F298 /* WMFSaveableTitleCollectionViewCell+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFSaveableTitleCollectionViewCell+Subclass.h"; sourceTree = "<group>"; };
-		BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFSearchResultCell.xib; sourceTree = "<group>"; };
+		BC550B0F1B97949E0082F298 /* WMFArticleListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleListCell.xib; sourceTree = "<group>"; };
 		BC550B111B98908E0082F298 /* WMFSearchResultCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultCellVisualTests.m; sourceTree = "<group>"; };
 		BC550B131B98936F0082F298 /* UIView+VisualTestSizingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VisualTestSizingUtils.h"; sourceTree = "<group>"; };
 		BC550B141B98936F0082F298 /* UIView+VisualTestSizingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VisualTestSizingUtils.m"; sourceTree = "<group>"; };
@@ -2825,9 +2825,9 @@
 		BC550B081B977C730082F298 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				BC550B091B977C9C0082F298 /* WMFSearchResultCell.h */,
-				BC550B0A1B977C9D0082F298 /* WMFSearchResultCell.m */,
-				BC550B0F1B97949E0082F298 /* WMFSearchResultCell.xib */,
+				BC550B091B977C9C0082F298 /* WMFArticleListCell.h */,
+				BC550B0A1B977C9D0082F298 /* WMFArticleListCell.m */,
+				BC550B0F1B97949E0082F298 /* WMFArticleListCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -3755,7 +3755,7 @@
 				D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
 				04016E1E1B328E8B00D732FE /* OnboardingViewController.storyboard in Resources */,
-				BC550B101B97949E0082F298 /* WMFSearchResultCell.xib in Resources */,
+				BC550B101B97949E0082F298 /* WMFArticleListCell.xib in Resources */,
 				C98990361A699DFB00AF44FC /* ShareCard.xib in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
@@ -4356,7 +4356,7 @@
 				BC6BFC5F1B680A410074D0DA /* NSString+WMFGlyphs.m in Sources */,
 				0E43C31B1B87830200C58861 /* MWKSearchResult.m in Sources */,
 				BCFDB1441B3F3FCB00F0C9F4 /* UIImage+Debug.swift in Sources */,
-				BC550B0B1B977C9D0082F298 /* WMFSearchResultCell.m in Sources */,
+				BC550B0B1B977C9D0082F298 /* WMFArticleListCell.m in Sources */,
 				BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */,
 				04C7576E1A1AA2D00084AC39 /* RecentSearchCell.m in Sources */,
 				0E366B3F1B2F5C4500ABFB86 /* WMFSearchFetcher.m in Sources */,
