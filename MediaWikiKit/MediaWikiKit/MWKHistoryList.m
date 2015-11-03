@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;
-        [self sortEntries];
     }
     return self;
 }
@@ -38,10 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Update Methods
-
-- (void)sortEntries {
-    [self sortEntriesWithDescriptors:[[self class] sortDescriptors]];
-}
 
 - (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSParameterAssert(title);
@@ -89,7 +84,13 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-+ (NSArray<NSSortDescriptor*>*)sortDescriptors {
+- (void)removeAllEntries{
+    [super removeAllEntries];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
+}
+
+
+- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
     static NSArray<NSSortDescriptor*>* sortDescriptors;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
