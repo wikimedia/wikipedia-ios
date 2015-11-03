@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFRecentPagesDataSource
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages savedPages:(MWKSavedPageList*)savedPages {
     NSParameterAssert(recentPages);
     NSParameterAssert(savedPages);
@@ -28,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.recentPages   = recentPages;
         self.savedPageList = savedPages;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
 
         self.cellClass = [WMFArticleListCell class];
 

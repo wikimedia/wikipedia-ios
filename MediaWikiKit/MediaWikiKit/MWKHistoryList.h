@@ -8,6 +8,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const MWKHistoryListDidUpdateNotification;
+
 @interface MWKHistoryList : MWKList<MWKHistoryEntry*, MWKTitle*>
     < MWKDataStoreList >
 
