@@ -8,6 +8,7 @@
 #import "WMFArticleListCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
+#import "NSDate-Utilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages savedPages:(MWKSavedPageList*)savedPages {
     NSParameterAssert(recentPages);
     NSParameterAssert(savedPages);
-    self = [super initWithTarget:recentPages keyPath:WMF_SAFE_KEYPATH(recentPages, entries)];
+    self = [super initWithSections:[WMFRecentPagesDataSource sectionsFromHistoryList:recentPages]];
     if (self) {
         self.recentPages   = recentPages;
         self.savedPageList = savedPages;
@@ -44,6 +45,58 @@ NS_ASSUME_NONNULL_BEGIN
         };
     }
     return self;
+}
+
++ (NSArray*)sectionsFromHistoryList:(MWKHistoryList*)list {
+    NSArray* sortedEntriesToIterate    = [list entries];
+    NSMutableDictionary* entriesBydate = [NSMutableDictionary dictionary];
+
+    [sortedEntriesToIterate enumerateObjectsUsingBlock:^(MWKHistoryEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        NSDate* date = [[obj date] dateAtStartOfDay];
+        NSMutableArray* entries = entriesBydate[date];
+        if (!entries) {
+            entries = [NSMutableArray array];
+            entriesBydate[date] = entries;
+        }
+        [entries addObject:obj];
+    }];
+
+    NSMutableArray* sections = [NSMutableArray arrayWithCapacity:[entriesBydate count]];
+    [[[entriesBydate allKeys] sortedArrayUsingComparator:^NSComparisonResult (NSDate* _Nonnull obj1, NSDate* _Nonnull obj2) {
+        return -[obj1 compare:obj2];
+    }] enumerateObjectsUsingBlock:^(NSDate* _Nonnull date, NSUInteger idx, BOOL* _Nonnull stop) {
+        NSMutableArray* entries = entriesBydate[date];
+        SSSection* section = [SSSection sectionWithItems:entries];
+        section.header = [self.dateFormatter stringFromDate:date];
+        section.sectionIdentifier = date;
+        [sections addObject:section];
+    }];
+
+    return sections;
+}
+
++ (NSDateFormatter*)dateFormatter {
+    static NSDateFormatter* _dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    });
+    return _dateFormatter;
+}
+
+- (void)rebuildSections {
+    [self removeAllSections];
+    NSArray* sections = [[self class] sectionsFromHistoryList:self.recentPages];
+    if (self.collectionView) {
+        [self.collectionView performBatchUpdates:^{
+            [self insertSections:sections atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sections.count)]];
+        } completion:^(BOOL finished) {
+        }];
+    } else {
+        [self insertSections:sections atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sections.count)]];
+    }
 }
 
 - (void)setCollectionView:(UICollectionView* __nullable)collectionView {

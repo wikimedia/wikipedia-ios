@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRecentPagesDataSource : SSArrayDataSource<WMFTitleListDataSource>
+@interface WMFRecentPagesDataSource : SSSectionedDataSource<WMFTitleListDataSource>
 
 @property (nonatomic, strong, readonly) NSArray* articles;
 
