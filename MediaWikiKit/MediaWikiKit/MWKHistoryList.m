@@ -4,6 +4,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateNotification";
+
 @interface MWKHistoryList ()
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
@@ -52,10 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
     MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.listIndex];
     if (oldEntry) {
         entry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
-        [self removeEntry:oldEntry];
+        [super removeEntry:oldEntry];
     }
     [super addEntry:entry];
-    [self sortEntries];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title {
@@ -68,11 +70,17 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (void)removeEntry:(MWKListEntry)entry{
+    [super removeEntry:entry];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
+}
+
 - (void)removeEntryWithListIndex:(id)listIndex {
     if ([[listIndex text] length] == 0) {
         return;
     }
     [super removeEntryWithListIndex:listIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)removeEntriesFromHistory:(NSArray*)historyEntries {
