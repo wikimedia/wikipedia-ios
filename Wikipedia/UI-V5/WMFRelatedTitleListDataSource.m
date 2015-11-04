@@ -155,8 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    // TODO: localize
-    return [NSString stringWithFormat:@"More like %@", self.title.text];
+    return [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.title.text];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath* __nonnull)indexPath {
