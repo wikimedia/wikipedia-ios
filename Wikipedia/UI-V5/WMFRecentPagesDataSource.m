@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return @"Recent";
+    return MWLocalizedString(@"history-label", nil);
 }
 
 - (NSUInteger)titleCount {

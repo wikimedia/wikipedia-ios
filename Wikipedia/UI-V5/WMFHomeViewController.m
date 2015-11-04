@@ -8,6 +8,7 @@
 @import BlocksKit;
 
 // Sections
+#import "WMFMainPageSectionController.h"
 #import "WMFNearbySectionController.h"
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
@@ -86,11 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
-}
-
-- (NSString* __nullable)title {
-    // TODO: localize
-    return @"Home";
 }
 
 #pragma mark - Accessors
@@ -185,6 +181,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.title = MWLocalizedString(@"home-title", nil);
 
     NSOperationQueue* queue = [[NSOperationQueue alloc] init];
     queue.maxConcurrentOperationCount = 1;
@@ -369,6 +367,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFRandomSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
 }
 
+- (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFHomeSection*)item {
+    return [[WMFMainPageSectionController alloc] initWithSite:self.searchSite];
+}
+
 #pragma mark - Section Management
 
 - (void)reloadSectionsOnOperationQueue {
@@ -404,7 +406,8 @@ NS_ASSUME_NONNULL_BEGIN
                 case WMFHomeSectionTypeRandom:
                     [self loadSectionForSectionController:[self randomSectionControllerForSchemaItem:obj]];
                     break;
-                case WMFHomeSectionTypeToday:
+                case WMFHomeSectionTypeMainPage:
+                    [self loadSectionForSectionController:[self mainPageSectionControllerForSchemaItem:obj]];
                 default:
                     break;
             }
