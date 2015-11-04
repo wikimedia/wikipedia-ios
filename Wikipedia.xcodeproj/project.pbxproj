@@ -2623,15 +2623,6 @@
 			name = "App Delegate";
 			sourceTree = "<group>";
 		};
-		0E9DFEAF1BDEB99F0032606E /* Strings */ = {
-			isa = PBXGroup;
-			children = (
-				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
-				BC6E428A1BA9CB930059FBF6 /* InfoPlist.strings */,
-			);
-			name = Strings;
-			sourceTree = "<group>";
-		};
 		0E9DFEB01BDEB9BE0032606E /* App View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -2829,6 +2820,15 @@
 				BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */,
 			);
 			name = "Value Providers";
+			sourceTree = "<group>";
+		};
+		BC2F420D1BEA60350033E185 /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				D46CD8C218A1AC4F0042959E /* Localizable.strings */,
+				BC6E428A1BA9CB930059FBF6 /* InfoPlist.strings */,
+			);
+			name = Localizations;
 			sourceTree = "<group>";
 		};
 		BC305C2E1BA0C97400E414B8 /* View Model */ = {
@@ -3479,10 +3479,10 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
+				BC2F420D1BEA60350033E185 /* Localizations */,
 				0E9DFEAD1BDEB9880032606E /* Global */,
 				0E9DFEAE1BDEB98F0032606E /* App Delegate */,
 				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
-				0E9DFEAF1BDEB99F0032606E /* Strings */,
 				BCF012321AD2FA38008D3675 /* assets */,
 				04272E771940EEBC00CC682F /* AssetsFile */,
 				040D835B1AB0EE14000896D5 /* C Functions */,
@@ -4531,6 +4531,7 @@
 				BCCC67B71BA9FCDA0017E311 /* cs */,
 			);
 			name = InfoPlist.strings;
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 		D46CD8C218A1AC4F0042959E /* Localizable.strings */ = {
@@ -4586,6 +4587,7 @@
 				D47FEE2819C8CC2600B998C8 /* pt-BR */,
 			);
 			name = Localizable.strings;
+			path = Localizations;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
