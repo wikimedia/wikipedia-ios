@@ -69,6 +69,8 @@ typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
 
 - (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator;
 
+- (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error;
+
 - (CGFloat)maxItemWidth;
 
 @end
