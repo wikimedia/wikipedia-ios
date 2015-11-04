@@ -86,6 +86,7 @@
 "open-link-title" = "Open link";
 "open-link-cancel" = "Cancel";
 
+"search-title" = "Search";
 "search-searching" = "Searching...";
 "search-no-matches" = "No matches found for search term.";
 "search-field-placeholder-text" = "Search Wikipedia";
