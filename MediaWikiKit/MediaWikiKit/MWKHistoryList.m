@@ -70,7 +70,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     }];
 }
 
-- (void)removeEntry:(MWKListEntry)entry{
+- (void)removeEntry:(MWKListEntry)entry {
     [super removeEntry:entry];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
@@ -80,7 +80,6 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
         return;
     }
     [super removeEntryWithListIndex:listIndex];
-    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)removeEntriesFromHistory:(NSArray*)historyEntries {
@@ -92,11 +91,10 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     }];
 }
 
-- (void)removeAllEntries{
+- (void)removeAllEntries {
     [super removeAllEntries];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
-
 
 - (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
     static NSArray<NSSortDescriptor*>* sortDescriptors;
