@@ -33,14 +33,19 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController {
-    MWKHistoryList* historyList = articleViewController.dataStore.userDataStore.historyList;
-    [historyList addPageToHistoryWithTitle:articleViewController.articleTitle
-                           discoveryMethod:articleViewController.discoveryMethod];
-    [historyList save];
     NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
              articleViewController,
              self);
     [self.navigationController pushViewController:articleViewController animated:YES];
+
+    //Delay this so any visual updates to lists are postponed until the article after the article is displayed
+    //Some lists (like history) will show these artifacts as the push navigation is occuring.
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        MWKHistoryList* historyList = articleViewController.dataStore.userDataStore.historyList;
+        [historyList addPageToHistoryWithTitle:articleViewController.articleTitle
+                               discoveryMethod:articleViewController.discoveryMethod];
+        [historyList save];
+    });
 }
 
 @end
