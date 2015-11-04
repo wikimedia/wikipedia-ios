@@ -49,6 +49,16 @@ NS_ASSUME_NONNULL_BEGIN
             cell.descriptionLabel.text = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             [cell.articleImageView wmf_setImageWithMetadata:[article bestThumbnailImage] detectFaces:YES];
         };
+
+        self.tableDeletionBlock = ^(WMFRecentPagesDataSource* dataSource,
+                                    UITableView* parentView,
+                                    NSIndexPath* indexPath){
+            @strongify(self);
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            [dataSource deleteArticleAtIndexPath:indexPath];
+            [self removeItemAtIndexPath:indexPath];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
+        };
     }
     return self;
 }

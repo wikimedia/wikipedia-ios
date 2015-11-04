@@ -169,6 +169,14 @@
 
 #pragma mark - UITableViewDelegate
 
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if ([self.dataSource canDeleteItemAtIndexpath:indexPath]) {
+        return UITableViewCellEditingStyleDelete;
+    } else {
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self wmf_hideKeyboard];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
