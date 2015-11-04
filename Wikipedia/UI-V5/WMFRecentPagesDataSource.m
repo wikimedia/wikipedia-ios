@@ -75,9 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
         SSSection* section = [SSSection sectionWithItems:entries];
 
         if ([date isToday]) {
-            section.header = @"Today";
+            section.header = [@"Today" uppercaseString];
         } else if ([date isYesterday]) {
-            section.header = @"Yesterday";
+            section.header = [@"Yesterday" uppercaseString];
         } else {
             section.header = [[self dateFormatter] stringFromDate:date];
         }
