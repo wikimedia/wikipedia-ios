@@ -314,7 +314,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
 
-        WMFSearchDataSource* dataSource = [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results savedPages:self.dataStore.userDataStore.savedPageList];
+        WMFSearchDataSource* dataSource =
+            [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite
+                                              searchResults:results
+                                                 savedPages:self.dataStore.userDataStore.savedPageList];
 
         self.resultsListController.dataSource = dataSource;
 
@@ -323,7 +326,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         }];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
-            return [self.fetcher fetchArticlesForSearchTerm:searchTerm site:self.searchSite resultLimit:WMFMaxSearchResultLimit fullTextSearch:YES appendToPreviousResults:results];
+            return [self.fetcher fetchArticlesForSearchTerm:searchTerm
+                                                       site:self.searchSite
+                                                resultLimit:WMFMaxSearchResultLimit
+                                             fullTextSearch:YES
+                                    appendToPreviousResults:results];
         }
         return [AnyPromise promiseWithValue:results];
     }).then(^(WMFSearchResults* results){
@@ -331,18 +338,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             if (results.results.count == 0) {
                 [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
             }
-
-            WMFSearchDataSource* dataSource = [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results savedPages:self.dataStore.userDataStore.savedPageList];
-
-            self.resultsListController.dataSource = dataSource;
         }
-        if (results.results.count == 0) {
-            [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
-        }
+
+        // change recent search visibility if no prefix results returned, and update suggestion if needed
+        [UIView animateWithDuration:0.25 animations:^{
+            [self updateUIWithResults:results];
+        }];
     }).catch(^(NSError* error){
         @strongify(self);
-        [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
-        DDLogError(@"Encountered search error: %@", error);
+        if ([searchTerm isEqualToString:self.searchField.text]) {
+            [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
+            DDLogError(@"Encountered search error: %@", error);
+        }
     });
 }
 
