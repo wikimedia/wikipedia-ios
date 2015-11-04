@@ -300,6 +300,7 @@ public class WMFImageController : NSObject {
                 let sself = wself
                 if let cancellable = sself?.cancellables.objectForKey(url.absoluteString) as? Cancellable {
                     sself?.cancellables.removeObjectForKey(url.absoluteString)
+                    DDLogDebug("Cancelling request for image \(url)")
                     cancellable.cancel()
                 }
             }
