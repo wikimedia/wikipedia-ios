@@ -30,7 +30,7 @@
     NSParameterAssert(site);
     NSParameterAssert(searchResults);
     NSParameterAssert(savedPages);
-    self = [super initWithItems:searchResults.results];
+    self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
     if (self) {
         self.searchSite    = site;
         self.searchResults = searchResults;
@@ -54,9 +54,9 @@
     return self;
 }
 
-- (NSString*)descriptionForSearchResult:(MWKSearchResult*)result{
+- (NSString*)descriptionForSearchResult:(MWKSearchResult*)result {
     MWKSearchRedirectMapping* mapping = [self redirectMappingForResult:result];
-    if(!mapping){
+    if (!mapping) {
         return result.wikidataDescription;
     }
     NSString* description = result.wikidataDescription ? [@"\n" stringByAppendingString : [result.wikidataDescription wmf_stringByCapitalizingFirstCharacter]] : @"";

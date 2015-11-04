@@ -91,17 +91,14 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
         WMFSearchResults* searchResults = response;
         searchResults.searchTerm = searchTerm;
 
-        if (previousResults) {
-            NSArray* results = [searchResults.results bk_reject:^BOOL (MWKSearchResult* obj) {
-                return ([previousResults.results containsObject:obj]);
-            }];
-
-            results = [previousResults.results arrayByAddingObjectsFromArray:results];
-            //Grab the previous search suggestion if none is returned
-            NSString* searchSuggestion = searchResults.searchSuggestion.length > 0 ? searchResults.searchSuggestion : previousResults.searchSuggestion;
-            searchResults = [[WMFSearchResults alloc] initWithSearchTerm:searchResults.searchTerm results:results searchSuggestion:searchSuggestion];
+        if (!previousResults) {
+            resolve(searchResults);
+            return;
         }
-        resolve(searchResults);
+
+        [previousResults mergeValuesForKeysFromModel:searchResults];
+
+        resolve(previousResults);
     }
                        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
         if ([url isEqual:[site mobileApiEndpoint]] && [error wmf_shouldFallbackToDesktopURLError]) {
