@@ -33,16 +33,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 
-
-/**
- *  When the location update was requested.
- *  We need this to properly timestamp the section.
- *  We don't want the Nearby section to always have a later date
- *  than every other section causing it to always bubble to the top
- *  just because it is the only section position that is updated async
- */
-@property (nonatomic, strong, readwrite) NSDate* locationRequestStarted;
-
 @property (nonatomic, strong, readwrite) NSDate* lastUpdatedAt;
 
 @property (nonatomic, strong, readwrite) NSArray<WMFHomeSection*>* sections;
@@ -97,8 +87,8 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 + (NSArray*)startingSchema {
-    return @[[WMFHomeSection todaySection],
-             [WMFHomeSection nearbySectionWithLocation:nil date:nil],
+    return @[[WMFHomeSection mainPageSection],
+             [WMFHomeSection nearbySectionWithLocation:nil],
              [WMFHomeSection randomSection]];
 }
 
@@ -114,14 +104,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Sections
 
-- (void)setSections:(NSArray<WMFHomeSection*>*)sections {
-    sections  = [self removeUnimplementedSectionTypesFromSection:sections];
-    _sections = sections;
-}
-
 - (void)updateSections:(NSArray<WMFHomeSection*>*)sections {
     self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
-        return -[obj1.dateCreated compare:obj2.dateCreated];
+        return [obj1 compare:obj2];
     }];
     [self.delegate sectionSchemaDidUpdateSections:self];
     [WMFHomeSectionSchema saveSchemaToDisk:self];
@@ -144,7 +129,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     //Start updating the location
     [self.locationManager startMonitoringLocation];
-    self.locationRequestStarted = [NSDate date];
 
     //Get updated static sections
     NSMutableArray<WMFHomeSection*>* sections = [[self staticSections] mutableCopy];
@@ -182,29 +166,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     [self updateSections:sections];
 }
 
-- (NSArray<WMFHomeSection*>*)removeUnimplementedSectionTypesFromSection:(NSArray<WMFHomeSection*>*)sections {
-    return [sections bk_reject:^BOOL (WMFHomeSection* section) {
-        switch (section.type) {
-            case WMFHomeSectionTypeToday: {
-                return YES;
-            }
-            break;
-            default: {
-                return NO;
-            }
-            break;
-        }
-    }];
-}
-
 #pragma mmrk - Create Schema Items
 
 - (NSArray*)staticSections {
     NSMutableArray<WMFHomeSection*>* sections = [NSMutableArray array];
-
-    //Order is important here because dates may be created and we
-    //always want the order to be [continue, today, random, nearby]
-    //if all are created at the "same" time
 
     //Add nearby
     WMFHomeSection* nearby = [self nearbySection];
@@ -219,7 +184,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     //Add today
-    WMFHomeSection* today = [self todaySection];
+    WMFHomeSection* today = [self mainPageSection];
     if (today) {
         [sections addObject:today];
     }
@@ -256,7 +221,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 - (WMFHomeSection*)nearbySectionWithLocation:(CLLocation*)location {
-    return [WMFHomeSection nearbySectionWithLocation:location date:self.locationRequestStarted];
+    return [WMFHomeSection nearbySectionWithLocation:location];
 }
 
 - (WMFHomeSection*)nearbySection {
@@ -270,20 +235,20 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return nearby;
 }
 
-- (WMFHomeSection*)todaySection {
-    WMFHomeSection* today = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeToday) {
+- (WMFHomeSection*)mainPageSection {
+    WMFHomeSection* main = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeMainPage) {
             return YES;
         }
         return NO;
     }];
 
     //If it's a new day and we havent created a new today section, create it now
-    if (!today || ![today.dateCreated isToday]) {
-        today = [WMFHomeSection todaySection];
+    if (!main || ![main.dateCreated isToday]) {
+        main = [WMFHomeSection mainPageSection];
     }
 
-    return today;
+    return main;
 }
 
 - (WMFHomeSection*)continueReadingSection {

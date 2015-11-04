@@ -43,7 +43,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rjc-ni-9zr">
                         <rect key="frame" x="34" y="42" width="286" height="1"/>
                         <animations/>
-                        <color key="backgroundColor" red="0.92931067943572998" green="0.9294700026512146" blue="0.92930072546005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.92931067943572998" green="0.92946994304656982" blue="0.92930072546005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="Xca-Js-lUH"/>
                         </constraints>

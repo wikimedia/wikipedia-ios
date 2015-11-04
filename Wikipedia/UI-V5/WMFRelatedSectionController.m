@@ -19,6 +19,7 @@
 
 // Style
 #import "UIFont+WMFStyle.h"
+#import "NSString+FormattedAttributedString.h"
 
 static NSString* const WMFRelatedSectionIdentifierPrefix = @"WMFRelatedSectionIdentifier";
 static NSUInteger const WMFRelatedSectionMaxResults      = 3;
@@ -70,16 +71,17 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSAttributedString*)headerText {
-    NSMutableAttributedString* link = [[NSMutableAttributedString alloc] initWithString:self.title.text];
-    [link addAttribute:NSLinkAttributeName value:self.title.desktopURL range:NSMakeRange(0, link.length)];
-    // TODO: localize
-    [link insertAttributedString:[[NSAttributedString alloc] initWithString:@"Because you read " attributes:nil] atIndex:0];
-    return link;
+    return
+        [MWLocalizedString(@"home-continue-related-heading", nil) attributedStringWithAttributes:nil
+                                                                             substitutionStrings:@[self.title.text]
+                                                                          substitutionAttributes:@[@{NSLinkAttributeName: self.title.desktopURL}]
+        ];
 }
 
 - (NSString*)footerText {
-    // TODO: localize
-    return [NSString stringWithFormat:@"More like %@", self.title.text];
+    return
+        [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                    withString:self.title.text];
 }
 
 - (NSArray*)items {

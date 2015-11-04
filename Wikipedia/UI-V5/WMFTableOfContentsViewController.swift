@@ -98,8 +98,11 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
+        let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
+        header.contentsLabel.text = "CONTENTS"
+        tableView.tableHeaderView = header;
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
-                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier());
+                              forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         clearsSelectionOnViewWillAppear = false
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension

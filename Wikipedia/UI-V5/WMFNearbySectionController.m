@@ -87,7 +87,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSString*)footerText {
-    return @"More from nearby your location";
+    return MWLocalizedString(@"home-nearby-footer", nil);
 }
 
 - (NSArray*)items {
