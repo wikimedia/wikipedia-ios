@@ -89,6 +89,7 @@
 "wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "open-link-title" = "Title for popup menu of terms/license link options.";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
+"search-title" = "Title for search interface.";
 "search-searching" = "Alert text shown when results for search term are being retrieved";
 "search-no-matches" = "Message shown if no results found for search term";
 "search-field-placeholder-text" = "Search field placeholder text";

@@ -164,8 +164,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
-    // TODO: localize
-    self.title                                                    = @"Search";
+    self.title                                                    = MWLocalizedString(@"search-title", nil);
     self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     SelfSizingWaterfallCollectionViewLayout* resultLayout = [self.resultsListController flowLayout];
     resultLayout.minimumLineSpacing                           = 0.f;
