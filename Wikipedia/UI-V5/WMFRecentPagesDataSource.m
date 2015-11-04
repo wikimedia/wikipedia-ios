@@ -5,10 +5,11 @@
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
-#import "WMFArticleListCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 #import "NSDate-Utilities.h"
+#import "UIImageView+WMFImageFetching.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,19 +36,18 @@ NS_ASSUME_NONNULL_BEGIN
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
 
-        self.cellClass = [WMFArticleListCell class];
+        self.cellClass = [WMFArticleListTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticleListCell* cell,
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
                                     MWKHistoryEntry* entry,
-                                    UICollectionView* collectionView,
+                                    UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            [cell setTitle:article.title];
-            [cell setSearchResultDescription:[article.entityDescription wmf_stringByCapitalizingFirstCharacter]];
-            [cell setImage:[article bestThumbnailImage]];
-            [cell setSavedPageList:self.savedPageList];
+            cell.titleLabel.text       = article.displaytitle;
+            cell.descriptionLabel.text = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+            [cell.articleImageView wmf_setImageWithMetadata:[article bestThumbnailImage] detectFaces:YES];
         };
     }
     return self;
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
     }] enumerateObjectsUsingBlock:^(NSDate* _Nonnull date, NSUInteger idx, BOOL* _Nonnull stop) {
         NSMutableArray* entries = entriesBydate[date];
         SSSection* section = [SSSection sectionWithItems:entries];
-        section.header = [self.dateFormatter stringFromDate:date];
+        section.header = [date isToday] ? @"Today" : [self.dateFormatter stringFromDate:date];
         section.sectionIdentifier = date;
         [sections addObject:section];
     }];
@@ -95,19 +95,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)rebuildSections {
     [self removeAllSections];
     NSArray* sections = [[self class] sectionsFromHistoryList:self.recentPages];
-    if (self.collectionView) {
-        [self.collectionView performBatchUpdates:^{
-            [self insertSections:sections atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sections.count)]];
-        } completion:^(BOOL finished) {
-        }];
-    } else {
-        [self insertSections:sections atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sections.count)]];
-    }
+    [self.tableView beginUpdates];
+    [self insertSections:sections atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, sections.count)]];
+    [self.tableView endUpdates];
 }
 
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticleListCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCell identifier]];
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 }
 
 - (NSArray*)titles {
