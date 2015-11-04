@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            cell.titleLabel.text       = article.displaytitle;
+            cell.titleLabel.text       = article.title.text;
             cell.descriptionLabel.text = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             [cell.articleImageView wmf_setImageWithMetadata:[article bestThumbnailImage] detectFaces:YES];
         };
