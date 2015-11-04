@@ -884,7 +884,7 @@
 		0E03E2A81B85750C00C1FBD7 /* WMFHomeSectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFHomeSectionFooter.xib; sourceTree = "<group>"; };
 		0E0A13121BB9E731003CF23F /* WMFFaceDetectionCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFaceDetectionCache.h; sourceTree = "<group>"; };
 		0E0A13131BB9E731003CF23F /* WMFFaceDetectionCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFaceDetectionCache.m; sourceTree = "<group>"; };
-		0E1B04971BC56E6100506F7D /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+WMFExtensions.swift"; sourceTree = "<group>"; };
+		0E1B04971BC56E6100506F7D /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+WMFExtensions.swift"; path = "../NSUserDefaults+WMFExtensions.swift"; sourceTree = "<group>"; };
 		0E1B04991BC59BDA00506F7D /* WMFContinueReadingSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFContinueReadingSectionController.h; sourceTree = "<group>"; };
 		0E1B049A1BC59BDA00506F7D /* WMFContinueReadingSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFContinueReadingSectionController.m; sourceTree = "<group>"; };
 		0E1B049C1BC59DE300506F7D /* WMFContinueReadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFContinueReadingCell.h; sourceTree = "<group>"; };
@@ -1100,6 +1100,7 @@
 		BC282E271AE7FBB1005A5277 /* WMFTestFixtureUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFTestFixtureUtilities.h; sourceTree = "<group>"; };
 		BC2CBB8C1AA10F400079A313 /* UIView+WMFFrameUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFFrameUtils.h"; sourceTree = "<group>"; };
 		BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFFrameUtils.m"; sourceTree = "<group>"; };
+		BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Wikipedia.entitlements; sourceTree = "<group>"; };
 		BC3047C01B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDWebImageManager+WMFCacheRemoval.h"; sourceTree = "<group>"; };
 		BC3047C11B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDWebImageManager+WMFCacheRemoval.m"; sourceTree = "<group>"; };
 		BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKImageFaceDetectionTests.m; sourceTree = "<group>"; };
@@ -2048,6 +2049,7 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0E1B04971BC56E6100506F7D /* NSUserDefaults+WMFExtensions.swift */,
 				043B6E8C1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.h */,
 				043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */,
 				0EFB0EF31B31DE7200D05C08 /* NSError+WMFExtensions.h */,
@@ -3592,6 +3594,7 @@
 			isa = PBXGroup;
 			children = (
 				BC2F420D1BEA60350033E185 /* Localizations */,
+				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
 				0E9DFEAD1BDEB9880032606E /* Global */,
 				0E9DFEAE1BDEB98F0032606E /* App Delegate */,
 				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
@@ -3618,7 +3621,6 @@
 				D4EE00BB182445670090790F /* mw-support */,
 				C9180EC118AED30C006C1DCA /* mw-utils */,
 				049566BF18F5F4CB0058EA12 /* Zero */,
-				0E1B04971BC56E6100506F7D /* NSUserDefaults+WMFExtensions.swift */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
@@ -3758,6 +3760,11 @@
 					};
 					D4991434181D51DE00E6073C = {
 						DevelopmentTeam = AKK7J2GV64;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -4771,8 +4778,9 @@
 				APP_ID_SUFFIX = .tfalpha;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -4877,8 +4885,9 @@
 				APP_ID_SUFFIX = .tfbeta;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -4986,8 +4995,9 @@
 				APP_ID_SUFFIX = .developer;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
@@ -5202,6 +5212,7 @@
 				APP_ID_SUFFIX = .developer;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 335;
@@ -5240,8 +5251,9 @@
 				APP_ID_SUFFIX = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 335;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
