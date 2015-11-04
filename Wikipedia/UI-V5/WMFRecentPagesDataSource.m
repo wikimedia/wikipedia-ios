@@ -69,11 +69,19 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSMutableArray* sections = [NSMutableArray arrayWithCapacity:[entriesBydate count]];
     [[[entriesBydate allKeys] sortedArrayUsingComparator:^NSComparisonResult (NSDate* _Nonnull obj1, NSDate* _Nonnull obj2) {
-        return -[obj1 compare:obj2];
+        return -[obj1 compare:obj2]; //by date decending
     }] enumerateObjectsUsingBlock:^(NSDate* _Nonnull date, NSUInteger idx, BOOL* _Nonnull stop) {
         NSMutableArray* entries = entriesBydate[date];
         SSSection* section = [SSSection sectionWithItems:entries];
-        section.header = [date isToday] ? @"Today" : [self.dateFormatter stringFromDate:date];
+
+        if ([date isToday]) {
+            section.header = @"Today";
+        } else if ([date isYesterday]) {
+            section.header = @"Yesterday";
+        } else {
+            section.header = [[self dateFormatter] stringFromDate:date];
+        }
+
         section.sectionIdentifier = date;
         [sections addObject:section];
     }];
