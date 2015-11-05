@@ -47,6 +47,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
+@property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
@@ -124,6 +125,7 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     [self setupBottomMenuButtons];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
+    self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
 
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
@@ -257,7 +259,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
 }
 
 - (void)addFooterContainerView {
-    self.footerContainerView = [UIView new];
+    self.footerContainerView                 = [UIView new];
+    self.footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
     [self.webView.scrollView addSubview:self.footerContainerView];
     [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
@@ -280,7 +283,12 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         [childVC didMoveToParentViewController:self];
         return childVC.view.mas_bottom;
     }];
-    [self.footerViewControllers.lastObject.view mas_makeConstraints:^(MASConstraintMaker* make) {
+
+    self.footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
+    [self.footerContainerView addSubview:self.footerLicenseView];
+    [self.footerLicenseView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.equalTo(self.footerViewControllers.lastObject.view.mas_bottom);
+        make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
 }
@@ -667,6 +675,8 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     if (!self.article.editable) {
         [self.bridge sendMessage:@"setPageProtected" withPayload:@{}];
     }
+
+    [self.footerLicenseView setLicenseTextForSite:self.article.site];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateProgress:0.85 animated:YES completion:NULL];
