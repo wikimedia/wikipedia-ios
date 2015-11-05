@@ -122,26 +122,7 @@ class WMFImageControllerTests: XCTestCase {
 
         NSURLProtocol.registerClass(HTTPHangingProtocol)
 
-        let (afterFirstDownload, didStartFirstDownload, _) = Promise<Void>.pendingPromise()
-
-        let retry: Promise<WMFImageDownload> = afterFirstDownload.then(){
-            // simulate "lag" between cancelling queue & current queue, i.e. race conditions between SDWebImage and 
-            // WMFImageController
-            dispatch_suspend(self.imageController.cancellingQueue)
-            defer {
-                dispatch_resume(self.imageController.cancellingQueue)
-            }
-
-            // cancel the first download
-            self.imageController.cancelFetchForURL(testURL)
-
-            // replace "hanging" protocol w/ nocilla stub protocol
-            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
-            LSNocilla.sharedInstance().start()
-            stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
-
-            return self.imageController.fetchImageWithURL(testURL)
-        }
+        let (afterFirstDownloadStarts, didStartFirstDownload, _) = Promise<Void>.pendingPromise()
 
         var observationToken: AnyObject!
         observationToken =
@@ -151,13 +132,75 @@ class WMFImageControllerTests: XCTestCase {
             didStartFirstDownload()
         }
 
+        // run test on second fetch
         expectPromise(toResolve(),
             pipe: { (imgDownload: WMFImageDownload) -> Void in
                 XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
             },
             timeout: 2) { () -> Promise<WMFImageDownload> in
-                let _: Promise<WMFImageDownload> = self.imageController.fetchImageWithURL(testURL)
-                return retry
+                let retry = afterFirstDownloadStarts.then() { _ -> Promise<WMFImageDownload> in
+                    // cancel the first download
+                    self.imageController.cancelFetchForURL(testURL)
+
+                    // replace "hanging" protocol w/ nocilla stub protocol
+                    NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+                    LSNocilla.sharedInstance().start()
+                    stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
+
+                    return self.imageController.fetchImageWithURL(testURL)
+                }
+
+                // return the "recovery" promise which ensures that not only was the first request cancelled, but the
+                // second resolved
+                return self.imageController.fetchImageWithURL(testURL).recover() { _ -> Promise<WMFImageDownload> in
+                    return retry
+                }
+        }
+    }
+
+    func testSDWebImageSanity() {
+        let testURL = NSURL(string:"https://foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
+        let testImage = UIImage(named: "image-placeholder")!
+        let stubbedData = UIImagePNGRepresentation(testImage)!
+
+        let downloader = SDWebImageDownloader()
+
+        [0...100].forEach { _ in
+            NSURLProtocol.registerClass(HTTPHangingProtocol)
+
+            let operation =
+            downloader.downloadImageWithURL(testURL,
+                                            options: SDWebImageDownloaderOptions(),
+                                            progress: nil) { img, data, err, finished in
+                XCTFail("Request should have been cancelled!")
+            } as! NSOperation
+
+            expectationForPredicate(NSPredicate(block: { o, _ in return o.isExecuting}),
+                                    evaluatedWithObject: operation,
+                                    handler: nil)
+
+            wmf_waitForExpectations()
+
+            operation.cancel()
+
+            let expectation = expectationWithDescription("download")
+
+            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+            LSNocilla.sharedInstance().start()
+            stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
+
+            downloader.downloadImageWithURL(testURL,
+                options: SDWebImageDownloaderOptions(),
+                progress: nil) { (img: UIImage?, data: NSData?, err: NSError?, finished: Bool) in
+                    XCTAssertEqual(img.flatMap(UIImagePNGRepresentation), stubbedData as NSData?)
+                    XCTAssertTrue(finished, "second download operation didn't finish: \(err)")
+                    expectation.fulfill()
+            }
+
+
+            wmf_waitForExpectations()
+
+            LSNocilla.sharedInstance().stop()
         }
     }
 
