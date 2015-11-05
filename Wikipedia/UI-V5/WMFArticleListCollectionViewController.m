@@ -23,7 +23,6 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
-#import "UIColor+WMFHexColor.h"
 #import <BlocksKit/BlocksKit.h>
 #import "Wikipedia-Swift.h"
 
@@ -197,7 +196,7 @@
 
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.collectionView.backgroundColor       = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
+    self.collectionView.backgroundColor       = [UIColor wmf_articleListBackgroundColor];
 
     [self flowLayout].numberOfColumns    = 1;
     [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
