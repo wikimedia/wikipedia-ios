@@ -20,4 +20,7 @@
 + (instancetype)wmf_tableOfContentsSectionFont;
 + (instancetype)wmf_tableOfContentsSubsectionFont;
 
++ (instancetype)wmf_nearbyTitleFont;
++ (instancetype)wmf_nearbyDescriptionFont;
+
 @end

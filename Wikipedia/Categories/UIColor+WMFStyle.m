@@ -151,4 +151,12 @@
     return [UIColor blackColor];
 }
 
++ (instancetype)wmf_nearbyTitleColor {
+    return [UIColor blackColor];
+}
+
++ (instancetype)wmf_nearbyDescriptionColor {
+    return [UIColor grayColor];
+}
+
 @end
