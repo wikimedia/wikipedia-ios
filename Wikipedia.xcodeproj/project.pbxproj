@@ -213,6 +213,8 @@
 		0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FAFB41B7D5740000E5A46 /* WMFHomeViewController.m */; };
 		0E74DC851BEBC0A100A8A005 /* WMFIntrinsicSizeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E74DC841BEBC0A100A8A005 /* WMFIntrinsicSizeTableView.m */; };
 		0E74DC881BEBC13800A8A005 /* WMFIntrinsicSizeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E74DC871BEBC13800A8A005 /* WMFIntrinsicSizeCollectionView.m */; };
+		0E74DC8B1BEBDC7600A8A005 /* WMFArticleFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E74DC8A1BEBDC7600A8A005 /* WMFArticleFooterView.swift */; };
+		0E74DC8F1BEBDCB900A8A005 /* WMFArticleFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E74DC8E1BEBDCB900A8A005 /* WMFArticleFooterView.xib */; };
 		0E74DC921BEBE15600A8A005 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E74DC911BEBE15600A8A005 /* WMFLocalization.m */; };
 		0E76D1A01BE3D8B300937DC3 /* MWKSearchRedirectMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D19F1BE3D8B300937DC3 /* MWKSearchRedirectMapping.m */; };
 		0E76D1A31BE7C5A100937DC3 /* WMFMainPageSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E76D1A21BE7C5A100937DC3 /* WMFMainPageSectionController.m */; };
@@ -928,6 +930,8 @@
 		0E74DC841BEBC0A100A8A005 /* WMFIntrinsicSizeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFIntrinsicSizeTableView.m; sourceTree = "<group>"; };
 		0E74DC861BEBC13800A8A005 /* WMFIntrinsicSizeCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFIntrinsicSizeCollectionView.h; sourceTree = "<group>"; };
 		0E74DC871BEBC13800A8A005 /* WMFIntrinsicSizeCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFIntrinsicSizeCollectionView.m; sourceTree = "<group>"; };
+		0E74DC8A1BEBDC7600A8A005 /* WMFArticleFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFArticleFooterView.swift; sourceTree = "<group>"; };
+		0E74DC8E1BEBDCB900A8A005 /* WMFArticleFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticleFooterView.xib; sourceTree = "<group>"; };
 		0E74DC901BEBE15600A8A005 /* WMFLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocalization.h; sourceTree = "<group>"; };
 		0E74DC911BEBE15600A8A005 /* WMFLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocalization.m; sourceTree = "<group>"; };
 		0E76D19E1BE3D8B300937DC3 /* MWKSearchRedirectMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKSearchRedirectMapping.h; sourceTree = "<group>"; };
@@ -2550,6 +2554,15 @@
 			name = "Table of Contents";
 			sourceTree = "<group>";
 		};
+		0E74DC821BEBBF4200A8A005 /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				0E74DC8A1BEBDC7600A8A005 /* WMFArticleFooterView.swift */,
+				0E74DC8E1BEBDCB900A8A005 /* WMFArticleFooterView.xib */,
+			);
+			name = Footer;
+			sourceTree = "<group>";
+		};
 		0E7E602E1B7CFA9B00ED1C69 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -2694,6 +2707,18 @@
 			name = "Recent Searches";
 			sourceTree = "<group>";
 		};
+		0EAED8481BE7F3A0006B01E6 /* Main Page */ = {
+			isa = PBXGroup;
+			children = (
+				0E76D1A11BE7C5A100937DC3 /* WMFMainPageSectionController.h */,
+				0E76D1A21BE7C5A100937DC3 /* WMFMainPageSectionController.m */,
+				0E76D1A71BE7DF9D00937DC3 /* WMFMainPageCell.h */,
+				0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */,
+				0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */,
+			);
+			name = "Main Page";
+			sourceTree = "<group>";
+		};
 		0EAED8501BE937F6006B01E6 /* Collection View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2760,18 +2785,6 @@
 				0EAED85A1BE951E2006B01E6 /* WMFArticleListTableViewCell.xib */,
 			);
 			name = "Table View Cells";
-			sourceTree = "<group>";
-		};
-		0EAED8481BE7F3A0006B01E6 /* Main Page */ = {
-			isa = PBXGroup;
-			children = (
-				0E76D1A11BE7C5A100937DC3 /* WMFMainPageSectionController.h */,
-				0E76D1A21BE7C5A100937DC3 /* WMFMainPageSectionController.m */,
-				0E76D1A71BE7DF9D00937DC3 /* WMFMainPageCell.h */,
-				0E76D1A81BE7DF9D00937DC3 /* WMFMainPageCell.m */,
-				0E76D1A91BE7DF9D00937DC3 /* WMFMainPageCell.xib */,
-			);
-			name = "Main Page";
 			sourceTree = "<group>";
 		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
@@ -2846,6 +2859,7 @@
 				0E0377741B4C47D500470BBE /* Table */,
 				0E2B06FB1B2D12B300EA2F53 /* Transitions */,
 				0E9DFEAB1BDEB82E0032606E /* Article Fetching */,
+				0E74DC821BEBBF4200A8A005 /* Footer */,
 			);
 			name = Article;
 			sourceTree = "<group>";
@@ -3881,6 +3895,7 @@
 				0E03E2A91B85750C00C1FBD7 /* WMFHomeSectionFooter.xib in Resources */,
 				0E1B04A11BC59E8D00506F7D /* WMFContinueReadingCell.xib in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
+				0E74DC8F1BEBDCB900A8A005 /* WMFArticleFooterView.xib in Resources */,
 				0E2691071B86C3FC009B8605 /* WMFArticlePreviewCell.xib in Resources */,
 				BC32F6AC1BB5B35D007FDF65 /* WMFSearchViewController.storyboard in Resources */,
 				04DA87701B2FF5B200C948F8 /* WMFSettingsViewController.storyboard in Resources */,
@@ -4214,6 +4229,7 @@
 				0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */,
 				BC5620A81B6BEDAD0013FFB0 /* UIColor+WMFStyle.m in Sources */,
 				049566C218F5F4CB0058EA12 /* ZeroConfigState.m in Sources */,
+				0E74DC8B1BEBDC7600A8A005 /* WMFArticleFooterView.swift in Sources */,
 				0436998E1B45B673002FD81D /* WMFArticleTableHeaderView.m in Sources */,
 				04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */,
 				BC060B3A1B456D030086EBFB /* AnyPromise+WMFExtensions.m in Sources */,
