@@ -41,6 +41,9 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroInterstitial
 };
 
+NSString* const WMFLicenseTitleOnENWiki =
+    @"Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License";
+
 @interface WebViewController () <ReferencesVCDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
@@ -291,6 +294,13 @@ typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
         make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
+    
+    @weakify(self);
+    [self.footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
+        @strongify(self);
+        MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+        [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
+    } forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
