@@ -1,6 +1,7 @@
 
 
 #import "WMFCompassView.h"
+#import "UIColor+WMFStyle.h"
 
 static CGFloat const WMFCompassPadding = 16.0;
 
@@ -42,10 +43,9 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     double diameter = rect.size.width;
     double radius   = diameter / 2.0f;
 
-    UIColor* tickColor = [UIColor colorWithRed:0 green:0.693 blue:0.539 alpha:1];
-
-    CGContextSetFillColorWithColor(ctx, tickColor.CGColor);
-    CGContextSetStrokeColorWithColor(ctx, tickColor.CGColor);
+    CGColorRef tickColor = [UIColor wmf_nearbyTickColor].CGColor;
+    CGContextSetFillColorWithColor(ctx, tickColor);
+    CGContextSetStrokeColorWithColor(ctx, tickColor);
 
     // Draw compass lines.
     CGFloat compassLineLength = (radius - (WMFCompassPadding)) * 0.07f;
@@ -55,6 +55,10 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
                              radius:compassLineRadius
                                size:CGSizeMake(WMFCompassLineWidth / scale, compassLineLength)
                               count:WMFCompassLineCount];
+
+    CGColorRef arrowColor = [UIColor wmf_nearbyArrowColor].CGColor;
+    CGContextSetFillColorWithColor(ctx, arrowColor);
+    CGContextSetStrokeColorWithColor(ctx, arrowColor);
 
     // Draw opposite tick line.
     CGFloat oppositeTickLength = (compassLineLength * 3.0f);
