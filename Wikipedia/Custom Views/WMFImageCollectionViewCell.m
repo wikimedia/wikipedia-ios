@@ -25,8 +25,22 @@
             make.edges.equalTo(self.contentView);
         }];
         self.imageView.clipsToBounds = YES;
+        [self configureImageViewWithPlaceholder];
     }
     return self;
+}
+
+- (void)configureImageViewWithPlaceholder {
+    [self.imageView wmf_reset];
+    self.imageView.contentMode = UIViewContentModeCenter;
+    self.imageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
+    self.imageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
+    self.imageView.image           = [UIImage wmf_placeholderImage];
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self configureImageViewWithPlaceholder];
 }
 
 @end
