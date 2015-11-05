@@ -166,7 +166,7 @@
     return c;
 }
 
-+ (instancetype)wmf_nearbyDistanceColor {
++ (instancetype)wmf_nearbyDistanceBackgroundColor {
     return [UIColor clearColor];
 }
 

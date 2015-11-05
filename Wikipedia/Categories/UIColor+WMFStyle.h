@@ -46,7 +46,7 @@
 
 + (instancetype)wmf_nearbyDescriptionColor;
 
-+ (instancetype)wmf_nearbyDistanceColor;
++ (instancetype)wmf_nearbyDistanceBackgroundColor;
 
 + (instancetype)wmf_nearbyDistanceTextColor;
 
