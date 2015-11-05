@@ -57,7 +57,7 @@ static CGFloat const WMFImagePadding = 8.0;
     self.imageView.layer.borderColor                = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
 
-    self.distanceLabelBackground.backgroundColor = [UIColor wmf_nearbyDistanceColor];
+    self.distanceLabelBackground.backgroundColor = [UIColor wmf_nearbyDistanceBackgroundColor];
     self.distanceLabel.font                      = [UIFont wmf_nearbyDistanceFont];
     self.distanceLabel.textColor                 = [UIColor wmf_nearbyDistanceTextColor];
 }
