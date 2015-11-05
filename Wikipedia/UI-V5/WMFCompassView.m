@@ -3,10 +3,10 @@
 #import "WMFCompassView.h"
 #import "UIColor+WMFStyle.h"
 
-static CGFloat const WMFCompassPadding = 16.0;
+static CGFloat const WMFCompassPadding = 18.0;
 
 static CGFloat const WMFCompassLineWidth    = 1.0;
-static NSUInteger const WMFCompassLineCount = 57;
+static NSUInteger const WMFCompassLineCount = 40;
 
 static CGFloat const WMFCompassOppositeLineWidth = 2.0;
 
@@ -68,7 +68,7 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
                                size:CGSizeMake(WMFCompassOppositeLineWidth / scale, oppositeTickLength)];
 
     // Draw tick (arrow-like directional indicator).
-    CGFloat tickPercentOfRectWidth  = 0.125;
+    CGFloat tickPercentOfRectWidth  = 0.115;
     CGFloat tickPercentOfRectHeight = 0.135;
     CGSize tickSize                 =
         CGSizeMake(
