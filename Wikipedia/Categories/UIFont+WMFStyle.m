@@ -46,7 +46,7 @@
 }
 
 + (instancetype)wmf_nearbyTitleFont {
-    return [UIFont fontWithName:@"Georgia" size:17.0];
+    return [UIFont fontWithName:@"Georgia" size:20.0];
 }
 
 + (instancetype)wmf_nearbyDescriptionFont {
