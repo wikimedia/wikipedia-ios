@@ -10,8 +10,10 @@ import Foundation
 import PromiseKit
 import SDWebImage
 
+public typealias DiskQueryResult = (cancellable: Cancellable?, promise: Promise<(UIImage, ImageOrigin)>)
+
 extension SDImageCache {
-    public func queryDiskCacheForKey(key: String) -> (Cancellable?, Promise<(UIImage, ImageOrigin)>) {
+    public func queryDiskCacheForKey(key: String) -> DiskQueryResult {
         let (promise, fulfill, reject) = Promise<(UIImage, ImageOrigin)>.pendingPromise()
 
         // queryDiskCache will return nil if the image is in memory

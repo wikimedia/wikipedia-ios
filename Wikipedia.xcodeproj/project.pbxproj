@@ -301,6 +301,7 @@
 		BC23759E1AB8928600B0BAA8 /* WMFDateFormatterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */; };
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
 		BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
+		BC2F420E1BEB9BBC0033E185 /* WMFImageControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */; };
 		BC3047C21B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3047C11B45E65400D7DF1A /* SDWebImageManager+WMFCacheRemoval.m */; };
 		BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3059B31B69416E00AA5703 /* MWKImageFaceDetectionTests.m */; };
 		BC3059B91B6948C800AA5703 /* XCTestCase+PromiseKit.m in Sources */ = {isa = PBXBuildFile; fileRef = BC3059B81B6948C800AA5703 /* XCTestCase+PromiseKit.m */; };
@@ -4028,6 +4029,7 @@
 				BCA6765A1AC0600500A16160 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				04F122671ACB818F002FC3B5 /* NSString+FormattedAttributedString.m in Sources */,
 				BC0FED711AAA026C002488D7 /* WMFJoinedPropertyParametersTests.m in Sources */,
+				BC2F420E1BEB9BBC0033E185 /* WMFImageControllerTests.swift in Sources */,
 				BC0FED6A1AAA0268002488D7 /* MWKDataStorePathTests.m in Sources */,
 				BC725ECA1B617E1A00E0A64C /* WMFSafeAssignTests.m in Sources */,
 				BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */,
