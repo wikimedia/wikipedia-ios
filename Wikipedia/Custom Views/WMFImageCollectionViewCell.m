@@ -32,7 +32,7 @@
 
 - (void)configureImageViewWithPlaceholder {
     [self.imageView wmf_reset];
-    self.imageView.contentMode = UIViewContentModeCenter;
+    self.imageView.contentMode     = UIViewContentModeCenter;
     self.imageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
     self.imageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
     self.imageView.image           = [UIImage wmf_placeholderImage];
