@@ -2,8 +2,8 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFLocalizationProtocol.h"
-#import "WikipediaAppUtils.h"
 #import "NSURL+WMFRest.h"
+#import "SessionSingleton.h"
 
 __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
     [NSURLProtocol registerClass:[WMFLocalizationProtocol class]];
@@ -37,7 +37,7 @@ __attribute__((constructor)) static void WMFRegisterLocalizationProtocol() {
 }
 
 - (NSString*)getTranslationForKey:(NSString*)key {
-    return MWCurrentArticleLanguageLocalizedString(key, nil);
+    return MWSiteLocalizedString([SessionSingleton sharedInstance].currentArticleSite, key, nil);
 }
 
 - (void)sendResponseWithData:(NSData*)data {
