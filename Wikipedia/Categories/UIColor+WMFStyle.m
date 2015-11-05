@@ -159,4 +159,12 @@
     return [UIColor grayColor];
 }
 
++ (instancetype)wmf_nearbyDistanceColor {
+    return [UIColor colorWithRed:0.00 green:0.70 blue:0.54 alpha:1.0];
+}
+
++ (instancetype)wmf_nearbyDistanceTextColor {
+    return [UIColor whiteColor];
+}
+
 @end
