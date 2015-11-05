@@ -616,13 +616,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath                  = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
+    NSIndexPath* previewIndexPath                  = [self.collectionView indexPathForItemAtPoint:location];
     id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
     if (!sectionController) {
         return nil;
     }
 
-    previewingContext.sourceRect = [(UICollectionView*)previewingContext.sourceView cellForItemAtIndexPath:previewIndexPath].frame;
+    previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
                                                                  dataStore:[self dataStore]
