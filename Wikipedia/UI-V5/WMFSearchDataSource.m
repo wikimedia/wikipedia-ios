@@ -13,7 +13,7 @@
 #import "MWKSearchResult.h"
 #import "MWKSearchRedirectMapping.h"
 #import "NSString+Extras.h"
-#import "WMFSearchResultCell.h"
+#import "WMFArticleListCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 @interface WMFSearchDataSource ()
@@ -36,10 +36,10 @@
         self.searchResults = searchResults;
         self.savedPageList = savedPages;
 
-        self.cellClass = [WMFSearchResultCell class];
+        self.cellClass = [WMFArticleListCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFSearchResultCell* cell,
+        self.cellConfigureBlock = ^(WMFArticleListCell* cell,
                                     MWKSearchResult* result,
                                     UICollectionView* collectionView,
                                     NSIndexPath* indexPath) {
@@ -74,7 +74,7 @@
 
 - (void)setCollectionView:(UICollectionView* __nullable)collectionView {
     [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFSearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFSearchResultCell identifier]];
+    [self.collectionView registerNib:[WMFArticleListCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {

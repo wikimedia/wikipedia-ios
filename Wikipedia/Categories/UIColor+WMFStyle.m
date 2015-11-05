@@ -1,12 +1,6 @@
-//
-//  UIColor+WMFStyle.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 7/31/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIColor+WMFStyle.h"
+#import "UIColor+WMFHexColor.h"
 
 @implementation UIColor (WMFStyle)
 
@@ -37,15 +31,44 @@
 }
 
 + (instancetype)wmf_lightGrayColor {
-    return [UIColor colorWithWhite:0.870588 alpha:1.0];
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:0.870588 alpha:1.0];
+    });
+    return c;
 }
 
 + (instancetype)wmf_placeholderImageTintColor {
-    return [UIColor colorWithWhite:0.7 alpha:1.0];
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:0.7 alpha:1.0];
+    });
+    return c;
 }
 
 + (instancetype)wmf_placeholderImageBackgroundColor {
-    return [UIColor colorWithWhite:0.96 alpha:1.0];
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:0.96 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_articleListBackgroundColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
+        ;
+    });
+    return c;
 }
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor {
@@ -103,13 +126,7 @@
 }
 
 + (instancetype)wmf_homeSectionFooterTextColor {
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
-    });
-    return c;
+    return [self wmf_homeSectionHeaderTextColor];
 }
 
 + (instancetype)wmf_blueTintColor {

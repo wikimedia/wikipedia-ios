@@ -4,6 +4,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateNotification";
+
 @interface MWKHistoryList ()
 
 @property (readwrite, weak, nonatomic) MWKDataStore* dataStore;
@@ -22,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithEntries:entries];
     if (self) {
         self.dataStore = dataStore;
-        [self sortEntries];
     }
     return self;
 }
@@ -39,10 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Update Methods
 
-- (void)sortEntries {
-    [self sortEntriesWithDescriptors:[[self class] sortDescriptors]];
-}
-
 - (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     NSParameterAssert(title);
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
@@ -57,10 +54,10 @@ NS_ASSUME_NONNULL_BEGIN
     MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.listIndex];
     if (oldEntry) {
         entry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
-        [self removeEntry:oldEntry];
+        [super removeEntry:oldEntry];
     }
     [super addEntry:entry];
-    [self sortEntries];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title {
@@ -71,6 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
         entry.scrollPosition = scrollposition;
         return YES;
     }];
+}
+
+- (void)removeEntry:(MWKListEntry)entry {
+    [super removeEntry:entry];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
 }
 
 - (void)removeEntryWithListIndex:(id)listIndex {
@@ -89,7 +91,12 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-+ (NSArray<NSSortDescriptor*>*)sortDescriptors {
+- (void)removeAllEntries {
+    [super removeAllEntries];
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
+}
+
+- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
     static NSArray<NSSortDescriptor*>* sortDescriptors;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
