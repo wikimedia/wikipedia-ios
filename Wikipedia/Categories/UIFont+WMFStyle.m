@@ -45,4 +45,12 @@
     return [UIFont systemFontOfSize:14];
 }
 
++ (instancetype)wmf_nearbyTitleFont {
+    return [UIFont fontWithName:@"Georgia" size:17.0];
+}
+
++ (instancetype)wmf_nearbyDescriptionFont {
+    return [UIFont systemFontOfSize:14.0f];
+}
+
 @end

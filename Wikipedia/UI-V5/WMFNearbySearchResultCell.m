@@ -18,6 +18,7 @@
 #import "WMFMath.h"
 #import "NSString+WMFDistance.h"
 #import "UIColor+WMFStyle.h"
+#import "UIFont+WMFStyle.h"
 
 static CGFloat const WMFTextPadding    = 8.0;
 static CGFloat const WMFDistanceHeight = 20.0;
@@ -122,8 +123,8 @@ static CGFloat const WMFImagePadding = 8.0;
     }
 
     return [[NSAttributedString alloc] initWithString:self.title.text attributes:@{
-                NSFontAttributeName: [UIFont systemFontOfSize:17.0f],
-                NSForegroundColorAttributeName: [UIColor blackColor]
+                NSFontAttributeName: [UIFont wmf_nearbyTitleFont],
+                NSForegroundColorAttributeName: [UIColor wmf_nearbyTitleColor]
             }];
 }
 
@@ -136,8 +137,8 @@ static CGFloat const WMFImagePadding = 8.0;
     paragraphStyle.paragraphSpacingBefore = 2.0;
 
     return [[NSAttributedString alloc] initWithString:self.searchResultDescription attributes:@{
-                NSFontAttributeName: [UIFont systemFontOfSize:14.0f],
-                NSForegroundColorAttributeName: [UIColor grayColor],
+                NSFontAttributeName: [UIFont wmf_nearbyDescriptionFont],
+                NSForegroundColorAttributeName: [UIColor wmf_nearbyDescriptionColor],
                 NSParagraphStyleAttributeName: paragraphStyle
             }];
 }

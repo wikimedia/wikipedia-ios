@@ -42,4 +42,8 @@
 
 + (instancetype)wmf_nearbyTickColor;
 
++ (instancetype)wmf_nearbyTitleColor;
+
++ (instancetype)wmf_nearbyDescriptionColor;
+
 @end
