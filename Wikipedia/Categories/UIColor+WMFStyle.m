@@ -30,6 +30,20 @@
     return c;
 }
 
++ (instancetype)wmf_licenseTextColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x565656 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_licenseLinkColor {
+    return [self wmf_blueTintColor];
+}
+
 + (instancetype)wmf_lightGrayColor {
     static UIColor* c = nil;
 
@@ -69,6 +83,10 @@
         ;
     });
     return c;
+}
+
++ (instancetype)wmf_articleBackgroundColor {
+    return [self wmf_articleListBackgroundColor];
 }
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor {

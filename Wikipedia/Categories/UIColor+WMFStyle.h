@@ -11,7 +11,13 @@
 
 + (instancetype)wmf_summaryTextColor;
 
++ (instancetype)wmf_licenseTextColor;
+
++ (instancetype)wmf_licenseLinkColor;
+
 + (instancetype)wmf_articleListBackgroundColor;
+
++ (instancetype)wmf_articleBackgroundColor;
 
 + (instancetype)wmf_tableOfContentsHeaderTextColor;
 
