@@ -143,4 +143,12 @@
     return [self wmf_blueTintColor];
 }
 
++ (instancetype)wmf_nearbyArrowColor {
+    return [UIColor blackColor];
+}
+
++ (instancetype)wmf_nearbyTickColor {
+    return [UIColor blackColor];
+}
+
 @end

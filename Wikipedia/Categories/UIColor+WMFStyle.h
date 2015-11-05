@@ -38,4 +38,8 @@
 
 + (instancetype)wmf_placeholderImageBackgroundColor;
 
++ (instancetype)wmf_nearbyArrowColor;
+
++ (instancetype)wmf_nearbyTickColor;
+
 @end
