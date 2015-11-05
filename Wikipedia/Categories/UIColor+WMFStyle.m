@@ -156,15 +156,29 @@
 }
 
 + (instancetype)wmf_nearbyDescriptionColor {
-    return [UIColor grayColor];
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x666666 alpha:1.0];
+        ;
+    });
+    return c;
 }
 
 + (instancetype)wmf_nearbyDistanceColor {
-    return [UIColor colorWithRed:0.00 green:0.70 blue:0.54 alpha:1.0];
+    return [UIColor clearColor];
 }
 
 + (instancetype)wmf_nearbyDistanceTextColor {
-    return [UIColor whiteColor];
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x999999 alpha:1.0];
+        ;
+    });
+    return c;
 }
 
 @end
