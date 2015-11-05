@@ -1,5 +1,5 @@
 //
-//  WMFSearchResultCellVisualTests.m
+//  WMFArticleListCellVisualTests.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 9/3/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
-#import "WMFSearchResultCell.h"
+#import "WMFArticleListCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIView+VisualTestSizingUtils.h"
 #import "MWKTitle.h"
@@ -26,16 +26,16 @@ static NSString* const ShortSearchResultDescription = @"One line description";
 static NSString* const LongSearchResultDescription =
     @"This description describes a search result, and should take approximately three lines to display.";
 
-@interface WMFSearchResultCellVisualTests : FBSnapshotTestCase
-@property (nonatomic, strong) WMFSearchResultCell* searchResultCell;
+@interface WMFArticleListCellVisualTests : FBSnapshotTestCase
+@property (nonatomic, strong) WMFArticleListCell* searchResultCell;
 @end
 
-@implementation WMFSearchResultCellVisualTests
+@implementation WMFArticleListCellVisualTests
 
 - (void)setUp {
     [super setUp];
     //self.recordMode = YES;
-    self.searchResultCell = [WMFSearchResultCell wmf_viewFromClassNib];
+    self.searchResultCell = [WMFArticleListCell wmf_viewFromClassNib];
 }
 
 - (void)tearDown {

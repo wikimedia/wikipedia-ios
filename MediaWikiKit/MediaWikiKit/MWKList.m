@@ -26,6 +26,7 @@
     self = [self init];
     if (self) {
         [self importEntries:entries];
+        [self sortEntries];
     }
     return self;
 }
@@ -67,12 +68,14 @@
 - (void)addEntry:(id<MWKListObject>)entry {
     NSAssert([entry conformsToProtocol:@protocol(MWKListObject)], @"attempting to add object that does not implement MWKListObject");
     [self.mutableEntries addObject:entry];
+    [self sortEntries];
     self.dirty = YES;
 }
 
 - (void)insertEntry:(id<MWKListObject>)entry atIndex:(NSUInteger)index {
     NSAssert([entry conformsToProtocol:@protocol(MWKListObject)], @"attempting to insert object that does not implement MWKListObject");
     [self.mutableEntries insertObject:entry atIndex:index];
+    [self sortEntries];
     self.dirty = YES;
 }
 
@@ -101,8 +104,11 @@
 - (void)updateEntryWithListIndex:(id)listIndex update:(BOOL (^)(id<MWKListObject> entry))update {
     id<MWKListObject> obj = [self entryForListIndex:listIndex];
     if (update) {
-        // prevent reseting "dirty" if block returns NO and dirty was already YES
-        self.dirty |= update(obj);
+        BOOL dirty = update(obj);
+        if (dirty) {
+            [self sortEntries];
+            self.dirty = YES;
+        }
     }
 }
 
@@ -123,8 +129,14 @@
     self.dirty = YES;
 }
 
-- (void)sortEntriesWithDescriptors:(NSArray<NSSortDescriptor*>*)sortDesriptors {
-    [self.mutableEntries sortUsingDescriptors:sortDesriptors];
+- (void)sortEntries {
+    if ([[self sortDescriptors] count] > 0) {
+        [self.mutableEntries sortUsingDescriptors:[self sortDescriptors]];
+    }
+}
+
+- (nullable NSArray<NSSortDescriptor*>*)sortDescriptors {
+    return nil;
 }
 
 #pragma mark - Save

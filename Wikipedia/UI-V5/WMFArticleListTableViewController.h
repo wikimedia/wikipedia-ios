@@ -3,13 +3,11 @@
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleSelectionDelegate.h"
 
-@class SSBaseDataSource, MWKDataStore, SelfSizingWaterfallCollectionViewLayout;
+@class SSBaseDataSource, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleListCollectionViewController : UIViewController
-
-@property (nonatomic, strong, readonly) UICollectionView* collectionView;
+@interface WMFArticleListTableViewController : UITableViewController
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong, nullable) SSBaseDataSource<WMFTitleListDataSource>* dataSource;
@@ -20,13 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  If left @c nil, falls back to pushing an article container using its @c navigationController.
  */
 @property (nonatomic, weak, nullable) id<WMFArticleSelectionDelegate> delegate;
-
-- (SelfSizingWaterfallCollectionViewLayout*)flowLayout;
-
-@end
-
-// TODO: move to separate file in article container folder
-@interface WMFSelfSizingArticleListCollectionViewController : WMFArticleListCollectionViewController
 
 @end
 

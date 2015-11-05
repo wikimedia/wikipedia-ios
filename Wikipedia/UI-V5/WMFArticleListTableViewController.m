@@ -1,45 +1,30 @@
-#import "WMFArticleListCollectionViewController.h"
 
-#import "UICollectionView+WMFExtensions.h"
-#import "UIViewController+WMFHideKeyboard.h"
-#import "UIView+WMFDefaultNib.h"
-#import "UICollectionView+WMFKVOUpdatableList.h"
-#import "UIScrollView+WMFContentOffsetUtils.h"
+#import "WMFArticleListTableViewController.h"
 
-#import "WMFArticleContainerViewController.h"
-
-#import "UIViewController+WMFStoryboardUtilities.h"
-
-#import "MediaWikiKit.h"
+#import "MWKDataStore.h"
+#import "MWKArticle.h"
+#import "MWKTitle.h"
 
 #import <SSDataSources/SSDataSources.h>
-#import "WMFEditingCollectionViewLayout.h"
-#import <Masonry/Masonry.h>
 
-#import "WMFArticlePreviewCell.h"
+#import "UIView+WMFDefaultNib.h"
+#import "UIViewController+WMFHideKeyboard.h"
+#import "UIScrollView+WMFContentOffsetUtils.h"
 
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
-#import "UIColor+WMFHexColor.h"
 #import <BlocksKit/BlocksKit.h>
 #import "Wikipedia-Swift.h"
 
-@interface WMFArticleListCollectionViewController ()
-<UICollectionViewDelegate,
- WMFSearchPresentationDelegate,
- WMFEditingCollectionViewLayoutDelegate,
- UIViewControllerPreviewingDelegate>
+@interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
-@property (nonatomic, strong) IBOutlet UICollectionView* collectionView;
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-
-+ (Class)collectionViewClass;
 
 @end
 
-@implementation WMFArticleListCollectionViewController
+@implementation WMFArticleListTableViewController
 
 #pragma mark - Tear Down
 
@@ -48,14 +33,6 @@
 }
 
 #pragma mark - Accessors
-
-+ (Class)collectionViewClass {
-    return [UICollectionView class];
-}
-
-+ (UICollectionView*)createCollectionView {
-    return [[[self collectionViewClass] alloc] initWithFrame:CGRectZero collectionViewLayout:[SelfSizingWaterfallCollectionViewLayout new]];
-}
 
 - (id<WMFArticleListDynamicDataSource>)dynamicDataSource {
     if ([self.dataSource conformsToProtocol:@protocol(WMFArticleListDynamicDataSource)]) {
@@ -69,8 +46,8 @@
         return;
     }
 
-    _dataSource.collectionView     = nil;
-    self.collectionView.dataSource = nil;
+    _dataSource.tableView     = nil;
+    self.tableView.dataSource = nil;
 
     _dataSource = dataSource;
 
@@ -78,35 +55,28 @@
     //isViewLoaded is not enough.
     if ([self isViewLoaded] && self.view.window) {
         if (_dataSource) {
-            [self connectCollectionViewAndDataSource];
+            [self connectTableViewAndDataSource];
             [[self dynamicDataSource] startUpdating];
         } else {
-            [self.collectionView reloadData];
+            [self.tableView reloadData];
         }
-        [self.collectionView wmf_scrollToTop:NO];
+        [self.tableView wmf_scrollToTop:NO];
     }
 
     self.title = [_dataSource displayTitle];
 }
 
-- (WMFEditingCollectionViewLayout*)editingLayout {
-    id layout = self.collectionView.collectionViewLayout;
-    if ([layout isKindOfClass:[WMFEditingCollectionViewLayout class]]) {
-        return layout;
-    }
-    return nil;
-}
-
-- (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
-    id layout = self.collectionView.collectionViewLayout;
-    if ([layout isKindOfClass:[SelfSizingWaterfallCollectionViewLayout class]]) {
-        return layout;
-    }
-    return nil;
-}
-
 - (NSString*)debugDescription {
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
+}
+
+#pragma mark - DataSource and Collection View Wiring
+
+- (void)connectTableViewAndDataSource {
+    _dataSource.tableView = self.tableView;
+    if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
+        self.tableView.estimatedRowHeight = _dataSource.estimatedItemHeight;
+    }
 }
 
 #pragma mark - Stay Fresh... yo
@@ -126,26 +96,11 @@
 }
 
 - (void)refreshAnyVisibleCellsWhichAreShowingTitle:(MWKTitle*)title {
-    NSArray* indexPathsToRefresh = [[self.collectionView indexPathsForVisibleItems] bk_select:^BOOL (NSIndexPath* indexPath) {
+    NSArray* indexPathsToRefresh = [[self.tableView indexPathsForVisibleRows] bk_select:^BOOL (NSIndexPath* indexPath) {
         MWKTitle* otherTitle = [self.dataSource titleForIndexPath:indexPath];
         return [title isEqualToTitle:otherTitle];
     }];
-    [self.collectionView reloadItemsAtIndexPaths:indexPathsToRefresh];
-}
-
-#pragma mark - DataSource and Collection View Wiring
-
-- (void)connectCollectionViewAndDataSource {
-    _dataSource.collectionView = self.collectionView;
-    if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
-        [self flowLayout].estimatedItemHeight = _dataSource.estimatedItemHeight;
-    }
-}
-
-- (void)setupEditingLayout {
-    WMFEditingCollectionViewLayout* layout = [[WMFEditingCollectionViewLayout alloc] init];
-    layout.editingDelegate                   = self;
-    self.collectionView.collectionViewLayout = layout;
+    [self.tableView reloadRowsAtIndexPaths:indexPathsToRefresh withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Previewing
@@ -154,8 +109,7 @@
     [self wmf_ifForceTouchAvailable:^{
         [self unregisterPreviewing];
         self.previewingContext = [self registerForPreviewingWithDelegate:self
-                                                              sourceView:self.collectionView];
-        ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
+                                                              sourceView:self.tableView];
     } unavailable:^{
         [self unregisterPreviewing];
     }];
@@ -166,49 +120,31 @@
         [self unregisterForPreviewingWithContext:self.previewingContext];
         self.previewingContext = nil;
     }
-    ((WMFEditingCollectionViewLayout*)self.collectionView.collectionViewLayout).previewingEnabled = YES;
 }
 
 #pragma mark - UIViewController
 
-- (void)loadView {
-    [super loadView];
-    /*
-       Support programmatic or Storyboard instantiation by only instantiating views if they weren't set in the storyboard
-     */
-    if (!self.collectionView) {
-        self.collectionView          = [[self class] createCollectionView];
-        self.collectionView.delegate = self;
-        [self.view addSubview:self.collectionView];
-        [self.collectionView mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.leading.trailing.top.and.bottom.equalTo(self.view);
-        }];
-    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
-
-    [self setupEditingLayout];
-    [self connectCollectionViewAndDataSource];
-
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.collectionView.backgroundColor       = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
 
-    [self flowLayout].numberOfColumns    = 1;
-    [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
-    [self flowLayout].minimumLineSpacing = 1.0;
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 
+    self.tableView.backgroundColor    = [UIColor wmf_articleListBackgroundColor];
+    self.tableView.separatorColor     = [UIColor wmf_lightGrayColor];
+    self.tableView.estimatedRowHeight = 64.0;
+    self.tableView.rowHeight          = UITableViewAutomaticDimension;
+
+    [self connectTableViewAndDataSource];
     [self observeArticleUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSParameterAssert(self.dataStore);
-    [self connectCollectionViewAndDataSource];
+    [self connectTableViewAndDataSource];
     [[self dynamicDataSource] startUpdating];
     [self registerForPreviewingIfAvailable];
 }
@@ -227,13 +163,21 @@
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 
     [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
-        [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
+        [self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];
     } completion:NULL];
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - UITableViewDelegate
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    if ([self.dataSource canDeleteItemAtIndexpath:indexPath]) {
+        return UITableViewCellEditingStyleDelete;
+    } else {
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [self wmf_hideKeyboard];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
@@ -245,22 +189,6 @@
     [self wmf_pushArticleViewControllerWithTitle:title
                                  discoveryMethod:[self.dataSource discoveryMethod]
                                        dataStore:self.dataStore];
-}
-
-#pragma mark - WMFEditingCollectionViewLayoutDelegate
-
-- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canMoveItemAtIndexPath:(NSIndexPath*)indexPath {
-    return NO;
-}
-
-- (BOOL)editingLayout:(WMFEditingCollectionViewLayout*)layout canDeleteItemAtIndexPath:(NSIndexPath*)indexPath {
-    return [self.dataSource canDeleteItemAtIndexpath:indexPath];
-}
-
-- (void)editingLayout:(WMFEditingCollectionViewLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
-    if ([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]) {
-        [self.dataSource deleteArticleAtIndexPath:indexPath];
-    }
 }
 
 #pragma mark - WMFSearchPresentationDelegate
@@ -308,44 +236,6 @@
     } else {
         [self wmf_pushArticleViewController:viewControllerToCommit];
     }
-}
-
-@end
-
-@interface WMFIntrinsicSizeCollectionView : UICollectionView
-
-@end
-
-@implementation WMFIntrinsicSizeCollectionView
-
-- (void)setContentSize:(CGSize)contentSize {
-    BOOL didChange = CGSizeEqualToSize(self.contentSize, contentSize);
-    [super setContentSize:contentSize];
-    if (didChange) {
-        [self invalidateIntrinsicContentSize];
-        [self setNeedsLayout];
-    }
-}
-
-- (void)layoutSubviews {
-    CGSize oldSize = self.contentSize;
-    [super layoutSubviews];
-    if (!CGSizeEqualToSize(oldSize, self.contentSize)) {
-        [self invalidateIntrinsicContentSize];
-        [self setNeedsLayout];
-    }
-}
-
-- (CGSize)intrinsicContentSize {
-    return self.contentSize;
-}
-
-@end
-
-@implementation WMFSelfSizingArticleListCollectionViewController
-
-+ (Class)collectionViewClass {
-    return [WMFIntrinsicSizeCollectionView class];
 }
 
 @end
