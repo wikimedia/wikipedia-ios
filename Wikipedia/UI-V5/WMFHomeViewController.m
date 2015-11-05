@@ -96,7 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIBarButtonItem*)settingsBarButtonItem {
-    // TODO: localize
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
                                             style:UIBarButtonItemStylePlain
                                            target:self
