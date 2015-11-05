@@ -208,8 +208,6 @@ NS_ASSUME_NONNULL_BEGIN
         _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate             = self;
         _webViewController.headerViewController = self.headerGallery;
-        // TODO: add "last edited by" & "wikipedia logo"
-        // !!!: be sure to add footers in the order specified by WMFArticleFooterViewIndex
         [_webViewController setFooterViewControllers:@[self.readMoreListViewController]];
     }
     return _webViewController;
@@ -481,6 +479,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - WMFWebViewControllerDelegate
+
+- (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
+    if (footerViewController == self.readMoreListViewController) {
+        return @"Related Articles";
+    }
+
+    return nil;
+}
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
     [self scrollWebViewToRequestedPosition];

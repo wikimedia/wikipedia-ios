@@ -17,12 +17,12 @@
 #import <Masonry/Masonry.h>
 
 #import "WMFArticlePreviewCell.h"
+#import "WMFIntrinsicSizeCollectionView.h"
 
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
-#import "UIColor+WMFHexColor.h"
 #import <BlocksKit/BlocksKit.h>
 #import "Wikipedia-Swift.h"
 
@@ -196,7 +196,7 @@
 
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.collectionView.backgroundColor       = [UIColor wmf_colorWithHex:0xEAECF0 alpha:1.0];
+    self.collectionView.backgroundColor       = [UIColor wmf_articleListBackgroundColor];
 
     [self flowLayout].numberOfColumns    = 1;
     [self flowLayout].sectionInset       = UIEdgeInsetsMake(10.0, 0.0, 10.0, 0.0);
@@ -308,36 +308,6 @@
     } else {
         [self wmf_pushArticleViewController:viewControllerToCommit];
     }
-}
-
-@end
-
-@interface WMFIntrinsicSizeCollectionView : UICollectionView
-
-@end
-
-@implementation WMFIntrinsicSizeCollectionView
-
-- (void)setContentSize:(CGSize)contentSize {
-    BOOL didChange = CGSizeEqualToSize(self.contentSize, contentSize);
-    [super setContentSize:contentSize];
-    if (didChange) {
-        [self invalidateIntrinsicContentSize];
-        [self setNeedsLayout];
-    }
-}
-
-- (void)layoutSubviews {
-    CGSize oldSize = self.contentSize;
-    [super layoutSubviews];
-    if (!CGSizeEqualToSize(oldSize, self.contentSize)) {
-        [self invalidateIntrinsicContentSize];
-        [self setNeedsLayout];
-    }
-}
-
-- (CGSize)intrinsicContentSize {
-    return self.contentSize;
 }
 
 @end

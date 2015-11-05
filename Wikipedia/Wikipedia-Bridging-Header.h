@@ -11,6 +11,7 @@
 
 #import "NSURL+Extras.h"
 #import "NSString+Extras.h"
+#import "NSString+FormattedAttributedString.h"
 #import "WMFRangeUtils.h"
 #import "UIImage+ColorMask.h"
 #import "UIView+WMFDefaultNib.h"

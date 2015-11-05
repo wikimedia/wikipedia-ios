@@ -55,20 +55,6 @@ NSUInteger MegabytesToBytes(NSUInteger m) {
     ];
 }
 
-+ (NSString*)currentArticleLanguageLocalizedString:(NSString*)key {
-    MWKSite* site            = [SessionSingleton sharedInstance].currentArticleSite;
-    NSString* path           = [[NSBundle mainBundle] pathForResource:site.language ofType:@"lproj"];
-    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
-    NSString* translation    = nil;
-    if (languageBundle) {
-        translation = [languageBundle localizedStringForKey:key value:@"" table:nil];
-    }
-    if (!translation || [translation isEqualToString:key] || (translation.length == 0)) {
-        return MWLocalizedString(key, nil);
-    }
-    return translation;
-}
-
 + (NSString*)relativeTimestamp:(NSDate*)date {
     NSTimeInterval interval = fabs([date timeIntervalSinceNow]);
     double minutes          = interval / 60.0;
