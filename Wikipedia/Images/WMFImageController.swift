@@ -300,7 +300,7 @@ public class WMFImageController : NSObject {
         guard let url = url else {
             return
         }
-        dispatch_async(self.cancellingQueue) { [weak self] in
+        dispatch_sync(self.cancellingQueue) { [weak self] in
             if let strongSelf = self,
                    cancellable = strongSelf.cancellables.objectForKey(url.absoluteString) as? Cancellable {
                 strongSelf.cancellables.removeObjectForKey(url.absoluteString)
@@ -318,7 +318,7 @@ public class WMFImageController : NSObject {
     }
 
     private func addCancellableForURL(cancellable: Cancellable, url: NSURL) {
-        dispatch_async(self.cancellingQueue) { [weak self] in
+        dispatch_sync(self.cancellingQueue) { [weak self] in
             guard let cancellables = self?.cancellables else {
                 return
             }
@@ -326,6 +326,7 @@ public class WMFImageController : NSObject {
                 DDLogWarn("Ignoring duplicate cancellable for \(url)")
                 return
             }
+            DDLogVerbose("Adding cancellable for \(url)")
             cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
     }
