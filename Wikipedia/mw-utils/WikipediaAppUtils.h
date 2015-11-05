@@ -6,8 +6,6 @@
 #import "NSObjectUtilities.h"
 #import "NSString+WMFPageUtilities.h"
 
-#define MWCurrentArticleLanguageLocalizedString(key, throwaway) [WikipediaAppUtils currentArticleLanguageLocalizedString : key]
-
 /// @return Number of bytes equivalent to `m` megabytes.
 extern NSUInteger MegabytesToBytes(NSUInteger m);
 
@@ -16,7 +14,6 @@ extern NSUInteger MegabytesToBytes(NSUInteger m);
 + (NSString*)appVersion;
 + (NSString*)formFactor;
 + (NSString*)versionedUserAgent;
-+ (NSString*)currentArticleLanguageLocalizedString:(NSString*)key;
 + (NSString*)relativeTimestamp:(NSDate*)date;
 + (NSString*)languageNameForCode:(NSString*)code;
 + (BOOL)     isDeviceLanguageRTL;
