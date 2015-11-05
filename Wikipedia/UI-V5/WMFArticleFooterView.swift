@@ -4,6 +4,7 @@ import UIKit
 public class WMFArticleFooterView: UIView {
 
     @IBOutlet var licenseLabel: UILabel!
+    @IBOutlet var showLicenseButton: UIButton!
 
     public func setLicenseTextForSite(site: MWKSite) {
     

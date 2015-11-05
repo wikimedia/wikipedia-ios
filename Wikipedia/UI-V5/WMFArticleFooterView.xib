@@ -22,15 +22,23 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cK9-Id-Vsx">
+                    <rect key="frame" x="279" y="113" width="42" height="20.5"/>
+                    <animations/>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="4K7-VX-YPh" firstAttribute="centerX" secondItem="ZqI-Ty-tND" secondAttribute="centerX" id="E90-xR-JMq"/>
                 <constraint firstItem="ZqI-Ty-tND" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Fm6-U2-Uoz"/>
+                <constraint firstItem="4K7-VX-YPh" firstAttribute="leading" secondItem="cK9-Id-Vsx" secondAttribute="leading" id="IKL-IO-YCx"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4K7-VX-YPh" secondAttribute="trailing" constant="10" id="Z2P-Lq-vUY"/>
                 <constraint firstItem="ZqI-Ty-tND" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="gXT-je-VqF"/>
                 <constraint firstItem="4K7-VX-YPh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="kfl-Wv-79Z"/>
+                <constraint firstItem="4K7-VX-YPh" firstAttribute="trailing" secondItem="cK9-Id-Vsx" secondAttribute="trailing" id="l1M-Za-vAB"/>
+                <constraint firstItem="4K7-VX-YPh" firstAttribute="bottom" secondItem="cK9-Id-Vsx" secondAttribute="bottom" id="lie-3C-CdZ"/>
+                <constraint firstItem="4K7-VX-YPh" firstAttribute="top" secondItem="cK9-Id-Vsx" secondAttribute="top" id="qXS-xi-qeh"/>
                 <constraint firstItem="4K7-VX-YPh" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ZqI-Ty-tND" secondAttribute="bottom" constant="30" id="rs6-VL-Bwp"/>
                 <constraint firstAttribute="bottom" secondItem="4K7-VX-YPh" secondAttribute="bottom" constant="50" id="yJf-kS-g20"/>
             </constraints>
@@ -40,9 +48,17 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="licenseLabel" destination="4K7-VX-YPh" id="PhA-nw-23f"/>
+                <outlet property="showLicenseButton" destination="cK9-Id-Vsx" id="d2Y-c1-IxJ"/>
             </connections>
             <point key="canvasLocation" x="403" y="360"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1Hs-xL-x0b">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <animations/>
+            <state key="normal" title="Button"/>
+            <point key="canvasLocation" x="613" y="680"/>
+        </button>
     </objects>
     <resources>
         <image name="wikipedia" width="126" height="24"/>
