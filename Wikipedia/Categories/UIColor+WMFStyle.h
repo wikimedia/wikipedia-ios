@@ -44,4 +44,16 @@
 
 + (instancetype)wmf_placeholderImageBackgroundColor;
 
++ (instancetype)wmf_nearbyArrowColor;
+
++ (instancetype)wmf_nearbyTickColor;
+
++ (instancetype)wmf_nearbyTitleColor;
+
++ (instancetype)wmf_nearbyDescriptionColor;
+
++ (instancetype)wmf_nearbyDistanceBackgroundColor;
+
++ (instancetype)wmf_nearbyDistanceTextColor;
+
 @end

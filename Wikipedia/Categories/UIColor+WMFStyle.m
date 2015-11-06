@@ -161,4 +161,42 @@
     return [self wmf_blueTintColor];
 }
 
++ (instancetype)wmf_nearbyArrowColor {
+    return [UIColor blackColor];
+}
+
++ (instancetype)wmf_nearbyTickColor {
+    return [UIColor blackColor];
+}
+
++ (instancetype)wmf_nearbyTitleColor {
+    return [UIColor blackColor];
+}
+
++ (instancetype)wmf_nearbyDescriptionColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x666666 alpha:1.0];
+        ;
+    });
+    return c;
+}
+
++ (instancetype)wmf_nearbyDistanceBackgroundColor {
+    return [UIColor clearColor];
+}
+
++ (instancetype)wmf_nearbyDistanceTextColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x999999 alpha:1.0];
+        ;
+    });
+    return c;
+}
+
 @end
