@@ -57,8 +57,9 @@ class WMFImageControllerTests: XCTestCase {
     // MARK: - Simple fetching
 
     func testReceivingDataResponseResolves() {
-        let testURL = NSURL(string: "https://upload.wikimedia.org/foo")!
-        let stubbedData = UIImagePNGRepresentation(UIImage(named: "image-placeholder")!)
+        let testURL = NSURL(string: "https://upload.wikimedia.org/foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
+        let testImage = UIImage(named: "image-placeholder")!
+        let stubbedData = UIImagePNGRepresentation(testImage)
 
         LSNocilla.sharedInstance().start()
         stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
@@ -94,23 +95,112 @@ class WMFImageControllerTests: XCTestCase {
 
     // MARK: - Cancellation
 
-    func testCancelUnresolvedRequestCatchesWithCancellationError() {
+    func testCancelingDownloadCatchesWithCancellationError() {
+        let testURL = NSURL(string:"https://foo")!
+        let observationToken =
+            NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
+            self.imageController.cancelFetchForURL(testURL)
+        }
         NSURLProtocol.registerClass(HTTPHangingProtocol)
         defer {
             NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+            NSNotificationCenter.defaultCenter().removeObserver(observationToken)
         }
-        let testURL = NSURL(string:"https://foo")!
         expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
         pipe: { (err: ErrorType) -> Void in
             XCTAssert((err as! CancellableErrorType).cancelled, "Expected promise error to be cancelled but was \(err)")
         },
-        timeout: 5) { () -> Promise<WMFImageDownload> in
-            let promise: Promise<WMFImageDownload> =
-                self.imageController.fetchImageWithURL(testURL, options: WMFImageController.backgroundImageFetchOptions)
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC * 2)), dispatch_get_global_queue(0, 0)) {
-                self.imageController.cancelFetchForURL(testURL)
+        timeout: 2) { () -> Promise<WMFImageDownload> in
+            return self.imageController.fetchImageWithURL(testURL)
+        }
+    }
+
+    func testRetrySucceedsAfterCancelledDownload() {
+        let testURL = NSURL(string:"https://foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
+        let testImage = UIImage(named: "image-placeholder")!
+        let stubbedData = UIImagePNGRepresentation(testImage)
+
+        NSURLProtocol.registerClass(HTTPHangingProtocol)
+
+        let (afterFirstDownloadStarts, didStartFirstDownload, _) = Promise<Void>.pendingPromise()
+
+        var observationToken: AnyObject!
+        observationToken =
+            NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
+            // only call once
+            NSNotificationCenter.defaultCenter().removeObserver(observationToken!)
+            didStartFirstDownload()
+        }
+
+        // run test on second fetch
+        expectPromise(toResolve(),
+            pipe: { (imgDownload: WMFImageDownload) -> Void in
+                XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
+            },
+            timeout: 2) { () -> Promise<WMFImageDownload> in
+                let retry = afterFirstDownloadStarts.then() { _ -> Promise<WMFImageDownload> in
+                    // cancel the first download
+                    self.imageController.cancelFetchForURL(testURL)
+
+                    // replace "hanging" protocol w/ nocilla stub protocol
+                    NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+                    LSNocilla.sharedInstance().start()
+                    stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
+
+                    return self.imageController.fetchImageWithURL(testURL)
+                }
+
+                // return the "recovery" promise which ensures that not only was the first request cancelled, but the
+                // second resolved
+                return self.imageController.fetchImageWithURL(testURL).recover() { _ -> Promise<WMFImageDownload> in
+                    return retry
+                }
+        }
+    }
+
+    func testSDWebImageSanity() {
+        let testURL = NSURL(string:"https://foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
+        let testImage = UIImage(named: "image-placeholder")!
+        let stubbedData = UIImagePNGRepresentation(testImage)!
+
+        let downloader = SDWebImageDownloader()
+
+        [0...100].forEach { _ in
+            NSURLProtocol.registerClass(HTTPHangingProtocol)
+
+            let operation =
+            downloader.downloadImageWithURL(testURL,
+                                            options: SDWebImageDownloaderOptions(),
+                                            progress: nil) { img, data, err, finished in
+                XCTFail("Request should have been cancelled!")
+            } as! NSOperation
+
+            expectationForPredicate(NSPredicate(block: { o, _ in return o.isExecuting}),
+                                    evaluatedWithObject: operation,
+                                    handler: nil)
+
+            wmf_waitForExpectations()
+
+            operation.cancel()
+
+            let expectation = expectationWithDescription("download")
+
+            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+            LSNocilla.sharedInstance().start()
+            stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
+
+            downloader.downloadImageWithURL(testURL,
+                options: SDWebImageDownloaderOptions(),
+                progress: nil) { (img: UIImage?, data: NSData?, err: NSError?, finished: Bool) in
+                    XCTAssertEqual(img.flatMap(UIImagePNGRepresentation), stubbedData as NSData?)
+                    XCTAssertTrue(finished, "second download operation didn't finish: \(err)")
+                    expectation.fulfill()
             }
-            return promise
+
+
+            wmf_waitForExpectations()
+
+            LSNocilla.sharedInstance().stop()
         }
     }
 
@@ -135,10 +225,6 @@ class WMFImageControllerTests: XCTestCase {
     }
 
     func testCancelCacheRequestCatchesWithCancellationError() throws {
-        NSURLProtocol.registerClass(HTTPHangingProtocol)
-        defer {
-            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
-        }
         // copy some test fixture image to a temp location
         let testFixtureDataPath = NSURL(string: wmf_bundle().resourcePath!)!.URLByAppendingPathComponent("golden-gate.jpg")
         let tempPath = NSURL(string:WMFRandomTemporaryFileOfType("jpg"))!
@@ -160,10 +246,8 @@ class WMFImageControllerTests: XCTestCase {
                 // then, attempt to retrieve it from the cache
                 .then() {
                   let promise = self.imageController.cachedImageWithURL(testURL)
-                  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC * 2)), dispatch_get_global_queue(0, 0)) {
-                      // but, cancel before the data is retrieved
-                      self.imageController.cancelFetchForURL(testURL)
-                  }
+                  // but, cancel before the data is retrieved
+                  self.imageController.cancelFetchForURL(testURL)
                   return promise
                 }
         }
