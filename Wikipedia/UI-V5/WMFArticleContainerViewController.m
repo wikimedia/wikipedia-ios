@@ -480,14 +480,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
-- (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
-    if (footerViewController == self.readMoreListViewController) {
-        return @"Related Articles";
-    }
-
-    return nil;
-}
-
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
     [self scrollWebViewToRequestedPosition];
 }
@@ -506,6 +498,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareArticleWithTextSnippet:text fromButton:nil];
+}
+
+- (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
+    if (footerViewController == self.readMoreListViewController) {
+        return @"Related Articles";
+    }
+    return nil;
 }
 
 #pragma mark - Analytics
