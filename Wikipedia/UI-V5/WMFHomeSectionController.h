@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray*)items;
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
+- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
 @optional
 
