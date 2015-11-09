@@ -28,14 +28,33 @@
 
 
 /**
- *  Same as above, but will get the mobile URL and Desktop URL from the MWKSite
+ *  Send a @c GET request to the given site, falling back to desktop URL if the mobile URL fails.
  *
- *  @param site       The site to extract the urls from
+ *  @param site The site to send the request to, using its API endpoints. First mobile, then desktop.
+ *
+ *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
+ *
+ *  @return The operation which represents the state of the request.
  */
 - (AFHTTPRequestOperation*)wmf_GETWithSite:(MWKSite*)site
                                 parameters:(id)parameters
                                      retry:(void (^)(AFHTTPRequestOperation* retryOperation, NSError* error))retry
                                    success:(void (^)(AFHTTPRequestOperation* operation, id responseObject))success
                                    failure:(void (^)(AFHTTPRequestOperation* operation, NSError* error))failure;
+
+
+/**
+ *  Send a @c GET request to the given site, falling back to desktop URL if the mobile URL fails.
+ *
+ *  @param site The site to send the request to, using its API endpoints. First mobile, then desktop.
+ *
+ *  @return A promise which will be resolved with the successful response of the request, or rejected with any errors
+ *          that occur.
+ *
+ *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
+ */
+- (AnyPromise*)wmf_GETWithSite:(MWKSite*)site
+                    parameters:(id)parameters
+                     operation:(AFHTTPRequestOperation**)outOperation;
 
 @end
