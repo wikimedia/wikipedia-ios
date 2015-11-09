@@ -50,6 +50,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
+@property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
 
 @property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
@@ -200,7 +201,10 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)scrollToFooterAtIndex:(NSUInteger)index {
     UIView* footerView       = self.footerViewControllers[index].view;
-    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:footerView.frame.origin
+    UIView* footerViewHeader = self.footerViewHeadersByIndex[@(index)];
+    UIView* viewToScrollTo   = footerViewHeader ? : footerView;
+
+    CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
                                                             fromView:self.footerContainerView];
     footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
     [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
@@ -238,6 +242,7 @@ NSString* const WMFLicenseTitleOnENWiki =
        IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
        headers & footers
      */
+    self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addHeaderView];
     [self addFooterView];
 }
@@ -275,9 +280,22 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)addFooterViews {
     NSParameterAssert(self.isViewLoaded);
-    [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
-                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
-                                                             UIViewController* childVC) {
+    MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
+                                                               withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
+                                                                                            UIViewController* childVC) {
+        NSString* footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
+        if (footerTitle) {
+            WMFArticleFooterViewHeader* header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
+            self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
+            header.headerLabel.text = footerTitle;
+            [self.footerContainerView addSubview:header];
+            [header mas_makeConstraints:^(MASConstraintMaker* make) {
+                make.leading.and.trailing.equalTo(self.footerContainerView);
+                make.top.equalTo(topAnchor);
+            }];
+            topAnchor = header.mas_bottom;
+        }
+
         [self.footerContainerView addSubview:childVC.view];
         [childVC.view mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.equalTo(self.footerContainerView);
@@ -290,11 +308,11 @@ NSString* const WMFLicenseTitleOnENWiki =
     self.footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
     [self.footerContainerView addSubview:self.footerLicenseView];
     [self.footerLicenseView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.footerViewControllers.lastObject.view.mas_bottom);
+        make.top.equalTo(lastAnchor);
         make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
-    
+
     @weakify(self);
     [self.footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
         @strongify(self);
