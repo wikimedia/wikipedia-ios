@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
     return feedItemDateFormatter;
 }
 
-+ (NSString*)normalizedTitleForDate:(nullable NSDate*)date {
++ (NSString*)denormalizedTitleForDate:(nullable NSDate*)date {
     static NSString* tfaTitleTemplatePrefix = @"Template:TFA_title";
     if (!date) {
         // will automatically redirect to today's date
@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [super requestBySerializingRequest:request withParameters:@{
                 @"action": @"query",
                 @"format": @"json",
-                @"titles": [WMFENFeaturedTitleRequestSerializer normalizedTitleForDate:date],
+                @"titles": [WMFENFeaturedTitleRequestSerializer denormalizedTitleForDate:date],
                 // extracts
                 @"prop": @"extracts",
                 @"exchars": @100,
@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
                 @"continue": @"",
                 @"format": @"json",
                 @"action": @"query",
-                @"titles": title,
+                @"titles": [title wmf_denormalizedPageTitle],
                 @"prop": WMFJoinedPropertyParameters(@[@"extracts", @"pageterms", @"pageimages"]),
                 // extracts
                 @"exintro": @YES,
