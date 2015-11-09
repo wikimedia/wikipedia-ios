@@ -11,6 +11,8 @@
 #import "WMFENFeaturedTitleFetcher.h"
 #import "MWKSearchResult.h"
 
+#import <Nocilla/LSNocilla.h>
+
 @interface WMFENFeaturedTitleFetcherTests : XCTestCase
 
 @property (nonatomic, strong) WMFENFeaturedTitleFetcher* fetcher;
@@ -22,24 +24,38 @@
 - (void)setUp {
     [super setUp];
     self.fetcher = [[WMFENFeaturedTitleFetcher alloc] init];
+    [[LSNocilla sharedInstance] start];
 }
 
 - (void)tearDown {
     [super tearDown];
+    [[LSNocilla sharedInstance] stop];
 }
 
-#if 0
-// Don't commit with this enabled, sends an actual network request
-// TODO: use fixture
 - (void)testExample {
-    expectResolutionWithTimeout(5, ^{
-        return [self.fetcher fetchFeedItemTitleForSite:[MWKSite siteWithLanguage:@"en"] date:[NSDate dateWithTimeIntervalSinceNow:-60 * 60 * 24]]
+    NSRegularExpression* tfaTitleRequest =
+        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.m\\.wikipedia\\.org.*TFA_title.*" options:0 error:nil];
+
+    // expected title matches the one in the JSON fixture
+    NSRegularExpression* previewRequest =
+        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.m\\.wikipedia\\.org.*titles=Mackensen-class_battlecruiser.*" options:0 error:nil];
+
+    stubRequest(@"GET", tfaTitleRequest)
+    .andReturn(200)
+    .withHeader(@"Content-Type", @"application/json")
+    .withBody([[self wmf_bundle] wmf_stringFromContentsOfFile:@"TFATitleExtract" ofType:@"json"]);
+
+    stubRequest(@"GET", previewRequest)
+    .andReturn(200)
+    .withHeader(@"Content-Type", @"application/json")
+    .withBody([[self wmf_bundle] wmf_stringFromContentsOfFile:@"TitlePreviewQuery" ofType:@"json"]);
+
+    expectResolution(^AnyPromise* {
+        return [self.fetcher featuredArticlePreviewForDate:nil]
         .then(^(MWKSearchResult* result) {
-            DDLogInfo(@"Got extract: %@", result.description);
+            XCTAssertEqualObjects(result.displayTitle, @"Mackensen-class battlecruiser");
         });
     });
 }
-
-#endif
 
 @end

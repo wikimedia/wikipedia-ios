@@ -499,6 +499,8 @@
 		BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */; };
 		BCE6EE131B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */; };
 		BCE839521BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839511BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m */; };
+		BCE839571BF14D1100F5BBA4 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BCE839561BF14D1100F5BBA4 /* TFATitleExtract.json */; };
+		BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */ = {isa = PBXBuildFile; fileRef = BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -1489,6 +1491,8 @@
 		BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkResponseSerializer.h; path = Serializers/MWKLanguageLinkResponseSerializer.h; sourceTree = "<group>"; };
 		BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkResponseSerializer.m; path = Serializers/MWKLanguageLinkResponseSerializer.m; sourceTree = "<group>"; };
 		BCE839511BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFENFeaturedTitleFetcherTests.m; sourceTree = "<group>"; };
+		BCE839561BF14D1100F5BBA4 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
+		BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TitlePreviewQuery.json; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -3378,6 +3382,8 @@
 				BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */,
 				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
 				BC9355411BE1A71900697CB0 /* BarackSearch.json */,
+				BCE839561BF14D1100F5BBA4 /* TFATitleExtract.json */,
+				BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3872,9 +3878,11 @@
 				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
 				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
 				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
+				BCE839571BF14D1100F5BBA4 /* TFATitleExtract.json in Resources */,
 				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
 				BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */,
 				BCF8DCA81B7009B100149C26 /* MobileView in Resources */,
+				BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
