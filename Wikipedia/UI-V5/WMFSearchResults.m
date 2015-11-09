@@ -10,10 +10,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFSearchResults ()
+{
+    NSMutableArray<MWKSearchResult*>* _mutableResults;
+}
 
 @property (nonatomic, copy, readwrite) NSString* searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
-@property (nonatomic, strong, readwrite) NSArray* results;
+@property (nonatomic, strong, readwrite) NSArray<MWKSearchResult*>* results;
 
 @end
 
@@ -29,6 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
         self.searchSuggestion = suggestion;
     }
     return self;
+}
+
+- (void)setResults:(NSArray<MWKSearchResult*>* _Nonnull)results {
+    if (_mutableResults == results) {
+        return;
+    }
+    _mutableResults = [results mutableCopy];
+}
+
+- (NSArray*)results {
+    return _mutableResults;
 }
 
 + (NSValueTransformer*)resultsJSONTransformer {
@@ -58,6 +72,19 @@ NS_ASSUME_NONNULL_BEGIN
                WMF_SAFE_KEYPATH(WMFSearchResults.new, redirectMappings): @"redirects",
                WMF_SAFE_KEYPATH(WMFSearchResults.new, searchSuggestion): @"searchinfo.suggestion",
     };
+}
+
+- (void)mergeResultsFromModel:(WMFSearchResults*)searchResults {
+    NSArray* newResults = [searchResults.results bk_reject:^BOOL (MWKSearchResult* obj) {
+        return [self.results containsObject:obj];
+    }];
+
+    [_mutableResults addObjectsFromArray:newResults];
+}
+
+- (void)mergeSearchSuggestionFromModel:(WMFSearchResults*)searchResults {
+    // preserve current search suggestion if there is one
+    self.searchSuggestion = searchResults.searchSuggestion.length ? searchResults.searchSuggestion : self.searchSuggestion;
 }
 
 @end

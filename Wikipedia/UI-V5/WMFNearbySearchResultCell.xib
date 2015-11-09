@@ -37,22 +37,22 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMt-N1-oiI">
-                        <rect key="frame" x="120" y="36" width="264" height="49"/>
+                        <rect key="frame" x="120" y="40.5" width="264" height="40.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOc-Ni-BnE">
-                                <rect key="frame" x="0.0" y="0.0" width="264" height="21"/>
+                                <rect key="frame" x="0.0" y="0.0" width="264" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMF-Ha-Dgb" userLabel="Background">
-                                <rect key="frame" x="0.0" y="29" width="67" height="20"/>
+                                <rect key="frame" x="0.0" y="20.5" width="53" height="20"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.69642215967178345" blue="0.5386427640914917" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgE-y3-JSK">
-                                <rect key="frame" x="7" y="31" width="53" height="16"/>
+                                <rect key="frame" x="0.0" y="23" width="53" height="16"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -67,9 +67,9 @@
                             <constraint firstItem="MOc-Ni-BnE" firstAttribute="leading" secondItem="hgE-y3-JSK" secondAttribute="leading" id="ARS-U5-GKe"/>
                             <constraint firstItem="MOc-Ni-BnE" firstAttribute="leading" secondItem="KMF-Ha-Dgb" secondAttribute="trailing" id="ArE-az-cHv"/>
                             <constraint firstAttribute="bottom" secondItem="hgE-y3-JSK" secondAttribute="bottom" id="D1E-a2-G0q"/>
-                            <constraint firstItem="hgE-y3-JSK" firstAttribute="trailing" secondItem="KMF-Ha-Dgb" secondAttribute="trailing" constant="-7" id="E1n-q1-2cA"/>
+                            <constraint firstItem="hgE-y3-JSK" firstAttribute="trailing" secondItem="KMF-Ha-Dgb" secondAttribute="trailing" id="E1n-q1-2cA"/>
                             <constraint firstItem="hgE-y3-JSK" firstAttribute="bottom" secondItem="KMF-Ha-Dgb" secondAttribute="bottom" constant="-2" id="EV9-oN-4hA"/>
-                            <constraint firstItem="hgE-y3-JSK" firstAttribute="leading" secondItem="KMF-Ha-Dgb" secondAttribute="leading" constant="7" id="K6f-uC-IRv"/>
+                            <constraint firstItem="hgE-y3-JSK" firstAttribute="leading" secondItem="KMF-Ha-Dgb" secondAttribute="leading" id="K6f-uC-IRv"/>
                             <constraint firstAttribute="bottom" secondItem="KMF-Ha-Dgb" secondAttribute="bottom" id="M8i-CJ-rsS"/>
                             <constraint firstItem="KMF-Ha-Dgb" firstAttribute="leading" secondItem="BMt-N1-oiI" secondAttribute="leading" id="PsB-kY-2UM"/>
                             <constraint firstItem="hgE-y3-JSK" firstAttribute="bottom" secondItem="KMF-Ha-Dgb" secondAttribute="bottom" constant="-7" id="XFu-lg-QWU"/>
@@ -80,7 +80,7 @@
                             <constraint firstAttribute="trailing" secondItem="MOc-Ni-BnE" secondAttribute="trailing" id="k7D-3q-6lk"/>
                             <constraint firstItem="hgE-y3-JSK" firstAttribute="top" secondItem="KMF-Ha-Dgb" secondAttribute="top" constant="2" id="lYy-6h-JuJ"/>
                             <constraint firstItem="MOc-Ni-BnE" firstAttribute="leading" secondItem="BMt-N1-oiI" secondAttribute="leading" id="unL-3x-lIG"/>
-                            <constraint firstItem="KMF-Ha-Dgb" firstAttribute="top" secondItem="MOc-Ni-BnE" secondAttribute="bottom" constant="8" symbolic="YES" id="usS-Vs-kfC"/>
+                            <constraint firstItem="KMF-Ha-Dgb" firstAttribute="top" secondItem="MOc-Ni-BnE" secondAttribute="bottom" id="usS-Vs-kfC"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -143,7 +143,7 @@
                 <outlet property="imageView" destination="GG6-GQ-Ec3" id="QwK-ct-jRr"/>
                 <outlet property="titleLabel" destination="MOc-Ni-BnE" id="Aic-go-uIg"/>
             </connections>
-            <point key="canvasLocation" x="856" y="238.5"/>
+            <point key="canvasLocation" x="856" y="238"/>
         </collectionViewCell>
     </objects>
 </document>

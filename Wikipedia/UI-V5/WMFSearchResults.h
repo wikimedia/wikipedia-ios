@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
                            results:(nullable NSArray*)results
                   searchSuggestion:(nullable NSString*)suggestion;
+
 @end
 
 NS_ASSUME_NONNULL_END

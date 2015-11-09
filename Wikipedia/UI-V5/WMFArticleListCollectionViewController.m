@@ -288,12 +288,12 @@
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath = [(UICollectionView*)previewingContext.sourceView indexPathForItemAtPoint:location];
+    NSIndexPath* previewIndexPath = [self.collectionView indexPathForItemAtPoint:location];
     if (!previewIndexPath) {
         return nil;
     }
 
-    previewingContext.sourceRect = [(UICollectionView*)previewingContext.sourceView cellForItemAtIndexPath:previewIndexPath].frame;
+    previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
 
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title

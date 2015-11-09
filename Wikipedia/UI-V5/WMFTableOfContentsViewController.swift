@@ -99,7 +99,14 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     public override func viewDidLoad() {
         super.viewDidLoad()
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-        header.contentsLabel.text = "CONTENTS"
+        
+        var headerString = localizedStringForKeyFallingBackOnEnglish("table-of-contents-heading")
+        
+        if(NSLocale.wmf_isCurrentLocaleEnglish()){
+            headerString = headerString.uppercaseStringWithLocale(NSLocale.currentLocale())
+        }
+        
+        header.contentsLabel.text = headerString
         tableView.tableHeaderView = header;
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())

@@ -73,7 +73,7 @@ public class WMFImageController : NSObject {
 
     let imageManager: SDWebImageManager
 
-    private let cancellingQueue: dispatch_queue_t
+    let cancellingQueue: dispatch_queue_t
 
     private lazy var cancellables: NSMapTable = {
         NSMapTable.strongToWeakObjectsMapTable()
@@ -155,6 +155,7 @@ public class WMFImageController : NSObject {
         return checkForValidURL(url) { url in
             let (cancellable, promise) =
             imageManager.promisedImageWithURL(url.wmf_urlByPrependingSchemeIfSchemeless(), options: options)
+            DDLogVerbose("Fetching image \(url)")
             addCancellableForURL(cancellable, url: url)
             return applyDebugTransformIfEnabled(promise)
         }
@@ -181,7 +182,10 @@ public class WMFImageController : NSObject {
     }
 
     public func hasDataOnDiskForImageWithURL(url: NSURL?) -> Bool {
-        return url == nil ? false : imageManager.diskImageExistsForURL(url)
+        guard let url = url else {
+            return false
+        }
+        return imageManager.diskImageExistsForURL(url)
     }
 
     func diskDataForImageWithURL(url: NSURL?) -> NSData? {
@@ -199,8 +203,8 @@ public class WMFImageController : NSObject {
 
     public func cachedImageWithURL(url: NSURL) -> Promise<WMFImageDownload> {
         let (cancellable, promise) = imageManager.imageCache.queryDiskCacheForKey(cacheKeyForURL(url))
-        if let cancellable = cancellable {
-            addCancellableForURL(cancellable, url: url)
+        if let c = cancellable {
+            addCancellableForURL(c, url: url)
         }
         return applyDebugTransformIfEnabled(promise.then() { image, origin in
             return WMFImageDownload(url: url, image: image, origin: origin.rawValue)
@@ -273,7 +277,7 @@ public class WMFImageController : NSObject {
         }
     }
 
-    private func cacheKeyForURL(url: NSURL) -> String {
+    func cacheKeyForURL(url: NSURL) -> String {
         return imageManager.cacheKeyForURL(url)
     }
 
@@ -286,43 +290,44 @@ public class WMFImageController : NSObject {
     - returns: A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
     */
     private func checkForValidURL(url: NSURL?, @noescape then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
-        if url == nil { return Promise(error: WMFImageControllerErrorCode.InvalidOrEmptyURL.error) }
-        else { return then(url!) }
+        return url.map(then) ?? Promise(error: WMFImageControllerErrorCode.InvalidOrEmptyURL.error)
     }
 
     // MARK: - Cancellation
 
     /// Cancel a pending fetch for an image at `url`.
     public func cancelFetchForURL(url: NSURL?) {
-        if let url = url {
-            weak var wself = self;
-            dispatch_async(self.cancellingQueue) {
-                let sself = wself
-                if let cancellable = sself?.cancellables.objectForKey(url.absoluteString) as? Cancellable {
-                    sself?.cancellables.removeObjectForKey(url.absoluteString)
-                    cancellable.cancel()
-                }
-            }
+        guard let url = url else {
+            return
         }
-    }
-
-    public func cancelAllFetches() {
-        var currentCancellables: [Cancellable]!
-        dispatch_sync(self.cancellingQueue) {
-            currentCancellables = self.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
-        }
-        dispatch_async(dispatch_get_global_queue(0, 0)) {
-            for cancellable in currentCancellables {
+        dispatch_sync(self.cancellingQueue) { [weak self] in
+            if let strongSelf = self,
+                   cancellable = strongSelf.cancellables.objectForKey(url.absoluteString) as? Cancellable {
+                strongSelf.cancellables.removeObjectForKey(url.absoluteString)
+                DDLogDebug("Cancelling request for image \(url)")
                 cancellable.cancel()
             }
         }
     }
 
+    public func cancelAllFetches() {
+        dispatch_sync(self.cancellingQueue) {
+            let currentCancellables = self.cancellables.objectEnumerator()!.allObjects as! [Cancellable]
+            currentCancellables.forEach({ $0.cancel() })
+        }
+    }
+
     private func addCancellableForURL(cancellable: Cancellable, url: NSURL) {
-        weak var wself = self;
-        dispatch_async(self.cancellingQueue) {
-            let sself = wself
-            sself?.cancellables.setObject(cancellable, forKey: url.absoluteString)
+        dispatch_sync(self.cancellingQueue) { [weak self] in
+            guard let cancellables = self?.cancellables else {
+                return
+            }
+            if cancellables.objectForKey(url.absoluteString) != nil {
+                DDLogWarn("Ignoring duplicate cancellable for \(url)")
+                return
+            }
+            DDLogVerbose("Adding cancellable for \(url)")
+            cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
     }
 
