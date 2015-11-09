@@ -7,7 +7,7 @@
 + (NSString*)wmf_nibName {
     /* Swift has "Namespaced" class names that prepend the module
      * For instance: "Wikipedia.MyCellClassName"
-     * So we need to remove the "Wikipedia." for thsi to work
+     * So we need to remove the "Wikipedia." for this to work
      */
     return [NSStringFromClass(self) wmf_substringAfterString:@"."];
 }
