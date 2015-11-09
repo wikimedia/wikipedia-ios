@@ -74,9 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString* tfaTitle = [@[tfaTitleTemplatePrefix,
                             @"/",
                             [[self featuredArticleDateFormatter] stringFromDate:date]] componentsJoinedByString: @""];
-    return [[tfaTitle
-             stringByReplacingOccurrencesOfString:@" " withString:@"_"]
-            stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [tfaTitle wmf_denormalizedPageTitle];;
 }
 
 - (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
