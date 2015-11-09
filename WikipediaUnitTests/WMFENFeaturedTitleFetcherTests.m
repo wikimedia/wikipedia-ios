@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "XCTestCase+PromiseKit.h"
 #import "WMFENFeaturedTitleFetcher.h"
+#import "MWKSearchResult.h"
 
 @interface WMFENFeaturedTitleFetcherTests : XCTestCase
 
@@ -33,8 +34,8 @@
 - (void)testExample {
     expectResolutionWithTimeout(5, ^{
         return [self.fetcher fetchFeedItemTitleForSite:[MWKSite siteWithLanguage:@"en"] date:[NSDate dateWithTimeIntervalSinceNow:-60*60*24]]
-        .then(^ (NSString* extract) {
-            DDLogInfo(@"Got extract: %@", extract);
+        .then(^ (MWKSearchResult* result) {
+            DDLogInfo(@"Got extract: %@", result.description);
         });
     });
 }

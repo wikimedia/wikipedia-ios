@@ -10,7 +10,11 @@
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFApiJsonResponseSerializer.h"
+#import "WMFMantleJSONResponseSerializer.h"
+#import "WMFNetworkUtilities.h"
 #import "MWKSite.h"
+#import "MWKTitle.h"
+#import "MWKSearchResult.h"
 
 // Extract Response
 #import "Wikipedia-Swift.h"
@@ -21,32 +25,52 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface WMFENFeaturedTitleResponseSerializer : WMFApiJsonResponseSerializer
+@end
 
+@interface WMFTitlePreviewRequestSerializer : AFHTTPRequestSerializer
 @end
 
 @interface WMFENFeaturedTitleFetcher ()
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
+@property (nonatomic, strong) AFHTTPRequestOperationManager* featuredTitleOperationManager;
+@property (nonatomic, strong) AFHTTPRequestOperationManager* titlePreviewOperationManager;
 @end
 
 @implementation WMFENFeaturedTitleFetcher
 
-+ (AFHTTPRequestOperationManager*)operationManager {
-    AFHTTPRequestOperationManager* operationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-    operationManager.requestSerializer = [WMFENFeaturedTitleRequestSerializer serializer];
-    operationManager.responseSerializer = [WMFENFeaturedTitleResponseSerializer serializer];
-    return operationManager;
++ (AFHTTPRequestOperationManager*)featuredTitleOperationManager {
+    AFHTTPRequestOperationManager* featuredTitleOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    featuredTitleOperationManager.requestSerializer = [WMFENFeaturedTitleRequestSerializer serializer];
+    featuredTitleOperationManager.responseSerializer = [WMFENFeaturedTitleResponseSerializer serializer];
+    return featuredTitleOperationManager;
+}
+
++ (AFHTTPRequestOperationManager*)titlePreviewOperationManager {
+    AFHTTPRequestOperationManager* titlePreviewOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+    titlePreviewOperationManager.requestSerializer = [WMFTitlePreviewRequestSerializer serializer];
+    titlePreviewOperationManager.responseSerializer =
+        [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages"];
+    return titlePreviewOperationManager;
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.operationManager = [[self class] operationManager];
+        self.featuredTitleOperationManager = [WMFENFeaturedTitleFetcher featuredTitleOperationManager];
+        self.titlePreviewOperationManager = [WMFENFeaturedTitleFetcher titlePreviewOperationManager];
     }
     return self;
 }
 
 - (AnyPromise*)fetchFeedItemTitleForSite:(MWKSite*)site date:(nullable NSDate*)date {
-    return [self.operationManager wmf_GETWithSite:site parameters:date operation:nil];
+    @weakify(self);
+    return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date operation:nil]
+    .thenInBackground(^(NSString* title) {
+        @strongify(self);
+        if (!self) {
+            return [AnyPromise promiseWithValue:[NSError cancelledError]];
+        }
+        return [self.titlePreviewOperationManager wmf_GETWithSite:site parameters:title operation:nil];
+    });
 }
 
 @end
@@ -126,6 +150,33 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     return title;
+}
+
+@end
+
+@implementation WMFTitlePreviewRequestSerializer
+
+- (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
+                                       withParameters:(nullable id)parameters
+                                                error:(NSError* __autoreleasing _Nullable*)error {
+    NSString* title = parameters;
+    NSParameterAssert([title isKindOfClass:[NSString class]] && title.length);
+    return [super requestBySerializingRequest:request withParameters:@{
+                @"continue": @"",
+                @"format": @"json",
+                @"action": @"query",
+                @"titles": title,
+                @"prop": WMFJoinedPropertyParameters(@[@"extracts", @"pageterms", @"pageimages"]),
+                // extracts
+                @"exintro": @YES,
+                @"exchars": @300,
+                @"explaintext": @"",
+                // pageterms
+                @"wbptterms": @"description",
+                // pageimage
+                @"piprop": @"thumbnail",
+                @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+            } error:error];
 }
 
 @end
