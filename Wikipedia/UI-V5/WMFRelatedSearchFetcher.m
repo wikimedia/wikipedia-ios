@@ -16,7 +16,7 @@
 #import "MWKSearchResult.h"
 #import "MWKTitle.h"
 
-#import "WMFNumberOfExtractCharacters.h"
+#import "NSDictionary+WMFCommonParams.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -110,33 +110,24 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 }
 
 - (NSDictionary*)serializedParams:(WMFRelatedSearchRequestParameters*)params {
-    NSNumber* numResults = @(params.numberOfResults);
-    return @{
-               @"continue": @"",
-               @"format": @"json",
-               @"action": @"query",
-               @"prop": @"extracts|pageterms|pageimages",
-               @"generator": @"search",
-               // search
-               @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],
-               @"gsrnamespace": @0,
-               @"gsrwhat": @"text",
-               @"gsrinfo": @"",
-               @"gsrprop": @"redirecttitle",
-               @"gsroffset": @0,
-               @"gsrlimit": numResults,
-               // extracts
-               @"exintro": @YES,
-               @"exlimit": numResults,
-               @"explaintext": @"",
-               @"exchars": @(WMFNumberOfExtractCharacters),
-               // pageterms
-               @"wbptterms": @"description",
-               // pageimage
-               @"piprop": @"thumbnail",
-               @"pithumbsize": @(LEAD_IMAGE_WIDTH),
-               @"pilimit": numResults,
-    };
+    NSNumber* numResults            = @(params.numberOfResults);
+    NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
+    [baseParams setValuesForKeysWithDictionary:@{
+         @"generator": @"search",
+         // search
+         @"gsrsearch": [NSString stringWithFormat:@"morelike:%@", params.title.text],
+         @"gsrnamespace": @0,
+         @"gsrwhat": @"text",
+         @"gsrinfo": @"",
+         @"gsrprop": @"redirecttitle",
+         @"gsroffset": @0,
+         @"gsrlimit": numResults,
+         // extracts
+         @"exlimit": numResults,
+         // pageimage
+         @"pilimit": numResults,
+     }];
+    return baseParams;
 }
 
 @end
