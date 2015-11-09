@@ -11,21 +11,21 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="57"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Pko-xi-BUp">
-                    <rect key="frame" x="15" y="18" width="570" height="37"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Pko-xi-BUp">
+                    <rect key="frame" x="15" y="25" width="570" height="32"/>
                     <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.27058823529411763" green="0.27058823529411763" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <animations/>
             <constraints>
                 <constraint firstItem="Pko-xi-BUp" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="68M-20-Esp"/>
-                <constraint firstAttribute="bottom" secondItem="Pko-xi-BUp" secondAttribute="bottom" constant="2" id="T4a-NP-tFo"/>
+                <constraint firstAttribute="bottom" secondItem="Pko-xi-BUp" secondAttribute="bottom" id="T4a-NP-tFo"/>
                 <constraint firstAttribute="trailing" secondItem="Pko-xi-BUp" secondAttribute="trailing" constant="15" id="cRz-gJ-cvX"/>
                 <constraint firstItem="Pko-xi-BUp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="pRv-Qh-Vx4"/>
-                <constraint firstItem="Pko-xi-BUp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="18" id="wDV-En-6nH"/>
+                <constraint firstItem="Pko-xi-BUp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="wDV-En-6nH"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
