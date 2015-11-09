@@ -368,7 +368,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFHomeSection*)item {
-    return [[WMFMainPageSectionController alloc] initWithSite:self.searchSite];
+    return [[WMFMainPageSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
 }
 
 #pragma mark - Section Management
@@ -586,7 +586,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError *)error {
+- (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
     [self showAlert:[error localizedDescription] type:ALERT_TYPE_TOP duration:2.f];
 }
 

@@ -294,7 +294,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
-    
+
     @weakify(self);
     [self.footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
         @strongify(self);
