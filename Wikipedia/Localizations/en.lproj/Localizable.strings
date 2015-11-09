@@ -6,6 +6,7 @@
 "article-read-more-title" = "Read more";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "article-unable-to-load-article" = "Unable to load article.";
+"article-related-articles-title" = "Related articles";
 
 "info-box-title" = "Quick facts";
 "info-box-close-text" = "Close";
@@ -85,6 +86,7 @@
 "open-link-title" = "Open link";
 "open-link-cancel" = "Cancel";
 
+"search-title" = "Search";
 "search-searching" = "Searching...";
 "search-no-matches" = "No matches found for search term.";
 "search-field-placeholder-text" = "Search Wikipedia";
