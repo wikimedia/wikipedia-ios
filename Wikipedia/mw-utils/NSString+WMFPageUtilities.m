@@ -36,4 +36,8 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
             stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
+- (NSString*)wmf_denormalizedPageTitle {
+    return [[self stringByReplacingOccurrencesOfString:@" " withString:@"_"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 @end
