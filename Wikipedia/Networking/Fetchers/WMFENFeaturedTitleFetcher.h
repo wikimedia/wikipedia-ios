@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class AnyPromise, MWKSite;
+@class AnyPromise;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFENFeaturedTitleFetcher : NSObject
 
-- (AnyPromise*)fetchFeedItemTitleForSite:(MWKSite*)site date:(nullable NSDate*)date;
+- (AnyPromise*)featuredArticlePreviewForDate:(nullable NSDate*)date;
 
 @end
 

@@ -39,14 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (AFHTTPRequestOperationManager*)featuredTitleOperationManager {
     AFHTTPRequestOperationManager* featuredTitleOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-    featuredTitleOperationManager.requestSerializer = [WMFENFeaturedTitleRequestSerializer serializer];
+    featuredTitleOperationManager.requestSerializer  = [WMFENFeaturedTitleRequestSerializer serializer];
     featuredTitleOperationManager.responseSerializer = [WMFENFeaturedTitleResponseSerializer serializer];
     return featuredTitleOperationManager;
 }
 
 + (AFHTTPRequestOperationManager*)titlePreviewOperationManager {
     AFHTTPRequestOperationManager* titlePreviewOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-    titlePreviewOperationManager.requestSerializer = [WMFTitlePreviewRequestSerializer serializer];
+    titlePreviewOperationManager.requestSerializer  = [WMFTitlePreviewRequestSerializer serializer];
     titlePreviewOperationManager.responseSerializer =
         [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class] fromKeypath:@"query.pages"];
     return titlePreviewOperationManager;
@@ -56,20 +56,24 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.featuredTitleOperationManager = [WMFENFeaturedTitleFetcher featuredTitleOperationManager];
-        self.titlePreviewOperationManager = [WMFENFeaturedTitleFetcher titlePreviewOperationManager];
+        self.titlePreviewOperationManager  = [WMFENFeaturedTitleFetcher titlePreviewOperationManager];
     }
     return self;
 }
 
-- (AnyPromise*)fetchFeedItemTitleForSite:(MWKSite*)site date:(nullable NSDate*)date {
+- (AnyPromise*)featuredArticlePreviewForDate:(nullable NSDate*)date {
     @weakify(self);
+    MWKSite* site = [MWKSite siteWithLanguage:@"en"];
     return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date operation:nil]
-    .thenInBackground(^(NSString* title) {
+           .thenInBackground(^(NSString* title) {
         @strongify(self);
         if (!self) {
             return [AnyPromise promiseWithValue:[NSError cancelledError]];
         }
-        return [self.titlePreviewOperationManager wmf_GETWithSite:site parameters:title operation:nil];
+        return [self.titlePreviewOperationManager wmf_GETWithSite:site parameters:title operation:nil]
+        .then(^(NSArray<MWKSearchResult*>* featuredTitlePreviews) {
+            return featuredTitlePreviews.firstObject;
+        });
     });
 }
 
@@ -97,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     NSString* tfaTitle = [@[tfaTitleTemplatePrefix,
                             @"/",
-                            [[self featuredArticleDateFormatter] stringFromDate:date]] componentsJoinedByString: @""];
+                            [[self featuredArticleDateFormatter] stringFromDate:date]] componentsJoinedByString : @""];
     return [tfaTitle wmf_denormalizedPageTitle];;
 }
 
@@ -126,7 +130,6 @@ NS_ASSUME_NONNULL_BEGIN
         return [extract wmf_safeSubstringToIndex:extract.length - 3];
     }
     return extract;
-
 }
 
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse*)response

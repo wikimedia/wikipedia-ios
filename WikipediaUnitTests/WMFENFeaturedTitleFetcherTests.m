@@ -33,12 +33,13 @@
 // TODO: use fixture
 - (void)testExample {
     expectResolutionWithTimeout(5, ^{
-        return [self.fetcher fetchFeedItemTitleForSite:[MWKSite siteWithLanguage:@"en"] date:[NSDate dateWithTimeIntervalSinceNow:-60*60*24]]
-        .then(^ (MWKSearchResult* result) {
+        return [self.fetcher fetchFeedItemTitleForSite:[MWKSite siteWithLanguage:@"en"] date:[NSDate dateWithTimeIntervalSinceNow:-60 * 60 * 24]]
+        .then(^(MWKSearchResult* result) {
             DDLogInfo(@"Got extract: %@", result.description);
         });
     });
 }
+
 #endif
 
 @end
