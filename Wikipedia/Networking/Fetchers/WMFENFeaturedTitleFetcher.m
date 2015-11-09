@@ -7,6 +7,8 @@
 //
 
 #import "WMFENFeaturedTitleFetcher.h"
+#import "Wikipedia-Swift.h"
+
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFApiJsonResponseSerializer.h"
@@ -15,9 +17,8 @@
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKSearchResult.h"
+#import "NSDictionary+WMFCommonParams.h"
 
-// Extract Response
-#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -164,22 +165,9 @@ NS_ASSUME_NONNULL_BEGIN
                                                 error:(NSError* __autoreleasing _Nullable*)error {
     NSString* title = parameters;
     NSParameterAssert([title isKindOfClass:[NSString class]] && title.length);
-    return [super requestBySerializingRequest:request withParameters:@{
-                @"continue": @"",
-                @"format": @"json",
-                @"action": @"query",
-                @"titles": [title wmf_denormalizedPageTitle],
-                @"prop": WMFJoinedPropertyParameters(@[@"extracts", @"pageterms", @"pageimages"]),
-                // extracts
-                @"exintro": @YES,
-                @"exchars": @300,
-                @"explaintext": @"",
-                // pageterms
-                @"wbptterms": @"description",
-                // pageimage
-                @"piprop": @"thumbnail",
-                @"pithumbsize": @(LEAD_IMAGE_WIDTH),
-            } error:error];
+    NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
+    baseParams[@"titles"] = [title wmf_denormalizedPageTitle];
+    return [super requestBySerializingRequest:request withParameters:baseParams error:error];
 }
 
 @end
