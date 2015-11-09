@@ -275,9 +275,21 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)addFooterViews {
     NSParameterAssert(self.isViewLoaded);
-    [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
-                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
-                                                             UIViewController* childVC) {
+    MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
+                                                               withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
+                                                                                            UIViewController* childVC) {
+        NSString* footerTitle = [self.delegate webViewController:self titleForFooterViewController:childVC];
+        if (footerTitle) {
+            WMFArticleFooterViewHeader* header = [WMFArticleFooterViewHeader wmf_viewFromClassNib];
+            header.headerLabel.text = footerTitle;
+            [self.footerContainerView addSubview:header];
+            [header mas_makeConstraints:^(MASConstraintMaker* make) {
+                make.leading.and.trailing.equalTo(self.footerContainerView);
+                make.top.equalTo(topAnchor);
+            }];
+            topAnchor = header.mas_bottom;
+        }
+
         [self.footerContainerView addSubview:childVC.view];
         [childVC.view mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.equalTo(self.footerContainerView);
@@ -290,11 +302,11 @@ NSString* const WMFLicenseTitleOnENWiki =
     self.footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
     [self.footerContainerView addSubview:self.footerLicenseView];
     [self.footerLicenseView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.footerViewControllers.lastObject.view.mas_bottom);
+        make.top.equalTo(lastAnchor);
         make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
-    
+
     @weakify(self);
     [self.footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
         @strongify(self);
