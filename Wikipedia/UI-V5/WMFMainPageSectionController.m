@@ -12,6 +12,8 @@
 #import "WMFArticlePreviewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdentifier";
 
 @interface WMFMainPageSectionController ()
@@ -21,7 +23,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 @property (nonatomic, strong) WMFENFeaturedTitleFetcher* featuredTitlePreviewFetcher;
-@property (nonatomic, strong) AnyPromise* dataPromise;
+@property (nonatomic, strong, nullable) AnyPromise* dataPromise;
 
 @property (nonatomic, strong) MWKSiteInfo* siteInfo;
 @property (nonatomic, strong) MWKSearchResult* featuredArticlePreview;
@@ -42,6 +44,8 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     }
     return self;
 }
+
+#pragma mark - Accessors
 
 - (MWKSiteInfoFetcher*)siteInfoFetcher {
     if (_siteInfoFetcher == nil) {
@@ -68,6 +72,8 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return dateFormatter;
 }
 
+#pragma mark - HomeSectionController
+
 - (id)sectionIdentifier {
     return WMFMainPageSectionIdentifier;
 }
@@ -86,11 +92,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     if (data) {
         return @[data];
     } else {
-        return nil;
+        return @[];
     }
 }
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
     if (self.featuredArticlePreview) {
         return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.featuredArticlePreview.displayTitle fragment:nil];
     } else if (self.siteInfo) {
@@ -134,31 +140,19 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     }
 }
 
+#pragma mark - Fetching
+
 - (void)fetchData {
     if (self.dataPromise) {
+        DDLogInfo(@"Fetch is already pending, skipping redundant call.");
         return;
     }
 
     @weakify(self);
-    self.dataPromise =
-        [self fetchFeaturedTitleIfAvailable]
-        .catchWithPolicy(PMKCatchPolicyAllErrors, ^(NSError* error) {
-        @strongify(self);
-        if (!self) {
-            [AnyPromise promiseWithValue:[NSError cancelledError]];
-        }
-        if (!error.cancelled) {
-            DDLogWarn(@"Failed to fetch featured title preview, falling back to main page. Error: %@", error);
-        }
-        self.dataPromise = [self fetchSiteInfo];
-        return self.dataPromise;
-    })
-        .catchWithPolicy(PMKCatchPolicyAllErrors, ^(NSError* error){
+    self.dataPromise = ([self fetchFeaturedTitleIfAvailable] ? : [self fetchSiteInfo]).catch(^(NSError* error){
         @strongify(self);
         self.dataPromise = nil;
-        if (!error.cancelled) {
-            [self.delegate controller:self didFailToUpdateWithError:error];
-        }
+        [self.delegate controller:self didFailToUpdateWithError:error];
     });
 }
 
@@ -173,9 +167,9 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     });
 }
 
-- (AnyPromise*)fetchFeaturedTitleIfAvailable {
+- (nullable AnyPromise*)fetchFeaturedTitleIfAvailable {
     if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
-        return [AnyPromise promiseWithValue:[NSError cancelledError]];
+        return nil;
     }
     @weakify(self);
     return [self.featuredTitlePreviewFetcher featuredArticlePreviewForDate:nil].then(^(MWKSearchResult* featuredTitlePreview) {
@@ -188,3 +182,5 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
