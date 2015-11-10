@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFENFeaturedTitleFetcher.h"
+#import "WMFEnglishFeaturedTitleFetcher.h"
 #import "Wikipedia-Swift.h"
 
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
@@ -22,26 +22,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFENFeaturedTitleRequestSerializer : AFHTTPRequestSerializer
+@interface WMFEnglishFeaturedTitleRequestSerializer : AFHTTPRequestSerializer
 @end
 
-@interface WMFENFeaturedTitleResponseSerializer : WMFApiJsonResponseSerializer
+@interface WMFEnglishFeaturedTitleResponseSerializer : WMFApiJsonResponseSerializer
 @end
 
 @interface WMFTitlePreviewRequestSerializer : AFHTTPRequestSerializer
 @end
 
-@interface WMFENFeaturedTitleFetcher ()
+@interface WMFEnglishFeaturedTitleFetcher ()
 @property (nonatomic, strong) AFHTTPRequestOperationManager* featuredTitleOperationManager;
 @property (nonatomic, strong) AFHTTPRequestOperationManager* titlePreviewOperationManager;
 @end
 
-@implementation WMFENFeaturedTitleFetcher
+@implementation WMFEnglishFeaturedTitleFetcher
 
 + (AFHTTPRequestOperationManager*)featuredTitleOperationManager {
     AFHTTPRequestOperationManager* featuredTitleOperationManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-    featuredTitleOperationManager.requestSerializer  = [WMFENFeaturedTitleRequestSerializer serializer];
-    featuredTitleOperationManager.responseSerializer = [WMFENFeaturedTitleResponseSerializer serializer];
+    featuredTitleOperationManager.requestSerializer  = [WMFEnglishFeaturedTitleRequestSerializer serializer];
+    featuredTitleOperationManager.responseSerializer = [WMFEnglishFeaturedTitleResponseSerializer serializer];
     return featuredTitleOperationManager;
 }
 
@@ -56,8 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.featuredTitleOperationManager = [WMFENFeaturedTitleFetcher featuredTitleOperationManager];
-        self.titlePreviewOperationManager  = [WMFENFeaturedTitleFetcher titlePreviewOperationManager];
+        self.featuredTitleOperationManager = [WMFEnglishFeaturedTitleFetcher featuredTitleOperationManager];
+        self.titlePreviewOperationManager  = [WMFEnglishFeaturedTitleFetcher titlePreviewOperationManager];
     }
     return self;
 }
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFENFeaturedTitleRequestSerializer
+@implementation WMFEnglishFeaturedTitleRequestSerializer
 
 + (NSDateFormatter*)featuredArticleDateFormatter {
     static NSDateFormatter* feedItemDateFormatter;
@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [super requestBySerializingRequest:request withParameters:@{
                 @"action": @"query",
                 @"format": @"json",
-                @"titles": [WMFENFeaturedTitleRequestSerializer denormalizedTitleForDate:date],
+                @"titles": [WMFEnglishFeaturedTitleRequestSerializer denormalizedTitleForDate:date],
                 // extracts
                 @"prop": @"extracts",
                 @"exchars": @100,
@@ -124,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFENFeaturedTitleResponseSerializer
+@implementation WMFEnglishFeaturedTitleResponseSerializer
 
 + (nullable NSString*)titleFromFeedItemExtract:(nullable NSString*)extract {
     if ([extract hasSuffix:@"..."]) {
@@ -142,7 +142,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     NSDictionary* feedItemPageObj = [[json[@"query"][@"pages"] allValues] firstObject];
     NSString* title               =
-        [WMFENFeaturedTitleResponseSerializer titleFromFeedItemExtract:feedItemPageObj[@"extract"]];
+        [WMFEnglishFeaturedTitleResponseSerializer titleFromFeedItemExtract:feedItemPageObj[@"extract"]];
 
     if (title.length == 0) {
         DDLogError(@"Empty extract for feed item request %@", response.URL);
