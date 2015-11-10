@@ -1433,7 +1433,6 @@
 		BCB848761AAAABF80077EC24 /* WMFMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFMath.h; sourceTree = "<group>"; };
 		BCB848771AAAABF80077EC24 /* WMFMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMath.m; sourceTree = "<group>"; };
 		BCB8487A1AAAADF90077EC24 /* WMFMathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMathTests.m; sourceTree = "<group>"; };
-		BCB848811AAE06420077EC24 /* ImageGallerySpecs */ = {isa = PBXFileReference; explicitFileType = text.script.sh; fileEncoding = 4; name = ImageGallerySpecs; path = "Image Gallery/ImageGallerySpecs"; sourceTree = "<group>"; };
 		BCBDC8811B38E414003A6D17 /* SDWebImageManager+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SDWebImageManager+PromiseKit.swift"; path = "Images/SDWebImageManager+PromiseKit.swift"; sourceTree = "<group>"; };
 		BCBDC8831B38E441003A6D17 /* WMFImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageController.swift; path = Images/WMFImageController.swift; sourceTree = "<group>"; };
 		BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
@@ -2336,7 +2335,6 @@
 				08D631F51A69B1AB00D87AD0 /* WMFImageGalleryViewController.h */,
 				08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */,
 				BC86B94C1A9391E200B4C039 /* Views */,
-				BCB848811AAE06420077EC24 /* ImageGallerySpecs */,
 			);
 			name = "Image Gallery";
 			sourceTree = "<group>";
