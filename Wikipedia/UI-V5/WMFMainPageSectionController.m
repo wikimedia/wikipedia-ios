@@ -172,7 +172,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         return nil;
     }
     @weakify(self);
-    return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:nil].then(^(MWKSearchResult* featuredTitlePreview) {
+    return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:[NSDate date]].then(^(MWKSearchResult* featuredTitlePreview) {
         @strongify(self);
         self.dataPromise = nil;
 

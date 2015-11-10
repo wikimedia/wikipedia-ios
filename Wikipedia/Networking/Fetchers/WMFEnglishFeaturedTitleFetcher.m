@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (AnyPromise*)fetchFeaturedArticlePreviewForDate:(nullable NSDate*)date {
+- (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date {
     @weakify(self);
     MWKSite* site = [MWKSite siteWithLanguage:@"en"];
     return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date]
@@ -88,22 +88,17 @@ NS_ASSUME_NONNULL_BEGIN
     dispatch_once(&onceToken, ^{
         feedItemDateFormatter = [[NSDateFormatter alloc] init];
         feedItemDateFormatter.dateFormat = @"MMMM d, YYYY";
-        // feed format uses US dates
+        // feed format uses US dates—specifically month names
         feedItemDateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en-US"];
     });
     return feedItemDateFormatter;
 }
 
-+ (NSString*)denormalizedTitleForDate:(nullable NSDate*)date {
++ (NSString*)titleForDate:(NSDate*)date {
     static NSString* tfaTitleTemplatePrefix = @"Template:TFA_title";
-    if (!date) {
-        // will automatically redirect to today's date
-        return tfaTitleTemplatePrefix;
-    }
-    NSString* tfaTitle = [@[tfaTitleTemplatePrefix,
-                            @"/",
-                            [[self featuredArticleDateFormatter] stringFromDate:date]] componentsJoinedByString : @""];
-    return [tfaTitle wmf_denormalizedPageTitle];
+    return [@[tfaTitleTemplatePrefix,
+              @"/",
+              [[self featuredArticleDateFormatter] stringFromDate:date]] componentsJoinedByString : @""];
 }
 
 - (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
@@ -114,7 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [super requestBySerializingRequest:request withParameters:@{
                 @"action": @"query",
                 @"format": @"json",
-                @"titles": [WMFEnglishFeaturedTitleRequestSerializer denormalizedTitleForDate:date],
+                @"titles": [WMFEnglishFeaturedTitleRequestSerializer titleForDate:date],
                 // extracts
                 @"prop": @"extracts",
                 @"exchars": @100,
@@ -128,6 +123,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSString*)titleFromFeedItemExtract:(nullable NSString*)extract {
     if ([extract hasSuffix:@"..."]) {
+        /*
+           HAX: TextExtracts extension will (sometimes) add "..." to the extract.  In this particular case, we don't
+           want it, so we remove it if present.
+         */
         return [extract wmf_safeSubstringToIndex:extract.length - 3];
     }
     return extract;
@@ -166,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSString* title = parameters;
     NSParameterAssert([title isKindOfClass:[NSString class]] && title.length);
     NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
-    baseParams[@"titles"] = [title wmf_denormalizedPageTitle];
+    baseParams[@"titles"] = title;
     return [super requestBySerializingRequest:request withParameters:baseParams error:error];
 }
 
