@@ -12,6 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+/**
+ *  Simple image gallery using image URLs extracted from the article content.
+ *
+ *  Designed to show the lead image or thumbnail while article content is being downloaded.  Once article content is
+ *  available, this becomes a miniature scrolling gallery of all article images.
+ */
 @interface WMFArticleHeaderImageGalleryViewController : WMFPageCollectionViewController
 
 @property (nonatomic, weak) id<WMFArticleHeaderImageGalleryViewControllerDelegate> delegate;

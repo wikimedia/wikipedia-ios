@@ -866,8 +866,8 @@
 		04F27B7018FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PageHistoryResultPrototypeView.xib; sourceTree = "<group>"; };
 		04F27B7318FE0F2E00EDD838 /* PageHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageHistoryViewController.h; sourceTree = "<group>"; };
 		04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageHistoryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		08D631F51A69B1AB00D87AD0 /* WMFImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController.h; path = "Image Gallery/WMFImageGalleryViewController.h"; sourceTree = "<group>"; };
-		08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryViewController.m; path = "Image Gallery/WMFImageGalleryViewController.m"; sourceTree = "<group>"; };
+		08D631F51A69B1AB00D87AD0 /* WMFImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController.h; path = "../View Controllers/Image Gallery/WMFImageGalleryViewController.h"; sourceTree = "<group>"; };
+		08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryViewController.m; path = "../View Controllers/Image Gallery/WMFImageGalleryViewController.m"; sourceTree = "<group>"; };
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
@@ -1135,8 +1135,8 @@
 		BC49B3631AEECFD8009F55BE /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleLoadingTests.m; sourceTree = "<group>"; };
 		BC505EE91B59461400537006 /* WMFCollectionViewPageLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCollectionViewPageLayout.h; sourceTree = "<group>"; };
 		BC505EEA1B59461400537006 /* WMFCollectionViewPageLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCollectionViewPageLayout.m; sourceTree = "<group>"; };
-		BC505EEC1B594B5700537006 /* WMFImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFImageCollectionViewCell.h; sourceTree = "<group>"; };
-		BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageCollectionViewCell.m; sourceTree = "<group>"; };
+		BC505EEC1B594B5700537006 /* WMFImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageCollectionViewCell.h; path = "../Custom Views/WMFImageCollectionViewCell.h"; sourceTree = "<group>"; };
+		BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageCollectionViewCell.m; path = "../Custom Views/WMFImageCollectionViewCell.m"; sourceTree = "<group>"; };
 		BC505EF21B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleHeaderImageGalleryViewController.h; sourceTree = "<group>"; };
 		BC505EF31B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleHeaderImageGalleryViewController.m; sourceTree = "<group>"; };
 		BC505EF51B59643400537006 /* WMFPageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFPageCollectionViewController.h; sourceTree = "<group>"; };
@@ -2041,7 +2041,6 @@
 				D401C2B71A659DD600D4D127 /* DataMigration */,
 				041C55CF1950B260006CE0EF /* EditSummary */,
 				0447861F185145090050563B /* History */,
-				08D631F11A69B17F00D87AD0 /* Image Gallery */,
 				041A3B5718E11ED90079FF1C /* Languages */,
 				0449E63218A9844000D51524 /* Login */,
 				042A5B1419253D2A0095E172 /* Navigation */,
@@ -2328,17 +2327,6 @@
 			path = PageHistory;
 			sourceTree = "<group>";
 		};
-		08D631F11A69B17F00D87AD0 /* Image Gallery */ = {
-			isa = PBXGroup;
-			children = (
-				BC69C3101AB0C16B0090B039 /* View Model */,
-				08D631F51A69B1AB00D87AD0 /* WMFImageGalleryViewController.h */,
-				08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */,
-				BC86B94C1A9391E200B4C039 /* Views */,
-			);
-			name = "Image Gallery";
-			sourceTree = "<group>";
-		};
 		0E0377741B4C47D500470BBE /* Table */ = {
 			isa = PBXGroup;
 			children = (
@@ -2352,8 +2340,6 @@
 				043699901B45B68D002FD81D /* WMFArticleSectionCell.m */,
 				04A9C2A01B4F326D008B996F /* WMFArticleReadMoreCell.h */,
 				04A9C2A11B4F326D008B996F /* WMFArticleReadMoreCell.m */,
-				BC505EF21B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.h */,
-				BC505EF31B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.m */,
 			);
 			name = Table;
 			sourceTree = "<group>";
@@ -2880,6 +2866,7 @@
 		0EFB48071B3BAFE900381F99 /* Article */ = {
 			isa = PBXGroup;
 			children = (
+				BCE839611BF25ECA00F5BBA4 /* Images */,
 				0E9DFEAC1BDEB83D0032606E /* View Controller */,
 				0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */,
 				0E0377741B4C47D500470BBE /* Table */,
@@ -3069,14 +3056,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		BC69C3101AB0C16B0090B039 /* View Model */ = {
+		BC69C3101AB0C16B0090B039 /* Fetcher */ = {
 			isa = PBXGroup;
 			children = (
 				BC69C3121AB0C1FF0090B039 /* WMFImageInfoController.h */,
 				BCDB75BC1AB0D3DE0005593F /* WMFImageInfoController_Private.h */,
 				BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */,
 			);
-			name = "View Model";
+			name = Fetcher;
+			path = "../View Controllers";
 			sourceTree = "<group>";
 		};
 		BC7FA4BF1BD6A687006CA1A3 /* View Controller */ = {
@@ -3185,6 +3173,7 @@
 				BCB58F581A89747400465627 /* WMFImageGalleryDetailOverlayView.xib */,
 			);
 			name = Views;
+			path = "../View Controllers";
 			sourceTree = "<group>";
 		};
 		BCA6764C1AC05FD600A16160 /* Supporting Files */ = {
@@ -3478,6 +3467,45 @@
 			path = "Wikipedia/Legacy Data Migration";
 			sourceTree = SOURCE_ROOT;
 		};
+		BCE839611BF25ECA00F5BBA4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				BCE839631BF25F4900F5BBA4 /* Main Gallery */,
+				BCE839621BF25F3C00F5BBA4 /* Article Header Gallery */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		BCE839621BF25F3C00F5BBA4 /* Article Header Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				BC505EF21B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.h */,
+				BC505EF31B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.m */,
+				BCE839641BF25FEC00F5BBA4 /* Views */,
+			);
+			name = "Article Header Gallery";
+			sourceTree = "<group>";
+		};
+		BCE839631BF25F4900F5BBA4 /* Main Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				08D631F51A69B1AB00D87AD0 /* WMFImageGalleryViewController.h */,
+				08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */,
+				BC86B94C1A9391E200B4C039 /* Views */,
+				BC69C3101AB0C16B0090B039 /* Fetcher */,
+			);
+			name = "Main Gallery";
+			sourceTree = "<group>";
+		};
+		BCE839641BF25FEC00F5BBA4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BC505EEC1B594B5700537006 /* WMFImageCollectionViewCell.h */,
+				BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		C42D94811A937DE000A4871A /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -3505,8 +3533,6 @@
 				BCA96E721AAA354D009A61FA /* WMFGradientView.m */,
 				BC505EE91B59461400537006 /* WMFCollectionViewPageLayout.h */,
 				BC505EEA1B59461400537006 /* WMFCollectionViewPageLayout.m */,
-				BC505EEC1B594B5700537006 /* WMFImageCollectionViewCell.h */,
-				BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */,
 				BC505EF51B59643400537006 /* WMFPageCollectionViewController.h */,
 				BC505EF61B59643400537006 /* WMFPageCollectionViewController.m */,
 			);
