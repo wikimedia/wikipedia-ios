@@ -85,9 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
         SSSection* section = [SSSection sectionWithItems:entries];
 
         if ([date isToday]) {
-            section.header = [@"Today" uppercaseString];
+            section.header = [MWLocalizedString(@"history-section-today", nil) uppercaseString];
         } else if ([date isYesterday]) {
-            section.header = [@"Yesterday" uppercaseString];
+            section.header = [MWLocalizedString(@"history-section-yesterday", nil) uppercaseString];
         } else {
             section.header = [[self dateFormatter] stringFromDate:date];
         }
