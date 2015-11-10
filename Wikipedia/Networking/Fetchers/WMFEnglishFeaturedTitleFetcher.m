@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (AnyPromise*)featuredArticlePreviewForDate:(nullable NSDate*)date {
+- (AnyPromise*)fetchFeaturedArticlePreviewForDate:(nullable NSDate*)date {
     @weakify(self);
     MWKSite* site = [MWKSite siteWithLanguage:@"en"];
     return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date operation:nil]
