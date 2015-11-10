@@ -46,15 +46,18 @@
 /**
  *  Send a @c GET request to the given site, falling back to desktop URL if the mobile URL fails.
  *
- *  @param site The site to send the request to, using its API endpoints. First mobile, then desktop.
+ *  Convenience, promise-based alternative to block-based API.  Omits the retry parameter & operation return for the
+ *  simple case which doesn't need cancellation.
+ *
+ *  @param site       The site to send the request to, using its API endpoints. First mobile, then desktop.
+ *
+ *  @param parameters The parameters which will be passed to the receiver's @c requestSerializer.
  *
  *  @return A promise which will be resolved with the successful response of the request, or rejected with any errors
  *          that occur.
  *
  *  @see wmf_GETWithMobileURLString:desktopURLString:parameters:retry:success:failure:
  */
-- (AnyPromise*)wmf_GETWithSite:(MWKSite*)site
-                    parameters:(id)parameters
-                     operation:(AFHTTPRequestOperation**)outOperation;
+- (AnyPromise*)wmf_GETWithSite:(MWKSite*)site parameters:(id)parameters;
 
 @end

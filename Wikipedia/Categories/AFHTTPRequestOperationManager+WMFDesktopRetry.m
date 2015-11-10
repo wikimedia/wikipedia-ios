@@ -52,15 +52,13 @@
 }
 
 - (AnyPromise*)wmf_GETWithSite:(MWKSite*)site
-                    parameters:(id)parameters
-                     operation:(AFHTTPRequestOperation**)outOperation {
+                    parameters:(id)parameters {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-        AFHTTPRequestOperation* operation = [self wmf_GETWithSite:site parameters:parameters retry:nil success:^(AFHTTPRequestOperation* operation, id responseObject) {
+        [self wmf_GETWithSite:site parameters:parameters retry:nil success:^(AFHTTPRequestOperation* operation, id responseObject) {
             resolve(responseObject);
         } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             resolve(error);
         }];
-        WMFSafeAssign(outOperation, operation);
     }];
 }
 
