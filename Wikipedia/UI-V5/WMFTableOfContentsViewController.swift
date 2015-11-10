@@ -95,19 +95,23 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         }
     }
 
+    // MARK: - Header
+    func forceUpdateHeaderFrame(){
+        //See reason for fix here: http://stackoverflow.com/questions/16471846/is-it-possible-to-use-autolayout-with-uitableviews-tableheaderview
+        self.tableView.tableHeaderView!.setNeedsLayout()
+        self.tableView.tableHeaderView!.layoutIfNeeded()
+        let headerHeight = self.tableView.tableHeaderView!.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
+        var headerFrame = self.tableView.tableHeaderView!.frame;
+        headerFrame.size.height = headerHeight
+        self.tableView.tableHeaderView!.frame = headerFrame;
+        self.tableView.tableHeaderView = self.tableView.tableHeaderView
+    }
+
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-        
-        var headerString = localizedStringForKeyFallingBackOnEnglish("table-of-contents-heading")
-        
-        if(NSLocale.wmf_isCurrentLocaleEnglish()){
-            headerString = headerString.uppercaseStringWithLocale(NSLocale.currentLocale())
-        }
-        
-        header.contentsLabel.text = headerString
-        tableView.tableHeaderView = header;
+        self.tableView.tableHeaderView = header
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         clearsSelectionOnViewWillAppear = false
@@ -121,6 +125,7 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.forceUpdateHeaderFrame()
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
     }
@@ -129,7 +134,15 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         super.viewDidDisappear(animated)
         deselectAllRows()
     }
-
+    
+    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        coordinator.animateAlongsideTransition({ (context) -> Void in
+            self.forceUpdateHeaderFrame()
+            }) { (context) -> Void in
+        }
+    }
+    
     // MARK: - UITableViewDataSource
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
