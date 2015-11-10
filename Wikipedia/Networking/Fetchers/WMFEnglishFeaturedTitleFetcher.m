@@ -65,13 +65,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise*)fetchFeaturedArticlePreviewForDate:(nullable NSDate*)date {
     @weakify(self);
     MWKSite* site = [MWKSite siteWithLanguage:@"en"];
-    return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date operation:nil]
+    return [self.featuredTitleOperationManager wmf_GETWithSite:site parameters:date]
            .thenInBackground(^(NSString* title) {
         @strongify(self);
         if (!self) {
             return [AnyPromise promiseWithValue:[NSError cancelledError]];
         }
-        return [self.titlePreviewOperationManager wmf_GETWithSite:site parameters:title operation:nil]
+        return [self.titlePreviewOperationManager wmf_GETWithSite:site parameters:title]
         .then(^(NSArray<MWKSearchResult*>* featuredTitlePreviews) {
             return featuredTitlePreviews.firstObject;
         });
