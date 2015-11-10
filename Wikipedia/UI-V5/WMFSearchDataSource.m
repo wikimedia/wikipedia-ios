@@ -1,54 +1,43 @@
-//
-//  WMFSearchDataSource.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 10/27/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFSearchDataSource.h"
 #import "MWKTitle.h"
-#import "MWKSavedPageList.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchResult.h"
 #import "MWKSearchRedirectMapping.h"
 #import "NSString+Extras.h"
-#import "WMFArticleListCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UIImageView+WMFImageFetching.h"
 
 @interface WMFSearchDataSource ()
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong, readwrite) WMFSearchResults* searchResults;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @end
 
 @implementation WMFSearchDataSource
 
-- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults savedPages:(MWKSavedPageList*)savedPages {
+- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults{
     NSParameterAssert(site);
     NSParameterAssert(searchResults);
-    NSParameterAssert(savedPages);
-    self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
+    self = [super initWithItems:searchResults.results];
     if (self) {
         self.searchSite    = site;
         self.searchResults = searchResults;
-        self.savedPageList = savedPages;
 
-        self.cellClass = [WMFArticleListCell class];
+        self.cellClass = [WMFArticleListTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticleListCell* cell,
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
                                     MWKSearchResult* result,
-                                    UICollectionView* collectionView,
+                                    UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKTitle* title = [self titleForIndexPath:indexPath];
-            [cell setTitle:title highlightingSubstring:self.searchResults.searchTerm];
-            [cell setSearchResultDescription:[self descriptionForSearchResult:result]];
-            [cell setImageURL:result.thumbnailURL];
-            [cell setSavedPageList:self.savedPageList];
+            [cell updateTitleLabelWithText:title.text highlightingText:self.searchResults.searchTerm];
+            cell.descriptionLabel.text = [self descriptionForSearchResult:result];
+            [cell.articleImageView wmf_setImageWithURL:result.thumbnailURL detectFaces:YES];
         };
     }
     return self;
@@ -72,9 +61,9 @@
     }];
 }
 
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticleListCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCell identifier]];
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {

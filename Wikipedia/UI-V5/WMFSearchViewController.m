@@ -1,7 +1,7 @@
 #import "WMFSearchViewController.h"
 
 #import "RecentSearchesViewController.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListTableViewController.h"
 
 #import "WMFSearchFetcher.h"
 #import "WMFSearchResults.h"
@@ -33,7 +33,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
-@property (nonatomic, strong) WMFArticleListCollectionViewController* resultsListController;
+@property (nonatomic, strong) WMFArticleListTableViewController* resultsListController;
 
 @property (strong, nonatomic) IBOutlet UITextField* searchField;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
@@ -165,12 +165,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
     self.title                                                    = MWLocalizedString(@"search-title", nil);
-    self.resultsListController.collectionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    SelfSizingWaterfallCollectionViewLayout* resultLayout = [self.resultsListController flowLayout];
-    resultLayout.minimumLineSpacing                           = 0.f;
-    resultLayout.minimumInteritemSpacing                      = 0.f;
-    resultLayout.sectionInset                                 = UIEdgeInsetsZero;
-    self.resultsListController.collectionView.backgroundColor = [UIColor clearColor];
+    self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
@@ -217,7 +213,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[WMFArticleListCollectionViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
         self.resultsListController = segue.destinationViewController;
         [self configureArticleList];
     }
@@ -311,11 +307,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            HAX: must set dataSource before starting the animation since dataSource is _unsafely_ assigned to the
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
-
         WMFSearchDataSource* dataSource =
-            [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite
-                                              searchResults:results
-                                                 savedPages:self.dataStore.userDataStore.savedPageList];
+            [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results];
 
         self.resultsListController.dataSource = dataSource;
 
