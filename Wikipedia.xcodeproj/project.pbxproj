@@ -508,6 +508,8 @@
 		BCE8395C1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE8395B1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m */; };
 		BCE839821BF4301E00F5BBA4 /* WMFSearchFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839811BF4301E00F5BBA4 /* WMFSearchFetcherTests.m */; };
 		BCE839871BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839861BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m */; };
+		BCE839681BF2622800F5BBA4 /* WMFImageGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839671BF2622800F5BBA4 /* WMFImageGalleryDataSource.m */; };
+		BCE8396B1BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE8396A1BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -1508,6 +1510,10 @@
 		BCE839811BF4301E00F5BBA4 /* WMFSearchFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchFetcherTests.m; sourceTree = "<group>"; };
 		BCE839851BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LSStubResponseDSL+WithJSON.h"; sourceTree = "<group>"; };
 		BCE839861BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LSStubResponseDSL+WithJSON.m"; sourceTree = "<group>"; };
+		BCE839661BF2622800F5BBA4 /* WMFImageGalleryDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFImageGalleryDataSource.h; sourceTree = "<group>"; };
+		BCE839671BF2622800F5BBA4 /* WMFImageGalleryDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageGalleryDataSource.m; sourceTree = "<group>"; };
+		BCE839691BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WMFPlaceholder.h"; path = "Images/UIImageView+WMFPlaceholder.h"; sourceTree = "<group>"; };
+		BCE8396A1BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFPlaceholder.m"; path = "Images/UIImageView+WMFPlaceholder.m"; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -3052,6 +3058,8 @@
 				BC8210D21B4EEA190010BF7B /* SDImageCache+WMFPersistentCache.m */,
 				0E0A13121BB9E731003CF23F /* WMFFaceDetectionCache.h */,
 				0E0A13131BB9E731003CF23F /* WMFFaceDetectionCache.m */,
+				BCE839691BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.h */,
+				BCE8396A1BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.m */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -3470,6 +3478,7 @@
 		BCE839611BF25ECA00F5BBA4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BCE839651BF2620B00F5BBA4 /* Data Source */,
 				BCE839631BF25F4900F5BBA4 /* Main Gallery */,
 				BCE839621BF25F3C00F5BBA4 /* Article Header Gallery */,
 			);
@@ -3504,6 +3513,15 @@
 				BC505EED1B594B5700537006 /* WMFImageCollectionViewCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		BCE839651BF2620B00F5BBA4 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				BCE839661BF2622800F5BBA4 /* WMFImageGalleryDataSource.h */,
+				BCE839671BF2622800F5BBA4 /* WMFImageGalleryDataSource.m */,
+			);
+			name = "Data Source";
 			sourceTree = "<group>";
 		};
 		C42D94811A937DE000A4871A /* Custom Views */ = {
@@ -4370,6 +4388,7 @@
 				0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */,
 				BC305C2D1BA0842600E414B8 /* WMFNearbyTitleListDataSource.m in Sources */,
 				C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */,
+				BCE839681BF2622800F5BBA4 /* WMFImageGalleryDataSource.m in Sources */,
 				04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */,
 				0E466E551B42D9DD00E91992 /* WMFScrollViewTopPanGestureRecognizer.m in Sources */,
 				BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */,
@@ -4565,6 +4584,7 @@
 				BCB669AC1A83F6C400C7B1FE /* MWKSavedPageEntry.m in Sources */,
 				04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
 				C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */,
+				BCE8396B1BF26C5000F5BBA4 /* UIImageView+WMFPlaceholder.m in Sources */,
 				0E94AFF01B209792000BC5EA /* WMFArticleListCollectionViewController.m in Sources */,
 				043699911B45B68D002FD81D /* WMFArticleSectionCell.m in Sources */,
 				0487048219F8262600B7D307 /* AssetsFileFetcher.m in Sources */,

@@ -27,11 +27,13 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import "MWKImageList.h"
+#import "WMFImageGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleHeaderImageGalleryViewController ()
 @property (nonatomic, strong) CIDetector* faceDetector;
+@property (nonatomic, strong) WMFImageGalleryDataSource* dataSource;
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
@@ -68,7 +70,27 @@ NS_ASSUME_NONNULL_BEGIN
     layout.sectionInset            = UIEdgeInsetsZero;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.dataSource.collectionView = self.collectionView;
+    [self.collectionView reloadData];
+}
+
 #pragma mark - Accessors
+
+- (WMFImageGalleryDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource           = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
+        _dataSource.cellClass = [WMFImageCollectionViewCell class];
+        _dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
+                                           MWKImage* image,
+                                           UICollectionView* _,
+                                           NSIndexPath* indexPath)  {
+            [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
+        };
+    }
+    return _dataSource;
+}
 
 - (CIDetector*)faceDetector {
     if (!_faceDetector) {
@@ -77,72 +99,8 @@ NS_ASSUME_NONNULL_BEGIN
     return _faceDetector;
 }
 
-- (void)setImages:(NSArray* __nullable)images {
-    if (WMF_EQUAL(_images, isEqualToArray:, images)) {
-        return;
-    }
-    for (MWKImage* image in _images) {
-        // TODO: use private downloader to prevent side effects
-        [[WMFImageController sharedInstance] cancelFetchForURL:image.sourceURL];
-    }
-    _images          = [(images ? : @[]) wmf_reverseArrayIfApplicationIsRTL];
-    self.currentPage = [_images wmf_startingIndexForApplicationLayoutDirection];
-    if ([self isViewLoaded]) {
-        [self.collectionView reloadData];
-    }
-}
-
-- (void)setImagesFromArticle:(MWKArticle* __nonnull)article {
-    if (article.isCached) {
-        [self setImagesFromCachedArticle:article];
-    } else {
-        [self setImagesFromUncachedArticle:article];
-    }
-}
-
-- (void)setImagesFromCachedArticle:(MWKArticle* __nonnull)article {
-    NSParameterAssert(article.isCached);
-    self.images = article.images.uniqueLargestVariants;
-}
-
-- (void)setImagesFromUncachedArticle:(MWKArticle* __nonnull)article {
-    NSParameterAssert(!article.isCached);
-    if (article.image) {
-        self.images = @[article.image];
-    } else if (article.thumbnail) {
-        self.images = @[article.thumbnail];
-    } else {
-        self.images = nil;
-    }
-}
-
-#pragma mark - UICollectionView Protocols
-
-- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
-    // prevent selection of placeholder image
-    return self.images.count > 0;
-}
-
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self.delegate headerImageGallery:self didSelectImageAtIndex:indexPath.item];
-}
-
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFImageCollectionViewCell* cell =
-        (WMFImageCollectionViewCell*)
-        [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
-                                                  forIndexPath:indexPath];
-    if (self.images.count != 0) {
-        [cell.imageView wmf_setImageWithMetadata:self.images[indexPath.item] detectFaces:YES];
-    }
-
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    // if there are 0 images, show a placeholder
-    return self.images.count > 0 ? self.images.count : 1;
+- (void)setImagesFromArticle:(MWKArticle *)article {
+    self.dataSource.article = article;
 }
 
 @end

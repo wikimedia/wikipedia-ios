@@ -22,9 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<WMFArticleHeaderImageGalleryViewControllerDelegate> delegate;
 
-/// Images to display in the gallery.
-@property (nonatomic, copy, null_resettable) NSArray* images;
-
 /**
  * Reset the contents of the receiver's `imageURLs` array to contain the images from the specified article.
  *
