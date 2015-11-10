@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class WMFImageGalleryViewController;
 @protocol WMFImageGalleryViewControllerDelegate <NSObject>
 
-
 @optional
 
 /**
@@ -36,7 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-/// View controller which renders an article's images in a pageable gallery.
+/**
+ *  Provides a scrollable gallery of an article's images, including high-res, zoomable images and associated metadata.
+ */
 @interface WMFImageGalleryViewController : WMFPageCollectionViewController
 
 /**
@@ -46,7 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) MWKArticle* article;
 
-/// Promise which will eventually resolve to a `MWKArticle`, that will be used to set the receiver's `article`.
+/**
+ *  Set an article for the gallery in the future.
+ *
+ *  Called when the user taps on an article's lead image before the article data has finished downloading. This will
+ *  show the gallery (empty) with a loading indicator, and then load itself when the data has finished downloading.
+ *
+ *  @param articlePromise Promise which resolves to an `MWKArticle`.
+ */
 - (void)setArticleWithPromise:(AnyPromise*)articlePromise;
 
 /**

@@ -123,6 +123,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     [self.loadingIndicator startAnimating];
 
+    // TODO: show "empty" view with the article's lead image or thumbnail
+
     __block id articlePromiseResolve;
     // wrap articlePromise in a promise we can cancel if a new one comes in
     AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
@@ -402,7 +404,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     /*
        since we have to wait until the cells are laid out before applying visibleImageIndex, this method can be
        called before currentPage has been applied.  as a result, we check the flag here to ensure our first fetch
-       doesn't involve the first image if the user tapped on the last image.
+       is for the current visible image. otherwise, we could fetch the first image in the gallery, apply visibleImageIndex,
+       then fetch the visible image.
      */
     if (self.didApplyCurrentPage) {
         [self.infoController fetchBatchContainingIndex:indexPath.item withNthNeighbor:5];
