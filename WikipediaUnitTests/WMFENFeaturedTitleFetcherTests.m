@@ -8,14 +8,14 @@
 
 #import <XCTest/XCTest.h>
 #import "XCTestCase+PromiseKit.h"
-#import "WMFENFeaturedTitleFetcher.h"
+#import "WMFEnglishFeaturedTitleFetcher.h"
 #import "MWKSearchResult.h"
 
 #import <Nocilla/LSNocilla.h>
 
 @interface WMFENFeaturedTitleFetcherTests : XCTestCase
 
-@property (nonatomic, strong) WMFENFeaturedTitleFetcher* fetcher;
+@property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* fetcher;
 
 @end
 
@@ -23,7 +23,7 @@
 
 - (void)setUp {
     [super setUp];
-    self.fetcher = [[WMFENFeaturedTitleFetcher alloc] init];
+    self.fetcher = [[WMFEnglishFeaturedTitleFetcher alloc] init];
     [[LSNocilla sharedInstance] start];
 }
 

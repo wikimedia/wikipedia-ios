@@ -490,7 +490,7 @@
 		BCD41E001B11D1B200231BB1 /* XCTestCase+MWKFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD41DFE1B11D17100231BB1 /* XCTestCase+MWKFixtures.m */; };
 		BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */; };
 		BCDBCC6E1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */; };
-		BCDC489B1BF0F16000E6858A /* WMFENFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDC489A1BF0F16000E6858A /* WMFENFeaturedTitleFetcher.m */; };
+		BCDC489B1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDC489A1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m */; };
 		BCDD703A1BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */; };
 		BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD51B0CF0C7003F054B /* LegacyCoreDataMigrator.m */; };
 		BCE24FDE1B0CF0C7003F054B /* LegacyDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD81B0CF0C7003F054B /* LegacyDataMigrator.m */; };
@@ -1475,8 +1475,8 @@
 		BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticleContainerViewController+TOC.swift"; sourceTree = "<group>"; };
 		BCDBCC6F1BDA5BFC002298FC /* WMFArticleContainerViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Private.h; sourceTree = "<group>"; };
 		BCDBEBE81BB32E7600841C20 /* SavedArticlesFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher_Testing.h; sourceTree = "<group>"; };
-		BCDC48991BF0F16000E6858A /* WMFENFeaturedTitleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFENFeaturedTitleFetcher.h; sourceTree = "<group>"; };
-		BCDC489A1BF0F16000E6858A /* WMFENFeaturedTitleFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFENFeaturedTitleFetcher.m; sourceTree = "<group>"; };
+		BCDC48991BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFEnglishFeaturedTitleFetcher.h; sourceTree = "<group>"; };
+		BCDC489A1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFEnglishFeaturedTitleFetcher.m; sourceTree = "<group>"; };
 		BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcherTests.m; sourceTree = "<group>"; };
 		BCE24FD41B0CF0C7003F054B /* LegacyCoreDataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyCoreDataMigrator.h; sourceTree = "<group>"; };
 		BCE24FD51B0CF0C7003F054B /* LegacyCoreDataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyCoreDataMigrator.m; sourceTree = "<group>"; };
@@ -3436,8 +3436,8 @@
 		BCDC489C1BF0F38900E6858A /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				BCDC48991BF0F16000E6858A /* WMFENFeaturedTitleFetcher.h */,
-				BCDC489A1BF0F16000E6858A /* WMFENFeaturedTitleFetcher.m */,
+				BCDC48991BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.h */,
+				BCDC489A1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m */,
 			);
 			name = Feed;
 			sourceTree = "<group>";
@@ -4464,7 +4464,7 @@
 				04D686F81AB2949C0009B44A /* PaddedLabel.m in Sources */,
 				BCB4987F1B8FA47200BE4769 /* WMFMantleJSONResponseSerializer.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
-				BCDC489B1BF0F16000E6858A /* WMFENFeaturedTitleFetcher.m in Sources */,
+				BCDC489B1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */,
 				044687FF1BB358DF00B888CC /* UIView+IBExtras.swift in Sources */,
 				BC7FA4C31BD6A6B7006CA1A3 /* MWKSection+TOCItem.swift in Sources */,

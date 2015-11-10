@@ -1,7 +1,7 @@
 
 #import "WMFMainPageSectionController.h"
 #import "MWKSiteInfoFetcher.h"
-#import "WMFENFeaturedTitleFetcher.h"
+#import "WMFEnglishFeaturedTitleFetcher.h"
 
 #import "MWKSite.h"
 #import "MWKTitle.h"
@@ -22,7 +22,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
-@property (nonatomic, strong) WMFENFeaturedTitleFetcher* featuredTitlePreviewFetcher;
+@property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* dataPromise;
 
 @property (nonatomic, strong) MWKSiteInfo* siteInfo;
@@ -54,9 +54,9 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return _siteInfoFetcher;
 }
 
-- (WMFENFeaturedTitleFetcher*)featuredTitlePreviewFetcher {
+- (WMFEnglishFeaturedTitleFetcher*)featuredTitlePreviewFetcher {
     if (_featuredArticlePreview == nil) {
-        _featuredTitlePreviewFetcher = [[WMFENFeaturedTitleFetcher alloc] init];
+        _featuredTitlePreviewFetcher = [[WMFEnglishFeaturedTitleFetcher alloc] init];
     }
     return _featuredTitlePreviewFetcher;
 }
