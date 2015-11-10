@@ -7,6 +7,7 @@
 #import "NSObjectUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSString+WMFPageUtilities.h"
+#import "NSString+WMFPageUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)escapedURLText {
-    return [self.dataBaseKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return [self.text wmf_denormalizedPageTitle];
 }
 
 - (NSString*)escapedFragment {
