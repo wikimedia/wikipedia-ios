@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     return [self initWithSite:site
-              normalizedTitle:[[url wmf_internalLinkPath] wmf_normalizedPageTitle]
+              normalizedTitle:[[url wmf_internalLinkPath] wmf_unescapedNormalizedPageTitle]
                      fragment:url.fragment];
 }
 
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         NSArray* bits = [string componentsSeparatedByString:@"#"];
         return [self initWithSite:site
-                  normalizedTitle:[[bits firstObject] wmf_normalizedPageTitle]
+                  normalizedTitle:[[bits firstObject] wmf_unescapedNormalizedPageTitle]
                          fragment:[bits wmf_safeObjectAtIndex:1]];
     }
 }
