@@ -22,11 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Fetch a preview for a day's featured article.
  *
- *  @param date The date to fetch the featured article for.
+ *  @param date The date to fetch the featured article for, or @c nil to fetch today's featured article.
  *
  *  @return A promise with resolves to an @c MWKSearchResult.
  */
-- (AnyPromise*)featuredArticlePreviewForDate:(nullable NSDate*)date;
+- (AnyPromise*)fetchFeaturedArticlePreviewForDate:(nullable NSDate*)date;
 
 @end
 
