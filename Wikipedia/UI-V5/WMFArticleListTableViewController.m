@@ -57,10 +57,9 @@
         if (_dataSource) {
             [self connectTableViewAndDataSource];
             [[self dynamicDataSource] startUpdating];
-        } else {
-            [self.tableView reloadData];
         }
         [self.tableView wmf_scrollToTop:NO];
+        [self.tableView reloadData];
     }
 
     self.title = [_dataSource displayTitle];
