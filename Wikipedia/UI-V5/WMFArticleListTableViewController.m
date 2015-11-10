@@ -136,6 +136,10 @@
     self.tableView.estimatedRowHeight = 64.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
+    //HACK: this is the only way to force the table view to hide separators when the table view is empty.
+    //See: http://stackoverflow.com/a/5377805/48311
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     [self connectTableViewAndDataSource];
     [self observeArticleUpdates];
 }
