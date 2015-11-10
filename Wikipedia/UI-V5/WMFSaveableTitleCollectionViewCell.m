@@ -7,9 +7,7 @@
 
 #import "UIImageView+WMFImageFetching.h"
 #import "UIButton+WMFButton.h"
-
-#import "UIColor+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 @interface WMFSaveableTitleCollectionViewCell ()
 
@@ -20,11 +18,7 @@
 @implementation WMFSaveableTitleCollectionViewCell
 
 - (void)configureImageViewWithPlaceholder {
-    [self.imageView wmf_reset];
-    self.imageView.contentMode     = UIViewContentModeCenter;
-    self.imageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.imageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
-    self.imageView.image           = [UIImage wmf_placeholderImage];
+    [self.imageView wmf_configureWithDefaultPlaceholder];
 }
 
 - (void)configureCell {
