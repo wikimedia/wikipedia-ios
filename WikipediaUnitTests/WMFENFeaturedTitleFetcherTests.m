@@ -33,12 +33,20 @@
 }
 
 - (void)testExample {
+    NSDateComponents* testDateComponents = [[NSDateComponents alloc] init];
+    testDateComponents.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierISO8601];
+    testDateComponents.month    = 11;
+    testDateComponents.day      = 10;
+    testDateComponents.year     = 2015;
+
+    NSString* testDatePattern = @"https://en\\.m\\.wikipedia\\.org.*TFA_title/November%2010%2C%202015.*";
+
     NSRegularExpression* tfaTitleRequest =
-        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.m\\.wikipedia\\.org.*TFA_title.*" options:0 error:nil];
+        [NSRegularExpression regularExpressionWithPattern:testDatePattern options:0 error:nil];
 
     // expected title matches the one in the JSON fixture
     NSRegularExpression* previewRequest =
-        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.m\\.wikipedia\\.org.*titles=Mackensen-class_battlecruiser.*" options:0 error:nil];
+        [NSRegularExpression regularExpressionWithPattern:@"https://en\\.m\\.wikipedia\\.org.*titles=Mackensen-class%20battlecruiser.*" options:0 error:nil];
 
     stubRequest(@"GET", tfaTitleRequest)
     .andReturn(200)
@@ -51,7 +59,7 @@
     .withBody([[self wmf_bundle] wmf_stringFromContentsOfFile:@"TitlePreviewQuery" ofType:@"json"]);
 
     expectResolution(^AnyPromise* {
-        return [self.fetcher fetchFeaturedArticlePreviewForDate:nil]
+        return [self.fetcher fetchFeaturedArticlePreviewForDate:[testDateComponents date]]
         .then(^(MWKSearchResult* result) {
             XCTAssertEqualObjects(result.displayTitle, @"Mackensen-class battlecruiser");
         });
