@@ -281,17 +281,15 @@ NS_ASSUME_NONNULL_BEGIN
         self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
     }
 
-    NSMutableArray<UIBarButtonItem*>* toolbarItems =
-        [NSMutableArray arrayWithObjects:
+    NSArray<UIBarButtonItem*>* toolbarItems =
+        [NSArray arrayWithObjects:
          self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
          self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
          self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:18.f],
          self.languagesToolbarItem,
+         [self flexibleSpaceToolbarItem],
+         self.tableOfContentsToolbarItem,
          nil];
-
-    if (!self.article.isMain) {
-        [toolbarItems addObjectsFromArray:@[[self flexibleSpaceToolbarItem], self.tableOfContentsToolbarItem]];
-    }
 
     if (self.toolbarItems.count != toolbarItems.count) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
@@ -304,6 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableOfContentsToolbarItem.enabled = self.article != nil;
     self.shareToolbarItem.enabled           = self.article != nil;
     self.languagesToolbarItem.enabled       = self.article.languagecount > 1;
+    self.tableOfContentsToolbarItem.enabled = !self.article.isMain;
 }
 
 #pragma mark - Toolbar Items
