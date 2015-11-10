@@ -127,7 +127,7 @@
 }
 
 - (NSString*)canonicalFilename {
-    return [[self canonicalFilenameFromSourceURL] wmf_normalizedPageTitle];
+    return [[self canonicalFilenameFromSourceURL] wmf_unescapedNormalizedPageTitle];
 }
 
 - (NSString*)canonicalFilenameFromSourceURL {

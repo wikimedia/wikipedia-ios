@@ -47,12 +47,21 @@ extern NSString* const WMFCitationFragmentSubstring;
  *  @return Copy of the receiver after normalizing page titles extracted from URLs, replacing percent escapes
  *          and underscores.
  */
+- (NSString*)wmf_unescapedNormalizedPageTitle;
+
+/**
+ *  @return The receiver, but with underscores replaced with spaces.
+ *
+ *  @see wmf_denormalizedPageTitle
+ */
 - (NSString*)wmf_normalizedPageTitle;
 
 /**
  *  Process a normalized title into one which can be used as an API request parameter.
  *
- *  @return The receiver, with spaces replaced by underscores and added percent escapes.
+ *  @return The receiver, with spaces replaced by underscores.
+ *
+ *  @see wmf_normalizedPageTitle
  */
 - (NSString*)wmf_denormalizedPageTitle;
 
