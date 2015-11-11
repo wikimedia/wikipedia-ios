@@ -125,8 +125,8 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [self pathForImageURL:image.sourceURLString title:image.article.title];
 }
 
-- (NSString*)pathForArticleImageInfo:(MWKArticle*)article {
-    return [[self pathForArticle:article] stringByAppendingPathComponent:MWKImageInfoFilename];
+- (NSString*)pathForTitleImageInfo:(MWKTitle*)title {
+    return [[self pathForTitle:title] stringByAppendingPathComponent:MWKImageInfoFilename];
 }
 
 - (NSString*)safeFilenameWithString:(NSString*)str {
@@ -284,9 +284,9 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     [self saveDictionary:export path:path name:@"Images.plist"];
 }
 
-- (void)saveImageInfo:(NSArray*)imageInfo forArticle:(MWKArticle*)article {
+- (void)saveImageInfo:(NSArray*)imageInfo forTitle:(MWKTitle*)title {
     [self saveArray:[imageInfo bk_map:^id (MWKImageInfo* obj) { return [obj dataExport]; }]
-               path:[self pathForArticle:article]
+               path:[self pathForTitle:title]
                name:MWKImageInfoFilename];
 }
 
@@ -407,9 +407,8 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return dict[@"entries"];
 }
 
-- (NSArray*)imageInfoForArticle:(MWKArticle*)article;
-{
-    return [[NSArray arrayWithContentsOfFile:[self pathForArticleImageInfo:article]] bk_map:^MWKImageInfo*(id obj) {
+- (NSArray*)imageInfoForTitle:(MWKTitle*)title {
+    return [[NSArray arrayWithContentsOfFile:[self pathForTitleImageInfo:title]] bk_map:^MWKImageInfo*(id obj) {
         return [MWKImageInfo imageInfoWithExportedData:obj];
     }];
 }

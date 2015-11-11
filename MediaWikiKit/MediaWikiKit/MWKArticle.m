@@ -423,10 +423,10 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }]];
 
     [imageURLs addObjectsFromArray:
-     [[self.dataStore imageInfoForArticle:self] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageURL)]];
+     [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageURL)]];
 
     [imageURLs addObjectsFromArray:
-     [[self.dataStore imageInfoForArticle:self] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)]];
+     [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)]];
 
     NSURL* articleImageURL = [NSURL wmf_optionalURLWithString:self.imageURL];
     if (articleImageURL) {
