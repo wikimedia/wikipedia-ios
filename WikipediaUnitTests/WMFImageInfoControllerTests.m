@@ -57,8 +57,8 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     }
 
     self.controller = [[WMFImageInfoController alloc] initWithDataStore:self.tmpDataStore
-                                                            batchSize:2
-                                                          infoFetcher:self.mockInfoFetcher];
+                                                              batchSize:2
+                                                            infoFetcher:self.mockInfoFetcher];
     [self.controller setUniqueArticleImages:self.testArticle.images.uniqueLargestVariants forTitle:self.testArticle.title];
     self.controller.delegate = self;
 }
@@ -90,8 +90,8 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     [MKTGiven([mockDataStore imageListWithArticle:dummyArticle section:nil]) willReturn:mockImageList];
 
     WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithDataStore:mockDataStore
-                                                                               batchSize:2
-                                                                             infoFetcher:self.mockInfoFetcher];
+                                                                                 batchSize:2
+                                                                               infoFetcher:self.mockInfoFetcher];
     [controller setUniqueArticleImages:dummyArticle.images.uniqueLargestVariants forTitle:dummyArticle.title];
 
     assertThat(controller.indexedImageInfo.allValues, containsItemsInCollectionInAnyOrder(expectedImageInfo));

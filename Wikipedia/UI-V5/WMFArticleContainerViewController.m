@@ -489,8 +489,8 @@ NS_ASSUME_NONNULL_BEGIN
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
     WMFImageGalleryViewController* gallery = [self createImageGalleryViewController];
     /*
-     NOTE(bgerstle): not setting delegate intentionally to prevent header gallery changes as a result of fullscreen
-     gallery interactions that originate from the webview
+       NOTE(bgerstle): not setting delegate intentionally to prevent header gallery changes as a result of fullscreen
+       gallery interactions that originate from the webview
      */
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
     [gallery setVisibleImage:selectedImage animated:NO];
@@ -543,9 +543,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     if (!self.article.isCached) {
         /*
-         In case the user taps on the lead image before the article is loaded, present the gallery w/ the lead image
-         as a placeholder, then populate it in-place once the article is fetched.
-        */
+           In case the user taps on the lead image before the article is loaded, present the gallery w/ the lead image
+           as a placeholder, then populate it in-place once the article is fetched.
+         */
         NSAssert(index == 0, @"Unexpected selected index for uncached article. Only expecting lead image tap.");
         if (!self.articleFetcherPromise) {
             // Fetch the article if it hasn't been fetched already

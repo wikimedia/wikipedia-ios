@@ -16,7 +16,7 @@
 @implementation WMFBaseImageGalleryViewController
 @synthesize dataSource = _dataSource;
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout {
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         _dataSource = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
@@ -24,7 +24,7 @@
     return self;
 }
 
-- (void)showImagesInArticle:(MWKArticle *)article {
+- (void)showImagesInArticle:(MWKArticle*)article {
     self.dataSource.article = article;
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         self.currentPage = [[self.dataSource allItems] wmf_startingIndexForApplicationLayoutDirection];

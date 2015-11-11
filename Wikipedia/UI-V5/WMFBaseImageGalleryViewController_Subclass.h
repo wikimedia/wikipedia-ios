@@ -10,7 +10,7 @@
 
 @interface WMFBaseImageGalleryViewController ()
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_DESIGNATED_INITIALIZER;
 
 /**
  *  The data source used to drive the receiver's collection view.
