@@ -73,7 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.dataSource.collectionView = self.collectionView;
-    [self.collectionView reloadData];
 }
 
 #pragma mark - Accessors
@@ -101,6 +100,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setImagesFromArticle:(MWKArticle *)article {
     self.dataSource.article = article;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+    [self.delegate headerImageGallery:self didSelectImageAtIndex:indexPath.item];
 }
 
 @end
