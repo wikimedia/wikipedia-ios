@@ -92,4 +92,8 @@
     return (id<MWKImageInfoRequest>)request;
 }
 
+- (void)cancelAllFetches {
+    [self.manager.operationQueue cancelAllOperations];
+}
+
 @end
