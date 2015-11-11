@@ -12,6 +12,7 @@
 #import "MWKImage.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "UIImageView+WMFPlaceholder.h"
+#import "NSArray+WMFLayoutDirectionUtilities.h"
 
 @implementation WMFImageGalleryDataSource
 @dynamic emptyView;
@@ -29,7 +30,11 @@
         return;
     }
     _article = article;
-    [self updateItems:article.images.uniqueLargestVariants];
+    NSArray* images = article.images.uniqueLargestVariants;
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
+        images = [images wmf_reverseArrayIfApplicationIsRTL];
+    }
+    [self updateItems:images];
     [self applyLeadImageIfEmpty];
 }
 
