@@ -145,6 +145,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (WMFImageGalleryViewController*)createImageGalleryViewController {
+    WMFImageGalleryViewController* fullscreenGallery =
+        [[WMFImageGalleryViewController alloc] initWithDataStore:self.dataStore];
+    [fullscreenGallery setArticle:self.article];
+    return fullscreenGallery;
+}
+
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
 }
@@ -478,6 +485,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFWebViewControllerDelegate
 
+- (void)         webViewController:(WebViewController*)controller
+    didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
+    WMFImageGalleryViewController* gallery = [self createImageGalleryViewController];
+    /*
+     NOTE(bgerstle): not setting delegate intentionally to prevent header gallery changes as a result of fullscreen
+     gallery interactions that originate from the webview
+     */
+    MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
+    [gallery setVisibleImage:selectedImage animated:NO];
+    [self presentViewController:gallery animated:YES completion:nil];
+}
+
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
     [self scrollWebViewToRequestedPosition];
 }
@@ -515,14 +534,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
      didSelectImageAtIndex:(NSUInteger)index {
-    NSParameterAssert(![self.presentingViewController isKindOfClass:[WMFImageGalleryViewController class]]);
-    WMFImageGalleryViewController* fullscreenGallery = [[WMFImageGalleryViewController alloc] initWithArticle:nil];
+    WMFImageGalleryViewController* fullscreenGallery = [self createImageGalleryViewController];
+
+    // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
     fullscreenGallery.delegate = self;
-    if (self.article) {
-        fullscreenGallery.article     = self.article;
-        fullscreenGallery.currentPage = index;
-    } else {
+
+    fullscreenGallery.currentPage = index;
+
+    if (!self.article.isCached) {
+        /*
+         In case the user taps on the lead image before the article is loaded, present the gallery w/ the lead image
+         as a placeholder, then populate it in-place once the article is fetched.
+        */
+        NSAssert(index == 0, @"Unexpected selected index for uncached article. Only expecting lead image tap.");
         if (!self.articleFetcherPromise) {
+            // Fetch the article if it hasn't been fetched already
+            DDLogInfo(@"User tapped lead image before article fetch started, fetching before showing gallery.");
             [self fetchArticle];
         }
         [fullscreenGallery setArticleWithPromise:self.articleFetcherPromise];

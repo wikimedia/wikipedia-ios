@@ -38,11 +38,11 @@
 #import "UICollectionView+WMFExtensions.h"
 
 // Model
-#import "MWKDataStore.h"
 #import "MWKImage.h"
 #import "MWKLicense+ToGlyph.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKArticle.h"
+#import "WMFImageGalleryDataSource.h"
 
 // Networking
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
@@ -64,16 +64,15 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 @property (nonatomic, weak, readonly) UITapGestureRecognizer* chromeTapGestureRecognizer;
 
-/// Array of the article's images without duplicates in order of appearance.
-@property (nonatomic, strong, readonly) NSArray* uniqueArticleImages;
-
 @property (nonatomic, strong, readonly) WMFImageInfoController* infoController;
+
+@property (nonatomic, strong) MWKDataStore* dataStore;
+
+@property (nonatomic, strong, readonly) WMFImageGalleryDataSource* dataSource;
 
 @property (nonatomic, weak) UIActivityIndicatorView* loadingIndicator;
 
 @property (nonatomic, weak) PMKResolver articlePromiseResolve;
-
-- (MWKDataStore*)dataStore;
 
 @end
 
@@ -81,6 +80,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 @implementation WMFImageGalleryViewController
 @synthesize infoController = _infoController;
+@synthesize dataSource     = _dataSource;
 
 + (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
     UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
@@ -91,17 +91,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return defaultLayout;
 }
 
-- (instancetype)init {
-    return [self initWithArticle:nil];
-}
-
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article {
+- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
     self = [super initWithCollectionViewLayout:[[self class] wmf_defaultGalleryLayout]];
     if (self) {
-        _article       = article;
-        _chromeHidden  = NO;
-        _chromeEnabled = YES;
-        _zoomEnabled   = YES;
+        self.dataStore = dataStore;
+        self.chromeHidden  = NO;
+        self.chromeEnabled = YES;
+        self.zoomEnabled   = YES;
     }
     return self;
 }
@@ -110,11 +106,23 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Getters
+
+- (WMFImageGalleryDataSource*)dataSource {
+    if (!_dataSource) {
+        _dataSource           = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
+        _dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
+        @weakify(self);
+        _dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
+                                           MWKImage* image,
+                                           UICollectionView* _,
+                                           NSIndexPath* indexPath) {
+            @strongify(self);
+            [self updateCell:cell atIndexPath:indexPath];
+        };
+    }
+    return _dataSource;
+}
 
 - (void)setArticleWithPromise:(AnyPromise*)articlePromise {
     if (self.articlePromiseResolve) {
@@ -138,7 +146,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     @weakify(self);
     cancellableArticlePromise.then(^(MWKArticle* article) {
         @strongify(self);
-        self.article = article;
+        [self setArticle:article];
     })
     .catch(^(NSError* error) {
         @strongify(self);
@@ -148,39 +156,28 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 - (void)setArticle:(MWKArticle* __nullable)article {
-    if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
+    if (WMF_EQUAL(self.dataSource.article, isEqualToArticle:, article)) {
         return;
     }
-    _article = article;
-    if (self.article) {
-        NSAssert(self.article.isCached, @"gallery assumes article data is already downloaded");
-        self.infoController.article = article;
-        self.currentPage            = [self.uniqueArticleImages wmf_startingIndexForApplicationLayoutDirection];
+
+    self.dataSource.article = article;
+
+    if (article.isCached) {
+        [self.infoController setUniqueArticleImages:[self.dataSource allItems] forTitle:article.title];
+        self.currentPage = [[self.dataSource allItems] wmf_startingIndexForApplicationLayoutDirection];
         [self.infoController fetchBatchContainingIndex:self.currentPage];
     } else {
-        self.infoController.article = nil;
-        self.currentPage            = 0;
-    }
-
-    if ([self isViewLoaded]) {
-        [self.collectionView reloadData];
+        [self.infoController reset];
+        self.currentPage = 0;
     }
 }
 
 - (WMFImageInfoController*)infoController {
     if (!_infoController) {
-        _infoController          = [[WMFImageInfoController alloc] initWithArticle:self.article batchSize:50];
+        _infoController          = [[WMFImageInfoController alloc] initWithDataStore:self.dataStore batchSize:50];
         _infoController.delegate = self;
     }
     return _infoController;
-}
-
-- (NSArray*)uniqueArticleImages {
-    return self.infoController.uniqueArticleImages;
-}
-
-- (MWKDataStore*)dataStore {
-    return self.article.dataStore;
 }
 
 - (UICollectionViewFlowLayout*)collectionViewFlowLayout {
@@ -265,8 +262,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     self.collectionView.backgroundColor = [UIColor blackColor];
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
-            forCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId];
+            forCellWithReuseIdentifier:[WMFImageGalleryCollectionViewCell identifier]];
     self.collectionView.pagingEnabled = YES;
+
+    self.dataSource.collectionView = self.collectionView;
 
     [self applyChromeHidden:NO];
 }
@@ -364,7 +363,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 #pragma mark - Visible Image Index
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
-    NSInteger selectedImageIndex = [self.uniqueArticleImages indexOfObjectPassingTest:^BOOL (MWKImage* image,
+    NSInteger selectedImageIndex = [self.dataSource.allItems indexOfObjectPassingTest:^BOOL (MWKImage* image,
                                                                                              NSUInteger idx,
                                                                                              BOOL* stop) {
         if ([image isEqualToImage:visibleImage] || [image isVariantOfImage:visibleImage]) {
@@ -412,26 +411,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 }
 
-#pragma mark DataSource
-
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFImageGalleryCollectionViewCell* cell =
-        (WMFImageGalleryCollectionViewCell*)
-        [collectionView dequeueReusableCellWithReuseIdentifier:WMFImageGalleryCollectionViewCellReuseId
-                                                  forIndexPath:indexPath];
-    [self updateCell:cell atIndexPath:indexPath];
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.uniqueArticleImages.count;
-}
-
 #pragma mark - Cell Updates
 
 - (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = self.uniqueArticleImages[indexPath.item];
+    MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
 
     cell.zoomEnabled = self.zoomEnabled;
@@ -469,7 +452,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
                           atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = self.uniqueArticleImages[indexPath.item];
+    MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
     [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 }
@@ -500,7 +483,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert(indexPath);
-    MWKImage* image                         = self.uniqueArticleImages[indexPath.item];
+    MWKImage* image                         = [[self dataSource] imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage              = [self.infoController infoForImage:image];
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];

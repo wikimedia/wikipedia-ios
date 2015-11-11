@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SSDataSources/SSBaseCollectionCell.h>
 
 @class WMFImageGalleryDetailOverlayView;
 
-@interface WMFImageGalleryCollectionViewCell : UICollectionViewCell
+@interface WMFImageGalleryCollectionViewCell : SSBaseCollectionCell
 
 /**
  * Size the image should be displayed, used to show low-res images at high-res sizes for smoother transitions.

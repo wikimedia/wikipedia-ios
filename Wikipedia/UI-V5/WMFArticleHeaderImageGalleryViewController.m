@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleHeaderImageGalleryViewController ()
 @property (nonatomic, strong) CIDetector* faceDetector;
-@property (nonatomic, strong) WMFImageGalleryDataSource* dataSource;
+@property (nonatomic, strong, readwrite) WMFImageGalleryDataSource* dataSource;
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
