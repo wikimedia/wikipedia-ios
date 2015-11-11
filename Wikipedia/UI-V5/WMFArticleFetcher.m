@@ -10,7 +10,6 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFArticleRequestSerializer.h"
 #import "WMFArticleResponseSerializer.h"
-#import "WMFArticleParsing.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -20,7 +19,7 @@
 #import "MWKSectionList.h"
 #import "MWKSection.h"
 #import "MWKArticlePreview.h"
-#import "MWKArticle.h"
+#import "MWKArticle+HTMLImageImport.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -204,15 +203,15 @@ NS_ASSUME_NONNULL_BEGIN
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore dict:response];
     @try {
         [article importMobileViewJSON:response];
-        [article save];
 
-        for (int section = 0; section < [article.sections count]; section++) {
-            (void)article.sections[section].images;             // hack
-            WMFInjectArticleWithImagesFromSection(article, article.sections[section].text, section);
-        }
+        // HAX: manually ensure the lead image is first in the "image list"
+        [article importImageURL:article.imageURL sectionId:kMWKArticleSectionNone];
+
+        [article save];
 
         // Update article and section image data.
         // Reminder: don't recall article save here as it expensively re-writes all section html.
+        [article importAndSaveImagesFromSectionHTML];
         [article saveWithoutSavingSectionText];
         return article;
     }@catch (NSException* e) {
