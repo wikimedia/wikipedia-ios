@@ -56,9 +56,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
         [self.testArticle importImageURL:imageURL sectionId:kMWKArticleSectionNone];
     }
 
-    self.controller = [[WMFImageInfoController alloc] initWithArticle:self.testArticle
+    self.controller = [[WMFImageInfoController alloc] initWithDataStore:self.tmpDataStore
                                                             batchSize:2
                                                           infoFetcher:self.mockInfoFetcher];
+    [self.controller setUniqueArticleImages:self.testArticle.images.uniqueLargestVariants forTitle:self.testArticle.title];
     self.controller.delegate = self;
 }
 
@@ -85,12 +86,13 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     NSArray* expectedImageInfo = [[MWKImageInfo mappedFromImages:testImages] subarrayWithRange:preFetchedRange];
 
     [MKTGiven([mockImageList uniqueLargestVariants]) willReturn:testImages];
-    [MKTGiven([mockDataStore imageInfoForArticle:dummyArticle]) willReturn:expectedImageInfo];
+    [MKTGiven([mockDataStore imageInfoForTitle:title]) willReturn:expectedImageInfo];
     [MKTGiven([mockDataStore imageListWithArticle:dummyArticle section:nil]) willReturn:mockImageList];
 
-    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithArticle:dummyArticle
+    WMFImageInfoController* controller = [[WMFImageInfoController alloc] initWithDataStore:mockDataStore
                                                                                batchSize:2
                                                                              infoFetcher:self.mockInfoFetcher];
+    [controller setUniqueArticleImages:dummyArticle.images.uniqueLargestVariants forTitle:dummyArticle.title];
 
     assertThat(controller.indexedImageInfo.allValues, containsItemsInCollectionInAnyOrder(expectedImageInfo));
     assertThat(controller.uniqueArticleImages, is(testImages));
@@ -98,9 +100,9 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 }
 
 - (void)testBatchRange {
-    for (int i = 0; i < 10; i++) {
+    for (NSUInteger i = 0; i < 10; i++) {
         NSRange batchRange = [self.controller batchRangeForTargetIndex:i];
-        assertThat(@(batchRange.length), is(equalToInt(self.controller.infoBatchSize)));
+        assertThat(@(batchRange.length), is(equalToUnsignedInteger(self.controller.infoBatchSize)));
         assertThat(@(batchRange.location), is(lessThanOrEqualTo(@(i))));
         assertThat(@(batchRange.location + batchRange.length), is(greaterThanOrEqualTo(@(i))));
     }
@@ -243,7 +245,7 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
     assertThat(self.controller.indexedImageInfo.allValues,
                containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
 
-    assertThat([self.tmpDataStore imageInfoForArticle:self.testArticle],
+    assertThat([self.tmpDataStore imageInfoForTitle:self.testArticle.title],
                containsItemsInCollectionInAnyOrder(accumulatedFetchedImageInfos));
 
     assertThat(@([self.controller hasFetchedAllItems]), isTrue());

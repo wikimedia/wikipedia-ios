@@ -33,7 +33,6 @@
 
 #import "DataMigrationProgressViewController.h"
 #import "UIFont+WMFStyle.h"
-#import "WebViewController+ImageGalleryPresentation.h"
 
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "UIColor+WMFHexColor.h"

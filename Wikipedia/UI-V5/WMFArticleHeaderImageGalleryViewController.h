@@ -23,11 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<WMFArticleHeaderImageGalleryViewControllerDelegate> delegate;
 
 /**
- * Reset the contents of the receiver's `imageURLs` array to contain the images from the specified article.
+ *  Reset the images displayed by the receiver to those in the given article.
  *
- * If the article is not cached, it will only populate the gallery with either the lead or thumbnail image URL.
+ *  If @c article is not cached, the receiver will attempt to show single image view with either @c article.image or
+ *  @c article.thumbnailImage.
  *
- * @param article The article whose images should populate the gallery.
+ *  @param article The article whose images should populate the gallery.
  */
 - (void)setImagesFromArticle:(MWKArticle*)article;
 

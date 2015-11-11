@@ -10,7 +10,7 @@
 #import "WMFPageCollectionViewController.h"
 #import "Wikipedia-Swift.h"
 
-@class MWKArticle, MWKImage;
+@class MWKArticle, MWKImage, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,12 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFImageGalleryViewController : WMFPageCollectionViewController
 
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+
 /**
  * The article whose images are being displayed.
  *
  * Set to `nil` to empty the gallery.
  */
-@property (nonatomic, strong, nullable) MWKArticle* article;
+- (void)setArticle:(nullable MWKArticle*)article;
 
 /**
  *  Set an article for the gallery in the future.
@@ -90,13 +92,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Defaults to `YES`.
  */
 @property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
-
-/**
- * Initialize an instance with the given article.
- * @param article The article which will be the source of images for the gallery.
- * @return A new @c MWKImageGalleryViewController.
- */
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article NS_DESIGNATED_INITIALIZER;
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
 
