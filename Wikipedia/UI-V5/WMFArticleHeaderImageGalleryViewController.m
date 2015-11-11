@@ -68,10 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
     layout.minimumInteritemSpacing = 0.f;
     layout.minimumLineSpacing      = 0.f;
     layout.sectionInset            = UIEdgeInsetsZero;
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     self.dataSource.collectionView = self.collectionView;
 }
 
@@ -79,8 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFImageGalleryDataSource*)dataSource {
     if (!_dataSource) {
-        _dataSource           = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
-        _dataSource.cellClass = [WMFImageCollectionViewCell class];
+        _dataSource                    = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
+        _dataSource.cellClass          = [WMFImageCollectionViewCell class];
         _dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
                                            MWKImage* image,
                                            UICollectionView* _,
@@ -98,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _faceDetector;
 }
 
-- (void)setImagesFromArticle:(MWKArticle *)article {
+- (void)setImagesFromArticle:(MWKArticle*)article {
     self.dataSource.article = article;
 }
 
