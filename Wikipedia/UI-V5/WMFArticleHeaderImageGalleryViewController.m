@@ -7,6 +7,8 @@
 //
 
 #import "WMFArticleHeaderImageGalleryViewController.h"
+#import "WMFBaseImageGalleryViewController_Subclass.h"
+
 @import Masonry;
 
 // Utils
@@ -33,13 +35,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleHeaderImageGalleryViewController ()
 @property (nonatomic, strong) CIDetector* faceDetector;
-@property (nonatomic, strong, readwrite) WMFImageGalleryDataSource* dataSource;
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
 
 - (instancetype)init {
-    return [self initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+    self = [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+    if (self) {
+        self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
+        self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
+                                               MWKImage* image,
+                                               UICollectionView* _,
+                                               NSIndexPath* indexPath)  {
+            [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
+        };
+    }
+    return self;
 }
 
 - (void)addDivider {
@@ -74,29 +85,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (WMFImageGalleryDataSource*)dataSource {
-    if (!_dataSource) {
-        _dataSource                    = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
-        _dataSource.cellClass          = [WMFImageCollectionViewCell class];
-        _dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
-                                           MWKImage* image,
-                                           UICollectionView* _,
-                                           NSIndexPath* indexPath)  {
-            [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
-        };
-    }
-    return _dataSource;
-}
-
 - (CIDetector*)faceDetector {
     if (!_faceDetector) {
         _faceDetector = [CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector];
     }
     return _faceDetector;
-}
-
-- (void)setImagesFromArticle:(MWKArticle*)article {
-    self.dataSource.article = article;
 }
 
 #pragma mark - UICollectionViewDelegate

@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "WMFPageCollectionViewController.h"
+#import "WMFBaseImageGalleryViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,19 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  Designed to show the lead image or thumbnail while article content is being downloaded.  Once article content is
  *  available, this becomes a miniature scrolling gallery of all article images.
  */
-@interface WMFArticleHeaderImageGalleryViewController : WMFPageCollectionViewController
+@interface WMFArticleHeaderImageGalleryViewController : WMFBaseImageGalleryViewController
+
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, weak) id<WMFArticleHeaderImageGalleryViewControllerDelegate> delegate;
-
-/**
- *  Reset the images displayed by the receiver to those in the given article.
- *
- *  If @c article is not cached, the receiver will attempt to show single image view with either @c article.image or
- *  @c article.thumbnailImage.
- *
- *  @param article The article whose images should populate the gallery.
- */
-- (void)setImagesFromArticle:(MWKArticle*)article;
 
 @end
 

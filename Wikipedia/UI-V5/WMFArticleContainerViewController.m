@@ -148,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFImageGalleryViewController*)createImageGalleryViewController {
     WMFImageGalleryViewController* fullscreenGallery =
         [[WMFImageGalleryViewController alloc] initWithDataStore:self.dataStore];
-    [fullscreenGallery setArticle:self.article];
+    [fullscreenGallery showImagesInArticle:self.article];
     return fullscreenGallery;
 }
 
@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     _article                       = article;
     self.webViewController.article = _article;
-    [self.headerGallery setImagesFromArticle:_article];
+    [self.headerGallery showImagesInArticle:_article];
 
     [self setupToolbar];
     [self createTableOfContentsViewController];

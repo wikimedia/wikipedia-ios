@@ -7,7 +7,7 @@
 //
 
 #import "WMFImageGalleryViewController.h"
-
+#import "WMFBaseImageGalleryViewController_Subclass.h"
 #import "Wikipedia-Swift.h"
 
 #import "AnyPromise+WMFExtensions.h"
@@ -68,8 +68,6 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
-@property (nonatomic, strong, readonly) WMFImageGalleryDataSource* dataSource;
-
 @property (nonatomic, weak) UIActivityIndicatorView* loadingIndicator;
 
 @property (nonatomic, weak) PMKResolver articlePromiseResolve;
@@ -80,7 +78,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 @implementation WMFImageGalleryViewController
 @synthesize infoController = _infoController;
-@synthesize dataSource     = _dataSource;
 
 + (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
     UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
@@ -91,13 +88,22 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return defaultLayout;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     self = [super initWithCollectionViewLayout:[[self class] wmf_defaultGalleryLayout]];
     if (self) {
-        self.dataStore = dataStore;
-        self.chromeHidden  = NO;
-        self.chromeEnabled = YES;
-        self.zoomEnabled   = YES;
+        self.dataStore            = dataStore;
+        self.chromeHidden         = NO;
+        self.chromeEnabled        = YES;
+        self.zoomEnabled          = YES;
+        self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
+        @weakify(self);
+        self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
+                                               MWKImage* image,
+                                               UICollectionView* _,
+                                               NSIndexPath* indexPath) {
+            @strongify(self);
+            [self updateCell:cell atIndexPath:indexPath];
+        };
     }
     return self;
 }
@@ -106,23 +112,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return YES;
 }
 
-#pragma mark - Getters
-
-- (WMFImageGalleryDataSource*)dataSource {
-    if (!_dataSource) {
-        _dataSource           = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
-        _dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
-        @weakify(self);
-        _dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
-                                           MWKImage* image,
-                                           UICollectionView* _,
-                                           NSIndexPath* indexPath) {
-            @strongify(self);
-            [self updateCell:cell atIndexPath:indexPath];
-        };
-    }
-    return _dataSource;
-}
+#pragma mark - Accessors
 
 - (void)setArticleWithPromise:(AnyPromise*)articlePromise {
     if (self.articlePromiseResolve) {
@@ -146,7 +136,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     @weakify(self);
     cancellableArticlePromise.then(^(MWKArticle* article) {
         @strongify(self);
-        [self setArticle:article];
+        [self showImagesInArticle:article];
     })
     .catch(^(NSError* error) {
         @strongify(self);
@@ -155,20 +145,18 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     });
 }
 
-- (void)setArticle:(MWKArticle* __nullable)article {
+- (void)showImagesInArticle:(MWKArticle* __nullable)article {
     if (WMF_EQUAL(self.dataSource.article, isEqualToArticle:, article)) {
         return;
     }
 
-    self.dataSource.article = article;
+    [super showImagesInArticle:article];
 
     if (article.isCached) {
         [self.infoController setUniqueArticleImages:[self.dataSource allItems] forTitle:article.title];
-        self.currentPage = [[self.dataSource allItems] wmf_startingIndexForApplicationLayoutDirection];
         [self.infoController fetchBatchContainingIndex:self.currentPage];
     } else {
         [self.infoController reset];
-        self.currentPage = 0;
     }
 }
 
