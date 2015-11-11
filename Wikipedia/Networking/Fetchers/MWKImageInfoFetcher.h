@@ -32,4 +32,7 @@
                                           success:(void (^)(NSArray* infoObjects))success
                                           failure:(void (^)(NSError* error))failure;
 
+
+- (void)cancelAllFetches;
+
 @end
