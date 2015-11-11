@@ -25,8 +25,9 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* dataPromise;
 
-@property (nonatomic, strong) MWKSiteInfo* siteInfo;
-@property (nonatomic, strong) MWKSearchResult* featuredArticlePreview;
+@property (nonatomic, strong, readonly) MWKSiteInfo* siteInfo;
+@property (nonatomic, strong, readonly) MWKSearchResult* featuredArticlePreview;
+@property (nonatomic, strong) id data;
 
 @end
 
@@ -70,6 +71,14 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         dateFormatter.timeStyle = NSDateFormatterNoStyle;
     }
     return dateFormatter;
+}
+
+- (MWKSiteInfo*)siteInfo {
+    return [self.data isKindOfClass:[MWKSiteInfo class]] ? self.data : nil;
+}
+
+- (MWKSearchResult*)featuredArticlePreview {
+    return [self.data isKindOfClass:[MWKSearchResult class]] ? self.data : nil;
 }
 
 #pragma mark - HomeSectionController
@@ -149,36 +158,33 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     }
 
     @weakify(self);
-    self.dataPromise = ([self fetchFeaturedTitleIfAvailable] ? : [self fetchSiteInfo]).catch(^(NSError* error){
+    self.dataPromise = [self fetchDataForSite].then(^(id data) {
+        @strongify(self);
+        self.dataPromise = nil;
+        self.data = data;
+        [self.delegate controller:self didSetItems:self.items];
+    })
+                       .catch(^(NSError* error){
         @strongify(self);
         self.dataPromise = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
     });
 }
 
-- (AnyPromise*)fetchSiteInfo {
-    @weakify(self);
-    return [self.siteInfoFetcher fetchSiteInfoForSite:self.site].then(^(MWKSiteInfo* siteInfo){
-        @strongify(self);
-        self.dataPromise = nil;
-
-        self.siteInfo = siteInfo;
-        [self.delegate controller:self didSetItems:self.items];
-    });
-}
-
-- (nullable AnyPromise*)fetchFeaturedTitleIfAvailable {
-    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
-        return nil;
+/**
+ *  Fetch the data for the current site.
+ *
+ *  If site is en.wikipedia.org, fetch a preview of today's featured article. Otherwise, get Main Page title from
+ *  site info.
+ *
+ *  @return A promise which resolves to the data (either @c MWKSiteInfo or @c MWKSearchResult).
+ */
+- (AnyPromise*)fetchDataForSite {
+    if ([self.site.language isEqualToString:@"en"] || [self.site.language isEqualToString:@"en-US"]) {
+        return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:[NSDate date]];
+    } else {
+        return [self.siteInfoFetcher fetchSiteInfoForSite:self.site];
     }
-    @weakify(self);
-    return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:[NSDate date]].then(^(MWKSearchResult* featuredTitlePreview) {
-        @strongify(self);
-        self.dataPromise = nil;
-
-        self.featuredArticlePreview = featuredTitlePreview;
-        [self.delegate controller:self didSetItems:self.items];
-    });
 }
 
 @end
