@@ -56,7 +56,12 @@
     return [self.collectionViewLayout wmf_indexPathHorizontallyClosestToContentOffset].item;
 }
 
-#pragma mark - View event handling
+#pragma mark - UIViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.collectionView.pagingEnabled = YES;
+}
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {

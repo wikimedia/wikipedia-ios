@@ -263,7 +263,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     self.collectionView.backgroundColor = [UIColor blackColor];
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageGalleryCollectionViewCell identifier]];
-    self.collectionView.pagingEnabled = YES;
 
     self.dataSource.collectionView = self.collectionView;
 
