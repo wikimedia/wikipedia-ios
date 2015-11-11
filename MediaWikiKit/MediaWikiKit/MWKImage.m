@@ -39,6 +39,7 @@
         self.article = article;
 
         // fileNameNoSizePrefix is lazily derived from this property, so be careful if _sourceURL needs to be re-set
+        NSParameterAssert(sourceURL.absoluteString.length);
         self.sourceURL = sourceURL;
     }
     return self;

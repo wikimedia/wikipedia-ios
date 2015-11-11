@@ -17,4 +17,15 @@
  */
 - (void)importAndSaveImagesFromSectionHTML;
 
+/**
+ *  Internal API for creating, importing, and saving the @c src & @c srcset images in an image node.
+ *
+ *  @c importAndSaveImagesFromSectionHTML calls this internally on all image elements from all section HTML. Therefore,
+ *  you shouldn't need to call this directly.
+ *
+ *  @param imageNode The image node to extract image metadata from.
+ *  @param sectionID The section to add the image to.
+ */
+- (void)importAndSaveImagesFromElement:(TFHppleElement*)imageNode intoSection:(int)sectionID;
+
 @end

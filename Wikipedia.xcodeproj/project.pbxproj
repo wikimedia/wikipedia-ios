@@ -500,6 +500,7 @@
 		BCE839711BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839701BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m */; };
 		BCE839741BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */; };
 		BCE839761BF3BD5C00F5BBA4 /* MWKSection+HTMLImageParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */; };
+		BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */ = {isa = PBXBuildFile; fileRef = BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -1492,6 +1493,7 @@
 		BCE839721BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+HTMLImageExtraction.h"; sourceTree = "<group>"; };
 		BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+HTMLImageExtraction.m"; sourceTree = "<group>"; };
 		BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+HTMLImageParsingTests.m"; sourceTree = "<group>"; };
+		BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ObamaImageElement.html; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -3384,6 +3386,7 @@
 				BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */,
 				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
 				BC9355411BE1A71900697CB0 /* BarackSearch.json */,
+				BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3871,6 +3874,7 @@
 				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
 				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
 				BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */,
+				BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */,
 				BCF8DCA81B7009B100149C26 /* MobileView in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

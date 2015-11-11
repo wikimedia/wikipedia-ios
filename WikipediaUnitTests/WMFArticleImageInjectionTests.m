@@ -18,7 +18,7 @@
 #import "MWKSection.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 
-#import <BlocksKit/BlocksKit.h>
+#import <hpple/TFHpple.h>
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -27,39 +27,94 @@
 #import <OCMockito/OCMockito.h>
 
 @interface WMFArticleImageInjectionTests : XCTestCase
-@property (nonatomic, strong) MWKArticle* article;
 @property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong) NSMutableArray* tempDataStores;
 @end
 
 @implementation WMFArticleImageInjectionTests
 
-- (void)setUp {
-    [super setUp];
-    self.tempDataStores = [NSMutableArray new];
-}
-
 - (void)tearDown {
     [super tearDown];
-    [self.tempDataStores makeObjectsPerformSelector:@selector(removeFolderAtBasePath)];
-    self.tempDataStores = nil;
+    [self.dataStore removeFolderAtBasePath];
 }
 
-- (void)testPerformanceExample {
-    [self measureBlock:^{
+- (void)testExtractsSrcAndSrcsetImagesFromFixture {
+    self.dataStore = [MWKDataStore temporaryDataStore];
+    TFHppleElement* obamaElement =
+        [[TFHpple hppleWithHTMLData:[[self wmf_bundle] wmf_dataFromContentsOfFile:@"ObamaImageElement" ofType:@"html"]]
+         peekAtSearchWithXPathQuery:@"//html/body/*"];
+    NSParameterAssert(obamaElement);
+
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+
+    [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+
+    [article importAndSaveImagesFromElement:obamaElement intoSection:0];
+
+    id (^ hasSourceURLWithPrefix)(NSUInteger sizePrefix) = ^(NSUInteger sizePrefix) {
+        static NSString* expectedSourceURLFormat =
+            @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/%dpx-President_Barack_Obama.jpg";
+        return hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, sourceURLString),
+                           [NSString stringWithFormat:expectedSourceURLFormat, sizePrefix]);
+    };
+
+    id (^ withMatchingPrefixAndScale)(NSUInteger sizePrefix, float scale) = ^(NSUInteger sizePrefix, float scale){
+        return allOf(hasSourceURLWithPrefix(sizePrefix),
+                     hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, width),
+                                 @(220 * scale)),
+                     hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, height),
+                                 @(275 * scale)),
+                     nil);
+    };
+
+    NSArray<MWKImage*>* savedImages = [article.images.entries bk_map:^MWKImage*(NSString* urlString) {
+        return [self.dataStore imageWithURL:urlString article:article];
+    }];
+
+    // article image list should also contain the lead image due to importMobileViewJSON
+    assertThat(savedImages, hasItems(hasSourceURLWithPrefix(640),
+                                     withMatchingPrefixAndScale(220, 1.0),
+                                     withMatchingPrefixAndScale(330, 1.0),
+                                     withMatchingPrefixAndScale(440, 2.0),
+                                     nil));
+
+    // first section's image list should also have the images from the element (same as article image list, minus lead image)
+    assertThat(article.sections[0].images.entries,
+               is(equalTo([article.images.entries subarrayWithRange:NSMakeRange(1, article.images.count - 1)])));
+}
+
+- (void)testExcludesElementsBelowSizeThreshold {
+    self.dataStore = [MWKDataStore temporaryDataStore];
+    TFHppleElement* smallImageElement =
+        [[TFHpple hppleWithHTMLData:[
+              @"<html><body>"
+              "<img src=\"//upload.wikimedia.org/icon.jpg\" width=10 height=10/>"
+              "</body></html>"
+              dataUsingEncoding:NSUTF8StringEncoding]]
+         peekAtSearchWithXPathQuery:@"//html/body/*"];
+    NSParameterAssert(smallImageElement);
+
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+
+    [article importAndSaveImagesFromElement:smallImageElement intoSection:kMWKArticleSectionNone];
+
+    assertThat(article.images.entries, isEmpty());
+}
+
+- (void)testImportsAllExpectedImagesFromFixture {
+    [self measureMetrics:[[self class] defaultPerformanceMetrics] automaticallyStartMeasuring:NO forBlock:^{
         self.dataStore = [MWKDataStore temporaryDataStore];
-        [self.tempDataStores addObject:self.dataStore];
-        MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
-        self.article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
 
-        NSParameterAssert(self.article.images);
+        MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
 
-        [self.article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+        [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-        [self.article importAndSaveImagesFromSectionHTML];
+        [self startMeasuring];
+        [article importAndSaveImagesFromSectionHTML];
+        [self stopMeasuring];
 
-        #warning TODO: assert proper number of image entries & sourceURLs
-        assertThat(@(self.article.images.count), is(greaterThan(@0)));
+        // expected number is observed & recorded,
+        assertThat(@(article.images.count), is(@96));
+        [self.dataStore removeFolderAtBasePath];
     }];
 }
 
