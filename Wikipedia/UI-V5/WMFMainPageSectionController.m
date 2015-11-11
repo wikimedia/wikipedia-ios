@@ -55,7 +55,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (WMFEnglishFeaturedTitleFetcher*)featuredTitlePreviewFetcher {
-    if (_featuredArticlePreview == nil) {
+    if (_featuredTitlePreviewFetcher == nil) {
         _featuredTitlePreviewFetcher = [[WMFEnglishFeaturedTitleFetcher alloc] init];
     }
     return _featuredTitlePreviewFetcher;
