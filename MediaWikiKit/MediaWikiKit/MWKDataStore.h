@@ -72,7 +72,7 @@ extern NSString* const MWKArticleKey;
  * @param article The @c MWKArticle which contains the desired image info.
  * @return The path to the <b>.plist</b> file where image info for an article would be stored.
  */
-- (NSString*)pathForArticleImageInfo:(MWKArticle*)article;
+- (NSString*)pathForTitleImageInfo:(MWKTitle*)title;
 
 // Raw save methods
 - (void)saveArticle:(MWKArticle*)article;
@@ -94,7 +94,7 @@ extern NSString* const MWKArticleKey;
  * @discussion Image info objects are stored under an article so they can be easily referenced and removed alongside
  *             the article.
  */
-- (void)saveImageInfo:(NSArray*)imageInfo forArticle:(MWKArticle*)article;
+- (void)saveImageInfo:(NSArray*)imageInfo forTitle:(MWKTitle*)title;
 
 ///
 /// @name Article Load Methods
@@ -139,7 +139,7 @@ extern NSString* const MWKArticleKey;
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (MWKImage*)imageWithURL:(NSString*)url article:(MWKArticle*)article;
 - (NSData*)imageDataWithImage:(MWKImage*)image;
-- (NSArray*)imageInfoForArticle:(MWKArticle*)article;
+- (NSArray*)imageInfoForTitle:(MWKTitle*)title;
 
 
 - (NSArray*)     historyListData;
