@@ -63,6 +63,4 @@
     assertThat([@"bla bla" wmf_stringBySelectingHTMLImageTags], is(equalTo(@"")));
 }
 
-
-
 @end

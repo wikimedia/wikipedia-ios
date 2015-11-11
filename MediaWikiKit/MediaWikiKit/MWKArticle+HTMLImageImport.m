@@ -49,9 +49,9 @@
     }
 
     /*
-     Is estimated size even being used anymore?  Are we expecting it to be points or pixels?  Calculating pixels atm...
-    */
-    MWKImage*(^imageWithEstimatedSizeAndURL)(NSURL* url, float scale) = ^MWKImage*(NSURL* srcURL, float scale) {
+       Is estimated size even being used anymore?  Are we expecting it to be points or pixels?  Calculating pixels atm...
+     */
+    MWKImage*(^ imageWithEstimatedSizeAndURL)(NSURL* url, float scale) = ^MWKImage*(NSURL* srcURL, float scale) {
         if (srcURL.absoluteString.length == 0) {
             return nil;
         }
@@ -67,7 +67,7 @@
     MWKImage* sourceImage =
         imageWithEstimatedSizeAndURL([NSURL wmf_optionalURLWithString:imageNode.attributes[@"src"]], 1);
 
-    NSArray<MWKImage*>* srcsetImages = [[[imageNode.attributes[@"srcset"] componentsSeparatedByString:@","] bk_map:^id(NSString* srcsetComponent) {
+    NSArray<MWKImage*>* srcsetImages = [[[imageNode.attributes[@"srcset"] componentsSeparatedByString:@","] bk_map:^id (NSString* srcsetComponent) {
         NSArray* srcsetComponentParts =
             [[srcsetComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
              componentsSeparatedByString:@" "];
@@ -84,12 +84,12 @@
             }
         }
         return imageWithEstimatedSizeAndURL(url, scale);
-    }] bk_reject:^BOOL(id obj) {
+    }] bk_reject:^BOOL (id obj) {
         return [NSNull null] == obj;
     }];
 
     // group src & srset images together, handling case where there was no srcset attribute
-    NSMutableArray<MWKImage*>* allImages = [(srcsetImages ?: @[]) mutableCopy];
+    NSMutableArray<MWKImage*>* allImages = [(srcsetImages ? : @[]) mutableCopy];
     if (sourceImage) {
         [allImages insertObject:sourceImage atIndex:0];
     }
