@@ -7,12 +7,15 @@
 //
 
 #import "MWKArticle+HTMLImageImport.h"
-#import "MWKSection.h"
+#import "Defines.h"
+
+#import <hpple/TFHpple.h>
+
+#import "NSURL+Extras.h"
+
 #import "MWKImage.h"
 #import "MWKImageList.h"
 #import "MWKSectionList.h"
-#import <hpple/TFHpple.h>
-#import "Defines.h"
 #import "MWKSection+HTMLImageExtraction.h"
 
 @implementation MWKArticle (HTMLImageImport)
@@ -45,58 +48,56 @@
         return;
     }
 
-    NSString* srcURL  = imageNode.attributes[@"src"];
-    NSInteger density = 1;
+    /*
+     Is estimated size even being used anymore?  Are we expecting it to be points or pixels?  Calculating pixels atm...
+    */
+    MWKImage*(^imageWithEstimatedSizeAndURL)(NSURL* url, float scale) = ^MWKImage*(NSURL* srcURL, float scale) {
+        if (srcURL.absoluteString.length == 0) {
+            return nil;
+        }
+        MWKImage* image = [[MWKImage alloc] initWithArticle:self sourceURL:srcURL];
+        if ([MWKImage fileSizePrefix:srcURL.absoluteString] != NSNotFound) {
+            // don't add estimated width/height for images without a size prefix, since they're the original image
+            image.width  = @(imgWidth.integerValue * scale);
+            image.height = @(imgHeight.integerValue * scale);
+        }
+        return image;
+    };
 
+    MWKImage* sourceImage =
+        imageWithEstimatedSizeAndURL([NSURL wmf_optionalURLWithString:imageNode.attributes[@"src"]], 1);
 
-    BOOL const isRetina = [UIScreen mainScreen].scale > 1.0f;
-
-    // This is a horrible hack to compensate for iOS 8 WebKit's srcset
-    // handling and the way we currently handle image caching which
-    // doesn't quite handle that right.
-    //
-    // WebKit on iOS 8 and later understands the new img 'srcset' attribute
-    // which can provide alternate-resolution versions for different device
-    // pixel ratios (and in theory some other size-based alternates, but we
-    // don't use that stuff). MediaWiki/Wikipedia uses this to specify image
-    // versions at 1.5x and 2x density levels, which the browser should use
-    // as appropriate in preference to the 'src' URL which is assumed to be
-    // at 1x density.
-    //
-    // On iOS 7 and earlier, or on non-Retina devices on iOS 8, the 1x image
-    // URL from the 'src' attribute is still used as-is.
-    //
-    // By making sure we pick the same version that WebKit will pick up later,
-    // here we ensure that the correct entries will be cached.
-    //
-    if (isRetina) {
-        for (NSString* subSrc in [imageNode.attributes[@"srcset"] componentsSeparatedByString:@","]) {
-            NSString* trimmed =
-                [subSrc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            NSArray* parts = [trimmed componentsSeparatedByString:@" "];
-            if (parts.count == 2 && [parts[1] isEqualToString:@"2x"]) {
-                // Quick hack to shortcut relevant syntax :P
-                srcURL  = parts[0];
-                density = 2;
-                break;
+    NSArray<MWKImage*>* srcsetImages = [[[imageNode.attributes[@"srcset"] componentsSeparatedByString:@","] bk_map:^id(NSString* srcsetComponent) {
+        NSArray* srcsetComponentParts =
+            [[srcsetComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
+             componentsSeparatedByString:@" "];
+        NSURL* url = [NSURL wmf_optionalURLWithString:srcsetComponentParts.firstObject];
+        float scale = 1;
+        if (srcsetComponentParts.count == 2) {
+            NSScanner* scaleSuffixScanner = [NSScanner scannerWithString:srcsetComponentParts[1]];
+            float scannedSuffixValue = 0.f;
+            if ([scaleSuffixScanner scanFloat:&scannedSuffixValue]) {
+                // iOS devices don't use fractional scales, so round them down (e.g. 1.5x becomes 1x)
+                scale = floor(scannedSuffixValue);
+            } else {
+                DDLogInfo(@"Failed to scale srcset scale suffix of component: %@", srcsetComponent);
             }
         }
+        return imageWithEstimatedSizeAndURL(url, scale);
+    }] bk_reject:^BOOL(id obj) {
+        return [NSNull null] == obj;
+    }];
+
+    // group src & srset images together, handling case where there was no srcset attribute
+    NSMutableArray<MWKImage*>* allImages = [(srcsetImages ?: @[]) mutableCopy];
+    if (sourceImage) {
+        [allImages insertObject:sourceImage atIndex:0];
     }
 
-    if (![self.images hasImageURL:[NSURL URLWithString:srcURL]]) {
-        MWKImage* image = [self importImageURL:srcURL sectionId:sectionID];
-
-        // If img tag dimensions were extracted, save them so they don't have to be expensively determined later.
-        if (imgWidth && imgHeight) {
-            // Don't record dimensions if image file name doesn't have size prefix.
-            // (Sizes from the img tag don't tend to correspond closely to actual
-            // image binary sizes for these.)
-            if ([MWKImage fileSizePrefix:srcURL] != NSNotFound) {
-                image.width  = @(imgWidth.integerValue * density);
-                image.height = @(imgHeight.integerValue * density);
-            }
-        }
-
+    for (MWKImage* image in allImages) {
+        // add to lists
+        [self updateImageListsWithSourceURL:image.sourceURLString inSection:sectionID];
+        // save image metadata
         [image save];
     }
 }

@@ -204,9 +204,6 @@ NS_ASSUME_NONNULL_BEGIN
     @try {
         [article importMobileViewJSON:response];
 
-        // HAX: manually ensure the lead image is first in the "image list"
-        [article importImageURL:article.imageURL sectionId:kMWKArticleSectionNone];
-
         [article save];
 
         // Update article and section image data.
