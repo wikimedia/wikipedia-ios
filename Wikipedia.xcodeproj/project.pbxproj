@@ -82,8 +82,6 @@
 		047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 047ED63818C13E4900442BE3 /* PreviewWebView.m */; };
 		04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04821CD019895EDC007558F6 /* ReferenceGradientView.m */; };
 		0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0484411D19FF15AF00FD26C5 /* AboutViewController.plist */; };
-		0484B9061ABB50FA00874073 /* WMFArticleParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484B9051ABB50FA00874073 /* WMFArticleParsing.m */; };
-		0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484B9051ABB50FA00874073 /* WMFArticleParsing.m */; };
 		0484E3DE19D9D19B0085D18D /* UIView+ConstraintsScale.m in Sources */ = {isa = PBXBuildFile; fileRef = 0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */; };
 		0487045519F824D700B7D307 /* QueuesSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487044119F824D700B7D307 /* QueuesSingleton.m */; };
 		0487047E19F8262600B7D307 /* AccountCreationTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0487045819F8262600B7D307 /* AccountCreationTokenFetcher.m */; };
@@ -499,6 +497,9 @@
 		BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FDC1B0CF0C7003F054B /* SQLiteHelper.m */; };
 		BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */; };
 		BCE6EE131B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */; };
+		BCE839711BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839701BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m */; };
+		BCE839741BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */; };
+		BCE839761BF3BD5C00F5BBA4 /* MWKSection+HTMLImageParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -707,8 +708,6 @@
 		04821CCF19895EDC007558F6 /* ReferenceGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceGradientView.h; sourceTree = "<group>"; };
 		04821CD019895EDC007558F6 /* ReferenceGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceGradientView.m; sourceTree = "<group>"; };
 		0484411D19FF15AF00FD26C5 /* AboutViewController.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AboutViewController.plist; sourceTree = "<group>"; };
-		0484B9041ABB50FA00874073 /* WMFArticleParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleParsing.h; sourceTree = "<group>"; };
-		0484B9051ABB50FA00874073 /* WMFArticleParsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleParsing.m; sourceTree = "<group>"; };
 		0484E3DC19D9D19B0085D18D /* UIView+ConstraintsScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ConstraintsScale.h"; sourceTree = "<group>"; };
 		0484E3DD19D9D19B0085D18D /* UIView+ConstraintsScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ConstraintsScale.m"; sourceTree = "<group>"; };
 		0487044019F824D700B7D307 /* QueuesSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueuesSingleton.h; sourceTree = "<group>"; };
@@ -1488,6 +1487,11 @@
 		BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLink.m; sourceTree = "<group>"; };
 		BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkResponseSerializer.h; path = Serializers/MWKLanguageLinkResponseSerializer.h; sourceTree = "<group>"; };
 		BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkResponseSerializer.m; path = Serializers/MWKLanguageLinkResponseSerializer.m; sourceTree = "<group>"; };
+		BCE8396F1BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKArticle+HTMLImageImport.h"; sourceTree = "<group>"; };
+		BCE839701BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKArticle+HTMLImageImport.m"; sourceTree = "<group>"; };
+		BCE839721BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+HTMLImageExtraction.h"; sourceTree = "<group>"; };
+		BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+HTMLImageExtraction.m"; sourceTree = "<group>"; };
+		BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+HTMLImageParsingTests.m"; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -1685,8 +1689,6 @@
 			children = (
 				040D835D1AB0EE45000896D5 /* WMFGeometry.h */,
 				040D835C1AB0EE45000896D5 /* WMFGeometry.c */,
-				0484B9041ABB50FA00874073 /* WMFArticleParsing.h */,
-				0484B9051ABB50FA00874073 /* WMFArticleParsing.m */,
 			);
 			name = "C Functions";
 			path = "C Methods";
@@ -3115,6 +3117,7 @@
 				BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */,
 				BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */,
 				BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */,
+				BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */,
 				BCA9575C1ABE473800B62AE8 /* LegacyCoreDataMigratorTests.m */,
 				BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */,
 				BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */,
@@ -3270,6 +3273,8 @@
 				BCB669821A83F6C300C7B1FE /* MWKUser.m */,
 				BCB669831A83F6C300C7B1FE /* MWKSection.h */,
 				BCB669841A83F6C300C7B1FE /* MWKSection.m */,
+				BCE839721BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.h */,
+				BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */,
 				BCB669851A83F6C300C7B1FE /* MWKImage.h */,
 				BCB669861A83F6C300C7B1FE /* MWKImage.m */,
 				BCB669871A83F6C300C7B1FE /* MWKProtectionStatus.h */,
@@ -3296,6 +3301,8 @@
 				BCB669991A83F6C300C7B1FE /* MWKDataStore.m */,
 				BCB6699A1A83F6C300C7B1FE /* MWKArticle.h */,
 				BCB6699B1A83F6C300C7B1FE /* MWKArticle.m */,
+				BCE8396F1BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.h */,
+				BCE839701BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m */,
 				0E5F285E1B6719AF008885A2 /* MWKArticlePreview.h */,
 				0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */,
 				0EB101C61B69C8E1001BE1FB /* MWKSectionMetaData.h */,
@@ -4089,6 +4096,7 @@
 				BC7B76A01B861F7100774FBC /* MWKSectionListHierarchyTests.m in Sources */,
 				BCF1E20D1B4C5C7300B10877 /* WMFBackgroundTestManagerTests.swift in Sources */,
 				04D2F0D11B88330700E42A76 /* FBSnapshotTestCase+WMFConvenience.m in Sources */,
+				BCE839761BF3BD5C00F5BBA4 /* MWKSection+HTMLImageParsingTests.m in Sources */,
 				BC3863491B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m in Sources */,
 				BCB608221BC814170088086A /* UIImageView+WMFImageFetchingVisualTests.m in Sources */,
 				BC3059B41B69416E00AA5703 /* MWKImageFaceDetectionTests.m in Sources */,
@@ -4117,7 +4125,6 @@
 				BC7E4A521B34B53E00EECD8B /* MWKLanguageLinkControllerTests.m in Sources */,
 				BC725ED21B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m in Sources */,
 				BC0FED6B1AAA0268002488D7 /* MWKDataStoreStorageTests.m in Sources */,
-				0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */,
 				BCFE026A1B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m in Sources */,
 				BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */,
@@ -4195,6 +4202,7 @@
 			files = (
 				04DA87861B310E7D00C948F8 /* RecentSearchesViewController.m in Sources */,
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
+				BCE839711BF3B07700F5BBA4 /* MWKArticle+HTMLImageImport.m in Sources */,
 				0EAED85B1BE951E2006B01E6 /* WMFArticleListTableViewCell.m in Sources */,
 				BCB669A61A83F6C400C7B1FE /* MWKDataObject.m in Sources */,
 				04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
@@ -4365,7 +4373,6 @@
 				04821CD119895EDC007558F6 /* ReferenceGradientView.m in Sources */,
 				0472BC18193AD88C00C40BDA /* MWKSection+DisplayHtml.m in Sources */,
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
-				0484B9061ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC505EF41B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.m in Sources */,
 				048830D21AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
@@ -4488,6 +4495,7 @@
 				04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */,
 				BCB669A41A83F6C400C7B1FE /* MWKSite.m in Sources */,
 				046E2B6B1B31ED94008A99A6 /* UIButton+WMFButton.m in Sources */,
+				BCE839741BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m in Sources */,
 				BCB669AC1A83F6C400C7B1FE /* MWKSavedPageEntry.m in Sources */,
 				04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
 				C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */,
