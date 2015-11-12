@@ -33,6 +33,8 @@
     AnyPromise* promise            = testBlock();
     promise.then(^{
         [expectation fulfill];
+    }).catchWithPolicy(PMKCatchPolicyAllErrors, ^(NSError* e) {
+        XCTFail(@"Unexpected error: %@", e);
     });
     [self waitForExpectationsWithTimeout:timeout handler:nil];
 }
@@ -55,7 +57,9 @@
                            line:(NSUInteger)line {
     XCTestExpectation* expectation = [self expectationForMethod:method line:line];
     AnyPromise* promise            = testBlock();
-    promise.catchWithPolicy(policy, ^{
+    promise.then(^(id val){
+        XCTFail(@"Unexpected resolution: %@", val);
+    }).catchWithPolicy(policy, ^{
         [expectation fulfill];
     });
     [self waitForExpectationsWithTimeout:timeout handler:nil];
