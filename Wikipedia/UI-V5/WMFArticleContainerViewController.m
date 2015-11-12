@@ -299,7 +299,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateToolbarItemEnabledState {
     self.refreshToolbarItem.enabled         = self.article != nil;
-    self.tableOfContentsToolbarItem.enabled = self.article != nil;
     self.shareToolbarItem.enabled           = self.article != nil;
     self.languagesToolbarItem.enabled       = self.article.languagecount > 1;
     self.tableOfContentsToolbarItem.enabled = self.article != nil && !self.article.isMain;
