@@ -19,17 +19,6 @@ PODS:
     - CocoaLumberjack/Default
   - CocoaLumberjack/Swift (2.0.1):
     - CocoaLumberjack/Extensions
-  - DTCoreText (1.6.16):
-    - DTFoundation/Core (~> 1.7.5)
-    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
-    - DTFoundation/DTHTMLParser (~> 1.7.5)
-    - DTFoundation/UIKit (~> 1.7.5)
-  - DTFoundation/Core (1.7.8)
-  - DTFoundation/DTAnimatedGIF (1.7.8)
-  - DTFoundation/DTHTMLParser (1.7.8):
-    - DTFoundation/Core
-  - DTFoundation/UIKit (1.7.8):
-    - DTFoundation/Core
   - FBSnapshotTestCase/Core (2.0.4)
   - HockeySDK (3.8.2):
     - HockeySDK/AllFeaturesLib (= 3.8.2)
@@ -84,7 +73,6 @@ DEPENDENCIES:
   - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (from `https://github.com/CocoaLumberjack/CocoaLumberjack.git`,
     branch `swift_2.0`)
-  - DTCoreText (~> 1.6.16)
   - FBSnapshotTestCase/Core (~> 2.0.3)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
@@ -111,7 +99,7 @@ EXTERNAL SOURCES:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
   SelfSizingWaterfallCollectionViewLayout:
     :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 
@@ -131,8 +119,6 @@ SPEC CHECKSUMS:
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 3eefa3b3b4d42d4700fa4e9d9bbb33c4cc80aaae
-  DTCoreText: 934a16fe9ffdd169c96261721b39dc312b75713d
-  DTFoundation: 46e2b2fafe78d67febfd8d1f85fe9845a093f00e
   FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
   HockeySDK: 9f4ac41263acf9d8a4d59491a7f17af16529b935
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
