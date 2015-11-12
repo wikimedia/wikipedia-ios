@@ -490,6 +490,7 @@
 		BCD41E001B11D1B200231BB1 /* XCTestCase+MWKFixtures.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD41DFE1B11D17100231BB1 /* XCTestCase+MWKFixtures.m */; };
 		BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */; };
 		BCDBCC6E1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */; };
+		BCDC489B1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDC489A1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m */; };
 		BCDD703A1BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */; };
 		BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD51B0CF0C7003F054B /* LegacyCoreDataMigrator.m */; };
 		BCE24FDE1B0CF0C7003F054B /* LegacyDataMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FD81B0CF0C7003F054B /* LegacyDataMigrator.m */; };
@@ -501,6 +502,10 @@
 		BCE839741BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */; };
 		BCE839761BF3BD5C00F5BBA4 /* MWKSection+HTMLImageParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */; };
 		BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */ = {isa = PBXBuildFile; fileRef = BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */; };
+		BCE839521BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839511BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m */; };
+		BCE839571BF14D1100F5BBA4 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BCE839561BF14D1100F5BBA4 /* TFATitleExtract.json */; };
+		BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */ = {isa = PBXBuildFile; fileRef = BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */; };
+		BCE8395C1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE8395B1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -1474,6 +1479,8 @@
 		BCDBCC6D1BDA59CC002298FC /* WMFArticleContainerViewController+TOC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WMFArticleContainerViewController+TOC.swift"; sourceTree = "<group>"; };
 		BCDBCC6F1BDA5BFC002298FC /* WMFArticleContainerViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleContainerViewController_Private.h; sourceTree = "<group>"; };
 		BCDBEBE81BB32E7600841C20 /* SavedArticlesFetcher_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedArticlesFetcher_Testing.h; sourceTree = "<group>"; };
+		BCDC48991BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFEnglishFeaturedTitleFetcher.h; sourceTree = "<group>"; };
+		BCDC489A1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFEnglishFeaturedTitleFetcher.m; sourceTree = "<group>"; };
 		BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcherTests.m; sourceTree = "<group>"; };
 		BCE24FD41B0CF0C7003F054B /* LegacyCoreDataMigrator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyCoreDataMigrator.h; sourceTree = "<group>"; };
 		BCE24FD51B0CF0C7003F054B /* LegacyCoreDataMigrator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyCoreDataMigrator.m; sourceTree = "<group>"; };
@@ -1494,6 +1501,11 @@
 		BCE839731BF3B54000F5BBA4 /* MWKSection+HTMLImageExtraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+HTMLImageExtraction.m"; sourceTree = "<group>"; };
 		BCE839751BF3BD5B00F5BBA4 /* MWKSection+HTMLImageParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+HTMLImageParsingTests.m"; sourceTree = "<group>"; };
 		BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ObamaImageElement.html; sourceTree = "<group>"; };
+		BCE839511BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFENFeaturedTitleFetcherTests.m; sourceTree = "<group>"; };
+		BCE839561BF14D1100F5BBA4 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
+		BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TitlePreviewQuery.json; sourceTree = "<group>"; };
+		BCE8395A1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+WMFCommonParams.h"; sourceTree = "<group>"; };
+		BCE8395B1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+WMFCommonParams.m"; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -1895,6 +1907,8 @@
 				BCBDC88B1B3A0715003A6D17 /* Cancellable.swift */,
 				BCF8DCA41B70055F00149C26 /* WMFFixtureRecording.h */,
 				BCF8DCA51B70055F00149C26 /* WMFFixtureRecording.m */,
+				BCE8395A1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.h */,
+				BCE8395B1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -1947,6 +1961,7 @@
 				BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */,
 				BC092B9D1B1907FC00093C59 /* MWKSiteInfoFetcher.h */,
 				BC092B9E1B1907FC00093C59 /* MWKSiteInfoFetcher.m */,
+				BCDC489C1BF0F38900E6858A /* Feed */,
 			);
 			path = Fetchers;
 			sourceTree = "<group>";
@@ -3156,6 +3171,7 @@
 				BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */,
 				BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */,
 				BC93553F1BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m */,
+				BCE839511BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3387,6 +3403,8 @@
 				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
 				BC9355411BE1A71900697CB0 /* BarackSearch.json */,
 				BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */,
+				BCE839561BF14D1100F5BBA4 /* TFATitleExtract.json */,
+				BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3429,6 +3447,15 @@
 				BCEC77911AC9B6AD00D9DDA5 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m */,
 			);
 			name = "Custom Matchers";
+			sourceTree = "<group>";
+		};
+		BCDC489C1BF0F38900E6858A /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				BCDC48991BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.h */,
+				BCDC489A1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m */,
+			);
+			name = Feed;
 			sourceTree = "<group>";
 		};
 		BCE24FD31B0CF0C7003F054B /* Legacy Data Migration */ = {
@@ -3872,10 +3899,12 @@
 				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
 				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
 				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
+				BCE839571BF14D1100F5BBA4 /* TFATitleExtract.json in Resources */,
 				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
 				BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */,
 				BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */,
 				BCF8DCA81B7009B100149C26 /* MobileView in Resources */,
+				BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4133,6 +4162,7 @@
 				BCFE026A1B41ABB5003752B7 /* MWKHistoryListCorruptDataTests.m in Sources */,
 				BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */,
 				BC0FED641AAA0263002488D7 /* MWKArticleStoreTestCase.m in Sources */,
+				BCE839521BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m in Sources */,
 				BCA676561AC05FE200A16160 /* NSBundle+TestAssets.m in Sources */,
 				0E869F151B582297002604C3 /* MWKListInsertionTests.m in Sources */,
 				BCB8487B1AAAADF90077EC24 /* WMFMathTests.m in Sources */,
@@ -4217,6 +4247,7 @@
 				04AE1C701891B302002D5487 /* NSObject+Extras.m in Sources */,
 				04B7B9BD18B5570E00A63551 /* CaptchaViewController.m in Sources */,
 				045D872119FAD2FA0035C1F9 /* AboutViewController.m in Sources */,
+				BCE8395C1BF153D800F5BBA4 /* NSDictionary+WMFCommonParams.m in Sources */,
 				04C43AA4183440C1006C643B /* MWNetworkActivityIndicatorManager.m in Sources */,
 				0EAED8531BE9381E006B01E6 /* WMFArticleListTableViewController.m in Sources */,
 				BC5BC4A61BCEF52200062619 /* MWKSavedPageList+ImageMigration.m in Sources */,
@@ -4452,6 +4483,7 @@
 				04D686F81AB2949C0009B44A /* PaddedLabel.m in Sources */,
 				BCB4987F1B8FA47200BE4769 /* WMFMantleJSONResponseSerializer.m in Sources */,
 				04C695D218ED213000D9F2DA /* UIScrollView+NoHorizontalScrolling.m in Sources */,
+				BCDC489B1BF0F16000E6858A /* WMFEnglishFeaturedTitleFetcher.m in Sources */,
 				BC3166B21B279AC30096EE8E /* WikipediaAppUtils.m in Sources */,
 				044687FF1BB358DF00B888CC /* UIView+IBExtras.swift in Sources */,
 				BC7FA4C31BD6A6B7006CA1A3 /* MWKSection+TOCItem.swift in Sources */,
