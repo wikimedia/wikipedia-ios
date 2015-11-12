@@ -52,6 +52,7 @@
     }
     _savedPageList = savedPageList;
     [self observeSavedPages];
+    [self updateSavedButtonState];
 }
 
 - (void)setTitle:(MWKTitle*)title {
@@ -115,6 +116,9 @@
 #pragma mark - Save State
 
 - (void)updateSavedButtonState {
+    if (!self.savedPageList || !self.title) {
+        return;
+    }
     BOOL isSaved = [self isSaved];
     self.button.selected = isSaved;
     if (isSaved) {
