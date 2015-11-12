@@ -1,27 +1,41 @@
 #import <SSDataSources/SSDataSources.h>
 
+#import "WMFArticleListTableViewCell.h"
+
 @class MWKTitle;
 @class MWKSavedPageList;
 @class MWKImage;
 
-@interface WMFArticlePreviewTableViewCell : SSBaseTableCell
-
-@property (nonatomic, strong) NSString* titleText;
-
-@property (nonatomic, strong) NSString* descriptionText;
+@interface WMFArticlePreviewTableViewCell : WMFArticleListTableViewCell
 
 @property (nonatomic, strong) NSString* snippetText;
 
-- (void)setImage:(MWKImage*)image;
-- (void)setImageURL:(NSURL*)imageURL;
+/**
+ *  Wire up the save button with the title and saved page list 
+ *  to enable saving.
+ *
+ *  @param title         The title to save/unsave
+ *  @param savedPageList The saved page list to update
+ */
+- (void)setSaveableTitle:(MWKTitle*)title savedPageList:(MWKSavedPageList*)savedPageList;
+
+@end
+
+
+@interface WMFArticlePreviewTableViewCell (Outlets)
 
 /**
- *  Title associated with the receiver.
+ *  Label used to display the receiver's @c snippet.
  *
- *  Setting this property updates both the @c titleLabel and @c saveButton states.
  */
-@property (copy, nonatomic) MWKTitle* title;
+@property (nonatomic, strong) IBOutlet UILabel* snippetLabel;
 
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+/**
+ *  The button used to display the saved state of the receiver's @c title.
+ *
+ *  This class will automatically
+ *  configure any buttons connected to this property in Interface Builder (during @c awakeFromNib).
+ */
+@property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
 @end

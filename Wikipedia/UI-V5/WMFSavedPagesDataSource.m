@@ -33,8 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            cell.title           = article.title;
-            cell.savedPageList   = self.savedPageList;
+            [cell setSaveableTitle:article.title savedPageList:self.savedPageList];
             cell.titleText       = article.title.text;
             cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             cell.snippetText     = [article summary];

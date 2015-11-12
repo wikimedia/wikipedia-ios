@@ -26,19 +26,17 @@
  *  Provided for subclasses and categories.
  *  In general you shoud use the methods in the interface above to configure the cell
  */
-@interface WMFArticleListTableViewCell (Subclasses)
+@interface WMFArticleListTableViewCell (Outlets)
 
 /**
  *  Label used to display the receiver's @c title.
  *
- *  Configure as needed in Interface Builder or during initialization when subclassing.
  */
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 
 /**
  *  Label used to display the receiver's @c description.
  *
- *  Configure as needed in Interface Builder or during initialization when subclassing.
  */
 @property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
 
@@ -46,7 +44,6 @@
  *  The view used to display the receiver's @c image.
  */
 @property (strong, nonatomic) IBOutlet UIImageView* articleImageView;
-
 
 @end
 

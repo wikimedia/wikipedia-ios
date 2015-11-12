@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="361" height="345.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="owd-9L-ejU">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="owd-9L-ejU">
                         <rect key="frame" x="18" y="24" width="325" height="160"/>
                         <animations/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,7 +97,7 @@
                 <outlet property="paddingConstraintBelowDescription" destination="ueI-bG-lNw" id="d61-7a-WZL"/>
                 <outlet property="paddingConstraintLeading" destination="cUT-bg-qEm" id="FAI-E0-dNW"/>
                 <outlet property="paddingConstraintTrailing" destination="U9x-vi-00m" id="E59-BG-HJt"/>
-                <outlet property="saveButton" destination="8t8-YJ-CHQ" id="SUK-A7-uK1"/>
+                <outlet property="saveButton" destination="8t8-YJ-CHQ" id="Xz1-yh-TJc"/>
                 <outlet property="snippetLabel" destination="zIr-xI-hgr" id="CYF-N6-D5X"/>
                 <outlet property="titleLabel" destination="oU4-K5-u5M" id="QsL-E9-Mei"/>
             </connections>
