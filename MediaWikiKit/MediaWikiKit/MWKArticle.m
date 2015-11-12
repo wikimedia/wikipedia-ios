@@ -12,7 +12,6 @@
 #import "WikipediaAppUtils.h"
 #import "NSURL+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
-#import "NSAttributedString+WMFHTMLForSite.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
 
