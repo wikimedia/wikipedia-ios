@@ -262,6 +262,7 @@
 		0ED6897B1B82422C00B30427 /* MWKLocationSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6897A1B82422C00B30427 /* MWKLocationSearchResult.m */; };
 		0ED6897F1B82470900B30427 /* WMFLocationSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED6897E1B82470900B30427 /* WMFLocationSearchFetcher.m */; };
 		0ED689881B82559E00B30427 /* WMFLocationSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED689871B82559E00B30427 /* WMFLocationSearchResults.m */; };
+		0EE151871BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE151861BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m */; };
 		0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */; };
 		0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE768801AFD25CC00A5D046 /* WMFSearchFunnel.m */; };
 		0EEAF0F51B8229D9000D4232 /* WMFHomeSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEAF0F41B8229D9000D4232 /* WMFHomeSectionHeader.m */; };
@@ -1022,6 +1023,8 @@
 		0ED6897E1B82470900B30427 /* WMFLocationSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationSearchFetcher.m; sourceTree = "<group>"; };
 		0ED689861B82559E00B30427 /* WMFLocationSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFLocationSearchResults.h; sourceTree = "<group>"; };
 		0ED689871B82559E00B30427 /* WMFLocationSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFLocationSearchResults.m; sourceTree = "<group>"; };
+		0EE151851BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WMFArticleListTableViewCell+WMFSearch.h"; sourceTree = "<group>"; };
+		0EE151861BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFArticleListTableViewCell+WMFSearch.m"; sourceTree = "<group>"; };
 		0EE768791AF982C100A5D046 /* WMFArticleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleProtocol.h; path = Wikipedia/Protocols/WMFArticleProtocol.h; sourceTree = SOURCE_ROOT; };
 		0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleProtocol.m; path = Wikipedia/Protocols/WMFArticleProtocol.m; sourceTree = SOURCE_ROOT; };
 		0EE7687F1AFD25CC00A5D046 /* WMFSearchFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchFunnel.h; sourceTree = "<group>"; };
@@ -2797,6 +2800,8 @@
 			children = (
 				0EAED8581BE951E2006B01E6 /* WMFArticleListTableViewCell.h */,
 				0EAED8591BE951E2006B01E6 /* WMFArticleListTableViewCell.m */,
+				0EE151851BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.h */,
+				0EE151861BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m */,
 				0EAED85A1BE951E2006B01E6 /* WMFArticleListTableViewCell.xib */,
 				0E5CF4C71BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.h */,
 				0E5CF4C81BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m */,
@@ -4520,6 +4525,7 @@
 				BC8210D31B4EEA190010BF7B /* SDImageCache+WMFPersistentCache.m in Sources */,
 				BC93553E1BE094CD00697CB0 /* UIViewController+SafePreviewing.swift in Sources */,
 				BCE24FDD1B0CF0C7003F054B /* LegacyCoreDataMigrator.m in Sources */,
+				0EE151871BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m in Sources */,
 				04478633185145090050563B /* HistoryViewController.m in Sources */,
 				BCB669B21A83F6C400C7B1FE /* MWKImageInfo.m in Sources */,
 				0E03E29C1B84E88A00C1FBD7 /* WMFCompassView.m in Sources */,

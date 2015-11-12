@@ -3,13 +3,20 @@
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 #import "UIImageView+WMFImageFetching.h"
-#import "WMFRangeUtils.h"
-#import "NSParagraphStyle+WMFParagraphStyles.h"
+
+@interface WMFArticleListTableViewCell ()
+
+@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel* descriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImageView* articleImageView;
+
+@end
+
 
 @implementation WMFArticleListTableViewCell
 
 - (void)configureImageViewWithPlaceholder {
-    [self.imageView wmf_reset];
+    [self.articleImageView wmf_reset];
     self.articleImageView.tintColor = [UIColor wmf_placeholderImageTintColor];
     self.articleImageView.image     = [UIImage wmf_placeholderImage];
 }
@@ -37,59 +44,34 @@
     [self configureImageViewWithPlaceholder];
 }
 
-#pragma mark - Style
+#pragma mark - Title
 
-+ (CGFloat)titleLabelFontSize {
-    return 16.f;
+- (void)setTitleText:(NSString*)titleText {
+    self.titleLabel.text = titleText;
 }
 
-+ (UIFont*)titleLabelFont {
-    return [UIFont systemFontOfSize:[self titleLabelFontSize]];
+- (NSString*)titleText {
+    return self.titleLabel.text;
 }
 
-+ (UIFont*)boldTitleLabelFont {
-    return [UIFont boldSystemFontOfSize:[self titleLabelFontSize]];
+#pragma mark - Description
+
+- (void)setDescriptionText:(NSString*)descriptionText {
+    self.descriptionLabel.text = descriptionText;
 }
 
-- (void)updateTitleLabelWithText:(NSString*)text highlightingText:(NSString*)highlightText {
-    if (highlightText.length == 0) {
-        self.titleLabel.text = text;
-        return;
-    }
+- (NSString*)descriptionText {
+    return self.descriptionLabel.text;
+}
 
-    NSRange highlightRange = [text rangeOfString:highlightText options:NSCaseInsensitiveSearch];
-    if (WMFRangeIsNotFoundOrEmpty(highlightRange)) {
-        self.titleLabel.text = text;
-        return;
-    }
+#pragma mark - Image
 
-    NSMutableAttributedString* attributedTitle =
-        [[NSMutableAttributedString alloc] initWithString:text attributes:nil];
+- (void)setImageURL:(NSURL*)imageURL {
+    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+}
 
-    NSRange beforeHighlight = NSMakeRange(0, highlightRange.location);
-    if (!WMFRangeIsNotFoundOrEmpty(beforeHighlight)) {
-        [attributedTitle addAttribute:NSFontAttributeName
-                                value:[[self class] titleLabelFont]
-                                range:beforeHighlight];
-    }
-
-    [attributedTitle addAttribute:NSFontAttributeName
-                            value:[[self class] boldTitleLabelFont]
-                            range:highlightRange];
-
-    NSUInteger afterHighlightStart = WMFRangeGetMaxIndex(highlightRange) - 1;
-    NSRange afterHighlight         = NSMakeRange(afterHighlightStart, text.length - afterHighlightStart);
-    if (!WMFRangeIsNotFoundOrEmpty(afterHighlight)) {
-        [attributedTitle addAttribute:NSFontAttributeName
-                                value:[[self class] titleLabelFont]
-                                range:beforeHighlight];
-    }
-
-    [attributedTitle addAttribute:NSParagraphStyleAttributeName
-                            value:[NSParagraphStyle wmf_tailTruncatingNaturalAlignmentStyle]
-                            range:NSMakeRange(0, text.length)];
-
-    self.titleLabel.attributedText = attributedTitle;
+- (void)setImage:(MWKImage*)image {
+    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
 }
 
 @end
