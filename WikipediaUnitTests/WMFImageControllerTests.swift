@@ -198,7 +198,7 @@ class WMFImageControllerTests: XCTestCase {
             }
 
 
-            wmf_waitForExpectations()
+            wmf_waitForExpectations(2)
 
             LSNocilla.sharedInstance().stop()
         }
