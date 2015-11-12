@@ -52,11 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
         self.tableDeletionBlock = ^(WMFRecentPagesDataSource* dataSource,
                                     UITableView* parentView,
                                     NSIndexPath* indexPath){
-            @strongify(self);
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            [[NSNotificationCenter defaultCenter] removeObserver:dataSource];
             [dataSource deleteArticleAtIndexPath:indexPath];
-            [self removeItemAtIndexPath:indexPath];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
+            [dataSource removeItemAtIndexPath:indexPath];
+            [[NSNotificationCenter defaultCenter] addObserver:dataSource selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
         };
     }
     return self;
