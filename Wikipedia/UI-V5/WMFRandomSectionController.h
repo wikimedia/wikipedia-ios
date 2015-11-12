@@ -1,7 +1,7 @@
 
 #import "WMFHomeSectionController.h"
 
-@class MWKSite;
+@class MWKSite, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -3,6 +3,7 @@
 
 @class WMFRelatedSearchFetcher;
 @class MWKTitle;
+@class MWKSavedPageList;
 
 @interface WMFRelatedSectionController : NSObject <WMFHomeSectionController>
 
