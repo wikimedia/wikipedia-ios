@@ -5,13 +5,13 @@
 $:.unshift File.dirname(__FILE__)
 require 'lib/utils.rb'
 
-fastlane_version "1.3"
-
 default_platform :ios
 
 platform :ios do
   before_all do
      ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
+     # Set project for commit_version_bump, which seems to get confused by projects in other folders
+     ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
      ensure_git_status_clean
   end
 
