@@ -24,8 +24,9 @@
     NSString* fixtureName = @"BarackSearch";
     NSData* resultData    = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixtureName ofType:@"json"];
 
-    NSArray<NSDictionary*>* resultJSONObjects =
-        [[[[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName] valueForKeyPath:@"query.pages"] allValues];
+    NSDictionary* resultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"query"];
+
+    NSArray<NSDictionary*>* resultJSONObjects = [resultJSON[@"pages"] allValues];
 
     NSError* error;
     WMFSearchResults* searchResults = [[WMFSearchResults responseSerializer] responseObjectForResponse:nil
@@ -43,6 +44,8 @@
                is(equalTo([searchResults.results sortedArrayUsingDescriptors:@[indexSortDescriptor]])));
 
     assertThat(searchResults.searchSuggestion, is(nilValue()));
+
+    assertThat([searchResults redirectMappings], hasCountOf([resultJSON[@"redirects"] count]));
 }
 
 @end
