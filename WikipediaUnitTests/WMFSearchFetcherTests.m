@@ -52,11 +52,11 @@
     id prefixSearchJSON   = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetPrefixSearch"];
     id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
 
-    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
     .andReturn(200)
     .withJSON(prefixSearchJSON);
 
-    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=search.*foo.*" options:0 error:nil])
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
     .andReturn(200)
     .withJSON(fullTextSearchJSON);
 
@@ -71,20 +71,20 @@
 
     MWKSite* searchSite = [MWKSite random];
 
-    __block WMFSearchResults* prefixResults;
+    __block WMFSearchResults* fetchedPrefixResult;
 
     // get prefix result
     expectResolution(^{
         return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:searchSite resultLimit:15]
         .then(^(WMFSearchResults* prefixResult) {
-            assertThat(prefixResults.results, hasCountOf(prefixTitles.count));
-            prefixResults = prefixResult;
+            assertThat(prefixResult.results, hasCountOf(prefixTitles.count));
+            fetchedPrefixResult = prefixResult;
         });
     });
 
     // expect KVO notification
-    [self keyValueObservingExpectationForObject:prefixResults
-                                        keyPath:WMF_SAFE_KEYPATH(prefixResults, results)
+    [self keyValueObservingExpectationForObject:fetchedPrefixResult
+                                        keyPath:WMF_SAFE_KEYPATH(fetchedPrefixResult, results)
                                   expectedValue:nil];
 
     // fetch full-text results, appending to prefix
@@ -93,7 +93,7 @@
                                                    site:searchSite
                                             resultLimit:15
                                          fullTextSearch:YES
-                                appendToPreviousResults:prefixResults]
+                                appendToPreviousResults:fetchedPrefixResult]
         .then(^(WMFSearchResults* appendedResults) {
             assertThat(appendedResults.results, hasCountOf(uniqueTitles.count));
         });
