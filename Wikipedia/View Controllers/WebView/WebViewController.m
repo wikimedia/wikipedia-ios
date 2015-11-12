@@ -244,7 +244,9 @@ NSString* const WMFLicenseTitleOnENWiki =
      */
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addHeaderView];
-    [self addFooterView];
+    if (!self.article.isMain) {
+        [self addFooterView];
+    }
 }
 
 - (void)addHeaderView {
