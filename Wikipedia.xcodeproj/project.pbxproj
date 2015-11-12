@@ -311,6 +311,8 @@
 		BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB58F7B1A8D0C8E00465627 /* NSArray+BKIndexTests.m */; };
 		BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C983151B1AA5205700E25EE1 /* NSString+WMFHTMLParsingTests.m */; };
 		BC0FED771AAA026C002488D7 /* WMFImageURLParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCBDE0AB1AA76EAC006BD29A /* WMFImageURLParsingTests.m */; };
+		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
+		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
 		BC22F44B1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */; };
 		BC22F44F1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F44E1BA33D0300B64F4B /* WMFSearchResultBearingProvider.m */; };
 		BC23759A1AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFParagraphStyles.m */; };
@@ -499,6 +501,8 @@
 		BCE24FE01B0CF0C7003F054B /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE24FDC1B0CF0C7003F054B /* SQLiteHelper.m */; };
 		BCE6EE101B2619E900AF603B /* MWKLanguageLink.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */; };
 		BCE6EE131B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */; };
+		BCE839821BF4301E00F5BBA4 /* WMFSearchFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839811BF4301E00F5BBA4 /* WMFSearchFetcherTests.m */; };
+		BCE839871BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE839861BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
@@ -1086,6 +1090,8 @@
 		BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
 		BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
 		BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
+		BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetPrefixSearch.json; sourceTree = "<group>"; };
+		BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetFullTextSearch.json; sourceTree = "<group>"; };
 		BC22F4491BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultDistanceProvider.h; sourceTree = "<group>"; };
 		BC22F44A1BA33C3F00B64F4B /* WMFSearchResultDistanceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResultDistanceProvider.m; sourceTree = "<group>"; };
 		BC22F44D1BA33D0300B64F4B /* WMFSearchResultBearingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResultBearingProvider.h; sourceTree = "<group>"; };
@@ -1488,6 +1494,9 @@
 		BCE6EE0F1B2619E900AF603B /* MWKLanguageLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLink.m; sourceTree = "<group>"; };
 		BCE6EE111B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageLinkResponseSerializer.h; path = Serializers/MWKLanguageLinkResponseSerializer.h; sourceTree = "<group>"; };
 		BCE6EE121B2629ED00AF603B /* MWKLanguageLinkResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkResponseSerializer.m; path = Serializers/MWKLanguageLinkResponseSerializer.m; sourceTree = "<group>"; };
+		BCE839811BF4301E00F5BBA4 /* WMFSearchFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchFetcherTests.m; sourceTree = "<group>"; };
+		BCE839851BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LSStubResponseDSL+WithJSON.h"; sourceTree = "<group>"; };
+		BCE839861BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LSStubResponseDSL+WithJSON.m"; sourceTree = "<group>"; };
 		BCE912B81ACC5E6900B74B42 /* NSIndexSet+BKReduce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BKReduce.h"; sourceTree = "<group>"; };
 		BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduce.m"; sourceTree = "<group>"; };
 		BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
@@ -3151,6 +3160,7 @@
 				BCDD70391BB09E8200D5BDC7 /* SavedArticlesFetcherTests.m */,
 				BCF455391BCC7128007C748A /* MWKArticlePreviewSerializationTests.m */,
 				BC93553F1BE1A54900697CB0 /* WMFSearchResultsSerializationTests.m */,
+				BCE839811BF4301E00F5BBA4 /* WMFSearchFetcherTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3206,6 +3216,8 @@
 				04D2F0CE1B8832FB00E42A76 /* FBSnapshotTestCase+WMFConvenience.h */,
 				04D2F0CF1B8832FB00E42A76 /* FBSnapshotTestCase+WMFConvenience.m */,
 				BC5BC4B41BCEFADF00062619 /* Random */,
+				BCE839851BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.h */,
+				BCE839861BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3377,6 +3389,8 @@
 				BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */,
 				BCF4553C1BCC73BB007C748A /* mobileview-preview.json */,
 				BC9355411BE1A71900697CB0 /* BarackSearch.json */,
+				BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */,
+				BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3855,6 +3869,7 @@
 				BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */,
 				BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */,
 				BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */,
+				BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */,
 				BCCEC1241B1F68CF00A8B522 /* organization-anon.json in Resources */,
 				BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */,
 				BCF4553E1BCC73DB007C748A /* mobileview-preview.json in Resources */,
@@ -3862,6 +3877,7 @@
 				BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */,
 				BCCEC1271B1F68CF00A8B522 /* section0.json in Resources */,
 				BC5FE5721B1DF38A00273BC0 /* NOWikiSiteInfo.json in Resources */,
+				BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */,
 				BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */,
 				BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */,
 				BCF8DCA81B7009B100149C26 /* MobileView in Resources */,
@@ -4116,6 +4132,7 @@
 				BC6E8B9A1B5ED0F6003D9A39 /* WMFGeometryTests.m in Sources */,
 				BC7E4A521B34B53E00EECD8B /* MWKLanguageLinkControllerTests.m in Sources */,
 				BC725ED21B62DADD00E0A64C /* MWKLanguageLinkResponseSerializerTests.m in Sources */,
+				BCE839871BF4310C00F5BBA4 /* LSStubResponseDSL+WithJSON.m in Sources */,
 				BC0FED6B1AAA0268002488D7 /* MWKDataStoreStorageTests.m in Sources */,
 				0484B9071ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				BC0FED751AAA026C002488D7 /* NSArray+BKIndexTests.m in Sources */,
@@ -4164,6 +4181,7 @@
 				BC0FED6A1AAA0268002488D7 /* MWKDataStorePathTests.m in Sources */,
 				BC725ECA1B617E1A00E0A64C /* WMFSafeAssignTests.m in Sources */,
 				BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */,
+				BCE839821BF4301E00F5BBA4 /* WMFSearchFetcherTests.m in Sources */,
 				BC676DA71BCF34120041CB92 /* MWKSavedPageListSharedTests.m in Sources */,
 				BCA676571AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				0449D1421B83D9370036A9C8 /* NSAttributedString+WMFModifyTests.m in Sources */,
