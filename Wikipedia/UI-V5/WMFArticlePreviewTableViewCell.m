@@ -1,46 +1,16 @@
 
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIColor+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
 #import "UIButton+WMFButton.h"
-#import "UIImageView+WMFImageFetching.h"
 #import "WMFSaveButtonController.h"
 #import "MWKImage.h"
 
 @interface WMFArticlePreviewTableViewCell ()
 
-@property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
-
-/**
- *  Label used to display the receiver's @c title.
- *
- */
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-
-/**
- *  Label used to display the receiver's @c description.
- *
- */
-@property (nonatomic, strong) IBOutlet UILabel* descriptionLabel;
-
-/**
- *  Label used to display the receiver's @c snippet.
- *
- */
-@property (nonatomic, strong) IBOutlet UILabel* snippetLabel;
-
-/**
- *  The view used to display the receiver's @c image.
- */
-@property (strong, nonatomic) IBOutlet UIImageView* articleImageView;
-
-/**
- *  The button used to display the saved state of the receiver's @c title.
- *
- *  This class will automatically
- *  configure any buttons connected to this property in Interface Builder (during @c awakeFromNib).
- */
+@property (strong, nonatomic) IBOutlet UILabel* snippetLabel;
 @property (strong, nonatomic) IBOutlet UIButton* saveButton;
+
+@property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;
@@ -59,55 +29,25 @@
 
 #pragma mark - Setup
 
-- (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_reset];
-    self.articleImageView.contentMode     = UIViewContentModeCenter;
-    self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
-    self.articleImageView.image           = [UIImage wmf_placeholderImage];
-}
-
-- (void)configureCell {
-    [self configureContentView];
-    [self configureImageViewWithPlaceholder];
-    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmarkMini];
-    self.saveButton.tintColor = [UIColor wmf_blueTintColor];
-    [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
-}
-
-- (void)configureContentView {
-    self.clipsToBounds               = NO;
-    self.contentView.backgroundColor = [UIColor whiteColor];
-}
-
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.titleLabel.text             = nil;
-    self.descriptionLabel.text       = nil;
-    self.snippetLabel.attributedText = nil;
-    [self.articleImageView wmf_reset];
-    [self configureImageViewWithPlaceholder];
+    self.snippetLabel.attributedText        = nil;
+    self.saveButtonController.title         = nil;
+    self.saveButtonController.savedPageList = nil;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self rememberSettingsFromIB];
-    [self configureImageViewWithPlaceholder];
+    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmarkMini];
+    self.saveButton.tintColor = [UIColor wmf_blueTintColor];
+    [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+    self.saveButtonController.button = self.saveButton;
 }
 
 - (void)rememberSettingsFromIB {
     self.paddingAboveDescriptionFromIB = self.paddingConstraintAboveDescription.constant;
     self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
-}
-
-#pragma mark - Title
-
-- (void)setTitleText:(NSString*)titleText {
-    self.titleLabel.text = titleText;
-}
-
-- (NSString*)titleText {
-    return self.titleLabel.text;
 }
 
 #pragma mark - Description
@@ -119,10 +59,6 @@
     } else {
         [self restoreDescriptionVerticalPadding];
     }
-}
-
-- (NSString*)descriptionText {
-    return self.descriptionLabel.text;
 }
 
 - (void)removeDescriptionVerticalPadding {
@@ -167,7 +103,7 @@
 #pragma mark - Image
 
 - (void)setImageURL:(NSURL*)imageURL {
-    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+    [super setImageURL:imageURL];
     if (imageURL) {
         [self restoreImageToFullHeight];
     } else {
@@ -176,7 +112,7 @@
 }
 
 - (void)setImage:(MWKImage*)image {
-    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
+    [super setImage:image];
     if (image) {
         [self restoreImageToFullHeight];
     } else {
@@ -208,20 +144,9 @@
     return _saveButtonController;
 }
 
-- (void)setTitle:(MWKTitle*)title {
-    self.saveButtonController.title = title;
-}
-
-- (MWKTitle*)title {
-    return self.saveButtonController.title;
-}
-
-- (void)setSavedPageList:(MWKSavedPageList*)savedPageList {
+- (void)setSaveableTitle:(MWKTitle*)title savedPageList:(MWKSavedPageList*)savedPageList {
     self.saveButtonController.savedPageList = savedPageList;
-}
-
-- (MWKSavedPageList*)savedPageList {
-    return self.saveButtonController.savedPageList;
+    self.saveButtonController.title         = title;
 }
 
 @end
