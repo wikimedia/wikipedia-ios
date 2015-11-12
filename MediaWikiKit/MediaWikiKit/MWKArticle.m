@@ -221,7 +221,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId skipIfPresent:(BOOL)skipIfPresent {
+- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId skipIfPresent:(BOOL)skipIfPresent {
     if (sourceURL && sourceURL.length > 0) {
         if (skipIfPresent) {
             [self.images addImageURLIfAbsent:sourceURL];
@@ -238,15 +238,15 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }
 }
 
-- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
-    [self updateImageListsWithSourceURL:sourceURL inSection:sectionId skipIfPresent:NO];
+- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
+    [self appendImageListsWithSourceURL:sourceURL inSection:sectionId skipIfPresent:NO];
 }
 
 /**
  * Create a stub record for an image with given URL.
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
-    [self updateImageListsWithSourceURL:url inSection:sectionId];
+    [self appendImageListsWithSourceURL:url inSection:sectionId];
     return [[MWKImage alloc] initWithArticle:self sourceURLString:url];
 }
 

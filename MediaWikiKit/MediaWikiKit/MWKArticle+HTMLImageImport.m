@@ -102,7 +102,7 @@
               So, at this point we manually make sure to not accumulate images after multiple fetches, instead of
               taking care of it at a higher level.
          */
-        [self updateImageListsWithSourceURL:image.sourceURLString inSection:sectionID skipIfPresent:YES];
+        [self appendImageListsWithSourceURL:image.sourceURLString inSection:sectionID skipIfPresent:YES];
 
         // save image metadata
         [image save];
