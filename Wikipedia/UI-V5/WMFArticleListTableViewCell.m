@@ -9,6 +9,7 @@
 @implementation WMFArticleListTableViewCell
 
 - (void)configureImageViewWithPlaceholder {
+    [self.imageView wmf_reset];
     self.articleImageView.tintColor = [UIColor wmf_placeholderImageTintColor];
     self.articleImageView.image     = [UIImage wmf_placeholderImage];
 }
@@ -25,7 +26,8 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.titleLabel.text = nil;
+    self.titleLabel.text       = nil;
+    self.descriptionLabel.text = nil;
     [self.articleImageView wmf_reset];
     [self configureImageViewWithPlaceholder];
 }
