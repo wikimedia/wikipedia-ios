@@ -302,7 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableOfContentsToolbarItem.enabled = self.article != nil;
     self.shareToolbarItem.enabled           = self.article != nil;
     self.languagesToolbarItem.enabled       = self.article.languagecount > 1;
-    self.tableOfContentsToolbarItem.enabled = !self.article.isMain;
+    self.tableOfContentsToolbarItem.enabled = self.article != nil && !self.article.isMain;
 }
 
 #pragma mark - Toolbar Items
