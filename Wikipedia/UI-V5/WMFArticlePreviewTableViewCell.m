@@ -100,6 +100,8 @@
     self.paddingBelowDescriptionFromIB = self.paddingConstraintBelowDescription.constant;
 }
 
+#pragma mark - Title
+
 - (void)setTitleText:(NSString*)titleText {
     self.titleLabel.text = titleText;
 }

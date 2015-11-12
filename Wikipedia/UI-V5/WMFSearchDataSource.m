@@ -5,9 +5,8 @@
 #import "MWKSearchResult.h"
 #import "MWKSearchRedirectMapping.h"
 #import "NSString+Extras.h"
-#import "WMFArticleListTableViewCell.h"
+#import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "UIView+WMFDefaultNib.h"
-#import "UIImageView+WMFImageFetching.h"
 
 @interface WMFSearchDataSource ()
 
@@ -35,9 +34,9 @@
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKTitle* title = [self titleForIndexPath:indexPath];
-            [cell updateTitleLabelWithText:title.text highlightingText:self.searchResults.searchTerm];
-            cell.descriptionLabel.text = [self descriptionForSearchResult:result];
-            [cell.articleImageView wmf_setImageWithURL:result.thumbnailURL detectFaces:YES];
+            [cell setTitleText:title.text highlightingText:self.searchResults.searchTerm];
+            cell.descriptionText = [self descriptionForSearchResult:result];
+            [cell setImageURL:result.thumbnailURL];
         };
     }
     return self;
