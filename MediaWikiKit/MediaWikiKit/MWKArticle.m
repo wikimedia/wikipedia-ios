@@ -221,13 +221,25 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
+- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId skipIfPresent:(BOOL)skipIfPresent {
     if (sourceURL && sourceURL.length > 0) {
-        [self.images addImageURL:sourceURL];
+        if (skipIfPresent) {
+            [self.images addImageURLIfAbsent:sourceURL];
+        } else {
+            [self.images addImageURL:sourceURL];
+        }
         if (sectionId != kMWKArticleSectionNone) {
-            [self.sections[sectionId].images addImageURL:sourceURL];
+            if (skipIfPresent) {
+                [self.sections[sectionId].images addImageURLIfAbsent:sourceURL];
+            } else {
+                [self.sections[sectionId].images addImageURL:sourceURL];
+            }
         }
     }
+}
+
+- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
+    [self updateImageListsWithSourceURL:sourceURL inSection:sectionId skipIfPresent:NO];
 }
 
 /**
@@ -287,16 +299,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self.dataStore saveArticle:self];
     [self.images save];
     [self.sections save];
-}
-
-- (void)saveWithoutSavingSectionText {
-    [self.dataStore saveArticle:self];
-    [self.images save];
-    for (MWKSection* section in self.sections) {
-        if (section.images) {
-            [section.images save];
-        }
-    }
 }
 
 #pragma mark - Remove

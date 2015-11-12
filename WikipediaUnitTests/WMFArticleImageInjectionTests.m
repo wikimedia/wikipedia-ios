@@ -113,7 +113,7 @@
         [self stopMeasuring];
 
         // expected number is observed & recorded,
-        assertThat(@(article.images.count), is(@96));
+        assertThat(@(article.images.count), is(@95));
         [self.dataStore removeFolderAtBasePath];
     }];
 }

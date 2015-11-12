@@ -200,19 +200,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (id)serializedArticleWithTitle:(MWKTitle*)title response:(NSDictionary*)response {
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore dict:response];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
-
-        [article save];
-
-        // Update article and section image data.
-        // Reminder: don't recall article save here as it expensively re-writes all section html.
         [article importAndSaveImagesFromSectionHTML];
-        [article saveWithoutSavingSectionText];
+        [article save];
         return article;
-    }@catch (NSException* e) {
-        NSLog(@"%@", e);
+    } @catch (NSException* e) {
+        DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
         return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
     }
 }

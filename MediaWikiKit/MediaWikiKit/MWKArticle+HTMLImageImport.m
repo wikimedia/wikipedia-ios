@@ -95,8 +95,15 @@
     }
 
     for (MWKImage* image in allImages) {
-        // add to lists
-        [self updateImageListsWithSourceURL:image.sourceURLString inSection:sectionID];
+        /*
+           HAX: The MWK data layer is additive, in that articles can potentially accumulate old data over time, or that
+              new images aren't added in the order we expect.  Ideally the image list as we've parsed it here becomes
+              exactly the new image list, but atomic updates are tricky with a relational, file-system-based store.
+              So, at this point we manually make sure to not accumulate images after multiple fetches, instead of
+              taking care of it at a higher level.
+         */
+        [self updateImageListsWithSourceURL:image.sourceURLString inSection:sectionID skipIfPresent:YES];
+
         // save image metadata
         [image save];
     }
