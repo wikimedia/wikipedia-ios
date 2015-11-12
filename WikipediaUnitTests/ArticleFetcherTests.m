@@ -47,7 +47,7 @@
     [super tearDown];
 }
 
-- (void)testSuccessfulFetchWritesArticleToDataStore {
+- (void)testSuccessfulFetchWritesArticleToDataStoreWithoutDuplicatingData {
     MWKSite* site        = [MWKSite siteWithDomain:@"wikipedia.org" language:@"en"];
     MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
     NSURL* url           = [site mobileApiEndpoint];
@@ -78,13 +78,17 @@
 
         return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL];
     }).then(^(MWKArticle* article){
+        XCTAssertTrue(article != firstArticle, @"Expected object returned from 2nd fetch to not be identical to 1st.");
         assertThat(article, is(equalTo(firstArticle)));
         assertThat(@([article isDeeplyEqualToArticle:firstArticle]), isTrue());
-
         [responseExpectation fulfill];
     });
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
+
+    MWKArticle* savedArticle = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
+    assertThat(savedArticle, is(equalTo(firstArticle)));
+    assertThat(@([savedArticle isDeeplyEqualToArticle:firstArticle]), isTrue());
 }
 
 @end
