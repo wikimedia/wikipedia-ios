@@ -40,6 +40,15 @@ NS_ASSUME_NONNULL_BEGIN
             cell.snippetText     = [article summary];
             [cell setImage:[article bestThumbnailImage]];
         };
+
+        self.tableDeletionBlock = ^(WMFSavedPagesDataSource* dataSource,
+                                    UITableView* parentView,
+                                    NSIndexPath* indexPath){
+            [parentView beginUpdates];
+            [dataSource deleteArticleAtIndexPath:indexPath];
+            [parentView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [parentView endUpdates];
+        };
     }
     return self;
 }
