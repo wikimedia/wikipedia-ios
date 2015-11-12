@@ -208,6 +208,8 @@
 		0E4D1CFA1BBD8A83009BEB64 /* WMFTableOfContentsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E4D1CF91BBD8A83009BEB64 /* WMFTableOfContentsCell.xib */; };
 		0E4D1CFF1BBDC857009BEB64 /* WMFTableOfContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */; };
 		0E582D351B82258300B2645B /* WMFArticlePreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E582D341B82258300B2645B /* WMFArticlePreviewCell.m */; };
+		0E5CF4CA1BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5CF4C81BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m */; };
+		0E5CF4CB1BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5CF4C91BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib */; };
 		0E5F28601B6719AF008885A2 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */; };
 		0E66B9271BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66B9261BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.m */; };
 		0E66B92A1BE0145E00B61F69 /* WMFSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E66B9291BE0145E00B61F69 /* WMFSearchDataSource.m */; };
@@ -923,6 +925,9 @@
 		0E4D1CFE1BBDC857009BEB64 /* WMFTableOfContentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTableOfContentsCell.swift; sourceTree = "<group>"; };
 		0E582D331B82258300B2645B /* WMFArticlePreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePreviewCell.h; sourceTree = "<group>"; };
 		0E582D341B82258300B2645B /* WMFArticlePreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewCell.m; sourceTree = "<group>"; };
+		0E5CF4C71BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePreviewTableViewCell.h; sourceTree = "<group>"; };
+		0E5CF4C81BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePreviewTableViewCell.m; sourceTree = "<group>"; };
+		0E5CF4C91BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticlePreviewTableViewCell.xib; sourceTree = "<group>"; };
 		0E5F285E1B6719AF008885A2 /* MWKArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKArticlePreview.h; sourceTree = "<group>"; };
 		0E5F285F1B6719AF008885A2 /* MWKArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreview.m; sourceTree = "<group>"; };
 		0E66B9251BDFFA3700B61F69 /* WMFTitleInsetRespectingButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTitleInsetRespectingButton.h; sourceTree = "<group>"; };
@@ -2793,6 +2798,9 @@
 				0EAED8581BE951E2006B01E6 /* WMFArticleListTableViewCell.h */,
 				0EAED8591BE951E2006B01E6 /* WMFArticleListTableViewCell.m */,
 				0EAED85A1BE951E2006B01E6 /* WMFArticleListTableViewCell.xib */,
+				0E5CF4C71BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.h */,
+				0E5CF4C81BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m */,
+				0E5CF4C91BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib */,
 			);
 			name = "Table View Cells";
 			sourceTree = "<group>";
@@ -3902,6 +3910,7 @@
 				0EAED85C1BE951E2006B01E6 /* WMFArticleListTableViewCell.xib in Resources */,
 				C979727A1A731EAA00C6ED7A /* ShareOptions.xib in Resources */,
 				045DB3441B9930EB0095940D /* WMFArticleViewLoadingView.xib in Resources */,
+				0E5CF4CB1BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib in Resources */,
 				0E03E2A91B85750C00C1FBD7 /* WMFHomeSectionFooter.xib in Resources */,
 				0E1B04A11BC59E8D00506F7D /* WMFContinueReadingCell.xib in Resources */,
 				0E1CAF9D1BEA9A7F0008DB63 /* WMFArticleFooterViewHeader.xib in Resources */,
@@ -4490,6 +4499,7 @@
 				046E2B6B1B31ED94008A99A6 /* UIButton+WMFButton.m in Sources */,
 				BCB669AC1A83F6C400C7B1FE /* MWKSavedPageEntry.m in Sources */,
 				04A97E8718B81D5D0046B166 /* AccountCreationViewController.m in Sources */,
+				0E5CF4CA1BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m in Sources */,
 				C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */,
 				0E94AFF01B209792000BC5EA /* WMFArticleListCollectionViewController.m in Sources */,
 				043699911B45B68D002FD81D /* WMFArticleSectionCell.m in Sources */,
