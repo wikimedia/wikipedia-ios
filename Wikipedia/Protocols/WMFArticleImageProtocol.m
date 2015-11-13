@@ -45,16 +45,6 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     return request;
 }
 
-#pragma mark - Getters
-
-+ (MWKArticle*)article {
-    return [SessionSingleton sharedInstance].currentArticle;
-}
-
-- (MWKArticle*)article {
-    return [WMFArticleImageProtocol article];
-}
-
 #pragma mark - NSURLProtocol
 
 - (void)stopLoading {
@@ -66,9 +56,6 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
     [[WMFImageController sharedInstance] fetchImageWithURL:self.request.URL]
     .thenInBackground(^(WMFImageDownload* download) {
         [self respondWithDataFromDownload:download];
-    })
-    .then(^{
-        [self sendImageDownloadedNotification];
     })
     .catch(^(NSError* err) {
         [self respondWithError:err];
@@ -95,20 +82,6 @@ static NSString* const WMFArticleImageProtocolHost               = @"upload.wiki
 
     [[self client] URLProtocol:self didLoadData:data];
     [[self client] URLProtocolDidFinishLoading:self];
-}
-
-- (void)sendImageDownloadedNotification {
-    MWKImage* image = [[WMFArticleImageProtocol article] existingImageWithURL:self.request.URL.wmf_schemelessURLString];
-    // If this is a size variant, MWKImage placeholder record won't exist, so we'll need to create one.
-    if (!image) {
-        // Use kMWKArticleSectionNone (section Images.plist's should be just the orig image urls, not
-        // all the variants from the src set).
-        image = [[WMFArticleImageProtocol article] importImageURL:self.request.URL.wmf_schemelessURLString
-                                                        sectionId:kMWKArticleSectionNone];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFArticleImageSectionImageRetrievedNotification
-                                                        object:image
-                                                      userInfo:nil];
 }
 
 - (void)respondWithError:(NSError*)error {

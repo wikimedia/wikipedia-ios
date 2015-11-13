@@ -31,9 +31,16 @@ NSString* const WMFCitationFragmentSubstring = @"cite_note";
            : [self wmf_safeSubstringFromIndex:WMFRangeGetMaxIndex(internalLinkRange)];
 }
 
+- (NSString*)wmf_unescapedNormalizedPageTitle {
+    return [[self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] wmf_normalizedPageTitle];
+}
+
 - (NSString*)wmf_normalizedPageTitle {
-    return [[self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-            stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    return [self stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+}
+
+- (NSString*)wmf_denormalizedPageTitle {
+    return [self stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 }
 
 @end

@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "WMFArticleParsing.h"
+#import "MWKArticle+HTMLImageImport.h"
+#import "MWKSection+HTMLImageExtraction.h"
 #import "WMFTestFixtureUtilities.h"
 
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MWKSectionList.h"
 #import "MWKSection.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 
-#import "MWKDataStore.h"
-
-#import <BlocksKit/BlocksKit.h>
+#import <hpple/TFHpple.h>
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -27,81 +27,94 @@
 #import <OCMockito/OCMockito.h>
 
 @interface WMFArticleImageInjectionTests : XCTestCase
-@property MWKArticle* article;
-@property MWKDataStore* dataStore;
+@property (nonatomic, strong) MWKDataStore* dataStore;
 @end
 
 @implementation WMFArticleImageInjectionTests
 
-- (void)setUp {
-    [super setUp];
+- (void)tearDown {
+    [super tearDown];
+    [self.dataStore removeFolderAtBasePath];
 }
 
-- (void)testImgTagReductionStartsWithImg {
-    assertThat(WMFImgTagsFromHTML(@"<img src=\"foo\"><bla bla>"), is(equalTo(@"<img src=\"foo\">")));
+- (void)testExtractsSrcAndSrcsetImagesFromFixture {
+    self.dataStore = [MWKDataStore temporaryDataStore];
+    TFHppleElement* obamaElement =
+        [[TFHpple hppleWithHTMLData:[[self wmf_bundle] wmf_dataFromContentsOfFile:@"ObamaImageElement" ofType:@"html"]]
+         peekAtSearchWithXPathQuery:@"//html/body/*"];
+    NSParameterAssert(obamaElement);
+
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+
+    [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+
+    [article importAndSaveImagesFromElement:obamaElement intoSection:0];
+
+    id (^ hasSourceURLWithPrefix)(NSUInteger sizePrefix) = ^(NSUInteger sizePrefix) {
+        static NSString* expectedSourceURLFormat =
+            @"//upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/%dpx-President_Barack_Obama.jpg";
+        return hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, sourceURLString),
+                           [NSString stringWithFormat:expectedSourceURLFormat, sizePrefix]);
+    };
+
+    id (^ withMatchingPrefixAndScale)(NSUInteger sizePrefix, float scale) = ^(NSUInteger sizePrefix, float scale){
+        return allOf(hasSourceURLWithPrefix(sizePrefix),
+                     hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, width),
+                                 @(220 * scale)),
+                     hasProperty(WMF_SAFE_KEYPATH(MWKImage.new, height),
+                                 @(275 * scale)),
+                     nil);
+    };
+
+    NSArray<MWKImage*>* savedImages = [article.images.entries bk_map:^MWKImage*(NSString* urlString) {
+        return [self.dataStore imageWithURL:urlString article:article];
+    }];
+
+    // article image list should also contain the lead image due to importMobileViewJSON
+    assertThat(savedImages, hasItems(hasSourceURLWithPrefix(640),
+                                     withMatchingPrefixAndScale(220, 1.0),
+                                     withMatchingPrefixAndScale(330, 1.0),
+                                     withMatchingPrefixAndScale(440, 2.0),
+                                     nil));
+
+    // first section's image list should also have the images from the element (same as article image list, minus lead image)
+    assertThat(article.sections[0].images.entries,
+               is(equalTo([article.images.entries subarrayWithRange:NSMakeRange(1, article.images.count - 1)])));
 }
 
-- (void)testImgTagReductionMultiple {
-    assertThat(WMFImgTagsFromHTML(@"<img src=\"foo\"><bla bla><img src=\"foo\">"), is(equalTo(@"<img src=\"foo\"><img src=\"foo\">")));
+- (void)testExcludesElementsBelowSizeThreshold {
+    self.dataStore = [MWKDataStore temporaryDataStore];
+    TFHppleElement* smallImageElement =
+        [[TFHpple hppleWithHTMLData:[
+              @"<html><body>"
+              "<img src=\"//upload.wikimedia.org/icon.jpg\" width=10 height=10/>"
+              "</body></html>"
+              dataUsingEncoding:NSUTF8StringEncoding]]
+         peekAtSearchWithXPathQuery:@"//html/body/*"];
+    NSParameterAssert(smallImageElement);
+
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+
+    [article importAndSaveImagesFromElement:smallImageElement intoSection:kMWKArticleSectionNone];
+
+    assertThat(article.images.entries, isEmpty());
 }
 
-- (void)testImgTagReductionStartsWithSpace {
-    assertThat(WMFImgTagsFromHTML(@" <img src=\"foo\"><bla bla>"), is(equalTo(@"<img src=\"foo\">")));
-}
+- (void)testImportsAllExpectedImagesFromFixture {
+    [self measureMetrics:[[self class] defaultPerformanceMetrics] automaticallyStartMeasuring:NO forBlock:^{
+        self.dataStore = [MWKDataStore temporaryDataStore];
 
-- (void)testImgTagReductionStartsWithOtherTag {
-    assertThat(WMFImgTagsFromHTML(@" <p>what</p> <img src=\"foo\"><bla bla>"), is(equalTo(@"<img src=\"foo\">")));
-}
+        MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
 
-- (void)testImgTagReductionStartsWithOtherTagWithSpace {
-    assertThat(WMFImgTagsFromHTML(@"<p>what</p> <img src=\"foo\"><bla bla>"), is(equalTo(@"<img src=\"foo\">")));
-}
+        [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-- (void)testImgTagReductionStartsWithOtherTagNoSpace {
-    assertThat(WMFImgTagsFromHTML(@"<p>what</p><img src=\"foo\"><bla bla>"), is(equalTo(@"<img src=\"foo\">")));
-}
+        [self startMeasuring];
+        [article importAndSaveImagesFromSectionHTML];
+        [self stopMeasuring];
 
-- (void)testImgTagReductionSpace {
-    assertThat(WMFImgTagsFromHTML(@" "), is(equalTo(@"")));
-}
-
-- (void)testImgTagReductionEmptyString {
-    assertThat(WMFImgTagsFromHTML(@""), is(equalTo(@"")));
-}
-
-- (void)testImgTagParsing {
-    assertThat(WMFImgTagsFromHTML(@"<img src=\"foo\"></img>"), is(equalTo(@"<img src=\"foo\">")));
-}
-
-- (void)testImgTagParsingStripsOtherElements {
-    assertThat(WMFImgTagsFromHTML(@"<img src=\"foo\"/><div/><img src=\"bar\"/>"),
-               is(equalTo(@"<img src=\"foo\"/><img src=\"bar\"/>")));
-}
-
-- (void)testImgTagReductionNonHTMLString {
-    assertThat(WMFImgTagsFromHTML(@"bla bla"), is(equalTo(@"")));
-}
-
-- (void)testPerformanceExample {
-    [self measureBlock:^{
-        self.dataStore = MKTMock([MWKDataStore class]);
-        MWKTitle* title = [[MWKSite siteWithCurrentLocale] titleWithString:@"foo"];
-        self.article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
-
-        [MKTGiven([self.dataStore imageListWithArticle:anything() section:anything()])
-         willReturn:[[MWKImageList alloc] initWithArticle:self.article section:nil]];
-
-        NSParameterAssert(self.article.images);
-
-        [self.article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
-
-        for (int i = 0; i < self.article.sections.count; i++) {
-            MWKSection* section = self.article.sections[i];
-            WMFInjectArticleWithImagesFromSection(self.article, section.text, section.sectionId);
-        }
-
-        #warning TODO: assert proper number of image entries & sourceURLs
-        assertThat(@(self.article.images.count), is(greaterThan(@0)));
+        // expected number is observed & recorded,
+        assertThat(@(article.images.count), is(@95));
+        [self.dataStore removeFolderAtBasePath];
     }];
 }
 

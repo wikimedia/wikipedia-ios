@@ -34,10 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setResults:(NSArray<MWKSearchResult*>* _Nonnull)results {
+    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
     if (_mutableResults == results) {
         return;
     }
     _mutableResults = [results mutableCopy];
+    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
 }
 
 - (NSArray*)results {
@@ -78,12 +80,50 @@ NS_ASSUME_NONNULL_BEGIN
         return [self.results containsObject:obj];
     }];
 
-    [_mutableResults addObjectsFromArray:newResults];
+    [self.mutableResults addObjectsFromArray:newResults];
 }
 
 - (void)mergeSearchSuggestionFromModel:(WMFSearchResults*)searchResults {
     // preserve current search suggestion if there is one
     self.searchSuggestion = searchResults.searchSuggestion.length ? searchResults.searchSuggestion : self.searchSuggestion;
+}
+
+#pragma mark - KVO
+
+- (NSMutableArray*)mutableResults {
+    return [self mutableArrayValueForKey:WMF_SAFE_KEYPATH(self, results)];
+}
+
+- (NSUInteger)countOfResults {
+    return [_mutableResults count];
+}
+
+- (id)objectInResultsAtIndex:(NSUInteger)idx {
+    return [_mutableResults objectAtIndex:idx];
+}
+
+- (void)insertObject:(id)anObject inResultsAtIndex:(NSUInteger)idx {
+    [_mutableResults insertObject:anObject atIndex:idx];
+}
+
+- (void)insertResults:(NSArray*)entrieArray atIndexes:(NSIndexSet*)indexes {
+    [_mutableResults insertObjects:entrieArray atIndexes:indexes];
+}
+
+- (void)removeObjectFromResultsAtIndex:(NSUInteger)idx {
+    [_mutableResults removeObjectAtIndex:idx];
+}
+
+- (void)removeResultsAtIndexes:(NSIndexSet*)indexes {
+    [_mutableResults removeObjectsAtIndexes:indexes];
+}
+
+- (void)replaceObjectInResultsAtIndex:(NSUInteger)idx withObject:(id)anObject {
+    [_mutableResults replaceObjectAtIndex:idx withObject:anObject];
+}
+
+- (void)replaceResultsAtIndexes:(NSIndexSet*)indexes withResults:(NSArray*)entrieArray {
+    [_mutableResults replaceObjectsAtIndexes:indexes withObjects:entrieArray];
 }
 
 @end

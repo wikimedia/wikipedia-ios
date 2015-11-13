@@ -1,23 +1,33 @@
 
 #import "WMFMainPageSectionController.h"
 #import "MWKSiteInfoFetcher.h"
+#import "WMFEnglishFeaturedTitleFetcher.h"
 
 #import "MWKSite.h"
+#import "MWKTitle.h"
 #import "MWKSiteInfo.h"
+#import "MWKSearchResult.h"
 
 #import "WMFMainPageTableViewCell.h"
+#import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdentifier";
 
 @interface WMFMainPageSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
-@property (nonatomic, strong) MWKSiteInfoFetcher* fetcher;
+@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
-@property (nonatomic, strong) MWKSiteInfo* siteInfo;
+@property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
+@property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
+@property (nonatomic, strong, nullable) AnyPromise* dataPromise;
 
-@property (nonatomic, strong) NSDateFormatter* dateFormatter;
+@property (nonatomic, strong, readonly) MWKSiteInfo* siteInfo;
+@property (nonatomic, strong, readonly) MWKSearchResult* featuredArticlePreview;
+@property (nonatomic, strong) id data;
 
 @end
 
@@ -25,31 +35,53 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site {
+- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
     self = [super init];
     if (self) {
-        self.site = site;
-        [self getSiteInfo];
+        self.site          = site;
+        self.savedPageList = savedPageList;
+        [self fetchData];
     }
     return self;
 }
 
-- (MWKSiteInfoFetcher*)fetcher {
-    if (_fetcher == nil) {
-        _fetcher = [[MWKSiteInfoFetcher alloc] init];
+#pragma mark - Accessors
+
+- (MWKSiteInfoFetcher*)siteInfoFetcher {
+    if (_siteInfoFetcher == nil) {
+        _siteInfoFetcher = [[MWKSiteInfoFetcher alloc] init];
     }
-    return _fetcher;
+    return _siteInfoFetcher;
 }
 
-- (NSDateFormatter*)dateFormatter {
-    if (_dateFormatter == nil) {
-        _dateFormatter           = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
+- (WMFEnglishFeaturedTitleFetcher*)featuredTitlePreviewFetcher {
+    if (_featuredTitlePreviewFetcher == nil) {
+        _featuredTitlePreviewFetcher = [[WMFEnglishFeaturedTitleFetcher alloc] init];
     }
-    return _dateFormatter;
+    return _featuredTitlePreviewFetcher;
 }
+
++ (NSDateFormatter*)dateFormatter {
+    NSParameterAssert([NSThread isMainThread]);
+    static NSDateFormatter* dateFormatter;
+    if (dateFormatter == nil) {
+        dateFormatter           = [[NSDateFormatter alloc] init];
+        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    }
+    return dateFormatter;
+}
+
+- (MWKSiteInfo*)siteInfo {
+    return [self.data isKindOfClass:[MWKSiteInfo class]] ? self.data : nil;
+}
+
+- (MWKSearchResult*)featuredArticlePreview {
+    return [self.data isKindOfClass:[MWKSearchResult class]] ? self.data : nil;
+}
+
+#pragma mark - HomeSectionController
 
 - (id)sectionIdentifier {
     return WMFMainPageSectionIdentifier;
@@ -60,49 +92,96 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:[self.dateFormatter stringFromDate:[NSDate date]] attributes:nil];
+    NSString* featuredDate = [[WMFMainPageSectionController dateFormatter] stringFromDate:[NSDate date]];
+    return [[NSAttributedString alloc] initWithString:featuredDate attributes:nil];
 }
 
 - (NSArray*)items {
-    if (self.siteInfo) {
-        return @[self.siteInfo];
+    id data = self.featuredArticlePreview ? : self.siteInfo;
+    if (data) {
+        return @[data];
+    } else {
+        return @[];
+    }
+}
+
+- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+    if (self.featuredArticlePreview) {
+        return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.featuredArticlePreview.displayTitle fragment:nil];
+    } else if (self.siteInfo) {
+        return self.siteInfo.mainPageTitle;
     } else {
         return nil;
     }
 }
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    return [self.siteInfo mainPageTitle];
-}
-
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFMainPageTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPageTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFMainPageTableViewCell cellForTableView:tableView];
+    if (self.siteInfo) {
+        return [WMFMainPageTableViewCell cellForTableView:tableView];
+    } else if (self.featuredArticlePreview) {
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    }
+    DDLogWarn(@"Unexpected dequeue cell call.");
+    return nil;
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFMainPageTableViewCell class]]) {
         WMFMainPageTableViewCell* mainPageCell = (id)cell;
         mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
+    } else if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
+        WMFArticlePreviewTableViewCell* previewCell = (WMFArticlePreviewTableViewCell*)cell;
+        previewCell.titleText       = self.featuredArticlePreview.displayTitle;
+        previewCell.descriptionText = self.featuredArticlePreview.wikidataDescription;
+        previewCell.snippetText     = self.featuredArticlePreview.extract;
+        [previewCell setImageURL:self.featuredArticlePreview.thumbnailURL];
+        [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
 }
 
-- (void)getSiteInfo {
-    if (self.fetcher.isFetching) {
+#pragma mark - Fetching
+
+- (void)fetchData {
+    if (self.dataPromise) {
+        DDLogInfo(@"Fetch is already pending, skipping redundant call.");
         return;
     }
+
     @weakify(self);
-    [self.fetcher fetchSiteInfoForSite:self.site]
-    .then(^(id result){
+    self.dataPromise = [self fetchDataForSite].then(^(id data) {
         @strongify(self);
-        self.siteInfo = result;
+        self.dataPromise = nil;
+        self.data = data;
         [self.delegate controller:self didSetItems:self.items];
     })
-    .catch(^(NSError* error){
+                       .catch(^(NSError* error){
+        @strongify(self);
+        self.dataPromise = nil;
+        [self.delegate controller:self didFailToUpdateWithError:error];
     });
 }
 
+/**
+ *  Fetch the data for the current site.
+ *
+ *  If site is en.wikipedia.org, fetch a preview of today's featured article. Otherwise, get Main Page title from
+ *  site info.
+ *
+ *  @return A promise which resolves to the data (either @c MWKSiteInfo or @c MWKSearchResult).
+ */
+- (AnyPromise*)fetchDataForSite {
+    if ([self.site.language isEqualToString:@"en"] || [self.site.language isEqualToString:@"en-US"]) {
+        return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:[NSDate date]];
+    } else {
+        return [self.siteInfoFetcher fetchSiteInfoForSite:self.site];
+    }
+}
+
 @end
+
+NS_ASSUME_NONNULL_END

@@ -109,7 +109,10 @@
 }
 
 - (BOOL)hasImageURL:(NSURL*)imageURL {
-    NSString* imageURLString = [imageURL wmf_schemelessURLString];
+    return [self hasImageURLString:[imageURL wmf_schemelessURLString]];
+}
+
+- (BOOL)hasImageURLString:(NSString*)imageURLString {
     if (imageURLString && imageURLString.length > 0 && [self.mutableEntries containsObject:imageURLString]) {
         return YES;
     } else {
