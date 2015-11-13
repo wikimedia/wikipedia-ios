@@ -9,7 +9,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 #import "NSDate-Utilities.h"
-#import "UIImageView+WMFImageFetching.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,19 +44,18 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            cell.titleLabel.text       = article.title.text;
-            cell.descriptionLabel.text = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-            [cell.articleImageView wmf_setImageWithMetadata:[article bestThumbnailImage] detectFaces:YES];
+            cell.titleText       = article.title.text;
+            cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+            [cell setImage:[article bestThumbnailImage]];
         };
 
         self.tableDeletionBlock = ^(WMFRecentPagesDataSource* dataSource,
                                     UITableView* parentView,
                                     NSIndexPath* indexPath){
-            @strongify(self);
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            [[NSNotificationCenter defaultCenter] removeObserver:dataSource];
             [dataSource deleteArticleAtIndexPath:indexPath];
-            [self removeItemAtIndexPath:indexPath];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
+            [dataSource removeItemAtIndexPath:indexPath];
+            [[NSNotificationCenter defaultCenter] addObserver:dataSource selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
         };
     }
     return self;

@@ -2,7 +2,7 @@
 #import <SSDataSources/SSDataSources.h>
 #import "WMFTitleListDataSource.h"
 
-@class WMFSearchResults;
+@class MWKSite, WMFSearchResults;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -10,9 +10,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) WMFSearchResults* searchResults;
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 
-- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults savedPages:(MWKSavedPageList*)savedPages;
+- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults;
 
 @end
 
