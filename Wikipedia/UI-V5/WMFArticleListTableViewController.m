@@ -57,10 +57,9 @@
         if (_dataSource) {
             [self connectTableViewAndDataSource];
             [[self dynamicDataSource] startUpdating];
-        } else {
-            [self.tableView reloadData];
         }
         [self.tableView wmf_scrollToTop:NO];
+        [self.tableView reloadData];
     }
 
     self.title = [_dataSource displayTitle];
@@ -136,6 +135,10 @@
     self.tableView.separatorColor     = [UIColor wmf_lightGrayColor];
     self.tableView.estimatedRowHeight = 64.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
+
+    //HACK: this is the only way to force the table view to hide separators when the table view is empty.
+    //See: http://stackoverflow.com/a/5377805/48311
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
     [self connectTableViewAndDataSource];
     [self observeArticleUpdates];
