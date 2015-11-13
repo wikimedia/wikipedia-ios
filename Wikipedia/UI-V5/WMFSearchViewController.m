@@ -10,7 +10,6 @@
 #import "MediaWikiKit.h"
 
 #import <Masonry/Masonry.h>
-#import <SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <PiwikTracker/PiwikTracker.h>
 #import "Wikipedia-Swift.h"
