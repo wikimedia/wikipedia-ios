@@ -18,8 +18,8 @@
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_reset];
     self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.articleImageView.tintColor = [UIColor wmf_placeholderImageTintColor];
-    self.articleImageView.image     = [UIImage wmf_placeholderImage];
+    self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
+    self.articleImageView.image           = [UIImage wmf_placeholderImage];
 }
 
 - (void)configureCell {
