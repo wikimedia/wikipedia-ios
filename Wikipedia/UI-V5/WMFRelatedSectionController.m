@@ -14,7 +14,7 @@
 #import "Wikipedia-Swift.h"
 
 // View
-#import "WMFArticlePreviewCell.h"
+#import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 // Style
@@ -96,26 +96,23 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return title;
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+- (void)registerCellsInTableView:(UITableView*)tableView {
+    [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFArticlePreviewCell cellForCollectionView:collectionView indexPath:indexPath];
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell
-           withObject:(id)object
-     inCollectionView:(UICollectionView*)collectionView
-          atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
-        WMFArticlePreviewCell* previewCell = (id)cell;
-        MWKSearchResult* result            = object;
-        previewCell.title           = [self titleForItemAtIndex:indexPath.row];
+- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
+        WMFArticlePreviewTableViewCell* previewCell = (id)cell;
+        MWKSearchResult* result                     = object;
+        previewCell.titleText       = result.displayTitle;
         previewCell.descriptionText = result.wikidataDescription;
-        previewCell.imageURL        = result.thumbnailURL;
-        [previewCell setSummary:result.extract];
-        [previewCell setSavedPageList:self.savedPageList];
+        previewCell.snippetText     = result.extract;
+        [previewCell setImageURL:result.thumbnailURL];
+        [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
 }
 

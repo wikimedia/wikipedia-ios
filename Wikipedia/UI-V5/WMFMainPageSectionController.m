@@ -5,7 +5,7 @@
 #import "MWKSite.h"
 #import "MWKSiteInfo.h"
 
-#import "WMFMainPageCell.h"
+#import "WMFMainPageTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdentifier";
@@ -75,20 +75,17 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [self.siteInfo mainPageTitle];
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFMainPageCell wmf_classNib] forCellWithReuseIdentifier:[WMFMainPageCell identifier]];
+- (void)registerCellsInTableView:(UITableView*)tableView {
+    [tableView registerNib:[WMFMainPageTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPageTableViewCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFMainPageCell cellForCollectionView:collectionView indexPath:indexPath];
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    return [WMFMainPageTableViewCell cellForTableView:tableView];
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell
-           withObject:(id)object
-     inCollectionView:(UICollectionView*)collectionView
-          atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFMainPageCell class]]) {
-        WMFMainPageCell* mainPageCell = (id)cell;
+- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFMainPageTableViewCell class]]) {
+        WMFMainPageTableViewCell* mainPageCell = (id)cell;
         mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
     }
 }

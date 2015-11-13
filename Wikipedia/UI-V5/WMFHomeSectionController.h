@@ -18,11 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSAttributedString*)headerText;
 
-- (void)registerCellsInCollectionView:(UICollectionView*)collectionView;
+- (void)registerCellsInTableView:(UITableView*)tableView;
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath;
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
 
-- (void)configureCell:(UICollectionViewCell*)cell withObject:(id)object inCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath;
+- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
 
 - (NSArray*)items;
 
@@ -66,10 +66,6 @@ typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items;
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
-
-- (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator;
-
-- (CGFloat)maxItemWidth;
 
 @end
 
