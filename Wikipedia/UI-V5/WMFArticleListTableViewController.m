@@ -15,6 +15,9 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
+#import "WMFIntrinsicSizeTableView.h"
+
+#import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
 #import "Wikipedia-Swift.h"
 
@@ -242,3 +245,24 @@
 }
 
 @end
+
+@implementation WMFSelfSizingArticleListTableViewController
+
+- (void)loadView {
+    [super loadView];
+    UITableView* tv = [[WMFIntrinsicSizeTableView alloc] initWithFrame:CGRectZero];
+    tv.translatesAutoresizingMaskIntoConstraints = NO;
+    tv.delegate                                  = self;
+    self.tableView                               = tv;
+}
+
+- (void)viewDidLoad{
+    [super viewDidLoad];
+//    [self.tableView mas_makeConstraints:^(MASConstraintMaker* make) {
+//        make.leading.trailing.top.and.bottom.equalTo(self.tableView.superview);
+//    }];
+}
+
+
+@end
+

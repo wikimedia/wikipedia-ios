@@ -21,4 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+// TODO: move to separate file in article container folder
+@interface WMFSelfSizingArticleListTableViewController : WMFArticleListTableViewController
+
+@end
+
 NS_ASSUME_NONNULL_END
