@@ -12,7 +12,6 @@
 #import "WikipediaAppUtils.h"
 #import "NSURL+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
-#import "NSAttributedString+WMFHTMLForSite.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
 
@@ -221,20 +220,32 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
 #pragma mark - Image Helpers
 
-- (void)updateImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
+- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId skipIfPresent:(BOOL)skipIfPresent {
     if (sourceURL && sourceURL.length > 0) {
-        [self.images addImageURL:sourceURL];
+        if (skipIfPresent) {
+            [self.images addImageURLIfAbsent:sourceURL];
+        } else {
+            [self.images addImageURL:sourceURL];
+        }
         if (sectionId != kMWKArticleSectionNone) {
-            [self.sections[sectionId].images addImageURL:sourceURL];
+            if (skipIfPresent) {
+                [self.sections[sectionId].images addImageURLIfAbsent:sourceURL];
+            } else {
+                [self.sections[sectionId].images addImageURL:sourceURL];
+            }
         }
     }
+}
+
+- (void)appendImageListsWithSourceURL:(NSString*)sourceURL inSection:(int)sectionId {
+    [self appendImageListsWithSourceURL:sourceURL inSection:sectionId skipIfPresent:NO];
 }
 
 /**
  * Create a stub record for an image with given URL.
  */
 - (MWKImage*)importImageURL:(NSString*)url sectionId:(int)sectionId {
-    [self updateImageListsWithSourceURL:url inSection:sectionId];
+    [self appendImageListsWithSourceURL:url inSection:sectionId];
     return [[MWKImage alloc] initWithArticle:self sourceURLString:url];
 }
 
@@ -287,16 +298,6 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     [self.dataStore saveArticle:self];
     [self.images save];
     [self.sections save];
-}
-
-- (void)saveWithoutSavingSectionText {
-    [self.dataStore saveArticle:self];
-    [self.images save];
-    for (MWKSection* section in self.sections) {
-        if (section.images) {
-            [section.images save];
-        }
-    }
 }
 
 #pragma mark - Remove

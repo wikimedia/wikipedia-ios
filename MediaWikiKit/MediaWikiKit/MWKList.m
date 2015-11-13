@@ -168,7 +168,7 @@
 #pragma mark - KVO
 
 - (NSMutableArray*)mutableEntries {
-    return [self mutableArrayValueForKey:@"entries"];
+    return [self mutableArrayValueForKey:WMF_SAFE_KEYPATH(self, entries)];
 }
 
 - (NSUInteger)countOfEntries {

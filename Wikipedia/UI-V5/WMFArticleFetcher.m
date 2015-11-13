@@ -10,7 +10,6 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFArticleRequestSerializer.h"
 #import "WMFArticleResponseSerializer.h"
-#import "WMFArticleParsing.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
@@ -20,7 +19,7 @@
 #import "MWKSectionList.h"
 #import "MWKSection.h"
 #import "MWKArticlePreview.h"
-#import "MWKArticle.h"
+#import "MWKArticle+HTMLImageImport.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -201,22 +200,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (id)serializedArticleWithTitle:(MWKTitle*)title response:(NSDictionary*)response {
-    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore dict:response];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title dataStore:self.dataStore];
     @try {
         [article importMobileViewJSON:response];
+        [article importAndSaveImagesFromSectionHTML];
         [article save];
-
-        for (int section = 0; section < [article.sections count]; section++) {
-            (void)article.sections[section].images;             // hack
-            WMFInjectArticleWithImagesFromSection(article, article.sections[section].text, section);
-        }
-
-        // Update article and section image data.
-        // Reminder: don't recall article save here as it expensively re-writes all section html.
-        [article saveWithoutSavingSectionText];
         return article;
-    }@catch (NSException* e) {
-        NSLog(@"%@", e);
+    } @catch (NSException* e) {
+        DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
         return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
     }
 }

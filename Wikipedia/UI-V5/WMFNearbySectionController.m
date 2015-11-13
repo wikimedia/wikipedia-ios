@@ -98,7 +98,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     }
 }
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
     id result = self.items[index];
     if ([result isKindOfClass:[MWKSearchResult class]]) {
         return [self.viewModel.locationSearchResults titleForResultAtIndex:index];

@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
 
-@class SSSectionedDataSource, SSArrayDataSource, MWKSavedPageList;
+@class SSSectionedDataSource, SSArrayDataSource;
 
 @protocol WMFHomeSectionControllerDelegate, WMFTitleListDataSource;
 
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray*)items;
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
+- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
 @optional
 
@@ -66,6 +66,8 @@ typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items;
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
+
+- (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error;
 
 @end
 

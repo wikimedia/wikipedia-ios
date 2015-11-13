@@ -11,7 +11,6 @@ inhibit_all_warnings!
 xcodeproj 'Wikipedia'
 
 # HTML
-pod 'DTCoreText', '~> 1.6.16'
 pod 'hpple', '~> 0.2'
 
 # Networking / Parsing
