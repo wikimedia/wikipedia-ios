@@ -163,9 +163,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
-    self.title                                                    = MWLocalizedString(@"search-title", nil);
+    self.title                                               = MWLocalizedString(@"search-title", nil);
     self.resultsListController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    self.resultsListController.tableView.backgroundColor = [UIColor clearColor];
+    self.resultsListController.tableView.backgroundColor     = [UIColor clearColor];
 
     [self updateUIWithResults:nil];
     [self updateRecentSearchesVisibility:NO];
