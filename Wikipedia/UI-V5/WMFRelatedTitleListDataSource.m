@@ -125,21 +125,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.title.site titleWithString:result.displayTitle];
 }
 
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.relatedSearchResults.results indexOfObjectPassingTest:^BOOL (MWKSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.displayTitle isEqualToString:title.text]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
-}
-
 - (NSArray*)titles {
     return [self.relatedSearchResults.results bk_map:^id (MWKSearchResult* obj) {
         return [self.title.site titleWithString:obj.displayTitle];
