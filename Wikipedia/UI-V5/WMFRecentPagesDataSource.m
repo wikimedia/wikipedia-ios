@@ -132,8 +132,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKHistoryEntry*)recentPageForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* entry = [self.recentPages entryAtIndex:indexPath.row];
-    return entry;
+    SSSection* section = self.sections[indexPath.section];
+    return section.items[indexPath.item];
 }
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
