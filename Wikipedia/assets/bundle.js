@@ -1056,6 +1056,7 @@ function widenImage(image) {
 
 function maybeWidenImage() {
     var image = this;
+    image.removeEventListener('load', maybeWidenImage, false);
     if (shouldWidenImage(image)) {
         widenImage(image);
     }
