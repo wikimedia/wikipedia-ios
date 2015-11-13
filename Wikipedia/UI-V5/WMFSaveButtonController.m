@@ -50,6 +50,7 @@
     if (self.savedPageList == savedPageList) {
         return;
     }
+    [self unobserveSavedPages];
     _savedPageList = savedPageList;
     [self observeSavedPages];
     [self updateSavedButtonState];
