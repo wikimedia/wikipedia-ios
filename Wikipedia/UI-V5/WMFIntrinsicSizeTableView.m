@@ -3,9 +3,26 @@
 
 @implementation WMFIntrinsicSizeTableView
 
+- (void)setContentSize:(CGSize)contentSize {
+    BOOL didChange = CGSizeEqualToSize(self.contentSize, contentSize);
+    [super setContentSize:contentSize];
+    if (didChange) {
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
+    }
+}
+
+- (void)layoutSubviews {
+    CGSize oldSize = self.contentSize;
+    [super layoutSubviews];
+    if (!CGSizeEqualToSize(oldSize, self.contentSize)) {
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
+    }
+}
+
 - (CGSize)intrinsicContentSize {
-    [self layoutIfNeeded];
-    return CGSizeMake(UIViewNoIntrinsicMetric, self.contentSize.height);
+    return self.contentSize;
 }
 
 - (void)endUpdates {
