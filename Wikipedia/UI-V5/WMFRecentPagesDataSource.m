@@ -10,6 +10,7 @@
 #import "NSString+Extras.h"
 #import "NSDate-Utilities.h"
 #import "UIImageView+WMFImageFetching.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -89,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
         } else if ([date isYesterday]) {
             section.header = [MWLocalizedString(@"history-section-yesterday", nil) uppercaseString];
         } else {
-            section.header = [[self dateFormatter] stringFromDate:date];
+            section.header = [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date];
         }
 
         section.sectionIdentifier = date;
@@ -97,17 +98,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     return sections;
-}
-
-+ (NSDateFormatter*)dateFormatter {
-    static NSDateFormatter* _dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    });
-    return _dateFormatter;
 }
 
 - (void)rebuildSections {

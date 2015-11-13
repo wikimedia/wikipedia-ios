@@ -38,4 +38,6 @@
  */
 + (NSDateFormatter*)wmf_longDateFormatter;
 
++ (instancetype)wmf_mediumDateFormatterWithoutTime;
+
 @end
