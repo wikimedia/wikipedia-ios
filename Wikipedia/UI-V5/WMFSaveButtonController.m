@@ -52,7 +52,6 @@
     }
     _savedPageList = savedPageList;
     [self observeSavedPages];
-    [self updateSavedButtonState];
 }
 
 - (void)setTitle:(MWKTitle*)title {
