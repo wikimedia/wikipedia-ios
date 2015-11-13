@@ -18,8 +18,8 @@
  */
 - (BOOL)wmf_isOperatingSystemVersionLessThan9_0_0 WMF_DEPRECATED_WHEN_DEPLOY_AT_LEAST_9;
 
-- (BOOL)wmf_isOperationSystemMajorVersionAtLeast:(NSUInteger)version;
+- (BOOL)wmf_isOperationSystemMajorVersionAtLeast:(NSInteger)version;
 
-- (BOOL)wmf_isOperationSystemMajorVersionLessThan:(NSUInteger)version;
+- (BOOL)wmf_isOperationSystemMajorVersionLessThan:(NSInteger)version;
 
 @end
