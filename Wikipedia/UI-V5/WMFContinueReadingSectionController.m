@@ -7,7 +7,7 @@
 //
 
 #import "WMFContinueReadingSectionController.h"
-#import "WMFContinueReadingCell.h"
+#import "WMFContinueReadingTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKTitle.h"
 #import "MWKDataStore.h"
@@ -62,20 +62,17 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return self.title;
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFContinueReadingCell wmf_classNib] forCellWithReuseIdentifier:[WMFContinueReadingCell identifier]];
+- (void)registerCellsInTableView:(UITableView*)tableView {
+    [tableView registerNib:[WMFContinueReadingTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFContinueReadingTableViewCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFContinueReadingCell cellForCollectionView:collectionView indexPath:indexPath];
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    return [WMFContinueReadingTableViewCell cellForTableView:tableView];
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell
-           withObject:(id)object
-     inCollectionView:(UICollectionView*)collectionView
-          atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFContinueReadingCell class]]) {
-        WMFContinueReadingCell* readingCell = (id)cell;
+- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFContinueReadingTableViewCell class]]) {
+        WMFContinueReadingTableViewCell* readingCell = (id)cell;
         readingCell.title.text   = self.title.text;
         readingCell.summary.text = [[self.dataStore existingArticleWithTitle:self.title].entityDescription wmf_stringByCapitalizingFirstCharacter];
     }
