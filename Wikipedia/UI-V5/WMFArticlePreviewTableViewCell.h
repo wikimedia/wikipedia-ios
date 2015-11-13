@@ -11,7 +11,7 @@
 @property (nonatomic, strong) NSString* snippetText;
 
 /**
- *  Wire up the save button with the title and saved page list 
+ *  Wire up the save button with the title and saved page list
  *  to enable saving.
  *
  *  @param title         The title to save/unsave
