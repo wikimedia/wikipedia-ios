@@ -35,7 +35,7 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <segue destination="4Pn-cn-DIj" kind="embed" id="8w9-gJ-Prh"/>
+                                            <segue destination="h3Q-u3-KJA" kind="embed" id="j4w-FO-sD1"/>
                                         </connections>
                                     </containerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ukX-0p-5ey">
@@ -286,29 +286,24 @@
             </objects>
             <point key="canvasLocation" x="587" y="3712"/>
         </scene>
-        <!--Search Results List-->
-        <scene sceneID="1Ub-Zb-UVi">
+        <!--Article List Table View Controller-->
+        <scene sceneID="UeF-5R-zXb">
             <objects>
-                <collectionViewController storyboardIdentifier="WMFArticleListCollectionViewController_Search" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Pn-cn-DIj" userLabel="Search Results List" customClass="WMFArticleListCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="Sdm-Uo-q4M">
+                <tableViewController id="h3Q-u3-KJA" customClass="WMFArticleListTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3cy-oJ-h8H">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="506"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <collectionViewLayout key="collectionViewLayout" id="ic4-TR-7Nt" customClass="SelfSizingWaterfallCollectionViewLayout"/>
-                        <cells/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
-                            <outlet property="delegate" destination="4Pn-cn-DIj" id="pQr-HZ-wDg"/>
+                            <outlet property="dataSource" destination="h3Q-u3-KJA" id="1zi-3e-Lih"/>
+                            <outlet property="delegate" destination="h3Q-u3-KJA" id="apL-5V-47l"/>
                         </connections>
-                    </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" id="GUP-3S-B3l"/>
-                    <connections>
-                        <outlet property="collectionView" destination="Sdm-Uo-q4M" id="01Y-7h-VLX"/>
-                    </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1ux-fZ-r7x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ebu-u6-8Oq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1287" y="3744"/>
+            <point key="canvasLocation" x="1275" y="3697"/>
         </scene>
     </scenes>
     <resources>
