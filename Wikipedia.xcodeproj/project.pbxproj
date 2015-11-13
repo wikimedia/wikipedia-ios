@@ -399,6 +399,7 @@
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
 		BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */; };
 		BC8C0BA41BCFC3C600E2B167 /* DDLog+WMFLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8C0BA31BCFC3C600E2B167 /* DDLog+WMFLogger.m */; };
+		BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */; };
 		BC905A111B447A8300523DFE /* NSURLRequest+WMFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */; };
 		BC905A131B44815900523DFE /* SDImageCache+PromiseKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */; };
 		BC92A7731AFA88D3003C4212 /* MWKSection+WMFSharingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC92A7721AFA88D3003C4212 /* MWKSection+WMFSharingTests.m */; };
@@ -1288,6 +1289,7 @@
 		BC86B93F1A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewFlowLayout+WMFItemSizeThatFits.m"; sourceTree = "<group>"; };
 		BC8C0BA21BCFC3C600E2B167 /* DDLog+WMFLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+WMFLogger.h"; sourceTree = "<group>"; };
 		BC8C0BA31BCFC3C600E2B167 /* DDLog+WMFLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDLog+WMFLogger.m"; sourceTree = "<group>"; };
+		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC905A0F1B447A8300523DFE /* NSURLRequest+WMFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+WMFUtilities.h"; sourceTree = "<group>"; };
 		BC905A101B447A8300523DFE /* NSURLRequest+WMFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+WMFUtilities.m"; sourceTree = "<group>"; };
 		BC905A121B44815900523DFE /* SDImageCache+PromiseKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SDImageCache+PromiseKit.swift"; sourceTree = "<group>"; };
@@ -3375,6 +3377,7 @@
 				BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */,
 				BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */,
 				BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */,
+				BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -3866,6 +3869,7 @@
 				BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */,
 				BC8210D01B4EE3FA0010BF7B /* ArticleWithoutImages.dataexport.json in Resources */,
 				BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */,
+				BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */,
 				BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */,
 				BCF73DA71BD064AD000A13DB /* 4.1.7 in Resources */,
 				BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */,
