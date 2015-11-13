@@ -21,6 +21,7 @@
 
 #import "WMFBlockDefinitions.h"
 #import "WMFComparison.h"
+#import "NSArray+WMFMapWithoutNil.h"
 
 //TODO: when refactoring networking, this should be scoped to those classes
 #define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
