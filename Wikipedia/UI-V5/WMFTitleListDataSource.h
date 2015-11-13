@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath;
 
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title;
-
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod;

@@ -41,26 +41,19 @@ describe(@"partitioning by date", ^{
         NSDate* lastWeek = [today dateBySubtractingDays:7];
 
         __block NSArray<MWKTitle*>* todaysTitles;
-        __block NSArray<NSIndexPath*>* expectedTodayIndexPaths;
 
         beforeEach(^{
             todaysTitles = [historyList injectWithStubbedEntriesFromDate:today];
-            expectedTodayIndexPaths = [SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, todaysTitles.count) inSection:0];
         });
 
         describe(@"first section", ^{
             it(@"should have items from today", ^{
-                NSArray<MWKTitle*>* firstSectionTitles = [expectedTodayIndexPaths bk_map:^MWKTitle*(NSIndexPath* indexPath) {
+                NSArray<MWKTitle*>* firstSectionTitles =
+                    [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, todaysTitles.count) inSection:0]
+                     bk_map:^MWKTitle*(NSIndexPath* indexPath) {
                     return [recentPagesDataSource titleForIndexPath:indexPath];
                 }];
                 expect(firstSectionTitles).to(equal(todaysTitles));
-            });
-
-            it(@"should return the correct indexPath for its titles", ^{
-                NSArray<NSIndexPath*>* actualIndexPaths = [todaysTitles bk_map:^id(MWKTitle* title) {
-                    return [recentPagesDataSource indexPathForTitle:title];
-                }];
-                expect(actualIndexPaths).to(equal(expectedTodayIndexPaths));
             });
 
             it(@"should have a 'TODAY' header", ^{
@@ -70,12 +63,9 @@ describe(@"partitioning by date", ^{
 
         context(@"history also contains items from yesterday", ^{
             __block NSArray<MWKTitle*>* yesterdaysTitles;
-            __block NSArray<NSIndexPath*>* expectedYesterdayIndexPaths;
 
             beforeEach(^{
                 yesterdaysTitles = [historyList injectWithStubbedEntriesFromDate:yesterday];
-                expectedYesterdayIndexPaths = [SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, yesterdaysTitles.count)
-                                                                             inSection:1];
             });
 
             describe(@"yesterday section", ^{
@@ -88,13 +78,6 @@ describe(@"partitioning by date", ^{
                     expect(secondSectionTitles).to(equal(yesterdaysTitles));
                 });
 
-                it(@"should return the correct indexPath for its titles", ^{
-                    NSArray<NSIndexPath*>* actualIndexPaths = [yesterdaysTitles bk_map:^id(MWKTitle* title) {
-                        return [recentPagesDataSource indexPathForTitle:title];
-                    }];
-                    expect(actualIndexPaths).to(equal(yesterdaysTitles));
-                });
-
                 it(@"should have a 'YESTERDAY' header", ^{
                     expect([recentPagesDataSource titleForHeaderInSection:1]).to(equal(@"YESTERDAY"));
                 });
@@ -102,28 +85,17 @@ describe(@"partitioning by date", ^{
 
             context(@"history also contains items from last week", ^{
                 __block NSArray<MWKTitle*>* lastWeeksTitles;
-                __block NSArray<NSIndexPath*>* expectedLastWeekIndexPaths;
-
                 beforeEach(^{
                     lastWeeksTitles = [historyList injectWithStubbedEntriesFromDate:lastWeek];
-                    expectedLastWeekIndexPaths = [SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, lastWeeksTitles.count)
-                                                                                 inSection:2];
                 });
 
                 it(@"should have a single section with all entries from last week", ^{
                     NSArray<MWKTitle*>* thirdSectionTitles =
-                        [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, lastWeeksTitles.count) inSection:2]
+                        [[SSBaseDataSource indexPathArrayWithRange:NSMakeRange(0, yesterdaysTitles.count) inSection:2]
                          bk_map:^MWKTitle*(NSIndexPath* indexPath) {
                         return [recentPagesDataSource titleForIndexPath:indexPath];
                     }];
                     expect(thirdSectionTitles).to(equal(lastWeeksTitles));
-                });
-
-                it(@"should return the correct indexPath for its titles", ^{
-                    NSArray<NSIndexPath*>* actualIndexPaths = [todaysTitles bk_map:^id(MWKTitle* title) {
-                        return [recentPagesDataSource indexPathForTitle:title];
-                    }];
-                    expect(actualIndexPaths).to(equal(expectedLastWeekIndexPaths));
                 });
 
                 it(@"should have a header with last week's formatted day", ^{
