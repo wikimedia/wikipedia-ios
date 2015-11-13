@@ -17,7 +17,7 @@
 
 @implementation WMFSearchDataSource
 
-- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults{
+- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults {
     NSParameterAssert(site);
     NSParameterAssert(searchResults);
     self = [super initWithItems:searchResults.results];
