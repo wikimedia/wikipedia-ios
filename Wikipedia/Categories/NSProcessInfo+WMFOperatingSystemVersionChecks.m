@@ -14,11 +14,11 @@
     return [self wmf_isOperationSystemMajorVersionLessThan:9];
 }
 
-- (BOOL)wmf_isOperationSystemMajorVersionAtLeast:(NSUInteger)version {
+- (BOOL)wmf_isOperationSystemMajorVersionAtLeast:(NSInteger)version {
     return self.operatingSystemVersion.majorVersion >= version;
 }
 
-- (BOOL)wmf_isOperationSystemMajorVersionLessThan:(NSUInteger)version {
+- (BOOL)wmf_isOperationSystemMajorVersionLessThan:(NSInteger)version {
     return self.operatingSystemVersion.majorVersion < version;
 }
 
