@@ -28,7 +28,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6E-ZW-sLh">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-u5-qnE">
                                         <rect key="frame" x="195" y="204" width="210" height="192"/>
                                         <animations/>
                                         <constraints>
@@ -101,28 +101,6 @@
             </objects>
             <point key="canvasLocation" x="1318" y="1410"/>
         </scene>
-        <!--Home View Controller-->
-        <scene sceneID="GQS-UF-SlV">
-            <objects>
-                <collectionViewController id="ijM-Cp-AID" customClass="WMFHomeViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="kwN-cC-rkY">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <collectionViewLayout key="collectionViewLayout" id="PEa-JF-GrQ" customClass="SelfSizingWaterfallCollectionViewLayout"/>
-                        <cells/>
-                        <connections>
-                            <outlet property="delegate" destination="ijM-Cp-AID" id="SC7-eq-goH"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="mHo-1o-28h"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fWB-DA-BCh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="886" y="2881"/>
-        </scene>
         <!--Saved-->
         <scene sceneID="Lqf-ge-2v5">
             <objects>
@@ -142,6 +120,23 @@
             </objects>
             <point key="canvasLocation" x="1689" y="2115"/>
         </scene>
+        <!--Home View Controller-->
+        <scene sceneID="hKH-8S-QO1">
+            <objects>
+                <tableViewController id="Sqz-8C-QS3" customClass="WMFHomeViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="e1T-Xp-dOK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Sdg-mT-j2B"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aFB-1z-Isl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="886" y="2881"/>
+        </scene>
         <!--Article List Table View Controller-->
         <scene sceneID="Uaj-Q3-jYT">
             <objects>
@@ -151,6 +146,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
                             <outlet property="dataSource" destination="e79-4K-3DF" id="mWe-gB-rZC"/>
                             <outlet property="delegate" destination="e79-4K-3DF" id="0b9-oZ-HxB"/>
@@ -190,6 +186,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
                             <outlet property="dataSource" destination="PJq-J4-m3k" id="tFf-0z-5J6"/>
                             <outlet property="delegate" destination="PJq-J4-m3k" id="rRh-j3-7uj"/>
@@ -213,7 +210,7 @@
                         <animations/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ijM-Cp-AID" kind="relationship" relationship="rootViewController" id="Yb6-mc-Hil"/>
+                        <segue destination="Sqz-8C-QS3" kind="relationship" relationship="rootViewController" id="7Xj-tq-r55"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXf-sf-vwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

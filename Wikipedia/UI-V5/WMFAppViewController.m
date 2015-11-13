@@ -36,7 +36,7 @@
 // View Controllers
 #import "WMFHomeViewController.h"
 #import "WMFSearchViewController.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListTableViewController.h"
 #import "DataMigrationProgressViewController.h"
 #import "OnboardingViewController.h"
 #import "WMFArticleContainerViewController.h"
@@ -78,8 +78,8 @@ static dispatch_once_t launchToken;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
 
 @property (nonatomic, strong, readonly) WMFHomeViewController* homeViewController;
-@property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* savedArticlesViewController;
-@property (nonatomic, strong, readonly) WMFArticleListCollectionViewController* recentArticlesViewController;
+@property (nonatomic, strong, readonly) WMFArticleListTableViewController* savedArticlesViewController;
+@property (nonatomic, strong, readonly) WMFArticleListTableViewController* recentArticlesViewController;
 
 @property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
@@ -121,7 +121,7 @@ static dispatch_once_t launchToken;
     self.homeViewController.recentPages = self.session.userDataStore.historyList;
 }
 
-- (void)configureArticleListController:(WMFArticleListCollectionViewController*)controller {
+- (void)configureArticleListController:(WMFArticleListTableViewController*)controller {
     controller.dataStore = self.session.dataStore;
 }
 
@@ -275,12 +275,12 @@ static dispatch_once_t launchToken;
     return (WMFHomeViewController*)[self rootViewControllerForTab:WMFAppTabTypeHome];
 }
 
-- (WMFArticleListCollectionViewController*)savedArticlesViewController {
-    return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
+- (WMFArticleListTableViewController*)savedArticlesViewController {
+    return (WMFArticleListTableViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
-- (WMFArticleListCollectionViewController*)recentArticlesViewController {
-    return (WMFArticleListCollectionViewController*)[self rootViewControllerForTab:WMFAppTabTypeRecent];
+- (WMFArticleListTableViewController*)recentArticlesViewController {
+    return (WMFArticleListTableViewController*)[self rootViewControllerForTab:WMFAppTabTypeRecent];
 }
 
 #pragma mark - UIViewController
