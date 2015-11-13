@@ -17,9 +17,15 @@
 
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_reset];
-    self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.articleImageView.tintColor = [UIColor wmf_placeholderImageTintColor];
-    self.articleImageView.image     = [UIImage wmf_placeholderImage];
+    self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
+    self.articleImageView.image           = [UIImage wmf_placeholderImage];
+    if (self.articleImageView.frame.size.width > self.articleImageView.image.size.width) {
+        self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
+        self.articleImageView.contentMode = UIViewContentModeCenter;
+    } else {
+        self.articleImageView.backgroundColor = [UIColor clearColor];
+        self.articleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
 }
 
 - (void)configureCell {
