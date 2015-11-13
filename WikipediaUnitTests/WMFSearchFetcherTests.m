@@ -48,6 +48,22 @@
     });
 }
 
+- (void)testHandlesSuggestionWithoutResults {
+    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
+    .andReturn(200)
+    .withJSON(json);
+
+    expectResolution(^{
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
+        .then(^(WMFSearchResults* result) {
+            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
+            assertThat(result.results, is(nilValue()));
+        });
+    });
+}
+
 - (void)testAppendingToPreviousResultsCausesKVOEvents {
     id prefixSearchJSON   = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetPrefixSearch"];
     id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
