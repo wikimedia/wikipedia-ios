@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A new array with the objects transformed by @c flatMap, excluding the @c nil results.
  */
-- (NSArray*)wmf_mapAndRejectNil:(id _Nullable (^ _Nonnull)(__kindof ObjectType _Nonnull obj))flatMap;
+- (NSArray*)wmf_mapAndRejectNil:(id _Nullable (^ _Nonnull)(ObjectType _Nonnull obj))flatMap;
 
 @end
 
