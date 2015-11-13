@@ -53,7 +53,9 @@ extension WMFArticleContainerViewController {
         if let sections = self.article?.sections {
             // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
             var items = sections.entries.map() { $0 as! TableOfContentsItem }
-            items.append(TableOfContentsReadMoreItem())
+            if (!webViewController.article!.main){
+                items.append(TableOfContentsReadMoreItem())
+            }
             self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: self, items: items, delegate: self)
         }
     }
