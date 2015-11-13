@@ -256,13 +256,5 @@
     self.tableView                               = tv;
 }
 
-- (void)viewDidLoad{
-    [super viewDidLoad];
-//    [self.tableView mas_makeConstraints:^(MASConstraintMaker* make) {
-//        make.leading.trailing.top.and.bottom.equalTo(self.tableView.superview);
-//    }];
-}
-
-
 @end
 
