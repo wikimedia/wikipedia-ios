@@ -131,13 +131,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKHistoryEntry*)recentPageForIndexPath:(NSIndexPath*)indexPath {
-    SSSection* section = self.sections[indexPath.section];
-    return section.items[indexPath.item];
+    return (MWKHistoryEntry*)[self itemAtIndexPath:indexPath];
 }
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* savedEntry = [self recentPageForIndexPath:indexPath];
-    return savedEntry.title;
+    return [[self recentPageForIndexPath:indexPath] title];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
