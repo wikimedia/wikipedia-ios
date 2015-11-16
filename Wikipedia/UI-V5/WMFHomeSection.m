@@ -4,6 +4,7 @@
 #import "MWKTitle.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
+#import "NSDate-Utilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeSection ()
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+
 - (NSComparisonResult)compare:(WMFHomeSection*)section {
     NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
     switch (self.type) {
@@ -33,14 +35,49 @@ NS_ASSUME_NONNULL_BEGIN
         }
         break;
 
-        case WMFHomeSectionTypeMainPage: {
+        case WMFHomeSectionTypeFeaturedArticle: {
             switch (section.type) {
                 case WMFHomeSectionTypeContinueReading: {
                     return NSOrderedDescending;
                 }
                 break;
+                case WMFHomeSectionTypeMainPage:
                 case WMFHomeSectionTypeRandom:
                 case WMFHomeSectionTypeNearby: {
+                    if (self.dateCreated.day == section.dateCreated.day) {
+                        return NSOrderedAscending;
+                    } else {
+                        return -[self.dateCreated compare:section.dateCreated];
+                    }
+                }
+                break;
+                default:
+                    return -[self.dateCreated compare:section.dateCreated];
+                    break;
+            }
+        }
+        break;
+        case WMFHomeSectionTypeMainPage: {
+            switch (section.type) {
+                case WMFHomeSectionTypeContinueReading: {
+                    return NSOrderedDescending;
+                }
+
+                case WMFHomeSectionTypeFeaturedArticle: {
+                    if (self.dateCreated.day == section.dateCreated.day) {
+                        return NSOrderedDescending;
+                    } else {
+                        return -[self.dateCreated compare:section.dateCreated];
+                    }
+                }
+
+                case WMFHomeSectionTypeRandom:
+                case WMFHomeSectionTypeNearby: {
+                    if (self.dateCreated.day == section.dateCreated.day) {
+                        return NSOrderedAscending;
+                    } else {
+                        return -[self.dateCreated compare:section.dateCreated];
+                    }
                     return NSOrderedAscending;
                 }
                 break;
@@ -53,13 +90,24 @@ NS_ASSUME_NONNULL_BEGIN
 
         case WMFHomeSectionTypeRandom: {
             switch (section.type) {
-                case WMFHomeSectionTypeContinueReading:
-                case WMFHomeSectionTypeMainPage: {
+                case WMFHomeSectionTypeContinueReading: {
                     return NSOrderedDescending;
+                }
+                case WMFHomeSectionTypeFeaturedArticle:
+                case WMFHomeSectionTypeMainPage: {
+                    if (self.dateCreated.day == section.dateCreated.day) {
+                        return NSOrderedDescending;
+                    } else {
+                        return -[self.dateCreated compare:section.dateCreated];
+                    }
                 }
                 break;
                 case WMFHomeSectionTypeNearby: {
-                    return NSOrderedAscending;
+                    if (self.dateCreated.day == section.dateCreated.day) {
+                        return NSOrderedAscending;
+                    } else {
+                        return -[self.dateCreated compare:section.dateCreated];
+                    }
                 }
                 break;
                 default:
@@ -71,10 +119,17 @@ NS_ASSUME_NONNULL_BEGIN
 
         case WMFHomeSectionTypeNearby: {
             switch (section.type) {
-                case WMFHomeSectionTypeContinueReading:
+                case WMFHomeSectionTypeContinueReading: {
+                    return NSOrderedDescending;
+                }
+                case WMFHomeSectionTypeFeaturedArticle:
                 case WMFHomeSectionTypeMainPage:
                 case WMFHomeSectionTypeRandom: {
-                    return NSOrderedDescending;
+                    if (self.dateCreated.day == section.dateCreated.day) {
+                        return NSOrderedDescending;
+                    } else {
+                        return -[self.dateCreated compare:section.dateCreated];
+                    }
                 }
                 break;
                 default:
@@ -104,6 +159,12 @@ NS_ASSUME_NONNULL_BEGIN
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type  = WMFHomeSectionTypeContinueReading;
     item.title = title;
+    return item;
+}
+
++ (instancetype)featuredSection {
+    WMFHomeSection* item = [[WMFHomeSection alloc] init];
+    item.type = WMFHomeSectionTypeFeaturedArticle;
     return item;
 }
 
