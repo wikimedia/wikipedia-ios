@@ -44,13 +44,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.articleImageView.layer.cornerRadius               = self.articleImageView.bounds.size.width / 2;
-    self.articleImageView.layer.borderWidth                = 1.0 / [UIScreen mainScreen].scale;
-    self.articleImageView.layer.borderColor                = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
+    self.articleImageView.layer.cornerRadius        = self.articleImageView.bounds.size.width / 2;
+    self.articleImageView.layer.borderWidth         = 1.0 / [UIScreen mainScreen].scale;
+    self.articleImageView.layer.borderColor         = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
-    self.distanceLabelBackground.backgroundColor = [UIColor wmf_nearbyDistanceBackgroundColor];
-    self.distanceLabel.font                      = [UIFont wmf_nearbyDistanceFont];
-    self.distanceLabel.textColor                 = [UIColor wmf_nearbyDistanceTextColor];
+    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_nearbyDistanceBackgroundColor];
+    self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
+    self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
 }
 
 - (void)prepareForReuse {
