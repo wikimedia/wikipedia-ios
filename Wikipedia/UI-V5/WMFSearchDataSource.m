@@ -89,21 +89,6 @@
     return [self.searchSite titleWithString:result.displayTitle];
 }
 
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.searchResults.results indexOfObjectPassingTest:^BOOL (MWKSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.displayTitle isEqualToString:title.text]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
-}
-
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
     return NO;
 }
