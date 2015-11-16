@@ -9,6 +9,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 #import "NSDate-Utilities.h"
+#import "UIImageView+WMFImageFetching.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -87,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
         } else if ([date isYesterday]) {
             section.header = [MWLocalizedString(@"history-section-yesterday", nil) uppercaseString];
         } else {
-            section.header = [[self dateFormatter] stringFromDate:date];
+            section.header = [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date];
         }
 
         section.sectionIdentifier = date;
@@ -95,17 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     return sections;
-}
-
-+ (NSDateFormatter*)dateFormatter {
-    static NSDateFormatter* _dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    });
-    return _dateFormatter;
 }
 
 - (void)rebuildSections {
@@ -140,28 +131,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKHistoryEntry*)recentPageForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* entry = [self.recentPages entryAtIndex:indexPath.row];
-    return entry;
+    return (MWKHistoryEntry*)[self itemAtIndexPath:indexPath];
 }
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* savedEntry = [self recentPageForIndexPath:indexPath];
-    return savedEntry.title;
-}
-
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [[self.recentPages entries] indexOfObjectPassingTest:^BOOL (MWKHistoryEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.title isEqualToTitle:title]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
+    return [[self recentPageForIndexPath:indexPath] title];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

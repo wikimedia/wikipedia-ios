@@ -85,31 +85,41 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
+  install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
   install_framework "Pods-WikipediaUnitTests/OCHamcrest.framework"
   install_framework "Pods-WikipediaUnitTests/OCMockito.framework"
+  install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
+  install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
   install_framework "Pods-WikipediaUnitTests/OCHamcrest.framework"
   install_framework "Pods-WikipediaUnitTests/OCMockito.framework"
+  install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
+  install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
   install_framework "Pods-WikipediaUnitTests/OCHamcrest.framework"
   install_framework "Pods-WikipediaUnitTests/OCMockito.framework"
+  install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Alpha" ]]; then
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
+  install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
   install_framework "Pods-WikipediaUnitTests/OCHamcrest.framework"
   install_framework "Pods-WikipediaUnitTests/OCMockito.framework"
+  install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "Pods-WikipediaUnitTests/FBSnapshotTestCase.framework"
+  install_framework "Pods-WikipediaUnitTests/Nimble.framework"
   install_framework "Pods-WikipediaUnitTests/Nocilla.framework"
   install_framework "Pods-WikipediaUnitTests/OCHamcrest.framework"
   install_framework "Pods-WikipediaUnitTests/OCMockito.framework"
+  install_framework "Pods-WikipediaUnitTests/Quick.framework"
 fi
