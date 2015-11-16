@@ -219,6 +219,7 @@
 		0E869F151B582297002604C3 /* MWKListInsertionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F131B58228D002604C3 /* MWKListInsertionTests.m */; };
 		0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F4A1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m */; };
 		0E87265B1B8CC9E7008EA2AC /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */; };
+		0E8E9A561BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E9A551BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m */; };
 		0E9008E81B715E64001A600A /* WMFCollectionViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */; };
 		0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2951B4B59E3008B996F /* WMFMinimalArticleContentCell.m */; };
 		0E94AFEA1B209721000BC5EA /* iPhone_Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */; };
@@ -960,6 +961,8 @@
 		0E8726591B8CC9E7008EA2AC /* UIView+WMFShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFShadow.h"; sourceTree = "<group>"; };
 		0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFShadow.m"; sourceTree = "<group>"; };
 		0E88F9211B4ED2AB00205C99 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = "UI-V5/WMFBlockDefinitions.h"; sourceTree = "<group>"; };
+		0E8E9A541BFA4AF20054A242 /* WMFFeaturedArticleSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeaturedArticleSectionController.h; sourceTree = "<group>"; };
+		0E8E9A551BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFeaturedArticleSectionController.m; sourceTree = "<group>"; };
 		0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCollectionViewExtensionTests.m; sourceTree = "<group>"; };
 		0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone_Root.storyboard; sourceTree = "<group>"; };
 		0E94AFEB1B20976A000BC5EA /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFAppViewController.h; sourceTree = "<group>"; };
@@ -2548,6 +2551,7 @@
 				0E03E2981B845F2F00C1FBD7 /* SSSectionedDataSource+WMFSectionConvenience.m */,
 				0E1B049F1BC59DEF00506F7D /* Continue Reading */,
 				0EAED8481BE7F3A0006B01E6 /* Main Page */,
+				0E8E9A571BFA501E0054A242 /* Featured Article */,
 				0EA1791D1BD95910004FF529 /* Random */,
 				0ED6897C1B8246F400B30427 /* Nearby */,
 				0E2691031B86BBC0009B8605 /* Related */,
@@ -2590,6 +2594,15 @@
 				0E7E60331B7CFB1400ED1C69 /* MWKSite+WMFAnalyticsLogging.m */,
 			);
 			name = Analytics;
+			sourceTree = "<group>";
+		};
+		0E8E9A571BFA501E0054A242 /* Featured Article */ = {
+			isa = PBXGroup;
+			children = (
+				0E8E9A541BFA4AF20054A242 /* WMFFeaturedArticleSectionController.h */,
+				0E8E9A551BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m */,
+			);
+			name = "Featured Article";
 			sourceTree = "<group>";
 		};
 		0E94AFE81B2096D5000BC5EA /* UI-V5 */ = {
@@ -4297,6 +4310,7 @@
 				BCB669B41A83F6C400C7B1FE /* MWKArticle.m in Sources */,
 				BC550B181B9A75100082F298 /* WMFRelatedTitleListDataSource.m in Sources */,
 				0ED689721B822D3B00B30427 /* WMFHomeSectionFooter.m in Sources */,
+				0E8E9A561BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m in Sources */,
 				0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */,
 				044BD6B618849AD000FFE4BE /* SectionEditorViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
