@@ -28,12 +28,13 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 @interface WMFHomeSectionSchema ()<WMFLocationManagerDelegate>
 
+@property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readwrite) MWKHistoryList* historyPages;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 
-@property (nonatomic, strong, readwrite) NSDate* lastUpdatedAt;
+@property (nonatomic, strong, readwrite, nullable) NSDate* lastUpdatedAt;
 
 @property (nonatomic, strong, readwrite) NSArray<WMFHomeSection*>* sections;
 
@@ -44,27 +45,31 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Setup
 
-+ (instancetype)schemaWithSavedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {
++ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {
+    NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
 
     WMFHomeSectionSchema* schema = [self loadSchemaFromDisk];
 
     if (schema) {
+        schema.site         = site;
         schema.savedPages   = savedPages;
         schema.historyPages = history;
     } else {
-        schema = [[WMFHomeSectionSchema alloc] initWithSavedPages:savedPages history:history];
+        schema = [[WMFHomeSectionSchema alloc] initWithSite:site savedPages:savedPages history:history];
     }
 
     return schema;
 }
 
-- (instancetype)initWithSavedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {
+- (instancetype)initWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {
+    NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
     self = [super init];
     if (self) {
+        self.site         = site;
         self.savedPages   = savedPages;
         self.historyPages = history;
         [self reset];
@@ -83,6 +88,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
         [startingSchema addObject:saved];
     }
 
+    self.lastUpdatedAt = nil;
     [self updateSections:startingSchema];
 }
 
@@ -122,7 +128,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     //Check Tweak
     if (!FBTweakValue(@"Home", @"General", @"Always update on launch", NO)) {
         //Check force flag and minimum relaod time
-        if (!force && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
+        if (!force && self.lastUpdatedAt && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
             return;
         }
     }
@@ -179,15 +185,17 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     //Add Random
     WMFHomeSection* random = [self randomSection];
-    if (random) {
-        [sections addObject:random];
+    [sections addObject:random];
+
+    //Add featured
+    WMFHomeSection* featured = [self featuredArticleSection];
+    if (nearby) {
+        [sections addObject:featured];
     }
 
-    //Add today
+    //Add main page
     WMFHomeSection* today = [self mainPageSection];
-    if (today) {
-        [sections addObject:today];
-    }
+    [sections addObject:today];
 
     //Add the last read item
     WMFHomeSection* continueReading = [self continueReadingSection];
@@ -224,7 +232,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return [WMFHomeSection nearbySectionWithLocation:location];
 }
 
-- (WMFHomeSection*)nearbySection {
+- (nullable WMFHomeSection*)nearbySection {
     WMFHomeSection* nearby = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
         if (obj.type == WMFHomeSectionTypeNearby) {
             return YES;
@@ -243,7 +251,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
         return NO;
     }];
 
-    //If it's a new day and we havent created a new today section, create it now
+    //If it's a new day and we havent created a new main page section, create it now
     if (!main || ![main.dateCreated isToday]) {
         main = [WMFHomeSection mainPageSection];
     }
@@ -251,7 +259,28 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return main;
 }
 
-- (WMFHomeSection*)continueReadingSection {
+- (nullable WMFHomeSection*)featuredArticleSection {
+    //Never show if we are not in english
+    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
+        return nil;
+    }
+
+    WMFHomeSection* featured = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
+            return YES;
+        }
+        return NO;
+    }];
+
+    //If it's a new day and we havent created a new featured section, create it now
+    if (!featured || ![featured.dateCreated isToday]) {
+        featured = [WMFHomeSection featuredSection];
+    }
+
+    return featured;
+}
+
+- (nullable WMFHomeSection*)continueReadingSection {
     NSDate* resignActiveDate             = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
     BOOL const shouldShowContinueReading =
         FBTweakValue(@"Home", @"Continue Reading", @"Always Show", NO) ||
@@ -329,6 +358,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 + (NSDictionary*)encodingBehaviorsByPropertyKey {
     NSMutableDictionary* behaviors = [[super encodingBehaviorsByPropertyKey] mutableCopy];
+    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"site"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"savedPages"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"historyPages"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"delegate"];
