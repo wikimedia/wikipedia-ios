@@ -55,6 +55,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
+    [self configureImageViewWithPlaceholder];
     self.descriptionText    = nil;
     self.distanceProvider   = nil;
     self.bearingProvider    = nil;
@@ -65,9 +66,10 @@
 
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_reset];
-    self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
+    self.articleImageView.backgroundColor = [UIColor clearColor];
     self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
     self.articleImageView.image           = [UIImage wmf_placeholderImage];
+    self.articleImageView.contentMode     = UIViewContentModeCenter;
 }
 
 #pragma mark - Compass
