@@ -40,10 +40,26 @@
     .andReturn(200)
     .withJSON(json);
 
-    expectResolution(^{
+    expectResolutionWithTimeout(5, ^{
         return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
         .then(^(WMFSearchResults* result) {
             assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
+        });
+    });
+}
+
+- (void)testHandlesSuggestionWithoutResults {
+    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
+    .andReturn(200)
+    .withJSON(json);
+
+    expectResolutionWithTimeout(5, ^{
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
+        .then(^(WMFSearchResults* result) {
+            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
+            assertThat(result.results, is(nilValue()));
         });
     });
 }
@@ -74,7 +90,7 @@
     __block WMFSearchResults* fetchedPrefixResult;
 
     // get prefix result
-    expectResolution(^{
+    expectResolutionWithTimeout(5, ^{
         return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:searchSite resultLimit:15]
         .then(^(WMFSearchResults* prefixResult) {
             assertThat(prefixResult.results, hasCountOf(prefixTitles.count));
@@ -88,7 +104,7 @@
                                   expectedValue:nil];
 
     // fetch full-text results, appending to prefix
-    expectResolution(^{
+    expectResolutionWithTimeout(5, ^{
         return [self.fetcher fetchArticlesForSearchTerm:@"foo"
                                                    site:searchSite
                                             resultLimit:15
