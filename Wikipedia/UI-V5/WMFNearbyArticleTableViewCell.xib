@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="392" height="119"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NGT-X1-Lla">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NGT-X1-Lla">
                         <rect key="frame" x="24" y="24" width="72" height="72"/>
                         <animations/>
                         <constraints>
