@@ -112,21 +112,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.site titleWithString:result.displayTitle];
 }
 
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.viewModel.locationSearchResults.results indexOfObjectPassingTest:^BOOL (MWKLocationSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.displayTitle isEqualToString:title.text]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
-}
-
 - (void)startUpdating {
     [self.viewModel startUpdates];
 }
