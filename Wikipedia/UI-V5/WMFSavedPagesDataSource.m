@@ -85,21 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
     return savedEntry.title;
 }
 
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [[self.savedPageList entries] indexOfObjectPassingTest:^BOOL (MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.title isEqualToTitle:title]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
-}
-
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
     return YES;
 }

@@ -47,6 +47,8 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
   pod 'FBSnapshotTestCase/Core', '~> 2.0.3'
+  pod 'Quick', '~> 0.8.0'
+  pod 'Nimble', '~> 3.0.0'
 end
 
 pod 'SVWebViewController', '~> 1.0'
