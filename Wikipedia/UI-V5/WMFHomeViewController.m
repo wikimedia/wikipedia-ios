@@ -333,7 +333,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadSections {
-    [self.tableView beginUpdates];
+    self.dataSource.tableView = nil;
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
         switch (obj.type) {
             case WMFHomeSectionTypeHistory:
@@ -355,7 +355,8 @@ NS_ASSUME_NONNULL_BEGIN
                 break;
         }
     }];
-    [self.tableView endUpdates];
+    self.dataSource.tableView = self.tableView;
+    [self.tableView reloadData];
 }
 
 - (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
