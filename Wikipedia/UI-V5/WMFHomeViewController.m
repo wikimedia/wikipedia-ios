@@ -401,7 +401,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self.dataSource insertSection:section atIndex:sectionIndex];
     controller.delegate       = self;
     self.dataSource.tableView = self.tableView;
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+    /*
+       HAX: brute force all the things! this prevents occasional out-of-bounds exceptions due to the table view asking
+       for header views of the section we just deleted
+     */
+    [self.tableView reloadData];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
