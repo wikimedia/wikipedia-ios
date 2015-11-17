@@ -20,6 +20,8 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
      The delegate is responsible for dismissing the view controller
      */
     func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController)
+
+    func tableOfContentsArticleSite() -> MWKSite
 }
 
 public class WMFTableOfContentsViewController: UITableViewController, WMFTableOfContentsAnimatorDelegate {
@@ -111,6 +113,7 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     public override func viewDidLoad() {
         super.viewDidLoad()
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
+        header.articleSite = delegate?.tableOfContentsArticleSite()
         self.tableView.tableHeaderView = header
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
