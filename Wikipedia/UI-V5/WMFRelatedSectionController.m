@@ -128,6 +128,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     }
 }
 
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.searchResults != nil;
+}
+
 - (WMFRelatedTitleListDataSource*)relatedTitleDataSource {
     if (!_relatedTitleDataSource) {
         /*

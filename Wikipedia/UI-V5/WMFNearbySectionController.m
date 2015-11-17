@@ -31,8 +31,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) WMFNearbyViewModel* viewModel;
 
-@property (nonatomic, copy) NSString* emptySectionObject;
-
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) WMFLocationSearchResults* searchResults;
@@ -66,7 +64,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         self.savedPageList      = savedPageList;
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
-        self.emptySectionObject = @"EmptySection";
     }
     return self;
 }
@@ -97,7 +94,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 - (NSArray*)items {
     if (self.nearbyError) {
-        return @[self.emptySectionObject];
+        return @[@1];
     } else if ([self.searchResults.results count] > 0) {
         return self.searchResults.results;
     } else {
@@ -139,7 +136,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         [nearbyCell setImageURL:result.thumbnailURL];
         [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
         [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
-    } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]] && (object == self.emptySectionObject)) {
+    } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]]) {
         WMFEmptyNearbyTableViewCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             @weakify(self);

@@ -1,10 +1,3 @@
-//
-//  WMFRandomSectionController.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 10/22/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFRandomSectionController.h"
 #import "WMFRandomArticleFetcher.h"
@@ -108,6 +101,10 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         [previewCell setImageURL:result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
+}
+
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.result != nil;
 }
 
 - (void)getNewRandomArticle {
