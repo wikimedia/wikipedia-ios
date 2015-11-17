@@ -35,6 +35,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
+@property (nonatomic, strong) WMFLocationSearchResults* searchResults;
+
 @property (nonatomic, strong) NSError* nearbyError;
 
 @end
@@ -96,8 +98,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (NSArray*)items {
     if (self.nearbyError) {
         return @[self.emptySectionObject];
-    } else if ([self.viewModel.locationSearchResults.results count] > 0) {
-        return self.viewModel.locationSearchResults.results;
+    } else if ([self.searchResults.results count] > 0) {
+        return self.searchResults.results;
     } else {
         return @[@1, @2, @3];
     }
@@ -106,7 +108,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
     id result = self.items[index];
     if ([result isKindOfClass:[MWKSearchResult class]]) {
-        return [self.viewModel.locationSearchResults titleForResultAtIndex:index];
+        return [self.searchResults titleForResultAtIndex:index];
     }
     return nil;
 }
@@ -120,7 +122,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if (self.nearbyError) {
         return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else if ([self.viewModel.locationSearchResults.results count] > 0) {
+    } else if ([self.searchResults.results count] > 0) {
         return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
     } else {
         return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
@@ -150,7 +152,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.viewModel.locationSearchResults.results.count > index;
+    return self.searchResults.results.count > index;
 }
 
 - (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
@@ -165,7 +167,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
-    [self.delegate controller:self didSetItems:results.results];
+    self.searchResults = results;
+    [self.delegate controller:self didSetItems:self.items];
 }
 
 @end
