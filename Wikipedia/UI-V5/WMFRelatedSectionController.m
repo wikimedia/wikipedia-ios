@@ -15,6 +15,7 @@
 
 // View
 #import "WMFArticlePreviewTableViewCell.h"
+#import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 // Style
@@ -85,8 +86,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSArray*)items {
-    return [self.relatedTitleDataSource.relatedSearchResults.results
-            wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
+    if (self.relatedTitleDataSource.relatedSearchResults.results) {
+        return [self.relatedTitleDataSource.relatedSearchResults.results
+                wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
+    } else {
+        return @[@1, @2, @3];
+    }
 }
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
@@ -98,10 +103,15 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    if (self.relatedTitleDataSource.relatedSearchResults.results) {
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
+    }
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
