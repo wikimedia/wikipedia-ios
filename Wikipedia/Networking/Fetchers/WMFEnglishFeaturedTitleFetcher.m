@@ -63,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isFetching {
-    return [[self.featuredTitleOperationManager operationQueue] operationCount] > 0 || [[self.titlePreviewOperationManager operationQueue] operationCount] > 0 ;
+    return [[self.featuredTitleOperationManager operationQueue] operationCount] > 0 || [[self.titlePreviewOperationManager operationQueue] operationCount] > 0;
 }
 
 - (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date {
