@@ -101,7 +101,7 @@ EXTERNAL SOURCES:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
 
 CHECKOUT OPTIONS:
   CocoaLumberjack:
@@ -136,4 +136,4 @@ SPEC CHECKSUMS:
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

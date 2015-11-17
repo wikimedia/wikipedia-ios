@@ -44,6 +44,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self configureImageViewWithPlaceholder];
     self.articleImageView.layer.cornerRadius        = self.articleImageView.bounds.size.width / 2;
     self.articleImageView.layer.borderWidth         = 1.0 / [UIScreen mainScreen].scale;
     self.articleImageView.layer.borderColor         = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
@@ -66,7 +67,7 @@
 
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_reset];
-    self.articleImageView.backgroundColor = [UIColor clearColor];
+    self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
     self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
     self.articleImageView.image           = [UIImage wmf_placeholderImage];
     self.articleImageView.contentMode     = UIViewContentModeCenter;

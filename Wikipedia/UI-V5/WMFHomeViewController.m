@@ -2,9 +2,9 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-@import SSDataSources;
+#import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
-@import BlocksKit;
+@import SSDataSources;
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -392,6 +392,31 @@ NS_ASSUME_NONNULL_BEGIN
     controller.delegate = self;
 }
 
+- (void)reloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
+    if (!controller) {
+        return;
+    }
+
+    NSInteger sectionIndex = [self indexForSectionController:controller];
+    NSAssert(sectionIndex != NSNotFound, @"Unknown section calling delegate");
+    if (sectionIndex == NSNotFound) {
+        return;
+    }
+
+    self.dataSource.tableView = nil;
+    [self.dataSource removeSectionAtIndex:sectionIndex];
+    SSSection* section = [SSSection sectionWithItems:[controller items]];
+    section.sectionIdentifier = controller.sectionIdentifier;
+    [self.dataSource insertSection:section atIndex:sectionIndex];
+    controller.delegate       = self;
+    self.dataSource.tableView = self.tableView;
+    /*
+       HAX: brute force all the things! this prevents occasional out-of-bounds exceptions due to the table view asking
+       for header views of the section we just deleted
+     */
+    [self.tableView reloadData];
+}
+
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     if (!controller) {
         return;
@@ -437,6 +462,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UITableViewDelegate
+
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
 
 - (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:section];
@@ -522,9 +551,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.tableView beginUpdates];
-    [self.dataSource setItems:items inSection:section];
-    [self.tableView endUpdates];
+    [self reloadSectionForSectionController:controller];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
