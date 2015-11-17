@@ -429,6 +429,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDelegate
 
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
+
 - (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     WMFHomeSectionHeader* header            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionHeader wmf_nibName]];
