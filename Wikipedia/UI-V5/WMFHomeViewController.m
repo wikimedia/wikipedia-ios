@@ -393,12 +393,15 @@ NS_ASSUME_NONNULL_BEGIN
     if (sectionIndex == NSNotFound) {
         return;
     }
+
+    self.dataSource.tableView = nil;
     [self.dataSource removeSectionAtIndex:sectionIndex];
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
-
     [self.dataSource insertSection:section atIndex:sectionIndex];
-    controller.delegate = self;
+    controller.delegate       = self;
+    self.dataSource.tableView = self.tableView;
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
