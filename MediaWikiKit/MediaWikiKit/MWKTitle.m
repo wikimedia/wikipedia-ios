@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)escapedURLText {
-    return [self.text wmf_denormalizedPageTitle];
+    return [[self.text wmf_denormalizedPageTitle] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSString*)escapedFragment {

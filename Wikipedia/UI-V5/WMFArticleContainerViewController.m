@@ -12,7 +12,7 @@
 #import "WMFArticleContainerViewController_Transitioning.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFRelatedTitleListDataSource.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListTableViewController.h"
 #import "UITabBarController+WMFExtensions.h"
 #import "WMFShareOptionsController.h"
 #import "WMFImageGalleryViewController.h"
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
-@property (nonatomic, strong) WMFArticleListCollectionViewController* readMoreListViewController;
+@property (nonatomic, strong) WMFArticleListTableViewController* readMoreListViewController;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Logging
@@ -186,9 +186,9 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.recentPages entryForTitle:self.articleTitle];
 }
 
-- (WMFArticleListCollectionViewController*)readMoreListViewController {
+- (WMFArticleListTableViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController           = [[WMFSelfSizingArticleListCollectionViewController alloc] init];
+        _readMoreListViewController           = [[WMFSelfSizingArticleListTableViewController alloc] init];
         _readMoreListViewController.dataStore = self.dataStore;
         WMFRelatedTitleListDataSource* relatedTitlesDataSource =
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle

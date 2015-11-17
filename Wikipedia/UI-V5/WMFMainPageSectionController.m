@@ -8,8 +8,8 @@
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
 
-#import "WMFMainPageCell.h"
-#import "WMFArticlePreviewCell.h"
+#import "WMFMainPageTableViewCell.h"
+#import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -115,37 +115,32 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     }
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFMainPageCell wmf_classNib]
-     forCellWithReuseIdentifier:[WMFMainPageCell identifier]];
-    [collectionView registerNib:[WMFArticlePreviewCell wmf_classNib]
-     forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+- (void)registerCellsInTableView:(UITableView*)tableView {
+    [tableView registerNib:[WMFMainPageTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPageTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView atIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if (self.siteInfo) {
-        return [WMFMainPageCell cellForCollectionView:collectionView indexPath:indexPath];
+        return [WMFMainPageTableViewCell cellForTableView:tableView];
     } else if (self.featuredArticlePreview) {
-        return [WMFArticlePreviewCell cellForCollectionView:collectionView indexPath:indexPath];
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
     }
     DDLogWarn(@"Unexpected dequeue cell call.");
     return nil;
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell
-           withObject:(id)object
-     inCollectionView:(UICollectionView*)collectionView
-          atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFMainPageCell class]]) {
-        WMFMainPageCell* mainPageCell = (WMFMainPageCell*)cell;
+- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFMainPageTableViewCell class]]) {
+        WMFMainPageTableViewCell* mainPageCell = (id)cell;
         mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
-    } else if ([cell isKindOfClass:[WMFArticlePreviewCell class]]) {
-        WMFArticlePreviewCell* previewCell = (WMFArticlePreviewCell*)cell;
-        previewCell.title           = [self titleForItemAtIndex:indexPath.row];
+    } else if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
+        WMFArticlePreviewTableViewCell* previewCell = (WMFArticlePreviewTableViewCell*)cell;
+        previewCell.titleText       = self.featuredArticlePreview.displayTitle;
         previewCell.descriptionText = self.featuredArticlePreview.wikidataDescription;
-        previewCell.imageURL        = self.featuredArticlePreview.thumbnailURL;
-        [previewCell setSummary:self.featuredArticlePreview.extract];
-        [previewCell setSavedPageList:self.savedPageList];
+        previewCell.snippetText     = self.featuredArticlePreview.extract;
+        [previewCell setImageURL:self.featuredArticlePreview.thumbnailURL];
+        [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
 }
 

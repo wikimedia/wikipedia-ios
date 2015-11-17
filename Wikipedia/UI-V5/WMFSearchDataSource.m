@@ -1,54 +1,42 @@
-//
-//  WMFSearchDataSource.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 10/27/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFSearchDataSource.h"
 #import "MWKTitle.h"
-#import "MWKSavedPageList.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchResult.h"
 #import "MWKSearchRedirectMapping.h"
 #import "NSString+Extras.h"
-#import "WMFArticleListCell.h"
+#import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "UIView+WMFDefaultNib.h"
 
 @interface WMFSearchDataSource ()
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong, readwrite) WMFSearchResults* searchResults;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @end
 
 @implementation WMFSearchDataSource
 
-- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults savedPages:(MWKSavedPageList*)savedPages {
+- (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults {
     NSParameterAssert(site);
     NSParameterAssert(searchResults);
-    NSParameterAssert(savedPages);
-    self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
+    self = [super initWithItems:searchResults.results];
     if (self) {
         self.searchSite    = site;
         self.searchResults = searchResults;
-        self.savedPageList = savedPages;
 
-        self.cellClass = [WMFArticleListCell class];
+        self.cellClass = [WMFArticleListTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticleListCell* cell,
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
                                     MWKSearchResult* result,
-                                    UICollectionView* collectionView,
+                                    UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKTitle* title = [self titleForIndexPath:indexPath];
-            [cell setTitle:title highlightingSubstring:self.searchResults.searchTerm];
-            [cell setSearchResultDescription:[self descriptionForSearchResult:result]];
+            [cell setTitleText:title.text highlightingText:self.searchResults.searchTerm];
+            cell.descriptionText = [self descriptionForSearchResult:result];
             [cell setImageURL:result.thumbnailURL];
-            [cell setSavedPageList:self.savedPageList];
         };
     }
     return self;
@@ -72,9 +60,9 @@
     }];
 }
 
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticleListCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticleListCell identifier]];
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 }
 
 - (nullable NSString*)displayTitle {
@@ -99,21 +87,6 @@
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
     return [self.searchSite titleWithString:result.displayTitle];
-}
-
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.searchResults.results indexOfObjectPassingTest:^BOOL (MWKSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.displayTitle isEqualToString:title.text]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

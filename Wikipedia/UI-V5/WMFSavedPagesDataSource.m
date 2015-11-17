@@ -4,7 +4,7 @@
 #import "MWKArticle.h"
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageEntry.h"
-#import "WMFArticlePreviewCell.h"
+#import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 
@@ -24,29 +24,37 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.savedPageList = savedPages;
 
-        self.cellClass = [WMFArticlePreviewCell class];
+        self.cellClass = [WMFArticlePreviewTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+        self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell* cell,
                                     MWKSavedPageEntry* entry,
-                                    UICollectionView* collectionView,
+                                    UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            cell.title           = article.title;
+            [cell setSaveableTitle:article.title savedPageList:self.savedPageList];
+            cell.titleText       = article.title.text;
             cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-            cell.image           = [article bestThumbnailImage];
+            cell.snippetText     = [article summary];
+            [cell setImage:[article bestThumbnailImage]];
+        };
 
-            [cell setSummary:[article summary]];
-            [cell setSavedPageList:self.savedPageList];
+        self.tableDeletionBlock = ^(WMFSavedPagesDataSource* dataSource,
+                                    UITableView* parentView,
+                                    NSIndexPath* indexPath){
+            [parentView beginUpdates];
+            [dataSource deleteArticleAtIndexPath:indexPath];
+            [parentView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [parentView endUpdates];
         };
     }
     return self;
 }
 
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib] forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
 - (NSArray*)titles {
@@ -75,21 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     return savedEntry.title;
-}
-
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [[self.savedPageList entries] indexOfObjectPassingTest:^BOOL (MWKSavedPageEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.title isEqualToTitle:title]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

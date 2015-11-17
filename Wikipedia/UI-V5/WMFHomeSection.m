@@ -127,6 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry {
+    NSParameterAssert(entry.title);
+    NSParameterAssert(entry.date);
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type        = WMFHomeSectionTypeHistory;
     item.title       = entry.title;
@@ -135,6 +137,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry {
+    NSParameterAssert(entry.title);
+    NSParameterAssert(entry.date);
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type        = WMFHomeSectionTypeSaved;
     item.title       = entry.title;

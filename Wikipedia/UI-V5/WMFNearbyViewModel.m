@@ -153,6 +153,7 @@
     .then(^(WMFLocationSearchResults* locationSearchResults) {
         @strongify(self);
         self.locationSearchResults = locationSearchResults;
+        [self stopUpdates];
         [self.delegate nearbyViewModel:self didUpdateResults:locationSearchResults];
     })
     .catch(^(NSError* error) {

@@ -1,1 +1,0 @@
-../../../SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout/SelfSizingWaterfallCollectionViewLayout.h

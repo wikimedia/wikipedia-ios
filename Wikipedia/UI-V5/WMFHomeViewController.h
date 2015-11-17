@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController : UICollectionViewController
+@interface WMFHomeViewController : UITableViewController
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;
