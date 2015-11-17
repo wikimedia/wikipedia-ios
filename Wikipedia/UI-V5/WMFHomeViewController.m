@@ -2,9 +2,9 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-@import SSDataSources;
+#import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
-@import BlocksKit;
+@import SSDataSources;
 
 // Sections
 #import "WMFMainPageSectionController.h"
