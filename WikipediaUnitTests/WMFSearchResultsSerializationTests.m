@@ -20,6 +20,20 @@
 
 @implementation WMFSearchResultsSerializationTests
 
+- (void)testResultsAndRedirectsAreNonnullForZeroResultResponse {
+    NSData* noResultJSONData =
+        [[self wmf_bundle] wmf_dataFromContentsOfFile:@"NoSearchResultsWithSuggestion" ofType:@"json"];
+    id noResultJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+    NSError* error;
+    WMFSearchResults* searchResults = [[WMFSearchResults responseSerializer] responseObjectForResponse:nil
+                                                                                                  data:noResultJSONData
+                                                                                                 error:&error];
+    XCTAssertNil(error);
+    assertThat(searchResults.results, isEmpty());
+    assertThat(searchResults.redirectMappings, isEmpty());
+    assertThat(searchResults.searchSuggestion, is([noResultJSON valueForKeyPath:@"query.searchinfo.suggestion"]));
+}
+
 - (void)testSerializesPrefixResultsInOrderOfIndex {
     NSString* fixtureName = @"BarackSearch";
     NSData* resultData    = [[self wmf_bundle] wmf_dataFromContentsOfFile:fixtureName ofType:@"json"];
@@ -31,8 +45,8 @@
     NSError* error;
     WMFSearchResults* searchResults = [[WMFSearchResults responseSerializer] responseObjectForResponse:nil
                                                                                                   data:resultData
-                                                                                                 error:nil];
-
+                                                                                                 error:&error];
+    XCTAssertNil(error);
     assertThat(searchResults.results, hasCountOf(resultJSONObjects.count));
 
     XCTAssertNotNil(searchResults, @"Failed to serialize search results from 'BarackSearch' fixture; %@", error);

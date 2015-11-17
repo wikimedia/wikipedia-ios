@@ -21,10 +21,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSearchResults
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _mutableResults = [NSMutableArray new];
+        _redirectMappings = @[];
+    }
+    return self;
+}
+
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
                            results:(nullable NSArray*)results
                   searchSuggestion:(nullable NSString*)suggestion {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.searchTerm       = searchTerm;
         self.results          = results;
@@ -33,13 +42,26 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setResults:(NSArray<MWKSearchResult*>* _Nonnull)results {
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
-    if (_mutableResults == results) {
+- (void)setResults:(nullable NSArray<MWKSearchResult*>*)results {
+    if ([_mutableResults isEqualToArray:results]) {
         return;
     }
-    _mutableResults = [results mutableCopy];
+    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
+    if (results) {
+        [_mutableResults setArray:results];
+    } else {
+        [_mutableResults removeAllObjects];
+    }
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
+}
+
+- (void)setRedirectMappings:(nullable NSArray<MWKSearchRedirectMapping *>*)redirectMappings {
+    if (WMF_EQUAL(self.redirectMappings, isEqualToArray:, redirectMappings)) {
+        return;
+    }
+    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, redirectMappings)];
+    _redirectMappings = [redirectMappings copy] ?: @[];
+    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, redirectMappings)];
 }
 
 - (NSArray*)results {
