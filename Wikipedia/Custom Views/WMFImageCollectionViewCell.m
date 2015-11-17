@@ -11,8 +11,7 @@
 #import "UIImageView+WMFImageFetching.h"
 #import <Masonry/Masonry.h>
 #import "UIColor+WMFHexColor.h"
-#import "UIColor+WMFStyle.h"
-#import "UIImage+WMFStyle.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 @implementation WMFImageCollectionViewCell
 
@@ -31,11 +30,7 @@
 }
 
 - (void)configureImageViewWithPlaceholder {
-    [self.imageView wmf_reset];
-    self.imageView.contentMode     = UIViewContentModeCenter;
-    self.imageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.imageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
-    self.imageView.image           = [UIImage wmf_placeholderImage];
+    [self.imageView wmf_configureWithDefaultPlaceholder];
 }
 
 - (void)prepareForReuse {
