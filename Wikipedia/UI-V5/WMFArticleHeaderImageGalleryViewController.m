@@ -7,6 +7,8 @@
 //
 
 #import "WMFArticleHeaderImageGalleryViewController.h"
+#import "WMFBaseImageGalleryViewController_Subclass.h"
+
 @import Masonry;
 
 // Utils
@@ -27,6 +29,7 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import "MWKImageList.h"
+#import "WMFImageGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,7 +40,17 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleHeaderImageGalleryViewController
 
 - (instancetype)init {
-    return [self initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+    self = [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+    if (self) {
+        self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
+        self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
+                                               MWKImage* image,
+                                               UICollectionView* _,
+                                               NSIndexPath* indexPath)  {
+            [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
+        };
+    }
+    return self;
 }
 
 - (void)addDivider {
@@ -60,12 +73,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView registerClass:[WMFImageCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
-    self.collectionView.pagingEnabled = YES;
+
     WMFCollectionViewPageLayout* layout = (WMFCollectionViewPageLayout*)self.collectionViewLayout;
     layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
     layout.minimumInteritemSpacing = 0.f;
     layout.minimumLineSpacing      = 0.f;
     layout.sectionInset            = UIEdgeInsetsZero;
+
+    self.dataSource.collectionView = self.collectionView;
 }
 
 #pragma mark - Accessors
@@ -77,72 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
     return _faceDetector;
 }
 
-- (void)setImages:(NSArray* __nullable)images {
-    if (WMF_EQUAL(_images, isEqualToArray:, images)) {
-        return;
-    }
-    for (MWKImage* image in _images) {
-        // TODO: use private downloader to prevent side effects
-        [[WMFImageController sharedInstance] cancelFetchForURL:image.sourceURL];
-    }
-    _images          = [(images ? : @[]) wmf_reverseArrayIfApplicationIsRTL];
-    self.currentPage = [_images wmf_startingIndexForApplicationLayoutDirection];
-    if ([self isViewLoaded]) {
-        [self.collectionView reloadData];
-    }
-}
-
-- (void)setImagesFromArticle:(MWKArticle* __nonnull)article {
-    if (article.isCached) {
-        [self setImagesFromCachedArticle:article];
-    } else {
-        [self setImagesFromUncachedArticle:article];
-    }
-}
-
-- (void)setImagesFromCachedArticle:(MWKArticle* __nonnull)article {
-    NSParameterAssert(article.isCached);
-    self.images = article.images.uniqueLargestVariants;
-}
-
-- (void)setImagesFromUncachedArticle:(MWKArticle* __nonnull)article {
-    NSParameterAssert(!article.isCached);
-    if (article.image) {
-        self.images = @[article.image];
-    } else if (article.thumbnail) {
-        self.images = @[article.thumbnail];
-    } else {
-        self.images = nil;
-    }
-}
-
-#pragma mark - UICollectionView Protocols
-
-- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(nonnull NSIndexPath*)indexPath {
-    // prevent selection of placeholder image
-    return self.images.count > 0;
-}
+#pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
     [self.delegate headerImageGallery:self didSelectImageAtIndex:indexPath.item];
-}
-
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath*)indexPath {
-    WMFImageCollectionViewCell* cell =
-        (WMFImageCollectionViewCell*)
-        [collectionView dequeueReusableCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]
-                                                  forIndexPath:indexPath];
-    if (self.images.count != 0) {
-        [cell.imageView wmf_setImageWithMetadata:self.images[indexPath.item] detectFaces:YES];
-    }
-
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section {
-    // if there are 0 images, show a placeholder
-    return self.images.count > 0 ? self.images.count : 1;
 }
 
 @end

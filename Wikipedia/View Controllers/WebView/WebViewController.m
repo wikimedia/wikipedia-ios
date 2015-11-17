@@ -620,10 +620,12 @@ NSString* const WMFLicenseTitleOnENWiki =
 
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
-            MWKImage* selectedImage = [self.article.images largestImageVariantForURL:selectedImageURL
-                                                                          cachedOnly:NO];
-            NSCParameterAssert(selectedImage);
-            [self presentGalleryForArticle:self.article showingImage:selectedImage];
+            if (!selectedImageURL.length) {
+                DDLogError(@"Image clicked callback invoked with empty URL: %@", payload);
+                return;
+            }
+
+            [self.delegate webViewController:self didTapImageWithSourceURLString:selectedImageURL];
         }];
     }
     return _bridge;

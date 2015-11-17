@@ -48,7 +48,7 @@
 }
 
 - (void)primitiveSetCurrentPage:(NSUInteger)page {
-    NSParameterAssert(page < [self collectionView:self.collectionView numberOfItemsInSection:0]);
+    NSParameterAssert(page < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
     _currentPage = page;
 }
 
@@ -56,7 +56,12 @@
     return [self.collectionViewLayout wmf_indexPathHorizontallyClosestToContentOffset].item;
 }
 
-#pragma mark - View event handling
+#pragma mark - UIViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.collectionView.pagingEnabled = YES;
+}
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
