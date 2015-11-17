@@ -19,6 +19,7 @@
 // Views
 #import "WMFNearbyArticleTableViewCell.h"
 #import "WMFEmptyNearbyTableViewCell.h"
+#import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,6 +34,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 @property (nonatomic, copy) NSString* emptySectionObject;
 
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
+
+@property (nonatomic, strong) NSError* nearbyError;
 
 @end
 
@@ -91,10 +94,12 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSArray*)items {
-    if ([self.viewModel.locationSearchResults.results count] > 0) {
+    if (self.nearbyError) {
+        return @[self.emptySectionObject];
+    } else if ([self.viewModel.locationSearchResults.results count] > 0) {
         return self.viewModel.locationSearchResults.results;
     } else {
-        return @[self.emptySectionObject];
+        return @[@1, @2, @3];
     }
 }
 
@@ -108,14 +113,17 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 - (void)registerCellsInTableView:(UITableView* __nonnull)tableView {
     [tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
+    [tableView registerNib:[WMFNearbyPlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyPlaceholderTableViewCell identifier]];
     [tableView registerNib:[WMFEmptyNearbyTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptyNearbyTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([self.viewModel.locationSearchResults.results count] == 0) {
+    if (self.nearbyError) {
         return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else {
+    } else if ([self.viewModel.locationSearchResults.results count] > 0) {
         return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
     }
 }
 
@@ -152,6 +160,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
+    self.nearbyError = error;
+    [self.delegate controller:self didSetItems:self.items];
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
