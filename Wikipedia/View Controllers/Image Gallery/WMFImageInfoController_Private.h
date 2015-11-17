@@ -30,12 +30,29 @@ extern NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo);
 /// Map of canonical filenames to image info objects.
 @property (nonatomic, strong, readonly) NSDictionary* indexedImageInfo;
 
+@property (nonatomic, strong) NSArray<MWKImage*>* uniqueArticleImages;
+
 @property (nonatomic, strong, readonly) MWKImageInfoFetcher* imageInfoFetcher;
 
-/// Convenience getter for the receiver's <code>article.dataStore</code>.
-@property (nonatomic, strong, nullable, readonly) MWKDataStore* dataStore;
+/**
+ *  Title of the page that is associated with these image info objects.
+ *
+ *  Technically, image info don't belong to an article, but it was done this way for historical/legacy reasons. Mainly,
+ *  that image metadata is also associated with a title.
+ */
+@property (nonatomic, strong, readwrite) MWKTitle* title;
 
-/// Lazily calculated array of "File:" titles from the contents of @c uniqueArticleImages
+/**
+ *  Data store where image info will be read & written.
+ */
+@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+
+/**
+ *  Lazily calculated array of "File:" titles from the contents of @c uniqueArticleImages.
+ *
+ *  @warning The elements in this array can either be strings or @c NSNull in the event that a "File:" title couldn't
+ *           be derived from the image URL.
+ */
 @property (nonatomic, strong, readonly) NSArray* imageFilePageTitles;
 
 - (BOOL)hasFetchedAllItems;

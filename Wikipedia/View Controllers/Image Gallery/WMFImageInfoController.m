@@ -12,6 +12,7 @@
 #import "MWNetworkActivityIndicatorManager.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "NSIndexSet+BKReduce.h"
+#import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,8 +23,13 @@ static const int LOG_LEVEL_DEF = DDLogLevelDebug;
 
 
 NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
-    return [imageInfo bk_index:^id < NSCopying > (MWKImageInfo* info) {
-        return info.imageAssociationValue ? : [NSNull null];
+    return [imageInfo bk_reduce:[NSMutableDictionary dictionaryWithCapacity:imageInfo.count]
+                      withBlock:^NSMutableDictionary* (NSMutableDictionary* indexedInfo, MWKImageInfo* info) {
+        id<NSCopying> key = info.imageAssociationValue;
+        if (key) {
+            indexedInfo[key] = info;
+        }
+        return indexedInfo;
     }];
 }
 
@@ -32,19 +38,18 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 @synthesize indexedImageInfo    = _indexedImageInfo;
 @synthesize imageFilePageTitles = _imageFilePageTitles;
 @synthesize fetchedIndices      = _fetchedIndices;
-@synthesize uniqueArticleImages = _uniqueArticleImages;
 
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article batchSize:(NSUInteger)batchSize {
-    return [self initWithArticle:article batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] initWithDelegate:nil]];
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore batchSize:(NSUInteger)batchSize {
+    return [self initWithDataStore:dataStore batchSize:batchSize infoFetcher:[[MWKImageInfoFetcher alloc] initWithDelegate:nil]];
 }
 
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article
-                      batchSize:(NSUInteger)batchSize
-                    infoFetcher:(MWKImageInfoFetcher*)fetcher {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                        batchSize:(NSUInteger)batchSize
+                      infoFetcher:(MWKImageInfoFetcher*)fetcher {
     NSAssert(batchSize <= 50, @"Only up to 50 titles can be retrieved at a time.");
     self = [super init];
     if (self) {
-        _article          = article;
+        self.dataStore    = dataStore;
         _imageInfoFetcher = fetcher;
         _infoBatchSize    = batchSize;
     }
@@ -53,65 +58,39 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 
 #pragma mark - Accessors
 
-- (void)setArticle:(MWKArticle* __nullable)article {
-    if ([_article isEqualToArticle:article]) {
+- (void)setUniqueArticleImages:(NSArray<MWKImage*>*)uniqueArticleImages forTitle:(nonnull MWKTitle*)title {
+    if (_uniqueArticleImages == uniqueArticleImages && WMF_EQUAL(self.title, isEqual:, title)) {
         return;
     }
-    _article = article;
 
-    // reset all lazily-calculated properties and state
-    _uniqueArticleImages = nil;
-    _imageFilePageTitles = nil;
-    _indexedImageInfo    = nil;
-    _fetchedIndices      = nil;
+    [self reset];
+
+    self.title           = title;
+    _uniqueArticleImages = [uniqueArticleImages copy] ? : @[];
 }
 
-- (NSArray*)uniqueArticleImages {
-    if (!self.article) {
-        return @[];
-    }
-    if (!_uniqueArticleImages) {
-        NSArray* uniqueArticleImages = [self.article.images uniqueLargestVariants];
-
-        // reverse article images if current language is RTL
-        _uniqueArticleImages = [uniqueArticleImages wmf_reverseArrayIfApplicationIsRTL];;
-
-        NSMutableArray* imageFilePageTitles = [NSMutableArray arrayWithCapacity:_uniqueArticleImages.count];
-
+- (NSArray*)imageFilePageTitles {
+    if (!_imageFilePageTitles) {
         // reduce images to only those who have valid canonical filenames
-        _uniqueArticleImages =
-            [[_uniqueArticleImages bk_reduce:[NSMutableArray arrayWithCapacity:_uniqueArticleImages.count]
-                                   withBlock:^id (NSMutableArray* uniqueArticleImages, MWKImage* image) {
-            NSAssert(image.canonicalFilename.length,
-                     @"Unable to form canonical filename from image: %@",
-                     image.sourceURLString);
-            if (image.canonicalFilename.length) {
-                NSString* filePageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
-                [imageFilePageTitles addObject:filePageTitle];
-                [uniqueArticleImages addObject:image];
+        _imageFilePageTitles =
+            [[_uniqueArticleImages bk_map:^id (MWKImage* image) {
+            NSString* canonicalFilename = image.canonicalFilename;
+            if (canonicalFilename.length) {
+                return [@"File:" stringByAppendingString:canonicalFilename];
+            } else {
+                DDLogWarn(@"Unable to form canonical filename from image: %@", image.sourceURLString);
+                return nil;
             }
-            return uniqueArticleImages;
         }] copy];
-
-        // strictly evaluate iamgeFilePageTitles to filter out any images don't have a canonicalFilename
-        _imageFilePageTitles = [imageFilePageTitles copy];
     }
-    return _uniqueArticleImages ? : @[];
+    return _imageFilePageTitles;
 }
 
 - (NSDictionary*)indexedImageInfo {
-    if (!self.article) {
-        return @{};
-    }
     if (!_indexedImageInfo) {
-        _indexedImageInfo =
-            WMFIndexImageInfo([self.dataStore imageInfoForArticle:self.article]) ? : [NSMutableDictionary new];
+        _indexedImageInfo = WMFIndexImageInfo([self.dataStore imageInfoForTitle:self.title]) ? : [NSMutableDictionary new];
     }
     return _indexedImageInfo;
-}
-
-- (MWKDataStore* __nullable)dataStore {
-    return self.article.dataStore;
 }
 
 - (NSUInteger)indexOfImageAssociatedWithInfo:(MWKImageInfo*)info {
@@ -150,12 +129,21 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 
 #pragma mark - Public Fetch
 
+- (void)reset {
+    _uniqueArticleImages = nil;
+    _title               = nil;
+    _imageFilePageTitles = nil;
+    _indexedImageInfo    = nil;
+    _fetchedIndices      = nil;
+    [self.imageInfoFetcher cancelAllFetches];
+}
+
 - (id<MWKImageInfoRequest> __nullable)fetchBatchContainingIndex:(NSInteger)index {
     return [self fetchBatch:[self batchRangeForTargetIndex:index]];
 }
 
 - (NSArray* __nullable)fetchBatchesContainingIndexes:(NSIndexSet*)indexes {
-    if (indexes.count == 0 || !self.article) {
+    if (indexes.count == 0 || !self.title) {
         return nil;
     } else {
         return [indexes bk_reduce:[NSMutableArray new]
@@ -182,12 +170,12 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 #pragma mark - Private Fetch
 
 - (NSRange)batchRangeForTargetIndex:(NSUInteger)index {
-    if (!self.article) {
+    if (!self.title) {
         return WMFRangeMakeNotFound();
     }
     NSParameterAssert(index < self.uniqueArticleImages.count);
     if (index > self.uniqueArticleImages.count) {
-        DDLogWarn(@"Attempted to fetch %lu which is beoynd upper bound of %lu",
+        DDLogWarn(@"Attempted to fetch %lu which is beyond upper bound of %lu",
                   index, self.uniqueArticleImages.count);
         return WMFRangeMakeNotFound();
     }
@@ -201,7 +189,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 }
 
 - (id<MWKImageInfoRequest> __nullable)fetchBatch:(NSRange)batch {
-    if (!self.article) {
+    if (!self.title) {
         return nil;
     }
     NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(batch));
@@ -218,39 +206,41 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
     // optimistically add batch to fetched indices, then remove it if the request fails
     [self.fetchedIndices addIndexesInRange:batch];
 
-    NSArray* titlesToFetch = [self.imageFilePageTitles subarrayWithRange:batch];
+    // might have failed to parse some image file titles, filter them out
+    NSArray* titlesToFetch = [[self.imageFilePageTitles subarrayWithRange:batch] bk_reject:^BOOL (id obj) {
+        return obj == [NSNull null];
+    }];
+
     NSParameterAssert(titlesToFetch.count > 0);
 
     [[MWNetworkActivityIndicatorManager sharedManager] push];
 
-    __weak MWKArticle* currentArticle = self.article;
-    __weak __typeof__((self)) weakSelf = self;
+    MWKTitle* currentTitle = self.title;
+    @weakify(self);
     return [self.imageInfoFetcher fetchInfoForPageTitles:titlesToFetch
-                                                fromSite:self.article.site
+                                                fromSite:self.title.site
                                                  success:^(NSArray* infoObjects) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        __typeof__((weakSelf)) strSelf = weakSelf;
-        if (!strSelf || ![currentArticle isEqualToArticle:strSelf.article]) {
+        @strongify(self);
+        if (!self || ![currentTitle isEqualToTitle:self.title]) {
             return;
         }
         NSDictionary* indexedInfo = WMFIndexImageInfo(infoObjects);
         dispatch_async(dispatch_get_main_queue(), ^{
-            [strSelf.indexedImageInfo setValuesForKeysWithDictionary:indexedInfo];
+            [self.indexedImageInfo setValuesForKeysWithDictionary:indexedInfo];
             // !!!: we should have already read any pre-existing image info from the data store
-            [[strSelf dataStore] saveImageInfo:strSelf.indexedImageInfo.allValues forArticle:strSelf.article];
-            [strSelf.delegate imageInfoController:strSelf didFetchBatch:batch];
+            [[self dataStore] saveImageInfo:self.indexedImageInfo.allValues forTitle:self.title];
+            [self.delegate imageInfoController:self didFetchBatch:batch];
         });
     }
                                                  failure:^(NSError* error) {
+        @strongify(self);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
-        __typeof__((weakSelf)) strSelf = weakSelf;
-        BOOL wasCancelled = [error.domain isEqualToString:NSURLErrorDomain]
-                            && error.code == NSURLErrorCancelled;
-        if (strSelf) {
+        if (self) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [strSelf.fetchedIndices removeIndexesInRange:batch];
-                if (!wasCancelled) {
-                    [strSelf.delegate imageInfoController:strSelf failedToFetchBatch:batch error:error];
+                [self.fetchedIndices removeIndexesInRange:batch];
+                if (!([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled)) {
+                    [self.delegate imageInfoController:self failedToFetchBatch:batch error:error];
                 }
             });
         }

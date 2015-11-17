@@ -21,6 +21,8 @@
 
 #import "WMFBlockDefinitions.h"
 #import "WMFComparison.h"
+#import "WMFDeprecationMacros.h"
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "NSArray+WMFMapWithoutNil.h"
 
 //TODO: when refactoring networking, this should be scoped to those classes

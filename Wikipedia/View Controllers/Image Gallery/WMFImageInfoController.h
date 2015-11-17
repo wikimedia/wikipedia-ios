@@ -6,7 +6,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class MWKArticle;
+@class MWKDataStore;
 @class MWKImage;
 @class MWKImageInfo;
 @class MWKImageInfoFetcher;
@@ -24,27 +24,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFImageInfoController : NSObject
 
-@property (nonatomic, strong, nullable) MWKArticle* article;
-
 @property (nonatomic, weak) id<WMFImageInfoControllerDelegate> delegate;
 
 /// Number of image info titles to request at once.
 @property (nonatomic, readonly) NSUInteger infoBatchSize;
 
-/// Lazily calculated snapshot of the uniqued images in the receiver's @c article.
-@property (nonatomic, strong, readonly) NSArray* uniqueArticleImages;
+/**
+ *  Set the array of images for which info will be fetched.
+ *
+ *  @param uniqueArticleImages The images used to "batch" info requests.
+ *  @param title               The title the images are associated with.
+ */
+- (void)setUniqueArticleImages:(NSArray<MWKImage*>*)uniqueArticleImages forTitle:(MWKTitle*)title;
+
+/**
+ *  Reset image & info properties and cancel any fetches.
+ */
+- (void)reset;
 
 ///
 /// @name Initialization
 ///
 
 /// Initialize with @c article, letting the receiver create the default @c fetcher and @c imageFetcher.
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article batchSize:(NSUInteger)batchSize;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore batchSize:(NSUInteger)batchSize;
 
 /// Designated initializer.
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article
-                      batchSize:(NSUInteger)batchSize
-                    infoFetcher:(MWKImageInfoFetcher*)fetcher;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore
+                        batchSize:(NSUInteger)batchSize
+                      infoFetcher:(MWKImageInfoFetcher*)fetcher NS_DESIGNATED_INITIALIZER;
 
 ///
 /// @name Fetching

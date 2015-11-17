@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SSDataSources/SSBaseCollectionCell.h>
 
-@interface WMFImageCollectionViewCell : UICollectionViewCell
+@interface WMFImageCollectionViewCell : SSBaseCollectionCell
 @property (strong, nonatomic) IBOutlet UIImageView* imageView;
 @end
