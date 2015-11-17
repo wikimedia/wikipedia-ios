@@ -38,6 +38,10 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
     public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    public func tableOfContentsArticleSite() -> MWKSite {
+        return self.articleTitle.site
+    }
 }
 
 extension WMFArticleContainerViewController {
