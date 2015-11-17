@@ -20,9 +20,8 @@
 #import "MWKHistoryEntry.h"
 
 // Views
-#import "WMFNearbySearchResultCell.h"
+#import "WMFNearbyArticleTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "WMFArticlePreviewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,18 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([viewModel.site isEqualToSite:site]);
     self = [super initWithItems:nil];
     if (self) {
-        self.cellClass = [WMFNearbySearchResultCell class];
+        self.cellClass = [WMFNearbyArticleTableViewCell class];
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFNearbySearchResultCell* nearbyCell,
+        self.cellConfigureBlock = ^(WMFNearbyArticleTableViewCell* nearbyCell,
                                     MWKLocationSearchResult* result,
                                     id parentView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            [nearbyCell setSavedPageList:self.savedPageList];
-            [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
-            [nearbyCell setSearchResultDescription:result.wikidataDescription];
+            nearbyCell.titleText       = result.displayTitle;
+            nearbyCell.descriptionText = result.wikidataDescription;
             [nearbyCell setImageURL:result.thumbnailURL];
-            [nearbyCell setSavedPageList:self.savedPageList];
             [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
             [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
         };
@@ -66,6 +63,11 @@ NS_ASSUME_NONNULL_BEGIN
         self.viewModel.delegate = self;
     }
     return self;
+}
+
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
 }
 
 - (void)setSite:(MWKSite* __nonnull)site {
@@ -110,35 +112,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.site titleWithString:result.displayTitle];
 }
 
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.viewModel.locationSearchResults.results indexOfObjectPassingTest:^BOOL (MWKLocationSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.displayTitle isEqualToString:title.text]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
-}
-
 - (void)startUpdating {
     [self.viewModel startUpdates];
 }
 
 - (void)stopUpdating {
     [self.viewModel stopUpdates];
-}
-
-#pragma mark - SSDataSource
-
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib]
-     forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];
 }
 
 #pragma mark - WMFNearbyViewModelDelegate

@@ -32,6 +32,7 @@ PODS:
     - Mantle/extobjc (= 2.0.5)
   - Mantle/extobjc (2.0.5)
   - Masonry (0.6.2)
+  - Nimble (3.0.0)
   - Nocilla (0.10.0)
   - OCHamcrest (4.2.0)
   - OCMockito (1.4.0):
@@ -58,10 +59,10 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (3.0.0):
     - PromiseKit/CorePromise
+  - Quick (0.8.0)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
-  - SelfSizingWaterfallCollectionViewLayout (0.0.1)
   - SSDataSources (0.8.5)
   - SVWebViewController (1.0)
   - Tweaks (HEAD based on 2.0.0)
@@ -80,13 +81,14 @@ DEPENDENCIES:
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
+  - Nimble (~> 3.0.0)
   - Nocilla
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
   - PiwikTracker
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
+  - Quick (~> 0.8.0)
   - SDWebImage (from `./vendor/SDWebImage`)
-  - SelfSizingWaterfallCollectionViewLayout (from `git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
   - Tweaks (HEAD)
@@ -100,8 +102,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
     :path: "./vendor/SDWebImage"
-  SelfSizingWaterfallCollectionViewLayout:
-    :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 
 CHECKOUT OPTIONS:
   CocoaLumberjack:
@@ -110,9 +110,6 @@ CHECKOUT OPTIONS:
   PromiseKit:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
-  SelfSizingWaterfallCollectionViewLayout:
-    :commit: 773f27fb72af798507f7250dc2470ae8c2d92675
-    :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -126,14 +123,15 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   OMGHTTPURLRQ: 45cd892e5643206a5a359307621df7678625ebec
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
-  SelfSizingWaterfallCollectionViewLayout: befdae95e51b6b0d9fbf0d58fe316324fb2f780a
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81

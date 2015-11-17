@@ -10,6 +10,7 @@
 #import "NSString+Extras.h"
 #import "NSDate-Utilities.h"
 #import "UIImageView+WMFImageFetching.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,19 +46,18 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            cell.titleLabel.text       = article.title.text;
-            cell.descriptionLabel.text = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-            [cell.articleImageView wmf_setImageWithMetadata:[article bestThumbnailImage] detectFaces:YES];
+            cell.titleText       = article.title.text;
+            cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
+            [cell setImage:[article bestThumbnailImage]];
         };
 
         self.tableDeletionBlock = ^(WMFRecentPagesDataSource* dataSource,
                                     UITableView* parentView,
                                     NSIndexPath* indexPath){
-            @strongify(self);
-            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            [[NSNotificationCenter defaultCenter] removeObserver:dataSource];
             [dataSource deleteArticleAtIndexPath:indexPath];
-            [self removeItemAtIndexPath:indexPath];
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
+            [dataSource removeItemAtIndexPath:indexPath];
+            [[NSNotificationCenter defaultCenter] addObserver:dataSource selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
         };
     }
     return self;
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
         } else if ([date isYesterday]) {
             section.header = [MWLocalizedString(@"history-section-yesterday", nil) uppercaseString];
         } else {
-            section.header = [[self dateFormatter] stringFromDate:date];
+            section.header = [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date];
         }
 
         section.sectionIdentifier = date;
@@ -97,17 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     return sections;
-}
-
-+ (NSDateFormatter*)dateFormatter {
-    static NSDateFormatter* _dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    });
-    return _dateFormatter;
 }
 
 - (void)rebuildSections {
@@ -142,28 +131,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKHistoryEntry*)recentPageForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* entry = [self.recentPages entryAtIndex:indexPath.row];
-    return entry;
+    return (MWKHistoryEntry*)[self itemAtIndexPath:indexPath];
 }
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
-    MWKHistoryEntry* savedEntry = [self recentPageForIndexPath:indexPath];
-    return savedEntry.title;
-}
-
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [[self.recentPages entries] indexOfObjectPassingTest:^BOOL (MWKHistoryEntry* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.title isEqualToTitle:title]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
+    return [[self recentPageForIndexPath:indexPath] title];
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {

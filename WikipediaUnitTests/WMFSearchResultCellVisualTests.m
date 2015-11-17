@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "FBSnapshotTestCase+WMFConvenience.h"
-#import "WMFArticleListCell.h"
+#import "WMFArticleListTableViewCell.h"
+#import "WMFArticleListTableViewCell+WMFSearch.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIView+VisualTestSizingUtils.h"
 #import "MWKTitle.h"
@@ -27,15 +28,15 @@ static NSString* const LongSearchResultDescription =
     @"This description describes a search result, and should take approximately three lines to display.";
 
 @interface WMFArticleListCellVisualTests : FBSnapshotTestCase
-@property (nonatomic, strong) WMFArticleListCell* searchResultCell;
+@property (nonatomic, strong) WMFArticleListTableViewCell* searchResultCell;
 @end
 
 @implementation WMFArticleListCellVisualTests
 
 - (void)setUp {
     [super setUp];
-    //self.recordMode = YES;
-    self.searchResultCell = [WMFArticleListCell wmf_viewFromClassNib];
+//    self.recordMode       = YES;
+    self.searchResultCell = [WMFArticleListTableViewCell wmf_viewFromClassNib];
 }
 
 - (void)tearDown {
@@ -44,13 +45,13 @@ static NSString* const LongSearchResultDescription =
 
 - (void)testShouldShowTitleAtTheTopAndDescriptionAtTheBottom {
     [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:ShortSearchResultDescription];
+    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
 - (void)testShouldCenterShortTitleWhenDescriptionIsEmpty {
     [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:nil];
+    [self.searchResultCell setDescriptionText:nil];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
@@ -58,7 +59,7 @@ static NSString* const LongSearchResultDescription =
     NSString* reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
     [self populateTitleLabelWithString:reallyLongString
                            searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:ShortSearchResultDescription];
+    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
@@ -66,14 +67,14 @@ static NSString* const LongSearchResultDescription =
     NSString* reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
     [self populateTitleLabelWithString:reallyLongString
                            searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:reallyLongString];
+    [self.searchResultCell setDescriptionText:reallyLongString];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
 - (void)testShouldShowLongDescriptionWhenTitleIsShort {
     NSString* reallyLongString = [LongSearchResultTitle stringByAppendingString:LongSearchResultTitle];
     [self populateTitleLabelWithString:ShortSearchResultTitle searchQuery:nil];
-    [self.searchResultCell setSearchResultDescription:reallyLongString];
+    [self.searchResultCell setDescriptionText:reallyLongString];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
@@ -81,18 +82,14 @@ static NSString* const LongSearchResultDescription =
     NSString* mediumTitleSubstring =
         [MediumSearchResultTitle substringToIndex:MediumSearchResultTitle.length * 0.3];
     [self populateTitleLabelWithString:MediumSearchResultTitle searchQuery:mediumTitleSubstring];
-    [self.searchResultCell setSearchResultDescription:ShortSearchResultDescription];
+    [self.searchResultCell setDescriptionText:ShortSearchResultDescription];
     [self wmf_verifyViewAtScreenWidth:self.searchResultCell];
 }
 
 #pragma mark - Test Utils
 
 - (void)populateTitleLabelWithString:(NSString*)titleText searchQuery:(NSString*)query {
-    NSURL* titleURL =
-        [NSURL URLWithString:[NSString stringWithFormat:@"//en.wikipedia.org/wiki/%@",
-                              [titleText stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-    [self.searchResultCell setTitle:[[MWKTitle alloc] initWithURL:titleURL]
-              highlightingSubstring:query];
+    [self.searchResultCell setTitleText:titleText highlightingText:query];
 }
 
 @end

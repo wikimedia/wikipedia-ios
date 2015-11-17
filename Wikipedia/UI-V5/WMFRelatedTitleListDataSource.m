@@ -12,7 +12,7 @@
 #import "Wikipedia-Swift.h"
 
 // View
-#import "WMFArticlePreviewCell.h"
+#import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 // Fetcher
@@ -71,29 +71,28 @@ NS_ASSUME_NONNULL_BEGIN
         self.relatedSearchFetcher = fetcher;
         self.resultLimit          = resultLimit;
 
-        self.cellClass = [WMFArticlePreviewCell class];
+        self.cellClass = [WMFArticlePreviewTableViewCell class];
 
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticlePreviewCell* cell,
+        self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell* cell,
                                     MWKSearchResult* searchResult,
-                                    UICollectionView* collectionView,
+                                    UITableView* tableView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKTitle* title = [self.title.site titleWithString:searchResult.displayTitle];
-            [cell setSavedPageList:self.savedPageList];
-            cell.title           = title;
+            [cell setSaveableTitle:title savedPageList:self.savedPageList];
+            cell.titleText       = searchResult.displayTitle;
             cell.descriptionText = searchResult.wikidataDescription;
+            cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
-            [cell setSummary:searchResult.extract];
         };
     }
     return self;
 }
 
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [self.collectionView registerNib:[WMFArticlePreviewCell wmf_classNib]
-          forCellWithReuseIdentifier:[WMFArticlePreviewCell identifier]];
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
 #pragma mark - Fetching
@@ -123,21 +122,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     MWKSearchResult* result = [self searchResultForIndexPath:indexPath];
     return [self.title.site titleWithString:result.displayTitle];
-}
-
-- (NSIndexPath*)indexPathForTitle:(MWKTitle*)title {
-    NSUInteger index = [self.relatedSearchResults.results indexOfObjectPassingTest:^BOOL (MWKSearchResult* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj.displayTitle isEqualToString:title.text]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (index == NSNotFound) {
-        return nil;
-    }
-    return [NSIndexPath indexPathForItem:index inSection:0];
 }
 
 - (NSArray*)titles {

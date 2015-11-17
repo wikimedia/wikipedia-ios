@@ -1,6 +1,5 @@
 
 #import "WMFSearchResults.h"
-#import "WMFArticleListCell.h"
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"

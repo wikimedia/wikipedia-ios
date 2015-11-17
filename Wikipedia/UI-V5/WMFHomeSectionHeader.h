@@ -1,7 +1,7 @@
 
-#import <SSDataSources/SSDataSources.h>
+@import UIKit;
 
-@interface WMFHomeSectionHeader : SSBaseCollectionReusableView
+@interface WMFHomeSectionHeader : UITableViewHeaderFooterView
 
 @property (strong, nonatomic) IBOutlet UIImageView* icon;
 @property (strong, nonatomic) IBOutlet UITextView* titleView;

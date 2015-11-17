@@ -79,11 +79,6 @@
                                         navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
                                                       options:nil];
 
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        // Needed for iOS 6. Otherwise a 20 pixel gap appears above.
-        self.pageController.wantsFullScreenLayout = YES;
-    }
-
     self.pageController.dataSource = self;
     self.pageController.delegate   = self;
 
