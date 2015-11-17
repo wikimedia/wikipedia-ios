@@ -383,6 +383,24 @@ NS_ASSUME_NONNULL_BEGIN
     controller.delegate = self;
 }
 
+- (void)reloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
+    if (!controller) {
+        return;
+    }
+
+    NSInteger sectionIndex = [self indexForSectionController:controller];
+    NSAssert(sectionIndex != NSNotFound, @"Unknown section calling delegate");
+    if (sectionIndex == NSNotFound) {
+        return;
+    }
+    [self.dataSource removeSectionAtIndex:sectionIndex];
+    SSSection* section = [SSSection sectionWithItems:[controller items]];
+    section.sectionIdentifier = controller.sectionIdentifier;
+
+    [self.dataSource insertSection:section atIndex:sectionIndex];
+    controller.delegate = self;
+}
+
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
     if (!controller) {
         return;
@@ -517,9 +535,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.tableView beginUpdates];
-    [self.dataSource setItems:items inSection:section];
-    [self.tableView endUpdates];
+    [self reloadSectionForSectionController:controller];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
