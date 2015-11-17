@@ -7,16 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMFPageCollectionViewController.h"
+#import "WMFBaseImageGalleryViewController.h"
 #import "Wikipedia-Swift.h"
 
-@class MWKArticle, MWKImage;
+@class MWKArticle, MWKImage, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class WMFImageGalleryViewController;
 @protocol WMFImageGalleryViewControllerDelegate <NSObject>
-
 
 @optional
 
@@ -36,17 +35,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-/// View controller which renders an article's images in a pageable gallery.
-@interface WMFImageGalleryViewController : WMFPageCollectionViewController
+/**
+ *  Provides a scrollable gallery of an article's images, including high-res, zoomable images and associated metadata.
+ */
+@interface WMFImageGalleryViewController : WMFBaseImageGalleryViewController
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
 /**
- * The article whose images are being displayed.
+ *  Set an article for the gallery in the future.
  *
- * Set to `nil` to empty the gallery.
+ *  Called when the user taps on an article's lead image before the article data has finished downloading. This will
+ *  show the gallery (empty) with a loading indicator, and then load itself when the data has finished downloading.
+ *
+ *  @param articlePromise Promise which resolves to an `MWKArticle`.
  */
-@property (nonatomic, strong, nullable) MWKArticle* article;
-
-/// Promise which will eventually resolve to a `MWKArticle`, that will be used to set the receiver's `article`.
 - (void)setArticleWithPromise:(AnyPromise*)articlePromise;
 
 /**
@@ -82,13 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Defaults to `YES`.
  */
 @property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
-
-/**
- * Initialize an instance with the given article.
- * @param article The article which will be the source of images for the gallery.
- * @return A new @c MWKImageGalleryViewController.
- */
-- (instancetype)initWithArticle:(MWKArticle* __nullable)article NS_DESIGNATED_INITIALIZER;
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
 
