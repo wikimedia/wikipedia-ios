@@ -3,7 +3,7 @@
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 
-@implementation WMFLoadingArticlePreviewTableViewCell
+@implementation WMFArticlePlaceholderTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
