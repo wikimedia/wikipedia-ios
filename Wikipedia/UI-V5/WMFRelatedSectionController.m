@@ -33,6 +33,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* relatedTitleDataSource;
 
+@property (nonatomic, strong) WMFRelatedSearchResults* searchResults;
+
 @end
 
 @implementation WMFRelatedSectionController
@@ -86,8 +88,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSArray*)items {
-    if (self.relatedTitleDataSource.relatedSearchResults.results) {
-        return [self.relatedTitleDataSource.relatedSearchResults.results
+    if (self.searchResults.results) {
+        return [self.searchResults.results
                 wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
     } else {
         return @[@1, @2, @3];
@@ -107,7 +109,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.relatedTitleDataSource.relatedSearchResults.results) {
+    if (self.searchResults.results) {
         return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
     } else {
         return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
@@ -149,14 +151,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return self.relatedTitleDataSource;
 }
 
-#pragma mark - Section Updates
-
-- (void)updateSectionWithResults:(WMFRelatedSearchResults*)results {
-}
-
-- (void)updateSectionWithSearchError:(NSError*)error {
-}
-
 #pragma mark - Fetch
 
 - (void)fetchRelatedArticles {
@@ -167,11 +161,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     [self.relatedTitleDataSource fetch]
     .then(^(WMFRelatedSearchResults* results){
         @strongify(self);
+        self.searchResults = results;
         [self.delegate controller:self didSetItems:self.items];
     })
     .catch(^(NSError* error){
         @strongify(self);
-        [self updateSectionWithSearchError:error];
+        [self.delegate controller:self didFailToUpdateWithError:error];
     });
 }
 
