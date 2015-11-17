@@ -14,6 +14,7 @@
 #import "MWKSearchResult.h"
 
 #import "WMFArticlePreviewTableViewCell.h"
+#import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 
@@ -76,7 +77,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     if (self.result) {
         return @[self.result];
     } else {
-        return nil;
+        return @[@1];
     }
 }
 
@@ -86,10 +87,15 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    if (self.result) {
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
+    }
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
