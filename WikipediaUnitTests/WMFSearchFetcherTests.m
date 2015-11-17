@@ -59,7 +59,7 @@
         return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
         .then(^(WMFSearchResults* result) {
             assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
-            assertThat(result.results, is(nilValue()));
+            assertThat(result.results, isEmpty());
         });
     });
 }
@@ -106,7 +106,8 @@
 
 #pragma mark - Utils
 
-- (WMFSearchResults*)verifyKVOEventWhenAppendingTitles:(NSArray*)fullTextTitles toPrefixTitles:(nullable NSArray*)prefixTitles {
+- (WMFSearchResults*)verifyKVOEventWhenAppendingTitles:(NSArray*)fullTextTitles
+                                        toPrefixTitles:(nullable NSArray*)prefixTitles {
     NSMutableSet* uniqueTitles = [NSMutableSet setWithArray:prefixTitles ?: @[]];
     [uniqueTitles addObjectsFromArray:fullTextTitles];
 
