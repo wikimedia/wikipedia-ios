@@ -186,6 +186,8 @@
 		0E2690FF1B86B002009B8605 /* WMFRelatedSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2690FE1B86B002009B8605 /* WMFRelatedSearchResults.m */; };
 		0E2B06F61B2CE45800EA2F53 /* WMFSavedPagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */; };
 		0E34AC571B45DC9500475A1A /* WMFArticleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E34AC561B45DC9500475A1A /* WMFArticleFetcher.m */; };
+		0E35B7C71BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E35B7C51BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.m */; };
+		0E35B7C81BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E35B7C61BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.xib */; };
 		0E366B3A1B2F33BC00ABFB86 /* WMFSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */; };
 		0E366B3F1B2F5C4500ABFB86 /* WMFSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B3E1B2F5C4500ABFB86 /* WMFSearchFetcher.m */; };
 		0E366B4B1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E366B4A1B308A2600ABFB86 /* UIStoryboard+WMFExtensions.m */; };
@@ -901,6 +903,9 @@
 		0E2B06F51B2CE45800EA2F53 /* WMFSavedPagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSavedPagesDataSource.m; sourceTree = "<group>"; };
 		0E34AC551B45DC9500475A1A /* WMFArticleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleFetcher.h; sourceTree = "<group>"; };
 		0E34AC561B45DC9500475A1A /* WMFArticleFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticleFetcher.m; sourceTree = "<group>"; };
+		0E35B7C41BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbyPlaceholderTableViewCell.h; sourceTree = "<group>"; };
+		0E35B7C51BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyPlaceholderTableViewCell.m; sourceTree = "<group>"; };
+		0E35B7C61BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFNearbyPlaceholderTableViewCell.xib; sourceTree = "<group>"; };
 		0E366B381B2F33BC00ABFB86 /* WMFSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchResults.h; sourceTree = "<group>"; };
 		0E366B391B2F33BC00ABFB86 /* WMFSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSearchResults.m; sourceTree = "<group>"; };
 		0E366B3D1B2F5C4500ABFB86 /* WMFSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchFetcher.h; sourceTree = "<group>"; };
@@ -2794,6 +2799,9 @@
 				0EE151931BF5407D0039828A /* WMFEmptyNearbyTableViewCell.h */,
 				0EE151941BF5407D0039828A /* WMFEmptyNearbyTableViewCell.m */,
 				0EE151951BF5407D0039828A /* WMFEmptyNearbyTableViewCell.xib */,
+				0E35B7C41BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.h */,
+				0E35B7C51BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.m */,
+				0E35B7C61BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.xib */,
 			);
 			name = "Table View Cell";
 			sourceTree = "<group>";
@@ -3928,6 +3936,7 @@
 				04DA87771B30A9D600C948F8 /* AccountCreationViewController.storyboard in Resources */,
 				04DA87811B30E0C600C948F8 /* HistoryViewController.storyboard in Resources */,
 				04AEF0F41B2E8CA100EFE858 /* SectionEditorViewController.storyboard in Resources */,
+				0E35B7C81BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.xib in Resources */,
 				D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */,
 				04478631185145090050563B /* HistoryResultPrototypeView.xib in Resources */,
 				04016E1E1B328E8B00D732FE /* OnboardingViewController.storyboard in Resources */,
@@ -4266,6 +4275,7 @@
 				BC34E46A1B31AD8B00258928 /* MWKLanguageLinkController.m in Sources */,
 				04016E1A1B3264C700D732FE /* UIViewController+WMFStoryboardUtilities.m in Sources */,
 				0487048A19F8262600B7D307 /* PreviewHtmlFetcher.m in Sources */,
+				0E35B7C71BFB80F2003CCBBB /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
 				0E74DC921BEBE15600A8A005 /* WMFLocalization.m in Sources */,
 				0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */,
 				BC305C381BA204EF00E414B8 /* NSString+WMFDistance.m in Sources */,
