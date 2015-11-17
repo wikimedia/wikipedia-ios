@@ -1,5 +1,3 @@
-#import <SSDataSources/SSDataSources.h>
-
 #import "WMFArticleListTableViewCell.h"
 
 @class MWKTitle;

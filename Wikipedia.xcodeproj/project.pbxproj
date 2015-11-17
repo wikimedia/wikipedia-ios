@@ -219,6 +219,8 @@
 		0E869F151B582297002604C3 /* MWKListInsertionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F131B58228D002604C3 /* MWKListInsertionTests.m */; };
 		0E869F4B1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E869F4A1B5FDD24002604C3 /* WMFHamburgerMenuFunnel.m */; };
 		0E87265B1B8CC9E7008EA2AC /* UIView+WMFShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */; };
+		0E8E9A521BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E9A501BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.m */; };
+		0E8E9A531BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E8E9A511BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.xib */; };
 		0E8E9A561BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8E9A551BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m */; };
 		0E9008E81B715E64001A600A /* WMFCollectionViewExtensionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */; };
 		0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A9C2951B4B59E3008B996F /* WMFMinimalArticleContentCell.m */; };
@@ -961,6 +963,9 @@
 		0E8726591B8CC9E7008EA2AC /* UIView+WMFShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WMFShadow.h"; sourceTree = "<group>"; };
 		0E87265A1B8CC9E7008EA2AC /* UIView+WMFShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFShadow.m"; sourceTree = "<group>"; };
 		0E88F9211B4ED2AB00205C99 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = "UI-V5/WMFBlockDefinitions.h"; sourceTree = "<group>"; };
+		0E8E9A4F1BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticlePlaceholderTableViewCell.h; sourceTree = "<group>"; };
+		0E8E9A501BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFArticlePlaceholderTableViewCell.m; sourceTree = "<group>"; };
+		0E8E9A511BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFArticlePlaceholderTableViewCell.xib; sourceTree = "<group>"; };
 		0E8E9A541BFA4AF20054A242 /* WMFFeaturedArticleSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFFeaturedArticleSectionController.h; sourceTree = "<group>"; };
 		0E8E9A551BFA4AF20054A242 /* WMFFeaturedArticleSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFFeaturedArticleSectionController.m; sourceTree = "<group>"; };
 		0E9008E61B715E2E001A600A /* WMFCollectionViewExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCollectionViewExtensionTests.m; sourceTree = "<group>"; };
@@ -2770,21 +2775,6 @@
 			name = "View Controller";
 			sourceTree = "<group>";
 		};
-		0EAED85D1BE951E5006B01E6 /* Table View Cells */ = {
-			isa = PBXGroup;
-			children = (
-				0EAED8581BE951E2006B01E6 /* WMFArticleListTableViewCell.h */,
-				0EAED8591BE951E2006B01E6 /* WMFArticleListTableViewCell.m */,
-				0EE151851BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.h */,
-				0EE151861BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m */,
-				0EAED85A1BE951E2006B01E6 /* WMFArticleListTableViewCell.xib */,
-				0E5CF4C71BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.h */,
-				0E5CF4C81BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m */,
-				0E5CF4C91BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib */,
-			);
-			name = "Table View Cells";
-			sourceTree = "<group>";
-		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
@@ -2963,7 +2953,17 @@
 		BC550B081B977C730082F298 /* Article Cells */ = {
 			isa = PBXGroup;
 			children = (
-				0EAED85D1BE951E5006B01E6 /* Table View Cells */,
+				0EAED8581BE951E2006B01E6 /* WMFArticleListTableViewCell.h */,
+				0EAED8591BE951E2006B01E6 /* WMFArticleListTableViewCell.m */,
+				0EE151851BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.h */,
+				0EE151861BF511E90039828A /* WMFArticleListTableViewCell+WMFSearch.m */,
+				0EAED85A1BE951E2006B01E6 /* WMFArticleListTableViewCell.xib */,
+				0E5CF4C71BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.h */,
+				0E5CF4C81BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.m */,
+				0E5CF4C91BF28EE100DD7767 /* WMFArticlePreviewTableViewCell.xib */,
+				0E8E9A4F1BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.h */,
+				0E8E9A501BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.m */,
+				0E8E9A511BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.xib */,
 			);
 			name = "Article Cells";
 			sourceTree = "<group>";
@@ -3960,6 +3960,7 @@
 				042258581B34A2C100FDD0C6 /* EditSummaryViewController.storyboard in Resources */,
 				BCB58F591A89747400465627 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				BC7E4A441B33812700EECD8B /* LanguagesViewController.storyboard in Resources */,
+				0E8E9A531BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.xib in Resources */,
 				04AEF0F61B2E8F6300EFE858 /* ReferencesVC.storyboard in Resources */,
 				0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */,
 				0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */,
@@ -4278,6 +4279,7 @@
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0E76D1A61BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m in Sources */,
+				0E8E9A521BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */,
 				BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */,
