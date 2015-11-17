@@ -17,8 +17,8 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 
 // Views
-#import "WMFNearbySearchResultCell.h"
-#import "WMFNearbySectionEmptyCell.h"
+#import "WMFNearbyArticleTableViewCell.h"
+#import "WMFEmptyNearbyTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -106,36 +106,31 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return nil;
 }
 
-- (void)registerCellsInCollectionView:(UICollectionView* __nonnull)collectionView {
-    [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];
-    [collectionView registerNib:[WMFNearbySectionEmptyCell wmf_classNib] forCellWithReuseIdentifier:[WMFNearbySectionEmptyCell identifier]];
+- (void)registerCellsInTableView:(UITableView* __nonnull)tableView {
+    [tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
+    [tableView registerNib:[WMFEmptyNearbyTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptyNearbyTableViewCell identifier]];
 }
 
-- (UICollectionViewCell*)dequeueCellForCollectionView:(UICollectionView*)collectionView
-                                          atIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if ([self.viewModel.locationSearchResults.results count] == 0) {
-        return [WMFNearbySectionEmptyCell cellForCollectionView:collectionView indexPath:indexPath];
+        return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
     } else {
-        return [WMFNearbySearchResultCell cellForCollectionView:collectionView indexPath:indexPath];
+        return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
     }
 }
 
-- (void)configureCell:(UICollectionViewCell*)cell
-           withObject:(id)object
-     inCollectionView:(UICollectionView*)collectionView
-          atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFNearbySearchResultCell class]] && [object isKindOfClass:[MWKLocationSearchResult class]]) {
-        WMFNearbySearchResultCell* nearbyCell = (id)cell;
-        MWKLocationSearchResult* result       = object;
+- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
+    if ([cell isKindOfClass:[WMFNearbyArticleTableViewCell class]] && [object isKindOfClass:[MWKLocationSearchResult class]]) {
+        WMFNearbyArticleTableViewCell* nearbyCell = (id)cell;
+        MWKLocationSearchResult* result           = object;
         NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
-        [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
-        [nearbyCell setSearchResultDescription:result.wikidataDescription];
+        nearbyCell.titleText       = result.displayTitle;
+        nearbyCell.descriptionText = result.wikidataDescription;
         [nearbyCell setImageURL:result.thumbnailURL];
-        [nearbyCell setSavedPageList:self.savedPageList];
         [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
         [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
-    } else if ([cell isKindOfClass:[WMFNearbySectionEmptyCell class]] && (object == self.emptySectionObject)) {
-        WMFNearbySectionEmptyCell* nearbyCell = (id)cell;
+    } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]] && (object == self.emptySectionObject)) {
+        WMFEmptyNearbyTableViewCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {

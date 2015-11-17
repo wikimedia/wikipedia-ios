@@ -63,7 +63,6 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
-  - SelfSizingWaterfallCollectionViewLayout (0.0.1)
   - SSDataSources (0.8.5)
   - SVWebViewController (1.0)
   - Tweaks (HEAD based on 2.0.0)
@@ -90,7 +89,6 @@ DEPENDENCIES:
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
   - Quick (~> 0.8.0)
   - SDWebImage (from `./vendor/SDWebImage`)
-  - SelfSizingWaterfallCollectionViewLayout (from `git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
   - Tweaks (HEAD)
@@ -104,8 +102,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
     :path: "./vendor/SDWebImage"
-  SelfSizingWaterfallCollectionViewLayout:
-    :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 
 CHECKOUT OPTIONS:
   CocoaLumberjack:
@@ -114,9 +110,6 @@ CHECKOUT OPTIONS:
   PromiseKit:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
-  SelfSizingWaterfallCollectionViewLayout:
-    :commit: 773f27fb72af798507f7250dc2470ae8c2d92675
-    :git: git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
@@ -139,7 +132,6 @@ SPEC CHECKSUMS:
   PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
-  SelfSizingWaterfallCollectionViewLayout: befdae95e51b6b0d9fbf0d58fe316324fb2f780a
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81

@@ -1,6 +1,0 @@
-framework module SelfSizingWaterfallCollectionViewLayout {
-  umbrella header "SelfSizingWaterfallCollectionViewLayout-umbrella.h"
-
-  export *
-  module * { export * }
-}

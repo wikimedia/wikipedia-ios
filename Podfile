@@ -37,9 +37,6 @@ pod 'SSDataSources', '~> 0.8.0'
 # Autolayout
 pod 'Masonry', '0.6.2'
 
-# Collection View layout
-pod 'SelfSizingWaterfallCollectionViewLayout', :git => 'git@github.com:wikimedia/SelfSizingWaterfallCollectionViewLayout.git'
-
 # Diagnostics
 pod 'PiwikTracker'
 pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :branch => 'swift_2.0'
@@ -72,4 +69,3 @@ post_install do |installer|
     `#{plist_buddy} -c "Set CFBundleShortVersionString #{version}" "Pods/Target Support Files/#{target}/Info.plist"`
   }
 end
-
