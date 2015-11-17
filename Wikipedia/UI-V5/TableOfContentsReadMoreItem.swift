@@ -13,7 +13,15 @@ public protocol TableOfContentsFooterItem : TableOfContentsItem {
 }
 
 public class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
-    public let titleText: String = localizedStringForKeyFallingBackOnEnglish("article-read-more-title")
+    let site:MWKSite
+    init(site: MWKSite) {
+        self.site = site
+    }
+    
+    public var titleText:String {
+        return localizedStringForSiteWithKeyFallingBackOnEnglish(self.site, "article-read-more-title")
+    }
+    
     public let itemType: TableOfContentsItemType = TableOfContentsItemType.Primary
     public let footerViewIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex.ReadMore
 
