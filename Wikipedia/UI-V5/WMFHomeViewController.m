@@ -2,10 +2,9 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-@import SelfSizingWaterfallCollectionViewLayout;
-@import SSDataSources;
+#import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
-@import BlocksKit;
+@import SSDataSources;
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -42,7 +41,7 @@
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
-#import "WMFArticleListCollectionViewController.h"
+#import "WMFArticleListTableViewController.h"
 
 // Controllers
 #import "WMFLocationManager.h"
@@ -91,10 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Accessors
-
-+ (UIEdgeInsets)defaultSectionInsets {
-    return UIEdgeInsetsMake(1.0, 0.0, 0.0, 0.0);
-}
 
 - (UIBarButtonItem*)settingsBarButtonItem {
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
@@ -151,15 +146,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _sectionControllers;
 }
 
-- (SelfSizingWaterfallCollectionViewLayout*)flowLayout {
-    return (id)self.collectionView.collectionViewLayout;
-}
-
-- (CGFloat)contentWidth {
-    CGFloat width = self.view.bounds.size.width - self.collectionView.contentInset.left - self.collectionView.contentInset.right;
-    return width;
-}
-
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -189,16 +175,15 @@ NS_ASSUME_NONNULL_BEGIN
     queue.qualityOfService            = NSQualityOfServiceUserInteractive;
     self.collectionViewUpdateQueue    = queue;
 
-
-    self.collectionView.dataSource = nil;
-
-    [self flowLayout].estimatedItemHeight = 380;
-    [self flowLayout].numberOfColumns     = 1;
-    [self flowLayout].sectionInset        = [[self class] defaultSectionInsets];
-    [self flowLayout].minimumLineSpacing  = 1.0;
+    self.tableView.dataSource                   = nil;
+    self.tableView.delegate                     = nil;
+    self.tableView.estimatedRowHeight           = 380.0;
+    self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionHeaderHeight = 78.0;
+    self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionFooterHeight = 78.0;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
 }
 
@@ -217,14 +202,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.locationManager stopMonitoringLocation];
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > context) {
-        [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForVisibleItems];
-    } completion:NULL];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
@@ -238,7 +215,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)registerForPreviewingIfAvailable {
     [self wmf_ifForceTouchAvailable:^{
         [self unregisterForPreviewing];
-        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
     } unavailable:^{
         [self unregisterForPreviewing];
     }];
@@ -279,78 +256,31 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    self.dataSource.rowAnimation = UITableViewRowAnimationFade;
+
     @weakify(self);
 
     self.dataSource.cellCreationBlock = (id) ^ (id object, id parentView, NSIndexPath * indexPath){
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         NSParameterAssert(controller);
-        return [controller dequeueCellForCollectionView:self.collectionView atIndexPath:indexPath];
+        return [controller dequeueCellForTableView:parentView atIndexPath:indexPath];
     };
 
     self.dataSource.cellConfigureBlock = ^(id cell, id object, id parentView, NSIndexPath* indexPath){
         @strongify(self);
         id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
         NSParameterAssert(controller);
-        [controller configureCell:cell withObject:object inCollectionView:parentView atIndexPath:indexPath];
+        [controller configureCell:cell withObject:object inTableView:parentView atIndexPath:indexPath];
     };
 
-    self.dataSource.collectionSupplementaryCreationBlock = ^UICollectionReusableView*(NSString* kind,
-                                                                                      UICollectionView* cv,
-                                                                                      NSIndexPath* indexPath) {
-        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            return [WMFHomeSectionHeader supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
-        } else {
-            return [WMFHomeSectionFooter supplementaryViewForCollectionView:cv kind:kind indexPath:indexPath];
-        }
-    };
+    [self.tableView registerNib:[WMFHomeSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+    [self.tableView registerNib:[WMFHomeSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
-    self.dataSource.collectionSupplementaryConfigureBlock = ^(id view,
-                                                              NSString* kind,
-                                                              UICollectionView* cv,
-                                                              NSIndexPath* indexPath){
-        @strongify(self);
-        id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            WMFHomeSectionHeader* header = view;
-            header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-            header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
-            NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-            [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(0, title.length)];
-            [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
-            header.titleView.attributedText = title;
-            header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
-            header.titleView.delegate       = self;
-
-            if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
-                header.rightButtonEnabled = YES;
-                [header.rightButton bk_addEventHandler:^(id sender) {
-                    [controller performHeaderButtonAction];
-                } forControlEvents:UIControlEventTouchUpInside];
-            } else {
-                header.rightButtonEnabled = NO;
-                [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
-            }
-        } else {
-            WMFHomeSectionFooter* footer = view;
-            if ([controller respondsToSelector:@selector(footerText)]) {
-                footer.moreLabel.text      = controller.footerText;
-                footer.moreLabel.textColor = [UIColor wmf_homeSectionFooterTextColor];
-                @weakify(self);
-                footer.whenTapped = ^{
-                    @strongify(self);
-                    [self didTapFooterInSection:indexPath.section];
-                };
-            }
-        }
-    };
-
-    [self.collectionView registerNib:[WMFHomeSectionHeader wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
-    [self.collectionView registerNib:[WMFHomeSectionFooter wmf_classNib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
-
-    self.dataSource.collectionView = self.collectionView;
+    self.dataSource.tableView = self.tableView;
+    self.tableView.delegate   = self;
     [self reloadSectionsOnOperationQueue];
-    [self.schemaManager update];
+    [self updateSectionsOnOperationQueue];
 }
 
 #pragma mark - Section Controller Creation
@@ -373,50 +303,60 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
+- (void)updateSectionsOnOperationQueue {
+    @weakify(self);
+    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
+        dispatchOnMainQueue(^{
+            @strongify(self);
+            [self.schemaManager update];
+            [operation finish];
+        });
+    }];
+}
+
 - (void)reloadSectionsOnOperationQueue {
     @weakify(self);
     [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
         dispatchOnMainQueue(^{
             @strongify(self);
-            [self reloadSectionsWithCompletion:^{
-                [operation finish];
-            }];
+            [self unloadAllSections];
+            [operation finish];
+        });
+    }];
+    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
+        dispatchOnMainQueue(^{
+            @strongify(self);
+            [self loadSections];
+            [operation finish];
         });
     }];
 }
 
-- (void)reloadSectionsWithCompletion:(nullable dispatch_block_t)completion {
-    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
-        [self unloadSectionForSectionController:obj];
-    }];
-
-    [self.collectionView performBatchUpdates:^{
-        [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
-            switch (obj.type) {
-                case WMFHomeSectionTypeHistory:
-                case WMFHomeSectionTypeSaved:
-                    [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
-                    break;
-                case WMFHomeSectionTypeNearby:
-                    [self loadSectionForSectionController:self.nearbySectionController];
-                    break;
-                case WMFHomeSectionTypeContinueReading:
-                    [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
-                    break;
-                case WMFHomeSectionTypeRandom:
-                    [self loadSectionForSectionController:[self randomSectionControllerForSchemaItem:obj]];
-                    break;
-                case WMFHomeSectionTypeMainPage:
-                    [self loadSectionForSectionController:[self mainPageSectionControllerForSchemaItem:obj]];
-                default:
-                    break;
-            }
-        }];
-    } completion:^(BOOL finished) {
-        if (completion) {
-            completion();
+- (void)loadSections {
+    self.dataSource.tableView = nil;
+    [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
+        switch (obj.type) {
+            case WMFHomeSectionTypeHistory:
+            case WMFHomeSectionTypeSaved:
+                [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
+                break;
+            case WMFHomeSectionTypeNearby:
+                [self loadSectionForSectionController:self.nearbySectionController];
+                break;
+            case WMFHomeSectionTypeContinueReading:
+                [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
+                break;
+            case WMFHomeSectionTypeRandom:
+                [self loadSectionForSectionController:[self randomSectionControllerForSchemaItem:obj]];
+                break;
+            case WMFHomeSectionTypeMainPage:
+                [self loadSectionForSectionController:[self mainPageSectionControllerForSchemaItem:obj]];
+            default:
+                break;
         }
     }];
+    self.dataSource.tableView = self.tableView;
+    [self.tableView reloadData];
 }
 
 - (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
@@ -434,13 +374,38 @@ NS_ASSUME_NONNULL_BEGIN
     }
     self.sectionControllers[controller.sectionIdentifier] = controller;
 
-    [controller registerCellsInCollectionView:self.collectionView];
+    [controller registerCellsInTableView:self.tableView];
 
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
 
     [self.dataSource appendSection:section];
     controller.delegate = self;
+}
+
+- (void)reloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
+    if (!controller) {
+        return;
+    }
+
+    NSInteger sectionIndex = [self indexForSectionController:controller];
+    NSAssert(sectionIndex != NSNotFound, @"Unknown section calling delegate");
+    if (sectionIndex == NSNotFound) {
+        return;
+    }
+
+    self.dataSource.tableView = nil;
+    [self.dataSource removeSectionAtIndex:sectionIndex];
+    SSSection* section = [SSSection sectionWithItems:[controller items]];
+    section.sectionIdentifier = controller.sectionIdentifier;
+    [self.dataSource insertSection:section atIndex:sectionIndex];
+    controller.delegate       = self;
+    self.dataSource.tableView = self.tableView;
+    /*
+       HAX: brute force all the things! this prevents occasional out-of-bounds exceptions due to the table view asking
+       for header views of the section we just deleted
+     */
+    [self.tableView reloadData];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
@@ -464,9 +429,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)unloadAllSections {
-    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
-        [self unloadSectionForSectionController:obj];
+    [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull controller, BOOL* _Nonnull stop) {
+        controller.delegate = nil;
+        [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
     }];
+    [self.dataSource removeAllSections];
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {
@@ -479,30 +446,64 @@ NS_ASSUME_NONNULL_BEGIN
     if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
-    WMFArticleListCollectionViewController* extendedList = [[WMFArticleListCollectionViewController alloc] init];
+    WMFArticleListTableViewController* extendedList = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
     extendedList.dataSource = [controllerForSection extendedListDataSource];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - UITableViewDelegate
 
-- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSUInteger)section {
-    CGFloat height = (section == 0) ? 104 : 78;
-    return CGSizeMake([self contentWidth], height);
+- (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
+    return UITableViewCellEditingStyleNone;
 }
 
-- (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSUInteger)section {
-    id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
-    if ([controllerForSection respondsToSelector:@selector(footerText)]) {
-        CGFloat height = (section == self.dataSource.numberOfSections - 1) ? 104 : 78;
-        return CGSizeMake([self contentWidth], height);
+- (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:section];
+    WMFHomeSectionHeader* header            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+    header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
+    NSMutableAttributedString* title = [[controller headerText] mutableCopy];
+    [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
+    header.titleView.attributedText = title;
+    header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
+    header.titleView.delegate       = self;
+
+    if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
+        header.rightButtonEnabled = YES;
+        [header.rightButton bk_addEventHandler:^(id sender) {
+            [controller performHeaderButtonAction];
+        } forControlEvents:UIControlEventTouchUpInside];
     } else {
-        return CGSizeZero;
+        header.rightButtonEnabled = NO;
+        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
     }
+
+    return header;
 }
 
-- (BOOL)collectionView:(UICollectionView*)collectionView shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+- (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:section];
+    WMFHomeSectionFooter* footer            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionFooter wmf_nibName]];
+    if ([controller respondsToSelector:@selector(footerText)]) {
+        footer.visibleBackgroundView.alpha = 1.0;
+        footer.moreLabel.text              = controller.footerText;
+        footer.moreLabel.textColor         = [UIColor wmf_homeSectionFooterTextColor];
+        @weakify(self);
+        footer.whenTapped = ^{
+            @strongify(self);
+            [self didTapFooterInSection:section];
+        };
+    } else {
+        footer.visibleBackgroundView.alpha = 0.0;
+        footer.moreLabel.text              = nil;
+        footer.whenTapped                  = NULL;
+    }
+    return footer;
+}
+
+- (BOOL)tableView:(UITableView*)tableView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]) {
         return [controller shouldSelectItemAtIndex:indexPath.item];
@@ -510,7 +511,7 @@ NS_ASSUME_NONNULL_BEGIN
     return YES;
 }
 
-- (void)collectionView:(UICollectionView*)collectionView didSelectItemAtIndexPath:(NSIndexPath*)indexPath {
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
     if (title) {
@@ -535,21 +536,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - WMFHomeSectionControllerDelegate
 
-- (CGFloat)maxItemWidth {
-    CGSize screenBoundsSize           = [[UIScreen mainScreen] bounds].size;
-    UIEdgeInsets defaultSectionInsets = [[self class] defaultSectionInsets];
-    return MAX(screenBoundsSize.height, screenBoundsSize.width) - defaultSectionInsets.left - defaultSectionInsets.right;
-}
-
 - (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items {
     NSInteger section = [self indexForSectionController:controller];
     NSAssert(section != NSNotFound, @"Unknown section calling delegate");
     if (section == NSNotFound) {
         return;
     }
-    [self.collectionView performBatchUpdates:^{
-        [self.dataSource setItems:items inSection:section];
-    } completion:NULL];
+    [self reloadSectionForSectionController:controller];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items {
@@ -558,9 +551,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.collectionView performBatchUpdates:^{
-        [self.dataSource appendItems:items toSection:section];
-    } completion:NULL];
+    [self.tableView beginUpdates];
+    [self.dataSource appendItems:items toSection:section];
+    [self.tableView endUpdates];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
@@ -569,21 +562,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.collectionView performBatchUpdates:^{
-        [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
-    } completion:NULL];
-}
-
-- (void)controller:(id<WMFHomeSectionController>)controller enumerateVisibleCells:(WMFHomeSectionCellEnumerator)enumerator {
-    NSInteger section = [self indexForSectionController:controller];
-    if (section == NSNotFound) {
-        return;
-    }
-    [self.collectionView.indexPathsForVisibleItems enumerateObjectsUsingBlock:^(NSIndexPath* obj, NSUInteger idx, BOOL* stop) {
-        if (obj.section == section) {
-            enumerator([self.collectionView cellForItemAtIndexPath:obj], obj);
-        }
-    }];
+    [self.tableView beginUpdates];
+    [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
+    [self.tableView endUpdates];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
@@ -620,13 +601,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
                       viewControllerForLocation:(CGPoint)location {
-    NSIndexPath* previewIndexPath                  = [self.collectionView indexPathForItemAtPoint:location];
+    NSIndexPath* previewIndexPath                  = [self.tableView indexPathForRowAtPoint:location];
     id<WMFHomeSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
     if (!sectionController) {
         return nil;
     }
 
-    previewingContext.sourceRect = [self.collectionView cellForItemAtIndexPath:previewIndexPath].frame;
+    previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
                                                                  dataStore:[self dataStore]

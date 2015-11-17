@@ -20,9 +20,8 @@
 #import "MWKHistoryEntry.h"
 
 // Views
-#import "WMFNearbySearchResultCell.h"
+#import "WMFNearbyArticleTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-#import "WMFArticlePreviewCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,18 +46,16 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([viewModel.site isEqualToSite:site]);
     self = [super initWithItems:nil];
     if (self) {
-        self.cellClass = [WMFNearbySearchResultCell class];
+        self.cellClass = [WMFNearbyArticleTableViewCell class];
         @weakify(self);
-        self.cellConfigureBlock = ^(WMFNearbySearchResultCell* nearbyCell,
+        self.cellConfigureBlock = ^(WMFNearbyArticleTableViewCell* nearbyCell,
                                     MWKLocationSearchResult* result,
                                     id parentView,
                                     NSIndexPath* indexPath) {
             @strongify(self);
-            [nearbyCell setSavedPageList:self.savedPageList];
-            [nearbyCell setTitle:[self.viewModel.locationSearchResults titleForResult:result]];
-            [nearbyCell setSearchResultDescription:result.wikidataDescription];
+            nearbyCell.titleText       = result.displayTitle;
+            nearbyCell.descriptionText = result.wikidataDescription;
             [nearbyCell setImageURL:result.thumbnailURL];
-            [nearbyCell setSavedPageList:self.savedPageList];
             [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
             [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
         };
@@ -66,6 +63,11 @@ NS_ASSUME_NONNULL_BEGIN
         self.viewModel.delegate = self;
     }
     return self;
+}
+
+- (void)setTableView:(nullable UITableView*)tableView {
+    [super setTableView:tableView];
+    [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
 }
 
 - (void)setSite:(MWKSite* __nonnull)site {
@@ -116,14 +118,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)stopUpdating {
     [self.viewModel stopUpdates];
-}
-
-#pragma mark - SSDataSource
-
-- (void)setCollectionView:(UICollectionView* __nullable)collectionView {
-    [super setCollectionView:collectionView];
-    [collectionView registerNib:[WMFNearbySearchResultCell wmf_classNib]
-     forCellWithReuseIdentifier:[WMFNearbySearchResultCell identifier]];
 }
 
 #pragma mark - WMFNearbyViewModelDelegate

@@ -1,10 +1,10 @@
 
-#import <SSDataSources/SSDataSources.h>
+@import UIKit;
 
-@interface WMFHomeSectionFooter : SSBaseCollectionReusableView
+@interface WMFHomeSectionFooter : UITableViewHeaderFooterView
 
 @property (strong, nonatomic) IBOutlet UILabel* moreLabel;
-@property (strong, nonatomic) IBOutlet UIView* backgroundView;
+@property (strong, nonatomic) IBOutlet UIView* visibleBackgroundView;
 @property (copy, nonatomic) dispatch_block_t whenTapped;
 
 @end

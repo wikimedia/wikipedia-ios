@@ -1,73 +1,76 @@
+//
+//  WMFNearbyArticleTableViewCell.m
+//  Wikipedia
+//
+//  Created by Corey Floyd on 11/12/15.
+//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
+//
 
-#import "WMFNearbySearchResultCell.h"
-#import "WMFSaveableTitleCollectionViewCell+Subclass.h"
+#import "WMFNearbyArticleTableViewCell.h"
 
-// Views
-#import "WMFCompassView.h"
+@import CoreLocation;
 
-// Frameworks
-#import "Wikipedia-Swift.h"
-#import <Masonry/Masonry.h>
+#import "UIImageView+WMFImageFetching.h"
 
 // Models
 #import "WMFSearchResultDistanceProvider.h"
 #import "WMFSearchResultBearingProvider.h"
 #import "MWKTitle.h"
 
+// Views
+#import "WMFCompassView.h"
+
 // Utils
 #import "WMFMath.h"
 #import "NSString+WMFDistance.h"
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
+#import "UIImage+WMFStyle.h"
 
-static CGFloat const WMFTextPadding    = 8.0;
-static CGFloat const WMFDistanceHeight = 20.0;
+@interface WMFNearbyArticleTableViewCell ()
 
-static CGFloat const WMFImageSize    = 104;
-static CGFloat const WMFImagePadding = 8.0;
-
-@interface WMFNearbySearchResultCell ()
-
-// Views
+@property (strong, nonatomic) IBOutlet UIImageView* articleImageView;
 @property (strong, nonatomic) IBOutlet WMFCompassView* compassView;
+@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UIView* distanceLabelBackground;
 @property (strong, nonatomic) IBOutlet UILabel* distanceLabel;
 
-// Values
-@property (nonatomic, copy) NSString* searchResultDescription;
 @property (strong, nonatomic) WMFSearchResultBearingProvider* bearingProvider;
 @property (strong, nonatomic) WMFSearchResultDistanceProvider* distanceProvider;
 
 @end
 
-@implementation WMFNearbySearchResultCell
-
-- (void)prepareForReuse {
-    [super prepareForReuse];
-    [self setSearchResultDescription:nil];
-    self.distanceProvider = nil;
-    self.bearingProvider  = nil;
-}
+@implementation WMFNearbyArticleTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self configureImageViewWithPlaceholder];
-    self.imageView.layer.cornerRadius               = self.imageView.bounds.size.width / 2;
-    self.imageView.layer.borderWidth                = 1.0 / [UIScreen mainScreen].scale;
-    self.imageView.layer.borderColor                = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
+    self.articleImageView.layer.cornerRadius        = self.articleImageView.bounds.size.width / 2;
+    self.articleImageView.layer.borderWidth         = 1.0 / [UIScreen mainScreen].scale;
+    self.articleImageView.layer.borderColor         = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
-
-    self.distanceLabelBackground.backgroundColor = [UIColor wmf_nearbyDistanceBackgroundColor];
-    self.distanceLabel.font                      = [UIFont wmf_nearbyDistanceFont];
-    self.distanceLabel.textColor                 = [UIColor wmf_nearbyDistanceTextColor];
+    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_nearbyDistanceBackgroundColor];
+    self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
+    self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
 }
 
-- (UICollectionViewLayoutAttributes*)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes*)layoutAttributes {
-    self.titleLabel.preferredMaxLayoutWidth = layoutAttributes.size.width - WMFImageSize - WMFImagePadding - WMFImagePadding;
-    UICollectionViewLayoutAttributes* preferredAttributes = [layoutAttributes copy];
-    CGFloat height                                        = MAX(120, self.titleLabel.intrinsicContentSize.height + WMFTextPadding + WMFTextPadding + WMFDistanceHeight + WMFTextPadding);
-    preferredAttributes.size = CGSizeMake(layoutAttributes.size.width, height);
-    return preferredAttributes;
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    [self configureImageViewWithPlaceholder];
+    self.descriptionText    = nil;
+    self.distanceProvider   = nil;
+    self.bearingProvider    = nil;
+    self.titleText          = nil;
+    self.titleLabel.text    = nil;
+    self.distanceLabel.text = nil;
+}
+
+- (void)configureImageViewWithPlaceholder {
+    [self.articleImageView wmf_reset];
+    self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
+    self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
+    self.articleImageView.image           = [UIImage wmf_placeholderImage];
+    self.articleImageView.contentMode     = UIViewContentModeCenter;
 }
 
 #pragma mark - Compass
@@ -80,7 +83,7 @@ static CGFloat const WMFImagePadding = 8.0;
         [self.KVOController observe:_bearingProvider
                             keyPath:WMF_SAFE_KEYPATH(_bearingProvider, bearingToLocation)
                             options:NSKeyValueObservingOptionInitial
-                              block:^(WMFNearbySearchResultCell* cell,
+                              block:^(WMFNearbyArticleTableViewCell* cell,
                                       WMFSearchResultBearingProvider* provider,
                                       NSDictionary* change) {
             [cell setBearing:provider.bearingToLocation];
@@ -96,11 +99,19 @@ static CGFloat const WMFImagePadding = 8.0;
 
 #pragma mark - Title/Description
 
-- (void)setSearchResultDescription:(NSString*)searchResultDescription {
-    if (WMF_EQUAL(self.searchResultDescription, isEqualToString:, searchResultDescription)) {
+- (void)setTitleText:(NSString*)titleText {
+    if (WMF_EQUAL(_titleText, isEqualToString:, titleText)) {
         return;
     }
-    _searchResultDescription = [searchResultDescription copy];
+    _titleText = [titleText copy];
+    [self updateTitleLabel];
+}
+
+- (void)setDescriptionText:(NSString*)descriptionText {
+    if (WMF_EQUAL(_descriptionText, isEqualToString:, descriptionText)) {
+        return;
+    }
+    _descriptionText = descriptionText;
     [self updateTitleLabel];
 }
 
@@ -122,25 +133,25 @@ static CGFloat const WMFImagePadding = 8.0;
 }
 
 - (NSAttributedString*)attributedTitleText {
-    if ([self.title.text length] == 0) {
+    if ([self.titleText length] == 0) {
         return nil;
     }
 
-    return [[NSAttributedString alloc] initWithString:self.title.text attributes:@{
+    return [[NSAttributedString alloc] initWithString:self.titleText attributes:@{
                 NSFontAttributeName: [UIFont wmf_nearbyTitleFont],
                 NSForegroundColorAttributeName: [UIColor wmf_nearbyTitleColor]
             }];
 }
 
 - (NSAttributedString*)attributedDescriptionText {
-    if ([self.searchResultDescription length] == 0) {
+    if ([self.descriptionText length] == 0) {
         return nil;
     }
 
     NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.paragraphSpacingBefore = 2.0;
 
-    return [[NSAttributedString alloc] initWithString:self.searchResultDescription attributes:@{
+    return [[NSAttributedString alloc] initWithString:self.descriptionText attributes:@{
                 NSFontAttributeName: [UIFont wmf_nearbyDescriptionFont],
                 NSForegroundColorAttributeName: [UIColor wmf_nearbyDescriptionColor],
                 NSParagraphStyleAttributeName: paragraphStyle
@@ -156,7 +167,7 @@ static CGFloat const WMFImagePadding = 8.0;
         [self.KVOController observe:_distanceProvider
                             keyPath:WMF_SAFE_KEYPATH(_distanceProvider, distanceToUser)
                             options:NSKeyValueObservingOptionInitial
-                              block:^(WMFNearbySearchResultCell* cell,
+                              block:^(WMFNearbyArticleTableViewCell* cell,
                                       WMFSearchResultDistanceProvider* provider,
                                       NSDictionary* change) {
             [cell setDistance:provider.distanceToUser];
@@ -173,6 +184,16 @@ static CGFloat const WMFImagePadding = 8.0;
 #else
     self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
 #endif
+}
+
+#pragma mark - Image
+
+- (void)setImageURL:(NSURL*)imageURL {
+    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+}
+
+- (void)setImage:(MWKImage*)image {
+    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
 }
 
 @end
