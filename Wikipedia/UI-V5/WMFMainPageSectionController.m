@@ -10,7 +10,6 @@
 #import "MWKSearchResult.h"
 
 #import "WMFMainPageTableViewCell.h"
-#import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -56,7 +55,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     static NSDateFormatter* dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dateFormatter           = [[NSDateFormatter alloc] init];
+        dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         dateFormatter.timeStyle = NSDateFormatterNoStyle;
     });
@@ -92,7 +91,6 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFMainPageTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPageTableViewCell identifier]];
-    [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
@@ -108,6 +106,10 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
             mainPageCell.mainPageTitle.text = @"Loading…";
         }
     }
+}
+
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.siteInfo != nil;
 }
 
 #pragma mark - Fetching

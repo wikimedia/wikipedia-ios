@@ -8,6 +8,7 @@
 #import "MWKSearchResult.h"
 
 #import "WMFArticlePreviewTableViewCell.h"
+#import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -53,7 +54,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
     static NSDateFormatter* dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dateFormatter           = [[NSDateFormatter alloc] init];
+        dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         dateFormatter.timeStyle = NSDateFormatterNoStyle;
     });
@@ -89,10 +90,15 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    if (self.featuredArticlePreview) {
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
+    }
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
@@ -104,6 +110,10 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
         [previewCell setImageURL:self.featuredArticlePreview.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
+}
+
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.featuredArticlePreview != nil;
 }
 
 #pragma mark - Fetching
