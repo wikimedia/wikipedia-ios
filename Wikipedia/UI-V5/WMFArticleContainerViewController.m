@@ -500,7 +500,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
     if (footerViewController == self.readMoreListViewController) {
-        return [MWLocalizedString(@"article-related-articles-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+        return [MWLocalizedString(@"article-read-more-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
     return nil;
 }
