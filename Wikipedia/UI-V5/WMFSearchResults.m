@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _mutableResults = [NSMutableArray new];
+        _mutableResults   = [NSMutableArray new];
         _redirectMappings = @[];
     }
     return self;
@@ -55,12 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
 }
 
-- (void)setRedirectMappings:(nullable NSArray<MWKSearchRedirectMapping *>*)redirectMappings {
+- (void)setRedirectMappings:(nullable NSArray<MWKSearchRedirectMapping*>*)redirectMappings {
     if (WMF_EQUAL(self.redirectMappings, isEqualToArray:, redirectMappings)) {
         return;
     }
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, redirectMappings)];
-    _redirectMappings = [redirectMappings copy] ?: @[];
+    _redirectMappings = [redirectMappings copy] ? : @[];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, redirectMappings)];
 }
 

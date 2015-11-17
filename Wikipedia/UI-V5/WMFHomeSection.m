@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-
 - (NSComparisonResult)compare:(WMFHomeSection*)section {
     NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
     switch (self.type) {

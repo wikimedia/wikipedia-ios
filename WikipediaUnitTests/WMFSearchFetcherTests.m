@@ -65,7 +65,7 @@
 }
 
 - (void)testAppendingToPreviousEmptyResultsCausesKVOEvents {
-    id noResultsJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+    id noResultsJSON      = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
     id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
 
     stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
@@ -77,7 +77,7 @@
     .withJSON(fullTextSearchJSON);
 
     NSArray<NSString*>* fullTextTitles =
-    [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
+        [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
 
     WMFSearchResults* finalResults = [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:nil];
     assertThat(finalResults.searchSuggestion, is([noResultsJSON valueForKeyPath:@"query.searchinfo.suggestion"]));
@@ -108,7 +108,7 @@
 
 - (WMFSearchResults*)verifyKVOEventWhenAppendingTitles:(NSArray*)fullTextTitles
                                         toPrefixTitles:(nullable NSArray*)prefixTitles {
-    NSMutableSet* uniqueTitles = [NSMutableSet setWithArray:prefixTitles ?: @[]];
+    NSMutableSet* uniqueTitles = [NSMutableSet setWithArray:prefixTitles ? : @[]];
     [uniqueTitles addObjectsFromArray:fullTextTitles];
 
     MWKSite* searchSite = [MWKSite random];
