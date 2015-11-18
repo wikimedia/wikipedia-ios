@@ -59,12 +59,31 @@
         return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
         .then(^(WMFSearchResults* result) {
             assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
-            assertThat(result.results, is(nilValue()));
+            assertThat(result.results, isEmpty());
         });
     });
 }
 
-- (void)testAppendingToPreviousResultsCausesKVOEvents {
+- (void)testAppendingToPreviousEmptyResultsCausesKVOEvents {
+    id noResultsJSON      = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+    id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
+    .andReturn(200)
+    .withJSON(noResultsJSON);
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
+    .andReturn(200)
+    .withJSON(fullTextSearchJSON);
+
+    NSArray<NSString*>* fullTextTitles =
+        [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
+
+    WMFSearchResults* finalResults = [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:nil];
+    assertThat(finalResults.searchSuggestion, is([noResultsJSON valueForKeyPath:@"query.searchinfo.suggestion"]));
+}
+
+- (void)testAppendingToPreviousNonEmptyResultsCausesKVOEvents {
     id prefixSearchJSON   = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetPrefixSearch"];
     id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
 
@@ -82,7 +101,14 @@
     NSArray<NSString*>* fullTextTitles =
         [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
 
-    NSMutableSet* uniqueTitles = [NSMutableSet setWithArray:prefixTitles];
+    [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:prefixTitles];
+}
+
+#pragma mark - Utils
+
+- (WMFSearchResults*)verifyKVOEventWhenAppendingTitles:(NSArray*)fullTextTitles
+                                        toPrefixTitles:(nullable NSArray*)prefixTitles {
+    NSMutableSet* uniqueTitles = [NSMutableSet setWithArray:prefixTitles ? : @[]];
     [uniqueTitles addObjectsFromArray:fullTextTitles];
 
     MWKSite* searchSite = [MWKSite random];
@@ -111,9 +137,11 @@
                                          fullTextSearch:YES
                                 appendToPreviousResults:fetchedPrefixResult]
         .then(^(WMFSearchResults* appendedResults) {
+            XCTAssertEqual(fetchedPrefixResult, appendedResults, @"Expected resolved value to be identical to previous results object.");
             assertThat(appendedResults.results, hasCountOf(uniqueTitles.count));
         });
     });
+    return fetchedPrefixResult;
 }
 
 @end

@@ -20,7 +20,7 @@
 - (nonnull instancetype)initWithSearchSite:(MWKSite*)site searchResults:(WMFSearchResults*)searchResults {
     NSParameterAssert(site);
     NSParameterAssert(searchResults);
-    self = [super initWithItems:searchResults.results];
+    self = [super initWithTarget:searchResults keyPath:WMF_SAFE_KEYPATH(searchResults, results)];
     if (self) {
         self.searchSite    = site;
         self.searchResults = searchResults;

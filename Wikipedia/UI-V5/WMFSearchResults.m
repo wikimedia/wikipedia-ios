@@ -21,10 +21,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFSearchResults
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _mutableResults   = [NSMutableArray new];
+        _redirectMappings = @[];
+    }
+    return self;
+}
+
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
                            results:(nullable NSArray*)results
                   searchSuggestion:(nullable NSString*)suggestion {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.searchTerm       = searchTerm;
         self.results          = results;
@@ -33,13 +42,16 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setResults:(NSArray<MWKSearchResult*>* _Nonnull)results {
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
-    if (_mutableResults == results) {
-        return;
+- (void)setResults:(nullable NSArray<MWKSearchResult*>*)results {
+    if (results) {
+        [_mutableResults setArray:results];
+    } else {
+        [_mutableResults removeAllObjects];
     }
-    _mutableResults = [results mutableCopy];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
+}
+
+- (void)setRedirectMappings:(nullable NSArray<MWKSearchRedirectMapping*>*)redirectMappings {
+    _redirectMappings = [redirectMappings copy] ? : @[];
 }
 
 - (NSArray*)results {
@@ -79,7 +91,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray* newResults = [searchResults.results bk_reject:^BOOL (MWKSearchResult* obj) {
         return [self.results containsObject:obj];
     }];
-
     [self.mutableResults addObjectsFromArray:newResults];
 }
 
