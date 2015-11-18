@@ -7,7 +7,7 @@
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "UIViewController+Alert.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "WikiGlyph_Chars.h"
 #import "Defines.h"
 #import "PaddedLabel.h"
