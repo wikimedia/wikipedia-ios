@@ -6,6 +6,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+
+/**
+ *  Note: Do NOT change these numbers!!
+ *  The type is serialized to disk, so if the order of this
+ *  enum is modified, the sections will be deserialized incorrectly
+ *
+ */
 typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
     WMFHomeSectionTypeContinueReading = 0,
     WMFHomeSectionTypeMainPage        = 1,
