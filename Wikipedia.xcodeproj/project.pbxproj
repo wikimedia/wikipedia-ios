@@ -19,7 +19,6 @@
 		041A3B5E18E11ED90079FF1C /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguageCell.m */; };
 		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
 		041C55D21950B27D006CE0EF /* EditSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C55D11950B27D006CE0EF /* EditSummaryViewController.m */; };
-		041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041C6205199ED2A20061516F /* MWKSection+TOC.m */; };
 		041E32371B72AB9A001D0E28 /* WMFSectionHeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E32311B72AB9A001D0E28 /* WMFSectionHeadersViewController.m */; };
 		041E32381B72AB9A001D0E28 /* WMFSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E32331B72AB9A001D0E28 /* WMFSectionHeader.m */; };
 		041E32391B72AB9A001D0E28 /* WMFSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E32341B72AB9A001D0E28 /* WMFSectionHeader.xib */; };
@@ -604,8 +603,6 @@
 		041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguagesViewController.m; sourceTree = "<group>"; };
 		041C55D01950B27D006CE0EF /* EditSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditSummaryViewController.h; sourceTree = "<group>"; };
 		041C55D11950B27D006CE0EF /* EditSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditSummaryViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		041C6204199ED2A20061516F /* MWKSection+TOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MWKSection+TOC.h"; sourceTree = "<group>"; };
-		041C6205199ED2A20061516F /* MWKSection+TOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MWKSection+TOC.m"; sourceTree = "<group>"; };
 		041E322F1B72AB9A001D0E28 /* WMFSectionHeaderEditProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSectionHeaderEditProtocol.h; sourceTree = "<group>"; };
 		041E32301B72AB9A001D0E28 /* WMFSectionHeadersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSectionHeadersViewController.h; sourceTree = "<group>"; };
 		041E32311B72AB9A001D0E28 /* WMFSectionHeadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSectionHeadersViewController.m; sourceTree = "<group>"; };
@@ -2103,8 +2100,6 @@
 				04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */,
 				0472BC16193AD88C00C40BDA /* MWKSection+DisplayHtml.h */,
 				0472BC17193AD88C00C40BDA /* MWKSection+DisplayHtml.m */,
-				041C6204199ED2A20061516F /* MWKSection+TOC.h */,
-				041C6205199ED2A20061516F /* MWKSection+TOC.m */,
 				047801BC18AE987900DBB747 /* UIButton+ColorMask.h */,
 				047801BD18AE987900DBB747 /* UIButton+ColorMask.m */,
 				0415581A18ADFA5C00B81A59 /* UIImage+ColorMask.h */,
@@ -4645,7 +4640,6 @@
 				BC505EEE1B594B5700537006 /* WMFImageCollectionViewCell.m in Sources */,
 				0E4D1CFF1BBDC857009BEB64 /* WMFTableOfContentsCell.swift in Sources */,
 				BC8C0BA41BCFC3C600E2B167 /* DDLog+WMFLogger.m in Sources */,
-				041C6206199ED2A20061516F /* MWKSection+TOC.m in Sources */,
 				046D3CA01B8BDFB3004F2B92 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */,
 				BC505EEB1B59461400537006 /* WMFCollectionViewPageLayout.m in Sources */,
 				BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */,

@@ -10,7 +10,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
         } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController.visibleFooterIndex()) {
             switch footerIndex {
             case .ReadMore:
-                tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(), animated: false)
+                tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(site: self.articleTitle.site), animated: false)
             }
         } else {
             assertionFailure("Couldn't find current position of user at current offset!")
@@ -38,6 +38,10 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
     public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    public func tableOfContentsArticleSite() -> MWKSite {
+        return self.articleTitle.site
+    }
 }
 
 extension WMFArticleContainerViewController {
@@ -53,7 +57,7 @@ extension WMFArticleContainerViewController {
         if let sections = self.article?.sections {
             // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
             var items = sections.entries.map() { $0 as! TableOfContentsItem }
-            items.append(TableOfContentsReadMoreItem())
+            items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
             self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: self, items: items, delegate: self)
         }
     }
