@@ -54,6 +54,16 @@
     return c;
 }
 
++ (instancetype)wmf_placeholderLightGrayColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithWhite:0.975 alpha:1];
+    });
+    return c;
+}
+
 + (instancetype)wmf_placeholderImageTintColor {
     static UIColor* c = nil;
 

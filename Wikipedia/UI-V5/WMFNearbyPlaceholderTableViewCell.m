@@ -7,10 +7,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.placeholderImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
-    self.placeholderImageView.image           = [UIImage wmf_placeholderImage];
-    self.placeholderImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.placeholderImageView.contentMode     = UIViewContentModeCenter;
+    UIImage* stretch = [UIImage imageNamed:@"nearby-card-placeholder"];
+    stretch                               = [stretch resizableImageWithCapInsets:UIEdgeInsetsMake(stretch.size.height / 2, stretch.size.width / 2 - 28, stretch.size.height / 2, stretch.size.width / 2 - 28)];
+    self.placeholderImageView.image       = stretch;
+    self.placeholderImageView.contentMode = UIViewContentModeScaleToFill;
 }
 
 @end
