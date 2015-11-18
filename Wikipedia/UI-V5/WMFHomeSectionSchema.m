@@ -189,7 +189,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     //Add featured
     WMFHomeSection* featured = [self featuredArticleSection];
-    if (nearby) {
+    if (featured) {
         [sections addObject:featured];
     }
 
