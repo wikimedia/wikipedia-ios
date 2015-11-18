@@ -16,6 +16,7 @@ public class TableOfContentsReadMoreItem : NSObject, TableOfContentsFooterItem {
     let site:MWKSite
     init(site: MWKSite) {
         self.site = site
+        super.init()
     }
     
     public var titleText:String {
