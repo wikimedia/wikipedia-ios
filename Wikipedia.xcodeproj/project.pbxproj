@@ -14,7 +14,7 @@
 		04090A3B187FB7D000577EDF /* UIView+Debugging.m in Sources */ = {isa = PBXBuildFile; fileRef = 04090A3A187FB7D000577EDF /* UIView+Debugging.m */; };
 		040D83591AB0ECFD000896D5 /* WMFCenteredPathView.m in Sources */ = {isa = PBXBuildFile; fileRef = 040D83581AB0ECFD000896D5 /* WMFCenteredPathView.m */; };
 		040D835E1AB0EE45000896D5 /* WMFGeometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 040D835C1AB0EE45000896D5 /* WMFGeometry.c */; };
-		04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A8E184F974E006EF779 /* NSDate-Utilities.m */; };
+		04142A8F184F974E006EF779 /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 04142A8E184F974E006EF779 /* NSDate+Utilities.m */; };
 		0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */; };
 		041A3B5E18E11ED90079FF1C /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5918E11ED90079FF1C /* LanguageCell.m */; };
 		041A3B6218E11ED90079FF1C /* LanguagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041A3B5D18E11ED90079FF1C /* LanguagesViewController.m */; };
@@ -598,8 +598,8 @@
 		040D835C1AB0EE45000896D5 /* WMFGeometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = WMFGeometry.c; sourceTree = "<group>"; };
 		040D835D1AB0EE45000896D5 /* WMFGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFGeometry.h; sourceTree = "<group>"; };
 		040E5C4E184566F4007AFE6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		04142A8D184F974E006EF779 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
-		04142A8E184F974E006EF779 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		04142A8D184F974E006EF779 /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		04142A8E184F974E006EF779 /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		0415581A18ADFA5C00B81A59 /* UIImage+ColorMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ColorMask.h"; sourceTree = "<group>"; };
 		0415581B18ADFA5C00B81A59 /* UIImage+ColorMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ColorMask.m"; sourceTree = "<group>"; };
 		041A3B5818E11ED90079FF1C /* LanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageCell.h; sourceTree = "<group>"; };
@@ -2096,8 +2096,8 @@
 				BCB669721A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m */,
 				043F18DA18D9691D00D8489A /* TopActionSheet */,
 				04A807321B76BF36007F4EDD /* NSArray+WMFPredicate.swift */,
-				04142A8D184F974E006EF779 /* NSDate-Utilities.h */,
-				04142A8E184F974E006EF779 /* NSDate-Utilities.m */,
+				04142A8D184F974E006EF779 /* NSDate+Utilities.h */,
+				04142A8E184F974E006EF779 /* NSDate+Utilities.m */,
 				0449E63718AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.h */,
 				0449E63818AAA26A00D51524 /* NSHTTPCookieStorage+CloneCookie.m */,
 				04AE1C6E1891B302002D5487 /* NSObject+Extras.h */,
@@ -4424,7 +4424,7 @@
 				0EF451F61B545ED100D621BD /* WMFRecentPagesDataSource.m in Sources */,
 				BC9355461BE1AD8900697CB0 /* WMFSearchResults+ResponseSerializer.m in Sources */,
 				0E6FAFB51B7D5740000E5A46 /* WMFHomeViewController.m in Sources */,
-				04142A8F184F974E006EF779 /* NSDate-Utilities.m in Sources */,
+				04142A8F184F974E006EF779 /* NSDate+Utilities.m in Sources */,
 				0E2690FF1B86B002009B8605 /* WMFRelatedSearchResults.m in Sources */,
 				0E0A13141BB9E731003CF23F /* WMFFaceDetectionCache.m in Sources */,
 				0E7E60311B7CFAB900ED1C69 /* MWKArticle+WMFAnalyticsLogging.m in Sources */,

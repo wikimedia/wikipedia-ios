@@ -3,7 +3,7 @@
 
 #import "HistoryViewController.h"
 #import "WikipediaAppUtils.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "HistoryResultCell.h"
 #import "Defines.h"
 #import "NSString+Extras.h"

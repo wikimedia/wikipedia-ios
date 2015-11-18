@@ -11,7 +11,7 @@
 @import Nimble;
 
 #import "MWKHistoryEntry+MWKRandom.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "WMFRecentPagesDataSource.h"
 #import "MWKDataStore+TempDataStoreForEach.h"
 #import "NSDateFormatter+WMFExtensions.h"

@@ -7,7 +7,7 @@
 #import "SessionSingleton.h"
 #import "NSString+Extras.h"
 #import "NSObject+Extras.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "MediaWikiKit.h"
 
 @implementation PageHistoryFetcher

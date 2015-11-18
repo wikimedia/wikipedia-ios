@@ -6,7 +6,7 @@
 #import "MWKHistoryList.h"
 #import "WMFHomeSection.h"
 #import "Wikipedia-Swift.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
 
 @import Tweaks;

@@ -10,7 +10,7 @@
 #import <Tweaks/FBTweakInline.h>
 
 //Utility
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "DataHousekeeping.h"
 
 // Networking
