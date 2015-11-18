@@ -10,6 +10,7 @@
 #import "MWKSearchResult.h"
 
 #import "WMFMainPageTableViewCell.h"
+#import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -91,20 +92,21 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFMainPageTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPageTableViewCell identifier]];
+    [tableView registerNib:[WMFMainPagePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPagePlaceholderTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFMainPageTableViewCell cellForTableView:tableView];
+    if (self.siteInfo) {
+        return [WMFMainPageTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFMainPagePlaceholderTableViewCell cellForTableView:tableView];
+    }
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFMainPageTableViewCell class]]) {
         WMFMainPageTableViewCell* mainPageCell = (id)cell;
-        if (self.siteInfo) {
-            mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
-        } else {
-            mainPageCell.mainPageTitle.text = @"Loading…";
-        }
+        mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
     }
 }
 
