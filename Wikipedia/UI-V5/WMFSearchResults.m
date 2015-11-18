@@ -43,25 +43,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setResults:(nullable NSArray<MWKSearchResult*>*)results {
-    if ([_mutableResults isEqualToArray:results]) {
-        return;
-    }
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
     if (results) {
         [_mutableResults setArray:results];
     } else {
         [_mutableResults removeAllObjects];
     }
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, results)];
 }
 
 - (void)setRedirectMappings:(nullable NSArray<MWKSearchRedirectMapping*>*)redirectMappings {
-    if (WMF_EQUAL(self.redirectMappings, isEqualToArray:, redirectMappings)) {
-        return;
-    }
-    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, redirectMappings)];
     _redirectMappings = [redirectMappings copy] ? : @[];
-    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, redirectMappings)];
 }
 
 - (NSArray*)results {
@@ -101,7 +91,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray* newResults = [searchResults.results bk_reject:^BOOL (MWKSearchResult* obj) {
         return [self.results containsObject:obj];
     }];
-
     [self.mutableResults addObjectsFromArray:newResults];
 }
 
