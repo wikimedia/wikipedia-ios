@@ -8,7 +8,7 @@
 #import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
