@@ -4,7 +4,7 @@
 #import "MWKTitle.h"
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
-#import "NSDate-Utilities.h"
+#import "NSDate+Utilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeSection ()
