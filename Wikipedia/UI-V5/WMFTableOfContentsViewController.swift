@@ -113,6 +113,7 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     public override func viewDidLoad() {
         super.viewDidLoad()
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
+        assert(delegate != nil, "TOC delegate not set!")
         header.articleSite = delegate?.tableOfContentsArticleSite()
         self.tableView.tableHeaderView = header
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
