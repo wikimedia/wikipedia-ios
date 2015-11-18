@@ -19,6 +19,7 @@
 // Views
 #import "WMFNearbyArticleTableViewCell.h"
 #import "WMFEmptyNearbyTableViewCell.h"
+#import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -30,9 +31,11 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) WMFNearbyViewModel* viewModel;
 
-@property (nonatomic, copy) NSString* emptySectionObject;
-
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
+
+@property (nonatomic, strong) WMFLocationSearchResults* searchResults;
+
+@property (nonatomic, strong) NSError* nearbyError;
 
 @end
 
@@ -61,7 +64,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         self.savedPageList      = savedPageList;
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
-        self.emptySectionObject = @"EmptySection";
     }
     return self;
 }
@@ -91,31 +93,36 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSArray*)items {
-    if ([self.viewModel.locationSearchResults.results count] > 0) {
-        return self.viewModel.locationSearchResults.results;
+    if (self.nearbyError) {
+        return @[@1];
+    } else if ([self.searchResults.results count] > 0) {
+        return self.searchResults.results;
     } else {
-        return @[self.emptySectionObject];
+        return @[@1, @2, @3];
     }
 }
 
 - (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
     id result = self.items[index];
     if ([result isKindOfClass:[MWKSearchResult class]]) {
-        return [self.viewModel.locationSearchResults titleForResultAtIndex:index];
+        return [self.searchResults titleForResultAtIndex:index];
     }
     return nil;
 }
 
 - (void)registerCellsInTableView:(UITableView* __nonnull)tableView {
     [tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
+    [tableView registerNib:[WMFNearbyPlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyPlaceholderTableViewCell identifier]];
     [tableView registerNib:[WMFEmptyNearbyTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptyNearbyTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([self.viewModel.locationSearchResults.results count] == 0) {
+    if (self.nearbyError) {
         return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else {
+    } else if ([self.searchResults.results count] > 0) {
         return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
     }
 }
 
@@ -129,7 +136,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         [nearbyCell setImageURL:result.thumbnailURL];
         [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
         [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
-    } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]] && (object == self.emptySectionObject)) {
+    } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]]) {
         WMFEmptyNearbyTableViewCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
             @weakify(self);
@@ -142,7 +149,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.viewModel.locationSearchResults.results.count > index;
+    return self.searchResults.results.count > index;
 }
 
 - (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
@@ -152,10 +159,13 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
+    self.nearbyError = error;
+    [self.delegate controller:self didSetItems:self.items];
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
-    [self.delegate controller:self didSetItems:results.results];
+    self.searchResults = results;
+    [self.delegate controller:self didSetItems:self.items];
 }
 
 @end

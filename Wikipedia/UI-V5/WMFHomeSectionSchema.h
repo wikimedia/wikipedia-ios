@@ -1,7 +1,7 @@
 
 #import <Mantle/Mantle.h>
 
-@class MWKSavedPageList, MWKHistoryList, WMFHomeSection;
+@class MWKSite, MWKSavedPageList, MWKHistoryList, WMFHomeSection;
 
 @protocol WMFHomeSectionSchemaDelegate;
 
@@ -13,13 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
  *  Creates a schema by loading a persisted one from disk or
  *  if none is available, will create one
  *
+ *  @param site site for populating sections
  *  @param savedPages Saved pages for populating sections
  *  @param history    History for populating sections
  *
  *  @return The schema
  */
-+ (instancetype)schemaWithSavedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history;
++ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history;
 
+@property (nonatomic, strong, readonly) MWKSite* site;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 

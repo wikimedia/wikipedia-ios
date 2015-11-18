@@ -1,10 +1,3 @@
-//
-//  WMFRandomSectionController.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 10/22/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFRandomSectionController.h"
 #import "WMFRandomArticleFetcher.h"
@@ -14,6 +7,7 @@
 #import "MWKSearchResult.h"
 
 #import "WMFArticlePreviewTableViewCell.h"
+#import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 
@@ -76,7 +70,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     if (self.result) {
         return @[self.result];
     } else {
-        return nil;
+        return @[@1];
     }
 }
 
@@ -86,10 +80,15 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    if (self.result) {
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
+    }
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
@@ -102,6 +101,10 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         [previewCell setImageURL:result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
+}
+
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.result != nil;
 }
 
 - (void)getNewRandomArticle {

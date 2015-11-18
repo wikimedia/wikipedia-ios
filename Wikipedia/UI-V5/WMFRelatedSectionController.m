@@ -15,6 +15,7 @@
 
 // View
 #import "WMFArticlePreviewTableViewCell.h"
+#import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 // Style
@@ -31,6 +32,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* relatedTitleDataSource;
+
+@property (nonatomic, strong) WMFRelatedSearchResults* searchResults;
 
 @end
 
@@ -85,8 +88,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSArray*)items {
-    return [self.relatedTitleDataSource.relatedSearchResults.results
-            wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
+    if (self.searchResults.results) {
+        return [self.searchResults.results
+                wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
+    } else {
+        return @[@1, @2, @3];
+    }
 }
 
 - (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
@@ -98,10 +105,15 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    if (self.searchResults.results) {
+        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
+    } else {
+        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
+    }
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
@@ -114,6 +126,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         [previewCell setImageURL:result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
     }
+}
+
+- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
+    return self.searchResults != nil;
 }
 
 - (WMFRelatedTitleListDataSource*)relatedTitleDataSource {
@@ -139,14 +155,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return self.relatedTitleDataSource;
 }
 
-#pragma mark - Section Updates
-
-- (void)updateSectionWithResults:(WMFRelatedSearchResults*)results {
-}
-
-- (void)updateSectionWithSearchError:(NSError*)error {
-}
-
 #pragma mark - Fetch
 
 - (void)fetchRelatedArticles {
@@ -157,11 +165,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     [self.relatedTitleDataSource fetch]
     .then(^(WMFRelatedSearchResults* results){
         @strongify(self);
+        self.searchResults = results;
         [self.delegate controller:self didSetItems:self.items];
     })
     .catch(^(NSError* error){
         @strongify(self);
-        [self updateSectionWithSearchError:error];
+        [self.delegate controller:self didFailToUpdateWithError:error];
     });
 }
 

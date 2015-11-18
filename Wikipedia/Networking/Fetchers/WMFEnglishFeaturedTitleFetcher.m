@@ -62,6 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+- (BOOL)isFetching {
+    return [[self.featuredTitleOperationManager operationQueue] operationCount] > 0 || [[self.titlePreviewOperationManager operationQueue] operationCount] > 0 ;
+}
+
 - (AnyPromise*)fetchFeaturedArticlePreviewForDate:(NSDate*)date {
     @weakify(self);
     MWKSite* site = [MWKSite siteWithLanguage:@"en"];
