@@ -12,6 +12,7 @@
 #import "WMFRelatedSectionController.h"
 #import "WMFContinueReadingSectionController.h"
 #import "WMFRandomSectionController.h"
+#import "WMFFeaturedArticleSectionController.h"
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFHomeSectionSchema.h"
 #import "WMFHomeSection.h"
@@ -109,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFHomeSectionSchema*)schemaManager {
     if (!_schemaManager) {
-        _schemaManager          = [WMFHomeSectionSchema schemaWithSavedPages:self.savedPages history:self.recentPages];
+        _schemaManager          = [WMFHomeSectionSchema schemaWithSite:self.searchSite savedPages:self.savedPages history:self.recentPages];
         _schemaManager.delegate = self;
     }
     return _schemaManager;
@@ -177,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
-    self.tableView.estimatedRowHeight           = 380.0;
+    self.tableView.estimatedRowHeight           = 345.0;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 78.0;
     self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
@@ -301,6 +302,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFMainPageSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
 }
 
+- (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFHomeSection*)item {
+    return [[WMFFeaturedArticleSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
+}
+
 #pragma mark - Section Management
 
 - (void)updateSectionsOnOperationQueue {
@@ -351,6 +356,10 @@ NS_ASSUME_NONNULL_BEGIN
                 break;
             case WMFHomeSectionTypeMainPage:
                 [self loadSectionForSectionController:[self mainPageSectionControllerForSchemaItem:obj]];
+                break;
+            case WMFHomeSectionTypeFeaturedArticle:
+                [self loadSectionForSectionController:[self featuredArticleSectionControllerForSchemaItem:obj]];
+                break;
             default:
                 break;
         }
