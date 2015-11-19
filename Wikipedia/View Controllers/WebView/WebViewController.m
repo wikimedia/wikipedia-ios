@@ -517,10 +517,6 @@ NSString* const WMFLicenseTitleOnENWiki =
         @weakify(self);
         [_bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
             @strongify(self);
-            [self updateProgress:1.0 animated:YES completion:^{
-                [self hideProgressViewAnimated:YES];
-            }];
-
             //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
             dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
                 [self.delegate webViewController:self didLoadArticle:self.article];
@@ -707,10 +703,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     }
 
     [self.footerLicenseView setLicenseTextForSite:self.article.site];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateProgress:0.85 animated:YES completion:NULL];
-    });
 }
 
 #pragma mark Scroll to last section after rotate
@@ -889,68 +881,6 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)referenceViewController:(ReferencesVC*)referenceViewController didSelectExternalReferenceWithURL:(NSURL*)url {
     [self wmf_openExternalUrl:url];
-}
-
-#pragma mark - Progress
-
-- (WMFProgressLineView*)progressView {
-    if (!_progressView) {
-        WMFProgressLineView* progress = [[WMFProgressLineView alloc] initWithFrame:CGRectZero];
-        _progressView = progress;
-    }
-
-    return _progressView;
-}
-
-- (void)showProgressViewAnimated:(BOOL)animated {
-    self.progressView.progress = 0.0;
-
-    if (!animated) {
-        [self _showProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25 animations:^{
-        [self _showProgressView];
-    } completion:^(BOOL finished) {
-    }];
-}
-
-- (void)_showProgressView {
-    self.progressView.alpha = 1.0;
-
-    if (!self.progressView.superview) {
-        [self.view addSubview:self.progressView];
-        [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.top.equalTo(self.view.mas_top).with.offset(0);
-            make.left.equalTo(self.view.mas_left);
-            make.right.equalTo(self.view.mas_right);
-            make.height.equalTo(@2.0);
-        }];
-    }
-}
-
-- (void)hideProgressViewAnimated:(BOOL)animated {
-    if (!animated) {
-        [self _hideProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25 animations:^{
-        [self _hideProgressView];
-    } completion:nil];
-}
-
-- (void)_hideProgressView {
-    self.progressView.alpha = 0.0;
-}
-
-- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated completion:(dispatch_block_t)completion {
-    [self.progressView setProgress:progress animated:animated completion:completion];
-}
-
-- (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return 0.75 * progress;
 }
 
 #pragma mark - Share Actions

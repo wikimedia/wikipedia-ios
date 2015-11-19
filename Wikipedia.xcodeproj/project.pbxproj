@@ -541,7 +541,6 @@
 		BCFE02781B41FA12003752B7 /* MWKHistoryListPerformanceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFE02771B41FA12003752B7 /* MWKHistoryListPerformanceTests.m */; };
 		C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */; };
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
-		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
 		C46FBA4B1A8530EE00C5730F /* Pods-acknowledgements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */; };
 		C90799BA1A8564C60044E13C /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C90799B91A8564C60044E13C /* WMFShareOptionsController.m */; };
 		C913C89C1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = C913C89B1A94019A00BEEAF0 /* WMFSuggestedPagesFunnel.m */; };
@@ -1586,8 +1585,6 @@
 		C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedArticlesFetcher.m; sourceTree = "<group>"; };
 		C42D94821A937DE000A4871A /* WMFBorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBorderButton.h; sourceTree = "<group>"; };
 		C42D94831A937DE000A4871A /* WMFBorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBorderButton.m; sourceTree = "<group>"; };
-		C42D94841A937DE000A4871A /* WMFProgressLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFProgressLineView.h; sourceTree = "<group>"; };
-		C42D94851A937DE000A4871A /* WMFProgressLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFProgressLineView.m; sourceTree = "<group>"; };
 		C46FBA4A1A8530EE00C5730F /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Pods-acknowledgements.plist"; path = "../../../Pods/Target Support Files/Pods/Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		C7C26C8CB2ECA7439FB76EAE /* Pods.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.alpha.xcconfig; path = "Pods/Target Support Files/Pods/Pods.alpha.xcconfig"; sourceTree = "<group>"; };
 		C90799B81A8564C60044E13C /* WMFShareOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareOptionsController.h; path = ShareCard/WMFShareOptionsController.h; sourceTree = "<group>"; };
@@ -3560,8 +3557,6 @@
 				040D83581AB0ECFD000896D5 /* WMFCenteredPathView.m */,
 				C963358F1AA92AAC00A1EB2C /* WMFCrashAlertView.h */,
 				C96335901AA92AAC00A1EB2C /* WMFCrashAlertView.m */,
-				C42D94841A937DE000A4871A /* WMFProgressLineView.h */,
-				C42D94851A937DE000A4871A /* WMFProgressLineView.m */,
 				BCA96E711AAA354D009A61FA /* WMFGradientView.h */,
 				BCA96E721AAA354D009A61FA /* WMFGradientView.m */,
 				BC505EE91B59461400537006 /* WMFCollectionViewPageLayout.h */,
@@ -4393,7 +4388,6 @@
 				04D686F61AB2949C0009B44A /* MenuLabel.m in Sources */,
 				042E3B931AA16D6700BF8D66 /* UIViewController+WMFChildViewController.m in Sources */,
 				04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */,
-				C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */,
 				0E4500B51B979F7000A33B55 /* WMFHomeSectionSchema.m in Sources */,
 				0447866F1852B5010050563B /* SessionSingleton.m in Sources */,
 				04CB603D1B5053120052B6EF /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */,
