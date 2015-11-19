@@ -474,6 +474,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)selectLanguageForButton:(UIButton*)button{
     NSUInteger index = [self.languageButtons indexOfObject:button];
+    NSAssert(index != NSNotFound, @"language button not found for language!");
     if(index != NSNotFound){
         MWKLanguageLink* lang = self.searchLanguages[index];
         [self selectLanguageForSite:lang.site];
