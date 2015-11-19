@@ -15,4 +15,11 @@
                       s.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
 }
 
+- (CGSize)sizeThatFits:(CGSize)size {
+    CGSize s = [super sizeThatFits:size];
+    return CGSizeMake(s.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
+                      s.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+}
+
+
 @end
