@@ -16,6 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWKLanguageLinkController : NSObject
 
 /**
+ * Returns languages of the reviever, with preferred languages listed first.
+ *
+ * The languages returned by this property will be filtered if @c languageFilter is non-nil.
+ */
+@property (readonly, copy, nonatomic) NSArray* filteredLanguages;
+
+/**
  * Subset of the languages in the receiver which intersect with the user's preferred languages.
  *
  * The languages returned by this property will be filtered if @c languageFilter is non-nil.

@@ -123,6 +123,13 @@ static NSArray* WMFUnsupportedLanguages() {
 
 #pragma mark - Getters & Setters
 
+- (NSArray*)filteredLanguages {
+    NSMutableArray* lang = [NSMutableArray array];
+    [lang addObjectsFromArray:self.filteredPreferredLanguages];
+    [lang addObjectsFromArray:self.filteredOtherLanguages];
+    return lang;
+}
+
 - (NSArray*)languageCodes {
     return [self.languageLinks valueForKey:WMF_SAFE_KEYPATH(MWKLanguageLink.new, languageCode)];
 }
