@@ -29,12 +29,13 @@
 }
 
 - (void)setTintColor:(UIColor*)tintColor {
+    [super setTintColor:tintColor];
     self.underline.backgroundColor = self.tintColor;
     [self setTitleColor:self.tintColor forState:UIControlStateSelected];
 }
 
 - (void)addUnderline {
-    self.underlineHeight = 2.0;
+    self.underlineHeight = 1.0;
     UIView* v = [[UIView alloc] initWithFrame:CGRectZero];
     v.backgroundColor = self.tintColor;
     [self addSubview:v];
