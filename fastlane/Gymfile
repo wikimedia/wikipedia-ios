@@ -2,3 +2,4 @@ workspace 'Wikipedia.xcworkspace'
 include_bitcode false
 clean true
 output_directory './build'
+codesigning_identity 'iPhone Distribution: Wikimedia Foundation'
