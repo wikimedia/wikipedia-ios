@@ -179,7 +179,7 @@ class WMFImageControllerTests: XCTestCase {
                                     evaluatedWithObject: operation,
                                     handler: nil)
 
-            wmf_waitForExpectations()
+            wmf_waitForExpectations(5)
 
             operation.cancel()
 
@@ -198,7 +198,7 @@ class WMFImageControllerTests: XCTestCase {
             }
 
 
-            wmf_waitForExpectations(2)
+            wmf_waitForExpectations(5)
 
             LSNocilla.sharedInstance().stop()
         }
