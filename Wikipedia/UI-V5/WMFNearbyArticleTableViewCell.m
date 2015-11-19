@@ -26,6 +26,7 @@
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
+#import "UITableViewCell+SelectedBackground.h"
 
 @interface WMFNearbyArticleTableViewCell ()
 
@@ -52,6 +53,7 @@
     self.distanceLabelBackground.backgroundColor    = [UIColor wmf_nearbyDistanceBackgroundColor];
     self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
     self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
+    [self wmf_setSelectedBackground];
 }
 
 - (void)prepareForReuse {

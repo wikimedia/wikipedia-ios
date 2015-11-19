@@ -3,6 +3,7 @@
 #import "UIColor+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 #import "UIImageView+WMFImageFetching.h"
+#import "UITableViewCell+SelectedBackground.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -26,6 +27,7 @@
         self.articleImageView.backgroundColor = [UIColor clearColor];
         self.articleImageView.contentMode     = UIViewContentModeScaleAspectFit;
     }
+    [self wmf_setSelectedBackground];
 }
 
 - (void)configureCell {
