@@ -499,17 +499,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self searchForSearchTerm:self.searchField.text];
 }
 
-- (IBAction)setLanguageOne:(id)sender {
+- (IBAction)setLanguageWithSender:(id)sender {
     [self selectLanguageForButton:sender];
 }
 
-- (IBAction)setLanguageTwo:(id)sender {
-    [self selectLanguageForButton:sender];
-}
-
-- (IBAction)setLanguageThree:(id)sender {
-    [self selectLanguageForButton:sender];
-}
 - (IBAction)openLanguagePicker:(id)sender {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     languagesVC.languageSelectionDelegate = self;

@@ -106,7 +106,7 @@
                                                         <color key="titleColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="setLanguageOne:" destination="tkf-8P-b2O" eventType="touchUpInside" id="KR3-vu-odN"/>
+                                                        <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="l8P-nC-MVz"/>
                                                     </connections>
                                                 </button>
                                             </barButtonItem>
@@ -122,7 +122,7 @@
                                                         <color key="titleColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="setLanguageTwo:" destination="tkf-8P-b2O" eventType="touchUpInside" id="uLX-so-OSL"/>
+                                                        <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="Wta-yK-ovt"/>
                                                     </connections>
                                                 </button>
                                             </barButtonItem>
@@ -138,7 +138,7 @@
                                                         <color key="titleColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="setLanguageThree:" destination="tkf-8P-b2O" eventType="touchUpInside" id="evM-wn-Kx3"/>
+                                                        <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="hf2-8z-SOw"/>
                                                     </connections>
                                                 </button>
                                             </barButtonItem>
@@ -360,7 +360,7 @@
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ka6-Dy-C8P">
                                 <rect key="frame" x="0.0" y="58" width="600" height="434"/>
                                 <animations/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="Rqy-g9-mNA" id="5go-DG-2bZ"/>
