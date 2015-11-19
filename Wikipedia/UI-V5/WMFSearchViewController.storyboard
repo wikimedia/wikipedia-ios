@@ -165,14 +165,33 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </toolbar>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dFR-By-zsk" userLabel="Separator View">
+                                        <rect key="frame" x="0.0" y="43" width="600" height="1"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="9Uj-8I-d9R"/>
+                                            <constraint firstAttribute="height" constant="32" id="R8c-in-HFF"/>
+                                            <constraint firstAttribute="width" constant="1" id="vIg-pe-KhB"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="R8c-in-HFF"/>
+                                                <exclude reference="vIg-pe-KhB"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="k25-Yc-hbU" firstAttribute="top" secondItem="xlJ-QG-9Zi" secondAttribute="top" id="4Wk-Da-buQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="dFR-By-zsk" secondAttribute="bottom" id="BwX-Hg-sld"/>
                                     <constraint firstAttribute="bottom" secondItem="k25-Yc-hbU" secondAttribute="bottom" id="Nm0-IC-kNp"/>
                                     <constraint firstItem="k25-Yc-hbU" firstAttribute="leading" secondItem="xlJ-QG-9Zi" secondAttribute="leading" id="P5K-ua-Xai"/>
+                                    <constraint firstItem="dFR-By-zsk" firstAttribute="leading" secondItem="xlJ-QG-9Zi" secondAttribute="leading" id="bM8-TM-2pt"/>
                                     <constraint firstAttribute="trailing" secondItem="k25-Yc-hbU" secondAttribute="trailing" id="epS-Mt-Mju"/>
+                                    <constraint firstAttribute="trailing" secondItem="dFR-By-zsk" secondAttribute="trailing" id="h9w-Hl-U2z"/>
                                     <constraint firstAttribute="height" constant="44" id="hE6-Up-vv4"/>
                                 </constraints>
                             </view>
@@ -210,22 +229,6 @@
                                             <action selector="didTapCloseButton:" destination="tkf-8P-b2O" eventType="touchUpInside" id="tKu-w0-suh"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CjY-C1-VXL" userLabel="Separator View">
-                                        <rect key="frame" x="0.0" y="63" width="600" height="1"/>
-                                        <animations/>
-                                        <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="AJu-FC-BHq"/>
-                                            <constraint firstAttribute="height" constant="1" id="UGG-K8-Zkd"/>
-                                            <constraint firstAttribute="width" constant="1" id="aQy-87-XeI"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="AJu-FC-BHq"/>
-                                                <exclude reference="aQy-87-XeI"/>
-                                            </mask>
-                                        </variation>
-                                    </view>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -233,7 +236,6 @@
                                     <constraint firstAttribute="height" constant="64" id="0Cz-C0-e2t"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="leading" secondItem="Nef-Ia-7Gd" secondAttribute="trailing" constant="8" id="3jR-gx-E0p"/>
                                     <constraint firstAttribute="bottom" secondItem="Nef-Ia-7Gd" secondAttribute="bottom" id="5tS-6M-np1"/>
-                                    <constraint firstAttribute="trailing" secondItem="CjY-C1-VXL" secondAttribute="trailing" id="Fh7-xw-CE6"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="leading" secondItem="a3z-uC-8hv" secondAttribute="trailing" id="Hd1-Zn-NoC"/>
                                     <constraint firstAttribute="trailing" secondItem="a3z-uC-8hv" secondAttribute="trailing" constant="43" id="KI7-ee-FBM"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="KTK-FL-Ful"/>
@@ -241,8 +243,6 @@
                                     <constraint firstAttribute="trailing" secondItem="Kjf-LF-NvO" secondAttribute="trailing" id="dhk-Qt-ipY"/>
                                     <constraint firstItem="Nef-Ia-7Gd" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="15" id="f6B-qa-3hz"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="gwj-4Q-d0l"/>
-                                    <constraint firstItem="CjY-C1-VXL" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" id="lMJ-N6-2N9"/>
-                                    <constraint firstAttribute="bottom" secondItem="CjY-C1-VXL" secondAttribute="bottom" id="mz2-Z2-aN1"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="height" secondItem="Nef-Ia-7Gd" secondAttribute="height" id="olR-5u-Pe9"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
