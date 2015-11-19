@@ -220,14 +220,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self saveLastSearch];
 
-    self.searchFieldTop.constant = -self.searchFieldHeight.constant;
-
-    [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self.searchField resignFirstResponder];
-        [self.view layoutIfNeeded];
-    } completion:nil];
+    if(!self.presentedViewController){
+        [self saveLastSearch];
+        
+        self.searchFieldTop.constant = -self.searchFieldHeight.constant;
+        
+        [self.transitionCoordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
+            [self.searchField resignFirstResponder];
+            [self.view layoutIfNeeded];
+        } completion:nil];
+    }
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection
