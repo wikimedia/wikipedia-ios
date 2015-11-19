@@ -9,7 +9,6 @@
 #import "LegacyPhoneGapDataMigrator.h"
 
 #import "WikipediaAppUtils.h"
-#import "WMFProgressLineView.h"
 #import "ArticleDataContextSingleton.h"
 
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -95,7 +94,9 @@ enum {
     // From the native app's initial CoreData-based implementation,
     // which now lives in LegacyCoreData subproject.
 
-    self.progressIndicator.progress = 0.0;
+    self.progressIndicator.progress       = 0.0;
+    self.progressIndicator.trackTintColor = [UIColor clearColor];
+    self.progressIndicator.tintColor      = [UIColor wmf_blueTintColor];
 
     self.oldDataSchema.delegate         = self.schemaConvertor;
     self.oldDataSchema.progressDelegate = self;
@@ -124,18 +125,16 @@ enum {
     [[SessionSingleton sharedInstance].userDataStore reset];
     NSLog(@"end migration");
 
-    [self.progressIndicator setProgress:1.0 animated:YES completion:^{
-        [self dispatchCOmpletionBlockWithStatus:YES];
-    }];
+    [self.progressIndicator setProgress:1.0 animated:YES];
+    [self dispatchCOmpletionBlockWithStatus:YES];
 }
 
 - (void)oldDataSchema:(LegacyCoreDataMigrator*)schema didFinishWithError:(NSError*)error {
     [self displayErrorCondition];
     NSLog(@"end migration");
 
-    [self.progressIndicator setProgress:1.0 animated:YES completion:^{
-        [self dispatchCOmpletionBlockWithStatus:YES];
-    }];
+    [self.progressIndicator setProgress:1.0 animated:YES];
+    [self dispatchCOmpletionBlockWithStatus:YES];
 }
 
 - (void)displayErrorCondition {
