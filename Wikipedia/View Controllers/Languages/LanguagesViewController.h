@@ -4,12 +4,11 @@
 #import <UIKit/UIKit.h>
 #import "LangaugeSelectionDelegate.h"
 
-@class MWKLanguageLink;
-@class LanguagesViewController;
+@class MWKArticle;
 
 @interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic) BOOL downloadLanguagesForCurrentArticle;
+@property (nonatomic, strong) MWKTitle* articleTitle;
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 

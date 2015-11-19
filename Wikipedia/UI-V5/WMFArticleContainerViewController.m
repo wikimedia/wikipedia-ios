@@ -132,8 +132,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showLanguagePicker {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.downloadLanguagesForCurrentArticle = YES;
-    languagesVC.languageSelectionDelegate          = self;
+    languagesVC.articleTitle              = self.articleTitle;
+    languagesVC.languageSelectionDelegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
