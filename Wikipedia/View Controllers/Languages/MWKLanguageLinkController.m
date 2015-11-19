@@ -35,23 +35,25 @@ NSArray* WMFReadPreviouslySelectedLanguages() {
 
 /// Get the union of OS preferred languages & previously selected languages.
 static NSArray* WMFReadPreviousAndPreferredLanguages() {
-    NSMutableSet* preferredLanguages = [NSMutableSet setWithArray:[[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
+    NSMutableArray* preferredLanguages = [[[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
         NSLocale* locale = [NSLocale localeWithLocaleIdentifier:languageCode];
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
         return [locale objectForKey:NSLocaleLanguageCode];
+    }] mutableCopy];
+
+    [preferredLanguages addObjectsFromArray:[WMFReadPreviouslySelectedLanguages() bk_reject:^BOOL (id obj) {
+        return [preferredLanguages containsObject:obj];
     }]];
-    [preferredLanguages addObjectsFromArray:WMFReadPreviouslySelectedLanguages()];
-    return [preferredLanguages allObjects];
+    return preferredLanguages;
 }
 
 /// Uniquely append @c languageCode to the list of previously selected languages.
 static NSArray* WMFAppendAndWriteToPreviousLanguages(NSString* languageCode) {
     NSMutableArray* langCodes = WMFReadPreviouslySelectedLanguages().mutableCopy;
-    if (![langCodes containsObject:languageCode]) {
-        [langCodes addObject:languageCode];
-        [[NSUserDefaults standardUserDefaults] setObject:langCodes forKey:WMFPreviousLanguagesKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+    [langCodes removeObject:languageCode];
+    [langCodes insertObject:languageCode atIndex:0];
+    [[NSUserDefaults standardUserDefaults] setObject:langCodes forKey:WMFPreviousLanguagesKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     return langCodes;
 }
 
@@ -182,8 +184,10 @@ static NSArray* WMFUnsupportedLanguages() {
 - (void)updateFilteredLanguagesWithPreviousLanguages:(NSArray*)previousLanguages {
     NSArray* sortedAndFilteredLanguages = [self sortedAndFilteredLanguageLinks];
     NSArray* preferredLangs             = WMFReadPreviousAndPreferredLanguages();
-    self.filteredPreferredLanguages = [sortedAndFilteredLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
-        return [preferredLangs containsObject:langLink.languageCode];
+    self.filteredPreferredLanguages = [preferredLangs bk_map:^id (NSString* langString) {
+        return [sortedAndFilteredLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
+            return [langLink.languageCode isEqualToString:langString];
+        }];
     }];
     self.filteredOtherLanguages = [sortedAndFilteredLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
         return ![self.filteredPreferredLanguages containsObject:langLink];
