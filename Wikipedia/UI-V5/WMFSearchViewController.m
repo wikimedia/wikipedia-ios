@@ -254,6 +254,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
+        [self resizeLanguageButtonsIfNeeded];
+    } completion:nil];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
         self.resultsListController = segue.destinationViewController;
@@ -450,8 +457,32 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self updateLanguages];
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj setTitle:[(MWKLanguageLink*)self.searchLanguages[idx] name]  forState:UIControlStateNormal];
+    }];
+    [self resizeLanguageButtonsIfNeeded];
+}
+
+/**
+ *  HACK: Auto layout is not possible in the tool bar.
+ *  This truncates text of language buttons if they are larger than the display
+ */
+- (void)resizeLanguageButtonsIfNeeded{
+    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj sizeToFit];
     }];
+    CGFloat buttonWidth = [[self.languageButtons bk_reduce:@0 withBlock:^id(NSNumber* sum, UIButton* obj) {
+        return @(obj.frame.size.width + [sum floatValue]);
+        
+    }] floatValue];
+    buttonWidth += self.otherLanguagesButton.frame.size.width;
+    
+    //6 leaves us 2 pixels between each button
+    if(buttonWidth > self.view.frame.size.width - 6){
+        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            CGRect f = obj.frame;
+            f.size.width -= (buttonWidth - (self.view.frame.size.width - 6))/3;
+            obj.frame = f;
+        }];
+    }
 }
 
 - (void)selectLanguageForSite:(MWKSite*)site{
