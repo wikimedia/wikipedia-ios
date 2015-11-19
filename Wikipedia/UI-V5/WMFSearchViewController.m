@@ -3,6 +3,8 @@
 #import "RecentSearchesViewController.h"
 #import "WMFArticleListTableViewController.h"
 
+#import "SessionSingleton.h"
+
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 
@@ -223,6 +225,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     if(!self.presentedViewController){
         [self saveLastSearch];
+        [self saveSearchlanguage];
         
         self.searchFieldTop.constant = -self.searchFieldHeight.constant;
         
@@ -425,6 +428,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 #pragma mark - Languages
+
+- (void)saveSearchlanguage{
+    [[SessionSingleton sharedInstance] setSearchLanguage:self.searchSite.language];
+}
 
 - (void)updateLanguages{
     [self.langLinkController loadStaticSiteLanguageData];
