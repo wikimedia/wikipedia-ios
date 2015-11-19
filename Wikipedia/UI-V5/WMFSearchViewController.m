@@ -174,7 +174,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
 }
 
-- (void)configureLangaugeButtons{
+- (void)configureLanguageButtons{
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.tintColor = [UIColor wmf_blueTintColor];
     }];
@@ -197,7 +197,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super viewDidLoad];
 
     [self configureSearchField];
-    [self configureLangaugeButtons];
+    [self configureLanguageButtons];
     
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
