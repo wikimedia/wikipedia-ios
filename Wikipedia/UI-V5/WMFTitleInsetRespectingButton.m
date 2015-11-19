@@ -8,18 +8,19 @@
  *  http://stackoverflow.com/a/17806333/48311
  *
  */
+- (CGSize)sizeByAddingInsetsToSize:(CGSize)size {
+    return CGSizeMake(size.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
+                      size.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+}
+
 - (CGSize)intrinsicContentSize {
     CGSize s = [super intrinsicContentSize];
-
-    return CGSizeMake(s.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
-                      s.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+    return [self sizeByAddingInsetsToSize:s];
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
     CGSize s = [super sizeThatFits:size];
-    return CGSizeMake(s.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right,
-                      s.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom);
+    return [self sizeByAddingInsetsToSize:s];
 }
-
 
 @end
