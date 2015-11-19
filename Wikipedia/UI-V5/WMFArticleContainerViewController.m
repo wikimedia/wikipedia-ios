@@ -99,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
+@property (strong, nonatomic) UIProgressView* progressView;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -251,6 +252,18 @@ NS_ASSUME_NONNULL_BEGIN
     return _shareOptionsController;
 }
 
+- (UIProgressView*)progressView {
+    if (!_progressView) {
+        UIProgressView* progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+        progress.translatesAutoresizingMaskIntoConstraints = NO;
+        progress.trackTintColor                            = [UIColor clearColor];
+        progress.tintColor                                 = [UIColor wmf_blueTintColor];
+        _progressView                                      = progress;
+    }
+
+    return _progressView;
+}
+
 #pragma mark - Notifications and Observations
 
 - (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
@@ -366,6 +379,66 @@ NS_ASSUME_NONNULL_BEGIN
     return _languagesToolbarItem;
 }
 
+#pragma mark - Progress
+
+- (void)addProgressView {
+    [self.view addSubview:self.progressView];
+    [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(0);
+        make.left.equalTo(self.progressView.superview.mas_left);
+        make.right.equalTo(self.progressView.superview.mas_right);
+        make.height.equalTo(@2.0);
+    }];
+}
+
+- (void)removeProgressView {
+    [self.progressView removeFromSuperview];
+}
+
+- (void)showProgressViewAnimated:(BOOL)animated {
+    self.progressView.progress = 0.0;
+
+    if (!animated) {
+        [self _showProgressView];
+        return;
+    }
+
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _showProgressView];
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)_showProgressView {
+    self.progressView.alpha = 1.0;
+}
+
+- (void)hideProgressViewAnimated:(BOOL)animated {
+    //Don't remove the progress immediately, let the user see it then dismiss
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        if (!animated) {
+            [self _hideProgressView];
+            return;
+        }
+
+        [UIView animateWithDuration:0.25 animations:^{
+            [self _hideProgressView];
+        } completion:nil];
+    });
+}
+
+- (void)_hideProgressView {
+    self.progressView.alpha = 0.0;
+}
+
+- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+    [self.progressView setProgress:progress animated:animated];
+}
+
+- (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
+    return 0.75 * progress;
+}
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
@@ -394,11 +467,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self addProgressView];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self saveWebViewScrollOffset];
+    [self removeProgressView];
     [super viewWillDisappear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
 }
@@ -433,13 +508,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchArticle {
     @weakify(self);
     [self unobserveArticleUpdates];
-    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:NULL]
-                                 .then(^(MWKArticle* article) {
+    [self showProgressViewAnimated:YES];
+    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
+        dispatchOnMainQueue(^{
+            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
+        });
+    }].then(^(MWKArticle* article) {
         @strongify(self);
         [self saveWebViewScrollOffset];
+        dispatchOnMainQueue(^{
+            [self updateProgress:0.85 animated:YES];
+        });
         self.article = article;
     }).catch(^(NSError* error){
         @strongify(self);
+        [self hideProgressViewAnimated:YES];
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
@@ -498,6 +581,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
+    [self updateProgress:1.0 animated:YES];
+    [self hideProgressViewAnimated:YES];
     [self scrollWebViewToRequestedPosition];
 }
 
