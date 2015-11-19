@@ -153,6 +153,13 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     } completion:nil];
 }
 
+- (void)setSearchFieldText:(NSString*)text {
+    self.searchField.text = text;
+    [self setSeparatorViewHidden:text.length == 0 animated:YES];
+}
+
+#pragma mark - Setup
+
 - (void)configureArticleList {
     self.resultsListController.dataStore = self.dataStore;
     self.resultsListController.delegate  = self;
@@ -162,10 +169,22 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     self.recentSearchesViewController.recentSearches = self.dataStore.userDataStore.recentSearchList;
     self.recentSearchesViewController.delegate       = self;
 }
+- (void)configureSearchField {
+    [self setSeparatorViewHidden:YES animated:NO];
+    [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
+}
 
-- (void)setSearchFieldText:(NSString*)text {
-    self.searchField.text = text;
-    [self setSeparatorViewHidden:text.length == 0 animated:YES];
+- (void)configureLangaugeButtons{
+    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.tintColor = [UIColor wmf_blueTintColor];
+    }];
+    UIImage* buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+    [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+    [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
+    [self.otherLanguagesButton sizeToFit];
+    
+    [self updateLanguageButtonsToPreferredLanguages];
+    [self selectLanguageForSite:self.searchSite];
 }
 
 #pragma mark - UIViewController
@@ -174,23 +193,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return NO;
 }
 
-- (void)configureSearchField {
-    [self setSeparatorViewHidden:YES animated:NO];
-    [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self configureSearchField];
-    
-    UIImage* buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-    [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
-    [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
-    [self.otherLanguagesButton sizeToFit];
-    
-    [self updateLanguageButtonsToPreferredLanguages];
-    [self selectLanguageForSite:self.searchSite];
+    [self configureLangaugeButtons];
     
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
