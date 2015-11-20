@@ -104,6 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
 
+/**
+ *  Need to track this so we don't update the progress bar when loading cached articles
+ */
+@property (nonatomic, assign) BOOL webViewIsLoadingFetchedArticle;
 @end
 
 @implementation WMFArticleContainerViewController
@@ -435,15 +439,18 @@ NS_ASSUME_NONNULL_BEGIN
     [self.progressView setProgress:progress animated:animated];
 }
 
+/**
+ *  Some of the progress is in loading the HTML into the webview
+ *  This leaves 20% of progress for that work.
+ */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
-    return 0.75 * progress;
+    return 0.8 * progress;
 }
 
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self setupToolbar];
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 
@@ -511,14 +518,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self showProgressViewAnimated:YES];
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
         dispatchOnMainQueue(^{
-            [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
         });
+        [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
         [self saveWebViewScrollOffset];
         dispatchOnMainQueue(^{
-            [self updateProgress:0.85 animated:YES];
         });
+        [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
+        self.webViewIsLoadingFetchedArticle = YES;
         self.article = article;
     }).catch(^(NSError* error){
         @strongify(self);
@@ -581,8 +589,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
-    [self updateProgress:1.0 animated:YES];
-    [self hideProgressViewAnimated:YES];
+    if (self.webViewIsLoadingFetchedArticle) {
+        [self updateProgress:1.0 animated:YES];
+        [self hideProgressViewAnimated:YES];
+        self.webViewIsLoadingFetchedArticle = NO;
+    }
     [self scrollWebViewToRequestedPosition];
 }
 
