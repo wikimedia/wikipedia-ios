@@ -40,7 +40,6 @@
 #import "WMFArticleImageProtocol.h"
 #import "WMFURLCache.h"
 
-#import "WMFProgressLineView.h"
 #import "MWKHistoryEntry.h"
 
 //#import "UIView+Debugging.h"
@@ -93,8 +92,6 @@ static int const kMinimumTextSelectionLength = 2;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* webViewBottomConstraint;
 
 @property (nonatomic) BOOL referencesHidden;
-
-@property (strong, nonatomic) WMFProgressLineView* progressView;
 
 /**
  * Designated initializer.

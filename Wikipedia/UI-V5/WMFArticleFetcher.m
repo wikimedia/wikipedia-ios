@@ -87,7 +87,11 @@ NS_ASSUME_NONNULL_BEGIN
         if (totalBytesExpectedToRead > 0) {
             downloadProgress = (CGFloat)(totalBytesRead / totalBytesExpectedToRead);
         } else {
-            downloadProgress += 0.05;
+            downloadProgress += 0.02;
+        }
+
+        if (downloadProgress > 1.0) {
+            downloadProgress = 1.0;
         }
 
         if (progress) {
