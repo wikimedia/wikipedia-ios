@@ -9,6 +9,8 @@
 
 + (instancetype)wmf_blueTintColor;
 
++ (instancetype)wmf_tapHighlightColor;
+
 + (instancetype)wmf_summaryTextColor;
 
 + (instancetype)wmf_licenseTextColor;
