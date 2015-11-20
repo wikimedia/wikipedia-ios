@@ -7,4 +7,6 @@
 
 + (UIImage*)wmf_placeholderImage;
 
++ (instancetype)wmf_imageFromColor:(UIColor*)color;
+
 @end

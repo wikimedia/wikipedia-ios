@@ -263,6 +263,7 @@
 		0EE1519C1BF545DF0039828A /* WMFContinueReadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE1519A1BF545DF0039828A /* WMFContinueReadingTableViewCell.xib */; };
 		0EE151A01BF547220039828A /* WMFMainPageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE1519E1BF547220039828A /* WMFMainPageTableViewCell.m */; };
 		0EE151A11BF547220039828A /* WMFMainPageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE1519F1BF547220039828A /* WMFMainPageTableViewCell.xib */; };
+		0EE61FBA1BFE41AD0025E258 /* WMFUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE61FB91BFE41AD0025E258 /* WMFUnderlineButton.m */; };
 		0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */; };
 		0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE768801AFD25CC00A5D046 /* WMFSearchFunnel.m */; };
 		0EEAF0F51B8229D9000D4232 /* WMFHomeSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEAF0F41B8229D9000D4232 /* WMFHomeSectionHeader.m */; };
@@ -1039,6 +1040,8 @@
 		0EE1519D1BF547220039828A /* WMFMainPageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFMainPageTableViewCell.h; sourceTree = "<group>"; };
 		0EE1519E1BF547220039828A /* WMFMainPageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMainPageTableViewCell.m; sourceTree = "<group>"; };
 		0EE1519F1BF547220039828A /* WMFMainPageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFMainPageTableViewCell.xib; sourceTree = "<group>"; };
+		0EE61FB81BFE41AD0025E258 /* WMFUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFUnderlineButton.h; sourceTree = "<group>"; };
+		0EE61FB91BFE41AD0025E258 /* WMFUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFUnderlineButton.m; sourceTree = "<group>"; };
 		0EE768791AF982C100A5D046 /* WMFArticleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleProtocol.h; path = Wikipedia/Protocols/WMFArticleProtocol.h; sourceTree = SOURCE_ROOT; };
 		0EE7687A1AF982C100A5D046 /* WMFArticleProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleProtocol.m; path = Wikipedia/Protocols/WMFArticleProtocol.m; sourceTree = SOURCE_ROOT; };
 		0EE7687F1AFD25CC00A5D046 /* WMFSearchFunnel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSearchFunnel.h; sourceTree = "<group>"; };
@@ -2518,6 +2521,8 @@
 				0E74DC841BEBC0A100A8A005 /* WMFIntrinsicSizeTableView.m */,
 				0E74DC861BEBC13800A8A005 /* WMFIntrinsicSizeCollectionView.h */,
 				0E74DC871BEBC13800A8A005 /* WMFIntrinsicSizeCollectionView.m */,
+				0EE61FB81BFE41AD0025E258 /* WMFUnderlineButton.h */,
+				0EE61FB91BFE41AD0025E258 /* WMFUnderlineButton.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -4503,6 +4508,7 @@
 				0ED44D781B28DA4D00F284BA /* UICollectionView+WMFExtensions.m in Sources */,
 				043B6E8E1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */,
 				0E76D1A01BE3D8B300937DC3 /* MWKSearchRedirectMapping.m in Sources */,
+				0EE61FBA1BFE41AD0025E258 /* WMFUnderlineButton.m in Sources */,
 				0487048719F8262600B7D307 /* LoginTokenFetcher.m in Sources */,
 				D4B0AE0E19366A5400F0AC90 /* LoginFunnel.m in Sources */,
 				BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */,
