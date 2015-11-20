@@ -522,7 +522,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-    MWKTitle* title                         = [controller titleForItemAtIndex:indexPath.row];
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)] && ![controller shouldSelectItemAtIndex:indexPath.item]) {
+        return;
+    }
+    MWKTitle* title = [controller titleForItemAtIndex:indexPath.row];
     if (title) {
         MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
         [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
