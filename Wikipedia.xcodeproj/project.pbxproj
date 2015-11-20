@@ -421,6 +421,8 @@
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
 		BC955BCF1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */; };
 		BC98781A1BCF307B003835EA /* MWKRecentSearchDataStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9878191BCF307B003835EA /* MWKRecentSearchDataStoreTests.m */; };
+		BC9A8F511BFFCFD700D2607E /* XCTestCase+PromiseKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8F501BFFCFD700D2607E /* XCTestCase+PromiseKitTests.m */; };
+		BC9A8F531BFFDA5200D2607E /* XCTestCase+PromiseKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8F521BFFDA5200D2607E /* XCTestCase+PromiseKitTests.swift */; };
 		BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */; };
 		BCA3F04F1BBC6D53004CDFF2 /* UIViewController+WMFSearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA3F04E1BBC6D53004CDFF2 /* UIViewController+WMFSearchButton.m */; };
 		BCA676561AC05FE200A16160 /* NSBundle+TestAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA676521AC05FE200A16160 /* NSBundle+TestAssets.m */; };
@@ -1337,6 +1339,8 @@
 		BC955BCD1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AFHTTPRequestOperationManager+WMFConfig.h"; path = "Queues/AFHTTPRequestOperationManager+WMFConfig.h"; sourceTree = "<group>"; };
 		BC955BCE1A82C2FA000EF9E4 /* AFHTTPRequestOperationManager+WMFConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AFHTTPRequestOperationManager+WMFConfig.m"; path = "Queues/AFHTTPRequestOperationManager+WMFConfig.m"; sourceTree = "<group>"; };
 		BC9878191BCF307B003835EA /* MWKRecentSearchDataStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKRecentSearchDataStoreTests.m; sourceTree = "<group>"; };
+		BC9A8F501BFFCFD700D2607E /* XCTestCase+PromiseKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+PromiseKitTests.m"; sourceTree = "<group>"; };
+		BC9A8F521BFFDA5200D2607E /* XCTestCase+PromiseKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+PromiseKitTests.swift"; sourceTree = "<group>"; };
 		BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
 		BCA3F04D1BBC6D53004CDFF2 /* UIViewController+WMFSearchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFSearchButton.h"; sourceTree = "<group>"; };
 		BCA3F04E1BBC6D53004CDFF2 /* UIViewController+WMFSearchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMFSearchButton.m"; sourceTree = "<group>"; };
@@ -3182,6 +3186,8 @@
 				BCE839811BF4301E00F5BBA4 /* WMFSearchFetcherTests.m */,
 				BCE839511BF0FFD000F5BBA4 /* WMFENFeaturedTitleFetcherTests.m */,
 				BC75910F1BF62F3000AE2EEA /* WMFRecentPagesDataSourceTests.m */,
+				BC9A8F501BFFCFD700D2607E /* XCTestCase+PromiseKitTests.m */,
+				BC9A8F521BFFDA5200D2607E /* XCTestCase+PromiseKitTests.swift */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -4283,10 +4289,12 @@
 				BC2F420E1BEB9BBC0033E185 /* WMFImageControllerTests.swift in Sources */,
 				BC0FED6A1AAA0268002488D7 /* MWKDataStorePathTests.m in Sources */,
 				BC725ECA1B617E1A00E0A64C /* WMFSafeAssignTests.m in Sources */,
+				BC9A8F531BFFDA5200D2607E /* XCTestCase+PromiseKitTests.swift in Sources */,
 				BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */,
 				BCE839821BF4301E00F5BBA4 /* WMFSearchFetcherTests.m in Sources */,
 				BC676DA71BCF34120041CB92 /* MWKSavedPageListSharedTests.m in Sources */,
 				BCA676571AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.m in Sources */,
+				BC9A8F511BFFCFD700D2607E /* XCTestCase+PromiseKitTests.m in Sources */,
 				0449D1421B83D9370036A9C8 /* NSAttributedString+WMFModifyTests.m in Sources */,
 				BC676DA31BCF33800041CB92 /* MWKHistoryListDataStoreTests.m in Sources */,
 				BC0FED671AAA0268002488D7 /* MWKTitleTests.m in Sources */,
