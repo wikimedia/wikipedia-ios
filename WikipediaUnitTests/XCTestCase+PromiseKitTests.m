@@ -13,8 +13,8 @@
 
 @implementation XCTestCase_PromiseKitTests
 
-- (void)recordFailureWithDescription:(NSString *)description
-                              inFile:(NSString *)filePath
+- (void)recordFailureWithDescription:(NSString*)description
+                              inFile:(NSString*)filePath
                               atLine:(NSUInteger)lineNumber
                             expected:(BOOL)expected {
     if (![description hasPrefix:@"Asynchronous wait failed: Exceeded timeout of 1 seconds, with unfulfilled expectations: \"testShouldNotFulfillExpectationWhenTimeoutExpires"]) {
@@ -26,7 +26,7 @@
 - (void)testShouldNotFulfillExpectationWhenTimeoutExpiresForResolution {
     __block PMKResolver resolve;
     expectResolution(^{
-        return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull aResolve) {
+        return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
             resolve = aResolve;
         }];
     });
@@ -36,8 +36,8 @@
 
 - (void)testShouldNotFulfillExpectationWhenTimeoutExpiresForError {
     __block PMKResolver resolve;
-    [self expectAnyPromiseToCatch:^AnyPromise *{
-        return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull aResolve) {
+    [self expectAnyPromiseToCatch:^AnyPromise*{
+        return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
             resolve = aResolve;
         }];
     } withPolicy:PMKCatchPolicyAllErrors timeout:1  WMFExpectFromHere];

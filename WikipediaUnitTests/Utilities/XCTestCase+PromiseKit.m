@@ -30,13 +30,13 @@
                        testMethod:(SEL)method
                              line:(NSUInteger)line {
     __block XCTestExpectation* expectation = [self expectationForMethod:method line:line];
-    AnyPromise* promise            = testBlock();
+    AnyPromise* promise                    = testBlock();
     promise.then(^{
         [expectation fulfill];
     }).catchWithPolicy(PMKCatchPolicyAllErrors, ^(NSError* e) {
         XCTFail(@"Unexpected error: %@", e);
     });
-    [self waitForExpectationsWithTimeout:timeout handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:timeout handler:^(NSError* _Nullable error) {
         // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
         expectation = nil;
     }];
@@ -59,13 +59,13 @@
                      testMethod:(SEL)method
                            line:(NSUInteger)line {
     __block XCTestExpectation* expectation = [self expectationForMethod:method line:line];
-    AnyPromise* promise            = testBlock();
+    AnyPromise* promise                    = testBlock();
     promise.then(^(id val){
         XCTFail(@"Unexpected resolution: %@", val);
     }).catchWithPolicy(policy, ^{
         [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:timeout handler:^(NSError * _Nullable error) {
+    [self waitForExpectationsWithTimeout:timeout handler:^(NSError* _Nullable error) {
         // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
         expectation = nil;
     }];
