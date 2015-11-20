@@ -57,7 +57,7 @@ describe(@"partitioning by date", ^{
             });
 
             it(@"should have a 'TODAY' header", ^{
-                expect([recentPagesDataSource titleForHeaderInSection:0]).to(equal(@"TODAY"));
+                expect([recentPagesDataSource titleForHeaderInSection:0]).to(contain(@"TODAY"));
             });
         });
 
@@ -79,7 +79,7 @@ describe(@"partitioning by date", ^{
                 });
 
                 it(@"should have a 'YESTERDAY' header", ^{
-                    expect([recentPagesDataSource titleForHeaderInSection:1]).to(equal(@"YESTERDAY"));
+                    expect([recentPagesDataSource titleForHeaderInSection:1]).to(contain(@"YESTERDAY"));
                 });
             });
 
@@ -100,7 +100,7 @@ describe(@"partitioning by date", ^{
 
                 it(@"should have a header with last week's formatted day", ^{
                     expect([recentPagesDataSource titleForHeaderInSection:2])
-                    .to(equal([[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:lastWeek]));
+                    .to(contain([[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:lastWeek]));
                 });
             });
         });
