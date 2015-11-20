@@ -285,6 +285,7 @@
 		0EFB0F251B31EE2D00D05C08 /* Section.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F161B31EE2D00D05C08 /* Section.m */; };
 		0EFB0F261B31EE2D00D05C08 /* SectionImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EFB0F181B31EE2D00D05C08 /* SectionImage.m */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
+		3CBED9621BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBED9611BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
 		B06D69A71BEA95FE00382510 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D69A61BEA95FE00382510 /* NSLocale+WMFExtras.swift */; };
 		B0F711051BCED85D0040BB42 /* UIImage+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F711041BCED85D0040BB42 /* UIImage+WMFStyle.m */; };
@@ -1088,6 +1089,8 @@
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		3CBED9601BFE63B400C5D38C /* UITableViewCell+SelectedBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+SelectedBackground.h"; sourceTree = "<group>"; };
+		3CBED9611BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+SelectedBackground.m"; sourceTree = "<group>"; };
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
@@ -2211,6 +2214,8 @@
 				04B0E3E81AE8252800379AE0 /* NSURL+WMFRest.h */,
 				04B0E3E91AE8252800379AE0 /* NSURL+WMFRest.m */,
 				BCAC50BF1AF3F7460015936C /* NSBundle+WMFInfoUtils.h */,
+				3CBED9601BFE63B400C5D38C /* UITableViewCell+SelectedBackground.h */,
+				3CBED9611BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m */,
 				BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */,
 				BCAFC5D21AFD5F7E004615BA /* MWKArticle+WMFSharing.h */,
 				BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */,
@@ -4486,6 +4491,7 @@
 				047ED63918C13E4900442BE3 /* PreviewWebView.m in Sources */,
 				BC505EF41B594E8E00537006 /* WMFArticleHeaderImageGalleryViewController.m in Sources */,
 				048830D21AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
+				3CBED9621BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				BCE24FDE1B0CF0C7003F054B /* LegacyDataMigrator.m in Sources */,
 				042258521B33EAD400FDD0C6 /* ShareMenuSavePageActivity.m in Sources */,

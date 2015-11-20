@@ -167,6 +167,16 @@
     return c;
 }
 
++ (instancetype)wmf_tapHighlightColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:238.0f/255.0f green:238.0f/255.0f blue:238.0f/255.0f alpha:1];
+    });
+    return c;
+}
+
 + (instancetype)wmf_homeSectionHeaderLinkTextColor {
     return [self wmf_blueTintColor];
 }
