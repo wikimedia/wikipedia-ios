@@ -84,12 +84,15 @@ NS_ASSUME_NONNULL_BEGIN
         NSMutableArray* entries = entriesBydate[date];
         SSSection* section = [SSSection sectionWithItems:entries];
 
+        //HACK: Table views for some reason aren't adding padding to the left of the default headers. Injecting some manually.
+        NSString* padding = @"    ";
+
         if ([date isToday]) {
-            section.header = [MWLocalizedString(@"history-section-today", nil) uppercaseString];
+            section.header = [padding stringByAppendingString:[MWLocalizedString(@"history-section-today", nil) uppercaseString]];
         } else if ([date isYesterday]) {
-            section.header = [MWLocalizedString(@"history-section-yesterday", nil) uppercaseString];
+            section.header = [padding stringByAppendingString:[MWLocalizedString(@"history-section-yesterday", nil) uppercaseString]];
         } else {
-            section.header = [[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date];
+            section.header = [padding stringByAppendingString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:date]];
         }
 
         section.sectionIdentifier = date;
