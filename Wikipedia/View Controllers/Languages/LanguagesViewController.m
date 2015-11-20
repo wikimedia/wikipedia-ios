@@ -5,7 +5,6 @@
 #import "MWKLanguageLinkController.h"
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
-#import "SessionSingleton.h"
 #import "Defines.h"
 #import "UIViewController+Alert.h"
 #import "UIView+ConstraintsScale.h"
@@ -88,28 +87,38 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.downloadLanguagesForCurrentArticle) {
-        [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
-        // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
-        [self setLanguageFilterHidden:YES animated:NO];
-
-        @weakify(self);
-        [self.langLinkController
-         loadLanguagesForTitle:[[[SessionSingleton sharedInstance] currentArticle] title]
-                       success:^{
-            @strongify(self)
-            [self fadeAlert];
-            [self setLanguageFilterHidden:NO animated:YES];
-            [self reloadDataSections];
-        }
-                       failure:^(NSError* __nonnull error) {
-            @strongify(self)
-            [self showAlert : error.localizedDescription type : ALERT_TYPE_TOP duration : -1];
-        }];
+    if (self.articleTitle) {
+        [self downloadArticlelanguages];
     } else {
-        [self.langLinkController loadStaticSiteLanguageData];
+        [self loadStaticLanguages];
+    }
+}
+
+#pragma mark - Language Loading
+
+- (void)loadStaticLanguages {
+    [self.langLinkController loadStaticSiteLanguageData];
+    [self reloadDataSections];
+}
+
+- (void)downloadArticlelanguages {
+    [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
+    // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
+    [self setLanguageFilterHidden:YES animated:NO];
+
+    @weakify(self);
+    [self.langLinkController
+     loadLanguagesForTitle:self.articleTitle
+                   success:^{
+        @strongify(self)
+        [self fadeAlert];
+        [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     }
+                   failure:^(NSError* __nonnull error) {
+        @strongify(self)
+        [self showAlert : error.localizedDescription type : ALERT_TYPE_TOP duration : -1];
+    }];
 }
 
 #pragma mark - Search Bar Visibility
