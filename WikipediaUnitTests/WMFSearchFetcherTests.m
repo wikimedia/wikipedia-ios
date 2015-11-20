@@ -83,26 +83,26 @@
 //    assertThat(finalResults.searchSuggestion, is([noResultsJSON valueForKeyPath:@"query.searchinfo.suggestion"]));
 //}
 
-- (void)testAppendingToPreviousNonEmptyResultsCausesKVOEvents {
-    id prefixSearchJSON   = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetPrefixSearch"];
-    id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
-
-    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
-    .andReturn(200)
-    .withJSON(prefixSearchJSON);
-
-    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
-    .andReturn(200)
-    .withJSON(fullTextSearchJSON);
-
-    NSArray<NSString*>* prefixTitles =
-        [[[prefixSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
-
-    NSArray<NSString*>* fullTextTitles =
-        [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
-
-    [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:prefixTitles];
-}
+//- (void)testAppendingToPreviousNonEmptyResultsCausesKVOEvents {
+//    id prefixSearchJSON   = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetPrefixSearch"];
+//    id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
+//
+//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
+//    .andReturn(200)
+//    .withJSON(prefixSearchJSON);
+//
+//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
+//    .andReturn(200)
+//    .withJSON(fullTextSearchJSON);
+//
+//    NSArray<NSString*>* prefixTitles =
+//        [[[prefixSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
+//
+//    NSArray<NSString*>* fullTextTitles =
+//        [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
+//
+//    [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:prefixTitles];
+//}
 
 #pragma mark - Utils
 
