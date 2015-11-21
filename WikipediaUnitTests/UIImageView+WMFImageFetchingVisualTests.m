@@ -73,11 +73,11 @@
     .andReturn(200)
     .withBody(UIImageJPEGRepresentation(testImage, 1.f));
 
-    [self expectAnyPromiseToResolve:^AnyPromise*{
-        return [self.imageView wmf_setImageWithURL:testURL detectFaces:YES];
-    } timeout:2 WMFExpectFromHere];
-
-    WMFSnapshotVerifyView(self.imageView);
+    expectResolutionWithTimeout(5, ^{
+        return [self.imageView wmf_setImageWithURL:testURL detectFaces:YES].then(^{
+            WMFSnapshotVerifyView(self.imageView);
+        });
+    });
 }
 
 @end
