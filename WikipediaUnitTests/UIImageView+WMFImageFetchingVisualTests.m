@@ -7,7 +7,7 @@
 //
 
 @import XCTest;
-@import FBSnapshotTestCase;
+#import <FBSnapshotTestCase/FBSnapshotTestCase.h>
 
 #import "FBSnapshotTestCase+WMFConvenience.h"
 #import "XCTestCase+PromiseKit.h"
