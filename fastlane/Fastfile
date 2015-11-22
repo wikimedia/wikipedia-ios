@@ -28,7 +28,8 @@ platform :ios do
       :configuration => 'Debug',
       :destination => 'platform=iOS Simulator,name=iPhone 6,OS=9.1',
       :destination_timeout => 240, # Increase timeout for Travis builds
-      :xcpretty_output => 'simple'
+      :xcpretty_output => 'simple',
+      :buildlog_path => './build'
     }
     opts[:reports] = [{ 'report' => 'junit', 'output' => 'build/reports/unit-tests.xml' }] if options[:junit]
     xctest(opts)
@@ -171,6 +172,6 @@ platform :ios do
   end
 
   error do |lane, exception|
-
+    `cat build/xcodebuild.log` if lane == "verify"
   end
 end
