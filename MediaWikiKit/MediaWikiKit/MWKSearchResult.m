@@ -4,7 +4,41 @@
 #import "NSString+Extras.h"
 #import "NSString+WMFHTMLParsing.h"
 
+@interface MWKSearchResult ()
+
+@property (nonatomic, assign, readwrite) NSInteger articleID;
+
+@property (nonatomic, copy, readwrite) NSString* displayTitle;
+
+@property (nonatomic, copy, readwrite) NSString* wikidataDescription;
+
+@property (nonatomic, copy, readwrite) NSString* extract;
+
+@property (nonatomic, copy, readwrite) NSURL* thumbnailURL;
+
+@property (nonatomic, copy, readwrite) NSNumber* index;
+
+@end
+
 @implementation MWKSearchResult
+
+- (instancetype)initWithArticleID:(NSInteger)articleID
+                     displayTitle:(NSString*)displayTitle
+              wikidataDescription:(NSString*)wikidataDescription
+                          extract:(NSString*)extract
+                     thumbnailURL:(NSURL*)thumbnailURL
+                            index:(NSNumber*)index {
+    self = [super init];
+    if (self) {
+        self.articleID           = articleID;
+        self.displayTitle        = displayTitle;
+        self.wikidataDescription = wikidataDescription;
+        self.extract             = extract;
+        self.thumbnailURL        = thumbnailURL;
+        self.index               = index;
+    }
+    return self;
+}
 
 + (NSValueTransformer*)thumbnailURLJSONTransformer {
     return [MTLValueTransformer

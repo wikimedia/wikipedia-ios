@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable, readonly) NSString* searchSuggestion;
 
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
-                           results:(nullable NSArray*)results
-                  searchSuggestion:(nullable NSString*)suggestion;
+                           results:(nullable NSArray<MWKSearchResult*>*)results
+                  searchSuggestion:(nullable NSString*)suggestion
+                  redirectMappings:(NSArray<MWKSearchRedirectMapping*>*)redirectMappings;
 
 @end
 

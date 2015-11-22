@@ -1,9 +1,10 @@
 
-#import "WMFSearchFetcher.h"
+#import "WMFSearchFetcher_Testing.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFMantleJSONResponseSerializer.h"
 
+#import "WMFSearchResults_Internal.h"
 #import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
 
@@ -14,10 +15,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NSUInteger const WMFMaxSearchResultLimit = 24;
-
-@interface WMFSearchResults (WMFSearchTermWriting)
-@property (nonatomic, copy, readwrite) NSString* searchTerm;
-@end
 
 #pragma mark - Internal Class Declarations
 
@@ -33,12 +30,6 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
 
 #pragma mark - Fetcher Implementation
-
-@interface WMFSearchFetcher ()
-
-@property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
-
-@end
 
 @implementation WMFSearchFetcher
 
