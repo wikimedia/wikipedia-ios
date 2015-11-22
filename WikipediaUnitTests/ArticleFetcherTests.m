@@ -52,7 +52,7 @@
     MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
     NSURL* url           = [site mobileApiEndpoint];
 
-    NSString* json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"Obama" ofType:@"json"];
+    NSData* json = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"Obama" ofType:@"json"];
 
     // TODO: refactor into convenience method
     NSRegularExpression* anyRequestFromTestSite =
@@ -66,6 +66,8 @@
 
     __block MWKArticle* firstArticle;
 
+    __block MWKArticle* secondFetchResult;
+
     expectResolutionWithTimeout(5, ^{
         return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
             assertThat(article.displaytitle, is(equalTo(@"Barack Obama")));
@@ -76,13 +78,16 @@
 
             firstArticle = article;
 
-            return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL];
-        }).then(^(MWKArticle* article){
-            XCTAssertTrue(article != firstArticle, @"Expected object returned from 2nd fetch to not be identical to 1st.");
-            assertThat(article, is(equalTo(firstArticle)));
-            assertThat(@([article isDeeplyEqualToArticle:firstArticle]), isTrue());
+            return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL]
+            .then(^(MWKArticle* article) {
+                secondFetchResult = article;
+            });
         });
     });
+
+    XCTAssertTrue(secondFetchResult != firstArticle, @"Expected object returned from 2nd fetch to not be identical to 1st.");
+    assertThat(secondFetchResult, is(equalTo(firstArticle)));
+    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstArticle]), isTrue());
 
     MWKArticle* savedArticle = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
     assertThat(savedArticle, is(equalTo(firstArticle)));
