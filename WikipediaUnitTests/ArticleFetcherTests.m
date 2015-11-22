@@ -64,20 +64,16 @@
     .withHeaders(@{@"Content-Type": @"application/json"})
     .withBody(json);
 
-    __block MWKArticle* firstArticle;
+    __block MWKArticle* firstFetchResult;
 
     __block MWKArticle* secondFetchResult;
 
-    expectResolutionWithTimeout(10, ^{
+    __block MWKArticle* savedArticleAfterFirstFetch;
+
+    expectResolutionWithTimeout(5, ^{
         return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
-            assertThat(article.displaytitle, is(equalTo(@"Barack Obama")));
-
-            MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-            assertThat(article, is(equalTo(savedArticle)));
-            assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
-
-            firstArticle = article;
-
+            savedArticleAfterFirstFetch = [self.tempDataStore articleWithTitle:dummyTitle];
+            firstFetchResult = article;
             return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL]
             .then(^(MWKArticle* article) {
                 secondFetchResult = article;
@@ -85,13 +81,14 @@
         });
     });
 
-    XCTAssertTrue(secondFetchResult != firstArticle, @"Expected object returned from 2nd fetch to not be identical to 1st.");
-    assertThat(secondFetchResult, is(equalTo(firstArticle)));
-    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstArticle]), isTrue());
+    assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
 
-    MWKArticle* savedArticle = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
-    assertThat(savedArticle, is(equalTo(firstArticle)));
-    assertThat(@([savedArticle isDeeplyEqualToArticle:firstArticle]), isTrue());
+    XCTAssertTrue(secondFetchResult != firstFetchResult,
+                  @"Expected object returned from 2nd fetch to not be identical to 1st.");
+    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+
+    MWKArticle* savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
+    assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 }
 
 @end
