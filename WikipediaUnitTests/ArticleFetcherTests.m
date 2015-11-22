@@ -68,7 +68,7 @@
 
     __block MWKArticle* secondFetchResult;
 
-    expectResolutionWithTimeout(5, ^{
+    expectResolutionWithTimeout(10, ^{
         return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
             assertThat(article.displaytitle, is(equalTo(@"Barack Obama")));
 
