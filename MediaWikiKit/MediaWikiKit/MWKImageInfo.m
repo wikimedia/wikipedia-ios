@@ -2,6 +2,7 @@
 #import "NSMutableDictionary+WMFMaybeSet.h"
 #import "WikipediaAppUtils.h"
 #import "WMFImageURLParsing.h"
+#import "Wikipedia-Swift.h"
 
 // !!!: don't change key constants w/o writing conversion code to pull values from the old keys
 // Model Version 1.0.0
@@ -146,6 +147,10 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
         _imageAssociationValue = WMFParseImageNameFromSourceURL(self.imageURL);
     }
     return _imageAssociationValue;
+}
+
+- (NSString*)canonicalPageName {
+    return [self.canonicalPageTitle wmf_safeSubstringFromIndex:@"File:".length];
 }
 
 @end
