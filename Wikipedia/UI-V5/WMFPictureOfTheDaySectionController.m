@@ -12,6 +12,7 @@
 #import "MWKImageInfoFetcher.h"
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -61,12 +62,19 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 #pragma mark - Fetching
 
 - (void)fetchData {
+    NSString* todaysPOTDTitleDateComponent =
+        [[NSDateFormatter wmf_hyphenatedYearMonthDayFormatter] stringFromDate:[NSDate date]];
+
+    NSString* todaysPOTDTitle = [@"Template:Potd" stringByAppendingFormat:@"/%@", todaysPOTDTitleDateComponent];
+
     @weakify(self);
-    [self.fetcher fetchInfoForPageTitles:@[] fromSite:[MWKSite wikimediaCommons] success:^(NSArray *infoObjects) {
+    [self.fetcher fetchInfoForImagesFoundOnPages:@[todaysPOTDTitle]
+                                        fromSite:[MWKSite wikimediaCommons]
+                                         success:^(NSArray* infoObjects) {
         @strongify(self);
         self.imageInfo = infoObjects.firstObject;
         [self.delegate controller:self didSetItems:self.items];
-    } failure:^(NSError *error) {
+    } failure:^(NSError* error) {
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
     }];

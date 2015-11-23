@@ -152,7 +152,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (void)updateNearbySectionWithLocation:(CLLocation*)location {
     NSParameterAssert(location);
 
-    WMFHomeSection* oldNearby = [self nearbySection];
+    WMFHomeSection* oldNearby = [self existingNearbySection];
 
     //Check Tweak
     if (!FBTweakValue(@"Home", @"Nearby", @"Always update on launch", NO)) {
@@ -177,31 +177,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (NSArray*)staticSections {
     NSMutableArray<WMFHomeSection*>* sections = [NSMutableArray array];
 
-    //Add nearby
-    WMFHomeSection* nearby = [self nearbySection];
-    if (nearby) {
-        [sections addObject:nearby];
-    }
-
-    //Add Random
-    WMFHomeSection* random = [self randomSection];
-    [sections addObject:random];
-
-    //Add featured
-    WMFHomeSection* featured = [self featuredArticleSection];
-    if (featured) {
-        [sections addObject:featured];
-    }
-
-    //Add main page
-    WMFHomeSection* today = [self mainPageSection];
-    [sections addObject:today];
-
-    //Add the last read item
-    WMFHomeSection* continueReading = [self continueReadingSection];
-    if (continueReading) {
-        [sections addObject:continueReading];
-    }
+    [sections wmf_safeAddObject:[self existingNearbySection]];
+    [sections wmf_safeAddObject:[self randomSection]];
+    [sections wmf_safeAddObject:[self featuredArticleSection]];
+    [sections addObject:[self mainPageSection]];
+    [sections addObject:[self picOfTheDaySection]];
+    [sections wmf_safeAddObject:[self continueReadingSection]];
 
     return sections;
 }
@@ -232,7 +213,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return [WMFHomeSection nearbySectionWithLocation:location];
 }
 
-- (nullable WMFHomeSection*)nearbySection {
+- (nullable WMFHomeSection*)existingNearbySection {
     WMFHomeSection* nearby = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
         if (obj.type == WMFHomeSectionTypeNearby) {
             return YES;
@@ -243,20 +224,37 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return nearby;
 }
 
-- (WMFHomeSection*)mainPageSection {
-    WMFHomeSection* main = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeMainPage) {
+#pragma mark - Daily Sections
+
+- (WMFHomeSection*)getOrCreateTodaysSectionOfType:(WMFHomeSectionType)type {
+    WMFHomeSection* existingSection = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == type) {
             return YES;
         }
         return NO;
     }];
 
     //If it's a new day and we havent created a new main page section, create it now
-    if (!main || ![main.dateCreated isToday]) {
-        main = [WMFHomeSection mainPageSection];
+    if ([existingSection.dateCreated isToday]) {
+        return existingSection;
     }
 
-    return main;
+    switch (type) {
+        case WMFHomeSectionTypeFeaturedArticle:
+            return [WMFHomeSection featuredSection];
+        case WMFHomeSectionTypeMainPage:
+            return [WMFHomeSection mainPageSection];
+        case WMFHomeSectionTypePictureOfTheDay:
+            return [WMFHomeSection pictureOfTheDaySection];
+
+        default:
+            NSAssert(NO, @"Cannot create static 'today' section of type %ld", type);
+            return nil;
+    }
+}
+
+- (WMFHomeSection*)mainPageSection {
+    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypeMainPage];
 }
 
 - (nullable WMFHomeSection*)featuredArticleSection {
@@ -264,20 +262,11 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
         return nil;
     }
+    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypeFeaturedArticle];
+}
 
-    WMFHomeSection* featured = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
-            return YES;
-        }
-        return NO;
-    }];
-
-    //If it's a new day and we havent created a new featured section, create it now
-    if (!featured || ![featured.dateCreated isToday]) {
-        featured = [WMFHomeSection featuredSection];
-    }
-
-    return featured;
+- (WMFHomeSection*)picOfTheDaySection {
+    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypePictureOfTheDay];
 }
 
 - (nullable WMFHomeSection*)continueReadingSection {

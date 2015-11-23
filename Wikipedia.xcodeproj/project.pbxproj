@@ -402,6 +402,7 @@
 		BC7EFDF01C037481008E8228 /* WMFPictureOfTheDaySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFDEF1C037481008E8228 /* WMFPictureOfTheDaySectionController.m */; };
 		BC7EFDF71C03A836008E8228 /* WMFPicOfTheDayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFDF61C03A836008E8228 /* WMFPicOfTheDayTableViewCell.m */; };
 		BC7EFDF91C03A85E008E8228 /* WMFPicOfTheDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC7EFDF81C03A85E008E8228 /* WMFPicOfTheDayTableViewCell.xib */; };
+		BC7EFDF41C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7EFDF31C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.m */; };
 		BC7FA4BE1BD6A28D006CA1A3 /* WMFTableOfContentsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7FA4BD1BD6A28D006CA1A3 /* WMFTableOfContentsItem.swift */; };
 		BC7FA4C31BD6A6B7006CA1A3 /* MWKSection+TOCItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7FA4C21BD6A6B7006CA1A3 /* MWKSection+TOCItem.swift */; };
 		BC7FA4C51BD712CF006CA1A3 /* TableOfContentsReadMoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7FA4C41BD712CF006CA1A3 /* TableOfContentsReadMoreItem.swift */; };
@@ -1312,6 +1313,8 @@
 		BC7EFDF51C03A836008E8228 /* WMFPicOfTheDayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFPicOfTheDayTableViewCell.h; sourceTree = "<group>"; };
 		BC7EFDF61C03A836008E8228 /* WMFPicOfTheDayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFPicOfTheDayTableViewCell.m; sourceTree = "<group>"; };
 		BC7EFDF81C03A85E008E8228 /* WMFPicOfTheDayTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFPicOfTheDayTableViewCell.xib; sourceTree = "<group>"; };
+		BC7EFDF21C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+WMFSafeAdd.h"; sourceTree = "<group>"; };
+		BC7EFDF31C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+WMFSafeAdd.m"; sourceTree = "<group>"; };
 		BC7FA4BD1BD6A28D006CA1A3 /* WMFTableOfContentsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFTableOfContentsItem.swift; sourceTree = "<group>"; };
 		BC7FA4C21BD6A6B7006CA1A3 /* MWKSection+TOCItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWKSection+TOCItem.swift"; sourceTree = "<group>"; };
 		BC7FA4C41BD712CF006CA1A3 /* TableOfContentsReadMoreItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableOfContentsReadMoreItem.swift; sourceTree = "<group>"; };
@@ -2094,6 +2097,8 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				BC7EFDF21C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.h */,
+				BC7EFDF31C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.m */,
 				0E1B04971BC56E6100506F7D /* NSUserDefaults+WMFExtensions.swift */,
 				043B6E8C1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.h */,
 				043B6E8D1ACDE0CF0005C60B /* NSAttributedString+WMFSavedPagesAttributedStrings.m */,
@@ -4432,6 +4437,7 @@
 				0EE1518E1BF537940039828A /* WMFNearbyArticleTableViewCell.m in Sources */,
 				04627C981B91989200414AC6 /* WMFSaveButtonController.m in Sources */,
 				0EC068BF1BED1F48006D0257 /* WMFArticleFooterViewHeader.swift in Sources */,
+				BC7EFDF41C038F2E008E8228 /* NSMutableArray+WMFSafeAdd.m in Sources */,
 				0ECC99F21B67DDB600004E47 /* WMFArticleResponseSerializer.m in Sources */,
 				0EFB0F201B31EE2D00D05C08 /* GalleryImage.m in Sources */,
 				0E9008E91B717A97001A600A /* WMFMinimalArticleContentCell.m in Sources */,
