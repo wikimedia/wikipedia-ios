@@ -30,19 +30,15 @@
 
 #pragma mark - UITableViewCell
 
-- (UIImageView*)imageView {
-    return self.potdImageView;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.imageView wmf_configureWithDefaultPlaceholder];
+    [self.potdImageView wmf_configureWithDefaultPlaceholder];
 }
 
 - (void)prepareForReuse {
     [super awakeFromNib];
     self.displayTitleLabel.text = @"";
-    [self.imageView wmf_configureWithDefaultPlaceholder];
+    [self.potdImageView wmf_configureWithDefaultPlaceholder];
 }
 
 @end

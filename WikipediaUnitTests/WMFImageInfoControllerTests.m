@@ -130,13 +130,13 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
 - (void)testFetchBatchAlongWithNeighborReturnsOneRequestForEachFetch {
     [MKTGiven([self.mockInfoFetcher
-               fetchInfoForPageTitles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:0]]
+               fetchInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:0]]
                              fromSite:anything()
                               success:anything()
                               failure:anything()]) willReturn:@"dummy request"];
 
     [MKTGiven([self.mockInfoFetcher
-               fetchInfoForPageTitles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:self.controller.infoBatchSize]]
+               fetchInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:self.controller.infoBatchSize]]
                              fromSite:anything()
                               success:anything()
                               failure:anything()]) willReturn:@"dummy request 2"];

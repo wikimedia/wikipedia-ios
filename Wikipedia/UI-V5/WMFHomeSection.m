@@ -59,10 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
     if (self.type == WMFHomeSectionTypeContinueReading) {
         // continue reading always goes above everything else, regardless of date
-        return NSOrderedDescending;
+        return NSOrderedAscending;
     } else if (section.type == WMFHomeSectionTypeContinueReading) {
         // corollary of above, everything else always goes below continue reading, regardless of date
-        return NSOrderedAscending;
+        return NSOrderedDescending;
     } else if (self.type != WMFHomeSectionTypeSaved
                && section.type != WMFHomeSectionTypeSaved
                && self.type != WMFHomeSectionTypeHistory
