@@ -7,6 +7,7 @@
 #import "NSDate+Utilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFHomeSection ()
 
 @property (nonatomic, assign, readwrite) WMFHomeSectionType type;
@@ -26,133 +27,60 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (NSComparisonResult)compare:(WMFHomeSection*)section {
-    NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
+/**
+ *  Provides the index of the receiver's item, specifying its ordering with other item types within its @c dateCreated.
+ *
+ *  @return A positive integer which, when compared with other items' indices, will yield the comparison result describing
+ *          their ordering.
+ */
+- (NSInteger)dailyOrderingIndex {
     switch (self.type) {
-        case WMFHomeSectionTypeContinueReading: {
-            return NSOrderedAscending;
-        }
-        break;
+        case WMFHomeSectionTypeContinueReading:
+            return 0;
+        case WMFHomeSectionTypeFeaturedArticle:
+            return 1;
+        case WMFHomeSectionTypeMainPage:
+            return 2;
+        case WMFHomeSectionTypePictureOfTheDay:
+            return 3;
+        case WMFHomeSectionTypeRandom:
+            return 4;
+        case WMFHomeSectionTypeNearby:
+            return 5;
 
-        case WMFHomeSectionTypeFeaturedArticle: {
-            switch (section.type) {
-                case WMFHomeSectionTypeContinueReading: {
-                    return NSOrderedDescending;
-                }
-                break;
-                case WMFHomeSectionTypeMainPage:
-                case WMFHomeSectionTypeRandom:
-                case WMFHomeSectionTypeNearby: {
-                    if (self.dateCreated.day == section.dateCreated.day) {
-                        return NSOrderedAscending;
-                    } else {
-                        return -[self.dateCreated compare:section.dateCreated];
-                    }
-                }
-                break;
-                default:
-                    return -[self.dateCreated compare:section.dateCreated];
-                    break;
-            }
-        }
-        break;
-        case WMFHomeSectionTypeMainPage: {
-            switch (section.type) {
-                case WMFHomeSectionTypeContinueReading: {
-                    return NSOrderedDescending;
-                }
-
-                case WMFHomeSectionTypeFeaturedArticle: {
-                    if (self.dateCreated.day == section.dateCreated.day) {
-                        return NSOrderedDescending;
-                    } else {
-                        return -[self.dateCreated compare:section.dateCreated];
-                    }
-                }
-
-                case WMFHomeSectionTypeRandom:
-                case WMFHomeSectionTypeNearby: {
-                    if (self.dateCreated.day == section.dateCreated.day) {
-                        return NSOrderedAscending;
-                    } else {
-                        return -[self.dateCreated compare:section.dateCreated];
-                    }
-                    return NSOrderedAscending;
-                }
-                break;
-                default:
-                    return -[self.dateCreated compare:section.dateCreated];
-                    break;
-            }
-        }
-        break;
-
-        case WMFHomeSectionTypeRandom: {
-            switch (section.type) {
-                case WMFHomeSectionTypeContinueReading: {
-                    return NSOrderedDescending;
-                }
-                case WMFHomeSectionTypeFeaturedArticle:
-                case WMFHomeSectionTypeMainPage: {
-                    if (self.dateCreated.day == section.dateCreated.day) {
-                        return NSOrderedDescending;
-                    } else {
-                        return -[self.dateCreated compare:section.dateCreated];
-                    }
-                }
-                break;
-                case WMFHomeSectionTypeNearby: {
-                    if (self.dateCreated.day == section.dateCreated.day) {
-                        return NSOrderedAscending;
-                    } else {
-                        return -[self.dateCreated compare:section.dateCreated];
-                    }
-                }
-                break;
-                default:
-                    return -[self.dateCreated compare:section.dateCreated];
-                    break;
-            }
-        }
-        break;
-
-        case WMFHomeSectionTypeNearby: {
-            switch (section.type) {
-                case WMFHomeSectionTypeContinueReading: {
-                    return NSOrderedDescending;
-                }
-                case WMFHomeSectionTypeFeaturedArticle:
-                case WMFHomeSectionTypeMainPage:
-                case WMFHomeSectionTypeRandom: {
-                    if (self.dateCreated.day == section.dateCreated.day) {
-                        return NSOrderedDescending;
-                    } else {
-                        return -[self.dateCreated compare:section.dateCreated];
-                    }
-                }
-                break;
-                default:
-                    return -[self.dateCreated compare:section.dateCreated];
-                    break;
-            }
-        }
-        break;
-
-        default: {
-            switch (section.type) {
-                case WMFHomeSectionTypeContinueReading:
-                    return NSOrderedDescending;
-                default:
-                    return -[self.dateCreated compare:section.dateCreated];
-                    break;
-            }
-            break;
-
-            return -[self.dateCreated compare:section.dateCreated];
-        }
-        break;
+        case WMFHomeSectionTypeSaved:
+        case WMFHomeSectionTypeHistory:
+            // Saved & History have identical same-day sorting behavior
+            return 6;
     }
 }
+
+- (NSComparisonResult)compare:(WMFHomeSection*)section {
+    NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
+    if (self.type == WMFHomeSectionTypeContinueReading) {
+        // continue reading always goes above everything else, regardless of date
+        return NSOrderedDescending;
+    } else if (section.type == WMFHomeSectionTypeContinueReading) {
+        // corollary of above, everything else always goes below continue reading, regardless of date
+        return NSOrderedAscending;
+    } else if ([self.dateCreated isEqualToDateIgnoringTime:section.dateCreated]) {
+        // explicit ordering for items created w/in the say day
+        NSInteger selfOrderingIndex = [self dailyOrderingIndex];
+        NSInteger otherOrderingIndex = [section dailyOrderingIndex];
+        if (selfOrderingIndex > otherOrderingIndex) {
+            return NSOrderedDescending;
+        } else if (selfOrderingIndex < otherOrderingIndex) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedSame;
+        }
+    } else {
+        // sort items from different days in descending order
+        return -[self.dateCreated compare:section.dateCreated];
+    }
+}
+
+#pragma mark - Factory Methods
 
 + (instancetype)pictureOfTheDaySection {
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
@@ -213,6 +141,5 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
 
 NS_ASSUME_NONNULL_END
