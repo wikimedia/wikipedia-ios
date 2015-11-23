@@ -15,4 +15,11 @@
 
 @property (nonatomic, copy, readonly) NSNumber* index;
 
+- (instancetype)initWithArticleID:(NSInteger)articleID
+                     displayTitle:(NSString*)displayTitle
+              wikidataDescription:(NSString*)wikidataDescription
+                          extract:(NSString*)extract
+                     thumbnailURL:(NSURL*)thumbnailURL
+                            index:(NSNumber*)index;
+
 @end

@@ -12,7 +12,7 @@ platform :ios do
      ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
-     ensure_git_status_clean
+     ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
   end
 
   desc "Runs linting (and eventually static analysis)"
@@ -22,16 +22,17 @@ platform :ios do
 
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
-    if ENV['TRAVIS'] then
-      xctest(
-        scheme: 'Wikipedia',
-        workspace: 'Wikipedia.xcworkspace',
-        destination: 'platform=iOS Simulator,name=iPhone 6,OS=9.0'
-      )
-    else
-      # only generate junit reports on jenkins
-      xctool :test, '-reporter junit:build/reports/unit-tests.xml -reporter pretty'
-    end
+    opts = {
+      :scheme => 'Wikipedia',
+      :workspace => 'Wikipedia.xcworkspace',
+      :configuration => 'Debug',
+      :destination => 'platform=iOS Simulator,name=iPhone 6,OS=9.1',
+      :destination_timeout => 240, # Increase timeout for Travis builds
+      :xcpretty_output => 'simple',
+      :buildlog_path => './build'
+    }
+    opts[:reports] = [{ 'report' => 'junit', 'output' => 'build/reports/unit-tests.xml' }] if options[:junit]
+    xctest(opts)
   end
 
   desc "Increment the app's build number and commit the changes."
@@ -171,6 +172,6 @@ platform :ios do
   end
 
   error do |lane, exception|
-
+    `cat build/xcodebuild.log` if lane == "verify"
   end
 end
