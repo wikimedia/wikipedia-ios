@@ -19,6 +19,7 @@ static NSString* const pListFileName = @"Recent.plist";
 
 @property (strong, nonatomic) IBOutlet UITableView* table;
 @property (strong, nonatomic) IBOutlet UILabel* headingLabel;
+@property (strong, nonatomic) IBOutlet UIView* headerContainer;
 @property (strong, nonatomic) IBOutlet UIView* trashButtonContainer;
 @property (strong, nonatomic) UIButton* trashButton;
 
@@ -34,6 +35,7 @@ static NSString* const pListFileName = @"Recent.plist";
     [self setupTable];
 
     [self updateTrashButtonEnabledState];
+    [self updateHeaderVisibility];
 }
 
 - (void)setupTable {
@@ -54,6 +56,7 @@ static NSString* const pListFileName = @"Recent.plist";
 - (void)reloadRecentSearches {
     [self.table reloadData];
     [self updateTrashButtonEnabledState];
+    [self updateHeaderVisibility];
 }
 
 - (void)setupHeadingLabel {
@@ -83,6 +86,10 @@ static NSString* const pListFileName = @"Recent.plist";
 
 - (void)updateTrashButtonEnabledState {
     self.trashButton.enabled = ([self.recentSearches countOfEntries] > 0) ? YES : NO;
+}
+
+- (void)updateHeaderVisibility {
+    self.headerContainer.hidden = ([self.recentSearches countOfEntries] > 0) ? NO : YES;
 }
 
 - (void)removeEntry:(MWKRecentSearchEntry*)entry {
@@ -149,6 +156,7 @@ static NSString* const pListFileName = @"Recent.plist";
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self updateTrashButtonEnabledState];
+        [self updateHeaderVisibility];
     }
 }
 
