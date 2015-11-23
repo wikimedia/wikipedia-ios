@@ -22,12 +22,14 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
     WMFHomeSectionTypeHistory         = 4,
     WMFHomeSectionTypeSaved           = 5,
     WMFHomeSectionTypeFeaturedArticle = 6,
+    WMFHomeSectionTypePictureOfTheDay = 7
 };
 
 @interface WMFHomeSection : MTLModel
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
 + (instancetype)featuredSection;
++ (instancetype)pictureOfTheDaySection;
 + (instancetype)mainPageSection;
 + (instancetype)randomSection;
 + (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
