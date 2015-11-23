@@ -63,8 +63,12 @@ NS_ASSUME_NONNULL_BEGIN
     } else if (section.type == WMFHomeSectionTypeContinueReading) {
         // corollary of above, everything else always goes below continue reading, regardless of date
         return NSOrderedAscending;
-    } else if ([self.dateCreated isEqualToDateIgnoringTime:section.dateCreated]) {
-        // explicit ordering for items created w/in the say day
+    } else if (self.type != WMFHomeSectionTypeSaved
+               && section.type != WMFHomeSectionTypeSaved
+               && self.type != WMFHomeSectionTypeHistory
+               && section.type != WMFHomeSectionTypeHistory
+               && [self.dateCreated isEqualToDateIgnoringTime:section.dateCreated]) {
+        // explicit ordering for non-history/-saved items created w/in the same day
         NSInteger selfOrderingIndex = [self dailyOrderingIndex];
         NSInteger otherOrderingIndex = [section dailyOrderingIndex];
         if (selfOrderingIndex > otherOrderingIndex) {
@@ -75,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
             return NSOrderedSame;
         }
     } else {
-        // sort items from different days in descending order
+        // sort all items from different days and/or history/saved items by date, descending
         return -[self.dateCreated compare:section.dateCreated];
     }
 }
