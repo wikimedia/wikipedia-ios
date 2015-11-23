@@ -161,7 +161,6 @@
 		04DB0BEA18BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DB0BE918BD37F900B4BCF3 /* UIScrollView+ScrollSubviewToLocation.m */; };
 		04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD89B018BFE63A00DD5DAD /* PreviewAndSaveViewController.m */; };
 		04EDEE2A1A215DBC00798076 /* UITableView+DynamicCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDEE291A215DBC00798076 /* UITableView+DynamicCellHeight.m */; };
-		04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EDEE301A21CB4100798076 /* UIScreen+Extras.m */; };
 		04F0E2EA186EDC1A00468738 /* UIWebView+ElementLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */; };
 		04F122671ACB818F002FC3B5 /* NSString+FormattedAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 04B91AAA18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m */; };
 		04F1226A1ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F122691ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m */; };
@@ -867,8 +866,6 @@
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		04EDEE281A215DBC00798076 /* UITableView+DynamicCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+DynamicCellHeight.h"; sourceTree = "<group>"; };
 		04EDEE291A215DBC00798076 /* UITableView+DynamicCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+DynamicCellHeight.m"; sourceTree = "<group>"; };
-		04EDEE2F1A21CB4100798076 /* UIScreen+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Extras.h"; sourceTree = "<group>"; };
-		04EDEE301A21CB4100798076 /* UIScreen+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+Extras.m"; sourceTree = "<group>"; };
 		04F0E2E8186EDC1A00468738 /* UIWebView+ElementLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+ElementLocation.h"; sourceTree = "<group>"; };
 		04F0E2E9186EDC1A00468738 /* UIWebView+ElementLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+ElementLocation.m"; sourceTree = "<group>"; };
 		04F122691ACB822D002FC3B5 /* NSString+FormattedAttributedStringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FormattedAttributedStringTests.m"; sourceTree = "<group>"; };
@@ -2143,8 +2140,6 @@
 				04090A3A187FB7D000577EDF /* UIView+Debugging.m */,
 				04EDEE281A215DBC00798076 /* UITableView+DynamicCellHeight.h */,
 				04EDEE291A215DBC00798076 /* UITableView+DynamicCellHeight.m */,
-				04EDEE2F1A21CB4100798076 /* UIScreen+Extras.h */,
-				04EDEE301A21CB4100798076 /* UIScreen+Extras.m */,
 				0433542418A093C5009305F0 /* UIView+RemoveConstraints.h */,
 				0433542518A093C5009305F0 /* UIView+RemoveConstraints.m */,
 				04C695CC18ED08D900D9F2DA /* UIView+WMFSearchSubviews.h */,
@@ -4356,7 +4351,6 @@
 				0EE7687B1AF982C100A5D046 /* WMFArticleProtocol.m in Sources */,
 				BC305C381BA204EF00E414B8 /* NSString+WMFDistance.m in Sources */,
 				04B501F81B7AEB03007BE332 /* NSArray+WMFExtensions.swift in Sources */,
-				04EDEE311A21CB4100798076 /* UIScreen+Extras.m in Sources */,
 				BCB669A91A83F6C400C7B1FE /* MWKSection.m in Sources */,
 				BCB669B61A83F6C400C7B1FE /* MWKImageList.m in Sources */,
 				0EFB0F231B31EE2D00D05C08 /* ImageData.m in Sources */,
