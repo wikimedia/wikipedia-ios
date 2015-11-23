@@ -316,7 +316,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (NSArray<WMFHomeSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
     NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFHomeSection new], title)];
 
-    NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
+    NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries bk_select:^BOOL (MWKHistoryEntry* obj) {
+        return obj.titleWasSignificantlyViewed;
+    }];
+    entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
         return [existingTitles containsObject:obj.title];

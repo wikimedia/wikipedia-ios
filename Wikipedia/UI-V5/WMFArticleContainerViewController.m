@@ -39,6 +39,7 @@
 #import "MWKProtectionStatus.h"
 #import "MWKSectionList.h"
 #import "MWKLanguageLink.h"
+#import "MWKHistoryList.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -57,6 +58,8 @@
 @import SafariServices;
 
 @import JavaScriptCore;
+
+@import Tweaks;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -100,6 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
+
+
+@property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -177,6 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self setupToolbar];
     [self createTableOfContentsViewController];
+    [self startSignificantlyViewedTimer];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -445,6 +452,27 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGFloat)totalProgressWithArticleFetcherProgress:(CGFloat)progress {
     return 0.8 * progress;
+}
+
+#pragma mark - Significantly Viewed Timer
+
+- (void)startSignificantlyViewedTimer {
+    if(self.significantlyViewedTimer){
+        return;
+    }
+    MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
+    MWKHistoryEntry* entry      = [historyList entryForTitle:self.articleTitle];
+    if (!entry.titleWasSignificantlyViewed) {
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Home", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)significantlyViewedTimerFired:(NSTimer*)timer {
+    [self.significantlyViewedTimer invalidate];
+    self.significantlyViewedTimer = nil;
+    MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
+    [historyList setSignificantlyViewedOnPageInHistoryWithTitle:self.articleTitle];
+    [historyList save];
 }
 
 #pragma mark - ViewController
