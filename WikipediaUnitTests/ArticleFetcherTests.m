@@ -52,7 +52,7 @@
     MWKTitle* dummyTitle = [site titleWithString:@"Foo"];
     NSURL* url           = [site mobileApiEndpoint];
 
-    NSString* json = [[self wmf_bundle] wmf_stringFromContentsOfFile:@"Obama" ofType:@"json"];
+    NSData* json = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"Obama" ofType:@"json"];
 
     // TODO: refactor into convenience method
     NSRegularExpression* anyRequestFromTestSite =
@@ -64,31 +64,31 @@
     .withHeaders(@{@"Content-Type": @"application/json"})
     .withBody(json);
 
-    XCTestExpectation* responseExpectation = [self expectationWithDescription:@"articleResponse"];
+    __block MWKArticle* firstFetchResult;
 
-    __block MWKArticle* firstArticle;
-    [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
-        assertThat(article.displaytitle, is(equalTo(@"Barack Obama")));
+    __block MWKArticle* secondFetchResult;
 
-        MWKArticle* savedArticle = [self.tempDataStore articleWithTitle:dummyTitle];
-        assertThat(article, is(equalTo(savedArticle)));
-        assertThat(@([article isDeeplyEqualToArticle:savedArticle]), isTrue());
+    __block MWKArticle* savedArticleAfterFirstFetch;
 
-        firstArticle = article;
-
-        return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL];
-    }).then(^(MWKArticle* article){
-        XCTAssertTrue(article != firstArticle, @"Expected object returned from 2nd fetch to not be identical to 1st.");
-        assertThat(article, is(equalTo(firstArticle)));
-        assertThat(@([article isDeeplyEqualToArticle:firstArticle]), isTrue());
-        [responseExpectation fulfill];
+    expectResolutionWithTimeout(5, ^{
+        return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
+            savedArticleAfterFirstFetch = [self.tempDataStore articleWithTitle:dummyTitle];
+            firstFetchResult = article;
+            return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL]
+            .then(^(MWKArticle* article) {
+                secondFetchResult = article;
+            });
+        });
     });
 
-    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    assertThat(@([firstFetchResult isDeeplyEqualToArticle:savedArticleAfterFirstFetch]), isTrue());
 
-    MWKArticle* savedArticle = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
-    assertThat(savedArticle, is(equalTo(firstArticle)));
-    assertThat(@([savedArticle isDeeplyEqualToArticle:firstArticle]), isTrue());
+    XCTAssertTrue(secondFetchResult != firstFetchResult,
+                  @"Expected object returned from 2nd fetch to not be identical to 1st.");
+    assertThat(@([secondFetchResult isDeeplyEqualToArticle:firstFetchResult]), isTrue());
+
+    MWKArticle* savedArticleAfterSecondFetch = [self.tempDataStore articleFromDiskWithTitle:dummyTitle];
+    assertThat(@([savedArticleAfterSecondFetch isDeeplyEqualToArticle:firstFetchResult]), isTrue());
 }
 
 @end

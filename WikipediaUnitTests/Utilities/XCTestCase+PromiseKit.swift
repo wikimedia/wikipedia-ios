@@ -23,21 +23,6 @@ func toReport<T>(policy: ErrorPolicy = ErrorPolicy.AllErrorsExceptCancellation) 
 }
 
 extension XCTestCase {
-    public func wmf_fulfillExpectation<T>(function: StaticString = __FUNCTION__,
-                                          line: UInt = __LINE__,
-                                          pipe: ((T) -> Void)? = nil) -> (T) -> Void {
-        return wmf_fulfillExpectation(descriptionfromFunction(function, line: line), pipe: pipe)
-    }
-
-    public func wmf_fulfillExpectation<T>(description: String,
-                                          pipe: ((T) -> Void)? = nil) -> (T) -> Void {
-        let promiseExpectation = self.expectationWithDescription(description)
-        return {
-            pipe?($0)
-            promiseExpectation.fulfill()
-        }
-    }
-
     public func expectPromise<T, U, V>(
         callback: (Promise<T>) -> ((U) -> Void) -> V,
         timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
@@ -83,12 +68,24 @@ extension XCTestCase {
             pipe: pipe)
     }
 
-     private func expectPromise<T, U>(callback: ((T) -> Void) -> U,
-                                      description: String,
-                                      timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
-                                      expirationHandler: XCWaitCompletionHandler? = nil,
-                                      pipe: ((T) -> Void)? = nil) {
-        callback(wmf_fulfillExpectation(description, pipe: pipe))
-        wmf_waitForExpectations(timeout, handler: expirationHandler)
+    private func expectPromise<T, U>(callback: ((T) -> Void) -> U,
+                                     description: String,
+                                     timeout: NSTimeInterval = WMFDefaultExpectationTimeout,
+                                     expirationHandler: XCWaitCompletionHandler? = nil,
+                                     pipe: ((T) -> Void)? = nil) {
+            var pendingExpectation: XCTestExpectation? = expectationWithDescription(description)
+            callback() { x in
+                guard let expectation = pendingExpectation else {
+                    return
+                }
+                pipe?(x)
+                expectation.fulfill()
+            }
+            wmf_waitForExpectations(timeout) { error in
+                DDLogError("Timeout expired with error: \(error)")
+                expirationHandler?(error)
+                // nullify pending expectation to prevent fulfilling it after timeout has expired
+                pendingExpectation = nil
+            }
     }
 }
