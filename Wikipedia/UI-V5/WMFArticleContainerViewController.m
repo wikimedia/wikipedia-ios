@@ -39,6 +39,7 @@
 #import "MWKProtectionStatus.h"
 #import "MWKSectionList.h"
 #import "MWKLanguageLink.h"
+#import "WMFRelatedSearchResults.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -78,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKHistoryEntry* historyEntry;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
+
+@property (nonatomic, strong) WMFRelatedTitleListDataSource* readMoreDataSource;
 
 // Fetchers
 @property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
@@ -191,19 +194,22 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.recentPages entryForTitle:self.articleTitle];
 }
 
-- (WMFArticleListTableViewController*)readMoreListViewController {
-    if (!_readMoreListViewController) {
-        _readMoreListViewController           = [[WMFSelfSizingArticleListTableViewController alloc] init];
-        _readMoreListViewController.dataStore = self.dataStore;
-        WMFRelatedTitleListDataSource* relatedTitlesDataSource =
+- (WMFRelatedTitleListDataSource*)readMoreDataSource {
+    if (!_readMoreDataSource) {
+        _readMoreDataSource =
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle
                                                        dataStore:self.dataStore
                                                    savedPageList:self.savedPages
                                                      resultLimit:3];
-        // TODO: fetch lazily
-        [relatedTitlesDataSource fetch];
-        // TEMP: configure extract chars
-        _readMoreListViewController.dataSource = relatedTitlesDataSource;
+    }
+    return _readMoreDataSource;
+}
+
+- (WMFArticleListTableViewController*)readMoreListViewController {
+    if (!_readMoreListViewController) {
+        _readMoreListViewController            = [[WMFSelfSizingArticleListTableViewController alloc] init];
+        _readMoreListViewController.dataStore  = self.dataStore;
+        _readMoreListViewController.dataSource = self.readMoreDataSource;
     }
     return _readMoreListViewController;
 }
@@ -220,7 +226,6 @@ NS_ASSUME_NONNULL_BEGIN
         _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate             = self;
         _webViewController.headerViewController = self.headerGallery;
-        [_webViewController setFooterViewControllers:@[self.readMoreListViewController]];
     }
     return _webViewController;
 }
@@ -517,17 +522,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self unobserveArticleUpdates];
     [self showProgressViewAnimated:YES];
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
-        dispatchOnMainQueue(^{
-        });
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
         [self saveWebViewScrollOffset];
-        dispatchOnMainQueue(^{
-        });
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.webViewIsLoadingFetchedArticle = YES;
         self.article = article;
+        [self fetchReadMore];
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];
@@ -539,6 +541,20 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         self.articleFetcherPromise = nil;
         [self observeArticleUpdates];
+    });
+}
+
+- (void)fetchReadMore {
+    @weakify(self);
+    [self.readMoreDataSource fetch]
+    .then(^(WMFRelatedSearchResults* readMoreResults) {
+        @strongify(self);
+        if ([readMoreResults.results count] > 0) {
+            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController]];
+            [self appendReadMoreTableOfContentsItem];
+        }
+    }).catch(^(NSError* error){
+        DDLogError(@"Read More Fetch Error: %@", [error localizedDescription]);
     });
 }
 
