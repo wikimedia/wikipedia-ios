@@ -36,10 +36,11 @@
 
     self = [self initWithSite:[MWKSite siteWithDomain:domain language:language]];
     if (self) {
-        self.title           = [self requiredTitle:@"title" dict:dict allowEmpty:NO];
-        self.date            = [self requiredDate:@"date" dict:dict];
-        self.discoveryMethod = [MWKHistoryEntry discoveryMethodForString:[self requiredString:@"discoveryMethod" dict:dict]];
-        self.scrollPosition  = [[self requiredNumber:@"scrollPosition" dict:dict] floatValue];
+        self.title                       = [self requiredTitle:@"title" dict:dict allowEmpty:NO];
+        self.date                        = [self requiredDate:@"date" dict:dict];
+        self.discoveryMethod             = [MWKHistoryEntry discoveryMethodForString:[self requiredString:@"discoveryMethod" dict:dict]];
+        self.scrollPosition              = [[self requiredNumber:@"scrollPosition" dict:dict] floatValue];
+        self.titleWasSignificantlyViewed = [[self optionalNumber:@"titleWasSignificantlyViewed" dict:dict] boolValue];
     }
     return self;
 }
@@ -137,6 +138,7 @@
     [dict wmf_maybeSetObject:[self iso8601DateString:self.date] forKey:@"date"];
     [dict wmf_maybeSetObject:[MWKHistoryEntry stringForDiscoveryMethod:self.discoveryMethod] forKey:@"discoveryMethod"];
     [dict wmf_maybeSetObject:@(self.scrollPosition) forKey:@"scrollPosition"];
+    [dict wmf_maybeSetObject:@(self.titleWasSignificantlyViewed) forKey:@"titleWasSignificantlyViewed"];
 
     return [NSDictionary dictionaryWithDictionary:dict];
 }

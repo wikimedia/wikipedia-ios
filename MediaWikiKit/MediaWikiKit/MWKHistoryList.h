@@ -39,6 +39,14 @@ extern NSString* const MWKHistoryListDidUpdateNotification;
 - (void)setPageScrollPosition:(CGFloat)scrollposition onPageInHistoryWithTitle:(MWKTitle*)title;
 
 /**
+ *  Sets the history entry to be "significantly viewed"
+ *  This denotes that a user looked at this title for a period of time to indicate interest
+ *
+ *  @param title The title to set to significantly viewed
+ */
+- (void)setSignificantlyViewedOnPageInHistoryWithTitle:(MWKTitle*)title;
+
+/**
  *  Remove the given history entries from the history.
  *
  *  @param historyEntries An array of instances of MWKHistoryEntry
