@@ -7,6 +7,7 @@
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
+#import "UITableViewCell+WMFLayout.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
             cell.snippetText     = [article summary];
             [cell setImage:[article bestThumbnailImage]];
+            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
 
         self.tableDeletionBlock = ^(WMFSavedPagesDataSource* dataSource,

@@ -286,6 +286,7 @@
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
 		3CBED9621BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBED9611BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
+		B05B09B71C03DABF009CF59D /* UITableViewCell+WMFLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B05B09B61C03DABF009CF59D /* UITableViewCell+WMFLayout.m */; };
 		B06D69A71BEA95FE00382510 /* NSLocale+WMFExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D69A61BEA95FE00382510 /* NSLocale+WMFExtras.swift */; };
 		B0F711051BCED85D0040BB42 /* UIImage+WMFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F711041BCED85D0040BB42 /* UIImage+WMFStyle.m */; };
 		BC060B3A1B456D030086EBFB /* AnyPromise+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BC060B391B456D030086EBFB /* AnyPromise+WMFExtensions.m */; };
@@ -1094,6 +1095,8 @@
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
+		B05B09B51C03DABF009CF59D /* UITableViewCell+WMFLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+WMFLayout.h"; sourceTree = "<group>"; };
+		B05B09B61C03DABF009CF59D /* UITableViewCell+WMFLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+WMFLayout.m"; sourceTree = "<group>"; };
 		B06D69A61BEA95FE00382510 /* NSLocale+WMFExtras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSLocale+WMFExtras.swift"; sourceTree = "<group>"; };
 		B0F711021BCC68560040BB42 /* WMFNumberOfExtractCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNumberOfExtractCharacters.h; sourceTree = "<group>"; };
 		B0F711031BCED85D0040BB42 /* UIImage+WMFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WMFStyle.h"; sourceTree = "<group>"; };
@@ -2219,6 +2222,8 @@
 				BCAC50BF1AF3F7460015936C /* NSBundle+WMFInfoUtils.h */,
 				3CBED9601BFE63B400C5D38C /* UITableViewCell+SelectedBackground.h */,
 				3CBED9611BFE63B400C5D38C /* UITableViewCell+SelectedBackground.m */,
+				B05B09B51C03DABF009CF59D /* UITableViewCell+WMFLayout.h */,
+				B05B09B61C03DABF009CF59D /* UITableViewCell+WMFLayout.m */,
 				BCAC50C01AF3F7460015936C /* NSBundle+WMFInfoUtils.m */,
 				BCAFC5D21AFD5F7E004615BA /* MWKArticle+WMFSharing.h */,
 				BCAFC5D11AFD5F7E004615BA /* MWKArticle+WMFSharing.m */,
@@ -4359,6 +4364,7 @@
 				BCB848831AAE0C5C0077EC24 /* WMFImageGalleryCollectionViewCell.m in Sources */,
 				04B0EA4A190B2348007458AF /* PreviewLicenseView.m in Sources */,
 				0E76D1A61BE7CA4A00937DC3 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m in Sources */,
+				B05B09B71C03DABF009CF59D /* UITableViewCell+WMFLayout.m in Sources */,
 				0E8E9A521BFA47B70054A242 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
 				0487047F19F8262600B7D307 /* AccountCreator.m in Sources */,
 				0487048619F8262600B7D307 /* MWKLanguageLinkFetcher.m in Sources */,

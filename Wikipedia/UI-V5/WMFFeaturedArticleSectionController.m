@@ -10,6 +10,7 @@
 #import "WMFArticlePreviewTableViewCell.h"
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UITableViewCell+WMFLayout.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -109,6 +110,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
         previewCell.snippetText     = self.featuredArticlePreview.extract;
         [previewCell setImageURL:self.featuredArticlePreview.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
+        [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
 }
 
