@@ -109,19 +109,21 @@
                                         keyPath:WMF_SAFE_KEYPATH(prefixResults, results)
                                   expectedValue:nil];
 
+    __block WMFSearchResults* appendedResults;
+
     expectResolutionWithTimeout(5, ^{
         return [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
                                                    site:[MWKSite random]
                                             resultLimit:15
                                          fullTextSearch:YES
                                 appendToPreviousResults:prefixResults]
-        .then(^(WMFSearchResults* appendedResults) {
-            XCTAssertEqual(prefixResults,
-                           appendedResults,
-                           @"Expected full text results to be appended to prefix results object.");
-            assertThat(appendedResults, is(equalTo(expectedMergedResults)));
+        .then(^(WMFSearchResults* fullTextResults) {
+            appendedResults = fullTextResults;
         });
     });
+
+    XCTAssertEqual(prefixResults, appendedResults, @"Expected full text results to be appended to prefix results object.");
+    assertThat(appendedResults, is(equalTo(expectedMergedResults)));
 }
 
 @end

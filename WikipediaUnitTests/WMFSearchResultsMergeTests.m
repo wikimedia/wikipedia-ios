@@ -27,6 +27,15 @@ static MWKSearchResult* dummySearchResultWithIndex(NSUInteger index) {
 QuickSpecBegin(WMFSearchResultMergeTests)
 
 describe(@"merging results", ^{
+    void (^ verifyKVOInsertionOfResults)(WMFSearchResults*, WMFSearchResults*) = ^(WMFSearchResults* r1, WMFSearchResults* r2) {
+        NSArray* originalResults = r1.results;
+        [self keyValueObservingExpectationForObject:r1
+                                            keyPath:WMF_SAFE_KEYPATH(r1, results)
+                                            handler:^BOOL (id _Nonnull observedObject, NSDictionary* _Nonnull change) {
+            return [change[NSKeyValueChangeKindKey] integerValue] == NSKeyValueChangeInsertion
+            && [change[NSKeyValueChangeIndexesKey] containsIndexesInRange:NSMakeRange(originalResults.count, r2.results.count)];
+        }];
+    };
     it(@"should preserve result ordering, putting original results first", ^{
         NSArray* originalResults = @[dummySearchResultWithIndex(0),
                                      dummySearchResultWithIndex(1),
@@ -43,6 +52,9 @@ describe(@"merging results", ^{
                                                            dummySearchResultWithIndex(2)]
                                         searchSuggestion:@"buz"
                                         redirectMappings:@[]];
+
+        verifyKVOInsertionOfResults(r1, r2);
+
         [r1 mergeValuesForKeysFromModel:r2];
 
         expect([r1.results subarrayWithRange:NSMakeRange(0, originalResults.count)])
@@ -71,6 +83,8 @@ describe(@"merging results", ^{
                                                  results:[originalResults arrayByAddingObjectsFromArray:newResults]
                                         searchSuggestion:@"buz"
                                         redirectMappings:@[]];
+
+        verifyKVOInsertionOfResults(r1, r2);
 
         [r1 mergeValuesForKeysFromModel:r2];
 
