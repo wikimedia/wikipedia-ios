@@ -11,17 +11,38 @@
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 
 @interface WMFBaseImageGalleryViewController ()
+
 @end
 
 @implementation WMFBaseImageGalleryViewController
 @synthesize dataSource = _dataSource;
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
+
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout {
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
-        _dataSource = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
+        [self commonInit];
     }
     return self;
+}
+
+- (void)commonInit {
+    _dataSource = [[WMFImageGalleryDataSource alloc] initWithItems:nil];
 }
 
 - (void)showImagesInArticle:(MWKArticle*)article {
