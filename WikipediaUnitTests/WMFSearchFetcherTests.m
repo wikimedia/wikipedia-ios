@@ -40,6 +40,7 @@
 
 - (void)testNonEmptyPrefixResponse {
     id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"BarackSearch"];
+    NSParameterAssert(json);
 
     stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
     .andReturn(200)
@@ -55,6 +56,7 @@
 
 - (void)testEmptyPrefixResponse {
     id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+    NSParameterAssert(json);
 
     stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
     .andReturn(200)
@@ -72,6 +74,8 @@
 - (void)testAppendingToPrefixResults {
     NSData* prefixResponseData =
         [[self wmf_bundle] wmf_dataFromContentsOfFile:@"NoSearchResultsWithSuggestion" ofType:@"json"];
+    NSParameterAssert(prefixResponseData);
+
     WMFSearchResults* prefixResults =
         [self.fetcher.operationManager.responseSerializer responseObjectForResponse:nil
                                                                                data:prefixResponseData
@@ -81,6 +85,7 @@
     XCTAssertNotNil(prefixResults, @"Failed to serialize prefix response fixture.");
 
     NSData* fullTextSearchJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MonetFullTextSearch" ofType:@"json"];
+    NSParameterAssert(fullTextSearchJSONData);
 
     WMFSearchResults* fullTextResults =
         [self.fetcher.operationManager.responseSerializer responseObjectForResponse:nil
