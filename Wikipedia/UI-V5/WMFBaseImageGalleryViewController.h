@@ -12,6 +12,12 @@
 
 @interface WMFBaseImageGalleryViewController : WMFPageCollectionViewController
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_DESIGNATED_INITIALIZER;
+
 /**
  *  Causes the receiver to populate its UI with images in @c article.
  *
