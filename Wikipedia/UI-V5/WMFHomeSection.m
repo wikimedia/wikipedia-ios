@@ -154,6 +154,12 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
++ (instancetype)pictureOfTheDaySection {
+    WMFHomeSection* item = [[WMFHomeSection alloc] init];
+    item.type  = WMFHomeSectionTypePictureOfTheDay;
+    return item;
+}
+
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title {
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type  = WMFHomeSectionTypeContinueReading;
