@@ -25,11 +25,15 @@ static WMFSearchViewController * _sharedSearchViewController = nil;
 }
 
 + (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification*)note {
-    _sharedSearchViewController = nil;
+    if (!_sharedSearchViewController.view.window) {
+        _sharedSearchViewController = nil;
+    }
 }
 
 + (void)wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:(NSNotification*)note {
-    _sharedSearchViewController = nil;
+    if (!_sharedSearchViewController.view.window) {
+        _sharedSearchViewController = nil;
+    }
 }
 
 - (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
