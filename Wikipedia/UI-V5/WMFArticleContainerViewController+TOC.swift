@@ -45,20 +45,42 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
 }
 
 extension WMFArticleContainerViewController {
+    
     /**
-    Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
-
-    - note: This must be done in Swift because `WMFTableOfContentsViewControllerDelegate` is not an ObjC protocol,
-            and therefore cannot be referenced in Objective-C.
-
-    - returns: A new view controller or `nil` if the receiver's `article.sections` is `nil`.
-    */
-    public func createTableOfContentsViewController() {
+     Create ToC items.
+     
+     - note: This must be done in Swift because `WMFTableOfContentsViewControllerDelegate` is not an ObjC protocol,
+     and therefore cannot be referenced in Objective-C.
+     
+     - returns: sections of the ToC.
+     */
+    func createTableOfContentsSections() -> [TableOfContentsItem]?{
         if let sections = self.article?.sections {
             // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
-            var items = sections.entries.map() { $0 as! TableOfContentsItem }
-            items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
+            let items = sections.entries.map() { $0 as! TableOfContentsItem }
+            return items
+        }else{
+            
+            return nil
+        }
+    }
+    
+    /**
+    Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
+    */
+    public func createTableOfContentsViewController() {
+        if let items = createTableOfContentsSections() {
             self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: self, items: items, delegate: self)
+        }
+    }
+
+    /**
+     Append a read more section to the table of contents.
+     */
+    public func appendReadMoreTableOfContentsItem() {
+        if var items = createTableOfContentsSections() {
+            items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
+            self.tableOfContentsViewController.items = items
         }
     }
 
