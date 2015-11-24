@@ -368,10 +368,10 @@ NS_ASSUME_NONNULL_BEGIN
             case WMFHomeSectionTypePictureOfTheDay:
                 [self loadSectionForSectionController:[self picOfTheDaySectionController]];
                 break;
-            /*
-             !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
-            a new case is added to the enum, enforcing that all sections are handled here.
-            */
+                /*
+                   !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
+                   a new case is added to the enum, enforcing that all sections are handled here.
+                 */
         }
     }];
     self.dataSource.tableView = self.tableView;

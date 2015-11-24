@@ -64,39 +64,39 @@
     return [self fetchInfoForTitles:imageTitles fromSite:site useGenerator:NO success:success failure:failure];
 }
 
-- (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray *)titles
-fromSite:(MWKSite *)site
-useGenerator:(BOOL)useGenerator
- success:(void (^)(NSArray *))success
- failure:(void (^)(NSError *))failure {
+- (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray*)titles
+                                     fromSite:(MWKSite*)site
+                                 useGenerator:(BOOL)useGenerator
+                                      success:(void (^)(NSArray*))success
+                                      failure:(void (^)(NSError*))failure {
     NSParameterAssert([titles count]);
     NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
     NSParameterAssert(site);
     NSAssert(site.language.length, @"Site must have a non-empty language in order to send requests: %@", site);
 
     NSMutableDictionary* params = [@{
-        @"format": @"json",
-        @"action": @"query",
-        @"titles": WMFJoinedPropertyParameters(titles),
-        @"rawcontinue": @"",     //< suppress old continue warning
-        @"prop": @"imageinfo",
-        @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-        @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
-        // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
-        @"iiurlwidth": @1280,
-    } mutableCopy];
+                                       @"format": @"json",
+                                       @"action": @"query",
+                                       @"titles": WMFJoinedPropertyParameters(titles),
+                                       @"rawcontinue": @"", //< suppress old continue warning
+                                       @"prop": @"imageinfo",
+                                       @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
+                                       @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
+                                       // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
+                                       @"iiurlwidth": @1280,
+                                   } mutableCopy];
 
     if (useGenerator) {
         [params setValuesForKeysWithDictionary:@{
-            @"generator": @"images"
-        }];
+             @"generator": @"images"
+         }];
     }
 
     __weak MWKImageInfoFetcher* weakSelf = self;
-    AFHTTPRequestOperation* request =
+    AFHTTPRequestOperation* request      =
         [self.manager wmf_GETWithSite:site
                            parameters:params
-                                retry:nil 
+                                retry:nil
                               success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
         MWKImageInfoFetcher* strSelf = weakSelf;
         [strSelf finishWithError:nil fetchedData:galleryItems];
