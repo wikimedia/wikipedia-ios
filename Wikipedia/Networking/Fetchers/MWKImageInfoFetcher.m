@@ -14,9 +14,6 @@
 #import "MediaWikiKit.h"
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 
-// FIXME: remove this soon
-#import "SessionSingleton.h"
-
 @interface MWKImageInfoFetcher ()
 
 @property (nonatomic, strong, readonly) AFHTTPRequestOperationManager* manager;
