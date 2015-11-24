@@ -55,6 +55,9 @@
                <Test
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
+               <Test
+                  Identifier = "WMFSearchFetcherTests">
+               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>
