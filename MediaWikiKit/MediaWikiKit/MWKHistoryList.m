@@ -75,6 +75,9 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
         return;
     }
     [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
+        if (entry.titleWasSignificantlyViewed) {
+            return NO;
+        }
         entry.titleWasSignificantlyViewed = YES;
         return YES;
     }];

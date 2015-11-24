@@ -465,6 +465,9 @@ NS_ASSUME_NONNULL_BEGIN
     if(self.significantlyViewedTimer){
         return;
     }
+    if(!self.article){
+        return;
+    }
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     MWKHistoryEntry* entry      = [historyList entryForTitle:self.articleTitle];
     if (!entry.titleWasSignificantlyViewed) {
@@ -473,11 +476,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)significantlyViewedTimerFired:(NSTimer*)timer {
-    [self.significantlyViewedTimer invalidate];
-    self.significantlyViewedTimer = nil;
+    [self stopSignificantlyViewedTimer];
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     [historyList setSignificantlyViewedOnPageInHistoryWithTitle:self.articleTitle];
     [historyList save];
+}
+
+- (void)stopSignificantlyViewedTimer{
+    [self.significantlyViewedTimer invalidate];
+    self.significantlyViewedTimer = nil;
 }
 
 #pragma mark - ViewController
@@ -498,11 +505,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-}
-
-- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
-    [super traitCollectionDidChange:previousTraitCollection];
-    [self registerForPreviewingIfAvailable];
+    [self startSignificantlyViewedTimer];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -512,10 +515,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
     [super viewWillDisappear:animated];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+}
+
+- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    [self registerForPreviewingIfAvailable];
 }
 
 #pragma mark - Web View Setup
