@@ -79,12 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Header & Footers
 
+@property (nonatomic, strong, nullable) UIViewController* headerViewController;
+
 /**
  *  An array of view controllers which will be displayed above the receiver's @c UIWebView content from top to bottom.
  */
-@property (nonatomic, strong, nullable) UIViewController* headerViewController;
-
-@property (nonatomic, strong) NSArray<UIViewController*>* footerViewControllers;
+@property (nonatomic, strong, nullable) NSArray<UIViewController*>* footerViewControllers;
 
 - (void)scrollToFooterAtIndex:(NSUInteger)index;
 
