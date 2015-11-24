@@ -1,5 +1,5 @@
 
-#import "WMFSearchResults.h"
+#import "WMFSearchResults_Internal.h"
 #import "MWKArticle.h"
 #import "MWKTitle.h"
 #import "UIView+WMFDefaultNib.h"
@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray<MWKSearchResult*>* _mutableResults;
 }
 
-@property (nonatomic, copy, readwrite) NSString* searchTerm;
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
 @property (nonatomic, strong, readwrite) NSArray<MWKSearchResult*>* results;
 
@@ -31,13 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithSearchTerm:(NSString*)searchTerm
-                           results:(nullable NSArray*)results
-                  searchSuggestion:(nullable NSString*)suggestion {
+                           results:(nullable NSArray<MWKSearchResult*>*)results
+                  searchSuggestion:(nullable NSString*)suggestion
+                  redirectMappings:(NSArray<MWKSearchRedirectMapping*>*)redirectMappings; {
     self = [self init];
     if (self) {
         self.searchTerm       = searchTerm;
         self.results          = results;
         self.searchSuggestion = suggestion;
+        self.redirectMappings = redirectMappings;
     }
     return self;
 }
@@ -87,6 +88,15 @@ NS_ASSUME_NONNULL_BEGIN
     };
 }
 
+#pragma mark - Merge
+
+- (void)mergeRedirectMappingsFromModel:(WMFSearchResults*)searchResults {
+    NSArray* newMappings = [searchResults.redirectMappings bk_reject:^BOOL (MWKSearchRedirectMapping* mapping) {
+        return [self.redirectMappings containsObject:mapping];
+    }];
+    self.redirectMappings = [self.redirectMappings arrayByAddingObjectsFromArray:newMappings];
+}
+
 - (void)mergeResultsFromModel:(WMFSearchResults*)searchResults {
     NSArray* newResults = [searchResults.results bk_reject:^BOOL (MWKSearchResult* obj) {
         return [self.results containsObject:obj];
@@ -96,7 +106,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)mergeSearchSuggestionFromModel:(WMFSearchResults*)searchResults {
     // preserve current search suggestion if there is one
-    self.searchSuggestion = searchResults.searchSuggestion.length ? searchResults.searchSuggestion : self.searchSuggestion;
+    if (self.searchSuggestion.length) {
+        return;
+    }
+    self.searchSuggestion = searchResults.searchSuggestion;
 }
 
 #pragma mark - KVO

@@ -6,8 +6,8 @@
 @implementation UITableViewCell (WMFCellSelectedBackground)
 
 - (void)wmf_setSelectedBackground {
-    UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = [UIColor wmf_tapHighlightColor];
+    UIView* bgView = [[UIView alloc] init];
+    bgView.backgroundColor      = [UIColor wmf_tapHighlightColor];
     self.selectedBackgroundView = bgView;
 }
 

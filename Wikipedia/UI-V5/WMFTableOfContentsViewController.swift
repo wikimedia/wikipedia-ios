@@ -28,7 +28,11 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     
     let tableOfContentsFunnel: ToCInteractionFunnel
 
-    let items: [TableOfContentsItem]
+    var items: [TableOfContentsItem] {
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
 
     //optional becuase it requires a reference to self to inititialize
     var animator: WMFTableOfContentsAnimator?

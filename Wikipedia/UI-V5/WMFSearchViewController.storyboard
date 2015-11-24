@@ -381,6 +381,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="headerContainer" destination="XZi-qL-C8i" id="1ZV-Al-dhH"/>
                         <outlet property="headingLabel" destination="bGx-k7-AQ1" id="c8h-qY-42y"/>
                         <outlet property="table" destination="ka6-Dy-C8P" id="ONG-nR-ET1"/>
                         <outlet property="trashButtonContainer" destination="7SS-UN-pgW" id="6mT-BT-eaR"/>

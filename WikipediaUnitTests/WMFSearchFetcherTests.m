@@ -5,143 +5,130 @@
 ////  Created by Brian Gerstle on 11/11/15.
 ////  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 ////
-//
-//#import <XCTest/XCTest.h>
-//#import "WMFSearchFetcher.h"
-//#import "WMFSearchResults.h"
-//
-//#import "LSStubResponseDSL+WithJSON.h"
-//#import "XCTestCase+PromiseKit.h"
-//
-//#define HC_SHORTHAND 1
-//#import <OCHamcrest/OCHamcrest.h>
-//
-//@interface WMFSearchFetcherTests : XCTestCase
-//@property (nonatomic, strong) WMFSearchFetcher* fetcher;
-//@end
-//
-//@implementation WMFSearchFetcherTests
-//
-//- (void)setUp {
-//    [super setUp];
-//    self.fetcher = [[WMFSearchFetcher alloc] init];
-//    [[LSNocilla sharedInstance] start];
-//}
-//
-//- (void)tearDown {
-//    [super tearDown];
-//    [[LSNocilla sharedInstance] stop];
-//}
-//
-//- (void)testSerializesAndStopsAtAdequatePrefixSearchResults {
-//    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"BarackSearch"];
-//
-//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
-//    .andReturn(200)
-//    .withJSON(json);
-//
-//    expectResolutionWithTimeout(5, ^{
-//        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
-//        .then(^(WMFSearchResults* result) {
-//            assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
-//        });
-//    });
-//}
-//
-//- (void)testHandlesSuggestionWithoutResults {
-//    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
-//
-//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
-//    .andReturn(200)
-//    .withJSON(json);
-//
-//    expectResolutionWithTimeout(5, ^{
-//        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
-//        .then(^(WMFSearchResults* result) {
-//            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
-//            assertThat(result.results, isEmpty());
-//        });
-//    });
-//}
-//
-//- (void)testAppendingToPreviousEmptyResultsCausesKVOEvents {
-//    id noResultsJSON      = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
-//    id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
-//
-//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
-//    .andReturn(200)
-//    .withJSON(noResultsJSON);
-//
-//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
-//    .andReturn(200)
-//    .withJSON(fullTextSearchJSON);
-//
-//    NSArray<NSString*>* fullTextTitles =
-//        [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
-//
-//    WMFSearchResults* finalResults = [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:nil];
-//    assertThat(finalResults.searchSuggestion, is([noResultsJSON valueForKeyPath:@"query.searchinfo.suggestion"]));
-//}
-//
-//- (void)testAppendingToPreviousNonEmptyResultsCausesKVOEvents {
-//    id prefixSearchJSON   = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetPrefixSearch"];
-//    id fullTextSearchJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"MonetFullTextSearch"];
-//
-//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=prefixsearch.*" options:0 error:nil])
-//    .andReturn(200)
-//    .withJSON(prefixSearchJSON);
-//
-//    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
-//    .andReturn(200)
-//    .withJSON(fullTextSearchJSON);
-//
-//    NSArray<NSString*>* prefixTitles =
-//        [[[prefixSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
-//
-//    NSArray<NSString*>* fullTextTitles =
-//        [[[fullTextSearchJSON valueForKeyPath:@"query.pages"] allValues] valueForKey:@"title"];
-//
-//    [self verifyKVOEventWhenAppendingTitles:fullTextTitles toPrefixTitles:prefixTitles];
-//}
-//
-//#pragma mark - Utils
-//
-//- (WMFSearchResults*)verifyKVOEventWhenAppendingTitles:(NSArray*)fullTextTitles
-//                                        toPrefixTitles:(nullable NSArray*)prefixTitles {
-//    NSMutableSet* uniqueTitles = [NSMutableSet setWithArray:prefixTitles ? : @[]];
-//    [uniqueTitles addObjectsFromArray:fullTextTitles];
-//
-//    MWKSite* searchSite = [MWKSite random];
-//
-//    __block WMFSearchResults* fetchedPrefixResult;
-//
-//    // get prefix result
-//    expectResolutionWithTimeout(5, ^{
-//        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:searchSite resultLimit:15]
-//        .then(^(WMFSearchResults* prefixResult) {
-//            assertThat(prefixResult.results, hasCountOf(prefixTitles.count));
-//            fetchedPrefixResult = prefixResult;
-//        });
-//    });
-//
-//    // expect KVO notification
-//    [self keyValueObservingExpectationForObject:fetchedPrefixResult
-//                                        keyPath:WMF_SAFE_KEYPATH(fetchedPrefixResult, results)
-//                                  expectedValue:nil];
-//
-//    // fetch full-text results, appending to prefix
-//    expectResolutionWithTimeout(5, ^{
-//        return [self.fetcher fetchArticlesForSearchTerm:@"foo"
-//                                                   site:searchSite
-//                                            resultLimit:15
-//                                         fullTextSearch:YES
-//                                appendToPreviousResults:fetchedPrefixResult]
-//        .then(^(WMFSearchResults* appendedResults) {
-//            XCTAssertEqual(fetchedPrefixResult, appendedResults, @"Expected resolved value to be identical to previous results object.");
-//            assertThat(appendedResults.results, hasCountOf(uniqueTitles.count));
-//        });
-//    });
-//    return fetchedPrefixResult;
-//}
-//
-//@end
+
+#import <XCTest/XCTest.h>
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
+#import "WMFSearchFetcher_Testing.h"
+#import "WMFSearchResults_Internal.h"
+#import "MWKSearchResult.h"
+#import "Wikipedia-Swift.h"
+
+
+#import "LSStubResponseDSL+WithJSON.h"
+#import "XCTestCase+PromiseKit.h"
+
+#define HC_SHORTHAND 1
+#import <OCHamcrest/OCHamcrest.h>
+#import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
+
+@interface WMFSearchFetcherTests : XCTestCase
+@property (nonatomic, strong) WMFSearchFetcher* fetcher;
+@end
+
+@implementation WMFSearchFetcherTests
+
+- (void)setUp {
+    [super setUp];
+    self.fetcher = [[WMFSearchFetcher alloc] init];
+    [[LSNocilla sharedInstance] start];
+}
+
+- (void)tearDown {
+    [super tearDown];
+    [[LSNocilla sharedInstance] stop];
+}
+
+- (void)testNonEmptyPrefixResponse {
+    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"BarackSearch"];
+    NSParameterAssert(json);
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
+    .andReturn(200)
+    .withJSON(json);
+
+    expectResolutionWithTimeout(5, ^{
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
+        .then(^(WMFSearchResults* result) {
+            assertThat(result.results, hasCountOf([[json valueForKeyPath:@"query.pages"] count]));
+        });
+    });
+}
+
+- (void)testEmptyPrefixResponse {
+    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"NoSearchResultsWithSuggestion"];
+    NSParameterAssert(json);
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@"generator=prefixsearch.*foo.*" options:0 error:nil])
+    .andReturn(200)
+    .withJSON(json);
+
+    expectResolutionWithTimeout(5, ^{
+        return [self.fetcher fetchArticlesForSearchTerm:@"foo" site:[MWKSite random] resultLimit:15]
+        .then(^(WMFSearchResults* result) {
+            assertThat(result.searchSuggestion, is([json valueForKeyPath:@"query.searchinfo.suggestion"]));
+            assertThat(result.results, isEmpty());
+        });
+    });
+}
+
+- (void)testAppendingToPrefixResults {
+    NSData* prefixResponseData =
+        [[self wmf_bundle] wmf_dataFromContentsOfFile:@"NoSearchResultsWithSuggestion" ofType:@"json"];
+    NSParameterAssert(prefixResponseData);
+
+    WMFSearchResults* prefixResults =
+        [self.fetcher.operationManager.responseSerializer responseObjectForResponse:nil
+                                                                               data:prefixResponseData
+                                                                              error:nil];
+    prefixResults.searchTerm = @"foo";
+
+    XCTAssertNotNil(prefixResults, @"Failed to serialize prefix response fixture.");
+
+    NSData* fullTextSearchJSONData = [[self wmf_bundle] wmf_dataFromContentsOfFile:@"MonetFullTextSearch" ofType:@"json"];
+    NSParameterAssert(fullTextSearchJSONData);
+
+    WMFSearchResults* fullTextResults =
+        [self.fetcher.operationManager.responseSerializer responseObjectForResponse:nil
+                                                                               data:fullTextSearchJSONData
+                                                                              error:nil];
+    fullTextResults.searchTerm = prefixResults.searchTerm;
+
+    XCTAssertNotNil(fullTextResults, @"Failed to serialize full-text response fixture");
+
+    WMFSearchResults* expectedMergedResults =
+        [self.fetcher.operationManager.responseSerializer responseObjectForResponse:nil
+                                                                               data:prefixResponseData
+                                                                              error:nil];
+    // prefix results come before full-text
+    [expectedMergedResults mergeValuesForKeysFromModel:fullTextResults];
+    expectedMergedResults.searchTerm = prefixResults.searchTerm;
+
+
+    stubRequest(@"GET", [NSRegularExpression regularExpressionWithPattern:@".*generator=search.*" options:0 error:nil])
+    .andReturn(200)
+    .withHeader(@"Content-Type", @"application/json")
+    .withBody(fullTextSearchJSONData);
+
+    // expect KVO notification, must be done outside of "expect" since you can't add expectations once waiting has started
+    [self keyValueObservingExpectationForObject:prefixResults
+                                        keyPath:WMF_SAFE_KEYPATH(prefixResults, results)
+                                  expectedValue:nil];
+
+    __block WMFSearchResults* appendedResults;
+
+    expectResolutionWithTimeout(5, ^{
+        return [self.fetcher fetchArticlesForSearchTerm:expectedMergedResults.searchTerm
+                                                   site:[MWKSite random]
+                                            resultLimit:15
+                                         fullTextSearch:YES
+                                appendToPreviousResults:prefixResults]
+        .then(^(WMFSearchResults* fullTextResults) {
+            appendedResults = fullTextResults;
+        });
+    });
+
+    XCTAssertEqual(prefixResults, appendedResults, @"Expected full text results to be appended to prefix results object.");
+    assertThat(appendedResults, is(equalTo(expectedMergedResults)));
+}
+
+@end
