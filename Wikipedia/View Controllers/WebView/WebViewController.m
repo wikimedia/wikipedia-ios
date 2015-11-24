@@ -48,6 +48,18 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 @property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
+/*
+   NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
+   issues when attempting a contentInset approach:
+   - doesn't work well for footers:
+   - contentInset causes jumpiness when scrolling beyond _bottom_ of content
+   - interferes w/ bouncing at the bottom
+   - forces you to manually set scrollView offsets
+   - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
+
+   IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
+   headers & footers
+ */
 @property (nonatomic, strong) MASConstraint* headerHeight;
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
@@ -119,7 +131,8 @@ NSString* const WMFLicenseTitleOnENWiki =
     [super viewDidLoad];
 
     self.isPeeking = NO;
-    [self loadHeadersAndFooters];
+    [self addHeaderView];
+    [self addFooterView];
 
     self.referencesHidden = YES;
 
@@ -229,24 +242,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     }];
 }
 
-- (void)loadHeadersAndFooters {
-    /*
-       NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
-       issues when attempting a contentInset approach:
-       - doesn't work well for footers:
-       - contentInset causes jumpiness when scrolling beyond _bottom_ of content
-       - interferes w/ bouncing at the bottom
-       - forces you to manually set scrollView offsets
-       - breaks native scrolling to top/bottom (i.e. title bar tap goes to top of content, not header)
-
-       IOW, contentInset is nice for pull-to-refresh, parallax scrolling stuff, but not quite for table/collection-view-style
-       headers & footers
-     */
-    self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
-    [self addHeaderView];
-    [self addFooterView];
-}
-
 - (void)addHeaderView {
     if (!self.headerViewController) {
         return;
@@ -261,16 +256,36 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self.headerViewController didMoveToParentViewController:self];
 }
 
+- (UIView*)footerContainerView {
+    if (!_footerContainerView) {
+        _footerContainerView                 = [UIView new];
+        _footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
+    }
+    return _footerContainerView;
+}
+
+- (WMFArticleFooterView*)footerLicenseView {
+    if (!_footerLicenseView) {
+        _footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
+        @weakify(self);
+        [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+            [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _footerLicenseView;
+}
+
 - (void)addFooterView {
+    self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addFooterContainerView];
-    [self addFooterViews];
+    [self addFooterContentViews];
 }
 
 - (void)addFooterContainerView {
-    self.footerContainerView                 = [UIView new];
-    self.footerContainerView.backgroundColor = [UIColor wmf_articleBackgroundColor];
     [self.webView.scrollView addSubview:self.footerContainerView];
-    [self.footerContainerView mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.footerContainerView mas_remakeConstraints:^(MASConstraintMaker* make) {
         // lead/trail must be constained to webview, the scrollview doesn't define a width
         make.leading.and.trailing.equalTo(self.webView);
         make.top.equalTo([[self.webView wmf_browserView] mas_bottom]);
@@ -278,7 +293,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     }];
 }
 
-- (void)addFooterViews {
+- (void)addFooterContentViews {
     NSParameterAssert(self.isViewLoaded);
     MASViewAttribute* lastAnchor = [self.footerViewControllers bk_reduce:self.footerContainerView.mas_top
                                                                withBlock:^MASViewAttribute*(MASViewAttribute* topAnchor,
@@ -289,7 +304,7 @@ NSString* const WMFLicenseTitleOnENWiki =
             self.footerViewHeadersByIndex[@([self.footerViewControllers indexOfObject:childVC])] = header;
             header.headerLabel.text = footerTitle;
             [self.footerContainerView addSubview:header];
-            [header mas_makeConstraints:^(MASConstraintMaker* make) {
+            [header mas_remakeConstraints:^(MASConstraintMaker* make) {
                 make.leading.and.trailing.equalTo(self.footerContainerView);
                 make.top.equalTo(topAnchor);
             }];
@@ -297,7 +312,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         }
 
         [self.footerContainerView addSubview:childVC.view];
-        [childVC.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        [childVC.view mas_remakeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.equalTo(self.footerContainerView);
             make.top.equalTo(topAnchor);
         }];
@@ -305,30 +320,30 @@ NSString* const WMFLicenseTitleOnENWiki =
         return childVC.view.mas_bottom;
     }];
 
-    self.footerLicenseView = [WMFArticleFooterView wmf_viewFromClassNib];
+    if (!lastAnchor) {
+        lastAnchor = self.footerContainerView.mas_top;
+    }
+
     [self.footerContainerView addSubview:self.footerLicenseView];
-    [self.footerLicenseView mas_makeConstraints:^(MASConstraintMaker* make) {
+    [self.footerLicenseView mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(lastAnchor);
         make.leading.and.trailing.equalTo(self.footerContainerView);
         make.bottom.equalTo(self.footerContainerView);
     }];
-
-    @weakify(self);
-    [self.footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
-        @strongify(self);
-        MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
-        [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
-    } forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
-    NSAssert(!self.footerViewControllers, @"Dynamic/re-configurable footer views is not supported.");
-    NSAssert(!self.isViewLoaded, @"Expected footers to be configured before viewDidLoad.");
+    [_footerViewControllers bk_each:^(UIViewController* childVC) {
+        [childVC willMoveToParentViewController:nil];
+        [childVC.view removeFromSuperview];
+        [childVC removeFromParentViewController];
+    }];
     _footerViewControllers = [footerViewControllers copy];
     [_footerViewControllers bk_each:^(UIViewController* childVC) {
         [self addChildViewController:childVC];
         // didMoveToParent is called when they are added to the view
     }];
+    [self addFooterView];
 }
 
 - (void)setHeaderViewController:(UIViewController*)headerViewController {

@@ -108,4 +108,7 @@ extension NSArray {
         return newArray;
     }
 
+    public func wmf_hasDuplicateElements() -> Bool {
+        return NSSet(array: self as [AnyObject]).count != count;
+    }
 }
