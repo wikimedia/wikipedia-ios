@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
                && section.type != WMFHomeSectionTypeHistory
                && [self.dateCreated isEqualToDateIgnoringTime:section.dateCreated]) {
         // explicit ordering for non-history/-saved items created w/in the same day
-        NSInteger selfOrderingIndex = [self dailyOrderingIndex];
+        NSInteger selfOrderingIndex  = [self dailyOrderingIndex];
         NSInteger otherOrderingIndex = [section dailyOrderingIndex];
         if (selfOrderingIndex > otherOrderingIndex) {
             return NSOrderedDescending;
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)pictureOfTheDaySection {
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type  = WMFHomeSectionTypePictureOfTheDay;
+    item.type = WMFHomeSectionTypePictureOfTheDay;
     return item;
 }
 

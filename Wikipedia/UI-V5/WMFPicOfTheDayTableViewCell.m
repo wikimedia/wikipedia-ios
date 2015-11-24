@@ -20,11 +20,11 @@
 
 @implementation WMFPicOfTheDayTableViewCell
 
-- (void)setDisplayTitle:(NSString *)displayTitle {
+- (void)setDisplayTitle:(NSString*)displayTitle {
     self.displayTitleLabel.text = displayTitle;
 }
 
-- (void)setImageURL:(NSURL *)imageURL {
+- (void)setImageURL:(NSURL*)imageURL {
     [self.potdImageView wmf_setImageWithURL:imageURL detectFaces:YES];
 }
 

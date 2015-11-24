@@ -41,7 +41,7 @@ IB_DESIGNABLE
  *  @param startColor The color the gradient starts fading from.
  *  @param endColor   The color the gradient fades to.
  */
-- (void)setStartColor:(UIColor *)startColor endColor:(UIColor*)endColor;
+- (void)setStartColor:(UIColor*)startColor endColor:(UIColor*)endColor;
 
 ///
 /// @name Configuring the gradient display range

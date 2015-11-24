@@ -82,9 +82,9 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 #pragma mark - WMFHomeSectionController
 
-- (void)registerCellsInTableView:(UITableView *)tableView {
+- (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFPicOfTheDayTableViewCell wmf_classNib]
-    forCellReuseIdentifier:[WMFPicOfTheDayTableViewCell wmf_nibName]];
+     forCellReuseIdentifier:[WMFPicOfTheDayTableViewCell wmf_nibName]];
 }
 
 - (NSString*)sectionIdentifier {
@@ -100,7 +100,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [[NSAttributedString alloc] initWithString:@"Today's picture"];
 }
 
-- (UITableViewCell*)dequeueCellForTableView:(UITableView *)tableView atIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     return [tableView dequeueReusableCellWithIdentifier:[WMFPicOfTheDayTableViewCell wmf_nibName]];
 }
 
@@ -109,10 +109,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return NO;// self.imageInfo.canonicalPageTitle == WMFPlaceholderImageInfoTitle;
 }
 
-- (void)configureCell:(WMFPicOfTheDayTableViewCell *)cell
+- (void)configureCell:(WMFPicOfTheDayTableViewCell*)cell
            withObject:(MWKImageInfo*)info
-          inTableView:(UITableView *)tableView
-          atIndexPath:(NSIndexPath *)indexPath {
+          inTableView:(UITableView*)tableView
+          atIndexPath:(NSIndexPath*)indexPath {
     if ([info isFeedPlaceholder]) {
         return;
     }
