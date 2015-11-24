@@ -54,9 +54,12 @@
                                                  fromSite:(MWKSite*)site
                                                   success:(void (^)(NSArray*))success
                                                   failure:(void (^)(NSError*))failure {
+    // This is currently only used for pic of the day in the feed.  If more dynamic image sizes are desired, expose
+    // the parameter in the API.
     return [self fetchInfoForTitles:pageTitles
                            fromSite:site
                      thumbnailWidth:LEAD_IMAGE_WIDTH
+                   metadataLanguage:nil
                        useGenerator:YES
                             success:success
                             failure:failure];
@@ -66,9 +69,13 @@
                                          fromSite:(MWKSite*)site
                                           success:(void (^)(NSArray*))success
                                           failure:(void (^)(NSError*))failure {
+    // This is currently only used for fullscreen image gallery.  If more dynamic image sizes are desired, expose
+    // the parameter in the API.
+    // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
     return [self fetchInfoForTitles:imageTitles
                            fromSite:site
                      thumbnailWidth:1280
+                   metadataLanguage:nil
                        useGenerator:NO
                             success:success
                             failure:failure];
@@ -77,6 +84,7 @@
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray*)titles
                                      fromSite:(MWKSite*)site
                                thumbnailWidth:(NSUInteger)thumbnailWidth
+                             metadataLanguage:(nullable NSString*)metadataLanguage
                                  useGenerator:(BOOL)useGenerator
                                       success:(void (^)(NSArray*))success
                                       failure:(void (^)(NSError*))failure {
@@ -94,28 +102,31 @@
            @"prop": @"imageinfo",
            @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
            @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
-           // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
            @"iiurlwidth": @(thumbnailWidth) } mutableCopy];
 
     if (useGenerator) {
         params[@"generator"] = @"images";
     }
 
-    __weak MWKImageInfoFetcher* weakSelf = self;
+    if (metadataLanguage) {
+        params[@"iiextmetadatalanguage"] = metadataLanguage;
+    }
+
+    @weakify(self);
     AFHTTPRequestOperation* request      =
         [self.manager wmf_GETWithSite:site
                            parameters:params
                                 retry:nil
                               success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
-        MWKImageInfoFetcher* strSelf = weakSelf;
-        [strSelf finishWithError:nil fetchedData:galleryItems];
+        @strongify(self);
+        [self finishWithError:nil fetchedData:galleryItems];
         if (success) {
             success(galleryItems);
         }
     }
                               failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        MWKImageInfoFetcher* strSelf = weakSelf;
-        [strSelf finishWithError:error fetchedData:nil];
+        @strongify(self);
+        [self finishWithError:error fetchedData:nil];
         if (failure) {
             failure(error);
         }
