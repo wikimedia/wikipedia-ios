@@ -54,18 +54,29 @@
                                                  fromSite:(MWKSite*)site
                                                   success:(void (^)(NSArray*))success
                                                   failure:(void (^)(NSError*))failure {
-    return [self fetchInfoForTitles:pageTitles fromSite:site useGenerator:YES success:success failure:failure];
+    return [self fetchInfoForTitles:pageTitles
+                           fromSite:site
+                     thumbnailWidth:LEAD_IMAGE_WIDTH
+                       useGenerator:YES
+                            success:success
+                            failure:failure];
 }
 
 - (id<MWKImageInfoRequest>)fetchInfoForImageFiles:(NSArray*)imageTitles
                                          fromSite:(MWKSite*)site
                                           success:(void (^)(NSArray*))success
                                           failure:(void (^)(NSError*))failure {
-    return [self fetchInfoForTitles:imageTitles fromSite:site useGenerator:NO success:success failure:failure];
+    return [self fetchInfoForTitles:imageTitles
+                           fromSite:site
+                     thumbnailWidth:1280
+                       useGenerator:NO
+                            success:success
+                            failure:failure];
 }
 
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray*)titles
                                      fromSite:(MWKSite*)site
+                               thumbnailWidth:(NSUInteger)thumbnailWidth
                                  useGenerator:(BOOL)useGenerator
                                       success:(void (^)(NSArray*))success
                                       failure:(void (^)(NSError*))failure {
@@ -74,22 +85,20 @@
     NSParameterAssert(site);
     NSAssert(site.language.length, @"Site must have a non-empty language in order to send requests: %@", site);
 
-    NSMutableDictionary* params = [@{
-                                       @"format": @"json",
-                                       @"action": @"query",
-                                       @"titles": WMFJoinedPropertyParameters(titles),
-                                       @"rawcontinue": @"", //< suppress old continue warning
-                                       @"prop": @"imageinfo",
-                                       @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-                                       @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
-                                       // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
-                                       @"iiurlwidth": @1280,
-                                   } mutableCopy];
+    NSMutableDictionary* params =
+        [@{@"format": @"json",
+           @"action": @"query",
+           @"titles": WMFJoinedPropertyParameters(titles),
+           // suppress continue warning
+           @"rawcontinue": @"",
+           @"prop": @"imageinfo",
+           @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
+           @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
+           // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
+           @"iiurlwidth": @(thumbnailWidth) } mutableCopy];
 
     if (useGenerator) {
-        [params setValuesForKeysWithDictionary:@{
-             @"generator": @"images"
-         }];
+        params[@"generator"] = @"images";
     }
 
     __weak MWKImageInfoFetcher* weakSelf = self;
