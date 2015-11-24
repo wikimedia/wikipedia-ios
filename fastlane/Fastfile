@@ -32,7 +32,7 @@ platform :ios do
       :buildlog_path => './build',
       :enable_code_coverage => true
     }
-    opts[:reports] = [{ 'report' => 'junit', 'output' => 'build/reports/unit-tests.xml' }] if options[:junit]
+    opts[:reports] = [{ :report => 'junit', :output => 'build/reports/unit-tests.xml' }] if options[:junit]
     xctest(opts)
   end
 
