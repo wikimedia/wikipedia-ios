@@ -21,7 +21,8 @@ static MWKSearchResult* dummySearchResultWithIndex(NSUInteger index) {
                                   wikidataDescription:@"bar"
                                               extract:@"baz"
                                          thumbnailURL:[NSURL URLWithString:@"http://foo.bar/baz"]
-                                                index:@(index)];
+                                                index:@(index)
+                                     isDisambiguation:NO];
 }
 
 QuickSpecBegin(WMFSearchResultMergeTests)
