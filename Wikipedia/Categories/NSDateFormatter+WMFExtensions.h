@@ -12,7 +12,6 @@
  */
 + (NSDateFormatter*)wmf_iso8601Formatter;
 
-
 /**
  * Formatter which can be used to present a short time string for a given date.
  *
@@ -39,5 +38,7 @@
 + (NSDateFormatter*)wmf_longDateFormatter;
 
 + (instancetype)wmf_mediumDateFormatterWithoutTime;
+
++ (instancetype)wmf_hyphenatedYearMonthDayFormatter;
 
 @end

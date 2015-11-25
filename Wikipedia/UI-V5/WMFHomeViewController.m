@@ -16,6 +16,7 @@
 #import "SSSectionedDataSource+WMFSectionConvenience.h"
 #import "WMFHomeSectionSchema.h"
 #import "WMFHomeSection.h"
+#import "WMFPictureOfTheDaySectionController.h"
 
 // Models
 #import "WMFAsyncBlockOperation.h"
@@ -302,6 +303,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFMainPageSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
 }
 
+- (WMFPictureOfTheDaySectionController*)picOfTheDaySectionController {
+    return [[WMFPictureOfTheDaySectionController alloc] init];
+}
+
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFHomeSection*)item {
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
 }
@@ -360,8 +365,13 @@ NS_ASSUME_NONNULL_BEGIN
             case WMFHomeSectionTypeFeaturedArticle:
                 [self loadSectionForSectionController:[self featuredArticleSectionControllerForSchemaItem:obj]];
                 break;
-            default:
+            case WMFHomeSectionTypePictureOfTheDay:
+                [self loadSectionForSectionController:[self picOfTheDaySectionController]];
                 break;
+                /*
+                   !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
+                   a new case is added to the enum, enforcing that all sections are handled here.
+                 */
         }
     }];
     self.dataSource.tableView = self.tableView;
