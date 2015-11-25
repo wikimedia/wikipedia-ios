@@ -40,6 +40,8 @@
  */
 - (id<MWKImageInfoRequest>)fetchInfoForImagesFoundOnPages:(NSArray*)pageTitles
                                                  fromSite:(MWKSite*)site
+                                         metadataLanguage:(NSString*)metadataLanguage
+                                           thumbnailWidth:(NSUInteger)thumbnailWidth
                                                   success:(void (^)(NSArray*))success
                                                   failure:(void (^)(NSError*))failure;
 

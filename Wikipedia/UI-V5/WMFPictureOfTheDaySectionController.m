@@ -70,6 +70,8 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     @weakify(self);
     [self.fetcher fetchInfoForImagesFoundOnPages:@[todaysPOTDTitle]
                                         fromSite:[MWKSite wikimediaCommons]
+                                metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
+                                  thumbnailWidth:LEAD_IMAGE_WIDTH
                                          success:^(NSArray* infoObjects) {
         @strongify(self);
         self.imageInfo = infoObjects.firstObject;
