@@ -49,14 +49,14 @@
 
 - (id<MWKImageInfoRequest>)fetchInfoForImagesFoundOnPages:(NSArray*)pageTitles
                                                  fromSite:(MWKSite*)site
+                                         metadataLanguage:(NSString*)metadataLanguage
+                                           thumbnailWidth:(NSUInteger)thumbnailWidth
                                                   success:(void (^)(NSArray*))success
                                                   failure:(void (^)(NSError*))failure {
-    // This is currently only used for pic of the day in the feed.  If more dynamic image sizes are desired, expose
-    // the parameter in the API.
     return [self fetchInfoForTitles:pageTitles
                            fromSite:site
-                     thumbnailWidth:LEAD_IMAGE_WIDTH
-                   metadataLanguage:nil
+                     thumbnailWidth:thumbnailWidth
+                   metadataLanguage:metadataLanguage
                        useGenerator:YES
                             success:success
                             failure:failure];
@@ -72,7 +72,7 @@
     return [self fetchInfoForTitles:imageTitles
                            fromSite:site
                      thumbnailWidth:1280
-                   metadataLanguage:nil
+                   metadataLanguage:site.language
                        useGenerator:NO
                             success:success
                             failure:failure];
@@ -110,7 +110,7 @@
     }
 
     @weakify(self);
-    AFHTTPRequestOperation* request      =
+    AFHTTPRequestOperation* request =
         [self.manager wmf_GETWithSite:site
                            parameters:params
                                 retry:nil
