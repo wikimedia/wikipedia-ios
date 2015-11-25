@@ -9,7 +9,7 @@
 #import "WMFArticlePreviewTableViewCell.h"
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
-
+#import "UITableViewCell+WMFLayout.h"
 
 static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
@@ -100,6 +100,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         previewCell.snippetText     = result.extract;
         [previewCell setImageURL:result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
+        [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
 }
 

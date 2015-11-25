@@ -21,6 +21,7 @@
 #import "WMFEmptyNearbyTableViewCell.h"
 #import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UITableViewCell+WMFLayout.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -136,6 +137,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
         [nearbyCell setImageURL:result.thumbnailURL];
         [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
         [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
+        [nearbyCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]]) {
         WMFEmptyNearbyTableViewCell* nearbyCell = (id)cell;
         if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {

@@ -12,6 +12,7 @@
 #import "WMFMainPageTableViewCell.h"
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UITableViewCell+WMFLayout.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -107,6 +108,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     if ([cell isKindOfClass:[WMFMainPageTableViewCell class]]) {
         WMFMainPageTableViewCell* mainPageCell = (id)cell;
         mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
+        [mainPageCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
 }
 

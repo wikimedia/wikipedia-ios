@@ -14,6 +14,7 @@
 // View
 #import "WMFArticlePreviewTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UITableViewCell+WMFLayout.h"
 
 // Fetcher
 #import "WMFRelatedSearchFetcher.h"
@@ -85,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
+            [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
     return self;

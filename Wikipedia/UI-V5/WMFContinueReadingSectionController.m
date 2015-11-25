@@ -13,6 +13,7 @@
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
 #import "NSString+Extras.h"
+#import "UITableViewCell+WMFLayout.h"
 
 static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
@@ -75,6 +76,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
         WMFContinueReadingTableViewCell* readingCell = (id)cell;
         readingCell.title.text   = self.title.text;
         readingCell.summary.text = [[self.dataStore existingArticleWithTitle:self.title].entityDescription wmf_stringByCapitalizingFirstCharacter];
+        [readingCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
 }
 
