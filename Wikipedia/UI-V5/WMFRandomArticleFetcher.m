@@ -13,6 +13,8 @@
 //Promises
 #import "Wikipedia-Swift.h"
 
+#import <BlocksKit/BlocksKit.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFRandomArticleFetcher ()
@@ -46,9 +48,11 @@ NS_ASSUME_NONNULL_BEGIN
         [self.operationManager wmf_GETWithSite:site
                                     parameters:params
                                          retry:NULL
-                                       success:^(AFHTTPRequestOperation* operation, id responseObject) {
+                                       success:^(AFHTTPRequestOperation* operation, NSArray* responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            MWKSearchResult* article = [responseObject firstObject];
+
+            MWKSearchResult* article = [self getBestRandomResultFromResults:responseObject];
+
             resolve(article);
         } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -57,15 +61,25 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+- (MWKSearchResult*)getBestRandomResultFromResults:(NSArray*)results {
+    //Sort so random results with good extracts and images come first and disambiguation pages come last.
+    NSSortDescriptor* extractSorter  = [[NSSortDescriptor alloc] initWithKey:@"extract.length" ascending:NO];
+    NSSortDescriptor* descripSorter  = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
+    NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL" ascending:NO];
+    NSSortDescriptor* disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
+    results = [results sortedArrayUsingDescriptors:@[disambigSorter, extractSorter, thumbSorter, descripSorter]];
+    return [results firstObject];
+}
+
 + (NSDictionary*)params {
     return @{
                @"action": @"query",
-               @"prop": @"extracts|pageterms|pageimages",
+               @"prop": @"extracts|pageterms|pageimages|pageprops",
                //random
                @"generator": @"random",
                @"grnnamespace": @0,
                @"grnfilterredir": @"nonredirects",
-               @"grnlimit": @"1",
+               @"grnlimit": @"8",
                // extracts
                @"exintro": @YES,
                @"exlimit": @"1",

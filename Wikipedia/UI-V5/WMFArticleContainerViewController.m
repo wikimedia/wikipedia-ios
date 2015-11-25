@@ -462,10 +462,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Significantly Viewed Timer
 
 - (void)startSignificantlyViewedTimer {
-    if(self.significantlyViewedTimer){
+    if (self.significantlyViewedTimer) {
         return;
     }
-    if(!self.article){
+    if (!self.article) {
         return;
     }
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
@@ -482,7 +482,7 @@ NS_ASSUME_NONNULL_BEGIN
     [historyList save];
 }
 
-- (void)stopSignificantlyViewedTimer{
+- (void)stopSignificantlyViewedTimer {
     [self.significantlyViewedTimer invalidate];
     self.significantlyViewedTimer = nil;
 }

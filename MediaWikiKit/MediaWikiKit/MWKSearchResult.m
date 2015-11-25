@@ -18,6 +18,8 @@
 
 @property (nonatomic, copy, readwrite) NSNumber* index;
 
+@property (nonatomic, assign, readwrite) BOOL isDisambiguation;
+
 @end
 
 @implementation MWKSearchResult
@@ -27,7 +29,8 @@
               wikidataDescription:(NSString*)wikidataDescription
                           extract:(NSString*)extract
                      thumbnailURL:(NSURL*)thumbnailURL
-                            index:(NSNumber*)index {
+                            index:(NSNumber*)index
+                 isDisambiguation:(BOOL)isDisambiguation {
     self = [super init];
     if (self) {
         self.articleID           = articleID;
@@ -36,6 +39,7 @@
         self.extract             = extract;
         self.thumbnailURL        = thumbnailURL;
         self.index               = index;
+        self.isDisambiguation    = isDisambiguation;
     }
     return self;
 }
@@ -67,6 +71,13 @@
     }];
 }
 
++ (NSValueTransformer*)isDisambiguationJSONTransformer {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError* __autoreleasing* error) {
+        // In the event that the disambiguation field is present, its value is an empty string.
+        return @YES;
+    }];
+}
+
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
                WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
@@ -74,7 +85,8 @@
                WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
-               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index"
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @"pageprops.disambiguation"
     };
 }
 
