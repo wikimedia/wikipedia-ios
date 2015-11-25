@@ -11,11 +11,8 @@
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
-#import <BlocksKit/BlocksKit.h>
 #import "MediaWikiKit.h"
-
-// FIXME: remove this soon
-#import "SessionSingleton.h"
+#import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 
 @interface MWKImageInfoFetcher ()
 
@@ -28,6 +25,10 @@
 @end
 
 @implementation MWKImageInfoFetcher
+
+- (instancetype)init {
+    return [self initWithDelegate:nil];
+}
 
 - (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate {
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
@@ -46,49 +47,88 @@
     return self;
 }
 
-- (id<MWKImageInfoRequest>)fetchInfoForPageTitles:(NSArray*)imageTitles
+- (id<MWKImageInfoRequest>)fetchInfoForImagesFoundOnPages:(NSArray*)pageTitles
+                                                 fromSite:(MWKSite*)site
+                                         metadataLanguage:(NSString*)metadataLanguage
+                                           thumbnailWidth:(NSUInteger)thumbnailWidth
+                                                  success:(void (^)(NSArray*))success
+                                                  failure:(void (^)(NSError*))failure {
+    return [self fetchInfoForTitles:pageTitles
+                           fromSite:site
+                     thumbnailWidth:thumbnailWidth
+                   metadataLanguage:metadataLanguage
+                       useGenerator:YES
+                            success:success
+                            failure:failure];
+}
+
+- (id<MWKImageInfoRequest>)fetchInfoForImageFiles:(NSArray*)imageTitles
                                          fromSite:(MWKSite*)site
                                           success:(void (^)(NSArray*))success
                                           failure:(void (^)(NSError*))failure {
-    NSParameterAssert([imageTitles count]);
-    NSAssert([imageTitles count] <= 50, @"Only 50 titles can be queried at a time.");
+    // This is currently only used for fullscreen image gallery.  If more dynamic image sizes are desired, expose
+    // the parameter in the API.
+    // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
+    return [self fetchInfoForTitles:imageTitles
+                           fromSite:site
+                     thumbnailWidth:1280
+                   metadataLanguage:site.language
+                       useGenerator:NO
+                            success:success
+                            failure:failure];
+}
+
+- (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray*)titles
+                                     fromSite:(MWKSite*)site
+                               thumbnailWidth:(NSUInteger)thumbnailWidth
+                             metadataLanguage:(nullable NSString*)metadataLanguage
+                                 useGenerator:(BOOL)useGenerator
+                                      success:(void (^)(NSArray*))success
+                                      failure:(void (^)(NSError*))failure {
+    NSParameterAssert([titles count]);
+    NSAssert([titles count] <= 50, @"Only 50 titles can be queried at a time.");
     NSParameterAssert(site);
     NSAssert(site.language.length, @"Site must have a non-empty language in order to send requests: %@", site);
 
-    // TODO: loosen this coupling
-    NSString* url = [[[SessionSingleton sharedInstance] urlForLanguage:site.language] absoluteString];
-    NSAssert(url, @"Unable to form URL for language: %@", site.language);
+    NSMutableDictionary* params =
+        [@{@"format": @"json",
+           @"action": @"query",
+           @"titles": WMFJoinedPropertyParameters(titles),
+           // suppress continue warning
+           @"rawcontinue": @"",
+           @"prop": @"imageinfo",
+           @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
+           @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
+           @"iiurlwidth": @(thumbnailWidth) } mutableCopy];
 
-    NSDictionary* params = @{
-        @"format": @"json",
-        @"action": @"query",
-        @"titles": WMFJoinedPropertyParameters(imageTitles),
-        @"rawcontinue": @"",     //< suppress old continue warning
-        @"prop": @"imageinfo",
-        @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-        @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
-        // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
-        @"iiurlwidth": @1280,
-    };
-    __weak MWKImageInfoFetcher* weakSelf = self;
-    AFHTTPRequestOperation* request      =
-        [self.manager GET:url
-               parameters:params
-                  success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
-        MWKImageInfoFetcher* strSelf = weakSelf;
-        [strSelf finishWithError:nil fetchedData:galleryItems];
+    if (useGenerator) {
+        params[@"generator"] = @"images";
+    }
+
+    if (metadataLanguage) {
+        params[@"iiextmetadatalanguage"] = metadataLanguage;
+    }
+
+    @weakify(self);
+    AFHTTPRequestOperation* request =
+        [self.manager wmf_GETWithSite:site
+                           parameters:params
+                                retry:nil
+                              success:^(AFHTTPRequestOperation* operation, NSArray* galleryItems) {
+        @strongify(self);
+        [self finishWithError:nil fetchedData:galleryItems];
         if (success) {
             success(galleryItems);
         }
     }
-                  failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-        MWKImageInfoFetcher* strSelf = weakSelf;
-        [strSelf finishWithError:error fetchedData:nil];
+                              failure:^(AFHTTPRequestOperation* operation, NSError* error) {
+        @strongify(self);
+        [self finishWithError:error fetchedData:nil];
         if (failure) {
             failure(error);
         }
     }];
-    NSParameterAssert([request respondsToSelector:@selector(cancel)]);
+    NSParameterAssert(request);
     return (id<MWKImageInfoRequest>)request;
 }
 

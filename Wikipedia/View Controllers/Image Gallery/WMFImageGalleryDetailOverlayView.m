@@ -60,12 +60,6 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
 
 @implementation WMFImageGalleryDetailOverlayView
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    [NSException raise:@"ViewRequiresNibInstantiationException"
-                format:@"%@ is expecting to be loaded from a nib.", NSStringFromClass([self class])];
-    return nil;
-}
-
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.ownerButton.titleLabel wmf_applyDropShadow];

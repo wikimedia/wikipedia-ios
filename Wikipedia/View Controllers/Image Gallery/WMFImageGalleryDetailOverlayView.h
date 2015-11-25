@@ -17,6 +17,8 @@
 @property (nonatomic, weak, readonly) UILabel* imageDescriptionLabel;
 @property (nonatomic, weak, readonly) UIButton* ownerButton;
 
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
+
 - (void)setLicense:(MWKLicense*)license owner:(NSString*)owner;
 
 @end

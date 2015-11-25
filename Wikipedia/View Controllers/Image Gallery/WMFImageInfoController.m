@@ -217,7 +217,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 
     MWKTitle* currentTitle = self.title;
     @weakify(self);
-    return [self.imageInfoFetcher fetchInfoForPageTitles:titlesToFetch
+    return [self.imageInfoFetcher fetchInfoForImageFiles:titlesToFetch
                                                 fromSite:self.title.site
                                                  success:^(NSArray* infoObjects) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];

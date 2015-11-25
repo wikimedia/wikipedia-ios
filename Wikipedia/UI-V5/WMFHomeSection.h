@@ -22,28 +22,58 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
     WMFHomeSectionTypeHistory         = 4,
     WMFHomeSectionTypeSaved           = 5,
     WMFHomeSectionTypeFeaturedArticle = 6,
+    WMFHomeSectionTypePictureOfTheDay = 7
 };
 
 @interface WMFHomeSection : MTLModel
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (instancetype)featuredSection;
-+ (instancetype)mainPageSection;
-+ (instancetype)randomSection;
 + (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 
+///
+/// @name Static Sections
+///
+
++ (instancetype)featuredSection;
++ (instancetype)pictureOfTheDaySection;
++ (instancetype)mainPageSection;
++ (instancetype)randomSection;
+
+/**
+ *  The type of section.
+ *
+ *  Determines which metadata properties are available.
+ */
 @property (nonatomic, assign, readonly) WMFHomeSectionType type;
+
+/**
+ *  When the section was created.
+ */
 @property (nonatomic, strong, readonly) NSDate* dateCreated;
 
-//non-nil for Saved and History
+///
+/// @name Metadata Properties
+///
+
+/**
+ *  The title associated with the section, if any.
+ *
+ *  For example, the "seed" title for saved or history items.
+ */
 @property (nonatomic, strong, readonly) MWKTitle* title;
 
-//non-nil for Nearby
+/**
+ *  The location associated with the section, if any.
+ *
+ *  For example, the location used to get articles for the "nearby" section.
+ */
 @property (nonatomic, strong, readonly) CLLocation* location;
 
 /**
+ *  Determine ordering between two sections.
+ *
  *  Use this to sort home sections. Sort currently works like this:
  *  Continue reading is always at the top if present.
  *  The rest of the sections are sorted by their date descending

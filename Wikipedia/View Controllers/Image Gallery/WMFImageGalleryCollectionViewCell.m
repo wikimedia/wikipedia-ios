@@ -1,4 +1,4 @@
-// //  MWKImageGalleryCollectionViewCell.m
+//  MWKImageGalleryCollectionViewCell.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 1/16/15.

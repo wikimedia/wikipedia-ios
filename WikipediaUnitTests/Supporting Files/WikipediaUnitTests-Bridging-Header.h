@@ -13,3 +13,4 @@
 #import "XCTestCase+MWKFixtures.h"
 #import "WMFImageController+Testing.h"
 #import "MWKSavedPageList+ImageMigrationTesting.h"
+#import "WMFHTTPHangingProtocol.h"
