@@ -66,6 +66,7 @@ typedef NS_ENUM (NSUInteger, MWKHistoryDiscoveryMethod) {
 @property (readwrite, strong, nonatomic) NSDate* date;
 @property (readwrite, assign, nonatomic) MWKHistoryDiscoveryMethod discoveryMethod;
 @property (readwrite, assign, nonatomic) CGFloat scrollPosition;
+@property (readwrite, assign, nonatomic) BOOL titleWasSignificantlyViewed;
 
 - (instancetype)initWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 - (instancetype)initWithDict:(NSDictionary*)dict;

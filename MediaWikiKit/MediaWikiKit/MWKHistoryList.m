@@ -70,6 +70,19 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     }];
 }
 
+- (void)setSignificantlyViewedOnPageInHistoryWithTitle:(MWKTitle*)title {
+    if ([title.text length] == 0) {
+        return;
+    }
+    [self updateEntryWithListIndex:title update:^BOOL (MWKHistoryEntry* __nullable entry) {
+        if (entry.titleWasSignificantlyViewed) {
+            return NO;
+        }
+        entry.titleWasSignificantlyViewed = YES;
+        return YES;
+    }];
+}
+
 - (void)removeEntry:(MWKListEntry)entry {
     [super removeEntry:entry];
     [[NSNotificationCenter defaultCenter] postNotificationName:MWKHistoryListDidUpdateNotification object:self];
