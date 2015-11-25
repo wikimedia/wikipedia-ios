@@ -15,11 +15,14 @@
 
 @property (nonatomic, copy, readonly) NSNumber* index;
 
+@property (nonatomic, assign, readonly) BOOL isDisambiguation;
+
 - (instancetype)initWithArticleID:(NSInteger)articleID
                      displayTitle:(NSString*)displayTitle
               wikidataDescription:(NSString*)wikidataDescription
                           extract:(NSString*)extract
                      thumbnailURL:(NSURL*)thumbnailURL
-                            index:(NSNumber*)index;
+                            index:(NSNumber*)index
+                 isDisambiguation:(BOOL)isDisambiguation;
 
 @end
