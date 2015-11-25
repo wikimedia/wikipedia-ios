@@ -12,31 +12,6 @@ import XCTest
 import PromiseKit
 import Nocilla
 
-/** 
- Protocol which intercepts all HTTP requests and prevents them from ever starting.
- 
- Useful for reliably testing cancellation, since you're guaranteed to never get a successful or error response.
- 
- - warning: Be sure to unregister this class after your test!
-*/
-class HTTPHangingProtocol : NSURLProtocol {
-    override class func canInitWithRequest(request: NSURLRequest) -> Bool {
-        return request.URL?.scheme.hasPrefix("http") ?? false
-    }
-
-    override class func canonicalRequestForRequest(request: NSURLRequest) -> NSURLRequest {
-        return request
-    }
-
-    override func startLoading() {
-        // never start requests
-    }
-
-    override func stopLoading() {
-        // never started
-    }
-}
-
 class WMFImageControllerTests: XCTestCase {
     private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
 
@@ -101,9 +76,9 @@ class WMFImageControllerTests: XCTestCase {
             NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
             self.imageController.cancelFetchForURL(testURL)
         }
-        NSURLProtocol.registerClass(HTTPHangingProtocol)
+        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
         defer {
-            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
             NSNotificationCenter.defaultCenter().removeObserver(observationToken)
         }
         expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
@@ -120,7 +95,7 @@ class WMFImageControllerTests: XCTestCase {
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)
 
-        NSURLProtocol.registerClass(HTTPHangingProtocol)
+        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
 
         let (afterFirstDownloadStarts, didStartFirstDownload, _) = Promise<Void>.pendingPromise()
 
@@ -143,7 +118,7 @@ class WMFImageControllerTests: XCTestCase {
                     self.imageController.cancelFetchForURL(testURL)
 
                     // replace "hanging" protocol w/ nocilla stub protocol
-                    NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+                    NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
                     LSNocilla.sharedInstance().start()
                     stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
 
@@ -166,7 +141,7 @@ class WMFImageControllerTests: XCTestCase {
         let downloader = SDWebImageDownloader()
 
         [0...100].forEach { _ in
-            NSURLProtocol.registerClass(HTTPHangingProtocol)
+            NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
 
             let operation =
             downloader.downloadImageWithURL(testURL,
@@ -185,7 +160,7 @@ class WMFImageControllerTests: XCTestCase {
 
             let expectation = expectationWithDescription("download")
 
-            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
             LSNocilla.sharedInstance().start()
             stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
 
@@ -205,9 +180,9 @@ class WMFImageControllerTests: XCTestCase {
     }
 
     func testDeallocCancelsUnresovledFetches() {
-        NSURLProtocol.registerClass(HTTPHangingProtocol)
+        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
         defer {
-            NSURLProtocol.unregisterClass(HTTPHangingProtocol)
+            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
         }
         let testURL = NSURL(string:"https://github.com/wikimedia/wikipedia-ios/blob/master/WikipediaUnitTests/Fixtures/golden-gate.jpg?raw=true")!
         expectPromise(toReport(ErrorPolicy.AllErrors) as ImageDownloadPromiseErrorCallback,
