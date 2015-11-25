@@ -6,19 +6,25 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFPicOfTheDayTableViewCell.h"
+#import "WMFPicOfTheDayTableViewCell_Testing.h"
 #import "UIImageView+WMFPlaceholder.h"
-#import "UIImageView+WMFImageFetching.h"
+#import "UIImageView+WMFImageFetchingInternal.h"
+#import "WMFGradientView.h"
 
 @interface WMFPicOfTheDayTableViewCell ()
 
-@property (nonatomic, strong) IBOutlet UILabel* displayTitleLabel;
+@property (weak, nonatomic) IBOutlet WMFGradientView *displayTitleBackgroundView;
 
-@property (nonatomic, strong) IBOutlet UIImageView* potdImageView;
+@property (nonatomic, strong) IBOutlet UILabel* displayTitleLabel;
 
 @end
 
 @implementation WMFPicOfTheDayTableViewCell
+
+- (void)dealloc {
+    // This is guaranteed to be called before dealloc, since observation starts in -awakeFromNib
+    [self.KVOControllerNonRetaining unobserve:self.potdImageView];
+}
 
 - (void)setDisplayTitle:(NSString*)displayTitle {
     self.displayTitleLabel.text = displayTitle;
@@ -33,6 +39,18 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.potdImageView wmf_configureWithDefaultPlaceholder];
+    [self.KVOControllerNonRetaining observe:self.potdImageView
+                                    keyPath:WMF_SAFE_KEYPATH(self.potdImageView, image)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WMFPicOfTheDayTableViewCell* cell,
+                                              UIImageView* potdImageView,
+                                              NSDictionary* change) {
+        BOOL didSetDesiredImage = [potdImageView wmf_imageURLToFetch] != nil;
+        // whether or not these properties are animated will be determined based on whether or not
+        // there was an animation setup when image was set
+        cell.displayTitleLabel.alpha = didSetDesiredImage ? 1.0 : 0.0;
+        cell.displayTitleBackgroundView.alpha = cell.displayTitleLabel.alpha;
+    }];
 }
 
 - (void)prepareForReuse {
