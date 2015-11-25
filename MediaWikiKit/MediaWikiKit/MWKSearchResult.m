@@ -73,7 +73,8 @@
 
 + (NSValueTransformer*)isDisambiguationJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSArray* value, BOOL* success, NSError* __autoreleasing* error) {
-        return @1;
+        // In the event that the disambiguation field is present, its value is an empty string.
+        return @YES;
     }];
 }
 
