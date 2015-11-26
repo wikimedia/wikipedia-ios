@@ -184,10 +184,12 @@ static NSArray* WMFUnsupportedLanguages() {
 - (void)updateFilteredLanguagesWithPreviousLanguages:(NSArray*)previousLanguages {
     NSArray* sortedAndFilteredLanguages = [self sortedAndFilteredLanguageLinks];
     NSArray* preferredLangs             = WMFReadPreviousAndPreferredLanguages();
-    self.filteredPreferredLanguages = [preferredLangs bk_map:^id (NSString* langString) {
+    self.filteredPreferredLanguages = [[preferredLangs bk_map:^id (NSString* langString) {
         return [sortedAndFilteredLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
+    }] bk_select:^BOOL (id obj) {
+        return ![obj isEqual:[NSNull null]];
     }];
     self.filteredOtherLanguages = [sortedAndFilteredLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
         return ![self.filteredPreferredLanguages containsObject:langLink];
