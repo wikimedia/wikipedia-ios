@@ -48,8 +48,8 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
                                  imageSize:(CGSize)imageSize
                                  thumbSize:(CGSize)thumbSize {
     // !!!: not sure what's guaranteed by the API
-    NSParameterAssert(canonicalPageTitle.length);
-    NSParameterAssert(canonicalFileURL.absoluteString.length);
+    // NSParameterAssert(canonicalPageTitle.length);
+    // NSParameterAssert(canonicalFileURL.absoluteString.length);
     self = [super init];
     if (self) {
         self.canonicalPageTitle = canonicalPageTitle;
