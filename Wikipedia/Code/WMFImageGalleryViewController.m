@@ -93,7 +93,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (self) {
         self.dataStore            = dataStore;
         self.chromeHidden         = NO;
-        self.chromeEnabled        = YES;
         self.zoomEnabled          = YES;
         self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
         @weakify(self);
@@ -272,8 +271,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 - (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated {
-    if (_chromeHidden == hidden || !self.isChromeEnabled) {
-        // no-op of chromeHidden state is already equal to `hidden` or chrome is disabled
+    if (_chromeHidden == hidden) {
         return;
     }
     _chromeHidden = hidden;
@@ -300,17 +298,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                          completion:nil];
     } else {
         animations();
-    }
-}
-
-- (void)setChromeEnabled:(BOOL)chromeEnabled {
-    // NOTE(bgerstle): don't bail if _chromeEnabled == chromeEnabled, as chromeHidden state might need to be updated
-    _chromeEnabled = chromeEnabled;
-
-    if (!_chromeHidden && !_chromeEnabled) {
-        // force chrome to be hidden if it is shown and chrome becomes disabled
-        _chromeHidden = YES;
-        [self applyChromeHidden:NO];
     }
 }
 
