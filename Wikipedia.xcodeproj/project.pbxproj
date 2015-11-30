@@ -556,6 +556,8 @@
 		BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9355411BE1A71900697CB0 /* BarackSearch.json */; };
 		BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */; };
 		BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */; };
+		BCA15AE91C0E700800D0A3EA /* ImageInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BCA15AE81C0E700800D0A3EA /* ImageInfo.json */; };
+		BCA15AEB1C0E70E400D0A3EA /* MWKImageInfoSerializationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AEA1C0E70E400D0A3EA /* MWKImageInfoSerializationTest.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
@@ -1620,6 +1622,8 @@
 		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
 		BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
 		BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggingDefaults.swift; path = Wikipedia/Code/LoggingDefaults.swift; sourceTree = SOURCE_ROOT; };
+		BCA15AE81C0E700800D0A3EA /* ImageInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ImageInfo.json; sourceTree = "<group>"; };
+		BCA15AEA1C0E70E400D0A3EA /* MWKImageInfoSerializationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageInfoSerializationTest.m; path = Code/MWKImageInfoSerializationTest.m; sourceTree = "<group>"; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3229,6 +3233,7 @@
 				B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */,
 				B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */,
 				B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */,
+				BCA15AEA1C0E70E400D0A3EA /* MWKImageInfoSerializationTest.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3482,6 +3487,7 @@
 				BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */,
 				BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */,
 				BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */,
+				BCA15AE81C0E700800D0A3EA /* ImageInfo.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -4001,6 +4007,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */,
+				BCA15AE91C0E700800D0A3EA /* ImageInfo.json in Resources */,
 				BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */,
 				BCCEC1251B1F68CF00A8B522 /* protection-empty.json in Resources */,
 				BCCEC1261B1F68CF00A8B522 /* protection-obama.json in Resources */,
@@ -4337,6 +4344,7 @@
 				B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */,
 				B0E808A61C0D168F0065EBC0 /* XCTestCase+WMFVisualTestConvenience.m in Sources */,
 				B0E809491C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m in Sources */,
+				BCA15AEB1C0E70E400D0A3EA /* MWKImageInfoSerializationTest.m in Sources */,
 				B0E808BC1C0D17380065EBC0 /* MWKDataStoreListTests.m in Sources */,
 				B0E808E81C0D17EE0065EBC0 /* MWKDataStorePathTests.m in Sources */,
 				B0E808D71C0D17A60065EBC0 /* MWKHistoryListSharedTests.m in Sources */,

@@ -9,6 +9,7 @@
 #import "MWKImageInfoResponseSerializer.h"
 #import "MWKImageInfo.h"
 #import "NSString+WMFHTMLParsing.h"
+#import "NSURL+Extras.h"
 
 /// Required extmetadata keys, don't forget to add new ones to +requiredExtMetadataKeys!
 static NSString* const ExtMetadataImageDescriptionKey = @"ImageDescription";
@@ -55,17 +56,16 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary* json, NSString* widthKey, N
         MWKLicense* license =
             [[MWKLicense alloc] initWithCode:extMetadata[ExtMetadataLicenseKey][@"value"]
                             shortDescription:extMetadata[ExtMetadataLicenseShortNameKey][@"value"]
-                                         URL:[NSURL URLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
+                                         URL:[NSURL wmf_optionalURLWithString:extMetadata[ExtMetadataLicenseUrlKey][@"value"]]];
 
         MWKImageInfo* item =
             [[MWKImageInfo alloc]
              initWithCanonicalPageTitle:image[@"title"]
-                       canonicalFileURL:[NSURL URLWithString:imageInfo[@"url"]]
+                       canonicalFileURL:[NSURL wmf_optionalURLWithString:imageInfo[@"url"]]
                        imageDescription:[[extMetadata[ExtMetadataImageDescriptionKey][@"value"] wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
                                 license:license
-                            filePageURL:[NSURL URLWithString:imageInfo[@"descriptionurl"]]
-                               imageURL:[NSURL URLWithString:imageInfo[@"url"]]
-                          imageThumbURL:[NSURL URLWithString:imageInfo[@"thumburl"]]
+                            filePageURL:[NSURL wmf_optionalURLWithString:imageInfo[@"descriptionurl"]]
+                          imageThumbURL:[NSURL wmf_optionalURLWithString:imageInfo[@"thumburl"]]
                                   owner:[[extMetadata[ExtMetadataArtistKey][@"value"] wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation]
                               imageSize:MWKImageInfoSizeFromJSON(imageInfo, @"width", @"height")
                               thumbSize:MWKImageInfoSizeFromJSON(imageInfo, @"thumbwidth", @"thumbheight")];
