@@ -149,11 +149,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 + (instancetype)feedPlaceholder {
     return [[MWKImageInfo alloc] initWithCanonicalPageTitle:WMFPlaceholderImageInfoTitle
-                                           canonicalFileURL:nil
+                                           canonicalFileURL:[NSURL URLWithString:[@"/" stringByAppendingString:WMFPlaceholderImageInfoTitle]]
                                            imageDescription:nil
                                                     license:nil
                                                 filePageURL:nil
-                                                   imageURL:nil
                                               imageThumbURL:nil
                                                       owner:nil
                                                   imageSize:CGSizeZero
