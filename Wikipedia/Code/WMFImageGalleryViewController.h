@@ -84,15 +84,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
 /**
- * Whether or not chrome UI is able to be shown.
- *
- * Defaults to `YES`. Set to `NO` to both hide the chrome and prevent it from being shown.
- *
- * @see chromeHidden
- */
-@property (nonatomic, getter = isChromeEnabled) BOOL chromeEnabled;
-
-/**
  * Controls whether or not the user is allowed to pan or zoom images.
  *
  * Defaults to `YES`.
