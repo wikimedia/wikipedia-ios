@@ -93,7 +93,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (self) {
         self.dataStore            = dataStore;
         self.chromeHidden         = NO;
-        self.zoomEnabled          = YES;
         self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
         @weakify(self);
         self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
@@ -301,26 +300,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 }
 
-#pragma mark - Zoom
-
-- (void)setZoomEnabled:(BOOL)zoomEnabled {
-    if (_zoomEnabled == zoomEnabled) {
-        return;
-    }
-    _zoomEnabled = zoomEnabled;
-    [self applyZoomEnabled];
-}
-
-- (void)applyZoomEnabled {
-    if ([self isViewLoaded]) {
-        [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
-                                                                   NSIndexPath* indexPath,
-                                                                   BOOL* _) {
-            cell.zoomEnabled = self.isZoomEnabled;
-        }];
-    }
-}
-
 #pragma mark - Dismissal
 
 - (void)closeButtonTapped:(id)sender {
@@ -390,8 +369,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
     MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
-
-    cell.zoomEnabled = self.zoomEnabled;
 
     [cell startLoadingAfterDelay:0.25];
 
