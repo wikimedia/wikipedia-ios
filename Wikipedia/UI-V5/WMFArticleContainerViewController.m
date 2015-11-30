@@ -448,7 +448,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
-    [self.progressView setProgress:progress animated:animated];
+    /**
+     *  Progress updates must be dispatched using GCD in order for them to show up during network activity.
+     *  This is because AFNetworking dispatches progress updates using GCD. And in order for the UI updates to be interweaved with the networking updates,
+     *  they must be queued as well. If not, then progress updates are deferred until after the disaptch queue is empty.
+     */
+    dispatchOnMainQueue(^{
+        [self.progressView setProgress:progress animated:animated];
+    });
 }
 
 /**
