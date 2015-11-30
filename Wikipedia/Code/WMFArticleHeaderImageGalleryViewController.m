@@ -34,7 +34,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleHeaderImageGalleryViewController ()
-@property (nonatomic, strong) CIDetector* faceDetector;
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
@@ -81,15 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
     layout.sectionInset            = UIEdgeInsetsZero;
 
     self.dataSource.collectionView = self.collectionView;
-}
-
-#pragma mark - Accessors
-
-- (CIDetector*)faceDetector {
-    if (!_faceDetector) {
-        _faceDetector = [CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector];
-    }
-    return _faceDetector;
 }
 
 #pragma mark - UICollectionViewDelegate

@@ -119,8 +119,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
     [self.loadingIndicator startAnimating];
 
-    // TODO: show "empty" view with the article's lead image or thumbnail
-
     __block id articlePromiseResolve;
     // wrap articlePromise in a promise we can cancel if a new one comes in
     AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
