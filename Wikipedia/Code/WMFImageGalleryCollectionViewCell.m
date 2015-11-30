@@ -38,7 +38,6 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _zoomEnabled                   = YES;
         self.contentView.clipsToBounds = YES;
 
         _imageSize = CGSizeZero;
@@ -106,19 +105,8 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
     self.imageSize                                 = CGSizeZero;
     self.imageContainerView.contentOffset          = CGPointZero;
     self.imageContainerView.userInteractionEnabled = YES;
-    self.zoomEnabled                               = YES;
     self.loading                                   = NO;
-}
-
-- (void)setZoomEnabled:(BOOL)zoomEnabled {
-    if (_zoomEnabled == zoomEnabled) {
-        return;
-    }
-    _zoomEnabled               = zoomEnabled;
-    self.imageView.contentMode = _zoomEnabled ?
-                                 UIViewContentModeScaleAspectFit : UIViewContentModeScaleAspectFill;
-    // trigger layout to recalculate zoom factors & frames
-    [self setNeedsLayout];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 #pragma mark - Layout
@@ -152,22 +140,14 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
     self.imageContainerView.frame       = self.contentView.bounds;
     self.imageContainerView.contentSize = self.contentView.bounds.size;
 
-    if (self.isZoomEnabled) {
-        self.imageView.frame = (CGRect){
-            .origin = CGPointZero,
-            .size   = self.effectiveImageSize
-        };
-    } else {
-        self.imageView.frame = self.imageContainerView.bounds;
-    }
+    self.imageView.frame = (CGRect){
+        .origin = CGPointZero,
+        .size   = self.effectiveImageSize
+    };
 
-    if (self.isZoomEnabled) {
-        // once frames are set, transforms & insets can be applied
-        [self resetScaleFactors];
-        [self centerImageInScrollView];
-    } else {
-        self.imageContainerView.contentInset = UIEdgeInsetsZero;
-    }
+    // once frames are set, transforms & insets can be applied
+    [self resetScaleFactors];
+    [self centerImageInScrollView];
 }
 
 #pragma mark - View Updates
@@ -290,7 +270,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
 }
 
 - (UIView*)viewForZoomingInScrollView:(UIScrollView*)imageScrollView {
-    return self.isZoomEnabled ? self.imageView : nil;
+    return self.imageView;
 }
 
 @end

@@ -83,16 +83,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
-/**
- * Controls whether or not the user is allowed to pan or zoom images.
- *
- * Defaults to `YES`.
- */
-@property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
+- (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
-
-- (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
 
