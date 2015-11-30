@@ -622,7 +622,6 @@
 		B0E802A91C0CD05F0065EBC0 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Code/WMFDirectoryPaths.h; sourceTree = "<group>"; };
 		B0E802AA1C0CD05F0065EBC0 /* WMFLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocalization.h; path = Code/WMFLocalization.h; sourceTree = "<group>"; };
 		B0E802AB1C0CD05F0065EBC0 /* WMFLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocalization.m; path = Code/WMFLocalization.m; sourceTree = "<group>"; };
-		B0E802AD1C0CD0A20065EBC0 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		B0E802B11C0CD11B0065EBC0 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Code/AppDelegate.h; sourceTree = "<group>"; };
 		B0E802B21C0CD11B0065EBC0 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Code/AppDelegate.m; sourceTree = "<group>"; };
 		B0E802B41C0CD1C80065EBC0 /* iPhone_Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhone_Root.storyboard; path = Wikipedia/Code/iPhone_Root.storyboard; sourceTree = SOURCE_ROOT; };
@@ -1462,6 +1461,7 @@
 		B0E808231C0CF5120065EBC0 /* NSUserDefaults+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSUserDefaults+WMFExtensions.swift"; path = "Wikipedia/Code/NSUserDefaults+WMFExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainCredentials.h; path = Wikipedia/Code/KeychainCredentials.h; sourceTree = SOURCE_ROOT; };
 		B0E808261C0CF6160065EBC0 /* KeychainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainCredentials.m; path = Wikipedia/Code/KeychainCredentials.m; sourceTree = SOURCE_ROOT; };
+		B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Wikipedia-Bridging-Header.h"; path = "Code/Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
 		B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WikipediaUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC092BA61B19189100093C59 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
 		BC12F2451B7A8EEB0042DB3C /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WMFImageControllerTests.swift; sourceTree = "<group>"; };
@@ -3723,7 +3723,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
-				B0E802AD1C0CD0A20065EBC0 /* Wikipedia-Bridging-Header.h */,
+				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
 				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
 				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 				BC2F420D1BEA60350033E185 /* Localizations */,
@@ -4939,7 +4939,7 @@
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -5045,7 +5045,7 @@
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -5154,7 +5154,7 @@
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = (
 					"$(inherited)",
@@ -5372,7 +5372,7 @@
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = (
 					"$(inherited)",
@@ -5409,7 +5409,7 @@
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
-				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Wikipedia-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
