@@ -1,36 +1,41 @@
-//
-//  MWKLanguageLinkController_Private.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/19/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "MWKLanguageLinkController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Delete all previously selected languages.
- * @warning For testing only!
- */
-extern void WMFDeletePreviouslySelectedLanguages();
+@interface MWKLanguageLinkController ()
 
 /**
  * Reads previously selected languages from storage.
- * @return The previously selected languages, or an empty array of none were previously selected.
+ * @return The preferred languages, or an empty array of none were previously added to the preferred list.
  */
-extern NSArray* WMFReadPreviouslySelectedLanguages();
+- (NSArray<NSString*>*)readPreferredLanguageCodesWithoutOSPreferredLanguages;
 
-@interface MWKLanguageLinkController ()
+/**
+ * The same as above, but adds OS preferred languages if they are not in the array
+ * @return The preferred languages.
+ */
+- (NSArray<NSString*>*)readPreferredLanguageCodes;
 
-@property (copy, nonatomic) NSArray* languageLinks;
+/**
+ *  Loads the languages from the local file system
+ */
+- (void)loadLanguagesFromFile;
 
-/// @return All the language codes in @c filteredPreferredLanguages
-- (NSArray*)filteredPreferredLanguageCodes;
 
-/// @return All the language codes in @c languageLinks
-- (NSArray*)languageCodes;
+- (void)addPreferredLanguageForCode:(NSString*)languageCode;
+
+
+- (void)appendPreferredLanguageForCode:(NSString*)languageCode;
+
+
+/**
+ * Delete all previously selected languages.
+ * calling readPreferredLanguageCodes will automatically restore the OS languages
+ * @warning For testing only!
+ */
+- (void)resetPreferredLanguages;
+
 
 @end
 
