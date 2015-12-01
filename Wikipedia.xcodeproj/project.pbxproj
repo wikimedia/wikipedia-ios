@@ -4217,9 +4217,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/wikipedia/en.lproj/Main_iPhone.strings",
-				"$(SRCROOT)/wikipedia/en.lproj/InfoPlist.strings",
-				"$(SRCROOT)/wikipedia/en.lproj/Localizable.strings",
+				"$(SRCROOT)/Wikipedia/Localizations/en.lproj/InfoPlist.strings",
+				"$(SRCROOT)/Wikipedia/Localizations/en.lproj/Localizable.strings",
 			);
 			name = "update-qqq";
 			outputPaths = (
