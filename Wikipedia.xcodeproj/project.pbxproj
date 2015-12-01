@@ -3861,7 +3861,6 @@
 				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
-				D4C16A621970946900CD91AD /* update-storyboard-strings */,
 				D4C16A631970949A00CD91AD /* update-qqq */,
 				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				D4991433181D51DE00E6073C /* Resources */,
@@ -4197,22 +4196,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ./scripts/process_plist.sh;
-		};
-		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/wikipedia/Base.lproj/Main_iPhone.storyboard",
-			);
-			name = "update-storyboard-strings";
-			outputPaths = (
-				"$(SRCROOT)/wikipedia/en.lproj/Main_iPhone.strings",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#scripts/update-storyboard-strings.php";
 		};
 		D4C16A631970949A00CD91AD /* update-qqq */ = {
 			isa = PBXShellScriptBuildPhase;
