@@ -32,9 +32,8 @@ static NSString* const WMFPiwikSiteID    = @"4";
          @"ZeroWarnWhenLeaving": @YES,
          @"ZeroOnDialogShownOnce": @NO,
          @"FakeZeroOn": @NO,
-         @"ShowOnboarding": @YES,
          @"LastHousekeepingDate": [NSDate date],
-         @"SendUsageReports": @YES,
+         @"SendUsageReports": @NO,
          @"AccessSavedPagesMessageShown": @NO
      }];
 }
