@@ -24,7 +24,7 @@ extern NSArray* WMFReadPreviouslySelectedLanguages();
 
 @interface MWKLanguageLinkController ()
 
-@property (copy, nonatomic) NSArray* languageLinks;
+@property (copy, nonatomic) NSArray<MWKLanguageLink*>* languageLinks;
 
 /// @return All the language codes in @c filteredPreferredLanguages
 - (NSArray*)filteredPreferredLanguageCodes;
