@@ -8,24 +8,8 @@
 
 #import "WMFPageCollectionViewController.h"
 
-@class WMFImageGalleryDataSource;
+@class SSDataSource;
 
 @interface WMFBaseImageGalleryViewController : WMFPageCollectionViewController
-
-- (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithCoder:(NSCoder*)aDecoder NS_DESIGNATED_INITIALIZER;
-
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_DESIGNATED_INITIALIZER;
-
-/**
- *  Causes the receiver to populate its UI with images in @c article.
- *
- *  If @c article is not cached, the receiver will attempt to show single image view with either @c article.image or
- *  @c article.thumbnailImage.
- *
- *  @param article The article whose images should be shown.
- */
-- (void)showImagesInArticle:(MWKArticle*)article;
 
 @end

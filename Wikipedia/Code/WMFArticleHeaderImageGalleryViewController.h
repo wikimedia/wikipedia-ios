@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "WMFBaseImageGalleryViewController.h"
+#import "WMFArticleImageGalleryViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Designed to show the lead image or thumbnail while article content is being downloaded.  Once article content is
  *  available, this becomes a miniature scrolling gallery of all article images.
  */
-@interface WMFArticleHeaderImageGalleryViewController : WMFBaseImageGalleryViewController
+@interface WMFArticleHeaderImageGalleryViewController : WMFArticleImageGalleryViewController
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
@@ -30,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithCoder:(NSCoder*)aDecoder NS_UNAVAILABLE;
 
 /// @see initWithDataStore:
-- (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil NS_UNAVAILABLE;
+- (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil
+                         bundle:(nullable NSBundle*)nibBundleOrNil NS_UNAVAILABLE;
 
 /// @see initWithDataStore:
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;

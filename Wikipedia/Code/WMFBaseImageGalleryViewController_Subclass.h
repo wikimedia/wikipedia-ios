@@ -8,15 +8,15 @@
 
 #import "WMFBaseImageGalleryViewController.h"
 
-@interface WMFBaseImageGalleryViewController ()
+@class SSBaseDataSource;
 
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_DESIGNATED_INITIALIZER;
+@interface WMFBaseImageGalleryViewController ()
 
 /**
  *  The data source used to drive the receiver's collection view.
  *
  *  Can be configured with custom cell classes, etc. at initialization time (@c initWithCollectionViewLayout:).
  */
-@property (nonatomic, strong, readonly) WMFImageGalleryDataSource* dataSource;
+@property (nonatomic, strong, readwrite) SSBaseDataSource* dataSource;
 
 @end

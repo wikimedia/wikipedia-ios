@@ -39,17 +39,19 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFArticleHeaderImageGalleryViewController
 
 - (instancetype)init {
-    self = [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
-    if (self) {
-        self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
-        self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
-                                               MWKImage* image,
-                                               UICollectionView* _,
-                                               NSIndexPath* indexPath)  {
-            [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
-        };
-    }
-    return self;
+    return [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+}
+
+- (void)setDataSource:(SSBaseDataSource *)dataSource {
+    NSParameterAssert([dataSource isKindOfClass:[WMFImageGalleryDataSource class]]);
+    [super setDataSource:dataSource];
+    self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
+    self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
+                                           MWKImage* image,
+                                           UICollectionView* _,
+                                           NSIndexPath* indexPath)  {
+        [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
+    };
 }
 
 - (void)addDivider {
@@ -78,8 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
     layout.minimumInteritemSpacing = 0.f;
     layout.minimumLineSpacing      = 0.f;
     layout.sectionInset            = UIEdgeInsetsZero;
-
-    self.dataSource.collectionView = self.collectionView;
 }
 
 #pragma mark - UICollectionViewDelegate
