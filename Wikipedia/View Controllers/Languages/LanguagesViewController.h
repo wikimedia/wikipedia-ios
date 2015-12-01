@@ -1,13 +1,23 @@
-//  Created by Monte Hurd on 1/23/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "LangaugeSelectionDelegate.h"
 
 @class MWKArticle;
+@class MWKLanguageLink;
+@class LanguagesViewController;
+
+// Protocol for notifying languageSelectionDelegate that selection was made.
+@protocol LanguageSelectionDelegate <NSObject>
+
+- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender;
+
+@end
 
 @interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+/**
+ *  Article title must be set before the view controller is displayed.
+ *  Setting the article title afterwards is unsupported.
+ */
 @property (nonatomic, strong) MWKTitle* articleTitle;
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;

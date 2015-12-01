@@ -42,7 +42,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (nonatomic, strong) NSArray* searchLanguages;
 
-@property (strong, nonatomic) MWKLanguageLinkController* langLinkController;
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFArticleListTableViewController* resultsListController;
 
@@ -100,13 +99,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 #pragma mark - Accessors
-
-- (MWKLanguageLinkController*)langLinkController {
-    if (!_langLinkController) {
-        _langLinkController = [MWKLanguageLinkController new];
-    }
-    return _langLinkController;
-}
 
 - (NSString*)currentSearchTerm {
     return [[(WMFSearchDataSource*)self.resultsListController.dataSource searchResults] searchTerm];
@@ -448,9 +440,16 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [[SessionSingleton sharedInstance] setSearchLanguage:self.searchSite.language];
 }
 
+- (NSArray*)allLanguagesFromController{
+    NSMutableArray* lang = [NSMutableArray array];
+    [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].preferredLanguages];
+    [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].otherLanguages];
+    return lang;
+}
+
+
 - (void)updateLanguages {
-    [self.langLinkController loadStaticSiteLanguageData];
-    NSArray* languages = [self.langLinkController filteredLanguages];
+    NSArray* languages = [self allLanguagesFromController];
     self.searchLanguages = [languages wmf_arrayByTrimmingToLength:3];
 }
 
