@@ -555,6 +555,7 @@
 		BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */; };
 		BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9355411BE1A71900697CB0 /* BarackSearch.json */; };
 		BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */; };
+		BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
@@ -1618,6 +1619,7 @@
 		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
 		BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
+		BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggingDefaults.swift; path = Wikipedia/Code/LoggingDefaults.swift; sourceTree = SOURCE_ROOT; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3163,15 +3165,13 @@
 		BC8309941A7BF935003FC5C7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */,
-				B0E8096E1C0D21530065EBC0 /* Info.plist */,
-				B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */,
-				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
 				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
+				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
+				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
+				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
+				BCA6764F1AC05FE200A16160 /* Utilities */,
 				B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */,
 				B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */,
-				BCA6764F1AC05FE200A16160 /* Utilities */,
-				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
 				B0E808FE1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m */,
 				B0E809001C0D188A0065EBC0 /* NSArray+PredicateTests.m */,
@@ -3245,6 +3245,28 @@
 			);
 			name = Views;
 			path = "../View Controllers";
+			sourceTree = "<group>";
+		};
+		BCA15AE01C0DFCC900D0A3EA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
+				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
+				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
+				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
+				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCA15AE11C0DFD1600D0A3EA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */,
+				B0E8096E1C0D21530065EBC0 /* Info.plist */,
+				B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
@@ -3619,6 +3641,7 @@
 		C9180EC118AED30C006C1DCA /* mw-utils */ = {
 			isa = PBXGroup;
 			children = (
+				BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */,
 				B0E8072A1C0CED810065EBC0 /* NSObjectUtilities.h */,
 				B0E8072B1C0CED810065EBC0 /* NSString+WMFPageUtilities.h */,
 				B0E8072C1C0CED810065EBC0 /* NSString+WMFPageUtilities.m */,
@@ -3716,12 +3739,7 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
-				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
-				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
-				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 				BC2F420D1BEA60350033E185 /* Localizations */,
-				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
 				0E9DFEAD1BDEB9880032606E /* Global */,
 				0E9DFEAE1BDEB98F0032606E /* App Delegate */,
 				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
@@ -3741,6 +3759,7 @@
 				0487041519F824D700B7D307 /* Networking */,
 				04616DF71AE7060C00815BCE /* Protocols */,
 				0447866C1852B5010050563B /* Session */,
+				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 				04C43AB0183441A4006C643B /* View Controllers */,
 				04C43AA818344131006C643B /* mw-bridge */,
 				04C43A9F183440C1006C643B /* mw-network */,
@@ -3842,7 +3861,6 @@
 				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
-				D4C16A621970946900CD91AD /* update-storyboard-strings */,
 				D4C16A631970949A00CD91AD /* update-qqq */,
 				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				D4991433181D51DE00E6073C /* Resources */,
@@ -4179,31 +4197,14 @@
 			shellPath = /bin/sh;
 			shellScript = ./scripts/process_plist.sh;
 		};
-		D4C16A621970946900CD91AD /* update-storyboard-strings */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/wikipedia/Base.lproj/Main_iPhone.storyboard",
-			);
-			name = "update-storyboard-strings";
-			outputPaths = (
-				"$(SRCROOT)/wikipedia/en.lproj/Main_iPhone.strings",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#scripts/update-storyboard-strings.php";
-		};
 		D4C16A631970949A00CD91AD /* update-qqq */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/wikipedia/en.lproj/Main_iPhone.strings",
-				"$(SRCROOT)/wikipedia/en.lproj/InfoPlist.strings",
-				"$(SRCROOT)/wikipedia/en.lproj/Localizable.strings",
+				"$(SRCROOT)/Wikipedia/Localizations/en.lproj/InfoPlist.strings",
+				"$(SRCROOT)/Wikipedia/Localizations/en.lproj/Localizable.strings",
 			);
 			name = "update-qqq";
 			outputPaths = (
@@ -4405,6 +4406,7 @@
 				B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */,
 				B0E807A41C0CEFBD0065EBC0 /* MWKSiteInfo.m in Sources */,
 				B0E805BF1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift in Sources */,
+				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
 				B0E804D21C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift in Sources */,
 				B0E803C81C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
 				B0E803C31C0CDC4D0065EBC0 /* WMFArticlePreviewTableViewCell.m in Sources */,
@@ -5245,7 +5247,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Debugipedia.app/Debugipedia";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia.app/Wikipedia";
 			};
 			name = Release;
 		};
