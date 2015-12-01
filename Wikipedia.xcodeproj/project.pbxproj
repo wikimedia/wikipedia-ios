@@ -3163,15 +3163,13 @@
 		BC8309941A7BF935003FC5C7 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */,
-				B0E8096E1C0D21530065EBC0 /* Info.plist */,
-				B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */,
-				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
 				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
+				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
+				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
+				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
+				BCA6764F1AC05FE200A16160 /* Utilities */,
 				B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */,
 				B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */,
-				BCA6764F1AC05FE200A16160 /* Utilities */,
-				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */,
 				B0E808FE1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m */,
 				B0E809001C0D188A0065EBC0 /* NSArray+PredicateTests.m */,
@@ -3255,6 +3253,16 @@
 				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
 				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCA15AE11C0DFD1600D0A3EA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */,
+				B0E8096E1C0D21530065EBC0 /* Info.plist */,
+				B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
