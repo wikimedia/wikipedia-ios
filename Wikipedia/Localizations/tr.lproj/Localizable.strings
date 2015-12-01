@@ -289,3 +289,4 @@
 "page-similar-titles" = "Benzer sayfalar";
 "captcha-reload" = "Başka bir captcha göster";
 "captcha-prompt" = "Yukarıdaki resimdeki CAPTCHA metnini girin";
+"mwk-empty-title-error" = "Başlıksız işlem gerçekleştirilemiyor.";
