@@ -1169,7 +1169,6 @@
 		BC3331F11BBF167000D5C4ED /* WMFArticleSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFArticleSelectionDelegate.h; sourceTree = "<group>"; };
 		BC34E4681B31AD8B00258928 /* MWKLanguageLinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLanguageLinkController.h; sourceTree = "<group>"; };
 		BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageLinkController.m; sourceTree = "<group>"; };
-		BC34E4721B31D92100258928 /* LangaugeSelectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangaugeSelectionDelegate.h; sourceTree = "<group>"; };
 		BC3863481B73E056003A2D38 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+WMFLinkParsingTests.m"; sourceTree = "<group>"; };
 		BC3863501B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+WMFContentOffsetUtils.h"; sourceTree = "<group>"; };
 		BC3863511B76A184003A2D38 /* UIScrollView+WMFContentOffsetUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+WMFContentOffsetUtils.m"; sourceTree = "<group>"; };
@@ -1786,7 +1785,6 @@
 				BC34E4681B31AD8B00258928 /* MWKLanguageLinkController.h */,
 				BC7E4A501B34B4B900EECD8B /* MWKLanguageLinkController_Private.h */,
 				BC34E4691B31AD8B00258928 /* MWKLanguageLinkController.m */,
-				BC34E4721B31D92100258928 /* LangaugeSelectionDelegate.h */,
 				0EF48EBE1C0CEA5400967144 /* MWKTitleLanguageController.h */,
 				0EF48EBF1C0CEA5400967144 /* MWKTitleLanguageController.m */,
 				0EBF642A1C04E66100CA868F /* MWKLanguageFilter.h */,
