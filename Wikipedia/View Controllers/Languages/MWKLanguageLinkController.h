@@ -1,59 +1,57 @@
-//
-//  MWKLanguageLinkController.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 6/17/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "MWKLanguageFilter.h"
 
 @class MWKTitle;
 @class MWKLanguageLink;
 
-@interface MWKLanguageLinkController : NSObject
+NS_ASSUME_NONNULL_BEGIN
+
+@interface MWKLanguageLinkController : NSObject<MWKLanguageFilterDataSource>
+
++ (instancetype)sharedInstance;
 
 /**
- * Returns languages of the reviever, with preferred languages listed first.
+ * Returns all languages of the receiver, sorted by name, minus unsupported languages.
  *
- * The languages returned by this property will be filtered if @c languageFilter is non-nil.
+ * Observe this property to be notifified of changes to the list of languages.
  */
-@property (readonly, copy, nonatomic) NSArray* filteredLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* allLanguages;
 
 /**
- * Subset of the languages in the receiver which intersect with the user's preferred languages.
- *
- * The languages returned by this property will be filtered if @c languageFilter is non-nil.
+ * Returns the user's preferred languages.
+ * Preferred languages will always contain the user's OS preferred languages, even if they are removed.
  */
-@property (readonly, copy, nonatomic) NSArray* filteredPreferredLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* preferredLanguages;
 
 /**
- * All the languages in the receiver minus @c filteredPreferredLanguages.
- *
- * The languages returned by this property will be filtered if @c languageFilter is non-nil.
+ * All the languages in the receiver minus @c preferredLanguages.
  */
-@property (readonly, copy, nonatomic) NSArray* filteredOtherLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* otherLanguages;
+
 
 /**
- * String used to filter languages in each section by their @c languageCode or @c languageName.
+ *  Uniquely adds a new preferred language. The new lnguage will be the first preferred language.
  *
- * Setting this property to @c nil will disable filtering.
- *
- * @return The string to filter by, or @c nil if disabled.
+ *  @param language the language to add
  */
-@property (readwrite, copy, nullable, nonatomic) NSString* languageFilter;
+- (void)addPreferredLanguage:(MWKLanguageLink*)language;
 
-- (void)loadStaticSiteLanguageData;
+/**
+ *  Uniquely appends a new preferred language. The new lnguage will be the last preferred language.
+ *
+ *  @param language the language to append
+ */
+- (void)appendPreferredLanguage:(MWKLanguageLink*)language;
 
-- (void)loadLanguagesForTitle:(MWKTitle*)title
-                      success:(dispatch_block_t)success
-                      failure:(void (^ __nullable)(NSError* __nonnull))failure;
+/**
+ *  Reorders a preferred language to the index given. The language must already exist in a user's preferred languages
+ *
+ *  @param language the language to add
+ */
+- (void)reorderPreferredLanguage:(MWKLanguageLink*)language toIndex:(NSUInteger)newIndex;
 
-- (void)saveSelectedLanguage:(MWKLanguageLink*)language;
 
-- (void)saveSelectedLanguageCode:(NSString*)languageCode;
 
 @end
 
