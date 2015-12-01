@@ -93,15 +93,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (self) {
         self.dataStore            = dataStore;
         self.chromeHidden         = NO;
-        self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
-        @weakify(self);
-        self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
-                                               MWKImage* image,
-                                               UICollectionView* _,
-                                               NSIndexPath* indexPath) {
-            @strongify(self);
-            [self updateCell:cell atIndexPath:indexPath];
-        };
     }
     return self;
 }
@@ -111,6 +102,20 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 #pragma mark - Accessors
+
+- (void)setDataSource:(SSBaseDataSource *)dataSource {
+    NSParameterAssert([dataSource isKindOfClass:[WMFImageGalleryDataSource class]]);
+    [super setDataSource:dataSource];
+    self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
+    @weakify(self);
+    self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
+                                           MWKImage* image,
+                                           UICollectionView* _,
+                                           NSIndexPath* indexPath) {
+        @strongify(self);
+        [self updateCell:cell atIndexPath:indexPath];
+    };
+}
 
 - (void)setArticleWithPromise:(AnyPromise*)articlePromise {
     if (self.articlePromiseResolve) {
@@ -142,14 +147,15 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 - (void)showImagesInArticle:(MWKArticle* __nullable)article {
-    if (WMF_EQUAL(self.dataSource.article, isEqualToArticle:, article)) {
+    if (WMF_EQUAL(self.articleGalleryDataSource.article, isEqualToArticle:, article)) {
         return;
     }
 
     [super showImagesInArticle:article];
 
     if (article.isCached) {
-        [self.infoController setUniqueArticleImages:[self.dataSource allItems] forTitle:article.title];
+        [self.infoController setUniqueArticleImages:[self.articleGalleryDataSource allItems]
+                                           forTitle:article.title];
         [self.infoController fetchBatchContainingIndex:self.currentPage];
     } else {
         [self.infoController reset];
@@ -248,8 +254,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageGalleryCollectionViewCell identifier]];
 
-    self.dataSource.collectionView = self.collectionView;
-
     [self applyChromeHidden:NO];
 }
 
@@ -314,7 +318,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 #pragma mark - Visible Image Index
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
-    NSInteger selectedImageIndex = [self.dataSource.allItems indexOfObjectPassingTest:^BOOL (MWKImage* image,
+    NSInteger selectedImageIndex = [self.articleGalleryDataSource.allItems indexOfObjectPassingTest:^BOOL (MWKImage* image,
                                                                                              NSUInteger idx,
                                                                                              BOOL* stop) {
         if ([image isEqualToImage:visibleImage] || [image isVariantOfImage:visibleImage]) {
@@ -365,7 +369,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 #pragma mark - Cell Updates
 
 - (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
+    MWKImage* imageStub        = [self.articleGalleryDataSource imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
 
     [cell startLoadingAfterDelay:0.25];
@@ -401,7 +405,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
                           atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
+    MWKImage* imageStub        = [self.articleGalleryDataSource imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
     [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 }
@@ -432,7 +436,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert(indexPath);
-    MWKImage* image                         = [[self dataSource] imageAtIndexPath:indexPath];
+    MWKImage* image                         = [[self articleGalleryDataSource] imageAtIndexPath:indexPath];
     MWKImageInfo* infoForImage              = [self.infoController infoForImage:image];
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
