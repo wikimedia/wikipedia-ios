@@ -1,6 +1,6 @@
 //
 //  WMFSearchResults+ResponseSerializer.m
-//  
+//
 //
 //  Created by Brian Gerstle on 10/28/15.
 //

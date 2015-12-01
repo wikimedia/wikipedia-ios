@@ -221,7 +221,7 @@ function fillStubs( &$en, &$qqq ) {
 }
 
 function processStubs( $filename ) {
-	$base = realpath( dirname( __DIR__ ) ) . "/wikipedia";
+	$base = realpath( dirname( __DIR__ ) ) . "/Wikipedia/Localizations";
 
 	$parser = new AppleStringsFile();
 
