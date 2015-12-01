@@ -47,11 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Reorders a preferred language to the index given. The language must already exist in a user's preferred languages
  *
- *  @param language the language to add
+ *  @param language the language to reorder
+ *  @param newIndex the new index of the langage
  */
 - (void)reorderPreferredLanguage:(MWKLanguageLink*)language toIndex:(NSUInteger)newIndex;
 
-
+/**
+ *  Removes a preferred language.
+ *
+ *  @param language the language to remove
+ */
+- (void)removePreferredLanguage:(MWKLanguageLink*)langage;
 
 @end
 
