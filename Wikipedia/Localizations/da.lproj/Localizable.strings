@@ -26,6 +26,8 @@
 "history-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "history-clear-cancel" = "Annuller";
 "history-clear-delete-all" = "Slet";
+"history-description" = "Du har formentlig slettet dem alle. Næste gang du går til en side, kan du komme tilbage til den her.";
+"history-none" = "Ingen nylige sider her.";
 "zero-free-verbiage" = "Gratis Wikipedia adgang fra din mobiloperatør (data gebyrer frafaldes)";
 "zero-charged-verbiage" = "Wikipedia Zero er slået fra";
 "zero-charged-verbiage-extended" = "At hente andre artikler kan medføre datagebyrer. Gemte artikler, der er gemt offline, bruger ikke data, og de er gratis.";
@@ -95,6 +97,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "search-recent-clear-cancel" = "Annullér";
 "search-recent-clear-delete-all" = "Slet";
+"settings-title" = "Indstillinger";
 "main-menu-title" = "Mere";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
@@ -135,6 +138,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Opdatering annulleret";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler opdateres hele tiden. Tryk opdater for at få seneste version af alle artiklerne.";
 "saved-pages-refresh-cancel-alert-button" = "OK";
+"saved-pages-description" = "Gemte sider er ret seje. Tænk på dem som bogmærker, som du kan læse, selv når du er offline.";
+"saved-pages-none" = "Du har ingen gemte sider.";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Indlæser artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigerer";
@@ -275,4 +280,6 @@
 "hockeyapp-alert-privacy" = "$1 privatliv";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+"captcha-reload" = "Vis en anden captcha";
+"captcha-prompt" = "Indtast CAPTCHA teksten fra billedet ovenfor";
 "mwk-empty-title-error" = "Ude af stand til at udføre operationen med tom titel.";

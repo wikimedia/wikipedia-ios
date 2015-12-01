@@ -8,6 +8,7 @@
 "article-languages-downloading" = "د ليکنې د ژبو برسېرېدنې کې دی...";
 "article-languages-filter-placeholder" = "د ژبې چاڼگر";
 "article-read-more-title" = "نور لوستل";
+"info-box-title" = "چټک مالومات";
 "info-box-close-text" = "تړل";
 "table-title-other" = "نور مالومات";
 "history-label" = "وروستني";
@@ -61,12 +62,14 @@
 "search-recent-clear-confirmation-heading" = "ټولې وروستنۍ پلټنې ړنگول؟";
 "search-recent-clear-cancel" = "ناگارل";
 "search-recent-clear-delete-all" = "ټول ړنگول";
+"settings-title" = "امستنې";
 "main-menu-title" = "نور";
 "main-menu-heading-about" = "په اړه";
 "main-menu-language-title" = "د $1 ويکيپېډيا پلټل";
 "main-menu-faq" = "ډ-ځ-پ";
 "main-menu-language-toggle-show" = "ژبې ښکاره کول";
 "main-menu-language-toggle-hide" = "ژبې پټول";
+"main-menu-language-selection-saved" = "ژبټاکنه مو خوندي شوه";
 "main-menu-account-title-logged-out" = "گڼون";
 "main-menu-account-title-logged-in" = "ننوتي ياست لکه: $1";
 "main-menu-account-login" = "ننوتل";
@@ -161,7 +164,10 @@
 "nearby-pull-to-refresh-is-refreshing" = "بياتاندېدنه";
 "nearby-open-in-maps" = "په نخشو کې پرانيستل";
 "nearby-cancel" = "ناگارل";
+"migration-update-progress-label" = "د سيمه ايز اومتوک کډېدنه";
 "migration-skip-button-title" = "دا ړنگول";
+"image-gallery-unknown-owner" = "ناڅرگند پورته کوونکی.";
+"image-gallery-fetch-image-info-error-title" = "انځورونه ښکته کول ناشونی دی";
 "image-gallery-fetch-image-info-error-ok" = "ښه";
 "hockeyapp-alert-send-report" = "راپور لېږل";
 "hockeyapp-alert-always-send" = "تل ورلېږل";
@@ -169,3 +175,5 @@
 "hockeyapp-alert-privacy" = "$1 پټنتيا";
 "page-issues" = "د مخ ستونزې";
 "page-similar-titles" = "ورته مخونه";
+"captcha-reload" = "يو بل کپچا ښکاره کول";
+"captcha-prompt" = "له پورته انځور څخه کپچا متن ورکړئ";

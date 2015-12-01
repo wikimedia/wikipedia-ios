@@ -2,12 +2,14 @@
 // Exported from translatewiki.net
 // Author: NehalDaveND
 
+"languages-title" = "भाषाः";
 "article-languages-label" = "भाषां चिनोतु";
 "article-languages-cancel" = "निरस्यताम्";
 "article-languages-downloading" = "लेखस्यास्य भाषापरिसन्धिः अवारोपयति...";
 "article-languages-filter-placeholder" = "भाषाशोधनी";
 "article-read-more-title" = "अधिकं पठ्यताम्";
 "article-unable-to-load-section" = "एनं विभागम् आरोपयितुं न शक्यते । पृष्ठं पुनरुपारोप्य दृश्यतां यत् दोषः व्यपगतः वा ।";
+"article-unable-to-load-article" = "एषः लेखः आरोपयितुं न शक्यते।";
 "info-box-title" = "त्वरिततथ्यानि";
 "info-box-close-text" = "पिदधातु";
 "table-title-other" = "अधिकसूचना";
@@ -20,6 +22,8 @@
 "history-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
 "history-clear-cancel" = "निरस्यताम्";
 "history-clear-delete-all" = "सर्वम् अपाक्रियताम्";
+"history-description" = "कदाचित् तानि सर्वाणि भवता/भवत्या अपाकृतानि । द्वितीयवारं यदा भवान्/भवती तत् पृष्ठं गच्छति, तदा इतः तत् पुनः प्राप्स्यति ।";
+"history-none" = "अत्र नवीनपृष्ठानि न सन्ति ।";
 "zero-free-verbiage" = "दूरभाषप्रचालेन विकिपीडिया-जालं विना मूल्यं चालयतु (डेटा-परिवर्तनम् अवगण्यताम्)";
 "zero-charged-verbiage" = "विकिपीडिया-शून्यं निरस्तम् अस्ति";
 "zero-charged-verbiage-extended" = "अन्यपृष्ठानाम् अवारोपणं जायमानम् अस्ति, येन सूचनापरिवर्तनस्य अतिरिक्तः भारः भेवत् । लेखान् रक्षित्वा विमुक्ततया तान् पठतु । तेन अन्तर्जालस्य उपयोगः न भवति, विना मूल्यं पठनञ्च भवति ।";
@@ -40,20 +44,20 @@
 "account-creation-passwords-mismatched" = "कूटशब्दौ असमानौ स्तः";
 "account-creation-saving" = "रक्षति...";
 "account-creation-login" = "पूर्वमेव लेखा अस्ति किं ? प्रविश्यताम्";
-"account-creation-username-placeholder-text" = "योजकनाम";
+"account-creation-username-placeholder-text" = "सदस्यनाम";
 "account-creation-password-placeholder-text" = "कूटशब्दः";
 "account-creation-password-confirm-placeholder-text" = "कूटशब्दस्य पुष्टिं करोतु";
 "account-creation-email-placeholder-text" = "वि-पत्रम् (ऐच्छिकं)";
-"account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या योजकनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";
-"login-name-not-found" = "प्रवेशाय योजकनाम अनिवार्यम् अस्ति ।";
-"login-name-illegal" = "भवता/भवत्या लिखितं योजकनाम अमान्यम् अस्ति ।";
-"login-name-does-not-exist" = "भवता/भवत्या लिखितं योजकनाम न विद्यते ।";
+"account-creation-missing-fields" = "सदस्यता प्राप्त्यै भवता/भवत्या सदस्यनाम-कूटशब्दयोः लेखनं, कूटशब्दस्य पुष्टिकरणं च अनिवार्यत्वेन करणीयं भवति ।";
+"login-name-not-found" = "प्रवेशाय सदस्यनाम अनिवार्यम् अस्ति ।";
+"login-name-illegal" = "भवता/भवत्या लिखितं सदस्यनाम अमान्यम् अस्ति ।";
+"login-name-does-not-exist" = "भवता/भवत्या लिखितं सदस्यनाम न विद्यते ।";
 "login-password-empty" = "प्रवेशाय कूटशब्दः अनिवार्यः ।";
 "login-password-wrong" = "भवता/भवत्या लिखितः कूटशब्दः अमान्यः अस्ति ।";
 "login-throttled" = "लघुकाले भवान्/भवती बहुवारं प्रवेशं प्रापत् ।";
-"login-user-blocked" = "योजकनाम प्रतिबन्धितम्";
+"login-user-blocked" = "सदस्यनाम प्रतिबन्धितम्";
 "login-account-creation" = "सदस्यता नास्ति ? विकिपीडिया-जाले सदस्यता प्राप्यताम्";
-"login-username-placeholder-text" = "योजकनाम";
+"login-username-placeholder-text" = "सदस्यनाम";
 "login-password-placeholder-text" = "कूटशब्दः";
 "wikitext-downloading" = "सूचनायाः अवारोपणं....";
 "wikitext-download-failed" = "नूतनतमस्य संस्करणस्य प्राप्तिः न अभवत् ।";
@@ -89,8 +93,11 @@
 "search-recent-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";
 "search-recent-clear-cancel" = "निरस्यताम्";
 "search-recent-clear-delete-all" = "सर्वम् अपाक्रियताम्";
+"settings-title" = "अभिविन्यासाः";
 "main-menu-title" = "अधिकम्";
+"main-menu-heading-about" = "विषये";
 "main-menu-language-title" = "विकिपीडिया-जाले $1 अन्विष्यताम्";
+"main-menu-faq" = "सामान्यजिज्ञासाः (FAQ)";
 "main-menu-language-toggle-show" = "भाषाः दर्श्यन्ताम्";
 "main-menu-language-toggle-hide" = "भाषाः गोप्यन्ताम्";
 "main-menu-language-selection-saved" = "भाषाविभागः रक्षितः";
@@ -127,6 +134,8 @@
 "saved-pages-refresh-cancel-alert-title" = "निरस्तं नवीकरोतु";
 "saved-pages-refresh-cancel-alert-message" = "विकिपीडिया-जालस्य लेखाः सर्वदा परिवर्तनशीलाः भवति । लेखानाम् अत्याधुनिकं संस्करणं प्राप्तुं नवीकरोतु ।";
 "saved-pages-refresh-cancel-alert-button" = "ज्ञातम्";
+"saved-pages-description" = "संरक्षितानि पृष्ठानि अतिललितानि, उत्तमानि च सन्ति । पृष्ठस्मारकत्वेन (Bookmark) पृष्ठानि संरक्ष्य भवान्/भवती वियुक्ततया अपि तानि पठितुं शक्नोति ।";
+"saved-pages-none" = "पृष्ठानि इतोऽपि न रक्षितानि ।";
 "page-history-title" = "लेखस्य इतिहासः";
 "page-history-downloading" = "लेखस्य इतिहासः अवारोहति...";
 "navbar-title-mode-edit-wikitext" = "सम्पाद्यताम्";
@@ -230,6 +239,7 @@
 "menu-share-accessibility-label" = "वितरतु";
 "menu-more-accessibility-label" = "अधिकविन्यासाः";
 "menu-trash-accessibility-label" = "अपाक्रियताम्";
+"menu-language-accessibility-label" = "भाषाः";
 "nearby-title" = "निकटे";
 "nearby-distance-label-meters" = "$1 मि.";
 "nearby-distance-label-km" = "$1 कि.मी.";
@@ -266,3 +276,6 @@
 "hockeyapp-alert-privacy" = "$1 गोपनीयता";
 "page-issues" = "पृष्ठस्य समस्याः";
 "page-similar-titles" = "समानपृष्ठानि";
+"captcha-reload" = "अन्यत् संभेपूस्वसाट्यूप प्रदर्शयतु";
+"captcha-prompt" = "उक्तचित्रात् संभेपूस्वसाट्यूप-पाठं लिखतु";
+"mwk-empty-title-error" = "रिक्तशिर्षकेन एषा प्रकिया भवितुं नार्हति ।";

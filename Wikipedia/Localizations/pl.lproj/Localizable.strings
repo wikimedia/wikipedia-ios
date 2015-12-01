@@ -81,11 +81,13 @@
 "wikitext-upload-save-sign-in" = "Zaloguj się";
 "wikitext-upload-save-anonymously" = "Zapisz anonimowo";
 "wikitext-upload-save-anonymously-warning" = "Zmiany będą oznaczone przez adres IP urządzenia. Jeśli $1, otrzymasz wyższy poziom prywatności.";
+"wikitext-upload-save-terms-and-license" = "Zapisując, zgadzasz się na $1 i nieodwołalnie publikujesz swój wkład na licencji $2.";
 "wikitext-upload-save-terms-name" = "Warunki użytkowania";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otwórz link";
 "open-link-cancel" = "Anuluj";
 "search-searching" = "Wyszukiwanie...";
+"search-no-matches" = "Nie znaleziono dopasowania według zadanego kryterium wyszukiwania.";
 "search-field-placeholder-text" = "Szukaj w Wikipedii";
 "search-field-placeholder-text-zero" = "Szukaj w Wikipedii Zero";
 "search-loading-section-zero" = "Ładowanie pierwszej sekcji artykułu...";
@@ -132,6 +134,7 @@
 "main-menu-nearby" = "W pobliżu";
 "main-menu-more" = "Więcej...";
 "main-menu-heading-debug" = "Debugowanie";
+"main-menu-debug-crash" = "Awaria";
 "saved-pages-title" = "Zapisano strony";
 "saved-pages-clear-confirmation-heading" = "Usunąć wszystkie zapisane elementy?";
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
@@ -139,6 +142,7 @@
 "saved-pages-clear-delete-all" = "Usuń wszystko";
 "saved-pages-refresh-cancel-alert-title" = "Aktualizacja anulowana";
 "saved-pages-refresh-cancel-alert-message" = "Artykuły Wikipedii są aktualizowane cały czas. Kliknij przycisk \"aktualizuj\", aby uzyskać najnowsze wersje wszystkich artykułów.";
+"saved-pages-refresh-cancel-alert-button" = "Wszystko jasne!";
 "saved-pages-description" = "Zapisane strony są całkiem fajne. Pomyśl o nich jako o zakładkach, które można przeczytać nawet wtedy, gdy jesteś w trybie offline.";
 "saved-pages-none" = "Nie zapisano jeszcze żadnych stron.";
 "page-history-title" = "Historia artykułu";
@@ -164,18 +168,21 @@
 "edit-summary-choice-added-clarification" = "Dodano wyjaśnienie";
 "edit-summary-choice-other" = "Inny";
 "edit-summary-description" = "Dokładny opis pomaga innym uczestnikom szybko sprawdzić Twoje edycje. Można wpisać opis również z użyciem następujących tagów.";
+"edit-summary-field-placeholder-text" = "Inne sposoby, którymi można poprawić stronę";
 "edit-summary-title" = "Jak {{GENDER:|poprawiłeś|poprawiłaś}} stronę?";
 "fetching-random-article" = "Wybór losowego artykułu";
 "article-pull-to-refresh-prompt" = "Pociągnij, aby odświeżyć artykuł";
 "article-pull-to-refresh-is-refreshing" = "Odświeżanie artykułu";
 "credits-title" = "Repozytoria otwartego kodu";
 "credits-wikimedia-repos" = "Wikimedia";
+"credits-gerrit-repo" = "Podstawowa aplikacja (Gerrit)";
 "credits-github-mirror" = "Lustrzana kopia aplikacji (Github)";
 "credits-external-libraries" = "Zewnętrzny";
 "about-title" = "O aplikacji";
 "about-wikipedia" = "Wikipedia";
 "about-contributors" = "twórcy";
 "about-testers" = "testerzy";
+"about-testers-details" = "QA przetestowane przez $1";
 "about-translators" = "tłumacze";
 "about-translators-details" = "Przetłumaczono przez wolontariusza na $1";
 "about-libraries" = "użyte biblioteki";
@@ -186,6 +193,7 @@
 "about-wikimedia-foundation" = "Wikimedia Foundation";
 "share-menu-save-page" = "Zapisz stronę";
 "share-menu-page-saved" = "Zapisano do czytania w trybie offline.";
+"share-menu-page-saved-access" = "Wskazówka: aby uzyskać dostęp do zapisanych stron, kliknij powyżej $1 lub przytrzymaj poniżej $2.";
 "share-custom-menu-item" = "Udostępnij";
 "share-article-name-on-wikipedia" = "\"$1\" na @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" na @Wikipedia: \"$2\"";
@@ -209,6 +217,7 @@
 "onboarding-wikipedia" = "Wikipedia";
 "onboarding-free-encyclopedia" = "Wolna Encyklopedia";
 "preference_title_eventlogging_opt_in" = "Wyślij raporty używania";
+"preference_summary_eventlogging_opt_in" = "Pozwól Wikimedia zbierać informacje o tym, jak korzystać z aplikacji, aby ją ulepszać";
 "page_protected_autoconfirmed" = "Ta strona została częściowo zabezpieczona.";
 "page_protected_sysop" = "Ta strona jest całkowicie zabezpieczona.";
 "page_protected_other" = "Ta strona została zabezpieczona do następujących poziomów: $1";
@@ -253,11 +262,13 @@
 "nearby-open-in-maps" = "Otworzyć na Mapach";
 "nearby-cancel" = "Anuluj";
 "nearby-location-updates-denied" = "Ta aplikacja nie posiada uprawnień do otrzymywania aktualizacji lokalizacji.";
+"nearby-location-updates-enable" = "Aby włączyć aktualizację danych o lokalizacji, otwórz aplikację ustawienia i kliknij następujący:";
 "nearby-location-updates-settings-menu" = "Prywatność > Usługi lokalizacji > Wikipedia";
 "nearby-location-general-error" = "Nie udało się ustalić położenia. Odśwież lub spróbuj ponownie później.";
 "nearby-wifi" = "Uruchomienie Wi-Fi może pomóc urządzeniu lepiej określić twoją lokalizację.";
 "migration-update-progress-label" = "Przenoszenie danych lokalnych";
 "migration-update-progress-count-label" = "Przenoszenie artykułu $1 z $2";
+"migration-prompt-title" = "Wygląda na to, że mamy historię!";
 "migration-prompt-message" = "Musimy przenieść zapisane i ostatnio oglądane strony. To może potrwać kilka minut...";
 "migration-confirm-button-title" = "Przenieść moje dane";
 "migration-skip-button-title" = "Usuń obiekt";
@@ -276,3 +287,4 @@
 "page-similar-titles" = "Podobne strony";
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
 "captcha-prompt" = "Wpisz tekst CAPTCHA z obrazka powyżej";
+"mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
