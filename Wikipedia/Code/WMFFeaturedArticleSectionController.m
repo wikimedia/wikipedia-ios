@@ -12,6 +12,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 
+#import "NSString+FormattedAttributedString.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticleSectionIdentifier";
@@ -73,8 +75,10 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 }
 
 - (NSAttributedString*)headerText {
-    NSString* featuredDate = [[[self class] dateFormatter] stringFromDate:[NSDate date]];
-    return [[NSAttributedString alloc] initWithString:featuredDate attributes:nil];
+    return
+        [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:nil
+                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:[NSDate date]]]
+                                                                          substitutionAttributes:nil];
 }
 
 - (NSArray*)items {
