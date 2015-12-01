@@ -76,9 +76,9 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 
 - (NSAttributedString*)headerText {
     return
-    [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:nil
-                                                                         substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:[NSDate date]]]
-                                                                      substitutionAttributes:nil];
+        [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:nil
+                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:[NSDate date]]]
+                                                                          substitutionAttributes:nil];
 }
 
 - (NSArray*)items {
