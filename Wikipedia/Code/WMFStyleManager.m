@@ -18,6 +18,8 @@ static WMFStyleManager* _styleManager = nil;
     [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"chevron-left"]];
     [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"chevron-left"]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.305 green:0.305 blue:0.296 alpha:1]];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UITabBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor wmf_blueTintColor]];
 }
