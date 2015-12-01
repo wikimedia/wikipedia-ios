@@ -133,6 +133,33 @@ static id _sharedInstance;
 }
 
 - (void)reorderPreferredLanguage:(MWKLanguageLink*)language toIndex:(NSUInteger)newIndex {
+    [self reorderPreferredLanguageForCode:language.languageCode toIndex:newIndex];
+}
+
+- (void)reorderPreferredLanguageForCode:(NSString*)languageCode toIndex:(NSUInteger)newIndex {
+    NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
+    NSAssert(newIndex < [langCodes count], @"new language index is out of range");
+    if (newIndex >= [langCodes count]) {
+        return;
+    }
+    NSUInteger oldIndex = [langCodes indexOfObject:languageCode];
+    NSAssert(oldIndex != NSNotFound, @"Language is not a preferred language");
+    if (oldIndex == NSNotFound) {
+        return;
+    }
+    [langCodes removeObject:languageCode];
+    [langCodes insertObject:languageCode atIndex:newIndex];
+    [self savePreferredLanguageCodes:langCodes];
+}
+
+- (void)removePreferredLanguage:(MWKLanguageLink*)langage {
+    [self removePreferredLanguageForCode:langage.languageCode];
+}
+
+- (void)removePreferredLanguageForCode:(NSString*)languageCode {
+    NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
+    [langCodes removeObject:languageCode];
+    [self savePreferredLanguageCodes:langCodes];
 }
 
 #pragma mark - Reading/Saving Preferred Language Codes to NSUserDefaults
