@@ -91,6 +91,7 @@
     assertThat(self.controller.languageLinks, isEmpty());
     assertThat(self.controller.filteredOtherLanguages, isEmpty());
     assertThat(self.controller.filteredPreferredLanguages, isEmpty());
+    [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testBasicFiltering {
@@ -100,6 +101,7 @@
                || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
     }], describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
                     isEmpty(), nil));
+    [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testEmptyAfterFiltering {
@@ -137,7 +139,7 @@
                hasCountOf(self.controller.filteredOtherLanguages.count
                           + self.controller.filteredPreferredLanguages.count));
 
-    assertThat([NSSet setWithArray:self.controller.languageLinks], is(equalTo(joinedLanguages)));
+    assertThat([NSSet setWithArray:self.controller.filteredLanguages], is(equalTo(joinedLanguages)));
 }
 
 @end
