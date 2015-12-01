@@ -1022,6 +1022,17 @@
 		0EBB287B1B70350C00D8E1D8 /* UIView+WMFSnapshotting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFSnapshotting.m"; sourceTree = "<group>"; };
 		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BITHockeyManager+WMFExtensions.m"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
+		0EBF64131C04C5D100CA868F /* WMFWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFWelcomeViewController.h; sourceTree = "<group>"; };
+		0EBF64141C04C5D100CA868F /* WMFWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeViewController.m; sourceTree = "<group>"; };
+		0EBF64181C04C66200CA868F /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WMFWelcome.storyboard; sourceTree = "<group>"; };
+		0EBF641B1C04D0BF00CA868F /* WMFWelcomeIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFWelcomeIntroductionViewController.h; sourceTree = "<group>"; };
+		0EBF641C1C04D0BF00CA868F /* WMFWelcomeIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeIntroductionViewController.m; sourceTree = "<group>"; };
+		0EBF641E1C04DAFA00CA868F /* WMFWelcomeLanguageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFWelcomeLanguageViewController.h; sourceTree = "<group>"; };
+		0EBF641F1C04DAFA00CA868F /* WMFWelcomeLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeLanguageViewController.m; sourceTree = "<group>"; };
+		0EBF64211C04DB1100CA868F /* WMFWelcomeAnalyticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFWelcomeAnalyticsViewController.h; sourceTree = "<group>"; };
+		0EBF64221C04DB1100CA868F /* WMFWelcomeAnalyticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeAnalyticsViewController.m; sourceTree = "<group>"; };
+		0EBF64271C04DE1700CA868F /* WMFWelcomeLanguageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFWelcomeLanguageTableViewCell.h; sourceTree = "<group>"; };
+		0EBF64281C04DE1700CA868F /* WMFWelcomeLanguageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeLanguageTableViewCell.m; sourceTree = "<group>"; };
 		0EBF642A1C04E66100CA868F /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWKLanguageFilter.h; sourceTree = "<group>"; };
 		0EBF642B1C04E66100CA868F /* MWKLanguageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKLanguageFilter.m; sourceTree = "<group>"; };
 		0EC9A7261BCEBC9200A23334 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFDirectoryPaths.h; sourceTree = "<group>"; };
@@ -2666,6 +2677,7 @@
 				0E94AFE91B209721000BC5EA /* iPhone_Root.storyboard */,
 				0EFB48091B3BB01300381F99 /* Style */,
 				0E9DFEB01BDEB9BE0032606E /* App View Controller */,
+				0EBF641A1C04D08E00CA868F /* Welcome */,
 				0EEAF0F61B8229E6000D4232 /* Home */,
 				0E2B06F81B2D127A00EA2F53 /* Article List */,
 				0E2B06F91B2D128D00EA2F53 /* Search */,
@@ -2828,6 +2840,48 @@
 				BC32F6AB1BB5B35D007FDF65 /* WMFSearchViewController.storyboard */,
 			);
 			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		0EBF641A1C04D08E00CA868F /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				0EBF64181C04C66200CA868F /* WMFWelcome.storyboard */,
+				0EBF64131C04C5D100CA868F /* WMFWelcomeViewController.h */,
+				0EBF64141C04C5D100CA868F /* WMFWelcomeViewController.m */,
+				0EBF64241C04DB1500CA868F /* Intro */,
+				0EBF64251C04DB1B00CA868F /* Language */,
+				0EBF64261C04DB2200CA868F /* Analytics */,
+			);
+			name = Welcome;
+			sourceTree = "<group>";
+		};
+		0EBF64241C04DB1500CA868F /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				0EBF641B1C04D0BF00CA868F /* WMFWelcomeIntroductionViewController.h */,
+				0EBF641C1C04D0BF00CA868F /* WMFWelcomeIntroductionViewController.m */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
+		0EBF64251C04DB1B00CA868F /* Language */ = {
+			isa = PBXGroup;
+			children = (
+				0EBF641E1C04DAFA00CA868F /* WMFWelcomeLanguageViewController.h */,
+				0EBF641F1C04DAFA00CA868F /* WMFWelcomeLanguageViewController.m */,
+				0EBF64271C04DE1700CA868F /* WMFWelcomeLanguageTableViewCell.h */,
+				0EBF64281C04DE1700CA868F /* WMFWelcomeLanguageTableViewCell.m */,
+			);
+			name = Language;
+			sourceTree = "<group>";
+		};
+		0EBF64261C04DB2200CA868F /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				0EBF64211C04DB1100CA868F /* WMFWelcomeAnalyticsViewController.h */,
+				0EBF64221C04DB1100CA868F /* WMFWelcomeAnalyticsViewController.m */,
+			);
+			name = Analytics;
 			sourceTree = "<group>";
 		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
@@ -4066,6 +4120,7 @@
 				C98990361A699DFB00AF44FC /* ShareCard.xib in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
+				0EBF64191C04C66200CA868F /* WMFWelcome.storyboard in Resources */,
 				0EE1519C1BF545DF0039828A /* WMFContinueReadingTableViewCell.xib in Resources */,
 				0E03E2A71B8574F800C1FBD7 /* WMFHomeSectionHeader.xib in Resources */,
 				04016E201B329D4500D732FE /* PageHistoryViewController.storyboard in Resources */,
@@ -4438,6 +4493,7 @@
 				0EF48EC01C0CEA5500967144 /* MWKTitleLanguageController.m in Sources */,
 				0436998E1B45B673002FD81D /* WMFArticleTableHeaderView.m in Sources */,
 				04F27B7518FE0F2E00EDD838 /* PageHistoryResultCell.m in Sources */,
+				0EBF64291C04DE1700CA868F /* WMFWelcomeLanguageTableViewCell.m in Sources */,
 				BC060B3A1B456D030086EBFB /* AnyPromise+WMFExtensions.m in Sources */,
 				041E32371B72AB9A001D0E28 /* WMFSectionHeadersViewController.m in Sources */,
 				0463639818A844570049EE4F /* KeychainCredentials.m in Sources */,
@@ -4515,10 +4571,13 @@
 				BCB669B11A83F6C400C7B1FE /* MWKRecentSearchList.m in Sources */,
 				B06D69A71BEA95FE00382510 /* NSLocale+WMFExtras.swift in Sources */,
 				04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */,
+				0EBF641D1C04D0BF00CA868F /* WMFWelcomeIntroductionViewController.m in Sources */,
 				0E2690F91B86A9DB009B8605 /* WMFRelatedSectionController.m in Sources */,
+				0EBF64161C04C5D100CA868F /* WMFWelcomeViewController.m in Sources */,
 				041E32381B72AB9A001D0E28 /* WMFSectionHeader.m in Sources */,
 				0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */,
 				C90799BA1A8564C60044E13C /* WMFShareOptionsController.m in Sources */,
+				0EBF64231C04DB1100CA868F /* WMFWelcomeAnalyticsViewController.m in Sources */,
 				BCC138C21BC58999006741D0 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				0E03E2911B8430FE00C1FBD7 /* WMFNearbySectionController.m in Sources */,
 				04C91CEB195517250035ED1B /* OnboardingViewController.m in Sources */,
@@ -4668,6 +4727,7 @@
 				BCE24FDF1B0CF0C7003F054B /* LegacyPhoneGapDataMigrator.m in Sources */,
 				042950D41A9D3BA7009BE784 /* UIColor+WMFHexColor.m in Sources */,
 				BCF7FC9B1B7B9ADE00CDFB8C /* WMFLogFormatter.m in Sources */,
+				0EBF64201C04DAFA00CA868F /* WMFWelcomeLanguageViewController.m in Sources */,
 				BCBDC88C1B3A0715003A6D17 /* Cancellable.swift in Sources */,
 				0439317619FB092600386E8F /* UIWebView+LoadAssetsHtml.m in Sources */,
 				04B91AA718E34BBC00FFAA1C /* UIView+TemporaryAnimatedXF.m in Sources */,
