@@ -38,7 +38,7 @@
 #import "WMFSearchViewController.h"
 #import "WMFArticleListTableViewController.h"
 #import "DataMigrationProgressViewController.h"
-#import "OnboardingViewController.h"
+#import "WMFWelcomeViewController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
@@ -72,7 +72,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingHomeScreen = 24 * 60 * 60;
 static dispatch_once_t launchToken;
 
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
-@property (strong, nonatomic) IBOutlet UIView* tabControllerContainerView;
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
 @property (nonatomic, strong) UITabBarController* rootTabBarController;
@@ -96,6 +95,14 @@ static dispatch_once_t launchToken;
 #pragma mark - Setup
 
 - (void)loadMainUI {
+    UITabBarController* tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
+    [self addChildViewController:tabBar];
+    [self.view addSubview:tabBar.view];
+    [tabBar.view mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.and.bottom.and.leading.and.trailing.equalTo(self.view);
+    }];
+    [tabBar didMoveToParentViewController:self];
+    self.rootTabBarController = tabBar;
     [self configureTabController];
     [self configureHomeViewController];
     [self configureSavedViewController];
@@ -154,7 +161,7 @@ static dispatch_once_t launchToken;
 #pragma mark - Public
 
 + (WMFAppViewController*)initialAppViewControllerFromDefaultStoryBoard {
-    return [[UIStoryboard wmf_appRootStoryBoard] instantiateInitialViewController];
+    return [[UIStoryboard storyboardWithName:NSStringFromClass([WMFAppViewController class]) bundle:nil] instantiateInitialViewController];
 }
 
 - (void)launchAppInWindow:(UIWindow*)window {
@@ -190,6 +197,21 @@ static dispatch_once_t launchToken;
 - (void)pauseApp {
     [self downloadAssetsFilesIfNecessary];
     [self performHousekeepingIfNecessary];
+}
+
+#pragma mark - Start App
+
+- (void)startApp {
+    [self showSplashView];
+    [self runDataMigrationIfNeededWithCompletion:^{
+        [self.imageMigration setupAndStart];
+        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+        [self loadMainUI];
+        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+        }];
+    }];
 }
 
 #pragma mark - Utilities
@@ -294,24 +316,8 @@ static dispatch_once_t launchToken;
     [super viewDidAppear:animated];
 
     dispatch_once(&launchToken, ^{
-        [self showSplashView];
-
-        [self runDataMigrationIfNeededWithCompletion:^{
-            [self.imageMigration setupAndStart];
-            [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-            [self loadMainUI];
-            BOOL didShowOnboarding = [self presentOnboardingIfNeeded];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-        }];
+        [self startApp];
     });
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
-    if ([segue.destinationViewController isKindOfClass:[UITabBarController class]]) {
-        self.rootTabBarController = segue.destinationViewController;
-        [self configureTabController];
-    }
 }
 
 - (BOOL)shouldAutorotate {
@@ -320,21 +326,33 @@ static dispatch_once_t launchToken;
 
 #pragma mark - Onboarding
 
+static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
+
 - (BOOL)shouldShowOnboarding {
-    NSNumber* showOnboarding = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShowOnboarding"];
-    return showOnboarding.boolValue;
+    NSNumber* didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
+    return !didShow.boolValue;
 }
 
-- (BOOL)presentOnboardingIfNeeded {
+- (void)setDidShowOnboarding {
+    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:WMFDidShowOnboarding];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)presentOnboardingIfNeededWithCompletion:(void (^)(BOOL didShowOnboarding))completion {
     if ([self shouldShowOnboarding]) {
-        [self presentViewController:[OnboardingViewController wmf_initialViewControllerFromClassStoryboard]
-                           animated:NO
-                         completion:NULL];
-        [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:@"ShowOnboarding"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        return YES;
+        WMFWelcomeViewController* vc = [WMFWelcomeViewController welcomeViewControllerFromDefaultStoryBoard];
+        vc.completionBlock = ^{
+            [self setDidShowOnboarding];
+            if (completion) {
+                completion(YES);
+            }
+        };
+        [self presentViewController:vc animated:NO completion:NULL];
+    } else {
+        if (completion) {
+            completion(NO);
+        }
     }
-    return NO;
 }
 
 #pragma mark - Splash
