@@ -33,6 +33,8 @@
 "history-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "history-clear-cancel" = "لغو";
 "history-clear-delete-all" = "حذف همه";
+"history-description" = "شما احتمالاً همه آنها را حذف کردید. دفعه بعد که به صفحه‌ای می‌روید می‌توانید از اینجا به آن صفحه برگردید.";
+"history-none" = "هیچ صفحه اخیری اینجا نیست.";
 "zero-free-verbiage" = "دسترسی مجانی از تلفن همراه توسط اپراتور تامین شده‌است (هزینهٔ دیتا گرفته نمی‌شود)";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
 "zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و آزاد هستند.";
@@ -102,6 +104,7 @@
 "search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "search-recent-clear-cancel" = "لغو";
 "search-recent-clear-delete-all" = "حذف همه";
+"settings-title" = "تنظیمات";
 "main-menu-title" = "بیشتر";
 "main-menu-heading-about" = "درباره";
 "main-menu-language-title" = "جستجوی  $1  زبان ویکی";
@@ -142,6 +145,8 @@
 "saved-pages-refresh-cancel-alert-title" = "بارگذاری لغو شد";
 "saved-pages-refresh-cancel-alert-message" = "مقالات ویکی‌پدیا همیشه به‌روز می‌شوند. برای دریافت آخرین نسخه بر روی صفحه انگشت بزنید تا بروز شود.";
 "saved-pages-refresh-cancel-alert-button" = "گرفتم";
+"saved-pages-description" = "صفحات ذخیره‌شده بسیار عالی هستند. به آنها به چشم بوکمارک‌هایی نگاه کنید که می‌توانید بخوانید حتی زمانی که آفلاین هستید.";
+"saved-pages-none" = "هنوز صفحه‌ای ذخیره نشده‌است.";
 "page-history-title" = "تاریخچهٔ مقاله";
 "page-history-downloading" = "در حال بارگیری مقاله تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
@@ -282,4 +287,6 @@
 "hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
 "page-issues" = "موضوعات صفحه";
 "page-similar-titles" = "صفحات مشابه";
+"captcha-reload" = "نمایش کپچای دیگر";
+"captcha-prompt" = "متن کپچا را از تصویر بالا وارد کنید";
 "mwk-empty-title-error" = "با عنوان خالی امکان انجام عملیات نیست.";

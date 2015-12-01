@@ -27,6 +27,8 @@
 "history-clear-confirmation-sub-heading" = "Handlingen kan ikke angres!";
 "history-clear-cancel" = "Avbryt";
 "history-clear-delete-all" = "Tøm alt";
+"history-description" = "Du har antakelig tømt loggen. Neste gang du besøker en side kan du finne den igjen her.";
+"history-none" = "Ingen nylig besøkte sider.";
 "zero-free-verbiage" = "Gratis Wikipedia-tilgang fra mobiloperatøren din (datakostnader dekkes)";
 "zero-charged-verbiage" = "Wikipedia Zero er skrudd av";
 "zero-charged-verbiage-extended" = "Innlasting av artikler kan føre til at datakostnader påløper. Visning av lagrede artikler fører imidlertid ikke til databruk og er gratis.";
@@ -63,7 +65,7 @@
 "login-username-placeholder-text" = "Brukernavn";
 "login-password-placeholder-text" = "Passord";
 "wikitext-downloading" = "Laster innhold ...";
-"wikitext-download-failed" = "Kunne inne hente siste revisjon.";
+"wikitext-download-failed" = "Klarte ikke hente siste revisjon.";
 "wikitext-download-success" = "Innhold lastet inn.";
 "wikitext-preview-changes" = "Laster forhåndsvisning av endringene dine…";
 "wikitext-preview-changes-none" = "Ingen endringer ble gjort som kunne forhåndsvises.";
@@ -96,6 +98,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Handlingen kan ikke omgjøres!";
 "search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-delete-all" = "Slett alt";
+"settings-title" = "Innstillinger";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søk i Wikipedia på $1";
@@ -136,6 +139,8 @@
 "saved-pages-refresh-cancel-alert-title" = "Oppdatering avbrutt";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler blir oppdatert hele tiden. Trykk oppdater for å få den siste versjonene av alle artiklene.";
 "saved-pages-refresh-cancel-alert-button" = "Forstått";
+"saved-pages-description" = "Lagrede sider er veldig praktisk. De fungerer som bokmerker som du også kan lese når du er uten nett.";
+"saved-pages-none" = "Ingen lagrede sider enda.";
 "page-history-title" = "Artikkelhistorikk";
 "page-history-downloading" = "Laster inn artikkelhistorikk…";
 "navbar-title-mode-edit-wikitext" = "Rediger";
@@ -276,3 +281,6 @@
 "hockeyapp-alert-privacy" = "$ personvern";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+"captcha-reload" = "Vis en annen captcha";
+"captcha-prompt" = "Fyll inn CAPTCHA-teksten fra bildet ovenfor";
+"mwk-empty-title-error" = "Kunne ikke utføre operasjonen med en tom tittel.";

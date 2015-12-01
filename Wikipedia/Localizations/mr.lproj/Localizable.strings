@@ -3,6 +3,7 @@
 // Author: Abhinavgarule
 // Author: NehalDaveND
 // Author: V.narsikar
+// Author: अभय नातू
 // Author: संतोष दहिवळ
 
 "languages-title" = "भाषा";
@@ -60,7 +61,7 @@
 "wikitext-download-success" = "आशयाचे भारण केले आहे.";
 "wikitext-preview-changes" = "आपल्या बदलाची झलक दाखवित आहे...";
 "wikitext-preview-changes-none" = "झलक दाखविण्याजोगे काहीच बदल केल्या गेले नाहीत.";
-"wikitext-upload-captcha-error" = "कॅपचा पडताळणीत त्रूटी.";
+"wikitext-upload-captcha-error" = "कॅपचा पडताळणीत त्रुटी.";
 "wikitext-upload-captcha-needed" = "कॅपचा पडताळणी करणे आवश्यक.";
 "wikitext-upload-save" = "जतन करीत आहे...";
 "wikitext-upload-save-sign-in" = "सनोंद-प्रवेश";
@@ -75,7 +76,9 @@
 "search-field-placeholder-text-zero" = "विकीपिडीया झीरो मध्ये शोधा";
 "search-cancel" = "रद्द करा";
 "search-titles" = "शीर्षके:";
+"search-did-you-mean" = "तुम्हाला $1 म्हणायचे आहे काय?";
 "search-recent-title" = "अलीकडील शोध";
+"search-recent-clear-confirmation-heading" = "सध्याचे सर्व शोध वगळु?";
 "search-recent-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
 "search-recent-clear-cancel" = "रद्द करा";
 "search-recent-clear-delete-all" = "सर्व वगळा";
@@ -100,21 +103,41 @@
 "main-menu-send-feedback" = "प्रतिक्रिया पाठवा";
 "main-menu-show-page-history" = "$1 च्या बदलांचा इतिहास";
 "main-menu-credits" = "श्रेयनिर्देश";
+"main-menu-about" = "विकिपीडिया अॅपविषयी";
 "main-menu-terms-of-use" = "वापराच्या अटी";
 "main-menu-show-today" = "आज";
 "main-menu-nearby" = "जवळपास";
 "main-menu-more" = "अधिक...";
+"main-menu-debug-crash" = "नेस्तनाबूत";
+"saved-pages-title" = "जतन केलेली पाने";
+"saved-pages-clear-confirmation-heading" = "जतन केलेल्या सर्व बाबी वगळायच्या काय?";
+"saved-pages-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";
 "saved-pages-clear-cancel" = "रद्द करा";
 "saved-pages-clear-delete-all" = "सर्व वगळा";
+"saved-pages-refresh-cancel-alert-title" = "अद्यतन रद्द केल्या गेले";
 "saved-pages-refresh-cancel-alert-button" = "समजले";
+"saved-pages-none" = "अद्याप येथे साठवलेली पाने नाहीत.";
+"page-history-title" = "लेख इतिहास";
+"page-history-downloading" = "लेख इतिहासाचे प्रभारण करीत आहे...";
 "navbar-title-mode-edit-wikitext" = "संपादन";
 "navbar-title-mode-login" = "सनोंद-प्रवेश";
+"navbar-title-mode-login-and-save" = "सनोंद प्रवेशुन जतन करा";
 "navbar-title-mode-create-account" = "खाते बनवा";
+"navbar-title-mode-create-account-and-save" = "खाते तयार करुन जतन करा";
 "navbar-title-mode-edit-wikitext-preview" = "झलक";
+"navbar-title-mode-edit-wikitext-summary" = "आपल्या संपादनाचे वर्णन करा";
 "navbar-title-mode-edit-wikitext-save" = "जतन करा";
 "edit-summary-choice-linked-words" = "दुवे जोडले";
 "edit-summary-choice-fixed-grammar" = "व्याकरण ठिकठाक केले";
+"edit-summary-choice-fixed-inaccuracy" = "चूक सुधरविली";
+"edit-summary-choice-fixed-typos" = "टंकनदोष सुधरविला";
+"edit-summary-choice-added-category" = "वर्ग जोडला";
+"edit-summary-choice-added-missing-info" = "नसलेली माहिती जोडली";
+"edit-summary-choice-added-clarification" = "खुलासा जोडला";
 "edit-summary-choice-other" = "इतर";
+"edit-summary-field-placeholder-text" = "या पानाचे सुधारणेसाठी ईतर मार्ग";
+"edit-summary-title" = "तूम्ही या पानात काय वाढवले?";
+"article-pull-to-refresh-is-refreshing" = "लेख तरोताजा करीत आहे";
 "about-title" = "च्या विषयी";
 "about-wikipedia" = "विकिपीडिया";
 "about-contributors" = "योगदान";
@@ -125,6 +148,12 @@
 "share-custom-menu-item" = "वाटप";
 "timestamp-just-now" = "आत्ताच";
 "timestamp-minutes" = "%d मिनीटापूर्वी";
+"timestamp-hours" = "%d तासांपूर्वी";
+"timestamp-days" = "%d दिवसांपूर्वी";
+"timestamp-months" = "%d महिन्यांपूर्वी";
+"timestamp-years" = "%d वर्षांपूर्वी";
+"lastmodified-by-user" = "$2ने $1 संपादित केले";
+"lastmodified-by-anon" = "अनामिक सदस्याने $1 संपादन केले";
 "button-next" = "पुढील";
 "button-done" = "झाले";
 "button-save" = "जतन करा";
@@ -134,8 +163,25 @@
 "onboarding-skip" = "पुढे जा";
 "onboarding-wikipedia" = "विकिपीडिया";
 "onboarding-free-encyclopedia" = "मुक्त ज्ञानकोश";
+"preference_title_eventlogging_opt_in" = "वापराचा अहवाल पाठवा";
+"preference_summary_eventlogging_opt_in" = "विकिपीडियास, आपण हे अॅप कसे वापरता याबद्दल माहिती घेण्यास परवानगी द्या जेणेकरुन, ते अॅप अधिक चांगले करता येईल.";
+"page_protected_autoconfirmed" = "हे पान अर्ध-सुरक्षित आहे.";
+"page_protected_sysop" = "हे पान पूर्णत: सुरक्षित आहे.";
+"page_protected_other" = "हे पान खालील स्तरांपर्यंत सुरक्षित आहे:$1";
+"page_protected_can_not_edit" = "तुम्हाला हे पान संपादन करण्याचा अधिकार नाही";
+"page_protected_can_not_edit_title" = "हे पान संरक्षित आहे";
+"license-footer-text" = "यातील आशय हा $1 अंतर्गत उपलब्ध आहे";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "आशय";
+"abuse-filter-warning-heading" = "हे एक अरचनात्मक संपादनासारखे दिसते. हे जतन करण्याबाबत आपण खात्री देता काय?";
+"abuse-filter-warning-subheading" = "आपल्या संपादनात खालीलपैकी एक वा एकाधिक गोष्टी असू शकतात:";
+"abuse-filter-warning-caps" = "सर्व ठळक अक्षरे";
+"abuse-filter-warning-blanking" = "लेख कोरा करणे किंवा उपद्रव";
+"abuse-filter-warning-irrelevant" = "असंबंधित बाह्य दूवे किंवा चित्रे";
+"abuse-filter-warning-repeat" = "एकच वर्णाचे अनेक वेळ टंकन";
+"abuse-filter-disallow-heading" = "आपण हे संपादन जतन करु शकत नाही.कृपया परत जाउन ते बदला.";
+"abuse-filter-disallow-unconstructive" = "स्वयंचलित गाळणीने हे संपादन उच्च दर्जाचे अरचनात्मक किंवा उपद्रवी कृती म्हणून नोंदविलेले आहे.";
+"abuse-filter-disallow-notable" = "विकिपीडिया हा विश्वकोश आहे व येथे त्यात फक्त तटस्थ, नोंदविण्याजोगा आशय असतो.";
 "menu-edit-accessibility-label" = "संपादा";
 "menu-close-accessibility-label" = "बंद करा";
 "menu-preview-accessibility-label" = "झलक";
@@ -144,10 +190,12 @@
 "menu-w-accessibility-label" = "मुख्य";
 "menu-toc-accessibility-label" = "आशय";
 "menu-search-accessibility-label" = "शोध";
+"menu-reload-accessibility-label" = "पुनर्भारण करा";
 "menu-cancel-accessibility-label" = "रद्द";
 "menu-share-accessibility-label" = "वाटप";
 "menu-more-accessibility-label" = "आणखी मांडणी";
 "menu-trash-accessibility-label" = "वगळा";
+"menu-language-accessibility-label" = "भाषा";
 "nearby-title" = "जवळपास";
 "nearby-distance-label-meters" = "$1 मी.";
 "nearby-distance-label-km" = "$1 कि.मी.";
@@ -163,7 +211,20 @@
 "nearby-location-updates-denied" = "ठिकाण अद्ययावत करण्याची परवानगी या अॅपला नाही.";
 "nearby-location-updates-enable" = "ठिकाण अद्ययावत करणे सक्षम करण्यासाठी अॅपच्या मांडणीत जाऊन पुढील पर्याय निवडा:";
 "nearby-location-updates-settings-menu" = "गुप्तता>ठिकाण सेवा>विकिपीडिया";
+"nearby-location-general-error" = "आपले स्थान निश्चित करु शकत नाही. तरोताजे करण्यासाठी टिचका किंवा नंतर पुन्हा प्रयत्न करा.";
+"nearby-wifi" = "वाय-फाय सक्षम करण्याने, आपल्या उपकरणास आपले स्थान-निर्धारण योग्य तऱ्हेने करता येईल.";
+"migration-update-progress-label" = "स्थानिक मजकूर स्थानांतरित करीत आहे";
+"migration-update-progress-count-label" = "$2 पैकी $1 लेखाचे स्थानांतरण करीत आहे";
+"migration-prompt-title" = "असे दिसते कि या पानास इतिहास आहे!";
 "migration-skip-button-title" = "हे वगळा";
+"image-gallery-unknown-owner" = "हे चित्र कोणी चढवले ते माहित नाही.";
+"image-gallery-fetch-image-info-error-title" = "चित्रांचे अधिभारण करता आले नाही";
+"image-gallery-fetch-image-info-error-message" = "या लेखासाठीची चित्रे अधिभारण करता आली नाहीत. कृपया हा लेख पुन्हा तरोताजा करा व पुन्हा प्रयत्न करा.";
 "image-gallery-fetch-image-info-error-ok" = "ठिक आहे";
+"hockeyapp-alert-send-report" = "अहवाल पाठवा";
+"hockeyapp-alert-always-send" = "नेहमीच पाठवा";
+"hockeyapp-alert-do-not-send" = "पाठवू नका";
+"hockeyapp-alert-privacy" = "$1 गुप्तता";
 "page-issues" = "पानाची समस्या";
 "page-similar-titles" = "सारखी पाने";
+"mwk-empty-title-error" = "ही क्रिया रिकाम्या शिर्षकाने करता येत नाही.";
