@@ -38,6 +38,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "UIView+WMFDefaultNib.h"
+#import "MWKLanguageLinkController.h"
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
@@ -629,8 +630,9 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
-    [[SessionSingleton sharedInstance] setSearchLanguage:langData.languageCode];
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[SessionSingleton sharedInstance] setSearchLanguage:language.languageCode];
+    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
