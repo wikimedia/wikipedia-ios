@@ -8,11 +8,13 @@
 
 #import "DDLog+WMFLogger.h"
 #import "WMFLogFormatter.h"
+#import "Wikipedia-Swift.h"
 
 @implementation DDLog (WMFLogger)
 
 + (void)load {
     [self wmf_addLoggersForCurrentConfiguration];
+    [self wmf_setSwiftDefaultLogLevel:LOG_LEVEL_DEF];
 }
 
 + (void)wmf_addLoggersForCurrentConfiguration {
