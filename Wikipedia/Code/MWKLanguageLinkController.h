@@ -20,21 +20,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * The languages returned by this property will be filtered if @c languageFilter is non-nil.
  */
-@property (readonly, copy, nonatomic) NSArray* filteredLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* filteredLanguages;
 
 /**
  * Subset of the languages in the receiver which intersect with the user's preferred languages.
  *
  * The languages returned by this property will be filtered if @c languageFilter is non-nil.
  */
-@property (readonly, copy, nonatomic) NSArray* filteredPreferredLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* filteredPreferredLanguages;
 
 /**
  * All the languages in the receiver minus @c filteredPreferredLanguages.
  *
  * The languages returned by this property will be filtered if @c languageFilter is non-nil.
  */
-@property (readonly, copy, nonatomic) NSArray* filteredOtherLanguages;
+@property (readonly, copy, nonatomic) NSArray<MWKLanguageLink*>* filteredOtherLanguages;
 
 /**
  * String used to filter languages in each section by their @c languageCode or @c languageName.
