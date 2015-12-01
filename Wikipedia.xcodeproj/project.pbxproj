@@ -542,6 +542,7 @@
 		B0E809681C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */; };
 		B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */; };
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
+		B0E8096F1C0D21530065EBC0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0E8096E1C0D21530065EBC0 /* Info.plist */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
 		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
@@ -1563,8 +1564,9 @@
 		B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCTestCase+PromiseSwiftKitTests.swift"; path = "Code/XCTestCase+PromiseSwiftKitTests.swift"; sourceTree = "<group>"; };
 		B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayTableViewCellVisualTests.m; path = Code/WMFPicOfTheDayTableViewCellVisualTests.m; sourceTree = "<group>"; };
 		B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Bridging-Header.h"; path = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WikipediaUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Prefix.pch"; path = "Supporting Files/WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetPrefixSearch.json; sourceTree = "<group>"; };
 		BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetFullTextSearch.json; sourceTree = "<group>"; };
 		BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Wikipedia.entitlements; sourceTree = "<group>"; };
@@ -1616,7 +1618,6 @@
 		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
 		BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
-		BCA6764D1AC05FD600A16160 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3163,8 +3164,8 @@
 			isa = PBXGroup;
 			children = (
 				B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */,
-				BCA6764D1AC05FD600A16160 /* Info.plist */,
-				BC14F89F1B34B72500860018 /* WikipediaUnitTests-Prefix.pch */,
+				B0E8096E1C0D21530065EBC0 /* Info.plist */,
+				B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */,
 				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
 				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
 				B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */,
@@ -3989,6 +3990,7 @@
 				BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */,
 				BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */,
 				BCCEC1281B1F68CF00A8B522 /* section1-end.json in Resources */,
+				B0E8096F1C0D21530065EBC0 /* Info.plist in Resources */,
 				BCCEC1291B1F68CF00A8B522 /* TemplateIcon2x.png in Resources */,
 				BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */,
 				BC8210D01B4EE3FA0010BF7B /* ArticleWithoutImages.dataexport.json in Resources */,
@@ -4957,13 +4959,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
@@ -5063,13 +5065,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
@@ -5173,7 +5175,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_REFERENCE_IMAGE_DIR=\"$(PROJECT_DIR)/WikipediaUnitTests/Reference Snapshots\"",
@@ -5185,7 +5187,7 @@
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
@@ -5203,7 +5205,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
@@ -5215,7 +5217,7 @@
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
@@ -5233,13 +5235,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "WikipediaUnitTests/Supporting Files/WikipediaUnitTests-Prefix.pch";
+				GCC_PREFIX_HEADER = "WikipediaUnitTests/WikipediaUnitTests-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					$CONFIGURATION_TEMP_DIR/Wikipedia.build/DerivedSources,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "WikipediaUnitTests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h";
