@@ -448,6 +448,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+    if (progress < self.progressView.progress) {
+        return;
+    }
     [self.progressView setProgress:progress animated:animated];
 }
 
