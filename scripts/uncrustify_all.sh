@@ -7,7 +7,7 @@ UNCRUSTIFY_SCRIPTS="$SCRIPTS_ROOT"
 UNCRUSTIFY_CONFIG="$PROJECT_DIR/uncrustify.cfg"
 UNCRUSTIFY_FILELIST="$PROJECT_DIR/to_uncrustify.txt"
 UNCRUSTIFY_DEBUGLOG="$PROJECT_DIR/uncrustify_debug.log"
-UNCRUSTIFY_SRCDIR="$PROJECT_DIR/Wikipedia $PROJECT_DIR/MediaWikiKit $PROJECT_DIR/WikipediaUnitTests $PROJECT_DIR/LegacyCoreData"
+UNCRUSTIFY_SRCDIR="$PROJECT_DIR/Wikipedia/Code $PROJECT_DIR/WikipediaUnitTests/Code"
 
 if ! ls $WORKSPACE_FN > /dev/null; then
   echo "You must be in the root project directory to run this."
