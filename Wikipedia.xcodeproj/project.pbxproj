@@ -3247,6 +3247,18 @@
 			path = "../View Controllers";
 			sourceTree = "<group>";
 		};
+		BCA15AE01C0DFCC900D0A3EA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
+				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
+				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
+				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
+				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -3716,12 +3728,7 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8071E1C0CEC8A0065EBC0 /* main.m */,
-				B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */,
-				D4991440181D51DE00E6073C /* Wikipedia-Info.plist */,
-				D4991446181D51DE00E6073C /* Wikipedia-Prefix.pch */,
 				BC2F420D1BEA60350033E185 /* Localizations */,
-				BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */,
 				0E9DFEAD1BDEB9880032606E /* Global */,
 				0E9DFEAE1BDEB98F0032606E /* App Delegate */,
 				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
@@ -3741,6 +3748,7 @@
 				0487041519F824D700B7D307 /* Networking */,
 				04616DF71AE7060C00815BCE /* Protocols */,
 				0447866C1852B5010050563B /* Session */,
+				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
 				04C43AB0183441A4006C643B /* View Controllers */,
 				04C43AA818344131006C643B /* mw-bridge */,
 				04C43A9F183440C1006C643B /* mw-network */,
