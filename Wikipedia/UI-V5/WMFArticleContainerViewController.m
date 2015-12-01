@@ -20,6 +20,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "SectionEditorViewController.h"
 #import "LanguagesViewController.h"
+#import "MWKLanguageLinkController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -151,9 +152,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languageSelected:(MWKLanguageLink*)langLink sender:(LanguagesViewController*)sender {
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:langLink.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
+        [self wmf_pushArticleViewControllerWithTitle:language.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
     }];
 }
 

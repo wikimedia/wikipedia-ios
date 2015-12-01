@@ -29,12 +29,6 @@ static CGFloat const OtherTitleFontSize     = 12.f;
 // This assumes the language cell is configured in IB by LanguagesViewController
 static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectionSeparator";
 
-typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
-    PreferredLanguagesSection,
-    OtherLanguagesSection,
-    LanguagesTableSectionCount
-};
-
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
 
@@ -46,6 +40,24 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 @end
 
 @implementation LanguagesViewController
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _showNonPreferredLanguges = YES;
+        _showPreferredLanguges    = YES;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        _showNonPreferredLanguges = YES;
+        _showPreferredLanguges    = YES;
+    }
+    return self;
+}
 
 - (NSString*)title {
     return MWLocalizedString(@"languages-title", nil);
@@ -139,14 +151,36 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     return NO;
 }
 
-#pragma mark - Filtering
+#pragma mark - Section management
 
 - (void)reloadDataSections {
     [self fadeAlert];
-    NSMutableIndexSet* dataSections = [NSMutableIndexSet new];
-    [dataSections addIndex:PreferredLanguagesSection];
-    [dataSections addIndex:OtherLanguagesSection];
     [self.tableView reloadData];
+}
+
+- (BOOL)isPreferredSection:(NSInteger)section {
+    if (self.showPreferredLanguges) {
+        if (section == 0) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)setShowPreferredLanguges:(BOOL)showPreferredLanguges {
+    if (_showPreferredLanguges == showPreferredLanguges) {
+        return;
+    }
+    _showPreferredLanguges = showPreferredLanguges;
+    [self reloadDataSections];
+}
+
+- (void)setShowNonPreferredLanguges:(BOOL)showNonPreferredLanguges {
+    if (_showNonPreferredLanguges == showNonPreferredLanguges) {
+        return;
+    }
+    _showNonPreferredLanguges = showNonPreferredLanguges;
+    [self reloadDataSections];
 }
 
 #pragma mark - Getters & Setters
@@ -196,11 +230,18 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    return LanguagesTableSectionCount;
+    NSInteger count = 0;
+    if (self.showPreferredLanguges) {
+        count++;
+    }
+    if (self.showNonPreferredLanguges) {
+        count++;
+    }
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if (PreferredLanguagesSection == section) {
+    if ([self isPreferredSection:section]) {
         return self.languageFilter.filteredPreferredLanguages.count;
     } else {
         return self.languageFilter.filteredOtherLanguages.count;
@@ -211,16 +252,18 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     UITableViewCell* cell =
         [tableView dequeueReusableCellWithIdentifier:[LanguageCell wmf_nibName]
                                         forIndexPath:indexPath];
-    if (indexPath.section == PreferredLanguagesSection) {
+
+    if ([self isPreferredSection:indexPath.section]) {
         [self configurePreferredLanguageCell:(LanguageCell*)cell atRow:indexPath.row];
     } else {
         [self configureOtherLanguageCell:(LanguageCell*)cell atRow:indexPath.row];
     }
+
     return cell;
 }
 
 - (MWKLanguageLink*)languageAtIndexPath:(NSIndexPath*)indexPath {
-    if (PreferredLanguagesSection == indexPath.section) {
+    if ([self isPreferredSection:indexPath.section]) {
         return self.languageFilter.filteredPreferredLanguages[indexPath.row];
     } else {
         return self.languageFilter.filteredOtherLanguages[indexPath.row];
@@ -233,7 +276,7 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 #warning heightForRowAtIndexPath: is not necessary in iOS 8, since it will rely on the cell's intrinsic content size
 #endif
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (PreferredLanguagesSection == indexPath.section) {
+    if ([self isPreferredSection:indexPath.section]) {
         return PreferredLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     } else {
         return OtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
@@ -241,7 +284,7 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == PreferredLanguagesSection && self.languageFilter.filteredPreferredLanguages.count > 0) {
+    if ([self isPreferredSection:section] && self.languageFilter.filteredPreferredLanguages.count > 0) {
         // collapse footer when empty, removing needless padding of "other" section from top of table
         return LanguagesSectionFooterHeight;
     } else {
@@ -260,8 +303,7 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKLanguageLink* selectedLanguage = [self languageAtIndexPath:indexPath];
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:selectedLanguage];
-    [self.languageSelectionDelegate languageSelected:selectedLanguage sender:self];
+    [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
 }
 
 #pragma mark - UITextFieldDelegate

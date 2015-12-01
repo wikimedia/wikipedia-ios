@@ -553,10 +553,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - LanguageSelectionDelegate
 
-- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language{
+    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self updateLanguageButtonsToPreferredLanguages];
-    [self selectLanguageForSite:langData.site];
-    [sender dismissViewControllerAnimated:YES completion:NULL];
+    [self selectLanguageForSite:language.site];
+    [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end
