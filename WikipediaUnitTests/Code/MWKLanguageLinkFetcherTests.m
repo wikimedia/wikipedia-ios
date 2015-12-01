@@ -14,7 +14,7 @@
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
 #define MOCKITO_SHORTHAND 1
-#import <OCMockito/OCMockito.h>
+#import "OCMockito.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -32,7 +32,6 @@
     self.mockManager  = MKTMock([AFHTTPRequestOperationManager class]);
     self.fetcher      = [[MWKLanguageLinkFetcher alloc] initWithManager:self.mockManager
                                                                delegate:self.mockDelegate];
-
     [super setUp];
 }
 
