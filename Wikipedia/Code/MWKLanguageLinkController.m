@@ -183,7 +183,7 @@ static NSArray* WMFUnsupportedLanguages() {
         return;
     }
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, languageLinks)];
-    _languageLinks = supportedLanguageLinks ?: @[];
+    _languageLinks = supportedLanguageLinks ? : @[];
     [self updateFilteredLanguages];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, languageLinks)];
 }

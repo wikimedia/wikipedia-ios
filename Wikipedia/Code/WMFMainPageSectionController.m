@@ -75,8 +75,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (NSAttributedString*)headerText {
-    NSString* featuredDate = [[[self class] dateFormatter] stringFromDate:[NSDate date]];
-    return [[NSAttributedString alloc] initWithString:featuredDate attributes:nil];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-main-page-heading", nil) attributes:nil];
 }
 
 - (NSArray*)items {

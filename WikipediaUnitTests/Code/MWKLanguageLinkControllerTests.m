@@ -79,7 +79,7 @@
 - (void)testNoPreferredLanguages {
     // reset langlinks to only those _not_ contained in preferred languages
     // this mimics the case where an article's available languages don't contain any of the preferred languages
-    self.controller.languageLinks = [self.controller.languageLinks bk_reject:^BOOL(MWKLanguageLink* langLink) {
+    self.controller.languageLinks = [self.controller.languageLinks bk_reject:^BOOL (MWKLanguageLink* langLink) {
         return [self.controller.filteredPreferredLanguages containsObject:langLink];
     }];
 
@@ -96,9 +96,9 @@
 
 - (void)testBasicFiltering {
     self.controller.languageFilter = @"en";
-    assertThat([self.controller.filteredLanguages bk_reject:^BOOL(MWKLanguageLink* langLink) {
+    assertThat([self.controller.filteredLanguages bk_reject:^BOOL (MWKLanguageLink* langLink) {
         return [langLink.name wmf_caseInsensitiveContainsString:@"en"]
-               || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
+        || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
     }], describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
                     isEmpty(), nil));
     [self verifyAllLanguageArrayProperties];
