@@ -29,12 +29,12 @@ void WMFDeletePreviouslySelectedLanguages() {
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-NSArray* WMFReadPreviouslySelectedLanguages() {
+NSArray<NSString*>* WMFReadPreviouslySelectedLanguages() {
     return [[NSUserDefaults standardUserDefaults] arrayForKey:WMFPreviousLanguagesKey] ? : @[];
 }
 
 /// Get the union of OS preferred languages & previously selected languages.
-static NSArray* WMFReadPreviousAndPreferredLanguages() {
+static NSArray<NSString*>* WMFReadPreviousAndPreferredLanguages() {
     NSMutableArray* preferredLanguages = [[[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
         NSLocale* locale = [NSLocale localeWithLocaleIdentifier:languageCode];
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
@@ -48,7 +48,7 @@ static NSArray* WMFReadPreviousAndPreferredLanguages() {
 }
 
 /// Uniquely append @c languageCode to the list of previously selected languages.
-static NSArray* WMFAppendAndWriteToPreviousLanguages(NSString* languageCode) {
+static NSArray<NSString*>* WMFAppendAndWriteToPreviousLanguages(NSString* languageCode) {
     NSMutableArray* langCodes = WMFReadPreviouslySelectedLanguages().mutableCopy;
     [langCodes removeObject:languageCode];
     [langCodes insertObject:languageCode atIndex:0];
@@ -87,6 +87,14 @@ static NSArray* WMFUnsupportedLanguages() {
 @synthesize languageFilter = _languageFilter;
 @synthesize fetcher        = _fetcher;
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.languageLinks = @[];
+    }
+    return self;
+}
+
 - (void)loadStaticSiteLanguageData {
     WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     self.languageLinks = [assetsFile.array bk_map:^id (NSDictionary* langAsset) {
@@ -95,7 +103,6 @@ static NSArray* WMFUnsupportedLanguages() {
                                                         name:langAsset[@"name"]
                                                localizedName:langAsset[@"canonical_name"]];
     }];
-    [self updateFilteredLanguages];
 }
 
 #pragma mark - Loading
@@ -112,10 +119,14 @@ static NSArray* WMFUnsupportedLanguages() {
                       success:(dispatch_block_t)success
                       failure:(void (^ __nullable)(NSError* __nonnull))failure {
     [[QueuesSingleton sharedInstance].languageLinksFetcher.operationQueue cancelAllOperations];
+    @weakify(self);
     [self.fetcher fetchLanguageLinksForTitle:[SessionSingleton sharedInstance].currentArticle.title
                                      success:^(NSArray* languageLinks) {
+        @strongify(self);
+        if (!self) {
+            return;
+        }
         self.languageLinks = languageLinks;
-        [self updateFilteredLanguages];
         if (success) {
             success();
         }
@@ -148,11 +159,11 @@ static NSArray* WMFUnsupportedLanguages() {
     [self updateFilteredLanguages];
 }
 
-- (NSArray*)sortedAndFilteredLanguageLinks {
+- (NSArray<MWKLanguageLink*>*)sortedAndFilteredLanguageLinks {
     return [[self filteredLanguageLinks] sortedArrayUsingSelector:@selector(compare:)];
 }
 
-- (NSArray*)filteredLanguageLinks {
+- (NSArray<MWKLanguageLink*>*)filteredLanguageLinks {
     if (self.languageFilter.length) {
         return [self.languageLinks bk_select:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter]
@@ -172,7 +183,7 @@ static NSArray* WMFUnsupportedLanguages() {
         return;
     }
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, languageLinks)];
-    _languageLinks = supportedLanguageLinks;
+    _languageLinks = supportedLanguageLinks ?: @[];
     [self updateFilteredLanguages];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, languageLinks)];
 }
@@ -184,7 +195,7 @@ static NSArray* WMFUnsupportedLanguages() {
 - (void)updateFilteredLanguagesWithPreviousLanguages:(NSArray*)previousLanguages {
     NSArray* sortedAndFilteredLanguages = [self sortedAndFilteredLanguageLinks];
     NSArray* preferredLangs             = WMFReadPreviousAndPreferredLanguages();
-    self.filteredPreferredLanguages = [preferredLangs bk_map:^id (NSString* langString) {
+    self.filteredPreferredLanguages = [preferredLangs wmf_mapAndRejectNil:^id (NSString* langString) {
         return [sortedAndFilteredLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];

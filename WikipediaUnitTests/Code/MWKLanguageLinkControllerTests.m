@@ -11,6 +11,7 @@
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"
 #import <OCHamcrest/OCHamcrest.h>
+#import "NSString+Extras.h"
 
 @interface MWKLanguageLinkControllerTests : XCTestCase
 @property (strong, nonatomic) MWKLanguageLinkController* controller;
@@ -72,6 +73,40 @@
     [self instantiateController];
     NSParameterAssert(firstController != self.controller);
     assertThat(self.controller.filteredPreferredLanguageCodes, hasItem(@"test"));
+    [self verifyAllLanguageArrayProperties];
+}
+
+- (void)testNoPreferredLanguages {
+    // reset langlinks to only those _not_ contained in preferred languages
+    // this mimics the case where an article's available languages don't contain any of the preferred languages
+    self.controller.languageLinks = [self.controller.languageLinks bk_reject:^BOOL(MWKLanguageLink* langLink) {
+        return [self.controller.filteredPreferredLanguages containsObject:langLink];
+    }];
+
+    [self verifyAllLanguageArrayProperties];
+}
+
+- (void)testLanguagesPropertiesAreNonnull {
+    self.controller = [MWKLanguageLinkController new];
+    assertThat(self.controller.languageLinks, isEmpty());
+    assertThat(self.controller.filteredOtherLanguages, isEmpty());
+    assertThat(self.controller.filteredPreferredLanguages, isEmpty());
+    [self verifyAllLanguageArrayProperties];
+}
+
+- (void)testBasicFiltering {
+    self.controller.languageFilter = @"en";
+    assertThat([self.controller.filteredLanguages bk_reject:^BOOL(MWKLanguageLink* langLink) {
+        return [langLink.name wmf_caseInsensitiveContainsString:@"en"]
+               || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
+    }], describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
+                    isEmpty(), nil));
+    [self verifyAllLanguageArrayProperties];
+}
+
+- (void)testEmptyAfterFiltering {
+    self.controller.languageFilter = @"$";
+    assertThat(self.controller.filteredLanguages, isEmpty());
 }
 
 #pragma mark - Utils
@@ -104,7 +139,7 @@
                hasCountOf(self.controller.filteredOtherLanguages.count
                           + self.controller.filteredPreferredLanguages.count));
 
-    assertThat([NSSet setWithArray:self.controller.languageLinks], is(equalTo(joinedLanguages)));
+    assertThat([NSSet setWithArray:self.controller.filteredLanguages], is(equalTo(joinedLanguages)));
 }
 
 @end
