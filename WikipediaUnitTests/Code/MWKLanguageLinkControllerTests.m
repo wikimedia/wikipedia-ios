@@ -11,6 +11,7 @@
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"
 #import <OCHamcrest/OCHamcrest.h>
+#import "NSString+Extras.h"
 
 @interface MWKLanguageLinkControllerTests : XCTestCase
 @property (strong, nonatomic) MWKLanguageLinkController* controller;
@@ -90,6 +91,20 @@
     assertThat(self.controller.languageLinks, isEmpty());
     assertThat(self.controller.filteredOtherLanguages, isEmpty());
     assertThat(self.controller.filteredPreferredLanguages, isEmpty());
+}
+
+- (void)testBasicFiltering {
+    self.controller.languageFilter = @"en";
+    assertThat([self.controller.filteredLanguages bk_reject:^BOOL(MWKLanguageLink* langLink) {
+        return [langLink.name wmf_caseInsensitiveContainsString:@"en"]
+               || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
+    }], describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
+                    isEmpty(), nil));
+}
+
+- (void)testEmptyAfterFiltering {
+    self.controller.languageFilter = @"$";
+    assertThat(self.controller.filteredLanguages, isEmpty());
 }
 
 #pragma mark - Utils
