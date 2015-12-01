@@ -72,6 +72,17 @@
     [self instantiateController];
     NSParameterAssert(firstController != self.controller);
     assertThat(self.controller.filteredPreferredLanguageCodes, hasItem(@"test"));
+    [self verifyAllLanguageArrayProperties];
+}
+
+- (void)testNoPreferredLanguages {
+    // reset langlinks to only those _not_ contained in preferred languages
+    // this mimics the case where an article's available languages don't contain any of the preferred languages
+    self.controller.languageLinks = [self.controller.languageLinks bk_reject:^BOOL(MWKLanguageLink* langLink) {
+        return [self.controller.filteredPreferredLanguages containsObject:langLink];
+    }];
+
+    [self verifyAllLanguageArrayProperties];
 }
 
 #pragma mark - Utils
