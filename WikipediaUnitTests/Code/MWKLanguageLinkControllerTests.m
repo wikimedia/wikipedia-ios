@@ -85,6 +85,13 @@
     [self verifyAllLanguageArrayProperties];
 }
 
+- (void)testLanguagesPropertiesAreNonnull {
+    self.controller = [MWKLanguageLinkController new];
+    assertThat(self.controller.languageLinks, isEmpty());
+    assertThat(self.controller.filteredOtherLanguages, isEmpty());
+    assertThat(self.controller.filteredPreferredLanguages, isEmpty());
+}
+
 #pragma mark - Utils
 
 - (void)instantiateController {
