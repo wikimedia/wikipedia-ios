@@ -31,12 +31,16 @@ static CGSize MWKImageInfoSizeFromJSON(NSDictionary* json, NSString* widthKey, N
 
 @implementation MWKImageInfoResponseSerializer
 
-+ (NSArray*)requiredExtMetadataKeys {
++ (NSArray*)galleryExtMetadataKeys {
     return @[ExtMetadataLicenseKey,
              ExtMetadataLicenseUrlKey,
              ExtMetadataLicenseShortNameKey,
              ExtMetadataImageDescriptionKey,
              ExtMetadataArtistKey];
+}
+
++ (NSArray*)picOfTheDayExtMetadataKeys {
+    return @[ExtMetadataImageDescriptionKey];
 }
 
 - (id)responseObjectForResponse:(NSURLResponse*)response data:(NSData*)data error:(NSError* __autoreleasing*)error {
