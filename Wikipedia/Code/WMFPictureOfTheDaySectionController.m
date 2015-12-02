@@ -9,7 +9,7 @@
 #import "WMFPictureOfTheDaySectionController.h"
 #import "MWKSite.h"
 #import "MWKImageInfo.h"
-#import "MWKImageInfoFetcher.h"
+#import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
@@ -19,12 +19,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
-
-@interface MWKSite (CommonsFactory)
-
-+ (instancetype)wikimediaCommons;
-
-@end
 
 @interface MWKImageInfo (Feed)
 
@@ -68,24 +62,20 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (void)fetchData {
     self.fetchedDate = [NSDate date];
 
-    NSString* todaysPOTDTitleDateComponent =
-        [[NSDateFormatter wmf_hyphenatedYearMonthDayFormatter] stringFromDate:self.fetchedDate];
-
-    NSString* todaysPOTDTitle = [@"Template:Potd" stringByAppendingFormat:@"/%@", todaysPOTDTitleDateComponent];
-
     @weakify(self);
-    [self.fetcher fetchPartialInfoForImagesOnPages:@[todaysPOTDTitle]
-                                          fromSite:[MWKSite wikimediaCommons]
-                                  metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
-                                           success:^(NSArray* infoObjects) {
+    [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
+                                    metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
+    .then(^(NSArray<MWKImageInfo*>* imageInfoObjects) {
         @strongify(self);
-        self.imageInfo = infoObjects.firstObject;
+        NSParameterAssert(imageInfoObjects.count == 1);
+        self.imageInfo = imageInfoObjects.firstObject;
         [self.delegate controller:self didSetItems:self.items];
-    } failure:^(NSError* error) {
+    })
+    .catch(^(NSError* error) {
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
         self.fetchedDate = nil;
-    }];
+    });
 }
 
 #pragma mark - WMFHomeSectionController
@@ -139,14 +129,6 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     NSParameterAssert(self.fetchedDate);
     NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
     return [[WMFModalPOTDGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
-}
-
-@end
-
-@implementation MWKSite (CommonsFactory)
-
-+ (instancetype)wikimediaCommons {
-    return [[self alloc] initWithDomain:@"wikimedia.org" language:@"commons"];
 }
 
 @end

@@ -91,6 +91,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         @strongify(self);
         [self updateCell:cell atIndexPath:indexPath];
     };
+    [[self modalGalleryDataSource] setDelegate:self];
 }
 
 - (id<WMFModalImageGalleryDataSource>)modalGalleryDataSource {

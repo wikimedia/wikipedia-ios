@@ -563,6 +563,9 @@
 		BCA15B0D1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */; };
 		BCA15B171C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
+		BCCAF5451C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF5441C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
+		BCCAF5481C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF5471C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m */; };
+		BCCAF54E1C0F91D2001AAB05 /* MWKSite+CommonsSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF54D1C0F91D2001AAB05 /* MWKSite+CommonsSite.m */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
 		BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE01B11CC5800231BB1 /* Obama.json */; };
@@ -1642,6 +1645,12 @@
 		BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScreen+WMFImageWidth.h"; path = "Code/UIScreen+WMFImageWidth.h"; sourceTree = "<group>"; };
 		BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScreen+WMFImageWidth.m"; path = "Code/UIScreen+WMFImageWidth.m"; sourceTree = "<group>"; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
+		BCCAF5431C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImageInfoFetcher+PicOfTheDayInfo.h"; path = "Wikipedia/Code/MWKImageInfoFetcher+PicOfTheDayInfo.h"; sourceTree = SOURCE_ROOT; };
+		BCCAF5441C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKImageInfoFetcher+PicOfTheDayInfo.m"; path = "Wikipedia/Code/MWKImageInfoFetcher+PicOfTheDayInfo.m"; sourceTree = SOURCE_ROOT; };
+		BCCAF5461C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFPOTDTitle.h"; path = "Wikipedia/Code/NSDate+WMFPOTDTitle.h"; sourceTree = SOURCE_ROOT; };
+		BCCAF5471C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDTitle.m"; path = "Wikipedia/Code/NSDate+WMFPOTDTitle.m"; sourceTree = SOURCE_ROOT; };
+		BCCAF54C1C0F91D2001AAB05 /* MWKSite+CommonsSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKSite+CommonsSite.h"; path = "Wikipedia/Code/MWKSite+CommonsSite.h"; sourceTree = SOURCE_ROOT; };
+		BCCAF54D1C0F91D2001AAB05 /* MWKSite+CommonsSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSite+CommonsSite.m"; path = "Wikipedia/Code/MWKSite+CommonsSite.m"; sourceTree = SOURCE_ROOT; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AC1BA9FBE80017E311 /* kn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kn; path = kn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2609,12 +2618,12 @@
 		0E4500BB1B97A28C00A33B55 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
-				BC7EFDED1C037466008E8228 /* Picture of the Day */,
 				0E4500B91B97A26800A33B55 /* Schema */,
 				B0E802D71C0CD3A30065EBC0 /* WMFHomeSectionController.h */,
 				B0E802D41C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.h */,
 				B0E802D51C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.m */,
 				0E1B049F1BC59DEF00506F7D /* Continue Reading */,
+				BC7EFDED1C037466008E8228 /* Picture of the Day */,
 				0EAED8481BE7F3A0006B01E6 /* Main Page */,
 				0E8E9A571BFA501E0054A242 /* Featured Article */,
 				0EA1791D1BD95910004FF529 /* Random */,
@@ -3139,6 +3148,7 @@
 		BC7EFDED1C037466008E8228 /* Picture of the Day */ = {
 			isa = PBXGroup;
 			children = (
+				BCCAF5421C0F8EEB001AAB05 /* Fetcher */,
 				BCA15B091C0E92FA00D0A3EA /* Feed */,
 				BCA15B0A1C0E930600D0A3EA /* Detail */,
 			);
@@ -3536,6 +3546,19 @@
 			);
 			name = MediaWikiKitTests;
 			path = ../MediaWikiKit/MediaWikiKitTests;
+			sourceTree = "<group>";
+		};
+		BCCAF5421C0F8EEB001AAB05 /* Fetcher */ = {
+			isa = PBXGroup;
+			children = (
+				BCCAF5431C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.h */,
+				BCCAF5441C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */,
+				BCCAF5461C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.h */,
+				BCCAF5471C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m */,
+				BCCAF54C1C0F91D2001AAB05 /* MWKSite+CommonsSite.h */,
+				BCCAF54D1C0F91D2001AAB05 /* MWKSite+CommonsSite.m */,
+			);
+			name = Fetcher;
 			sourceTree = "<group>";
 		};
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
@@ -4445,8 +4468,10 @@
 				B0E804BD1C0CE0B40065EBC0 /* CLLocation+WMFApproximateEquality.m in Sources */,
 				B0E806801C0CE9C70065EBC0 /* NSDictionary+WMFCommonParams.m in Sources */,
 				B0E8039F1C0CDB3B0065EBC0 /* WMFArticleResponseSerializer.m in Sources */,
+				BCCAF5481C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m in Sources */,
 				B0E8045D1C0CDFFB0065EBC0 /* SQLiteHelper.m in Sources */,
 				B0E802AC1C0CD05F0065EBC0 /* WMFLocalization.m in Sources */,
+				BCCAF5451C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				B0E805C81C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift in Sources */,
 				B0E806A41C0CEAF40065EBC0 /* EditSummaryViewController.m in Sources */,
 				B0E804D81C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m in Sources */,
@@ -4641,6 +4666,7 @@
 				B0E807D61C0CF04A0065EBC0 /* MWKCitation.m in Sources */,
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
 				B0E805621C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m in Sources */,
+				BCCAF54E1C0F91D2001AAB05 /* MWKSite+CommonsSite.m in Sources */,
 				B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+CloneCookie.m in Sources */,
 				B0E8054C1C0CE0DC0065EBC0 /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				B0E8056C1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m in Sources */,
