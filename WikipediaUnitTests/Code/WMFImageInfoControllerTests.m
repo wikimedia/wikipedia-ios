@@ -116,10 +116,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
         NSRange expectedRange = [self.controller batchRangeForTargetIndex:idx];
         assertThat(@(WMFRangeIsNotFoundOrEmpty(expectedRange)), isFalse());
         NSArray* expectedTitles = [self expectedTitlesForRange:expectedRange];
-        [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchInfoForImageFiles:expectedTitles
-                                                                         fromSite:self.testArticle.site
-                                                                          success:anything()
-                                                                          failure:anything()];
+        [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
+                                                                                fromSite:self.testArticle.site
+                                                                                 success:anything()
+                                                                                 failure:anything()];
     }];
 }
 
@@ -147,10 +147,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 
 - (void)testFetchBatchAlongWithNeighborIndexesInTheSameBatchOnlyResultsInOneFetch {
     [self.controller fetchBatchContainingIndex:0 withNthNeighbor:self.controller.infoBatchSize - 1];
-    [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchInfoForImageFiles:anything()
-                                                                     fromSite:anything()
-                                                                      success:anything()
-                                                                      failure:anything()];
+    [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:anything()
+                                                                            fromSite:anything()
+                                                                             success:anything()
+                                                                             failure:anything()];
 }
 
 - (void)testIterativeFetchOfAllItems {
@@ -173,10 +173,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
         [self.controller fetchBatchContainingIndex:range.location];
     }
 
-    [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(fetchedBatches.count)) fetchInfoForImageFiles:anything()
-                                                                                        fromSite:self.testArticle.site
-                                                                                         success:anything()
-                                                                                         failure:anything()];
+    [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(fetchedBatches.count)) fetchGalleryInfoForImageFiles:anything()
+                                                                                               fromSite:self.testArticle.site
+                                                                                                success:anything()
+                                                                                                failure:anything()];
 }
 
 - (void)testErrorHandling {
@@ -218,10 +218,10 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
                           withSuccess:(id)success
                               failure:(id)failure {
     NSArray* expectedTitles = [self expectedTitlesForRange:range];
-    [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchInfoForImageFiles:expectedTitles
-                                                                     fromSite:self.testArticle.site
-                                                                      success:success ? : anything()
-                                                                      failure:failure ? : anything()];
+    [MKTVerifyCount(self.mockInfoFetcher, MKTTimes(1)) fetchGalleryInfoForImageFiles:expectedTitles
+                                                                            fromSite:self.testArticle.site
+                                                                             success:success ? : anything()
+                                                                             failure:failure ? : anything()];
 }
 
 - (NSArray*)expectedTitlesForRange:(NSRange)range {
