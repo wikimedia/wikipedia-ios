@@ -8,12 +8,17 @@
 
 #import "WMFModalPOTDGalleryDataSource.h"
 #import "MWKImageInfo.h"
+#import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFModalPOTDGalleryDataSource ()
 
-@property (nonatomic, strong) NSMutableDictionary<NSDate*, MWKImageInfo*>* info;
+@property (nonatomic, strong) NSDictionary<NSDate*, MWKImageInfo*>* homeInfo;
+
+@property (nonatomic, strong) NSMutableDictionary<NSDate*, MWKImageInfo*>* galleryInfo;
+
+@property (nonatomic, strong) MWKImageInfoFetcher* fetcher;
 
 @end
 
@@ -23,24 +28,51 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date {
     self = [super initWithItems:@[date]];
     if (self) {
-        self.info = [NSMutableDictionary dictionaryWithObject:info forKey:date];
+        self.homeInfo = [NSMutableDictionary dictionaryWithObject:info forKey:date];
+        self.galleryInfo = [NSMutableDictionary new];
     }
     return self;
 }
 
+- (MWKImageInfoFetcher*)fetcher {
+    if (!_fetcher) {
+        _fetcher = [[MWKImageInfoFetcher alloc] init];
+    }
+    return _fetcher;
+}
+
+- (NSDate*)dateAtIndexPath:(NSIndexPath*)indexPath {
+    return [self itemAtIndexPath:indexPath];
+}
+
 - (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
-    NSDate* dateAtIndexPath = [self itemAtIndexPath:indexPath];
-    MWKImageInfo* info = self.info[dateAtIndexPath];
-    return [info imageThumbURL];
+    return [self.homeInfo[[self dateAtIndexPath:indexPath]] imageThumbURL];
 }
 
 - (nullable MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath {
-    // TODO: return high-res info for that index path
-    return nil;
+    return self.galleryInfo[[self dateAtIndexPath:indexPath]];
 }
 
 - (void)fetchDataAtIndexPath:(NSIndexPath*)indexPath {
-    // soon...
+    NSArray<NSDate*>* fetchedDates = [self allItems];
+    @weakify(self);
+    [self.fetcher fetchPicOfTheDayGalleryInfoForDates:fetchedDates
+                                     metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
+    .then(^(NSArray<MWKImageInfo*>* infoObjects) {
+        @strongify(self);
+        NSParameterAssert(infoObjects.count == fetchedDates.count);
+        [infoObjects enumerateObjectsUsingBlock:^(MWKImageInfo * _Nonnull info, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSDate* date = fetchedDates[idx];
+            self.galleryInfo[date] = info;
+        }];
+        NSIndexSet* updatedIndexes = [[self allItems] indexesOfObjectsWithOptions:0
+                                                                      passingTest:^BOOL(id  _Nonnull obj,
+                                                                                        NSUInteger __unused idx,
+                                                                                        BOOL * _Nonnull _) {
+            return [fetchedDates containsObject:obj];
+        }];
+        [self.delegate modalGalleryDataSource:self updatedItemsAtIndexes:updatedIndexes];
+    });
 }
 
 @end

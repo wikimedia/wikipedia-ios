@@ -31,7 +31,7 @@
     return [self initWithDelegate:nil];
 }
 
-- (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate {
+- (instancetype)initWithDelegate:(  id<FetchFinishedDelegate>)delegate {
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     manager.responseSerializer = [MWKImageInfoResponseSerializer serializer];
     return [self initWithDelegate:delegate requestManager:manager];
@@ -48,34 +48,34 @@
     return self;
 }
 
-- (id<MWKImageInfoRequest>)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
-                                                   fromSite:(MWKSite*)site
-                                           metadataLanguage:(NSString*)metadataLanguage
-                                                    success:(void (^)(NSArray*))success
-                                                    failure:(void (^)(NSError*))failure {
-    return [self fetchInfoForTitles:pageTitles
-                           fromSite:site
-                     thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
-                    extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
-                   metadataLanguage:metadataLanguage
-                       useGenerator:YES
-                            success:success
-                            failure:failure];
+- (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
+                                       fromSite:(MWKSite*)site
+                               metadataLanguage:(nullable NSString*)metadataLanguage; {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self fetchInfoForTitles:pageTitles
+                        fromSite:site
+                  thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
+                 extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
+                metadataLanguage:metadataLanguage
+                    useGenerator:YES
+                         success:resolve
+                         failure:resolve];
+    }];
 }
 
-- (id<MWKImageInfoRequest>)fetchPartialInfoForImagesOnPages:(NSArray*)pageTitles
-                                                   fromSite:(MWKSite*)site
-                                           metadataLanguage:(NSString*)metadataLanguage
-                                                    success:(void (^)(NSArray*))success
-                                                    failure:(void (^)(NSError*))failure {
-    return [self fetchInfoForTitles:pageTitles
-                           fromSite:site
-                     thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
-                    extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
-                   metadataLanguage:metadataLanguage
-                       useGenerator:YES
-                            success:success
-                            failure:failure];
+- (AnyPromise*)fetchPartialInfoForImagesOnPages:(NSArray*)pageTitles
+                                       fromSite:(MWKSite*)site
+                               metadataLanguage:(nullable NSString*)metadataLanguage {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self fetchInfoForTitles:pageTitles
+                                   fromSite:site
+                             thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
+                            extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
+                           metadataLanguage:metadataLanguage
+                               useGenerator:YES
+                                    success:resolve
+                                    failure:resolve];
+    }];
 }
 
 - (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray*)imageTitles
