@@ -29,7 +29,7 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import "MWKImageList.h"
-#import "WMFImageGalleryDataSource.h"
+#import "WMFArticleImageGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,14 +42,16 @@ NS_ASSUME_NONNULL_BEGIN
     return [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
 }
 
-- (void)setDataSource:(SSBaseDataSource *)dataSource {
-    NSParameterAssert([dataSource isKindOfClass:[WMFImageGalleryDataSource class]]);
+- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
     [super setDataSource:dataSource];
     self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
     self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
                                            MWKImage* image,
                                            UICollectionView* _,
                                            NSIndexPath* indexPath)  {
+        /*
+         Need to use MWKImage here in order to use face detection offsets persisted to disk.
+        */
         [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
     };
 }
@@ -80,6 +82,24 @@ NS_ASSUME_NONNULL_BEGIN
     layout.minimumInteritemSpacing = 0.f;
     layout.minimumLineSpacing      = 0.f;
     layout.sectionInset            = UIEdgeInsetsZero;
+}
+
+#pragma mark - Show Articles
+
+- (WMFArticleImageGalleryDataSource*)articleGalleryDataSource {
+    if ([self.dataSource isKindOfClass:[WMFArticleImageGalleryDataSource class]]) {
+        return (WMFArticleImageGalleryDataSource*)self.dataSource;
+    }
+    return nil;
+}
+
+- (void)showImagesInArticle:(nullable MWKArticle*)article {
+    WMFArticleImageGalleryDataSource* dataSource = [[WMFArticleImageGalleryDataSource alloc] initWithItems:nil];
+    dataSource.article = article;
+    self.dataSource = (SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource;
+    if ([self isViewLoaded]) {
+        self.dataSource.collectionView = self.collectionView;
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

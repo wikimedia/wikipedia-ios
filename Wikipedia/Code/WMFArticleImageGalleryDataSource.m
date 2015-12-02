@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryDataSource.h"
+#import "WMFArticleImageGalleryDataSource.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MWKImage.h"
@@ -14,7 +14,7 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 
-@implementation WMFImageGalleryDataSource
+@implementation WMFArticleImageGalleryDataSource
 @dynamic emptyView;
 
 - (instancetype)initWithTarget:(id)target keyPath:(NSString*)keyPath {
@@ -52,6 +52,10 @@
 
 - (MWKImage*)imageAtIndexPath:(NSIndexPath*)indexPath {
     return [self itemAtIndexPath:indexPath];
+}
+
+- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
+    return [[[self imageAtIndexPath:indexPath] largestVariant] sourceURL];
 }
 
 @end

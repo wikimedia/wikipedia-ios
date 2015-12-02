@@ -42,12 +42,10 @@
 #import "MWKLicense+ToGlyph.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKArticle.h"
-#import "WMFImageGalleryDataSource.h"
 
-// Networking
-#import "AFHTTPRequestOperationManager+UniqueRequests.h"
-#import "MWKImageInfoResponseSerializer.h"
-#import "WMFImageInfoController.h"
+// Data Source
+#import "WMFModalImageGalleryDataSource.h"
+#import "WMFModalArticleImageGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -56,15 +54,13 @@ typedef void (^ WMFGalleryCellEnumerator)(WMFImageGalleryCollectionViewCell* cel
 static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 @interface WMFImageGalleryViewController ()
-<UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, WMFImageInfoControllerDelegate>
+<UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, WMFModalImageGalleryDataSourceDelegate>
 
 @property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;
 @property (nonatomic, weak, readonly) UIButton* closeButton;
 @property (nonatomic, weak, readonly) WMFGradientView* topGradientView;
 
 @property (nonatomic, weak, readonly) UITapGestureRecognizer* chromeTapGestureRecognizer;
-
-@property (nonatomic, strong, readonly) WMFImageInfoController* infoController;
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
@@ -77,7 +73,6 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
 @implementation WMFImageGalleryViewController
-@synthesize infoController = _infoController;
 
 + (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
     UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
@@ -103,13 +98,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Accessors
 
-- (void)setDataSource:(SSBaseDataSource *)dataSource {
-    NSParameterAssert([dataSource isKindOfClass:[WMFImageGalleryDataSource class]]);
+- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+    NSParameterAssert([dataSource conformsToProtocol:@protocol(WMFModalImageGalleryDataSource)]);
     [super setDataSource:dataSource];
     self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
     @weakify(self);
     self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
-                                           MWKImage* image,
+                                           id __unused obj,
                                            UICollectionView* _,
                                            NSIndexPath* indexPath) {
         @strongify(self);
@@ -117,57 +112,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     };
 }
 
-- (void)setArticleWithPromise:(AnyPromise*)articlePromise {
-    if (self.articlePromiseResolve) {
-        self.articlePromiseResolve([NSError cancelledError]);
-    }
-
-    [self.loadingIndicator startAnimating];
-
-    __block id articlePromiseResolve;
-    // wrap articlePromise in a promise we can cancel if a new one comes in
-    AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        articlePromiseResolve = resolve;
-    }];
-    self.articlePromiseResolve = articlePromiseResolve;
-
-    articlePromise.then(articlePromiseResolve).catchWithPolicy(PMKCatchPolicyAllErrors, articlePromiseResolve);
-
-    // chain off the cancellable promise
-    @weakify(self);
-    cancellableArticlePromise.then(^(MWKArticle* article) {
-        @strongify(self);
-        [self showImagesInArticle:article];
-    })
-    .catch(^(NSError* error) {
-        @strongify(self);
-        [self.loadingIndicator stopAnimating];
-        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
-    });
-}
-
-- (void)showImagesInArticle:(MWKArticle* __nullable)article {
-    if (WMF_EQUAL(self.articleGalleryDataSource.article, isEqualToArticle:, article)) {
-        return;
-    }
-
-    [super showImagesInArticle:article];
-
-    if (article.isCached) {
-        [self.infoController setUniqueArticleImages:[self.articleGalleryDataSource allItems]
-                                           forTitle:article.title];
-        [self.infoController fetchBatchContainingIndex:self.currentPage];
-    } else {
-        [self.infoController reset];
-    }
-}
-
-- (WMFImageInfoController*)infoController {
-    if (!_infoController) {
-        _infoController          = [[WMFImageInfoController alloc] initWithDataStore:self.dataStore batchSize:50];
-        _infoController.delegate = self;
-    }
-    return _infoController;
+- (id<WMFModalImageGalleryDataSource>)modalGalleryDataSource {
+    return (id<WMFModalImageGalleryDataSource>)self.dataSource;
 }
 
 - (UICollectionViewFlowLayout*)collectionViewFlowLayout {
@@ -185,7 +131,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // fetch after appearing so we don't do work while the animation is rendering
-    [self.infoController fetchBatchContainingIndex:self.currentPage];
+    [[self modalGalleryDataSource] prefetchDataNearIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
 }
 
 - (void)viewDidLoad {
@@ -315,7 +261,12 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }];
 }
 
-#pragma mark - Visible Image Index
+#pragma mark - Article APIs
+
+- (WMFArticleImageGalleryDataSource*)articleGalleryDataSource {
+    NSParameterAssert(!self.dataSource || [self.dataSource isKindOfClass:[WMFArticleImageGalleryDataSource class]]);
+    return (WMFArticleImageGalleryDataSource*)self.dataSource;
+}
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
     NSInteger selectedImageIndex = [self.articleGalleryDataSource.allItems indexOfObjectPassingTest:^BOOL (MWKImage* image,
@@ -334,6 +285,47 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 
     self.currentPage = selectedImageIndex;
+}
+
+- (void)showImagesInArticle:(MWKArticle* __nullable)article {
+    if ([self.dataStore isKindOfClass:[WMFArticleImageGalleryDataSource class]]
+        && WMF_EQUAL(self.articleGalleryDataSource.article, isEqualToArticle:, article)) {
+        return;
+    }
+
+    WMFModalArticleImageGalleryDataSource* articleGalleryDataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithItems:nil];
+    articleGalleryDataSource.article = article;
+
+    self.dataSource = articleGalleryDataSource;
+}
+
+- (void)setArticleWithPromise:(AnyPromise*)articlePromise {
+    if (self.articlePromiseResolve) {
+        self.articlePromiseResolve([NSError cancelledError]);
+    }
+
+    [self.loadingIndicator startAnimating];
+
+    __block id articlePromiseResolve;
+    // wrap articlePromise in a promise we can cancel if a new one comes in
+    AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        articlePromiseResolve = resolve;
+    }];
+    self.articlePromiseResolve = articlePromiseResolve;
+
+    articlePromise.then(articlePromiseResolve).catchWithPolicy(PMKCatchPolicyAllErrors, articlePromiseResolve);
+
+    // chain off the cancellable promise
+    @weakify(self);
+    cancellableArticlePromise.then(^(MWKArticle* article) {
+        @strongify(self);
+        [self showImagesInArticle:article];
+    })
+    .catch(^(NSError* error) {
+        @strongify(self);
+        [self.loadingIndicator stopAnimating];
+        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
+    });
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -362,15 +354,14 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
        then fetch the visible image.
      */
     if (self.didApplyCurrentPage) {
-        [self.infoController fetchBatchContainingIndex:indexPath.item withNthNeighbor:5];
+        [[self modalGalleryDataSource] prefetchDataNearIndexPath:indexPath];
     }
 }
 
 #pragma mark - Cell Updates
 
 - (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = [self.articleGalleryDataSource imageAtIndexPath:indexPath];
-    MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
+    MWKImageInfo* infoForImage = [[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath];
 
     [cell startLoadingAfterDelay:0.25];
 
@@ -392,7 +383,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         };
     }
 
-    [self updateImageForCell:cell atIndexPath:indexPath image:imageStub info:infoForImage];
+    [self updateImageForCell:cell
+                 atIndexPath:indexPath
+         placeholderImageURL:[self.dataSource imageURLAtIndexPath:indexPath]
+                        info:infoForImage];
 }
 
 #pragma mark - Image Details
@@ -405,9 +399,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
                           atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = [self.articleGalleryDataSource imageAtIndexPath:indexPath];
-    MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
-    [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
+    [self updateDetailVisibilityForCell:cell withInfo:[[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath]];
 }
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
@@ -417,43 +409,29 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     cell.detailOverlayView.alpha = shouldHideDetails ? 0.0 : 1.0;
 }
 
-#pragma mark - Error Handling
-
-- (void)showError:(NSError*)error forCellAtIndexPath:(NSIndexPath*)path {
-    WMFImageGalleryCollectionViewCell* cell =
-        (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
-    [self showError:error inCell:cell atIndexPath:path];
-}
-
-- (void)showError:(NSError*)error
-           inCell:(WMFImageGalleryCollectionViewCell*)cell
-      atIndexPath:(NSIndexPath*)indexPath {
-    cell.loading = NO;
-    // TODO: show error UI for cell
-}
-
 #pragma mark - Image Handling
 
 - (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
     NSParameterAssert(indexPath);
-    MWKImage* image                         = [[self articleGalleryDataSource] imageAtIndexPath:indexPath];
-    MWKImageInfo* infoForImage              = [self.infoController infoForImage:image];
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell) {
-        [self updateImageForCell:cell atIndexPath:indexPath image:image info:infoForImage];
+        [self updateImageForCell:cell
+                     atIndexPath:indexPath
+             placeholderImageURL:[self.dataSource imageURLAtIndexPath:indexPath]
+                            info:[[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath]];
     }
 }
 
 - (void)updateImageForCell:(WMFImageGalleryCollectionViewCell*)cell
                atIndexPath:(NSIndexPath*)indexPath
-                     image:(MWKImage*)image
+       placeholderImageURL:(NSURL*)placeholderImageURL
                       info:(MWKImageInfo* __nullable)infoForImage {
     NSParameterAssert(cell);
     @weakify(self);
     [[WMFImageController sharedInstance]
      cascadingFetchWithMainURL:infoForImage.imageThumbURL
-           cachedPlaceholderURL:[[image largestCachedVariant] sourceURL]
+           cachedPlaceholderURL:placeholderImageURL
                  mainImageBlock:^(WMFImageDownload* download) {
         @strongify(self);
         [self setImage:download.image withInfo:infoForImage forCellAtIndexPath:indexPath];
@@ -465,7 +443,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     .catch(^(NSError* error) {
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);
         @strongify(self);
-        [self showError:error forCellAtIndexPath:indexPath];
+        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
     });
 }
 
@@ -514,30 +492,20 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 }
 
-#pragma mark - WMFImageInfoControllerDelegate
+#pragma mark - WMFModalGalleryDataSourceDelegate
 
-- (void)imageInfoController:(WMFImageInfoController*)controller didFetchBatch:(NSRange)range {
-    NSIndexSet* fetchedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource didFailWithError:(NSError *)error {
+    [self.loadingIndicator stopAnimating];
+    [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+}
+
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource updatedItemsAtIndexes:(NSIndexSet *)indexes {
     [self.loadingIndicator stopAnimating];
     [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
                                                                NSIndexPath* indexPath,
                                                                BOOL* _) {
-        if ([fetchedIndexes containsIndex:indexPath.item]) {
+        if ([indexes containsIndex:indexPath.item]) {
             [self updateCell:cell atIndexPath:indexPath];
-        }
-    }];
-}
-
-- (void)imageInfoController:(WMFImageInfoController*)controller
-         failedToFetchBatch:(NSRange)range
-                      error:(NSError*)error {
-    [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-    NSIndexSet* failedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
-    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
-                                                               NSIndexPath* indexPath,
-                                                               BOOL* _) {
-        if ([failedIndexes containsIndex:indexPath.item]) {
-            [self showError:error inCell:cell atIndexPath:indexPath];
         }
     }];
 }

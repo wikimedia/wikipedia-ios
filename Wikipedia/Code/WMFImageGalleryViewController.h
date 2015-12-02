@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WMFArticleImageGalleryViewController.h"
+#import "WMFBaseImageGalleryViewController.h"
 #import "Wikipedia-Swift.h"
 
 @class MWKArticle, MWKImage, MWKDataStore;
@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Provides a scrollable gallery of an article's images, including high-res, zoomable images and associated metadata.
  */
-@interface WMFImageGalleryViewController : WMFArticleImageGalleryViewController
+@interface WMFImageGalleryViewController : WMFBaseImageGalleryViewController
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
@@ -87,6 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
+
+- (void)showImagesInArticle:(nullable MWKArticle*)article;
 
 @end
 
