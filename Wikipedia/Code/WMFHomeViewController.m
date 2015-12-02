@@ -471,6 +471,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
+- (void)didTapHeaderInSection:(NSUInteger)section {
+    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -488,6 +492,12 @@ NS_ASSUME_NONNULL_BEGIN
     header.titleView.attributedText = title;
     header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
     header.titleView.delegate       = self;
+
+    @weakify(self);
+    header.whenTapped = ^{
+        @strongify(self);
+        [self didTapHeaderInSection:section];
+    };
 
     if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
         header.rightButtonEnabled = YES;
