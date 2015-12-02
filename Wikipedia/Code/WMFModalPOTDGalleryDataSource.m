@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self.info[dateAtIndexPath];
 }
 
-- (void)prefetchDataNearIndexPath:(NSIndexPath*)indexPath {
+- (void)fetchDataAtIndexPath:(NSIndexPath*)indexPath {
     // soon...
 }
 

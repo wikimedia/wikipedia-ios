@@ -112,7 +112,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // fetch after appearing so we don't do work while the animation is rendering
-    [[self modalGalleryDataSource] prefetchDataNearIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
+    [[self modalGalleryDataSource] fetchDataAtIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
 }
 
 - (void)viewDidLoad {
@@ -269,7 +269,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
        then fetch the visible image.
      */
     if (self.didApplyCurrentPage) {
-        [[self modalGalleryDataSource] prefetchDataNearIndexPath:indexPath];
+        [[self modalGalleryDataSource] fetchDataAtIndexPath:indexPath];
     }
 }
 
