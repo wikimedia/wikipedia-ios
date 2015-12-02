@@ -491,7 +491,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)selectFirstRowInSection:(NSUInteger)section {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
-    [[self.tableView cellForRowAtIndexPath:indexPath] setSelected:YES];
+    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
