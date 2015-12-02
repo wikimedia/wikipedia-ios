@@ -10,6 +10,6 @@
 #import "WMFModalImageGalleryDataSource.h"
 
 @interface WMFModalArticleImageGalleryDataSource : WMFArticleImageGalleryDataSource
-<WMFModalImageGalleryDataSource>
+    <WMFModalImageGalleryDataSource>
 
 @end

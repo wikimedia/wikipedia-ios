@@ -50,8 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
                                            UICollectionView* _,
                                            NSIndexPath* indexPath)  {
         /*
-         Need to use MWKImage here in order to use face detection offsets persisted to disk.
-        */
+           Need to use MWKImage here in order to use face detection offsets persisted to disk.
+         */
         [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
     };
 }
@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showImagesInArticle:(nullable MWKArticle*)article {
     WMFArticleImageGalleryDataSource* dataSource = [[WMFArticleImageGalleryDataSource alloc] initWithItems:nil];
     dataSource.article = article;
-    self.dataSource = (SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource;
+    self.dataSource    = (SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource;
     if ([self isViewLoaded]) {
         self.dataSource.collectionView = self.collectionView;
     }

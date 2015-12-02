@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFModalPOTDGalleryDataSource
 @synthesize delegate;
 
-- (instancetype)initWithInfo:(MWKImageInfo *)info forDate:(NSDate *)date {
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date {
     self = [super initWithItems:@[date]];
     if (self) {
         self.info = [NSMutableDictionary dictionaryWithObject:info forKey:date];
@@ -28,17 +28,17 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (NSURL*)imageURLAtIndexPath:(NSIndexPath *)indexPath {
+- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
     return [[self imageInfoAtIndexPath:indexPath] imageThumbURL];
 }
 
-- (nullable MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath *)indexPath {
+- (nullable MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath {
     // TODO: return high-res info for that index path
     NSDate* dateAtIndexPath = [self itemAtIndexPath:indexPath];
     return self.info[dateAtIndexPath];
 }
 
-- (void)prefetchDataNearIndexPath:(NSIndexPath *)indexPath {
+- (void)prefetchDataNearIndexPath:(NSIndexPath*)indexPath {
     // soon...
 }
 
