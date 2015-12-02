@@ -23,7 +23,7 @@
                             </constraints>
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RrT-G5-VUS">
-                            <rect key="frame" x="41" y="10" width="248" height="32"/>
+                            <rect key="frame" x="41" y="10" width="241" height="32"/>
                             <animations/>
                             <color key="textColor" red="0.59993284940000002" green="0.60003882649999996" blue="0.59992617370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -31,11 +31,11 @@
                             <dataDetectorType key="dataDetectorTypes" link="YES"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJc-u6-CpG">
-                            <rect key="frame" x="297" y="16" width="20" height="20"/>
+                            <rect key="frame" x="282" y="8" width="50" height="36"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="20" id="DUK-XE-zns"/>
-                                <constraint firstAttribute="height" constant="20" id="Mmu-OC-4Yn"/>
+                                <constraint firstAttribute="width" constant="50" id="DUK-XE-zns"/>
+                                <constraint firstAttribute="height" constant="36" id="Mmu-OC-4Yn"/>
                             </constraints>
                             <state key="normal" image="refresh-mini"/>
                         </button>
@@ -43,25 +43,15 @@
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="52" id="0V8-go-sH4"/>
-                        <constraint firstItem="RrT-G5-VUS" firstAttribute="centerY" secondItem="B56-ez-iTW" secondAttribute="centerY" id="HtM-SW-PeC"/>
                         <constraint firstItem="RrT-G5-VUS" firstAttribute="top" secondItem="B56-ez-iTW" secondAttribute="top" constant="10" id="Oqd-jo-7Ur"/>
                         <constraint firstItem="Cbn-lY-3mh" firstAttribute="centerY" secondItem="B56-ez-iTW" secondAttribute="centerY" id="X6B-Jh-4dE"/>
                         <constraint firstItem="RrT-G5-VUS" firstAttribute="leading" secondItem="Cbn-lY-3mh" secondAttribute="trailing" constant="4" id="aVA-vZ-T1R"/>
                         <constraint firstItem="Cbn-lY-3mh" firstAttribute="leading" secondItem="B56-ez-iTW" secondAttribute="leading" constant="15" id="cFe-Gl-HZQ"/>
-                        <constraint firstAttribute="trailing" secondItem="RrT-G5-VUS" secondAttribute="trailing" constant="8" id="e5M-qM-Iuy"/>
                         <constraint firstAttribute="bottom" secondItem="RrT-G5-VUS" secondAttribute="bottom" constant="10" id="frX-Tp-kan"/>
-                        <constraint firstAttribute="trailing" secondItem="hJc-u6-CpG" secondAttribute="trailing" constant="15" id="rBq-9W-XvZ"/>
-                        <constraint firstItem="hJc-u6-CpG" firstAttribute="leading" secondItem="RrT-G5-VUS" secondAttribute="trailing" constant="8" id="yPc-RQ-wiV"/>
+                        <constraint firstAttribute="trailing" secondItem="hJc-u6-CpG" secondAttribute="trailing" id="rBq-9W-XvZ"/>
+                        <constraint firstItem="hJc-u6-CpG" firstAttribute="leading" secondItem="RrT-G5-VUS" secondAttribute="trailing" id="yPc-RQ-wiV"/>
                         <constraint firstItem="hJc-u6-CpG" firstAttribute="centerY" secondItem="Cbn-lY-3mh" secondAttribute="centerY" id="yo7-Dh-ZjF"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="0V8-go-sH4"/>
-                            <exclude reference="HtM-SW-PeC"/>
-                            <exclude reference="e5M-qM-Iuy"/>
-                        </mask>
-                    </variation>
                 </view>
             </subviews>
             <animations/>
