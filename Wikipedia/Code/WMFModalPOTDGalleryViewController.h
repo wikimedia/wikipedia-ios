@@ -10,7 +10,7 @@
 
 @interface WMFModalPOTDGalleryViewController : WMFModalImageGalleryViewController
 
-- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date;
+- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info;
 
 - (instancetype)init NS_UNAVAILABLE;
 

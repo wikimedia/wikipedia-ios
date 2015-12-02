@@ -13,10 +13,10 @@
 
 @implementation WMFModalPOTDGalleryViewController
 
-- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date {
+- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info {
     self = [super init];
     if (self) {
-        self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithInfo:info forDate:date];
+        self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithTodaysInfo:info];
     }
     return self;
 }
