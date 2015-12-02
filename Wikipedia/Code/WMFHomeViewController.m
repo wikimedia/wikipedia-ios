@@ -629,9 +629,14 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
+    MWKTitle* title = [sectionController titleForItemAtIndex:previewIndexPath.item];
+    if (!title) {
+        return nil;
+    }
+
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[sectionController titleForItemAtIndex:previewIndexPath.item]
+    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
 }
