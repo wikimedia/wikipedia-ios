@@ -27,6 +27,7 @@
 #import "UIFont+WMFStyle.h"
 #import "UIImage+WMFStyle.h"
 #import "UITableViewCell+SelectedBackground.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 @interface WMFNearbyArticleTableViewCell ()
 
@@ -68,11 +69,7 @@
 }
 
 - (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_reset];
-    self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-    self.articleImageView.tintColor       = [UIColor wmf_placeholderImageTintColor];
-    self.articleImageView.image           = [UIImage wmf_placeholderImage];
-    self.articleImageView.contentMode     = UIViewContentModeCenter;
+    [self.articleImageView wmf_configureWithDefaultPlaceholder];
 }
 
 #pragma mark - Compass
