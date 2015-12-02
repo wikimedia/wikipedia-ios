@@ -1,16 +1,15 @@
-
 #import "WMFSearchFetcher_Testing.h"
-#import "MWNetworkActivityIndicatorManager.h"
-#import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "WMFMantleJSONResponseSerializer.h"
+#import "Wikipedia-Swift.h"
 
 #import "WMFSearchResults_Internal.h"
 #import "WMFSearchResults+ResponseSerializer.h"
 #import "MWKSearchResult.h"
 
-#import "Wikipedia-Swift.h"
-#import "PromiseKit.h"
+#import "MWNetworkActivityIndicatorManager.h"
+#import "AFHTTPRequestOperationManager+WMFConfig.h"
+#import "WMFMantleJSONResponseSerializer.h"
 
+#import "UIScreen+WMFImageWidth.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -120,15 +119,6 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 
 #pragma mark - Request Serializer
 
-static NSNumber* WMFSearchThumbnailWidth() {
-    static NSNumber* WMFSearchThumbnailWidth;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        WMFSearchThumbnailWidth = @([[UIScreen mainScreen] scale] * 70.f);
-    });
-    return WMFSearchThumbnailWidth;
-}
-
 @implementation WMFSearchRequestSerializer
 
 - (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
@@ -151,7 +141,7 @@ static NSNumber* WMFSearchThumbnailWidth() {
                    @"prop": @"pageterms|pageimages",
                    @"piprop": @"thumbnail",
                    @"wbptterms": @"description",
-                   @"pithumbsize": WMFSearchThumbnailWidth(),
+                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
                    @"pilimit": numResults,
                    // -- Parameters causing prefix search to efficiently return suggestion.
                    @"list": @"search",
@@ -181,7 +171,7 @@ static NSNumber* WMFSearchThumbnailWidth() {
                    @"gsroffset": @0,
                    @"gsrlimit": numResults,
                    @"piprop": @"thumbnail",
-                   @"pithumbsize": WMFSearchThumbnailWidth(),
+                   @"pithumbsize": [[UIScreen mainScreen] wmf_listThumbnailWidthForScale],
                    @"pilimit": numResults,
                    @"continue": @"",
                    @"format": @"json",
