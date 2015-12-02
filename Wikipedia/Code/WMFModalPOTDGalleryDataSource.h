@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFModalPOTDGalleryDataSource : SSArrayDataSource
-<WMFModalImageGalleryDataSource>
+    <WMFModalImageGalleryDataSource>
 
 - (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date NS_DESIGNATED_INITIALIZER;
 

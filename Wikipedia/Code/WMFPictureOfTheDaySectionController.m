@@ -141,7 +141,6 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [[WMFModalPOTDGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 
-
 @end
 
 @implementation MWKSite (CommonsFactory)

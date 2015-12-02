@@ -68,7 +68,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (instancetype)init {
     self = [super initWithCollectionViewLayout:[[self class] wmf_defaultGalleryLayout]];
     if (self) {
-        self.chromeHidden         = NO;
+        self.chromeHidden = NO;
     }
     return self;
 }
@@ -409,12 +409,12 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - WMFModalGalleryDataSourceDelegate
 
-- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource didFailWithError:(NSError *)error {
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource didFailWithError:(NSError*)error {
     [self.loadingIndicator stopAnimating];
     [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 }
 
-- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource updatedItemsAtIndexes:(NSIndexSet *)indexes {
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource updatedItemsAtIndexes:(NSIndexSet*)indexes {
     [self.loadingIndicator stopAnimating];
     [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
                                                                NSIndexPath* indexPath,

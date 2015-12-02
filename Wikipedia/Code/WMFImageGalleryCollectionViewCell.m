@@ -106,7 +106,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
     self.imageContainerView.contentOffset          = CGPointZero;
     self.imageContainerView.userInteractionEnabled = YES;
     self.loading                                   = NO;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.imageView.contentMode                     = UIViewContentModeScaleAspectFit;
 }
 
 #pragma mark - Layout

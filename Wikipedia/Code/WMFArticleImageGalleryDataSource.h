@@ -19,7 +19,7 @@
  *           Do not reconfigure its @c emptyView property.
  */
 @interface WMFArticleImageGalleryDataSource : SSArrayDataSource
-<WMFImageGalleryDataSource>
+    <WMFImageGalleryDataSource>
 
 /**
  *  The article whose images should populate the collection view.

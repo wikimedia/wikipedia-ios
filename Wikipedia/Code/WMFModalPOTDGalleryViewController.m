@@ -13,7 +13,7 @@
 
 @implementation WMFModalPOTDGalleryViewController
 
-- (instancetype)initWithInfo:(MWKImageInfo *)info forDate:(NSDate *)date {
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date {
     self = [super init];
     if (self) {
         self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithInfo:info forDate:date];

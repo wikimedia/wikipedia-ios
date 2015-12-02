@@ -20,11 +20,11 @@
 @implementation WMFModalArticleImageGalleryDataSource
 @synthesize delegate;
 
-- (MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath *)indexPath {
+- (MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath {
     return [self.infoController infoForImage:[self imageAtIndexPath:indexPath]];
 }
 
-- (void)setArticle:(MWKArticle *)article {
+- (void)setArticle:(MWKArticle*)article {
     if (self.article == article) {
         return;
     }
@@ -50,7 +50,7 @@
     [self.delegate modalGalleryDataSource:self didFailWithError:error];
 }
 
-- (void)prefetchDataNearIndexPath:(NSIndexPath *)indexPath {
+- (void)prefetchDataNearIndexPath:(NSIndexPath*)indexPath {
     [self.infoController fetchBatchContainingIndex:indexPath.item];
 }
 
