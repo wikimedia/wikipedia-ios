@@ -19,10 +19,14 @@
 
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_configureWithDefaultPlaceholder];
-    // need to aspect-fit placeholder since our image view is too small
-    self.articleImageView.contentMode = UIViewContentModeScaleAspectFit;
-    // use clear background, gray default looks bad w/ this cell
-    self.articleImageView.backgroundColor = [UIColor clearColor];
+
+    // apply customizations for base class only
+    if ([self isMemberOfClass:[WMFArticleListTableViewCell class]]) {
+        // need to aspect-fit placeholder since our image view is too small
+        self.articleImageView.contentMode = UIViewContentModeScaleAspectFit;
+        // use clear background, gray default looks bad w/ this cell
+        self.articleImageView.backgroundColor = [UIColor clearColor];
+    }
 }
 
 - (void)configureCell {
