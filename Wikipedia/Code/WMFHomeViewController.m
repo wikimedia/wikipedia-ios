@@ -535,10 +535,15 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)] && ![controller shouldSelectItemAtIndex:indexPath.item]) {
         return;
     }
-    MWKTitle* title = [controller titleForItemAtIndex:indexPath.row];
-    if (title) {
-        MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
-        [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+    if ([controller respondsToSelector:@selector(titleForItemAtIndex:)]) {
+        MWKTitle* title = [controller titleForItemAtIndex:indexPath.row];
+        if (title) {
+            MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
+            [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+        }
+    } else if ([controller respondsToSelector:@selector(homeDetailViewControllerAtIndex:)]) {
+        UIViewController* detailViewController = [controller homeDetailViewControllerAtIndex:indexPath.item];
+        [self presentViewController:detailViewController animated:YES completion:nil];
     }
 }
 
@@ -636,9 +641,18 @@ NS_ASSUME_NONNULL_BEGIN
 
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                                 dataStore:[self dataStore]
-                                                           discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
+    if ([sectionController respondsToSelector:@selector(titleForItemAtIndex:)]) {
+        MWKTitle* title = [sectionController titleForItemAtIndex:previewIndexPath.item];
+        if (title) {
+            return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
+                                                                         dataStore:[self dataStore]
+                                                                   discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
+        }
+    } else if ([sectionController respondsToSelector:@selector(homeDetailViewControllerAtIndex:)]) {
+        return [sectionController homeDetailViewControllerAtIndex:previewIndexPath.item];
+    }
+
+    return nil;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext

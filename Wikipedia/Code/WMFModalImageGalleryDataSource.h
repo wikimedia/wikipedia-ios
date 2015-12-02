@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "WMFImageGalleryDataSource.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class MWKImageInfo;
 @protocol WMFModalImageGalleryDataSource;
 
@@ -25,8 +27,10 @@
 
 @property (nonatomic, weak, readwrite) id<WMFModalImageGalleryDataSourceDelegate> delegate;
 
-- (MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath;
+- (nullable MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath;
 
 - (void)prefetchDataNearIndexPath:(NSIndexPath*)indexPath;
 
 @end
+
+NS_ASSUME_NONNULL_END

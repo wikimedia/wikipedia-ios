@@ -26,9 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray*)items;
 
+@optional
+
 - (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
 
-@optional
+- (UIViewController*)homeDetailViewControllerAtIndex:(NSUInteger)index;
 
 - (UIImage*)headerButtonIcon;
 - (void)    performHeaderButtonAction;
