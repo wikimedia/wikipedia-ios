@@ -10,6 +10,9 @@
 
 @class SSDataSource;
 
+/**
+ *  Base image gallery implementation which implements iOS 8 workaround for flipping items for RTL.
+ */
 @interface WMFBaseImageGalleryViewController : WMFPageCollectionViewController
 
 @end

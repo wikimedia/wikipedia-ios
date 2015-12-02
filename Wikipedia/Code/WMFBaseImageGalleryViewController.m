@@ -17,7 +17,7 @@
 
 @implementation WMFBaseImageGalleryViewController
 
-- (void)setDataSource:(SSBaseDataSource *)dataSource {
+- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
     if (_dataSource == dataSource) {
         return;
     }

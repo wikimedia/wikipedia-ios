@@ -7,6 +7,7 @@
 //
 
 #import "WMFBaseImageGalleryViewController.h"
+#import "WMFImageGalleryDataSource.h"
 
 @class SSBaseDataSource;
 
@@ -17,6 +18,6 @@
  *
  *  Can be configured with custom cell classes, etc. at initialization time (@c initWithCollectionViewLayout:).
  */
-@property (nonatomic, strong, readwrite) SSBaseDataSource* dataSource;
+@property (nonatomic, strong, readwrite) SSBaseDataSource<WMFImageGalleryDataSource>* dataSource;
 
 @end
