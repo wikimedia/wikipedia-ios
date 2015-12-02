@@ -332,3 +332,23 @@
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-nothing" = "Nothing nearby";
 "home-nearby-check-again" = "Check again";
+
+"welcome-intro-title" = "Welcome To Wikipedia";
+"welcome-intro-sub-title" = "A new way to Explore";
+"welcome-intro-body-text" = "Discover new and interesting articles just for you on the Explore screen. ";
+"welcome-intro-button-title" = "Get started";
+"welcome-intro-more-info-text" = "How this works...";
+
+"welcome-intro-more-info-modal-text" = "When you visit an article, related articles are automatically added to your feed. This doesn’t change how we collect your information, and your reading history is still private.";
+
+"welcome-languages-title" = "Pick your languages";
+"welcome-languages-button-title" = "Continue";
+"welcome-languages-footnote-text" = "Don't worry you can change this later.";
+
+"welcome-usage-reports-title" = "Help us make Wikipedia better";
+"welcome-usage-reports-body-text" = "You can help us make the app better by allowing us to collect information about how you use the app.";
+"welcome-usage-reports-switch-text" = "Send usage reports";
+"welcome-usage-reports-button-title" = "Done";
+"welcome-usage-reports-more-info-text" = "Your privacy is important to us";
+
+
