@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const MWKPOTDImageInfoErrorDomain = @"MWKPOTDImageInfoErrorDomain";
 
-typedef NS_ENUM(NSInteger, MWKPOTDImageInfoErrorCode) {
+typedef NS_ENUM (NSInteger, MWKPOTDImageInfoErrorCode) {
     MWKPOTDImageInfoErrorCodeEmptyInfo
 };
 
@@ -25,15 +25,15 @@ typedef NS_ENUM(NSInteger, MWKPOTDImageInfoErrorCode) {
 
 @end
 
-typedef id(^MWKImageInfoResolve)(NSArray<MWKImageInfo*>*);
+typedef id (^ MWKImageInfoResolve)(NSArray<MWKImageInfo*>*);
 
 static MWKImageInfoResolve MWKImageInfoHandleEmptyInfoForDate(NSDate* date) {
-    return ^id(NSArray<MWKImageInfo*>* infoObjects) {
-        if (infoObjects.count < 1) {
-            return [NSError wmf_emptyPOTDErrorForDate:date];
-        } else {
-            return infoObjects;
-        }
+    return ^id (NSArray<MWKImageInfo*>* infoObjects) {
+               if (infoObjects.count < 1) {
+                   return [NSError wmf_emptyPOTDErrorForDate:date];
+               } else {
+                   return infoObjects;
+               }
     };
 }
 
@@ -44,7 +44,7 @@ static MWKImageInfoResolve MWKImageInfoHandleEmptyInfoForDate(NSDate* date) {
     return [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
                                          fromSite:[MWKSite wikimediaCommons]
                                  metadataLanguage:metadataLanguage]
-    .then(MWKImageInfoHandleEmptyInfoForDate(date));
+           .then(MWKImageInfoHandleEmptyInfoForDate(date));
 }
 
 - (AnyPromise*)fetchPicOfTheDayGalleryInfoForDate:(NSDate*)date
@@ -54,7 +54,6 @@ static MWKImageInfoResolve MWKImageInfoHandleEmptyInfoForDate(NSDate* date) {
                                  metadataLanguage:metadataLanguage]
            .then(MWKImageInfoHandleEmptyInfoForDate(date));
 }
-
 
 @end
 
