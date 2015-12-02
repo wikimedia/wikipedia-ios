@@ -8,5 +8,6 @@
 @property (strong, nonatomic) IBOutlet UIButton* rightButton;
 
 @property (assign, nonatomic) BOOL rightButtonEnabled;
+@property (copy, nonatomic) dispatch_block_t whenTapped;
 
 @end
