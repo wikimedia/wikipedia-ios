@@ -29,13 +29,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
-    return [[self imageInfoAtIndexPath:indexPath] imageThumbURL];
+    NSDate* dateAtIndexPath = [self itemAtIndexPath:indexPath];
+    MWKImageInfo* info = self.info[dateAtIndexPath];
+    return [info imageThumbURL];
 }
 
 - (nullable MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath {
     // TODO: return high-res info for that index path
-    NSDate* dateAtIndexPath = [self itemAtIndexPath:indexPath];
-    return self.info[dateAtIndexPath];
+    return nil;
 }
 
 - (void)fetchDataAtIndexPath:(NSIndexPath*)indexPath {

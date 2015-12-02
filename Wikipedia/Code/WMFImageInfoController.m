@@ -217,9 +217,9 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 
     MWKTitle* currentTitle = self.title;
     @weakify(self);
-    return [self.imageInfoFetcher fetchInfoForImageFiles:titlesToFetch
-                                                fromSite:self.title.site
-                                                 success:^(NSArray* infoObjects) {
+    return [self.imageInfoFetcher fetchGalleryInfoForImageFiles:titlesToFetch
+                                                       fromSite:self.title.site
+                                                        success:^(NSArray* infoObjects) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         @strongify(self);
         if (!self || ![currentTitle isEqualToTitle:self.title]) {
@@ -233,7 +233,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
             [self.delegate imageInfoController:self didFetchBatch:batch];
         });
     }
-                                                 failure:^(NSError* error) {
+                                                        failure:^(NSError* error) {
         @strongify(self);
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
         if (self) {

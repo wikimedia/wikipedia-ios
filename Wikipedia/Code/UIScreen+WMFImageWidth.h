@@ -32,6 +32,13 @@
 - (NSNumber*)wmf_leadImageWidthForScale;
 
 /**
+ *  @see WMFPicOfTheDayTableViewCell
+ *
+ *  @return The thumbnail width to request for POTD cells, according ot the receiver's @c scale.
+ */
+- (NSNumber*)wmf_potdImageWidthForScale;
+
+/**
  *  @see WMFImageGalleryCollectionViewCell
  *
  *  @return The thumbnail width to request for the modal image gallery, according to the receiver's @c scale.

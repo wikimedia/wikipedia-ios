@@ -74,11 +74,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     NSString* todaysPOTDTitle = [@"Template:Potd" stringByAppendingFormat:@"/%@", todaysPOTDTitleDateComponent];
 
     @weakify(self);
-    [self.fetcher fetchInfoForImagesFoundOnPages:@[todaysPOTDTitle]
-                                        fromSite:[MWKSite wikimediaCommons]
-                                metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
-                                  thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale]
-                                         success:^(NSArray* infoObjects) {
+    [self.fetcher fetchPartialInfoForImagesOnPages:@[todaysPOTDTitle]
+                                          fromSite:[MWKSite wikimediaCommons]
+                                  metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
+                                           success:^(NSArray* infoObjects) {
         @strongify(self);
         self.imageInfo = infoObjects.firstObject;
         [self.delegate controller:self didSetItems:self.items];
