@@ -131,15 +131,15 @@ static NSValue* WMFBoxedRangeMake(NSUInteger loc, NSUInteger len) {
 - (void)testFetchBatchAlongWithNeighborReturnsOneRequestForEachFetch {
     [MKTGiven([self.mockInfoFetcher
                fetchGalleryInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:0]]
-                             fromSite:anything()
-                              success:anything()
-                              failure:anything()]) willReturn:@"dummy request"];
+                                    fromSite:anything()
+                                     success:anything()
+                                     failure:anything()]) willReturn:@"dummy request"];
 
     [MKTGiven([self.mockInfoFetcher
                fetchGalleryInfoForImageFiles:[self expectedTitlesForRange:[self.controller batchRangeForTargetIndex:self.controller.infoBatchSize]]
-                             fromSite:anything()
-                              success:anything()
-                              failure:anything()]) willReturn:@"dummy request 2"];
+                                    fromSite:anything()
+                                     success:anything()
+                                     failure:anything()]) willReturn:@"dummy request 2"];
 
     NSArray* requests = [self.controller fetchBatchContainingIndex:0 withNthNeighbor:self.controller.infoBatchSize];
     assertThat(requests, is(@[@"dummy request", @"dummy request 2"]));

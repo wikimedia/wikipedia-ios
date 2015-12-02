@@ -13,7 +13,7 @@
  *
  *  This prevents us from fragmenting the image thumbnail caches on the back-end.
  */
-typedef NS_ENUM(NSUInteger, WMFImageWidth) {
+typedef NS_ENUM (NSUInteger, WMFImageWidth) {
     /**
      *  The smallest image width we will show, e.g. in search cell thumbnails.
      *

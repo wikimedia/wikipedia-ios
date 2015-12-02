@@ -31,10 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTodaysInfo:(MWKImageInfo*)info {
     /*
-     TODO: when we allow selection of arbitrary dates in the feed, the date range needs to either be passed
-     in the initializer (pulled from home section schema items) or calculated from the arbitrary date (see
-     wmf_datesUntilToday).
-    */
+       TODO: when we allow selection of arbitrary dates in the feed, the date range needs to either be passed
+       in the initializer (pulled from home section schema items) or calculated from the arbitrary date (see
+       wmf_datesUntilToday).
+     */
     NSArray<NSDate*>* dates = [[[NSDate date] dateBySubtractingDays:15] wmf_datesUntilToday];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super initWithItems:dates];
     if (self) {
-        self.homeInfo = [NSMutableDictionary dictionaryWithObject:info forKey:dates.firstObject];
+        self.homeInfo    = [NSMutableDictionary dictionaryWithObject:info forKey:dates.firstObject];
         self.galleryInfo = [NSMutableDictionary new];
     }
 
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     NSDate* date = [self dateAtIndexPath:indexPath];
     [self.fetcher fetchPicOfTheDayGalleryInfoForDate:date
-                                     metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
+                                    metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
     .then(^(NSArray<MWKImageInfo*>* infoObjects) {
         @strongify(self);
         MWKImageInfo* info = infoObjects.firstObject;

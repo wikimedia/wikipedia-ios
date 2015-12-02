@@ -31,7 +31,7 @@
     return [self initWithDelegate:nil];
 }
 
-- (instancetype)initWithDelegate:(  id<FetchFinishedDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<FetchFinishedDelegate>)delegate {
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
     manager.responseSerializer = [MWKImageInfoResponseSerializer serializer];
     return [self initWithDelegate:delegate requestManager:manager];
@@ -68,13 +68,13 @@
                                metadataLanguage:(nullable NSString*)metadataLanguage {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         [self fetchInfoForTitles:pageTitles
-                                   fromSite:site
-                             thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
-                            extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
-                           metadataLanguage:metadataLanguage
-                               useGenerator:YES
-                                    success:resolve
-                                    failure:resolve];
+                        fromSite:site
+                  thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
+                 extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
+                metadataLanguage:metadataLanguage
+                    useGenerator:YES
+                         success:resolve
+                         failure:resolve];
     }];
 }
 
