@@ -656,8 +656,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
-    [self wmf_pushArticleViewController:viewControllerToCommit];
+     commitViewController:(UIViewController*)viewControllerToCommit {
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
+    } else {
+        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    }
 }
 
 @end
