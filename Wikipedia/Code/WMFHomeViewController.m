@@ -472,14 +472,21 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)didTapHeaderInSection:(NSUInteger)section {
-/* TODO: bail if not one of the following:
-   WMFHomeSectionTypeContinueReading
-   WMFHomeSectionTypeMainPage
-   WMFHomeSectionTypeFeaturedArticle
-   WMFHomeSectionTypePictureOfTheDay
-   WMFHomeSectionTypeRandom
- */
-    [self selectFirstRowInSection:section];
+    WMFHomeSection* homeSection = self.schemaManager.sections[section];
+    switch (homeSection.type) {
+        case WMFHomeSectionTypeContinueReading:
+        case WMFHomeSectionTypeMainPage:
+        case WMFHomeSectionTypeFeaturedArticle:
+        case WMFHomeSectionTypePictureOfTheDay:
+        case WMFHomeSectionTypeRandom:
+            [self selectFirstRowInSection:section];
+            break;
+        case WMFHomeSectionTypeNearby:
+            [self didTapFooterInSection:section];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)selectFirstRowInSection:(NSUInteger)section {
