@@ -7,7 +7,7 @@
 //
 
 #import "WMFModalArticleImageGalleryViewController.h"
-#import "WMFImageGalleryViewController_Subclass.h"
+#import "WMFModalImageGalleryViewController_Subclass.h"
 #import "WMFBaseImageGalleryViewController_Subclass.h"
 #import "MWKArticle.h"
 #import "MWKImage.h"

@@ -1,17 +1,17 @@
 //
-//  WMFImageGalleryViewController_Subclass.h
+//  WMFModalImageGalleryViewController_Subclass.h
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 12/1/15.
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryViewController.h"
+#import "WMFModalImageGalleryViewController.h"
 #import "WMFModalArticleImageGalleryDataSource.h"
 
 @class WMFGradientView;
 
-@interface WMFImageGalleryViewController ()
+@interface WMFModalImageGalleryViewController ()
 <UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, WMFModalImageGalleryDataSourceDelegate>
 
 @property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;

@@ -6,9 +6,9 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryViewController.h"
+#import "WMFModalImageGalleryViewController.h"
 
-@interface WMFModalPOTDGalleryViewController : WMFImageGalleryViewController
+@interface WMFModalPOTDGalleryViewController : WMFModalImageGalleryViewController
 
 - (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date;
 

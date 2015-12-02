@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @class MWKImageInfo;
 @protocol WMFModalImageGalleryDataSource;
 
+/**
+ *  Delegate which is used to react to updates & errors from a @c WMFModalImageGalleryDataSource.
+ */
 @protocol WMFModalImageGalleryDataSourceDelegate <NSObject>
 
 - (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource didFailWithError:(NSError*)error;
@@ -23,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+/**
+ *  Data source which drives a @c WMFModalImageGalleryViewController, providing more data (i.e. @c MWKImageInfo).
+ */
 @protocol WMFModalImageGalleryDataSource <WMFImageGalleryDataSource>
 
 @property (nonatomic, weak, readwrite) id<WMFModalImageGalleryDataSourceDelegate> delegate;

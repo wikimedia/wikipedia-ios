@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class WMFImageGalleryViewController;
+@class WMFModalImageGalleryViewController;
 @protocol WMFImageGalleryViewControllerDelegate <NSObject>
 
 @optional
@@ -24,21 +24,21 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @param gallery The gallery being dismissed.
  */
-- (void)willDismissGalleryController:(WMFImageGalleryViewController*)gallery;
+- (void)willDismissGalleryController:(WMFModalImageGalleryViewController*)gallery;
 
 /**
  * Optional. Called when a gallery's close button is tapped before it is dismissed.
  *
  * @param gallery The gallery being dismissed.
  */
-- (void)didDismissGalleryController:(WMFImageGalleryViewController*)gallery;
+- (void)didDismissGalleryController:(WMFModalImageGalleryViewController*)gallery;
 
 @end
 
 /**
  *  Provides a scrollable gallery of an article's images, including high-res, zoomable images and associated metadata.
  */
-@interface WMFImageGalleryViewController : WMFBaseImageGalleryViewController
+@interface WMFModalImageGalleryViewController : WMFBaseImageGalleryViewController
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 

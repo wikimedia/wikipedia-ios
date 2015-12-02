@@ -69,7 +69,7 @@
 		B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803471C0CD7AA0065EBC0 /* WMFSearchResults.m */; };
 		B0E8034B1C0CD7F40065EBC0 /* WMFArticleImageGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8034A1C0CD7F40065EBC0 /* WMFArticleImageGalleryDataSource.m */; };
 		B0E8034F1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8034E1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m */; };
-		B0E803521C0CD82D0065EBC0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803511C0CD82D0065EBC0 /* WMFImageGalleryViewController.m */; };
+		B0E803521C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803511C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m */; };
 		B0E803581C0CD8420065EBC0 /* WMFImageGalleryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803541C0CD8420065EBC0 /* WMFImageGalleryCollectionViewCell.m */; };
 		B0E803591C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803561C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.m */; };
 		B0E8035A1C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E803571C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.xib */; };
@@ -723,8 +723,8 @@
 		B0E8034C1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController_Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseImageGalleryViewController_Subclass.h; path = Wikipedia/Code/WMFBaseImageGalleryViewController_Subclass.h; sourceTree = SOURCE_ROOT; };
 		B0E8034D1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseImageGalleryViewController.h; path = Wikipedia/Code/WMFBaseImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E8034E1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseImageGalleryViewController.m; path = Wikipedia/Code/WMFBaseImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
-		B0E803501C0CD82D0065EBC0 /* WMFImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController.h; path = Wikipedia/Code/WMFImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E803511C0CD82D0065EBC0 /* WMFImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryViewController.m; path = Wikipedia/Code/WMFImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
+		B0E803501C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalImageGalleryViewController.h; path = Wikipedia/Code/WMFModalImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
+		B0E803511C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalImageGalleryViewController.m; path = Wikipedia/Code/WMFModalImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E803531C0CD8420065EBC0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = Wikipedia/Code/WMFImageGalleryCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E803541C0CD8420065EBC0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = Wikipedia/Code/WMFImageGalleryCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E803551C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryDetailOverlayView.h; path = Wikipedia/Code/WMFImageGalleryDetailOverlayView.h; sourceTree = SOURCE_ROOT; };
@@ -1633,7 +1633,7 @@
 		BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalArticleImageGalleryDataSource.m; path = Wikipedia/Code/WMFModalArticleImageGalleryDataSource.m; sourceTree = SOURCE_ROOT; };
 		BCA15B021C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalArticleImageGalleryViewController.h; path = Wikipedia/Code/WMFModalArticleImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
 		BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalArticleImageGalleryViewController.m; path = Wikipedia/Code/WMFModalArticleImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
-		BCA15B051C0E91C600D0A3EA /* WMFImageGalleryViewController_Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController_Subclass.h; path = Wikipedia/Code/WMFImageGalleryViewController_Subclass.h; sourceTree = SOURCE_ROOT; };
+		BCA15B051C0E91C600D0A3EA /* WMFModalImageGalleryViewController_Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalImageGalleryViewController_Subclass.h; path = Wikipedia/Code/WMFModalImageGalleryViewController_Subclass.h; sourceTree = SOURCE_ROOT; };
 		BCA15B061C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalPOTDGalleryViewController.h; path = Wikipedia/Code/WMFModalPOTDGalleryViewController.h; sourceTree = SOURCE_ROOT; };
 		BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalPOTDGalleryViewController.m; path = Wikipedia/Code/WMFModalPOTDGalleryViewController.m; sourceTree = SOURCE_ROOT; };
 		BCA15B0B1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalPOTDGalleryDataSource.h; path = Wikipedia/Code/WMFModalPOTDGalleryDataSource.h; sourceTree = SOURCE_ROOT; };
@@ -3113,14 +3113,8 @@
 		BC628C791B389E2B00B3F85C /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				B0E805C01C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.h */,
-				B0E805C11C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m */,
-				B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */,
-				B0E805C31C0CE5250065EBC0 /* UIImage+Debug.swift */,
-				B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */,
-				B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */,
-				B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */,
-				B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */,
+				BCA15B111C0E9B1600D0A3EA /* Gallery */,
+				BCA15B121C0E9B2100D0A3EA /* ImageController */,
 				B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */,
 				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
 				B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */,
@@ -3260,7 +3254,7 @@
 				B0E803571C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.xib */,
 			);
 			name = Views;
-			path = "../View Controllers";
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		BCA15AE01C0DFCC900D0A3EA /* Supporting Files */ = {
@@ -3307,6 +3301,45 @@
 				BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */,
 			);
 			name = Detail;
+			sourceTree = "<group>";
+		};
+		BCA15B111C0E9B1600D0A3EA /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				BCA15B131C0E9B6F00D0A3EA /* View Controllers */,
+				BC86B94C1A9391E200B4C039 /* Views */,
+			);
+			name = Gallery;
+			sourceTree = "<group>";
+		};
+		BCA15B121C0E9B2100D0A3EA /* ImageController */ = {
+			isa = PBXGroup;
+			children = (
+				B0E805C01C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.h */,
+				B0E805C11C0CE5250065EBC0 /* SDImageCache+WMFPersistentCache.m */,
+				B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */,
+				B0E805C31C0CE5250065EBC0 /* UIImage+Debug.swift */,
+				B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */,
+				B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */,
+				B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */,
+				B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */,
+			);
+			name = ImageController;
+			sourceTree = "<group>";
+		};
+		BCA15B131C0E9B6F00D0A3EA /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8034D1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.h */,
+				B0E8034C1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController_Subclass.h */,
+				B0E8034E1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m */,
+				B0E803501C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.h */,
+				BCA15B051C0E91C600D0A3EA /* WMFModalImageGalleryViewController_Subclass.h */,
+				B0E803511C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m */,
+				BCA15AFE1C0E83CF00D0A3EA /* WMFImageGalleryDataSource.h */,
+				BCA15AFD1C0E823200D0A3EA /* WMFModalImageGalleryDataSource.h */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
@@ -3618,12 +3651,10 @@
 		BCE839631BF25F4900F5BBA4 /* Main Gallery */ = {
 			isa = PBXGroup;
 			children = (
-				B0E803501C0CD82D0065EBC0 /* WMFImageGalleryViewController.h */,
-				BCA15B051C0E91C600D0A3EA /* WMFImageGalleryViewController_Subclass.h */,
-				B0E803511C0CD82D0065EBC0 /* WMFImageGalleryViewController.m */,
+				BCA15AFF1C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.h */,
+				BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */,
 				BCA15B021C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.h */,
 				BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */,
-				BC86B94C1A9391E200B4C039 /* Views */,
 				BC69C3101AB0C16B0090B039 /* Fetcher */,
 			);
 			name = "Main Gallery";
@@ -3641,15 +3672,8 @@
 		BCE839651BF2620B00F5BBA4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B0E8034C1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController_Subclass.h */,
-				B0E8034D1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.h */,
-				B0E8034E1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m */,
-				BCA15AFE1C0E83CF00D0A3EA /* WMFImageGalleryDataSource.h */,
-				BCA15AFD1C0E823200D0A3EA /* WMFModalImageGalleryDataSource.h */,
 				B0E803491C0CD7F40065EBC0 /* WMFArticleImageGalleryDataSource.h */,
 				B0E8034A1C0CD7F40065EBC0 /* WMFArticleImageGalleryDataSource.m */,
-				BCA15AFF1C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.h */,
-				BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -4433,7 +4457,7 @@
 				B0E8066E1C0CE9030065EBC0 /* PreviewHtmlFetcher.m in Sources */,
 				B0E8044A1C0CDF850065EBC0 /* WMFCrashAlertView.m in Sources */,
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
-				B0E803521C0CD82D0065EBC0 /* WMFImageGalleryViewController.m in Sources */,
+				B0E803521C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m in Sources */,
 				B0E8071C1C0CEC050065EBC0 /* WMFSectionHeaderModel.m in Sources */,
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				B0E805CA1C0CE5250065EBC0 /* WMFImageController.swift in Sources */,

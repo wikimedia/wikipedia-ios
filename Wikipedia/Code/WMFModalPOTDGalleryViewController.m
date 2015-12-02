@@ -8,7 +8,7 @@
 
 #import "WMFModalPOTDGalleryViewController.h"
 #import "WMFBaseImageGalleryViewController_Subclass.h"
-#import "WMFImageGalleryViewController_Subclass.h"
+#import "WMFModalImageGalleryViewController_Subclass.h"
 #import "WMFModalPOTDGalleryDataSource.h"
 
 @implementation WMFModalPOTDGalleryViewController

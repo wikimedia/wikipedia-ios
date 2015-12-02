@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryViewController_Subclass.h"
+#import "WMFModalImageGalleryViewController_Subclass.h"
 #import "WMFBaseImageGalleryViewController_Subclass.h"
 #import "Wikipedia-Swift.h"
 
@@ -54,7 +54,7 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
-@implementation WMFImageGalleryViewController
+@implementation WMFModalImageGalleryViewController
 
 + (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
     UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
