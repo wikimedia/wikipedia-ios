@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryViewController.h"
+#import "WMFImageGalleryViewController_Subclass.h"
 #import "WMFBaseImageGalleryViewController_Subclass.h"
 #import "Wikipedia-Swift.h"
 
@@ -45,30 +45,12 @@
 
 // Data Source
 #import "WMFModalImageGalleryDataSource.h"
-#import "WMFModalArticleImageGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^ WMFGalleryCellEnumerator)(WMFImageGalleryCollectionViewCell* cell, NSIndexPath* indexPath);
 
 static double const WMFImageGalleryTopGradientHeight = 150.0;
-
-@interface WMFImageGalleryViewController ()
-<UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, WMFModalImageGalleryDataSourceDelegate>
-
-@property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;
-@property (nonatomic, weak, readonly) UIButton* closeButton;
-@property (nonatomic, weak, readonly) WMFGradientView* topGradientView;
-
-@property (nonatomic, weak, readonly) UITapGestureRecognizer* chromeTapGestureRecognizer;
-
-@property (nonatomic, strong) MWKDataStore* dataStore;
-
-@property (nonatomic, weak) UIActivityIndicatorView* loadingIndicator;
-
-@property (nonatomic, weak) PMKResolver articlePromiseResolve;
-
-@end
 
 static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
@@ -83,10 +65,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return defaultLayout;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+- (instancetype)init {
     self = [super initWithCollectionViewLayout:[[self class] wmf_defaultGalleryLayout]];
     if (self) {
-        self.dataStore            = dataStore;
         self.chromeHidden         = NO;
     }
     return self;
@@ -259,73 +240,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             [self.delegate didDismissGalleryController:self];
         }
     }];
-}
-
-#pragma mark - Article APIs
-
-- (WMFArticleImageGalleryDataSource*)articleGalleryDataSource {
-    NSParameterAssert(!self.dataSource || [self.dataSource isKindOfClass:[WMFArticleImageGalleryDataSource class]]);
-    return (WMFArticleImageGalleryDataSource*)self.dataSource;
-}
-
-- (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
-    NSInteger selectedImageIndex = [self.articleGalleryDataSource.allItems indexOfObjectPassingTest:^BOOL (MWKImage* image,
-                                                                                             NSUInteger idx,
-                                                                                             BOOL* stop) {
-        if ([image isEqualToImage:visibleImage] || [image isVariantOfImage:visibleImage]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (selectedImageIndex == NSNotFound) {
-        DDLogWarn(@"Falling back to showing the first image.");
-        selectedImageIndex = 0;
-    }
-
-    self.currentPage = selectedImageIndex;
-}
-
-- (void)showImagesInArticle:(MWKArticle* __nullable)article {
-    if ([self.dataStore isKindOfClass:[WMFArticleImageGalleryDataSource class]]
-        && WMF_EQUAL(self.articleGalleryDataSource.article, isEqualToArticle:, article)) {
-        return;
-    }
-
-    WMFModalArticleImageGalleryDataSource* articleGalleryDataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithItems:nil];
-    articleGalleryDataSource.article = article;
-
-    self.dataSource = articleGalleryDataSource;
-}
-
-- (void)setArticleWithPromise:(AnyPromise*)articlePromise {
-    if (self.articlePromiseResolve) {
-        self.articlePromiseResolve([NSError cancelledError]);
-    }
-
-    [self.loadingIndicator startAnimating];
-
-    __block id articlePromiseResolve;
-    // wrap articlePromise in a promise we can cancel if a new one comes in
-    AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        articlePromiseResolve = resolve;
-    }];
-    self.articlePromiseResolve = articlePromiseResolve;
-
-    articlePromise.then(articlePromiseResolve).catchWithPolicy(PMKCatchPolicyAllErrors, articlePromiseResolve);
-
-    // chain off the cancellable promise
-    @weakify(self);
-    cancellableArticlePromise.then(^(MWKArticle* article) {
-        @strongify(self);
-        [self showImagesInArticle:article];
-    })
-    .catch(^(NSError* error) {
-        @strongify(self);
-        [self.loadingIndicator stopAnimating];
-        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
-    });
 }
 
 #pragma mark - UIGestureRecognizerDelegate

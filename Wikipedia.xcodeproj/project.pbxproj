@@ -558,6 +558,7 @@
 		BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */; };
 		BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AF31C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m */; };
 		BCA15B011C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */; };
+		BCA15B041C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
@@ -1628,6 +1629,9 @@
 		BCA15AFE1C0E83CF00D0A3EA /* WMFImageGalleryDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryDataSource.h; path = Wikipedia/Code/WMFImageGalleryDataSource.h; sourceTree = SOURCE_ROOT; };
 		BCA15AFF1C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalArticleImageGalleryDataSource.h; path = Wikipedia/Code/WMFModalArticleImageGalleryDataSource.h; sourceTree = SOURCE_ROOT; };
 		BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalArticleImageGalleryDataSource.m; path = Wikipedia/Code/WMFModalArticleImageGalleryDataSource.m; sourceTree = SOURCE_ROOT; };
+		BCA15B021C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalArticleImageGalleryViewController.h; path = Wikipedia/Code/WMFModalArticleImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
+		BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalArticleImageGalleryViewController.m; path = Wikipedia/Code/WMFModalArticleImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
+		BCA15B051C0E91C600D0A3EA /* WMFImageGalleryViewController_Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController_Subclass.h; path = Wikipedia/Code/WMFImageGalleryViewController_Subclass.h; sourceTree = SOURCE_ROOT; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3589,7 +3593,10 @@
 			isa = PBXGroup;
 			children = (
 				B0E803501C0CD82D0065EBC0 /* WMFImageGalleryViewController.h */,
+				BCA15B051C0E91C600D0A3EA /* WMFImageGalleryViewController_Subclass.h */,
 				B0E803511C0CD82D0065EBC0 /* WMFImageGalleryViewController.m */,
+				BCA15B021C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.h */,
+				BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */,
 				BC86B94C1A9391E200B4C039 /* Views */,
 				BC69C3101AB0C16B0090B039 /* Fetcher */,
 			);
@@ -4434,6 +4441,7 @@
 				B0E802FB1C0CD4EC0065EBC0 /* WMFLocationManager.m in Sources */,
 				B0E804D41C0CE0B40065EBC0 /* NSMutableDictionary+WMFMaybeSet.m in Sources */,
 				B0E807AF1C0CEFF70065EBC0 /* MWKHistoryEntry.m in Sources */,
+				BCA15B041C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m in Sources */,
 				B0E804B91C0CE0B40065EBC0 /* Article+ConvenienceAccessors.m in Sources */,
 				B0E8038E1C0CDAA70065EBC0 /* WMFArticleReadMoreCell.m in Sources */,
 				B0E806AC1C0CEB020065EBC0 /* HistoryViewController.m in Sources */,

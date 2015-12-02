@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFImageGalleryViewController : WMFBaseImageGalleryViewController
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 ///
 /// @name Unsupoorted Initializers
@@ -55,16 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// @see initWithDataStore:
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;
-
-/**
- *  Set an article for the gallery in the future.
- *
- *  Called when the user taps on an article's lead image before the article data has finished downloading. This will
- *  show the gallery (empty) with a loading indicator, and then load itself when the data has finished downloading.
- *
- *  @param articlePromise Promise which resolves to an `MWKArticle`.
- */
-- (void)setArticleWithPromise:(AnyPromise*)articlePromise;
 
 /**
  * The gallery's delegate.
@@ -85,10 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
 - (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
-
-- (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
-
-- (void)showImagesInArticle:(nullable MWKArticle*)article;
 
 @end
 

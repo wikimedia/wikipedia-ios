@@ -15,7 +15,7 @@
 #import "WMFArticleListTableViewController.h"
 #import "UITabBarController+WMFExtensions.h"
 #import "WMFShareOptionsController.h"
-#import "WMFImageGalleryViewController.h"
+#import "WMFModalArticleImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "SectionEditorViewController.h"
@@ -159,9 +159,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (WMFImageGalleryViewController*)createImageGalleryViewController {
-    WMFImageGalleryViewController* fullscreenGallery =
-        [[WMFImageGalleryViewController alloc] initWithDataStore:self.dataStore];
+- (WMFModalArticleImageGalleryViewController*)createImageGalleryViewController {
+    WMFModalArticleImageGalleryViewController* fullscreenGallery =
+        [[WMFModalArticleImageGalleryViewController alloc] init];
     [fullscreenGallery showImagesInArticle:self.article];
     return fullscreenGallery;
 }
@@ -634,7 +634,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)         webViewController:(WebViewController*)controller
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
-    WMFImageGalleryViewController* gallery = [self createImageGalleryViewController];
+    WMFModalArticleImageGalleryViewController* gallery = [self createImageGalleryViewController];
     /*
        NOTE(bgerstle): not setting delegate intentionally to prevent header gallery changes as a result of fullscreen
        gallery interactions that originate from the webview
@@ -686,7 +686,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
      didSelectImageAtIndex:(NSUInteger)index {
-    WMFImageGalleryViewController* fullscreenGallery = [self createImageGalleryViewController];
+    WMFModalArticleImageGalleryViewController* fullscreenGallery = [self createImageGalleryViewController];
 
     // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
     fullscreenGallery.delegate = self;
@@ -709,9 +709,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
-#pragma mark - WMFImageGalleryViewControllerDelegate
+#pragma mark - WMFModalArticleImageGalleryViewControllerDelegate
 
-- (void)willDismissGalleryController:(WMFImageGalleryViewController* __nonnull)gallery {
+- (void)willDismissGalleryController:(WMFModalArticleImageGalleryViewController* __nonnull)gallery {
     self.headerGallery.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
