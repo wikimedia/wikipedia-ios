@@ -128,7 +128,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (UIViewController*)homeDetailViewControllerAtIndex:(NSUInteger)index {
     NSParameterAssert(self.fetchedDate);
     NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
-    return [[WMFModalPOTDGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
+    return [[WMFModalPOTDGalleryViewController alloc] initWithTodaysInfo:self.imageInfo];
 }
 
 @end

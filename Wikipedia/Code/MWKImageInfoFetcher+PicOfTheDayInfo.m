@@ -13,23 +13,62 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString* const MWKPOTDImageInfoErrorDomain = @"MWKPOTDImageInfoErrorDomain";
+
+typedef NS_ENUM(NSInteger, MWKPOTDImageInfoErrorCode) {
+    MWKPOTDImageInfoErrorCodeEmptyInfo
+};
+
+@interface NSError (MWKPOTDImageInfoErrorDomain)
+
++ (instancetype)wmf_emptyPOTDErrorForDate:(NSDate*)date;
+
+@end
+
+typedef id(^MWKImageInfoResolve)(NSArray<MWKImageInfo*>*);
+
+static MWKImageInfoResolve MWKImageInfoHandleEmptyInfoForDate(NSDate* date) {
+    return ^id(NSArray<MWKImageInfo*>* infoObjects) {
+        if (infoObjects.count < 1) {
+            return [NSError wmf_emptyPOTDErrorForDate:date];
+        } else {
+            return infoObjects;
+        }
+    };
+}
+
 @implementation MWKImageInfoFetcher (PicOfTheDayInfo)
 
 - (AnyPromise*)fetchPicOfTheDaySectionInfoForDate:(NSDate*)date
                                  metadataLanguage:(nullable NSString*)metadataLanguage {
     return [self fetchPartialInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
                                          fromSite:[MWKSite wikimediaCommons]
-                                 metadataLanguage:metadataLanguage];
+                                 metadataLanguage:metadataLanguage]
+    .then(MWKImageInfoHandleEmptyInfoForDate(date));
 }
 
-- (AnyPromise*)fetchPicOfTheDayGalleryInfoForDates:(NSArray<NSDate*>*)dates
-                                  metadataLanguage:(nullable NSString*)metadataLanguage {
-    NSArray<NSString*>* potdTitles = [dates bk_map:^NSString*(NSDate* date) {
-        return [date wmf_picOfTheDayPageTitle];
-    }];
-    return [self fetchPartialInfoForImagesOnPages:potdTitles
+- (AnyPromise*)fetchPicOfTheDayGalleryInfoForDate:(NSDate*)date
+                                 metadataLanguage:(nullable NSString*)metadataLanguage {
+    return [self fetchGalleryInfoForImagesOnPages:@[[date wmf_picOfTheDayPageTitle]]
                                          fromSite:[MWKSite wikimediaCommons]
-                                 metadataLanguage:metadataLanguage];
+                                 metadataLanguage:metadataLanguage]
+           .then(MWKImageInfoHandleEmptyInfoForDate(date));
+}
+
+
+@end
+
+@implementation NSError (MWKPOTDImageInfoErrorDomain)
+
++ (instancetype)wmf_emptyPOTDErrorForDate:(NSDate*)date {
+    return [[NSError alloc] initWithDomain:MWKPOTDImageInfoErrorDomain
+                                      code:MWKPOTDImageInfoErrorCodeEmptyInfo
+                                  userInfo:@{
+                NSLocalizedDescriptionKey:
+                [MWLocalizedString(@"potd-empty-error-description", nil)
+                 stringByReplacingOccurrencesOfString:@"$1"
+                                           withString:[date descriptionWithLocale:[NSLocale currentLocale]]]
+            }];
 }
 
 @end

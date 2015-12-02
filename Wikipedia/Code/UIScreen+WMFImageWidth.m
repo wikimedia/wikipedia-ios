@@ -25,17 +25,13 @@ typedef NS_ENUM(NSUInteger, WMFImageWidth) {
      */
     WMFImageWidthSmall = 120,
     /**
-     *  A medium width, e.g. for lead images.
+     *  A medium width, e.g. POTD & lead images.
      */
     WMFImageWidthMedium = 320,
     /**
-     *  A slightly larger width, e.g. for POTD.
+     *  A slightly larger width, e.g. modal gallery.
      */
-    WMFImageWidthLarge = 640,
-    /**
-     *  The largest thumbnail we show, e.g. in the modal gallery.
-     */
-    WMFImageWidthExtraLarge = 1280
+    WMFImageWidthLarge = 640
 };
 
 @implementation UIScreen (WMFImageWidth)
@@ -52,16 +48,16 @@ typedef NS_ENUM(NSUInteger, WMFImageWidth) {
     return @(self.wmf_maxScale * WMFImageWidthSmall);
 }
 
-- (NSNumber*)wmf_potdImageWidthForScale {
-    return @(self.wmf_maxScale * WMFImageWidthLarge);
-}
-
 - (NSNumber*)wmf_leadImageWidthForScale {
     return @(self.wmf_maxScale * WMFImageWidthMedium);
 }
 
+- (NSNumber*)wmf_potdImageWidthForScale {
+    return @(self.wmf_maxScale * WMFImageWidthMedium);
+}
+
 - (NSNumber*)wmf_galleryImageWidthForScale {
-    return @(self.wmf_maxScale * WMFImageWidthExtraLarge);
+    return @(self.wmf_maxScale * WMFImageWidthLarge);
 }
 
 @end

@@ -566,6 +566,7 @@
 		BCCAF5451C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF5441C0F8F04001AAB05 /* MWKImageInfoFetcher+PicOfTheDayInfo.m */; };
 		BCCAF5481C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF5471C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m */; };
 		BCCAF54E1C0F91D2001AAB05 /* MWKSite+CommonsSite.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF54D1C0F91D2001AAB05 /* MWKSite+CommonsSite.m */; };
+		BCCAF5511C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCAF5501C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.m */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
 		BCCEC1231B1F68CF00A8B522 /* Obama.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE01B11CC5800231BB1 /* Obama.json */; };
@@ -1651,6 +1652,8 @@
 		BCCAF5471C0F8F6F001AAB05 /* NSDate+WMFPOTDTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDTitle.m"; path = "Wikipedia/Code/NSDate+WMFPOTDTitle.m"; sourceTree = SOURCE_ROOT; };
 		BCCAF54C1C0F91D2001AAB05 /* MWKSite+CommonsSite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKSite+CommonsSite.h"; path = "Wikipedia/Code/MWKSite+CommonsSite.h"; sourceTree = SOURCE_ROOT; };
 		BCCAF54D1C0F91D2001AAB05 /* MWKSite+CommonsSite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSite+CommonsSite.m"; path = "Wikipedia/Code/MWKSite+CommonsSite.m"; sourceTree = SOURCE_ROOT; };
+		BCCAF54F1C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFPOTDDateRange.h"; path = "Wikipedia/Code/NSDate+WMFPOTDDateRange.h"; sourceTree = SOURCE_ROOT; };
+		BCCAF5501C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDDateRange.m"; path = "Wikipedia/Code/NSDate+WMFPOTDDateRange.m"; sourceTree = SOURCE_ROOT; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AC1BA9FBE80017E311 /* kn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kn; path = kn.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3311,6 +3314,8 @@
 				BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */,
 				BCA15B0B1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.h */,
 				BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */,
+				BCCAF54F1C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.h */,
+				BCCAF5501C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -4662,6 +4667,7 @@
 				B0E804C31C0CE0B40065EBC0 /* NSArray+BKIndex.m in Sources */,
 				B0E807801C0CEF0A0065EBC0 /* MWKSite.m in Sources */,
 				B0E804CE1C0CE0B40065EBC0 /* NSDateFormatter+WMFExtensions.m in Sources */,
+				BCCAF5511C0F9C25001AAB05 /* NSDate+WMFPOTDDateRange.m in Sources */,
 				B0E803671C0CD91D0065EBC0 /* WMFArticleContainerViewController.m in Sources */,
 				B0E807D61C0CF04A0065EBC0 /* MWKCitation.m in Sources */,
 				B0E804CA1C0CE0B40065EBC0 /* NSAttributedString+WMFTrim.m in Sources */,
