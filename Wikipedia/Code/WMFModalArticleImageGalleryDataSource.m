@@ -50,7 +50,7 @@
     [self.delegate modalGalleryDataSource:self didFailWithError:error];
 }
 
-- (void)prefetchDataNearIndexPath:(NSIndexPath*)indexPath {
+- (void)fetchDataAtIndexPath:(NSIndexPath*)indexPath {
     [self.infoController fetchBatchContainingIndex:indexPath.item];
 }
 

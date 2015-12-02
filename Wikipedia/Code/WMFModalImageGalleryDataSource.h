@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable MWKImageInfo*)imageInfoAtIndexPath:(NSIndexPath*)indexPath;
 
-- (void)prefetchDataNearIndexPath:(NSIndexPath*)indexPath;
+- (void)fetchDataAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
 
