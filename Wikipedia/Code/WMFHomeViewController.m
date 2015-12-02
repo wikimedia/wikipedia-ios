@@ -472,7 +472,20 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)didTapHeaderInSection:(NSUInteger)section {
-    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+/* TODO: bail if not one of the following:
+   WMFHomeSectionTypeContinueReading
+   WMFHomeSectionTypeMainPage
+   WMFHomeSectionTypeFeaturedArticle
+   WMFHomeSectionTypePictureOfTheDay
+   WMFHomeSectionTypeRandom
+ */
+    [self selectFirstRowInSection:section];
+}
+
+- (void)selectFirstRowInSection:(NSUInteger)section {
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    [[self.tableView cellForRowAtIndexPath:indexPath] setSelected:YES];
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
 #pragma mark - UITableViewDelegate
