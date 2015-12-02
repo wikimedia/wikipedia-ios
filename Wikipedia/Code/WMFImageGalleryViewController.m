@@ -180,6 +180,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     self.collectionView.backgroundColor = [UIColor blackColor];
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageGalleryCollectionViewCell identifier]];
+    self.collectionView.alwaysBounceHorizontal = YES;
 
     [self applyChromeHidden:NO];
 }

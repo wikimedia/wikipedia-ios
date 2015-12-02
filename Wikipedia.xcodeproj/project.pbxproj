@@ -559,6 +559,8 @@
 		BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AF31C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m */; };
 		BCA15B011C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */; };
 		BCA15B041C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */; };
+		BCA15B081C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */; };
+		BCA15B0D1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
@@ -1632,6 +1634,10 @@
 		BCA15B021C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalArticleImageGalleryViewController.h; path = Wikipedia/Code/WMFModalArticleImageGalleryViewController.h; sourceTree = SOURCE_ROOT; };
 		BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalArticleImageGalleryViewController.m; path = Wikipedia/Code/WMFModalArticleImageGalleryViewController.m; sourceTree = SOURCE_ROOT; };
 		BCA15B051C0E91C600D0A3EA /* WMFImageGalleryViewController_Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryViewController_Subclass.h; path = Wikipedia/Code/WMFImageGalleryViewController_Subclass.h; sourceTree = SOURCE_ROOT; };
+		BCA15B061C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalPOTDGalleryViewController.h; path = Wikipedia/Code/WMFModalPOTDGalleryViewController.h; sourceTree = SOURCE_ROOT; };
+		BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalPOTDGalleryViewController.m; path = Wikipedia/Code/WMFModalPOTDGalleryViewController.m; sourceTree = SOURCE_ROOT; };
+		BCA15B0B1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalPOTDGalleryDataSource.h; path = Wikipedia/Code/WMFModalPOTDGalleryDataSource.h; sourceTree = SOURCE_ROOT; };
+		BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalPOTDGalleryDataSource.m; path = Wikipedia/Code/WMFModalPOTDGalleryDataSource.m; sourceTree = SOURCE_ROOT; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3137,12 +3143,8 @@
 		BC7EFDED1C037466008E8228 /* Picture of the Day */ = {
 			isa = PBXGroup;
 			children = (
-				B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */,
-				B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */,
-				B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */,
-				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */,
-				B0E802C91C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.h */,
-				B0E802CA1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m */,
+				BCA15B091C0E92FA00D0A3EA /* Feed */,
+				BCA15B0A1C0E930600D0A3EA /* Detail */,
 			);
 			name = "Picture of the Day";
 			sourceTree = "<group>";
@@ -3281,6 +3283,30 @@
 				B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCA15B091C0E92FA00D0A3EA /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */,
+				B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */,
+				B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */,
+				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */,
+				B0E802C91C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.h */,
+				B0E802CA1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m */,
+			);
+			name = Feed;
+			sourceTree = "<group>";
+		};
+		BCA15B0A1C0E930600D0A3EA /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				BCA15B061C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.h */,
+				BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */,
+				BCA15B0B1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.h */,
+				BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */,
+			);
+			name = Detail;
 			sourceTree = "<group>";
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
@@ -4589,6 +4615,7 @@
 				B0E8032C1C0CD6E10065EBC0 /* WMFHomeSectionHeader.m in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E8078C1C0CEF660065EBC0 /* MWKDataObject.m in Sources */,
+				BCA15B081C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,
 				B0E805D11C0CE5420065EBC0 /* WMFFaceDetectionCache.m in Sources */,
 				B0E804C51C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m in Sources */,
@@ -4618,6 +4645,7 @@
 				B0E8038B1C0CDA970065EBC0 /* WMFArticleSectionCell.m in Sources */,
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
 				B0E805CC1C0CE5250065EBC0 /* WMFImageDownload.swift in Sources */,
+				BCA15B0D1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m in Sources */,
 				B0E805581C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				B0E807981C0CEF970065EBC0 /* MWKSection+HTMLImageExtraction.m in Sources */,

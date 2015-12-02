@@ -13,6 +13,7 @@
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import "WMFModalPOTDGalleryViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +39,8 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @property (nonatomic, strong) MWKImageInfo* imageInfo;
 
+@property (nonatomic, strong, nullable) NSDate* fetchedDate;
+
 @end
 
 @implementation WMFPictureOfTheDaySectionController
@@ -62,8 +65,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 #pragma mark - Fetching
 
 - (void)fetchData {
+    self.fetchedDate = [NSDate date];
+
     NSString* todaysPOTDTitleDateComponent =
-        [[NSDateFormatter wmf_hyphenatedYearMonthDayFormatter] stringFromDate:[NSDate date]];
+        [[NSDateFormatter wmf_hyphenatedYearMonthDayFormatter] stringFromDate:self.fetchedDate];
 
     NSString* todaysPOTDTitle = [@"Template:Potd" stringByAppendingFormat:@"/%@", todaysPOTDTitleDateComponent];
 
@@ -79,6 +84,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     } failure:^(NSError* error) {
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
+        self.fetchedDate = nil;
     }];
 }
 
@@ -107,8 +113,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    // TODO: return NO for placeholder
-    return NO;// self.imageInfo.canonicalPageTitle == WMFPlaceholderImageInfoTitle;
+    return ![self.imageInfo isFeedPlaceholder];
 }
 
 - (void)configureCell:(WMFPicOfTheDayTableViewCell*)cell
@@ -130,10 +135,12 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return @[self.imageInfo];
 }
 
-- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    // no titles here...
-    return nil;
+- (UIViewController*)homeDetailViewControllerAtIndex:(NSUInteger)index {
+    NSParameterAssert(self.fetchedDate);
+    NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
+    return [[WMFModalPOTDGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
+
 
 @end
 
