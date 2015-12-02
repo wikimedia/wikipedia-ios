@@ -53,7 +53,7 @@
     self.distanceLabelBackground.backgroundColor    = [UIColor wmf_nearbyDistanceBackgroundColor];
     self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
     self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
-    [self wmf_setSelectedBackground];
+    [self wmf_addSelectedBackgroundView];
 }
 
 - (void)prepareForReuse {

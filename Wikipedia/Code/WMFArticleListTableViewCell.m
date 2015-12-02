@@ -4,6 +4,7 @@
 #import "UIImage+WMFStyle.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "UITableViewCell+SelectedBackground.h"
+#import "UIImageView+WMFPlaceholder.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -17,21 +18,16 @@
 @implementation WMFArticleListTableViewCell
 
 - (void)configureImageViewWithPlaceholder {
-    [self.articleImageView wmf_reset];
-    self.articleImageView.tintColor = [UIColor wmf_placeholderImageTintColor];
-    self.articleImageView.image     = [UIImage wmf_placeholderImage];
-    if (self.articleImageView.frame.size.width > self.articleImageView.image.size.width) {
-        self.articleImageView.backgroundColor = [UIColor wmf_placeholderImageBackgroundColor];
-        self.articleImageView.contentMode     = UIViewContentModeCenter;
-    } else {
-        self.articleImageView.backgroundColor = [UIColor clearColor];
-        self.articleImageView.contentMode     = UIViewContentModeScaleAspectFit;
-    }
-    [self wmf_setSelectedBackground];
+    [self.articleImageView wmf_configureWithDefaultPlaceholder];
+    // need to aspect-fit placeholder since our image view is too small
+    self.articleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    // use clear background, gray default looks bad w/ this cell
+    self.articleImageView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)configureCell {
     [self configureContentView];
+    [self wmf_addSelectedBackgroundView];
     [self configureImageViewWithPlaceholder];
 }
 
@@ -44,7 +40,6 @@
     [super prepareForReuse];
     self.titleLabel.text       = nil;
     self.descriptionLabel.text = nil;
-    [self.articleImageView wmf_reset];
     [self configureImageViewWithPlaceholder];
 }
 
