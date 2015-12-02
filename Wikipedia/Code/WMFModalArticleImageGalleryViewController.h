@@ -6,12 +6,17 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryViewController.h"
+#import "WMFModalImageGalleryViewController.h"
 
 @class MWKImage;
 @class MWKArticle;
 
-@interface WMFModalArticleImageGalleryViewController : WMFImageGalleryViewController
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ *  Displays a modal gallery of images for a given article.
+ */
+@interface WMFModalArticleImageGalleryViewController : WMFModalImageGalleryViewController
 
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
 
@@ -28,3 +33,5 @@
 - (void)setArticleWithPromise:(AnyPromise*)articlePromise;
 
 @end
+
+NS_ASSUME_NONNULL_END
