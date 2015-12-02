@@ -14,6 +14,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFModalPOTDGalleryViewController.h"
+#import "UIScreen+WMFImageWidth.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -76,7 +77,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     [self.fetcher fetchInfoForImagesFoundOnPages:@[todaysPOTDTitle]
                                         fromSite:[MWKSite wikimediaCommons]
                                 metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
-                                  thumbnailWidth:LEAD_IMAGE_WIDTH
+                                  thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale]
                                          success:^(NSArray* infoObjects) {
         @strongify(self);
         self.imageInfo = infoObjects.firstObject;

@@ -561,6 +561,7 @@
 		BCA15B041C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B031C0E905600D0A3EA /* WMFModalArticleImageGalleryViewController.m */; };
 		BCA15B081C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */; };
 		BCA15B0D1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */; };
+		BCA15B171C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCCEC1211B1F68CF00A8B522 /* golden-gate.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */; };
 		BCCEC1221B1F68CF00A8B522 /* MainPageMobileView.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */; };
@@ -1638,6 +1639,8 @@
 		BCA15B071C0E92E100D0A3EA /* WMFModalPOTDGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalPOTDGalleryViewController.m; path = Wikipedia/Code/WMFModalPOTDGalleryViewController.m; sourceTree = SOURCE_ROOT; };
 		BCA15B0B1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalPOTDGalleryDataSource.h; path = Wikipedia/Code/WMFModalPOTDGalleryDataSource.h; sourceTree = SOURCE_ROOT; };
 		BCA15B0C1C0E93EA00D0A3EA /* WMFModalPOTDGalleryDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFModalPOTDGalleryDataSource.m; path = Wikipedia/Code/WMFModalPOTDGalleryDataSource.m; sourceTree = SOURCE_ROOT; };
+		BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScreen+WMFImageWidth.h"; path = "Code/UIScreen+WMFImageWidth.h"; sourceTree = "<group>"; };
+		BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScreen+WMFImageWidth.m"; path = "Code/UIScreen+WMFImageWidth.m"; sourceTree = "<group>"; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCCC67A91BA9FB850017E311 /* fo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fo; path = fo.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCCC67AB1BA9FBE60017E311 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -3115,10 +3118,9 @@
 			children = (
 				BCA15B111C0E9B1600D0A3EA /* Gallery */,
 				BCA15B121C0E9B2100D0A3EA /* ImageController */,
+				BCA15B181C0F48F900D0A3EA /* Style */,
 				B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */,
 				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
-				B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */,
-				B0E805D31C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -3340,6 +3342,17 @@
 				BCA15AFD1C0E823200D0A3EA /* WMFModalImageGalleryDataSource.h */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BCA15B181C0F48F900D0A3EA /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */,
+				B0E805D31C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m */,
+				BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */,
+				BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */,
+			);
+			name = Style;
 			sourceTree = "<group>";
 		};
 		BCA6764F1AC05FE200A16160 /* Utilities */ = {
@@ -4518,6 +4531,7 @@
 				B0E807251C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m in Sources */,
 				B0E803E31C0CDD330065EBC0 /* UICollectionView+WMFExtensions.m in Sources */,
 				B0E806811C0CE9C70065EBC0 /* WMFFixtureRecording.m in Sources */,
+				BCA15B171C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m in Sources */,
 				B0E8055A1C0CE0DC0065EBC0 /* UIView+WMFRoundCorners.m in Sources */,
 				B0E803D21C0CDCBF0065EBC0 /* UIView+WMFShadow.m in Sources */,
 				B0E807971C0CEF970065EBC0 /* MWKSection.m in Sources */,
