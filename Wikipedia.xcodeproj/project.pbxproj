@@ -2512,16 +2512,16 @@
 			isa = PBXGroup;
 			children = (
 				0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */,
-				0E26B0751C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.h */,
-				0E26B0761C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.m */,
+				0E26B07D1C0F4F720004D687 /* WMFWelcomeViewController.h */,
+				0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */,
 				0E26B0771C0F4F720004D687 /* WMFWelcomeIntroductionViewController.h */,
 				0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */,
 				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
 				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
 				0E26B07B1C0F4F720004D687 /* WMFWelcomeLanguageViewController.h */,
 				0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */,
-				0E26B07D1C0F4F720004D687 /* WMFWelcomeViewController.h */,
-				0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */,
+				0E26B0751C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.h */,
+				0E26B0761C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.m */,
 			);
 			name = Welcome;
 			sourceTree = "<group>";
