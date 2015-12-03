@@ -97,13 +97,23 @@ static id _sharedInstance;
 - (void)updateLanguageArrays {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     NSArray* preferredLangusageCodes = [self readPreferredLanguageCodes];
-    self.preferredLanguages = [preferredLangusageCodes bk_map:^id (NSString* langString) {
+    self.preferredLanguages = [[preferredLangusageCodes bk_map:^id (NSString* langString) {
         return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
+    }] bk_reject:^BOOL (id obj) {
+        if ([obj isEqual:[NSNull null]]) {
+            return YES;
+        }
+        return NO;
     }];
-    self.otherLanguages = [self.allLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
+    self.otherLanguages = [[self.allLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
         return ![self.preferredLanguages containsObject:langLink];
+    }] bk_reject:^BOOL (id obj) {
+        if ([obj isEqual:[NSNull null]]) {
+            return YES;
+        }
+        return NO;
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
 }
