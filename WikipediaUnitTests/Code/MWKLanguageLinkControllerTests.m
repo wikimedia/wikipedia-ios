@@ -15,6 +15,8 @@
 
 @interface MWKLanguageLinkControllerTests : XCTestCase
 @property (strong, nonatomic) MWKLanguageLinkController* controller;
+@property (strong, nonatomic) MWKLanguageFilter* filter;
+
 @end
 
 @implementation MWKLanguageLinkControllerTests
@@ -29,6 +31,7 @@
 
     // all tests must start w/ a clean slate
     self.controller = [MWKLanguageLinkController sharedInstance];
+    self.filter     = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.controller];
     [self.controller resetPreferredLanguages];
 }
 
@@ -67,46 +70,28 @@
     [self verifyAllLanguageArrayProperties];
 }
 
-- (void)testPersistentSaves {
-    id firstController = self.controller;
-    [firstController saveSelectedLanguageCode:@"test"];
-    [self instantiateController];
-    NSParameterAssert(firstController != self.controller);
-    assertThat(self.controller.filteredPreferredLanguageCodes, hasItem(@"test"));
-    [self verifyAllLanguageArrayProperties];
-}
-
-- (void)testNoPreferredLanguages {
-    // reset langlinks to only those _not_ contained in preferred languages
-    // this mimics the case where an article's available languages don't contain any of the preferred languages
-    self.controller.languageLinks = [self.controller.languageLinks bk_reject:^BOOL (MWKLanguageLink* langLink) {
-        return [self.controller.filteredPreferredLanguages containsObject:langLink];
-    }];
-
-    [self verifyAllLanguageArrayProperties];
-}
-
 - (void)testLanguagesPropertiesAreNonnull {
-    self.controller = [MWKLanguageLinkController new];
-    assertThat(self.controller.languageLinks, isEmpty());
-    assertThat(self.controller.filteredOtherLanguages, isEmpty());
-    assertThat(self.controller.filteredPreferredLanguages, isEmpty());
+    self.controller = [MWKLanguageLinkController sharedInstance];
+    XCTAssertTrue(self.controller.allLanguages.count > 0);
+    XCTAssertTrue(self.controller.otherLanguages.count > 0);
+    XCTAssertTrue(self.controller.preferredLanguages.count > 0);
     [self verifyAllLanguageArrayProperties];
 }
 
 - (void)testBasicFiltering {
-    self.controller.languageFilter = @"en";
-    assertThat([self.controller.filteredLanguages bk_reject:^BOOL (MWKLanguageLink* langLink) {
+    self.filter.languageFilter = @"en";
+    assertThat([self.filter.filteredLanguages bk_reject:^BOOL (MWKLanguageLink* langLink) {
         return [langLink.name wmf_caseInsensitiveContainsString:@"en"]
         || [langLink.localizedName wmf_caseInsensitiveContainsString:@"en"];
     }], describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
                     isEmpty(), nil));
     [self verifyAllLanguageArrayProperties];
+
 }
 
 - (void)testEmptyAfterFiltering {
-    self.controller.languageFilter = @"$";
-    assertThat(self.controller.filteredLanguages, isEmpty());
+    self.filter.languageFilter = @"$";
+    assertThat(self.filter.filteredLanguages, isEmpty());
 }
 
 #pragma mark - Utils
