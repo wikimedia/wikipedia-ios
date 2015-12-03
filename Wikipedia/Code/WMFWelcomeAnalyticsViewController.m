@@ -1,6 +1,8 @@
 
 #import "WMFWelcomeAnalyticsViewController.h"
 #import "Wikipedia-Swift.h"
+#import "UIViewController+WMFOpenExternalUrl.h"
+
 @import HockeySDK;
 
 @interface WMFWelcomeAnalyticsViewController ()
@@ -44,6 +46,7 @@
 }
 
 - (IBAction)showPrivacyPolicy:(id)sender {
+    [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
 }
 
 @end
