@@ -24,6 +24,7 @@
 "history-clear-delete-all" = "Denak ezabatu";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-continue" = "Irten";
+"zero-interstitial-cancel" = "Gelditu hemen";
 "zero-learn-more-learn-more" = "Irakurri gehiago";
 "zero-learn-more-no-thanks" = "Utzi";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
@@ -74,9 +75,11 @@
 "main-menu-account-login" = "Saioa hasi";
 "main-menu-account-logout" = "Saioa itxi";
 "main-menu-show-title" = "Erakutsi gehiago...";
+"main-menu-show-history" = "Berriak";
 "main-menu-show-saved" = "Gordetako orrialdeak";
 "main-menu-current-article-save" = "Gorde $1 offline irakurtzeko";
 "main-menu-random" = "Ausazkoa";
+"main-menu-feedback-heading" = "Feedback";
 "main-menu-credits" = "Kredituak";
 "main-menu-privacy-policy" = "Pribatutasun politika";
 "main-menu-terms-of-use" = "Erabilera-baldintzak";
@@ -87,6 +90,7 @@
 "main-menu-more" = "Gehiago...";
 "saved-pages-title" = "Gordetako orrialdeak";
 "saved-pages-clear-confirmation-heading" = "Ezabatu gordetako elementu guztiak?";
+"saved-pages-clear-confirmation-sub-heading" = "Ekintza hau ezin da desegin!";
 "saved-pages-clear-cancel" = "Utzi";
 "saved-pages-clear-delete-all" = "Dena ezabatu";
 "saved-pages-none" = "Hizkuntzaren izena";
