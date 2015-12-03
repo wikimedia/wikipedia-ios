@@ -1414,8 +1414,8 @@
 		B0E808251C0CF6160065EBC0 /* KeychainCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainCredentials.h; path = Wikipedia/Code/KeychainCredentials.h; sourceTree = SOURCE_ROOT; };
 		B0E808261C0CF6160065EBC0 /* KeychainCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainCredentials.m; path = Wikipedia/Code/KeychainCredentials.m; sourceTree = SOURCE_ROOT; };
 		B0E808281C0D07EA0065EBC0 /* Wikipedia-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Wikipedia-Bridging-Header.h"; path = "Code/Wikipedia-Bridging-Header.h"; sourceTree = "<group>"; };
-		B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCodingStyle.h; path = Code/WMFCodingStyle.h; sourceTree = "<group>"; };
-		B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCodingStyle.m; path = Code/WMFCodingStyle.m; sourceTree = "<group>"; };
+		B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCodingStyle.h; path = WikipediaUnitTests/Code/WMFCodingStyle.h; sourceTree = SOURCE_ROOT; };
+		B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCodingStyle.m; path = WikipediaUnitTests/Code/WMFCodingStyle.m; sourceTree = SOURCE_ROOT; };
 		B0E8086E1C0D15330065EBC0 /* WMFTestFixtureUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFTestFixtureUtilities.h; path = WikipediaUnitTests/Code/WMFTestFixtureUtilities.h; sourceTree = SOURCE_ROOT; };
 		B0E8086F1C0D15400065EBC0 /* XCTestCase+MWKFixtures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XCTestCase+MWKFixtures.h"; path = "WikipediaUnitTests/Code/XCTestCase+MWKFixtures.h"; sourceTree = SOURCE_ROOT; };
 		B0E808701C0D15400065EBC0 /* XCTestCase+MWKFixtures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+MWKFixtures.m"; path = "WikipediaUnitTests/Code/XCTestCase+MWKFixtures.m"; sourceTree = SOURCE_ROOT; };
@@ -1504,63 +1504,63 @@
 		B0E808F61C0D18410065EBC0 /* MWKTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTestCase.m; path = WikipediaUnitTests/Code/MWKTestCase.m; sourceTree = SOURCE_ROOT; };
 		B0E808F81C0D184B0065EBC0 /* MWKTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleTests.m; path = WikipediaUnitTests/Code/MWKTitleTests.m; sourceTree = SOURCE_ROOT; };
 		B0E808FA1C0D18530065EBC0 /* MWKUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKUserTests.m; path = WikipediaUnitTests/Code/MWKUserTests.m; sourceTree = SOURCE_ROOT; };
-		B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFJoinedPropertyParametersTests.m; path = Code/WMFJoinedPropertyParametersTests.m; sourceTree = "<group>"; };
-		B0E808FE1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFErrorForApiErrorObjectTests.m; path = Code/WMFErrorForApiErrorObjectTests.m; sourceTree = "<group>"; };
-		B0E809001C0D188A0065EBC0 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Code/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
-		B0E809021C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+MaybeSetTests.m"; path = "Code/NSMutableDictionary+MaybeSetTests.m"; sourceTree = "<group>"; };
-		B0E809041C0D18A00065EBC0 /* CircularBitwiseRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CircularBitwiseRotationTests.m; path = Code/CircularBitwiseRotationTests.m; sourceTree = "<group>"; };
-		B0E809061C0D18B10065EBC0 /* NSArray+BKIndexTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+BKIndexTests.m"; path = "Code/NSArray+BKIndexTests.m"; sourceTree = "<group>"; };
-		B0E809081C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+WMFHTMLParsingTests.m"; path = "Code/NSString+WMFHTMLParsingTests.m"; sourceTree = "<group>"; };
-		B0E8090A1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+FormattedAttributedStringTests.m"; path = "Code/NSString+FormattedAttributedStringTests.m"; sourceTree = "<group>"; };
-		B0E8090C1C0D18E70065EBC0 /* WMFImageURLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageURLParsingTests.m; path = Code/WMFImageURLParsingTests.m; sourceTree = "<group>"; };
-		B0E8090E1C0D18F30065EBC0 /* WMFMathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMathTests.m; path = Code/WMFMathTests.m; sourceTree = "<group>"; };
-		B0E809101C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSubstringUtilsTests.m; path = Code/WMFSubstringUtilsTests.m; sourceTree = "<group>"; };
-		B0E809121C0D19090065EBC0 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDateFormatterTests.m; path = Code/WMFDateFormatterTests.m; sourceTree = "<group>"; };
-		B0E809141C0D19150065EBC0 /* WMFArticleImageInjectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleImageInjectionTests.m; path = Code/WMFArticleImageInjectionTests.m; sourceTree = "<group>"; };
-		B0E809161C0D19250065EBC0 /* MWKSection+HTMLImageParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSection+HTMLImageParsingTests.m"; path = "Code/MWKSection+HTMLImageParsingTests.m"; sourceTree = "<group>"; };
-		B0E809181C0D19340065EBC0 /* LegacyCoreDataMigratorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LegacyCoreDataMigratorTests.m; path = Code/LegacyCoreDataMigratorTests.m; sourceTree = "<group>"; };
-		B0E8091A1C0D19420065EBC0 /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageControllerTests.swift; path = Code/WMFImageControllerTests.swift; sourceTree = "<group>"; };
-		B0E8091C1C0D19640065EBC0 /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageInfoControllerTests.m; path = Code/WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
-		B0E8091E1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduceTests.m"; path = "Code/NSIndexSet+BKReduceTests.m"; sourceTree = "<group>"; };
-		B0E809201C0D19920065EBC0 /* MWKSectionListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListTests.m; path = Code/MWKSectionListTests.m; sourceTree = "<group>"; };
-		B0E809221C0D199E0065EBC0 /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleLoadingTests.m; path = Code/ArticleLoadingTests.m; sourceTree = "<group>"; };
-		B0E809241C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionHasTextDataTests.m; path = Code/MWKSectionHasTextDataTests.m; sourceTree = "<group>"; };
-		B0E809261C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSection+WMFSharingTests.m"; path = "Code/MWKSection+WMFSharingTests.m"; sourceTree = "<group>"; };
-		B0E809281C0D19D00065EBC0 /* MWKArticleExtractionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticleExtractionTests.m; path = Code/MWKArticleExtractionTests.m; sourceTree = "<group>"; };
-		B0E8092A1C0D19DC0065EBC0 /* ArticleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleFetcherTests.m; path = Code/ArticleFetcherTests.m; sourceTree = "<group>"; };
-		B0E8092C1C0D19FA0065EBC0 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSiteInfoFetcherTests.m; path = Code/MWKSiteInfoFetcherTests.m; sourceTree = "<group>"; };
-		B0E8092E1C0D1A0B0065EBC0 /* NSURLExtrasTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSURLExtrasTests.m; path = Code/NSURLExtrasTests.m; sourceTree = "<group>"; };
-		B0E809301C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBackgroundTestManagerTests.swift; path = Code/WMFBackgroundTestManagerTests.swift; sourceTree = "<group>"; };
-		B0E809321C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLegacyImageDataMigrationTests.swift; path = Code/WMFLegacyImageDataMigrationTests.swift; sourceTree = "<group>"; };
-		B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGeometryTests.m; path = Code/WMFGeometryTests.m; sourceTree = "<group>"; };
-		B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkControllerTests.m; path = Code/MWKLanguageLinkControllerTests.m; sourceTree = "<group>"; };
-		B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkFetcherTests.m; path = Code/MWKLanguageLinkFetcherTests.m; sourceTree = "<group>"; };
-		B0E8093A1C0D1A590065EBC0 /* WMFSafeAssignTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSafeAssignTests.m; path = Code/WMFSafeAssignTests.m; sourceTree = "<group>"; };
-		B0E8093C1C0D1A6C0065EBC0 /* MWKLanguageLinkResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkResponseSerializerTests.m; path = Code/MWKLanguageLinkResponseSerializerTests.m; sourceTree = "<group>"; };
-		B0E8093E1C0D1A760065EBC0 /* WMFCollectionViewExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCollectionViewExtensionTests.m; path = Code/WMFCollectionViewExtensionTests.m; sourceTree = "<group>"; };
-		B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFLinkParsingTests.m"; path = "Code/NSURL+WMFLinkParsingTests.m"; sourceTree = "<group>"; };
-		B0E809421C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFExtensionsTests.m"; path = "Code/NSArray+WMFExtensionsTests.m"; sourceTree = "<group>"; };
-		B0E809441C0D1A9F0065EBC0 /* MWKArticleEqualityCheckTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticleEqualityCheckTests.m; path = Code/MWKArticleEqualityCheckTests.m; sourceTree = "<group>"; };
-		B0E809461C0D1AB20065EBC0 /* MWKImageFaceDetectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageFaceDetectionTests.m; path = Code/MWKImageFaceDetectionTests.m; sourceTree = "<group>"; };
-		B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFImageFetchingVisualTests.m"; path = "Code/UIImageView+WMFImageFetchingVisualTests.m"; sourceTree = "<group>"; };
-		B0E8094A1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFModifyTests.m"; path = "Code/NSAttributedString+WMFModifyTests.m"; sourceTree = "<group>"; };
-		B0E8094C1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+MWKImageTests.m"; path = "Code/UIImageView+MWKImageTests.m"; sourceTree = "<group>"; };
-		B0E8094E1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFTrimTests.m"; path = "Code/NSAttributedString+WMFTrimTests.m"; sourceTree = "<group>"; };
-		B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListHierarchyTests.m; path = Code/MWKSectionListHierarchyTests.m; sourceTree = "<group>"; };
-		B0E809521C0D1B430065EBC0 /* WMFSaveButtonControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSaveButtonControllerTests.m; path = Code/WMFSaveButtonControllerTests.m; sourceTree = "<group>"; };
-		B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFBearingTests.m"; path = "Code/CLLocation+WMFBearingTests.m"; sourceTree = "<group>"; };
-		B0E809561C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultCellVisualTests.m; path = Code/WMFSearchResultCellVisualTests.m; sourceTree = "<group>"; };
-		B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedArticlesFetcherTests.h; path = Code/SavedArticlesFetcherTests.h; sourceTree = "<group>"; };
-		B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedArticlesFetcherTests.m; path = Code/SavedArticlesFetcherTests.m; sourceTree = "<group>"; };
-		B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticlePreviewSerializationTests.m; path = Code/MWKArticlePreviewSerializationTests.m; sourceTree = "<group>"; };
-		B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsSerializationTests.m; path = Code/WMFSearchResultsSerializationTests.m; sourceTree = "<group>"; };
-		B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchFetcherTests.m; path = Code/WMFSearchFetcherTests.m; sourceTree = "<group>"; };
-		B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsMergeTests.m; path = Code/WMFSearchResultsMergeTests.m; sourceTree = "<group>"; };
-		B0E809631C0D1BB90065EBC0 /* WMFENFeaturedTitleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFENFeaturedTitleFetcherTests.m; path = Code/WMFENFeaturedTitleFetcherTests.m; sourceTree = "<group>"; };
-		B0E809651C0D1BC30065EBC0 /* WMFRecentPagesDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRecentPagesDataSourceTests.m; path = Code/WMFRecentPagesDataSourceTests.m; sourceTree = "<group>"; };
-		B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+PromiseKitTests.m"; path = "Code/XCTestCase+PromiseKitTests.m"; sourceTree = "<group>"; };
-		B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCTestCase+PromiseSwiftKitTests.swift"; path = "Code/XCTestCase+PromiseSwiftKitTests.swift"; sourceTree = "<group>"; };
-		B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayTableViewCellVisualTests.m; path = Code/WMFPicOfTheDayTableViewCellVisualTests.m; sourceTree = "<group>"; };
+		B0E808FC1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFJoinedPropertyParametersTests.m; path = WikipediaUnitTests/Code/WMFJoinedPropertyParametersTests.m; sourceTree = SOURCE_ROOT; };
+		B0E808FE1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFErrorForApiErrorObjectTests.m; path = WikipediaUnitTests/Code/WMFErrorForApiErrorObjectTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809001C0D188A0065EBC0 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "WikipediaUnitTests/Code/NSArray+PredicateTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809021C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+MaybeSetTests.m"; path = "WikipediaUnitTests/Code/NSMutableDictionary+MaybeSetTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809041C0D18A00065EBC0 /* CircularBitwiseRotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CircularBitwiseRotationTests.m; path = WikipediaUnitTests/Code/CircularBitwiseRotationTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809061C0D18B10065EBC0 /* NSArray+BKIndexTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+BKIndexTests.m"; path = "WikipediaUnitTests/Code/NSArray+BKIndexTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809081C0D18BC0065EBC0 /* NSString+WMFHTMLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+WMFHTMLParsingTests.m"; path = "WikipediaUnitTests/Code/NSString+WMFHTMLParsingTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E8090A1C0D18D90065EBC0 /* NSString+FormattedAttributedStringTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+FormattedAttributedStringTests.m"; path = "WikipediaUnitTests/Code/NSString+FormattedAttributedStringTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E8090C1C0D18E70065EBC0 /* WMFImageURLParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageURLParsingTests.m; path = WikipediaUnitTests/Code/WMFImageURLParsingTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8090E1C0D18F30065EBC0 /* WMFMathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMathTests.m; path = WikipediaUnitTests/Code/WMFMathTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809101C0D18FD0065EBC0 /* WMFSubstringUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSubstringUtilsTests.m; path = WikipediaUnitTests/Code/WMFSubstringUtilsTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809121C0D19090065EBC0 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDateFormatterTests.m; path = WikipediaUnitTests/Code/WMFDateFormatterTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809141C0D19150065EBC0 /* WMFArticleImageInjectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleImageInjectionTests.m; path = WikipediaUnitTests/Code/WMFArticleImageInjectionTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809161C0D19250065EBC0 /* MWKSection+HTMLImageParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSection+HTMLImageParsingTests.m"; path = "WikipediaUnitTests/Code/MWKSection+HTMLImageParsingTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809181C0D19340065EBC0 /* LegacyCoreDataMigratorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LegacyCoreDataMigratorTests.m; path = WikipediaUnitTests/Code/LegacyCoreDataMigratorTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8091A1C0D19420065EBC0 /* WMFImageControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFImageControllerTests.swift; path = WikipediaUnitTests/Code/WMFImageControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		B0E8091C1C0D19640065EBC0 /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageInfoControllerTests.m; path = WikipediaUnitTests/Code/WMFImageInfoControllerTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8091E1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+BKReduceTests.m"; path = "WikipediaUnitTests/Code/NSIndexSet+BKReduceTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809201C0D19920065EBC0 /* MWKSectionListTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListTests.m; path = WikipediaUnitTests/Code/MWKSectionListTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809221C0D199E0065EBC0 /* ArticleLoadingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleLoadingTests.m; path = WikipediaUnitTests/Code/ArticleLoadingTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809241C0D19AF0065EBC0 /* MWKSectionHasTextDataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionHasTextDataTests.m; path = WikipediaUnitTests/Code/MWKSectionHasTextDataTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809261C0D19BC0065EBC0 /* MWKSection+WMFSharingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKSection+WMFSharingTests.m"; path = "WikipediaUnitTests/Code/MWKSection+WMFSharingTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809281C0D19D00065EBC0 /* MWKArticleExtractionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticleExtractionTests.m; path = WikipediaUnitTests/Code/MWKArticleExtractionTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8092A1C0D19DC0065EBC0 /* ArticleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ArticleFetcherTests.m; path = WikipediaUnitTests/Code/ArticleFetcherTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8092C1C0D19FA0065EBC0 /* MWKSiteInfoFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSiteInfoFetcherTests.m; path = WikipediaUnitTests/Code/MWKSiteInfoFetcherTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8092E1C0D1A0B0065EBC0 /* NSURLExtrasTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSURLExtrasTests.m; path = WikipediaUnitTests/Code/NSURLExtrasTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809301C0D1A170065EBC0 /* WMFBackgroundTestManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFBackgroundTestManagerTests.swift; path = WikipediaUnitTests/Code/WMFBackgroundTestManagerTests.swift; sourceTree = SOURCE_ROOT; };
+		B0E809321C0D1A270065EBC0 /* WMFLegacyImageDataMigrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFLegacyImageDataMigrationTests.swift; path = WikipediaUnitTests/Code/WMFLegacyImageDataMigrationTests.swift; sourceTree = SOURCE_ROOT; };
+		B0E809341C0D1A2F0065EBC0 /* WMFGeometryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGeometryTests.m; path = WikipediaUnitTests/Code/WMFGeometryTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809361C0D1A420065EBC0 /* MWKLanguageLinkControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkControllerTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkControllerTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809381C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkFetcherTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkFetcherTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8093A1C0D1A590065EBC0 /* WMFSafeAssignTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSafeAssignTests.m; path = WikipediaUnitTests/Code/WMFSafeAssignTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8093C1C0D1A6C0065EBC0 /* MWKLanguageLinkResponseSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageLinkResponseSerializerTests.m; path = WikipediaUnitTests/Code/MWKLanguageLinkResponseSerializerTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8093E1C0D1A760065EBC0 /* WMFCollectionViewExtensionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCollectionViewExtensionTests.m; path = WikipediaUnitTests/Code/WMFCollectionViewExtensionTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809401C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+WMFLinkParsingTests.m"; path = "WikipediaUnitTests/Code/NSURL+WMFLinkParsingTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809421C0D1A900065EBC0 /* NSArray+WMFExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFExtensionsTests.m"; path = "WikipediaUnitTests/Code/NSArray+WMFExtensionsTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809441C0D1A9F0065EBC0 /* MWKArticleEqualityCheckTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticleEqualityCheckTests.m; path = WikipediaUnitTests/Code/MWKArticleEqualityCheckTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809461C0D1AB20065EBC0 /* MWKImageFaceDetectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKImageFaceDetectionTests.m; path = WikipediaUnitTests/Code/MWKImageFaceDetectionTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809481C0D1AC00065EBC0 /* UIImageView+WMFImageFetchingVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WMFImageFetchingVisualTests.m"; path = "WikipediaUnitTests/Code/UIImageView+WMFImageFetchingVisualTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E8094A1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFModifyTests.m"; path = "WikipediaUnitTests/Code/NSAttributedString+WMFModifyTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E8094C1C0D1AE50065EBC0 /* UIImageView+MWKImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+MWKImageTests.m"; path = "WikipediaUnitTests/Code/UIImageView+MWKImageTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E8094E1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFTrimTests.m"; path = "WikipediaUnitTests/Code/NSAttributedString+WMFTrimTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListHierarchyTests.m; path = WikipediaUnitTests/Code/MWKSectionListHierarchyTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809521C0D1B430065EBC0 /* WMFSaveButtonControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSaveButtonControllerTests.m; path = WikipediaUnitTests/Code/WMFSaveButtonControllerTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFBearingTests.m"; path = "WikipediaUnitTests/Code/CLLocation+WMFBearingTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809561C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultCellVisualTests.m; path = WikipediaUnitTests/Code/WMFSearchResultCellVisualTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedArticlesFetcherTests.h; path = WikipediaUnitTests/Code/SavedArticlesFetcherTests.h; sourceTree = SOURCE_ROOT; };
+		B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedArticlesFetcherTests.m; path = WikipediaUnitTests/Code/SavedArticlesFetcherTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticlePreviewSerializationTests.m; path = WikipediaUnitTests/Code/MWKArticlePreviewSerializationTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsSerializationTests.m; path = WikipediaUnitTests/Code/WMFSearchResultsSerializationTests.m; sourceTree = SOURCE_ROOT; };
+		B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchFetcherTests.m; path = WikipediaUnitTests/Code/WMFSearchFetcherTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsMergeTests.m; path = WikipediaUnitTests/Code/WMFSearchResultsMergeTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809631C0D1BB90065EBC0 /* WMFENFeaturedTitleFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFENFeaturedTitleFetcherTests.m; path = WikipediaUnitTests/Code/WMFENFeaturedTitleFetcherTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809651C0D1BC30065EBC0 /* WMFRecentPagesDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRecentPagesDataSourceTests.m; path = WikipediaUnitTests/Code/WMFRecentPagesDataSourceTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XCTestCase+PromiseKitTests.m"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseKitTests.m"; sourceTree = SOURCE_ROOT; };
+		B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "XCTestCase+PromiseSwiftKitTests.swift"; path = "WikipediaUnitTests/Code/XCTestCase+PromiseSwiftKitTests.swift"; sourceTree = SOURCE_ROOT; };
+		B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayTableViewCellVisualTests.m; path = WikipediaUnitTests/Code/WMFPicOfTheDayTableViewCellVisualTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8096D1C0D1DD50065EBC0 /* WikipediaUnitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "WikipediaUnitTests-Bridging-Header.h"; path = "WikipediaUnitTests/Code/WikipediaUnitTests-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -3119,7 +3119,8 @@
 				BC5BC49B1BCEAC5200062619 /* Saved Page List */,
 			);
 			name = MWKList;
-			sourceTree = "<group>";
+			path = WikipediaUnitTests/Code/MWKList;
+			sourceTree = SOURCE_ROOT;
 		};
 		BC5BC49A1BCEAC4A00062619 /* History List */ = {
 			isa = PBXGroup;
@@ -3133,7 +3134,8 @@
 				B0E808D21C0D17A60065EBC0 /* MWKHistoryListUniquenessTests.m */,
 			);
 			name = "History List";
-			sourceTree = "<group>";
+			path = "WikipediaUnitTests/Code/History List";
+			sourceTree = SOURCE_ROOT;
 		};
 		BC5BC49B1BCEAC5200062619 /* Saved Page List */ = {
 			isa = PBXGroup;
@@ -3146,7 +3148,8 @@
 				B0E808DE1C0D17C20065EBC0 /* MWKSavedPageListTogglingTests.m */,
 			);
 			name = "Saved Page List";
-			sourceTree = "<group>";
+			path = "WikipediaUnitTests/Code/Saved Page List";
+			sourceTree = SOURCE_ROOT;
 		};
 		BC5BC4AC1BCEF95100062619 /* Recent Searches */ = {
 			isa = PBXGroup;
@@ -3155,7 +3158,8 @@
 				B0E808C91C0D178E0065EBC0 /* MWKRecentSearchesSharedTests.m */,
 			);
 			name = "Recent Searches";
-			sourceTree = "<group>";
+			path = "WikipediaUnitTests/Code/Recent Searches";
+			sourceTree = SOURCE_ROOT;
 		};
 		BC5BC4B41BCEFADF00062619 /* Random */ = {
 			isa = PBXGroup;
@@ -3167,7 +3171,8 @@
 				B0E808B21C0D16EA0065EBC0 /* MWKSite+Random.m */,
 			);
 			name = Random;
-			sourceTree = "<group>";
+			path = WikipediaUnitTests/Code/Random;
+			sourceTree = SOURCE_ROOT;
 		};
 		BC628C791B389E2B00B3F85C /* Images */ = {
 			isa = PBXGroup;
@@ -3235,7 +3240,6 @@
 		BC7C3A381C0FF9620057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
 				BCA6764F1AC05FE200A16160 /* Utilities */,
 				B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */,
@@ -3351,6 +3355,7 @@
 			isa = PBXGroup;
 			children = (
 				BC7C3A381C0FF9620057F023 /* Code */,
+				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
 				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
 				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
 			);
@@ -3427,8 +3432,9 @@
 				B0E808B71C0D17160065EBC0 /* WMFHTTPHangingProtocol.h */,
 				B0E808B81C0D17160065EBC0 /* WMFHTTPHangingProtocol.m */,
 			);
-			path = Utilities;
-			sourceTree = "<group>";
+			name = Utilities;
+			path = WikipediaUnitTests/Code/Utilities;
+			sourceTree = SOURCE_ROOT;
 		};
 		BCB58F401A890D8200465627 /* Categories */ = {
 			isa = PBXGroup;
@@ -3579,8 +3585,8 @@
 				B0E808FA1C0D18530065EBC0 /* MWKUserTests.m */,
 			);
 			name = MediaWikiKitTests;
-			path = ../MediaWikiKit/MediaWikiKitTests;
-			sourceTree = "<group>";
+			path = WikipediaUnitTests/Code/MediaWikiKitTests;
+			sourceTree = SOURCE_ROOT;
 		};
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
 			isa = PBXGroup;
@@ -3630,7 +3636,8 @@
 				B0E808791C0D15660065EBC0 /* XCTestCase+DataStoreFixtureTesting.m */,
 			);
 			name = "Fixture Utilities";
-			sourceTree = "<group>";
+			path = "WikipediaUnitTests/Code/Fixture Utilities";
+			sourceTree = SOURCE_ROOT;
 		};
 		BCD41E081B11D30B00231BB1 /* Persistence Utilities */ = {
 			isa = PBXGroup;
@@ -3647,7 +3654,8 @@
 				B0E808881C0D15C70065EBC0 /* NSManagedObjectContext+WMFTempContext.m */,
 			);
 			name = "Persistence Utilities";
-			sourceTree = "<group>";
+			path = "WikipediaUnitTests/Code/Persistence Utilities";
+			sourceTree = SOURCE_ROOT;
 		};
 		BCD41E091B11D31700231BB1 /* Custom Matchers */ = {
 			isa = PBXGroup;
@@ -3656,7 +3664,8 @@
 				B0E8088B1C0D15D90065EBC0 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m */,
 			);
 			name = "Custom Matchers";
-			sourceTree = "<group>";
+			path = "WikipediaUnitTests/Code/Custom Matchers";
+			sourceTree = SOURCE_ROOT;
 		};
 		BCDC489C1BF0F38900E6858A /* Feed */ = {
 			isa = PBXGroup;
