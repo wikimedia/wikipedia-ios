@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
+#import "WMFDeprecationMacros.h"
 #import "WMFAsyncTestCase.h"
 #import "WMFTestFixtureUtilities.h"
 #import "MWKDataStore+TemporaryDataStore.h"
