@@ -212,23 +212,18 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (![self isViewLoaded]) {
         return;
     }
-    dispatch_block_t animations = ^{
-        self.topGradientView.hidden = [self isChromeHidden];
-        self.closeButton.hidden     = [self isChromeHidden];
-        for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
-            [self updateDetailVisibilityForCellAtIndexPath:indexPath];
-        }
-    };
 
-    if (animated) {
-        [UIView animateWithDuration:[CATransaction animationDuration]
-                              delay:0
-                            options:UIViewAnimationOptionTransitionCrossDissolve
-                         animations:animations
-                         completion:nil];
-    } else {
-        animations();
+    [UIView transitionWithView:self.view
+                      duration:animated ? [CATransaction animationDuration] : 0.0
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+        self.topGradientView.hidden = [self isChromeHidden];
+        self.closeButton.hidden = [self isChromeHidden];
+        for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
+            [self updateDetailVisibilityForCellAtIndexPath:indexPath animated:NO];
+        }
     }
+                    completion:nil];
 }
 
 #pragma mark - Dismissal
@@ -276,12 +271,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Cell Updates
 
-- (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+- (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell
+       atIndexPath:(NSIndexPath*)indexPath {
     MWKImageInfo* infoForImage = [[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath];
 
     [cell startLoadingAfterDelay:0.25];
-
-    [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 
     if (infoForImage) {
         cell.detailOverlayView.imageDescription =
@@ -299,6 +293,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         };
     }
 
+    // update detail visibility after info might have been populated
+    [self updateDetailVisibilityForCell:cell withInfo:infoForImage animated:NO];
+
     [self updateImageForCell:cell
                  atIndexPath:indexPath
          placeholderImageURL:[self.dataSource imageURLAtIndexPath:indexPath]
@@ -307,27 +304,52 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Image Details
 
-- (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath {
+- (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated {
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-    [self updateDetailVisibilityForCell:cell atIndexPath:indexPath];
+    [self updateDetailVisibilityForCell:cell atIndexPath:indexPath animated:animated];
 }
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
-                          atIndexPath:(NSIndexPath*)indexPath {
-    [self updateDetailVisibilityForCell:cell withInfo:[[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath]];
+                          atIndexPath:(NSIndexPath*)indexPath
+                             animated:(BOOL)animated {
+    [self updateDetailVisibilityForCell:cell
+                               withInfo:[[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath]
+                               animated:animated];
 }
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
-                             withInfo:(MWKImageInfo*)info {
+                             withInfo:(MWKImageInfo*)info
+                             animated:(BOOL)animated {
+    if (!cell) {
+        return;
+    }
+
     BOOL const shouldHideDetails = [self isChromeHidden]
                                    || (!info.imageDescription && !info.owner && !info.license);
-    cell.detailOverlayView.alpha = shouldHideDetails ? 0.0 : 1.0;
+    dispatch_block_t animations = ^{
+        cell.detailOverlayView.hidden = shouldHideDetails;
+    };
+
+    /*
+       HAX: UIView transition API doesn't invoke animations inline if duration is 0, which can lead to staggered UI updates
+       if there are nested animations. For example, if this is invoked within the animation block of `applyChromeHidden`,
+       the detail overlay will appear *without animation* after the chrome is cross-dissolved away.
+     */
+    if (animated) {
+        [UIView transitionWithView:cell
+                          duration:[CATransaction animationDuration]
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:animations
+                        completion:nil];
+    } else {
+        animations();
+    }
 }
 
 #pragma mark - Image Handling
 
-- (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
+- (void)updateImageAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated {
     NSParameterAssert(indexPath);
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
@@ -415,13 +437,30 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 }
 
-- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource updatedItemsAtIndexes:(NSIndexSet*)indexes {
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource
+         updatedItemsAtIndexes:(NSIndexSet*)indexes {
     [self.loadingIndicator stopAnimating];
+    /*
+       NOTE: Do not call `reloadItemsAtIndexPaths:` because that will cause an infinite loop with the collection view
+       reloading the cell, which asks the dataSource to fetch data, which triggers this method, which reloads the cell...
+     */
     [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
                                                                NSIndexPath* indexPath,
                                                                BOOL* _) {
         if ([indexes containsIndex:indexPath.item]) {
-            [self updateCell:cell atIndexPath:indexPath];
+            UIViewAnimationOptions options = UIViewAnimationOptionTransitionCrossDissolve
+                                             | UIViewAnimationOptionAllowAnimatedContent
+                                             | UIViewAnimationOptionAllowUserInteraction;
+            /*
+               NOTE: Perform animations with the cell as the view (as opposed altogether w/ the collectionView), otherwise
+               it causes all the cells to fade, which makes cross-dissolving while swiping look very strange.
+             */
+            [UIView transitionWithView:cell
+                              duration:[CATransaction animationDuration]
+                               options:options
+                            animations:^{
+                [self updateCell:cell atIndexPath:indexPath];
+            } completion:nil];
         }
     }];
 }
