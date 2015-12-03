@@ -172,11 +172,11 @@
 
 @interface MWKImage ()
 
-- (void)importImageData:(NSData*)data __deprecated;
-- (void)updateWithData:(NSData*)data __deprecated;
+- (void)importImageData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
+- (void)updateWithData:(NSData*)data WMF_TECH_DEBT_DEPRECATED;
 
-- (UIImage*)asUIImage __deprecated;
-- (NSData*)asNSData __deprecated;
-- (NSString*)fullImageBinaryPath __deprecated;
+- (UIImage*)asUIImage WMF_TECH_DEBT_DEPRECATED;
+- (NSData*)asNSData WMF_TECH_DEBT_DEPRECATED;
+- (NSString*)fullImageBinaryPath WMF_TECH_DEBT_DEPRECATED;
 
 @end
