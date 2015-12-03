@@ -465,7 +465,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
-    id<WMFArticleHomeSectionController> articleSectionController = controllerForSection;
+    id<WMFArticleHomeSectionController> articleSectionController = (id<WMFArticleHomeSectionController>)controllerForSection;
     WMFArticleListTableViewController* extendedList = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
     extendedList.dataSource = [articleSectionController extendedListDataSource];
