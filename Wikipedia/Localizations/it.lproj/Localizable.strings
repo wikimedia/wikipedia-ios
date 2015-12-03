@@ -287,7 +287,7 @@
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-question" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminarlo?";
 "hockeyapp-alert-question-with-response-field" = "Desideri inviare una segnalazione di crash a $1 in modo che Wikimedia sia in grado di esaminarlo? Per favore descrivi ciò che è successo quando si è verificato il crash:";
-"hockeyapp-alert-title" = "Siamo spiacenti, l'ultima volta l'app è andata in stallo";
+"hockeyapp-alert-title" = "Spiacenti, l'ultima volta l'applicazione è andata in errore";
 "hockeyapp-alert-send-report" = "Invia segnalazione";
 "hockeyapp-alert-always-send" = "Invia sempre";
 "hockeyapp-alert-do-not-send" = "Non inviare";

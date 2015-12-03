@@ -3,9 +3,13 @@
 // Author: Arjanizary
 // Author: Ebrahimi-amir
 // Author: Koroğlu
+// Author: Mousa
 
+"languages-title" = "دیل‌لر";
 "article-languages-label" = "دیل سئچ";
 "article-languages-cancel" = "پوْز";
+"info-box-close-text" = "باغلا";
+"table-title-other" = "آرتیق بیلگیلر";
 "history-label" = "سون";
 "history-section-today" = "بوگون";
 "history-section-yesterday" = "دونن";
@@ -22,6 +26,7 @@
 "account-creation-login" = "اؤنجه‌دن حسابینیز وارمی؟ گیرینیز.";
 "account-creation-username-placeholder-text" = "ایشلدن آدی";
 "account-creation-password-placeholder-text" = "رمز";
+"account-creation-email-placeholder-text" = "ایمیل (ایستگه باغلی)";
 "login-user-blocked" = "ایشلدن بلوکلانیب.";
 "login-username-placeholder-text" = "ایشلدن آدی";
 "login-password-placeholder-text" = "رمز";

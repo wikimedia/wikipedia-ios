@@ -20,6 +20,7 @@
 "history-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע אביעקטן?";
 "history-clear-cancel" = "אַנולירן";
 "history-clear-delete-all" = "אויסמעקן אלץ";
+"history-none" = "קיין לעצטיקע בלעטער נישט דא.";
 "zero-free-verbiage" = "אומזיסטער צוטריט פון אײַער מאביל־פארזארגער (אן באצאלן פאר דאטן)";
 "zero-charged-verbiage" = "וויקיפעדיע זערא איז אויס";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -106,6 +107,7 @@
 "saved-pages-clear-delete-all" = "אויסמעקן אלץ";
 "saved-pages-refresh-cancel-alert-title" = "דערהיינטיקונג אנולירט";
 "saved-pages-refresh-cancel-alert-button" = "געכאפט";
+"saved-pages-none" = "נאך נישט קיין אויפגעהיטענע בלעטער.";
 "page-history-title" = "ארטיקל היסטאריע";
 "navbar-title-mode-edit-wikitext" = "רעדאַקטירן";
 "navbar-title-mode-login" = "אַרײַנלאגירן";
