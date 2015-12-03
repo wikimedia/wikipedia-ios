@@ -37,6 +37,9 @@ pod 'SSDataSources', '~> 0.8.0'
 # Autolayout
 pod 'Masonry', '0.6.2'
 
+# Stack View
+pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
+
 # Diagnostics
 pod 'PiwikTracker'
 pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :branch => 'swift_2.0'
