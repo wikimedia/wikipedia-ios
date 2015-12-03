@@ -38,8 +38,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleHeaderImageGalleryViewController
 
++ (UICollectionViewLayout*)headerGalleryLayout {
+    UICollectionViewFlowLayout* layout = [WMFCollectionViewPageLayout new];
+    layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0.f;
+    layout.minimumLineSpacing      = 0.f;
+    layout.sectionInset            = UIEdgeInsetsZero;
+    return layout;
+}
+
 - (instancetype)init {
-    return [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
+    return [super initWithCollectionViewLayout:[[self class] headerGalleryLayout]];
 }
 
 - (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
@@ -76,12 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView registerClass:[WMFImageCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
-
-    WMFCollectionViewPageLayout* layout = (WMFCollectionViewPageLayout*)self.collectionViewLayout;
-    layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
-    layout.minimumInteritemSpacing = 0.f;
-    layout.minimumLineSpacing      = 0.f;
-    layout.sectionInset            = UIEdgeInsetsZero;
 }
 
 #pragma mark - Show Articles
@@ -94,9 +97,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showImagesInArticle:(nullable MWKArticle*)article {
-    WMFArticleImageGalleryDataSource* dataSource = [[WMFArticleImageGalleryDataSource alloc] initWithItems:nil];
-    dataSource.article = article;
-    self.dataSource    = (SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource;
+    WMFArticleImageGalleryDataSource* dataSource =
+        [[WMFArticleImageGalleryDataSource alloc] initWithArticle:article];
+    self.dataSource = (SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource;
     if ([self isViewLoaded]) {
         self.dataSource.collectionView = self.collectionView;
     }

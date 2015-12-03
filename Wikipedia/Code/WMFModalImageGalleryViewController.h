@@ -51,12 +51,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFModalImageGalleryViewController : WMFBaseImageGalleryViewController
 
-/**
- *  Initialize a new modal gallery with its specialized layout.
- *
- *  @return A new modal gallery view controller.
- */
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
+///
+/// @name Initialization
+///
+/// Initialize the gallery with these receivers, not @c init (private use only).
+///
+
+- (instancetype)initWithImagesInArticle:(MWKArticle*)article currentImage:(nullable MWKImage*)currentImage;
+
+- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise placeholder:(MWKArticle*)placeholderArticle;
+
+- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info;
+
+///
+/// @name Setting the delegate
+///
 
 /**
  * The gallery's delegate.
@@ -67,38 +76,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak, nullable) id<WMFImageGalleryViewControllerDelegate> delegate;
 
-/**
- * Controls whether auxilliary image information and controls are visible (e.g. close button & image metadata).
- *
- * Set to `YES` to hide image metadata, close button, and gradients. Only has an effect if `chromeEnabled` is `YES`.
- *
- * @see chromeEnabled
- */
-@property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
-
-/**
- *  Toggle the display of the chrome UI.
- *
- *  Subclasses shouldn't need to call this, as @c WMFModalImageGalleryViewController already implements gesture
- *  recognition to allow users to toggle the state.
- *
- *  @param hidden   The desired state.
- *  @param animated Whether the transition to @c hidden should be animated.
- */
-- (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
-
 ///
 /// @name Unsupoorted Initializers
 ///
 
-/// @see init
 - (instancetype)initWithCoder:(NSCoder*)aDecoder NS_UNAVAILABLE;
 
-/// @see init
 - (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil
                          bundle:(nullable NSBundle*)nibBundleOrNil NS_UNAVAILABLE;
 
-/// @see init
 - (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;
 
 @end

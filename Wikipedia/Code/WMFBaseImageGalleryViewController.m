@@ -11,10 +11,6 @@
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "SSBaseDataSource+WMFLayoutDirectionUtilities.h"
 
-@interface WMFBaseImageGalleryViewController ()
-
-@end
-
 @implementation WMFBaseImageGalleryViewController
 
 - (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
@@ -22,12 +18,14 @@
         return;
     }
     _dataSource = dataSource;
+    // Update current page to last element if on iOS 8 for RTL compliance.
     if (_dataSource && [[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         self.currentPage = [self.dataSource wmf_startingIndexForApplicationLayoutDirection];
     }
+    if (self.isViewLoaded) {
+        self.collectionView.dataSource = _dataSource;
+    }
 }
-
-#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
