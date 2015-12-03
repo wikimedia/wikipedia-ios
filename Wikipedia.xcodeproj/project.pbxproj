@@ -3119,55 +3119,43 @@
 			path = "../View Controllers";
 			sourceTree = "<group>";
 		};
-		BC7EFDED1C037466008E8228 /* Picture of the Day */ = {
+		BC7C3A371C0FF94A0057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */,
-				B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */,
-				B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */,
-				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */,
-				B0E802C91C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.h */,
-				B0E802CA1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m */,
+				0E9DFEAD1BDEB9880032606E /* Global */,
+				0E9DFEAE1BDEB98F0032606E /* App Delegate */,
+				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
+				04272E771940EEBC00CC682F /* AssetsFile */,
+				040D835B1AB0EE14000896D5 /* C Functions */,
+				C42D94811A937DE000A4871A /* Custom Views */,
+				04D686CB1AB291DE0009B44A /* Custom Objects */,
+				BCE24FD31B0CF0C7003F054B /* Legacy Data Migration */,
+				04C43AB7183442FC006C643B /* Categories */,
+				04292FFB185FC026002A13FC /* Defines */,
+				D4B0ADFF19365F4600F0AC90 /* EventLogging */,
+				0493C2C91952373100EBB973 /* Housekeeping */,
+				BC628C791B389E2B00B3F85C /* Images */,
+				0463639518A844380049EE4F /* Keychain */,
+				0487041519F824D700B7D307 /* Networking */,
+				04616DF71AE7060C00815BCE /* Protocols */,
+				0447866C1852B5010050563B /* Session */,
+				04C43AB0183441A4006C643B /* View Controllers */,
+				04C43AA818344131006C643B /* mw-bridge */,
+				04C43A9F183440C1006C643B /* mw-network */,
+				D4EE00BB182445670090790F /* mw-support */,
+				C9180EC118AED30C006C1DCA /* mw-utils */,
+				049566BF18F5F4CB0058EA12 /* Zero */,
+				0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */,
+				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 			);
-			name = "Picture of the Day";
+			name = Code;
 			sourceTree = "<group>";
 		};
-		BC7FA4BF1BD6A687006CA1A3 /* View Controller */ = {
-			isa = PBXGroup;
-			children = (
-				B0E8036C1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift */,
-			);
-			name = "View Controller";
-			sourceTree = "<group>";
-		};
-		BC7FA4C01BD6A693006CA1A3 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B0E803721C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift */,
-				B0E803731C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib */,
-				B0E803741C0CD9C10065EBC0 /* WMFTableOfContentsHeader.swift */,
-				B0E803751C0CD9C10065EBC0 /* WMFTableOfContentsHeader.xib */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		BC7FA4C11BD6A69E006CA1A3 /* Items */ = {
-			isa = PBXGroup;
-			children = (
-				B0E8037A1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift */,
-				B0E8037C1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift */,
-				B0E8037E1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift */,
-			);
-			name = Items;
-			sourceTree = "<group>";
-		};
-		BC8309941A7BF935003FC5C7 /* Tests */ = {
+		BC7C3A381C0FF9620057F023 /* Code */ = {
 			isa = PBXGroup;
 			children = (
 				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
 				BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */,
-				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
-				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
 				BCA6764F1AC05FE200A16160 /* Utilities */,
 				B0E8086B1C0D15170065EBC0 /* WMFCodingStyle.h */,
 				B0E8086C1C0D15170065EBC0 /* WMFCodingStyle.m */,
@@ -3228,6 +3216,58 @@
 				B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */,
 				B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */,
 				B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */,
+			);
+			name = Code;
+			sourceTree = "<group>";
+		};
+		BC7EFDED1C037466008E8228 /* Picture of the Day */ = {
+			isa = PBXGroup;
+			children = (
+				B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */,
+				B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */,
+				B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */,
+				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */,
+				B0E802C91C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.h */,
+				B0E802CA1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m */,
+			);
+			name = "Picture of the Day";
+			sourceTree = "<group>";
+		};
+		BC7FA4BF1BD6A687006CA1A3 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8036C1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		BC7FA4C01BD6A693006CA1A3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B0E803721C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift */,
+				B0E803731C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib */,
+				B0E803741C0CD9C10065EBC0 /* WMFTableOfContentsHeader.swift */,
+				B0E803751C0CD9C10065EBC0 /* WMFTableOfContentsHeader.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		BC7FA4C11BD6A69E006CA1A3 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8037A1C0CD9D30065EBC0 /* WMFTableOfContentsItem.swift */,
+				B0E8037C1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift */,
+				B0E8037E1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift */,
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
+		BC8309941A7BF935003FC5C7 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BC7C3A381C0FF9620057F023 /* Code */,
+				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
+				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests;
@@ -3426,7 +3466,7 @@
 				BCB669A21A83F6C300C7B1FE /* Data i/o */,
 			);
 			name = MediaWikiKit;
-			path = MediaWikiKit/MediaWikiKit;
+			path = ../MediaWikiKit/MediaWikiKit;
 			sourceTree = "<group>";
 		};
 		BCB669D11A83F6D300C7B1FE /* MediaWikiKitTests */ = {
@@ -3696,8 +3736,6 @@
 			isa = PBXGroup;
 			children = (
 				D499143E181D51DE00E6073C /* Wikipedia */,
-				0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */,
-				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 				04E9A78218F73C7200F7ECF7 /* www */,
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */,
@@ -3738,33 +3776,11 @@
 		D499143E181D51DE00E6073C /* Wikipedia */ = {
 			isa = PBXGroup;
 			children = (
+				BC7C3A371C0FF94A0057F023 /* Code */,
 				BC2F420D1BEA60350033E185 /* Localizations */,
-				0E9DFEAD1BDEB9880032606E /* Global */,
-				0E9DFEAE1BDEB98F0032606E /* App Delegate */,
-				0E94AFE81B2096D5000BC5EA /* UI-V5 */,
 				BCF012321AD2FA38008D3675 /* assets */,
-				04272E771940EEBC00CC682F /* AssetsFile */,
-				040D835B1AB0EE14000896D5 /* C Functions */,
-				C42D94811A937DE000A4871A /* Custom Views */,
-				04D686CB1AB291DE0009B44A /* Custom Objects */,
-				BCE24FD31B0CF0C7003F054B /* Legacy Data Migration */,
-				04C43AB7183442FC006C643B /* Categories */,
-				04292FFB185FC026002A13FC /* Defines */,
-				D4B0ADFF19365F4600F0AC90 /* EventLogging */,
 				0442F57C1900718600F55DF9 /* Fonts */,
-				0493C2C91952373100EBB973 /* Housekeeping */,
-				BC628C791B389E2B00B3F85C /* Images */,
-				0463639518A844380049EE4F /* Keychain */,
-				0487041519F824D700B7D307 /* Networking */,
-				04616DF71AE7060C00815BCE /* Protocols */,
-				0447866C1852B5010050563B /* Session */,
 				BCA15AE01C0DFCC900D0A3EA /* Supporting Files */,
-				04C43AB0183441A4006C643B /* View Controllers */,
-				04C43AA818344131006C643B /* mw-bridge */,
-				04C43A9F183440C1006C643B /* mw-network */,
-				D4EE00BB182445670090790F /* mw-support */,
-				C9180EC118AED30C006C1DCA /* mw-utils */,
-				049566BF18F5F4CB0058EA12 /* Zero */,
 			);
 			path = Wikipedia;
 			sourceTree = "<group>";
