@@ -54,13 +54,42 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @name Initialization
 ///
-/// Initialize the gallery with these receivers, not @c init (private use only).
+/// Initialize the gallery with these methods, not @c init (private use only).
 ///
 
-- (instancetype)initWithImagesInArticle:(MWKArticle*)article currentImage:(nullable MWKImage*)currentImage;
+/**
+ *  Initialize a modal gallery with images from a <b>cached</b> article
+ *
+ *  This initializer is intended for cached articles.  If the article isn't cached but another is on the way, use
+ *  @c initWithImagesInFutureArticle:placeholder: instead.
+ *
+ *  @param article      The article whose images will be displayed in the gallery.
+ *  @param currentImage The image which should be visible when the gallery is presented.
+ *
+ *  @return A new modal image gallery which will display the images in @c article.
+ */
+- (instancetype)initWithImagesInArticle:(MWKArticle*)article
+                           currentImage:(nullable MWKImage*)currentImage;
 
-- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise placeholder:(MWKArticle*)placeholderArticle;
+/**
+ *  Initialize a modal gallery with images in an article that hasn't been downloaded yet.
+ *
+ *  @param articlePromise       Promise which should resolve to an @c MWKArticle.
+ *  @param placeholderArticle   Article object with partial data, such as @c image or @c thumbnailImage, which will be
+ *                              displayed while the article and its images' info are downloaded.
+ *
+ *  @return A new modal image gallery which will eventually display the images in the resolved article.
+ */
+- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise
+                                  placeholder:(nullable MWKArticle*)placeholderArticle;
 
+/**
+ *  Initialize a modal gallery which will display the last several pictures of the day, including day.
+ *
+ *  @param info The info which was already downloaded to display picture of the day in the Home view.
+ *
+ *  @return A new modal image gallery which will display pictures of the day.
+ */
 - (instancetype)initWithTodaysInfo:(MWKImageInfo*)info;
 
 ///
