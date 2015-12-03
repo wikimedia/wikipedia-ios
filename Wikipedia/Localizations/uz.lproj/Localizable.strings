@@ -104,12 +104,12 @@
 "navbar-title-mode-create-account" = "Hisob yaratish";
 "navbar-title-mode-create-account-and-save" = "Hisob yaratish va saqlab qolish";
 "navbar-title-mode-edit-wikitext-preview" = "Ko‘rib chiqish";
-"navbar-title-mode-edit-wikitext-summary" = "Tahriringizni tariflang";
+"navbar-title-mode-edit-wikitext-summary" = "Tahriringizni qisqacha taʼriflab bering";
 "navbar-title-mode-edit-wikitext-save" = "Saqlash";
 // Fuzzy
 "edit-summary-choice-linked-words" = "Havola(lar) qoʻshish";
-"edit-summary-choice-added-category" = "Turkum qo'shildi";
-"edit-summary-choice-added-missing-info" = "Yetishmayatgan ma'lumot qo'shildi";
+"edit-summary-choice-added-category" = "Turkum qoʻshildi";
+"edit-summary-choice-added-missing-info" = "Yetishmayotgan maʼlumot qoʻshildi";
 "edit-summary-choice-added-clarification" = "Aniqlik kiritildi";
 "edit-summary-choice-other" = "Boshqa";
 "fetching-random-article" = "Tasodifiy maqola olinyapti";
