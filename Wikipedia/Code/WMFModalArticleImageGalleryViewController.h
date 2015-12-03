@@ -15,11 +15,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Displays a modal gallery of images for a given article.
+ *
+ *  Uses a special data source which handles extracting images from an article object, and fetching their metadata.
  */
 @interface WMFModalArticleImageGalleryViewController : WMFModalImageGalleryViewController
 
+/**
+ *  Specify the image to be displayed when the receiver appears.
+ *
+ *  @param visibleImage The image which should be displayed, e.g. the image a user selected in the article view.
+ *  @param animated     Whether or not to scroll to the image with an animation.
+ */
 - (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated;
 
+/**
+ *  Resets the receiver with a new data source which is populated with images in the given article.
+ *
+ *  @param article The article whose images to display, or @c nil to empty the gallery.
+ */
 - (void)showImagesInArticle:(nullable MWKArticle*)article;
 
 /**

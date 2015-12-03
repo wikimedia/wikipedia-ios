@@ -13,10 +13,24 @@
 @class MWKArticle, MWKImage;
 
 /**
- *  Class which uses an article's images to populate collection view data.
+ *  Base data source for galleries which display images in an article.
  *
- *  @warning This class provides an empty image view which is set to the article's lead image or thumbnail.
- *           Do not reconfigure its @c emptyView property.
+ *  This class has a few responsibilities which are required to display article images in a gallery:
+ *
+ *  <h4>Collapsing variants in the gallery</h4>
+ *
+ *  Populates the collection view with distinct instances of the images in the article. In other words, uses
+ *  @c uniqueArticleImages to get a unique list of images in their original order.  The images displayed in the gallery
+ *  are the largest variants of each image (e.g. any additional entries extracted from srcset).
+ *
+ *  <h4>Empty View</h4>
+ *
+ *  Provides an "empty view" of the articles lead image (or thumbnail) if there aren't any images (e.g. if the article
+ *  was just a preview whose data hasn't been downloaded yet).
+ *
+ *  <h4>RTL Handling</h4>
+ *
+ *  This class also implements RTL handling by reversing the items as needed.
  */
 @interface WMFArticleImageGalleryDataSource : SSArrayDataSource
     <WMFImageGalleryDataSource>
@@ -27,11 +41,7 @@
 @property (nonatomic, strong) MWKArticle* article;
 
 /**
- *  Retrieve an image at the given @c NSIndexPath
- *
- *  @param indexPath The index path of the desired image, e.g. from @c collectionView:cellForItemAtIndexPath:
- *
- *  @return The image at @c indexPath.
+ *  @return The source URL of the largest variant of the image at @c indexPath.
  */
 - (MWKImage*)imageAtIndexPath:(NSIndexPath*)indexPath;
 

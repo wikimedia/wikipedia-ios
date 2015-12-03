@@ -9,6 +9,11 @@
 #import "WMFArticleImageGalleryDataSource.h"
 #import "WMFModalImageGalleryDataSource.h"
 
+/**
+ *  Data source for the modal article image gallery.
+ *
+ *  Extension of @c WMFArticleImageGalleryDataSource which also fetches metadata for its images.
+ */
 @interface WMFModalArticleImageGalleryDataSource : WMFArticleImageGalleryDataSource
     <WMFModalImageGalleryDataSource>
 

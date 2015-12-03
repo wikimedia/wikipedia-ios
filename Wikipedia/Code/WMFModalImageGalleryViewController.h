@@ -36,25 +36,27 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- *  Provides a scrollable gallery of an article's images, including high-res, zoomable images and associated metadata.
+ *  Provides a scrollable gallery of high-resolution images and their associated metadata.
+ *
+ *  This class is intended to provide a consistent, modal gallery experience for any source of images. It does this with:
+ *
+ *  * Using a paging collection view to allow users to swipe though items
+ *
+ *  * Using special collection view cells (see @c WMFImageGalleryCollectionViewCell)
+ *
+ *  * Overlaying a "chrome" UI on top of the collection view (close button & top gradient)
+ *
+ *  * Interacting with its @c dataSource at specific points to allow for display of placeholder images, and elegantly
+ *    updating cells when metadata and higher-resolution images are available.
  */
 @interface WMFModalImageGalleryViewController : WMFBaseImageGalleryViewController
 
+/**
+ *  Initialize a new modal gallery with its specialized layout.
+ *
+ *  @return A new modal gallery view controller.
+ */
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
-
-///
-/// @name Unsupoorted Initializers
-///
-
-/// @see initWithDataStore:
-- (instancetype)initWithCoder:(NSCoder*)aDecoder NS_UNAVAILABLE;
-
-/// @see initWithDataStore:
-- (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil
-                         bundle:(nullable NSBundle*)nibBundleOrNil NS_UNAVAILABLE;
-
-/// @see initWithDataStore:
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;
 
 /**
  * The gallery's delegate.
@@ -74,7 +76,30 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
+/**
+ *  Toggle the display of the chrome UI.
+ *
+ *  Subclasses shouldn't need to call this, as @c WMFModalImageGalleryViewController already implements gesture
+ *  recognition to allow users to toggle the state.
+ *
+ *  @param hidden   The desired state.
+ *  @param animated Whether the transition to @c hidden should be animated.
+ */
 - (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
+
+///
+/// @name Unsupoorted Initializers
+///
+
+/// @see init
+- (instancetype)initWithCoder:(NSCoder*)aDecoder NS_UNAVAILABLE;
+
+/// @see init
+- (instancetype)initWithNibName:(nullable NSString*)nibNameOrNil
+                         bundle:(nullable NSBundle*)nibBundleOrNil NS_UNAVAILABLE;
+
+/// @see init
+- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_UNAVAILABLE;
 
 @end
 
