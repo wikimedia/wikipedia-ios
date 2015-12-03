@@ -329,6 +329,9 @@ static dispatch_once_t launchToken;
 static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)shouldShowOnboarding {
+    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO)) {
+        return YES;
+    }
     NSNumber* didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
     return !didShow.boolValue;
 }
