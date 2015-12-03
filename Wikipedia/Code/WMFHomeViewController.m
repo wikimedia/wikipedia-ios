@@ -466,7 +466,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     id<WMFArticleHomeSectionController> articleSectionController = (id<WMFArticleHomeSectionController>)controllerForSection;
-    WMFArticleListTableViewController* extendedList = [[WMFArticleListTableViewController alloc] init];
+    WMFArticleListTableViewController* extendedList              = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
     extendedList.dataSource = [articleSectionController extendedListDataSource];
     [self.navigationController pushViewController:extendedList animated:YES];
@@ -538,14 +538,14 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
-        MWKTitle* title = [(id<WMFArticleHomeSectionController>)controller titleForItemAtIndex:indexPath.row];
+        MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
         if (title) {
             MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
             [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
         }
     } else if ([controller conformsToProtocol:@protocol(WMFGenericHomeSectionController)]) {
         UIViewController* detailViewController =
-            [(id<WMFGenericHomeSectionController>)controller homeDetailViewControllerForItemAtIndex:indexPath.item];
+            [(id < WMFGenericHomeSectionController >)controller homeDetailViewControllerForItemAtIndex:indexPath.item];
         [self presentViewController:detailViewController animated:YES completion:nil];
     }
 }
@@ -641,7 +641,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     if ([sectionController conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
         MWKTitle* title =
-            [(id<WMFArticleHomeSectionController>)sectionController titleForItemAtIndex:previewIndexPath.item];
+            [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
             return [[WMFArticleContainerViewController alloc]
                     initWithArticleTitle:title
@@ -649,7 +649,7 @@ NS_ASSUME_NONNULL_BEGIN
                          discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
         }
     } else if ([sectionController conformsToProtocol:@protocol(WMFGenericHomeSectionController)]) {
-        return [(id<WMFGenericHomeSectionController>)sectionController homeDetailViewControllerForItemAtIndex:previewIndexPath.item];
+        return [(id < WMFGenericHomeSectionController >)sectionController homeDetailViewControllerForItemAtIndex:previewIndexPath.item];
     }
 
     return nil;

@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIImage*)headerButtonIcon;
 
-- (void)    performHeaderButtonAction;
+- (void)performHeaderButtonAction;
 
 /**
  *  Specify the text for an optional footer which allows the user to see a list of more content.
