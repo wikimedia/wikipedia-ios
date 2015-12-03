@@ -14,14 +14,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFBaseImageGalleryViewController ()
-{
-    @private
-
-    /**
-     *  This ivar is meant to be immutable, access it via the readonly property.
-     */
-    SSBaseDataSource<WMFImageGalleryDataSource>* _dataSource;
-}
 
 /**
  *  The data source used to drive the receiver's collection view.
