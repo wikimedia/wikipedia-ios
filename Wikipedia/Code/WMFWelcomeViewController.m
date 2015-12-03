@@ -1,8 +1,9 @@
 
 #import "WMFWelcomeViewController.h"
 #import "WMFWelcomeIntroductionViewController.h"
+#import "WMFBoringNavigationTransition.h"
 
-@interface WMFWelcomeViewController ()
+@interface WMFWelcomeViewController ()<UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UINavigationController* welcomeNavigationController;
 
@@ -16,7 +17,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-        self.welcomeNavigationController = segue.destinationViewController;
+        self.welcomeNavigationController          = segue.destinationViewController;
+        self.welcomeNavigationController.delegate = self;
     }
 }
 
@@ -25,6 +27,15 @@
         self.completionBlock();
     }
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController*)navigationController
+                                  animationControllerForOperation:(UINavigationControllerOperation)operation
+                                               fromViewController:(UIViewController*)fromVC
+                                                 toViewController:(UIViewController*)toVC {
+    WMFBoringNavigationTransition* animation = [[WMFBoringNavigationTransition alloc] init];
+    animation.operation = operation;
+    return animation;
 }
 
 @end

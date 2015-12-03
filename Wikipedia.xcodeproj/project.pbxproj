@@ -20,6 +20,7 @@
 		0E26B0821C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */; };
 		0E26B0831C0F4F720004D687 /* WMFWelcomeLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */; };
 		0E26B0841C0F4F720004D687 /* WMFWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */; };
+		0E26B0871C0FD5170004D687 /* WMFBoringNavigationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
@@ -628,6 +629,8 @@
 		0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeLanguageViewController.m; path = Wikipedia/Code/WMFWelcomeLanguageViewController.m; sourceTree = SOURCE_ROOT; };
 		0E26B07D1C0F4F720004D687 /* WMFWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeViewController.h; path = Wikipedia/Code/WMFWelcomeViewController.h; sourceTree = SOURCE_ROOT; };
 		0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeViewController.m; path = Wikipedia/Code/WMFWelcomeViewController.m; sourceTree = SOURCE_ROOT; };
+		0E26B0851C0FD5170004D687 /* WMFBoringNavigationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFBoringNavigationTransition.h; sourceTree = SOURCE_ROOT; };
+		0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBoringNavigationTransition.m; sourceTree = SOURCE_ROOT; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
@@ -2512,18 +2515,52 @@
 			isa = PBXGroup;
 			children = (
 				0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */,
+				0E26B0881C0FD7E00004D687 /* Container */,
+				0E26B0891C0FD7F70004D687 /* Intro */,
+				0E26B08A1C0FD8040004D687 /* Language */,
+				0E26B08B1C0FD80B0004D687 /* Analytics */,
+			);
+			name = Welcome;
+			sourceTree = "<group>";
+		};
+		0E26B0881C0FD7E00004D687 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				0E26B0851C0FD5170004D687 /* WMFBoringNavigationTransition.h */,
+				0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */,
 				0E26B07D1C0F4F720004D687 /* WMFWelcomeViewController.h */,
 				0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */,
+			);
+			name = Container;
+			sourceTree = "<group>";
+		};
+		0E26B0891C0FD7F70004D687 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
 				0E26B0771C0F4F720004D687 /* WMFWelcomeIntroductionViewController.h */,
 				0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
+		0E26B08A1C0FD8040004D687 /* Language */ = {
+			isa = PBXGroup;
+			children = (
 				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
 				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
 				0E26B07B1C0F4F720004D687 /* WMFWelcomeLanguageViewController.h */,
 				0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */,
+			);
+			name = Language;
+			sourceTree = "<group>";
+		};
+		0E26B08B1C0FD80B0004D687 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
 				0E26B0751C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.h */,
 				0E26B0761C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.m */,
 			);
-			name = Welcome;
+			name = Analytics;
 			sourceTree = "<group>";
 		};
 		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
@@ -4717,6 +4754,7 @@
 				B0E803F71C0CDDA80065EBC0 /* WMFIntrinsicSizeTableView.m in Sources */,
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
+				0E26B0871C0FD5170004D687 /* WMFBoringNavigationTransition.m in Sources */,
 				B0E807DF1C0CF04A0065EBC0 /* MWKUserDataStore.m in Sources */,
 				B0E804C71C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift in Sources */,
 				B0E807DC1C0CF04A0065EBC0 /* MWKSearchResult.m in Sources */,
