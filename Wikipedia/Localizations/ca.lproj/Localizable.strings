@@ -5,6 +5,7 @@
 // Author: Fitoschido
 // Author: Gerardduenas
 // Author: Joan manel
+// Author: Kippelboy
 // Author: Maceleiro
 // Author: Macofe
 // Author: SMP
@@ -44,15 +45,15 @@
 "zero-learn-more" = "S'aplicaran costos de dades per a aquesta aplicació de la Viquipèdia.";
 "zero-learn-more-learn-more" = "Més informació";
 "zero-learn-more-no-thanks" = "Descarta";
-"zero-wikipedia-zero-heading" = "Wikipedia Zero";
+"zero-wikipedia-zero-heading" = "Viquipèdia Zero";
 "zero-warn-when-leaving" = "Avisa si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
-"account-creation-captcha-required" = "Verificació de CAPTCHA requerit.";
+"account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
 "account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
 "account-creation-logging-in" = "Iniciant sessió...";
 "account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen";
 "account-creation-saving" = "S’està desant…";
-"account-creation-login" = "Ja teniu un compte? Inicia una sessió.";
+"account-creation-login" = "Ja tens un compte? Inicia una sessió.";
 "account-creation-username-placeholder-text" = "Nom d'usuari";
 "account-creation-password-placeholder-text" = "Contrasenya";
 "account-creation-password-confirm-placeholder-text" = "Confirma la contrasenya";
@@ -86,7 +87,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Obre l'enllaç";
 "open-link-cancel" = "Cancel·la";
-"search-searching" = "S'està cercant...";
+"search-searching" = "Cercant...";
 "search-no-matches" = "No s'han trobat coincidències del terme de cerca.";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
 "search-field-placeholder-text-zero" = "Cerca a la Viquipèdia Zero";
@@ -106,7 +107,7 @@
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
-"main-menu-faq" = "Preguntes freqüents";
+"main-menu-faq" = "PMF";
 "main-menu-language-toggle-show" = "Mostra idiomes";
 "main-menu-language-toggle-hide" = "Amaga idiomes";
 "main-menu-language-selection-saved" = "Selecció d'idioma enregistrada";
@@ -124,11 +125,11 @@
 "main-menu-show-page-history" = "Història dels canvis a $1";
 "main-menu-credits" = "Crèdits";
 "main-menu-about" = "Sobre l'aplicació de la Viquipèdia";
-"main-menu-zero-faq" = "Preguntes més freqüents sobre Wikipedia Zero";
+"main-menu-zero-faq" = "Preguntes més freqüents sobre Viquipèdia Zero";
 "main-menu-privacy-policy" = "Política de privadesa";
 "main-menu-terms-of-use" = "Condicions d’ús";
 "main-menu-rate-app" = "Puntua l'aplicació";
-"main-menu-heading-zero" = "Wikipedia Zero";
+"main-menu-heading-zero" = "Viquipèdia Zero";
 "main-menu-heading-legal" = "Privadesa i condicions";
 "main-menu-show-today" = "Avui";
 "main-menu-nearby" = "A prop";
@@ -151,23 +152,23 @@
 "navbar-title-mode-login" = "Inicia una sessió";
 "navbar-title-mode-login-and-save" = "Inicia una sessió i desa-ho";
 "navbar-title-mode-create-account" = "Crea un compte";
-"navbar-title-mode-create-account-and-save" = "Crea compte i desa";
+"navbar-title-mode-create-account-and-save" = "Crea un compte i desa-ho";
 "navbar-title-mode-edit-wikitext-warning" = "Problemes d'edició";
 "navbar-title-mode-edit-wikitext-disallow" = "Problemes d'edició";
-"navbar-title-mode-edit-wikitext-preview" = "Previsualització";
+"navbar-title-mode-edit-wikitext-preview" = "Previsualitza";
 "navbar-title-mode-edit-wikitext-captcha" = "Es necessita verificació";
 "navbar-title-mode-edit-wikitext-summary" = "Descriviu la vostra modificació";
 "navbar-title-mode-edit-wikitext-save" = "Desa";
 "edit-summary-choice-linked-words" = "Enllaços afegits";
 "edit-summary-choice-fixed-grammar" = "Correcció gramatical";
 "edit-summary-choice-fixed-inaccuracy" = "Correcció d'una inexactitud";
-"edit-summary-choice-fixed-styling" = "Correcció de l'estil";
+"edit-summary-choice-fixed-styling" = "Correcció d'estil";
 "edit-summary-choice-fixed-typos" = "Correcció d'un error tipogràfic";
 "edit-summary-choice-added-category" = "Categoria afegida";
 "edit-summary-choice-added-missing-info" = "Afegida informació que mancava";
-"edit-summary-choice-added-clarification" = "Afegida una clarificació";
+"edit-summary-choice-added-clarification" = "Afegit un aclariment";
 "edit-summary-choice-other" = "Altres";
-"edit-summary-description" = "Un resum específic ajuda els altres usuaris a revisar ràpidament les vostres modificacions. També podeu triar un dels resums que apareixen a continuació.";
+"edit-summary-description" = "Un resum ajuda els altres usuaris a revisar ràpidament les vostres modificacions. També podeu triar un dels resums que apareixen a continuació.";
 "edit-summary-field-placeholder-text" = "Altres formes com heu millorat l'article";
 "edit-summary-title" = "Com heu millorat l'article?";
 "fetching-random-article" = "Recuperant un article a l'atzar";
@@ -197,8 +198,8 @@
 "share-custom-menu-item" = "Comparteix";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» a @Viquipedia: «$2»";
-"share-as-image" = "Comparteix com imatge";
-"share-as-text" = "Comparteix com text";
+"share-as-image" = "Comparteix com a imatge";
+"share-as-text" = "Comparteix com a text";
 "timestamp-just-now" = "ara mateix";
 "timestamp-minutes" = "fa %d minuts";
 "timestamp-hours" = "fa %d hores";
@@ -215,18 +216,18 @@
 "onboarding-already-have-account" = "Ja teniu un compte? $1";
 "onboarding-skip" = "Omet";
 "onboarding-wikipedia" = "Viquipèdia";
-"onboarding-free-encyclopedia" = "L’enciclopèdia lliure";
+"onboarding-free-encyclopedia" = "L'enciclopèdia lliure";
 "preference_title_eventlogging_opt_in" = "Envia informes d'ús";
 "preference_summary_eventlogging_opt_in" = "Permeteu a Wikimedia recollir informació sobre com utilitzeu l'aplicació, per poder-la millorar";
 "page_protected_autoconfirmed" = "La pàgina ha estat semiprotegida.";
-"page_protected_sysop" = "La pàgina està plenament protegida.";
+"page_protected_sysop" = "La pàgina està protegida.";
 "page_protected_other" = "La pàgina ha estat protegida als nivells següents: $1";
 "page_protected_can_not_edit" = "No teniu permisos per modificar la pàgina";
 "page_protected_can_not_edit_title" = "La pàgina està protegida";
 "license-footer-text" = "El contingut està disponible sota $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
-"abuse-filter-warning-heading" = "Això podria ser una modificació no constructiva. Esteu segur que voleu desar-la?";
+"abuse-filter-warning-heading" = "Això sembla una modificació no constructiva. Esteu segur que voleu desar-la?";
 "abuse-filter-warning-subheading" = "La vostra modificació pot contenir un o més dels següents problemes:";
 "abuse-filter-warning-caps" = "Escrivint en MAJÚSCULES";
 "abuse-filter-warning-blanking" = "Blanqueig d'articles o brossa";
@@ -254,9 +255,9 @@
 "nearby-distance-label-km" = "$1 km";
 "nearby-distance-label-feet" = "$1 peus";
 "nearby-distance-label-miles" = "$1 milles";
-"nearby-pull-to-refresh-prompt" = "Estira per a refrescar";
+"nearby-pull-to-refresh-prompt" = "Refresca";
 "nearby-pull-to-refresh-is-refreshing" = "Refrescant";
-"nearby-loading" = "Carregant articles a prop...";
+"nearby-loading" = "Carregant articles propers...";
 "nearby-loaded" = "S'han carregat articles propers";
 "nearby-none" = "No s'han trobat articles propers. Arrossegueu per refrescar o torneu-ho a provar més tard.";
 "nearby-open-in-maps" = "Obre-ho al Mapes";
