@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Anakmalaysia
 // Author: Aviator
+// Author: Kurniasan
 
 "languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
@@ -278,3 +279,4 @@
 "page-similar-titles" = "Laman-laman serupa";
 "captcha-reload" = "Tunjukkan captcha lain";
 "captcha-prompt" = "Taipkan teks captcha dari imej di atas";
+"mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";
