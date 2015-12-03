@@ -7,6 +7,8 @@
 #import "WMFURLCache.h"
 #import "WMFAssetsFile.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
+
 
 NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidChangeNotification";
 
@@ -167,13 +169,11 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 #pragma mark - Usage Reports
 
 - (BOOL)shouldSendUsageReports {
-    NSNumber* val = [[NSUserDefaults standardUserDefaults] objectForKey:@"SendUsageReports"];
-    return [val boolValue];
+    return [[NSUserDefaults standardUserDefaults] wmf_sendUsageReports];
 }
 
 - (void)setShouldSendUsageReports:(BOOL)sendUsageReports {
-    [[NSUserDefaults standardUserDefaults] setObject:@(sendUsageReports) forKey:@"SendUsageReports"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
     [[QueuesSingleton sharedInstance] reset];
 }
 
