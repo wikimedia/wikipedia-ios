@@ -15,6 +15,18 @@
     return [[UIStoryboard storyboardWithName:@"WMFWelcome" bundle:nil] instantiateInitialViewController];
 }
 
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
         self.welcomeNavigationController          = segue.destinationViewController;
