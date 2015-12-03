@@ -13,7 +13,7 @@
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "NSDateFormatter+WMFExtensions.h"
-#import "WMFModalPOTDGalleryViewController.h"
+#import "WMFModalImageGalleryViewController.h"
 #import "UIScreen+WMFImageWidth.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -128,7 +128,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (UIViewController*)homeDetailViewControllerForItemAtIndex:(NSUInteger)index {
     NSParameterAssert(self.fetchedDate);
     NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
-    return [[WMFModalPOTDGalleryViewController alloc] initWithTodaysInfo:self.imageInfo];
+    return [[WMFModalImageGalleryViewController alloc] initWithTodaysInfo:self.imageInfo];
 }
 
 @end

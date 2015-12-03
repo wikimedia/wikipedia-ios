@@ -43,8 +43,9 @@
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKArticle.h"
 
-// Data Source
-#import "WMFModalImageGalleryDataSource.h"
+// Data Sources
+#import "WMFModalArticleImageGalleryDataSource.h"
+#import "WMFModalPOTDGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -54,8 +55,42 @@ static double const WMFImageGalleryTopGradientHeight = 150.0;
 
 static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
+@interface WMFModalImageGalleryViewController ()
+
+/**
+ *  Designated initializer for public convenience initializers.
+ *
+ *  @return A modal gallery view controller with the given data source, configured to display images in gallery cells.
+ */
+- (instancetype)init NS_DESIGNATED_INITIALIZER NS_AVAILABLE_IPHONE(__IPHONE_8_0);
+
+#pragma mark - Chrome
+
+/**
+ * Controls whether auxilliary image information and controls are visible (e.g. close button & image metadata).
+ *
+ * Set to `YES` to hide image metadata, close button, and gradients. Only has an effect if `chromeEnabled` is `YES`.
+ *
+ * @see chromeEnabled
+ */
+@property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
+
+/**
+ *  Toggle the display of the chrome UI.
+ *
+ *  Subclasses shouldn't need to call this, as @c WMFModalImageGalleryViewController already implements gesture
+ *  recognition to allow users to toggle the state.
+ *
+ *  @param hidden   The desired state.
+ *  @param animated Whether the transition to @c hidden should be animated.
+ */
+- (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
+
+@end
+
 @implementation WMFModalImageGalleryViewController
 
+/// Default layout for modal gallery.
 + (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
     UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
     defaultLayout.sectionInset            = UIEdgeInsetsZero;
@@ -73,8 +108,60 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return self;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+#pragma mark - Article Gallery
+
+- (instancetype)initWithImagesInArticle:(MWKArticle*)article currentImage:(nullable MWKImage*)currentImage {
+    self = [self init];
+    if (self) {
+        WMFModalArticleImageGalleryDataSource* articleGalleryDataSource =
+            [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
+        self.dataSource = articleGalleryDataSource;
+        if (currentImage) {
+            NSInteger selectedImageIndex = [articleGalleryDataSource.allItems
+                                            indexOfObjectPassingTest:^BOOL (MWKImage* image, NSUInteger _, BOOL* stop) {
+                if ([image isEqualToImage:currentImage] || [image isVariantOfImage:currentImage]) {
+                    *stop = YES;
+                    return YES;
+                }
+                return NO;
+            }];
+
+            if (selectedImageIndex == NSNotFound) {
+                DDLogWarn(@"Falling back to showing the first image.");
+                selectedImageIndex = 0;
+            }
+            self.currentPage = selectedImageIndex;
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise placeholder:(MWKArticle*)placeholderArticle {
+    self = [self init];
+    if (self) {
+        self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:placeholderArticle];
+        @weakify(self);
+        articlePromise.then(^(MWKArticle* article) {
+            @strongify(self);
+            self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
+        })
+        .catch(^(NSError* error) {
+            @strongify(self);
+            [self.loadingIndicator stopAnimating];
+            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
+        });
+    }
+    return self;
+}
+
+#pragma mark - Picture of the Day Gallery
+
+- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info {
+    self = [self init];
+    if (self) {
+        self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithTodaysInfo:info];
+    }
+    return self;
 }
 
 #pragma mark - Accessors
@@ -110,6 +197,12 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return nil;
 }
 
+#pragma mark - UIViewController
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // fetch after appearing so we don't do work while the animation is rendering
@@ -128,6 +221,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         make.center.equalTo(self.view);
     }];
     self.loadingIndicator = loadingIndicator;
+
+    if (!self.dataSource) {
+        // Start loading indicator if we don't have any data. Hopefully it will be set soon...
+        [self.loadingIndicator startAnimating];
+    }
 
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator   = NO;

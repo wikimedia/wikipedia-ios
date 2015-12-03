@@ -35,14 +35,23 @@
 @interface WMFArticleImageGalleryDataSource : SSArrayDataSource
     <WMFImageGalleryDataSource>
 
+- (instancetype)initWithArticle:(MWKArticle*)article;
+
 /**
  *  The article whose images should populate the collection view.
  */
-@property (nonatomic, strong) MWKArticle* article;
+@property (nonatomic, strong, readonly) MWKArticle* article;
 
 /**
  *  @return The source URL of the largest variant of the image at @c indexPath.
  */
 - (MWKImage*)imageAtIndexPath:(NSIndexPath*)indexPath;
+
+///
+/// @name Unsupported Initializers
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithTarget:(id)target keyPath:(NSString*)keyPath NS_UNAVAILABLE;
+- (instancetype)initWithItems:(NSArray*)items NS_UNAVAILABLE;
 
 @end

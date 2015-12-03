@@ -15,7 +15,7 @@
 #import "WMFArticleListTableViewController.h"
 #import "UITabBarController+WMFExtensions.h"
 #import "WMFShareOptionsController.h"
-#import "WMFModalArticleImageGalleryViewController.h"
+#import "WMFModalImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "SectionEditorViewController.h"
@@ -158,13 +158,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Accessors
-
-- (WMFModalArticleImageGalleryViewController*)createImageGalleryViewController {
-    WMFModalArticleImageGalleryViewController* fullscreenGallery =
-        [[WMFModalArticleImageGalleryViewController alloc] init];
-    [fullscreenGallery showImagesInArticle:self.article];
-    return fullscreenGallery;
-}
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
@@ -634,14 +627,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)         webViewController:(WebViewController*)controller
     didTapImageWithSourceURLString:(nonnull NSString*)imageSourceURLString {
-    WMFModalArticleImageGalleryViewController* gallery = [self createImageGalleryViewController];
-    /*
-       NOTE(bgerstle): not setting delegate intentionally to prevent header gallery changes as a result of fullscreen
-       gallery interactions that originate from the webview
-     */
     MWKImage* selectedImage = [[MWKImage alloc] initWithArticle:self.article sourceURLString:imageSourceURLString];
-    [gallery setVisibleImage:selectedImage animated:NO];
-    [self presentViewController:gallery animated:YES completion:nil];
+    /*
+       NOTE(bgerstle): not setting gallery delegate intentionally to prevent header gallery changes as a result of
+       fullscreen gallery interactions that originate from the webview
+     */
+    WMFModalImageGalleryViewController* fullscreenGallery =
+        [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article
+                                                               currentImage:selectedImage];
+    [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
@@ -686,14 +680,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
      didSelectImageAtIndex:(NSUInteger)index {
-    WMFModalArticleImageGalleryViewController* fullscreenGallery = [self createImageGalleryViewController];
+    WMFModalImageGalleryViewController* fullscreenGallery;
 
-    // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
-    fullscreenGallery.delegate = self;
-
-    fullscreenGallery.currentPage = index;
-
-    if (!self.article.isCached) {
+    if (self.article.isCached) {
+        fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article
+                                                                                   currentImage:nil];
+        fullscreenGallery.currentPage = gallery.currentPage;
+    } else {
         /*
            In case the user taps on the lead image before the article is loaded, present the gallery w/ the lead image
            as a placeholder, then populate it in-place once the article is fetched.
@@ -704,14 +697,20 @@ NS_ASSUME_NONNULL_BEGIN
             DDLogInfo(@"User tapped lead image before article fetch started, fetching before showing gallery.");
             [self fetchArticle];
         }
-        [fullscreenGallery setArticleWithPromise:self.articleFetcherPromise];
+        fullscreenGallery =
+            [[WMFModalImageGalleryViewController alloc] initWithImagesInFutureArticle:self.articleFetcherPromise
+                                                                          placeholder:self.article];
     }
+
+    // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
+    fullscreenGallery.delegate = self;
+
     [self presentViewController:fullscreenGallery animated:YES completion:nil];
 }
 
 #pragma mark - WMFModalArticleImageGalleryViewControllerDelegate
 
-- (void)willDismissGalleryController:(WMFModalArticleImageGalleryViewController* __nonnull)gallery {
+- (void)willDismissGalleryController:(WMFModalImageGalleryViewController* __nonnull)gallery {
     self.headerGallery.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
 }

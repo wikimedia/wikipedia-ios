@@ -24,19 +24,15 @@
     return [self.infoController infoForImage:[self imageAtIndexPath:indexPath]];
 }
 
-- (void)setArticle:(MWKArticle*)article {
-    if (self.article == article) {
-        return;
+- (instancetype)initWithArticle:(MWKArticle*)article {
+    self = [super initWithArticle:article];
+    if (self) {
+        self.infoController          = [[WMFImageInfoController alloc] initWithDataStore:self.article.dataStore batchSize:50];
+        self.infoController.delegate = self;
+        [self.infoController setUniqueArticleImages:[self allItems]
+                                           forTitle:article.title];
     }
-    [super setArticle:article];
-    if (!article) {
-        self.infoController = nil;
-        return;
-    }
-    self.infoController          = [[WMFImageInfoController alloc] initWithDataStore:self.article.dataStore batchSize:50];
-    self.infoController.delegate = self;
-    [self.infoController setUniqueArticleImages:[self allItems]
-                                       forTitle:article.title];
+    return self;
 }
 
 - (void)imageInfoController:(WMFImageInfoController*)controller didFetchBatch:(NSRange)range {
