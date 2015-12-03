@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UITableView* languageTableView;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
+@property (strong, nonatomic) IBOutlet UILabel* footnoteLabel;
 
 @end
 
@@ -22,6 +23,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.languageTableView.editing = YES;
+
+    self.titleLabel.text = MWLocalizedString(@"welcome-languages-title", nil);
+    [self.moreLanguagesButton setTitle:MWLocalizedString(@"welcome-languages-more-languages-button-title", nil) forState:UIControlStateNormal];
+    [self.nextStepButton setTitle:MWLocalizedString(@"welcome-languages-button-title", nil) forState:UIControlStateNormal];
+    self.footnoteLabel.text = MWLocalizedString(@"welcome-languages-footnote-text", nil);
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self lockTableViewIfContentFits];
+}
+
+- (void)lockTableViewIfContentFits {
+    //Don't make it scroll unless we have too (rare to have so many languages)
+    if (self.languageTableView.contentSize.height < self.languageTableView.frame.size.height) {
+        self.languageTableView.scrollEnabled = NO;
+    } else {
+        self.languageTableView.scrollEnabled = YES;
+    }
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
