@@ -29,6 +29,8 @@
 //TODO: when refactoring networking, this should be scoped to those classes
 #define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
 
+#define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
+
 #ifndef PIWIK_ENABLED
     #if NDEBUG
         #define PIWIK_ENABLED 0
