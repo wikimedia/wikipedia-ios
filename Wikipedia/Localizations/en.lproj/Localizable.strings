@@ -325,13 +325,15 @@
 
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 
-"home-title" = "Home";
+"home-title" = "Explore";
 "home-continue-reading-heading" = "Continue Reading";
 "home-continue-related-heading" = "Because you read $1";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More from nearby your location";
 "home-nearby-nothing" = "Nothing nearby";
 "home-nearby-check-again" = "Check again";
+"home-featured-article-heading" = "Featured article for $1";
+"home-main-page-heading" = "Today on Wikipedia";
 
 "welcome-whats-new-title" = "Welcome To Wikipedia";
 "welcome-whats-new-whats-new" = "WHAT'S NEW";

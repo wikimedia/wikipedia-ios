@@ -402,7 +402,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addProgressView {
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.navigationController.navigationBar.mas_bottom).with.offset(0);
+        make.top.equalTo(self.progressView.superview.mas_top);
         make.left.equalTo(self.progressView.superview.mas_left);
         make.right.equalTo(self.progressView.superview.mas_right);
         make.height.equalTo(@2.0);
@@ -450,6 +450,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+    if (progress < self.progressView.progress) {
+        return;
+    }
     [self.progressView setProgress:progress animated:animated];
 }
 
