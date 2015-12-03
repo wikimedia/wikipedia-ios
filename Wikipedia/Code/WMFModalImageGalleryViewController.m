@@ -113,6 +113,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (instancetype)initWithImagesInArticle:(MWKArticle*)article currentImage:(nullable MWKImage*)currentImage {
     self = [self init];
     if (self) {
+        NSAssert(article.isCached, @"Unexpected initialization with uncached instance of %@ in %@, use %@ instead.",
+                 article.title,
+                 NSStringFromSelector(_cmd),
+                 NSStringFromSelector(@selector(initWithImagesInFutureArticle:placeholder:)));
         WMFModalArticleImageGalleryDataSource* articleGalleryDataSource =
             [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
         self.dataSource = articleGalleryDataSource;
@@ -136,10 +140,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return self;
 }
 
-- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise placeholder:(MWKArticle*)placeholderArticle {
+- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise
+                                  placeholder:(nullable MWKArticle*)placeholderArticle {
     self = [self init];
     if (self) {
-        self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:placeholderArticle];
+        if (placeholderArticle) {
+            self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:placeholderArticle];
+        }
         @weakify(self);
         articlePromise.then(^(MWKArticle* article) {
             @strongify(self);
