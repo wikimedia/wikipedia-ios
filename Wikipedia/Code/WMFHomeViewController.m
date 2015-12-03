@@ -465,9 +465,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
+    id<WMFArticleHomeSectionController> articleSectionController = controllerForSection;
     WMFArticleListTableViewController* extendedList = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
-    extendedList.dataSource = [controllerForSection extendedListDataSource];
+    extendedList.dataSource = [articleSectionController extendedListDataSource];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
@@ -532,17 +533,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)] && ![controller shouldSelectItemAtIndex:indexPath.item]) {
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
         return;
     }
-    if ([controller respondsToSelector:@selector(titleForItemAtIndex:)]) {
-        MWKTitle* title = [controller titleForItemAtIndex:indexPath.row];
+    if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title = [(id<WMFArticleHomeSectionController>)controller titleForItemAtIndex:indexPath.row];
         if (title) {
             MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
             [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
         }
-    } else if ([controller respondsToSelector:@selector(homeDetailViewControllerAtIndex:)]) {
-        UIViewController* detailViewController = [controller homeDetailViewControllerAtIndex:indexPath.item];
+    } else if ([controller conformsToProtocol:@protocol(WMFGenericHomeSectionController)]) {
+        UIViewController* detailViewController =
+            [(id<WMFGenericHomeSectionController>)controller homeDetailViewControllerForItemAtIndex:indexPath.item];
         [self presentViewController:detailViewController animated:YES completion:nil];
     }
 }
@@ -634,22 +637,19 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    MWKTitle* title = [sectionController titleForItemAtIndex:previewIndexPath.item];
-    if (!title) {
-        return nil;
-    }
-
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    if ([sectionController respondsToSelector:@selector(titleForItemAtIndex:)]) {
-        MWKTitle* title = [sectionController titleForItemAtIndex:previewIndexPath.item];
+    if ([sectionController conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title =
+            [(id<WMFArticleHomeSectionController>)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
-            return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                                         dataStore:[self dataStore]
-                                                                   discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
+            return [[WMFArticleContainerViewController alloc]
+                    initWithArticleTitle:title
+                               dataStore:[self dataStore]
+                         discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
         }
-    } else if ([sectionController respondsToSelector:@selector(homeDetailViewControllerAtIndex:)]) {
-        return [sectionController homeDetailViewControllerAtIndex:previewIndexPath.item];
+    } else if ([sectionController conformsToProtocol:@protocol(WMFGenericHomeSectionController)]) {
+        return [(id<WMFGenericHomeSectionController>)sectionController homeDetailViewControllerForItemAtIndex:previewIndexPath.item];
     }
 
     return nil;
