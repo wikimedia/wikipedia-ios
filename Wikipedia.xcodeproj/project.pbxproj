@@ -3861,7 +3861,6 @@
 				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
-				D4C16A631970949A00CD91AD /* update-qqq */,
 				0EB312441ACB96C300C7F7A6 /* Process Icons */,
 				D4991433181D51DE00E6073C /* Resources */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
@@ -4196,22 +4195,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = ./scripts/process_plist.sh;
-		};
-		D4C16A631970949A00CD91AD /* update-qqq */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Wikipedia/Localizations/en.lproj/InfoPlist.strings",
-				"$(SRCROOT)/Wikipedia/Localizations/en.lproj/Localizable.strings",
-			);
-			name = "update-qqq";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "scripts/update-qqq.php";
 		};
 		F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
