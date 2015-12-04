@@ -159,12 +159,6 @@ NS_ASSUME_NONNULL_BEGIN
                      completion:nil];
 }
 
-- (void)didTapSectionHeaderLink:(NSURL*)url {
-    [self wmf_pushArticleViewControllerWithTitle:[[MWKTitle alloc] initWithURL:url]
-                                 discoveryMethod:MWKHistoryDiscoveryMethodLink
-                                       dataStore:self.dataStore];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -485,6 +479,13 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFHomeSectionTypeNearby:
             [self didTapFooterInSection:section];
             break;
+        case WMFHomeSectionTypeSaved: {
+            WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
+            [self wmf_pushArticleViewControllerWithTitle:controller.title
+                                         discoveryMethod:MWKHistoryDiscoveryMethodLink
+                                               dataStore:self.dataStore];
+            break;
+        }
         default:
             break;
     }
@@ -508,8 +509,7 @@ NS_ASSUME_NONNULL_BEGIN
     header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
     NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-    [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderFont] range:NSMakeRange(0, title.length)];
     header.titleView.attributedText = title;
     header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
     header.titleView.delegate       = self;
@@ -634,7 +634,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)url inRange:(NSRange)characterRange {
-    [self didTapSectionHeaderLink:url];
     return NO;
 }
 

@@ -24,4 +24,6 @@
 + (instancetype)wmf_nearbyDescriptionFont;
 + (instancetype)wmf_nearbyDistanceFont;
 
++ (instancetype)wmf_homeSectionHeaderFont;
+
 @end
