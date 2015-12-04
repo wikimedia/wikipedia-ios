@@ -7,16 +7,26 @@
 //
 
 #import "WMFBaseImageGalleryViewController.h"
+#import "WMFImageGalleryDataSource.h"
+
+@class SSBaseDataSource;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFBaseImageGalleryViewController ()
-
-- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout*)layout NS_DESIGNATED_INITIALIZER;
 
 /**
  *  The data source used to drive the receiver's collection view.
  *
- *  Can be configured with custom cell classes, etc. at initialization time (@c initWithCollectionViewLayout:).
+ *  This also resets the @c currentPage property in order to maintain RTL compliance (set to last item in legacy RTL
+ *  environments).
+ *
+ *  Subclasses should <i>preferrably</i> set this property <b>at initialization time</b>. When set, the receiver's
+ *  @c currentPage as needed for RTL compliance and, if the view is loaded, the data source is connected to the
+ *  collection view.
  */
-@property (nonatomic, strong, readonly) WMFImageGalleryDataSource* dataSource;
+@property (nonatomic, strong, readwrite) SSBaseDataSource<WMFImageGalleryDataSource>* dataSource;
 
 @end
+
+NS_ASSUME_NONNULL_END

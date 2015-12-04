@@ -98,6 +98,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "search-recent-clear-cancel" = "Скасувати";
 "search-recent-clear-delete-all" = "Вилучити всі";
+"settings-title" = "Налаштування";
 "main-menu-title" = "Ще";
 "main-menu-heading-about" = "Про застосунок";
 "main-menu-language-title" = "$1 мова для пошуку на вікі";
@@ -282,3 +283,4 @@
 "page-similar-titles" = "Подібні сторінки";
 "captcha-reload" = "Показати інший малюнок";
 "captcha-prompt" = "Введіть текст з рисунку вище";
+"mwk-empty-title-error" = "Не вдається виконати операцію з порожнім заголовком.";

@@ -465,9 +465,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
         return;
     }
-    WMFArticleListTableViewController* extendedList = [[WMFArticleListTableViewController alloc] init];
+    id<WMFArticleHomeSectionController> articleSectionController = (id<WMFArticleHomeSectionController>)controllerForSection;
+    WMFArticleListTableViewController* extendedList              = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
-    extendedList.dataSource = [controllerForSection extendedListDataSource];
+    extendedList.dataSource = [articleSectionController extendedListDataSource];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
@@ -562,13 +563,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)] && ![controller shouldSelectItemAtIndex:indexPath.item]) {
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
         return;
     }
-    MWKTitle* title = [controller titleForItemAtIndex:indexPath.row];
-    if (title) {
-        MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
-        [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+    if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
+        if (title) {
+            MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
+            [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
+        }
+    } else if ([controller conformsToProtocol:@protocol(WMFGenericHomeSectionController)]) {
+        UIViewController* detailViewController =
+            [(id < WMFGenericHomeSectionController >)controller homeDetailViewControllerForItemAtIndex:indexPath.item];
+        [self presentViewController:detailViewController animated:YES completion:nil];
     }
 }
 
@@ -659,21 +667,31 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    MWKTitle* title = [sectionController titleForItemAtIndex:previewIndexPath.item];
-    if (!title) {
-        return nil;
-    }
-
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                                 dataStore:[self dataStore]
-                                                           discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
+    if ([sectionController conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title =
+            [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
+        if (title) {
+            return [[WMFArticleContainerViewController alloc]
+                    initWithArticleTitle:title
+                               dataStore:[self dataStore]
+                         discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
+        }
+    } else if ([sectionController conformsToProtocol:@protocol(WMFGenericHomeSectionController)]) {
+        return [(id < WMFGenericHomeSectionController >)sectionController homeDetailViewControllerForItemAtIndex:previewIndexPath.item];
+    }
+
+    return nil;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
-    [self wmf_pushArticleViewController:viewControllerToCommit];
+     commitViewController:(UIViewController*)viewControllerToCommit {
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
+    } else {
+        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    }
 }
 
 @end

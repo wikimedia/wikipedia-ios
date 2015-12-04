@@ -673,7 +673,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 - (void)setArticle:(MWKArticle*)article {
     _article = article;
 
-#warning TODO: remove dependency on session current article
+    WMF_TECH_DEBT_TODO(remove dependency on session current article)
     self.session.currentArticle = article;
 
     if ([self isViewLoaded]) {

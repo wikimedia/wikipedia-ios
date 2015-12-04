@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0620"
+   LastUpgradeVersion = "0710"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -92,11 +92,19 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-WMFFixtureRecordingEnabled NO"
+            argument = "-WMFFixtureRecordingEnabled"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-FakeZeroOn NO"
+            argument = "NO"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-FakeZeroOn"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "NO"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

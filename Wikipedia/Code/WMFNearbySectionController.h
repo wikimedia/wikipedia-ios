@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFNearbySectionController : NSObject <WMFHomeSectionController>
+@interface WMFNearbySectionController : NSObject <WMFArticleHomeSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site
                savedPageList:(MWKSavedPageList*)savedPageList

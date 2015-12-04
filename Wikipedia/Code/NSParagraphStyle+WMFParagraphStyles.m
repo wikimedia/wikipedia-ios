@@ -16,6 +16,7 @@
     if (!naturalAlignmentStyle) {
         NSMutableParagraphStyle* style = [NSMutableParagraphStyle new];
         style.alignment       = NSTextAlignmentNatural;
+        style.lineBreakMode   = NSLineBreakByTruncatingTail;
         naturalAlignmentStyle = [style copy];
     }
     return naturalAlignmentStyle;

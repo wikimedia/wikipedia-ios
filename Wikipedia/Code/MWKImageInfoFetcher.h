@@ -27,23 +27,42 @@
  * @param site        A site object for the MW site to target.
  * @return An operation which can be used to set success and failure handling or cancel the originating request.
  */
-- (id<MWKImageInfoRequest>)fetchInfoForImageFiles:(NSArray*)imageTitles
-                                         fromSite:(MWKSite*)site
-                                          success:(void (^)(NSArray* infoObjects))success
-                                          failure:(void (^)(NSError* error))failure;
+- (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray*)imageTitles
+                                                fromSite:(MWKSite*)site
+                                                 success:(void (^)(NSArray* infoObjects))success
+                                                 failure:(void (^)(NSError* error))failure;
 
 /**
- * Fetch the imageinfo for the images which are preseent on the given pages.
- * @param imageTitles One or more page titles to retrieve images from, and then fetch info for.
- * @param site        A site object for the MW site to target.
- * @return An operation which can be used to set success and failure handling or cancel the originating request.
+ * Fetch @c MWKImageInfo populated with only the data needed for display in the home view.
+ *
+ * Used in context where only the image URL and description are needed.
+ *
+ * @param pageTitles       One or more page titles to retrieve images from, and then fetch info for.
+ * @param site             A site object for the MW site to target.
+ * @param metadataLanguage The langauge to attempt to retrieve image metadata in. Falls back to English if the specified
+ *                         langauge isn't available. Defaults to current locale's language if @c nil.
+ *
+ * @return A promise which resolves to the @c MWKImageInfo containing info the images found on the specified pages.
  */
-- (id<MWKImageInfoRequest>)fetchInfoForImagesFoundOnPages:(NSArray*)pageTitles
-                                                 fromSite:(MWKSite*)site
-                                         metadataLanguage:(NSString*)metadataLanguage
-                                           thumbnailWidth:(NSUInteger)thumbnailWidth
-                                                  success:(void (^)(NSArray*))success
-                                                  failure:(void (^)(NSError*))failure;
+- (AnyPromise*)fetchPartialInfoForImagesOnPages:(NSArray*)pageTitles
+                                       fromSite:(MWKSite*)site
+                               metadataLanguage:(NSString*)metadataLanguage;
+
+/**
+ * Fetch @c MWKImageInfo populated with enough suitable for display in a modal gallery.
+ *
+ * Used in contexts where image URL, description, artist, etc. are needed.
+ *
+ * @param pageTitles       One or more page titles to retrieve images from, and then fetch info for.
+ * @param site             A site object for the MW site to target.
+ * @param metadataLanguage The langauge to attempt to retrieve image metadata in. Falls back to English if the specified
+ *                         langauge isn't available. Defaults to the current locale's language if @c nil.
+ *
+ * @return A promise which resolves to the @c MWKImageInfo containing info the images found on the specified pages.
+ */
+- (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
+                                       fromSite:(MWKSite*)site
+                               metadataLanguage:(NSString*)metadataLanguage;
 
 - (void)cancelAllFetches;
 

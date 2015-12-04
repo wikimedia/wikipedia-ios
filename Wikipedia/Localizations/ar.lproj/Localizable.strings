@@ -95,6 +95,7 @@
 "main-menu-privacy-policy" = "سياسة الخصوصية";
 "main-menu-terms-of-use" = "شروط الاستخدام";
 "main-menu-rate-app" = "قيم التطبيق";
+"main-menu-heading-zero" = "ويكيبيديا زيرو";
 "main-menu-show-today" = "اليوم";
 "main-menu-nearby" = "بالقرب من هنا";
 "main-menu-more" = "المزيد...";
@@ -102,11 +103,8 @@
 "saved-pages-clear-confirmation-heading" = "حذف جميع العناصر المحفوظة؟";
 "saved-pages-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "saved-pages-clear-cancel" = "إلغاء";
-// Fuzzy
-"saved-pages-clear-delete-all" = "حذف الكل";
-// Fuzzy
+"saved-pages-clear-delete-all" = "احذف الكل";
 "page-history-title" = "تاريخ المقالة";
-// Fuzzy
 "page-history-downloading" = "جارٍ تحميل تاريخ المقالة...";
 "navbar-title-mode-edit-wikitext" = "تعديل";
 "navbar-title-mode-login" = "سجّل الدخول";
@@ -118,6 +116,7 @@
 "navbar-title-mode-edit-wikitext-summary" = "صف تعديلك";
 "navbar-title-mode-edit-wikitext-save" = "حفظ";
 "edit-summary-choice-linked-words" = "إضافة وصلات";
+"edit-summary-choice-fixed-grammar" = "تم إصلاح النحو";
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
 "edit-summary-choice-added-category" = "تمت إضافة تصنيف";
 "edit-summary-choice-other" = "غير ذلك";
@@ -153,16 +152,23 @@
 "menu-close-accessibility-label" = "أغلق";
 "menu-preview-accessibility-label" = "معاينة";
 "menu-back-accessibility-label" = "رجوع";
+"menu-forward-accessibility-label" = "إلى الأمام";
 "menu-w-accessibility-label" = "القائمة";
 "menu-toc-accessibility-label" = "المحتويات";
+"menu-search-accessibility-label" = "بحث";
 "menu-reload-accessibility-label" = "أعد التحميل";
 "menu-cancel-accessibility-label" = "ألغ";
 "menu-share-accessibility-label" = "شارك";
 "menu-more-accessibility-label" = "المزيد من الإعدادات";
+"menu-trash-accessibility-label" = "حذف";
 "menu-language-accessibility-label" = "اللغات";
+"nearby-title" = "بالقرب من هنا";
+"nearby-distance-label-meters" = " $1 م";
+"nearby-open-in-maps" = "افتح في الخرائط";
 "nearby-cancel" = "ألغ";
 "image-gallery-unknown-owner" = "الرافع غير معروف.";
 "image-gallery-fetch-image-info-error-title" = "غير قادر على تنزيل الصور";
 "image-gallery-fetch-image-info-error-ok" = "موافق";
+"hockeyapp-alert-send-report" = "أرسل التقرير";
 "hockeyapp-alert-do-not-send" = "لا ترسل";
 "page-similar-titles" = "صفحات مشابهة";

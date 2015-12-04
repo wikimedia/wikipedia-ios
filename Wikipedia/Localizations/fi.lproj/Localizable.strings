@@ -101,6 +101,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
 "search-recent-clear-cancel" = "Keskeytä";
 "search-recent-clear-delete-all" = "Poista kaikki";
+"settings-title" = "Asetukset";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
 "main-menu-language-title" = "Etsi wikistä kielellä $1";
