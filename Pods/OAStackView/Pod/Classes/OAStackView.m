@@ -37,15 +37,11 @@
   
   if (self) {
       
-      NSArray* sv = [self subviews];
-      if ([NSStringFromClass([self class]) isEqualToString:@"UIStackView"]) {
-          sv = [decoder decodeObjectForKey:@"UIStackViewArrangedSubviews"];
-      }
-      
-      [self commonInitWithInitalSubviews:sv];
+      [self commonInitWithInitalSubviews:@[]];
       
       // Not sure why, but [self isKindOfClass:@"UIStackView"] didn't work here
       if ([NSStringFromClass([self class]) isEqualToString:@"UIStackView"]) {
+//          NSArray* arranedViews = [decoder decodeObjectForKey:@"UIStackViewArrangedSubviews"];
           _axis = [decoder decodeIntegerForKey:@"UIStackViewAxis"];
           _spacing = [decoder decodeDoubleForKey:@"UIStackViewSpacing"];
           _distribution = [decoder decodeIntegerForKey:@"UIStackViewDistribution"];
@@ -222,6 +218,17 @@
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
     [self layoutArrangedViews];
 }
+
+- (void)didAddSubview:(UIView *)subview {
+    [super didAddSubview:subview];
+    [self addObserverForView:subview];
+}
+
+- (void)willRemoveSubview:(UIView *)subview {
+    [super willRemoveSubview:subview];
+    [self removeObserverForView:subview];
+}
+
 
 #pragma mark - Adding and removing
 

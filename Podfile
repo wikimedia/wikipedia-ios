@@ -42,7 +42,7 @@ pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 
 # Diagnostics
 pod 'PiwikTracker'
-pod 'CocoaLumberjack/Swift', :git => 'https://github.com/CocoaLumberjack/CocoaLumberjack.git', :branch => 'swift_2.0'
+pod 'CocoaLumberjack/Swift', '~> 2.2'
 pod 'HockeySDK', '~> 3.8.2'
 
 target 'WikipediaUnitTests', :exclusive => true do

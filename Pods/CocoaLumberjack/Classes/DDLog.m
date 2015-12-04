@@ -42,7 +42,9 @@
 // So we use a primitive logging macro around NSLog.
 // We maintain the NS prefix on the macros to be explicit about the fact that we're using NSLog.
 
-#define DD_DEBUG NO
+#ifndef DD_DEBUG
+    #define DD_DEBUG NO
+#endif
 
 #define NSLogDebug(frmt, ...) do{ if(DD_DEBUG) NSLog((frmt), ##__VA_ARGS__); } while(0)
 
@@ -135,26 +137,10 @@ static NSUInteger _numProcessors;
 
         _queueSemaphore = dispatch_semaphore_create(LOG_MAX_QUEUE_SIZE);
 
-#if TARGET_OS_WATCH
-        // host_info not avilable in watchOS
-        // Using prefixed value for workaround
-        
-        _numProcessors = 2;
-#else
         // Figure out how many processors are available.
         // This may be used later for an optimization on uniprocessor machines.
-
-        host_basic_info_data_t hostInfo;
-        mach_msg_type_number_t infoCount;
-
-        infoCount = HOST_BASIC_INFO_COUNT;
-        host_info(mach_host_self(), HOST_BASIC_INFO, (host_info_t)&hostInfo, &infoCount);
-
-        NSUInteger result = (NSUInteger)hostInfo.max_cpus;
-        NSUInteger one    = (NSUInteger)1;
-
-        _numProcessors = MAX(result, one);
-#endif
+        
+        _numProcessors = MAX([NSProcessInfo processInfo].processorCount, 1);
 
         NSLogDebug(@"DDLog: numProcessors = %@", @(_numProcessors));
 
@@ -203,7 +189,7 @@ static NSUInteger _numProcessors;
 #pragma mark Notifications
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-+ (void)applicationWillTerminate:(NSNotification *)notification {
++ (void)applicationWillTerminate:(NSNotification * __attribute__((unused)))notification {
     [self flushLog];
 }
 
@@ -868,9 +854,9 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
     #define USE_DISPATCH_CURRENT_QUEUE_LABEL ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     #define USE_DISPATCH_GET_CURRENT_QUEUE   ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.1)
 
-#elif TARGET_OS_WATCH
+#elif TARGET_OS_WATCH || TARGET_OS_TV
 
-// Compiling for watchOS
+// Compiling for watchOS, tvOS
 
 #define USE_DISPATCH_CURRENT_QUEUE_LABEL YES
 #define USE_DISPATCH_GET_CURRENT_QUEUE   YES
@@ -910,9 +896,9 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 
     #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
 
-#elif TARGET_OS_WATCH
+#elif TARGET_OS_WATCH || TARGET_OS_TV
 
-// Compiling for watchOS
+// Compiling for watchOS, tvOS
 
 #define USE_PTHREAD_THREADID_NP                    YES
 
@@ -988,7 +974,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
     return self;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(NSZone * __attribute__((unused)))zone {
     DDLogMessage *newMessage = [DDLogMessage new];
     
     newMessage->_message = _message;
@@ -1061,7 +1047,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
     #endif
 }
 
-- (void)logMessage:(DDLogMessage *)logMessage {
+- (void)logMessage:(DDLogMessage * __attribute__((unused)))logMessage {
     // Override me
 }
 
