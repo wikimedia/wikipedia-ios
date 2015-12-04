@@ -55,17 +55,21 @@
     cell.numberLabel.text       = [NSString stringWithFormat:@"%li", indexPath.row + 1];
     cell.languageNameLabel.text = langLink.name;
 
+    //can only delete non-OS languages
+    if (![[MWKLanguageLinkController sharedInstance] languageIsOSLanguage:langLink]) {
+        cell.deleteButtonTapped = ^{
+            MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
+            [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        };
+    }
+
+
     return cell;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     return UITableViewCellEditingStyleNone; //remove delete control
-}
-
-- (void)tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
-    MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
-    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)tableView:(UITableView*)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath*)destinationIndexPath {

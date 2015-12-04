@@ -59,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)removePreferredLanguage:(MWKLanguageLink*)langage;
 
+
+- (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language;
+
 @end
 
 NS_ASSUME_NONNULL_END

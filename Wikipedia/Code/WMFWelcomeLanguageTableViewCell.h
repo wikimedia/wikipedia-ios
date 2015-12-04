@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@import MGSwipeTableCell;
 
-@interface WMFWelcomeLanguageTableViewCell : UITableViewCell
+@interface WMFWelcomeLanguageTableViewCell : MGSwipeTableCell
 
 @property (strong, nonatomic) IBOutlet UILabel* numberLabel;
 @property (strong, nonatomic) IBOutlet UILabel* languageNameLabel;
+
+@property (copy, nonatomic) dispatch_block_t deleteButtonTapped;
 
 @end
