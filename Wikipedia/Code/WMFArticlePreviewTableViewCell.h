@@ -36,4 +36,7 @@
  */
 @property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
+- (void)blurAndShowLoadingIndicator;
+- (void)unblurAndHideLoadingIndicator;
+
 @end
