@@ -206,8 +206,8 @@ static dispatch_once_t launchToken;
     [self runDataMigrationIfNeededWithCompletion:^{
         [self.imageMigration setupAndStart];
         [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-        [self loadMainUI];
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+            [self loadMainUI];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
         }];
