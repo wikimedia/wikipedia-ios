@@ -12,9 +12,12 @@
 @implementation NSDate (WMFPOTDDateRange)
 
 - (NSArray<NSDate*>*)wmf_datesUntilToday {
-    NSDate* today                         = [NSDate date];
-    NSDate* laterDate                     = [today laterDate:self];
-    NSDate* earlierDate                   = [today earlierDate:self];
+    return [self wmf_datesUntilDate:[NSDate date]];
+}
+
+- (NSArray<NSDate*>*)wmf_datesUntilDate:(NSDate*)date; {
+    NSDate* laterDate                     = [date laterDate:self];
+    NSDate* earlierDate                   = [date earlierDate:self];
     NSTimeInterval const secondsUntilDate = [laterDate timeIntervalSinceDate:earlierDate];
     NSInteger const daysUntilDate         = floorf(secondsUntilDate / (NSTimeInterval)D_DAY);
     NSMutableArray<NSDate*>* days         = [NSMutableArray arrayWithObject:laterDate];

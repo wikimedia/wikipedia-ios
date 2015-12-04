@@ -10,6 +10,8 @@
 
 @interface NSDate (WMFPOTDDateRange)
 
+- (NSArray<NSDate*>*)wmf_datesUntilDate:(NSDate*)date;
+
 /**
  *  @return A range of dates between now and the receiver, ordered in descending order (latest to earliest).
  */

@@ -84,13 +84,13 @@ NS_ASSUME_NONNULL_BEGIN
                                   placeholder:(nullable MWKArticle*)placeholderArticle;
 
 /**
- *  Initialize a modal gallery which will display the last several pictures of the day, including day.
+ *  Initialize a modal gallery which will display the last several pictures of the day, including the given date.
  *
  *  @param info The info which was already downloaded to display picture of the day in the Home view.
  *
  *  @return A new modal image gallery which will display pictures of the day.
  */
-- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info;
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date;
 
 ///
 /// @name Setting the delegate

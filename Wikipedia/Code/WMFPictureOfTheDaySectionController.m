@@ -15,6 +15,7 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFModalImageGalleryViewController.h"
 #import "UIScreen+WMFImageWidth.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -44,7 +45,8 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.imageInfo = [MWKImageInfo feedPlaceholder];
+        self.imageInfo   = [MWKImageInfo feedPlaceholder];
+        self.fetchedDate = [NSDate date];
         [self fetchData];
     }
     return self;
@@ -60,15 +62,12 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 #pragma mark - Fetching
 
 - (void)fetchData {
-    self.fetchedDate = [NSDate date];
-
     @weakify(self);
     [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
                                     metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
-    .then(^(NSArray<MWKImageInfo*>* imageInfoObjects) {
+    .then(^(MWKImageInfo* info) {
         @strongify(self);
-        NSParameterAssert(imageInfoObjects.count == 1);
-        self.imageInfo = imageInfoObjects.firstObject;
+        self.imageInfo = info;
         [self.delegate controller:self didSetItems:self.items];
     })
     .catch(^(NSError* error) {
@@ -94,8 +93,9 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 }
 
 - (NSAttributedString*)headerText {
-    // TEMP: need to make some more changes to have a "headerless" section which matches spec
-    return [[NSAttributedString alloc] initWithString:@"Today's picture"];
+    return [[NSAttributedString alloc] initWithString:
+            [MWLocalizedString(@"home-potd-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                    withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.fetchedDate]]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
@@ -128,7 +128,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (UIViewController*)homeDetailViewControllerForItemAtIndex:(NSUInteger)index {
     NSParameterAssert(self.fetchedDate);
     NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
-    return [[WMFModalImageGalleryViewController alloc] initWithTodaysInfo:self.imageInfo];
+    return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 
 @end

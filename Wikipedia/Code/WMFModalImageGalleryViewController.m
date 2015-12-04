@@ -163,10 +163,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Picture of the Day Gallery
 
-- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info {
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(nonnull NSDate*)date {
     self = [self init];
     if (self) {
-        self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithTodaysInfo:info];
+        self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithInfo:info forDate:date];
     }
     return self;
 }
