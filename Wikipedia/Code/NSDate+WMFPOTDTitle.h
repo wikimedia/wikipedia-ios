@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const WMFPOTDTitlePrefix;
+
 @interface NSDate (WMFPOTDTitle)
 
 - (NSString*)wmf_picOfTheDayPageTitle;
