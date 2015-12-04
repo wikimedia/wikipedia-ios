@@ -10,7 +10,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="WMFArticleListTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="458" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="458" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -23,14 +23,14 @@
                             <constraint firstAttribute="height" constant="40" id="v5O-bB-IH3"/>
                         </constraints>
                     </imageView>
-                    <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6JK-c4-FJw" userLabel="Clipping Container View">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JK-c4-FJw" userLabel="Clipping Container View">
                         <rect key="frame" x="55" y="0.0" width="403" height="61"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="751" ambiguous="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="999" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Mxi-So-IXe">
                                 <rect key="frame" x="15" y="11" width="373" height="20"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -38,7 +38,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" ambiguous="YES" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-JS-HmV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="999" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EoE-JS-HmV">
                                 <rect key="frame" x="15" y="34" width="373" height="17"/>
                                 <animations/>
                                 <constraints>
@@ -76,9 +76,9 @@
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
+                    <constraint firstItem="RMa-GF-kKq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="0FL-Bb-pTQ"/>
                     <constraint firstItem="6JK-c4-FJw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Cre-Ui-7AM"/>
-                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
+                    <constraint firstAttribute="bottom" secondItem="RMa-GF-kKq" secondAttribute="bottom" constant="10" id="KBp-WI-wU6"/>
                     <constraint firstItem="6JK-c4-FJw" firstAttribute="leading" secondItem="RMa-GF-kKq" secondAttribute="trailing" id="W1o-QG-sBU"/>
                     <constraint firstItem="RMa-GF-kKq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Zfh-bn-2Mj"/>
                     <constraint firstAttribute="trailing" secondItem="6JK-c4-FJw" secondAttribute="trailing" id="bMC-sz-hcv"/>
