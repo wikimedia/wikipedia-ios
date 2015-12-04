@@ -141,6 +141,10 @@
         DDLogVerbose(@"Not fetching nearby titles for %@ since it is too close to previously fetched location: %@.",
                      location, self.locationSearchResults.location);
         return;
+    } else if ([self.delegate respondsToSelector:@selector(nearbyViewModel:shouldFetchTitlesForLocation:)]
+               && ![self.delegate nearbyViewModel:self shouldFetchTitlesForLocation:location]) {
+        DDLogInfo(@"Skipping title update for new location %@", location);
+        return;
     }
 
     [self.lastFetch cancel];
@@ -153,7 +157,6 @@
     .then(^(WMFLocationSearchResults* locationSearchResults) {
         @strongify(self);
         self.locationSearchResults = locationSearchResults;
-        [self stopUpdates];
         [self.delegate nearbyViewModel:self didUpdateResults:locationSearchResults];
     })
     .catch(^(NSError* error) {

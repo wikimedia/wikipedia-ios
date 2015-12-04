@@ -43,6 +43,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 @implementation WMFHomeSectionSchema
 
+- (NSString*)description {
+    // HAX: prevent this from logging all its properties in its description, as this causes recursion to
+    // WMFLocationManager.description
+    return [NSString stringWithFormat:@"<%@: %p>", [self class], self];
+}
+
 #pragma mark - Setup
 
 + (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {

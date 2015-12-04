@@ -17,6 +17,7 @@
 @class MWKLocationSearchResult;
 @class WMFSearchResultDistanceProvider;
 @class WMFSearchResultBearingProvider;
+@class CLLocation;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results;
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error;
+
+
+@optional
+
+- (BOOL)nearbyViewModel:(WMFNearbyViewModel*)viewModel shouldFetchTitlesForLocation:(CLLocation*)location;
 
 // TODO: separate callback for authorization prompts
 
