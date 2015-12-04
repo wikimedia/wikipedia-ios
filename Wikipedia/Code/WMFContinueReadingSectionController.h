@@ -2,7 +2,7 @@
 
 @class MWKTitle, MWKDataStore;
 
-@interface WMFContinueReadingSectionController : NSObject <WMFHomeSectionController>
+@interface WMFContinueReadingSectionController : NSObject <WMFArticleHomeSectionController>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;

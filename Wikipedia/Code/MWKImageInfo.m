@@ -13,7 +13,6 @@ NSString* const MWKImageInfoCanonicalPageTitleKey = @"canonicalPageTitle";
 NSString* const MWKImageInfoCanonicalFileURLKey   = @"canonicalFileURL";
 NSString* const MWKImageInfoImageDescriptionKey   = @"imageDescription";
 NSString* const MWKImageInfoFilePageURLKey        = @"filePageURL";
-NSString* const MWKImageInfoImageURLKey           = @"imageURL";
 NSString* const MWKImageInfoImageThumbURLKey      = @"imageThumbURL";
 NSString* const MWKImageInfoOwnerKey              = @"owner";
 NSString* const MWKImageInfoLicenseKey            = @"license";
@@ -28,7 +27,6 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
 @property (nonatomic, readwrite, copy) NSString* imageDescription;
 @property (nonatomic, readwrite, strong) MWKLicense* license;
 @property (nonatomic, readwrite, copy) NSURL* filePageURL;
-@property (nonatomic, readwrite, copy) NSURL* imageURL;
 @property (nonatomic, readwrite, copy) NSURL* imageThumbURL;
 @property (nonatomic, readwrite, assign) CGSize imageSize;
 @property (nonatomic, readwrite, assign) CGSize thumbSize;
@@ -45,15 +43,13 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
                           imageDescription:(NSString*)imageDescription
                                    license:(MWKLicense*)license
                                filePageURL:(NSURL*)filePageURL
-                                  imageURL:(NSURL*)imageURL
                              imageThumbURL:(NSURL*)imageThumbURL
                                      owner:(NSString*)owner
                                  imageSize:(CGSize)imageSize
                                  thumbSize:(CGSize)thumbSize {
     // !!!: not sure what's guaranteed by the API
-    //NSParameterAssert(canonicalPageTitle.length);
-    //NSParameterAssert(canonicalFileURL.absoluteString.length);
-    //NSParameterAssert([imageURL.absoluteString length]);
+    // NSParameterAssert(canonicalPageTitle.length);
+    // NSParameterAssert(canonicalFileURL.absoluteString.length);
     self = [super init];
     if (self) {
         self.canonicalPageTitle = canonicalPageTitle;
@@ -62,7 +58,6 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
         self.license            = license;
         self.canonicalFileURL   = canonicalFileURL;
         self.filePageURL        = filePageURL;
-        self.imageURL           = imageURL;
         self.imageThumbURL      = imageThumbURL;
         self.imageSize          = imageSize;
         self.thumbSize          = thumbSize;
@@ -81,7 +76,6 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
                       imageDescription:exportedData[MWKImageInfoImageDescriptionKey]
                                license:[MWKLicense licenseWithExportedData:exportedData[MWKImageInfoLicenseKey]]
                            filePageURL:[NSURL URLWithString:exportedData[MWKImageInfoFilePageURLKey]]
-                              imageURL:[NSURL URLWithString:exportedData[MWKImageInfoImageURLKey]]
                          imageThumbURL:[NSURL URLWithString:exportedData[MWKImageInfoImageThumbURLKey]]
                                  owner:exportedData[MWKImageInfoOwnerKey]
                              imageSize:CGSizeFromString(exportedData[MWKImageInfoImageSize])
@@ -97,7 +91,6 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
     [dict wmf_maybeSetObject:self.canonicalFileURL.absoluteString forKey:MWKImageInfoCanonicalFileURLKey];
     [dict wmf_maybeSetObject:self.imageDescription forKey:MWKImageInfoImageDescriptionKey];
     [dict wmf_maybeSetObject:self.filePageURL.absoluteString forKey:MWKImageInfoFilePageURLKey];
-    [dict wmf_maybeSetObject:self.imageURL.absoluteString forKey:MWKImageInfoImageURLKey];
     [dict wmf_maybeSetObject:self.imageThumbURL.absoluteString forKey:MWKImageInfoImageThumbURLKey];
     [dict wmf_maybeSetObject:self.owner forKey:MWKImageInfoOwnerKey];
 
@@ -125,7 +118,6 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
            && WMF_EQUAL(self.imageDescription, isEqualToString:, other.imageDescription)
            && WMF_EQUAL(self.license, isEqualToLicense:, other.license)
            && WMF_IS_EQUAL(self.filePageURL, other.filePageURL)
-           && WMF_IS_EQUAL(self.imageURL, other.imageURL)
            && WMF_IS_EQUAL(self.imageThumbURL, other.imageThumbURL)
            && WMF_EQUAL(self.owner, isEqualToString:, other.owner)
            && CGSizeEqualToSize(self.imageSize, other.imageSize)
@@ -133,18 +125,19 @@ NSString* const MWKImageInfoThumbSize             = @"thumbSize";
 }
 
 - (NSUInteger)hash {
-    return self.canonicalPageTitle.hash ^ flipBitsWithAdditionalRotation(self.imageURL.hash, 1);
+    return self.canonicalPageTitle.hash ^ flipBitsWithAdditionalRotation(self.canonicalFileURL.hash, 1);
 }
 
 - (NSString*)description {
-    return [NSString stringWithFormat:@"%@ %@ %@", [super description], self.canonicalPageTitle, self.imageURL];
+    return [NSString stringWithFormat:@"%@ %@ %@",
+            [super description], self.canonicalPageTitle, self.canonicalFileURL];
 }
 
 #pragma mark - Calculated properties
 
 - (id)imageAssociationValue {
     if (!_imageAssociationValue) {
-        _imageAssociationValue = WMFParseImageNameFromSourceURL(self.imageURL);
+        _imageAssociationValue = WMFParseImageNameFromSourceURL(self.canonicalFileURL);
     }
     return _imageAssociationValue;
 }

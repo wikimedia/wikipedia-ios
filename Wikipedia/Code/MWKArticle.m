@@ -423,7 +423,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     }]];
 
     [imageURLs addObjectsFromArray:
-     [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageURL)]];
+     [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalFileURL)]];
 
     [imageURLs addObjectsFromArray:
      [[self.dataStore imageInfoForTitle:self.title] valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, imageThumbURL)]];

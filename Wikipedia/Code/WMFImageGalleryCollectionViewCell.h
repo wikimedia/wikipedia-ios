@@ -29,8 +29,6 @@
 /// The subview which displays additional information about the image.
 @property (nonatomic, weak, readonly) WMFImageGalleryDetailOverlayView* detailOverlayView;
 
-@property (nonatomic, getter = isZoomEnabled) BOOL zoomEnabled;
-
 @property (nonatomic, getter = isLoading) BOOL loading;
 
 - (void)startLoadingAfterDelay:(NSTimeInterval)seconds;

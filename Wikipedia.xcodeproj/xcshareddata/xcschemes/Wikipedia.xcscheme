@@ -95,7 +95,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-WMFFixtureRecordingEnabled NO"
+            argument = "-WMFFixtureRecordingEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "NO"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

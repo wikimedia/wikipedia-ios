@@ -7,10 +7,10 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFSearchResponseSerializer.h"
 #import <Mantle/Mantle.h>
+#import "UIScreen+WMFImageWidth.h"
 
 //Promises
 #import "Wikipedia-Swift.h"
-
 
 //Models
 #import "WMFLocationSearchResults.h"
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
                @"action": @"query",
                @"prop": @"coordinates|pageimages|pageterms",
                @"colimit": numberOfResults,
-               @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+               @"pithumbsize": [[UIScreen mainScreen] wmf_nearbyThumbnailWidthForScale],
                @"pilimit": numberOfResults,
                @"wbptterms": @"description",
                @"generator": @"geosearch",

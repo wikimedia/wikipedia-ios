@@ -5,6 +5,6 @@
 
 @interface UITableViewCell (WMFCellSelectedBackground)
 
-- (void)wmf_setSelectedBackground;
+- (void)wmf_addSelectedBackgroundView;
 
 @end
