@@ -13,6 +13,7 @@
 #import "MWKImageList.h"
 #import "MediaWikiKit.h"
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
+#import "UIScreen+WMFImageWidth.h"
 
 @interface MWKImageInfoFetcher ()
 
@@ -47,31 +48,44 @@
     return self;
 }
 
-- (id<MWKImageInfoRequest>)fetchInfoForImagesFoundOnPages:(NSArray*)pageTitles
-                                                 fromSite:(MWKSite*)site
-                                         metadataLanguage:(NSString*)metadataLanguage
-                                           thumbnailWidth:(NSUInteger)thumbnailWidth
-                                                  success:(void (^)(NSArray*))success
-                                                  failure:(void (^)(NSError*))failure {
-    return [self fetchInfoForTitles:pageTitles
-                           fromSite:site
-                     thumbnailWidth:thumbnailWidth
-                   metadataLanguage:metadataLanguage
-                       useGenerator:YES
-                            success:success
-                            failure:failure];
+- (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
+                                       fromSite:(MWKSite*)site
+                               metadataLanguage:(nullable NSString*)metadataLanguage; {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self fetchInfoForTitles:pageTitles
+                        fromSite:site
+                  thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
+                 extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
+                metadataLanguage:metadataLanguage
+                    useGenerator:YES
+                         success:resolve
+                         failure:resolve];
+    }];
 }
 
-- (id<MWKImageInfoRequest>)fetchInfoForImageFiles:(NSArray*)imageTitles
-                                         fromSite:(MWKSite*)site
-                                          success:(void (^)(NSArray*))success
-                                          failure:(void (^)(NSError*))failure {
-    // This is currently only used for fullscreen image gallery.  If more dynamic image sizes are desired, expose
-    // the parameter in the API.
-    // 1280 is a well-populated image width in back-end cache that gives good-enough quality on most iOS devices
+- (AnyPromise*)fetchPartialInfoForImagesOnPages:(NSArray*)pageTitles
+                                       fromSite:(MWKSite*)site
+                               metadataLanguage:(nullable NSString*)metadataLanguage {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self fetchInfoForTitles:pageTitles
+                        fromSite:site
+                  thumbnailWidth:[[UIScreen mainScreen] wmf_potdImageWidthForScale]
+                 extmetadataKeys:[MWKImageInfoResponseSerializer picOfTheDayExtMetadataKeys]
+                metadataLanguage:metadataLanguage
+                    useGenerator:YES
+                         success:resolve
+                         failure:resolve];
+    }];
+}
+
+- (id<MWKImageInfoRequest>)fetchGalleryInfoForImageFiles:(NSArray*)imageTitles
+                                                fromSite:(MWKSite*)site
+                                                 success:(void (^)(NSArray*))success
+                                                 failure:(void (^)(NSError*))failure {
     return [self fetchInfoForTitles:imageTitles
                            fromSite:site
-                     thumbnailWidth:1280
+                     thumbnailWidth:[[UIScreen mainScreen] wmf_galleryImageWidthForScale]
+                    extmetadataKeys:[MWKImageInfoResponseSerializer galleryExtMetadataKeys]
                    metadataLanguage:site.language
                        useGenerator:NO
                             success:success
@@ -80,7 +94,8 @@
 
 - (id<MWKImageInfoRequest>)fetchInfoForTitles:(NSArray*)titles
                                      fromSite:(MWKSite*)site
-                               thumbnailWidth:(NSUInteger)thumbnailWidth
+                               thumbnailWidth:(NSNumber*)thumbnailWidth
+                              extmetadataKeys:(NSArray<NSString*>*)extMetadataKeys
                              metadataLanguage:(nullable NSString*)metadataLanguage
                                  useGenerator:(BOOL)useGenerator
                                       success:(void (^)(NSArray*))success
@@ -98,8 +113,8 @@
            @"rawcontinue": @"",
            @"prop": @"imageinfo",
            @"iiprop": WMFJoinedPropertyParameters(@[@"url", @"extmetadata", @"dimensions"]),
-           @"iiextmetadatafilter": WMFJoinedPropertyParameters([MWKImageInfoResponseSerializer requiredExtMetadataKeys]),
-           @"iiurlwidth": @(thumbnailWidth) } mutableCopy];
+           @"iiextmetadatafilter": WMFJoinedPropertyParameters(extMetadataKeys),
+           @"iiurlwidth": thumbnailWidth } mutableCopy];
 
     if (useGenerator) {
         params[@"generator"] = @"images";

@@ -44,7 +44,6 @@
     self.saveButton.tintColor = [UIColor wmf_blueTintColor];
     [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
     self.saveButtonController.button = self.saveButton;
-    [self wmf_setSelectedBackground];
 }
 
 - (void)rememberSettingsFromIB {

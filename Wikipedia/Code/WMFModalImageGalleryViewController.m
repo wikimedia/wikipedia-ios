@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryViewController.h"
+#import "WMFModalImageGalleryViewController_Subclass.h"
 #import "WMFBaseImageGalleryViewController_Subclass.h"
 #import "Wikipedia-Swift.h"
 
@@ -42,12 +42,10 @@
 #import "MWKLicense+ToGlyph.h"
 #import "MWKImageInfo+MWKImageComparison.h"
 #import "MWKArticle.h"
-#import "WMFImageGalleryDataSource.h"
 
-// Networking
-#import "AFHTTPRequestOperationManager+UniqueRequests.h"
-#import "MWKImageInfoResponseSerializer.h"
-#import "WMFImageInfoController.h"
+// Data Sources
+#import "WMFModalArticleImageGalleryDataSource.h"
+#import "WMFModalPOTDGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,30 +53,44 @@ typedef void (^ WMFGalleryCellEnumerator)(WMFImageGalleryCollectionViewCell* cel
 
 static double const WMFImageGalleryTopGradientHeight = 150.0;
 
-@interface WMFImageGalleryViewController ()
-<UIGestureRecognizerDelegate, UICollectionViewDelegateFlowLayout, WMFImageInfoControllerDelegate>
+static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
 
-@property (nonatomic, weak, readonly) UICollectionViewFlowLayout* collectionViewFlowLayout;
-@property (nonatomic, weak, readonly) UIButton* closeButton;
-@property (nonatomic, weak, readonly) WMFGradientView* topGradientView;
+@interface WMFModalImageGalleryViewController ()
 
-@property (nonatomic, weak, readonly) UITapGestureRecognizer* chromeTapGestureRecognizer;
+/**
+ *  Designated initializer for public convenience initializers.
+ *
+ *  @return A modal gallery view controller with the given data source, configured to display images in gallery cells.
+ */
+- (instancetype)init NS_DESIGNATED_INITIALIZER NS_AVAILABLE_IPHONE(__IPHONE_8_0);
 
-@property (nonatomic, strong, readonly) WMFImageInfoController* infoController;
+#pragma mark - Chrome
 
-@property (nonatomic, strong) MWKDataStore* dataStore;
+/**
+ * Controls whether auxilliary image information and controls are visible (e.g. close button & image metadata).
+ *
+ * Set to `YES` to hide image metadata, close button, and gradients. Only has an effect if `chromeEnabled` is `YES`.
+ *
+ * @see chromeEnabled
+ */
+@property (nonatomic, getter = isChromeHidden) BOOL chromeHidden;
 
-@property (nonatomic, weak) UIActivityIndicatorView* loadingIndicator;
-
-@property (nonatomic, weak) PMKResolver articlePromiseResolve;
+/**
+ *  Toggle the display of the chrome UI.
+ *
+ *  Subclasses shouldn't need to call this, as @c WMFModalImageGalleryViewController already implements gesture
+ *  recognition to allow users to toggle the state.
+ *
+ *  @param hidden   The desired state.
+ *  @param animated Whether the transition to @c hidden should be animated.
+ */
+- (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated;
 
 @end
 
-static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGalleryCollectionViewCellReuseId";
+@implementation WMFModalImageGalleryViewController
 
-@implementation WMFImageGalleryViewController
-@synthesize infoController = _infoController;
-
+/// Default layout for modal gallery.
 + (UICollectionViewFlowLayout*)wmf_defaultGalleryLayout {
     UICollectionViewFlowLayout* defaultLayout = [[WMFCollectionViewPageLayout alloc] init];
     defaultLayout.sectionInset            = UIEdgeInsetsZero;
@@ -88,84 +100,96 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return defaultLayout;
 }
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+- (instancetype)init {
     self = [super initWithCollectionViewLayout:[[self class] wmf_defaultGalleryLayout]];
     if (self) {
-        self.dataStore            = dataStore;
-        self.chromeHidden         = NO;
-        self.chromeEnabled        = YES;
-        self.zoomEnabled          = YES;
-        self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
-        @weakify(self);
-        self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
-                                               MWKImage* image,
-                                               UICollectionView* _,
-                                               NSIndexPath* indexPath) {
-            @strongify(self);
-            [self updateCell:cell atIndexPath:indexPath];
-        };
+        self.chromeHidden = NO;
     }
     return self;
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+#pragma mark - Article Gallery
+
+- (instancetype)initWithImagesInArticle:(MWKArticle*)article currentImage:(nullable MWKImage*)currentImage {
+    self = [self init];
+    if (self) {
+        NSAssert(article.isCached, @"Unexpected initialization with uncached instance of %@ in %@, use %@ instead.",
+                 article.title,
+                 NSStringFromSelector(_cmd),
+                 NSStringFromSelector(@selector(initWithImagesInFutureArticle:placeholder:)));
+        WMFModalArticleImageGalleryDataSource* articleGalleryDataSource =
+            [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
+        self.dataSource = articleGalleryDataSource;
+        if (currentImage) {
+            NSInteger selectedImageIndex = [articleGalleryDataSource.allItems
+                                            indexOfObjectPassingTest:^BOOL (MWKImage* image, NSUInteger _, BOOL* stop) {
+                if ([image isEqualToImage:currentImage] || [image isVariantOfImage:currentImage]) {
+                    *stop = YES;
+                    return YES;
+                }
+                return NO;
+            }];
+
+            if (selectedImageIndex == NSNotFound) {
+                DDLogWarn(@"Falling back to showing the first image.");
+                selectedImageIndex = 0;
+            }
+            self.currentPage = selectedImageIndex;
+        }
+    }
+    return self;
+}
+
+- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise
+                                  placeholder:(nullable MWKArticle*)placeholderArticle {
+    self = [self init];
+    if (self) {
+        if (placeholderArticle) {
+            self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:placeholderArticle];
+        }
+        @weakify(self);
+        articlePromise.then(^(MWKArticle* article) {
+            @strongify(self);
+            self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
+        })
+        .catch(^(NSError* error) {
+            @strongify(self);
+            [self.loadingIndicator stopAnimating];
+            [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
+        });
+    }
+    return self;
+}
+
+#pragma mark - Picture of the Day Gallery
+
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(nonnull NSDate*)date {
+    self = [self init];
+    if (self) {
+        self.dataSource = [[WMFModalPOTDGalleryDataSource alloc] initWithInfo:info forDate:date];
+    }
+    return self;
 }
 
 #pragma mark - Accessors
 
-- (void)setArticleWithPromise:(AnyPromise*)articlePromise {
-    if (self.articlePromiseResolve) {
-        self.articlePromiseResolve([NSError cancelledError]);
-    }
-
-    [self.loadingIndicator startAnimating];
-
-    // TODO: show "empty" view with the article's lead image or thumbnail
-
-    __block id articlePromiseResolve;
-    // wrap articlePromise in a promise we can cancel if a new one comes in
-    AnyPromise* cancellableArticlePromise = [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        articlePromiseResolve = resolve;
-    }];
-    self.articlePromiseResolve = articlePromiseResolve;
-
-    articlePromise.then(articlePromiseResolve).catchWithPolicy(PMKCatchPolicyAllErrors, articlePromiseResolve);
-
-    // chain off the cancellable promise
+- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+    NSParameterAssert([dataSource conformsToProtocol:@protocol(WMFModalImageGalleryDataSource)]);
+    [super setDataSource:dataSource];
+    self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
     @weakify(self);
-    cancellableArticlePromise.then(^(MWKArticle* article) {
+    self.dataSource.cellConfigureBlock = ^(WMFImageGalleryCollectionViewCell* cell,
+                                           id __unused obj,
+                                           UICollectionView* _,
+                                           NSIndexPath* indexPath) {
         @strongify(self);
-        [self showImagesInArticle:article];
-    })
-    .catch(^(NSError* error) {
-        @strongify(self);
-        [self.loadingIndicator stopAnimating];
-        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:2.f];
-    });
+        [self updateCell:cell atIndexPath:indexPath];
+    };
+    [[self modalGalleryDataSource] setDelegate:self];
 }
 
-- (void)showImagesInArticle:(MWKArticle* __nullable)article {
-    if (WMF_EQUAL(self.dataSource.article, isEqualToArticle:, article)) {
-        return;
-    }
-
-    [super showImagesInArticle:article];
-
-    if (article.isCached) {
-        [self.infoController setUniqueArticleImages:[self.dataSource allItems] forTitle:article.title];
-        [self.infoController fetchBatchContainingIndex:self.currentPage];
-    } else {
-        [self.infoController reset];
-    }
-}
-
-- (WMFImageInfoController*)infoController {
-    if (!_infoController) {
-        _infoController          = [[WMFImageInfoController alloc] initWithDataStore:self.dataStore batchSize:50];
-        _infoController.delegate = self;
-    }
-    return _infoController;
+- (id<WMFModalImageGalleryDataSource>)modalGalleryDataSource {
+    return (id<WMFModalImageGalleryDataSource>)self.dataSource;
 }
 
 - (UICollectionViewFlowLayout*)collectionViewFlowLayout {
@@ -180,10 +204,16 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return nil;
 }
 
+#pragma mark - UIViewController
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // fetch after appearing so we don't do work while the animation is rendering
-    [self.infoController fetchBatchContainingIndex:self.currentPage];
+    [[self modalGalleryDataSource] fetchDataAtIndexPath:[NSIndexPath indexPathForItem:self.currentPage inSection:0]];
 }
 
 - (void)viewDidLoad {
@@ -198,6 +228,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         make.center.equalTo(self.view);
     }];
     self.loadingIndicator = loadingIndicator;
+
+    if (!self.dataSource) {
+        // Start loading indicator if we don't have any data. Hopefully it will be set soon...
+        [self.loadingIndicator startAnimating];
+    }
 
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator   = NO;
@@ -251,8 +286,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     self.collectionView.backgroundColor = [UIColor blackColor];
     [self.collectionView registerClass:[WMFImageGalleryCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageGalleryCollectionViewCell identifier]];
-
-    self.dataSource.collectionView = self.collectionView;
+    self.collectionView.alwaysBounceHorizontal = YES;
 
     [self applyChromeHidden:NO];
 }
@@ -272,8 +306,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 }
 
 - (void)setChromeHidden:(BOOL)hidden animated:(BOOL)animated {
-    if (_chromeHidden == hidden || !self.isChromeEnabled) {
-        // no-op of chromeHidden state is already equal to `hidden` or chrome is disabled
+    if (_chromeHidden == hidden) {
         return;
     }
     _chromeHidden = hidden;
@@ -284,54 +317,18 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (![self isViewLoaded]) {
         return;
     }
-    dispatch_block_t animations = ^{
+
+    [UIView transitionWithView:self.view
+                      duration:animated ? [CATransaction animationDuration] : 0.0
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
         self.topGradientView.hidden = [self isChromeHidden];
-        self.closeButton.hidden     = [self isChromeHidden];
+        self.closeButton.hidden = [self isChromeHidden];
         for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
-            [self updateDetailVisibilityForCellAtIndexPath:indexPath];
+            [self updateDetailVisibilityForCellAtIndexPath:indexPath animated:NO];
         }
-    };
-
-    if (animated) {
-        [UIView animateWithDuration:[CATransaction animationDuration]
-                              delay:0
-                            options:UIViewAnimationOptionTransitionCrossDissolve
-                         animations:animations
-                         completion:nil];
-    } else {
-        animations();
     }
-}
-
-- (void)setChromeEnabled:(BOOL)chromeEnabled {
-    // NOTE(bgerstle): don't bail if _chromeEnabled == chromeEnabled, as chromeHidden state might need to be updated
-    _chromeEnabled = chromeEnabled;
-
-    if (!_chromeHidden && !_chromeEnabled) {
-        // force chrome to be hidden if it is shown and chrome becomes disabled
-        _chromeHidden = YES;
-        [self applyChromeHidden:NO];
-    }
-}
-
-#pragma mark - Zoom
-
-- (void)setZoomEnabled:(BOOL)zoomEnabled {
-    if (_zoomEnabled == zoomEnabled) {
-        return;
-    }
-    _zoomEnabled = zoomEnabled;
-    [self applyZoomEnabled];
-}
-
-- (void)applyZoomEnabled {
-    if ([self isViewLoaded]) {
-        [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
-                                                                   NSIndexPath* indexPath,
-                                                                   BOOL* _) {
-            cell.zoomEnabled = self.isZoomEnabled;
-        }];
-    }
+                    completion:nil];
 }
 
 #pragma mark - Dismissal
@@ -345,27 +342,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             [self.delegate didDismissGalleryController:self];
         }
     }];
-}
-
-#pragma mark - Visible Image Index
-
-- (void)setVisibleImage:(MWKImage*)visibleImage animated:(BOOL)animated {
-    NSInteger selectedImageIndex = [self.dataSource.allItems indexOfObjectPassingTest:^BOOL (MWKImage* image,
-                                                                                             NSUInteger idx,
-                                                                                             BOOL* stop) {
-        if ([image isEqualToImage:visibleImage] || [image isVariantOfImage:visibleImage]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
-    }];
-
-    if (selectedImageIndex == NSNotFound) {
-        DDLogWarn(@"Falling back to showing the first image.");
-        selectedImageIndex = 0;
-    }
-
-    self.currentPage = selectedImageIndex;
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -394,21 +370,17 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
        then fetch the visible image.
      */
     if (self.didApplyCurrentPage) {
-        [self.infoController fetchBatchContainingIndex:indexPath.item withNthNeighbor:5];
+        [[self modalGalleryDataSource] fetchDataAtIndexPath:indexPath];
     }
 }
 
 #pragma mark - Cell Updates
 
-- (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
-    MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
-
-    cell.zoomEnabled = self.zoomEnabled;
+- (void)updateCell:(WMFImageGalleryCollectionViewCell*)cell
+       atIndexPath:(NSIndexPath*)indexPath {
+    MWKImageInfo* infoForImage = [[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath];
 
     [cell startLoadingAfterDelay:0.25];
-
-    [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
 
     if (infoForImage) {
         cell.detailOverlayView.imageDescription =
@@ -426,68 +398,83 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         };
     }
 
-    [self updateImageForCell:cell atIndexPath:indexPath image:imageStub info:infoForImage];
+    // update detail visibility after info might have been populated
+    [self updateDetailVisibilityForCell:cell withInfo:infoForImage animated:NO];
+
+    [self updateImageForCell:cell
+                 atIndexPath:indexPath
+         placeholderImageURL:[self.dataSource imageURLAtIndexPath:indexPath]
+                        info:infoForImage];
 }
 
 #pragma mark - Image Details
 
-- (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath {
+- (void)updateDetailVisibilityForCellAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated {
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
-    [self updateDetailVisibilityForCell:cell atIndexPath:indexPath];
+    [self updateDetailVisibilityForCell:cell atIndexPath:indexPath animated:animated];
 }
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
-                          atIndexPath:(NSIndexPath*)indexPath {
-    MWKImage* imageStub        = [self.dataSource imageAtIndexPath:indexPath];
-    MWKImageInfo* infoForImage = [self.infoController infoForImage:imageStub];
-    [self updateDetailVisibilityForCell:cell withInfo:infoForImage];
+                          atIndexPath:(NSIndexPath*)indexPath
+                             animated:(BOOL)animated {
+    [self updateDetailVisibilityForCell:cell
+                               withInfo:[[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath]
+                               animated:animated];
 }
 
 - (void)updateDetailVisibilityForCell:(WMFImageGalleryCollectionViewCell*)cell
-                             withInfo:(MWKImageInfo*)info {
+                             withInfo:(MWKImageInfo*)info
+                             animated:(BOOL)animated {
+    if (!cell) {
+        return;
+    }
+
     BOOL const shouldHideDetails = [self isChromeHidden]
                                    || (!info.imageDescription && !info.owner && !info.license);
-    cell.detailOverlayView.alpha = shouldHideDetails ? 0.0 : 1.0;
-}
+    dispatch_block_t animations = ^{
+        cell.detailOverlayView.hidden = shouldHideDetails;
+    };
 
-#pragma mark - Error Handling
-
-- (void)showError:(NSError*)error forCellAtIndexPath:(NSIndexPath*)path {
-    WMFImageGalleryCollectionViewCell* cell =
-        (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:path];
-    [self showError:error inCell:cell atIndexPath:path];
-}
-
-- (void)showError:(NSError*)error
-           inCell:(WMFImageGalleryCollectionViewCell*)cell
-      atIndexPath:(NSIndexPath*)indexPath {
-    cell.loading = NO;
-    // TODO: show error UI for cell
+    /*
+       HAX: UIView transition API doesn't invoke animations inline if duration is 0, which can lead to staggered UI updates
+       if there are nested animations. For example, if this is invoked within the animation block of `applyChromeHidden`,
+       the detail overlay will appear *without animation* after the chrome is cross-dissolved away.
+     */
+    if (animated) {
+        [UIView transitionWithView:cell
+                          duration:[CATransaction animationDuration]
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:animations
+                        completion:nil];
+    } else {
+        animations();
+    }
 }
 
 #pragma mark - Image Handling
 
-- (void)updateImageAtIndexPath:(NSIndexPath*)indexPath {
+- (void)updateImageAtIndexPath:(NSIndexPath*)indexPath animated:(BOOL)animated {
     NSParameterAssert(indexPath);
-    MWKImage* image                         = [[self dataSource] imageAtIndexPath:indexPath];
-    MWKImageInfo* infoForImage              = [self.infoController infoForImage:image];
     WMFImageGalleryCollectionViewCell* cell =
         (WMFImageGalleryCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
     if (cell) {
-        [self updateImageForCell:cell atIndexPath:indexPath image:image info:infoForImage];
+        [self updateImageForCell:cell
+                     atIndexPath:indexPath
+             placeholderImageURL:[self.dataSource imageURLAtIndexPath:indexPath]
+                            info:[[self modalGalleryDataSource] imageInfoAtIndexPath:indexPath]];
     }
 }
 
 - (void)updateImageForCell:(WMFImageGalleryCollectionViewCell*)cell
                atIndexPath:(NSIndexPath*)indexPath
-                     image:(MWKImage*)image
+       placeholderImageURL:(NSURL*)placeholderImageURL
                       info:(MWKImageInfo* __nullable)infoForImage {
     NSParameterAssert(cell);
     @weakify(self);
     [[WMFImageController sharedInstance]
      cascadingFetchWithMainURL:infoForImage.imageThumbURL
-           cachedPlaceholderURL:[[image largestCachedVariant] sourceURL]
+           cachedPlaceholderURL:placeholderImageURL
                  mainImageBlock:^(WMFImageDownload* download) {
         @strongify(self);
         [self setImage:download.image withInfo:infoForImage forCellAtIndexPath:indexPath];
@@ -499,7 +486,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     .catch(^(NSError* error) {
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);
         @strongify(self);
-        [self showError:error forCellAtIndexPath:indexPath];
+        [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
     });
 }
 
@@ -548,30 +535,37 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }
 }
 
-#pragma mark - WMFImageInfoControllerDelegate
+#pragma mark - WMFModalGalleryDataSourceDelegate
 
-- (void)imageInfoController:(WMFImageInfoController*)controller didFetchBatch:(NSRange)range {
-    NSIndexSet* fetchedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource didFailWithError:(NSError*)error {
     [self.loadingIndicator stopAnimating];
-    [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
-                                                               NSIndexPath* indexPath,
-                                                               BOOL* _) {
-        if ([fetchedIndexes containsIndex:indexPath.item]) {
-            [self updateCell:cell atIndexPath:indexPath];
-        }
-    }];
+    [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
 }
 
-- (void)imageInfoController:(WMFImageInfoController*)controller
-         failedToFetchBatch:(NSRange)range
-                      error:(NSError*)error {
-    [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-    NSIndexSet* failedIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
+- (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource
+         updatedItemsAtIndexes:(NSIndexSet*)indexes {
+    [self.loadingIndicator stopAnimating];
+    /*
+       NOTE: Do not call `reloadItemsAtIndexPaths:` because that will cause an infinite loop with the collection view
+       reloading the cell, which asks the dataSource to fetch data, which triggers this method, which reloads the cell...
+     */
     [self.collectionView wmf_enumerateVisibleCellsUsingBlock:^(WMFImageGalleryCollectionViewCell* cell,
                                                                NSIndexPath* indexPath,
                                                                BOOL* _) {
-        if ([failedIndexes containsIndex:indexPath.item]) {
-            [self showError:error inCell:cell atIndexPath:indexPath];
+        if ([indexes containsIndex:indexPath.item]) {
+            UIViewAnimationOptions options = UIViewAnimationOptionTransitionCrossDissolve
+                                             | UIViewAnimationOptionAllowAnimatedContent
+                                             | UIViewAnimationOptionAllowUserInteraction;
+            /*
+               NOTE: Perform animations with the cell as the view (as opposed altogether w/ the collectionView), otherwise
+               it causes all the cells to fade, which makes cross-dissolving while swiping look very strange.
+             */
+            [UIView transitionWithView:cell
+                              duration:[CATransaction animationDuration]
+                               options:options
+                            animations:^{
+                [self updateCell:cell atIndexPath:indexPath];
+            } completion:nil];
         }
     }];
 }

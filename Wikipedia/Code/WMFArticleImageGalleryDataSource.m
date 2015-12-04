@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFImageGalleryDataSource.h"
+#import "WMFArticleImageGalleryDataSource.h"
 #import "MWKArticle.h"
 #import "MWKImageList.h"
 #import "MWKImage.h"
@@ -14,28 +14,20 @@
 #import "UIImageView+WMFPlaceholder.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 
-@implementation WMFImageGalleryDataSource
+@implementation WMFArticleImageGalleryDataSource
 @dynamic emptyView;
 
-- (instancetype)initWithTarget:(id)target keyPath:(NSString*)keyPath {
-    self = [super initWithTarget:target keyPath:keyPath];
-    if (self) {
-        self.emptyView = [[UIImageView alloc] init];
-    }
-    return self;
-}
-
-- (void)setArticle:(MWKArticle*)article {
-    if (WMF_EQUAL(_article, isEqualToArticle:, article)) {
-        return;
-    }
-    _article = article;
+- (instancetype)initWithArticle:(MWKArticle*)article {
     NSArray* images = article.images.uniqueLargestVariants;
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         images = [images wmf_reverseArrayIfApplicationIsRTL];
     }
-    [self updateItems:images];
-    [self applyLeadImageIfEmpty];
+    self = [super initWithItems:images];
+    if (self) {
+        self.emptyView = [[UIImageView alloc] init];
+        [self applyLeadImageIfEmpty];
+    }
+    return self;
 }
 
 - (void)applyLeadImageIfEmpty {
@@ -52,6 +44,10 @@
 
 - (MWKImage*)imageAtIndexPath:(NSIndexPath*)indexPath {
     return [self itemAtIndexPath:indexPath];
+}
+
+- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
+    return [[[self imageAtIndexPath:indexPath] largestVariant] sourceURL];
 }
 
 @end
