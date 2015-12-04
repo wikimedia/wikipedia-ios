@@ -11,12 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NSString* const WMFPOTDTitlePrefix = @"Template:Potd";
+
 @implementation NSDate (WMFPOTDTitle)
 
 - (NSString*)wmf_picOfTheDayPageTitle {
     NSString* potdTitleDateComponent = [[NSDateFormatter wmf_hyphenatedYearMonthDayFormatter] stringFromDate:self];
     NSParameterAssert(potdTitleDateComponent);
-    return [@"Template:Potd" stringByAppendingFormat:@"/%@", potdTitleDateComponent];
+    return [WMFPOTDTitlePrefix stringByAppendingFormat:@"/%@", potdTitleDateComponent];
 }
 
 @end
