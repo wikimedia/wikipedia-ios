@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)description {
-    NSString* delegateDesc = [self.delegate description] ?: @"nil";
+    NSString* delegateDesc = [self.delegate description] ? : @"nil";
     return [NSString stringWithFormat:@"<%@ manager: %@ delegate: %@ is updating: %d>",
             [super description], _locationManager, delegateDesc, !self.locationUpdatesStopped];
 }
