@@ -8,6 +8,7 @@
 
 #import "NSDictionary+WMFCommonParams.h"
 #import "WMFNumberOfExtractCharacters.h"
+#import "UIScreen+WMFImageWidth.h"
 
 @implementation NSDictionary (WMFCommonParams)
 
@@ -29,7 +30,7 @@
             @"description", @"wbptterms",
             // pageimage
             @"thumbnail", @"piprop",
-            @(LEAD_IMAGE_WIDTH), @"pithumbsize", nil];
+            [[UIScreen mainScreen] wmf_leadImageWidthForScale], @"pithumbsize", nil];
 }
 
 @end

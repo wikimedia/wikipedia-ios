@@ -34,12 +34,11 @@
 @implementation MWKImageInfo (AssociationTestUtils)
 
 + (instancetype)infoAssociatedWithSourceURL:(NSString*)imageURL {
-    return [[self alloc] initWithCanonicalPageTitle:nil
-                                   canonicalFileURL:nil
+    return [[self alloc] initWithCanonicalPageTitle:imageURL
+                                   canonicalFileURL:[NSURL URLWithString:imageURL]
                                    imageDescription:nil
                                             license:nil
                                         filePageURL:nil
-                                           imageURL:[NSURL URLWithString:imageURL]
                                       imageThumbURL:nil
                                               owner:nil
                                           imageSize:CGSizeZero
@@ -47,7 +46,7 @@
 }
 
 - (MWKImage*)createAssociatedImage {
-    return [MWKImage imageAssociatedWithSourceURL:self.imageURL.absoluteString];
+    return [MWKImage imageAssociatedWithSourceURL:self.canonicalFileURL.absoluteString];
 }
 
 + (id)mappedFromImages:(id)imageList {

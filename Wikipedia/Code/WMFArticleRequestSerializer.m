@@ -5,6 +5,7 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "WMFNetworkUtilities.h"
 #import "MWKTitle.h"
+#import "UIScreen+WMFImageWidth.h"
 
 @implementation WMFArticleRequestSerializer
 
@@ -27,7 +28,7 @@
         @"noheadings": @"true",
         @"sections": @"all",
         @"page": title.text,
-        @"thumbwidth": @(LEAD_IMAGE_WIDTH),
+        @"thumbwidth": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
         @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
                                                @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
                                                @"thumb", @"description", @"image"])

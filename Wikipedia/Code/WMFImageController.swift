@@ -27,6 +27,7 @@ public enum WMFImageControllerErrorCode: Int, CancellableErrorType {
     }
 
     public var cancelled: Bool {
+        // NOTE: don't forget to register add'l "cancelled" codes in WMFImageController.initialize
         switch self {
             case .FetchCancelled, .InvalidOrEmptyURL, .Deinit:
                 return true
@@ -51,6 +52,10 @@ public class WMFImageController : NSObject {
         if self === WMFImageController.self {
             NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
                                                  code: WMFImageControllerErrorCode.FetchCancelled.rawValue)
+            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
+                                                 code: WMFImageControllerErrorCode.InvalidOrEmptyURL.rawValue)
+            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
+                                                 code: WMFImageControllerErrorCode.Deinit.rawValue)
         }
     }
 

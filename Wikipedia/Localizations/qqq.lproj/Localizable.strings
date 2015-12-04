@@ -324,3 +324,6 @@
 "welcome-usage-reports-button-title" = "Button title for finishing the welcome process. In english this is 'Done'";
 "welcome-usage-reports-privacy-policy-button-text" = "Button for showing the privacy policy from the usage reports welcome step";
 
+"home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
+"potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
+"potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";

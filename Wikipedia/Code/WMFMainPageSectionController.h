@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFMainPageSectionController : NSObject<WMFHomeSectionController>
+@interface WMFMainPageSectionController : NSObject<WMFArticleHomeSectionController>
 
 @property (nonatomic, strong, readonly) MWKSite* site;
 
