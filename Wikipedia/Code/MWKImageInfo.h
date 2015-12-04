@@ -20,6 +20,7 @@
 - (NSString*)canonicalPageName;
 
 /// URL pointing at the canonical file associated with this gallery item, e.g. @c "//site/.../Some_file_name.extension".
+/// @warning These images can be *very* large. Special handling may be needed when downloading or displaying.
 @property (nonatomic, readonly, copy) NSURL* canonicalFileURL;
 
 /// Short description of the image contents (e.g. "John Smith posing for a picture").
@@ -29,12 +30,6 @@
 
 /// URL pointing to the corresponding file page for the receiver.
 @property (nonatomic, readonly, copy) NSURL* filePageURL;
-
-/**
- * URL pointing at the original image (at the uploaded resolution).
- * @warning These images can be *very* large. Special handling may be needed when downloading or displaying.
- */
-@property (nonatomic, readonly, copy) NSURL* imageURL;
 
 /// URL pointing at a thumbnail version of the image at @c imageURL.
 @property (nonatomic, readonly, copy) NSURL* imageThumbURL;
@@ -59,7 +54,6 @@
                           imageDescription:(NSString*)imageDescription
                                    license:(MWKLicense*)license
                                filePageURL:(NSURL*)filePageURL
-                                  imageURL:(NSURL*)imageURL
                              imageThumbURL:(NSURL*)imageThumbURL
                                      owner:(NSString*)owner
                                  imageSize:(CGSize)imageSize

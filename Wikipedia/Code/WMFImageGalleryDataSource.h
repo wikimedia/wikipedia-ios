@@ -1,37 +1,20 @@
 //
-//  WMFArticleImageDataSource.h
+//  WMFImageGalleryDataSource.h
 //  Wikipedia
 //
-//  Created by Brian Gerstle on 11/10/15.
+//  Created by Brian Gerstle on 12/1/15.
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <SSDataSources/SSArrayDataSource.h>
-
-@class MWKArticle, MWKImage;
 
 /**
- *  Class which uses an article's images to populate collection view data.
+ *  Protocol which allows various data sources to be used by a base image gallery view controller class.
  *
- *  @warning This class provides an empty image view which is set to the article's lead image or thumbnail.
- *           Do not reconfigure its @c emptyView property.
+ *  In other words, the data source can be used with any kind of gallery, as long as it has an image URL.
  */
-@interface WMFImageGalleryDataSource : SSArrayDataSource
-    <UICollectionViewDataSource>
+@protocol WMFImageGalleryDataSource <NSObject>
 
-/**
- *  The article whose images should populate the collection view.
- */
-@property (nonatomic, strong) MWKArticle* article;
-
-/**
- *  Retrieve an image at the given @c NSIndexPath
- *
- *  @param indexPath The index path of the desired image, e.g. from @c collectionView:cellForItemAtIndexPath:
- *
- *  @return The image at @c indexPath.
- */
-- (MWKImage*)imageAtIndexPath:(NSIndexPath*)indexPath;
+- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath;
 
 @end

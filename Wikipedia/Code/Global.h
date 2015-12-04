@@ -26,9 +26,6 @@
 #import "NSArray+WMFMapWithoutNil.h"
 #import "NSMutableArray+WMFSafeAdd.h"
 
-//TODO: when refactoring networking, this should be scoped to those classes
-#define LEAD_IMAGE_WIDTH (([UIScreen mainScreen].scale > 1) ? 640 : 320)
-
 #ifndef PIWIK_ENABLED
     #if NDEBUG
         #define PIWIK_ENABLED 0

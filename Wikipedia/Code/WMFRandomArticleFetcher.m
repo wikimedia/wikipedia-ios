@@ -12,6 +12,7 @@
 
 //Promises
 #import "Wikipedia-Swift.h"
+#import "UIScreen+WMFImageWidth.h"
 
 #import <BlocksKit/BlocksKit.h>
 
@@ -89,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
                @"wbptterms": @"description",
                // pageimage
                @"piprop": @"thumbnail",
-               @"pithumbsize": @(LEAD_IMAGE_WIDTH),
+               @"pithumbsize": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
                @"pilimit": @"1",
                @"format": @"json",
     };

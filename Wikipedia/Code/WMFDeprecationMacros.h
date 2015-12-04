@@ -46,7 +46,7 @@
  *
  *  @param ... Arguments passed to <code>#warning</code>.
  */
-#define WMF_TECH_DEBT_WARN(w) DO_PRAGMA(message (#w))
+#define WMF_TECH_DEBT_WARN(w) DO_PRAGMA(message(#w))
 
 #else
 
