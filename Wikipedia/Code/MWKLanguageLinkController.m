@@ -179,13 +179,18 @@ static id _sharedInstance;
     return preferredLanguages;
 }
 
-- (NSArray<NSString*>*)readPreferredLanguageCodes {
-    NSMutableArray<NSString*>* preferredLanguages = [[self readPreferredLanguageCodesWithoutOSPreferredLanguages] mutableCopy];
-    NSArray<NSString*>* osLanguages               = [[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
+- (NSArray<NSString*>*)readOSPreferredLanguageCodes {
+    NSArray<NSString*>* osLanguages = [[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
         NSLocale* locale = [NSLocale localeWithLocaleIdentifier:languageCode];
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
         return [locale objectForKey:NSLocaleLanguageCode];
     }];
+    return osLanguages;
+}
+
+- (NSArray<NSString*>*)readPreferredLanguageCodes {
+    NSMutableArray<NSString*>* preferredLanguages = [[self readPreferredLanguageCodesWithoutOSPreferredLanguages] mutableCopy];
+    NSArray<NSString*>* osLanguages               = [self readOSPreferredLanguageCodes];
 
     [osLanguages enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         if (![preferredLanguages containsObject:obj]) {
@@ -205,6 +210,14 @@ static id _sharedInstance;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:WMFPreviousLanguagesKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self updateLanguageArrays];
+}
+
+- (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language {
+    NSArray* languageCodes = [self readOSPreferredLanguageCodes];
+    return [languageCodes bk_match:^BOOL (NSString* obj) {
+        BOOL answer = [obj isEqualToString:language.languageCode];
+        return answer;
+    }] != nil;
 }
 
 @end
