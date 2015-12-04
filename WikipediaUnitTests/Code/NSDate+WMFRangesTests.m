@@ -14,7 +14,7 @@
 
 QuickSpecBegin(NSDate_WMFRangesTests)
 
-static NSDate* today;
+static NSDate * today;
 static NSDate* startOfToday;
 static NSDate* yesterday;
 static NSDate* tomorrow;
