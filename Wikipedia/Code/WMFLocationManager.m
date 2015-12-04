@@ -194,8 +194,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
     if (self.locationUpdatesStopped) {
+        DDLogInfo(@"Suppressing error received after call to stop monitoring location: %@", error);
         return;
     }
+    #if TARGET_IPHONE_SIMULATOR
+    else if (error.domain == kCLErrorDomain && error.code == kCLErrorLocationUnknown) {
+        DDLogInfo(@"Suppressing unknown location error.");
+        return;
+    }
+    #endif
     DDLogError(@"%@ encountered error: %@", self, error);
     [self.delegate nearbyController:self didReceiveError:error];
 }
