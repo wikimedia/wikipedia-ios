@@ -34,14 +34,13 @@
 
 #pragma mark - Setup
 
-- (void)blurAndShowLoadingIndicator {
-    self.blurView.hidden = NO;
-    [self.activityIndicator startAnimating];
-}
-
-- (void)unblurAndHideLoadingIndicator {
-    self.blurView.hidden = YES;
-    [self.activityIndicator stopAnimating];
+- (void)setLoading:(BOOL)loading {
+    self.blurView.hidden = !loading;
+    if (loading) {
+        [self.activityIndicator startAnimating];
+    } else {
+        [self.activityIndicator stopAnimating];
+    }
 }
 
 - (void)prepareForReuse {
@@ -49,7 +48,7 @@
     self.snippetLabel.attributedText        = nil;
     self.saveButtonController.title         = nil;
     self.saveButtonController.savedPageList = nil;
-    [self unblurAndHideLoadingIndicator];
+    self.loading                            = NO;
 }
 
 - (void)awakeFromNib {
@@ -61,22 +60,20 @@
     self.saveButtonController.button = self.saveButton;
 
     [self setupBlurViewAndLoadingIndicator];
-    [self unblurAndHideLoadingIndicator];
+    self.loading = NO;
 }
 
 - (void)setupBlurViewAndLoadingIndicator {
     UIBlurEffect* blurEffect = [[UIBlurEffect alloc] init];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     [self.contentView addSubview:self.blurView];
-    [self.contentView bringSubviewToFront:self.blurView];
     [self.blurView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.edges.equalTo(self.contentView);
     }];
 
-    self.activityIndicator = [[UIActivityIndicatorView alloc] init];
-    [self.activityIndicator setTranslatesAutoresizingMaskIntoConstraints:NO];
+    self.activityIndicator       = [[UIActivityIndicatorView alloc] init];
     self.activityIndicator.color = [UIColor blackColor];
-    [self.blurView addSubview:self.activityIndicator];
+    [self.blurView.contentView addSubview:self.activityIndicator];
     [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
         make.height.and.width.equalTo(@50);
         make.center.equalTo(self.activityIndicator.superview);
