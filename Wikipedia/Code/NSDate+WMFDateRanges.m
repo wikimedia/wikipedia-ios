@@ -1,15 +1,15 @@
 //
-//  NSDate+WMFPOTDDateRange.m
+//  NSDate+WMFDateRanges.m
 //  Wikipedia
 //
 //  Created by Brian Gerstle on 12/2/15.
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "NSDate+WMFPOTDDateRange.h"
+#import "NSDate+WMFDateRanges.h"
 #import "NSDate+Utilities.h"
 
-@implementation NSDate (WMFPOTDDateRange)
+@implementation NSDate (WMFDateRanges)
 
 - (NSArray<NSDate*>*)wmf_datesUntilToday {
     return [self wmf_datesUntilDate:[NSDate date]];
