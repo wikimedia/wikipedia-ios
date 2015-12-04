@@ -37,8 +37,9 @@ pod 'SSDataSources', '~> 0.8.0'
 # Autolayout
 pod 'Masonry', '0.6.2'
 
-# Stack View
+# Views
 pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
+pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
 
 # Diagnostics
 pod 'PiwikTracker'

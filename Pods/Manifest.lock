@@ -32,6 +32,7 @@ PODS:
     - Mantle/extobjc (= 2.0.6)
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
+  - MGSwipeTableCell (1.5.3)
   - Nimble (3.0.0)
   - Nocilla (0.10.0)
   - OAStackView (0.2.0):
@@ -82,6 +83,7 @@ DEPENDENCIES:
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
+  - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
   - Nimble (~> 3.0.0)
   - Nocilla
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
@@ -96,6 +98,8 @@ DEPENDENCIES:
   - Tweaks (HEAD)
 
 EXTERNAL SOURCES:
+  MGSwipeTableCell:
+    :git: git@github.com:wikimedia/MGSwipeTableCell.git
   OAStackView:
     :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
@@ -105,6 +109,9 @@ EXTERNAL SOURCES:
     :path: ./vendor/SDWebImage
 
 CHECKOUT OPTIONS:
+  MGSwipeTableCell:
+    :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
+    :git: git@github.com:wikimedia/MGSwipeTableCell.git
   OAStackView:
     :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
     :git: git@github.com:wikimedia/OAStackView.git
@@ -124,6 +131,7 @@ SPEC CHECKSUMS:
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
