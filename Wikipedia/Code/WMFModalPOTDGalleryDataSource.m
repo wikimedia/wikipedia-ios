@@ -9,7 +9,7 @@
 #import "WMFModalPOTDGalleryDataSource.h"
 #import "MWKImageInfo.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
-#import "NSDate+WMFPOTDDateRange.h"
+#import "NSDate+WMFDateRanges.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "NSDate+Utilities.h"
