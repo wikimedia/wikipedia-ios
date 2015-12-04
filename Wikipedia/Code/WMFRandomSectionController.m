@@ -100,6 +100,13 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         previewCell.snippetText     = result.extract;
         [previewCell setImageURL:result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
+
+        if (self.fetcher.isFetching) {
+            [previewCell blurAndShowLoadingIndicator];
+        } else {
+            [previewCell unblurAndHideLoadingIndicator];
+        }
+
         [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
 }
@@ -112,6 +119,9 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     if (self.fetcher.isFetching) {
         return;
     }
+
+    [self.delegate controller:self didSetItems:self.items];
+
     @weakify(self);
     [self.fetcher fetchRandomArticleWithSite:self.searchSite]
     .then(^(id result){
