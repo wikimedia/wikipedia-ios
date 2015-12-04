@@ -7,6 +7,7 @@
 //
 
 #import "OAStackView+Hiding.h"
+#import <KVOController/FBKVOController.h>
 
 @interface OAStackView ()
 - (void)hideView:(UIView*)view;
@@ -16,11 +17,25 @@
 @implementation OAStackView (Hiding)
 
 - (void)addObserverForView:(UIView*)view {
-  [view addObserver:self forKeyPath:@"hidden" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    [self.KVOController observe:view keyPath:@"hidden" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld block:^(OAStackView* observer, id object, NSDictionary *change) {
+        
+        BOOL isHidden = [change[NSKeyValueChangeNewKey] boolValue];
+        BOOL wasHidden = [change[NSKeyValueChangeOldKey] boolValue];
+        
+        if (isHidden == wasHidden) {
+            return;
+        }
+        
+        if (isHidden) {
+            [observer hideView:object];
+        } else {
+            [observer unHideView:object];
+        }
+    }];
 }
 
 - (void)removeObserverForView:(UIView*)view {
-  [view removeObserver:self forKeyPath:@"hidden"];
+    [self.KVOController unobserve:view keyPath:@"hidden"];
 }
 
 - (void)addObserverForViews:(NSArray*)views {
@@ -35,32 +50,5 @@
   }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  BOOL isHidden = [change[NSKeyValueChangeNewKey] boolValue];
-  BOOL wasHidden = [change[NSKeyValueChangeOldKey] boolValue];
-  
-  if (isHidden == wasHidden) {
-    return;
-  }
-  
-  if (isHidden) {
-    [self hideView:object];
-  } else {
-    [self unHideView:object];
-  }
-  
-}
-
-#pragma mark subviews
-
-- (void)didAddSubview:(UIView *)subview {
-  [super didAddSubview:subview];
-  [self addObserverForView:subview];
-}
-
-- (void)willRemoveSubview:(UIView *)subview {
-  [super willRemoveSubview:subview];
-  [self removeObserverForView:subview];
-}
 
 @end

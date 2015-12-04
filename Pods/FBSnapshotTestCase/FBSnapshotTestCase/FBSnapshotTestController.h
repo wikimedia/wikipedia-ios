@@ -41,6 +41,12 @@ extern NSString *const FBReferenceImageFilePathKey;
 @property (readwrite, nonatomic, assign) BOOL recordMode;
 
 /**
+ When @c YES appends the name of the device model and OS to the snapshot file name.
+ The default value is @c NO.
+ */
+@property (readwrite, nonatomic, assign, getter=isDeviceAgnostic) BOOL deviceAgnostic;
+
+/**
  Uses drawViewHierarchyInRect:afterScreenUpdates: to draw the image instead of renderInContext:
  */
 @property (readwrite, nonatomic, assign) BOOL usesDrawViewHierarchyInRect;

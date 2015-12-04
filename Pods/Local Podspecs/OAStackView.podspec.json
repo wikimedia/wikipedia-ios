@@ -16,6 +16,11 @@
     "ios": "7.0"
   },
   "requires_arc": true,
+  "dependencies": {
+    "KVOController": [
+      "~> 1.0"
+    ]
+  },
   "source_files": "Pod/Classes/**/*",
   "resource_bundles": {
     "OAStackView": [

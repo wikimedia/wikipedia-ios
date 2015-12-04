@@ -64,14 +64,39 @@
   NSString *referenceImageDirectory = [self getReferenceImageDirectoryWithDefault:(@ FB_REFERENCE_IMAGE_DIR)]; \
   XCTAssertNotNil(referenceImageDirectory, @"Missing value for referenceImagesDirectory - Set FB_REFERENCE_IMAGE_DIR as Environment variable in your scheme.");\
   XCTAssertTrue((suffixes__.count > 0), @"Suffixes set cannot be empty %@", suffixes__); \
+  \
+  BOOL testSuccess__ = NO; \
   NSError *error__ = nil; \
-  BOOL comparisonSuccess__; \
-  for (NSString *suffix__ in suffixes__) { \
-    NSString *referenceImagesDirectory__ = [NSString stringWithFormat:@"%@%@", referenceImageDirectory, suffix__]; \
-    comparisonSuccess__ = [self compareSnapshotOf ## what__ :(viewOrLayer__) referenceImagesDirectory:referenceImagesDirectory__ identifier:(identifier__) tolerance:(tolerance__) error:&error__]; \
-    if (comparisonSuccess__ || self.recordMode) break; \
+  NSMutableArray *errors__ = [NSMutableArray array]; \
+  \
+  if (self.recordMode) { \
+    \
+    NSString *referenceImagesDirectory__ = [NSString stringWithFormat:@"%@%@", referenceImageDirectory, suffixes__.firstObject]; \
+    BOOL referenceImageSaved__ = [self compareSnapshotOf ## what__ :(viewOrLayer__) referenceImagesDirectory:referenceImagesDirectory__ identifier:(identifier__) tolerance:(tolerance__) error:&error__]; \
+    if (!referenceImageSaved__) { \
+      [errors__ addObject:error__]; \
+    } \
+  } else { \
+    \
+    for (NSString *suffix__ in suffixes__) { \
+      NSString *referenceImagesDirectory__ = [NSString stringWithFormat:@"%@%@", referenceImageDirectory, suffix__]; \
+      BOOL referenceImageAvailable = [self referenceImageRecordedInDirectory:referenceImagesDirectory__ identifier:(identifier__) error:&error__]; \
+      \
+      if (referenceImageAvailable) { \
+        BOOL comparisonSuccess__ = [self compareSnapshotOf ## what__ :(viewOrLayer__) referenceImagesDirectory:referenceImagesDirectory__ identifier:(identifier__) tolerance:(tolerance__) error:&error__]; \
+        [errors__ removeAllObjects]; \
+        if (comparisonSuccess__) { \
+          testSuccess__ = YES; \
+          break; \
+        } else { \
+          [errors__ addObject:error__]; \
+        } \
+      } else { \
+        [errors__ addObject:error__]; \
+      } \
+    } \
   } \
-  XCTAssertTrue(comparisonSuccess__, @"Snapshot comparison failed: %@", error__); \
+  XCTAssertTrue(testSuccess__, @"Snapshot comparison failed: %@", errors__.firstObject); \
   XCTAssertFalse(self.recordMode, @"Test ran in record mode. Reference image is now saved. Disable record mode to perform an actual snapshot comparison!"); \
 }
 
@@ -101,6 +126,12 @@
  When YES, the test macros will save reference images, rather than performing an actual test.
  */
 @property (readwrite, nonatomic, assign) BOOL recordMode;
+
+/**
+ When @c YES appends the name of the device model and OS to the snapshot file name.
+ The default value is @c NO.
+ */
+@property (readwrite, nonatomic, assign, getter=isDeviceAgnostic) BOOL deviceAgnostic;
 
 /**
  When YES, renders a snapshot of the complete view hierarchy as visible onscreen.
@@ -145,6 +176,17 @@
                    identifier:(NSString *)identifier
                     tolerance:(CGFloat)tolerance
                         error:(NSError **)errorPtr;
+
+/**
+ Checks if reference image with identifier based name exists in the reference images directory.
+ @param referenceImagesDirectory The directory in which reference images are stored.
+ @param identifier An optional identifier, used if there are multiple snapshot tests in a given -test method.
+ @param errorPtr An error to log in an XCTAssert() macro if the method fails (missing reference image, images differ, etc).
+ @returns YES if reference image exists.
+ */
+- (BOOL)referenceImageRecordedInDirectory:(NSString *)referenceImagesDirectory
+                               identifier:(NSString *)identifier
+                                    error:(NSError **)errorPtr;
 
 /**
  Returns the reference image directory.
