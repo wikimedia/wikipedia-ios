@@ -95,7 +95,9 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (NSAttributedString*)headerText {
     return [[NSAttributedString alloc] initWithString:
             [MWLocalizedString(@"home-potd-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                    withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.fetchedDate]]];
+                                                                                    withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.fetchedDate]]
+                                           attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
+    ];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
