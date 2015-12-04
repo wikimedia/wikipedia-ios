@@ -66,11 +66,11 @@ extern NSString* const WMFSearchLanguageDidChangeNotification;
 
 @property (strong, nonatomic, readonly) NSString* searchApiUrl;
 
-@property (nonatomic) BOOL fallback __deprecated; //< Is this really necessary?
+@property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; //< Is this really necessary?
 
-- (NSString*)searchApiUrlForLanguage:(NSString*)language __deprecated_msg("Use -[MWKSite apiEndpoint] instead.");
+- (NSString*)searchApiUrlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
 - (NSString*)searchLanguage;
 
-- (NSURL*)urlForLanguage:(NSString*)language __deprecated_msg("Use -[MWKSite apiEndpoint] instead.");
+- (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
 
 @end

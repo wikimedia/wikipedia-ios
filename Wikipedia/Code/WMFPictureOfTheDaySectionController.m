@@ -9,20 +9,17 @@
 #import "WMFPictureOfTheDaySectionController.h"
 #import "MWKSite.h"
 #import "MWKImageInfo.h"
-#import "MWKImageInfoFetcher.h"
+#import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "WMFPicOfTheDayTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "NSDateFormatter+WMFExtensions.h"
+#import "WMFModalImageGalleryViewController.h"
+#import "UIScreen+WMFImageWidth.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
-
-@interface MWKSite (CommonsFactory)
-
-+ (instancetype)wikimediaCommons;
-
-@end
 
 @interface MWKImageInfo (Feed)
 
@@ -38,6 +35,8 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @property (nonatomic, strong) MWKImageInfo* imageInfo;
 
+@property (nonatomic, strong, nullable) NSDate* fetchedDate;
+
 @end
 
 @implementation WMFPictureOfTheDaySectionController
@@ -46,7 +45,8 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.imageInfo = [MWKImageInfo feedPlaceholder];
+        self.imageInfo   = [MWKImageInfo feedPlaceholder];
+        self.fetchedDate = [NSDate date];
         [self fetchData];
     }
     return self;
@@ -62,24 +62,19 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 #pragma mark - Fetching
 
 - (void)fetchData {
-    NSString* todaysPOTDTitleDateComponent =
-        [[NSDateFormatter wmf_hyphenatedYearMonthDayFormatter] stringFromDate:[NSDate date]];
-
-    NSString* todaysPOTDTitle = [@"Template:Potd" stringByAppendingFormat:@"/%@", todaysPOTDTitleDateComponent];
-
     @weakify(self);
-    [self.fetcher fetchInfoForImagesFoundOnPages:@[todaysPOTDTitle]
-                                        fromSite:[MWKSite wikimediaCommons]
-                                metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]
-                                  thumbnailWidth:LEAD_IMAGE_WIDTH
-                                         success:^(NSArray* infoObjects) {
+    [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
+                                    metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
+    .then(^(MWKImageInfo* info) {
         @strongify(self);
-        self.imageInfo = infoObjects.firstObject;
+        self.imageInfo = info;
         [self.delegate controller:self didSetItems:self.items];
-    } failure:^(NSError* error) {
+    })
+    .catch(^(NSError* error) {
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
-    }];
+        self.fetchedDate = nil;
+    });
 }
 
 #pragma mark - WMFHomeSectionController
@@ -98,8 +93,9 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 }
 
 - (NSAttributedString*)headerText {
-    // TEMP: need to make some more changes to have a "headerless" section which matches spec
-    return [[NSAttributedString alloc] initWithString:@"Today's picture"];
+    return [[NSAttributedString alloc] initWithString:
+            [MWLocalizedString(@"home-potd-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                    withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.fetchedDate]]];
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
@@ -107,8 +103,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    // TODO: return NO for placeholder
-    return NO;// self.imageInfo.canonicalPageTitle == WMFPlaceholderImageInfoTitle;
+    return ![self.imageInfo isFeedPlaceholder];
 }
 
 - (void)configureCell:(WMFPicOfTheDayTableViewCell*)cell
@@ -130,17 +125,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return @[self.imageInfo];
 }
 
-- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    // no titles here...
-    return nil;
-}
-
-@end
-
-@implementation MWKSite (CommonsFactory)
-
-+ (instancetype)wikimediaCommons {
-    return [[self alloc] initWithDomain:@"wikimedia.org" language:@"commons"];
+- (UIViewController*)homeDetailViewControllerForItemAtIndex:(NSUInteger)index {
+    NSParameterAssert(self.fetchedDate);
+    NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
+    return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 
 @end
@@ -149,11 +137,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 + (instancetype)feedPlaceholder {
     return [[MWKImageInfo alloc] initWithCanonicalPageTitle:WMFPlaceholderImageInfoTitle
-                                           canonicalFileURL:nil
+                                           canonicalFileURL:[NSURL URLWithString:[@"/" stringByAppendingString:WMFPlaceholderImageInfoTitle]]
                                            imageDescription:nil
                                                     license:nil
                                                 filePageURL:nil
-                                                   imageURL:nil
                                               imageThumbURL:nil
                                                       owner:nil
                                                   imageSize:CGSizeZero

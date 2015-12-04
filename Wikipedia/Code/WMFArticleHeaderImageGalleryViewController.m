@@ -29,28 +29,40 @@
 #import "MWKArticle.h"
 #import "MWKImage.h"
 #import "MWKImageList.h"
-#import "WMFImageGalleryDataSource.h"
+#import "WMFArticleImageGalleryDataSource.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleHeaderImageGalleryViewController ()
-@property (nonatomic, strong) CIDetector* faceDetector;
 @end
 
 @implementation WMFArticleHeaderImageGalleryViewController
 
++ (UICollectionViewLayout*)headerGalleryLayout {
+    UICollectionViewFlowLayout* layout = [WMFCollectionViewPageLayout new];
+    layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0.f;
+    layout.minimumLineSpacing      = 0.f;
+    layout.sectionInset            = UIEdgeInsetsZero;
+    return layout;
+}
+
 - (instancetype)init {
-    self = [super initWithCollectionViewLayout:[WMFCollectionViewPageLayout new]];
-    if (self) {
-        self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
-        self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
-                                               MWKImage* image,
-                                               UICollectionView* _,
-                                               NSIndexPath* indexPath)  {
-            [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
-        };
-    }
-    return self;
+    return [super initWithCollectionViewLayout:[[self class] headerGalleryLayout]];
+}
+
+- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+    [super setDataSource:dataSource];
+    self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
+    self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,
+                                           MWKImage* image,
+                                           UICollectionView* _,
+                                           NSIndexPath* indexPath)  {
+        /*
+           Need to use MWKImage here in order to use face detection offsets persisted to disk.
+         */
+        [cell.imageView wmf_setImageWithMetadata:image detectFaces:YES];
+    };
 }
 
 - (void)addDivider {
@@ -73,23 +85,24 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.collectionView registerClass:[WMFImageCollectionViewCell class]
             forCellWithReuseIdentifier:[WMFImageCollectionViewCell wmf_nibName]];
-
-    WMFCollectionViewPageLayout* layout = (WMFCollectionViewPageLayout*)self.collectionViewLayout;
-    layout.scrollDirection         = UICollectionViewScrollDirectionHorizontal;
-    layout.minimumInteritemSpacing = 0.f;
-    layout.minimumLineSpacing      = 0.f;
-    layout.sectionInset            = UIEdgeInsetsZero;
-
-    self.dataSource.collectionView = self.collectionView;
 }
 
-#pragma mark - Accessors
+#pragma mark - Show Articles
 
-- (CIDetector*)faceDetector {
-    if (!_faceDetector) {
-        _faceDetector = [CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector];
+- (WMFArticleImageGalleryDataSource*)articleGalleryDataSource {
+    if ([self.dataSource isKindOfClass:[WMFArticleImageGalleryDataSource class]]) {
+        return (WMFArticleImageGalleryDataSource*)self.dataSource;
     }
-    return _faceDetector;
+    return nil;
+}
+
+- (void)showImagesInArticle:(nullable MWKArticle*)article {
+    WMFArticleImageGalleryDataSource* dataSource =
+        [[WMFArticleImageGalleryDataSource alloc] initWithArticle:article];
+    self.dataSource = (SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource;
+    if ([self isViewLoaded]) {
+        self.dataSource.collectionView = self.collectionView;
+    }
 }
 
 #pragma mark - UICollectionViewDelegate

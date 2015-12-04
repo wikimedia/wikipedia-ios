@@ -83,7 +83,7 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
         self.imageDescriptionLabel.attributedText =
             [[NSAttributedString alloc] initWithString:imageDescription
                                             attributes:@{
-                 NSParagraphStyleAttributeName: [NSParagraphStyle wmf_naturalAlignmentStyle]
+                 NSParagraphStyleAttributeName: [NSParagraphStyle wmf_naturalAlignmentStyle],
              }];
     }
 }
