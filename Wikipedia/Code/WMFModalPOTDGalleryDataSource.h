@@ -20,18 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
     <WMFModalImageGalleryDataSource>
 
 /**
- *  Initialize the gallery with the info retrieved for today's picture of the day.
+ *  Create a data source for displaying picture of the day starting with a specific date.
  *
  *  @note Currently hard-coded to today since the app doesn't support having multiple POTD in the Home view.
  *        Once this is supported, we will need to pass one or more info objects (and dates) and specify the info to
  *        display (similar to <code>-[WMFModalArticleImageGallery setVisibleImage:animated:]</code>).
  *
- *  @param info Today's info, which will be displayed when the gallery is first presented while it fetches more metadata
- *              and the other days.
+ *  @param info Info for an image which will be displayed when the gallery is first presented while it fetches more
+ *              metadata and the other days.
+ *
+ *  @param date The date that @c info is associated with.
  *
  *  @return A new data source which is populated with today's and the previous 15 days' picture of the day.
  */
-- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date NS_DESIGNATED_INITIALIZER;
 
 @end
 

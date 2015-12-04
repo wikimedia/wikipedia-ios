@@ -29,13 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation WMFModalPOTDGalleryDataSource
 @synthesize delegate;
 
-- (instancetype)initWithTodaysInfo:(MWKImageInfo*)info {
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date {
     /*
        TODO: when we allow selection of arbitrary dates in the feed, the date range needs to either be passed
        in the initializer (pulled from home section schema items) or calculated from the arbitrary date (see
        wmf_datesUntilToday).
      */
-    NSArray<NSDate*>* dates = [[[NSDate date] dateBySubtractingDays:15] wmf_datesUntilToday];
+    NSArray<NSDate*>* dates = [[date dateBySubtractingDays:15] wmf_datesUntilDate:date];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         dates = [dates wmf_reverseArrayIfApplicationIsRTL];
@@ -74,10 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSDate* date = [self dateAtIndexPath:indexPath];
     [self.fetcher fetchPicOfTheDayGalleryInfoForDate:date
                                     metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
-    .then(^(NSArray<MWKImageInfo*>* infoObjects) {
+    .then(^(MWKImageInfo* info) {
         @strongify(self);
-        MWKImageInfo* info = infoObjects.firstObject;
-        NSParameterAssert(info);
         NSIndexPath* updatedIndexPath = [self indexPathForItem:date];
         NSParameterAssert(updatedIndexPath);
         self.galleryInfo[date] = info;

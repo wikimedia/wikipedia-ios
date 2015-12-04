@@ -334,3 +334,7 @@
 "home-nearby-check-again" = "Check again";
 "home-featured-article-heading" = "Featured article for $1";
 "home-main-page-heading" = "Today on Wikipedia";
+"home-potd-heading" = "Picture of the day for $1";
+
+"potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
+"potd-description-prefix" = "Picture of the day for $1";
