@@ -14,6 +14,8 @@
 #import "MWKArticle.h"
 #import "NSString+Extras.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "MWKSection.h"
+#import "MWKSectionList.h"
 
 static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
@@ -75,9 +77,21 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     if ([cell isKindOfClass:[WMFContinueReadingTableViewCell class]]) {
         WMFContinueReadingTableViewCell* readingCell = (id)cell;
         readingCell.title.text   = self.title.text;
-        readingCell.summary.text = [[self.dataStore existingArticleWithTitle:self.title].entityDescription wmf_stringByCapitalizingFirstCharacter];
+        readingCell.summary.text = [self getSummaryForTitle:self.title];
         [readingCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
+}
+
+- (NSString*)getSummaryForTitle:(MWKTitle*)title {
+    NSString* description = [[self.dataStore existingArticleWithTitle:self.title].entityDescription wmf_stringByCapitalizingFirstCharacter];
+    if (!description) {
+        MWKArticle* article = [[MWKArticle alloc] initWithTitle:self.title dataStore:self.dataStore];
+        MWKSection* section = [article.sections firstNonEmptySection];
+        if (section) {
+            description = [section summary];
+        }
+    }
+    return description;
 }
 
 @end
