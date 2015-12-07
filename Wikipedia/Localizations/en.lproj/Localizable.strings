@@ -116,7 +116,7 @@
 "main-menu-language-selection-saved" = "Language selection saved";
 "main-menu-account-title-logged-out" = "Account";
 "main-menu-account-title-logged-in" = "Logged in as: $1";
-"main-menu-account-login" = "Log in";
+"main-menu-account-login" = "Log in to Wikipedia";
 "main-menu-account-logout" = "Log out";
 "main-menu-show-title" = "Show me...";
 "main-menu-show-history" = "Recent";
