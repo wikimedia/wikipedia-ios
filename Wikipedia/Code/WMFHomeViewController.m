@@ -478,15 +478,14 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFHomeSectionTypeNearby:
             [self didTapFooterInSection:section];
             break;
-        case WMFHomeSectionTypeSaved: {
+        case WMFHomeSectionTypeSaved:
+        case WMFHomeSectionTypeHistory: {
             WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
             [self wmf_pushArticleViewControllerWithTitle:controller.title
                                          discoveryMethod:MWKHistoryDiscoveryMethodLink
                                                dataStore:self.dataStore];
             break;
         }
-        default:
-            break;
     }
 }
 
