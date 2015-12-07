@@ -72,6 +72,7 @@
 "search-cancel" = "रद्द करु";
 "search-titles" = "शीर्षक";
 "search-did-you-mean" = "की आहाँ के था अछि $१ ?";
+// Fuzzy
 "search-recent-title" = "हाल के खोजसभ ...";
 "search-recent-clear-confirmation-heading" = "हालक खोजसभ मेटाउ?";
 "search-recent-clear-confirmation-sub-heading" = "ई कार्य पूर्ववत नै भ्यसकई यऽ!";

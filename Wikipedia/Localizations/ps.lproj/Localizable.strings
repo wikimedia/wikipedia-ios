@@ -58,6 +58,7 @@
 "search-titles" = "سرليک";
 "search-within-articles" = "په ليکنو کې";
 "search-did-you-mean" = "آيا $1 مو موخه ده؟";
+// Fuzzy
 "search-recent-title" = "وروستنۍ پلټنې";
 "search-recent-clear-confirmation-heading" = "ټولې وروستنۍ پلټنې ړنگول؟";
 "search-recent-clear-cancel" = "ناگارل";
@@ -86,11 +87,13 @@
 "main-menu-show-today" = "نن";
 "main-menu-nearby" = "نژدې";
 "main-menu-more" = "نور ...";
+"main-menu-debug-crash" = "ټکر";
 "saved-pages-title" = "خوندي مخونه";
 "saved-pages-clear-confirmation-heading" = "ټول خوندي شوي توکي ړنگوۍ؟";
 "saved-pages-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
 "saved-pages-clear-cancel" = "ناگارل";
 "saved-pages-clear-delete-all" = "ټول ړنگول";
+"saved-pages-refresh-cancel-alert-title" = "اوسمهالېدنه ناگارېدلې";
 "saved-pages-refresh-cancel-alert-button" = "پوه شوم";
 "page-history-title" = "د ليکنې پېښليک";
 "page-history-downloading" = "د ليکنې پېښليک رابرسېرېږي...";
@@ -105,6 +108,7 @@
 "navbar-title-mode-edit-wikitext-save" = "خوندي کول";
 "edit-summary-choice-linked-words" = "ورگډې شوې تړنې";
 "edit-summary-choice-added-category" = "وېشنيزه ورگډه شوه";
+"edit-summary-choice-added-missing-info" = "ورک مالومات ورگډ شول";
 "edit-summary-choice-other" = "بل";
 "about-title" = "په اړه";
 "about-wikipedia" = "ويکيپېډيا";
@@ -137,6 +141,7 @@
 "onboarding-skip" = "تېرېدل";
 "onboarding-wikipedia" = "ويکيپېډيا";
 "onboarding-free-encyclopedia" = "يو وړيا پوهنغونډ";
+"preference_title_eventlogging_opt_in" = "د کارېدنې راپورونه لېږل";
 "page_protected_can_not_edit_title" = "دا مخ ژغورل شوی";
 "license-footer-text" = "مېنځپانگه د $1 منښتليک له مخې ايښودل شوې";
 "license-footer-name" = "CC BY-SA 3.0";

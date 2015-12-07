@@ -4,6 +4,7 @@
 // Author: Brion
 // Author: Fitoschido
 // Author: Gerardduenas
+// Author: Jaumeortola
 // Author: Joan manel
 // Author: Kippelboy
 // Author: Maceleiro
@@ -32,7 +33,7 @@
 "history-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "history-clear-cancel" = "Cancel·la";
 "history-clear-delete-all" = "Esborra-ho tot";
-"history-description" = "Probablement els heu esborrat tots. La propera vegada que aneu a una pàgina podeu tornar-hi des d'aquí.";
+"history-description" = "Probablement els heu esborrat tots. La pròxima vegada que aneu a una pàgina podreu tornar-hi des d'aquí.";
 "history-none" = "No hi ha pàgines recents aquí.";
 "zero-free-verbiage" = "Accés lliure a la Viquipèdia des del vostre operador mòbil (sense càrrecs per transmissió de dades)";
 "zero-charged-verbiage" = "Viquipèdia Zero desactivat";
@@ -51,7 +52,7 @@
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
 "account-creation-captcha-obtaining" = "Obtenint d'un CAPTCHA nou.";
 "account-creation-logging-in" = "Iniciant sessió...";
-"account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen";
+"account-creation-passwords-mismatched" = "Les contrasenyes no coincideixen.";
 "account-creation-saving" = "S’està desant…";
 "account-creation-login" = "Ja tens un compte? Inicia una sessió.";
 "account-creation-username-placeholder-text" = "Nom d'usuari";
@@ -98,6 +99,7 @@
 "search-titles" = "Títols";
 "search-within-articles" = "Dins d'articles";
 "search-did-you-mean" = "Volíeu dir: $1?";
+// Fuzzy
 "search-recent-title" = "Cerques recents";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
@@ -193,7 +195,7 @@
 "about-product-of" = "Un producte de la $1";
 "about-wikimedia-foundation" = "Fundació Wikimedia";
 "share-menu-save-page" = "Desa l'article";
-"share-menu-page-saved" = "Article desat";
+"share-menu-page-saved" = "Article desat per a lectura fora de línia.";
 "share-menu-page-saved-access" = "Consell: per accedir a les vostres pàgines desades, puntegeu en $1 a dalt o premeu uns moments $2 a sota.";
 "share-custom-menu-item" = "Comparteix";
 "share-article-name-on-wikipedia" = "«$1» a la @Viquipedia:";
@@ -275,10 +277,10 @@
 "migration-skip-button-title" = "Esborra-ho";
 "image-gallery-unknown-owner" = "El carregador no és conegut.";
 "image-gallery-fetch-image-info-error-title" = "No s'han pogut baixar les imatges";
-"image-gallery-fetch-image-info-error-message" = "No s'han pogut baixar les imatges de l'article. Refresqueu l'article i torneu-ho a proveu.";
+"image-gallery-fetch-image-info-error-message" = "No s'han pogut baixar les imatges de l'article. Refresqueu l'article i torneu a provar-ho.";
 "image-gallery-fetch-image-info-error-ok" = "D'acord";
-"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi?";
-"hockeyapp-alert-question-with-response-field" = "Voldríeu enviar un informe de fallada a $1 per tal que Wikimedia ho revisi? Descriviu què va passar quan va produir-se la fallada.";
+"hockeyapp-alert-question" = "Voldríeu enviar un informe de fallada a $1 perquè Wikimedia ho revisi?";
+"hockeyapp-alert-question-with-response-field" = "Voleu enviar un informe de fallada a $1 perquè Wikimedia ho revisi? Descriviu què ha passat quan s'ha produït la fallada:";
 "hockeyapp-alert-title" = "Ho sentim, l'aplicació va fallar la darrera vegada";
 "hockeyapp-alert-send-report" = "Envia l'informe";
 "hockeyapp-alert-always-send" = "Envia sempre";

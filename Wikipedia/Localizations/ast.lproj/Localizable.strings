@@ -88,6 +88,7 @@
 "search-titles" = "Títulos";
 "search-within-articles" = "Dientro de los artículos";
 "search-did-you-mean" = "¿Quixisti dicir $1?";
+// Fuzzy
 "search-recent-title" = "Guetes recientes";
 "search-recent-clear-confirmation-heading" = "¿Desaniciar toles guetes de recién?";
 "search-recent-clear-confirmation-sub-heading" = "¡Esta aición nun pue desfacese!";

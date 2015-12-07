@@ -65,6 +65,7 @@
 "search-titles" = "Pavadinimai";
 "search-within-articles" = "Straipsniuose";
 "search-did-you-mean" = "Galbūt norėjote $1?";
+// Fuzzy
 "search-recent-title" = "Naujausios paieškos";
 "search-recent-clear-confirmation-heading" = "Naikinti visas naujausias paieškas?";
 "search-recent-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";

@@ -89,6 +89,7 @@
 "search-titles" = "Titels";
 "search-within-articles" = "Binne artikels";
 "search-did-you-mean" = "Het u $1 bedoel?";
+// Fuzzy
 "search-recent-title" = "Onlangse soektogte";
 "search-recent-clear-confirmation-heading" = "Skrap alle onlangse soektogte?";
 "search-recent-clear-confirmation-sub-heading" = "Hierdie aksie kan nie ongedaan gemaak word nie!";

@@ -133,6 +133,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateItems:locationSearchResults.results];
 }
 
+- (BOOL)nearbyViewModel:(WMFNearbyViewModel*)viewModel shouldFetchTitlesForLocation:(CLLocation*)location {
+    return [self numberOfItems] == 0;
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

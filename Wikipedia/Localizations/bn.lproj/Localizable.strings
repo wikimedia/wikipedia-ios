@@ -90,7 +90,7 @@
 "search-titles" = "নামসমূহ";
 "search-within-articles" = "নিবন্ধসমূহের মধ্যে";
 "search-did-you-mean" = "আপনি কি $1 বুঝাচ্ছেন?";
-"search-recent-title" = "সাম্প্রতিক অনুসন্ধান";
+"search-recent-title" = "সম্প্রতি অনুসন্ধানকৃত";
 "search-recent-clear-confirmation-heading" = "সাম্প্রতিক সব অনুসন্ধান মুছে ফেলবেন?";
 "search-recent-clear-confirmation-sub-heading" = "এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না!";
 "search-recent-clear-cancel" = "বাতিল";
@@ -260,6 +260,7 @@
 "image-gallery-unknown-owner" = "আপলোডকারী অজানা।";
 "image-gallery-fetch-image-info-error-title" = "চিত্র ডাউনলোড করতে অক্ষম";
 "image-gallery-fetch-image-info-error-ok" = "ঠিক আছে";
+"hockeyapp-alert-always-send" = "সর্বদা পাঠান";
 "hockeyapp-alert-do-not-send" = "পাঠাবেন না";
 "hockeyapp-alert-privacy" = "$1 গোপনীয়তা";
 "page-issues" = "পাতার সমস্যা";

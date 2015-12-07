@@ -1,5 +1,6 @@
 // Messages for Basque (euskara)
 // Exported from translatewiki.net
+// Author: An13sa
 // Author: Fitoschido
 // Author: Gorkaazk
 // Author: Sator
@@ -51,6 +52,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Ireki lotura";
 "open-link-cancel" = "Utzi";
+"search-title" = "Bilatu";
 "search-searching" = "Bilatzen...";
 "search-field-placeholder-text" = "Bilatu Wikipedian";
 "search-field-placeholder-text-zero" = "Bilatu Wikipedia Zeron";
@@ -173,3 +175,7 @@
 "hockeyapp-alert-do-not-send" = "Ez bidali";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
+"home-title" = "Esploratu";
+"home-continue-reading-heading" = "Irakurtzen jarraitu";
+"home-nearby-check-again" = "Egiaztatu berriro";
+"home-main-page-heading" = "Gaur Wikipedian";

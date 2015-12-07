@@ -92,6 +92,7 @@
 "search-titles" = "Titler";
 "search-within-articles" = "Indhold i artikler";
 "search-did-you-mean" = "Mente du $1?";
+// Fuzzy
 "search-recent-title" = "Seneste søgninger";
 "search-recent-clear-confirmation-heading" = "Slet alle seneste søgninger?";
 "search-recent-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";

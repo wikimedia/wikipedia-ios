@@ -15,6 +15,7 @@
 "article-read-more-title" = "לקרוא עוד";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
+"article-related-articles-title" = "ערכים קשורים";
 "info-box-title" = "עובדות מהירות";
 "info-box-close-text" = "סגירה";
 "table-title-other" = "מידע נוסף";
@@ -82,6 +83,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "פתיחת קישור";
 "open-link-cancel" = "ביטול";
+"search-title" = "חיפוש";
 "search-searching" = "חיפוש...";
 "search-no-matches" = "לא נמצאו תוצאות מתאימות למילת החיפוש.";
 "search-field-placeholder-text" = "חיפוש בוויקיפדיה";
@@ -206,6 +208,8 @@
 "button-next" = "הבא";
 "button-done" = "בוצע";
 "button-save" = "שמירה";
+"button-save-for-later" = "לשמור לאחר־כך";
+"button-saved-for-later" = "נשמרו לאחר־כך";
 "onboarding-create-account" = "יצירת חשבון";
 "onboarding-login" = "כניסה";
 "onboarding-already-have-account" = "כבר יש לך חשבון? $1";
@@ -284,3 +288,15 @@
 "captcha-reload" = "להראות תמונת אימות אחרת";
 "captcha-prompt" = "נא להזין את הטקסט מהתמונה לעיל";
 "mwk-empty-title-error" = "לא ניתן לבצע את הפעולה עם כותרת ריקה.";
+"home-title" = "לחקור";
+"home-continue-reading-heading" = "להמשיך לקרוא";
+"home-continue-related-heading" = "כי קראת את $1";
+"home-more-like-footer" = "עוד כמו $1";
+"home-nearby-footer" = "עוד דברים בסביבה";
+"home-nearby-nothing" = "אין שום דבר בסביבה";
+"home-nearby-check-again" = "לבדוק שוב";
+"home-featured-article-heading" = "ערך מומלץ עבור $1";
+"home-main-page-heading" = "היום בוויקיפדיה";
+"home-potd-heading" = "תמונת היום עבור $1";
+"potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
+"potd-description-prefix" = "תמונת היום של $1";

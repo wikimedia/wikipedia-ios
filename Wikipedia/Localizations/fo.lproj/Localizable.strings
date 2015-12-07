@@ -81,6 +81,7 @@
 "search-titles" = "Titlar";
 "search-within-articles" = "Í greinum";
 "search-did-you-mean" = "Meinti tú $1?";
+// Fuzzy
 "search-recent-title" = "Seinastu leitingar";
 "search-recent-clear-confirmation-heading" = "Slætta allar seinastu leitingar?";
 "search-recent-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";

@@ -61,6 +61,7 @@
 "search-loading-section-remaining" = "Maqolaning qolgan qismi yuklanyapti...";
 "search-loading-article-loaded" = "Maqola yuklandi.";
 "search-cancel" = "Bekor qilish";
+// Fuzzy
 "search-recent-title" = "Oxirgi paytdagi qidiruvlar";
 "search-recent-clear-confirmation-heading" = "Barcha oxirgi paytdagi qidiruvlar o‘chirib tashlansinmi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
