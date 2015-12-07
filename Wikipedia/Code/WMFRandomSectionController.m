@@ -55,7 +55,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-random", nil) attributes:nil];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-random", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
 }
 
 - (UIImage*)headerButtonIcon {

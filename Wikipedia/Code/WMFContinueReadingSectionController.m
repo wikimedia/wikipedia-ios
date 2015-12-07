@@ -50,7 +50,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-continue-reading-heading", nil) attributes:nil];
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {

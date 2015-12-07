@@ -57,7 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeViewController ()
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
- UITextViewDelegate,
  WMFSearchPresentationDelegate,
  UIViewControllerPreviewingDelegate>
 
@@ -157,12 +156,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
-}
-
-- (void)didTapSectionHeaderLink:(NSURL*)url {
-    [self wmf_pushArticleViewControllerWithTitle:[[MWKTitle alloc] initWithURL:url]
-                                 discoveryMethod:MWKHistoryDiscoveryMethodLink
-                                       dataStore:self.dataStore];
 }
 
 #pragma mark - UIViewController
@@ -472,6 +465,36 @@ NS_ASSUME_NONNULL_BEGIN
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
+- (void)didTapHeaderInSection:(NSUInteger)section {
+    WMFHomeSection* homeSection = self.schemaManager.sections[section];
+    switch (homeSection.type) {
+        case WMFHomeSectionTypeContinueReading:
+        case WMFHomeSectionTypeMainPage:
+        case WMFHomeSectionTypeFeaturedArticle:
+        case WMFHomeSectionTypePictureOfTheDay:
+        case WMFHomeSectionTypeRandom:
+            [self selectFirstRowInSection:section];
+            break;
+        case WMFHomeSectionTypeNearby:
+            [self didTapFooterInSection:section];
+            break;
+        case WMFHomeSectionTypeSaved:
+        case WMFHomeSectionTypeHistory: {
+            WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
+            [self wmf_pushArticleViewControllerWithTitle:controller.title
+                                         discoveryMethod:MWKHistoryDiscoveryMethodLink
+                                               dataStore:self.dataStore];
+            break;
+        }
+    }
+}
+
+- (void)selectFirstRowInSection:(NSUInteger)section {
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -484,11 +507,15 @@ NS_ASSUME_NONNULL_BEGIN
     header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
     NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-    [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0] range:NSMakeRange(0, title.length)];
-    [title addAttribute:NSForegroundColorAttributeName value:[UIColor wmf_homeSectionHeaderTextColor] range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderFont] range:NSMakeRange(0, title.length)];
     header.titleView.attributedText = title;
     header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
-    header.titleView.delegate       = self;
+
+    @weakify(self);
+    header.whenTapped = ^{
+        @strongify(self);
+        [self didTapHeaderInSection:section];
+    };
 
     if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
         header.rightButtonEnabled = YES;
@@ -599,13 +626,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
     [self showAlert:[error localizedDescription] type:ALERT_TYPE_TOP duration:2.f];
-}
-
-#pragma mark - UITextViewDelegate
-
-- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)url inRange:(NSRange)characterRange {
-    [self didTapSectionHeaderLink:url];
-    return NO;
 }
 
 #pragma mark - WMFSearchPresentationDelegate

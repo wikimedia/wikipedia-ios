@@ -76,9 +76,9 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (NSAttributedString*)headerText {
     return
-        [MWLocalizedString(@"home-continue-related-heading", nil) attributedStringWithAttributes:nil
+        [MWLocalizedString(@"home-continue-related-heading", nil) attributedStringWithAttributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
                                                                              substitutionStrings:@[self.title.text]
-                                                                          substitutionAttributes:@[@{NSLinkAttributeName: self.title.desktopURL}]
+                                                                          substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}]
         ];
 }
 
