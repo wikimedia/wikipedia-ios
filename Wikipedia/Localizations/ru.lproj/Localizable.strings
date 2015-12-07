@@ -20,6 +20,7 @@
 "article-read-more-title" = "Читать подробнее";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
+"article-related-articles-title" = "Статьи по теме";
 "info-box-title" = "Короткие факты";
 "info-box-close-text" = "Закрыть";
 "table-title-other" = "Подробнее";
@@ -87,6 +88,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Открыть ссылку";
 "open-link-cancel" = "Отмена";
+"search-title" = "Поиск";
 "search-searching" = "Поиск…";
 "search-no-matches" = "Не найдены совпадения по заданному критерию поиска.";
 "search-field-placeholder-text" = "Поиск по Википедии";
@@ -98,7 +100,7 @@
 "search-titles" = "Заголовки";
 "search-within-articles" = "Внутри статей";
 "search-did-you-mean" = "Возможно, вы имели в виду $1?";
-"search-recent-title" = "Последние поисковые запросы";
+"search-recent-title" = "Недавно искали";
 "search-recent-clear-confirmation-heading" = "Удалить все последние поисковые запросы?";
 "search-recent-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "search-recent-clear-cancel" = "Отмена";
@@ -211,6 +213,8 @@
 "button-next" = "Далее";
 "button-done" = "Готово";
 "button-save" = "Сохранить";
+"button-save-for-later" = "Сохранить на потом";
+"button-saved-for-later" = "Сохранено на потом";
 "onboarding-create-account" = "Создать учётную запись";
 "onboarding-login" = "Войти";
 "onboarding-already-have-account" = "Вы уже зарегистрированы? $1";
@@ -289,3 +293,14 @@
 "captcha-reload" = "Показать другой код";
 "captcha-prompt" = "Введите текст капчи с изображения выше";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
+"home-continue-reading-heading" = "Продолжить чтение";
+"home-continue-related-heading" = "Потому что вы читали статью $1";
+"home-more-like-footer" = "Ещё похожее на $1";
+"home-nearby-footer" = "Ещё про то, что находится поблизости от вас";
+"home-nearby-nothing" = "Поблизости ничего нет";
+"home-nearby-check-again" = "Проверить ещё раз";
+"home-featured-article-heading" = "Избранная статья за $1";
+"home-main-page-heading" = "Сегодня в Википедии";
+"home-potd-heading" = "Изображение дня за $1";
+"potd-empty-error-description" = "Не удалось получить изображение дня за $1";
+"potd-description-prefix" = "Изображение дня за $1";

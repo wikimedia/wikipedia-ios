@@ -163,6 +163,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
     self.nearbyError = error;
     [self.delegate controller:self didSetItems:self.items];
+    [self.delegate controller:self didFailToUpdateWithError:error];
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {

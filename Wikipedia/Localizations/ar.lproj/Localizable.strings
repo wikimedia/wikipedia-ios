@@ -72,6 +72,7 @@
 "search-titles" = "العناوين";
 "search-within-articles" = "في محتوى المقالات";
 "search-did-you-mean" = "هل عنيت $1؟";
+// Fuzzy
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
 "search-recent-clear-cancel" = "إلغاء";

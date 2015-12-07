@@ -36,4 +36,11 @@
  */
 @property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
+/**
+ *  Cause cell to blur and show spinning loading indicator.
+ *
+ *  @param loading    Shows/hides blur and loading indicator
+ */
+- (void)setLoading:(BOOL)loading;
+
 @end

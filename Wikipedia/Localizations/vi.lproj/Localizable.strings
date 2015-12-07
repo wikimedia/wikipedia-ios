@@ -95,6 +95,7 @@
 "search-titles" = "Tên trang";
 "search-within-articles" = "Nội dung bài";
 "search-did-you-mean" = "Có phải bạn muốn tìm “$1”?";
+// Fuzzy
 "search-recent-title" = "Tìm kiếm gần đây";
 "search-recent-clear-confirmation-heading" = "Xóa các tìm kiếm gần đây?";
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";

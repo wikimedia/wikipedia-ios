@@ -81,6 +81,7 @@
 "search-titles" = "Title";
 "search-within-articles" = "W nastawkach";
 "search-did-you-mean" = "Měnješe ty $1?";
+// Fuzzy
 "search-recent-title" = "Zašłe pytanja";
 "search-recent-clear-confirmation-heading" = "Zašłe pytanja wušmórnyć?";
 "search-recent-clear-confirmation-sub-heading" = "Njemóžeš tule akciju wróćo wzać!";

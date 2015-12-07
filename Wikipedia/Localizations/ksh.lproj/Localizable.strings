@@ -72,6 +72,7 @@
 "search-titles" = "Övverschreffte";
 "search-within-articles" = "En Atikelle";
 "search-did-you-mean" = "Häß De „$1“ jemeint?";
+// Fuzzy
 "search-recent-title" = "Köözlesch jesöhk";
 "search-recent-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "search-recent-clear-cancel" = "Ophüre";

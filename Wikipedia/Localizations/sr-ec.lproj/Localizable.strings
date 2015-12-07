@@ -69,6 +69,7 @@
 "search-cancel" = "Откажи";
 "search-titles" = "Наслови";
 "search-did-you-mean" = "Да ли сте мислили на $1?";
+// Fuzzy
 "search-recent-title" = "Скорашње претраге";
 "search-recent-clear-confirmation-heading" = "Обрисати скорашње претраге?";
 "search-recent-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";

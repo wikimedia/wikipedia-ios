@@ -93,6 +93,7 @@
 "search-titles" = "Titler";
 "search-within-articles" = "I artikler";
 "search-did-you-mean" = "Mente du $1?";
+// Fuzzy
 "search-recent-title" = "Nylige søk";
 "search-recent-clear-confirmation-heading" = "Slette alle nylige søk?";
 "search-recent-clear-confirmation-sub-heading" = "Handlingen kan ikke omgjøres!";

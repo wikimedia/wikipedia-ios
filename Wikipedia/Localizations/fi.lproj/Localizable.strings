@@ -96,6 +96,7 @@
 "search-titles" = "Otsikot";
 "search-within-articles" = "Artikkeleissa";
 "search-did-you-mean" = "Tarkoititko $1?";
+// Fuzzy
 "search-recent-title" = "Äskettäin tehdyt haut";
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";
 "search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
