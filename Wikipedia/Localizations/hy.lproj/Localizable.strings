@@ -54,6 +54,7 @@
 "search-cancel" = "Չեղարկել";
 "search-titles" = "Վերնագրեր";
 "search-within-articles" = "Հոդվածների ներսում";
+// Fuzzy
 "search-recent-title" = "Վերջին որոնումները";
 "search-recent-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր վերջին որոնումները:";
 "search-recent-clear-cancel" = "Չեղարկել";

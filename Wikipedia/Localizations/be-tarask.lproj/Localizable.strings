@@ -89,6 +89,7 @@
 "search-titles" = "Назвы";
 "search-within-articles" = "У артыкулах";
 "search-did-you-mean" = "Магчыма, вы мелі на ўвазе $1?";
+// Fuzzy
 "search-recent-title" = "Апошнія пошукавыя запыты";
 "search-recent-clear-confirmation-heading" = "Выдаліць усе апошнія пошукавыя запыты?";
 "search-recent-clear-confirmation-sub-heading" = "Гэта дзеяньне немагчыма адмяніць!";

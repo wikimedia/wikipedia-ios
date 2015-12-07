@@ -93,6 +93,7 @@
 "search-titles" = "Заголовки";
 "search-within-articles" = "У статтях";
 "search-did-you-mean" = "Можливо, Ви мали на увазі «$1»?";
+// Fuzzy
 "search-recent-title" = "Недавні пошукові запити";
 "search-recent-clear-confirmation-heading" = "Вилучити усі недавні пошукові запити?";
 "search-recent-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";

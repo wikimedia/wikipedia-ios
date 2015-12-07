@@ -36,6 +36,7 @@
 "search-titles" = "Címek";
 "search-within-articles" = "Cikkeken belül";
 "search-did-you-mean" = "Úgy érted: $1?";
+// Fuzzy
 "search-recent-title" = "Legutóbbi keresések";
 "search-recent-clear-confirmation-heading" = "Legfrissebb keresések törlése?";
 "search-recent-clear-confirmation-sub-heading" = "A művelet nem visszavonható!";

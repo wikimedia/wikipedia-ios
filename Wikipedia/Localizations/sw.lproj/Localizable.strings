@@ -54,6 +54,7 @@
 "search-titles" = "Kichwa";
 "search-within-articles" = "Katika makala";
 "search-did-you-mean" = "Ulimaanisha $1?";
+// Fuzzy
 "search-recent-title" = "Kutafuta kwa hivi karibuni";
 "search-recent-clear-cancel" = "Ghairi";
 "search-recent-clear-delete-all" = "Futa Zote";

@@ -99,6 +99,7 @@
 "search-titles" = "Madde adları";
 "search-within-articles" = "Maddeler içinde";
 "search-did-you-mean" = "Bunu mu demek istediniz: $1?";
+// Fuzzy
 "search-recent-title" = "Son aramalar";
 "search-recent-clear-confirmation-heading" = "Son aramaların tümü silinsin mi?";
 "search-recent-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";

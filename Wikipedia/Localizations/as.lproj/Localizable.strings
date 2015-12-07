@@ -81,6 +81,7 @@
 "search-cancel" = "বাতিল";
 "search-titles" = "শিৰোনামাসমূহ";
 "search-did-you-mean" = "আপুনি $1 বুজাব খুজিছে নেকি?";
+// Fuzzy
 "search-recent-title" = "শেহতীয়া সন্ধানসমূহ";
 "search-recent-clear-confirmation-heading" = "শেহতীয়া সকলো সন্ধান বিলোপ কৰিব?";
 "search-recent-clear-confirmation-sub-heading" = "এই কাৰ্য্য নোহোৱা কৰিব নোৱাৰি!";

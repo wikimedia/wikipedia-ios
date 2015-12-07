@@ -45,6 +45,7 @@
 "search-titles" = "Sernav";
 "search-within-articles" = "Di nav gotaran de";
 "search-did-you-mean" = "Gelo mebesta te $1 bû?";
+// Fuzzy
 "search-recent-title" = "Lêgerînên dawî";
 "search-recent-clear-cancel" = "Betal bike";
 "search-recent-clear-delete-all" = "Hemûyan Jê Bibe";
