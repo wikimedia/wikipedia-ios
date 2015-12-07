@@ -14,7 +14,6 @@
 #import "MediaWikiKit.h"
 #import "Defines.h"
 #import "WMFAssetsFile.h"
-#import "NSArray+WMFMapping.h"
 
 #import <BlocksKit/BlocksKit.h>
 
@@ -98,7 +97,7 @@ static id _sharedInstance;
 - (void)updateLanguageArrays {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     NSArray* preferredLangusageCodes = [self readPreferredLanguageCodes];
-    self.preferredLanguages = [preferredLangusageCodes wmf_mapRemovingNilElements:^id (NSString* langString) {
+    self.preferredLanguages = [preferredLangusageCodes wmf_mapAndRejectNil:^id (NSString* langString) {
         return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
@@ -171,7 +170,7 @@ static id _sharedInstance;
 }
 
 - (NSArray<NSString*>*)readOSPreferredLanguageCodes {
-    NSArray<NSString*>* osLanguages = [[NSLocale preferredLanguages] wmf_mapRemovingNilElements:^NSString*(NSString* languageCode) {
+    NSArray<NSString*>* osLanguages = [[NSLocale preferredLanguages] wmf_mapAndRejectNil:^NSString*(NSString* languageCode) {
         NSLocale* locale = [NSLocale localeWithLocaleIdentifier:languageCode];
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
         return [locale objectForKey:NSLocaleLanguageCode];

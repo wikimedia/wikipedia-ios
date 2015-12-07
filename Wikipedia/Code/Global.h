@@ -23,7 +23,7 @@
 #import "WMFComparison.h"
 #import "WMFDeprecationMacros.h"
 #import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
-#import "NSArray+WMFMapWithoutNil.h"
+#import "NSArray+WMFMapping.h"
 #import "NSMutableArray+WMFSafeAdd.h"
 
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
