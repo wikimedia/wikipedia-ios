@@ -5,6 +5,7 @@
 #import "WMFSaveButtonController.h"
 #import "MWKImage.h"
 #import "UITableViewCell+SelectedBackground.h"
+#import <Masonry/Masonry.h>
 
 @interface WMFArticlePreviewTableViewCell ()
 
@@ -21,6 +22,9 @@
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* imageHeightConstraint;
 
+@property (strong, nonatomic) UIVisualEffectView* blurView;
+@property (strong, nonatomic) UIActivityIndicatorView* activityIndicator;
+
 @property (nonatomic) CGFloat paddingAboveDescriptionFromIB;
 @property (nonatomic) CGFloat paddingBelowDescriptionFromIB;
 
@@ -30,11 +34,21 @@
 
 #pragma mark - Setup
 
+- (void)setLoading:(BOOL)loading {
+    self.blurView.hidden = !loading;
+    if (loading) {
+        [self.activityIndicator startAnimating];
+    } else {
+        [self.activityIndicator stopAnimating];
+    }
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
     self.snippetLabel.attributedText        = nil;
     self.saveButtonController.title         = nil;
     self.saveButtonController.savedPageList = nil;
+    self.loading                            = NO;
 }
 
 - (void)awakeFromNib {
@@ -44,6 +58,26 @@
     self.saveButton.tintColor = [UIColor wmf_blueTintColor];
     [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
     self.saveButtonController.button = self.saveButton;
+
+    [self setupBlurViewAndLoadingIndicator];
+    self.loading = NO;
+}
+
+- (void)setupBlurViewAndLoadingIndicator {
+    UIBlurEffect* blurEffect = [[UIBlurEffect alloc] init];
+    self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    [self.contentView addSubview:self.blurView];
+    [self.blurView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.edges.equalTo(self.contentView);
+    }];
+
+    self.activityIndicator       = [[UIActivityIndicatorView alloc] init];
+    self.activityIndicator.color = [UIColor blackColor];
+    [self.blurView.contentView addSubview:self.activityIndicator];
+    [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.height.and.width.equalTo(@50);
+        make.center.equalTo(self.activityIndicator.superview);
+    }];
 }
 
 - (void)rememberSettingsFromIB {
