@@ -22,13 +22,12 @@
                                 <constraint firstAttribute="height" constant="22" id="7fi-nm-ScX"/>
                             </constraints>
                         </imageView>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RrT-G5-VUS">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Text" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrT-G5-VUS">
                             <rect key="frame" x="41" y="10" width="241" height="32"/>
                             <animations/>
                             <color key="textColor" red="0.59993284940000002" green="0.60003882649999996" blue="0.59992617370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            <dataDetectorType key="dataDetectorTypes" link="YES"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJc-u6-CpG">
                             <rect key="frame" x="282" y="8" width="50" height="36"/>
