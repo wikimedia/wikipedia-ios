@@ -194,7 +194,6 @@
 		B0E804C31C0CE0B40065EBC0 /* NSArray+BKIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047C1C0CE0B40065EBC0 /* NSArray+BKIndex.m */; };
 		B0E804C41C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047D1C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift */; };
 		B0E804C51C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8047F1C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m */; };
-		B0E804C61C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804811C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.m */; };
 		B0E804C71C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E804821C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift */; };
 		B0E804C81C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */; };
 		B0E804C91C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E804861C0CE0B40065EBC0 /* NSAttributedString+WMFSavedPagesAttributedStrings.m */; };
@@ -965,8 +964,6 @@
 		B0E8047D1C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSArray+WMFExtensions.swift"; path = "Wikipedia/Code/NSArray+WMFExtensions.swift"; sourceTree = SOURCE_ROOT; };
 		B0E8047E1C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFLayoutDirectionUtilities.h"; path = "Wikipedia/Code/NSArray+WMFLayoutDirectionUtilities.h"; sourceTree = SOURCE_ROOT; };
 		B0E8047F1C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFLayoutDirectionUtilities.m"; path = "Wikipedia/Code/NSArray+WMFLayoutDirectionUtilities.m"; sourceTree = SOURCE_ROOT; };
-		B0E804801C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+WMFMapWithoutNil.h"; path = "Wikipedia/Code/NSArray+WMFMapWithoutNil.h"; sourceTree = SOURCE_ROOT; };
-		B0E804811C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+WMFMapWithoutNil.m"; path = "Wikipedia/Code/NSArray+WMFMapWithoutNil.m"; sourceTree = SOURCE_ROOT; };
 		B0E804821C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSArray+WMFPredicate.swift"; path = "Wikipedia/Code/NSArray+WMFPredicate.swift"; sourceTree = SOURCE_ROOT; };
 		B0E804831C0CE0B40065EBC0 /* NSAttributedString+WMFModify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+WMFModify.h"; path = "Wikipedia/Code/NSAttributedString+WMFModify.h"; sourceTree = SOURCE_ROOT; };
 		B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+WMFModify.m"; path = "Wikipedia/Code/NSAttributedString+WMFModify.m"; sourceTree = SOURCE_ROOT; };
@@ -2247,8 +2244,6 @@
 				0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */,
 				B0E8047E1C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.h */,
 				B0E8047F1C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m */,
-				B0E804801C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.h */,
-				B0E804811C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.m */,
 				B0E804821C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift */,
 				B0E804831C0CE0B40065EBC0 /* NSAttributedString+WMFModify.h */,
 				B0E804841C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m */,
@@ -5057,7 +5052,6 @@
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,
 				B0E804C41C0CE0B40065EBC0 /* NSArray+WMFExtensions.swift in Sources */,
-				B0E804C61C0CE0B40065EBC0 /* NSArray+WMFMapWithoutNil.m in Sources */,
 				B0E803821C0CDA600065EBC0 /* WMFArticleTableHeaderView.m in Sources */,
 				B0E807B71C0CF0180065EBC0 /* MWKSavedPageEntry.m in Sources */,
 				B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */,
