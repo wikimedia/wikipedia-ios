@@ -57,7 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeViewController ()
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
- UITextViewDelegate,
  WMFSearchPresentationDelegate,
  UIViewControllerPreviewingDelegate>
 
@@ -512,7 +511,6 @@ NS_ASSUME_NONNULL_BEGIN
     [title addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderFont] range:NSMakeRange(0, title.length)];
     header.titleView.attributedText = title;
     header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
-    header.titleView.delegate       = self;
 
     @weakify(self);
     header.whenTapped = ^{
@@ -629,12 +627,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
     [self showAlert:[error localizedDescription] type:ALERT_TYPE_TOP duration:2.f];
-}
-
-#pragma mark - UITextViewDelegate
-
-- (BOOL)textView:(UITextView*)textView shouldInteractWithURL:(NSURL*)url inRange:(NSRange)characterRange {
-    return NO;
 }
 
 #pragma mark - WMFSearchPresentationDelegate
