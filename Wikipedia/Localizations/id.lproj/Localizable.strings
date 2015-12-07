@@ -97,6 +97,7 @@
 "search-titles" = "Judul";
 "search-within-articles" = "Dalam artikel";
 "search-did-you-mean" = "Mungkin maksud Anda adalah: $1";
+// Fuzzy
 "search-recent-title" = "Pencarian terkini";
 "search-recent-clear-confirmation-heading" = "Hapus semua pencarian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";

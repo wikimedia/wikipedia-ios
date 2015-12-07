@@ -5,6 +5,7 @@
 // Author: Macofe
 // Author: Mathonius
 // Author: MedShot
+// Author: Robin van der Vliet
 // Author: Robin0van0der0vliet
 // Author: SPQRobin
 // Author: Siebrand
@@ -97,6 +98,7 @@
 "search-titles" = "Paginanamen";
 "search-within-articles" = "In paginatekst";
 "search-did-you-mean" = "Bedoelde u $1?";
+// Fuzzy
 "search-recent-title" = "Recente zoekopdrachten";
 "search-recent-clear-confirmation-heading" = "Alle recente zoekopdrachten verwijderen?";
 "search-recent-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";

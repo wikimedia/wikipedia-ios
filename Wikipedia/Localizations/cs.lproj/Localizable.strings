@@ -77,6 +77,7 @@
 "search-titles" = "Názvy";
 "search-within-articles" = "V článcích";
 "search-did-you-mean" = "Mysleli jste $1?";
+// Fuzzy
 "search-recent-title" = "Poslední hledání";
 "search-recent-clear-confirmation-heading" = "Smazat všechna poslední hledání?";
 "search-recent-clear-confirmation-sub-heading" = "Tato operace nemůže být vrácena zpět!";

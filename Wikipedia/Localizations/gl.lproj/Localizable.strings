@@ -91,6 +91,7 @@
 "search-titles" = "Títulos";
 "search-within-articles" = "Dentro dos artigos";
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
+// Fuzzy
 "search-recent-title" = "Buscas recentes";
 "search-recent-clear-confirmation-heading" = "Borrar tódalas buscas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";

@@ -74,6 +74,7 @@
 "search-titles" = "ចំណងជើង";
 "search-within-articles" = "ខាងក្នុងអត្ថបទ";
 "search-did-you-mean" = "ប្រហែលជាអ្នកចង់រក $1";
+// Fuzzy
 "search-recent-title" = "ការស្វែងរកថ្មីៗនេះ";
 "search-recent-clear-confirmation-heading" = "លុបចោលការស្វែងរកថ្មីៗនេះទាំងអស់ឬ?";
 "search-recent-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";

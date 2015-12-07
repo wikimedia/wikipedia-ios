@@ -75,6 +75,7 @@
 "search-titles" = "სათაურები";
 "search-within-articles" = "სტატიებში";
 "search-did-you-mean" = "ხომ არ იგულისხმეთ $1?";
+// Fuzzy
 "search-recent-title" = "ბოლოს მოძიებულები";
 "search-recent-clear-confirmation-heading" = "წავშალოთ ყველა ბოლოს მოძიებულები?";
 "search-recent-clear-confirmation-sub-heading" = "ამ ქმედების გაუქმება შეუძლებელია!";

@@ -90,6 +90,7 @@
 "search-titles" = "Tajuk";
 "search-within-articles" = "Dalam rencana";
 "search-did-you-mean" = "Maksud anda, $1?";
+// Fuzzy
 "search-recent-title" = "Carian terkini";
 "search-recent-clear-confirmation-heading" = "Hapuskan semua carian terkini?";
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";

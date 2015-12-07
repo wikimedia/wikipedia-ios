@@ -53,6 +53,7 @@
 "search-titles" = "Títols";
 "search-within-articles" = "Dins los articles";
 "search-did-you-mean" = "Volètz dire $1 ?";
+// Fuzzy
 "search-recent-title" = "Recèrcas recentas";
 "search-recent-clear-cancel" = "Anullar";
 "search-recent-clear-delete-all" = "Suprimir tot";

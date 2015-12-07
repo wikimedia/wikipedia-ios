@@ -19,6 +19,7 @@
 "article-read-more-title" = "Läs mer";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
+"article-related-articles-title" = "Relaterade artiklar";
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
 "table-title-other" = "Mer information";
@@ -86,6 +87,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Öppna länk";
 "open-link-cancel" = "Avbryt";
+"search-title" = "Sök";
 "search-searching" = "Söker...";
 "search-no-matches" = "Inga matchningar hittades för söktermen.";
 "search-field-placeholder-text" = "Sök på Wikipedia";
@@ -97,6 +99,7 @@
 "search-titles" = "Titlar";
 "search-within-articles" = "Inom artiklar";
 "search-did-you-mean" = "Menade du $1?";
+// Fuzzy
 "search-recent-title" = "Senaste sökningar";
 "search-recent-clear-confirmation-heading" = "Radera alla senaste sökningar?";
 "search-recent-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
@@ -210,6 +213,8 @@
 "button-next" = "Nästa";
 "button-done" = "Färdig";
 "button-save" = "Spara";
+"button-save-for-later" = "Spara till senare";
+"button-saved-for-later" = "Sparades till senare";
 "onboarding-create-account" = "Skapa konto";
 "onboarding-login" = "Logga in";
 "onboarding-already-have-account" = "Har du redan ett konto? $1";
@@ -288,3 +293,15 @@
 "captcha-reload" = "Visa en annan captcha";
 "captcha-prompt" = "Ange captchatexten från bilden ovan";
 "mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";
+"home-title" = "Utforska";
+"home-continue-reading-heading" = "Fortsätt läsa";
+"home-continue-related-heading" = "Eftersom du läste $1";
+"home-more-like-footer" = "Mer som liknar $1";
+"home-nearby-footer" = "Mer från i närheten av din plats";
+"home-nearby-nothing" = "Ingenting i närheten";
+"home-nearby-check-again" = "Kolla igen";
+"home-featured-article-heading" = "Utmärkt artikel för $1";
+"home-main-page-heading" = "Idag på Wikipedia";
+"home-potd-heading" = "Dagens bild för $1";
+"potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
+"potd-description-prefix" = "Dagens bild för $1";

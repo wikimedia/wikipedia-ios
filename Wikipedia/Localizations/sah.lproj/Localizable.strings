@@ -88,6 +88,7 @@
 "search-titles" = "Баһа (аата)";
 "search-within-articles" = "Ыстатыйа иһигэр";
 "search-did-you-mean" = "Маннык диэри гынаҕын дуо $1?";
+// Fuzzy
 "search-recent-title" = "Кэлиҥҥи көрдөөһүннэр";
 "search-recent-clear-confirmation-heading" = "Кэлиҥҥи көрдөөһүннэри сотоҕун дуо?";
 "search-recent-clear-confirmation-sub-heading" = "Маны төннөрөр кыах суох!";

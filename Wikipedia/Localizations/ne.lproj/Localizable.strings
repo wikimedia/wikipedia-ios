@@ -44,6 +44,7 @@
 "search-cancel" = "रद्द गर्ने";
 "search-titles" = "शीर्षकहरू :";
 "search-did-you-mean" = "के तपाईंको खोजाई: $1 हो?";
+// Fuzzy
 "search-recent-title" = "भर्खरैका खोजहरूः";
 "search-recent-clear-cancel" = "रद्द गर्ने";
 "search-recent-clear-delete-all" = "सबै मेट्ने";

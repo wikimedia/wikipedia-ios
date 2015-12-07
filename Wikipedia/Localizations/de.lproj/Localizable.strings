@@ -11,6 +11,7 @@
 "article-read-more-title" = "Mehr lesen";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
+"article-related-articles-title" = "Ähnliche Artikel";
 "info-box-title" = "Schnelle Fakten";
 "info-box-close-text" = "Schließen";
 "table-title-other" = "Weitere Informationen";
@@ -78,6 +79,7 @@
 "wikitext-upload-save-license-name" = "CC-BY-SA 3.0";
 "open-link-title" = "Link öffnen";
 "open-link-cancel" = "Abbrechen";
+"search-title" = "Suchen";
 "search-searching" = "Suche …";
 "search-no-matches" = "Keine Treffer für diesen Suchbegriff gefunden.";
 "search-field-placeholder-text" = "Wikipedia durchsuchen";
@@ -89,7 +91,7 @@
 "search-titles" = "Titel";
 "search-within-articles" = "Innerhalb Artikeln";
 "search-did-you-mean" = "Meintest du $1?";
-"search-recent-title" = "Letzte Suchanfragen";
+"search-recent-title" = "Zuletzt gesucht";
 "search-recent-clear-confirmation-heading" = "Alle letzten Suchanfragen löschen?";
 "search-recent-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
 "search-recent-clear-cancel" = "Abbrechen";
@@ -202,6 +204,8 @@
 "button-next" = "Nächste";
 "button-done" = "Fertig";
 "button-save" = "Speichern";
+"button-save-for-later" = "Für später speichern";
+"button-saved-for-later" = "Für später gespeichert";
 "onboarding-create-account" = "Benutzerkonto erstellen";
 "onboarding-login" = "Anmelden";
 "onboarding-already-have-account" = "Hast du bereits ein Benutzerkonto? $1";
@@ -280,3 +284,15 @@
 "captcha-reload" = "Ein anderes Captcha anzeigen";
 "captcha-prompt" = "CAPTCHA-Text von dem oben stehenden Bild eingeben";
 "mwk-empty-title-error" = "Operation kann nicht mit einem leeren Titel ausgeführt werden.";
+"home-title" = "Entdecken";
+"home-continue-reading-heading" = "Mit dem Lesen fortfahren";
+"home-continue-related-heading" = "Weil du $1 liest";
+"home-more-like-footer" = "Mehr wie $1";
+"home-nearby-footer" = "Mehr aus deiner Nähe";
+"home-nearby-nothing" = "Nichts in der Nähe";
+"home-nearby-check-again" = "Erneut prüfen";
+"home-featured-article-heading" = "Vorgestellter Artikel für $1";
+"home-main-page-heading" = "Heute auf Wikipedia";
+"home-potd-heading" = "Bild des Tages für $1";
+"potd-empty-error-description" = "Das Bild des Tages für $1 konnte nicht abgerufen werden";
+"potd-description-prefix" = "Bild des Tages für $1";
