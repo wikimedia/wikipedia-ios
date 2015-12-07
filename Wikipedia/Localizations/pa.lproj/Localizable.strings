@@ -90,6 +90,7 @@
 "search-titles" = "ਸਿਰਲੇਖ";
 "search-within-articles" = "ਲੇਖਾਂ ਦੇ ਵਿੱਚ";
 "search-did-you-mean" = "ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ $1 ਸੀ?";
+// Fuzzy
 "search-recent-title" = "ਹਾਲੀਆ ਖੋਜਾਂ";
 "search-recent-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਹਾਲੀਆ ਖੋਜਾਂ ਮਿਟਾਓ?";
 "search-recent-clear-confirmation-sub-heading" = "ਇਸ ਕਾਰਜ ਨੂੰ ਰੱਦ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ!";
@@ -268,3 +269,4 @@
 "page-similar-titles" = "ੲਿੱਕੋ ਜਿਹੇ ਪੰਨੇ";
 "captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
 "captcha-prompt" = "ੳੁੱਪਰ ਦਿੱਤੇ ਚਿੱਤਰ ਵਿੱਚੋਂ ਕੈਪਚਾ ਲਿਖਿ";
+"home-title" = "ਵਿਚਰੋ";

@@ -89,7 +89,7 @@
 "wikitext-upload-save-license-name" = "Name of license user edits are saved under - presently CC BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "open-link-title" = "Title for popup menu of terms/license link options.";
 "open-link-cancel" = "Text for cancel button in popup menu of terms/license link options\n{{Identical|Cancel}}";
-"search-title" = "Title for search interface.";
+"search-title" = "Title for search interface.\n{{Identical|Search}}";
 "search-searching" = "Alert text shown when results for search term are being retrieved";
 "search-no-matches" = "Message shown if no results found for search term";
 "search-field-placeholder-text" = "Search field placeholder text";
@@ -294,7 +294,7 @@
 "captcha-reload" = "Title for button used to request another CAPTCHA to solve";
 "captcha-prompt" = "Text prompting user to solve a CAPTCHA";
 "mwk-empty-title-error" = "Error description for when an operation couldn't be performed since no title was specified.";
-"home-title" = "Title for home interface.";
+"home-title" = "Title for home interface.\n{{Identical|Explore}}";
 "home-continue-reading-heading" = "Heading for presenting user option to continue reading the last article they were reading the last time they used the app.";
 "home-continue-related-heading" = "Heading for presenting user option to read articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
@@ -304,6 +304,5 @@
 "home-featured-article-heading" = "Heading above today's featured article. $1 will be replaced with today's date.";
 "home-main-page-heading" = "Heading above Main page.";
 "home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
-
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";

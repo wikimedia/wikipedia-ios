@@ -88,6 +88,7 @@
 "search-titles" = "Titluri";
 "search-within-articles" = "În conținutul articolelor";
 "search-did-you-mean" = "V-ați referit la $1?";
+// Fuzzy
 "search-recent-title" = "Căutări recente";
 "search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";
 "search-recent-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";

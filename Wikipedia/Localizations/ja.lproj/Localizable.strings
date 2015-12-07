@@ -98,6 +98,7 @@
 "search-titles" = "記事名";
 "search-within-articles" = "記事内";
 "search-did-you-mean" = "もしかして: $1";
+// Fuzzy
 "search-recent-title" = "最近の検索";
 "search-recent-clear-confirmation-heading" = "最近の検索を全て削除しますか?";
 "search-recent-clear-confirmation-sub-heading" = "この操作は取り消せません!";

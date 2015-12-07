@@ -85,6 +85,7 @@
 "search-titles" = "Titlar";
 "search-within-articles" = "Efni greina";
 "search-did-you-mean" = "Áttir þú við $1?";
+// Fuzzy
 "search-recent-title" = "Nýlegar leitar";
 "search-recent-clear-confirmation-heading" = "Á að eyða öllum nýlegum leitum?";
 "search-recent-clear-confirmation-sub-heading" = "Þessa aðgerð er ekki hægt að afturkalla!";
