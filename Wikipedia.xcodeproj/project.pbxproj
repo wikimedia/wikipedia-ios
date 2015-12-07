@@ -10,8 +10,6 @@
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D34DB11863D39000610A87 /* libxml2.dylib */; };
-		0E26B06E1C0E2A550004D687 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B06B1C0E2A550004D687 /* MWKLanguageFilter.m */; };
-		0E26B06F1C0E2A550004D687 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B06D1C0E2A550004D687 /* MWKTitleLanguageController.m */; };
 		0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */; };
 		0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		0E26B07F1C0F4F720004D687 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
@@ -22,6 +20,8 @@
 		0E26B0841C0F4F720004D687 /* WMFWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */; };
 		0E26B0871C0FD5170004D687 /* WMFBoringNavigationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
+		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
+		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
@@ -625,10 +625,6 @@
 		04D34DB11863D39000610A87 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
-		0E26B06A1C0E2A550004D687 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = ../../Code/MWKLanguageFilter.h; sourceTree = "<group>"; };
-		0E26B06B1C0E2A550004D687 /* MWKLanguageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageFilter.m; path = ../../Code/MWKLanguageFilter.m; sourceTree = "<group>"; };
-		0E26B06C1C0E2A550004D687 /* MWKTitleLanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitleLanguageController.h; path = ../../Code/MWKTitleLanguageController.h; sourceTree = "<group>"; };
-		0E26B06D1C0E2A550004D687 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = ../../Code/MWKTitleLanguageController.m; sourceTree = "<group>"; };
 		0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAppViewController.storyboard; path = Wikipedia/Code/WMFAppViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFTabBarUI.storyboard; path = Wikipedia/Code/WMFTabBarUI.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFWelcome.storyboard; path = Wikipedia/Code/WMFWelcome.storyboard; sourceTree = SOURCE_ROOT; };
@@ -645,6 +641,10 @@
 		0E26B0851C0FD5170004D687 /* WMFBoringNavigationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBoringNavigationTransition.h; path = Wikipedia/Code/WMFBoringNavigationTransition.h; sourceTree = SOURCE_ROOT; };
 		0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBoringNavigationTransition.m; path = Wikipedia/Code/WMFBoringNavigationTransition.m; sourceTree = SOURCE_ROOT; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
+		0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = Wikipedia/Code/MWKTitleLanguageController.m; sourceTree = SOURCE_ROOT; };
+		0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitleLanguageController.h; path = Wikipedia/Code/MWKTitleLanguageController.h; sourceTree = SOURCE_ROOT; };
+		0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = Wikipedia/Code/MWKLanguageFilter.h; sourceTree = SOURCE_ROOT; };
+		0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageFilter.m; path = Wikipedia/Code/MWKLanguageFilter.m; sourceTree = SOURCE_ROOT; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
@@ -1842,10 +1842,10 @@
 				B0E806B31C0CEB160065EBC0 /* MWKLanguageLinkController_Private.h */,
 				B0E806B41C0CEB160065EBC0 /* MWKLanguageLinkController.h */,
 				B0E806B51C0CEB160065EBC0 /* MWKLanguageLinkController.m */,
-				0E26B06A1C0E2A550004D687 /* MWKLanguageFilter.h */,
-				0E26B06B1C0E2A550004D687 /* MWKLanguageFilter.m */,
-				0E26B06C1C0E2A550004D687 /* MWKTitleLanguageController.h */,
-				0E26B06D1C0E2A550004D687 /* MWKTitleLanguageController.m */,
+				0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */,
+				0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */,
+				0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */,
+				0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */,
 			);
 			name = Languages;
 			path = Wikipedia/Code/Languages;
@@ -4675,6 +4675,7 @@
 			files = (
 				B0E8059A1C0CE2E40065EBC0 /* WMFSearchFunnel.m in Sources */,
 				B0E804BC1C0CE0B40065EBC0 /* CIDetector+WMFFaceDetection.m in Sources */,
+				0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */,
 				B0E802F81C0CD4D70065EBC0 /* WMFNearbySectionController.m in Sources */,
 				B0E806D91C0CEB850065EBC0 /* BulletedLabel.m in Sources */,
 				B0E8045A1C0CDFFB0065EBC0 /* LegacyCoreDataMigrator.m in Sources */,
@@ -4724,7 +4725,6 @@
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
 				B0E8045B1C0CDFFB0065EBC0 /* LegacyDataMigrator.m in Sources */,
 				B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */,
-				0E26B06F1C0E2A550004D687 /* MWKTitleLanguageController.m in Sources */,
 				B0E807A41C0CEFBD0065EBC0 /* MWKSiteInfo.m in Sources */,
 				B0E805BF1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
@@ -4751,7 +4751,6 @@
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0E807681C0CEE3A0065EBC0 /* GalleryImage.m in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
-				0E26B06E1C0E2A550004D687 /* MWKLanguageFilter.m in Sources */,
 				B0E8078D1C0CEF660065EBC0 /* MWKList.m in Sources */,
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E805D41C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m in Sources */,
@@ -4859,6 +4858,7 @@
 				B0E804D91C0CE0B40065EBC0 /* NSString+Extras.m in Sources */,
 				B0E805491C0CE0DC0065EBC0 /* UIImage+WMFStyle.m in Sources */,
 				B0E805461C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.m in Sources */,
+				0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */,
 				B0E8053C1C0CE0DC0065EBC0 /* UIButton+WMFMultiLineHeight.swift in Sources */,
 				B0E8076B1C0CEE3A0065EBC0 /* ImageData.m in Sources */,
 				B0E804B81C0CE0B40065EBC0 /* AnyPromise+WMFExtensions.m in Sources */,

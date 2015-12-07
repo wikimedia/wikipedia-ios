@@ -98,12 +98,12 @@ static id _sharedInstance;
 - (void)updateLanguageArrays {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     NSArray* preferredLangusageCodes = [self readPreferredLanguageCodes];
-    self.preferredLanguages = [preferredLangusageCodes bk_map:^id (NSString* langString) {
-        return [self.allLanguages wmf_mapRemovingNilElements:^BOOL (MWKLanguageLink* langLink) {
+    self.preferredLanguages = [preferredLangusageCodes wmf_mapRemovingNilElements:^id (NSString* langString) {
+        return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
     }];
-    self.otherLanguages = [self.allLanguages wmf_mapRemovingNilElements:^BOOL (MWKLanguageLink* langLink) {
+    self.otherLanguages = [self.allLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
         return ![self.preferredLanguages containsObject:langLink];
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
@@ -188,7 +188,10 @@ static id _sharedInstance;
             [preferredLanguages insertObject:obj atIndex:0];
         }
     }];
-    return preferredLanguages;
+
+    return [preferredLanguages bk_reject:^BOOL (id obj) {
+        return [obj isEqual:[NSNull null]];
+    }];
 }
 
 - (void)savePreferredLanguageCodes:(NSArray<NSString*>*)languageCodes {
