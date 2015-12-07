@@ -10,7 +10,7 @@
  *
  *  @param view The view to verify.
  */
-#define WMFSnapshotVerifyView(view) FBSnapshotVerifyViewWithOptions((view), nil, [NSSet setWithObject:@"_64"], 0)
+#define WMFSnapshotVerifyView(view) FBSnapshotVerifyViewWithOptions((view), nil, @[@"_64"], 0)
 
 @interface FBSnapshotTestCase (WMFConvenience)
 
