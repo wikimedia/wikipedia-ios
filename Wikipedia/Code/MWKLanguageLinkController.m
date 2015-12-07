@@ -14,6 +14,7 @@
 #import "MediaWikiKit.h"
 #import "Defines.h"
 #import "WMFAssetsFile.h"
+#import "NSArray+WMFMapping.h"
 
 #import <BlocksKit/BlocksKit.h>
 
@@ -97,23 +98,13 @@ static id _sharedInstance;
 - (void)updateLanguageArrays {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
     NSArray* preferredLangusageCodes = [self readPreferredLanguageCodes];
-    self.preferredLanguages = [[preferredLangusageCodes bk_map:^id (NSString* langString) {
-        return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
+    self.preferredLanguages = [preferredLangusageCodes bk_map:^id (NSString* langString) {
+        return [self.allLanguages wmf_mapRemovingNilElements:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
-    }] bk_reject:^BOOL (id obj) {
-        if ([obj isEqual:[NSNull null]]) {
-            return YES;
-        }
-        return NO;
     }];
-    self.otherLanguages = [[self.allLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
+    self.otherLanguages = [self.allLanguages wmf_mapRemovingNilElements:^BOOL (MWKLanguageLink* langLink) {
         return ![self.preferredLanguages containsObject:langLink];
-    }] bk_reject:^BOOL (id obj) {
-        if ([obj isEqual:[NSNull null]]) {
-            return YES;
-        }
-        return NO;
     }];
     [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
 }
@@ -180,7 +171,7 @@ static id _sharedInstance;
 }
 
 - (NSArray<NSString*>*)readOSPreferredLanguageCodes {
-    NSArray<NSString*>* osLanguages = [[NSLocale preferredLanguages] bk_map:^NSString*(NSString* languageCode) {
+    NSArray<NSString*>* osLanguages = [[NSLocale preferredLanguages] wmf_mapRemovingNilElements:^NSString*(NSString* languageCode) {
         NSLocale* locale = [NSLocale localeWithLocaleIdentifier:languageCode];
         // use language code when determining if a langauge is preferred (e.g. "en_US" is preferred if "en" was selected)
         return [locale objectForKey:NSLocaleLanguageCode];
