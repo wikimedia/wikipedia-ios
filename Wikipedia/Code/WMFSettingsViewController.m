@@ -464,11 +464,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             [self deleteRowWithTag:WMFDebugSections[i]];
         }
     }
-
-    NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
-    if (!userName) {
-        [self deleteRowWithTag:SECONDARY_MENU_ROW_INDEX_LOGIN];
-    }
 }
 
 - (void)updateLoginRow {
@@ -523,6 +518,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
                     for (NSHTTPCookie* cookie in[[NSHTTPCookieStorage sharedHTTPCookieStorage].cookies copy]) {
                         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
                     }
+                }else{
+                    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
                 }
             }
             break;
