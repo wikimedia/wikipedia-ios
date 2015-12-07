@@ -20,6 +20,7 @@ PODS:
   - CocoaLumberjack/Swift (2.2.0):
     - CocoaLumberjack/Extensions
   - FBSnapshotTestCase/Core (2.0.7)
+  - HexColors (2.3.0)
   - HockeySDK (3.8.5):
     - HockeySDK/AllFeaturesLib (= 3.8.5)
   - HockeySDK/AllFeaturesLib (3.8.5)
@@ -68,6 +69,8 @@ PODS:
   - SDWebImage/Core (3.7.2)
   - SSDataSources (0.8.5)
   - SVWebViewController (1.0)
+  - TSMessages (0.9.13):
+    - HexColors (~> 2.3.0)
   - Tweaks (HEAD based on 2.0.0)
 
 DEPENDENCIES:
@@ -95,6 +98,7 @@ DEPENDENCIES:
   - SDWebImage (from `./vendor/SDWebImage`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
+  - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - Tweaks (HEAD)
 
 EXTERNAL SOURCES:
@@ -107,6 +111,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
     :path: ./vendor/SDWebImage
+  TSMessages:
+    :git: https://github.com/wikimedia/TSMessages.git
 
 CHECKOUT OPTIONS:
   MGSwipeTableCell:
@@ -118,6 +124,9 @@ CHECKOUT OPTIONS:
   PromiseKit:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
+  TSMessages:
+    :commit: 3e5b2f6f9f9ac5a3ce7b2822cad606e56c223b5f
+    :git: https://github.com/wikimedia/TSMessages.git
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -125,6 +134,7 @@ SPEC CHECKSUMS:
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+  HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
   HockeySDK: dd11a2b9da3372fd025643bee5bc10c8c613d169
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
@@ -144,6 +154,7 @@ SPEC CHECKSUMS:
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
+  TSMessages: 6e403b790139636c15ab4f51946537095e03e79c
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
 
 COCOAPODS: 0.39.0
