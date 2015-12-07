@@ -1,5 +1,6 @@
 
 #import "WMFHomeSectionHeader.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 @interface WMFHomeSectionHeader ()
 
@@ -14,6 +15,13 @@
     [super awakeFromNib];
     self.tintColor                          = [UIColor wmf_logoBlue];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
+    @weakify(self);
+    [self bk_whenTapped:^{
+        @strongify(self);
+        if (self.whenTapped) {
+            self.whenTapped();
+        }
+    }];
 }
 
 - (void)setRightButtonEnabled:(BOOL)rightButtonEnabled {
