@@ -74,6 +74,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Link opmaachen";
 "open-link-cancel" = "Ofbriechen";
+"search-title" = "Sichen";
 "search-searching" = "Sichen...";
 "search-no-matches" = "Näischt fonnt fir de Begrëff no deem Dir sicht.";
 "search-field-placeholder-text" = "Op Wikipedia sichen";
@@ -270,3 +271,7 @@
 "captcha-reload" = "En anere Captcha weisen";
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
+"home-more-like-footer" = "Méi wéi $1";
+"home-main-page-heading" = "Haut op Wikipedia";
+"home-potd-heading" = "Bild vum Dag vum $1";
+"potd-description-prefix" = "Bild vum Dag vum $1";

@@ -4,6 +4,7 @@
 // Author: KuboF
 // Author: Ochilov
 // Author: Remux
+// Author: Robin van der Vliet
 
 "languages-title" = "Lingvoj";
 "article-languages-label" = "Elekti lingvon";
@@ -72,11 +73,13 @@
 "search-titles" = "Titoloj";
 "search-within-articles" = "En artikoloj";
 "search-did-you-mean" = "Ĉu vi celis $1?";
+// Fuzzy
 "search-recent-title" = "Lastaj serĉoj:";
 "search-recent-clear-confirmation-heading" = "Ĉu forigi ĉiujn lastajn serĉojn?";
 "search-recent-clear-confirmation-sub-heading" = "Tiu ĉi ago ne povas esti malfarita!";
 "search-recent-clear-cancel" = "Nuligi";
 "search-recent-clear-delete-all" = "Forigi ĉiujn";
+"settings-title" = "Agordoj";
 "main-menu-title" = "Pli";
 "main-menu-heading-about" = "Pri";
 "main-menu-faq" = "Oftaj demandoj";

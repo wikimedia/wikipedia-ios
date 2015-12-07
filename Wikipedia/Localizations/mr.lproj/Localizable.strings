@@ -77,6 +77,7 @@
 "search-cancel" = "रद्द करा";
 "search-titles" = "शीर्षके:";
 "search-did-you-mean" = "तुम्हाला $1 म्हणायचे आहे काय?";
+// Fuzzy
 "search-recent-title" = "अलीकडील शोध";
 "search-recent-clear-confirmation-heading" = "सध्याचे सर्व शोध वगळु?";
 "search-recent-clear-confirmation-sub-heading" = "ही क्रिया परतवू शकत नाही!";

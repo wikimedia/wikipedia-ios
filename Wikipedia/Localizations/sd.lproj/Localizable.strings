@@ -80,6 +80,7 @@
 "search-titles" = "عنوان";
 "search-within-articles" = "مضمونن ۾";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
+// Fuzzy
 "search-recent-title" = "تازيون ڳولائون";
 "search-recent-clear-confirmation-heading" = "سموريون تازيون ڳولائون ختم ڪريون؟";
 "search-recent-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";

@@ -97,6 +97,7 @@
 "search-titles" = "Titres";
 "search-within-articles" = "Dans les articles";
 "search-did-you-mean" = "Voulez-vous dire $1 ?";
+// Fuzzy
 "search-recent-title" = "Recherches récentes";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";

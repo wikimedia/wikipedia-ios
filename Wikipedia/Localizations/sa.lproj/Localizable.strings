@@ -88,6 +88,7 @@
 "search-titles" = "शीर्षकाणि";
 "search-within-articles" = "लेखेषु विद्यमानम्";
 "search-did-you-mean" = "किं भवतः/भवत्याः आशयः $1 एवमस्ति ?";
+// Fuzzy
 "search-recent-title" = "सद्यःकृतानि अन्वेषणानि";
 "search-recent-clear-confirmation-heading" = "सद्यस्कस्य सर्वाणि अन्वेषणानि अपाक्रियन्ताम् ?";
 "search-recent-clear-confirmation-sub-heading" = "एषा क्रिया अपूर्णा भवितुं शक्नोति !";

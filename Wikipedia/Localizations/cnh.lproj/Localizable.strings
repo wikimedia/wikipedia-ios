@@ -88,6 +88,7 @@
 "search-titles" = "Tlangtar";
 "search-within-articles" = "Cabia pawl chungin";
 "search-did-you-mean" = "Na chimduh mi cu $1 maw?";
+// Fuzzy
 "search-recent-title" = "Na kawlmi tete:";
 "search-recent-clear-confirmation-heading" = "Na kawlmi tete na hloh dih lai maw?";
 "search-recent-clear-confirmation-sub-heading" = "Tuah khawh a si lo!";

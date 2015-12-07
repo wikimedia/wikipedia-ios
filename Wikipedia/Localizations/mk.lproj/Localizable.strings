@@ -12,6 +12,7 @@
 "article-read-more-title" = "Прочитајте повеќе";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
+"article-related-articles-title" = "Поврзани статии";
 "info-box-title" = "Накратко";
 "info-box-close-text" = "Затвори";
 "table-title-other" = "Повеќе информации";
@@ -79,6 +80,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Отвори врска";
 "open-link-cancel" = "Откажи";
+"search-title" = "Пребарување";
 "search-searching" = "Пребарувам...";
 "search-no-matches" = "Не пронајдов совпаѓања со бараното.";
 "search-field-placeholder-text" = "Пребарај ја Википедија";
@@ -90,7 +92,7 @@
 "search-titles" = "Наслови";
 "search-within-articles" = "Во статиите";
 "search-did-you-mean" = "Дали мислевте на $1?";
-"search-recent-title" = "Скорешни пребарувања";
+"search-recent-title" = "Неодамна пребарано";
 "search-recent-clear-confirmation-heading" = "Да ги избришам сите скорешни пребарувања?";
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-cancel" = "Откажи";
@@ -203,6 +205,8 @@
 "button-next" = "Следно";
 "button-done" = "Готово";
 "button-save" = "Зачувај";
+"button-save-for-later" = "Зачувај за подоцна";
+"button-saved-for-later" = "Зачувано за подоцна";
 "onboarding-create-account" = "Направи сметка";
 "onboarding-login" = "Најава";
 "onboarding-already-have-account" = "Веќе имате сметка? $1";
@@ -281,3 +285,15 @@
 "captcha-reload" = "Прикажи друга Captcha";
 "captcha-prompt" = "Внесете CAPTCHA текст од сликата погоре";
 "mwk-empty-title-error" = "Не можам да извршам задача со празен наслов.";
+"home-title" = "Истражете";
+"home-continue-reading-heading" = "Продолжи со читање";
+"home-continue-related-heading" = "Бидејќи ја прочитавте $1";
+"home-more-like-footer" = "Уште статии како $1";
+"home-nearby-footer" = "Уште од вашата близина";
+"home-nearby-nothing" = "Нема ништо во близина";
+"home-nearby-check-again" = "Провери пак";
+"home-featured-article-heading" = "Избрана статија за $1";
+"home-main-page-heading" = "Денес на Википедија";
+"home-potd-heading" = "Слика на денот за $1";
+"potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
+"potd-description-prefix" = "Слика на денот за $1";

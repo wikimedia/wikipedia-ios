@@ -99,6 +99,7 @@
 "search-titles" = "عنوان‌ها";
 "search-within-articles" = "در مقالات";
 "search-did-you-mean" = "منظورتان «$1» بود؟";
+// Fuzzy
 "search-recent-title" = "جستجوهای اخیر";
 "search-recent-clear-confirmation-heading" = "حذف همهٔ آخرین جستجوها؟";
 "search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
