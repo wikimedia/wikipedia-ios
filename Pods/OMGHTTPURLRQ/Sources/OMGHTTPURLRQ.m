@@ -144,7 +144,7 @@ static NSMutableURLRequest *OMGFormURLEncodedRequest(NSString *urlString, NSStri
     }
 
     id JSONData = [NSJSONSerialization dataWithJSONObject:params options:(NSJSONWritingOptions)0 error:error];
-    if (error) return nil;
+    if (error && *error) return nil;
 
     NSMutableURLRequest *rq = OMGMutableURLRequest();
     [rq setURL:url];

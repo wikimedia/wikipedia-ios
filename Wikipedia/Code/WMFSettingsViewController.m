@@ -38,6 +38,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "UIView+WMFDefaultNib.h"
+#import "MWKLanguageLinkController.h"
 
 // Frameworks
 #import <HockeySDK/HockeySDK.h>
@@ -55,7 +56,6 @@
 #define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]
 
 #define URL_ZERO_FAQ @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ"
-#define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
 #define URL_TERMS @"https://m.wikimediafoundation.org/wiki/Terms_of_Use"
 #define URL_RATE_APP @"itms-apps://itunes.apple.com/app/id324715238"
 
@@ -626,8 +626,9 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
-- (void)languageSelected:(MWKLanguageLink*)langData sender:(LanguagesViewController*)sender {
-    [[SessionSingleton sharedInstance] setSearchLanguage:langData.languageCode];
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[SessionSingleton sharedInstance] setSearchLanguage:language.languageCode];
+    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 

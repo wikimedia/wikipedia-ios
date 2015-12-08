@@ -9,6 +9,7 @@
  */
 
 #import <FBSnapshotTestCase/FBSnapshotTestController.h>
+#import <FBSnapshotTestCase/FBSnapshotTestCasePlatform.h>
 #import <FBSnapshotTestCase/UIImage+Compare.h>
 #import <FBSnapshotTestCase/UIImage+Diff.h>
 #import <FBSnapshotTestCase/UIImage+Snapshot.h>
@@ -42,6 +43,8 @@ typedef NS_ENUM(NSUInteger, FBTestSnapshotFileNameType) {
 {
   if (self = [super init]) {
     _testName = [testName copy];
+    _deviceAgnostic = NO;
+    
     _fileManager = [[NSFileManager alloc] init];
   }
   return self;
@@ -226,6 +229,11 @@ typedef NS_ENUM(NSUInteger, FBTestSnapshotFileNameType) {
   if (0 < identifier.length) {
     fileName = [fileName stringByAppendingFormat:@"_%@", identifier];
   }
+  
+  if (self.isDeviceAgnostic) {
+    fileName = FBDeviceAgnosticNormalizedFileName(fileName);
+  }
+  
   if ([[UIScreen mainScreen] scale] > 1) {
     fileName = [fileName stringByAppendingFormat:@"@%.fx", [[UIScreen mainScreen] scale]];
   }
