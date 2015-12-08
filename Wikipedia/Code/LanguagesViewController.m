@@ -1,8 +1,8 @@
-//  Created by Monte Hurd on 1/23/14.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "LanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
+#import "MWKLanguageFilter.h"
+#import "MWKTitleLanguageController.h"
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
@@ -29,23 +29,35 @@ static CGFloat const OtherTitleFontSize     = 12.f;
 // This assumes the language cell is configured in IB by LanguagesViewController
 static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectionSeparator";
 
-typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
-    PreferredLanguagesSection,
-    OtherLanguagesSection,
-    LanguagesTableSectionCount
-};
-
 @interface LanguagesViewController ()
 <UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar* languageFilterField;
-@property (readonly, strong, nonatomic) MWKLanguageLinkController* langLinkController;
+@property (strong, nonatomic) MWKLanguageFilter* languageFilter;
+@property (strong, nonatomic) MWKTitleLanguageController* titleLanguageController;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* languageFilterTopSpaceConstraint;
 
 @end
 
 @implementation LanguagesViewController
-@synthesize langLinkController = _langLinkController;
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _showNonPreferredLanguges = YES;
+        _showPreferredLanguges    = YES;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        _showNonPreferredLanguges = YES;
+        _showPreferredLanguges    = YES;
+    }
+    return self;
+}
 
 - (NSString*)title {
     return MWLocalizedString(@"languages-title", nil);
@@ -87,18 +99,17 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.articleTitle) {
-        [self downloadArticlelanguages];
-    } else {
-        [self loadStaticLanguages];
-    }
+    [self loadLanguages];
 }
 
 #pragma mark - Language Loading
 
-- (void)loadStaticLanguages {
-    [self.langLinkController loadStaticSiteLanguageData];
-    [self reloadDataSections];
+- (void)loadLanguages {
+    if (self.articleTitle) {
+        [self downloadArticlelanguages];
+    } else {
+        [self reloadDataSections];
+    }
 }
 
 - (void)downloadArticlelanguages {
@@ -107,15 +118,13 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     [self setLanguageFilterHidden:YES animated:NO];
 
     @weakify(self);
-    [self.langLinkController
-     loadLanguagesForTitle:self.articleTitle
-                   success:^{
+    [self.titleLanguageController
+     fetchLanguagesWithSuccess:^{
         @strongify(self)
         [self fadeAlert];
         [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
-    }
-                   failure:^(NSError* __nonnull error) {
+    } failure:^(NSError* __nonnull error) {
         @strongify(self)
         [self showAlert : error.localizedDescription type : ALERT_TYPE_TOP duration : -1];
     }];
@@ -142,29 +151,68 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     return NO;
 }
 
-#pragma mark - Filtering
+#pragma mark - Section management
 
 - (void)reloadDataSections {
     [self fadeAlert];
-    NSMutableIndexSet* dataSections = [NSMutableIndexSet new];
-    [dataSections addIndex:PreferredLanguagesSection];
-    [dataSections addIndex:OtherLanguagesSection];
-    [self.tableView reloadSections:dataSections withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
+}
+
+- (BOOL)isPreferredSection:(NSInteger)section {
+    if (self.showPreferredLanguges) {
+        if (section == 0) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)setShowPreferredLanguges:(BOOL)showPreferredLanguges {
+    if (_showPreferredLanguges == showPreferredLanguges) {
+        return;
+    }
+    _showPreferredLanguges = showPreferredLanguges;
+    [self reloadDataSections];
+}
+
+- (void)setShowNonPreferredLanguges:(BOOL)showNonPreferredLanguges {
+    if (_showNonPreferredLanguges == showNonPreferredLanguges) {
+        return;
+    }
+    _showNonPreferredLanguges = showNonPreferredLanguges;
+    [self reloadDataSections];
 }
 
 #pragma mark - Getters & Setters
 
-- (MWKLanguageLinkController*)langLinkController {
-    if (!_langLinkController) {
-        _langLinkController = [MWKLanguageLinkController new];
+- (void)setArticleTitle:(MWKTitle*)articleTitle {
+    NSAssert(self.isViewLoaded == NO, @"Article Title must be set prior to view being loaded");
+    _articleTitle = articleTitle;
+}
+
+- (MWKTitleLanguageController*)titleLanguageController {
+    NSAssert(self.articleTitle != nil, @"Article Title must be set before accessing titleLanguageController");
+    if (!_titleLanguageController) {
+        _titleLanguageController = [[MWKTitleLanguageController alloc] initWithTitle:self.articleTitle languageController:[MWKLanguageLinkController sharedInstance]];
     }
-    return _langLinkController;
+    return _titleLanguageController;
+}
+
+- (MWKLanguageFilter*)languageFilter {
+    if (!_languageFilter) {
+        if (self.articleTitle) {
+            _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:self.titleLanguageController];
+        } else {
+            _languageFilter = [[MWKLanguageFilter alloc] initWithLanguageDataSource:[MWKLanguageLinkController sharedInstance]];
+        }
+    }
+    return _languageFilter;
 }
 
 #pragma mark - Cell Specialization
 
 - (void)configurePreferredLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
-    MWKLanguageLink* langLink = self.langLinkController.filteredPreferredLanguages[row];
+    MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[row];
     languageCell.languageLabel.font = [UIFont systemFontOfSize:PreferredLanguageFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.titleLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageLabel.text = langLink.name;
@@ -172,7 +220,7 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 }
 
 - (void)configureOtherLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
-    MWKLanguageLink* langLink = self.langLinkController.filteredOtherLanguages[row];
+    MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[row];
     languageCell.languageLabel.font = [UIFont systemFontOfSize:OtherLanguageFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.titleLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageLabel.text = langLink.name;
@@ -182,14 +230,21 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
-    return LanguagesTableSectionCount;
+    NSInteger count = 0;
+    if (self.showPreferredLanguges) {
+        count++;
+    }
+    if (self.showNonPreferredLanguges) {
+        count++;
+    }
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    if (PreferredLanguagesSection == section) {
-        return self.langLinkController.filteredPreferredLanguages.count;
+    if ([self isPreferredSection:section]) {
+        return self.languageFilter.filteredPreferredLanguages.count;
     } else {
-        return self.langLinkController.filteredOtherLanguages.count;
+        return self.languageFilter.filteredOtherLanguages.count;
     }
 }
 
@@ -197,19 +252,21 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
     UITableViewCell* cell =
         [tableView dequeueReusableCellWithIdentifier:[LanguageCell wmf_nibName]
                                         forIndexPath:indexPath];
-    if (indexPath.section == PreferredLanguagesSection) {
+
+    if ([self isPreferredSection:indexPath.section]) {
         [self configurePreferredLanguageCell:(LanguageCell*)cell atRow:indexPath.row];
     } else {
         [self configureOtherLanguageCell:(LanguageCell*)cell atRow:indexPath.row];
     }
+
     return cell;
 }
 
 - (MWKLanguageLink*)languageAtIndexPath:(NSIndexPath*)indexPath {
-    if (PreferredLanguagesSection == indexPath.section) {
-        return self.langLinkController.filteredPreferredLanguages[indexPath.row];
+    if ([self isPreferredSection:indexPath.section]) {
+        return self.languageFilter.filteredPreferredLanguages[indexPath.row];
     } else {
-        return self.langLinkController.filteredOtherLanguages[indexPath.row];
+        return self.languageFilter.filteredOtherLanguages[indexPath.row];
     }
 }
 
@@ -219,7 +276,7 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 #warning heightForRowAtIndexPath: is not necessary in iOS 8, since it will rely on the cell's intrinsic content size
 #endif
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if (PreferredLanguagesSection == indexPath.section) {
+    if ([self isPreferredSection:indexPath.section]) {
         return PreferredLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     } else {
         return OtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
@@ -227,7 +284,7 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == PreferredLanguagesSection && self.langLinkController.filteredPreferredLanguages.count > 0) {
+    if ([self isPreferredSection:section] && self.languageFilter.filteredPreferredLanguages.count > 0) {
         // collapse footer when empty, removing needless padding of "other" section from top of table
         return LanguagesSectionFooterHeight;
     } else {
@@ -246,14 +303,13 @@ typedef NS_ENUM (NSUInteger, LanguagesTableSection) {
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKLanguageLink* selectedLanguage = [self languageAtIndexPath:indexPath];
-    [self.langLinkController saveSelectedLanguage:selectedLanguage];
-    [self.languageSelectionDelegate languageSelected:selectedLanguage sender:self];
+    [self.languageSelectionDelegate languagesController:self didSelectLanguage:selectedLanguage];
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)searchText {
-    self.langLinkController.languageFilter = searchText;
+    self.languageFilter.languageFilter = searchText;
     [self reloadDataSections];
 }
 

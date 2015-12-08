@@ -58,4 +58,18 @@ extension NSUserDefaults {
         self.synchronize()
     }
 
+    public func wmf_setSendUsageReports(enabled: Bool) {
+        self.setObject(NSNumber(bool: enabled), forKey: "SendUsageReports")
+        self.synchronize()
+
+    }
+
+    public func wmf_sendUsageReports() -> Bool {
+        if let enabled = self.objectForKey("SendUsageReports") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
+
 }

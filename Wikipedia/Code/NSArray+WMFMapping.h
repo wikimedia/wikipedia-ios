@@ -1,16 +1,20 @@
-//
-//  NSArray+WMFMapWithoutNil.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/13/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSArray<__covariant ObjectType> (WMFMapWithoutNil)
+@interface NSArray<__covariant ObjectType> (WMFMapping)
+
+/**
+ *  Map the array using the provided block.
+ *  If nil is returned by the block an assertion will be thrown in DEBUG
+ *  If not in debug, then [NSNull null] will be added to the array
+ *
+ *  @param block The block to map
+ *
+ *  @return The new array of mapped objects
+ */
+- (NSArray*)wmf_strictMap:(id (^)(id obj))block;
 
 /**
  *  Transform the elements in the receiver, returning @c nil for those that should be excluded.

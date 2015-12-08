@@ -1,49 +1,52 @@
 PODS:
-  - AFNetworking/NSURLConnection (2.6.0):
+  - AFNetworking/NSURLConnection (2.6.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.6.0)
-  - AFNetworking/Security (2.6.0)
-  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
   - AnimatedGIFImageSerialization (0.2.0)
   - BlocksKit/Core (2.2.5)
   - BlocksKit/DynamicDelegate (2.2.5)
   - BlocksKit/UIKit (2.2.5):
     - BlocksKit/Core
     - BlocksKit/DynamicDelegate
-  - CocoaLumberjack/Core (2.0.1)
-  - CocoaLumberjack/Default (2.0.1):
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.1):
+  - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - CocoaLumberjack/Swift (2.0.1):
+  - CocoaLumberjack/Swift (2.2.0):
     - CocoaLumberjack/Extensions
-  - FBSnapshotTestCase/Core (2.0.4)
-  - HockeySDK (3.8.2):
-    - HockeySDK/AllFeaturesLib (= 3.8.2)
-  - HockeySDK/AllFeaturesLib (3.8.2)
+  - FBSnapshotTestCase/Core (2.0.7)
+  - HockeySDK (3.8.5):
+    - HockeySDK/AllFeaturesLib (= 3.8.5)
+  - HockeySDK/AllFeaturesLib (3.8.5)
   - hpple (0.2.0)
   - KVOController (1.0.3)
   - libextobjc/EXTScope (0.4.1):
     - libextobjc/RuntimeExtensions
   - libextobjc/RuntimeExtensions (0.4.1)
-  - Mantle (2.0.5):
-    - Mantle/extobjc (= 2.0.5)
-  - Mantle/extobjc (2.0.5)
+  - Mantle (2.0.6):
+    - Mantle/extobjc (= 2.0.6)
+  - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
+  - MGSwipeTableCell (1.5.3)
   - Nimble (3.0.0)
   - Nocilla (0.10.0)
+  - OAStackView (0.2.0):
+    - KVOController (~> 1.0)
   - OCHamcrest (4.2.0)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
-  - OMGHTTPURLRQ (3.0.0):
-    - OMGHTTPURLRQ/RQ (= 3.0.0)
-  - OMGHTTPURLRQ/FormURLEncode (3.0.0)
-  - OMGHTTPURLRQ/RQ (3.0.0):
+  - OMGHTTPURLRQ (3.0.2):
+    - OMGHTTPURLRQ/RQ (= 3.0.2)
+  - OMGHTTPURLRQ/FormURLEncode (3.0.2)
+  - OMGHTTPURLRQ/RQ (3.0.2):
     - OMGHTTPURLRQ/FormURLEncode
     - OMGHTTPURLRQ/UserAgent
-  - OMGHTTPURLRQ/UserAgent (3.0.0)
+  - OMGHTTPURLRQ/UserAgent (3.0.2)
   - PiwikTracker (3.3.0):
     - PiwikTracker/Core (= 3.3.0)
   - PiwikTracker/Core (3.3.0)
@@ -72,8 +75,7 @@ DEPENDENCIES:
   - AnimatedGIFImageSerialization
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
-  - CocoaLumberjack/Swift (from `https://github.com/CocoaLumberjack/CocoaLumberjack.git`,
-    branch `swift_2.0`)
+  - CocoaLumberjack/Swift (~> 2.2)
   - FBSnapshotTestCase/Core (~> 2.0.3)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
@@ -81,8 +83,10 @@ DEPENDENCIES:
   - libextobjc/EXTScope (~> 0.4.1)
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
+  - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
   - Nimble (~> 3.0.0)
   - Nocilla
+  - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
   - PiwikTracker
@@ -94,40 +98,46 @@ DEPENDENCIES:
   - Tweaks (HEAD)
 
 EXTERNAL SOURCES:
-  CocoaLumberjack:
-    :branch: swift_2.0
-    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+  MGSwipeTableCell:
+    :git: git@github.com:wikimedia/MGSwipeTableCell.git
+  OAStackView:
+    :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: "./vendor/SDWebImage"
+    :path: ./vendor/SDWebImage
 
 CHECKOUT OPTIONS:
-  CocoaLumberjack:
-    :commit: 63e023dce1bdf007590de623bad1b236c6ea8282
-    :git: https://github.com/CocoaLumberjack/CocoaLumberjack.git
+  MGSwipeTableCell:
+    :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
+    :git: git@github.com:wikimedia/MGSwipeTableCell.git
+  OAStackView:
+    :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
+    :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   AnimatedGIFImageSerialization: b0f0cfe71eac1ee45a3d57ae533c23b8e6f29501
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
-  CocoaLumberjack: 3eefa3b3b4d42d4700fa4e9d9bbb33c4cc80aaae
-  FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
-  HockeySDK: 9f4ac41263acf9d8a4d59491a7f17af16529b935
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  FBSnapshotTestCase: 7e85180d0d141a0cf472352edda7e80d7eaeb547
+  HockeySDK: dd11a2b9da3372fd025643bee5bc10c8c613d169
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   libextobjc: a650fc1bf489a3d3a9bc2e621efa3e1006fc5471
-  Mantle: 1912395033f601de5adc8ee91e48f46e4c7051ad
+  Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
+  MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
+  OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
-  OMGHTTPURLRQ: 45cd892e5643206a5a359307621df7678625ebec
+  OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
