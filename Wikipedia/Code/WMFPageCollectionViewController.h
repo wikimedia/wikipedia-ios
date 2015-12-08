@@ -13,6 +13,12 @@
  */
 @interface WMFPageCollectionViewController : UICollectionViewController
 
+/**
+ *  The page which is currently being displayed in the receiver.
+ *
+ *  @note Setting this value before the view is loaded will defer bounds checking until @c viewDidLoad, which could
+ *        result in crashes which are more difficult to debug.
+ */
 @property (nonatomic) NSUInteger currentPage;
 
 - (void)setCurrentPage:(NSUInteger)currentPage animated:(BOOL)animated;

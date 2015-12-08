@@ -17,13 +17,17 @@
     if (_dataSource == dataSource) {
         return;
     }
+
     _dataSource = dataSource;
+
+    // NOTE(bgerstle): set this first so we can verify currentPage bounds immediately if possible (on iOS 8)
+    if (self.isViewLoaded) {
+        self.collectionView.dataSource = _dataSource;
+    }
+
     // Update current page to last element if on iOS 8 for RTL compliance.
     if (_dataSource && [[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         self.currentPage = [self.dataSource wmf_startingIndexForApplicationLayoutDirection];
-    }
-    if (self.isViewLoaded) {
-        self.collectionView.dataSource = _dataSource;
     }
 }
 
