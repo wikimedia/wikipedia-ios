@@ -18,6 +18,8 @@
     self.titleLabel.textAlignment    = NSTextAlignmentNatural;
     [self.languageLabel wmf_applyMenuScaleMultiplier];
     [self.titleLabel wmf_applyMenuScaleMultiplier];
+    [self.localizedLanguageLabel wmf_applyMenuScaleMultiplier];
+    [self.languageCodeLabel wmf_applyMenuScaleMultiplier];
 }
 
 @end

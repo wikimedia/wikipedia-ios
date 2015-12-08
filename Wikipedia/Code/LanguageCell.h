@@ -10,4 +10,7 @@
 /// Smaller, left-aligned label beneath @c languageLabel.
 @property (weak, nonatomic) IBOutlet UILabel* titleLabel;
 
+@property (weak, nonatomic) IBOutlet UILabel* localizedLanguageLabel;
+@property (weak, nonatomic) IBOutlet UILabel* languageCodeLabel;
+
 @end

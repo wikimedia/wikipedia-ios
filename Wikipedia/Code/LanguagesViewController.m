@@ -18,11 +18,10 @@
 
 static CGFloat const LanguagesSectionFooterHeight = 10.f;
 
-static CGFloat const PreferredLanguageRowHeight = 75.f;
 static CGFloat const PreferredLanguageFontSize  = 22.f;
 static CGFloat const PreferredTitleFontSize     = 17.f;
 
-static CGFloat const OtherLanguageRowHeight = 60.f;
+static CGFloat const OtherLanguageRowHeight = 138.f;
 static CGFloat const OtherLanguageFontSize  = 17.f;
 static CGFloat const OtherTitleFontSize     = 12.f;
 
@@ -215,16 +214,24 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[row];
     languageCell.languageLabel.font = [UIFont systemFontOfSize:PreferredLanguageFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.titleLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.languageCodeLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageLabel.text = langLink.name;
     languageCell.titleLabel.text    = langLink.pageTitleText;
+    languageCell.localizedLanguageLabel.text = langLink.localizedName;
+    languageCell.languageCodeLabel.text = [NSString stringWithFormat:@"%@.wikipedia.org", langLink.languageCode];
 }
 
 - (void)configureOtherLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[row];
     languageCell.languageLabel.font = [UIFont systemFontOfSize:OtherLanguageFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.titleLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.languageCodeLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageLabel.text = langLink.name;
     languageCell.titleLabel.text    = langLink.pageTitleText;
+    languageCell.localizedLanguageLabel.text = langLink.localizedName;
+    languageCell.languageCodeLabel.text = [NSString stringWithFormat:@"%@.wikipedia.org", langLink.languageCode];
 }
 
 #pragma mark - UITableViewDataSource
@@ -252,7 +259,6 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     UITableViewCell* cell =
         [tableView dequeueReusableCellWithIdentifier:[LanguageCell wmf_nibName]
                                         forIndexPath:indexPath];
-
     if ([self isPreferredSection:indexPath.section]) {
         [self configurePreferredLanguageCell:(LanguageCell*)cell atRow:indexPath.row];
     } else {
@@ -271,17 +277,6 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 #pragma mark - UITableViewDelegate
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-#warning heightForRowAtIndexPath: is not necessary in iOS 8, since it will rely on the cell's intrinsic content size
-#endif
-- (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
-    if ([self isPreferredSection:indexPath.section]) {
-        return PreferredLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
-    } else {
-        return OtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
-    }
-}
 
 - (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
     if ([self isPreferredSection:section] && self.languageFilter.filteredPreferredLanguages.count > 0) {
