@@ -39,6 +39,6 @@
 
 + (instancetype)wmf_mediumDateFormatterWithoutTime;
 
-+ (instancetype)wmf_hyphenatedYearMonthDayFormatter;
++ (instancetype)wmf_englishHyphenatedYearMonthDayFormatter;
 
 @end

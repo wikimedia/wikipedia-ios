@@ -1,5 +1,9 @@
 language: objective-c
 osx_image: xcode7.1
+env:
+  matrix:
+    - FL_ARGS="verify"
+    - FL_ARGS="verify scheme:WikipediaArabic"
 
 install:
   - make travis-get-deps
@@ -11,10 +15,13 @@ script:
   - echo $SIMULATOR_ID
   - open -b com.apple.iphonesimulator --args -CurrentDeviceUDID $SIMULATOR_ID
   - set -o pipefail
-  - bundle exec fastlane verify
+  - bundle exec fastlane $FL_ARGS
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+after_failure:
+  - tail -n 500 ./build/xcodebuild.og
 
 branches:
   only:

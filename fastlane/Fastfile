@@ -23,7 +23,7 @@ platform :ios do
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     opts = {
-      :scheme => 'Wikipedia',
+      :scheme =>  options[:scheme] || 'Wikipedia',
       :workspace => 'Wikipedia.xcworkspace',
       :configuration => 'Debug',
       :destination => 'platform=iOS Simulator,name=iPhone 6,OS=9.1',

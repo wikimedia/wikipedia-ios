@@ -35,7 +35,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @property (nonatomic, strong) MWKImageInfo* imageInfo;
 
-@property (nonatomic, strong, nullable) NSDate* fetchedDate;
+@property (nonatomic, strong) NSDate* fetchedDate;
 
 @end
 
@@ -73,7 +73,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     .catch(^(NSError* error) {
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
-        self.fetchedDate = nil;
+        DDLogError(@"POTD error: %@", error);
     });
 }
 

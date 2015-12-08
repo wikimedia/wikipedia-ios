@@ -12,63 +12,31 @@
 #import "NSDate+WMFPOTDTitle.h"
 #import "NSDate+Utilities.h"
 
-static inline NSString* expectedPOTDTitleStringForYearMonthDay(int year, int month, int day) {
-    return [NSString stringWithFormat:@"%@/%d-%02d-%02d", WMFPOTDTitlePrefix, year, month, day];
+static inline NSString* expectedPOTDTitleStringForYearMonthDay(NSInteger year, NSInteger month, NSInteger day) {
+    return [NSString stringWithFormat:@"%@/%ld-%02ld-%02ld", WMFPOTDTitlePrefix, year, month, day];
 }
 
 QuickSpecBegin(NSDate_WMFPOTDTitleTests)
 
-WMF_TECH_DEBT_TODO(test this to ensure it is not affected by system calendar)
+describe(@"potd date formatting", ^{
+    it(@"should always have two digits for the month & day", ^{
+        NSDateComponents* testDateComponents = [[NSDateComponents alloc] init];
+        testDateComponents.calendar = [NSCalendar currentCalendar];
+        testDateComponents.day = 1;
+        testDateComponents.month = 1;
+        testDateComponents.year = 2015;
+        expect([testDateComponents.date wmf_picOfTheDayPageTitle])
+        .to(equal(expectedPOTDTitleStringForYearMonthDay(testDateComponents.year,
+                                                         testDateComponents.month,
+                                                         testDateComponents.day)));
 
-static NSDate * testDate;
-static int const year  = 2015;
-static int const month = 2;
-static int const day   = 2;
-
-beforeSuite(^{
-    NSDateComponents* testDateComponents = [[NSDateComponents alloc] init];
-    testDateComponents.calendar = [NSCalendar currentCalendar];
-    testDateComponents.day = day;
-    testDateComponents.month = month;
-    testDateComponents.year = year;
-
-    testDate = testDateComponents.date;
-});
-
-describe(@"example dates", ^{
-    it(@"should return the expected title for the test date", ^{
-        expect([testDate wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year, month, day)));
-    });
-
-    it(@"should return the expected title for the day before the test date", ^{
-        expect([[testDate dateBySubtractingDays:1] wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year, month, day - 1)));
-    });
-
-    it(@"should return the expected title for the day after the test date", ^{
-        expect([[testDate dateByAddingDays:1] wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year, month, day + 1)));
-    });
-
-    it(@"should return the expected title for the month before the test date", ^{
-        expect([[testDate dateBySubtractingMonths:1] wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year, month - 1, day)));
-    });
-
-    it(@"should return the expected title for the month after the test date", ^{
-        expect([[testDate dateByAddingMonths:1] wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year, month + 1, day)));
-    });
-
-    it(@"should return the expected title for the year before the test date", ^{
-        expect([[testDate dateBySubtractingYears:1] wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year - 1, month, day)));
-    });
-
-    it(@"should return the expected title for the year after the test date", ^{
-        expect([[testDate dateByAddingYears:1] wmf_picOfTheDayPageTitle])
-        .to(equal(expectedPOTDTitleStringForYearMonthDay(year + 1, month, day)));
+        testDateComponents.day = 10;
+        testDateComponents.month = 10;
+        testDateComponents.year = 2015;
+        expect([testDateComponents.date wmf_picOfTheDayPageTitle])
+        .to(equal(expectedPOTDTitleStringForYearMonthDay(testDateComponents.year,
+                                                         testDateComponents.month,
+                                                         testDateComponents.day)));
     });
 });
 
