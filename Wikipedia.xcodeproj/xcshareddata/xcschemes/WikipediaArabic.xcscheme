@@ -323,7 +323,8 @@
       allowLocationSimulation = "YES"
       language = "ar"
       region = "EG">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D4991434181D51DE00E6073C"
@@ -331,7 +332,7 @@
             BlueprintName = "Wikipedia"
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
