@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFBaseImageGalleryViewController ()
 
-- (void)setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource> *)dataSource
- shouldSetCurrentPage:(BOOL)shouldSetCurrentPage
-      layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
+- (void)   setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource
+    shouldSetCurrentPage:(BOOL)shouldSetCurrentPage
+         layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection;
 
 @end
 

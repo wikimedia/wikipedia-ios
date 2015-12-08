@@ -21,9 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
           layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
 }
 
-- (void)setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource> *)dataSource
- shouldSetCurrentPage:(BOOL)shouldSetCurrentPage
-      layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
+- (void)   setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource
+    shouldSetCurrentPage:(BOOL)shouldSetCurrentPage
+         layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
     if (_dataSource == dataSource) {
         return;
     }
