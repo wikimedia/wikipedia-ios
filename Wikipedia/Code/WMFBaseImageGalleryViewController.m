@@ -6,14 +6,24 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFBaseImageGalleryViewController_Subclass.h"
+#import "WMFBaseImageGalleryViewController_Testing.h"
 #import <SSDataSources/SSBaseDataSource.h>
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "SSBaseDataSource+WMFLayoutDirectionUtilities.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @implementation WMFBaseImageGalleryViewController
 
-- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+- (void)setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+    [self setDataSource:dataSource
+     shouldSetCurrentPage:[[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]
+          layoutDirection:[[UIApplication sharedApplication] userInterfaceLayoutDirection]];
+}
+
+- (void)setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource> *)dataSource
+ shouldSetCurrentPage:(BOOL)shouldSetCurrentPage
+      layoutDirection:(UIUserInterfaceLayoutDirection)layoutDirection {
     if (_dataSource == dataSource) {
         return;
     }
@@ -26,8 +36,8 @@
     }
 
     // Update current page to last element if on iOS 8 for RTL compliance.
-    if (_dataSource && [[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        self.currentPage = [self.dataSource wmf_startingIndexForApplicationLayoutDirection];
+    if (_dataSource && shouldSetCurrentPage) {
+        self.currentPage = [self.dataSource wmf_startingIndexForLayoutDirection:layoutDirection];
     }
 }
 
@@ -37,3 +47,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
