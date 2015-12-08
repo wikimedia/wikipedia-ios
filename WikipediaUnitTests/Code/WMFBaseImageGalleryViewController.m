@@ -18,7 +18,7 @@
 
 @implementation WMFDummyGalleryDataSource
 
-- (NSURL*)imageURLAtIndexPath:(NSIndexPath *)indexPath {
+- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
     return [NSURL URLWithString:@"http://dummy.net/foo.jpg"];
 }
 
@@ -27,7 +27,7 @@
 
 QuickSpecBegin(WMFBaseImageGalleryViewControllerTests)
 
-static WMFBaseImageGalleryViewController* baseGalleryVC;
+static WMFBaseImageGalleryViewController * baseGalleryVC;
 static WMFDummyGalleryDataSource* dummyDataSource;
 
 
