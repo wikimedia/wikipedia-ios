@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSUInteger const WMFDefaultNumberOfPOTDDates;
+
 /**
  *  Data source of the Picture of the Day gallery.
  *
@@ -33,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A new data source which is populated with today's and the previous 15 days' picture of the day.
  */
-- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithInfo:(MWKImageInfo*)info forDate:(NSDate*)date;
 
 @end
 

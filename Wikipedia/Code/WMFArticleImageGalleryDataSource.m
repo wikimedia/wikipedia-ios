@@ -12,17 +12,13 @@
 #import "MWKImage.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "UIImageView+WMFPlaceholder.h"
-#import "NSArray+WMFLayoutDirectionUtilities.h"
+#import "SSArrayDataSource+WMFReverseIfRTL.h"
 
 @implementation WMFArticleImageGalleryDataSource
 @dynamic emptyView;
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
-    NSArray* images = article.images.uniqueLargestVariants;
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        images = [images wmf_reverseArrayIfApplicationIsRTL];
-    }
-    self = [super initWithItems:images];
+    self = [super wmf_initWithItemsAndReverseIfNeeded:article.images.uniqueLargestVariants];
     if (self) {
         self.emptyView = [[UIImageView alloc] init];
         [self applyLeadImageIfEmpty];
