@@ -337,10 +337,9 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
         }
 
         // Set up button (if set)
-        if ([buttonTitle length])
+        if (buttonCallback)
         {
             _button = [UIButton buttonWithType:UIButtonTypeCustom];
-
 
             UIImage *buttonBackgroundImage = [self bundledImageNamed:[current valueForKey:@"buttonBackgroundImageName"]];
 
@@ -353,6 +352,10 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
             }
 
             [self.button setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
+            
+            UIImage *buttonImage = [self bundledImageNamed:[current valueForKey:@"buttonImageName"]];
+            [self.button setImage:buttonImage forState:UIControlStateNormal];
+
             [self.button setTitle:self.buttonTitle forState:UIControlStateNormal];
 
             UIColor *buttonTitleShadowColor = [UIColor colorWithHexString:[current valueForKey:@"buttonTitleShadowColor"]];
@@ -604,11 +607,12 @@ canBeDismissedByUser:(BOOL)dismissingEnabled
 
 #pragma mark - Grab Image From Pod Bundle
 - (UIImage *)bundledImageNamed:(NSString*)name{
-    UIImage* image = [self imageInBundle:[NSBundle mainBundle] named:name];
-    if(image){
-        return image;
+    UIImage* image = [UIImage imageNamed:name];
+    
+    if(!image){
+        image = [self imageInBundle:[NSBundle bundleForClass:[self class]] named:name];;
     }
-    return [self imageInBundle:[NSBundle bundleForClass:[self class]] named:name];
+    return image;
 }
 
 - (UIImage *)imageInBundle:(NSBundle*)bundle named:(NSString*)name{
