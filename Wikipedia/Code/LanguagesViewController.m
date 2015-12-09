@@ -7,7 +7,6 @@
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
 #import "UIViewController+Alert.h"
-#import "UIView+ConstraintsScale.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -16,14 +15,8 @@
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
 
-static CGFloat const LanguagesSectionFooterHeight = 10.f;
-
-static CGFloat const PreferredLanguageFontSize  = 22.f;
-static CGFloat const PreferredTitleFontSize     = 17.f;
-
-static CGFloat const OtherLanguageRowHeight = 138.f;
-static CGFloat const OtherLanguageFontSize  = 17.f;
-static CGFloat const OtherTitleFontSize     = 12.f;
+static CGFloat const WMFLanguagesSectionFooterHeight = 10.f;
+static CGFloat const WMFOtherLanguageRowHeight = 138.f;
 
 // This assumes the language cell is configured in IB by LanguagesViewController
 static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectionSeparator";
@@ -81,7 +74,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     [self.tableView registerClass:[UITableViewHeaderFooterView class]
      forHeaderFooterViewReuseIdentifier:LangaugesSectionFooterReuseIdentifier];
 
-    self.tableView.estimatedRowHeight = OtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
+    self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
     // remove a 1px black border around the search field
@@ -210,28 +203,26 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 #pragma mark - Cell Specialization
 
-- (void)configurePreferredLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
+- (void)configurePreferredLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[row];
-    languageCell.languageLabel.font = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.titleLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:PreferredLanguageFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.languageCodeLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.languageLabel.text = langLink.name;
-    languageCell.titleLabel.text    = langLink.pageTitleText;
-    languageCell.localizedLanguageLabel.text = langLink.localizedName;
-    languageCell.languageCodeLabel.text = [NSString stringWithFormat:@"%@.wikipedia.org", langLink.languageCode];
+    cell.isPreferred = YES;
+    cell.localizedLanguageName = langLink.localizedName;
+    cell.languageName = langLink.name;
+    cell.articleTitle = langLink.pageTitleText;
+    cell.languageCode = [self stringForLanguageCode:langLink.languageCode];
 }
 
-- (void)configureOtherLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
+- (void)configureOtherLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[row];
-    languageCell.languageLabel.font = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.titleLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:OtherLanguageFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.languageCodeLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.languageLabel.text = langLink.name;
-    languageCell.titleLabel.text    = langLink.pageTitleText;
-    languageCell.localizedLanguageLabel.text = langLink.localizedName;
-    languageCell.languageCodeLabel.text = [NSString stringWithFormat:@"%@.wikipedia.org", langLink.languageCode];
+    cell.isPreferred = NO;
+    cell.localizedLanguageName = langLink.localizedName;
+    cell.languageName = langLink.name;
+    cell.articleTitle = langLink.pageTitleText;
+    cell.languageCode = [self stringForLanguageCode:langLink.languageCode];
+}
+
+-(NSString*)stringForLanguageCode:(NSString*)code {
+    return [NSString stringWithFormat:@"%@.wikipedia.org", code];
 }
 
 #pragma mark - UITableViewDataSource
@@ -281,7 +272,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 - (CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
     if ([self isPreferredSection:section] && self.languageFilter.filteredPreferredLanguages.count > 0) {
         // collapse footer when empty, removing needless padding of "other" section from top of table
-        return LanguagesSectionFooterHeight;
+        return WMFLanguagesSectionFooterHeight;
     } else {
         return 0.f;
     }

@@ -4,13 +4,11 @@
 /// Table cell designed for displaying a language autonym & a page title in that language.
 @interface LanguageCell : UITableViewCell
 
-/// Large, left-aligned label.
-@property (weak, nonatomic) IBOutlet UILabel* languageLabel;
+@property (strong, nonatomic) NSString* localizedLanguageName;
+@property (strong, nonatomic) NSString* articleTitle;
+@property (strong, nonatomic) NSString* languageName;
+@property (strong, nonatomic) NSString* languageCode;
 
-/// Smaller, left-aligned label beneath @c languageLabel.
-@property (weak, nonatomic) IBOutlet UILabel* titleLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel* localizedLanguageLabel;
-@property (weak, nonatomic) IBOutlet UILabel* languageCodeLabel;
+@property (nonatomic) BOOL isPreferred;
 
 @end

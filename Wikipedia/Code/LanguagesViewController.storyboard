@@ -33,13 +33,9 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuT-sm-MtF">
                                                     <rect key="frame" x="28" y="13" width="264" height="112"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Language" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVn-n7-pdy" userLabel="Language">
-                                                            <rect key="frame" x="0.0" y="76" width="264" height="18"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="18" id="jOO-T3-pcc"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rLN-Zb-UJl" userLabel="Localized language name">
+                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="58"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ib6-Zk-jUw" userLabel="Article title">
@@ -51,9 +47,13 @@
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rLN-Zb-UJl" userLabel="Localized language name">
-                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="58"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVn-n7-pdy" userLabel="Language name">
+                                                            <rect key="frame" x="0.0" y="76" width="264" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="jOO-T3-pcc"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQo-0f-Md2" userLabel="Language code">
@@ -92,10 +92,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="articleTitleLabel" destination="ib6-Zk-jUw" id="yrT-6L-wLN"/>
                                             <outlet property="languageCodeLabel" destination="lQo-0f-Md2" id="LAk-bL-qcq"/>
-                                            <outlet property="languageLabel" destination="wVn-n7-pdy" id="YNC-p2-GST"/>
+                                            <outlet property="languageNameLabel" destination="wVn-n7-pdy" id="uca-Ov-HGk"/>
+                                            <outlet property="languageNameLabelHeight" destination="jOO-T3-pcc" id="l7k-8K-VGq"/>
                                             <outlet property="localizedLanguageLabel" destination="rLN-Zb-UJl" id="SAQ-ks-taJ"/>
-                                            <outlet property="titleLabel" destination="ib6-Zk-jUw" id="iMX-wj-fc1"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
