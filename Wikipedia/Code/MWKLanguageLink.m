@@ -34,7 +34,8 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
         self.languageCode  = languageCode;
         self.pageTitleText = pageTitleText;
         self.name          = name;
-        self.localizedName = localizedName;
+        NSString *osLocalizedName = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:languageCode];
+        self.localizedName = osLocalizedName ? osLocalizedName : localizedName;
     }
     return self;
 }
