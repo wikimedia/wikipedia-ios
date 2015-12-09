@@ -17,6 +17,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"
+#import "NSError+WMFExtensions.h"
 
 // View Controllers
 #import "WMFArticleContainerViewController_Private.h"
