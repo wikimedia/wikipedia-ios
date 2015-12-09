@@ -21,6 +21,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 @interface WMFFeaturedArticleSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSDate* date;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
@@ -33,11 +34,13 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
+- (instancetype)initWithSite:(MWKSite*)site date:(NSDate*)date savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
+    NSParameterAssert(date);
     self = [super init];
     if (self) {
         self.site          = site;
+        self.date          = date;
         self.savedPageList = savedPageList;
         [self fetchData];
     }
@@ -131,7 +134,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
     }
 
     @weakify(self);
-    [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:[NSDate date]].then(^(MWKSearchResult* data) {
+    [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:self.date].then(^(MWKSearchResult* data) {
         @strongify(self);
         self.featuredArticlePreview = data;
         [self.delegate controller:self didSetItems:self.items];
