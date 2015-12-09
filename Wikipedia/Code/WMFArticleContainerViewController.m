@@ -407,7 +407,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    self.progressView.progress = 0.0;
+    self.progressView.progress = 0.05;
 
     if (!animated) {
         [self _showProgressView];
