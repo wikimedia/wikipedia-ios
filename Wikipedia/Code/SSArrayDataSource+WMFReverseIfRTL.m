@@ -12,7 +12,7 @@
 
 @implementation SSArrayDataSource (WMFReverseIfRTL)
 
-- (instancetype)wmf_initWithItemsAndReverseIfNeeded:(NSArray *)items {
+- (instancetype)wmf_initWithItemsAndReverseIfNeeded:(NSArray*)items {
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
         items = [items wmf_reverseArrayIfApplicationIsRTL];
     }

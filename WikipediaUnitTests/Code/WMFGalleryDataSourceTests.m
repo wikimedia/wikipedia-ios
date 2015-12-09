@@ -22,7 +22,7 @@
 
 QuickConfigurationBegin(WMFGalleryDataSourceTestsConfiguration)
 
-+ (void)configure:(Configuration *)configuration {
++ (void)configure : (Configuration*)configuration {
     sharedExamples(@"an RTL compliant gallery data source", ^(QCKDSLSharedExampleContext contextProvider) {
         __block NSArray* rawItems;
         __block SSBaseDataSource* dataSource;
@@ -34,9 +34,9 @@ QuickConfigurationBegin(WMFGalleryDataSourceTestsConfiguration)
 
         it(@"should reorder the items if necessary", ^{
             [[rawItems wmf_reverseArrayIfApplicationIsRTL]
-             enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                 expect([dataSource itemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]])
-                 .toWithDescription(equal(obj), [NSString stringWithFormat:@"Expected item at index %lu to be %@", idx, obj]);
+             enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+                expect([dataSource itemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]])
+                .toWithDescription(equal(obj), [NSString stringWithFormat:@"Expected item at index %lu to be %@", idx, obj]);
             }];
         });
     });
@@ -58,7 +58,7 @@ describe(@"SSArrayDataSource.wmf_initWithitemsAndReverseIfNeeded", ^{
 
 describe(@"WMFArticleImageGalleryDataSource", ^{
     __block MWKArticle* article;
-    configureTempDataStoreForEach(tempDataStore, ^ {
+    configureTempDataStoreForEach(tempDataStore, ^{
         NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"];
         article = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
                                           dataStore:tempDataStore
