@@ -6,11 +6,11 @@
 /**
  *  Verify correct appearance of a given view.
  *
- *  This is required to work around a bug in FBSnapshotTestCase that will mix up the suffix of the reference image folder.
+ *  Search all folder suffixes, use default naming conventions.
  *
  *  @param view The view to verify.
  */
-#define WMFSnapshotVerifyView(view) FBSnapshotVerifyViewWithOptions((view), nil, @[@"_64"], 0)
+#define WMFSnapshotVerifyView(view) FBSnapshotVerifyView((view), nil)
 
 @interface FBSnapshotTestCase (WMFConvenience)
 
