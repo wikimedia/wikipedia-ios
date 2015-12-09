@@ -89,7 +89,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (NSArray*)items {
-    if (self.searchResults.results) {
+    if ([self hasResults]) {
         return [self.searchResults.results
                 wmf_safeSubarrayWithRange:NSMakeRange(0, WMFRelatedSectionMaxResults)];
     } else {
@@ -110,7 +110,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.searchResults.results) {
+    if ([self hasResults]) {
         return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
     } else {
         return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
@@ -131,7 +131,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.searchResults != nil;
+    return [self hasResults];
 }
 
 - (WMFRelatedTitleListDataSource*)relatedTitleDataSource {
@@ -155,6 +155,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         [self.relatedTitleDataSource fetch];
     }
     return self.relatedTitleDataSource;
+}
+
+- (BOOL)hasResults {
+    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
 }
 
 #pragma mark - Fetch
