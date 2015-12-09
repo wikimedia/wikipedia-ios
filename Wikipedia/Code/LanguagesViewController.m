@@ -16,7 +16,7 @@
 #import "MediaWikiKit.h"
 
 static CGFloat const WMFLanguagesSectionFooterHeight = 10.f;
-static CGFloat const WMFOtherLanguageRowHeight = 138.f;
+static CGFloat const WMFOtherLanguageRowHeight       = 138.f;
 
 // This assumes the language cell is configured in IB by LanguagesViewController
 static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectionSeparator";
@@ -205,23 +205,23 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 - (void)configurePreferredLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[row];
-    cell.isPreferred = YES;
+    cell.isPreferred           = YES;
     cell.localizedLanguageName = langLink.localizedName;
-    cell.languageName = langLink.name;
-    cell.articleTitle = langLink.pageTitleText;
-    cell.languageCode = [self stringForLanguageCode:langLink.languageCode];
+    cell.languageName          = langLink.name;
+    cell.articleTitle          = langLink.pageTitleText;
+    cell.languageCode          = [self stringForLanguageCode:langLink.languageCode];
 }
 
 - (void)configureOtherLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[row];
-    cell.isPreferred = NO;
+    cell.isPreferred           = NO;
     cell.localizedLanguageName = langLink.localizedName;
-    cell.languageName = langLink.name;
-    cell.articleTitle = langLink.pageTitleText;
-    cell.languageCode = [self stringForLanguageCode:langLink.languageCode];
+    cell.languageName          = langLink.name;
+    cell.articleTitle          = langLink.pageTitleText;
+    cell.languageCode          = [self stringForLanguageCode:langLink.languageCode];
 }
 
--(NSString*)stringForLanguageCode:(NSString*)code {
+- (NSString*)stringForLanguageCode:(NSString*)code {
     return [NSString stringWithFormat:@"%@.wikipedia.org", code];
 }
 
