@@ -82,7 +82,7 @@ extension XCTestCase {
                 expectation.fulfill()
             }
             wmf_waitForExpectations(timeout) { error in
-                guard let error = error else {
+                guard error != nil else {
                     return
                 }
                 DDLogError("Timeout expired with error: \(error)")
