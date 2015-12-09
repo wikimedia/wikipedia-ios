@@ -4,6 +4,7 @@ env:
   matrix:
     - FL_ARGS="verify"
     - FL_ARGS="verify scheme:WikipediaArabic"
+    - FL_ARGS="verify os:8.4"
 
 install:
   - make travis-get-deps
