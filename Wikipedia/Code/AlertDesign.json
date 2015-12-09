@@ -1,6 +1,6 @@
 {
     "success": {
-        "backgroundColor": "#343434",
+        "backgroundColor": "#333333",
         "borderColor": "#005700",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -15,7 +15,7 @@
         "titleFontSize": 14
     },
     "message": {
-        "backgroundColor": "#343434",
+        "backgroundColor": "#333333",
         "borderColor": "#727C83",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -30,7 +30,7 @@
         "titleFontSize": 14
     },
     "warning": {
-        "backgroundColor": "#343434",
+        "backgroundColor": "#333333",
         "borderColor": "#A28918",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -45,7 +45,7 @@
         "titleFontSize": 14
     },
     "error": {
-        "backgroundColor": "#343434",
+        "backgroundColor": "#333333",
         "borderColor": "#700000",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
