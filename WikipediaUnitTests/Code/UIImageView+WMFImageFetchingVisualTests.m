@@ -29,7 +29,8 @@
 - (void)setUp {
     [super setUp];
 
-//    self.recordMode = YES;
+    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.deviceAgnostic = YES;
 
     [[LSNocilla sharedInstance] start];
     self.imageView                     = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 160)];
