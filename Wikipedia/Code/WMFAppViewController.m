@@ -191,6 +191,18 @@ static dispatch_once_t launchToken;
             [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
             [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
         }
+        if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeTestError] tapCallBack:NULL];
+        }
+        if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeTestWarning] tapCallBack:NULL];
+        }
+        if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeTestSuccess] tapCallBack:NULL];
+        }
+        if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeTestMessage] tapCallBack:NULL];
+        }
     }
 }
 

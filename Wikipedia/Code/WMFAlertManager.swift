@@ -8,6 +8,10 @@ import TSMessages
     case StaticError
     case ArticleLanguageDownload
     case NoSearchResults
+    case TestError
+    case TestWarning
+    case TestSuccess
+    case TestMessage
     
 }
 
@@ -59,6 +63,14 @@ public class WMFAlert: NSObject {
             return localizedStringForKeyFallingBackOnEnglish("article-languages-downloading")
         case .NoSearchResults:
             return localizedStringForKeyFallingBackOnEnglish("search-no-matches")
+        case .TestError:
+            return "There was an error"
+        case .TestWarning:
+            return "You have been warned"
+        case .TestSuccess:
+            return "You are successful"
+        case .TestMessage:
+            return "You have been notified"
         }
     }
 
@@ -70,6 +82,12 @@ public class WMFAlert: NSObject {
         switch self.type {
         case .Error:
             return .Error
+        case .TestError:
+            return .Error
+        case .TestWarning:
+            return .Warning
+        case .TestSuccess:
+            return .Success
         default:
             return .Message
         }
@@ -92,8 +110,7 @@ public class WMFAlert: NSObject {
 
 }
 
-
-public class WMFAlertManager: NSObject {
+public class WMFAlertManager: NSObject, TSMessageViewProtocol {
     
     public static let sharedInstance = WMFAlertManager()
 
@@ -118,7 +135,8 @@ public class WMFAlertManager: NSObject {
         
     }
     
-    
-    
-    
+    public func customizeMessageView(messageView: TSMessageView!) {
+        
+        
+    }
 }
