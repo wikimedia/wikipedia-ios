@@ -23,6 +23,7 @@
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
 		0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */; };
+		0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
@@ -646,6 +647,7 @@
 		0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = Wikipedia/Code/MWKLanguageFilter.h; sourceTree = SOURCE_ROOT; };
 		0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageFilter.m; path = Wikipedia/Code/MWKLanguageFilter.m; sourceTree = SOURCE_ROOT; };
 		0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAlertManager.swift; path = Wikipedia/Code/WMFAlertManager.swift; sourceTree = SOURCE_ROOT; };
+		0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = AlertDesign.json; path = Wikipedia/Code/AlertDesign.json; sourceTree = SOURCE_ROOT; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
@@ -2832,6 +2834,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFB48091B3BB01300381F99 /* Style */,
+				0EBCA7521C17BD86004F1FD9 /* Alerts */,
 				0E9DFEB01BDEB9BE0032606E /* App View Controller */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
 				0EEAF0F61B8229E6000D4232 /* Home */,
@@ -2843,7 +2846,6 @@
 				0E2B06FA1B2D129B00EA2F53 /* Common */,
 				0EFB48081B3BAFF600381F99 /* Storyboards */,
 				0E7E602E1B7CFA9B00ED1C69 /* Analytics */,
-				0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */,
 			);
 			name = "UI-V5";
 			path = "Wikipedia/Code/UI-V5";
@@ -3019,6 +3021,15 @@
 			children = (
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		0EBCA7521C17BD86004F1FD9 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */,
+				0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */,
+			);
+			name = Alerts;
 			sourceTree = "<group>";
 		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
@@ -3366,7 +3377,7 @@
 				0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */,
 				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 			);
-			name = Code;
+			path = Code;
 			sourceTree = "<group>";
 		};
 		BC7C3A381C0FF9620057F023 /* Code */ = {
@@ -4414,6 +4425,7 @@
 				B0E8032D1C0CD6E10065EBC0 /* WMFHomeSectionHeader.xib in Resources */,
 				B0E8035A1C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B0E804141C0CDE480065EBC0 /* SavedPagesViewController.storyboard in Resources */,
+				0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
 				B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
