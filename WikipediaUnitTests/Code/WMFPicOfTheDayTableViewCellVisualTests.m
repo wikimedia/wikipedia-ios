@@ -27,8 +27,9 @@
 
 - (void)setUp {
     [super setUp];
-//    self.recordMode = YES;
-    self.cell = [WMFPicOfTheDayTableViewCell wmf_viewFromClassNib];
+    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.deviceAgnostic = YES;
+    self.cell           = [WMFPicOfTheDayTableViewCell wmf_viewFromClassNib];
     [self.cell setDisplayTitle:@"Hey! I'm a display title!"];
     self.cell.potdImageView.wmf_imageController = [WMFImageController temporaryController];
 }
