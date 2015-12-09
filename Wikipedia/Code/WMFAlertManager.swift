@@ -108,6 +108,10 @@ public class WMFAlert: NSObject {
         return true
     }
 
+    public var messageButtonDismisses: Bool {
+        return true
+    }
+
 }
 
 public class WMFAlertManager: NSObject, TSMessageViewProtocol {
@@ -129,7 +133,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
             duration: alert.messageDuration,
             callback: tapCallBack,
             buttonTitle: nil,
-            buttonCallback: nil,
+            buttonCallback: alert.messageButtonDismisses ? {} : nil,
             atPosition: .Top,
             canBeDismissedByUser: alert.messageUserDismissable)
         
