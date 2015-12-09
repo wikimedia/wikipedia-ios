@@ -6,6 +6,8 @@
 #import "NSObjectUtilities.h"
 #import "NSString+WMFPageUtilities.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// @return Number of bytes equivalent to `m` megabytes.
 extern NSUInteger MegabytesToBytes(NSUInteger m);
 
@@ -16,8 +18,11 @@ extern NSUInteger MegabytesToBytes(NSUInteger m);
 + (NSString*)versionedUserAgent;
 + (NSString*)relativeTimestamp:(NSDate*)date;
 + (NSString*)languageNameForCode:(NSString*)code;
++ (nullable NSString*)localizedLanguageNameForCode:(NSString*)code;
 + (BOOL)     isDeviceLanguageRTL;
 
 + (void)copyAssetsFolderToAppDataDocuments;
 
 @end
+
+NS_ASSUME_NONNULL_END

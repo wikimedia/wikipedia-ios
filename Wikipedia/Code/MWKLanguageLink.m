@@ -9,6 +9,7 @@
 #import "MWKLanguageLink.h"
 #import "NSObjectUtilities.h"
 #import "MWKTitle.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWKLanguageLink ()
 
@@ -34,7 +35,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
         self.languageCode  = languageCode;
         self.pageTitleText = pageTitleText;
         self.name          = name;
-        NSString *osLocalizedName = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:languageCode];
+        NSString *osLocalizedName = [WikipediaAppUtils localizedLanguageNameForCode:languageCode];
         self.localizedName = osLocalizedName ? osLocalizedName : localizedName;
     }
     return self;
