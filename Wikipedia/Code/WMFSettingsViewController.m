@@ -303,7 +303,10 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
 
     NSString* languageCode              = [SessionSingleton sharedInstance].searchSite.language;
-    NSString* languageName              = [WikipediaAppUtils languageNameForCode:languageCode];
+    NSString* languageName              = [WikipediaAppUtils localizedLanguageNameForCode:languageCode];
+    if (!languageName) {
+        languageName = [WikipediaAppUtils languageNameForCode:languageCode];
+    }
     NSAttributedString* searchWikiTitle =
         [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes:nil
                                                                         substitutionStrings:@[languageName]
