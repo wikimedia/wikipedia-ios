@@ -120,7 +120,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if (self.nearbyError) {
         return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else if ([self.searchResults.results count] > 0) {
+    } else if ([self hasResults]) {
         return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
     } else {
         return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
@@ -151,11 +151,15 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.searchResults.results.count > index;
+    return [self hasResults];
 }
 
 - (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+}
+
+- (BOOL)hasResults {
+    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
 }
 
 #pragma mark - WMFNearbyViewModelDelegate
