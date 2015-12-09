@@ -76,7 +76,7 @@ static id _sharedInstance;
         if (![self isCompoundLanguageCode:code]) {
             // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
             // should be "Cantonese". It looks like iOS ignores anything after the "-".
-            NSString *iOSLocalizedName = [WikipediaAppUtils localizedLanguageNameForCode:code];
+            NSString* iOSLocalizedName = [WikipediaAppUtils localizedLanguageNameForCode:code];
             if (iOSLocalizedName) {
                 localizedName = iOSLocalizedName;
             }
@@ -88,7 +88,7 @@ static id _sharedInstance;
     }];
 }
 
--(BOOL)isCompoundLanguageCode:(NSString*)code {
+- (BOOL)isCompoundLanguageCode:(NSString*)code {
     return [code containsString:@"-"];
 }
 

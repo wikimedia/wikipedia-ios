@@ -5,13 +5,13 @@
 #import "WikipediaAppUtils.h"
 #import "UILabel+WMFStyling.h"
 
-static CGFloat const WMFPreferredLanguageFontSize  = 22.f;
-static CGFloat const WMFPreferredTitleFontSize     = 17.f;
-static CGFloat const WMFOtherLanguageFontSize  = 17.f;
-static CGFloat const WMFOtherTitleFontSize     = 12.f;
-static CGFloat const WMFLanguageNameLabelHeight     = 18.f;
+static CGFloat const WMFPreferredLanguageFontSize = 22.f;
+static CGFloat const WMFPreferredTitleFontSize    = 17.f;
+static CGFloat const WMFOtherLanguageFontSize     = 17.f;
+static CGFloat const WMFOtherTitleFontSize        = 12.f;
+static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
 
-@interface LanguageCell()
+@interface LanguageCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* localizedLanguageLabel;
 @property (strong, nonatomic) IBOutlet UILabel* articleTitleLabel;
@@ -24,45 +24,45 @@ static CGFloat const WMFLanguageNameLabelHeight     = 18.f;
 
 @implementation LanguageCell
 
--(void)setIsPreferred:(BOOL)isPreferred {
+- (void)setIsPreferred:(BOOL)isPreferred {
     _isPreferred = isPreferred;
     if (isPreferred) {
-        self.localizedLanguageLabel.font    = [UIFont systemFontOfSize:WMFPreferredLanguageFontSize];
-        self.articleTitleLabel.font    = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-        self.languageNameLabel.font = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-        self.languageCodeLabel.font    = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
-    }else{
-        self.localizedLanguageLabel.font    = [UIFont systemFontOfSize:WMFOtherLanguageFontSize];
-        self.articleTitleLabel.font    = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
-        self.languageNameLabel.font = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
-        self.languageCodeLabel.font    = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
+        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFPreferredLanguageFontSize];
+        self.articleTitleLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
+        self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
+        self.languageCodeLabel.font      = [UIFont systemFontOfSize:WMFPreferredTitleFontSize];
+    } else {
+        self.localizedLanguageLabel.font = [UIFont systemFontOfSize:WMFOtherLanguageFontSize];
+        self.articleTitleLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
+        self.languageNameLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
+        self.languageCodeLabel.font      = [UIFont systemFontOfSize:WMFOtherTitleFontSize];
     }
 }
 
--(void)setLocalizedLanguageName:(NSString *)localizedLanguageName {
-    _localizedLanguageName = localizedLanguageName;
+- (void)setLocalizedLanguageName:(NSString*)localizedLanguageName {
+    _localizedLanguageName           = localizedLanguageName;
     self.localizedLanguageLabel.text = localizedLanguageName;
 }
 
--(void)setArticleTitle:(NSString *)articleTitle {
-    _articleTitle = articleTitle;
+- (void)setArticleTitle:(NSString*)articleTitle {
+    _articleTitle               = articleTitle;
     self.articleTitleLabel.text = articleTitle;
 }
 
--(void)setLanguageName:(NSString *)languageName {
+- (void)setLanguageName:(NSString*)languageName {
     if ([self shouldShowLanguageName:languageName]) {
         self.languageNameLabelHeight.constant = WMFLanguageNameLabelHeight;
     }
-    _languageName = languageName;
+    _languageName               = languageName;
     self.languageNameLabel.text = languageName;
 }
 
--(BOOL)shouldShowLanguageName:(NSString*)languageName {
+- (BOOL)shouldShowLanguageName:(NSString*)languageName {
     return ![languageName isEqualToString:self.localizedLanguageName];
 }
 
--(void)setLanguageCode:(NSString *)languageCode {
-    _languageCode = languageCode;
+- (void)setLanguageCode:(NSString*)languageCode {
+    _languageCode               = languageCode;
     self.languageCodeLabel.text = languageCode;
 }
 
@@ -71,12 +71,12 @@ static CGFloat const WMFLanguageNameLabelHeight     = 18.f;
     [self prepareForReuse];
 }
 
--(void)prepareForReuse {
+- (void)prepareForReuse {
     [super prepareForReuse];
-    self.languageNameLabel.text = @"";
-    self.articleTitleLabel.text = @"";
-    self.localizedLanguageLabel.text = @"";
-    self.languageCodeLabel.text = @"";
+    self.languageNameLabel.text           = @"";
+    self.articleTitleLabel.text           = @"";
+    self.localizedLanguageLabel.text      = @"";
+    self.languageCodeLabel.text           = @"";
     self.languageNameLabelHeight.constant = 0.f;
 }
 
