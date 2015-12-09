@@ -15,6 +15,7 @@
 #import <Masonry/Masonry.h>
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
 
 static CGFloat const LanguagesSectionFooterHeight = 10.f;
 
@@ -113,7 +114,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 - (void)downloadArticlelanguages {
-    [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
+    [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeArticleLanguageDownload] tapCallBack:NULL];
     // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
     [self setLanguageFilterHidden:YES animated:NO];
 
