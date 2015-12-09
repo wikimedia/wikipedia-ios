@@ -8,6 +8,8 @@
 #import <BlocksKit/BlocksKit.h>
 #import "MediaWikiKit.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSUInteger MegabytesToBytes(NSUInteger m) {
     static NSUInteger const MEGABYTE = 1 << 20;
     return m * MEGABYTE;
@@ -92,6 +94,10 @@ static WMFAssetsFile* languageFile = nil;
     return [languageFile.array bk_match:^BOOL (NSDictionary* obj) {
         return [obj[@"code"] isEqualToString:code];
     }][@"name"];
+}
+
++ (nullable NSString*)localizedLanguageNameForCode:(NSString*)code {
+    return [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:code];
 }
 
 #pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"
@@ -185,3 +191,6 @@ static WMFAssetsFile* languageFile = nil;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
+
