@@ -48,7 +48,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
 }
 
 - (NSComparisonResult)compare:(MWKLanguageLink*)other {
-    return [self.localizedName compare:other.localizedName];
+    return [self.languageCode compare:other.languageCode];
 }
 
 - (NSUInteger)hash {
