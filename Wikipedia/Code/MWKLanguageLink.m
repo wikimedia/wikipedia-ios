@@ -35,8 +35,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
         self.languageCode  = languageCode;
         self.pageTitleText = pageTitleText;
         self.name          = name;
-        NSString *osLocalizedName = [WikipediaAppUtils localizedLanguageNameForCode:languageCode];
-        self.localizedName = osLocalizedName ? osLocalizedName : localizedName;
+        self.localizedName = localizedName;
     }
     return self;
 }
