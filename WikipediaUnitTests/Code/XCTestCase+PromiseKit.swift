@@ -82,6 +82,9 @@ extension XCTestCase {
                 expectation.fulfill()
             }
             wmf_waitForExpectations(timeout) { error in
+                guard let error = error else {
+                    return
+                }
                 DDLogError("Timeout expired with error: \(error)")
                 expirationHandler?(error)
                 // nullify pending expectation to prevent fulfilling it after timeout has expired

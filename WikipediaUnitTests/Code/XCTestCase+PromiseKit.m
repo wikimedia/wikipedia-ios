@@ -37,9 +37,11 @@
         XCTFail(@"Unexpected error: %@", e);
     });
     [self waitForExpectationsWithTimeout:timeout handler:^(NSError* _Nullable error) {
-        // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
-        DDLogError(@"Timeout expired with error: %@", error);
-        expectation = nil;
+        if (error) {
+            // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
+            DDLogError(@"Timeout expired with error: %@", error);
+            expectation = nil;
+        }
     }];
 }
 
@@ -67,9 +69,11 @@
         [expectation fulfill];
     });
     [self waitForExpectationsWithTimeout:timeout handler:^(NSError* _Nullable error) {
-        // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
-        DDLogError(@"Timeout expired with error: %@", error);
-        expectation = nil;
+        if (error) {
+            // don't fulfill the expectation after the timeout expires, XCTest will raise an assertion and wreak all sorts of havoc
+            DDLogError(@"Timeout expired with error: %@", error);
+            expectation = nil;
+        }
     }];
 }
 
