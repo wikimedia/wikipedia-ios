@@ -70,7 +70,7 @@
     _rowType = rowType;
     switch (rowType) {
         case ROW_TYPE_HEADING:
-            self.backgroundColor     = CHROME_COLOR;
+            self.backgroundColor     = [UIColor wmf_settingsBackgroundColor];
             self.textLabel.padding   = UIEdgeInsetsMake(31, 0, 5, 0);
             self.textLabel.textColor = MENU_SUB_TITLE_TEXT_COLOR;
             self.textLabel.font      = [UIFont systemFontOfSize:MENU_HEADING_FONT_SIZE];

@@ -123,7 +123,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
     self.highlightedTextAttributes = @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE] };
 
-    self.view.backgroundColor = CHROME_COLOR;
+    self.view.backgroundColor = [UIColor wmf_settingsBackgroundColor];
 
     self.scrollView.clipsToBounds    = NO;
     self.scrollView.minSubviewHeight = 45;
