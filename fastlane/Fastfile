@@ -26,7 +26,7 @@ platform :ios do
       :scheme =>  options[:scheme] || 'Wikipedia',
       :workspace => 'Wikipedia.xcworkspace',
       :configuration => 'Debug',
-      :destination => 'platform=iOS Simulator,name=iPhone 6,OS=9.1',
+      :destination => "platform=iOS Simulator,name=iPhone 6,OS=#{options[:os] || '9.1'}",
       :destination_timeout => 240, # Increase timeout for Travis builds
       :xcpretty_output => 'simple',
       :buildlog_path => './build',
