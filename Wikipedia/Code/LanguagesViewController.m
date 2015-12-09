@@ -212,9 +212,9 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 - (void)configurePreferredLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[row];
-    languageCell.languageLabel.font = [UIFont systemFontOfSize:PreferredLanguageFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.languageLabel.font = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.titleLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:PreferredLanguageFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageCodeLabel.font    = [UIFont systemFontOfSize:PreferredTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageLabel.text = langLink.name;
     languageCell.titleLabel.text    = langLink.pageTitleText;
@@ -224,9 +224,9 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 - (void)configureOtherLanguageCell:(LanguageCell*)languageCell atRow:(NSUInteger)row {
     MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[row];
-    languageCell.languageLabel.font = [UIFont systemFontOfSize:OtherLanguageFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.languageLabel.font = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.titleLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
-    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
+    languageCell.localizedLanguageLabel.font    = [UIFont systemFontOfSize:OtherLanguageFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageCodeLabel.font    = [UIFont systemFontOfSize:OtherTitleFontSize * MENUS_SCALE_MULTIPLIER];
     languageCell.languageLabel.text = langLink.name;
     languageCell.titleLabel.text    = langLink.pageTitleText;
