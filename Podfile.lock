@@ -48,9 +48,9 @@ PODS:
     - OMGHTTPURLRQ/FormURLEncode
     - OMGHTTPURLRQ/UserAgent
   - OMGHTTPURLRQ/UserAgent (3.0.2)
-  - PiwikTracker (3.3.0):
-    - PiwikTracker/Core (= 3.3.0)
-  - PiwikTracker/Core (3.3.0)
+  - PiwikTracker (HEAD based on 3.3.0):
+    - PiwikTracker/Core (= HEAD based on 3.3.0)
+  - PiwikTracker/Core (HEAD based on 3.3.0)
   - PromiseKit (3.0.0):
     - PromiseKit/Foundation (= 3.0.0)
     - PromiseKit/QuartzCore (= 3.0.0)
@@ -92,7 +92,7 @@ DEPENDENCIES:
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
-  - PiwikTracker
+  - PiwikTracker (HEAD)
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
   - Quick (~> 0.8.0)
   - SDWebImage (from `./vendor/SDWebImage`)
