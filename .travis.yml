@@ -1,16 +1,16 @@
 language: objective-c
 osx_image: xcode7.1
 env:
-  matrix:
-    - FL_ARGS="verify"
-    - FL_ARGS="verify scheme:WikipediaArabic"
-    - FL_ARGS="verify os:8.4"
+  - FL_ARGS="verify" IOS_VER="9.1"
+  - FL_ARGS="verify scheme:WikipediaArabic" IOS_VER="9.1"
+  - FL_ARGS="verify os:8.4" IOS_VER="8.4"
+  - FL_ARGS="verify os:8.4 scheme:WikipediaArabic" IOS_VER="8.4"
 
 install:
   - make travis-get-deps
 
 before_script:
-  - SIMULATOR_ID=$(xcrun instruments -s | grep -o "iPhone 6 (9.1) \[.*\]" | grep -o "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/")
+  - SIMULATOR_ID=$(xcrun instruments -s | grep -o "iPhone 6 (${IOS_VER}) \[.*\]" | grep -o "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/")
 
 script:
   - echo $SIMULATOR_ID
