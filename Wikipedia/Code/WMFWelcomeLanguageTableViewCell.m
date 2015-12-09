@@ -16,7 +16,7 @@
     _deleteButtonTapped = [deleteButtonTapped copy];
     if (_deleteButtonTapped == NULL) {
         self.rightButtons = nil;
-    }else{
+    } else {
         MGSwipeButton* delete = [MGSwipeButton buttonWithTitle:MWLocalizedString(@"menu-trash-accessibility-label", nil) backgroundColor:[UIColor redColor]];
         self.rightSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightButtons                  = @[delete];
@@ -29,7 +29,6 @@
             return YES;
         };
     }
-
 }
 
 - (void)layoutSubviews {
