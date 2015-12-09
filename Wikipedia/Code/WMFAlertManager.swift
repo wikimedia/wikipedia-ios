@@ -96,6 +96,11 @@ public class WMFAlert: NSObject {
 public class WMFAlertManager: NSObject {
     
     public static let sharedInstance = WMFAlertManager()
+
+    override init() {
+        TSMessage.addCustomDesignFromFileWithName("AlertDesign.json")
+        super.init()
+    }
     
     public func showAlert(alert: WMFAlert, tapCallBack: dispatch_block_t?) {
         
