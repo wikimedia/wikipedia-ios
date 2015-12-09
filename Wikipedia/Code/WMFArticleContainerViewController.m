@@ -570,6 +570,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self hideProgressViewAnimated:YES];
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
+            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithError:error] tapCallBack:NULL];
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
     }).finally(^{

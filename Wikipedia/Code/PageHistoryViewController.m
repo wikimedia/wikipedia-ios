@@ -17,6 +17,7 @@
 #import "PageHistoryFetcher.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
@@ -96,7 +97,7 @@
 
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithStaticError:error] tapCallBack:NULL];
                 break;
         }
     }
