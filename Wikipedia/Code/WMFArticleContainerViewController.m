@@ -570,7 +570,12 @@ NS_ASSUME_NONNULL_BEGIN
         [self hideProgressViewAnimated:YES];
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
-            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithError:error] tapCallBack:NULL];
+
+            if (self.discoveryMethod != MWKHistoryDiscoveryMethodSaved && ![error wmf_isNetworkConnectionError]) {
+                //do not show error for saved pages when there is a network issue
+                [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithError:error] tapCallBack:NULL];
+            }
+
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
     }).finally(^{
