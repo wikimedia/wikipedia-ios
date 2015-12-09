@@ -145,6 +145,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     //Get updated static sections
     NSMutableArray<WMFHomeSection*>* sections = [[self staticSections] mutableCopy];
 
+    //Add featured articles
+    [sections addObjectsFromArray:[self featuredSections]];
+
     //Add Saved and History
     NSArray<WMFHomeSection*>* recent = [self historyAndSavedPageSections];
     if ([recent count] > 0) {
@@ -185,7 +188,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     [sections wmf_safeAddObject:[self existingNearbySection]];
     [sections wmf_safeAddObject:[self randomSection]];
-    [sections wmf_safeAddObject:[self featuredArticleSection]];
     [sections addObject:[self mainPageSection]];
     [sections addObject:[self picOfTheDaySection]];
     [sections wmf_safeAddObject:[self continueReadingSection]];
@@ -232,7 +234,39 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Daily Sections
 
-- (WMFHomeSection*)getOrCreateTodaysSectionOfType:(WMFHomeSectionType)type {
+- (NSArray<WMFHomeSection*>*)featuredSections {
+    NSArray* previous = [self.sections bk_select:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
+            return YES;
+        }
+        return NO;
+    }];
+
+    //Don't add new ones if we aren't in english
+    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
+        return previous;
+    }
+
+    NSMutableArray* featured = [NSMutableArray array];
+    [featured addObjectsFromArray:previous];
+
+    WMFHomeSection* today = [featured bk_match:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
+            if ([obj.dateCreated isToday]) {
+                return YES;
+            }
+        }
+        return NO;
+    }];
+
+    if (!today) {
+        [featured addObject:[WMFHomeSection featuredArticleSectionWithSite:self.site]];
+    }
+
+    return featured;
+}
+
+- (WMFHomeSection*)getOrCreateStaticTodaySectionOfType:(WMFHomeSectionType)type {
     WMFHomeSection* existingSection = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
         if (obj.type == type) {
             return YES;
@@ -246,8 +280,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     switch (type) {
-        case WMFHomeSectionTypeFeaturedArticle:
-            return [WMFHomeSection featuredSection];
         case WMFHomeSectionTypeMainPage:
             return [WMFHomeSection mainPageSection];
         case WMFHomeSectionTypePictureOfTheDay:
@@ -260,19 +292,11 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 - (WMFHomeSection*)mainPageSection {
-    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypeMainPage];
-}
-
-- (nullable WMFHomeSection*)featuredArticleSection {
-    //Never show if we are not in english
-    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
-        return nil;
-    }
-    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypeFeaturedArticle];
+    return [self getOrCreateStaticTodaySectionOfType:WMFHomeSectionTypeMainPage];
 }
 
 - (WMFHomeSection*)picOfTheDaySection {
-    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypePictureOfTheDay];
+    return [self getOrCreateStaticTodaySectionOfType:WMFHomeSectionTypePictureOfTheDay];
 }
 
 - (nullable WMFHomeSection*)continueReadingSection {
