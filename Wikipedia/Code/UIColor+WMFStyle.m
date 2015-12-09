@@ -219,4 +219,14 @@
     return c;
 }
 
++ (instancetype)wmf_settingsBackgroundColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
+    });
+    return c;
+}
+
 @end

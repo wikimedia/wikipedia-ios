@@ -5,7 +5,7 @@
 #import "MWKTitleLanguageController.h"
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
-#import "Defines.h"
+#import "UIColor+WMFStyle.h"
 #import "UIViewController+Alert.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
@@ -69,23 +69,23 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     }];
     self.navigationItem.leftBarButtonItems = @[xButton];
 
-    self.tableView.backgroundColor = CHROME_COLOR;
+    self.tableView.backgroundColor = [UIColor wmf_settingsBackgroundColor];
 
     [self.tableView registerClass:[UITableViewHeaderFooterView class]
      forHeaderFooterViewReuseIdentifier:LangaugesSectionFooterReuseIdentifier];
 
-    self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight * MENUS_SCALE_MULTIPLIER;
+    self.tableView.estimatedRowHeight = WMFOtherLanguageRowHeight;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
     // remove a 1px black border around the search field
-    self.languageFilterField.layer.borderColor = [CHROME_COLOR CGColor];
+    self.languageFilterField.layer.borderColor = [[UIColor wmf_settingsBackgroundColor] CGColor];
     self.languageFilterField.layer.borderWidth = 1.f;
 
     // stylize
     if ([self.languageFilterField respondsToSelector:@selector(setReturnKeyType:)]) {
         [self.languageFilterField setReturnKeyType:UIReturnKeyDone];
     }
-    self.languageFilterField.barTintColor = CHROME_COLOR;
+    self.languageFilterField.barTintColor = [UIColor wmf_settingsBackgroundColor];;
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 }
 
@@ -282,7 +282,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 - (UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
     UITableViewHeaderFooterView* footerView =
         [tableView dequeueReusableHeaderFooterViewWithIdentifier:LangaugesSectionFooterReuseIdentifier];
-    footerView.contentView.backgroundColor = CHROME_COLOR;
+    footerView.contentView.backgroundColor = [UIColor wmf_settingsBackgroundColor];;
     return footerView;
 }
 
