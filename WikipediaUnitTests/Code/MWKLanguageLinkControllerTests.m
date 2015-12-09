@@ -86,7 +86,6 @@
     }], describedAs(@"All filtered languages have a name or localized name containing filter ignoring case",
                     isEmpty(), nil));
     [self verifyAllLanguageArrayProperties];
-
 }
 
 - (void)testEmptyAfterFiltering {
