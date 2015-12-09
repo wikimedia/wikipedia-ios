@@ -125,7 +125,7 @@ CHECKOUT OPTIONS:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
   TSMessages:
-    :commit: 3e5b2f6f9f9ac5a3ce7b2822cad606e56c223b5f
+    :commit: 1323e2a8f32b5b9ccea307718dad0f2c9701b9d6
     :git: https://github.com/wikimedia/TSMessages.git
 
 SPEC CHECKSUMS:
