@@ -301,7 +301,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFHomeSection*)item {
-    return [[WMFFeaturedArticleSectionController alloc] initWithSite:self.searchSite savedPageList:self.savedPages];
+    return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site savedPageList:self.savedPages];
 }
 
 #pragma mark - Section Management
