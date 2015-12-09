@@ -28,7 +28,7 @@
 QuickSpecBegin(WMFBaseImageGalleryViewControllerTests)
 
 describe(@"setDataSource:", ^{
-    __block WMFBaseImageGalleryViewController * baseGalleryVC;
+    __block WMFBaseImageGalleryViewController* baseGalleryVC;
     __block WMFDummyGalleryDataSource* dummyDataSource;
 
     beforeEach(^{
@@ -36,7 +36,7 @@ describe(@"setDataSource:", ^{
         dummyDataSource = [[WMFDummyGalleryDataSource alloc] initWithItems:@[@0, @1, @2]];
     });
 
-    context(@"before its view is loaded",^ {
+    context(@"before its view is loaded", ^{
         afterEach(^{
             expect(@(baseGalleryVC.isViewLoaded))
             .toWithDescription(beFalse(), @"Setting the data source shouldn't cause the view to load.");
@@ -64,7 +64,7 @@ QuickSpecEnd
 
 QuickConfigurationBegin(WMFBaseImageGalleryViewControllerTestsConfig)
 
-+ (void)configure:(Configuration*)configuration {
++ (void)configure : (Configuration*)configuration {
     sharedExamples(@"an RTL compliant gallery", ^(QCKDSLSharedExampleContext exampleContextProvider) {
         __block WMFBaseImageGalleryViewController* gallery;
         __block SSBaseDataSource<WMFImageGalleryDataSource>* dataSource;

@@ -21,6 +21,6 @@
  *
  *  @return A new data source.
  */
-- (instancetype)wmf_initWithItemsAndReverseIfNeeded:(NSArray *)items;
+- (instancetype)wmf_initWithItemsAndReverseIfNeeded:(NSArray*)items;
 
 @end
