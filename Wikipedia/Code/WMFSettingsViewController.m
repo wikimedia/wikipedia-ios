@@ -44,6 +44,7 @@
 
 // Other
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "Wikipedia-Swift.h"
 
 #pragma mark - Defines
 
@@ -122,7 +123,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
     self.highlightedTextAttributes = @{ NSFontAttributeName: [UIFont italicSystemFontOfSize:MENU_TITLE_FONT_SIZE] };
 
-    self.view.backgroundColor = CHROME_COLOR;
+    self.view.backgroundColor = [UIColor wmf_settingsBackgroundColor];
 
     self.scrollView.clipsToBounds    = NO;
     self.scrollView.minSubviewHeight = 45;
@@ -301,8 +302,11 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
 
-    NSString* languageCode              = [SessionSingleton sharedInstance].searchSite.language;
-    NSString* languageName              = [WikipediaAppUtils languageNameForCode:languageCode];
+    NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
+    NSString* languageName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:languageCode];
+    if (!languageName) {
+        languageName = [WikipediaAppUtils languageNameForCode:languageCode];
+    }
     NSAttributedString* searchWikiTitle =
         [MWLocalizedString(@"main-menu-language-title", nil) attributedStringWithAttributes:nil
                                                                         substitutionStrings:@[languageName]
