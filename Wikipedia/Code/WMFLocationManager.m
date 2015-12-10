@@ -1,6 +1,5 @@
 
 #import "WMFLocationManager.h"
-
 #import "WMFLocationSearchFetcher.h"
 
 static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelDebug;
@@ -169,8 +168,29 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    DDLogInfo(@"%@ changed auth status to %d, attempting to monitor location.", self, status);
-    [self startMonitoringLocation];
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined: {
+            DDLogVerbose(@"Ignoring not determined status call, should have already requested authorization.");
+            break;
+        }
+
+        case kCLAuthorizationStatusDenied: {
+            WMF_TECH_DEBT_TODO(inform delegate that access was denied)
+            break;
+        }
+
+        case kCLAuthorizationStatusAuthorizedWhenInUse: {
+            DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
+            [self startMonitoringLocation];
+            break;
+        }
+
+        default: {
+            DDLogError(@"%@ was called with unexpected authorization status: %d", self, status);
+            NSAssert(NO, @"Unexpected location authorization status: %d", status);
+            break;
+        }
+    }
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations {
