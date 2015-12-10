@@ -8,8 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFFeaturedArticleSectionController : NSObject<WMFArticleHomeSectionController>
 
 @property (nonatomic, strong, readonly) MWKSite* site;
+@property (nonatomic, strong, readonly) NSDate* date;
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList;
+- (instancetype)initWithSite:(MWKSite*)site date:(NSDate*)date savedPageList:(MWKSavedPageList*)savedPageList;
 
 @end
 

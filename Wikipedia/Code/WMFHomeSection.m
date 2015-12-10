@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeSection ()
 
 @property (nonatomic, assign, readwrite) WMFHomeSectionType type;
+@property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
 @property (nonatomic, strong, readwrite) CLLocation* location;
@@ -23,6 +24,17 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super init];
     if (self) {
         self.dateCreated = [NSDate date];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder*)coder {
+    self = [super initWithCoder:coder];
+    if (self) {
+        //site was added after persistence. We need to provide a default value.
+        if (self.type == WMFHomeSectionTypeFeaturedArticle && self.site == nil) {
+            self.site = [MWKSite siteWithLanguage:@"en"];
+        }
     }
     return self;
 }
@@ -99,9 +111,11 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)featuredSection {
++ (instancetype)featuredArticleSectionWithSite:(MWKSite*)site {
+    NSParameterAssert(site);
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type = WMFHomeSectionTypeFeaturedArticle;
+    item.site = site;
     return item;
 }
 
