@@ -16,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticleSectionIdentifier";
+static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeaturedArticleSectionIdentifier";
 
 @interface WMFFeaturedArticleSectionController ()
 
@@ -70,7 +70,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 #pragma mark - HomeSectionController
 
 - (id)sectionIdentifier {
-    return WMFFeaturedArticleSectionIdentifier;
+    return [WMFFeaturedArticleSectionIdentifierPrefix stringByAppendingString:self.date.description];
 }
 
 - (UIImage*)headerIcon {
