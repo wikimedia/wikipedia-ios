@@ -571,10 +571,11 @@ NS_ASSUME_NONNULL_BEGIN
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
 
-            if (self.discoveryMethod != MWKHistoryDiscoveryMethodSaved && ![error wmf_isNetworkConnectionError]) {
-                //do not show error for saved pages when there is a network issue
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+            if (self.discoveryMethod == MWKHistoryDiscoveryMethodSaved && [self.article isCached]) {
+                return;
             }
+
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
 
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
