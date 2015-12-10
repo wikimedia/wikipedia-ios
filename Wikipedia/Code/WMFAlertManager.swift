@@ -32,85 +32,85 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         TSMessage.addCustomDesignFromFileWithName("AlertDesign.json")
         super.init()
     }
-   
+    
     public func showAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
-        
-        if(dismissPreviousAlerts){
-            self.dismissAllAlerts()
-        }
-        
-        TSMessage.showNotificationInViewController(nil,
-            title: message,
-            subtitle: nil,
-            image: nil,
-            type: .Message,
-            duration: sticky ? -1 : 2,
-            callback: tapCallBack,
-            buttonTitle: nil,
-            buttonCallback: {},
-            atPosition: .Top,
-            canBeDismissedByUser: true)
-        
+    
+         self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            TSMessage.showNotificationInViewController(nil,
+                title: message,
+                subtitle: nil,
+                image: nil,
+                type: .Message,
+                duration: sticky ? -1 : 2,
+                callback: tapCallBack,
+                buttonTitle: nil,
+                buttonCallback: {},
+                atPosition: .Top,
+                canBeDismissedByUser: true)
+        })
     }
 
     public func showSuccessAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
         
-        if(dismissPreviousAlerts){
-            self.dismissAllAlerts()
-        }
+        self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            TSMessage.showNotificationInViewController(nil,
+                title: message,
+                subtitle: nil,
+                image: nil,
+                type: .Success,
+                duration: sticky ? -1 : 2,
+                callback: tapCallBack,
+                buttonTitle: nil,
+                buttonCallback: {},
+                atPosition: .Top,
+                canBeDismissedByUser: true)
 
-        TSMessage.showNotificationInViewController(nil,
-            title: message,
-            subtitle: nil,
-            image: nil,
-            type: .Success,
-            duration: sticky ? -1 : 2,
-            callback: tapCallBack,
-            buttonTitle: nil,
-            buttonCallback: {},
-            atPosition: .Top,
-            canBeDismissedByUser: true)
-        
+        })
     }
 
     public func showWarningAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
         
-        if(dismissPreviousAlerts){
-            self.dismissAllAlerts()
-        }
-
-        TSMessage.showNotificationInViewController(nil,
-            title: message,
-            subtitle: nil,
-            image: nil,
-            type: .Warning,
-            duration: sticky ? -1 : 2,
-            callback: tapCallBack,
-            buttonTitle: nil,
-            buttonCallback: {},
-            atPosition: .Top,
-            canBeDismissedByUser: true)
-        
+        self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            TSMessage.showNotificationInViewController(nil,
+                title: message,
+                subtitle: nil,
+                image: nil,
+                type: .Warning,
+                duration: sticky ? -1 : 2,
+                callback: tapCallBack,
+                buttonTitle: nil,
+                buttonCallback: {},
+                atPosition: .Top,
+                canBeDismissedByUser: true)
+        })
     }
 
     public func showErrorAlert(error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
         
-        if(dismissPreviousAlerts){
-            self.dismissAllAlerts()
-        }
-
-        TSMessage.showNotificationInViewController(nil,
-            title: error.alertMessage(),
-            subtitle: nil,
-            image: nil,
-            type: error.alertType(),
-            duration: sticky ? -1 : 2,
-            callback: tapCallBack,
-            buttonTitle: nil,
-            buttonCallback: {},
-            atPosition: .Top,
-            canBeDismissedByUser: true)
+        self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            TSMessage.showNotificationInViewController(nil,
+                title: error.alertMessage(),
+                subtitle: nil,
+                image: nil,
+                type: error.alertType(),
+                duration: sticky ? -1 : 2,
+                callback: tapCallBack,
+                buttonTitle: nil,
+                buttonCallback: {},
+                atPosition: .Top,
+                canBeDismissedByUser: true)
+        })
+    }
+    
+    func showAlert(dismissPreviousAlerts:Bool, alertBlock: dispatch_block_t){
         
+        if(dismissPreviousAlerts){
+            TSMessage.dismissAllNotificationsWithCompletion({ () -> Void in
+                alertBlock()
+            })
+        }else{
+            alertBlock()
+        }
     }
     
     public func dismissAlert() {
