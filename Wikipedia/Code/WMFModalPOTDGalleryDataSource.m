@@ -10,11 +10,12 @@
 #import "MWKImageInfo.h"
 #import "MWKImageInfoFetcher+PicOfTheDayInfo.h"
 #import "NSDate+WMFDateRanges.h"
-#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
-#import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "NSDate+Utilities.h"
+#import "SSArrayDataSource+WMFReverseIfRTL.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+NSUInteger const WMFDefaultNumberOfPOTDDates = 15;
 
 @interface WMFModalPOTDGalleryDataSource ()
 
@@ -35,13 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
        in the initializer (pulled from home section schema items) or calculated from the arbitrary date (see
        wmf_datesUntilToday).
      */
-    NSArray<NSDate*>* dates = [[date dateBySubtractingDays:15] wmf_datesUntilDate:date];
-
-    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
-        dates = [dates wmf_reverseArrayIfApplicationIsRTL];
-    }
-
-    self = [super initWithItems:dates];
+    NSArray<NSDate*>* dates = [[date dateBySubtractingDays:WMFDefaultNumberOfPOTDDates] wmf_datesUntilDate:date];
+    self = [self wmf_initWithItemsAndReverseIfNeeded:dates];
     if (self) {
         self.homeInfo    = [NSMutableDictionary dictionaryWithObject:info forKey:dates.firstObject];
         self.galleryInfo = [NSMutableDictionary new];
