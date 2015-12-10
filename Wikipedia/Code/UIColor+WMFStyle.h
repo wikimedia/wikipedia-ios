@@ -42,6 +42,9 @@
  */
 + (instancetype)wmf_lightGrayColor;
 
+
++ (instancetype)wmf_999999Color;
+
 + (instancetype)wmf_placeholderImageTintColor;
 
 + (instancetype)wmf_placeholderImageBackgroundColor;
@@ -59,5 +62,7 @@
 + (instancetype)wmf_nearbyDistanceBackgroundColor;
 
 + (instancetype)wmf_nearbyDistanceTextColor;
+
++ (instancetype)wmf_emptyGrayTextColor;
 
 @end
