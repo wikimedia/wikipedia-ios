@@ -1,6 +1,7 @@
 {
     "success": {
         "backgroundColor": "#333333",
+        "blurBackground": false,
         "borderColor": "#005700",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -8,6 +9,7 @@
         "contentFontSize": 12,
         "contentTextColor": "#20c79d",
         "imageName": "good",
+        "imageTintColor": "#20c79d",
         "shadowColor": "#67B759",
         "shadowOffsetX": 0,
         "shadowOffsetY": 0,
@@ -16,6 +18,7 @@
     },
     "message": {
         "backgroundColor": "#333333",
+        "blurBackground": false,
         "borderColor": "#727C83",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -31,6 +34,7 @@
     },
     "warning": {
         "backgroundColor": "#333333",
+        "blurBackground": false,
         "borderColor": "#A28918",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -38,6 +42,7 @@
         "contentFontSize": 12,
         "contentTextColor": "#f2b65b",
         "imageName": "bad",
+        "imageTintColor": "#f2b65b",
         "shadowColor": "#E5D87C",
         "shadowOffsetX": 0,
         "shadowOffsetY": 0,
@@ -46,6 +51,7 @@
     },
     "error": {
         "backgroundColor": "#333333",
+        "blurBackground": false,
         "borderColor": "#700000",
         "borderHeight": 1,
         "buttonImageName": "close-mini",
@@ -53,6 +59,7 @@
         "contentFontSize": 12,
         "contentTextColor": "#f56679",
         "imageName": "broken",
+        "imageTintColor": "#f56679",
         "shadowColor": "#812929",
         "shadowOffsetX": 0,
         "shadowOffsetY": 0,
