@@ -97,8 +97,8 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self loadLanguages];
 }
 
@@ -121,11 +121,14 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     [self.titleLanguageController
      fetchLanguagesWithSuccess:^{
         @strongify(self)
-        [[WMFAlertManager sharedInstance] dismissAlert];
+        //This can fire rather quickly, lets give the user a chance to read the message before we dismiss
+        dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+            [[WMFAlertManager sharedInstance] dismissAlert];
+        });
         [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     } failure:^(NSError* __nonnull error) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     }];
 }
 
