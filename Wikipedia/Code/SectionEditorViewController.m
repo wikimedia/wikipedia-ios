@@ -5,7 +5,6 @@
 
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
-#import "UIViewController+Alert.h"
 #import "QueuesSingleton.h"
 #import "WikiTextSectionFetcher.h"
 #import "PreviewAndSaveViewController.h"
@@ -16,6 +15,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIScrollView+WMFScrollsToTop.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
 
 #define EDIT_TEXT_VIEW_FONT [UIFont systemFontOfSize:16.0f * MENUS_SCALE_MULTIPLIER]
 #define EDIT_TEXT_VIEW_LINE_HEIGHT_MIN (25.0f * MENUS_SCALE_MULTIPLIER)
@@ -54,7 +54,7 @@
         @strongify(self)
 
         if (![self changesMade]) {
-            [self showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) type:ALERT_TYPE_TOP duration:1];
+            [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO tapCallBack:NULL];
         } else {
             [self preview];
         }
@@ -147,10 +147,10 @@
                     } else {
                         msg = MWLocalizedString(@"page_protected_other", nil);
                     }
-                    [self showAlert:msg type:ALERT_TYPE_TOP duration:1];
+                    [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO tapCallBack:NULL];
                 } else {
                     //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
-                    [self fadeAlert];
+                    [[WMFAlertManager sharedInstance] hideAlert];
                 }
                 self.unmodifiedWikiText          = revision;
                 self.editTextView.attributedText = [self getAttributedString:revision];
@@ -166,13 +166,13 @@
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED: {
-                NSString* errorMsg = error.localizedDescription;
-                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {
-                NSString* errorMsg = error.localizedDescription;
-                [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+
             }
             break;
         }
@@ -180,7 +180,7 @@
 }
 
 - (void)loadLatestWikiTextForSectionFromServer {
-    [self showAlert:MWLocalizedString(@"wikitext-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-downloading", nil) sticky:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager.operationQueue cancelAllOperations];
 

@@ -573,7 +573,7 @@ NS_ASSUME_NONNULL_BEGIN
 
             if (self.discoveryMethod != MWKHistoryDiscoveryMethodSaved && ![error wmf_isNetworkConnectionError]) {
                 //do not show error for saved pages when there is a network issue
-                [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithError:error] tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
             }
 
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);

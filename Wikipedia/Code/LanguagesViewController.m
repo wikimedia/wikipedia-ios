@@ -6,7 +6,6 @@
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
-#import "UIViewController+Alert.h"
 #import "UIView+ConstraintsScale.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
@@ -114,7 +113,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 - (void)downloadArticlelanguages {
-    [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeArticleLanguageDownload] tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"article-languages-downloading", nil) sticky:YES tapCallBack:NULL];
     // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
     [self setLanguageFilterHidden:YES animated:NO];
 
@@ -122,12 +121,11 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     [self.titleLanguageController
      fetchLanguagesWithSuccess:^{
         @strongify(self)
-        [self fadeAlert];
+        [[WMFAlertManager sharedInstance] hideAlert];
         [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     } failure:^(NSError* __nonnull error) {
-        @strongify(self)
-        [self showAlert : error.localizedDescription type : ALERT_TYPE_TOP duration : -1];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
     }];
 }
 
@@ -155,7 +153,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [self fadeAlert];
+    [[WMFAlertManager sharedInstance] hideAlert];
     [self.tableView reloadData];
 }
 
