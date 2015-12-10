@@ -9,6 +9,7 @@
 #import "MWKLanguageLink.h"
 #import "NSObjectUtilities.h"
 #import "MWKTitle.h"
+#import "WikipediaAppUtils.h"
 
 @interface MWKLanguageLink ()
 
@@ -47,7 +48,7 @@ WMF_SYNTHESIZE_IS_EQUAL(MWKLanguageLink, isEqualToLanguageLink :)
 }
 
 - (NSComparisonResult)compare:(MWKLanguageLink*)other {
-    return [self.localizedName compare:other.localizedName];
+    return [self.languageCode compare:other.languageCode];
 }
 
 - (NSUInteger)hash {

@@ -44,15 +44,18 @@
     } else {
         self.filteredLanguages = [self.dataSource.allLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter]
-            || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter];
+            || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter]
+            || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
         }];
         self.filteredPreferredLanguages = [self.dataSource.preferredLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter]
-            || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter];
+            || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter]
+            || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
         }];
         self.filteredOtherLanguages = [self.dataSource.otherLanguages bk_select:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.name wmf_caseInsensitiveContainsString:self.languageFilter]
-            || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter];
+            || [langLink.localizedName wmf_caseInsensitiveContainsString:self.languageFilter]
+            || [langLink.languageCode wmf_caseInsensitiveContainsString:self.languageFilter];
         }];
     }
 }
