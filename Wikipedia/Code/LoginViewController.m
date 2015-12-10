@@ -245,7 +245,7 @@
                 [SessionSingleton sharedInstance].keychainCredentials.password = fetchedData[@"password"];
 
                 //NSString *result = loginResult[@"login"][@"result"];
-                [[WMFAlertManager sharedInstance] showAlert:loginStatus sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showSuccessAlert:loginStatus sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 self.successBlock();
 
