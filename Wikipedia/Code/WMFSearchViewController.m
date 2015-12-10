@@ -464,7 +464,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)updateLanguageButtonsToPreferredLanguages {
     [self updateLanguages];
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj setTitle:[(MWKLanguageLink*)self.searchLanguages[idx] name]  forState:UIControlStateNormal];
+        [obj setTitle:[(MWKLanguageLink*)self.searchLanguages[idx] localizedName]  forState:UIControlStateNormal];
     }];
     [self resizeLanguageButtonsIfNeeded];
 }

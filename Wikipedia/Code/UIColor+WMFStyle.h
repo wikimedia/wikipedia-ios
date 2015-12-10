@@ -65,4 +65,6 @@
 
 + (instancetype)wmf_emptyGrayTextColor;
 
++ (instancetype)wmf_settingsBackgroundColor;
+
 @end
