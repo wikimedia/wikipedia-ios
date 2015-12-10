@@ -12,14 +12,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="jDP-Yy-8ig">
-                    <rect key="frame" x="40" y="190" width="520" height="160.5"/>
+                    <rect key="frame" x="40" y="189.5" width="520" height="161.5"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" image="no-internet" translatesAutoresizingMaskIntoConstraints="NO" id="Vjd-6b-y2g">
                             <rect key="frame" x="229" y="0.0" width="62" height="65"/>
                             <animations/>
                         </imageView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="e0A-Uz-XiC">
-                            <rect key="frame" x="240.5" y="105" width="39.5" height="55.5"/>
+                            <rect key="frame" x="240.5" y="105" width="39.5" height="56.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bja-IW-pcW">
                                     <rect key="frame" x="0.0" y="0.0" width="39.5" height="19.5"/>
@@ -29,9 +29,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEx-fr-wkW">
-                                    <rect key="frame" x="0.0" y="39.5" width="39.5" height="16"/>
+                                    <rect key="frame" x="0.0" y="39.5" width="39.5" height="17"/>
                                     <animations/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.59993284940719604" green="0.60003870725631714" blue="0.5999261736869812" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
