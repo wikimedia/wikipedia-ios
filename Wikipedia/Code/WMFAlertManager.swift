@@ -102,6 +102,23 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         })
     }
     
+    public func showErrorAlertWithMessage(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+        
+        self.showAlert(dismissPreviousAlerts, alertBlock: { () -> Void in
+            TSMessage.showNotificationInViewController(nil,
+                title: message,
+                subtitle: nil,
+                image: nil,
+                type: .Error,
+                duration: sticky ? -1 : 2,
+                callback: tapCallBack,
+                buttonTitle: nil,
+                buttonCallback: {},
+                atPosition: .Top,
+                canBeDismissedByUser: true)
+        })
+    }
+
     func showAlert(dismissPreviousAlerts:Bool, alertBlock: dispatch_block_t){
         
         if(dismissPreviousAlerts){

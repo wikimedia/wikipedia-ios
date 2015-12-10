@@ -371,7 +371,7 @@
         NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
-        [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFail:^(){
         [self enableProgressiveButton:YES];
@@ -426,14 +426,18 @@
                 [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
-                [self.funnel logError:error.localizedDescription];
+
 
                 if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
                     self.captchaId            = error.userInfo[@"captchaId"];
                     self.captchaUrl           = error.userInfo[@"captchaUrl"];
                     self.showCaptchaContainer = YES;
+                    [[WMFAlertManager sharedInstance] showWarningAlert:error.localizedDescription sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                } else {
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 }
+
+                [self.funnel logError:error.localizedDescription];
                 break;
         }
     }
@@ -482,13 +486,13 @@
 
 - (void)save {
     if (![self areRequiredFieldsPopulated]) {
-        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-missing-fields", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:MWLocalizedString(@"account-creation-missing-fields", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         return;
     }
 
     // Verify passwords fields match.
     if (![self isPasswordConfirmationCorrect]) {
-        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:MWLocalizedString(@"account-creation-passwords-mismatched", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         return;
     }
 
