@@ -8,6 +8,8 @@
 #import <BlocksKit/BlocksKit.h>
 #import "MediaWikiKit.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSUInteger MegabytesToBytes(NSUInteger m) {
     static NSUInteger const MEGABYTE = 1 << 20;
     return m * MEGABYTE;
@@ -185,3 +187,6 @@ static WMFAssetsFile* languageFile = nil;
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
+
