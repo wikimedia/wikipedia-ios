@@ -16,11 +16,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticleSectionIdentifier";
+static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeaturedArticleSectionIdentifier";
 
 @interface WMFFeaturedArticleSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
+@property (nonatomic, strong, readwrite) NSDate* date;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
@@ -33,11 +34,13 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 
 @synthesize delegate = _delegate;
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
+- (instancetype)initWithSite:(MWKSite*)site date:(NSDate*)date savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
+    NSParameterAssert(date);
     self = [super init];
     if (self) {
         self.site          = site;
+        self.date          = date;
         self.savedPageList = savedPageList;
         [self fetchData];
     }
@@ -67,7 +70,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 #pragma mark - HomeSectionController
 
 - (id)sectionIdentifier {
-    return WMFFeaturedArticleSectionIdentifier;
+    return [WMFFeaturedArticleSectionIdentifierPrefix stringByAppendingString:self.date.description];
 }
 
 - (UIImage*)headerIcon {
@@ -77,7 +80,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
 - (NSAttributedString*)headerText {
     return
         [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:[NSDate date]]]
+                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:self.date]]
                                                                           substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}]];
 }
 
@@ -131,7 +134,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifier = @"WMFFeaturedArticl
     }
 
     @weakify(self);
-    [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:[NSDate date]].then(^(MWKSearchResult* data) {
+    [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:self.date].then(^(MWKSearchResult* data) {
         @strongify(self);
         self.featuredArticlePreview = data;
         [self.delegate controller:self didSetItems:self.items];

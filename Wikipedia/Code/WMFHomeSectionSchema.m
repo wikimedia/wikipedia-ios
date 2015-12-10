@@ -14,7 +14,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSUInteger const WMFMaximumNumberOfNonStaticSections = 20;
+static NSUInteger const WMFMaximumNumberOfHistoryAndSavedSections = 20;
+static NSUInteger const WMFMaximumNumberOfFeaturedSections        = 10;
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
@@ -145,6 +146,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     //Get updated static sections
     NSMutableArray<WMFHomeSection*>* sections = [[self staticSections] mutableCopy];
 
+    //Add featured articles
+    [sections addObjectsFromArray:[self featuredSections]];
+
     //Add Saved and History
     NSArray<WMFHomeSection*>* recent = [self historyAndSavedPageSections];
     if ([recent count] > 0) {
@@ -185,7 +189,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     [sections wmf_safeAddObject:[self existingNearbySection]];
     [sections wmf_safeAddObject:[self randomSection]];
-    [sections wmf_safeAddObject:[self featuredArticleSection]];
     [sections addObject:[self mainPageSection]];
     [sections addObject:[self picOfTheDaySection]];
     [sections wmf_safeAddObject:[self continueReadingSection]];
@@ -232,7 +235,46 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Daily Sections
 
-- (WMFHomeSection*)getOrCreateTodaysSectionOfType:(WMFHomeSectionType)type {
+- (NSArray<WMFHomeSection*>*)featuredSections {
+    NSArray* previous = [self.sections bk_select:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
+            return YES;
+        }
+        return NO;
+    }];
+
+    //Don't add new ones if we aren't in english
+    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
+        return previous;
+    }
+
+    NSMutableArray* featured = [NSMutableArray array];
+    [featured addObjectsFromArray:previous];
+
+    WMFHomeSection* today = [featured bk_match:^BOOL (WMFHomeSection* obj) {
+        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
+            if ([obj.dateCreated isToday]) {
+                return YES;
+            }
+        }
+        return NO;
+    }];
+
+    if (!today) {
+        [featured addObject:[WMFHomeSection featuredArticleSectionWithSite:self.site]];
+    }
+
+    NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
+
+    //Sort by date
+    [featured sortWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
+        return -[obj1.dateCreated compare:obj2.dateCreated];
+    }];
+
+    return [featured wmf_arrayByTrimmingToLength:max];
+}
+
+- (WMFHomeSection*)getOrCreateStaticTodaySectionOfType:(WMFHomeSectionType)type {
     WMFHomeSection* existingSection = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
         if (obj.type == type) {
             return YES;
@@ -246,8 +288,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     switch (type) {
-        case WMFHomeSectionTypeFeaturedArticle:
-            return [WMFHomeSection featuredSection];
         case WMFHomeSectionTypeMainPage:
             return [WMFHomeSection mainPageSection];
         case WMFHomeSectionTypePictureOfTheDay:
@@ -260,19 +300,11 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 - (WMFHomeSection*)mainPageSection {
-    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypeMainPage];
-}
-
-- (nullable WMFHomeSection*)featuredArticleSection {
-    //Never show if we are not in english
-    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
-        return nil;
-    }
-    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypeFeaturedArticle];
+    return [self getOrCreateStaticTodaySectionOfType:WMFHomeSectionTypeMainPage];
 }
 
 - (WMFHomeSection*)picOfTheDaySection {
-    return [self getOrCreateTodaysSectionOfType:WMFHomeSectionTypePictureOfTheDay];
+    return [self getOrCreateStaticTodaySectionOfType:WMFHomeSectionTypePictureOfTheDay];
 }
 
 - (nullable WMFHomeSection*)continueReadingSection {
@@ -294,8 +326,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (NSArray<WMFHomeSection*>*)historyAndSavedPageSections {
     NSMutableArray<WMFHomeSection*>* sections = [NSMutableArray array];
 
-    NSArray<WMFHomeSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:WMFMaximumNumberOfNonStaticSections];
-    NSArray<WMFHomeSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:WMFMaximumNumberOfNonStaticSections];
+    NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of history/saved", WMFMaximumNumberOfHistoryAndSavedSections);
+
+    NSArray<WMFHomeSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
+    NSArray<WMFHomeSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];
 
     [sections addObjectsFromArray:saved];
     [sections addObjectsFromArray:history];
@@ -305,7 +339,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
 
-    return [sections wmf_arrayByTrimmingToLength:WMFMaximumNumberOfNonStaticSections];
+    return [sections wmf_arrayByTrimmingToLength:max];
 }
 
 - (NSArray<WMFHomeSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
