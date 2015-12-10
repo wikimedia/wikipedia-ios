@@ -271,7 +271,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self enableProgressiveButton:NO];
 
-    [[WMFAlertManager sharedInstance] hideAlert];
+    [[WMFAlertManager sharedInstance] dismissAlert];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"UITextFieldTextDidChangeNotification"
@@ -303,7 +303,7 @@
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            [[WMFAlertManager sharedInstance] hideAlert];
+            [[WMFAlertManager sharedInstance] dismissAlert];
             [UIView animateWithDuration:duration animations:^{
                 self.captchaContainer.alpha = 0;
                 [self.scrollView setContentOffset:CGPointZero animated:NO];
@@ -352,7 +352,7 @@
 - (void)reloadCaptchaPushed:(id)sender {
     self.captchaViewController.captchaTextBox.text = @"";
 
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
@@ -365,13 +365,13 @@
     // Create detached loginVC just for logging in.
     self.detachedloginVC = [[LoginViewController alloc] init];
 
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-logging-in", nil) sticky:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-logging-in", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [self.detachedloginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
         NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
-        [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFail:^(){
         [self enableProgressiveButton:YES];
@@ -405,10 +405,10 @@
                                                            thenNotifyDelegate:self];
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 [self.funnel logError:error.localizedDescription];
                 break;
         }
@@ -418,15 +418,15 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
                 [self.funnel logSuccess];
-                [[WMFAlertManager sharedInstance] showAlert:fetchedData sticky:NO tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showAlert:fetchedData sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
                 //isAleadySaving = NO;
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 [self.funnel logError:error.localizedDescription];
 
                 if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
@@ -449,10 +449,10 @@
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 break;
         }
     }
@@ -482,18 +482,18 @@
 
 - (void)save {
     if (![self areRequiredFieldsPopulated]) {
-        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-missing-fields", nil) sticky:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-missing-fields", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         return;
     }
 
     // Verify passwords fields match.
     if (![self isPasswordConfirmationCorrect]) {
-        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) sticky:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         return;
     }
 
     // Save!
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
     (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language

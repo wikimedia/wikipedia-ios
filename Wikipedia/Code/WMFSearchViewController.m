@@ -368,7 +368,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }).then(^(WMFSearchResults* results){
         if ([searchTerm isEqualToString:results.searchTerm]) {
             if (results.results.count == 0) {
-                [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"search-no-matches", nil) sticky:NO tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"search-no-matches", nil) sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 
             }
         }
@@ -380,7 +380,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }).catch(^(NSError* error){
         @strongify(self);
         if ([searchTerm isEqualToString:self.searchField.text]) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             DDLogError(@"Encountered search error: %@", error);
         }
     });

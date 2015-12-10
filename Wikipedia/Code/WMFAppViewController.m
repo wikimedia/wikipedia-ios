@@ -192,16 +192,16 @@ static dispatch_once_t launchToken;
             [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
         }
         if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
         if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
     }
 }

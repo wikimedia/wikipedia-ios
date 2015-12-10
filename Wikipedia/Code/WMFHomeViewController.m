@@ -624,7 +624,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
-    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 }
 
 #pragma mark - WMFSearchPresentationDelegate

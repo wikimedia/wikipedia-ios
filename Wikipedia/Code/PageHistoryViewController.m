@@ -87,16 +87,16 @@
             case FETCH_FINAL_STATUS_SUCCEEDED:
 
                 self.pageHistoryDataArray = pageHistoryDataArray;
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 [self.tableView reloadData];
 
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
 
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
                 break;
         }
     }

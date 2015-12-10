@@ -184,7 +184,7 @@
         NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
-        [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:NO tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFail:^{
@@ -219,13 +219,13 @@
             break;
             case FETCH_FINAL_STATUS_CANCELLED:
 
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 self.failBlock();
 
                 break;
             case FETCH_FINAL_STATUS_FAILED:
 
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 self.failBlock();
                 [self.funnel logError:error.localizedDescription];
 
@@ -245,7 +245,7 @@
                 [SessionSingleton sharedInstance].keychainCredentials.password = fetchedData[@"password"];
 
                 //NSString *result = loginResult[@"login"][@"result"];
-                [[WMFAlertManager sharedInstance] showAlert:loginStatus sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showAlert:loginStatus sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 self.successBlock();
 
@@ -257,13 +257,13 @@
             break;
             case FETCH_FINAL_STATUS_CANCELLED:
 
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 self.failBlock();
 
                 break;
             case FETCH_FINAL_STATUS_FAILED:
 
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 self.failBlock();
                 [self.funnel logError:error.localizedDescription];
 
@@ -276,7 +276,7 @@
                  password:(NSString*)password
                 onSuccess:(void (^)(void))successBlock
                    onFail:(void (^)(void))failBlock {
-    [[WMFAlertManager sharedInstance] hideAlert];
+    [[WMFAlertManager sharedInstance] dismissAlert];
 
     // Fix for iOS 6 crashing on empty credentials.
     if (!userName) {

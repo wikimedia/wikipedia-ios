@@ -54,7 +54,7 @@
         @strongify(self)
 
         if (![self changesMade]) {
-            [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes-none", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
         } else {
             [self preview];
         }
@@ -147,10 +147,10 @@
                     } else {
                         msg = MWLocalizedString(@"page_protected_other", nil);
                     }
-                    [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO tapCallBack:NULL];
+                    [[WMFAlertManager sharedInstance] showAlert:msg sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 } else {
                     //[self showAlert:MWLocalizedString(@"wikitext-download-success", nil) type:ALERT_TYPE_TOP duration:1];
-                    [[WMFAlertManager sharedInstance] hideAlert];
+                    [[WMFAlertManager sharedInstance] dismissAlert];
                 }
                 self.unmodifiedWikiText          = revision;
                 self.editTextView.attributedText = [self getAttributedString:revision];
@@ -166,12 +166,12 @@
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
             }
             break;
@@ -180,7 +180,7 @@
 }
 
 - (void)loadLatestWikiTextForSectionFromServer {
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-downloading", nil) sticky:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-downloading", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionWikiTextDownloadManager.operationQueue cancelAllOperations];
 

@@ -33,7 +33,11 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         super.init()
     }
    
-    public func showAlert(message: String, sticky:Bool, tapCallBack: dispatch_block_t?) {
+    public func showAlert(message: String, sticky:Bool, dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
+        
+        if(dismissPreviousAlerts){
+            self.dismissAllAlerts()
+        }
         
         TSMessage.showNotificationInViewController(nil,
             title: message,
@@ -49,8 +53,12 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         
     }
 
-    public func showSuccessAlert(message: String, sticky:Bool, tapCallBack: dispatch_block_t?) {
+    public func showSuccessAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
         
+        if(dismissPreviousAlerts){
+            self.dismissAllAlerts()
+        }
+
         TSMessage.showNotificationInViewController(nil,
             title: message,
             subtitle: nil,
@@ -65,8 +73,12 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         
     }
 
-    public func showWarningAlert(message: String, sticky:Bool, tapCallBack: dispatch_block_t?) {
+    public func showWarningAlert(message: String, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
         
+        if(dismissPreviousAlerts){
+            self.dismissAllAlerts()
+        }
+
         TSMessage.showNotificationInViewController(nil,
             title: message,
             subtitle: nil,
@@ -81,8 +93,12 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         
     }
 
-    public func showErrorAlert(error: NSError, sticky:Bool, tapCallBack: dispatch_block_t?) {
+    public func showErrorAlert(error: NSError, sticky:Bool,dismissPreviousAlerts:Bool, tapCallBack: dispatch_block_t?) {
         
+        if(dismissPreviousAlerts){
+            self.dismissAllAlerts()
+        }
+
         TSMessage.showNotificationInViewController(nil,
             title: error.alertMessage(),
             subtitle: nil,
@@ -97,11 +113,16 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
         
     }
     
-    public func hideAlert() {
+    public func dismissAlert() {
         
         TSMessage.dismissActiveNotification()
     }
-    
+
+    public func dismissAllAlerts() {
+        
+        TSMessage.dismissAllNotifications()
+    }
+
     public func customizeMessageView(messageView: TSMessageView!) {
         
         
