@@ -35,7 +35,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
    
     public func showAlert(message: String, sticky:Bool, tapCallBack: dispatch_block_t?) {
         
-        TSMessage.showNotificationInViewController(TSMessage.defaultViewController(),
+        TSMessage.showNotificationInViewController(nil,
             title: message,
             subtitle: nil,
             image: nil,
@@ -51,7 +51,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
 
     public func showSuccessAlert(message: String, sticky:Bool, tapCallBack: dispatch_block_t?) {
         
-        TSMessage.showNotificationInViewController(TSMessage.defaultViewController(),
+        TSMessage.showNotificationInViewController(nil,
             title: message,
             subtitle: nil,
             image: nil,
@@ -67,7 +67,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
 
     public func showWarningAlert(message: String, sticky:Bool, tapCallBack: dispatch_block_t?) {
         
-        TSMessage.showNotificationInViewController(TSMessage.defaultViewController(),
+        TSMessage.showNotificationInViewController(nil,
             title: message,
             subtitle: nil,
             image: nil,
@@ -83,7 +83,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
 
     public func showErrorAlert(error: NSError, sticky:Bool, tapCallBack: dispatch_block_t?) {
         
-        TSMessage.showNotificationInViewController(TSMessage.defaultViewController(),
+        TSMessage.showNotificationInViewController(nil,
             title: error.alertMessage(),
             subtitle: nil,
             image: nil,
