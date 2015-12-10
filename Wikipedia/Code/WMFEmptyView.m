@@ -22,7 +22,7 @@
     return [[[UINib nibWithNibName:NSStringFromClass([WMFEmptyView class]) bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
 }
 
-+ (instancetype)noInternetEmptyView {
++ (instancetype)noFeedEmptyView {
     WMFEmptyView* view = [[self class] emptyView];
     view.imageView.image   = [UIImage imageNamed:@"no-internet"];
     view.titleLabel.text   = MWLocalizedString(@"empty-no-feed-title", nil);

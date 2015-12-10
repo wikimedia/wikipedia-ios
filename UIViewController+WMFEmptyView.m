@@ -23,8 +23,8 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 
     UIView* view = nil;
     switch (type) {
-        case WMFEmptyViewTypeNoInternet:
-            view = [WMFEmptyView noInternetEmptyView];
+        case WMFEmptyViewTypeNoFeed:
+            view = [WMFEmptyView noFeedEmptyView];
             break;
         case WMFEmptyViewTypeArticleDidNotLoad:
             view = [WMFEmptyView noArticleEmptyView];

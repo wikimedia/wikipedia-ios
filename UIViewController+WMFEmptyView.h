@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM (NSUInteger, WMFEmptyViewType) {
-    WMFEmptyViewTypeNoInternet,
+    WMFEmptyViewTypeNoFeed,
     WMFEmptyViewTypeArticleDidNotLoad,
     WMFEmptyViewTypeNoSearchResults
 };
