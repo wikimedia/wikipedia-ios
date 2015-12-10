@@ -3,8 +3,7 @@ osx_image: xcode7.1
 env:
   - IOS_VER="9.1" FL_ARGS="verify"
   - IOS_VER="9.1" FL_ARGS="verify scheme:WikipediaArabic"
-# For some reason, this consistently fails in Travis: https://github.com/wikimedia/wikipedia-ios/pull/305
-    #  - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER}"
+  - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER}"
   - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER} scheme:WikipediaArabic"
 
 install:
