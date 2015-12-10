@@ -204,17 +204,16 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 #pragma mark - Cell Specialization
 
 - (void)configurePreferredLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
-    MWKLanguageLink* langLink = self.languageFilter.filteredPreferredLanguages[row];
     cell.isPreferred           = YES;
-    cell.localizedLanguageName = langLink.localizedName;
-    cell.languageName          = langLink.name;
-    cell.articleTitle          = langLink.pageTitleText;
-    cell.languageCode          = [self stringForLanguageCode:langLink.languageCode];
+    [self configureCell:cell forLangLink:self.languageFilter.filteredPreferredLanguages[row]];
 }
 
 - (void)configureOtherLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
-    MWKLanguageLink* langLink = self.languageFilter.filteredOtherLanguages[row];
     cell.isPreferred           = NO;
+    [self configureCell:cell forLangLink:self.languageFilter.filteredOtherLanguages[row]];
+}
+
+- (void)configureCell:(LanguageCell*)cell forLangLink:(MWKLanguageLink*)langLink {
     cell.localizedLanguageName = langLink.localizedName;
     cell.languageName          = langLink.name;
     cell.articleTitle          = langLink.pageTitleText;
@@ -222,7 +221,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 - (NSString*)stringForLanguageCode:(NSString*)code {
-    return [NSString stringWithFormat:@"%@.wikipedia.org", code];
+    return [NSString stringWithFormat:@"%@.%@", code, WMFDefaultSiteDomain];
 }
 
 #pragma mark - UITableViewDataSource
