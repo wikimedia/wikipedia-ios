@@ -7,7 +7,6 @@
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
 #import "NSString+FormattedAttributedString.h"
-#import "UIViewController+Alert.h"
 #import "UIView+Debugging.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "AccountCreationViewController.h"

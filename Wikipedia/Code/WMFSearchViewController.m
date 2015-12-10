@@ -22,7 +22,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "NSString+Extras.h"
 #import "NSString+FormattedAttributedString.h"
-#import "UIViewController+Alert.h"
 #import "UIButton+WMFButton.h"
 #import "UIImage+WMFStyle.h"
 
@@ -369,7 +368,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }).then(^(WMFSearchResults* results){
         if ([searchTerm isEqualToString:results.searchTerm]) {
             if (results.results.count == 0) {
-                [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithType:WMFAlertTypeStaticError] tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"search-no-matches", nil) sticky:NO tapCallBack:NULL];
 
             }
         }
@@ -381,7 +380,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }).catch(^(NSError* error){
         @strongify(self);
         if ([searchTerm isEqualToString:self.searchField.text]) {
-            [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithError:error] tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
             DDLogError(@"Encountered search error: %@", error);
         }
     });

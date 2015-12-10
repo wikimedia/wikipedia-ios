@@ -7,11 +7,20 @@ extension NSError {
     
     public func alertMessage() -> String {
         if(self.wmf_isNetworkConnectionError()){
-            return "The network is unreachable"
+            return localizedStringForKeyFallingBackOnEnglish("alert-no-internet")
         }else{
             return self.localizedDescription
         }
     }
+    
+    public func alertType() -> TSMessageNotificationType {
+        if(self.wmf_isNetworkConnectionError()){
+            return .Warning
+        }else{
+            return .Error
+        }
+    }
+
 }
 
 
@@ -78,7 +87,7 @@ public class WMFAlertManager: NSObject, TSMessageViewProtocol {
             title: error.alertMessage(),
             subtitle: nil,
             image: nil,
-            type: .Error,
+            type: error.alertType(),
             duration: sticky ? -1 : 2,
             callback: tapCallBack,
             buttonTitle: nil,

@@ -6,7 +6,6 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
-#import "UIViewController+Alert.h"
 #import "NSDate+Utilities.h"
 #import "WikiGlyph_Chars.h"
 #import "Defines.h"
@@ -88,16 +87,16 @@
             case FETCH_FINAL_STATUS_SUCCEEDED:
 
                 self.pageHistoryDataArray = pageHistoryDataArray;
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] hideAlert];
                 [self.tableView reloadData];
 
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] hideAlert];
 
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showAlert:[[WMFAlert alloc] initWithStaticError:error] tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
                 break;
         }
     }
