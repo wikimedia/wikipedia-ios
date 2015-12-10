@@ -575,7 +575,7 @@ NS_ASSUME_NONNULL_BEGIN
                 return;
             }
 
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }

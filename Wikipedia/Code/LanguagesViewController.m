@@ -113,7 +113,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 - (void)downloadArticlelanguages {
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"article-languages-downloading", nil) sticky:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"article-languages-downloading", nil) sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
     // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
     [self setLanguageFilterHidden:YES animated:NO];
 
@@ -121,11 +121,11 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     [self.titleLanguageController
      fetchLanguagesWithSuccess:^{
         @strongify(self)
-        [[WMFAlertManager sharedInstance] hideAlert];
+        [[WMFAlertManager sharedInstance] dismissAlert];
         [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     } failure:^(NSError* __nonnull error) {
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
     }];
 }
 
@@ -153,7 +153,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [[WMFAlertManager sharedInstance] hideAlert];
+    [[WMFAlertManager sharedInstance] dismissAlert];
     [self.tableView reloadData];
 }
 

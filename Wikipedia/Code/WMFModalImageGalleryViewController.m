@@ -154,7 +154,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         .catch(^(NSError* error) {
             @strongify(self);
             [self.loadingIndicator stopAnimating];
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         });
     }
     return self;
@@ -484,7 +484,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }]
     .catch(^(NSError* error) {
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     });
 }
 
@@ -537,7 +537,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource didFailWithError:(NSError*)error {
     [self.loadingIndicator stopAnimating];
-    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 }
 
 - (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource

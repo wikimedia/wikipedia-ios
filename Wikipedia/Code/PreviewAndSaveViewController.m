@@ -454,7 +454,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController topActionSheetHide];
 
-    [[WMFAlertManager sharedInstance] hideAlert];
+    [[WMFAlertManager sharedInstance] dismissAlert];
 
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -476,7 +476,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
 
                 [self.bridge loadHTML:fetchedData withAssetsFile:@"preview.html"];
 
@@ -489,11 +489,11 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             }
             break;
             case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
             }
             break;
         }
@@ -527,10 +527,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 // Still try the uploadWikiTextOp even if EditTokenFetcher fails to get a token.
                 // EditTokenFetcher return an anonymous "+\" edit token if it doesn't find an edit token.
@@ -549,12 +549,12 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             break;
 
             case FETCH_FINAL_STATUS_CANCELLED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
             }
             break;
 
             case FETCH_FINAL_STATUS_FAILED: {
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                 switch (error.code) {
                     case WIKITEXT_UPLOAD_ERROR_NEEDS_CAPTCHA:
@@ -565,7 +565,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
                         self.captchaUrl = error.userInfo[@"captchaUrl"];
                         self.captchaId  = error.userInfo[@"captchaId"];
-                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
                         [self showImageForCaptcha];
                     }
@@ -592,7 +592,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                         // Hides the license panel. Needed if logged in and a disallow is triggered.
                         [self.navigationController topActionSheetHide];
 
-                        [[WMFAlertManager sharedInstance] hideAlert];
+                        [[WMFAlertManager sharedInstance] dismissAlert];
                         AbuseFilterAlertType alertType =
                             (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
                         [self showAbuseFilterAlertOfType:alertType];
@@ -623,10 +623,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [[WMFAlertManager sharedInstance] hideAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES tapCallBack:NULL];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 break;
         }
     }
@@ -662,7 +662,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)preview {
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) sticky:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-preview-changes", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].sectionPreviewHtmlFetchManager.operationQueue cancelAllOperations];
 
@@ -697,7 +697,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 // and your login session has expired), need to pop up alert asking user if they
 // want to log in before continuing with their edit
 
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-upload-save", nil) sticky:YES tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"wikitext-upload-save", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [self.funnel logSaveAttempt];
     if (self.savedPagesFunnel) {
@@ -751,7 +751,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 - (void)reloadCaptchaPushed:(id)sender {
     self.captchaViewController.captchaTextBox.text = @"";
-    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO tapCallBack:NULL];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].sectionWikiTextUploadManager.operationQueue cancelAllOperations];
     (void)[[CaptchaResetter alloc] initAndResetCaptchaForDomain:[SessionSingleton sharedInstance].currentArticleSite.language
                                                     withManager:[QueuesSingleton sharedInstance].sectionWikiTextUploadManager
