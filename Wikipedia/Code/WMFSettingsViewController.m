@@ -45,6 +45,7 @@
 
 // Other
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "Wikipedia-Swift.h"
 
 #pragma mark - Defines
 
@@ -303,7 +304,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
 
     NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
-    NSString* languageName = [WikipediaAppUtils localizedLanguageNameForCode:languageCode];
+    NSString* languageName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:languageCode];
     if (!languageName) {
         languageName = [WikipediaAppUtils languageNameForCode:languageCode];
     }

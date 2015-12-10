@@ -96,10 +96,6 @@ static WMFAssetsFile* languageFile = nil;
     }][@"name"];
 }
 
-+ (nullable NSString*)localizedLanguageNameForCode:(NSString*)code {
-    return [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:code];
-}
-
 #pragma mark Copy bundled assets folder and contents to app "AppData/Documents/assets/"
 
 + (void)copyAssetsFolderToAppDataDocuments {

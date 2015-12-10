@@ -18,8 +18,7 @@ extern NSUInteger MegabytesToBytes(NSUInteger m);
 + (NSString*)versionedUserAgent;
 + (NSString*)relativeTimestamp:(NSDate*)date;
 + (NSString*)languageNameForCode:(NSString*)code;
-+ (nullable NSString*)localizedLanguageNameForCode:(NSString*)code;
-+ (BOOL)              isDeviceLanguageRTL;
++ (BOOL)     isDeviceLanguageRTL;
 
 + (void)copyAssetsFolderToAppDataDocuments;
 

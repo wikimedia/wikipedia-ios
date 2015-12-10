@@ -16,6 +16,7 @@
 #import "WMFAssetsFile.h"
 #import "WikipediaAppUtils.h"
 #import <BlocksKit/BlocksKit.h>
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -76,7 +77,7 @@ static id _sharedInstance;
         if (![self isCompoundLanguageCode:code]) {
             // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
             // should be "Cantonese". It looks like iOS ignores anything after the "-".
-            NSString* iOSLocalizedName = [WikipediaAppUtils localizedLanguageNameForCode:code];
+            NSString* iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
             if (iOSLocalizedName) {
                 localizedName = iOSLocalizedName;
             }
