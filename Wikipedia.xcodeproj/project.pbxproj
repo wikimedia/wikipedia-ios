@@ -542,7 +542,7 @@
 		B0E809511C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */; };
 		B0E809531C0D1B440065EBC0 /* WMFSaveButtonControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809521C0D1B430065EBC0 /* WMFSaveButtonControllerTests.m */; };
 		B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */; };
-		B0E809571C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809561C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m */; };
+		B0E809571C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */; };
 		B0E8095A1C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */; };
 		B0E8095C1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */; };
 		B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */; };
@@ -555,6 +555,9 @@
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
 		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
+		BC22F9961C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */; };
+		BC22F99A1C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F9991C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m */; };
+		BC22F99C1C17BFB3003232CD /* WMFGalleryDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
@@ -566,6 +569,7 @@
 		BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */ = {isa = PBXBuildFile; fileRef = BC8210D61B4F048F0010BF7B /* Barack_Obama */; };
 		BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */; };
 		BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9355411BE1A71900697CB0 /* BarackSearch.json */; };
+		BC97FF0A1C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m in Sources */ = {isa = PBXBuildFile; fileRef = BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */; };
 		BC9DBEA11BF50406005546A1 /* TFATitleExtract.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */; };
 		BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */; };
 		BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AF31C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m */; };
@@ -1593,7 +1597,7 @@
 		B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKSectionListHierarchyTests.m; path = WikipediaUnitTests/Code/MWKSectionListHierarchyTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809521C0D1B430065EBC0 /* WMFSaveButtonControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSaveButtonControllerTests.m; path = WikipediaUnitTests/Code/WMFSaveButtonControllerTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CLLocation+WMFBearingTests.m"; path = "WikipediaUnitTests/Code/CLLocation+WMFBearingTests.m"; sourceTree = SOURCE_ROOT; };
-		B0E809561C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultCellVisualTests.m; path = WikipediaUnitTests/Code/WMFSearchResultCellVisualTests.m; sourceTree = SOURCE_ROOT; };
+		B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleListCellVisualTests.m; path = WikipediaUnitTests/Code/WMFArticleListCellVisualTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedArticlesFetcherTests.h; path = WikipediaUnitTests/Code/SavedArticlesFetcherTests.h; sourceTree = SOURCE_ROOT; };
 		B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedArticlesFetcherTests.m; path = WikipediaUnitTests/Code/SavedArticlesFetcherTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticlePreviewSerializationTests.m; path = WikipediaUnitTests/Code/MWKArticlePreviewSerializationTests.m; sourceTree = SOURCE_ROOT; };
@@ -1611,10 +1615,14 @@
 		B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WikipediaUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetPrefixSearch.json; sourceTree = "<group>"; };
 		BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetFullTextSearch.json; sourceTree = "<group>"; };
+		BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseImageGalleryViewControllerTests.m; path = Code/WMFBaseImageGalleryViewControllerTests.m; sourceTree = "<group>"; };
+		BC22F9971C176FFF003232CD /* WMFBaseImageGalleryViewController_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBaseImageGalleryViewController_Testing.h; path = WikipediaUnitTests/Code/WMFBaseImageGalleryViewController_Testing.h; sourceTree = SOURCE_ROOT; };
+		BC22F9981C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSArrayDataSource+WMFReverseIfRTL.h"; path = "Wikipedia/Code/SSArrayDataSource+WMFReverseIfRTL.h"; sourceTree = SOURCE_ROOT; };
+		BC22F9991C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSArrayDataSource+WMFReverseIfRTL.m"; path = "Wikipedia/Code/SSArrayDataSource+WMFReverseIfRTL.m"; sourceTree = SOURCE_ROOT; };
+		BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGalleryDataSourceTests.m; path = Code/WMFGalleryDataSourceTests.m; sourceTree = "<group>"; };
 		BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Wikipedia.entitlements; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
-		BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
 		BC5FE5711B1DF38A00273BC0 /* NOWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NOWikiSiteInfo.json; sourceTree = "<group>"; };
@@ -1663,6 +1671,8 @@
 		BC8210D61B4F048F0010BF7B /* Barack_Obama */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Barack_Obama; sourceTree = "<group>"; };
 		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC9355411BE1A71900697CB0 /* BarackSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BarackSearch.json; sourceTree = "<group>"; };
+		BC97FF081C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+WMFBatchRecordMode.h"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFBatchRecordMode.h"; sourceTree = SOURCE_ROOT; };
+		BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+WMFBatchRecordMode.m"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFBatchRecordMode.m"; sourceTree = SOURCE_ROOT; };
 		BC9DBEA01BF50406005546A1 /* TFATitleExtract.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TFATitleExtract.json; sourceTree = "<group>"; };
 		BCA15AE41C0E213300D0A3EA /* LoggingDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggingDefaults.swift; path = Wikipedia/Code/LoggingDefaults.swift; sourceTree = SOURCE_ROOT; };
 		BCA15AF21C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSBaseDataSource+WMFLayoutDirectionUtilities.h"; path = "Wikipedia/Code/SSBaseDataSource+WMFLayoutDirectionUtilities.h"; sourceTree = SOURCE_ROOT; };
@@ -2391,6 +2401,8 @@
 				B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */,
 				B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */,
 				B0E805391C0CE0DC0065EBC0 /* WMFOpenExternalLinkDelegateProtocol.h */,
+				BC22F9981C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.h */,
+				BC22F9991C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m */,
 			);
 			name = Categories;
 			path = Wikipedia/Code/Categories;
@@ -3432,7 +3444,7 @@
 				B0E809501C0D1B350065EBC0 /* MWKSectionListHierarchyTests.m */,
 				B0E809521C0D1B430065EBC0 /* WMFSaveButtonControllerTests.m */,
 				B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */,
-				B0E809561C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m */,
+				B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */,
 				B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */,
 				B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */,
 				B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */,
@@ -3447,6 +3459,8 @@
 				BCCB814A1C110A65008BC602 /* MWKImageInfoSerializationTest.m */,
 				BCCB814E1C11E1B2008BC602 /* NSDate+WMFRangesTests.m */,
 				BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */,
+				BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */,
+				BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */,
 			);
 			name = Code;
 			sourceTree = "<group>";
@@ -3501,7 +3515,6 @@
 			children = (
 				BC7C3A381C0FF9620057F023 /* Code */,
 				BCD41DDD1B11CC5800231BB1 /* Fixtures */,
-				BC56209B1B6BA9110013FFB0 /* ReferenceImages_64 */,
 				BCA15AE11C0DFD1600D0A3EA /* Supporting Files */,
 			);
 			name = Tests;
@@ -3577,6 +3590,7 @@
 				B0E8034D1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.h */,
 				B0E8034C1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController_Subclass.h */,
 				B0E8034E1C0CD7FE0065EBC0 /* WMFBaseImageGalleryViewController.m */,
+				BC22F9971C176FFF003232CD /* WMFBaseImageGalleryViewController_Testing.h */,
 				B0E803501C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.h */,
 				BCA15B051C0E91C600D0A3EA /* WMFModalImageGalleryViewController_Subclass.h */,
 				B0E803511C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m */,
@@ -3631,6 +3645,8 @@
 				B0E808B51C0D17070065EBC0 /* LSStubResponseDSL+WithJSON.m */,
 				B0E808B71C0D17160065EBC0 /* WMFHTTPHangingProtocol.h */,
 				B0E808B81C0D17160065EBC0 /* WMFHTTPHangingProtocol.m */,
+				BC97FF081C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.h */,
+				BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */,
 			);
 			name = Utilities;
 			path = WikipediaUnitTests/Code/Utilities;
@@ -4592,6 +4608,7 @@
 				B0E809661C0D1BC30065EBC0 /* WMFRecentPagesDataSourceTests.m in Sources */,
 				B0E808711C0D15400065EBC0 /* XCTestCase+MWKFixtures.m in Sources */,
 				B0E808951C0D16330065EBC0 /* NSArray+WMFShuffle.m in Sources */,
+				BC22F99C1C17BFB3003232CD /* WMFGalleryDataSourceTests.m in Sources */,
 				B0E808E21C0D17C20065EBC0 /* MWKSavedPageListSharedTests.m in Sources */,
 				B0E808FB1C0D18530065EBC0 /* MWKUserTests.m in Sources */,
 				B0E808EE1C0D18130065EBC0 /* MWKImageListTests.m in Sources */,
@@ -4610,6 +4627,7 @@
 				B0E809531C0D1B440065EBC0 /* WMFSaveButtonControllerTests.m in Sources */,
 				B0E8095C1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m in Sources */,
 				B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */,
+				BC97FF0A1C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m in Sources */,
 				B0E808EC1C0D18070065EBC0 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
 				B0E8089F1C0D16680065EBC0 /* WMFImageController+Testing.m in Sources */,
 				B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */,
@@ -4652,6 +4670,7 @@
 				B0E808AC1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m in Sources */,
 				B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
 				B0E809291C0D19D00065EBC0 /* MWKArticleExtractionTests.m in Sources */,
+				BC22F9961C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m in Sources */,
 				B0E808C71C0D176A0065EBC0 /* MWKListTestBase.m in Sources */,
 				B0E8089A1C0D16500065EBC0 /* XCTestCase+PromiseKit.swift in Sources */,
 				B0E809351C0D1A2F0065EBC0 /* WMFGeometryTests.m in Sources */,
@@ -4668,7 +4687,7 @@
 				B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */,
 				B0E808891C0D15C70065EBC0 /* NSManagedObjectContext+WMFTempContext.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
-				B0E809571C0D1B5F0065EBC0 /* WMFSearchResultCellVisualTests.m in Sources */,
+				B0E809571C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
 				B0E809681C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m in Sources */,
 				B0E809391C0D1A4C0065EBC0 /* MWKLanguageLinkFetcherTests.m in Sources */,
@@ -4870,6 +4889,7 @@
 				B0E8076A1C0CEE3A0065EBC0 /* Image.m in Sources */,
 				B0E802DE1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m in Sources */,
 				B0E8073C1C0CED810065EBC0 /* WikipediaAppUtils.m in Sources */,
+				BC22F99A1C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m in Sources */,
 				B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */,
 				B0E8078F1C0CEF660065EBC0 /* MWKUser.m in Sources */,
 				B0E804E11C0CE0B40065EBC0 /* NSURLRequest+WMFUtilities.m in Sources */,

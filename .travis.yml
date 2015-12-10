@@ -1,15 +1,17 @@
 language: objective-c
 osx_image: xcode7.1
 env:
-  matrix:
-    - FL_ARGS="verify"
-    - FL_ARGS="verify scheme:WikipediaArabic"
+  - IOS_VER="9.1" FL_ARGS="verify"
+  - IOS_VER="9.1" FL_ARGS="verify scheme:WikipediaArabic"
+# For some reason, this consistently fails in Travis: https://github.com/wikimedia/wikipedia-ios/pull/305
+    #  - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER}"
+  - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER} scheme:WikipediaArabic"
 
 install:
   - make travis-get-deps
 
 before_script:
-  - SIMULATOR_ID=$(xcrun instruments -s | grep -o "iPhone 6 (9.1) \[.*\]" | grep -o "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/")
+  - SIMULATOR_ID=$(xcrun instruments -s | grep -o "iPhone 6 (${IOS_VER}) \[.*\]" | grep -o "\[.*\]" | sed "s/^\[\(.*\)\]$/\1/")
 
 script:
   - echo $SIMULATOR_ID

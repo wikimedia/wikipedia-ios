@@ -51,7 +51,7 @@ target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4.0'
   pod 'OCHamcrest', '~> 4.2.0'
   pod 'Nocilla'
-  pod 'FBSnapshotTestCase/Core', '~> 2.0.3'
+  pod 'FBSnapshotTestCase', :git => 'git@github.com:bgerstle/ios-snapshot-test-case.git'
   pod 'Quick', '~> 0.8.0'
   pod 'Nimble', '~> 3.0.0'
 end

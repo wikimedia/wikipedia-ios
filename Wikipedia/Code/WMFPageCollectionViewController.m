@@ -20,6 +20,9 @@
 
 - (void)applyCurrentPage:(BOOL)animated {
     if ([self isViewLoaded]) {
+        // check page bounds here in case it was set before view was loaded
+        NSParameterAssert(self.currentPage < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
+
         // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
         UICollectionViewLayoutAttributes* currentPageAttributes =
             [self.collectionViewLayout layoutAttributesForItemAtIndexPath:
@@ -48,7 +51,9 @@
 }
 
 - (void)primitiveSetCurrentPage:(NSUInteger)page {
-    NSParameterAssert(page < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
+    // assert that page is within bounds for our collection view's data source, or that the view isn't loaded yet
+    NSParameterAssert(![self isViewLoaded] ||
+                      page < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
     _currentPage = page;
 }
 

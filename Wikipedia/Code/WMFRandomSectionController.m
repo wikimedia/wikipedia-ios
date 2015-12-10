@@ -124,6 +124,8 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         [self.delegate controller:self didSetItems:self.items];
     })
     .catch(^(NSError* error){
+        @strongify(self);
+        [self.delegate controller:self didFailToUpdateWithError:error];
     });
 }
 

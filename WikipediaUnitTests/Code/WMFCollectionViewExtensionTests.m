@@ -40,37 +40,37 @@
 - (void)testNext {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
     NSIndexPath* next      = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
-    XCTAssertEqual(next, [NSIndexPath indexPathForItem:1 inSection:0]);
+    XCTAssertEqualObjects(next, [NSIndexPath indexPathForItem:1 inSection:0]);
 }
 
 - (void)testNextLast {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:2];
     NSIndexPath* next      = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
-    XCTAssertEqual(next, nil);
+    XCTAssertNil(next);
 }
 
 - (void)testNextNewSection {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:2 inSection:0];
     NSIndexPath* next      = [self.collectionView wmf_indexPathAfterIndexPath:indexPath];
-    XCTAssertEqual(next, [NSIndexPath indexPathForItem:0 inSection:1]);
+    XCTAssertEqualObjects(next, [NSIndexPath indexPathForItem:0 inSection:1]);
 }
 
 - (void)testPrevious {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:1 inSection:0];
     NSIndexPath* previous  = [self.collectionView wmf_indexPathBeforeIndexPath:indexPath];
-    XCTAssertEqual(previous, [NSIndexPath indexPathForItem:0 inSection:0]);
+    XCTAssertEqualObjects(previous, [NSIndexPath indexPathForItem:0 inSection:0]);
 }
 
 - (void)testPreviousNewSection {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:1];
     NSIndexPath* previous  = [self.collectionView wmf_indexPathBeforeIndexPath:indexPath];
-    XCTAssertEqual(previous, [NSIndexPath indexPathForItem:2 inSection:0]);
+    XCTAssertEqualObjects(previous, [NSIndexPath indexPathForItem:2 inSection:0]);
 }
 
 - (void)testPreviousFirst {
     NSIndexPath* indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
     NSIndexPath* previous  = [self.collectionView wmf_indexPathBeforeIndexPath:indexPath];
-    XCTAssertEqual(previous, nil);
+    XCTAssertNil(previous);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView*)collectionView {

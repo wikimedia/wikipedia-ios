@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [super initWithCollectionViewLayout:[[self class] headerGalleryLayout]];
 }
 
-- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+- (void)setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
     [super setDataSource:dataSource];
     self.dataSource.cellClass          = [WMFImageCollectionViewCell class];
     self.dataSource.cellConfigureBlock = ^(WMFImageCollectionViewCell* cell,

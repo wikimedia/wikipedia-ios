@@ -70,11 +70,12 @@
 
     __block MWKArticle* savedArticleAfterFirstFetch;
 
-    expectResolutionWithTimeout(5, ^{
-        return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^(MWKArticle* article){
+    WMFArticleFetcher* fetcher = self.articleFetcher;
+    expectResolutionWithTimeout(5, ^AnyPromise *{
+        return [fetcher fetchArticleForPageTitle:dummyTitle progress:NULL].then(^id(MWKArticle* article){
             savedArticleAfterFirstFetch = [self.tempDataStore articleWithTitle:dummyTitle];
             firstFetchResult = article;
-            return [self.articleFetcher fetchArticleForPageTitle:dummyTitle progress:NULL]
+            return [fetcher fetchArticleForPageTitle:dummyTitle progress:NULL]
             .then(^(MWKArticle* article) {
                 secondFetchResult = article;
             });
