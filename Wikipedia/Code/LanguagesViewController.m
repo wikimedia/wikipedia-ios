@@ -8,7 +8,6 @@
 #import "Defines.h"
 #import "UIView+ConstraintsScale.h"
 #import "UIColor+WMFStyle.h"
-#import "UIViewController+Alert.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
