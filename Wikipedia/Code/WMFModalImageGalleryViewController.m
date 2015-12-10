@@ -173,7 +173,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Accessors
 
-- (void)setDataSource:(SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
+- (void)setDataSource:(nullable SSBaseDataSource<WMFImageGalleryDataSource>*)dataSource {
     NSParameterAssert([dataSource conformsToProtocol:@protocol(WMFModalImageGalleryDataSource)]);
     [super setDataSource:dataSource];
     self.dataSource.cellClass = [WMFImageGalleryCollectionViewCell class];
