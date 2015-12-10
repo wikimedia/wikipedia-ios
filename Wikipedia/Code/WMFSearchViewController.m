@@ -440,13 +440,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [[SessionSingleton sharedInstance] setSearchLanguage:self.searchSite.language];
 }
 
-- (NSArray*)allLanguagesFromController{
+- (NSArray*)allLanguagesFromController {
     NSMutableArray* lang = [NSMutableArray array];
     [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].preferredLanguages];
     [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].otherLanguages];
     return lang;
 }
-
 
 - (void)updateLanguages {
     NSArray* languages = [self allLanguagesFromController];
@@ -553,7 +552,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - LanguageSelectionDelegate
 
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language{
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self updateLanguageButtonsToPreferredLanguages];
     [self selectLanguageForSite:language.site];

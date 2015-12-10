@@ -35,7 +35,8 @@ static NSString* const LongSearchResultDescription =
 
 - (void)setUp {
     [super setUp];
-//    self.recordMode       = YES;
+    self.recordMode       = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.deviceAgnostic   = YES;
     self.searchResultCell = [WMFArticleListTableViewCell wmf_viewFromClassNib];
 }
 

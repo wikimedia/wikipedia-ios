@@ -20,7 +20,8 @@
 
 - (void)setUp {
     [super setUp];
-//    self.recordMode = YES;
+    self.recordMode     = [[NSUserDefaults standardUserDefaults] wmf_visualTestBatchRecordMode];
+    self.deviceAgnostic = YES;
 }
 
 - (NSAttributedString*)getTestAttrStr {
