@@ -514,7 +514,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidAppear:animated];
     [self addProgressView];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
-    if (!self.article) {
+    if (!self.article && !self.articleFetcher.isFetching) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
     }
 }
