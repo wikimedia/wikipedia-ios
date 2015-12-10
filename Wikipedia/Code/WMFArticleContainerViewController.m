@@ -47,6 +47,7 @@
 #import "WMFArticleFetcher.h"
 
 // View
+#import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UIWebView+WMFTrackingView.h"
@@ -182,6 +183,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupToolbar];
     [self createTableOfContentsViewController];
     [self startSignificantlyViewedTimer];
+    if (article) {
+        [self wmf_hideEmptyView];
+    }
 }
 
 - (MWKHistoryList*)recentPages {
@@ -510,6 +514,9 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidAppear:animated];
     [self addProgressView];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
+    if (!self.article) {
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -556,6 +563,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self unobserveArticleUpdates];
     [self showProgressViewAnimated:YES];
+    [self wmf_hideEmptyView];
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
@@ -568,6 +576,13 @@ NS_ASSUME_NONNULL_BEGIN
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];
+        if (!self.article && self.view.superview) {
+            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+                //This can potentially fire after viewWillAppear, but before viewDidAppear.
+                //In that case it animates strnagely, delay showing this just in case.
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            });
+        }
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
