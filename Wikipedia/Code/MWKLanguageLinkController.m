@@ -14,8 +14,9 @@
 #import "MediaWikiKit.h"
 #import "Defines.h"
 #import "WMFAssetsFile.h"
-
+#import "WikipediaAppUtils.h"
 #import <BlocksKit/BlocksKit.h>
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -71,11 +72,25 @@ static id _sharedInstance;
 - (void)loadLanguagesFromFile {
     WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
     self.allLanguages = [assetsFile.array bk_map:^id (NSDictionary* langAsset) {
-        return [[MWKLanguageLink alloc] initWithLanguageCode:langAsset[@"code"]
+        NSString* code = langAsset[@"code"];
+        NSString* localizedName = langAsset[@"canonical_name"];
+        if (![self isCompoundLanguageCode:code]) {
+            // iOS will return less descriptive name for compound codes - ie "Chinese" for zh-yue which
+            // should be "Cantonese". It looks like iOS ignores anything after the "-".
+            NSString* iOSLocalizedName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:code];
+            if (iOSLocalizedName) {
+                localizedName = iOSLocalizedName;
+            }
+        }
+        return [[MWKLanguageLink alloc] initWithLanguageCode:code
                                                pageTitleText:@""
                                                         name:langAsset[@"name"]
-                                               localizedName:langAsset[@"canonical_name"]];
+                                               localizedName:localizedName];
     }];
+}
+
+- (BOOL)isCompoundLanguageCode:(NSString*)code {
+    return [code containsString:@"-"];
 }
 
 #pragma mark - Getters & Setters
