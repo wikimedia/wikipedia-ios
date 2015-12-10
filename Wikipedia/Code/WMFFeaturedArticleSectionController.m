@@ -80,7 +80,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 - (NSAttributedString*)headerText {
     return
         [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:[NSDate date]]]
+                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:self.date]]
                                                                           substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}]];
 }
 
