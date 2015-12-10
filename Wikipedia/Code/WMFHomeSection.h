@@ -31,12 +31,12 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 + (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
++ (instancetype)featuredArticleSectionWithSite:(MWKSite*)site;
 
 ///
 /// @name Static Sections
 ///
 
-+ (instancetype)featuredSection;
 + (instancetype)pictureOfTheDaySection;
 + (instancetype)mainPageSection;
 + (instancetype)randomSection;
@@ -56,6 +56,13 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 ///
 /// @name Metadata Properties
 ///
+
+/**
+ *  The site associated with the section, if any.
+ *
+ *  Used for the featured article section
+ */
+@property (nonatomic, strong, readonly) MWKSite* site;
 
 /**
  *  The title associated with the section, if any.
