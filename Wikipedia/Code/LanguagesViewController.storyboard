@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vqp-1K-wjM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vqp-1K-wjM">
     <dependencies>
         <deployment identifier="iOS"/>
         <development version="5100" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -23,26 +23,43 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LanguageCell" rowHeight="75" id="aOG-CK-VHw" customClass="LanguageCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="60"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LanguageCell" rowHeight="138" id="aOG-CK-VHw" customClass="LanguageCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="138"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="aOG-CK-VHw" id="u7F-wb-Bsy">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuT-sm-MtF">
-                                                    <rect key="frame" x="28" y="13" width="264" height="49"/>
+                                                    <rect key="frame" x="28" y="13" width="264" height="112"/>
                                                     <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVn-n7-pdy" userLabel="Language">
-                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="31"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localized language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rLN-Zb-UJl" userLabel="Localized language name">
+                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="58"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ib6-Zk-jUw" userLabel="Canonical Language">
-                                                            <rect key="frame" x="0.0" y="31" width="264" height="18"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="748" text="Article title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ib6-Zk-jUw" userLabel="Article title">
+                                                            <rect key="frame" x="0.0" y="58" width="264" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="18" placeholder="YES" id="Vuo-LR-40O"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Language name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVn-n7-pdy" userLabel="Language name">
+                                                            <rect key="frame" x="0.0" y="76" width="264" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="jOO-T3-pcc"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQo-0f-Md2" userLabel="Language code">
+                                                            <rect key="frame" x="0.0" y="94" width="264" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="18" id="QuJ-cG-Rpw"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,12 +68,18 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="ib6-Zk-jUw" secondAttribute="bottom" id="6Jw-FK-Js5"/>
+                                                        <constraint firstItem="lQo-0f-Md2" firstAttribute="leading" secondItem="QuT-sm-MtF" secondAttribute="leading" id="4Px-zA-KUu"/>
+                                                        <constraint firstAttribute="bottom" secondItem="lQo-0f-Md2" secondAttribute="bottom" id="67w-Rm-QSf"/>
                                                         <constraint firstAttribute="trailing" secondItem="ib6-Zk-jUw" secondAttribute="trailing" id="8mj-lY-xSI"/>
-                                                        <constraint firstItem="ib6-Zk-jUw" firstAttribute="top" secondItem="wVn-n7-pdy" secondAttribute="bottom" id="Buz-nf-ha8"/>
+                                                        <constraint firstItem="lQo-0f-Md2" firstAttribute="top" secondItem="wVn-n7-pdy" secondAttribute="bottom" id="HAa-1K-ifJ"/>
                                                         <constraint firstItem="wVn-n7-pdy" firstAttribute="leading" secondItem="QuT-sm-MtF" secondAttribute="leading" id="Rfw-zW-rvG"/>
-                                                        <constraint firstItem="wVn-n7-pdy" firstAttribute="top" secondItem="QuT-sm-MtF" secondAttribute="top" id="VYa-6o-e5K"/>
+                                                        <constraint firstItem="ib6-Zk-jUw" firstAttribute="top" secondItem="rLN-Zb-UJl" secondAttribute="bottom" id="T7p-eZ-dn7"/>
+                                                        <constraint firstItem="rLN-Zb-UJl" firstAttribute="leading" secondItem="QuT-sm-MtF" secondAttribute="leading" id="VGe-jJ-L93"/>
+                                                        <constraint firstItem="rLN-Zb-UJl" firstAttribute="top" secondItem="QuT-sm-MtF" secondAttribute="top" id="Yot-KT-N8j"/>
                                                         <constraint firstAttribute="trailing" secondItem="wVn-n7-pdy" secondAttribute="trailing" id="cIv-p3-MTs"/>
+                                                        <constraint firstAttribute="trailing" secondItem="lQo-0f-Md2" secondAttribute="trailing" id="g8u-Hv-dzN"/>
+                                                        <constraint firstItem="wVn-n7-pdy" firstAttribute="top" secondItem="ib6-Zk-jUw" secondAttribute="bottom" id="gzX-hV-pFk"/>
+                                                        <constraint firstAttribute="trailing" secondItem="rLN-Zb-UJl" secondAttribute="trailing" id="tJd-8k-rsv"/>
                                                         <constraint firstItem="ib6-Zk-jUw" firstAttribute="leading" secondItem="QuT-sm-MtF" secondAttribute="leading" id="yq6-IZ-DYQ"/>
                                                     </constraints>
                                                 </view>
@@ -69,8 +92,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="languageLabel" destination="wVn-n7-pdy" id="YNC-p2-GST"/>
-                                            <outlet property="titleLabel" destination="ib6-Zk-jUw" id="iMX-wj-fc1"/>
+                                            <outlet property="articleTitleLabel" destination="ib6-Zk-jUw" id="yrT-6L-wLN"/>
+                                            <outlet property="languageCodeLabel" destination="lQo-0f-Md2" id="LAk-bL-qcq"/>
+                                            <outlet property="languageNameLabel" destination="wVn-n7-pdy" id="uca-Ov-HGk"/>
+                                            <outlet property="languageNameLabelHeight" destination="jOO-T3-pcc" id="l7k-8K-VGq"/>
+                                            <outlet property="localizedLanguageLabel" destination="rLN-Zb-UJl" id="SAQ-ks-taJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -113,9 +139,4 @@
             <point key="canvasLocation" x="111" y="-3528"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

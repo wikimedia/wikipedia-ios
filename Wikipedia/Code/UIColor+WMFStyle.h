@@ -60,4 +60,6 @@
 
 + (instancetype)wmf_nearbyDistanceTextColor;
 
++ (instancetype)wmf_settingsBackgroundColor;
+
 @end

@@ -127,18 +127,23 @@ platform :ios do
   lane :rc do
     sigh(
       adhoc: true,
-      force: true,
-      filename: 'build/adhoc.mobileprovision'
+      # Fastlane has issues forcing AdHoc profiles
+      force: false
     )
+
     # force iTunes file sharing to be enabled (normally disabled for release builds)
     ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
     # force debug menu to be shown
     ENV['WMF_FORCE_DEBUG_MENU'] = '1'
-    ipa(
+
+    gym(
       configuration: "Release",
       scheme: "Wikipedia",
-      embed: 'build/adhoc.mobileprovision',
+      # both of these flags are required for ad hoc
+      export_method: 'ad-hoc',
+      use_legacy_build_api: true
     )
+
     hockey(
       notes: git_commit_log,
       notify: '0', # Do not notify
