@@ -204,12 +204,12 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 #pragma mark - Cell Specialization
 
 - (void)configurePreferredLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
-    cell.isPreferred           = YES;
+    cell.isPreferred = YES;
     [self configureCell:cell forLangLink:self.languageFilter.filteredPreferredLanguages[row]];
 }
 
 - (void)configureOtherLanguageCell:(LanguageCell*)cell atRow:(NSUInteger)row {
-    cell.isPreferred           = NO;
+    cell.isPreferred = NO;
     [self configureCell:cell forLangLink:self.languageFilter.filteredOtherLanguages[row]];
 }
 
