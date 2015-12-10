@@ -27,6 +27,7 @@
 #import "UIImage+WMFStyle.h"
 
 #import "LanguagesViewController.h"
+#import "UIViewController+WMFEmptyView.h"
 
 static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
@@ -316,6 +317,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
     [self saveLastSearch];
     [self updateRecentSearchesVisibility];
+    [self.resultsListController wmf_hideEmptyView];
     return YES;
 }
 
@@ -331,6 +333,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self updateSearchSuggestion:nil];
     self.resultsListController.dataSource = nil;
     [self updateRecentSearchesVisibility];
+    [self.resultsListController wmf_hideEmptyView];
 }
 
 - (void)searchForSearchTerm:(NSString*)searchTerm {
@@ -339,6 +342,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         return;
     }
     @weakify(self);
+    [self.resultsListController wmf_hideEmptyView];
     [self.fetcher fetchArticlesForSearchTerm:searchTerm site:self.searchSite resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
         @strongify(self);
         if (![results.searchTerm isEqualToString:self.searchField.text]) {
@@ -370,6 +374,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         if ([searchTerm isEqualToString:results.searchTerm]) {
             if (results.results.count == 0) {
                 [self showAlert:MWLocalizedString(@"search-no-matches", nil) type:ALERT_TYPE_TOP duration:2.0];
+                dispatchOnMainQueueAfterDelayInSeconds(0.25, ^{
+                    //Without the delay there is a weird animation due to the table also reloading simultaneously
+                    [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
+                });
             }
         }
 
@@ -381,6 +389,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         @strongify(self);
         if ([searchTerm isEqualToString:self.searchField.text]) {
             [self showAlert:error.userInfo[NSLocalizedDescriptionKey] type:ALERT_TYPE_TOP duration:2.0];
+            [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
             DDLogError(@"Encountered search error: %@", error);
         }
     });

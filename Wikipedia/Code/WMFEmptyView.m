@@ -39,6 +39,7 @@
 
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
     return view;
 }
 
@@ -49,6 +50,7 @@
     [view.imageView removeFromSuperview];
     [view.titleLabel removeFromSuperview];
     [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
     return view;
 }
 
