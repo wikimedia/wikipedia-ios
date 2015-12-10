@@ -21,18 +21,28 @@ platform :ios do
 
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
-    opts = {
-      :scheme =>  options[:scheme] || 'Wikipedia',
-      :workspace => 'Wikipedia.xcworkspace',
-      :configuration => 'Debug',
-      :destination => "platform=iOS Simulator,name=iPhone 6,OS=#{options[:sim_os] || '9.1'}",
-      :destination_timeout => 240, # Increase timeout for Travis builds
-      :xcpretty_output => 'simple',
-      :buildlog_path => './build',
-      :enable_code_coverage => true
-    }
-    opts[:reports] = [{ :report => 'junit', :output => 'build/reports/unit-tests.xml' }] if options[:junit]
-    xctest(opts)
+    scheme = options[:scheme] || 'Wikipedia'
+    destination = "platform=iOS Simulator,name=iPhone 6,OS=#{options[:sim_os] || '9.1'}"
+
+    if ENV['TRAVIS'] then
+      # need to cd to repo root since FL runs scripts from fastlane folder
+      sh "cd .. && xcodebuild -workspace Wikipedia.xcworkspace -scheme #{scheme} -configuration Debug \
+      -destination \"#{destination}\" \
+      -sdk iphonesimulator -destination-timeout 120 -enableCodeCoverage YES test"
+    else
+      opts = {
+        :scheme =>  scheme,
+        :workspace => 'Wikipedia.xcworkspace',
+        :configuration => 'Debug',
+        :destination => destination,
+        :destination_timeout => 240, # Increase timeout for Travis builds
+        :xcpretty_output => 'simple',
+        :buildlog_path => './build',
+        :enable_code_coverage => true
+      }
+      opts[:reports] = [{ :report => 'junit', :output => 'build/reports/unit-tests.xml' }] if options[:junit]
+      xctest(opts)
+    end
   end
 
   desc "Increment the app's build number without committing the changes. Returns a string of the new, bumped version."
