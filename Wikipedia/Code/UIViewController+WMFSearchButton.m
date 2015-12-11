@@ -60,9 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
             WMFSearchViewController* searchVC =
                 [WMFSearchViewController searchViewControllerWithSite:searchSite
                                                             dataStore:[delegate searchDataStore]];
-            searchVC.searchResultDelegate = delegate;
             _sharedSearchViewController = searchVC;
         }
+        _sharedSearchViewController.searchResultDelegate = delegate;
         [self presentViewController:_sharedSearchViewController animated:YES completion:nil];
     }];
 }
