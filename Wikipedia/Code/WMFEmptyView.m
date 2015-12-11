@@ -1,6 +1,7 @@
 
 #import "WMFEmptyView.h"
 #import "UIColor+WMFStyle.h"
+#import "UIView+WMFDefaultNib.h"
 
 @interface WMFEmptyView ()
 
@@ -19,7 +20,7 @@
 
 
 + (instancetype)emptyView {
-    return [[[UINib nibWithNibName:NSStringFromClass([WMFEmptyView class]) bundle:nil] instantiateWithOwner:nil options:nil] firstObject];
+    return [self wmf_viewFromClassNib];
 }
 
 + (instancetype)noFeedEmptyView {
