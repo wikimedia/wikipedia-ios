@@ -74,7 +74,6 @@
 
     [self wmf_verifyViewAtScreenWidth:self.cell];
     [[LSNocilla sharedInstance] stop];
-
 }
 
 @end

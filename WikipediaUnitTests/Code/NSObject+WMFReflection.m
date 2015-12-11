@@ -24,15 +24,19 @@ static inline void objc_propertyListRelease(objc_property_t** objectRef) __attri
     BOOL stop = NO;
 
     while (!stop && ![cls isEqual:superClass]) {
-        unsigned count = 0;
-        freePropertyListOnExit objc_property_t*  properties = class_copyPropertyList(cls, &count);
+        unsigned count                                     = 0;
+        freePropertyListOnExit objc_property_t* properties = class_copyPropertyList(cls, &count);
 
         cls = cls.superclass;
-        if (properties == NULL) continue;
+        if (properties == NULL) {
+            continue;
+        }
 
         for (unsigned i = 0; i < count; i++) {
             block(properties[i], &stop);
-            if (stop) break;
+            if (stop) {
+                break;
+            }
         }
     }
 }

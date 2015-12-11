@@ -20,16 +20,16 @@
 
 QuickSpecBegin(SessionSingletonTests)
 
-__block SessionSingleton* testSession;
+__block SessionSingleton * testSession;
 
 configureTempDataStoreForEach(tempDataStore, ^{
     [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
     testSession = [[SessionSingleton alloc] initWithDataStore:tempDataStore];
     WMF_TECH_DEBT_TODO(refactor sendUsageReports to use a notification to make it easier to test)
     /*
-     ^ this only works now because the queues singleton grabs its values directly from the shared instance
-     AND the shared instance doesn't "cache" the sendUsageReports value in memory, so setting it from a different
-     "SessionSingleton" is fine
+       ^ this only works now because the queues singleton grabs its values directly from the shared instance
+       AND the shared instance doesn't "cache" the sendUsageReports value in memory, so setting it from a different
+       "SessionSingleton" is fine
      */
     [[QueuesSingleton sharedInstance] reset];
 });
@@ -72,12 +72,12 @@ describe(@"send usage reports", ^{
     itBehavesLike(@"a persistent property", ^{
         return @{ @"session": testSession,
                   @"key": WMF_SAFE_KEYPATH(testSession, shouldSendUsageReports),
-                  // set to different value by 
+                  // set to different value by
                   @"value": @(!testSession.shouldSendUsageReports) };
     });
 
-    void(^expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue)(NSArray* managers) =
-    ^ (NSArray* managers) {
+    void (^ expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue)(NSArray* managers) =
+        ^(NSArray* managers) {
         NSString* expectedHeaderValue = [[ReadingActionFunnel new] appInstallID];
         NSArray* headerValues =
             [managers valueForKeyPath:@"requestSerializer.HTTPRequestHeaders.X-WMF-UUID"];
@@ -87,7 +87,7 @@ describe(@"send usage reports", ^{
         expect(headerValues).to(allEqualExpectedValueOrNull);
     };
 
-    WMF_TECH_DEBT_TODO(shared example for all non-global fetchers to ensure they honor current & future values of this prop)
+    WMF_TECH_DEBT_TODO(shared example for all non - global fetchers to ensure they honor current & future values of this prop)
     it(@"should reset the global request managers", ^{
         NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
         expect(oldManagers).toNot(beEmpty());
@@ -124,7 +124,7 @@ QuickSpecEnd
 
 QuickConfigurationBegin(SessionSingletonSharedExamples)
 
-+ (void)configure:(Configuration *)configuration {
++ (void)configure : (Configuration*)configuration {
     sharedExamples(@"a persistent property", ^(QCKDSLSharedExampleContext getContext) {
         __block SessionSingleton* session;
         __block id value;
