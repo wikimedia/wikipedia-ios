@@ -10,7 +10,7 @@
 #import "UIViewController+WMFSearchButton.h"
 
 @class WMFSearchViewController;
-extern WMFSearchViewController * _sharedSearchViewController;
+extern WMFSearchViewController* _sharedSearchViewController;
 
 @interface UIViewController (WMFSearchButton_Testing)
 

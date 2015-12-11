@@ -9,7 +9,7 @@
 #import "UIViewController+WMFSearchButton_Testing.h"
 #import "WMFSearchViewController.h"
 
-WMFSearchViewController * _sharedSearchViewController = nil;
+WMFSearchViewController* _sharedSearchViewController = nil;
 
 @implementation UIViewController (WMFSearchButton_Testing)
 

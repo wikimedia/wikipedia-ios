@@ -369,7 +369,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         if ([searchTerm isEqualToString:results.searchTerm]) {
             if (results.results.count == 0) {
                 [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"search-no-matches", nil) sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-
             }
         }
 
