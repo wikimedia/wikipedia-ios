@@ -41,6 +41,12 @@ describe(@"searchSite", ^{
         [newSession.dataStore removeFolderAtBasePath];
     });
 
+    it(@"should ignore nil values", ^{
+        NSString* langBeforeNil = [testSession searchLanguage];
+        [testSession setSearchLanguage:nil];
+        expect(testSession.searchLanguage).to(equal(langBeforeNil));
+    });
+
     it(@"should be idempotent", ^{
         expectAction(^{
             [testSession setSearchLanguage:testSession.searchSite.language];
