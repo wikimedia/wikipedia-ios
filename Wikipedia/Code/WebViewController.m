@@ -147,8 +147,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     self.zeroStatusLabel.font = [UIFont systemFontOfSize:ALERT_FONT_SIZE];
     self.zeroStatusLabel.text = @"";
 
-    [self fadeAlert];
-
     self.webView.backgroundColor = [UIColor whiteColor];
 
     self.view.backgroundColor = CHROME_COLOR;
@@ -397,12 +395,6 @@ NSString* const WMFLicenseTitleOnENWiki =
         default:
             return 0;
     }
-}
-
-#pragma mark - Alert
-
-- (void)showAlert:(id)alertText type:(AlertType)type duration:(CGFloat)duration {
-    [super showAlert:alertText type:type duration:duration];
 }
 
 #pragma mark - Scrolling

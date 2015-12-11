@@ -35,6 +35,12 @@ typedef NS_ENUM (NSInteger, WMFErrorType) {
 
 @end
 
+@interface NSError (WMFNetworkConnectionError)
+
+- (BOOL)wmf_isNetworkConnectionError;
+
+@end
+
 @interface NSError (WMFConnectionFallback)
 
 /*
@@ -50,3 +56,4 @@ typedef NS_ENUM (NSInteger, WMFErrorType) {
 - (MWKTitle*)wmf_redirectTitle;
 
 @end
+

@@ -5,7 +5,6 @@
 #import "WikipediaAppUtils.h"
 #import "QueuesSingleton.h"
 #import "SessionSingleton.h"
-#import "UIViewController+Alert.h"
 #import "AccountCreationTokenFetcher.h"
 #import "AccountCreator.h"
 #import "CaptchaResetter.h"
@@ -22,6 +21,8 @@
 #import "SectionEditorViewController.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
+#import "PaddedLabel.h"
 
 @interface AccountCreationViewController ()
 
@@ -270,7 +271,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self enableProgressiveButton:NO];
 
-    [self fadeAlert];
+    [[WMFAlertManager sharedInstance] dismissAlert];
 
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:@"UITextFieldTextDidChangeNotification"
@@ -302,7 +303,7 @@
         });
     } else {
         dispatch_async(dispatch_get_main_queue(), ^(void){
-            [self fadeAlert];
+            [[WMFAlertManager sharedInstance] dismissAlert];
             [UIView animateWithDuration:duration animations:^{
                 self.captchaContainer.alpha = 0;
                 [self.scrollView setContentOffset:CGPointZero animated:NO];
@@ -351,7 +352,7 @@
 - (void)reloadCaptchaPushed:(id)sender {
     self.captchaViewController.captchaTextBox.text = @"";
 
-    [self showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) type:ALERT_TYPE_TOP duration:1];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-captcha-obtaining", nil) sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
@@ -364,13 +365,13 @@
     // Create detached loginVC just for logging in.
     self.detachedloginVC = [[LoginViewController alloc] init];
 
-    [self showAlert:MWLocalizedString(@"account-creation-logging-in", nil) type:ALERT_TYPE_TOP duration:-1];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-logging-in", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
 
     [self.detachedloginVC loginWithUserName:self.usernameField.text password:self.passwordField.text onSuccess:^{
         NSString* loggedInMessage = MWLocalizedString(@"main-menu-account-title-logged-in", nil);
         loggedInMessage = [loggedInMessage stringByReplacingOccurrencesOfString:@"$1"
                                                                      withString:self.usernameField.text];
-        [self showAlert:loggedInMessage type:ALERT_TYPE_TOP duration:-1];
+        [[WMFAlertManager sharedInstance] showSuccessAlert:loggedInMessage sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
         [self dismissViewControllerAnimated:YES completion:nil];
     } onFail:^(){
         [self enableProgressiveButton:YES];
@@ -404,10 +405,10 @@
                                                            thenNotifyDelegate:self];
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 [self.funnel logError:error.localizedDescription];
                 break;
         }
@@ -417,22 +418,26 @@
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED:
                 [self.funnel logSuccess];
-                [self showAlert:fetchedData type:ALERT_TYPE_TOP duration:1];
+                [[WMFAlertManager sharedInstance] showAlert:fetchedData sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
                 [self performSelector:@selector(login) withObject:nil afterDelay:0.6f];
                 //isAleadySaving = NO;
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
-                [self.funnel logError:error.localizedDescription];
+
 
                 if (error.code == ACCOUNT_CREATION_ERROR_NEEDS_CAPTCHA) {
                     self.captchaId            = error.userInfo[@"captchaId"];
                     self.captchaUrl           = error.userInfo[@"captchaUrl"];
                     self.showCaptchaContainer = YES;
+                    [[WMFAlertManager sharedInstance] showWarningAlert:error.localizedDescription sticky:NO dismissPreviousAlerts:YES tapCallBack:NULL];
+                } else {
+                    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 }
+
+                [self.funnel logError:error.localizedDescription];
                 break;
         }
     }
@@ -448,10 +453,10 @@
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
                 break;
         }
     }
@@ -481,21 +486,18 @@
 
 - (void)save {
     if (![self areRequiredFieldsPopulated]) {
-        [self showAlert:MWLocalizedString(@"account-creation-missing-fields", nil)
-                   type:ALERT_TYPE_TOP
-               duration:-1];
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:MWLocalizedString(@"account-creation-missing-fields", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         return;
     }
 
     // Verify passwords fields match.
     if (![self isPasswordConfirmationCorrect]) {
-        [self showAlert:MWLocalizedString(@"account-creation-passwords-mismatched", nil) type:ALERT_TYPE_TOP duration:-1];
+        [[WMFAlertManager sharedInstance] showErrorAlertWithMessage:MWLocalizedString(@"account-creation-passwords-mismatched", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
         return;
     }
 
     // Save!
-    [self showAlert:MWLocalizedString(@"account-creation-saving", nil) type:ALERT_TYPE_TOP duration:-1];
-
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"account-creation-saving", nil) sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     [[QueuesSingleton sharedInstance].accountCreationFetchManager.operationQueue cancelAllOperations];
 
     (void)[[AccountCreationTokenFetcher alloc] initAndFetchTokenForDomain:[SessionSingleton sharedInstance].currentArticleSite.language

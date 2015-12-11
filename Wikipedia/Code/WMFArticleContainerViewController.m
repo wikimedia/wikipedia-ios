@@ -416,7 +416,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showProgressViewAnimated:(BOOL)animated {
-    self.progressView.progress = 0.0;
+    self.progressView.progress = 0.05;
 
     if (!animated) {
         [self _showProgressView];
@@ -590,6 +590,13 @@ NS_ASSUME_NONNULL_BEGIN
         }
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
+
+            if (self.discoveryMethod == MWKHistoryDiscoveryMethodSaved && [self.article isCached]) {
+                return;
+            }
+
+            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+
             DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         }
     }).finally(^{
