@@ -109,7 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 
-
 @property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
 // Previewing
@@ -119,6 +118,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Need to track this so we don't update the progress bar when loading cached articles
  */
 @property (nonatomic, assign) BOOL webViewIsLoadingFetchedArticle;
+
+/**
+ *  Need to track this so we can display the empty view reliably
+ */
+@property (nonatomic, assign) BOOL articleFetchWasAttempted;
+
 @end
 
 @implementation WMFArticleContainerViewController
@@ -514,7 +519,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidAppear:animated];
     [self addProgressView];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
-    if (!self.article && !self.articleFetcher.isFetching) {
+    if (!self.article && self.articleFetchWasAttempted) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
     }
 }
@@ -590,6 +595,7 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
+        self.articleFetchWasAttempted = YES;
         [self observeArticleUpdates];
     });
 }
