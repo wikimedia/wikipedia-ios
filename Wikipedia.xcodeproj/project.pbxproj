@@ -558,6 +558,9 @@
 		BC22F99C1C17BFB3003232CD /* WMFGalleryDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */; };
 		BC318E131C1A34A500DACD9D /* SessionSingletonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC318E121C1A34A500DACD9D /* SessionSingletonTests.m */; };
 		BC318E151C1A39B300DACD9D /* PostNotificationMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC318E141C1A38D900DACD9D /* PostNotificationMatcher.swift */; };
+		BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF471C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m */; };
+		BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4A1C1B22C200BAE501 /* NSObject+WMFReflection.m */; };
+		BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
@@ -1623,6 +1626,12 @@
 		BC318E141C1A38D900DACD9D /* PostNotificationMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostNotificationMatcher.swift; path = WikipediaUnitTests/Code/PostNotificationMatcher.swift; sourceTree = SOURCE_ROOT; };
 		BC318E161C1A5C2900DACD9D /* PostNotificationMatcherShorthand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PostNotificationMatcherShorthand.h; path = WikipediaUnitTests/Code/PostNotificationMatcherShorthand.h; sourceTree = SOURCE_ROOT; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC45FF461C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+WMFReset.h"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFReset.h"; sourceTree = SOURCE_ROOT; };
+		BC45FF471C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+WMFReset.m"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFReset.m"; sourceTree = SOURCE_ROOT; };
+		BC45FF491C1B22C200BAE501 /* NSObject+WMFReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+WMFReflection.h"; path = "WikipediaUnitTests/Code/NSObject+WMFReflection.h"; sourceTree = SOURCE_ROOT; };
+		BC45FF4A1C1B22C200BAE501 /* NSObject+WMFReflection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+WMFReflection.m"; path = "WikipediaUnitTests/Code/NSObject+WMFReflection.m"; sourceTree = SOURCE_ROOT; };
+		BC45FF4C1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QueuesSingleton+AllManagers.h"; path = "WikipediaUnitTests/Code/QueuesSingleton+AllManagers.h"; sourceTree = SOURCE_ROOT; };
+		BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QueuesSingleton+AllManagers.m"; path = "WikipediaUnitTests/Code/QueuesSingleton+AllManagers.m"; sourceTree = SOURCE_ROOT; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
@@ -3631,6 +3640,12 @@
 				B0E808B81C0D17160065EBC0 /* WMFHTTPHangingProtocol.m */,
 				BC97FF081C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.h */,
 				BC97FF091C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m */,
+				BC45FF461C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.h */,
+				BC45FF471C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m */,
+				BC45FF491C1B22C200BAE501 /* NSObject+WMFReflection.h */,
+				BC45FF4A1C1B22C200BAE501 /* NSObject+WMFReflection.m */,
+				BC45FF4C1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.h */,
+				BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */,
 			);
 			name = Utilities;
 			path = WikipediaUnitTests/Code/Utilities;
@@ -4577,6 +4592,7 @@
 				B0E809411C0D1A820065EBC0 /* NSURL+WMFLinkParsingTests.m in Sources */,
 				B0E808981C0D16430065EBC0 /* XCTestCase+WMFLocaleTesting.m in Sources */,
 				B0E809011C0D188B0065EBC0 /* NSArray+PredicateTests.m in Sources */,
+				BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */,
 				B0E808E11C0D17C20065EBC0 /* MWKSavedPageListDataStoreTests.m in Sources */,
 				B0E808FF1C0D18800065EBC0 /* WMFErrorForApiErrorObjectTests.m in Sources */,
 				B0E808741C0D154C0065EBC0 /* NSBundle+TestAssets.m in Sources */,
@@ -4607,6 +4623,7 @@
 				B0E808C11C0D17520065EBC0 /* MWKListLegacyTests.m in Sources */,
 				B0E808F91C0D184B0065EBC0 /* MWKTitleTests.m in Sources */,
 				B0E809231C0D199E0065EBC0 /* ArticleLoadingTests.m in Sources */,
+				BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */,
 				B0E809031C0D18950065EBC0 /* NSMutableDictionary+MaybeSetTests.m in Sources */,
 				B0E808921C0D16240065EBC0 /* MWKImage+AssociationTestUtils.m in Sources */,
 				B0E808D31C0D17A60065EBC0 /* MWKHistoryEntry+MWKRandom.m in Sources */,
@@ -4655,6 +4672,7 @@
 				B0E808C41C0D175D0065EBC0 /* MWKListSharedTests.m in Sources */,
 				B0E808AC1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m in Sources */,
 				B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
+				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
 				B0E809291C0D19D00065EBC0 /* MWKArticleExtractionTests.m in Sources */,
 				BC22F9961C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m in Sources */,
 				B0E808C71C0D176A0065EBC0 /* MWKListTestBase.m in Sources */,
