@@ -40,9 +40,10 @@ pod 'Masonry', '0.6.2'
 # Views
 pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
+pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
 
 # Diagnostics
-pod 'PiwikTracker'
+pod 'PiwikTracker', :head
 pod 'CocoaLumberjack/Swift', '~> 2.2'
 pod 'HockeySDK', '~> 3.8.2'
 

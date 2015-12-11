@@ -5,8 +5,9 @@
 #import "MWKTitleLanguageController.h"
 #import "LanguageCell.h"
 #import "WikipediaAppUtils.h"
+#import "Defines.h"
+#import "UIView+ConstraintsScale.h"
 #import "UIColor+WMFStyle.h"
-#import "UIViewController+Alert.h"
 #import "MWKLanguageLink.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
@@ -14,6 +15,7 @@
 #import <Masonry/Masonry.h>
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
 
 static CGFloat const WMFLanguagesSectionFooterHeight = 10.f;
 static CGFloat const WMFOtherLanguageRowHeight       = 138.f;
@@ -89,8 +91,8 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     self.languageFilterField.placeholder  = MWLocalizedString(@"article-languages-filter-placeholder", nil);
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self loadLanguages];
 }
 
@@ -105,7 +107,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 }
 
 - (void)downloadArticlelanguages {
-    [self showAlert:MWLocalizedString(@"article-languages-downloading", nil) type:ALERT_TYPE_TOP duration:-1];
+    [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"article-languages-downloading", nil) sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
     // (temporarily?) hide search field while loading languages since the default alert UI covers the search field
     [self setLanguageFilterHidden:YES animated:NO];
 
@@ -113,12 +115,14 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     [self.titleLanguageController
      fetchLanguagesWithSuccess:^{
         @strongify(self)
-        [self fadeAlert];
+        //This can fire rather quickly, lets give the user a chance to read the message before we dismiss
+        dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+            [[WMFAlertManager sharedInstance] dismissAlert];
+        });
         [self setLanguageFilterHidden:NO animated:YES];
         [self reloadDataSections];
     } failure:^(NSError* __nonnull error) {
-        @strongify(self)
-        [self showAlert : error.localizedDescription type : ALERT_TYPE_TOP duration : -1];
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:YES tapCallBack:NULL];
     }];
 }
 
@@ -146,7 +150,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 #pragma mark - Section management
 
 - (void)reloadDataSections {
-    [self fadeAlert];
+    [[WMFAlertManager sharedInstance] dismissAlert];
     [self.tableView reloadData];
 }
 
