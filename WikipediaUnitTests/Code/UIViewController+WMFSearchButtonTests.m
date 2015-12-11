@@ -40,8 +40,9 @@ afterEach(^{
     [testVC.view.window resignKeyWindow];
 });
 
-WMFSearchViewController*(^presentSearchByTappingButtonInVC)(UIViewController*) = ^(UIViewController* presentingVC) {
-    UIBarButtonItem* searchBarItem = [presentingVC wmf_searchBarButtonItemWithDelegate:testVC];
+WMFSearchViewController*(^presentSearchByTappingButtonInVC)(UIViewController<WMFSearchPresentationDelegate>*) =
+^(UIViewController<WMFSearchPresentationDelegate>* presentingVC) {
+    UIBarButtonItem* searchBarItem = [presentingVC wmf_searchBarButtonItemWithDelegate:presentingVC];
     // perform search button press manually
 #pragma clang diagnostic push 
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
