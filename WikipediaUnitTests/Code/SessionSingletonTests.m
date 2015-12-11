@@ -100,7 +100,16 @@ describe(@"send usage reports", ^{
     });
 
     it(@"should be idempotent", ^{
+        NSArray* oldManagers = [[QueuesSingleton sharedInstance] allManagers];
+        expect(oldManagers).toNot(beEmpty());
+        expect(oldManagers).to(allPass(beAKindOf([AFHTTPRequestOperationManager class])));
+        expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(oldManagers);
 
+        [testSession setShouldSendUsageReports:testSession.shouldSendUsageReports];
+
+        NSArray* managersAfterRedundantSet = [[QueuesSingleton sharedInstance] allManagers];
+        expect(managersAfterRedundantSet).to(equal(oldManagers));
+        expectAllManagersToHaveExpectedAnalyticsHeaderForCurrentUsageReportsValue(managersAfterRedundantSet);
     });
 });
 
