@@ -15,7 +15,7 @@
 #import "SessionSingleton.h"
 
 @interface DummySearchPresentationViewController : UIViewController
-<WMFSearchPresentationDelegate>
+    <WMFSearchPresentationDelegate>
 
 @property (nonatomic, strong) MWKDataStore* searchDataStore;
 
@@ -23,7 +23,7 @@
 
 QuickSpecBegin(UIViewController_WMFSearchButtonTests)
 
-__block DummySearchPresentationViewController* testVC;
+__block DummySearchPresentationViewController * testVC;
 configureTempDataStoreForEach(tempDataStore, ^{
     testVC = [DummySearchPresentationViewController new];
     testVC.searchDataStore = tempDataStore;
@@ -40,11 +40,11 @@ afterEach(^{
     [testVC.view.window resignKeyWindow];
 });
 
-WMFSearchViewController*(^presentSearchByTappingButtonInVC)(UIViewController<WMFSearchPresentationDelegate>*) =
-^(UIViewController<WMFSearchPresentationDelegate>* presentingVC) {
+WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WMFSearchPresentationDelegate>*) =
+    ^(UIViewController<WMFSearchPresentationDelegate>* presentingVC) {
     UIBarButtonItem* searchBarItem = [presentingVC wmf_searchBarButtonItemWithDelegate:presentingVC];
     // perform search button press manually
-#pragma clang diagnostic push 
+#pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [searchBarItem.target performSelector:searchBarItem.action withObject:searchBarItem];
 #pragma clang diagnostic pop
@@ -62,12 +62,12 @@ WMFSearchViewController*(^presentSearchByTappingButtonInVC)(UIViewController<WMF
     return searchVC;
 };
 
-void(^dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
+void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
     [vc dismissViewControllerAnimated:NO completion:nil];
     expect(vc.presentedViewController).toEventually(beNil());
 };
 
-void(^dismissSearchFromTestVCAndWait)() = ^() {
+void (^ dismissSearchFromTestVCAndWait)() = ^() {
     dismissSearchFromVCAndWait(testVC);
 };
 
@@ -110,7 +110,7 @@ describe(@"search button", ^{
 });
 
 describe(@"global searchVC", ^{
-    void(^verifyGlobalVCOutOfWindowResetAfterNotificationNamed)(NSString*) = ^(NSString* notificationName) {
+    void (^ verifyGlobalVCOutOfWindowResetAfterNotificationNamed)(NSString*) = ^(NSString* notificationName) {
         presentSearchByTappingButtonInVC(testVC);
 
         expect(_sharedSearchViewController).toNot(beNil());
@@ -143,12 +143,12 @@ QuickSpecEnd
 
 #pragma mark - WMFSearchPresentationDelegate
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController *)articleViewController
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
                                            sender:(id)sender {
     WMF_TECH_DEBT_TODO(verify these callbacks)
 }
 
-- (void)didSelectTitle:(MWKTitle *)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     WMF_TECH_DEBT_TODO(verify these callbacks)
 }
 
