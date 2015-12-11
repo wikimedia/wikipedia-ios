@@ -102,6 +102,7 @@ describe(@"search button", ^{
         dismissSearchFromTestVCAndWait();
 
         DummySearchPresentationViewController* otherTestVC = [DummySearchPresentationViewController new];
+        otherTestVC.searchDataStore = testVC.searchDataStore;
         testVC.view.window.rootViewController = otherTestVC;
         WMFSearchViewController* newSearchVC = presentSearchByTappingButtonInVC(otherTestVC);
         expect(newSearchVC).to(equal(oldSearchVC));
