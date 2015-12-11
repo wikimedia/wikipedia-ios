@@ -557,6 +557,8 @@
 		BC22F9961C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */; };
 		BC22F99A1C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F9991C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m */; };
 		BC22F99C1C17BFB3003232CD /* WMFGalleryDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */; };
+		BC45FF501C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4F1C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m */; };
+		BC45FF531C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
 		BC5FE5701B1DF02900273BC0 /* ENWikiSiteInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */; };
@@ -1619,6 +1621,9 @@
 		BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFGalleryDataSourceTests.m; path = Code/WMFGalleryDataSourceTests.m; sourceTree = "<group>"; };
 		BC2F420B1BE9385C0033E185 /* Wikipedia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Wikipedia.entitlements; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC45FF4F1C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFSearchButtonTests.m"; path = "Code/UIViewController+WMFSearchButtonTests.m"; sourceTree = "<group>"; };
+		BC45FF511C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFSearchButton_Testing.h"; path = "Wikipedia/Code/UIViewController+WMFSearchButton_Testing.h"; sourceTree = SOURCE_ROOT; };
+		BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFSearchButton_Testing.m"; path = "Wikipedia/Code/UIViewController+WMFSearchButton_Testing.m"; sourceTree = SOURCE_ROOT; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
 		BC5FE56F1B1DF02900273BC0 /* ENWikiSiteInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ENWikiSiteInfo.json; sourceTree = "<group>"; };
@@ -2694,6 +2699,8 @@
 			children = (
 				B0E803361C0CD7550065EBC0 /* UIViewController+WMFSearchButton.h */,
 				B0E803371C0CD7550065EBC0 /* UIViewController+WMFSearchButton.m */,
+				BC45FF511C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.h */,
+				BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */,
 				0EAED8561BE95090006B01E6 /* View Controller */,
 				0EAED8551BE9507C006B01E6 /* Fetcher */,
 			);
@@ -3456,6 +3463,7 @@
 				BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */,
 				BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */,
 				BC22F99B1C17BFB3003232CD /* WMFGalleryDataSourceTests.m */,
+				BC45FF4F1C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m */,
 			);
 			name = Code;
 			sourceTree = "<group>";
@@ -4622,6 +4630,7 @@
 				B0E809531C0D1B440065EBC0 /* WMFSaveButtonControllerTests.m in Sources */,
 				B0E8095C1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m in Sources */,
 				B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */,
+				BC45FF501C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m in Sources */,
 				BC97FF0A1C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m in Sources */,
 				B0E808EC1C0D18070065EBC0 /* MWKImageInfo+MWKImageComparisonTests.m in Sources */,
 				B0E8089F1C0D16680065EBC0 /* WMFImageController+Testing.m in Sources */,
@@ -4999,6 +5008,7 @@
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,
+				BC45FF531C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				B0E807B01C0CEFF70065EBC0 /* MWKHistoryList.m in Sources */,
 				B0E807081C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m in Sources */,
