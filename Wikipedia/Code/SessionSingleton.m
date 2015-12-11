@@ -188,6 +188,9 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 }
 
 - (void)setShouldSendUsageReports:(BOOL)sendUsageReports {
+    if (sendUsageReports == [self shouldSendUsageReports]) {
+        return;
+    }
     [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
     [[QueuesSingleton sharedInstance] reset];
 }

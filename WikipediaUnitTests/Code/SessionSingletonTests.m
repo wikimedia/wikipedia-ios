@@ -25,6 +25,13 @@ __block SessionSingleton* testSession;
 configureTempDataStoreForEach(tempDataStore, ^{
     [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
     testSession = [[SessionSingleton alloc] initWithDataStore:tempDataStore];
+    WMF_TECH_DEBT_TODO(refactor sendUsageReports to use a notification to make it easier to test)
+    /*
+     ^ this only works now because the queues singleton grabs its values directly from the shared instance
+     AND the shared instance doesn't "cache" the sendUsageReports value in memory, so setting it from a different
+     "SessionSingleton" is fine
+     */
+    [[QueuesSingleton sharedInstance] reset];
 });
 
 describe(@"searchLanguage", ^{
