@@ -22,6 +22,8 @@
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
+		0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */; };
+		0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = 0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */; };
 		0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB691C110BFC00DE75E1 /* WMFLocalization.m */; };
 		0EF5BB6D1C110C2100DE75E1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6C1C110C2100DE75E1 /* AppDelegate.m */; };
 		0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5BB6F1C1628B100DE75E1 /* NSArray+WMFMapping.m */; };
@@ -272,7 +274,6 @@
 		B0E8056B1C0CE0F40065EBC0 /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805681C0CE0F40065EBC0 /* TopActionSheetLabel.m */; };
 		B0E8056C1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */; };
 		B0E805711C0CE1060065EBC0 /* AlertLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8056E1C0CE1060065EBC0 /* AlertLabel.m */; };
-		B0E805721C0CE1060065EBC0 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805701C0CE1060065EBC0 /* UIViewController+Alert.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		B0E8058F1C0CE2C60065EBC0 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */; };
@@ -651,6 +652,8 @@
 		0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitleLanguageController.h; path = Wikipedia/Code/MWKTitleLanguageController.h; sourceTree = SOURCE_ROOT; };
 		0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = Wikipedia/Code/MWKLanguageFilter.h; sourceTree = SOURCE_ROOT; };
 		0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKLanguageFilter.m; path = Wikipedia/Code/MWKLanguageFilter.m; sourceTree = SOURCE_ROOT; };
+		0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WMFAlertManager.swift; path = Wikipedia/Code/WMFAlertManager.swift; sourceTree = SOURCE_ROOT; };
+		0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = AlertDesign.json; path = Wikipedia/Code/AlertDesign.json; sourceTree = SOURCE_ROOT; };
 		0EF5BB651C110BFC00DE75E1 /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Global.h; path = Wikipedia/Code/Global.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB661C110BFC00DE75E1 /* WMFBlockDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBlockDefinitions.h; path = Wikipedia/Code/WMFBlockDefinitions.h; sourceTree = SOURCE_ROOT; };
 		0EF5BB671C110BFC00DE75E1 /* WMFDirectoryPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDirectoryPaths.h; path = Wikipedia/Code/WMFDirectoryPaths.h; sourceTree = SOURCE_ROOT; };
@@ -1122,8 +1125,6 @@
 		B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+TopActionSheet.m"; path = "Wikipedia/Code/UINavigationController+TopActionSheet.m"; sourceTree = SOURCE_ROOT; };
 		B0E8056D1C0CE1060065EBC0 /* AlertLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertLabel.h; path = Wikipedia/Code/AlertLabel.h; sourceTree = SOURCE_ROOT; };
 		B0E8056E1C0CE1060065EBC0 /* AlertLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertLabel.m; path = Wikipedia/Code/AlertLabel.m; sourceTree = SOURCE_ROOT; };
-		B0E8056F1C0CE1060065EBC0 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Alert.h"; path = "Wikipedia/Code/UIViewController+Alert.h"; sourceTree = SOURCE_ROOT; };
-		B0E805701C0CE1060065EBC0 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Alert.m"; path = "Wikipedia/Code/UIViewController+Alert.m"; sourceTree = SOURCE_ROOT; };
 		B0E805731C0CE24B0065EBC0 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Wikipedia/Code/Defines.h; sourceTree = SOURCE_ROOT; };
 		B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WikiGlyph_Chars.h; path = Wikipedia/Code/WikiGlyph_Chars.h; sourceTree = SOURCE_ROOT; };
 		B0E805751C0CE24B0065EBC0 /* WMF_Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMF_Colors.h; path = Wikipedia/Code/WMF_Colors.h; sourceTree = SOURCE_ROOT; };
@@ -2467,8 +2468,6 @@
 			children = (
 				B0E8056D1C0CE1060065EBC0 /* AlertLabel.h */,
 				B0E8056E1C0CE1060065EBC0 /* AlertLabel.m */,
-				B0E8056F1C0CE1060065EBC0 /* UIViewController+Alert.h */,
-				B0E805701C0CE1060065EBC0 /* UIViewController+Alert.m */,
 			);
 			name = Alerts;
 			path = Wikipedia/Code/Alerts;
@@ -2850,6 +2849,7 @@
 			isa = PBXGroup;
 			children = (
 				0EFB48091B3BB01300381F99 /* Style */,
+				0EBCA7521C17BD86004F1FD9 /* Alerts */,
 				0E9DFEB01BDEB9BE0032606E /* App View Controller */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
 				0EEAF0F61B8229E6000D4232 /* Home */,
@@ -3031,6 +3031,22 @@
 			name = "View Controller";
 			path = "Wikipedia/Code/View Controller";
 			sourceTree = SOURCE_ROOT;
+		};
+		0EBCA7491C176D7B004F1FD9 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		0EBCA7521C17BD86004F1FD9 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */,
+				0EBCA7501C17BD6D004F1FD9 /* AlertDesign.json */,
+			);
+			name = Alerts;
+			sourceTree = "<group>";
 		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
 			isa = PBXGroup;
@@ -3389,7 +3405,7 @@
 				0EFB0EF91B31EE2D00D05C08 /* LegacyCoreData */,
 				BCB669A31A83F6C300C7B1FE /* MediaWikiKit */,
 			);
-			name = Code;
+			path = Code;
 			sourceTree = "<group>";
 		};
 		BC7C3A381C0FF9620057F023 /* Code */ = {
@@ -3575,6 +3591,7 @@
 				B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */,
 				B0E805C31C0CE5250065EBC0 /* UIImage+Debug.swift */,
 				B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */,
+				0EBCA7491C176D7B004F1FD9 /* New Group */,
 				B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */,
 				B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */,
 				B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */,
@@ -4441,6 +4458,7 @@
 				B0E8032D1C0CD6E10065EBC0 /* WMFHomeSectionHeader.xib in Resources */,
 				B0E8035A1C0CD8420065EBC0 /* WMFImageGalleryDetailOverlayView.xib in Resources */,
 				B0E804141C0CDE480065EBC0 /* SavedPagesViewController.storyboard in Resources */,
+				0EBCA7511C17BD6D004F1FD9 /* AlertDesign.json in Resources */,
 				BCF012331AD2FA38008D3675 /* assets in Resources */,
 				B0E804121C0CDE480065EBC0 /* PreviewAndSaveViewController.storyboard in Resources */,
 				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
@@ -5010,7 +5028,6 @@
 				B0E807081C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* UIViewController+WMFSearchButton.m in Sources */,
 				B0E804631C0CE0920065EBC0 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */,
-				B0E805721C0CE1060065EBC0 /* UIViewController+Alert.m in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
 				B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */,
 				B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */,
@@ -5080,6 +5097,7 @@
 				B0E802D31C0CD35B0065EBC0 /* WMFHomeSectionSchema.m in Sources */,
 				BCCB81491C1109BD008BC602 /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E806AA1C0CEB020065EBC0 /* HistoryResultCell.m in Sources */,
+				0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */,
 				B0E803091C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m in Sources */,
 				B0E805911C0CE2C60065EBC0 /* LoginFunnel.m in Sources */,
 				B0E804441C0CDF850065EBC0 /* TabularScrollView.m in Sources */,

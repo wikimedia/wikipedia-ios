@@ -369,3 +369,5 @@
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-search-results-message" = "Sorry, could not load the results";
 
+"alert-no-internet" = "There's no internet connection";
+
