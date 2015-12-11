@@ -6,7 +6,6 @@
 #import "WikipediaAppUtils.h"
 #import "SessionSingleton.h"
 #import "QueuesSingleton.h"
-#import "UIViewController+Alert.h"
 #import "NSDate+Utilities.h"
 #import "WikiGlyph_Chars.h"
 #import "Defines.h"
@@ -17,6 +16,7 @@
 #import "PageHistoryFetcher.h"
 #import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
 
 #define TABLE_CELL_ID @"PageHistoryResultCell"
 
@@ -87,16 +87,16 @@
             case FETCH_FINAL_STATUS_SUCCEEDED:
 
                 self.pageHistoryDataArray = pageHistoryDataArray;
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
                 [self.tableView reloadData];
 
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
-                [self fadeAlert];
+                [[WMFAlertManager sharedInstance] dismissAlert];
 
                 break;
             case FETCH_FINAL_STATUS_FAILED:
-                [self showAlert:error.localizedDescription type:ALERT_TYPE_TOP duration:-1];
+                [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
                 break;
         }
     }

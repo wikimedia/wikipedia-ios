@@ -50,7 +50,6 @@
 #import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIViewController+Alert.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -625,7 +624,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
-    [self showAlert:[error localizedDescription] type:ALERT_TYPE_TOP duration:2.f];
+    [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 }
 
 #pragma mark - WMFSearchPresentationDelegate

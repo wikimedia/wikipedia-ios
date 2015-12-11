@@ -31,7 +31,6 @@
 #import "WikipediaAppUtils.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIView+TemporaryAnimatedXF.h"
-#import "UIViewController+Alert.h"
 #import "NSString+FormattedAttributedString.h"
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

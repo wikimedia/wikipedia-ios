@@ -17,7 +17,6 @@
 #import "UIScrollView+NoHorizontalScrolling.h"
 #import "UIWebView+ElementLocation.h"
 #import "UIView+RemoveConstraints.h"
-#import "UIViewController+Alert.h"
 #import "NSString+Extras.h"
 #import "PaddedLabel.h"
 #import "EditFunnel.h"
