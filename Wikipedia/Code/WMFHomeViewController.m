@@ -33,6 +33,7 @@
 #import "MWKRecentSearchList.h"
 
 // Views
+#import "UIViewController+WMFEmptyView.h"
 #import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
@@ -70,6 +71,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSOperationQueue* collectionViewUpdateQueue;
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+
+@property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
 
 @end
 
@@ -234,13 +237,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self.schemaManager update];
+    [self updateSections];
 }
 
 #pragma mark - Tweaks
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self.schemaManager update];
+    [self updateSections];
 }
 
 #pragma mark - Data Source Configuration
@@ -273,6 +276,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.dataSource.tableView = self.tableView;
     self.tableView.delegate   = self;
+    self.sectionLoadErrors    = [NSMutableDictionary dictionary];
     [self reloadSectionsOnOperationQueue];
     [self updateSectionsOnOperationQueue];
 }
@@ -305,12 +309,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
+- (void)updateSections {
+    [self wmf_hideEmptyView];
+    BOOL forceUpdate = self.sectionLoadErrors.count > 0;
+    self.sectionLoadErrors = [NSMutableDictionary dictionary];
+    [self.schemaManager update:forceUpdate];
+}
+
 - (void)updateSectionsOnOperationQueue {
     @weakify(self);
     [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
         dispatchOnMainQueue(^{
             @strongify(self);
-            [self.schemaManager update];
+            [self updateSections];
             [operation finish];
         });
     }];
@@ -624,6 +635,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
+    NSInteger section = [self indexForSectionController:controller];
+    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
+    if (section == NSNotFound) {
+        return;
+    }
+
+    self.sectionLoadErrors[@(section)] = error;
+    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2)) {
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+    }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 }
 
