@@ -23,6 +23,14 @@
 
 QuickSpecBegin(UIViewController_WMFSearchButtonTests)
 
+beforeSuite(^{
+    [UIViewController wmf_setSearchPresentationIsAnimated:NO];
+});
+
+afterSuite(^{
+    [UIViewController wmf_setSearchPresentationIsAnimated:YES];
+});
+
 __block DummySearchPresentationViewController * testVC;
 configureTempDataStoreForEach(tempDataStore, ^{
     testVC = [DummySearchPresentationViewController new];
@@ -35,9 +43,7 @@ configureTempDataStoreForEach(tempDataStore, ^{
 afterEach(^{
     // tear down search
     [_sharedSearchViewController dismissViewControllerAnimated:NO completion:nil];
-    expect(_sharedSearchViewController.view.window)
-    .withTimeout(5)
-    .toEventually(beNil());
+    expect(_sharedSearchViewController.view.window).withTimeout(5).toEventually(beNil());
     _sharedSearchViewController = nil;
     [testVC.view.window resignKeyWindow];
 });
@@ -45,16 +51,17 @@ afterEach(^{
 WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WMFSearchPresentationDelegate>*) =
     ^(UIViewController<WMFSearchPresentationDelegate>* presentingVC) {
     UIBarButtonItem* searchBarItem = [presentingVC wmf_searchBarButtonItemWithDelegate:presentingVC];
-    // perform search button press manually
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+
+        // perform search button press manually
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [searchBarItem.target performSelector:searchBarItem.action withObject:searchBarItem];
-#pragma clang diagnostic pop
+    #pragma clang diagnostic pop
 
     WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
 
-    // NOTE: must use eventually because presentation is animated
-    expect(searchVC.view.window).withTimeout(15).toEventuallyNot(beNil());
+    // NOTE: must use eventually even when animations are disabled
+    expect(searchVC.view.window).withTimeout(5).toEventuallyNot(beNil());
 
     expect(searchVC).to(beAnInstanceOf([WMFSearchViewController class]));
     expect(searchVC).to(equal(_sharedSearchViewController));

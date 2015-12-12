@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (WMFSearchButton)
 
++ (void)wmf_setSearchPresentationIsAnimated:(BOOL)animated;
+
 /**
  *  Standard way of creating a search button for installation in the receiver's toolbar or navigation bar.
  *
