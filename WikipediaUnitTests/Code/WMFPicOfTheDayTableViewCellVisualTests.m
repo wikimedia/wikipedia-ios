@@ -36,7 +36,6 @@
 
 - (void)tearDown {
     [super tearDown];
-    [[LSNocilla sharedInstance] stop];
 }
 
 - (void)testInitialStateOnlyShowsPlaceholderWithoutCaption {
@@ -74,6 +73,7 @@
     [self waitForExpectationsWithTimeout:5 handler:nil];
 
     [self wmf_verifyViewAtScreenWidth:self.cell];
+    [[LSNocilla sharedInstance] stop];
 }
 
 @end
