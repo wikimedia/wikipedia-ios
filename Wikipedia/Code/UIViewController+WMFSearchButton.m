@@ -15,6 +15,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static BOOL isSearchPresentationAnimated = YES;
+
 @implementation UIViewController (WMFSearchButton)
 
 + (void)load {
@@ -26,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
                                              selector:@selector(wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:)
                                                  name:UIApplicationDidReceiveMemoryWarningNotification
                                                object:nil];
+}
+
++ (void)wmf_setSearchPresentationIsAnimated:(BOOL)animated {
+    isSearchPresentationAnimated = animated;
 }
 
 + (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification*)note {
@@ -63,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
             _sharedSearchViewController = searchVC;
         }
         _sharedSearchViewController.searchResultDelegate = delegate;
-        [self presentViewController:_sharedSearchViewController animated:YES completion:nil];
+        [self presentViewController:_sharedSearchViewController animated:isSearchPresentationAnimated completion:nil];
     }];
 }
 
