@@ -87,6 +87,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
 
 void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
     UIViewController* presentedVC = vc.presentedViewController;
+    [vc dismissViewControllerAnimated:YES completion:nil];
     [self expectationForPredicate:
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
