@@ -58,10 +58,10 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
     [searchBarItem.target performSelector:searchBarItem.action withObject:searchBarItem];
     #pragma clang diagnostic pop
 
-    WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
-
     // NOTE: must use eventually even when animations are disabled
-    expect(searchVC.view.window).withTimeout(5).toEventuallyNot(beNil());
+    expect(presentingVC.presentedViewController.view.window).withTimeout(20).toEventuallyNot(beNil());
+
+    WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
 
     expect(searchVC).to(beAnInstanceOf([WMFSearchViewController class]));
     expect(searchVC).to(equal(_sharedSearchViewController));
