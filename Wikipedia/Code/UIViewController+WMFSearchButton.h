@@ -17,10 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKDataStore*)searchDataStore;
 
-@optional
-
-- (MWKSite*)searchSite;
-
 @end
 
 @interface UIViewController (WMFSearchButton)
