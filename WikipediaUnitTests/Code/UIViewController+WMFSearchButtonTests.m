@@ -31,7 +31,7 @@ afterSuite(^{
     [UIViewController wmf_setSearchPresentationIsAnimated:YES];
 });
 
-__block DummySearchPresentationViewController * testVC;
+__block DummySearchPresentationViewController* testVC;
 configureTempDataStoreForEach(tempDataStore, ^{
     testVC = [DummySearchPresentationViewController new];
     testVC.searchDataStore = tempDataStore;
@@ -43,7 +43,16 @@ configureTempDataStoreForEach(tempDataStore, ^{
 afterEach(^{
     // tear down search
     [_sharedSearchViewController dismissViewControllerAnimated:NO completion:nil];
+
+    [self expectationForPredicate:
+     [NSPredicate predicateWithBlock:
+      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
+        return evaluatedObject.view.window == nil;
+    }] evaluatedWithObject:_sharedSearchViewController handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+
     expect(_sharedSearchViewController.view.window).withTimeout(5).toEventually(beNil());
+
     _sharedSearchViewController = nil;
     [testVC.view.window resignKeyWindow];
 });
@@ -52,14 +61,19 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
     ^(UIViewController<WMFSearchPresentationDelegate>* presentingVC) {
     UIBarButtonItem* searchBarItem = [presentingVC wmf_searchBarButtonItemWithDelegate:presentingVC];
 
-        // perform search button press manually
+    // perform search button press manually
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     [searchBarItem.target performSelector:searchBarItem.action withObject:searchBarItem];
     #pragma clang diagnostic pop
 
-    // NOTE: must use eventually even when animations are disabled
-    expect(presentingVC.presentedViewController.view.window).withTimeout(20).toEventuallyNot(beNil());
+    // using XCTestExpecation because Nimble's polling matchers are failing on Travis
+    [self expectationForPredicate:
+     [NSPredicate predicateWithBlock:
+      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
+        return evaluatedObject.presentedViewController.view.window != nil;
+    }] evaluatedWithObject:presentingVC handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 
     WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
 
@@ -72,8 +86,13 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
 };
 
 void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
-    [vc dismissViewControllerAnimated:NO completion:nil];
-    expect(vc.presentedViewController).withTimeout(5).toEventually(beNil());
+    UIViewController* presentedVC = vc.presentedViewController;
+    [self expectationForPredicate:
+     [NSPredicate predicateWithBlock:
+      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
+        return presentedVC.view.window == nil;
+    }] evaluatedWithObject:presentedVC handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 };
 
 void (^ dismissSearchFromTestVCAndWait)() = ^() {
