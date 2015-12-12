@@ -54,9 +54,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
     WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
 
     // NOTE: must use eventually because presentation is animated
-    expect(searchVC.view.window)
-    .withTimeout(5)
-    .toEventuallyNot(beNil());
+    expect(searchVC.view.window).withTimeout(15).toEventuallyNot(beNil());
 
     expect(searchVC).to(beAnInstanceOf([WMFSearchViewController class]));
     expect(searchVC).to(equal(_sharedSearchViewController));
@@ -68,9 +66,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
 
 void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
     [vc dismissViewControllerAnimated:NO completion:nil];
-    expect(vc.presentedViewController)
-    .withTimeout(5)
-    .toEventually(beNil());
+    expect(vc.presentedViewController).withTimeout(5).toEventually(beNil());
 };
 
 void (^ dismissSearchFromTestVCAndWait)() = ^() {
