@@ -42,16 +42,16 @@ configureTempDataStoreForEach(tempDataStore, ^{
 
 afterEach(^{
     // tear down search
-    [_sharedSearchViewController dismissViewControllerAnimated:NO completion:nil];
+    if (_sharedSearchViewController.view.window) {
+        [_sharedSearchViewController dismissViewControllerAnimated:NO completion:nil];
 
-    [self expectationForPredicate:
-     [NSPredicate predicateWithBlock:
-      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-        return evaluatedObject.view.window == nil;
-    }] evaluatedWithObject:_sharedSearchViewController handler:nil];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
-
-    expect(_sharedSearchViewController.view.window).withTimeout(5).toEventually(beNil());
+        [self expectationForPredicate:
+         [NSPredicate predicateWithBlock:
+          ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
+              return evaluatedObject.view.window == nil;
+          }] evaluatedWithObject:_sharedSearchViewController handler:nil];
+        [self waitForExpectationsWithTimeout:10 handler:nil];
+    }
 
     _sharedSearchViewController = nil;
     [testVC.view.window resignKeyWindow];
@@ -87,7 +87,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
 
 void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
     UIViewController* presentedVC = vc.presentedViewController;
-    [vc dismissViewControllerAnimated:YES completion:nil];
+    [vc dismissViewControllerAnimated:NO completion:nil];
     [self expectationForPredicate:
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
