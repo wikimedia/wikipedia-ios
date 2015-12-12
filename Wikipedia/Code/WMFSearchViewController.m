@@ -224,6 +224,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [super viewWillDisappear:animated];
 
     if (!self.presentedViewController) {
+        /*
+         Only perform animations & search site sync if search is being modally dismissed (as opposed to having another
+         view presented on top of it.
+         */
         [self saveLastSearch];
         [self saveSearchlanguage];
 

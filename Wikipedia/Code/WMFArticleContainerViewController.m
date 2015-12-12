@@ -751,10 +751,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self.dataStore;
 }
 
-- (MWKSite*)searchSite {
-    return self.articleTitle.site;
-}
-
 - (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewControllerWithTitle:title
