@@ -73,29 +73,34 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 #pragma mark - Site
 
 - (void)setCurrentArticleSite:(MWKSite*)site {
-    if (site) {
-        _currentArticleSite = site;
-        [[NSUserDefaults standardUserDefaults] setObject:site.language forKey:@"CurrentArticleDomain"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    NSParameterAssert(site);
+    if (!site || [_currentArticleSite isEqual:site]) {
+        return;
     }
+    _currentArticleSite = site;
+    [[NSUserDefaults standardUserDefaults] setObject:site.language forKey:@"CurrentArticleDomain"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - Article
 
 - (void)setCurrentArticleTitle:(MWKTitle*)currentArticle {
-    if (currentArticle) {
-        _currentArticleTitle = currentArticle;
-        [[NSUserDefaults standardUserDefaults] setObject:currentArticle.dataBaseKey forKey:@"CurrentArticleTitle"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    NSParameterAssert(currentArticle);
+    if (!_currentArticle || [_currentArticle isEqual:currentArticle]) {
+        return;
     }
+    _currentArticleTitle = currentArticle;
+    [[NSUserDefaults standardUserDefaults] setObject:currentArticle.dataBaseKey forKey:@"CurrentArticleTitle"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)setCurrentArticle:(MWKArticle*)currentArticle {
-    if (currentArticle) {
-        _currentArticle          = currentArticle;
-        self.currentArticleTitle = currentArticle.title;
-        self.currentArticleSite  = currentArticle.site;
+    if (!currentArticle || [_currentArticle isEqual:currentArticle]) {
+        return;
     }
+    _currentArticle          = currentArticle;
+    self.currentArticleTitle = currentArticle.title;
+    self.currentArticleSite  = currentArticle.site;
 }
 
 - (MWKArticle*)currentArticle {
@@ -114,7 +119,7 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 - (MWKTitle*)lastLoadedTitle {
     MWKSite* lastKnownSite = [self lastKnownSite];
     NSString* titleText    = [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentArticleTitle"];
-    if (!titleText) {
+    if (!titleText.length) {
         return nil;
     }
     MWKTitle* title = [lastKnownSite titleWithString:titleText];
@@ -138,10 +143,16 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 
 - (NSString*)searchApiUrlForLanguage:(NSString*)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
+    if (!self.currentArticleSite) {
+        return nil;
+    }
     return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain];
 }
 
 - (void)setSearchLanguage:(NSString*)searchLanguage {
+    if (!searchLanguage || [self.searchSite.language isEqualToString:searchLanguage]) {
+        return;
+    }
     [[NSUserDefaults standardUserDefaults] setObject:searchLanguage forKey:@"Domain"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.searchSite = nil;
@@ -163,7 +174,11 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 
 - (NSURL*)urlForLanguage:(NSString*)language {
     NSString* endpoint = self.fallback ? @"" : @".m";
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain]];
+    if (!self.currentArticleSite) {
+        return nil;
+    }
+    return [NSURL URLWithString:
+            [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain]];
 }
 
 #pragma mark - Usage Reports
@@ -173,6 +188,9 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 }
 
 - (void)setShouldSendUsageReports:(BOOL)sendUsageReports {
+    if (sendUsageReports == [self shouldSendUsageReports]) {
+        return;
+    }
     [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:sendUsageReports];
     [[QueuesSingleton sharedInstance] reset];
 }

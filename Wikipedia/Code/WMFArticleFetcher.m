@@ -102,6 +102,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self trackOperation:operation forTitle:pageTitle];
 }
 
+- (BOOL)isFetching {
+    return [[self.operationManager operationQueue] operationCount] > 0;
+}
+
 #pragma mark - Operation Tracking / Cancelling
 
 - (AFHTTPRequestOperation*)trackedOperationForTitle:(MWKTitle*)title {

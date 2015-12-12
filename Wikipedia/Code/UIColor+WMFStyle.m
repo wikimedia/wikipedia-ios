@@ -208,7 +208,7 @@
     return [UIColor clearColor];
 }
 
-+ (instancetype)wmf_nearbyDistanceTextColor {
++ (instancetype)wmf_999999Color {
     static UIColor* c = nil;
 
     static dispatch_once_t onceToken;
@@ -217,6 +217,14 @@
         ;
     });
     return c;
+}
+
++ (instancetype)wmf_nearbyDistanceTextColor {
+    return [self wmf_999999Color];
+}
+
++ (instancetype)wmf_emptyGrayTextColor{
+    return [self wmf_999999Color];
 }
 
 + (instancetype)wmf_settingsBackgroundColor {

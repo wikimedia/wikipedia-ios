@@ -54,13 +54,7 @@ static BOOL isSearchPresentationAnimated = YES;
             return;
         }
 
-        MWKSite* searchSite;
-        if ([delegate respondsToSelector:@selector(searchSite)]) {
-            searchSite = [delegate searchSite];
-        } else {
-            // if the delegate doesn't have a specific site we should search from, default to the user's setting
-            searchSite = [[SessionSingleton sharedInstance] searchSite];
-        }
+        MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
 
         if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
             WMFSearchViewController* searchVC =

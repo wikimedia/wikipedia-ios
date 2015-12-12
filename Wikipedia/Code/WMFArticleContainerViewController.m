@@ -47,6 +47,7 @@
 #import "WMFArticleFetcher.h"
 
 // View
+#import "UIViewController+WMFEmptyView.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UIWebView+WMFTrackingView.h"
@@ -108,7 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
 
-
 @property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
 // Previewing
@@ -118,6 +118,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  Need to track this so we don't update the progress bar when loading cached articles
  */
 @property (nonatomic, assign) BOOL webViewIsLoadingFetchedArticle;
+
+/**
+ *  Need to track this so we can display the empty view reliably
+ */
+@property (nonatomic, assign) BOOL articleFetchWasAttempted;
+
 @end
 
 @implementation WMFArticleContainerViewController
@@ -182,6 +188,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupToolbar];
     [self createTableOfContentsViewController];
     [self startSignificantlyViewedTimer];
+    if (article) {
+        [self wmf_hideEmptyView];
+    }
 }
 
 - (MWKHistoryList*)recentPages {
@@ -510,6 +519,9 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidAppear:animated];
     [self addProgressView];
     [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
+    if (!self.article && self.articleFetchWasAttempted) {
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -556,6 +568,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     [self unobserveArticleUpdates];
     [self showProgressViewAnimated:YES];
+    [self wmf_hideEmptyView];
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
@@ -568,6 +581,13 @@ NS_ASSUME_NONNULL_BEGIN
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];
+        if (!self.article && self.view.superview) {
+            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+                //This can potentially fire after viewWillAppear, but before viewDidAppear.
+                //In that case it animates strnagely, delay showing this just in case.
+                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            });
+        }
         if (!self.presentingViewController) {
             // only do error handling if not presenting gallery
 
@@ -582,6 +602,7 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
+        self.articleFetchWasAttempted = YES;
         [self observeArticleUpdates];
     });
 }
@@ -728,10 +749,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKDataStore*)searchDataStore {
     return self.dataStore;
-}
-
-- (MWKSite*)searchSite {
-    return self.articleTitle.site;
 }
 
 - (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
