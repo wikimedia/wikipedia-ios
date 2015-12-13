@@ -101,21 +101,17 @@
 }
 
 - (void)testImportsAllExpectedImagesFromFixture {
-    [self measureMetrics:[[self class] defaultPerformanceMetrics] automaticallyStartMeasuring:NO forBlock:^{
         self.dataStore = [MWKDataStore temporaryDataStore];
 
         MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
 
         [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-        [self startMeasuring];
         [article importAndSaveImagesFromSectionHTML];
-        [self stopMeasuring];
 
         // expected number is observed & recorded,
         assertThat(@(article.images.count), is(@95));
         [self.dataStore removeFolderAtBasePath];
-    }];
 }
 
 @end
