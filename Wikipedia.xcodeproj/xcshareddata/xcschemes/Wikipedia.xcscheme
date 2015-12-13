@@ -57,6 +57,15 @@
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
                <Test
+                  Identifier = "MWKHistoryListPerformanceTests/testReadPerformance">
+               </Test>
+               <Test
+                  Identifier = "NSArray_PredicateTests/testPerformance">
+               </Test>
+               <Test
+                  Identifier = "NSString_FormattedAttributedStringTests/testPerformanceExample">
+               </Test>
+               <Test
                   Identifier = "WMFSearchFetcherTests">
                </Test>
             </SkippedTests>
