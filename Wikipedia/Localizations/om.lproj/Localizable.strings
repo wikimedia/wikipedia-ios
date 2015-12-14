@@ -43,6 +43,7 @@
 "main-menu-language-toggle-show" = "Afaanota agarsiisi";
 "main-menu-language-toggle-hide" = "Afaanota dhokis";
 "main-menu-account-title-logged-out" = "Eenyummeessa";
+// Fuzzy
 "main-menu-account-login" = "Seeni";
 "main-menu-account-logout" = "Ba'i";
 "main-menu-show-title" = "Natti agarsiisi...";

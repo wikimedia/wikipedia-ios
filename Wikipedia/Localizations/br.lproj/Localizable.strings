@@ -107,6 +107,7 @@
 "main-menu-language-selection-saved" = "Enrollet eo bet an dibab eus ar yezh";
 "main-menu-account-title-logged-out" = "Kont";
 "main-menu-account-title-logged-in" = "Kevreañ evel : $1";
+// Fuzzy
 "main-menu-account-login" = "Kevreañ";
 "main-menu-account-logout" = "Digevreañ";
 "main-menu-show-title" = "Diskouezit din";

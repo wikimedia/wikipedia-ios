@@ -94,6 +94,7 @@
 "main-menu-language-selection-saved" = "Val av máli er goymt";
 "main-menu-account-title-logged-out" = "Konta";
 "main-menu-account-title-logged-in" = "Innritað/ur sum: $1";
+// Fuzzy
 "main-menu-account-login" = "Rita inn";
 "main-menu-account-logout" = "Útrita";
 "main-menu-show-title" = "Vís mær...";

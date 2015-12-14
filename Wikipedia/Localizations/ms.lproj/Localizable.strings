@@ -105,6 +105,7 @@
 "main-menu-language-selection-saved" = "Pilihan bahasa disimpan";
 "main-menu-account-title-logged-out" = "Akaun";
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai: $1";
+// Fuzzy
 "main-menu-account-login" = "Log masuk";
 "main-menu-account-logout" = "Log keluar";
 "main-menu-show-title" = "Paparkan...";

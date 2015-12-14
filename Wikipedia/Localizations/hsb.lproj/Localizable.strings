@@ -97,6 +97,7 @@
 "main-menu-language-selection-saved" = "Wuběr rěče składowany";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Přizjewjeny jako $1.";
+// Fuzzy
 "main-menu-account-login" = "Přizjewić";
 "main-menu-account-logout" = "Wotzjewić";
 "main-menu-show-title" = "Pokazaj mi...";

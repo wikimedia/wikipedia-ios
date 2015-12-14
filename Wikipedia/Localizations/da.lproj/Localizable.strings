@@ -108,6 +108,7 @@
 "main-menu-language-selection-saved" = "Sprogvalg gemt";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Logget på som: $1";
+// Fuzzy
 "main-menu-account-login" = "Log på";
 "main-menu-account-logout" = "Log af";
 "main-menu-show-title" = "Vis mig...";

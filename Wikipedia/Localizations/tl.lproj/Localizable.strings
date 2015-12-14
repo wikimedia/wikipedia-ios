@@ -76,9 +76,11 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Buksan ang kawing (link)";
 "open-link-cancel" = "Huwag ituloy";
+"search-title" = "Hanapin";
 "search-searching" = "Hinahanap...";
 "search-field-placeholder-text" = "Hanapin sa Wikipedia";
 "search-field-placeholder-text-zero" = "Hanapin sa Wikipedia Zero";
+"search-recent-title" = "Kamakailang hinanap";
 "main-menu-heading-debug" = "Tanggalan ng sira (debug)";
 "navbar-title-mode-edit-wikitext" = "Baguhin";
 "edit-summary-title" = "Papaano mo naisaayos ang artikulo?";
@@ -117,3 +119,8 @@
 "image-gallery-unknown-owner" = "Di-kilalang tagapag-karga.";
 "image-gallery-fetch-image-info-error-ok" = "Sige";
 "hockeyapp-alert-question" = "Gusto mo bang magbigay ng isang crash report sa $1 para mare-review ng Wikimedia ang iyong crash?";
+"home-continue-reading-heading" = "Magpatuloy sa Pagbabasa";
+"home-continue-related-heading" = "Dahil binasa mo ang $1";
+"home-nearby-check-again" = "Tingnan muli";
+"home-featured-article-heading" = "Tampok na artikulo para sa $1";
+"home-main-page-heading" = "Ngayon sa Wikipedia";

@@ -73,6 +73,7 @@
 "main-menu-language-selection-saved" = "ژبټاکنه مو خوندي شوه";
 "main-menu-account-title-logged-out" = "گڼون";
 "main-menu-account-title-logged-in" = "ننوتي ياست لکه: $1";
+// Fuzzy
 "main-menu-account-login" = "ننوتل";
 "main-menu-account-logout" = "وتل";
 "main-menu-show-title" = "راښکاره يې کړه...";
@@ -182,3 +183,5 @@
 "page-similar-titles" = "ورته مخونه";
 "captcha-reload" = "يو بل کپچا ښکاره کول";
 "captcha-prompt" = "له پورته انځور څخه کپچا متن ورکړئ";
+"home-more-like-footer" = "د $1 په څېر نور";
+"home-nearby-check-again" = "بيا آزمويل";
