@@ -641,12 +641,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIButton*)button {
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     if (text.length == 0) {
         text = [self.article shareSnippet];
     }
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromView:button];
+    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
 }
 
 #pragma mark - WebView Transition
