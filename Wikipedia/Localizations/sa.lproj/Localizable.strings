@@ -104,6 +104,7 @@
 "main-menu-language-selection-saved" = "भाषाविभागः रक्षितः";
 "main-menu-account-title-logged-out" = "लेखा";
 "main-menu-account-title-logged-in" = "$1-त्वेन प्रविश्यताम्";
+// Fuzzy
 "main-menu-account-login" = "प्रविश्यताम्";
 "main-menu-account-logout" = "निर्गम्यताम्";
 "main-menu-show-title" = "दर्श्यताम्...";

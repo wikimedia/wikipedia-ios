@@ -105,6 +105,7 @@
 "main-menu-language-selection-saved" = "Выбраная мова захаваная";
 "main-menu-account-title-logged-out" = "Рахунак";
 "main-menu-account-title-logged-in" = "Увайшлі як: $1";
+// Fuzzy
 "main-menu-account-login" = "Увайсьці";
 "main-menu-account-logout" = "Выйсьці";
 "main-menu-show-title" = "Паказаць мне...";

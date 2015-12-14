@@ -104,6 +104,7 @@
 "main-menu-language-selection-saved" = "Талбыт тылыҥ бигэргэннэ";
 "main-menu-account-title-logged-out" = "Бэлиэ-аат";
 "main-menu-account-title-logged-in" = "Маннык киирбиккин: $1";
+// Fuzzy
 "main-menu-account-login" = "Киир";
 "main-menu-account-logout" = "Тахсыы";
 "main-menu-show-title" = "Көрдөр...";

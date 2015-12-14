@@ -74,6 +74,7 @@
 "main-menu-language-selection-saved" = "Tanlangan til saqlandi";
 "main-menu-account-title-logged-out" = "Hisob";
 "main-menu-account-title-logged-in" = "$1 sifatida kirdingiz";
+// Fuzzy
 "main-menu-account-login" = "Kirish";
 "main-menu-account-logout" = "Chiqish";
 "main-menu-show-title" = "Koʻrsat...";

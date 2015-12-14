@@ -13,6 +13,7 @@
 "article-languages-downloading" = "వ్యాసపు భాషలు లోడవుతున్నాయి...";
 "article-languages-filter-placeholder" = "భాష వడబోత";
 "article-read-more-title" = "మరింత చదవండి";
+"article-related-articles-title" = "సంబంధిత వ్యాసాలు";
 "info-box-title" = "త్వరిత వాస్తవాలు";
 "info-box-close-text" = "మూసివేయి";
 "table-title-other" = "మరింత సమాచారం";
@@ -54,6 +55,7 @@
 "wikitext-upload-save-terms-name" = "వాడుక నియమాలు";
 "open-link-title" = "లంకెను తెరవండి";
 "open-link-cancel" = "రద్దు";
+"search-title" = "వెతుకు";
 "search-searching" = "వెతుకుతున్నారు...";
 "search-cancel" = "రద్దుచేయి";
 "search-titles" = "శీర్షికలు";
@@ -64,6 +66,7 @@
 "main-menu-language-toggle-show" = "భాషలను చూపించు";
 "main-menu-language-toggle-hide" = "భాషలను దాచు";
 "main-menu-account-title-logged-out" = "ఖాతా";
+// Fuzzy
 "main-menu-account-login" = "ప్రవేశించండి";
 "main-menu-account-logout" = "నిష్క్రమించండి";
 "main-menu-show-title" = "నాకు చూపించు...";

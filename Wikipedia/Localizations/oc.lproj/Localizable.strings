@@ -64,6 +64,7 @@
 "main-menu-language-selection-saved" = "Seleccion de lenga enregistrada";
 "main-menu-account-title-logged-out" = "Compte";
 "main-menu-account-title-logged-in" = "Connectat en tant que : $1.";
+// Fuzzy
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-show-title" = "M’afichar…";

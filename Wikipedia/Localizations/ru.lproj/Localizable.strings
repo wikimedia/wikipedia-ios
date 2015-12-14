@@ -115,6 +115,7 @@
 "main-menu-language-selection-saved" = "Выбранный язык сохранен";
 "main-menu-account-title-logged-out" = "Учётная запись";
 "main-menu-account-title-logged-in" = "Вошёл как: $1";
+// Fuzzy
 "main-menu-account-login" = "Представиться";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";

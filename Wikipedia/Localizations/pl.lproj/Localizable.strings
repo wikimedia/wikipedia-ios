@@ -4,6 +4,7 @@
 // Author: Alchemik
 // Author: Bsitzmann
 // Author: Chrumps
+// Author: Debeet
 // Author: Devwebtel
 // Author: Jacenty359
 // Author: Peter Bowman
@@ -21,6 +22,7 @@
 "article-read-more-title" = "Czytaj więcej";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
+"article-related-articles-title" = "Powiązane artykuły";
 "info-box-title" = "Szybkie fakty";
 "info-box-close-text" = "Zamknij";
 "table-title-other" = "Więcej informacji";
@@ -97,8 +99,7 @@
 "search-titles" = "Tytuły";
 "search-within-articles" = "W artykułach";
 "search-did-you-mean" = "Czy chodziło Ci o $1?";
-// Fuzzy
-"search-recent-title" = "Ostatnie wyszukiwania";
+"search-recent-title" = "Ostatnio wyszukiwane";
 "search-recent-clear-confirmation-heading" = "Usunąć wszystkie ostatnie wyszukiwania?";
 "search-recent-clear-confirmation-sub-heading" = "Ta akcja nie może zostać cofnięta!";
 "search-recent-clear-cancel" = "Anuluj";
@@ -113,6 +114,7 @@
 "main-menu-language-selection-saved" = "Wybór języka zapisany.";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Zalogowano jako: $1";
+// Fuzzy
 "main-menu-account-login" = "Zaloguj się";
 "main-menu-account-logout" = "Wyloguj";
 "main-menu-show-title" = "Pokaż mnie...";
@@ -289,3 +291,6 @@
 "captcha-reload" = "Pokaż inny tekst CAPTCHA";
 "captcha-prompt" = "Wpisz tekst CAPTCHA z obrazka powyżej";
 "mwk-empty-title-error" = "Nie można wykonać operacji, jeśli tytuł jest pusty.";
+"home-nearby-check-again" = "Sprawdź ponownie";
+"home-main-page-heading" = "Dzisiaj w Wikipedii";
+"potd-description-prefix" = "Ilustracja dnia na $1";
