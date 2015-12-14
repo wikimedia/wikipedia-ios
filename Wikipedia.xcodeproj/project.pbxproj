@@ -555,6 +555,7 @@
 		B0E809681C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809671C0D1BFA0065EBC0 /* XCTestCase+PromiseKitTests.m */; };
 		B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */; };
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
+		BC070C2F1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m in Sources */ = {isa = PBXBuildFile; fileRef = BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
 		BC15E74C1BF437A200679AA9 /* MonetFullTextSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */; };
 		BC22F9961C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */; };
@@ -1623,6 +1624,8 @@
 		B0E8096E1C0D21530065EBC0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WikipediaUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
+		BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKImage+CanonicalFilenames.m"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.m"; sourceTree = SOURCE_ROOT; };
 		BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetPrefixSearch.json; sourceTree = "<group>"; };
 		BC15E74B1BF437A200679AA9 /* MonetFullTextSearch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonetFullTextSearch.json; sourceTree = "<group>"; };
 		BC22F9951C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseImageGalleryViewControllerTests.m; path = WikipediaUnitTests/Code/WMFBaseImageGalleryViewControllerTests.m; sourceTree = SOURCE_ROOT; };
@@ -3979,7 +3982,8 @@
 				BCD67E841C1F167F005179E1 /* Models */,
 			);
 			name = "Image Info";
-			sourceTree = "<group>";
+			path = "Wikipedia/Code/Image Info";
+			sourceTree = SOURCE_ROOT;
 		};
 		BCD67E841C1F167F005179E1 /* Models */ = {
 			isa = PBXGroup;
@@ -3990,9 +3994,12 @@
 				B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */,
 				B0E807781C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.h */,
 				B0E807791C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.m */,
+				BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */,
+				BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */,
 			);
 			name = Models;
-			sourceTree = "<group>";
+			path = Wikipedia/Code/Models;
+			sourceTree = SOURCE_ROOT;
 		};
 		BCD67E851C1F169B005179E1 /* Fetcher */ = {
 			isa = PBXGroup;
@@ -4001,7 +4008,8 @@
 				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
 			);
 			name = Fetcher;
-			sourceTree = "<group>";
+			path = Wikipedia/Code/Fetcher;
+			sourceTree = SOURCE_ROOT;
 		};
 		BCD67E871C1F17D4005179E1 /* Face Detection */ = {
 			isa = PBXGroup;
@@ -4014,7 +4022,8 @@
 				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
 			);
 			name = "Face Detection";
-			sourceTree = "<group>";
+			path = "Wikipedia/Code/Face Detection";
+			sourceTree = SOURCE_ROOT;
 		};
 		BCDC489C1BF0F38900E6858A /* Featured Article */ = {
 			isa = PBXGroup;
@@ -4928,6 +4937,7 @@
 				B0E805441C0CE0DC0065EBC0 /* UIImage+ColorMask.m in Sources */,
 				B0E807DB1C0CF04A0065EBC0 /* MWKSearchRedirectMapping.m in Sources */,
 				B0E8058F1C0CE2C60065EBC0 /* EventLogger.m in Sources */,
+				BC070C2F1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m in Sources */,
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				B0E8076C1C0CEE3A0065EBC0 /* Saved.m in Sources */,
 				B0E803881C0CDA870065EBC0 /* WMFMinimalArticleContentCell.m in Sources */,
