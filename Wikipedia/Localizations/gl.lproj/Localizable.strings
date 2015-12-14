@@ -290,12 +290,12 @@
 "home-title" = "Explorar";
 "home-continue-reading-heading" = "Continuar lendo";
 "home-continue-related-heading" = "Porque leu $1";
-"home-more-like-footer" = "Máis coma 1$";
+"home-more-like-footer" = "Máis coma $1";
 "home-nearby-footer" = "Máis próximos á súa localización";
 "home-nearby-nothing" = "Nada próximo";
 "home-nearby-check-again" = "Comprobar de novo";
 "home-featured-article-heading" = "Artigo destacado para $1";
 "home-main-page-heading" = "Hoxe en Wikipedia";
-"home-potd-heading" = "Imaxe do día para 1$";
+"home-potd-heading" = "Imaxe do día para $1";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
-"potd-description-prefix" = "Imaxe do día para 1$";
+"potd-description-prefix" = "Imaxe do día para $1";
