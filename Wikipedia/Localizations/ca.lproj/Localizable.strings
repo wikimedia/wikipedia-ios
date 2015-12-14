@@ -297,7 +297,7 @@
 "mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";
 "home-title" = "Exploreu!";
 "home-continue-reading-heading" = "Continuar llegint";
-"home-continue-related-heading" = "Perquè vas llegir 1$";
+"home-continue-related-heading" = "Perquè vas llegir $1";
 "home-more-like-footer" = "Més com $1";
 "home-nearby-footer" = "Més propers a la vostra ubicació";
 "home-nearby-nothing" = "Res proper";
