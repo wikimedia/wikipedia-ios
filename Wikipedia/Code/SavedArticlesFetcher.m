@@ -100,8 +100,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }];
         if (wasFetching) {
             /*
-             only notify delegate if deletion occurs during a download session. if deletion occurs
-             after the fact, we don't need to inform delegate of completion
+               only notify delegate if deletion occurs during a download session. if deletion occurs
+               after the fact, we don't need to inform delegate of completion
              */
             [self notifyDelegateIfFinished];
         }
@@ -121,8 +121,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (void)fetchTitle:(MWKTitle*)title {
     /*
-     !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
-     objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
+       !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
+       objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
      */
     MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
     if (existingArticle.isCached) {
@@ -133,12 +133,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     DDLogVerbose(@"Fetching saved title: %@", title);
 
     /*
-     don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-     immediately in order to ensure accurate progress & error reporting.
+       don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+       immediately in order to ensure accurate progress & error reporting.
      */
     self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title
                                                                                      progress:NULL]
-    .thenOn(self.accessQueue, ^(MWKArticle* article){
+                                                .thenOn(self.accessQueue, ^(MWKArticle* article){
         [[article allImageURLs] bk_each:^(NSURL* imageURL) {
             // fetch all article images, but don't block success on their completion or consider failed image
             // download an error
@@ -146,7 +146,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         }];
         @weakify(self);
         NSArray<AnyPromise*>* infoPromises =
-        [[article.images.uniqueLargestVariants wmf_mapAndRejectNil:^id _Nullable (MWKImage* _Nonnull img) {
+            [[article.images.uniqueLargestVariants wmf_mapAndRejectNil:^id _Nullable (MWKImage* _Nonnull img) {
             NSString* canonicalFilename = img.canonicalFilename;
             if (canonicalFilename.length) {
                 return [@"File:" stringByAppendingString:canonicalFilename];
@@ -158,13 +158,13 @@ static SavedArticlesFetcher* _articleFetcher = nil;
                 [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
                                                             fromSite:title.site
                                                              success:^(NSArray* infoObjects) {
-                                                                 resolve(infoObjects.firstObject);
-                                                             }
+                    resolve(infoObjects.firstObject);
+                }
                                                              failure:resolve];
             }];
         }];
         PMKWhen(infoPromises).then(^(NSArray* infoOrError) {
-            NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL(id obj) {
+            NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL (id obj) {
                 return [obj isKindOfClass:[NSError class]] || [obj isEqual:[NSNull null]];
             }];
 
@@ -182,7 +182,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         });
         [self didFetchArticle:article title:title error:nil];
     })
-    .catch(^(NSError* error){
+                                                .catch(^(NSError* error){
         dispatch_async(self.accessQueue, ^{
             [self didFetchArticle:nil title:title error:error];
         });

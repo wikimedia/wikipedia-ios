@@ -19,7 +19,7 @@
     self.mockArticleFetcher         = MKTMock([WMFArticleFetcher class]);
     self.mockImageController        = MKTMock([WMFImageController class]);
     self.mockImageInfoFetcher       = MKTMock([MWKImageInfoFetcher class]);
-    self.savedArticlesFetcher =
+    self.savedArticlesFetcher       =
         [[SavedArticlesFetcher alloc]
          initWithSavedPageList:self.savedPageList
                 articleFetcher:self.mockArticleFetcher

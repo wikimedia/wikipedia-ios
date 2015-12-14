@@ -49,13 +49,13 @@
             transformerUsingForwardBlock:^NSURL* (NSString* urlString,
                                                   BOOL* success,
                                                   NSError* __autoreleasing* error) {
-                return [NSURL wmf_optionalURLWithString:urlString];
-            }
-            reverseBlock:^NSString* (NSURL* thumbnailURL,
-                                     BOOL* success,
-                                     NSError* __autoreleasing* error) {
-                return [thumbnailURL absoluteString];
-            }];
+        return [NSURL wmf_optionalURLWithString:urlString];
+    }
+                            reverseBlock:^NSString* (NSURL* thumbnailURL,
+                                                     BOOL* success,
+                                                     NSError* __autoreleasing* error) {
+        return [thumbnailURL absoluteString];
+    }];
 }
 
 + (NSValueTransformer*)wikidataDescriptionJSONTransformer {
@@ -74,30 +74,30 @@
 + (NSValueTransformer*)isDisambiguationJSONTransformer {
     return [MTLValueTransformer
             transformerUsingForwardBlock:^(NSDictionary* value, BOOL* success, NSError** error) {
-                NSString* disambiguation = value[@"pageprops.disambiguation"];
-                if (disambiguation) {
-                    return @YES;
-                }
-                // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
-                // so double-check wiki data description for "disambiguation page" string.
-                NSArray* description = value[@"terms.description"];
-                if (description.count && [description.firstObject containsString:@"disambiguation page"]) {
-                    return @YES;
-                }
-                return @NO;
-            }];
+        NSString* disambiguation = value[@"pageprops.disambiguation"];
+        if (disambiguation) {
+            return @YES;
+        }
+        // HAX: occasionally the search api doesn't report back "disambiguation" page term ( T121288 ),
+        // so double-check wiki data description for "disambiguation page" string.
+        NSArray* description = value[@"terms.description"];
+        if (description.count && [description.firstObject containsString:@"disambiguation page"]) {
+            return @YES;
+        }
+        return @NO;
+    }];
 }
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
-             WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"]
-             };
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, articleID): @"pageid",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, thumbnailURL): @"thumbnail.source",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"]
+    };
 }
 
 @end
