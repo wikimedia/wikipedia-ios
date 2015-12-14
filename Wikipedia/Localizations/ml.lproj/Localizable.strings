@@ -83,6 +83,7 @@
 "main-menu-language-selection-saved" = "ഭാഷ തിരഞ്ഞെടുക്കൽ സൂക്ഷിച്ചു വെച്ചിട്ടുണ്ട്.";
 "main-menu-account-title-logged-out" = "അംഗത്വം";
 "main-menu-account-title-logged-in" = "$1 ആയി പ്രവേശിച്ചിരിക്കുന്നു";
+// Fuzzy
 "main-menu-account-login" = "പ്രവേശിക്കുക";
 "main-menu-account-logout" = "ലോഗൗട്ട്";
 "main-menu-show-title" = "എന്നെ കാണിക്കുക...";

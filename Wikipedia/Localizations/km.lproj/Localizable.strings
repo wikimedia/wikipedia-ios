@@ -89,6 +89,7 @@
 "main-menu-language-selection-saved" = "បានរក្សាទុកជម្រើសភាសា";
 "main-menu-account-title-logged-out" = "គណនី";
 "main-menu-account-title-logged-in" = "កត់ឈ្មោះចូលជា៖ $1";
+// Fuzzy
 "main-menu-account-login" = "កត់ឈ្មោះចូល";
 "main-menu-account-logout" = "កត់ឈ្មោះចេញ";
 "main-menu-show-title" = "បង្ហាញ...";

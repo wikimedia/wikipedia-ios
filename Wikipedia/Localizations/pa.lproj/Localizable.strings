@@ -106,6 +106,7 @@
 "main-menu-language-selection-saved" = "ਬੋਲੀ ਦੀ ਚੋਣ ਸਾਂਭੀ ਗਈ";
 "main-menu-account-title-logged-out" = "ਖਾਤਾ";
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
+// Fuzzy
 "main-menu-account-login" = "ਦਾਖ਼ਲ ਹੋਵੋ";
 "main-menu-account-logout" = "ਵਿਦਾਈ ਲਉ";
 "main-menu-show-title" = "ਮੈਨੂੰ ਵਿਖਾਉ...";

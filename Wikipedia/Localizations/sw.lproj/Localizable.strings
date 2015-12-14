@@ -64,6 +64,7 @@
 "main-menu-language-toggle-hide" = "Ficha lugha";
 "main-menu-account-title-logged-out" = "Akaunti";
 "main-menu-account-title-logged-in" = "Umeingia kama: $1";
+// Fuzzy
 "main-menu-account-login" = "Ingia";
 "main-menu-account-logout" = "Toka";
 "main-menu-show-title" = "Nionyeshe...";

@@ -105,6 +105,7 @@
 "main-menu-language-selection-saved" = "Taalkeuse gestoor";
 "main-menu-account-title-logged-out" = "Rekening";
 "main-menu-account-title-logged-in" = "Aangemeld as: $1";
+// Fuzzy
 "main-menu-account-login" = "Meld aan";
 "main-menu-account-logout" = "Teken uit";
 "main-menu-show-title" = "Wys my...";

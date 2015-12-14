@@ -63,6 +63,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Malfermi ligilon";
 "open-link-cancel" = "Nuligi";
+"search-title" = "Serĉi";
 "search-searching" = "Serĉante...";
 "search-field-placeholder-text" = "Serĉi en Vikipedio";
 "search-field-placeholder-text-zero" = "Serĉi en Vikipedio Nulo";
@@ -88,6 +89,7 @@
 "main-menu-language-selection-saved" = "Lingvoelekto konservita";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Ensalutinta kiel: $1";
+// Fuzzy
 "main-menu-account-login" = "Ensaluti";
 "main-menu-account-logout" = "Elsaluti";
 "main-menu-show-title" = "Montru al mi...";

@@ -106,6 +106,7 @@
 "main-menu-language-selection-saved" = "Sprachauswahl gespeichert";
 "main-menu-account-title-logged-out" = "Benutzerkonto";
 "main-menu-account-title-logged-in" = "Angemeldet als: $1";
+// Fuzzy
 "main-menu-account-login" = "Anmelden";
 "main-menu-account-logout" = "Abmelden";
 "main-menu-show-title" = "Zeige mir …";

@@ -90,6 +90,7 @@
 "main-menu-language-selection-saved" = "Výběr jazyka uložen";
 "main-menu-account-title-logged-out" = "Účet";
 "main-menu-account-title-logged-in" = "Přihlášen jako: $1";
+// Fuzzy
 "main-menu-account-login" = "Přihlásit se";
 "main-menu-account-logout" = "Odhlásit se";
 "main-menu-show-history" = "Nedávné";

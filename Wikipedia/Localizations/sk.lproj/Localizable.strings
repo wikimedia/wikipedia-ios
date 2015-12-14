@@ -12,6 +12,7 @@
 "article-read-more-title" = "Ďalšie informácie";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
 "article-unable-to-load-article" = "Článok nebolo možné načítať.";
+"article-related-articles-title" = "Súvisiace články";
 "info-box-title" = "Rýchle fakty";
 "info-box-close-text" = "Zavrieť";
 "table-title-other" = "Viac informácií";
@@ -76,6 +77,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Otvoriť odkaz";
 "open-link-cancel" = "Zrušiť";
+"search-title" = "Hľadať";
 "search-searching" = "Hľadám...";
 "search-no-matches" = "Vyhľadávanie nenašlo žiadne výsledky.";
 "search-field-placeholder-text" = "Hľadať";
@@ -87,7 +89,6 @@
 "search-titles" = "Nadpis";
 "search-within-articles" = "V článkoch";
 "search-did-you-mean" = "Mali ste na mysli \"%s\"?";
-// Fuzzy
 "search-recent-title" = "Nedávno hľadané výrazy";
 "search-recent-clear-confirmation-heading" = "Vymazať nedávno hľadané výrazy?";
 "search-recent-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
@@ -103,6 +104,7 @@
 "main-menu-language-selection-saved" = "Výber jazyka bol uložený";
 "main-menu-account-title-logged-out" = "Účet";
 "main-menu-account-title-logged-in" = "Prihlásený ako: $1";
+// Fuzzy
 "main-menu-account-login" = "Prihlásiť sa";
 "main-menu-account-logout" = "Odhlásiť sa";
 "main-menu-show-title" = "Ukáž mi...";
@@ -188,6 +190,8 @@
 "button-next" = "Ďalej";
 "button-done" = "Hotovo";
 "button-save" = "Uložiť";
+"button-save-for-later" = "Uložiť na neskôr";
+"button-saved-for-later" = "Uložené na neskôr";
 "onboarding-create-account" = "Vytvoriť účet";
 "onboarding-login" = "Prihlásiť sa";
 "onboarding-already-have-account" = "Máte už vytvorený účet? $1";
@@ -203,7 +207,9 @@
 "license-footer-text" = "Obsah je k dispozícii v rámci $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Obsah";
+"abuse-filter-warning-heading" = "Toto vyzerá ako nekonštruktívna úprava. Naozaj ju chcete uložiť?";
 "abuse-filter-disallow-heading" = "Túto úpravu nie je možné uložiť. Prosím, vráťte sa späť a zmeňte ju.";
+"abuse-filter-disallow-unconstructive" = "Automatický filter označil túto úpravu ako potencionálne nekonštruktívnu alebo ako pokus o vandalizmus.";
 "abuse-filter-disallow-notable" = "Wikipédia je encyklopédia a patrí sem iba neutrálny a hodnotný obsah.";
 "menu-edit-accessibility-label" = "Upraviť";
 "menu-close-accessibility-label" = "Zavrieť";
@@ -245,3 +251,8 @@
 "page-similar-titles" = "Podobné stránky";
 "captcha-reload" = "Zobraziť ďalšie captcha";
 "captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
+"home-continue-reading-heading" = "Pokračovať v čítaní";
+"home-featured-article-heading" = "Odporúčaný článok pre $1";
+"home-main-page-heading" = "Dnes na Wikipédii";
+"home-potd-heading" = "Obrázok dňa pre $1";
+"potd-description-prefix" = "Obrázok dňa pre $1";

@@ -13,6 +13,7 @@
 "article-read-more-title" = "আরো পড়ুন";
 "article-unable-to-load-section" = "এই অনুচ্ছেদ পূরণ করতে অসমর্থ। যদি এই সমস্যা সমাধান হয়ে থাকে তাহলে নিবন্ধটি দেখার জন্য পুনরায় সতেজ করুন।";
 "article-unable-to-load-article" = "নিবন্ধ লোড করতে অসমর্থ।";
+"article-related-articles-title" = "সম্পর্কিত নিবন্ধ";
 "info-box-title" = "দ্রুত কার্য";
 "info-box-close-text" = "বন্ধ";
 "table-title-other" = "আরও তথ্য";
@@ -42,6 +43,7 @@
 "zero-warn-when-leaving" = "উইকিপিডিয়া জিরো প্রস্থানের সময় সতর্ক করো";
 "zero-settings-devmode" = "জিরো ডেভমোড";
 "account-creation-captcha-required" = "ক্যাপচা যাচাইকরণ প্রয়োজন।";
+"account-creation-captcha-obtaining" = "একটি নতুন ক্যাপচা সংগ্রহ করা হচ্ছে।";
 "account-creation-logging-in" = "প্রবেশ হচ্ছে...";
 "account-creation-passwords-mismatched" = "পাসওয়ার্ড মিলেনি";
 "account-creation-saving" = "সংরক্ষণ হচ্ছে ...";
@@ -79,6 +81,7 @@
 "wikitext-upload-save-license-name" = "সিসি বাই-এস ৩.০";
 "open-link-title" = "লিঙ্ক খুলুন";
 "open-link-cancel" = "বাতিল";
+"search-title" = "অনুসন্ধান";
 "search-searching" = "অনুসন্ধান হচ্ছে...";
 "search-no-matches" = "অনুসন্ধান করা শব্দের জন্য কোন মিল পাওয়া যায়নি।";
 "search-field-placeholder-text" = "উইকিপিডিয়া অনুসন্ধান";
@@ -105,6 +108,7 @@
 "main-menu-language-selection-saved" = "ভাষা নির্বাচন সংরক্ষণ হয়েছে";
 "main-menu-account-title-logged-out" = "অ্যাকাউন্ট";
 "main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
+// Fuzzy
 "main-menu-account-login" = "প্রবেশ";
 "main-menu-account-logout" = "প্রস্থান";
 "main-menu-show-title" = "আমাকে দেখাও...";
@@ -203,6 +207,8 @@
 "button-next" = "পরবর্তী";
 "button-done" = "সম্পন্ন";
 "button-save" = "সংরক্ষণ";
+"button-save-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
+"button-saved-for-later" = "পরবর্তীর জন্য সংরক্ষণ করুন";
 "onboarding-create-account" = "অ্যাকাউন্ট তৈরি করুন";
 "onboarding-login" = "প্রবেশ";
 "onboarding-already-have-account" = "ইতিমধ্যে একটি অ্যাকাউন্ট আছে? $1";
