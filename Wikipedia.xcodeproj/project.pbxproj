@@ -2109,9 +2109,6 @@
 				B0E806441C0CE7F70065EBC0 /* CaptchaResetter.m */,
 				B0E806451C0CE7F70065EBC0 /* EditTokenFetcher.h */,
 				B0E806461C0CE7F70065EBC0 /* EditTokenFetcher.m */,
-				B0E8064D1C0CE84B0065EBC0 /* SavedArticlesFetcher_Testing.h */,
-				B0E8064E1C0CE84B0065EBC0 /* SavedArticlesFetcher.h */,
-				B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */,
 				B0E806501C0CE84B0065EBC0 /* ThumbnailFetcher.h */,
 				B0E806511C0CE84B0065EBC0 /* ThumbnailFetcher.m */,
 				B0E806521C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.h */,
@@ -2686,8 +2683,6 @@
 			isa = PBXGroup;
 			children = (
 				B0E803A81C0CDB8D0065EBC0 /* WMFTitleListDataSource.h */,
-				B0E803A91C0CDB9A0065EBC0 /* WMFSavedPagesDataSource.h */,
-				B0E803AA1C0CDBAD0065EBC0 /* WMFSavedPagesDataSource.m */,
 				B0E803AC1C0CDBC00065EBC0 /* WMFRecentPagesDataSource.h */,
 				B0E803AD1C0CDBC00065EBC0 /* WMFRecentPagesDataSource.m */,
 				B0E803AF1C0CDBCF0065EBC0 /* WMFSearchDataSource.h */,
@@ -2728,8 +2723,6 @@
 			children = (
 				B0E803CA1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.h */,
 				B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */,
-				B0E803CD1C0CDCAF0065EBC0 /* WMFSaveButtonController.h */,
-				B0E803CE1C0CDCAF0065EBC0 /* WMFSaveButtonController.m */,
 				B0E803D01C0CDCBF0065EBC0 /* UIView+WMFShadow.h */,
 				B0E803D11C0CDCBF0065EBC0 /* UIView+WMFShadow.m */,
 				B0E803D31C0CDCD60065EBC0 /* UIStoryboard+WMFExtensions.h */,
@@ -2965,7 +2958,7 @@
 			path = Wikipedia/Code/Random;
 			sourceTree = SOURCE_ROOT;
 		};
-		0EAAAFC81B43301500E65A95 /* Saved Pages */ = {
+		0EAAAFC81B43301500E65A95 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				B0E807B11C0CF0180065EBC0 /* MWKSavedPageEntry.h */,
@@ -2975,7 +2968,7 @@
 				B0E807B51C0CF0180065EBC0 /* MWKSavedPageList.m */,
 				B0E807B61C0CF0180065EBC0 /* MWKSavedPageListDataExportConstants.h */,
 			);
-			name = "Saved Pages";
+			name = Models;
 			path = "Wikipedia/Code/Saved Pages";
 			sourceTree = SOURCE_ROOT;
 		};
@@ -3409,6 +3402,7 @@
 				0463639518A844380049EE4F /* Keychain */,
 				0487041519F824D700B7D307 /* Networking */,
 				04616DF71AE7060C00815BCE /* Protocols */,
+				BCD67E7E1C1F1433005179E1 /* Saved Pages */,
 				0447866C1852B5010050563B /* Session */,
 				04C43AB0183441A4006C643B /* View Controllers */,
 				04C43AA818344131006C643B /* mw-bridge */,
@@ -3703,7 +3697,6 @@
 				B0E807A01C0CEFBD0065EBC0 /* MWKSiteInfo.m */,
 				0EAAAFCA1B43302300E65A95 /* Recent Searches */,
 				0EAAAFC91B43301C00E65A95 /* History */,
-				0EAAAFC81B43301500E65A95 /* Saved Pages */,
 			);
 			name = "Data classes";
 			path = "Wikipedia/Code/Data classes";
@@ -3957,6 +3950,48 @@
 			path = WikipediaUnitTests/Code;
 			sourceTree = SOURCE_ROOT;
 		};
+		BCD67E7E1C1F1433005179E1 /* Saved Pages */ = {
+			isa = PBXGroup;
+			children = (
+				0EAAAFC81B43301500E65A95 /* Models */,
+				BCD67E821C1F14C5005179E1 /* Event Logging */,
+				BCD67E811C1F14AF005179E1 /* Controllers */,
+				BCD67E801C1F1471005179E1 /* Fetchers */,
+			);
+			name = "Saved Pages";
+			path = Wikipedia/Code;
+			sourceTree = SOURCE_ROOT;
+		};
+		BCD67E801C1F1471005179E1 /* Fetchers */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8064D1C0CE84B0065EBC0 /* SavedArticlesFetcher_Testing.h */,
+				B0E8064E1C0CE84B0065EBC0 /* SavedArticlesFetcher.h */,
+				B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */,
+			);
+			name = Fetchers;
+			sourceTree = "<group>";
+		};
+		BCD67E811C1F14AF005179E1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0E803A91C0CDB9A0065EBC0 /* WMFSavedPagesDataSource.h */,
+				B0E803AA1C0CDBAD0065EBC0 /* WMFSavedPagesDataSource.m */,
+				B0E803CD1C0CDCAF0065EBC0 /* WMFSaveButtonController.h */,
+				B0E803CE1C0CDCAF0065EBC0 /* WMFSaveButtonController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		BCD67E821C1F14C5005179E1 /* Event Logging */ = {
+			isa = PBXGroup;
+			children = (
+				B0E805851C0CE2C60065EBC0 /* SavedPagesFunnel.h */,
+				B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */,
+			);
+			name = "Event Logging";
+			sourceTree = "<group>";
+		};
 		BCDC489C1BF0F38900E6858A /* Featured Article */ = {
 			isa = PBXGroup;
 			children = (
@@ -4198,8 +4233,6 @@
 				B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */,
 				B0E805831C0CE2C60065EBC0 /* ReadingActionFunnel.h */,
 				B0E805841C0CE2C60065EBC0 /* ReadingActionFunnel.m */,
-				B0E805851C0CE2C60065EBC0 /* SavedPagesFunnel.h */,
-				B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */,
 				B0E805871C0CE2C60065EBC0 /* ToCInteractionFunnel.h */,
 				B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */,
 				B0E805891C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.h */,
