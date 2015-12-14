@@ -10,6 +10,11 @@
 #import "MWKArticle.h"
 #import "MWKImage+CanonicalFilenames.h"
 
+static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
+
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFSavedArticlesFetcherLogLevel
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SavedArticlesFetcher ()
@@ -124,70 +129,108 @@ static SavedArticlesFetcher* _articleFetcher = nil;
        !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
        objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
      */
-    MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
-    if (existingArticle.isCached) {
-        DDLogVerbose(@"Skipping download of cached title: %@", title);
-        return;
-    }
-
-    DDLogVerbose(@"Fetching saved title: %@", title);
+     MWKArticle* cachedArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
 
     /*
        don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
        immediately in order to ensure accurate progress & error reporting.
      */
-    self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title
-                                                                                     progress:NULL]
-                                                .thenOn(self.accessQueue, ^(MWKArticle* article){
-        [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-            // fetch all article images, but don't block success on their completion or consider failed image
-            // download an error
-            [self.imageController fetchImageWithURLInBackground:imageURL];
-        }];
-        @weakify(self);
-        NSArray<AnyPromise*>* infoPromises =
-            [[article.images.uniqueLargestVariants wmf_mapAndRejectNil:^id _Nullable (MWKImage* _Nonnull img) {
-            NSString* canonicalFilename = img.canonicalFilename;
-            if (canonicalFilename.length) {
-                return [@"File:" stringByAppendingString:canonicalFilename];
-            } else {
-                return nil;
-            }
-        }] bk_map:^AnyPromise*(NSString* canonicalFilename) {
-            return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-                [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
-                                                            fromSite:title.site
-                                                             success:^(NSArray* infoObjects) {
-                    resolve(infoObjects.firstObject);
-                }
-                                                             failure:resolve];
-            }];
-        }];
-        PMKWhen(infoPromises).then(^(NSArray* infoOrError) {
-            NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL (id obj) {
-                return [obj isKindOfClass:[NSError class]] || [obj isEqual:[NSNull null]];
-            }];
-
-            if (infoObjects.count == 0) {
-                return;
-            }
-
-            @strongify(self);
-
-            [self.savedPageList.dataStore saveImageInfo:infoObjects forTitle:title];
-
-            [infoObjects bk_each:^(MWKImageInfo* info) {
-                [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
-            }];
-        });
-        [self didFetchArticle:article title:title error:nil];
+    @weakify(self);
+    self.fetchOperationsByArticleTitle[title] = [AnyPromise promiseWithValue:cachedArticle]
+    .then(^id(MWKArticle* articleOrNil) {
+        @strongify(self);
+        if (!self) {
+            return [NSError cancelledError];
+        } else if (articleOrNil) {
+            DDLogInfo(@"Skipping fetch for saved page which is already cached: %@", title);
+            return articleOrNil;
+        } else {
+            DDLogVerbose(@"Fetching saved title: %@", title);
+            return [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
+        }
     })
-                                                .catch(^(NSError* error){
+    .thenOn(self.accessQueue, ^(MWKArticle* article){
+        @strongify(self);
+        [self didFetchArticle:article title:title error:nil];
+        [self downloadImageDataForArticle:article];
+    })
+    .catch(^(NSError* error){
+        if (!self) {
+            return;
+        }
         dispatch_async(self.accessQueue, ^{
             [self didFetchArticle:nil title:title error:error];
         });
     });
 }
+
+- (void)downloadImageDataForArticle:(MWKArticle*)article {
+    [self fetchAllImagesInArticle:article];
+    [self fetchGalleryInfoAndImagesForArticle:article];
+}
+
+- (void)fetchAllImagesInArticle:(MWKArticle*)article {
+    [[article allImageURLs] bk_each:^(NSURL* imageURL) {
+        // fetch all article images, but don't block success on their completion or consider failed image
+        // download an error
+        [self.imageController fetchImageWithURLInBackground:imageURL];
+    }];
+}
+
+- (void)fetchGalleryInfoAndImagesForArticle:(MWKArticle*)article {
+    @weakify(self);
+    [self fetchImageInfoForImagesInArticle:article].then(^(NSArray<MWKImageInfo*>* info) {
+        @strongify(self);
+        if (!self) {
+            return;
+        }
+        PMKWhen([info bk_map:^(MWKImageInfo* info) {
+            return [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
+        }])
+        .then(^ (NSArray* downloadResults) {
+            DDLogVerbose(@"Downloaded results for images in gallery for %@: %@", article.title, downloadResults);
+        });
+    });
+}
+
+- (AnyPromise*)fetchImageInfoForImagesInArticle:(MWKArticle*)article {
+    @weakify(self);
+    return PMKWhen([[article.images.uniqueLargestVariants wmf_mapAndRejectNil:^id _Nullable (MWKImage* _Nonnull img) {
+        NSString* canonicalFilename = img.canonicalFilename;
+        if (canonicalFilename.length) {
+            return [@"File:" stringByAppendingString:canonicalFilename];
+        } else {
+            return nil;
+        }
+    }] bk_map:^AnyPromise*(NSString* canonicalFilename) {
+        return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+            [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
+                                                        fromSite:article.title.site
+                                                         success:^(NSArray* infoObjects) {
+                                                             resolve(infoObjects.firstObject);
+                                                         }
+                                                         failure:resolve];
+        }];
+    }])
+    .thenInBackground(^id(NSArray* infoOrError) {
+        DDLogVerbose(@"Download results for imageinfo info for %@: %@", article.title, infoOrError);
+        NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL (id obj) {
+            return [obj isKindOfClass:[NSError class]] || [obj isEqual:[NSNull null]];
+        }];
+
+        @strongify(self);
+
+        if (!self || infoObjects.count == 0) {
+            return [NSError cancelledError];
+        }
+
+        [self.savedPageList.dataStore saveImageInfo:infoObjects forTitle:article.title];
+
+        return infoObjects;
+    });
+}
+
+#pragma mark - Cancellation
 
 - (void)cancelFetchForTitle:(MWKTitle*)title {
     DDLogVerbose(@"Canceling saved page download for title: %@", title);
