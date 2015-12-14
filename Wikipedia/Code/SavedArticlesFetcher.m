@@ -144,6 +144,42 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             // download an error
             [self.imageController fetchImageWithURLInBackground:imageURL];
         }];
+        @weakify(self);
+        NSArray<AnyPromise*>* infoPromises =
+        [[article.images.uniqueLargestVariants wmf_mapAndRejectNil:^id _Nullable (MWKImage* _Nonnull img) {
+            NSString* canonicalFilename = img.canonicalFilename;
+            if (canonicalFilename.length) {
+                return [@"File:" stringByAppendingString:canonicalFilename];
+            } else {
+                return nil;
+            }
+        }] bk_map:^AnyPromise*(NSString* canonicalFilename) {
+            return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+                [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
+                                                            fromSite:title.site
+                                                             success:^(NSArray* infoObjects) {
+                                                                 resolve(infoObjects.firstObject);
+                                                             }
+                                                             failure:resolve];
+            }];
+        }];
+        PMKWhen(infoPromises).then(^(NSArray* infoOrError) {
+            NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL(id obj) {
+                return [obj isKindOfClass:[NSError class]] || [obj isEqual:[NSNull null]];
+            }];
+
+            if (infoObjects.count == 0) {
+                return;
+            }
+
+            @strongify(self);
+
+            [self.savedPageList.dataStore saveImageInfo:infoObjects forTitle:title];
+
+            [infoObjects bk_each:^(MWKImageInfo* info) {
+                [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
+            }];
+        });
         [self didFetchArticle:article title:title error:nil];
     })
     .catch(^(NSError* error){
