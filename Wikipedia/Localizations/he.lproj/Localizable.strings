@@ -110,6 +110,7 @@
 "main-menu-language-selection-saved" = "בחירת השפה נשמרה";
 "main-menu-account-title-logged-out" = "חשבון";
 "main-menu-account-title-logged-in" = "נכנסת בתור: $1";
+// Fuzzy
 "main-menu-account-login" = "כניסה";
 "main-menu-account-logout" = "יציאה";
 "main-menu-show-title" = "תַראו לי...";

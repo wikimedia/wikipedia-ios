@@ -52,6 +52,7 @@
 "main-menu-faq" = "Domande frequenti";
 "main-menu-account-title-logged-out" = "Utensa";
 "main-menu-account-title-logged-in" = "Aceso efetuà cofà: $1";
+// Fuzzy
 "main-menu-account-login" = "Va drento";
 "main-menu-account-logout" = "Và fora";
 "main-menu-show-title" = "Mòstreme...";

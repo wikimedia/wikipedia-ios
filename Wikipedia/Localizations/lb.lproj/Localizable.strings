@@ -100,6 +100,7 @@
 "main-menu-language-selection-saved" = "Eraussiche vun der Sprooch gespäichert";
 "main-menu-account-title-logged-out" = "Benotzerkont";
 "main-menu-account-title-logged-in" = "Ageloggt als: $1";
+// Fuzzy
 "main-menu-account-login" = "Aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-show-title" = "Weis mir...";
@@ -195,6 +196,8 @@
 "button-next" = "Weider";
 "button-done" = "Fäerdeg";
 "button-save" = "Späicheren";
+"button-save-for-later" = "Fir spéider späicheren";
+"button-saved-for-later" = "Fir spéider gespäichert";
 "onboarding-create-account" = "Benotzerkont opmaachen";
 "onboarding-login" = "Aloggen";
 "onboarding-already-have-account" = "Hutt Dir schonn e Benotzerkont? $1";
@@ -271,7 +274,9 @@
 "captcha-reload" = "En anere Captcha weisen";
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
+"home-continue-reading-heading" = "Virufuere mat Liesen";
 "home-more-like-footer" = "Méi wéi $1";
+"home-nearby-check-again" = "Nach eng Kéier nokucken";
 "home-main-page-heading" = "Haut op Wikipedia";
 "home-potd-heading" = "Bild vum Dag vum $1";
 "potd-description-prefix" = "Bild vum Dag vum $1";

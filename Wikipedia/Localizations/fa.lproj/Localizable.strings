@@ -115,6 +115,7 @@
 "main-menu-language-selection-saved" = "انتخاب زبان ذخیره شد";
 "main-menu-account-title-logged-out" = "حساب کاربری";
 "main-menu-account-title-logged-in" = "ورود به عنوان: $1";
+// Fuzzy
 "main-menu-account-login" = "ورود به سامانه";
 "main-menu-account-logout" = "خروج از سامانه";
 "main-menu-show-title" = "نشانم بده...";

@@ -3,12 +3,14 @@
 // Author: BRUTE
 // Author: David1010
 // Author: MIKHEIL
+// Author: Otogi
 
 "article-languages-label" = "აირჩიეთ ენა";
 "article-languages-cancel" = "გაუქმება";
 "article-languages-downloading" = "სტატიის ენები იტვირთება...";
 "article-languages-filter-placeholder" = "ენის ფილტრი";
 "article-read-more-title" = "წაიკითხეთ მეტი";
+"article-related-articles-title" = "დაკავშირებული სტატიები";
 "info-box-title" = "სწრაფი ფაქტები";
 "info-box-close-text" = "დახურვა";
 "table-title-other" = "მეტი ინფორმაცია";
@@ -88,6 +90,7 @@
 "main-menu-language-selection-saved" = "ენის არჩევა დამახსოვრებულია";
 "main-menu-account-title-logged-out" = "ანგარიში";
 "main-menu-account-title-logged-in" = "შესული ხართ როგორც $1.";
+// Fuzzy
 "main-menu-account-login" = "შესვლა";
 "main-menu-account-logout" = "გასვლა";
 "main-menu-show-title" = "მაჩვენე...";

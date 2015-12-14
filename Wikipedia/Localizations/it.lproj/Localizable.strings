@@ -28,6 +28,7 @@
 "article-read-more-title" = "Leggi altro";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "article-unable-to-load-article" = "Impossibile caricare questa pagina.";
+"article-related-articles-title" = "Voci correlate";
 "info-box-title" = "Fatti in breve";
 "info-box-close-text" = "Chiudi";
 "table-title-other" = "Ulteriori informazioni";
@@ -95,6 +96,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Apri collegamento";
 "open-link-cancel" = "Annulla";
+"search-title" = "Ricerca";
 "search-searching" = "Ricerca in corso...";
 "search-no-matches" = "Nessuna corrispondenza trovata per il termine di ricerca.";
 "search-field-placeholder-text" = "Cerca su Wikipedia";
@@ -106,8 +108,7 @@
 "search-titles" = "Titoli";
 "search-within-articles" = "All'interno delle voci";
 "search-did-you-mean" = "Volevi dire $1?";
-// Fuzzy
-"search-recent-title" = "Ricerche recenti";
+"search-recent-title" = "Cercato recentemente";
 "search-recent-clear-confirmation-heading" = "Eliminare tutte le ricerche recenti?";
 "search-recent-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
 "search-recent-clear-cancel" = "Annulla";
@@ -122,6 +123,7 @@
 "main-menu-language-selection-saved" = "Selezione della lingua salvata";
 "main-menu-account-title-logged-out" = "Utenza";
 "main-menu-account-title-logged-in" = "Accesso effettuato come: $1";
+// Fuzzy
 "main-menu-account-login" = "Entra";
 "main-menu-account-logout" = "Esci";
 "main-menu-show-title" = "Fammi vedere...";
@@ -220,6 +222,8 @@
 "button-next" = "Successivo";
 "button-done" = "Fatto";
 "button-save" = "Salva";
+"button-save-for-later" = "Salva per dopo";
+"button-saved-for-later" = "Salvato per dopo";
 "onboarding-create-account" = "Crea un'utenza";
 "onboarding-login" = "Accedi";
 "onboarding-already-have-account" = "Hai già un'utenza? $1";
@@ -298,3 +302,15 @@
 "captcha-reload" = "Mostra un altro captcha";
 "captcha-prompt" = "Inserisci il testo captcha dall'immagine sopra";
 "mwk-empty-title-error" = "Impossibile eseguire l'operazione con un titolo vuoto.";
+"home-title" = "Esplora";
+"home-continue-reading-heading" = "Continua a leggere";
+"home-continue-related-heading" = "Perché hai letto $1";
+"home-more-like-footer" = "Altro come $1";
+"home-nearby-footer" = "Altro nelle vicinanze delle tua posizione";
+"home-nearby-nothing" = "Nulla nelle vicinanze";
+"home-nearby-check-again" = "Controlla di nuovo";
+"home-featured-article-heading" = "Voce in vetrina del $1";
+"home-main-page-heading" = "Oggi su Wikipedia";
+"home-potd-heading" = "Immagine del giorno del $1";
+"potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
+"potd-description-prefix" = "Immagine del giorno per $1";

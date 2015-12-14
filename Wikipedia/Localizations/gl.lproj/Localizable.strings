@@ -13,6 +13,7 @@
 "article-read-more-title" = "Ler máis";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
+"article-related-articles-title" = "Artigos relacionados";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Pechar";
 "table-title-other" = "Máis información";
@@ -80,6 +81,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Abrir ligazón";
 "open-link-cancel" = "Cancelar";
+"search-title" = "Procurar";
 "search-searching" = "Buscando…";
 "search-no-matches" = "Non se atoparon coincidencias para o termo de busca.";
 "search-field-placeholder-text" = "Procurar na Wikipedia";
@@ -91,8 +93,7 @@
 "search-titles" = "Títulos";
 "search-within-articles" = "Dentro dos artigos";
 "search-did-you-mean" = "Quixo dicir \"$1\"?";
-// Fuzzy
-"search-recent-title" = "Buscas recentes";
+"search-recent-title" = "Buscado recentemente";
 "search-recent-clear-confirmation-heading" = "Borrar tódalas buscas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-cancel" = "Cancelar";
@@ -107,6 +108,7 @@
 "main-menu-language-selection-saved" = "Gardouse a selección de idioma.";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
+// Fuzzy
 "main-menu-account-login" = "Iniciar sesión";
 "main-menu-account-logout" = "Saír";
 "main-menu-show-title" = "Mostrarme…";
@@ -205,6 +207,8 @@
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gardar";
+"button-save-for-later" = "Gardar para máis tarde";
+"button-saved-for-later" = "Gardado para máis tarde";
 "onboarding-create-account" = "Crear conta";
 "onboarding-login" = "Acceder";
 "onboarding-already-have-account" = "Xa ten unha conta? $1";
@@ -283,3 +287,15 @@
 "captcha-reload" = "Mostrar outro «captcha»";
 "captcha-prompt" = "Escriba o texto do CAPTCHA de arriba";
 "mwk-empty-title-error" = "Non se pode realizar a operación cun título baleiro.";
+"home-title" = "Explorar";
+"home-continue-reading-heading" = "Continuar lendo";
+"home-continue-related-heading" = "Porque leu $1";
+"home-more-like-footer" = "Máis coma 1$";
+"home-nearby-footer" = "Máis próximos á súa localización";
+"home-nearby-nothing" = "Nada próximo";
+"home-nearby-check-again" = "Comprobar de novo";
+"home-featured-article-heading" = "Artigo destacado para $1";
+"home-main-page-heading" = "Hoxe en Wikipedia";
+"home-potd-heading" = "Imaxe do día para 1$";
+"potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
+"potd-description-prefix" = "Imaxe do día para 1$";

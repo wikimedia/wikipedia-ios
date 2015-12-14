@@ -21,6 +21,7 @@
 "article-read-more-title" = "Més informació";
 "article-unable-to-load-section" = "No s'ha pogut carregar la secció. Proveu de refrescar l'article per veure si així se soluciona el problema.";
 "article-unable-to-load-article" = "No s'ha pogut carregar l'article.";
+"article-related-articles-title" = "Articles relacionats";
 "info-box-title" = "Dades bàsiques";
 "info-box-close-text" = "Tanca";
 "table-title-other" = "Més informació";
@@ -88,6 +89,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Obre l'enllaç";
 "open-link-cancel" = "Cancel·la";
+"search-title" = "Cerca";
 "search-searching" = "Cercant...";
 "search-no-matches" = "No s'han trobat coincidències del terme de cerca.";
 "search-field-placeholder-text" = "Cerca a la Viquipèdia";
@@ -99,7 +101,6 @@
 "search-titles" = "Títols";
 "search-within-articles" = "Dins d'articles";
 "search-did-you-mean" = "Volíeu dir: $1?";
-// Fuzzy
 "search-recent-title" = "Cerques recents";
 "search-recent-clear-confirmation-heading" = "Voleu suprimir totes les cerques recents?";
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
@@ -115,6 +116,7 @@
 "main-menu-language-selection-saved" = "Selecció d'idioma enregistrada";
 "main-menu-account-title-logged-out" = "Compte";
 "main-menu-account-title-logged-in" = "Sessió iniciada com a: $1";
+// Fuzzy
 "main-menu-account-login" = "Inicia la sessió";
 "main-menu-account-logout" = "Finalitza la sessió";
 "main-menu-show-title" = "Mostra'm...";
@@ -213,6 +215,8 @@
 "button-next" = "Següent";
 "button-done" = "Fet";
 "button-save" = "Desa";
+"button-save-for-later" = "Desa-ho per a més tard";
+"button-saved-for-later" = "Desat per a més tard";
 "onboarding-create-account" = "Crea un compte";
 "onboarding-login" = "Inicia una sessió";
 "onboarding-already-have-account" = "Ja teniu un compte? $1";
@@ -291,3 +295,15 @@
 "captcha-reload" = "Mostra un altre captcha";
 "captcha-prompt" = "Introduïu el text del CAPTCHA de la imatge de dalt";
 "mwk-empty-title-error" = "No es pot realitzar l'operació amb un títol buit.";
+"home-title" = "Exploreu!";
+"home-continue-reading-heading" = "Continuar llegint";
+"home-continue-related-heading" = "Perquè vas llegir 1$";
+"home-more-like-footer" = "Més com $1";
+"home-nearby-footer" = "Més propers a la vostra ubicació";
+"home-nearby-nothing" = "Res proper";
+"home-nearby-check-again" = "Comprovar un altre cop";
+"home-featured-article-heading" = "Article de Qualitat per $1";
+"home-main-page-heading" = "Avui a la Viquipèdia";
+"home-potd-heading" = "Imatge del dia per a $1";
+"potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
+"potd-description-prefix" = "Imatge del dia per a $1";

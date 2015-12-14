@@ -17,6 +17,7 @@
 "article-read-more-title" = "Leer más";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
+"article-related-articles-title" = "Artículos relacionados";
 "info-box-title" = "Datos rápidos";
 "info-box-close-text" = "Cerrar";
 "table-title-other" = "Más información";
@@ -84,6 +85,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Abrir enlace";
 "open-link-cancel" = "Cancelar";
+"search-title" = "Buscar";
 "search-searching" = "Buscando…";
 "search-no-matches" = "No se encontraron coincidencias para el término de búsqueda.";
 "search-field-placeholder-text" = "Buscar en Wikipedia";
@@ -95,7 +97,6 @@
 "search-titles" = "Títulos";
 "search-within-articles" = "Dentro de los artículos";
 "search-did-you-mean" = "¿Quisiste decir $1?";
-// Fuzzy
 "search-recent-title" = "Búsquedas recientes";
 "search-recent-clear-confirmation-heading" = "¿Borrar todas las búsquedas recientes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
@@ -111,6 +112,7 @@
 "main-menu-language-selection-saved" = "Se guardó la selección de idioma.";
 "main-menu-account-title-logged-out" = "Cuenta";
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
+// Fuzzy
 "main-menu-account-login" = "Iniciar sesión";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Mostrarme…";
@@ -209,6 +211,8 @@
 "button-next" = "Siguiente";
 "button-done" = "Hecho";
 "button-save" = "Guardar";
+"button-save-for-later" = "Guardar para después";
+"button-saved-for-later" = "Guardado para después";
 "onboarding-create-account" = "Crear una cuenta";
 "onboarding-login" = "Acceder";
 "onboarding-already-have-account" = "¿Ya tienes una cuenta? $1";
@@ -287,3 +291,15 @@
 "captcha-reload" = "Mostrar otro «captcha»";
 "captcha-prompt" = "Escribe el texto del CAPTCHA anterior";
 "mwk-empty-title-error" = "No se puede realizar la operación con un título vacío.";
+"home-title" = "Explorar";
+"home-continue-reading-heading" = "Continuar leyendo";
+"home-continue-related-heading" = "Porque leíste $1";
+"home-more-like-footer" = "Más como $1";
+"home-nearby-footer" = "Más de cercanos a tu ubicación";
+"home-nearby-nothing" = "Nada cercano";
+"home-nearby-check-again" = "Comprobar de nuevo";
+"home-featured-article-heading" = "Artículo destacado del $1";
+"home-main-page-heading" = "Hoy en Wikipedia";
+"home-potd-heading" = "Foto del día del $1";
+"potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
+"potd-description-prefix" = "Foto del día del $1";

@@ -20,6 +20,7 @@
 "article-read-more-title" = "さらに読む";
 "article-unable-to-load-section" = "この節を読み込むことができません。問題が解決するかどうかの確認のために記事を更新してみてください。";
 "article-unable-to-load-article" = "記事を読み込むことができません。";
+"article-related-articles-title" = "関連記事";
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
@@ -87,6 +88,7 @@
 "wikitext-upload-save-license-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "open-link-title" = "リンクを開く";
 "open-link-cancel" = "キャンセル";
+"search-title" = "検索";
 "search-searching" = "検索中...";
 "search-no-matches" = "検索語句に一致するものはありませんでした。";
 "search-field-placeholder-text" = "ウィキペディア内を検索";
@@ -98,7 +100,6 @@
 "search-titles" = "記事名";
 "search-within-articles" = "記事内";
 "search-did-you-mean" = "もしかして: $1";
-// Fuzzy
 "search-recent-title" = "最近の検索";
 "search-recent-clear-confirmation-heading" = "最近の検索を全て削除しますか?";
 "search-recent-clear-confirmation-sub-heading" = "この操作は取り消せません!";
@@ -114,6 +115,7 @@
 "main-menu-language-selection-saved" = "言語の選択を保存しました";
 "main-menu-account-title-logged-out" = "アカウント";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
+// Fuzzy
 "main-menu-account-login" = "ログイン";
 "main-menu-account-logout" = "ログアウト";
 "main-menu-show-title" = "表示...";
@@ -212,6 +214,8 @@
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
+"button-save-for-later" = "後で保存";
+"button-saved-for-later" = "後で保存";
 "onboarding-create-account" = "アカウントを作成";
 "onboarding-login" = "ログイン";
 "onboarding-already-have-account" = "既にアカウントをお持ちですか？ $1";
@@ -290,3 +294,13 @@
 "captcha-reload" = "別のcaptchaを表示";
 "captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
+"home-continue-reading-heading" = "続けて読む";
+"home-continue-related-heading" = "$1 も読まれています";
+"home-more-like-footer" = "$1 なども読まれています";
+"home-nearby-footer" = "付近の記事";
+"home-nearby-nothing" = "付近の記事はありません";
+"home-nearby-check-again" = "もう一度確認する";
+"home-featured-article-heading" = "$1日の秀逸な記事";
+"home-potd-heading" = "$1日の写真";
+"potd-empty-error-description" = "$1日の写真の取得に失敗しました";
+"potd-description-prefix" = "$1日の写真";
