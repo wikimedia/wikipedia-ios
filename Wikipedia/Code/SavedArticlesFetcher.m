@@ -151,8 +151,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     })
                                                 .thenOn(self.accessQueue, ^(MWKArticle* article){
         @strongify(self);
-        [self didFetchArticle:article title:title error:nil];
         [self downloadImageDataForArticle:article];
+        // HAX: inform after image download fetches start, so we can validated they were started in tests
+        [self didFetchArticle:article title:title error:nil];
     })
                                                 .catch(^(NSError* error){
         if (!self) {
