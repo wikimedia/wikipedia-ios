@@ -3,10 +3,12 @@
 
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
+#import "MWKImageInfoFetcher.h"
 
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
+#import "MWKImage+CanonicalFilenames.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong) WMFImageController* imageController;
+@property (nonatomic, strong) MWKImageInfoFetcher* imageInfoFetcher;
 
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, AnyPromise*>* fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, NSError*>* errorsByArticleTitle;
@@ -31,11 +34,13 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
                        articleFetcher:(WMFArticleFetcher*)articleFetcher
-                      imageController:(WMFImageController*)imageController {
+                      imageController:(WMFImageController*)imageController
+                     imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher {
     NSParameterAssert(savedPageList);
     NSParameterAssert(savedPageList.dataStore);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
+    NSParameterAssert(imageInfoFetcher);
     self = [super init];
     if (self) {
         _accessQueue                       = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
@@ -44,6 +49,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         self.articleFetcher                = articleFetcher;
         self.imageController               = imageController;
         self.savedPageList                 = savedPageList;
+        self.imageInfoFetcher              = imageInfoFetcher;
     }
     return self;
 }
@@ -51,7 +57,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList {
     return [self initWithSavedPageList:savedPageList
                         articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:savedPageList.dataStore]
-                       imageController:[WMFImageController sharedInstance]];
+                       imageController:[WMFImageController sharedInstance]
+                      imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
 
 #pragma mark - Fetching
@@ -80,47 +87,6 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     [self fetchUncachedTitles:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)]];
 }
 
-- (void)fetchUncachedTitles:(NSArray<MWKTitle*>*)titles {
-    if (!titles.count) {
-        return;
-    }
-    dispatch_async(self.accessQueue, ^{
-        for (MWKTitle* title in titles) {
-            /*
-               !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
-               objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
-             */
-            MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
-            if (existingArticle.isCached) {
-                DDLogVerbose(@"Skipping download of cached title: %@", title);
-                continue;
-            }
-
-            DDLogInfo(@"Fetching saved title: %@", title);
-
-            /*
-               don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-               immediately in order to ensure accurate progress & error reporting.
-             */
-            self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title
-                                                                                             progress:NULL]
-                                                        .thenOn(self.accessQueue, ^(MWKArticle* article){
-                [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-                    // fetch all article images, but don't block success on their completion or consider failed image
-                    // download an error
-                    [self.imageController fetchImageWithURLInBackground:imageURL];
-                }];
-                [self didFetchArticle:article title:title error:nil];
-            })
-                                                        .catch(^(NSError* error){
-                dispatch_async(self.accessQueue, ^{
-                    [self didFetchArticle:nil title:title error:error];
-                });
-            });
-        }
-    });
-}
-
 - (void)cancelFetchForEntries:(NSArray<MWKSavedPageEntry*>*)deletedEntries {
     if (!deletedEntries.count) {
         return;
@@ -130,21 +96,70 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         @strongify(self);
         BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
         [deletedEntries bk_each:^(MWKSavedPageEntry* entry) {
-            DDLogInfo(@"Canceling saved page download for title: %@", entry.title);
-            [self.articleFetcher cancelFetchForPageTitle:entry.title];
-            [[[self.savedPageList.dataStore existingArticleWithTitle:entry.title] allImageURLs] bk_each:^(NSURL* imageURL) {
-                [self.imageController cancelFetchForURL:imageURL];
-            }];
-            [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
+            [self cancelFetchForTitle:entry.title];
         }];
         if (wasFetching) {
             /*
-               only notify delegate if deletion occurs during a download session. if deletion occurs
-               after the fact, we don't need to inform delegate of completion
+             only notify delegate if deletion occurs during a download session. if deletion occurs
+             after the fact, we don't need to inform delegate of completion
              */
             [self notifyDelegateIfFinished];
         }
     });
+}
+
+- (void)fetchUncachedTitles:(NSArray<MWKTitle*>*)titles {
+    if (!titles.count) {
+        return;
+    }
+    dispatch_async(self.accessQueue, ^{
+        for (MWKTitle* title in titles) {
+            [self fetchTitle:title];
+        }
+    });
+}
+
+- (void)fetchTitle:(MWKTitle*)title {
+    /*
+     !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
+     objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
+     */
+    MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
+    if (existingArticle.isCached) {
+        DDLogVerbose(@"Skipping download of cached title: %@", title);
+        return;
+    }
+
+    DDLogVerbose(@"Fetching saved title: %@", title);
+
+    /*
+     don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+     immediately in order to ensure accurate progress & error reporting.
+     */
+    self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title
+                                                                                     progress:NULL]
+    .thenOn(self.accessQueue, ^(MWKArticle* article){
+        [[article allImageURLs] bk_each:^(NSURL* imageURL) {
+            // fetch all article images, but don't block success on their completion or consider failed image
+            // download an error
+            [self.imageController fetchImageWithURLInBackground:imageURL];
+        }];
+        [self didFetchArticle:article title:title error:nil];
+    })
+    .catch(^(NSError* error){
+        dispatch_async(self.accessQueue, ^{
+            [self didFetchArticle:nil title:title error:error];
+        });
+    });
+}
+
+- (void)cancelFetchForTitle:(MWKTitle*)title {
+    DDLogVerbose(@"Canceling saved page download for title: %@", title);
+    [self.articleFetcher cancelFetchForPageTitle:title];
+    [[[self.savedPageList.dataStore existingArticleWithTitle:title] allImageURLs] bk_each:^(NSURL* imageURL) {
+        [self.imageController cancelFetchForURL:imageURL];
+    }];
+    [self.fetchOperationsByArticleTitle removeObjectForKey:title];
 }
 
 #pragma mark - KVO

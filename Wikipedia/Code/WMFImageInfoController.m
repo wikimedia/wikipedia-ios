@@ -5,6 +5,7 @@
 #import "WMFImageInfoController_Private.h"
 
 #import <BlocksKit/BlocksKit.h>
+#import "MWKImage+CanonicalFilenames.h"
 #import "WMFRangeUtils.h"
 #import "NSArray+BKIndex.h"
 #import "WikipediaAppUtils.h"
@@ -72,16 +73,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
 - (NSArray*)imageFilePageTitles {
     if (!_imageFilePageTitles) {
         // reduce images to only those who have valid canonical filenames
-        _imageFilePageTitles =
-            [[_uniqueArticleImages bk_map:^id (MWKImage* image) {
-            NSString* canonicalFilename = image.canonicalFilename;
-            if (canonicalFilename.length) {
-                return [@"File:" stringByAppendingString:canonicalFilename];
-            } else {
-                DDLogWarn(@"Unable to form canonical filename from image: %@", image.sourceURLString);
-                return nil;
-            }
-        }] copy];
+        _imageFilePageTitles = [[MWKImage mapFilenamesFromImages:_uniqueArticleImages] copy];
     }
     return _imageFilePageTitles;
 }
@@ -229,6 +221,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.indexedImageInfo setValuesForKeysWithDictionary:indexedInfo];
             // !!!: we should have already read any pre-existing image info from the data store
+            // HAX: we need to re-save the entire array every time, otherwise info will be "dropped"
             [[self dataStore] saveImageInfo:self.indexedImageInfo.allValues forTitle:self.title];
             [self.delegate imageInfoController:self didFetchBatch:batch];
         });

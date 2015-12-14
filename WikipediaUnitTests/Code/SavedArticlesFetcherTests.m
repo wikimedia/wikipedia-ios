@@ -18,11 +18,13 @@
     self.tempDataStore              = [MWKDataStore temporaryDataStore];
     self.mockArticleFetcher         = MKTMock([WMFArticleFetcher class]);
     self.mockImageController        = MKTMock([WMFImageController class]);
-    self.savedArticlesFetcher       =
+    self.mockImageInfoFetcher       = MKTMock([MWKImageInfoFetcher class]);
+    self.savedArticlesFetcher =
         [[SavedArticlesFetcher alloc]
          initWithSavedPageList:self.savedPageList
                 articleFetcher:self.mockArticleFetcher
-               imageController:self.mockImageController];
+               imageController:self.mockImageController
+              imageInfoFetcher:self.mockImageInfoFetcher];
     self.savedArticlesFetcher.fetchFinishedDelegate = self;
 }
 
@@ -232,8 +234,6 @@
         resolveFirstArticleRequest = resolve;
     }];
 
-
-
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:unresolvedSecondArticlePromise]];
 
@@ -347,6 +347,13 @@
 - (void)verifyImageDownloadAttemptForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
         [MKTVerify(self.mockImageController) fetchImageWithURLInBackground:imageURL];
+    }];
+    [article.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+        NSArray* expectedFile = @[[@"File:" stringByAppendingString:image.canonicalFilename]];
+        [MKTVerify(self.mockImageInfoFetcher) fetchGalleryInfoForImageFiles:expectedFile
+                                                                   fromSite:article.title.site
+                                                                    success:anything()
+                                                                    failure:anything()];
     }];
 }
 
