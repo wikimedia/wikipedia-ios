@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithArticle:(MWKArticle*)article {
     self = [super wmf_initWithItemsAndReverseIfNeeded:article.images.uniqueLargestVariants];
     if (self) {
-        self.article = article;
+        self.article   = article;
         self.emptyView = [[UIImageView alloc] init];
         [self applyLeadImageIfEmpty];
     }

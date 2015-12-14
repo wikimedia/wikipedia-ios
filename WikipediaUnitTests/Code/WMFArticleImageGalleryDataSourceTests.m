@@ -36,7 +36,7 @@ describe(@"persistence", ^{
 
         NSArray<MWKImage*>* articleImages = dummyArticle.images.uniqueLargestVariants;
 
-        NSArray<MWKImageInfo*>* info = [articleImages bk_map:^id(MWKImage* img) {
+        NSArray<MWKImageInfo*>* info = [articleImages bk_map:^id (MWKImage* img) {
             return [MWKImageInfo infoAssociatedWithSourceURL:img.sourceURLString];
         }];
 
@@ -47,7 +47,7 @@ describe(@"persistence", ^{
         WMFModalArticleImageGalleryDataSource* modalGalleryDataSource =
             [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:dummyArticle];
 
-        [info enumerateObjectsUsingBlock:^(MWKImageInfo * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [info enumerateObjectsUsingBlock:^(MWKImageInfo* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             expect([modalGalleryDataSource imageInfoAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]])
             .to(equal(obj));
         }];
