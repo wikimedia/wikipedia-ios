@@ -3039,13 +3039,6 @@
 			path = "Wikipedia/Code/View Controller";
 			sourceTree = SOURCE_ROOT;
 		};
-		0EBCA7491C176D7B004F1FD9 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		0EBCA7521C17BD86004F1FD9 /* Alerts */ = {
 			isa = PBXGroup;
 			children = (
@@ -3537,7 +3530,6 @@
 				B0E805C21C0CE5250065EBC0 /* SDWebImageManager+PromiseKit.swift */,
 				B0E805C31C0CE5250065EBC0 /* UIImage+Debug.swift */,
 				B0E805C41C0CE5250065EBC0 /* WMFImageController.swift */,
-				0EBCA7491C176D7B004F1FD9 /* New Group */,
 				B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */,
 				B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */,
 				B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */,
