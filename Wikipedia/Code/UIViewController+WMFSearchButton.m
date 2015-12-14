@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFSearchButton_Testing.h"
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
@@ -15,25 +15,31 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static BOOL isSearchPresentationAnimated = YES;
+
 @implementation UIViewController (WMFSearchButton)
 
-static WMFSearchViewController * _sharedSearchViewController = nil;
-
 + (void)load {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wmfSearchButton_applicationDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(wmfSearchButton_applicationDidEnterBackgroundWithNotification:)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:)
+                                                 name:UIApplicationDidReceiveMemoryWarningNotification
+                                               object:nil];
+}
+
++ (void)wmf_setSearchPresentationIsAnimated:(BOOL)animated {
+    isSearchPresentationAnimated = animated;
 }
 
 + (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification*)note {
-    if (!_sharedSearchViewController.view.window) {
-        _sharedSearchViewController = nil;
-    }
+    [self wmfSearchButton_resetSharedSearchButton];
 }
 
 + (void)wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:(NSNotification*)note {
-    if (!_sharedSearchViewController.view.window) {
-        _sharedSearchViewController = nil;
-    }
+    [self wmfSearchButton_resetSharedSearchButton];
 }
 
 - (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
@@ -54,10 +60,10 @@ static WMFSearchViewController * _sharedSearchViewController = nil;
             WMFSearchViewController* searchVC =
                 [WMFSearchViewController searchViewControllerWithSite:searchSite
                                                             dataStore:[delegate searchDataStore]];
-            searchVC.searchResultDelegate = delegate;
             _sharedSearchViewController = searchVC;
         }
-        [self presentViewController:_sharedSearchViewController animated:YES completion:nil];
+        _sharedSearchViewController.searchResultDelegate = delegate;
+        [self presentViewController:_sharedSearchViewController animated:isSearchPresentationAnimated completion:nil];
     }];
 }
 
