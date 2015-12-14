@@ -577,7 +577,9 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.webViewIsLoadingFetchedArticle = YES;
         self.article = article;
-        [self fetchReadMore];
+        if (!self.article.isMain) {
+            [self fetchReadMore];
+        }
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];
