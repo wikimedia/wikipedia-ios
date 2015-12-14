@@ -129,7 +129,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
        !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
        objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
      */
-     MWKArticle* cachedArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
+    MWKArticle* cachedArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
 
     /*
        don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
@@ -137,7 +137,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
      */
     @weakify(self);
     self.fetchOperationsByArticleTitle[title] = [AnyPromise promiseWithValue:cachedArticle]
-    .then(^id(MWKArticle* articleOrNil) {
+                                                .then(^id (MWKArticle* articleOrNil) {
         @strongify(self);
         if (!self) {
             return [NSError cancelledError];
@@ -149,12 +149,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             return [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
         }
     })
-    .thenOn(self.accessQueue, ^(MWKArticle* article){
+                                                .thenOn(self.accessQueue, ^(MWKArticle* article){
         @strongify(self);
         [self didFetchArticle:article title:title error:nil];
         [self downloadImageDataForArticle:article];
     })
-    .catch(^(NSError* error){
+                                                .catch(^(NSError* error){
         if (!self) {
             return;
         }
@@ -187,7 +187,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         PMKWhen([info bk_map:^(MWKImageInfo* info) {
             return [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
         }])
-        .then(^ (NSArray* downloadResults) {
+        .then(^(NSArray* downloadResults) {
             DDLogVerbose(@"Downloaded results for images in gallery for %@: %@", article.title, downloadResults);
         });
     });
@@ -207,12 +207,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
                                                         fromSite:article.title.site
                                                          success:^(NSArray* infoObjects) {
-                                                             resolve(infoObjects.firstObject);
-                                                         }
+                resolve(infoObjects.firstObject);
+            }
                                                          failure:resolve];
         }];
     }])
-    .thenInBackground(^id(NSArray* infoOrError) {
+           .thenInBackground(^id (NSArray* infoOrError) {
         DDLogVerbose(@"Download results for imageinfo info for %@: %@", article.title, infoOrError);
         NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL (id obj) {
             return [obj isKindOfClass:[NSError class]] || [obj isEqual:[NSNull null]];

@@ -61,8 +61,8 @@ describe(@"WMFArticleImageGalleryDataSource", ^{
     configureTempDataStoreForEach(tempDataStore, ^{
         NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"];
         obamaArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
-                                          dataStore:tempDataStore
-                                               dict:fixtureJSON];
+                                               dataStore:tempDataStore
+                                                    dict:fixtureJSON];
     });
 
     itBehavesLike(@"an RTL compliant gallery data source", ^{
