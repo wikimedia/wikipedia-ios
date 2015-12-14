@@ -48,6 +48,8 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
                         batchSize:(NSUInteger)batchSize
                       infoFetcher:(MWKImageInfoFetcher*)fetcher {
     NSAssert(batchSize <= 50, @"Only up to 50 titles can be retrieved at a time.");
+    NSParameterAssert(dataStore);
+    NSParameterAssert(fetcher);
     self = [super init];
     if (self) {
         self.dataStore    = dataStore;
