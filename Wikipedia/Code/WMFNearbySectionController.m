@@ -144,6 +144,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
             @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
                 @strongify(self);
+                self.nearbyError = nil;
+                [self.delegate controller:self didSetItems:self.items];
                 [self.viewModel startUpdates];
             } forControlEvents:UIControlEventTouchUpInside];
         }
