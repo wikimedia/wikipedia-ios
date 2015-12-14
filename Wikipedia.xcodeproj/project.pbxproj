@@ -2119,8 +2119,6 @@
 				B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */,
 				B0E8065D1C0CE9030065EBC0 /* LoginTokenFetcher.h */,
 				B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */,
-				B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */,
-				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
 				B0E806611C0CE9030065EBC0 /* MWKLanguageLinkFetcher.h */,
 				B0E806621C0CE9030065EBC0 /* MWKLanguageLinkFetcher.m */,
 				B0E806631C0CE9030065EBC0 /* MWKSiteInfoFetcher.h */,
@@ -2356,14 +2354,8 @@
 				B0E804F91C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.m */,
 				B0E804FA1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.h */,
 				B0E804FB1C0CE0DC0065EBC0 /* UIImage+WMFImageProcessing.m */,
-				B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */,
-				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
 				B0E804FE1C0CE0DC0065EBC0 /* UIImage+WMFSerialization.h */,
 				B0E804FF1C0CE0DC0065EBC0 /* UIImage+WMFSerialization.m */,
-				B0E805001C0CE0DC0065EBC0 /* UIImage+WMFStyle.h */,
-				B0E805011C0CE0DC0065EBC0 /* UIImage+WMFStyle.m */,
-				B0E805021C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.h */,
-				B0E805031C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.m */,
 				B0E805041C0CE0DC0065EBC0 /* UILabel+WMFStyling.h */,
 				B0E805051C0CE0DC0065EBC0 /* UILabel+WMFStyling.m */,
 				B0E805061C0CE0DC0065EBC0 /* UIScrollView+NoHorizontalScrolling.h */,
@@ -3355,11 +3347,15 @@
 		BC628C791B389E2B00B3F85C /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				BCA15B111C0E9B1600D0A3EA /* Gallery */,
+				B0E805D51C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.h */,
+				B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */,
+				B0E807901C0CEF970065EBC0 /* MWKImage.h */,
+				B0E807911C0CEF970065EBC0 /* MWKImage.m */,
 				BCA15B121C0E9B2100D0A3EA /* ImageController */,
+				BCD67E831C1F163C005179E1 /* Image Info */,
+				BCD67E871C1F17D4005179E1 /* Face Detection */,
+				BCA15B111C0E9B1600D0A3EA /* Gallery */,
 				BCA15B181C0F48F900D0A3EA /* Style */,
-				B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */,
-				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
 			);
 			name = Images;
 			path = WikipediaUnitTests/Code/Images;
@@ -3533,6 +3529,8 @@
 				B0E805C51C0CE5250065EBC0 /* WMFImageController+Debug.swift */,
 				B0E805C61C0CE5250065EBC0 /* WMFImageDownload.swift */,
 				B0E805CD1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift */,
+				B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */,
+				B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */,
 			);
 			name = ImageController;
 			path = Wikipedia/Code/ImageController;
@@ -3558,6 +3556,8 @@
 		BCA15B181C0F48F900D0A3EA /* Style */ = {
 			isa = PBXGroup;
 			children = (
+				B0E805001C0CE0DC0065EBC0 /* UIImage+WMFStyle.h */,
+				B0E805011C0CE0DC0065EBC0 /* UIImage+WMFStyle.m */,
 				B0E805D21C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.h */,
 				B0E805D31C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m */,
 				BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */,
@@ -3619,12 +3619,6 @@
 				B0E807701C0CEE920065EBC0 /* MWKSavedPageList+ImageMigration.m */,
 				B0E807711C0CEE920065EBC0 /* MWKSavedPageList+ImageMigrationTesting.h */,
 				B0E807721C0CEE920065EBC0 /* MWKSavedPageList+ImageMigrationTesting.m */,
-				B0E805D51C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.h */,
-				B0E805D61C0CE59B0065EBC0 /* UIImageView+WMFImageFetching.m */,
-				B0E807751C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.h */,
-				B0E807761C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m */,
-				B0E807781C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.h */,
-				B0E807791C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.m */,
 			);
 			name = Categories;
 			path = Wikipedia/Code/Categories;
@@ -3673,16 +3667,12 @@
 				B0E807891C0CEF660065EBC0 /* MWKSiteDataObject.m */,
 				B0E8078A1C0CEF660065EBC0 /* MWKUser.h */,
 				B0E8078B1C0CEF660065EBC0 /* MWKUser.m */,
-				B0E807901C0CEF970065EBC0 /* MWKImage.h */,
-				B0E807911C0CEF970065EBC0 /* MWKImage.m */,
 				B0E807921C0CEF970065EBC0 /* MWKSection.h */,
 				B0E807931C0CEF970065EBC0 /* MWKSection.m */,
 				B0E807941C0CEF970065EBC0 /* MWKSection+HTMLImageExtraction.h */,
 				B0E807951C0CEF970065EBC0 /* MWKSection+HTMLImageExtraction.m */,
 				B0E807991C0CEFBD0065EBC0 /* MWKLanguageLink.h */,
 				B0E8079A1C0CEFBD0065EBC0 /* MWKLanguageLink.m */,
-				B0E8079B1C0CEFBD0065EBC0 /* MWKLicense.h */,
-				B0E8079C1C0CEFBD0065EBC0 /* MWKLicense.m */,
 				B0E8079D1C0CEFBD0065EBC0 /* MWKProtectionStatus.h */,
 				B0E8079E1C0CEFBD0065EBC0 /* MWKProtectionStatus.m */,
 				B0E8079F1C0CEFBD0065EBC0 /* MWKSiteInfo.h */,
@@ -3707,8 +3697,6 @@
 				B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */,
 				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
 				B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */,
-				B0E807C31C0CF04A0065EBC0 /* MWKImageInfo.h */,
-				B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */,
 				B0E807C51C0CF04A0065EBC0 /* MWKImageList.h */,
 				B0E807C61C0CF04A0065EBC0 /* MWKImageList.m */,
 				B0E807C71C0CF04A0065EBC0 /* MWKLocationSearchResult.h */,
@@ -3982,6 +3970,50 @@
 				B0E805861C0CE2C60065EBC0 /* SavedPagesFunnel.m */,
 			);
 			name = "Event Logging";
+			sourceTree = "<group>";
+		};
+		BCD67E831C1F163C005179E1 /* Image Info */ = {
+			isa = PBXGroup;
+			children = (
+				BCD67E851C1F169B005179E1 /* Fetcher */,
+				BCD67E841C1F167F005179E1 /* Models */,
+			);
+			name = "Image Info";
+			sourceTree = "<group>";
+		};
+		BCD67E841C1F167F005179E1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8079B1C0CEFBD0065EBC0 /* MWKLicense.h */,
+				B0E8079C1C0CEFBD0065EBC0 /* MWKLicense.m */,
+				B0E807C31C0CF04A0065EBC0 /* MWKImageInfo.h */,
+				B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */,
+				B0E807781C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.h */,
+				B0E807791C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		BCD67E851C1F169B005179E1 /* Fetcher */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8065F1C0CE9030065EBC0 /* MWKImageInfoFetcher.h */,
+				B0E806601C0CE9030065EBC0 /* MWKImageInfoFetcher.m */,
+			);
+			name = Fetcher;
+			sourceTree = "<group>";
+		};
+		BCD67E871C1F17D4005179E1 /* Face Detection */ = {
+			isa = PBXGroup;
+			children = (
+				B0E805021C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.h */,
+				B0E805031C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.m */,
+				B0E804FC1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.h */,
+				B0E804FD1C0CE0DC0065EBC0 /* UIImage+WMFNormalization.m */,
+				B0E805CF1C0CE5420065EBC0 /* WMFFaceDetectionCache.h */,
+				B0E805D01C0CE5420065EBC0 /* WMFFaceDetectionCache.m */,
+			);
+			name = "Face Detection";
 			sourceTree = "<group>";
 		};
 		BCDC489C1BF0F38900E6858A /* Featured Article */ = {
