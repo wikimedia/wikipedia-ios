@@ -10,11 +10,13 @@
 
 // Log level defaults to DEBUG in debug mode, and WARN in release.
 #if DEBUG
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF DDLogLevelDebug
+
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+
 #else
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF DDLogLevelWarning
+
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+
 #endif
 
 // Redefine NSLog to be a default CocoaLumberjack log.
