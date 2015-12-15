@@ -190,13 +190,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (AnyPromise*)fetchImageInfoForImagesInArticle:(MWKArticle*)article {
     @weakify(self);
-    return PMKWhen([[article.images.uniqueLargestVariants wmf_mapAndRejectNil:^id _Nullable (MWKImage* _Nonnull img) {
-        NSString* canonicalFilename = img.canonicalFilename;
-        if (canonicalFilename.length) {
-            return [@"File:" stringByAppendingString:canonicalFilename];
-        } else {
-            return nil;
-        }
+    return PMKWhen([[[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL(id obj) {
+        return [obj isEqual:[NSNull null]];
     }] bk_map:^AnyPromise*(NSString* canonicalFilename) {
         return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
             [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
