@@ -19,7 +19,9 @@
 
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
@@ -66,6 +68,7 @@
     }
 
     self.title = [_dataSource displayTitle];
+    [self updateDeleteButton];
 }
 
 - (NSString*)debugDescription {
@@ -78,6 +81,38 @@
     _dataSource.tableView = self.tableView;
     if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
         self.tableView.estimatedRowHeight = _dataSource.estimatedItemHeight;
+    }
+}
+
+#pragma mark - Delete Button
+
+- (void)updateDeleteButton {
+    if ([self.dataSource respondsToSelector:@selector(showsDeleteAllButton)] && [self.dataSource showsDeleteAllButton] == YES) {
+        @weakify(self);
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+            @strongify(self);
+            UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:nil];
+            [sheet bk_setDestructiveButtonWithTitle:[self.dataSource deleteAllConfirmationText] handler:^{
+                [self.dataSource deleteAll];
+                [self.tableView reloadData];
+            }];
+            [sheet bk_setCancelButtonWithTitle:[self.dataSource deleteCancelText] handler:NULL];
+            [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+        }];
+
+        [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
+            [self updateDeleteButtonEnabledState];
+        }];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
+
+- (void)updateDeleteButtonEnabledState {
+    if ([self.dataSource titleCount] > 0) {
+        self.navigationItem.leftBarButtonItem.enabled = YES;
+    } else {
+        self.navigationItem.leftBarButtonItem.enabled = NO;
     }
 }
 
@@ -94,6 +129,7 @@
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
     MWKArticle* article = note.userInfo[MWKArticleKey];
+    [self updateDeleteButtonEnabledState];
     [self refreshAnyVisibleCellsWhichAreShowingTitle:article.title];
 }
 
@@ -151,6 +187,7 @@
     [super viewWillAppear:animated];
     NSParameterAssert(self.dataStore);
     [self connectTableViewAndDataSource];
+    [self updateDeleteButtonEnabledState];
     [[self dynamicDataSource] startUpdating];
     [self registerForPreviewingIfAvailable];
 }
