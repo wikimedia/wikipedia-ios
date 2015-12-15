@@ -34,10 +34,7 @@ NSOrderedSet *FBSnapshotTestCaseDefaultSuffixes(void)
 NSString *FBDeviceAgnosticNormalizedFileName(NSString *fileName)
 {
   UIDevice *device = [UIDevice currentDevice];
-  UIWindow* keyWindow = [[UIApplication sharedApplication] keyWindow];
-  NSCAssert(keyWindow, @"Snapshot tests must be hosted by an application with a key window. Please ensure your test"
-                        " host sets up a key window at launch (either via storyboards or programmatically).");
-  CGSize screenSize = keyWindow.bounds.size;
+  CGSize screenSize = [UIScreen mainScreen].bounds.size;
   NSString *os = device.systemVersion;
   
   fileName = [NSString stringWithFormat:@"%@_%@%@_%.0fx%.0f", fileName, device.model, os, screenSize.width, screenSize.height];
