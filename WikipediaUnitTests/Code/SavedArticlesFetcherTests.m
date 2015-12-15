@@ -124,7 +124,7 @@
     assertThat(self.downloadErrors, isEmpty());
 }
 
-- (void)testSkipsCachedArticles {
+- (void)testSkipsArticleFetchForCachedArticles {
     [self stubListWithEntries:2];
 
     MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
@@ -154,6 +154,11 @@
 
     WaitForExpectations();
 
+    // should have fetched images (esp. gallery data), but not article data for cached article
+    [MKTVerifyCount(self.mockArticleFetcher, MKTNever()) fetchArticleForPageTitle:firstArticle.title progress:anything()];
+    [self verifyImageDownloadAttemptForArticle:firstArticle];
+
+    // should have fetched article & image data for second, uncached article
     [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
     assertThat(self.downloadErrors, isEmpty());
