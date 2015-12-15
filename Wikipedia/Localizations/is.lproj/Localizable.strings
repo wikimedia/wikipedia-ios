@@ -98,6 +98,7 @@
 "main-menu-language-selection-saved" = "Tungumálastilling vistuð";
 "main-menu-account-title-logged-out" = "Aðgangur";
 "main-menu-account-title-logged-in" = "Innskráð(ur) sem: $1";
+// Fuzzy
 "main-menu-account-login" = "Innskrá";
 "main-menu-account-logout" = "Útskrá";
 "main-menu-show-title" = "Sýna mér...";

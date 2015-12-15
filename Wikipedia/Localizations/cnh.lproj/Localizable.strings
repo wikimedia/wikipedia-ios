@@ -103,6 +103,7 @@
 "main-menu-language-selection-saved" = "Holh thimnak khon cang";
 "main-menu-account-title-logged-out" = "Account";
 "main-menu-account-title-logged-in" = "$1: in lut";
+// Fuzzy
 "main-menu-account-login" = "Luhnak";
 "main-menu-account-logout" = "Chuahnak";
 "main-menu-show-title" = "Ka hmuhsak";

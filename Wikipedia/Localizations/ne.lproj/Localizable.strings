@@ -55,6 +55,7 @@
 "main-menu-language-selection-saved" = "भाषा चयन बचत भयो";
 "main-menu-account-title-logged-out" = "खाता";
 "main-menu-account-title-logged-in" = "$1: को रूपमा प्रवेश भयो";
+// Fuzzy
 "main-menu-account-login" = "प्रवेश";
 "main-menu-account-logout" = "निर्गमन (लग आउट)";
 "main-menu-show-title" = "मलाई देखाउनुहोस्...";

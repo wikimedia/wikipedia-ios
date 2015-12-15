@@ -82,6 +82,7 @@
 "main-menu-language-selection-saved" = "שפראך אויסקלייב געהיטן";
 "main-menu-account-title-logged-out" = "קאנטע";
 "main-menu-account-title-logged-in" = "ארײַנלאגירט: $1";
+// Fuzzy
 "main-menu-account-login" = "אַרײַנלאגירן";
 "main-menu-account-logout" = "אַרויסלאָגירן";
 "main-menu-show-title" = "ווײַז מיך…";

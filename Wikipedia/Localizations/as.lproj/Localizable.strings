@@ -97,6 +97,7 @@
 "main-menu-language-selection-saved" = "ভাষা নিৰ্বাচন সাঁচি থোৱা হৈছে";
 "main-menu-account-title-logged-out" = "একাউণ্ট";
 "main-menu-account-title-logged-in" = "$1 নামেৰে প্ৰৱেশ কৰিলে";
+// Fuzzy
 "main-menu-account-login" = "প্ৰৱেশ";
 "main-menu-account-logout" = "প্ৰস্থান";
 "main-menu-show-title" = "মোক দেখাওক...";

@@ -11,6 +11,7 @@
 "article-read-more-title" = "وڌيڪ پڙهو";
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "article-unable-to-load-article" = "مضمون لاهڻ لائق نه آهي.";
+"article-related-articles-title" = "لاڳاپيل مضمون";
 "info-box-title" = "ترت معلومات";
 "info-box-close-text" = "بند ڪريو";
 "table-title-other" = "وڌيڪ معلومات";
@@ -69,6 +70,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "ڳنڍڻو کوليو";
 "open-link-cancel" = "رد";
+"search-title" = "ڳوليو";
 "search-searching" = "ڳوليندي...";
 "search-no-matches" = "هن ڳالھ لاءِ ڳولا ۾ ڪي به مشابهتون نه مليون.";
 "search-field-placeholder-text" = "وڪيپيڊيا ۾ ڳوليو";
@@ -80,8 +82,7 @@
 "search-titles" = "عنوان";
 "search-within-articles" = "مضمونن ۾";
 "search-did-you-mean" = "ڇا توهان جو مقصد $1 هيو؟";
-// Fuzzy
-"search-recent-title" = "تازيون ڳولائون";
+"search-recent-title" = "تازو ڳولهيل";
 "search-recent-clear-confirmation-heading" = "سموريون تازيون ڳولائون ختم ڪريون؟";
 "search-recent-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
 "search-recent-clear-cancel" = "رد";
@@ -96,6 +97,7 @@
 "main-menu-language-selection-saved" = "ٻولي جي چونڊ سانڍي وئي";
 "main-menu-account-title-logged-out" = "کاتو";
 "main-menu-account-title-logged-in" = "بطور: $1 لاڳ ان ٿيل";
+// Fuzzy
 "main-menu-account-login" = "لاگ ان";
 "main-menu-account-logout" = "لاگ آئوٽ";
 "main-menu-show-title" = "مونکي ڏيکاريو.";
@@ -182,6 +184,8 @@
 "button-next" = "اڳيون";
 "button-done" = "ٿي ويو";
 "button-save" = "سانڍيو";
+"button-save-for-later" = "بعد لاءِ سانڍيو";
+"button-saved-for-later" = "بعد لاءِ سانڍل";
 "onboarding-create-account" = "کاتو کوليو";
 "onboarding-login" = "لاگ ان";
 "onboarding-already-have-account" = "اڳ ئي کاتو رکو ٿا؟ $1";
@@ -250,3 +254,14 @@
 "page-issues" = "صفحي جا مسئلا";
 "page-similar-titles" = "ان جهڙا صفحا";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
+"home-title" = "تلاش ڪريو";
+"home-continue-reading-heading" = "پڙهڻ جاري رکو";
+"home-continue-related-heading" = "ڇو ته توهان پڙهو ٿا $1";
+"home-more-like-footer" = "وڌيڪ $1 وانگر";
+"home-nearby-footer" = "توهان جي مڪانيت جي ويجھڙ مان وڌيڪ";
+"home-nearby-nothing" = "ڪجھ به ويجھڙ ۾ نه آهي";
+"home-nearby-check-again" = "ٻيهر چڪاسيو";
+"home-featured-article-heading" = "$1 لاءِ نمايان مضمون";
+"home-main-page-heading" = "اڄ وڪيپيڊيا تي";
+"home-potd-heading" = "$1 لاءِ اڄ جي تصوير";
+"potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";

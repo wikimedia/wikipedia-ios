@@ -51,6 +51,7 @@
 "main-menu-language-selection-saved" = "Nyelvi választás elmentve";
 "main-menu-account-title-logged-out" = "Fiók";
 "main-menu-account-title-logged-in" = "Bejelentkezve mint: $1";
+// Fuzzy
 "main-menu-account-login" = "Bejelentkezés";
 "main-menu-account-logout" = "Kijelentkezés";
 "main-menu-show-title" = "Mutasd...";

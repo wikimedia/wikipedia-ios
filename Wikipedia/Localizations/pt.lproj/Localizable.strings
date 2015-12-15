@@ -16,6 +16,7 @@
 "article-read-more-title" = "Ler mais";
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
 "article-unable-to-load-article" = "Não é possível carregar o artigo.";
+"article-related-articles-title" = "Artigos relacionados";
 "info-box-title" = "Fatos rápidos";
 "info-box-close-text" = "Fechar";
 "table-title-other" = "Mais informação";
@@ -83,6 +84,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Abrir ligação";
 "open-link-cancel" = "Cancelar";
+"search-title" = "Pesquisar";
 "search-searching" = "A pesquisar...";
 "search-no-matches" = "Nenhum resultado encontrado para o termo de pesquisa.";
 "search-field-placeholder-text" = "Procurar na Wikipédia";
@@ -110,6 +112,7 @@
 "main-menu-language-selection-saved" = "Seleção de idioma gravada";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-account-title-logged-in" = "Sessão iniciada como: $1";
+// Fuzzy
 "main-menu-account-login" = "Entrar";
 "main-menu-account-logout" = "Sair da conta";
 "main-menu-show-title" = "Mostre-me...";
@@ -285,3 +288,6 @@
 "page-similar-titles" = "Páginas semelhantes";
 "captcha-reload" = "Mostrar outro código";
 "captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
+"home-title" = "Explorar";
+"home-continue-reading-heading" = "Continuar lendo";
+"home-main-page-heading" = "Hoje na Wikipedia";

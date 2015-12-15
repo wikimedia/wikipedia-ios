@@ -104,6 +104,7 @@
 "main-menu-language-selection-saved" = "Selectarea limbii salvată";
 "main-menu-account-title-logged-out" = "Cont";
 "main-menu-account-title-logged-in" = "Autentificat ca: $1";
+// Fuzzy
 "main-menu-account-login" = "Autentificare";
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-show-title" = "Arată-mi...";

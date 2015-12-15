@@ -9,6 +9,7 @@
 // Author: Liuxinyu970226
 // Author: NigelSoft
 // Author: Qiyue2001
+// Author: Shizhao
 // Author: 王庭茂
 
 "languages-title" = "语言";
@@ -17,7 +18,7 @@
 "article-languages-downloading" = "条目语言载入中...";
 "article-languages-filter-placeholder" = "语言过滤器";
 "article-read-more-title" = "阅读更多";
-"article-unable-to-load-section" = "无法载入此段落。请尝试刷新条目以查看问题是否解决。";
+"article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-related-articles-title" = "相关条目";
 "info-box-title" = "快速预览";
@@ -114,6 +115,7 @@
 "main-menu-language-selection-saved" = "语言选择已保存";
 "main-menu-account-title-logged-out" = "账户";
 "main-menu-account-title-logged-in" = "登录身份:$1";
+// Fuzzy
 "main-menu-account-login" = "登录";
 "main-menu-account-logout" = "退出";
 "main-menu-show-title" = "告诉我...";

@@ -85,6 +85,7 @@
 "main-menu-language-toggle-hide" = "أخف اللغات";
 "main-menu-language-selection-saved" = "اختيار اللغة حُفظ";
 "main-menu-account-title-logged-out" = "الحساب";
+// Fuzzy
 "main-menu-account-login" = "لج";
 "main-menu-account-logout" = "تسجيل الخروج";
 "main-menu-show-title" = "أرني...";

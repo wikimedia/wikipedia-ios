@@ -81,6 +81,7 @@
 "main-menu-language-selection-saved" = "Kalbos pasirinkimas įrašytas";
 "main-menu-account-title-logged-out" = "Paskyra";
 "main-menu-account-title-logged-in" = "Prisijungta kaip: $1";
+// Fuzzy
 "main-menu-account-login" = "Prisijungti";
 "main-menu-account-logout" = "Atsijungti";
 "main-menu-show-title" = "Rodyti man...";

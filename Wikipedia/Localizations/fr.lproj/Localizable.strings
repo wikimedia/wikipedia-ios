@@ -19,6 +19,7 @@
 "article-read-more-title" = "En savoir plus";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
+"article-related-articles-title" = "Articles connexes";
 "info-box-title" = "Faits en bref";
 "info-box-close-text" = "Fermer";
 "table-title-other" = "Plus d’information";
@@ -86,6 +87,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Ouvrir le lien";
 "open-link-cancel" = "Annuler";
+"search-title" = "Rechercher";
 "search-searching" = "Recherche en cours…";
 "search-no-matches" = "Aucune correspondance trouvée pour le critère de recherche.";
 "search-field-placeholder-text" = "Rechercher dans Wikipédia";
@@ -97,8 +99,7 @@
 "search-titles" = "Titres";
 "search-within-articles" = "Dans les articles";
 "search-did-you-mean" = "Voulez-vous dire $1 ?";
-// Fuzzy
-"search-recent-title" = "Recherches récentes";
+"search-recent-title" = "Récemment recherché";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "search-recent-clear-cancel" = "Annuler";
@@ -113,6 +114,7 @@
 "main-menu-language-selection-saved" = "Sélection de langue enregistrée";
 "main-menu-account-title-logged-out" = "Compte";
 "main-menu-account-title-logged-in" = "Connecté en tant que : $1";
+// Fuzzy
 "main-menu-account-login" = "Connexion";
 "main-menu-account-logout" = "Déconnexion";
 "main-menu-show-title" = "M’afficher…";
@@ -211,6 +213,8 @@
 "button-next" = "Suivant";
 "button-done" = "Terminé";
 "button-save" = "Enregistrer";
+"button-save-for-later" = "Enregistrer pour plus tard";
+"button-saved-for-later" = "Enregistré pour plus tard";
 "onboarding-create-account" = "Créer un compte";
 "onboarding-login" = "Se connecter";
 "onboarding-already-have-account" = "Vous avez déjà un compte ? $1";
@@ -289,3 +293,15 @@
 "captcha-reload" = "Afficher un autre captcha";
 "captcha-prompt" = "Entrer le texte du CAPTCHA dans l’image ci-dessus";
 "mwk-empty-title-error" = "Impossible d’effectuer l’opération avec un titre vide.";
+"home-title" = "Explorer";
+"home-continue-reading-heading" = "Continuer à lire";
+"home-continue-related-heading" = "Parce que vous avez lu $1";
+"home-more-like-footer" = "Davantage comme $1";
+"home-nearby-footer" = "Davantage proche de là où vous êtes";
+"home-nearby-nothing" = "Rien à proximité";
+"home-nearby-check-again" = "Vérifier de nouveau";
+"home-featured-article-heading" = "Article en vedette pour $1";
+"home-main-page-heading" = "Aujourd’hui sur Wikipédia";
+"home-potd-heading" = "Image du jour pour $1";
+"potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
+"potd-description-prefix" = "Image du jour pour $1";
