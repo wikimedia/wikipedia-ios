@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
  WMFSearchPresentationDelegate,
  UIViewControllerPreviewingDelegate>
 
-@property (nonatomic, strong) WMFHomeSectionSchema* schemaManager;
+@property (nonatomic, strong, null_resettable) WMFHomeSectionSchema* schemaManager;
 
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
 @property (nonatomic, strong) NSMutableDictionary* sectionControllers;
@@ -102,10 +102,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    _searchSite                  = searchSite;
+    if ([_searchSite isEqualToSite:searchSite]) {
+        return;
+    }
+    _searchSite = searchSite;
+
+    self.schemaManager           = nil;
     self.nearbySectionController = nil;
 
     if ([self.sectionControllers count] > 0) {
+        [self updateSectionsOnOperationQueue];
         [self reloadSectionsOnOperationQueue];
     }
 }
