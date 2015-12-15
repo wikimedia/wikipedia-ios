@@ -54,6 +54,8 @@
     _dataSource.tableView     = nil;
     self.tableView.dataSource = nil;
 
+    [self.KVOController unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+
     _dataSource = dataSource;
 
     //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
@@ -69,6 +71,9 @@
 
     self.title = [_dataSource displayTitle];
     [self updateDeleteButton];
+    [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
+        [self updateDeleteButtonEnabledState];
+    }];
 }
 
 - (NSString*)debugDescription {
@@ -91,17 +96,13 @@
         @weakify(self);
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
             @strongify(self);
-            UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:nil];
-            [sheet bk_setDestructiveButtonWithTitle:[self.dataSource deleteAllConfirmationText] handler:^{
+            UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[self.dataSource deleteAllConfirmationText]];
+            [sheet bk_setDestructiveButtonWithTitle:[self.dataSource deleteText] handler:^{
                 [self.dataSource deleteAll];
                 [self.tableView reloadData];
             }];
             [sheet bk_setCancelButtonWithTitle:[self.dataSource deleteCancelText] handler:NULL];
             [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
-        }];
-
-        [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
-            [self updateDeleteButtonEnabledState];
         }];
     } else {
         self.navigationItem.leftBarButtonItem = nil;
