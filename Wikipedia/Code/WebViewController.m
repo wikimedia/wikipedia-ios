@@ -268,7 +268,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
             @strongify(self);
-            MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+            MWKSite* site = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:@"en"];
             [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
         } forControlEvents:UIControlEventTouchUpInside];
     }
