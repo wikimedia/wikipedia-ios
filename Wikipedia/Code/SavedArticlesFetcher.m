@@ -130,32 +130,24 @@ static SavedArticlesFetcher* _articleFetcher = nil;
        objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
      */
     MWKArticle* cachedArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
+    if (cachedArticle) {
+        [self downloadImageDataForArticle:cachedArticle];
+        return;
+    }
 
     /*
        don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
        immediately in order to ensure accurate progress & error reporting.
      */
     @weakify(self);
-    self.fetchOperationsByArticleTitle[title] = [AnyPromise promiseWithValue:cachedArticle]
-                                                .then(^id (MWKArticle* articleOrNil) {
-        @strongify(self);
-        if (!self) {
-            return [NSError cancelledError];
-        } else if (articleOrNil) {
-            DDLogInfo(@"Skipping fetch for saved page which is already cached: %@", title);
-            return articleOrNil;
-        } else {
-            DDLogVerbose(@"Fetching saved title: %@", title);
-            return [self.articleFetcher fetchArticleForPageTitle:title progress:NULL];
-        }
-    })
+    self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL]
                                                 .thenOn(self.accessQueue, ^(MWKArticle* article){
         @strongify(self);
         [self downloadImageDataForArticle:article];
-        // HAX: inform after image download fetches start, so we can validated they were started in tests
+        // HAX: fetch callbacks happen after image downloads start so we can verify them in tests
+        // this is caused by the fact that we success notifications nor progress include article image or gallery downloads
         [self didFetchArticle:article title:title error:nil];
-    })
-                                                .catch(^(NSError* error){
+    }).catch(^(NSError* error){
         if (!self) {
             return;
         }
@@ -166,7 +158,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (void)downloadImageDataForArticle:(MWKArticle*)article {
+    // NOTE: this is idempotent, so re-fetching has very low overhead (just checking they're all on disk)
     [self fetchAllImagesInArticle:article];
+    // gallery data wasn't previously downloaded for saved pages, so must ensure this for backwards compat
     [self fetchGalleryInfoAndImagesForArticle:article];
 }
 
