@@ -127,6 +127,10 @@ NS_ASSUME_NONNULL_BEGIN
     return MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil);
 }
 
+- (NSString*)deleteText {
+    return MWLocalizedString(@"saved-pages-clear-delete-all", nil);
+}
+
 - (NSString*)deleteCancelText {
     return MWLocalizedString(@"saved-pages-clear-cancel", nil);
 }
