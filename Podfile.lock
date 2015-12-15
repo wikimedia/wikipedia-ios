@@ -84,7 +84,8 @@ DEPENDENCIES:
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (~> 2.2)
-  - FBSnapshotTestCase (from `git@github.com:bgerstle/ios-snapshot-test-case.git`)
+  - FBSnapshotTestCase (from `git@github.com:bgerstle/ios-snapshot-test-case.git`,
+    commit `689eb6a63c95dd0fa8fcd2e7b7b745fd84c2e9a3`)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
   - KVOController
@@ -108,6 +109,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   FBSnapshotTestCase:
+    :commit: 689eb6a63c95dd0fa8fcd2e7b7b745fd84c2e9a3
     :git: git@github.com:bgerstle/ios-snapshot-test-case.git
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
@@ -117,13 +119,13 @@ EXTERNAL SOURCES:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
 
 CHECKOUT OPTIONS:
   FBSnapshotTestCase:
-    :commit: 7f188bcf8f73f8620f1187e2d1c0e97eda276523
+    :commit: 689eb6a63c95dd0fa8fcd2e7b7b745fd84c2e9a3
     :git: git@github.com:bgerstle/ios-snapshot-test-case.git
   MGSwipeTableCell:
     :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
