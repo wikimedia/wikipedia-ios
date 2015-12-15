@@ -31,7 +31,6 @@
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
-		B0726DA01C1FF43800E57B2A /* TWNStringsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0726D9F1C1FF43800E57B2A /* TWNStringsTests.m */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
 		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
 		B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BA1C0CD2260065EBC0 /* WMFStyleManager.m */; };
@@ -683,7 +682,6 @@
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
-		B0726D9F1C1FF43800E57B2A /* TWNStringsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWNStringsTests.m; path = Code/TWNStringsTests.m; sourceTree = "<group>"; };
 		B08E7E991C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFEmptyView.h"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.h"; sourceTree = SOURCE_ROOT; };
 		B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFEmptyView.m"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.m"; sourceTree = SOURCE_ROOT; };
 		B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WMFButtonConvenience.h"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = SOURCE_ROOT; };
@@ -4771,7 +4769,6 @@
 				B0E8092F1C0D1A0B0065EBC0 /* NSURLExtrasTests.m in Sources */,
 				B0E808FD1C0D18730065EBC0 /* WMFJoinedPropertyParametersTests.m in Sources */,
 				B0E808771C0D155A0065EBC0 /* XCTestCase+WMFBundleConvenience.m in Sources */,
-				B0726DA01C1FF43800E57B2A /* TWNStringsTests.m in Sources */,
 				B0E808EA1C0D17FB0065EBC0 /* MWKDataStoreStorageTests.m in Sources */,
 				B0E808E01C0D17C20065EBC0 /* MWKSavedPageListCorruptDataTests.m in Sources */,
 				B0E8094F1C0D1AF70065EBC0 /* NSAttributedString+WMFTrimTests.m in Sources */,
