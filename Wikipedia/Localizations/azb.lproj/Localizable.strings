@@ -51,6 +51,7 @@
 "main-menu-language-selection-saved" = "سئچیلمیش دیل ساخلاندی";
 "main-menu-account-title-logged-out" = "حساب";
 "main-menu-account-title-logged-in" = "$1 آدی ایله گیریش ائتدی.";
+// Fuzzy
 "main-menu-account-login" = "گیریش";
 "main-menu-account-logout" = "چیخیش";
 "main-menu-show-title" = "منه گؤستر...";

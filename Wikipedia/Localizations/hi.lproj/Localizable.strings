@@ -52,6 +52,7 @@
 "main-menu-language-toggle-hide" = "अधिक भाषाएँ";
 "main-menu-account-title-logged-out" = "खाता";
 "main-menu-account-title-logged-in" = "$1 के रूप में लॉग इन";
+// Fuzzy
 "main-menu-account-login" = "लॉग इन";
 "main-menu-account-logout" = "लॉगआउट";
 "main-menu-show-history" = "अभी";

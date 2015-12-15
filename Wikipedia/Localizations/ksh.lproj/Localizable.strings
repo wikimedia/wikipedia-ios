@@ -87,6 +87,7 @@
 "main-menu-language-selection-saved" = "Schprohche-Wahl faßjehallde";
 "main-menu-account-title-logged-out" = "Zohjang";
 "main-menu-account-title-logged-in" = "Ennjelogg als: $1";
+// Fuzzy
 "main-menu-account-login" = "Enlogge";
 "main-menu-account-logout" = "Ußlogge";
 "main-menu-show-title" = "Zeisch mer …";

@@ -20,6 +20,7 @@
 "article-read-more-title" = "Meer lezen";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
+"article-related-articles-title" = "Gerelateerde artikelen";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
@@ -87,6 +88,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Koppeling openen";
 "open-link-cancel" = "Annuleren";
+"search-title" = "Zoeken";
 "search-searching" = "Bezig met zoeken...";
 "search-no-matches" = "Geen overeenkomsten gevonden voor de zoekterm.";
 "search-field-placeholder-text" = "Zoeken in Wikipedia";
@@ -98,7 +100,6 @@
 "search-titles" = "Paginanamen";
 "search-within-articles" = "In paginatekst";
 "search-did-you-mean" = "Bedoelde u $1?";
-// Fuzzy
 "search-recent-title" = "Recente zoekopdrachten";
 "search-recent-clear-confirmation-heading" = "Alle recente zoekopdrachten verwijderen?";
 "search-recent-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
@@ -114,6 +115,7 @@
 "main-menu-language-selection-saved" = "Taalkeuze opgeslagen";
 "main-menu-account-title-logged-out" = "Account";
 "main-menu-account-title-logged-in" = "Aangemeld als: $1";
+// Fuzzy
 "main-menu-account-login" = "Aanmelden";
 "main-menu-account-logout" = "Afmelden";
 "main-menu-show-title" = "Laat mij...";
@@ -212,6 +214,8 @@
 "button-next" = "Volgende";
 "button-done" = "Afgerond";
 "button-save" = "Opslaan";
+"button-save-for-later" = "Opslaan voor later";
+"button-saved-for-later" = "Opgeslagen voor later";
 "onboarding-create-account" = "Account aanmaken";
 "onboarding-login" = "Aanmelden";
 "onboarding-already-have-account" = "Hebt u al een account? $1";
@@ -290,3 +294,15 @@
 "captcha-reload" = "Andere CAPTCHA weergeven";
 "captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
+"home-title" = "Ontdek";
+"home-continue-reading-heading" = "Lees verder";
+"home-continue-related-heading" = "Omdat je $1 hebt gelezen";
+"home-more-like-footer" = "Vergelijkbaar met $1";
+"home-nearby-footer" = "Meer in de buurt van je huidige locatie";
+"home-nearby-nothing" = "Niets in de buurt";
+"home-nearby-check-again" = "Controleer opnieuw";
+"home-featured-article-heading" = "Uitgelicht artikel voor $1";
+"home-main-page-heading" = "Vandaag op Wikipedia";
+"home-potd-heading" = "Afbeelding van de dag voor $1";
+"potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
+"potd-description-prefix" = "Afbeelding van de dag voor $1";

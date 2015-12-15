@@ -57,6 +57,7 @@
 "main-menu-language-selection-saved" = "Beşa ziman hate tomarkirin";
 "main-menu-account-title-logged-out" = "Hesab";
 "main-menu-account-title-logged-in" = "Têketî wek: $1";
+// Fuzzy
 "main-menu-account-login" = "Têkeve";
 "main-menu-account-logout" = "Derkeve";
 "main-menu-show-history" = "dawî";

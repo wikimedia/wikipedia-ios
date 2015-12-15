@@ -94,6 +94,7 @@
 "main-menu-language-toggle-hide" = "Fshih gjuhët";
 "main-menu-account-title-logged-out" = "Llogaria";
 "main-menu-account-title-logged-in" = "Keni hyrë si: $1";
+// Fuzzy
 "main-menu-account-login" = "Hyni";
 "main-menu-account-logout" = "Dil";
 "main-menu-show-title" = "Më trego...";

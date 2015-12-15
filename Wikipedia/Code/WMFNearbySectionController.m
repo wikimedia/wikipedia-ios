@@ -36,7 +36,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) WMFLocationSearchResults* searchResults;
 
-@property (nonatomic, strong) NSError* nearbyError;
+@property (nonatomic, strong, nullable) NSError* nearbyError;
 
 @end
 
@@ -94,10 +94,10 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSArray*)items {
-    if (self.nearbyError) {
-        return @[@1];
-    } else if ([self.searchResults.results count] > 0) {
+    if ([self.searchResults.results count] > 0) {
         return self.searchResults.results;
+    } else if (self.nearbyError) {
+        return @[@1];
     } else {
         return @[@1, @2, @3];
     }
@@ -144,6 +144,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
             @weakify(self);
             [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
                 @strongify(self);
+                self.nearbyError = nil;
+                [self.delegate controller:self didSetItems:self.items];
                 [self.viewModel startUpdates];
             } forControlEvents:UIControlEventTouchUpInside];
         }
@@ -171,6 +173,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
+    self.nearbyError   = nil;
     self.searchResults = results;
     [self.delegate controller:self didSetItems:self.items];
 }

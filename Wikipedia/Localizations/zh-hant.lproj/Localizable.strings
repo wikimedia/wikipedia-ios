@@ -113,6 +113,7 @@
 "main-menu-language-selection-saved" = "已儲存語言選擇";
 "main-menu-account-title-logged-out" = "帳號";
 "main-menu-account-title-logged-in" = "以 $1 的身分登入。";
+// Fuzzy
 "main-menu-account-login" = "登入";
 "main-menu-account-logout" = "登出";
 "main-menu-show-title" = "告訴我...";

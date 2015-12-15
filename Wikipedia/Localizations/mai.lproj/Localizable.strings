@@ -83,6 +83,7 @@
 "main-menu-language-toggle-show" = "भाषा देखाबू";
 "main-menu-language-toggle-hide" = "भाषा नुकाबू";
 "main-menu-account-title-logged-out" = "खाता";
+// Fuzzy
 "main-menu-account-login" = "सम्प्रवेश";
 "main-menu-account-logout" = "निष्क्रमण";
 "main-menu-show-title" = "देखाबू";

@@ -114,6 +114,7 @@
 "main-menu-language-selection-saved" = "Seleção de linguagem salva";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-account-title-logged-in" = "Entrou como: $1";
+// Fuzzy
 "main-menu-account-login" = "Entrar";
 "main-menu-account-logout" = "Sair";
 "main-menu-show-title" = "Mostrar-me...";

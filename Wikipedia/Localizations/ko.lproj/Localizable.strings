@@ -113,6 +113,7 @@
 "main-menu-language-selection-saved" = "언어 선택이 저장됨";
 "main-menu-account-title-logged-out" = "계정";
 "main-menu-account-title-logged-in" = "로그인한 사용자: $1";
+// Fuzzy
 "main-menu-account-login" = "로그인";
 "main-menu-account-logout" = "로그아웃";
 "main-menu-show-title" = "내개 보여주기...";

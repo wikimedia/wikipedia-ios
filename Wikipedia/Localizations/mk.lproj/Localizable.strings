@@ -107,6 +107,7 @@
 "main-menu-language-selection-saved" = "Одбраниот јазик е зачуван";
 "main-menu-account-title-logged-out" = "Сметка";
 "main-menu-account-title-logged-in" = "Најавени сте како: $1";
+// Fuzzy
 "main-menu-account-login" = "Најава";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";

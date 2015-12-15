@@ -66,6 +66,7 @@
 "main-menu-language-toggle-show" = "Ցույց տալ լեզուները";
 "main-menu-language-toggle-hide" = "Թաքցնել լեզուները";
 "main-menu-account-title-logged-out" = "Հաշիվ";
+// Fuzzy
 "main-menu-account-login" = "Մուտք գործել";
 "main-menu-account-logout" = "Դուրս գալ";
 "main-menu-show-title" = "Ցույց տալ ինձ...";
