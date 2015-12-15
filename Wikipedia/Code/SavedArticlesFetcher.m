@@ -233,6 +233,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     [[[self.savedPageList.dataStore existingArticleWithTitle:title] allImageURLs] bk_each:^(NSURL* imageURL) {
         [self.imageController cancelFetchForURL:imageURL];
     }];
+    WMF_TECH_DEBT_TODO(cancel image info & high-res image requests)
     [self.fetchOperationsByArticleTitle removeObjectForKey:title];
 }
 
