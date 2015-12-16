@@ -48,6 +48,14 @@
     return self;
 }
 
+- (AnyPromise*)fetchGalleryInfoForImage:(NSString*)canonicalPageTitle fromSite:(MWKSite*)site {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
+        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle] fromSite:site success:^(NSArray *infoObjects) {
+            resolve(infoObjects.firstObject);
+        } failure:resolve];
+    }];
+}
+
 - (AnyPromise*)fetchGalleryInfoForImagesOnPages:(NSArray*)pageTitles
                                        fromSite:(MWKSite*)site
                                metadataLanguage:(nullable NSString*)metadataLanguage; {

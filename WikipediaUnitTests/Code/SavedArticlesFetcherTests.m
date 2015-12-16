@@ -7,6 +7,7 @@
 //
 
 #import "SavedArticlesFetcherTests.h"
+#import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
 
 @implementation SavedArticlesFetcherTests
 
@@ -49,17 +50,16 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+    [self stubSuccessfulResponsesForArticle:stubbedArticle];
 
     [self.savedPageList addSavedPageWithTitle:dummyTitle];
 
     [self expectFetcherToFinishWithError:nil];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
-    [self verifyImageDownloadAttemptForArticle:stubbedArticle];
     assertThat(self.downloadedArticles, is(@[stubbedArticle]));
+    [self verifyPersistedImageInfoForArticle:stubbedArticle];
     assertThat(self.downloadErrors, isEmpty());
 }
 
@@ -74,8 +74,7 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:uncachedEntryTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+    [self stubSuccessfulResponsesForArticle:stubbedArticle];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -83,8 +82,8 @@
 
     WaitForExpectations();
 
-    [self verifyImageDownloadAttemptForArticle:stubbedArticle];
     assertThat(self.downloadedArticles, is(@[stubbedArticle]));
+    [self verifyPersistedImageInfoForArticle:stubbedArticle];
     assertThat(self.downloadErrors, isEmpty());
 }
 
@@ -106,11 +105,9 @@
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:firstArticle]];
+    [self stubSuccessfulResponsesForArticle:firstArticle];
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+    [self stubSuccessfulResponsesForArticle:secondArticle];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -118,35 +115,34 @@
 
     WaitForExpectations();
 
-    [self verifyImageDownloadAttemptForArticle:firstArticle];
-    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[firstArticle, secondArticle]));
+    [self verifyPersistedImageInfoForArticle:firstArticle];
+    [self verifyPersistedImageInfoForArticle:secondArticle];
     assertThat(self.downloadErrors, isEmpty());
 }
 
-- (void)testSkipsArticleFetchForCachedArticles {
+- (void)testSkipsCachedArticles {
     [self stubListWithEntries:2];
 
     MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-    MWKArticle* firstArticle =
+    MWKArticle* cachedArticle =
         [[MWKArticle alloc]
          initWithTitle:firstTitle
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-    [firstArticle save];
-    NSAssert(firstArticle.isCached, @"Test depends on article being considered cached after save!");
+    [cachedArticle save];
+    NSAssert(cachedArticle.isCached, @"Test depends on article being considered cached after save!");
 
     MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-    MWKArticle* secondArticle =
+    MWKArticle* uncachedArticle =
         [[MWKArticle alloc]
          initWithTitle:secondTitle
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+    [self stubSuccessfulResponsesForArticle:uncachedArticle];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -154,13 +150,12 @@
 
     WaitForExpectations();
 
-    // should have fetched images (esp. gallery data), but not article data for cached article
-    [MKTVerifyCount(self.mockArticleFetcher, MKTNever()) fetchArticleForPageTitle:firstArticle.title progress:anything()];
-    [self verifyImageDownloadAttemptForArticle:firstArticle];
+    // should not have fetched anything for cached article
+    [MKTVerifyCount(self.mockArticleFetcher, MKTNever()) fetchArticleForPageTitle:cachedArticle.title progress:anything()];
 
     // should have fetched article & image data for second, uncached article
-    [self verifyImageDownloadAttemptForArticle:secondArticle];
-    assertThat(self.downloadedArticles, is(@[secondArticle]));
+    assertThat(self.downloadedArticles, is(@[uncachedArticle]));
+    [self verifyPersistedImageInfoForArticle:uncachedArticle];
     assertThat(self.downloadErrors, isEmpty());
 }
 
@@ -206,8 +201,7 @@
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:downloadError]];
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:secondTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:secondArticle]];
+    [self stubSuccessfulResponsesForArticle:secondArticle];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -215,8 +209,8 @@
 
     WaitForExpectations();
 
-    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
+    [self verifyPersistedImageInfoForArticle:secondArticle];
     assertThat(self.downloadErrors, is(@{firstTitle: downloadError}));
 }
 
@@ -248,6 +242,8 @@
         resolveSecondArticleRequest = resolve;
     }]];
 
+    [self stubImageResponsesForArticle:secondArticle];
+
     [self expectFetcherToFinishWithError:nil];
 
     /*
@@ -278,8 +274,8 @@
     // resolve promise after the test to prevent PromiseKit warning
     resolveFirstArticleRequest([NSError cancelledError]);
 
-    [self verifyImageDownloadAttemptForArticle:secondArticle];
     assertThat(self.downloadedArticles, is(@[secondArticle]));
+    [self verifyPersistedImageInfoForArticle:secondArticle];
     assertThat(self.downloadErrors, isEmpty());
 }
 
@@ -293,8 +289,7 @@
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
 
-    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
-     willReturn:[AnyPromise promiseWithValue:firstArticle]];
+    [self stubSuccessfulResponsesForArticle:firstArticle];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -309,8 +304,8 @@
     [firstArticle save];
 
     // download finished, images have now started downloading
-    [self verifyImageDownloadAttemptForArticle:firstArticle];
     assertThat(self.downloadedArticles, is(@[firstArticle]));
+    [self verifyPersistedImageInfoForArticle:firstArticle];
     assertThat(self.downloadErrors, isEmpty());
 
     [self.savedPageList removeEntryWithListIndex:firstTitle];
@@ -349,17 +344,47 @@
     PMKHang([self.savedPageList save]);
 }
 
-- (void)verifyImageDownloadAttemptForArticle:(MWKArticle*)article {
+- (void)verifyPersistedImageInfoForArticle:(MWKArticle*)article {
+    NSArray<NSString*>* expectedCanonicalPageTitles = [MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants];
+    NSArray* persistedImageInfoCanonicalPageTitles =
+        [[self.tempDataStore imageInfoForTitle:article.title]
+         valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalPageTitle)];
+    assertThat(persistedImageInfoCanonicalPageTitles, containsItemsInCollectionInAnyOrder(expectedCanonicalPageTitles));
+}
+
+- (void)stubSuccessfulResponsesForArticle:(MWKArticle*)article {
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:article.title progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:article]];
+    [self stubImageResponsesForArticle:article];
+}
+
+- (void)stubImageResponsesForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        [MKTVerify(self.mockImageController) fetchImageWithURLInBackground:imageURL];
+        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:imageURL])
+         willReturn:[AnyPromise promiseWithValue:[NSData data]]];
     }];
+
     [article.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
-        NSArray* expectedFile = @[[@"File:" stringByAppendingString:image.canonicalFilename]];
-        [MKTVerify(self.mockImageInfoFetcher) fetchGalleryInfoForImageFiles:expectedFile
-                                                                   fromSite:article.title.site
-                                                                    success:anything()
-                                                                    failure:anything()];
+        NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
+        MWKImageInfo* stubbedImageInfo =
+        [[MWKImageInfo alloc]
+         initWithCanonicalPageTitle:canonicalPageTitle
+         canonicalFileURL:[NSURL URLWithString:@"https://dummy.org/foo"]
+         imageDescription:nil
+         license:nil
+         filePageURL:nil
+         imageThumbURL:[NSURL URLWithString:[image.sourceURLString stringByAppendingString:@"/galleryDummy.jpg"]]
+         owner:nil
+         imageSize:CGSizeZero
+         thumbSize:CGSizeZero];
+
+        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:article.title.site])
+         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
+
+        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
+         willReturn:[AnyPromise promiseWithValue:[NSData data]]];
     }];
+
 }
 
 - (void)expectFetcherToFinishWithError:(NSError*)error {
