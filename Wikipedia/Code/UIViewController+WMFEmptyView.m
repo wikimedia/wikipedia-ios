@@ -44,8 +44,8 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         container = container.superview;
     }
     [view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.mas_topLayoutGuide);
-        make.bottom.equalTo(self.mas_bottomLayoutGuide);
+        make.top.equalTo(container);
+        make.bottom.equalTo(container);
         make.leading.and.trailing.equalTo(container);
     }];
     [self bk_associateValue:view withKey:CFBridgingRetain(WMFEmptyViewKey)];
