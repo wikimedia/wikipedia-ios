@@ -19,7 +19,9 @@
 
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
@@ -52,6 +54,8 @@
     _dataSource.tableView     = nil;
     self.tableView.dataSource = nil;
 
+    [self.KVOController unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+
     _dataSource = dataSource;
 
     //HACK: Need to check the window to see if we are on screen. http://stackoverflow.com/a/2777460/48311
@@ -66,6 +70,10 @@
     }
 
     self.title = [_dataSource displayTitle];
+    [self updateDeleteButton];
+    [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
+        [self updateDeleteButtonEnabledState];
+    }];
 }
 
 - (NSString*)debugDescription {
@@ -78,6 +86,38 @@
     _dataSource.tableView = self.tableView;
     if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
         self.tableView.estimatedRowHeight = _dataSource.estimatedItemHeight;
+    }
+}
+
+#pragma mark - Delete Button
+
+- (void)updateDeleteButton {
+    if ([self.dataSource conformsToProtocol:@protocol(WMFArticleDeleteAllDataSource)]) {
+        id<WMFArticleDeleteAllDataSource> deleteableDataSource = (id<WMFArticleDeleteAllDataSource>)self.dataSource;
+
+        if ([deleteableDataSource showsDeleteAllButton] == YES) {
+            @weakify(self);
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+                @strongify(self);
+                UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[deleteableDataSource deleteAllConfirmationText]];
+                [sheet bk_setDestructiveButtonWithTitle:[deleteableDataSource deleteText] handler:^{
+                    [deleteableDataSource deleteAll];
+                    [self.tableView reloadData];
+                }];
+                [sheet bk_setCancelButtonWithTitle:[deleteableDataSource deleteCancelText] handler:NULL];
+                [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+            }];
+            return;
+        }
+    }
+    self.navigationItem.leftBarButtonItem = nil;
+}
+
+- (void)updateDeleteButtonEnabledState {
+    if ([self.dataSource titleCount] > 0) {
+        self.navigationItem.leftBarButtonItem.enabled = YES;
+    } else {
+        self.navigationItem.leftBarButtonItem.enabled = NO;
     }
 }
 
@@ -94,6 +134,7 @@
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
     MWKArticle* article = note.userInfo[MWKArticleKey];
+    [self updateDeleteButtonEnabledState];
     [self refreshAnyVisibleCellsWhichAreShowingTitle:article.title];
 }
 
@@ -151,6 +192,7 @@
     [super viewWillAppear:animated];
     NSParameterAssert(self.dataStore);
     [self connectTableViewAndDataSource];
+    [self updateDeleteButtonEnabledState];
     [[self dynamicDataSource] startUpdating];
     [self registerForPreviewingIfAvailable];
 }

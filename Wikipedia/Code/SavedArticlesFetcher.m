@@ -3,10 +3,17 @@
 
 #import "Wikipedia-Swift.h"
 #import "WMFArticleFetcher.h"
+#import "MWKImageInfoFetcher.h"
 
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKArticle.h"
+#import "MWKImage+CanonicalFilenames.h"
+
+static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
+
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFSavedArticlesFetcherLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong) WMFImageController* imageController;
+@property (nonatomic, strong) MWKImageInfoFetcher* imageInfoFetcher;
 
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, AnyPromise*>* fetchOperationsByArticleTitle;
 @property (nonatomic, strong) NSMutableDictionary<MWKTitle*, NSError*>* errorsByArticleTitle;
@@ -31,11 +39,13 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 
 - (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList
                        articleFetcher:(WMFArticleFetcher*)articleFetcher
-                      imageController:(WMFImageController*)imageController {
+                      imageController:(WMFImageController*)imageController
+                     imageInfoFetcher:(MWKImageInfoFetcher*)imageInfoFetcher {
     NSParameterAssert(savedPageList);
     NSParameterAssert(savedPageList.dataStore);
     NSParameterAssert(articleFetcher);
     NSParameterAssert(imageController);
+    NSParameterAssert(imageInfoFetcher);
     self = [super init];
     if (self) {
         _accessQueue                       = dispatch_queue_create("org.wikipedia.savedarticlesarticleFetcher.accessQueue", DISPATCH_QUEUE_SERIAL);
@@ -44,6 +54,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         self.articleFetcher                = articleFetcher;
         self.imageController               = imageController;
         self.savedPageList                 = savedPageList;
+        self.imageInfoFetcher              = imageInfoFetcher;
     }
     return self;
 }
@@ -51,7 +62,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (instancetype)initWithSavedPageList:(MWKSavedPageList*)savedPageList {
     return [self initWithSavedPageList:savedPageList
                         articleFetcher:[[WMFArticleFetcher alloc] initWithDataStore:savedPageList.dataStore]
-                       imageController:[WMFImageController sharedInstance]];
+                       imageController:[WMFImageController sharedInstance]
+                      imageInfoFetcher:[[MWKImageInfoFetcher alloc] init]];
 }
 
 #pragma mark - Fetching
@@ -80,47 +92,6 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     [self fetchUncachedTitles:[insertedEntries valueForKey:WMF_SAFE_KEYPATH([MWKSavedPageEntry new], title)]];
 }
 
-- (void)fetchUncachedTitles:(NSArray<MWKTitle*>*)titles {
-    if (!titles.count) {
-        return;
-    }
-    dispatch_async(self.accessQueue, ^{
-        for (MWKTitle* title in titles) {
-            /*
-               !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
-               objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
-             */
-            MWKArticle* existingArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
-            if (existingArticle.isCached) {
-                DDLogVerbose(@"Skipping download of cached title: %@", title);
-                continue;
-            }
-
-            DDLogInfo(@"Fetching saved title: %@", title);
-
-            /*
-               don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
-               immediately in order to ensure accurate progress & error reporting.
-             */
-            self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title
-                                                                                             progress:NULL]
-                                                        .thenOn(self.accessQueue, ^(MWKArticle* article){
-                [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-                    // fetch all article images, but don't block success on their completion or consider failed image
-                    // download an error
-                    [self.imageController fetchImageWithURLInBackground:imageURL];
-                }];
-                [self didFetchArticle:article title:title error:nil];
-            })
-                                                        .catch(^(NSError* error){
-                dispatch_async(self.accessQueue, ^{
-                    [self didFetchArticle:nil title:title error:error];
-                });
-            });
-        }
-    });
-}
-
 - (void)cancelFetchForEntries:(NSArray<MWKSavedPageEntry*>*)deletedEntries {
     if (!deletedEntries.count) {
         return;
@@ -130,12 +101,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         @strongify(self);
         BOOL wasFetching = self.fetchOperationsByArticleTitle.count > 0;
         [deletedEntries bk_each:^(MWKSavedPageEntry* entry) {
-            DDLogInfo(@"Canceling saved page download for title: %@", entry.title);
-            [self.articleFetcher cancelFetchForPageTitle:entry.title];
-            [[[self.savedPageList.dataStore existingArticleWithTitle:entry.title] allImageURLs] bk_each:^(NSURL* imageURL) {
-                [self.imageController cancelFetchForURL:imageURL];
-            }];
-            [self.fetchOperationsByArticleTitle removeObjectForKey:entry.title];
+            [self cancelFetchForTitle:entry.title];
         }];
         if (wasFetching) {
             /*
@@ -145,6 +111,114 @@ static SavedArticlesFetcher* _articleFetcher = nil;
             [self notifyDelegateIfFinished];
         }
     });
+}
+
+- (void)fetchUncachedTitles:(NSArray<MWKTitle*>*)titles {
+    if (!titles.count) {
+        return;
+    }
+    for (MWKTitle* title in titles) {
+        dispatch_async(self.accessQueue, ^{
+            [self fetchTitle:title];
+        });
+    }
+}
+
+- (void)fetchTitle:(MWKTitle*)title {
+    // NOTE: must check isCached to determine that all article data has been downloaded
+    MWKArticle* articleFromDisk = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
+    if (articleFromDisk.isCached) {
+        // don't fetch anything if article was cached
+        return;
+    }
+
+    /*
+       don't use "finallyOn" to remove the promise from our tracking dictionary since it has to be removed
+       immediately in order to ensure accurate progress & error reporting.
+     */
+    @weakify(self);
+    self.fetchOperationsByArticleTitle[title] =
+        [self.articleFetcher fetchArticleForPageTitle:title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
+        @strongify(self);
+        return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^{
+            [self didFetchArticle:article title:title error:nil];
+        });
+    }).catch(^(NSError* error){
+        if (!self) {
+            return;
+        }
+        dispatch_async(self.accessQueue, ^{
+            [self didFetchArticle:nil title:title error:error];
+        });
+    });
+}
+
+- (AnyPromise*)downloadImageDataForArticle:(MWKArticle*)article {
+    return PMKJoin(@[[self fetchAllImagesInArticle:article],
+                     [self fetchGalleryDataForArticle:article]])
+           .catch(^(NSError* joinError) {
+        return [NSError wmf_savedPageImageDownloadError];
+    });
+}
+
+- (AnyPromise*)fetchAllImagesInArticle:(MWKArticle*)article {
+    return PMKJoin([[[article allImageURLs] allObjects] bk_map:^(NSURL* imageURL) {
+        return [self.imageController fetchImageWithURLInBackground:imageURL];
+    }]);
+}
+
+- (AnyPromise*)fetchGalleryDataForArticle:(MWKArticle*)article {
+    WMF_TECH_DEBT_TODO(check whether on - disk image info matches what we are about to fetch)
+    @weakify(self);
+    return [self fetchImageInfoForImagesInArticle:article].then(^id (NSArray<MWKImageInfo*>* info) {
+        @strongify(self);
+        if (!self) {
+            return [NSError cancelledError];
+        }
+        if (info.count == 0) {
+            DDLogVerbose(@"No gallery images to fetch.");
+            return info;
+        }
+        return PMKJoin([info bk_map:^(MWKImageInfo* info) {
+            return [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
+        }]);
+    });
+}
+
+- (AnyPromise*)fetchImageInfoForImagesInArticle:(MWKArticle*)article {
+    @weakify(self);
+    NSArray<NSString*>* imageFileTitles =
+        [[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL (id obj) {
+        return [obj isEqual:[NSNull null]];
+    }];
+
+    if (imageFileTitles.count == 0) {
+        DDLogVerbose(@"No image info to fetch, returning successful promise with empty array.");
+        return [AnyPromise promiseWithValue:imageFileTitles];
+    }
+
+    return PMKJoin([imageFileTitles bk_map:^AnyPromise*(NSString* canonicalFilename) {
+        return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSite:article.title.site];
+    }]).thenInBackground(^id (NSArray* infoObjects) {
+        @strongify(self);
+        if (!self) {
+            return [NSError cancelledError];
+        }
+        [self.savedPageList.dataStore saveImageInfo:infoObjects forTitle:article.title];
+        return infoObjects;
+    });
+}
+
+#pragma mark - Cancellation
+
+- (void)cancelFetchForTitle:(MWKTitle*)title {
+    DDLogVerbose(@"Canceling saved page download for title: %@", title);
+    [self.articleFetcher cancelFetchForPageTitle:title];
+    [[[self.savedPageList.dataStore existingArticleWithTitle:title] allImageURLs] bk_each:^(NSURL* imageURL) {
+        [self.imageController cancelFetchForURL:imageURL];
+    }];
+    WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
+    [self.fetchOperationsByArticleTitle removeObjectForKey : title];
 }
 
 #pragma mark - KVO
@@ -235,6 +309,18 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         [self finishWithError:reportedError
                   fetchedData:nil];
     }
+}
+
+@end
+
+static NSString* const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
+
+@implementation NSError (SavedArticlesFetcherErrors)
+
++ (instancetype)wmf_savedPageImageDownloadError {
+    return [NSError errorWithDomain:WMFSavedPageErrorDomain code:1 userInfo:@{
+                NSLocalizedDescriptionKey: MWLocalizedString(@"saved-pages-image-download-error", nil)
+            }];
 }
 
 @end

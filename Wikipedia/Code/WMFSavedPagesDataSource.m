@@ -50,6 +50,26 @@ NS_ASSUME_NONNULL_BEGIN
             [parentView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             [parentView endUpdates];
         };
+
+        [self.KVOController observe:self.savedPageList keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionPrior block:^(WMFSavedPagesDataSource* observer, MWKSavedPageList* object, NSDictionary* change) {
+            BOOL isPrior = [change[NSKeyValueChangeNotificationIsPriorKey] boolValue];
+            NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+            NSIndexSet* indexes = change[NSKeyValueChangeIndexesKey];
+
+            if (isPrior) {
+                if (changeKind == NSKeyValueChangeSetting) {
+                    [observer willChangeValueForKey:WMF_SAFE_KEYPATH(observer, titles)];
+                } else {
+                    [observer willChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, titles)];
+                }
+            } else {
+                if (changeKind == NSKeyValueChangeSetting) {
+                    [observer didChangeValueForKey:WMF_SAFE_KEYPATH(observer, titles)];
+                } else {
+                    [observer didChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, titles)];
+                }
+            }
+        }];
     }
     return self;
 }
@@ -97,6 +117,27 @@ NS_ASSUME_NONNULL_BEGIN
         [self.savedPageList removeEntryWithListIndex:savedEntry.title];
         [self.savedPageList save];
     }
+}
+
+- (BOOL)showsDeleteAllButton {
+    return YES;
+}
+
+- (NSString*)deleteAllConfirmationText {
+    return MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil);
+}
+
+- (NSString*)deleteText {
+    return MWLocalizedString(@"saved-pages-clear-delete-all", nil);
+}
+
+- (NSString*)deleteCancelText {
+    return MWLocalizedString(@"saved-pages-clear-cancel", nil);
+}
+
+- (void)deleteAll {
+    [self.savedPageList removeAllEntries];
+    [self.savedPageList save];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {

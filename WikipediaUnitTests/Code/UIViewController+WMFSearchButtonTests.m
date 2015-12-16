@@ -48,8 +48,8 @@ afterEach(^{
         [self expectationForPredicate:
          [NSPredicate predicateWithBlock:
           ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-              return evaluatedObject.view.window == nil;
-          }] evaluatedWithObject:_sharedSearchViewController handler:nil];
+            return evaluatedObject.view.window == nil;
+        }]        evaluatedWithObject:_sharedSearchViewController handler:nil];
         [self waitForExpectationsWithTimeout:10 handler:nil];
     }
 
@@ -72,7 +72,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
         return evaluatedObject.presentedViewController.view.window != nil;
-    }] evaluatedWithObject:presentingVC handler:nil];
+    }]        evaluatedWithObject:presentingVC handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
 
     WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
@@ -92,7 +92,7 @@ void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc)
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
         return presentedVC.view.window == nil;
-    }] evaluatedWithObject:presentedVC handler:nil];
+    }]        evaluatedWithObject:presentedVC handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
 };
 

@@ -12,6 +12,8 @@
 
 @class MWKArticle, MWKImage;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Base data source for galleries which display images in an article.
  *
@@ -55,3 +57,5 @@
 - (instancetype)initWithItems:(NSArray*)items NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

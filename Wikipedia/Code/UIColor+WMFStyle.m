@@ -223,7 +223,7 @@
     return [self wmf_999999Color];
 }
 
-+ (instancetype)wmf_emptyGrayTextColor{
++ (instancetype)wmf_emptyGrayTextColor {
     return [self wmf_999999Color];
 }
 
