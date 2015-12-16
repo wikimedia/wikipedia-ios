@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CGFloat)estimatedItemHeight;
 
+@end
+
+@protocol WMFArticleDeleteAllDataSource <NSObject>
+
 - (BOOL)showsDeleteAllButton;
 
 - (NSString*)deleteAllConfirmationText;
