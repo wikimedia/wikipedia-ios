@@ -5,9 +5,9 @@ import BlocksKit
 extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDelegate {
     
     public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
-        if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
+        if let item: TableOfContentsItem = webViewController!.currentVisibleSection() {
             tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
-        } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController.visibleFooterIndex()) {
+        } else if let footerIndex: WMFArticleFooterViewIndex = WMFArticleFooterViewIndex(rawValue: webViewController!.visibleFooterIndex()) {
             switch footerIndex {
             case .ReadMore:
                 tableOfContentsViewController!.selectAndScrollToItem(TableOfContentsReadMoreItem(site: self.articleTitle.site), animated: false)
@@ -22,9 +22,9 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
                                             
         if let section = item as? MWKSection {
             // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
-            self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
+            self.webViewController!.scrollToSection(section, animated: self.webViewController!.isWebContentVisible)
         } else if let footerItem = item as? TableOfContentsFooterItem {
-            self.webViewController.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
+            self.webViewController!.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
         } else {
             assertionFailure("Unsupported selection of TOC item \(item)")
         }
@@ -55,14 +55,12 @@ extension WMFArticleContainerViewController {
      - returns: sections of the ToC.
      */
     func createTableOfContentsSections() -> [TableOfContentsItem]?{
-        if let sections = self.article?.sections {
-            // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
-            let items = sections.entries.map() { $0 as! TableOfContentsItem }
-            return items
-        }else{
-            
+        guard let sections = self.article?.sections else {
             return nil
         }
+        // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
+        let items = sections.entries.map() { $0 as! TableOfContentsItem }
+        return items
     }
     
     /**
@@ -80,7 +78,7 @@ extension WMFArticleContainerViewController {
     public func appendReadMoreTableOfContentsItem() {
         if var items = createTableOfContentsSections() {
             items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
-            self.tableOfContentsViewController.items = items
+            self.tableOfContentsViewController!.items = items
         }
     }
 

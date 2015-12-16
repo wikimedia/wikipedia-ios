@@ -22,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite, nullable) MWKArticle* article;
 
 // Children
-@property (nonatomic, strong, null_resettable) WMFTableOfContentsViewController* tableOfContentsViewController;
-@property (nonatomic, strong) WebViewController* webViewController;
+@property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
+@property (nonatomic, strong, nullable) WebViewController* webViewController;
 
 @end
 
