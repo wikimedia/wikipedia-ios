@@ -5,6 +5,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
 @import SSDataSources;
+#import "PiwikTracker+WMFExtensions.h"
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -58,7 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
  WMFSearchPresentationDelegate,
- UIViewControllerPreviewingDelegate>
+ UIViewControllerPreviewingDelegate,
+ WMFAnalyticsLogging>
 
 @property (nonatomic, strong, null_resettable) WMFHomeSectionSchema* schemaManager;
 
@@ -689,6 +691,7 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* title =
             [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
+            [[PiwikTracker sharedInstance] wmf_logPreviewForTitle:title fromSource:self];
             return [[WMFArticleContainerViewController alloc]
                     initWithArticleTitle:title
                                dataStore:[self dataStore]
@@ -704,10 +707,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [[PiwikTracker sharedInstance] wmf_logViewForTitle:[(WMFArticleContainerViewController*)viewControllerToCommit articleTitle] fromSource:self];
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+- (NSString*)analyticsName {
+    return @"Home";
 }
 
 @end

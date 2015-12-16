@@ -2,12 +2,13 @@
 #import <UIKit/UIKit.h>
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleSelectionDelegate.h"
+#import "WMFAnalyticsLogging.h"
 
 @class SSBaseDataSource, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleListTableViewController : UITableViewController
+@interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsLogging>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong, nullable) SSBaseDataSource<WMFTitleListDataSource>* dataSource;

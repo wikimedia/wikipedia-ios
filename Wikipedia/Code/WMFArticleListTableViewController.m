@@ -22,6 +22,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
@@ -272,6 +273,7 @@
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
+    [[PiwikTracker sharedInstance] wmf_logPreviewForTitle:title fromSource:self];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:self.dataSource.discoveryMethod];
@@ -280,10 +282,15 @@
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
     if (self.delegate) {
+        [[PiwikTracker sharedInstance] wmf_logViewForTitle:[(WMFArticleContainerViewController*)viewControllerToCommit articleTitle] fromSource:self];
         [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
     } else {
         [self wmf_pushArticleViewController:viewControllerToCommit];
     }
+}
+
+- (NSString*)analyticsName {
+    return [self.dataSource analyticsName];
 }
 
 @end
