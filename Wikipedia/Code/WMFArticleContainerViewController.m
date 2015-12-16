@@ -399,6 +399,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Progress
 
 - (void)addProgressView {
+    NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.progressView.superview.mas_top);
@@ -431,17 +432,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    //Don't remove the progress immediately, let the user see it then dismiss
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        if (!animated) {
-            [self _hideProgressView];
-            return;
-        }
+    if (!animated) {
+        [self _hideProgressView];
+        return;
+    }
 
-        [UIView animateWithDuration:0.25 animations:^{
-            [self _hideProgressView];
-        } completion:nil];
-    });
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _hideProgressView];
+    } completion:nil];
 }
 
 - (void)_hideProgressView {
@@ -453,6 +451,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     [self.progressView setProgress:progress animated:animated];
+}
+
+- (void)completeAndHideProgress {
+    [self updateProgress:1.0 animated:YES];
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self hideProgressViewAnimated:YES];
+    });
 }
 
 /**
@@ -501,6 +506,9 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
     [self setupWebView];
+
+    [self addProgressView];
+    [self hideProgressViewAnimated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -582,7 +590,6 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
-        self.articleFetchWasAttempted = YES;
         [self observeArticleUpdates];
     });
 }
@@ -652,8 +659,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
-    [self updateProgress:1.0 animated:YES];
-    [self hideProgressViewAnimated:YES];
+    [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
 }
 
