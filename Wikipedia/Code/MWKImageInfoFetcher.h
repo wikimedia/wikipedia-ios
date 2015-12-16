@@ -32,6 +32,8 @@
                                                  success:(void (^)(NSArray* infoObjects))success
                                                  failure:(void (^)(NSError* error))failure;
 
+- (AnyPromise*)fetchGalleryInfoForImage:(NSString*)canonicalPageTitle fromSite:(MWKSite*)site;
+
 /**
  * Fetch @c MWKImageInfo populated with only the data needed for display in the home view.
  *

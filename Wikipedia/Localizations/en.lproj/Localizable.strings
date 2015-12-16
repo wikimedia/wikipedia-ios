@@ -150,6 +150,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Got it";
 "saved-pages-description" = "Saved pages are pretty awesome. Think of them as bookmarks that you can read even when you are offline.";
 "saved-pages-none" = "No saved pages yet.";
+"saved-pages-image-download-error" = "Failed to download images for this saved page.";
 
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";

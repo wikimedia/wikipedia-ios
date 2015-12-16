@@ -57,23 +57,23 @@ describe(@"SSArrayDataSource.wmf_initWithitemsAndReverseIfNeeded", ^{
 });
 
 describe(@"WMFArticleImageGalleryDataSource", ^{
-    __block MWKArticle* article;
+    __block MWKArticle* obamaArticle;
     configureTempDataStoreForEach(tempDataStore, ^{
         NSDictionary* fixtureJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"];
-        article = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
-                                          dataStore:tempDataStore
-                                               dict:fixtureJSON];
+        obamaArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
+                                               dataStore:tempDataStore
+                                                    dict:fixtureJSON];
     });
 
     itBehavesLike(@"an RTL compliant gallery data source", ^{
-        return @{ @"items": article.images.uniqueLargestVariants,
-                  @"dataSource": [[WMFArticleImageGalleryDataSource alloc] initWithArticle:article] };
+        return @{ @"items": obamaArticle.images.uniqueLargestVariants,
+                  @"dataSource": [[WMFArticleImageGalleryDataSource alloc] initWithArticle:obamaArticle] };
     });
 
     // test the subclass too, same context
     itBehavesLike(@"an RTL compliant gallery data source", ^{
-        return @{ @"items": article.images.uniqueLargestVariants,
-                  @"dataSource": [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article] };
+        return @{ @"items": obamaArticle.images.uniqueLargestVariants,
+                  @"dataSource": [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:obamaArticle] };
     });
 });
 

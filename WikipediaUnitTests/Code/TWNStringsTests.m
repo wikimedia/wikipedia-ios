@@ -20,13 +20,13 @@
     self.lprojFiles = [self getLprogFiles];
 }
 
--(NSArray*)getLprogFiles {
+- (NSArray*)getLprogFiles {
     return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
 }
 
--(NSDictionary*)getTranslationStringsDictFromLprogAtPath:(NSString*)lprojPath {
-    NSString *stringsFilePath = [lprojPath stringByAppendingPathComponent:@"Localizable.strings"];
-    BOOL isDirectory = NO;
+- (NSDictionary*)getTranslationStringsDictFromLprogAtPath:(NSString*)lprojPath {
+    NSString* stringsFilePath = [lprojPath stringByAppendingPathComponent:@"Localizable.strings"];
+    BOOL isDirectory          = NO;
     if ([[NSFileManager defaultManager] fileExistsAtPath:stringsFilePath isDirectory:&isDirectory]) {
         return [NSDictionary dictionaryWithContentsOfFile:stringsFilePath];
     }
@@ -38,9 +38,9 @@
 }
 
 - (void)test_incoming_translation_string_substitution_shortcuts {
-    for (NSString *lprojFileName in self.lprojFiles) {
-        NSDictionary *stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
-        for (NSString *key in stringsDict) {
+    for (NSString* lprojFileName in self.lprojFiles) {
+        NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString* key in stringsDict) {
             NSString* localizedString = stringsDict[key];
             assertThat(localizedString, isNot(containsSubstring(@"1$")));
             assertThat(localizedString, isNot(containsSubstring(@"2$")));
@@ -51,7 +51,7 @@
     }
 }
 
--(void)tearDown {
+- (void)tearDown {
     [super tearDown];
     self.lprojFiles = nil;
     self.bundleRoot = nil;

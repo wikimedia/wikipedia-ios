@@ -149,6 +149,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Button confirmation text of alert shown when a user first cancels a refresh of saved pages";
 "saved-pages-description" = "Description of saved pages";
 "saved-pages-none" = "Title indicating there are no saved pages";
+"saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
