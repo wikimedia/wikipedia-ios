@@ -151,6 +151,103 @@
     assertThat(self.downloadErrors, is(@{dummyTitle: downloadError}));
 }
 
+- (void)testReportArticleImageErrors {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+
+    [stubbedArticle.allImageURLs bk_each:^(NSURL* imageURL) {
+        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:imageURL])
+         willReturn:[AnyPromise promiseWithValue:downloadError]];
+    }];
+
+    // Need to stub gallery responses to prevent NSNull errors
+    [self stubGalleryResponsesForArticle:stubbedArticle];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+}
+
+- (void)testReportGalleryInfoErrors {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+
+    [self stubArticleImageResponsesForArticle:stubbedArticle];
+
+    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+        NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
+        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:stubbedArticle.title.site])
+         willReturn:[AnyPromise promiseWithValue:downloadError]];
+    }];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+}
+
+- (void)testReportGalleryImageErrors {
+    [self stubListWithEntries:0];
+
+    [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+
+    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
+
+    NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+
+    [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:dummyTitle progress:anything()])
+     willReturn:[AnyPromise promiseWithValue:stubbedArticle]];
+
+    [self stubArticleImageResponsesForArticle:stubbedArticle];
+
+    [stubbedArticle.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
+        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
+        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
+                                                             fromSite:stubbedArticle.title.site])
+         willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
+
+        [MKTGiven([self.mockImageController fetchImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
+         willReturn:[AnyPromise promiseWithValue:downloadError]];
+    }];
+
+    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+
+    [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
+
+    WaitForExpectations();
+
+    assertThat(self.downloadedArticles, isEmpty());
+    assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
+}
+
 - (void)testContinuesDownloadingIfArticleDownloadFails {
     [self stubListWithEntries:2];
 
@@ -328,33 +425,43 @@
     return article;
 }
 
+- (MWKImageInfo*)imageInfoStubForImage:(MWKImage*)image {
+    return
+    [[MWKImageInfo alloc]
+     initWithCanonicalPageTitle:[@"File:" stringByAppendingString:image.canonicalFilename]
+     canonicalFileURL:[NSURL URLWithString:@"https://dummy.org/foo"]
+     imageDescription:nil
+     license:nil
+     filePageURL:nil
+     imageThumbURL:[NSURL URLWithString:[image.sourceURLString stringByAppendingString:@"/galleryDummy.jpg"]]
+     owner:nil
+     imageSize:CGSizeZero
+     thumbSize:CGSizeZero];
+}
+
 - (void)stubImageResponsesForArticle:(MWKArticle*)article {
+    [self stubArticleImageResponsesForArticle:article];
+    [self stubGalleryResponsesForArticle:article];
+}
+
+- (void)stubArticleImageResponsesForArticle:(MWKArticle*)article {
     [[article allImageURLs] bk_each:^(NSURL* imageURL) {
         [MKTGiven([self.mockImageController fetchImageWithURLInBackground:imageURL])
          willReturn:[AnyPromise promiseWithValue:[NSData data]]];
     }];
+}
 
+- (void)stubGalleryResponsesForArticle:(MWKArticle*)article {
     [article.images.uniqueLargestVariants bk_each:^(MWKImage* image) {
-        NSString* canonicalPageTitle = [@"File:" stringByAppendingString:image.canonicalFilename];
-        MWKImageInfo* stubbedImageInfo =
-        [[MWKImageInfo alloc]
-         initWithCanonicalPageTitle:canonicalPageTitle
-         canonicalFileURL:[NSURL URLWithString:@"https://dummy.org/foo"]
-         imageDescription:nil
-         license:nil
-         filePageURL:nil
-         imageThumbURL:[NSURL URLWithString:[image.sourceURLString stringByAppendingString:@"/galleryDummy.jpg"]]
-         owner:nil
-         imageSize:CGSizeZero
-         thumbSize:CGSizeZero];
+        MWKImageInfo* stubbedImageInfo = [self imageInfoStubForImage:image];
 
-        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:canonicalPageTitle fromSite:article.title.site])
+        [MKTGiven([self.mockImageInfoFetcher fetchGalleryInfoForImage:stubbedImageInfo.canonicalPageTitle
+                                                             fromSite:article.title.site])
          willReturn:[AnyPromise promiseWithValue:stubbedImageInfo]];
 
         [MKTGiven([self.mockImageController fetchImageWithURLInBackground:stubbedImageInfo.imageThumbURL])
          willReturn:[AnyPromise promiseWithValue:[NSData data]]];
     }];
-
 }
 
 - (void)expectFetcherToFinishWithError:(NSError*)error {
