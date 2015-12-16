@@ -3,6 +3,7 @@
 @class MWKTitle;
 @class MWKSavedPageList;
 @class MWKImage;
+@class WMFSaveButtonController;
 
 @interface WMFArticlePreviewTableViewCell : WMFArticleListTableViewCell
 
@@ -42,5 +43,11 @@
  *  @param loading    Shows/hides blur and loading indicator
  */
 - (void)setLoading:(BOOL)loading;
+
+
+/**
+ *  Exposed so the analytics source can be set.
+ */
+@property (strong, nonatomic, readonly) WMFSaveButtonController* saveButtonController;
 
 @end

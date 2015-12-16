@@ -35,6 +35,13 @@ static NSString* const WMFPiwikSiteID    = @"4";
     }
 }
 
+- (void)wmf_logActionSaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+    [self sendEventWithCategory:@"Save" action:@"Save" name:[source analyticsName] value:nil];
+}
+
+- (void)wmf_logActionUnsaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+    [self sendEventWithCategory:@"Save" action:@"Unsave" name:[source analyticsName] value:nil];
+}
 @end
 
 NS_ASSUME_NONNULL_END

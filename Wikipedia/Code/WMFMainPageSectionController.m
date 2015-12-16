@@ -134,6 +134,10 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     });
 }
 
+- (NSString*)analyticsName {
+    return @"Main Page";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

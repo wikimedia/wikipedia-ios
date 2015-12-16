@@ -18,6 +18,7 @@
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFSaveButtonController.h"
 
 // Style
 #import "UIFont+WMFStyle.h"
@@ -127,6 +128,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         [previewCell setImageURL:result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
         [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+        previewCell.saveButtonController.analyticsSource = self;
     }
 }
 
@@ -178,6 +180,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
     });
+}
+
+- (NSString*)analyticsName {
+    return @"Related";
 }
 
 @end
