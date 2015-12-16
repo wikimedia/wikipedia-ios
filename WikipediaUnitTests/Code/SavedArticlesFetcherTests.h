@@ -20,6 +20,8 @@
 #import "XCTestCase+PromiseKit.h"
 #import "MWKDataStore+TemporaryDataStore.h"
 #import "Wikipedia-Swift.h"
+#import "MWKImageInfoFetcher.h"
+#import "MWKImage+CanonicalFilenames.h"
 
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
@@ -51,6 +53,8 @@ typedef void (^ SavedArticlesFetcherDidFetchArticleBlock)(MWKArticle*, CGFloat, 
 
 /// Mock image controller
 @property (nonatomic, strong) WMFImageController* mockImageController;
+
+@property (nonatomic, strong) MWKImageInfoFetcher* mockImageInfoFetcher;
 
 /// Temporary data store used to validate the test subject's behavior for articles which are or aren't cached.
 @property (nonatomic, strong) MWKDataStore* tempDataStore;

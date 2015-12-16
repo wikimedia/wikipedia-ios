@@ -6,7 +6,7 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "WMFLogging.h"
 
 @interface DDLog (WMFLogger)
 

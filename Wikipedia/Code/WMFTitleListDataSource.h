@@ -26,6 +26,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFArticleDeleteAllDataSource <NSObject>
+
+- (BOOL)showsDeleteAllButton;
+
+- (NSString*)deleteAllConfirmationText;
+
+- (NSString*)deleteText;
+
+- (NSString*)deleteCancelText;
+
+- (void)deleteAll;
+
+@end
+
 @protocol WMFArticleListDynamicDataSource <WMFTitleListDataSource>
 
 - (void)startUpdating;
