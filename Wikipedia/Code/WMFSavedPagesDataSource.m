@@ -144,6 +144,10 @@ NS_ASSUME_NONNULL_BEGIN
     return MWKHistoryDiscoveryMethodSaved;
 }
 
+- (NSString*)analyticsName {
+    return @"Saved";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

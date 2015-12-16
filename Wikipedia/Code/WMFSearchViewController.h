@@ -1,11 +1,12 @@
 #import <UIKit/UIKit.h>
 #import "WMFArticleSelectionDelegate.h"
+#import "WMFAnalyticsLogging.h"
 
 @class MWKSite, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFSearchViewController : UIViewController
+@interface WMFSearchViewController : UIViewController<WMFAnalyticsLogging>
 
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
