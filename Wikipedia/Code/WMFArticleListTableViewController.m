@@ -92,21 +92,25 @@
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
-    if ([self.dataSource respondsToSelector:@selector(showsDeleteAllButton)] && [self.dataSource showsDeleteAllButton] == YES) {
-        @weakify(self);
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
-            @strongify(self);
-            UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[self.dataSource deleteAllConfirmationText]];
-            [sheet bk_setDestructiveButtonWithTitle:[self.dataSource deleteText] handler:^{
-                [self.dataSource deleteAll];
-                [self.tableView reloadData];
+    if ([self.dataSource conformsToProtocol:@protocol(WMFArticleDeleteAllDataSource)]) {
+        id<WMFArticleDeleteAllDataSource> deleteableDataSource = (id<WMFArticleDeleteAllDataSource>)self.dataSource;
+
+        if ([deleteableDataSource showsDeleteAllButton] == YES) {
+            @weakify(self);
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+                @strongify(self);
+                UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[deleteableDataSource deleteAllConfirmationText]];
+                [sheet bk_setDestructiveButtonWithTitle:[deleteableDataSource deleteText] handler:^{
+                    [deleteableDataSource deleteAll];
+                    [self.tableView reloadData];
+                }];
+                [sheet bk_setCancelButtonWithTitle:[deleteableDataSource deleteCancelText] handler:NULL];
+                [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
             }];
-            [sheet bk_setCancelButtonWithTitle:[self.dataSource deleteCancelText] handler:NULL];
-            [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
-        }];
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
+            return;
+        }
     }
+    self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)updateDeleteButtonEnabledState {
