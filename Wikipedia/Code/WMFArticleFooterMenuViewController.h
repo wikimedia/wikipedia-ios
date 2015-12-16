@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class MWKDataStore;
+
 @interface WMFArticleFooterMenuViewController : UIViewController
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
