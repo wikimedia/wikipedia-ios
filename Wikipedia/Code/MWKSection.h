@@ -161,6 +161,10 @@ extern NSString* const MWKSectionShareSnippetXPath;
 
 - (NSString*)summary;
 
+- (nullable NSArray<MWKTitle*>*)disambiguationTitles;
+
+- (nullable NSArray<NSString*>*)pageIssues;
+
 @end
 
 NS_ASSUME_NONNULL_END
