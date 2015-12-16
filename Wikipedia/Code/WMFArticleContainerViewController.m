@@ -186,10 +186,15 @@ NS_ASSUME_NONNULL_BEGIN
     [self.headerGallery showImagesInArticle:_article];
 
     [self setupToolbar];
-    [self createTableOfContentsViewController];
-    [self startSignificantlyViewedTimer];
-    if (article) {
+
+    if (self.article) {
+        [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
+
+        if (!self.article.isMain) {
+            [self createTableOfContentsViewController];
+            [self fetchReadMore];
+        }
     }
 }
 
@@ -506,7 +511,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupWebView];
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
-    [self fetchArticle];
+    if (!self.article) {
+        [self fetchArticle];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -577,9 +584,6 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.webViewIsLoadingFetchedArticle = YES;
         self.article = article;
-        if (!self.article.isMain) {
-            [self fetchReadMore];
-        }
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];
