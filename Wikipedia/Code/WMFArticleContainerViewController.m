@@ -229,7 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _articleFetcher;
 }
 
-- (WebViewController*)webViewController {
+- (nullable WebViewController*)webViewController {
     if (!_webViewController) {
         _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate             = self;
