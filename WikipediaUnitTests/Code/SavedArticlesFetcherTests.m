@@ -98,7 +98,7 @@
 - (void)testSkipsCachedArticles {
     [self stubListWithEntries:2];
 
-    MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
+    MWKTitle* firstTitle      = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
     MWKArticle* cachedArticle =
         [[MWKArticle alloc]
          initWithTitle:firstTitle
@@ -108,7 +108,7 @@
     [cachedArticle save];
     NSAssert(cachedArticle.isCached, @"Test depends on article being considered cached after save!");
 
-    MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
+    MWKTitle* secondTitle       = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
     MWKArticle* uncachedArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
@@ -156,7 +156,7 @@
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
-    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
     MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
 
     NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
@@ -187,7 +187,7 @@
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
-    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
     MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
 
     NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
@@ -218,7 +218,7 @@
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
-    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKTitle* dummyTitle       = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
     MWKArticle* stubbedArticle = [self stubArticleResponsesForTitle:dummyTitle fixtureName:@"Obama"];
 
     NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
@@ -398,7 +398,7 @@
 
 - (void)verifyPersistedImageInfoForArticle:(MWKArticle*)article {
     NSArray<NSString*>* expectedCanonicalPageTitles = [MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants];
-    NSArray* persistedImageInfoCanonicalPageTitles =
+    NSArray* persistedImageInfoCanonicalPageTitles  =
         [[self.tempDataStore imageInfoForTitle:article.title]
          valueForKey:WMF_SAFE_KEYPATH(MWKImageInfo.new, canonicalPageTitle)];
     assertThat(persistedImageInfoCanonicalPageTitles, containsItemsInCollectionInAnyOrder(expectedCanonicalPageTitles));
@@ -411,7 +411,7 @@
 }
 
 - (MWKArticle*)stubArticleResponsesForTitle:(MWKTitle*)title fixtureName:(NSString*)fixtureName {
-    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"mobileview"];
+    id json             = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"mobileview"];
     MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
                                                   dataStore:self.tempDataStore
                                                        dict:json];
@@ -427,16 +427,16 @@
 
 - (MWKImageInfo*)imageInfoStubForImage:(MWKImage*)image {
     return
-    [[MWKImageInfo alloc]
-     initWithCanonicalPageTitle:[@"File:" stringByAppendingString:image.canonicalFilename]
-     canonicalFileURL:[NSURL URLWithString:@"https://dummy.org/foo"]
-     imageDescription:nil
-     license:nil
-     filePageURL:nil
-     imageThumbURL:[NSURL URLWithString:[image.sourceURLString stringByAppendingString:@"/galleryDummy.jpg"]]
-     owner:nil
-     imageSize:CGSizeZero
-     thumbSize:CGSizeZero];
+        [[MWKImageInfo alloc]
+         initWithCanonicalPageTitle:[@"File:" stringByAppendingString:image.canonicalFilename]
+                   canonicalFileURL:[NSURL URLWithString:@"https://dummy.org/foo"]
+                   imageDescription:nil
+                            license:nil
+                        filePageURL:nil
+                      imageThumbURL:[NSURL URLWithString:[image.sourceURLString stringByAppendingString:@"/galleryDummy.jpg"]]
+                              owner:nil
+                          imageSize:CGSizeZero
+                          thumbSize:CGSizeZero];
 }
 
 - (void)stubImageResponsesForArticle:(MWKArticle*)article {

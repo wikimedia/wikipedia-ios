@@ -49,8 +49,8 @@
 }
 
 - (AnyPromise*)fetchGalleryInfoForImage:(NSString*)canonicalPageTitle fromSite:(MWKSite*)site {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
-        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle] fromSite:site success:^(NSArray *infoObjects) {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [self fetchGalleryInfoForImageFiles:@[canonicalPageTitle] fromSite:site success:^(NSArray* infoObjects) {
             resolve(infoObjects.firstObject);
         } failure:resolve];
     }];

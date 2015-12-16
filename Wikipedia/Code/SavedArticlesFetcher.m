@@ -140,7 +140,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     self.fetchOperationsByArticleTitle[title] =
         [self.articleFetcher fetchArticleForPageTitle:title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
         @strongify(self);
-        return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^ {
+        return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^{
             [self didFetchArticle:article title:title error:nil];
         });
     }).catch(^(NSError* error){
@@ -168,9 +168,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (AnyPromise*)fetchGalleryDataForArticle:(MWKArticle*)article {
-    WMF_TECH_DEBT_TODO(check whether on-disk image info matches what we are about to fetch)
+    WMF_TECH_DEBT_TODO(check whether on - disk image info matches what we are about to fetch)
     @weakify(self);
-    return [self fetchImageInfoForImagesInArticle:article].then(^id(NSArray<MWKImageInfo*>* info) {
+    return [self fetchImageInfoForImagesInArticle:article].then(^id (NSArray<MWKImageInfo*>* info) {
         @strongify(self);
         if (!self) {
             return [NSError cancelledError];
@@ -188,7 +188,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 - (AnyPromise*)fetchImageInfoForImagesInArticle:(MWKArticle*)article {
     @weakify(self);
     NSArray<NSString*>* imageFileTitles =
-    [[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL(id obj) {
+        [[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL (id obj) {
         return [obj isEqual:[NSNull null]];
     }];
 
@@ -217,8 +217,8 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     [[[self.savedPageList.dataStore existingArticleWithTitle:title] allImageURLs] bk_each:^(NSURL* imageURL) {
         [self.imageController cancelFetchForURL:imageURL];
     }];
-    WMF_TECH_DEBT_TODO(cancel image info & high-res image requests)
-    [self.fetchOperationsByArticleTitle removeObjectForKey:title];
+    WMF_TECH_DEBT_TODO(cancel image info & high - res image requests)
+    [self.fetchOperationsByArticleTitle removeObjectForKey : title];
 }
 
 #pragma mark - KVO
