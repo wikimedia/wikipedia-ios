@@ -157,9 +157,7 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     return PMKJoin(@[[self fetchAllImagesInArticle:article],
                      [self fetchGalleryDataForArticle:article]])
            .catch(^(NSError* joinError) {
-        return [NSError errorWithDomain:@"SavedArticlesFetcherErrorDomain" code:1 userInfo:@{
-                    NSLocalizedDescriptionKey: MWLocalizedString(@"saved-pages-image-download-error", nil)
-                }];
+        return [NSError wmf_savedPageImageDownloadError];
     });
 }
 
@@ -311,6 +309,18 @@ static SavedArticlesFetcher* _articleFetcher = nil;
         [self finishWithError:reportedError
                   fetchedData:nil];
     }
+}
+
+@end
+
+static NSString* const WMFSavedPageErrorDomain = @"WMFSavedPageErrorDomain";
+
+@implementation NSError (SavedArticlesFetcherErrors)
+
++ (instancetype)wmf_savedPageImageDownloadError {
+    return [NSError errorWithDomain:WMFSavedPageErrorDomain code:1 userInfo:@{
+                NSLocalizedDescriptionKey: MWLocalizedString(@"saved-pages-image-download-error", nil)
+            }];
 }
 
 @end

@@ -9,6 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface NSError (SavedArticlesFetcherErrors)
+
+/**
+ *  @return Generic error used to indicate one or more images failed to download for the article or its gallery.
+ */
++ (instancetype)wmf_savedPageImageDownloadError;
+
+@end
+
 @protocol SavedArticlesFetcherDelegate <FetchFinishedDelegate>
 
 - (void)savedArticlesFetcher:(SavedArticlesFetcher*)savedArticlesFetcher
