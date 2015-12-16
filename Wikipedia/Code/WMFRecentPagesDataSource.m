@@ -59,6 +59,26 @@ NS_ASSUME_NONNULL_BEGIN
             [dataSource removeItemAtIndexPath:indexPath];
             [[NSNotificationCenter defaultCenter] addObserver:dataSource selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
         };
+
+        [self.KVOController observe:self.recentPages keyPath:WMF_SAFE_KEYPATH(self.recentPages, entries) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionPrior block:^(WMFRecentPagesDataSource* observer, MWKHistoryList* object, NSDictionary* change) {
+            BOOL isPrior = [change[NSKeyValueChangeNotificationIsPriorKey] boolValue];
+            NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] unsignedIntegerValue];
+            NSIndexSet* indexes = change[NSKeyValueChangeIndexesKey];
+
+            if (isPrior) {
+                if (changeKind == NSKeyValueChangeSetting) {
+                    [observer willChangeValueForKey:WMF_SAFE_KEYPATH(observer, titles)];
+                } else {
+                    [observer willChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, titles)];
+                }
+            } else {
+                if (changeKind == NSKeyValueChangeSetting) {
+                    [observer didChangeValueForKey:WMF_SAFE_KEYPATH(observer, titles)];
+                } else {
+                    [observer didChange:changeKind valuesAtIndexes:indexes forKey:WMF_SAFE_KEYPATH(observer, titles)];
+                }
+            }
+        }];
     }
     return self;
 }
@@ -151,6 +171,27 @@ NS_ASSUME_NONNULL_BEGIN
         [self.recentPages removeEntryWithListIndex:entry.title];
         [self.recentPages save];
     }
+}
+
+- (BOOL)showsDeleteAllButton {
+    return YES;
+}
+
+- (NSString*)deleteAllConfirmationText {
+    return MWLocalizedString(@"history-clear-confirmation-heading", nil);
+}
+
+- (NSString*)deleteText {
+    return MWLocalizedString(@"history-clear-delete-all", nil);
+}
+
+- (NSString*)deleteCancelText {
+    return MWLocalizedString(@"history-clear-cancel", nil);
+}
+
+- (void)deleteAll {
+    [self.recentPages removeAllEntries];
+    [self.recentPages save];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
