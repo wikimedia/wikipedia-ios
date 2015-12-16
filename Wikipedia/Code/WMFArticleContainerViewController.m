@@ -21,6 +21,7 @@
 #import "SectionEditorViewController.h"
 #import "LanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFArticleFooterMenuViewController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -123,6 +124,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  Need to track this so we can display the empty view reliably
  */
 @property (nonatomic, assign) BOOL articleFetchWasAttempted;
+
+@property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
 
 @end
 
@@ -506,6 +509,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupWebView];
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
+
+    self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+    self.footerMenuViewController.dataStore = self.dataStore;
+    
     [self fetchArticle];
 }
 
@@ -615,7 +622,7 @@ NS_ASSUME_NONNULL_BEGIN
     .then(^(WMFRelatedSearchResults* readMoreResults) {
         @strongify(self);
         if ([readMoreResults.results count] > 0) {
-            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController]];
+            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController, self.footerMenuViewController]];
             [self appendReadMoreTableOfContentsItem];
         }
     }).catch(^(NSError* error){
