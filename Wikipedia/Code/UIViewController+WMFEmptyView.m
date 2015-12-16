@@ -38,7 +38,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         [(UIScrollView*)self.view setScrollEnabled:NO];
     }
     [self.view addSubview:view];
-    
+
     UIView* container = view.superview;
     if ([container isKindOfClass:[UIScrollView class]]) {
         container = container.superview;
