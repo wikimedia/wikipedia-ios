@@ -42,6 +42,15 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (void)wmf_logActionUnsaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
     [self sendEventWithCategory:@"Save" action:@"Unsave" name:[source analyticsName] value:nil];
 }
+
+- (void)wmf_logActionScrollToHomeSection:(id<WMFAnalyticsLogging>)section {
+    [self sendEventWithCategory:@"Home" action:@"Scroll To Section" name:[section analyticsName] value:nil];
+}
+
+- (void)wmf_logActionOpenMoreForHomeSection:(id<WMFAnalyticsLogging>)section {
+    [self sendEventWithCategory:@"Home" action:@"Open More Like" name:[section analyticsName] value:nil];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

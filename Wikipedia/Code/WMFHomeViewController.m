@@ -480,6 +480,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleListTableViewController* extendedList              = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
     extendedList.dataSource = [articleSectionController extendedListDataSource];
+    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
@@ -566,6 +567,16 @@ NS_ASSUME_NONNULL_BEGIN
         footer.whenTapped                  = NULL;
     }
     return footer;
+}
+
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    //only log a section as visible for the first index path
+    if (indexPath.row == 0) {
+        id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        if (controller) {
+            [[PiwikTracker sharedInstance] wmf_logActionScrollToHomeSection:controller];
+        }
+    }
 }
 
 - (BOOL)tableView:(UITableView*)tableView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
