@@ -8,6 +8,7 @@
 
 #import "SavedArticlesFetcherTests.h"
 #import "HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.h"
+#import "MWKArticle+HTMLImageImport.h"
 
 @implementation SavedArticlesFetcherTests
 
@@ -42,17 +43,9 @@
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
-    MWKTitle* dummyTitle = [[MWKTitle alloc] initWithURL:[NSURL URLWithString:@"https://en.wikikpedia.org/wiki/Foo"]];
+    MWKArticle* stubbedArticle = [self stubAllSuccessfulResponsesForTitle:[MWKTitle random] fixtureName:@"Obama"];
 
-    MWKArticle* stubbedArticle =
-        [[MWKArticle alloc]
-         initWithTitle:dummyTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
-
-    [self stubSuccessfulResponsesForArticle:stubbedArticle];
-
-    [self.savedPageList addSavedPageWithTitle:dummyTitle];
+    [self.savedPageList addSavedPageWithTitle:stubbedArticle.title];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -68,13 +61,7 @@
 
     MWKTitle* uncachedEntryTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
 
-    MWKArticle* stubbedArticle =
-        [[MWKArticle alloc]
-         initWithTitle:uncachedEntryTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
-
-    [self stubSuccessfulResponsesForArticle:stubbedArticle];
+    MWKArticle* stubbedArticle = [self stubAllSuccessfulResponsesForTitle:uncachedEntryTitle fixtureName:@"Obama"];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -91,23 +78,10 @@
     [self stubListWithEntries:2];
 
     MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-    MWKArticle* firstArticle =
-        [[MWKArticle alloc]
-         initWithTitle:firstTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+    MWKArticle* firstArticle = [self stubAllSuccessfulResponsesForTitle:firstTitle fixtureName:@"Obama"];
 
     MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-    MWKArticle* secondArticle =
-        [[MWKArticle alloc]
-         initWithTitle:secondTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
-
-
-    [self stubSuccessfulResponsesForArticle:firstArticle];
-
-    [self stubSuccessfulResponsesForArticle:secondArticle];
+    MWKArticle* secondArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -130,19 +104,12 @@
          initWithTitle:firstTitle
              dataStore:self.tempDataStore
                   dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
-
+    [cachedArticle importAndSaveImagesFromSectionHTML];
     [cachedArticle save];
     NSAssert(cachedArticle.isCached, @"Test depends on article being considered cached after save!");
 
     MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-    MWKArticle* uncachedArticle =
-        [[MWKArticle alloc]
-         initWithTitle:secondTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
-
-
-    [self stubSuccessfulResponsesForArticle:uncachedArticle];
+    MWKArticle* uncachedArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -190,18 +157,12 @@
     MWKTitle* firstTitle = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
 
     MWKTitle* secondTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries[1] title];
-    MWKArticle* secondArticle =
-        [[MWKArticle alloc]
-         initWithTitle:secondTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
+    MWKArticle* secondArticle = [self stubAllSuccessfulResponsesForTitle:secondTitle fixtureName:@"Exoplanet.mobileview"];
 
     NSError* downloadError = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
 
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:firstTitle progress:anything()])
      willReturn:[AnyPromise promiseWithValue:downloadError]];
-
-    [self stubSuccessfulResponsesForArticle:secondArticle];
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
@@ -283,13 +244,7 @@
     [self stubListWithEntries:1];
 
     MWKTitle* firstTitle     = [(MWKSavedPageEntry*)self.savedPageList.entries.firstObject title];
-    MWKArticle* firstArticle =
-        [[MWKArticle alloc]
-         initWithTitle:firstTitle
-             dataStore:self.tempDataStore
-                  dict:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Exoplanet.mobileview"][@"mobileview"]];
-
-    [self stubSuccessfulResponsesForArticle:firstArticle];
+    MWKArticle* firstArticle = [self stubAllSuccessfulResponsesForTitle:firstTitle fixtureName:@"Exoplanet.mobileview"];
 
     [self expectFetcherToFinishWithError:nil];
 
@@ -352,10 +307,25 @@
     assertThat(persistedImageInfoCanonicalPageTitles, containsItemsInCollectionInAnyOrder(expectedCanonicalPageTitles));
 }
 
-- (void)stubSuccessfulResponsesForArticle:(MWKArticle*)article {
+- (MWKArticle*)stubAllSuccessfulResponsesForTitle:(MWKTitle*)title fixtureName:(NSString*)fixtureName {
+    MWKArticle* article = [self stubArticleResponsesForTitle:title fixtureName:fixtureName];
+    [self stubImageResponsesForArticle:article];
+    return article;
+}
+
+- (MWKArticle*)stubArticleResponsesForTitle:(MWKTitle*)title fixtureName:(NSString*)fixtureName {
+    id json = [[self wmf_bundle] wmf_jsonFromContentsOfFile:fixtureName][@"mobileview"];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:title
+                                                  dataStore:self.tempDataStore
+                                                       dict:json];
+    // make sure article's image list is populated. shouldn't matter that image metadata is saved as long as the article
+    // itself is not. saving article data could interfere with the tests (since that would make it cached)
+    [article importAndSaveImagesFromSectionHTML];
+    NSParameterAssert([article.images count] > 1);
+    NSParameterAssert(article.images.uniqueLargestVariants.count > 1);
     [MKTGiven([self.mockArticleFetcher fetchArticleForPageTitle:article.title progress:anything()])
      willReturn:[AnyPromise promiseWithValue:article]];
-    [self stubImageResponsesForArticle:article];
+    return article;
 }
 
 - (void)stubImageResponsesForArticle:(MWKArticle*)article {

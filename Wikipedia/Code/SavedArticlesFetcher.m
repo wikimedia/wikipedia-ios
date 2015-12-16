@@ -164,9 +164,9 @@ static SavedArticlesFetcher* _articleFetcher = nil;
 }
 
 - (AnyPromise*)fetchAllImagesInArticle:(MWKArticle*)article {
-    return PMKJoin([[[article allImageURLs] bk_map:^(NSURL* imageURL) {
+    return PMKJoin([[[article allImageURLs] allObjects] bk_map:^(NSURL* imageURL) {
         return [self.imageController fetchImageWithURLInBackground:imageURL];
-    }] allObjects]);
+    }]);
 }
 
 - (AnyPromise*)fetchGalleryDataForArticle:(MWKArticle*)article {
