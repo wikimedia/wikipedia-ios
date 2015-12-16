@@ -26,6 +26,9 @@
   "dependencies": {
     "HexColors": [
       "~> 2.3.0"
+    ],
+    "Masonry": [
+      "~> 0.6"
     ]
   }
 }
