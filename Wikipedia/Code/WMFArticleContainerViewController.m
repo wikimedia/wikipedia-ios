@@ -586,6 +586,7 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         [self hideProgressViewAnimated:YES];
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
     }).finally(^{
         @strongify(self);
