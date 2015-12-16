@@ -117,21 +117,18 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     if (!titles.count) {
         return;
     }
-    dispatch_async(self.accessQueue, ^{
-        for (MWKTitle* title in titles) {
+    for (MWKTitle* title in titles) {
+        dispatch_async(self.accessQueue, ^{
             [self fetchTitle:title];
-        }
-    });
+        });
+    }
 }
 
 - (void)fetchTitle:(MWKTitle*)title {
-    /*
-       !!!: Use `articleFromDiskWithTitle:` to bypass object cache, preventing multi-threaded manipulation of
-       objects in cache. This method should also be safe to call from any thread because it reads directly from disk.
-     */
-    MWKArticle* cachedArticle = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
-    if (cachedArticle) {
-        [self downloadImageDataForArticle:cachedArticle];
+    // NOTE: must check isCached to determine that all article data has been downloaded
+    MWKArticle* articleFromDisk = [self.savedPageList.dataStore articleFromDiskWithTitle:title];
+    if (articleFromDisk.isCached) {
+        // don't fetch anything if article was cached
         return;
     }
 
@@ -140,13 +137,12 @@ static SavedArticlesFetcher* _articleFetcher = nil;
        immediately in order to ensure accurate progress & error reporting.
      */
     @weakify(self);
-    self.fetchOperationsByArticleTitle[title] = [self.articleFetcher fetchArticleForPageTitle:title progress:NULL]
-                                                .thenOn(self.accessQueue, ^(MWKArticle* article){
+    self.fetchOperationsByArticleTitle[title] =
+        [self.articleFetcher fetchArticleForPageTitle:title progress:NULL].thenOn(self.accessQueue, ^(MWKArticle* article){
         @strongify(self);
-        [self downloadImageDataForArticle:article];
-        // HAX: fetch callbacks happen after image downloads start so we can verify them in tests
-        // this is caused by the fact that we success notifications nor progress include article image or gallery downloads
-        [self didFetchArticle:article title:title error:nil];
+        return [self downloadImageDataForArticle:article].thenOn(self.accessQueue, ^ {
+            [self didFetchArticle:article title:title error:nil];
+        });
     }).catch(^(NSError* error){
         if (!self) {
             return;
@@ -157,65 +153,60 @@ static SavedArticlesFetcher* _articleFetcher = nil;
     });
 }
 
-- (void)downloadImageDataForArticle:(MWKArticle*)article {
-    // NOTE: this is idempotent, so re-fetching has very low overhead (just checking they're all on disk)
-    [self fetchAllImagesInArticle:article];
-    // gallery data wasn't previously downloaded for saved pages, so must ensure this for backwards compat
-    [self fetchGalleryInfoAndImagesForArticle:article];
+- (AnyPromise*)downloadImageDataForArticle:(MWKArticle*)article {
+    return PMKJoin(@[[self fetchAllImagesInArticle:article],
+                     [self fetchGalleryDataForArticle:article]])
+           .catch(^(NSError* joinError) {
+        return [NSError errorWithDomain:@"SavedArticlesFetcherErrorDomain" code:1 userInfo:@{
+                    NSLocalizedDescriptionKey: MWLocalizedString(@"saved-pages-image-download-error", nil)
+                }];
+    });
 }
 
-- (void)fetchAllImagesInArticle:(MWKArticle*)article {
-    [[article allImageURLs] bk_each:^(NSURL* imageURL) {
-        // fetch all article images, but don't block success on their completion or consider failed image
-        // download an error
-        [self.imageController fetchImageWithURLInBackground:imageURL];
-    }];
+- (AnyPromise*)fetchAllImagesInArticle:(MWKArticle*)article {
+    return PMKJoin([[[article allImageURLs] bk_map:^(NSURL* imageURL) {
+        return [self.imageController fetchImageWithURLInBackground:imageURL];
+    }] allObjects]);
 }
 
-- (void)fetchGalleryInfoAndImagesForArticle:(MWKArticle*)article {
+- (AnyPromise*)fetchGalleryDataForArticle:(MWKArticle*)article {
+    WMF_TECH_DEBT_TODO(check whether on-disk image info matches what we are about to fetch)
     @weakify(self);
-    [self fetchImageInfoForImagesInArticle:article].then(^(NSArray<MWKImageInfo*>* info) {
+    return [self fetchImageInfoForImagesInArticle:article].then(^id(NSArray<MWKImageInfo*>* info) {
         @strongify(self);
         if (!self) {
-            return;
+            return [NSError cancelledError];
         }
-        PMKWhen([info bk_map:^(MWKImageInfo* info) {
+        if (info.count == 0) {
+            DDLogVerbose(@"No gallery images to fetch.");
+            return info;
+        }
+        return PMKJoin([info bk_map:^(MWKImageInfo* info) {
             return [self.imageController fetchImageWithURLInBackground:info.imageThumbURL];
-        }])
-        .then(^(NSArray* downloadResults) {
-            DDLogVerbose(@"Downloaded results for images in gallery for %@: %@", article.title, downloadResults);
-        });
+        }]);
     });
 }
 
 - (AnyPromise*)fetchImageInfoForImagesInArticle:(MWKArticle*)article {
     @weakify(self);
-    return PMKWhen([[[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL(id obj) {
+    NSArray<NSString*>* imageFileTitles =
+    [[MWKImage mapFilenamesFromImages:article.images.uniqueLargestVariants] bk_reject:^BOOL(id obj) {
         return [obj isEqual:[NSNull null]];
-    }] bk_map:^AnyPromise*(NSString* canonicalFilename) {
-        return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
-            [self.imageInfoFetcher fetchGalleryInfoForImageFiles:@[canonicalFilename]
-                                                        fromSite:article.title.site
-                                                         success:^(NSArray* infoObjects) {
-                resolve(infoObjects.firstObject);
-            }
-                                                         failure:resolve];
-        }];
-    }])
-           .thenInBackground(^id (NSArray* infoOrError) {
-        DDLogVerbose(@"Download results for imageinfo info for %@: %@", article.title, infoOrError);
-        NSArray<MWKImageInfo*>* infoObjects = [infoOrError bk_reject:^BOOL (id obj) {
-            return [obj isKindOfClass:[NSError class]] || [obj isEqual:[NSNull null]];
-        }];
+    }];
 
+    if (imageFileTitles.count == 0) {
+        DDLogVerbose(@"No image info to fetch, returning successful promise with empty array.");
+        return [AnyPromise promiseWithValue:imageFileTitles];
+    }
+
+    return PMKJoin([imageFileTitles bk_map:^AnyPromise*(NSString* canonicalFilename) {
+        return [self.imageInfoFetcher fetchGalleryInfoForImage:canonicalFilename fromSite:article.title.site];
+    }]).thenInBackground(^id (NSArray* infoObjects) {
         @strongify(self);
-
-        if (!self || infoObjects.count == 0) {
+        if (!self) {
             return [NSError cancelledError];
         }
-
         [self.savedPageList.dataStore saveImageInfo:infoObjects forTitle:article.title];
-
         return infoObjects;
     });
 }
