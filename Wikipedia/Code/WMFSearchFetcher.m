@@ -73,6 +73,8 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
     params.numberOfResults = resultLimit;
     params.fullTextSearch  = fullTextSearch;
 
+    [[MWNetworkActivityIndicatorManager sharedManager] push];
+
     [self.operationManager GET:url.absoluteString
                     parameters:params
                        success:^(AFHTTPRequestOperation* operation, id response) {
