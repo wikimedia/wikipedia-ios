@@ -92,6 +92,8 @@
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
+    //TODO: disabling until new designs are made
+    return;
     if ([self.dataSource conformsToProtocol:@protocol(WMFArticleDeleteAllDataSource)]) {
         id<WMFArticleDeleteAllDataSource> deleteableDataSource = (id<WMFArticleDeleteAllDataSource>)self.dataSource;
 
@@ -114,6 +116,7 @@
 }
 
 - (void)updateDeleteButtonEnabledState {
+    //TODO: disabling until new designs are made
     if ([self.dataSource titleCount] > 0) {
         self.navigationItem.leftBarButtonItem.enabled = YES;
     } else {
