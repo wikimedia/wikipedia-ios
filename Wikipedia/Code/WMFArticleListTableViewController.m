@@ -24,10 +24,12 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "PiwikTracker+WMFExtensions.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-@property (nonatomic, strong) MWKTitle* previewingTitle;
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
 
 @end
 
@@ -212,7 +214,7 @@
     [[self dynamicDataSource] stopUpdating];
 }
 
-- (void)traitCollectionDidChange:(UITraitCollection*)previousTraitCollection {
+- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
@@ -318,3 +320,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END

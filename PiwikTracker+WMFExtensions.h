@@ -26,7 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_logActionSaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
 - (void)wmf_logActionUnsaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
 
-- (void)wmf_logActionScrollToHomeSection:(id<WMFAnalyticsLogging>)section;
+- (void)wmf_logActionScrollToTitle:(MWKTitle*)title inHomeSection:(id<WMFAnalyticsLogging>)section;
+- (void)wmf_logActionOpenTitle:(MWKTitle*)title inHomeSection:(id<WMFAnalyticsLogging>)section;
 - (void)wmf_logActionOpenMoreForHomeSection:(id<WMFAnalyticsLogging>)section;
 
 
