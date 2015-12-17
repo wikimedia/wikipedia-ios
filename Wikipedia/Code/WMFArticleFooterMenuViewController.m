@@ -12,7 +12,6 @@
 #import "MWKArticle.h"
 #import <SSDataSources/SSDataSources.h>
 #import "NSDate+Utilities.h"
-#import "WMFDisambiguationTitlesDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFTitlesSearchFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
@@ -22,7 +21,7 @@
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "WMFDisambiguationPagesViewController.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
 
@@ -50,7 +49,7 @@
     
     self.footerDataSource.cellConfigureBlock = ^(SSBaseTableCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
         [cell wmf_makeCellDividerBeEdgeToEdge];
-        cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        cell.imageView.contentMode = UIViewContentModeCenter;
         cell.imageView.tintColor = [UIColor grayColor];
         cell.textLabel.text = menuItem.title;
         cell.imageView.image = [UIImage imageNamed:menuItem.imageName];
@@ -97,7 +96,7 @@
             [self showEditHistory];
             break;
         case WMFArticleFooterMenuItemTypePageIssues:
-            
+            [self showPageIssues];
             break;
         case WMFArticleFooterMenuItemTypeDisambiguation:
             [self showDisambiguationItems];
@@ -110,21 +109,8 @@
 }
 
 -(void) showDisambiguationItems {
-    WMFDisambiguationTitlesDataSource* dataSource = [[WMFDisambiguationTitlesDataSource alloc] initWithTitles:self.article.disambiguationTitles site:self.article.site fetcher:[[WMFTitlesSearchFetcher alloc] init]];
-    
-    WMFArticleListTableViewController* articleListVC = [[WMFArticleListTableViewController alloc] init];
-    articleListVC.dataStore  = self.dataStore;
-    articleListVC.dataSource = dataSource;
-
-    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
-        [articleListVC dismissViewControllerAnimated : YES completion : nil];
-    }];
-    articleListVC.navigationItem.leftBarButtonItem = xButton;
-    articleListVC.navigationItem.rightBarButtonItem = nil;
-    
+    WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
-        [dataSource fetch];
-        xButton.enabled = YES;
     }];
 }
 
@@ -145,6 +131,11 @@
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewControllerWithTitle:language.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
     }];
+}
+
+-(void)showPageIssues {
+    
+//TODO: hook up.
 }
 
 @end

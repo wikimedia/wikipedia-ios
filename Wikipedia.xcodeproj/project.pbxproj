@@ -35,6 +35,7 @@
 		B06531631C221BC4003BD7DC /* WMFTitlesSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFTitlesSearchFetcher.m */; };
 		B06531661C221D7B003BD7DC /* WMFTitlesSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531651C221D7B003BD7DC /* WMFTitlesSearchResults.m */; };
 		B06531691C2340BB003BD7DC /* WMFArticleFooterMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */; };
+		B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */; };
 		B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */; };
 		B0726DAA1C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
@@ -696,6 +697,8 @@
 		B06531651C221D7B003BD7DC /* WMFTitlesSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTitlesSearchResults.m; path = Wikipedia/Code/WMFTitlesSearchResults.m; sourceTree = SOURCE_ROOT; };
 		B06531671C2340BB003BD7DC /* WMFArticleFooterMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuItem.h; path = Wikipedia/Code/WMFArticleFooterMenuItem.h; sourceTree = SOURCE_ROOT; };
 		B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuItem.m; path = Wikipedia/Code/WMFArticleFooterMenuItem.m; sourceTree = SOURCE_ROOT; };
+		B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDisambiguationPagesViewController.h; path = WikipediaUnitTests/Code/WMFDisambiguationPagesViewController.h; sourceTree = SOURCE_ROOT; };
+		B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDisambiguationPagesViewController.m; path = WikipediaUnitTests/Code/WMFDisambiguationPagesViewController.m; sourceTree = SOURCE_ROOT; };
 		B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuViewController.h; path = Wikipedia/Code/WMFArticleFooterMenuViewController.h; sourceTree = SOURCE_ROOT; };
 		B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuViewController.m; path = Wikipedia/Code/WMFArticleFooterMenuViewController.m; sourceTree = SOURCE_ROOT; };
 		B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuViewController.xib; path = Wikipedia/Code/WMFArticleFooterMenuViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -2856,6 +2859,8 @@
 				B06531651C221D7B003BD7DC /* WMFTitlesSearchResults.m */,
 				B06531671C2340BB003BD7DC /* WMFArticleFooterMenuItem.h */,
 				B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */,
+				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
+				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
 			);
 			name = Footer;
 			path = Wikipedia/Code/Footer;
@@ -4891,6 +4896,7 @@
 				B0E803181C0CD6560065EBC0 /* WMFNearbyPlaceholderTableViewCell.m in Sources */,
 				B0E805CE1C0CE5330065EBC0 /* SDImageCache+PromiseKit.swift in Sources */,
 				B0E804C01C0CE0B40065EBC0 /* MWKArticle+WMFSharing.m in Sources */,
+				B06531721C237538003BD7DC /* WMFDisambiguationPagesViewController.m in Sources */,
 				B0E8041C1C0CDE710065EBC0 /* MWKArticle+WMFAnalyticsLogging.m in Sources */,
 				B0E803EE1C0CDD850065EBC0 /* UIViewController+WMFArticlePresentation.m in Sources */,
 				B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */,
