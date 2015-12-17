@@ -16,8 +16,15 @@
 #import "WMFArticleListTableViewController.h"
 #import "WMFTitlesSearchFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
+#import "UIViewController+WMFStoryboardUtilities.h"
+#import "PageHistoryViewController.h"
+#import "LanguagesViewController.h"
+#import "MWKLanguageLinkController.h"
+#import "MWKLanguageLink.h"
+#import "UIViewController+WMFArticlePresentation.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
-@interface WMFArticleFooterMenuViewController () <UITableViewDelegate>
+@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
 
 @property (nonatomic, strong) SSArrayDataSource *footerDataSource;
 
@@ -84,10 +91,10 @@
     WMFArticleFooterMenuItem*selectedItem = [self menuItemForIndexPath:indexPath];
     switch (selectedItem.type) {
         case WMFArticleFooterMenuItemTypeLanguages:
-            
+            [self showLanguages];
             break;
         case WMFArticleFooterMenuItemTypeLastEdited:
-            
+            [self showEditHistory];
             break;
         case WMFArticleFooterMenuItemTypePageIssues:
             
@@ -108,8 +115,36 @@
     WMFArticleListTableViewController* articleListVC = [[WMFArticleListTableViewController alloc] init];
     articleListVC.dataStore  = self.dataStore;
     articleListVC.dataSource = dataSource;
-    [dataSource fetch];
-    [self.navigationController pushViewController:articleListVC animated:YES];
+
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
+        [articleListVC dismissViewControllerAnimated : YES completion : nil];
+    }];
+    articleListVC.navigationItem.leftBarButtonItem = xButton;
+    articleListVC.navigationItem.rightBarButtonItem = nil;
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
+        [dataSource fetch];
+        xButton.enabled = YES;
+    }];
+}
+
+- (void)showEditHistory {
+    PageHistoryViewController* editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:editHistoryVC] animated:YES completion:nil];
+}
+
+- (void)showLanguages {
+    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
+    languagesVC.articleTitle              = self.article.title;
+    languagesVC.languageSelectionDelegate = self;
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+}
+
+- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self wmf_pushArticleViewControllerWithTitle:language.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
+    }];
 }
 
 @end
