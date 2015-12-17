@@ -118,7 +118,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFHomeSectionSchema*)schemaManager {
     if (!_schemaManager) {
-        _schemaManager          = [WMFHomeSectionSchema schemaWithSite:self.searchSite savedPages:self.savedPages history:self.recentPages];
+        _schemaManager = [WMFHomeSectionSchema schemaWithSite:self.searchSite
+                                                   savedPages:self.savedPages
+                                                      history:self.recentPages];
         _schemaManager.delegate = self;
     }
     return _schemaManager;
@@ -238,18 +240,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    //never loaded, do not reload
-    if ([self.dataSource numberOfSections] == 0) {
-        return;
-    }
-
-    [self updateSections];
+    [self updateSectionsIfNeeded];
 }
 
 #pragma mark - Tweaks
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self updateSections];
+    [self updateSectionsIfNeeded];
 }
 
 #pragma mark - Data Source Configuration
@@ -315,7 +312,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
-- (void)updateSections {
+- (void)updateSectionsIfNeeded {
     [self wmf_hideEmptyView];
     BOOL forceUpdate = self.sectionLoadErrors.count > 0;
     self.sectionLoadErrors = [NSMutableDictionary dictionary];
@@ -327,7 +324,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
         dispatchOnMainQueue(^{
             @strongify(self);
-            [self updateSections];
+            [self updateSectionsIfNeeded];
             [operation finish];
         });
     }];
