@@ -57,27 +57,27 @@
 }
 
 -(NSArray<WMFArticleFooterMenuItem*>*)getMenuItemData {
-    WMFArticleFooterMenuItem* langsItem =
-    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypeLanguages
-                                             title:[MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]]
-                                         imageName:@"language"];
     
-    WMFArticleFooterMenuItem* lastEditedItem =
-    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypeLastEdited
-                                             title:[MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]]
-                                         imageName:@"edit-history"];
+    WMFArticleFooterMenuItem* (^makeItem)(WMFArticleFooterMenuItemType, NSString*, NSString*) = ^WMFArticleFooterMenuItem*(WMFArticleFooterMenuItemType type, NSString* title, NSString* imageName) {
+        return [[WMFArticleFooterMenuItem alloc] initWithType:type
+                                                        title:title
+                                                    imageName:imageName];
+    };
     
-    WMFArticleFooterMenuItem* pageIssuesItem =
-    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypePageIssues
-                                             title:MWLocalizedString(@"page-issues", nil)
-                                         imageName:@"warnings"];
-    
-    WMFArticleFooterMenuItem* disambigItem =
-    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypeDisambiguation
-                                             title:MWLocalizedString(@"page-similar-titles", nil)
-                                         imageName:@"similar-pages"];
-    
-    return @[langsItem, lastEditedItem, pageIssuesItem, disambigItem];
+    return @[
+             makeItem(WMFArticleFooterMenuItemTypeLanguages,
+                      [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
+                      @"language"),
+             makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                      [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
+                      @"edit-history"),
+             makeItem(WMFArticleFooterMenuItemTypePageIssues,
+                      MWLocalizedString(@"page-issues", nil),
+                      @"warnings"),
+             makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
+                      MWLocalizedString(@"page-similar-titles", nil),
+                      @"similar-pages")
+             ];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
