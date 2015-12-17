@@ -27,6 +27,7 @@
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+@property (nonatomic, strong) MWKTitle* previewingTitle;
 
 @end
 
@@ -198,6 +199,14 @@
     [self registerForPreviewingIfAvailable];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[self dynamicDataSource] stopUpdating];
@@ -273,7 +282,8 @@
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
-    [[PiwikTracker sharedInstance] wmf_logPreviewForTitle:title fromSource:self];
+    self.previewingTitle = title;
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:self.dataSource.discoveryMethod];
@@ -281,8 +291,9 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    self.previewingTitle = nil;
     if (self.delegate) {
-        [[PiwikTracker sharedInstance] wmf_logViewForTitle:[(WMFArticleContainerViewController*)viewControllerToCommit articleTitle] fromSource:self];
         [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
     } else {
         [self wmf_pushArticleViewController:viewControllerToCommit];

@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
 
+@property (nonatomic, strong) MWKTitle* previewingTitle;
+
 @end
 
 @implementation WMFHomeViewController
@@ -200,6 +202,10 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidAppear:animated];
     [self configureDataSource];
     [self.locationManager startMonitoringLocation];
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -702,7 +708,8 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* title =
             [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
-            [[PiwikTracker sharedInstance] wmf_logPreviewForTitle:title fromSource:self];
+            self.previewingTitle = title;
+            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
             return [[WMFArticleContainerViewController alloc]
                     initWithArticleTitle:title
                                dataStore:[self dataStore]
@@ -718,7 +725,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
-        [[PiwikTracker sharedInstance] wmf_logViewForTitle:[(WMFArticleContainerViewController*)viewControllerToCommit articleTitle] fromSource:self];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];

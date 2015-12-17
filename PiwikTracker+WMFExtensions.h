@@ -17,9 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  If you do, every article will be count as a unique source. We don't want to track that.
  *  We just want to know if a someone performed an action on a particular screen.
  */
-
-- (void)wmf_logPreviewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
 - (void)wmf_logViewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
+
+- (void)wmf_logActionPreviewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
+- (void)wmf_logActionPreviewDismissedForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
+- (void)wmf_logActionPreviewCommittedForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
 
 - (void)wmf_logActionSaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;
 - (void)wmf_logActionUnsaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source;

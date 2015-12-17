@@ -19,20 +19,24 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [self sendView:[view analyticsName]];
 }
 
-- (void)wmf_logPreviewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
-    if (source) {
-        [self sendViewsFromArray:@[[source analyticsName], @"Article-Preview", [title analyticsName]]];
-    } else {
-        [self sendViewsFromArray:@[@"Article-Preview", [title analyticsName]]];
-    }
-}
-
 - (void)wmf_logViewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
     if (source) {
         [self sendViewsFromArray:@[[source analyticsName], @"Article", [title analyticsName]]];
     } else {
         [self sendViewsFromArray:@[@"Article", [title analyticsName]]];
     }
+}
+
+- (void)wmf_logActionPreviewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+    [self sendEventWithCategory:@"Preview" action:@"Shown" name:[source analyticsName] value:nil];
+}
+
+- (void)wmf_logActionPreviewDismissedForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source{
+    [self sendEventWithCategory:@"Preview" action:@"Dismissed" name:[source analyticsName] value:nil];
+}
+
+- (void)wmf_logActionPreviewCommittedForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source{
+    [self sendEventWithCategory:@"Preview" action:@"Converted" name:[source analyticsName] value:nil];
 }
 
 - (void)wmf_logActionSaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
