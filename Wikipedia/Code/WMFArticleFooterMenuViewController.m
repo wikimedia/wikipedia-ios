@@ -15,6 +15,7 @@
 #import "WMFDisambiguationTitlesDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFTitlesSearchFetcher.h"
+#import "WMFArticleFooterMenuItem.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate>
 
@@ -38,14 +39,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _footerDataSource = [[SSArrayDataSource alloc] initWithItems:[self getData]];
+    _footerDataSource = [[SSArrayDataSource alloc] initWithItems:[self getMenuItemData]];
     
-    self.footerDataSource.cellConfigureBlock = ^(SSBaseTableCell *cell, NSDictionary *dictionary, UITableView *tableView, NSIndexPath *indexPath) {
+    self.footerDataSource.cellConfigureBlock = ^(SSBaseTableCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
         [cell wmf_makeCellDividerBeEdgeToEdge];
         cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
         cell.imageView.tintColor = [UIColor grayColor];
-        cell.textLabel.text = dictionary[@"text"];
-        cell.imageView.image = [UIImage imageNamed:dictionary[@"image"]];
+        cell.textLabel.text = menuItem.title;
+        cell.imageView.image = [UIImage imageNamed:menuItem.imageName];
     };
     
     self.footerDataSource.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
@@ -55,29 +56,50 @@
     self.footerDataSource.tableView = self.tableView;
 }
 
--(NSArray*)getData {
-    NSMutableArray *data =
-    [NSMutableArray arrayWithObjects:
-     @{@"text": [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]], @"image": @"language"},
-     @{@"text": [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]], @"image": @"edit-history"},
-     nil];
+-(NSArray<WMFArticleFooterMenuItem*>*)getMenuItemData {
+    WMFArticleFooterMenuItem* langsItem =
+    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypeLanguages
+                                             title:[MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]]
+                                         imageName:@"language"];
     
-    if (self.article.pageIssues) {
-        [data addObject: @{@"text": MWLocalizedString(@"page-issues", nil), @"image": @"warnings"}];
-    }
+    WMFArticleFooterMenuItem* lastEditedItem =
+    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypeLastEdited
+                                             title:[MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]]
+                                         imageName:@"edit-history"];
     
-    if (self.article.disambiguationTitles) {
-        [data addObject: @{@"text": MWLocalizedString(@"page-similar-titles", nil), @"image": @"similar-pages"}];
-    }
-    return data;
+    WMFArticleFooterMenuItem* pageIssuesItem =
+    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypePageIssues
+                                             title:MWLocalizedString(@"page-issues", nil)
+                                         imageName:@"warnings"];
+    
+    WMFArticleFooterMenuItem* disambigItem =
+    [[WMFArticleFooterMenuItem alloc] initWithType:WMFArticleFooterMenuItemTypeDisambiguation
+                                             title:MWLocalizedString(@"page-similar-titles", nil)
+                                         imageName:@"similar-pages"];
+    
+    return @[langsItem, lastEditedItem, pageIssuesItem, disambigItem];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    WMFArticleFooterMenuItem*selectedItem = [self menuItemForIndexPath:indexPath];
+    switch (selectedItem.type) {
+        case WMFArticleFooterMenuItemTypeLanguages:
+            
+            break;
+        case WMFArticleFooterMenuItemTypeLastEdited:
+            
+            break;
+        case WMFArticleFooterMenuItemTypePageIssues:
+            
+            break;
+        case WMFArticleFooterMenuItemTypeDisambiguation:
+            [self showDisambiguationItems];
+            break;
+    }
+}
 
-    //TODO:
-    // -update data model per and only call this when similar pages is tapped
-    // -hook up other item taps to show respective interfaces
-    [self showDisambiguationItems];
+-(WMFArticleFooterMenuItem*)menuItemForIndexPath:(NSIndexPath*)indexPath {
+    return self.footerDataSource.allItems[indexPath.row];
 }
 
 -(void) showDisambiguationItems {
