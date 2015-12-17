@@ -279,9 +279,6 @@ static NSString* const WMFSectionDisambiguationTitlesXPathSelector = @"//div[@cl
 
 - (nullable NSArray<MWKTitle*>*)disambiguationTitles {
     NSArray* textNodes = [self elementsInTextMatchingXPath:WMFSectionDisambiguationTitlesXPathSelector];
-    if (!textNodes || !textNodes.count) {
-        return nil;
-    }
     return [textNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
         if (node.text.length == 0 || [node.text containsString:@"redlink=1"]) {
             return nil;
@@ -306,9 +303,6 @@ static NSString* const WMFSectionPageIssueUnhiddenXPathSelector =
 
 - (nullable NSArray<NSString*>*)pageIssues {
     NSArray* issueNodes = [self elementsInTextMatchingXPath:WMFSectionPageIssuesXPathSelector];
-    if (!issueNodes || !issueNodes.count) {
-        return nil;
-    }
     return [issueNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
         if (node.raw.length == 0) {
             return nil;

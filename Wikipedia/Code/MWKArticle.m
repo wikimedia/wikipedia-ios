@@ -508,17 +508,11 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
 }
 
 - (nullable NSArray<MWKTitle*>*)disambiguationTitles {
-    if (self.sections.count == 0) {
-        return nil;
-    }
-    return [self.sections[0] disambiguationTitles];
+    return [[self.sections.entries firstObject] disambiguationTitles];
 }
 
 - (nullable NSArray<NSString*>*)pageIssues {
-    if (self.sections.count == 0) {
-        return nil;
-    }
-    return [self.sections[0] pageIssues];
+    return [[self.sections.entries firstObject] pageIssues];
 }
 
 @end
