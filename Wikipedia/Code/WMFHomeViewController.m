@@ -76,7 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
 
-@property (nonatomic, strong) MWKTitle* previewingTitle;
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, null_resettable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
 
 @end
 
@@ -576,11 +577,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
-    //only log a section as visible for the first index path
-    if (indexPath.row == 0) {
-        id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
-        if (controller) {
-            [[PiwikTracker sharedInstance] wmf_logActionScrollToHomeSection:controller];
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
+        return;
+    }
+    if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
+        if (title) {
+            [[PiwikTracker sharedInstance] wmf_logActionScrollToTitle:title inHomeSection:controller];
         }
     }
 }
@@ -602,6 +607,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
         MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
         if (title) {
+            [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:title inHomeSection:controller];
             MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
             [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
         }
@@ -709,6 +715,7 @@ NS_ASSUME_NONNULL_BEGIN
             [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
             self.previewingTitle = title;
+            self.sectionOfPreviewingTitle = sectionController;
             [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
             return [[WMFArticleContainerViewController alloc]
                     initWithArticleTitle:title
@@ -725,8 +732,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:self.previewingTitle inHomeSection:self.sectionOfPreviewingTitle];
         [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
         self.previewingTitle = nil;
+        self.sectionOfPreviewingTitle = nil;
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
