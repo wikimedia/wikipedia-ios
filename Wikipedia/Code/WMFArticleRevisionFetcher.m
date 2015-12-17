@@ -33,17 +33,20 @@
     return self;
 }
 
-- (AnyPromise*)fetchLatestRevisionsForTitle:(MWKTitle *)title numberOfResults:(NSUInteger)numberOfResults {
+- (AnyPromise*)fetchLatestRevisionsForTitle:(MWKTitle*)title
+                                resultLimit:(NSUInteger)numberOfResults
+                         endingWithRevision:(NSUInteger)revisionId {
     return [self.requestManager wmf_GETWithSite:title.site parameters:@{
-        @"format": @"json",
-        @"continue": @"",
-        @"formatversion": @2,
-        @"action": @"query",
-        @"prop": @"revisions",
-        @"titles": title.text,
-        @"rvlimit": @(numberOfResults),
-        @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"])
-        }].then(^(NSArray<WMFRevisionQueryResults*>* results) { return results.firstObject; });
+                @"format": @"json",
+                @"continue": @"",
+                @"formatversion": @2,
+                @"action": @"query",
+                @"prop": @"revisions",
+                @"titles": title.text,
+                @"rvlimit": @(numberOfResults),
+                @"rvendid": @(revisionId),
+                @"rvprop": WMFJoinedPropertyParameters(@[@"ids", @"size", @"flags"])
+            }].then(^(NSArray<WMFRevisionQueryResults*>* results) { return results.firstObject; });
 }
 
 @end

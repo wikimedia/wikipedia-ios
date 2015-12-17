@@ -12,6 +12,8 @@
 
 - (instancetype)init;
 
-- (AnyPromise*)fetchLatestRevisionsForTitle:(MWKTitle*)title numberOfResults:(NSUInteger)numberOfResults;
+- (AnyPromise*)fetchLatestRevisionsForTitle:(MWKTitle*)title
+                                resultLimit:(NSUInteger)numberOfResults
+                         endingWithRevision:(NSUInteger)revisionId;
 
 @end

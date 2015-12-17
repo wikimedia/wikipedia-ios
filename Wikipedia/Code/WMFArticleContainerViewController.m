@@ -193,6 +193,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
+        self.refreshToolbarItem.tintColor = [UIColor wmf_blueTintColor];
 
         if (!self.article.isMain) {
             [self createTableOfContentsViewController];
@@ -626,8 +627,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchLatestRevisionIfNeeded {
     NSAssert(self.article.revisionId,
              @"Invalid latest revision fetch for article with unknown revision ID: %@", self.article.title);
+    if (!self.article.revisionId) {
+        return;
+    }
+
     @weakify(self);
-    [self.articleRevisionFetcher fetchLatestRevisionsForTitle:self.articleTitle numberOfResults:10]
+    [self.articleRevisionFetcher fetchLatestRevisionsForTitle:self.articleTitle
+                                                  resultLimit:10
+                                           endingWithRevision:self.article.revisionId.unsignedIntegerValue]
     .then(^(WMFRevisionQueryResults* results) {
         @strongify(self);
         NSAssert([results.titleText isEqualToString:self.articleTitle.text],
@@ -670,14 +677,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showArticleRefreshPrompt {
-    @weakify(self);
-    [[WMFAlertManager sharedInstance] showAlert:@"HEY! REFRESH!"
-                                         sticky:NO
-                          dismissPreviousAlerts:YES
-                                    tapCallBack:^{
-        @strongify(self);
-        [self fetchArticle];
-    }];
+    self.refreshToolbarItem.tintColor = [UIColor redColor];
 }
 
 #pragma mark - Scroll Position and Fragments
