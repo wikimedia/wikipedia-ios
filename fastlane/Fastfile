@@ -28,11 +28,15 @@ platform :ios do
       :workspace => 'Wikipedia.xcworkspace',
       :configuration => 'Debug',
       :destination => destination,
-      :code_coverage => true,
       :buildlog_path => './build',
       :output_directory => './build/reports',
       :output_style => 'basic'
     }
+    if options[:sim_os].start_with? "9" then
+      opts[:code_coverage] = true
+    else
+      opts[:xcargs] = "-enableCodeCoverage NO"
+    end
     opts[:output_types] = options[:junit] ? "junit" : ""
     scan(opts)
   end
