@@ -124,6 +124,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL articleFetchWasAttempted;
 
+
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+
 @end
 
 @implementation WMFArticleContainerViewController
@@ -522,6 +525,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.article && self.articleFetchWasAttempted) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
     }
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -837,7 +844,8 @@ NS_ASSUME_NONNULL_BEGIN
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
         if ([peekVC isKindOfClass:[WMFArticleContainerViewController class]]) {
-            [[PiwikTracker sharedInstance] wmf_logPreviewForTitle:[(WMFArticleContainerViewController*)peekVC articleTitle] fromSource:nil];
+            self.previewingTitle = [(WMFArticleContainerViewController*)peekVC articleTitle];
+            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:self.previewingTitle fromSource:nil];
         }
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
@@ -862,8 +870,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    self.previewingTitle = nil;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
-        [[PiwikTracker sharedInstance] wmf_logViewForTitle:[(WMFArticleContainerViewController*)viewControllerToCommit articleTitle] fromSource:nil];
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];

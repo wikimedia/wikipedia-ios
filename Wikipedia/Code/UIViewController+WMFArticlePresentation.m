@@ -15,6 +15,7 @@
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 #import "WMFArticleContainerViewController.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,6 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
              articleViewController,
              self);
+    id<WMFAnalyticsLogging> source = [self conformsToProtocol:@protocol(WMFAnalyticsLogging)] ? (id<WMFAnalyticsLogging>)self : nil;
+
+    [[PiwikTracker sharedInstance] wmf_logViewForTitle:[articleViewController articleTitle] fromSource:source];
     [self.navigationController pushViewController:articleViewController animated:YES];
 
     //Delay this so any visual updates to lists are postponed until the article after the article is displayed
