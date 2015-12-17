@@ -12,6 +12,9 @@
 #import "MWKArticle.h"
 #import <SSDataSources/SSDataSources.h>
 #import "NSDate+Utilities.h"
+#import "WMFDisambiguationTitlesDataSource.h"
+#import "WMFArticleListTableViewController.h"
+#import "WMFTitlesSearchFetcher.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate>
 
@@ -67,6 +70,24 @@
         [data addObject: @{@"text": MWLocalizedString(@"page-similar-titles", nil), @"image": @"similar-pages"}];
     }
     return data;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    //TODO:
+    // -update data model per and only call this when similar pages is tapped
+    // -hook up other item taps to show respective interfaces
+    [self showDisambiguationItems];
+}
+
+-(void) showDisambiguationItems {
+    WMFDisambiguationTitlesDataSource* dataSource = [[WMFDisambiguationTitlesDataSource alloc] initWithTitles:self.article.disambiguationTitles site:self.article.site fetcher:[[WMFTitlesSearchFetcher alloc] init]];
+    
+    WMFArticleListTableViewController* articleListVC = [[WMFArticleListTableViewController alloc] init];
+    articleListVC.dataStore  = self.dataStore;
+    articleListVC.dataSource = dataSource;
+    [dataSource fetch];
+    [self.navigationController pushViewController:articleListVC animated:YES];
 }
 
 @end
