@@ -31,6 +31,9 @@
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
+		B06531601C220921003BD7DC /* WMFDisambiguationTitlesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B065315F1C220921003BD7DC /* WMFDisambiguationTitlesDataSource.m */; };
+		B06531631C221BC4003BD7DC /* WMFTitlesSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFTitlesSearchFetcher.m */; };
+		B06531661C221D7B003BD7DC /* WMFTitlesSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531651C221D7B003BD7DC /* WMFTitlesSearchResults.m */; };
 		B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */; };
 		B0726DAA1C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
@@ -684,6 +687,12 @@
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
+		B065315E1C220921003BD7DC /* WMFDisambiguationTitlesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFDisambiguationTitlesDataSource.h; path = Wikipedia/Code/WMFDisambiguationTitlesDataSource.h; sourceTree = SOURCE_ROOT; };
+		B065315F1C220921003BD7DC /* WMFDisambiguationTitlesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFDisambiguationTitlesDataSource.m; path = Wikipedia/Code/WMFDisambiguationTitlesDataSource.m; sourceTree = SOURCE_ROOT; };
+		B06531611C221BC4003BD7DC /* WMFTitlesSearchFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTitlesSearchFetcher.h; path = Wikipedia/Code/WMFTitlesSearchFetcher.h; sourceTree = SOURCE_ROOT; };
+		B06531621C221BC4003BD7DC /* WMFTitlesSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTitlesSearchFetcher.m; path = Wikipedia/Code/WMFTitlesSearchFetcher.m; sourceTree = SOURCE_ROOT; };
+		B06531641C221D7B003BD7DC /* WMFTitlesSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTitlesSearchResults.h; path = Wikipedia/Code/WMFTitlesSearchResults.h; sourceTree = SOURCE_ROOT; };
+		B06531651C221D7B003BD7DC /* WMFTitlesSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTitlesSearchResults.m; path = Wikipedia/Code/WMFTitlesSearchResults.m; sourceTree = SOURCE_ROOT; };
 		B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuViewController.h; path = Wikipedia/Code/WMFArticleFooterMenuViewController.h; sourceTree = SOURCE_ROOT; };
 		B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuViewController.m; path = Wikipedia/Code/WMFArticleFooterMenuViewController.m; sourceTree = SOURCE_ROOT; };
 		B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuViewController.xib; path = Wikipedia/Code/WMFArticleFooterMenuViewController.xib; sourceTree = SOURCE_ROOT; };
@@ -2700,6 +2709,8 @@
 				B0E803B31C0CDBE20065EBC0 /* WMFNearbyTitleListDataSource.m */,
 				B0E803B41C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.h */,
 				B0E803B51C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.m */,
+				B065315E1C220921003BD7DC /* WMFDisambiguationTitlesDataSource.h */,
+				B065315F1C220921003BD7DC /* WMFDisambiguationTitlesDataSource.m */,
 			);
 			name = "Data Sources";
 			path = "Wikipedia/Code/Data Sources";
@@ -2836,6 +2847,10 @@
 				B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */,
 				B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */,
 				B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */,
+				B06531611C221BC4003BD7DC /* WMFTitlesSearchFetcher.h */,
+				B06531621C221BC4003BD7DC /* WMFTitlesSearchFetcher.m */,
+				B06531641C221D7B003BD7DC /* WMFTitlesSearchResults.h */,
+				B06531651C221D7B003BD7DC /* WMFTitlesSearchResults.m */,
 			);
 			name = Footer;
 			path = Wikipedia/Code/Footer;
@@ -4983,6 +4998,7 @@
 				B0E804451C0CDF850065EBC0 /* WikiGlyphButton.m in Sources */,
 				B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */,
 				B0E8036D1C0CD98B0065EBC0 /* WMFTableOfContentsViewController.swift in Sources */,
+				B06531661C221D7B003BD7DC /* WMFTitlesSearchResults.m in Sources */,
 				B0E804DC1C0CE0B40065EBC0 /* NSString+WMFGlyphs.m in Sources */,
 				B0E802F21C0CD4AC0065EBC0 /* WMFRandomSectionController.m in Sources */,
 				B0E807961C0CEF970065EBC0 /* MWKImage.m in Sources */,
@@ -5014,6 +5030,7 @@
 				B0E807D41C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m in Sources */,
 				B0E804481C0CDF850065EBC0 /* WMFCenteredPathView.m in Sources */,
 				B0E805641C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */,
+				B06531601C220921003BD7DC /* WMFDisambiguationTitlesDataSource.m in Sources */,
 				B0E8036B1C0CD97D0065EBC0 /* WMFArticleContainerViewController+TOC.swift in Sources */,
 				B0E807561C0CEE230065EBC0 /* NSManagedObjectModel+LegacyCoreData.m in Sources */,
 				B0E8073B1C0CED810065EBC0 /* NSString+WMFPageUtilities.m in Sources */,
@@ -5185,6 +5202,7 @@
 				B0E8073E1C0CED810065EBC0 /* WMFLogFormatter.m in Sources */,
 				B0E804DA1C0CE0B40065EBC0 /* NSString+FormattedAttributedString.m in Sources */,
 				0E26B0871C0FD5170004D687 /* WMFBoringNavigationTransition.m in Sources */,
+				B06531631C221BC4003BD7DC /* WMFTitlesSearchFetcher.m in Sources */,
 				B0E807DF1C0CF04A0065EBC0 /* MWKUserDataStore.m in Sources */,
 				B0E804C71C0CE0B40065EBC0 /* NSArray+WMFPredicate.swift in Sources */,
 				B0E807DC1C0CF04A0065EBC0 /* MWKSearchResult.m in Sources */,
