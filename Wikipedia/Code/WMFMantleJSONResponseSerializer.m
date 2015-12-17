@@ -38,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface WMFMantleArrayResponseSerializer : WMFMantleJSONResponseSerializer
+
+@end
+
 @implementation WMFMantleJSONResponseSerializer
 
 + (instancetype)serializerForValuesInDictionaryOfType:(Class)model fromKeypath:(NSString* __nullable)keypath {
@@ -46,6 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)serializerForInstancesOf:(Class __nonnull)model fromKeypath:(NSString* __nullable)keypath {
     return [[WMFMantleJSONObjectResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
+}
+
++ (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString* __nullable)keypath {
+    return [[WMFMantleArrayResponseSerializer alloc] initWithModelClass:model jsonKeypath:keypath];
 }
 
 - (instancetype)initWithModelClass:(Class __nonnull)modelClass jsonKeypath:(NSString* __nullable)keypath {
@@ -124,6 +132,28 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:[(NSDictionary*)value allValues] error:error];
+}
+
+@end
+
+@implementation WMFMantleArrayResponseSerializer
+
+- (nullable id)responseObjectForResponse:(nullable NSURLResponse*)response
+                                    data:(nullable NSData*)data
+                                   error:(NSError* __autoreleasing*)error {
+    id value = [super responseObjectForResponse:response data:data error:error];
+    if (![value isKindOfClass:[NSArray class]]) {
+        if (value) {
+            DDLogError(@"%@ expected JSON value to be an array, got %@", self, value);
+            NSError* unexpectedResponseError =
+                [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:@{
+                     NSURLErrorFailingURLErrorKey: response.URL
+                 }];
+            WMFSafeAssign(error, unexpectedResponseError);
+        }
+        return nil;
+    }
+    return [MTLJSONAdapter modelsOfClass:self.modelClass fromJSONArray:value error:error];
 }
 
 @end

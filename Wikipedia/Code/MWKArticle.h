@@ -35,6 +35,7 @@ static const NSInteger kMWKArticleSectionNone = -1;
 @property (readonly, strong, nonatomic) NSDate* lastmodified;                // required
 @property (readonly, strong, nonatomic) MWKUser* lastmodifiedby;             // required
 @property (readonly, assign, nonatomic) int articleId;                       // required; -> 'id'
+@property (readonly, strong, nonatomic) NSNumber* revisionId;
 
 /**
  * Number of links to other wikis on this page.

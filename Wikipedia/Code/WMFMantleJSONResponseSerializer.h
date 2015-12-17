@@ -26,6 +26,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
+ *  Create a serializer for converting a value in a JSON response into an array @c model objects.
+ *
+ *  @param model   Class which response objects should be converted into. Must subclass @c MTLModel and conform to
+ *                 @c MTLJSONSerializing.
+ *
+ *  @param keypath Keypath used to extract the JSON object which is deserialized into @c model.
+ *
+ *  @return A response serializer.
+ */
++ (instancetype)serializerForArrayOf:(Class)model fromKeypath:(NSString* __nullable)keypath;
+
+/**
  *  Create a serializer for converting a dictionary value in a JSON response into a collection of objects of type @c model.
  *
  *  This requires that the value at @c jsonKeypath is a dictionary, from which @c allValues are retrieved and parsed
