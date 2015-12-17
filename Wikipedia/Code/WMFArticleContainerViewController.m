@@ -42,9 +42,12 @@
 #import "MWKLanguageLink.h"
 #import "MWKHistoryList.h"
 #import "WMFRelatedSearchResults.h"
+#import "WMFRevisionQueryResults.h"
+#import "WMFArticleRevision.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
+#import "WMFArticleRevisionFetcher.h"
 
 // View
 #import "UIViewController+WMFEmptyView.h"
@@ -90,6 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Fetchers
 @property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
+@property (nonatomic, strong, nonnull) WMFArticleRevisionFetcher* articleRevisionFetcher;
 
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
@@ -159,6 +163,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
+}
+
+- (WMFArticleRevisionFetcher*)articleRevisionFetcher {
+    if (!_articleRevisionFetcher) {
+        _articleRevisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
+    }
+    return _articleRevisionFetcher;
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
@@ -515,11 +526,12 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
 
-    self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
-    if (!self.article) {
+    MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:self.articleTitle];
+    if (!cachedArticle.revisionId) {
         [self fetchArticle];
     } else {
-        [self fetchLatestRevision];
+        self.article = cachedArticle;
+        [self fetchLatestRevisionIfNeeded];
     }
 
     [self startSignificantlyViewedTimer];
@@ -595,9 +607,6 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
-- (void)fetchLatestRevision {
-}
-
 - (void)fetchReadMore {
     @weakify(self);
     [self.readMoreDataSource fetch]
@@ -610,6 +619,65 @@ NS_ASSUME_NONNULL_BEGIN
     }).catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", [error localizedDescription]);
     });
+}
+
+#pragma mark - Revision Checking
+
+- (void)fetchLatestRevisionIfNeeded {
+    NSAssert(self.article.revisionId,
+             @"Invalid latest revision fetch for article with unknown revision ID: %@", self.article.title);
+    @weakify(self);
+    [self.articleRevisionFetcher fetchLatestRevisionsForTitle:self.articleTitle numberOfResults:10]
+    .then(^(WMFRevisionQueryResults* results) {
+        @strongify(self);
+        NSAssert([results.titleText isEqualToString:self.articleTitle.text],
+                 @"Expected query results for %@, got %@", self.articleTitle, results.titleText);
+
+        if (results.revisions.count == 0) {
+            DDLogWarn(@"No revisions found for %@", self.articleTitle);
+            return;
+        }
+
+        NSInteger matchingRevIndex = [results.revisions indexOfObjectPassingTest:^BOOL(WMFArticleRevision * _Nonnull obj,
+                                                                                       NSUInteger idx,
+                                                                                       BOOL * _Nonnull stop) {
+            return [obj.revisionId isEqualToNumber:self.article.revisionId];
+        }];
+
+        if (matchingRevIndex == 0) {
+            DDLogInfo(@"Local revision of %@ is up to date!", self.articleTitle);
+            return;
+        } else if (matchingRevIndex == NSNotFound) {
+            DDLogInfo(@"More than 10 revisions behind, showing refresh prompt.");
+            [self showArticleRefreshPrompt];
+            return;
+        }
+
+        NSArray<WMFArticleRevision*>* revisionsAfterLocalRev =
+            [results.revisions wmf_safeSubarrayWithRange:NSMakeRange(0, matchingRevIndex)];
+
+        BOOL hasNonMinorEditsAfterLocalRev = [revisionsAfterLocalRev bk_any:^BOOL(WMFArticleRevision* rev) {
+            return !rev.isMinorEdit;
+        }];
+
+        if (hasNonMinorEditsAfterLocalRev) {
+            DDLogInfo(@"Found non-minor edits after local revision, showing refresh prompt.");
+            [self showArticleRefreshPrompt];
+        } else {
+            DDLogInfo(@"Not updating to latest revision since there weren't any non-minor edits.");
+        }
+    });
+}
+
+- (void)showArticleRefreshPrompt {
+    @weakify(self);
+    [[WMFAlertManager sharedInstance] showAlert:@"HEY! REFRESH!"
+                                         sticky:NO
+                          dismissPreviousAlerts:YES
+                                    tapCallBack:^{
+        @strongify(self);
+        [self fetchArticle];
+    }];
 }
 
 #pragma mark - Scroll Position and Fragments
