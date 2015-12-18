@@ -118,6 +118,13 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         }
     }
 
+    public func addHighlightToItem(item: TableOfContentsItem, animated: Bool) {
+        if let indexPath = indexPathForItem(item){
+            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
+                cell.setSectionSelected(true, animated: animated)
+            }
+        }
+    }
     // MARK: - Header
     func forceUpdateHeaderFrame(){
         //See reason for fix here: http://stackoverflow.com/questions/16471846/is-it-possible-to-use-autolayout-with-uitableviews-tableheaderview
@@ -188,7 +195,7 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     // MARK: - UITableViewDelegate
     public override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         let item = items[indexPath.row]
-        addHighlightOfItemsRelatedTo(item, animated: true)
+        addHighlightToItem(item, animated: true)
         return true
     }
     
