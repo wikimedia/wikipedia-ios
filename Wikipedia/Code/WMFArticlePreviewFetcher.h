@@ -3,9 +3,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFTitlesSearchFetcher : NSObject
+@interface WMFArticlePreviewFetcher : NSObject
 
-- (AnyPromise*)fetchSearchResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site;
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

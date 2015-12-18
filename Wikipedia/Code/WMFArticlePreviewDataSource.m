@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 12/16/15.
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 
-#import "WMFDisambiguationTitlesDataSource.h"
+#import "WMFArticlePreviewDataSource.h"
 
 // Frameworks
 #import "Wikipedia-Swift.h"
@@ -12,32 +12,32 @@
 #import "UITableViewCell+WMFLayout.h"
 
 // Fetcher
-#import "WMFTitlesSearchFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 
 // Model
 #import "MWKTitle.h"
 #import "MWKArticle.h"
 #import "MWKSearchResult.h"
 #import "MWKHistoryEntry.h"
-#import "WMFTitlesSearchResults.h"
+#import "WMFArticlePreviewResults.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFDisambiguationTitlesDataSource ()
+@interface WMFArticlePreviewDataSource ()
 
-@property (nonatomic, strong) WMFTitlesSearchFetcher* titlesSearchFetcher;
-@property (nonatomic, strong, readwrite, nullable) WMFTitlesSearchResults* titlesSearchResults;
+@property (nonatomic, strong) WMFArticlePreviewFetcher* titlesSearchFetcher;
+@property (nonatomic, strong, readwrite, nullable) WMFArticlePreviewResults* previewResults;
 @property (nonatomic, strong) MWKSite* site;
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
 @property (nonatomic, assign) NSUInteger resultLimit;
 
 @end
 
-@implementation WMFDisambiguationTitlesDataSource
+@implementation WMFArticlePreviewDataSource
 
 - (instancetype)initWithTitles:(NSArray<MWKTitle*>*)titles
                           site:(MWKSite*)site
-                       fetcher:(WMFTitlesSearchFetcher*)fetcher {
+                       fetcher:(WMFArticlePreviewFetcher*)fetcher {
     NSParameterAssert(titles);
     NSParameterAssert(fetcher);
     self = [super initWithItems:nil];
@@ -76,13 +76,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetch {
     @weakify(self);
-    return [self.titlesSearchFetcher fetchSearchResultsForTitles:self.titles site:self.site]
-           .then(^(WMFTitlesSearchResults* searchResults) {
+    return [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
+           .then(^(WMFArticlePreviewResults* searchResults) {
         @strongify(self);
         if (!self) {
             return (id)nil;
         }
-        self.titlesSearchResults = searchResults;
+        self.previewResults = searchResults;
         [self updateItems:searchResults.results];
         return (id)searchResults;
     });
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFArticleListDataSource
 
 - (MWKSearchResult*)searchResultForIndexPath:(NSIndexPath*)indexPath {
-    MWKSearchResult* result = self.titlesSearchResults.results[indexPath.row];
+    MWKSearchResult* result = self.previewResults.results[indexPath.row];
     return result;
 }
 
@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSUInteger)titleCount {
-    return [self.titlesSearchResults.results count];
+    return [self.previewResults.results count];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {

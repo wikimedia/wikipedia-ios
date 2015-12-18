@@ -13,7 +13,7 @@
 #import <SSDataSources/SSDataSources.h>
 #import "NSDate+Utilities.h"
 #import "WMFArticleListTableViewController.h"
-#import "WMFTitlesSearchFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "PageHistoryViewController.h"

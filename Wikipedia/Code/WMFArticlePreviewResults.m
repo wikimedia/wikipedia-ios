@@ -1,14 +1,14 @@
 
-#import "WMFTitlesSearchResults.h"
+#import "WMFArticlePreviewResults.h"
 
-@interface WMFTitlesSearchResults ()
+@interface WMFArticlePreviewResults ()
 
 @property (nonatomic, strong, readwrite) NSArray<MWKTitle*>* titles;
 @property (nonatomic, strong, readwrite) NSArray<MWKSearchResult*>* results;
 
 @end
 
-@implementation WMFTitlesSearchResults
+@implementation WMFArticlePreviewResults
 
 - (instancetype)initWithTitles:(NSArray<MWKTitle*>*)titles results:(NSArray<MWKSearchResult*>*)results {
     self = [super init];
