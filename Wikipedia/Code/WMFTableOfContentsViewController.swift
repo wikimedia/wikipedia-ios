@@ -78,12 +78,29 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - Selection
-    public func deselectAllRows() {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
+    func deselectAllRows() {
+        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
         }
-        for (_, element) in selectedIndexPaths.enumerate() {
+        for (_, element) in visibleIndexPaths.enumerate() {
             if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
+                cell.setSectionSelected(false, animated: false)
+            }
+        }
+    }
+    func deselectAllRowsExceptForIndexPath(indexpath: NSIndexPath?, animated: Bool) {
+        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
+            return
+        }
+        for (_, element) in visibleIndexPaths.enumerate() {
+            
+            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
+                if let indexpath = indexpath{
+                    if element.isEqual(indexpath){
+                        cell.setSectionSelected(true, animated: false)
+                        continue
+                    }
+                }
                 cell.setSectionSelected(false, animated: false)
             }
         }
@@ -169,9 +186,15 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - UITableViewDelegate
+    public override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let item = items[indexPath.row]
+        addHighlightOfItemsRelatedTo(item, animated: true)
+        return true
+    }
+    
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
-        deselectAllRows()
+        deselectAllRowsExceptForIndexPath(indexPath, animated: false)
         tableOfContentsFunnel.logClick()
         addHighlightOfItemsRelatedTo(item, animated: true)
         delegate?.tableOfContentsController(self, didSelectItem: item)
@@ -181,6 +204,12 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
     }
+
+    // MARK: - UIScrollViewDelegate
+    public override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        deselectAllRowsExceptForIndexPath(self.tableView.indexPathForSelectedRow, animated: false)
+    }
+    
 
 }
 
