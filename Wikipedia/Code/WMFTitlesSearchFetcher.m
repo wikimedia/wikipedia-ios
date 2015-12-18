@@ -55,10 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)cancelAllFetches {
-    [self.operationManager.operationQueue cancelAllOperations];
-}
-
 - (BOOL)isFetching {
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
