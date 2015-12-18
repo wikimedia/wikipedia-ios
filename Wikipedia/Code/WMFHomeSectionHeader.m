@@ -15,7 +15,7 @@
     [super awakeFromNib];
     self.tintColor                          = [UIColor wmf_logoBlue];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
-    self.rightButton.hidden = YES;
+    self.rightButton.hidden                 = YES;
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);

@@ -163,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (sectionIndex == NSNotFound) {
         return NO;
     }
-    return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL(NSIndexPath* indexPath) {
+    return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL (NSIndexPath* indexPath) {
         return indexPath.section == sectionIndex;
     }];
 }
@@ -216,7 +216,6 @@ NS_ASSUME_NONNULL_BEGIN
         [self.locationManager startMonitoringLocation];
     }
 }
-
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
@@ -297,17 +296,17 @@ NS_ASSUME_NONNULL_BEGIN
     };
 
     [self.tableView registerNib:[WMFHomeSectionHeader wmf_classNib]
-        forHeaderFooterViewReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+     forHeaderFooterViewReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
 
     [self.tableView registerNib:[WMFHomeSectionFooter wmf_classNib]
-        forHeaderFooterViewReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
+     forHeaderFooterViewReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
     self.dataSource.tableView = self.tableView;
     // HAX: setup empty state, otherwise we get out-of-bounds due to header/footer queries for non-existent sections
     [self.dataSource reloadData];
-    self.tableView.delegate   = self;
+    self.tableView.delegate = self;
 
-    self.sectionLoadErrors    = [NSMutableDictionary dictionary];
+    self.sectionLoadErrors = [NSMutableDictionary dictionary];
     [self loadSectionControllers];
 }
 
@@ -410,13 +409,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
-    controller.delegate = self;
+    controller.delegate       = self;
 
     [self.dataSource appendSection:section];
 
     if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]
         && [self isDisplayingCellsForSectionController:controller]) {
-        [(id<WMFFetchingHomeSectionController>)controller fetchDataIfNeeded];
+        [(id < WMFFetchingHomeSectionController >)controller fetchDataIfNeeded];
     }
 }
 
@@ -522,9 +521,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFFetchingHomeSectionController> fetchingController =
-        (id<WMFFetchingHomeSectionController>)[self sectionControllerForSectionAtIndex:indexPath.section];
+        (id<WMFFetchingHomeSectionController>)[self sectionControllerForSectionAtIndex : indexPath.section];
     if (![fetchingController conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]) {
         return;
     }
@@ -541,7 +540,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
 
-    WMFHomeSectionHeader* header            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+    WMFHomeSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionHeader wmf_nibName]];
 
     header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
@@ -574,7 +573,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!controller) {
         return nil;
     }
-    WMFHomeSectionFooter* footer            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionFooter wmf_nibName]];
+    WMFHomeSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionFooter wmf_nibName]];
     if ([controller respondsToSelector:@selector(footerText)]) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = controller.footerText;
