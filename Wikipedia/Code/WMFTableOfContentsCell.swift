@@ -98,16 +98,6 @@ public class WMFTableOfContentsCell: UITableViewCell {
         }
     }
     
-//    public override func setHighlighted(highlighted: Bool, animated: Bool) {
-//        UIView.animateWithDuration(animated ? 0.3 : 0.0) {
-//            if (highlighted) {
-//                self.sectionSelectionBackground.alpha = 1.0
-//            } else {
-//                self.sectionSelectionBackground.alpha = 0.0
-//            }
-//        }
-//    }
-
     // MARK: - Indentation
 
     static let minimumIndentationWidth: CGFloat = 10
