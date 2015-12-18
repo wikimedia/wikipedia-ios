@@ -68,11 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)requestAuthorizationIfNeeded {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusNotDetermined) {
-        DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
+        DDLogVerbose(@"%@ is requesting authorization to access location when in use.", self);
         [self.locationManager requestWhenInUseAuthorization];
         return YES;
     }
-    DDLogInfo(@"%@ is skipping authorization request because status is %d.", self, status);
+    DDLogVerbose(@"%@ is skipping authorization request because status is %d.", self, status);
     return NO;
 }
 
@@ -180,7 +180,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         case kCLAuthorizationStatusAuthorizedWhenInUse: {
-            DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
+            DDLogVerbose(@"%@ was granted access to location when in use, attempting to monitor location.", self);
             [self startMonitoringLocation];
             break;
         }
@@ -200,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (locations.count == 0) {
         return;
     }
-    DDLogInfo(@"%@ updated location: %@", self, manager.location);
+    DDLogVerbose(@"%@ updated location: %@", self, manager.location);
     [self.delegate nearbyController:self didUpdateLocation:manager.location];
 }
 
@@ -214,12 +214,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
     if (self.locationUpdatesStopped) {
-        DDLogInfo(@"Suppressing error received after call to stop monitoring location: %@", error);
+        DDLogVerbose(@"Suppressing error received after call to stop monitoring location: %@", error);
         return;
     }
     #if TARGET_IPHONE_SIMULATOR
     else if (error.domain == kCLErrorDomain && error.code == kCLErrorLocationUnknown) {
-        DDLogInfo(@"Suppressing unknown location error.");
+        DDLogVerbose(@"Suppressing unknown location error.");
         return;
     }
     #endif
