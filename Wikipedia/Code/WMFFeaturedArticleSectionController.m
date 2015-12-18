@@ -26,7 +26,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
 
-@property (nonatomic, strong) MWKSearchResult* featuredArticlePreview;
+@property (nonatomic, strong, nullable) MWKSearchResult* featuredArticlePreview;
 
 @end
 
@@ -42,7 +42,6 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         self.site          = site;
         self.date          = date;
         self.savedPageList = savedPageList;
-        [self fetchData];
     }
     return self;
 }
@@ -127,9 +126,8 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 #pragma mark - Fetching
 
-- (void)fetchData {
-    if (self.featuredTitlePreviewFetcher.isFetching) {
-        DDLogInfo(@"Fetch is already pending, skipping redundant call.");
+- (void)fetchDataIfNeeded {
+    if (self.featuredTitlePreviewFetcher.isFetching || self.featuredArticlePreview) {
         return;
     }
 
@@ -140,7 +138,10 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         [self.delegate controller:self didSetItems:self.items];
     }).catch(^(NSError* error){
         @strongify(self);
+        self.featuredArticlePreview = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
+        WMF_TECH_DEBT_TODO(show empty view)
+        [self.delegate controller:self didSetItems:self.items];
     });
 }
 

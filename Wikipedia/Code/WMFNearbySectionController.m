@@ -146,6 +146,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
                 @strongify(self);
                 self.nearbyError = nil;
                 [self.delegate controller:self didSetItems:self.items];
+                [self.viewModel stopUpdates];
                 [self.viewModel startUpdates];
             } forControlEvents:UIControlEventTouchUpInside];
         }
@@ -164,12 +165,21 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
 }
 
+- (void)fetchDataIfNeeded {
+    // Start updates if they haven't been started already. Don't redundantly start (or restart) or else views will flicker.
+    [self.viewModel startUpdates];
+}
+
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
-    self.nearbyError = error;
-    [self.delegate controller:self didSetItems:self.items];
     [self.delegate controller:self didFailToUpdateWithError:error];
+    if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
+        || !self.searchResults) {
+        // only show error view if empty or error is not "unknown location"
+        self.nearbyError = error;
+        [self.delegate controller:self didSetItems:self.items];
+    }
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
