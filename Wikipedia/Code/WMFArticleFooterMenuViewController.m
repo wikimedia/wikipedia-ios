@@ -73,16 +73,16 @@
     return @[
              makeItem(WMFArticleFooterMenuItemTypeLanguages,
                       [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
-                      @"language"),
+                      @"footer-switch-language"),
              makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                       [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
-                      @"edit-history"),
+                      @"footer-edit-history"),
              makeItem(WMFArticleFooterMenuItemTypePageIssues,
                       MWLocalizedString(@"page-issues", nil),
-                      @"warnings"),
+                      @"footer-warnings"),
              makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
                       MWLocalizedString(@"page-similar-titles", nil),
-                      @"similar-pages")
+                      @"footer-similar-pages")
              ];
 }
 
