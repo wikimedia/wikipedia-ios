@@ -37,6 +37,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
+#import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
 #import "UIViewController+WMFArticlePresentation.h"
@@ -51,6 +52,10 @@
 #import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
+
+static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFHomeVCLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -394,7 +399,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];;
     [section.items setArray:controller.items];
-    [self.tableView reloadData];
+
+    [self.tableView wmf_performUpdates:^{
+        [self.tableView reloadData];
+    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
@@ -576,6 +584,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
+    DDLogVerbose(@"Reloading section %ld: %@", section, controller);
     [self reloadSectionForSectionController:controller];
 }
 
@@ -585,16 +594,20 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
+    DDLogVerbose(@"Appending items in section %ld: %@", section, controller);
     [self.dataSource appendItems:items toSection:section];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
-    NSInteger section = [self indexForSectionController:controller];
-    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
-    if (section == NSNotFound) {
+    NSInteger sectionIndex = [self indexForSectionController:controller];
+    NSAssert(sectionIndex != NSNotFound, @"Unknown section calling delegate");
+    if (sectionIndex == NSNotFound) {
         return;
     }
-    [self.tableView reloadData];
+    DDLogVerbose(@"Updating items in section %ld: %@", sectionIndex, controller);
+    [self.tableView wmf_performUpdates:^{
+        [self.tableView reloadData];
+    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
@@ -603,7 +616,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-
+    DDLogVerbose(@"Encountered %@ in section %ld: %@", error, section, controller);
     self.sectionLoadErrors[@(section)] = error;
     if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2)) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
