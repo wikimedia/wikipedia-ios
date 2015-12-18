@@ -12,7 +12,6 @@
 #import "Wikipedia-Swift.h"
 
 //Models
-#import "WMFArticlePreviewResults.h"
 #import "MWKSearchResult.h"
 #import "MWKTitle.h"
 
@@ -61,22 +60,23 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site {
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
-        params.titles = titles;
-        
-        [self.operationManager wmf_GETWithSite:site
-                                    parameters:params
-                                         retry:NULL
-                                       success:^(AFHTTPRequestOperation* operation, id responseObject) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([[WMFArticlePreviewResults alloc] initWithTitles:titles results:responseObject]);
+    WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
+    params.titles = titles;
+    
+    @weakify(self);
+    return [self.operationManager wmf_GETWithSite:site parameters:params]
+    .thenInBackground(^id(NSArray<MWKSearchResult*>* unsortedPreviews) {
+        @strongify(self);
+        if (!self) {
+            return [NSError cancelledError];
         }
-                                       failure:^(AFHTTPRequestOperation* operation, NSError* error) {
-            [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve(error);
+        WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for title)
+        return [titles wmf_mapAndRejectNil:^(MWKTitle* title) {
+            return [unsortedPreviews bk_match:^BOOL(MWKSearchResult* preview){
+                return [preview.displayTitle isEqualToString: title.text];
+            }];
         }];
-    }];
+    });
 }
 
 @end
