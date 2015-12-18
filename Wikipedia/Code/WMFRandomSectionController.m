@@ -113,8 +113,6 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         return;
     }
 
-    [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
-
     @weakify(self);
     [self.fetcher fetchRandomArticleWithSite:self.searchSite]
     .then(^(id result){
@@ -126,6 +124,9 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
     });
+
+    // call after fetch starts so loading indicator displays
+    [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
 }
 
 @end
