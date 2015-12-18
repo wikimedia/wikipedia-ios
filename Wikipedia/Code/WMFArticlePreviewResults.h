@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 @class MWKTitle, MWKSearchResult;
 
-@interface WMFTitlesSearchResults : NSObject
+@interface WMFArticlePreviewResults : NSObject
 
 @property (nonatomic, strong, readonly) NSArray<MWKTitle*>* titles;
 @property (nonatomic, strong, readonly) NSArray<MWKSearchResult*>* results;

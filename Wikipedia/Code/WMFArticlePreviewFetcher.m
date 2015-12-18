@@ -1,5 +1,5 @@
 
-#import "WMFTitlesSearchFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 
 //AFNetworking
 #import "MWNetworkActivityIndicatorManager.h"
@@ -12,41 +12,42 @@
 #import "Wikipedia-Swift.h"
 
 //Models
-#import "WMFTitlesSearchResults.h"
+#import "WMFArticlePreviewResults.h"
 #import "MWKSearchResult.h"
 #import "MWKTitle.h"
 
 #import "NSDictionary+WMFCommonParams.h"
+#import "WMFNetworkUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Internal Class Declarations
 
-@interface WMFTitlesSearchRequestParameters : NSObject
+@interface WMFArticlePreviewRequestParameters : NSObject
 
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
 
 @end
 
-@interface WMFTitlesSearchRequestSerializer : AFHTTPRequestSerializer
+@interface WMFArticlePreviewRequestSerializer : AFHTTPRequestSerializer
 
 @end
 
 #pragma mark - Fetcher Implementation
 
-@interface WMFTitlesSearchFetcher ()
+@interface WMFArticlePreviewFetcher ()
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
 
 @end
 
-@implementation WMFTitlesSearchFetcher
+@implementation WMFArticlePreviewFetcher
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
-        manager.requestSerializer  = [WMFTitlesSearchRequestSerializer serializer];
+        manager.requestSerializer  = [WMFArticlePreviewRequestSerializer serializer];
         manager.responseSerializer =
             [WMFMantleJSONResponseSerializer serializerForValuesInDictionaryOfType:[MWKSearchResult class]
                                                                        fromKeypath:@"query.pages"];
@@ -59,9 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchSearchResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site {
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        WMFTitlesSearchRequestParameters* params = [WMFTitlesSearchRequestParameters new];
+        WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
         params.titles = titles;
         
         [self.operationManager wmf_GETWithSite:site
@@ -69,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
                                          retry:NULL
                                        success:^(AFHTTPRequestOperation* operation, id responseObject) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
-            resolve([[WMFTitlesSearchResults alloc] initWithTitles:titles results:responseObject]);
+            resolve([[WMFArticlePreviewResults alloc] initWithTitles:titles results:responseObject]);
         }
                                        failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             [[MWNetworkActivityIndicatorManager sharedManager] pop];
@@ -82,22 +83,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Internal Class Implementations
 
-@implementation WMFTitlesSearchRequestParameters
+@implementation WMFArticlePreviewRequestParameters
 
 @end
 
 #pragma mark - Request Serializer
 
-@implementation WMFTitlesSearchRequestSerializer
+@implementation WMFArticlePreviewRequestSerializer
 
 - (nullable NSURLRequest*)requestBySerializingRequest:(NSURLRequest*)request
                                        withParameters:(nullable id)parameters
                                                 error:(NSError* __autoreleasing*)error {
-    NSDictionary* serializedParams = [self serializedParams:(WMFTitlesSearchRequestParameters*)parameters];
+    NSDictionary* serializedParams = [self serializedParams:(WMFArticlePreviewRequestParameters*)parameters];
     return [super requestBySerializingRequest:request withParameters:serializedParams error:error];
 }
 
-- (NSDictionary*)serializedParams:(WMFTitlesSearchRequestParameters*)params {
+- (NSDictionary*)serializedParams:(WMFArticlePreviewRequestParameters*)params {
     NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
     [baseParams setValuesForKeysWithDictionary:@{
          @"titles": [self barSeparatedTitlesStringFromTitles:params.titles],
@@ -108,9 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)barSeparatedTitlesStringFromTitles:(NSArray<MWKTitle*>*)titles {
-    return [[titles bk_map:^NSString*(MWKTitle* title) {
+    return WMFJoinedPropertyParameters([titles bk_map:^NSString*(MWKTitle* title) {
         return title.text;
-    }] componentsJoinedByString:@"|"];
+    }]);
 }
 
 @end

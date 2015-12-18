@@ -1,9 +1,9 @@
 #import "WMFDisambiguationPagesViewController.h"
-#import "WMFDisambiguationTitlesDataSource.h"
+#import "WMFArticlePreviewDataSource.h"
 #import "MWKArticle.h"
-#import "WMFTitlesSearchFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "WMFTitlesSearchFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 #import "MWKDataStore.h"
 
 @interface WMFDisambiguationPagesViewController ()
@@ -19,7 +19,7 @@
     if (self) {
         self.article = article;
         self.dataStore = dataStore;
-        self.dataSource = [[WMFDisambiguationTitlesDataSource alloc] initWithTitles:self.article.disambiguationTitles site:self.article.site fetcher:[[WMFTitlesSearchFetcher alloc] init]];
+        self.dataSource = [[WMFArticlePreviewDataSource alloc] initWithTitles:self.article.disambiguationTitles site:self.article.site fetcher:[[WMFArticlePreviewFetcher alloc] init]];
         self.dataSource.tableView = self.tableView;
     }
     return self;
@@ -27,7 +27,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [((WMFDisambiguationTitlesDataSource*)self.dataSource) fetch];
+    [((WMFArticlePreviewDataSource*)self.dataSource) fetch];
     @weakify(self);
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
