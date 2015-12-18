@@ -25,8 +25,9 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [((WMFDisambiguationTitlesDataSource*)self.dataSource) fetch];
     @weakify(self);
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
@@ -34,11 +35,6 @@
     }];
     self.navigationItem.leftBarButtonItem = xButton;
     self.navigationItem.rightBarButtonItem = nil;
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [((WMFDisambiguationTitlesDataSource*)self.dataSource) fetch];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
