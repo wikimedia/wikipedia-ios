@@ -74,17 +74,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetching
 
-- (AnyPromise*)fetch {
+- (void)fetch {
     @weakify(self);
-    return [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
-           .then(^id(WMFArticlePreviewResults* searchResults) {
+    [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
+    .then(^(WMFArticlePreviewResults* searchResults) {
         @strongify(self);
         if (!self) {
-            return (id)nil;
+            return;
         }
         self.previewResults = searchResults;
         [self updateItems:searchResults.results];
-        return (id)searchResults;
     });
 }
 
