@@ -7,7 +7,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class WMFArticlePreviewResults;
+@class MWKSearchResult;
 @class WMFArticlePreviewFetcher;
 @class MWKSavedPageList;
 @class MWKTitle;
@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticlePreviewDataSource : SSArrayDataSource
     <WMFTitleListDataSource>
 
-@property (nonatomic, strong, readonly, nullable) WMFArticlePreviewResults* previewResults;
+@property (nonatomic, strong, readonly, nullable) NSArray<MWKSearchResult*>* previewResults;
 
 - (instancetype)initWithTitles:(NSArray<MWKTitle*>*)titles
                           site:(MWKSite*)site

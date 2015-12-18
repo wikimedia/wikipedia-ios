@@ -19,14 +19,13 @@
 #import "MWKArticle.h"
 #import "MWKSearchResult.h"
 #import "MWKHistoryEntry.h"
-#import "WMFArticlePreviewResults.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewDataSource ()
 
 @property (nonatomic, strong) WMFArticlePreviewFetcher* titlesSearchFetcher;
-@property (nonatomic, strong, readwrite, nullable) WMFArticlePreviewResults* previewResults;
+@property (nonatomic, strong, readwrite, nullable) NSArray<MWKSearchResult*>* previewResults;
 @property (nonatomic, strong) MWKSite* site;
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
 @property (nonatomic, assign) NSUInteger resultLimit;
@@ -77,20 +76,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetch {
     @weakify(self);
     [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
-    .then(^(WMFArticlePreviewResults* searchResults) {
+    .then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
         if (!self) {
             return;
         }
         self.previewResults = searchResults;
-        [self updateItems:searchResults.results];
+        [self updateItems:searchResults];
     });
 }
 
 #pragma mark - WMFArticleListDataSource
 
 - (MWKSearchResult*)searchResultForIndexPath:(NSIndexPath*)indexPath {
-    MWKSearchResult* result = self.previewResults.results[indexPath.row];
+    MWKSearchResult* result = self.previewResults[indexPath.row];
     return result;
 }
 
@@ -100,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSUInteger)titleCount {
-    return [self.previewResults.results count];
+    return [self.previewResults count];
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
