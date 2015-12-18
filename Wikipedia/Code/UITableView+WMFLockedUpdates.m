@@ -1,6 +1,6 @@
 //
 //  UITableView+WMFLockedUpdates.m
-//  
+//
 //
 //  Created by Brian Gerstle on 12/18/15.
 //
@@ -10,8 +10,8 @@
 
 @implementation UITableView (WMFLockedUpdates)
 
-- (void)wmf_performUpdates:(dispatch_block_t)updates
-withoutMovingCellAtIndexPath:(NSIndexPath*)lockedIndexPath {
+- (void)      wmf_performUpdates:(dispatch_block_t)updates
+    withoutMovingCellAtIndexPath:(NSIndexPath*)lockedIndexPath {
     NSParameterAssert(lockedIndexPath);
     NSParameterAssert(updates);
     if (self.contentSize.height <= self.frame.size.height) {
@@ -51,8 +51,8 @@ withoutMovingCellAtIndexPath:(NSIndexPath*)lockedIndexPath {
         // ???: if deleting from above selected/focused row, do we need to limit auto-scrolling to contentInset?
 
         DDLogVerbose(@"Adjusting content offset to %@ to prevent updates from moving cell at %@.",
-                  NSStringFromCGPoint(newContentOffset),
-                  lockedIndexPath);
+                     NSStringFromCGPoint(newContentOffset),
+                     lockedIndexPath);
         self.contentOffset = newContentOffset;
     }];
 
