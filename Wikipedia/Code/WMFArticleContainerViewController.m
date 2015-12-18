@@ -709,12 +709,6 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
-#pragma mark - Analytics
-
-- (NSString*)analyticsName {
-    return [self.article analyticsName];
-}
-
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
