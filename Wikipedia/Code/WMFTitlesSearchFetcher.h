@@ -6,6 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFTitlesSearchFetcher : NSObject
 
 - (AnyPromise*)fetchSearchResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site;
+- (void)cancelAllFetches;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

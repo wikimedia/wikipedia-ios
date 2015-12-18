@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
                        fetcher:(WMFTitlesSearchFetcher*)fetcher NS_DESIGNATED_INITIALIZER;
 
 - (AnyPromise*)fetch;
+- (AnyPromise*)cancelAllFetches;
 
 @end
 
