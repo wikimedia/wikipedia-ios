@@ -207,9 +207,11 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
 
     // MARK: - UIScrollViewDelegate
     public override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        deselectAllRowsExceptForIndexPath(self.tableView.indexPathForSelectedRow, animated: false)
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            let item = items[indexPath.row]
+            addHighlightOfItemsRelatedTo(item, animated: true)
+        }
     }
-    
 
 }
 
