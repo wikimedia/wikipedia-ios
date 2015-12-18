@@ -111,8 +111,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.nearbySectionController = nil;
 
     if ([self.sectionControllers count] > 0) {
-        [self updateSectionsOnOperationQueue];
-        [self reloadSectionsOnOperationQueue];
+        [self updateSectionSchema];
+        [self reloadSectionControllers];
     }
 }
 
@@ -243,13 +243,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self updateSections];
+    [self updateSectionSchema];
 }
 
 #pragma mark - Tweaks
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self updateSections];
+    [self updateSectionSchema];
 }
 
 #pragma mark - Data Source Configuration
@@ -283,8 +283,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.tableView = self.tableView;
     self.tableView.delegate   = self;
     self.sectionLoadErrors    = [NSMutableDictionary dictionary];
-    [self reloadSectionsOnOperationQueue];
-    [self updateSectionsOnOperationQueue];
+    [self reloadSectionControllers];
+    [self updateSectionSchema];
 }
 
 #pragma mark - Section Controller Creation
@@ -315,40 +315,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
-- (void)updateSections {
+- (void)updateSectionSchema {
     [self wmf_hideEmptyView];
     BOOL forceUpdate = self.sectionLoadErrors.count > 0;
     self.sectionLoadErrors = [NSMutableDictionary dictionary];
     [self.schemaManager update:forceUpdate];
 }
 
-- (void)updateSectionsOnOperationQueue {
-    @weakify(self);
-    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            [self updateSections];
-            [operation finish];
-        });
-    }];
-}
 
-- (void)reloadSectionsOnOperationQueue {
-    @weakify(self);
-    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            [self unloadAllSections];
-            [operation finish];
-        });
-    }];
-    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            [self loadSections];
-            [operation finish];
-        });
-    }];
+- (void)reloadSectionControllers {
+    [self unloadAllSections];
+    [self loadSections];
 }
 
 - (void)loadSections {
@@ -422,17 +399,8 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.dataSource.tableView = nil;
-    [self.dataSource removeSectionAtIndex:sectionIndex];
-    SSSection* section = [SSSection sectionWithItems:[controller items]];
-    section.sectionIdentifier = controller.sectionIdentifier;
-    [self.dataSource insertSection:section atIndex:sectionIndex];
-    controller.delegate       = self;
-    self.dataSource.tableView = self.tableView;
-    /*
-       HAX: brute force all the things! this prevents occasional out-of-bounds exceptions due to the table view asking
-       for header views of the section we just deleted
-     */
+    SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];;
+    [section.items setArray:controller.items];
     [self.tableView reloadData];
 }
 
@@ -604,7 +572,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFHomeSectionSchemaDelegate
 
 - (void)sectionSchemaDidUpdateSections:(WMFHomeSectionSchema*)schema {
-    [self reloadSectionsOnOperationQueue];
+    [self reloadSectionControllers];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
@@ -624,9 +592,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.tableView beginUpdates];
     [self.dataSource appendItems:items toSection:section];
-    [self.tableView endUpdates];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
@@ -635,9 +601,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.tableView beginUpdates];
-    [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
-    [self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
