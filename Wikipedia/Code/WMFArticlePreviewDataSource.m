@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
                                     NSIndexPath* indexPath) {
             @strongify(self);
             MWKTitle* title = [self titleForIndexPath:indexPath];
-            
+            NSParameterAssert([title.site isEqualToSite:site]);
             cell.titleText       = title.text;
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText     = searchResult.extract;
