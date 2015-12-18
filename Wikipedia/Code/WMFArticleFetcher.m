@@ -18,7 +18,6 @@
 #import "MWKTitle.h"
 #import "MWKSectionList.h"
 #import "MWKSection.h"
-#import "MWKArticlePreview.h"
 #import "MWKArticle+HTMLImageImport.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -46,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFArticleRequestSerializer*)requestSerializer {
-    return [self.operationManager.requestSerializer isKindOfClass:[WMFArticlePreviewRequestSerializer class]] ? (id)self.operationManager.requestSerializer : nil;
+    return nil;
 }
 
 #pragma mark - Fetching
@@ -165,28 +164,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
-
-@implementation WMFArticlePreviewFetcher
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.operationManager.requestSerializer  = [WMFArticlePreviewRequestSerializer serializer];
-        self.operationManager.responseSerializer = [WMFArticlePreviewResponseSerializer serializer];
-    }
-    return self;
-}
-
-- (AnyPromise*)fetchArticlePreviewForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {
-    NSAssert([pageTitle.text length] > 0, @"Title text nil");
-
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self fetchArticleForPageTitle:pageTitle useDesktopURL:NO progress:progress resolver:resolve];
-    }];
-}
-
-@end
-
 
 @interface WMFArticleFetcher ()
 

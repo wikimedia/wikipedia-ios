@@ -119,17 +119,3 @@ static BOOL _headerSent = NO;
 }
 
 @end
-
-
-@implementation WMFArticlePreviewRequestSerializer
-
-- (NSMutableDictionary*)paramsForTitle:(MWKTitle*)title {
-    NSMutableDictionary* params = [super paramsForTitle:title];
-    params[@"sections"] = @0;
-    return params;
-}
-
-@end
-
-
-

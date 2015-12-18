@@ -438,7 +438,6 @@
 		B0E807B81C0CF0180065EBC0 /* MWKSavedPageList.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807B51C0CF0180065EBC0 /* MWKSavedPageList.m */; };
 		B0E807D31C0CF04A0065EBC0 /* MWKArticle.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */; };
 		B0E807D41C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807BC1C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m */; };
-		B0E807D51C0CF04A0065EBC0 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807BE1C0CF04A0065EBC0 /* MWKArticlePreview.m */; };
 		B0E807D61C0CF04A0065EBC0 /* MWKCitation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */; };
 		B0E807D71C0CF04A0065EBC0 /* MWKDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C21C0CF04A0065EBC0 /* MWKDataStore.m */; };
 		B0E807D81C0CF04A0065EBC0 /* MWKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807C41C0CF04A0065EBC0 /* MWKImageInfo.m */; };
@@ -1471,8 +1470,6 @@
 		B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticle.m; path = Wikipedia/Code/MWKArticle.m; sourceTree = SOURCE_ROOT; };
 		B0E807BB1C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKArticle+HTMLImageImport.h"; path = "Wikipedia/Code/MWKArticle+HTMLImageImport.h"; sourceTree = SOURCE_ROOT; };
 		B0E807BC1C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKArticle+HTMLImageImport.m"; path = "Wikipedia/Code/MWKArticle+HTMLImageImport.m"; sourceTree = SOURCE_ROOT; };
-		B0E807BD1C0CF04A0065EBC0 /* MWKArticlePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKArticlePreview.h; path = Wikipedia/Code/MWKArticlePreview.h; sourceTree = SOURCE_ROOT; };
-		B0E807BE1C0CF04A0065EBC0 /* MWKArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticlePreview.m; path = Wikipedia/Code/MWKArticlePreview.m; sourceTree = SOURCE_ROOT; };
 		B0E807BF1C0CF04A0065EBC0 /* MWKCitation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKCitation.h; path = Wikipedia/Code/MWKCitation.h; sourceTree = SOURCE_ROOT; };
 		B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKCitation.m; path = Wikipedia/Code/MWKCitation.m; sourceTree = SOURCE_ROOT; };
 		B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKDataStore.h; path = Wikipedia/Code/MWKDataStore.h; sourceTree = SOURCE_ROOT; };
@@ -3738,8 +3735,6 @@
 				B0E807BA1C0CF04A0065EBC0 /* MWKArticle.m */,
 				B0E807BB1C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.h */,
 				B0E807BC1C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m */,
-				B0E807BD1C0CF04A0065EBC0 /* MWKArticlePreview.h */,
-				B0E807BE1C0CF04A0065EBC0 /* MWKArticlePreview.m */,
 				B0E807BF1C0CF04A0065EBC0 /* MWKCitation.h */,
 				B0E807C01C0CF04A0065EBC0 /* MWKCitation.m */,
 				B0E807C11C0CF04A0065EBC0 /* MWKDataStore.h */,
@@ -5103,7 +5098,6 @@
 				B0E8054C1C0CE0DC0065EBC0 /* UIScrollView+NoHorizontalScrolling.m in Sources */,
 				0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */,
 				B0E8056C1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m in Sources */,
-				B0E807D51C0CF04A0065EBC0 /* MWKArticlePreview.m in Sources */,
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
 				B0E803251C0CD6B90065EBC0 /* WMFRelatedSearchResults.m in Sources */,

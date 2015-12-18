@@ -36,7 +36,6 @@
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
-#import "MWKArticlePreview.h"
 #import "MWKHistoryList.h"
 #import "MWKProtectionStatus.h"
 #import "MWKSectionList.h"
