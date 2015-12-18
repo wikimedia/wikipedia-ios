@@ -8,8 +8,3 @@
 @property (nonatomic, assign) BOOL shouldSendMCCMNCheader;
 
 @end
-
-
-@interface WMFArticlePreviewRequestSerializer : WMFArticleRequestSerializer
-
-@end
