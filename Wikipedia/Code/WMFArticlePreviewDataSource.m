@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise*)fetch {
     @weakify(self);
     return [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
-           .then(^(WMFArticlePreviewResults* searchResults) {
+           .then(^id(WMFArticlePreviewResults* searchResults) {
         @strongify(self);
         if (!self) {
             return (id)nil;
@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
+    return MWKHistoryDiscoveryMethodLink;
 }
 
 - (nullable NSString*)displayTitle {
