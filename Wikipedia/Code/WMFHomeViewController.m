@@ -400,7 +400,11 @@ NS_ASSUME_NONNULL_BEGIN
     [section.items setArray:controller.items];
 
     [self.tableView wmf_performUpdates:^{
-        // HAX: must reload entire table, otherwise UITableView crashes due to inserting nil in an internal array
+        /*
+           HAX: must reload entire table, otherwise UITableView crashes due to inserting nil in an internal array
+
+           This is true even when we tried wrapping in (nested) begin/endUpdate calls and asynchronous queueing of updates.
+         */
         [self.tableView reloadData];
     } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
@@ -606,11 +610,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     DDLogVerbose(@"Updating items in section %ld: %@", sectionIndex, controller);
     [self.tableView wmf_performUpdates:^{
-        /*
-           HAX: must reload entire table, otherwise UITableView crashes due to inserting nil in an internal array
-
-           This is true even when we tried wrapping in (nested) begin/endUpdate calls and asynchronous queueing of updates.
-         */
+        // see comment in reloadSectionController
         [self.tableView reloadData];
     } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }

@@ -15,17 +15,17 @@
     NSParameterAssert(lockedIndexPath);
     NSParameterAssert(updates);
     if (self.contentSize.height <= self.frame.size.height) {
+        DDLogVerbose(@"Content size not large enough to need adjusting, skipping.");
         updates();
         return;
     }
 
     UITableViewCell* oldLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
     if (!oldLockedCell) {
+        DDLogVerbose(@"Cell at %@ not visible, skipping.", lockedIndexPath);
         updates();
         return;
     }
-
-    __block BOOL shouldScrollAfterUpdates = NO;
 
     CGPoint oldOrigin = [self.window convertPoint:oldLockedCell.frame.origin
                                          fromView:oldLockedCell.superview];
@@ -33,13 +33,13 @@
         updates();
 
         if (self.contentSize.height <= self.frame.size.height) {
-            DDLogInfo(@"Content size too small, not adjusting content offset.");
+            DDLogVerbose(@"Content size too small after updates, not adjusting content offset.");
             return;
         }
 
         UITableViewCell* newLockedCell = [self cellForRowAtIndexPath:lockedIndexPath];
         if (!newLockedCell) {
-            shouldScrollAfterUpdates = YES;
+            DDLogVerbose(@"Can't find cell to lock for %@ after updates, skipping adjustment.", lockedIndexPath);
             return;
         }
 
@@ -55,13 +55,6 @@
                      lockedIndexPath);
         self.contentOffset = newContentOffset;
     }];
-
-    if (shouldScrollAfterUpdates) {
-        DDLogWarn(@"Couldn't find locked cell after updates, scrolling");
-        [self scrollToRowAtIndexPath:lockedIndexPath
-                    atScrollPosition:UITableViewScrollPositionMiddle
-                            animated:YES];
-    }
 }
 
 @end
