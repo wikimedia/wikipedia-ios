@@ -68,8 +68,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
-@property (nonatomic, strong) NSOperationQueue* collectionViewUpdateQueue;
-
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
@@ -172,11 +170,6 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
 
     self.title = MWLocalizedString(@"home-title", nil);
-
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    queue.maxConcurrentOperationCount = 1;
-    queue.qualityOfService            = NSQualityOfServiceUserInteractive;
-    self.collectionViewUpdateQueue    = queue;
 
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
