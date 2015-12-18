@@ -88,6 +88,13 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
+- (AnyPromise*)cancelAllFetches {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        [self.titlesSearchFetcher cancelAllFetches];
+        resolve(nil);
+    }];
+}
+
 #pragma mark - WMFArticleListDataSource
 
 - (MWKSearchResult*)searchResultForIndexPath:(NSIndexPath*)indexPath {

@@ -37,9 +37,13 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-//TODO: cancel fetch on viewwilldisappear
     [super viewWillAppear:animated];
     [((WMFDisambiguationTitlesDataSource*)self.dataSource) fetch];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [((WMFDisambiguationTitlesDataSource*)self.dataSource) cancelAllFetches];
 }
 
 @end
