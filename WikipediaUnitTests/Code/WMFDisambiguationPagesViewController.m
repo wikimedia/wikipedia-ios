@@ -37,9 +37,4 @@
     self.navigationItem.rightBarButtonItem = nil;
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [((WMFDisambiguationTitlesDataSource*)self.dataSource) cancelAllFetches];
-}
-
 @end
