@@ -131,7 +131,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         self.siteInfo = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
         WMF_TECH_DEBT_TODO(show empty view)
-        [self.delegate controller:self didSetItems:self.items];
+        [self.delegate controller : self didSetItems : self.items];
     });
 }
 

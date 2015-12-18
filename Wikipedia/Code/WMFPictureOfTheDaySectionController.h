@@ -9,6 +9,6 @@
 #import "WMFHomeSectionController.h"
 
 @interface WMFPictureOfTheDaySectionController : NSObject
-<WMFGenericHomeSectionController, WMFFetchingHomeSectionController>
+    <WMFGenericHomeSectionController, WMFFetchingHomeSectionController>
 
 @end
