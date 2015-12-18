@@ -169,7 +169,15 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
     self.nearbyError = error;
     [self.delegate controller:self didSetItems:self.items];
-    [self.delegate controller:self didFailToUpdateWithError:error];
+    
+    //This means there were 0 results - not neccesarily a "real" error.
+    //Only inform the delegate if we get a real error.
+    if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)){
+        [self.delegate controller:self didFailToUpdateWithError:error];
+    }
+
+    //Don't try to update after we get an error.
+    [self.viewModel stopUpdates];
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
