@@ -5432,10 +5432,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C7C26C8CB2ECA7439FB76EAE /* Pods.alpha.xcconfig */;
 			buildSettings = {
-				APP_ID_SUFFIX = .tfalpha;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 542;
@@ -5447,7 +5445,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(APP_ID_SUFFIX)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
@@ -5540,7 +5538,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */;
 			buildSettings = {
-				APP_ID_SUFFIX = .tfbeta;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5554,7 +5551,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(APP_ID_SUFFIX)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
@@ -5650,10 +5647,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
-				APP_ID_SUFFIX = .developer;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 542;
@@ -5664,7 +5659,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(APP_ID_SUFFIX)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
@@ -5871,10 +5866,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				APP_ID_SUFFIX = .developer;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Wikipedia/Wikipedia.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 542;
@@ -5886,7 +5879,7 @@
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(APP_ID_SUFFIX)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
 				PROVISIONING_PROFILE = "";
@@ -5910,7 +5903,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */;
 			buildSettings = {
-				APP_ID_SUFFIX = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5923,7 +5915,7 @@
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DNDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.wikimedia.wikipedia$(APP_ID_SUFFIX)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
