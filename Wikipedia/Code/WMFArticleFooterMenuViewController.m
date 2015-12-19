@@ -1,11 +1,3 @@
-//
-//  WMFArticleFooterMenuViewController.m
-//  Wikipedia
-//
-//  Created by Monte Hurd on 12/15/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
-
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFIntrinsicSizeTableView.h"
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"

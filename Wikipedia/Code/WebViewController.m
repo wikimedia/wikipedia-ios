@@ -597,20 +597,6 @@ NSString* const WMFLicenseTitleOnENWiki =
             }
         }];
 
-        /*
-           [_bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-
-           //NSLog(@"disambigClicked: %@", payload);
-
-           }];
-
-           [_bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-
-           //NSLog(@"issuesClicked: %@", payload);
-
-           }];
-         */
-
         UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                               action:@selector(shareMenuItemTapped:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
