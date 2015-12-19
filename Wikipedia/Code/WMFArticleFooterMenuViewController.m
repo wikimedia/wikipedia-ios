@@ -79,6 +79,7 @@
 
 - (void)showEditHistory {
     PageHistoryViewController* editHistoryVC = [PageHistoryViewController wmf_initialViewControllerFromClassStoryboard];
+    editHistoryVC.article = self.article;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:editHistoryVC] animated:YES completion:nil];
 }
 

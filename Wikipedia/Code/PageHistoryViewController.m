@@ -4,7 +4,6 @@
 #import "PageHistoryViewController.h"
 #import "PageHistoryResultCell.h"
 #import "WikipediaAppUtils.h"
-#import "SessionSingleton.h"
 #import "QueuesSingleton.h"
 #import "NSDate+Utilities.h"
 #import "WikiGlyph_Chars.h"
@@ -103,7 +102,7 @@
 }
 
 - (void)getPageHistoryData {
-    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:[SessionSingleton sharedInstance].currentArticle.title
+    (void)[[PageHistoryFetcher alloc] initAndFetchHistoryForTitle:self.article.title
                                                       withManager:[QueuesSingleton sharedInstance].pageHistoryFetchManager
                                                thenNotifyDelegate:self];
 }
