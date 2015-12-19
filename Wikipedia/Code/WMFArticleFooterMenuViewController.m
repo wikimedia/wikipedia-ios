@@ -1,6 +1,5 @@
 #import "WMFArticleFooterMenuViewController.h"
 #import "WMFIntrinsicSizeTableView.h"
-#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 #import "MWKArticle.h"
 #import <SSDataSources/SSDataSources.h>
 #import "NSDate+Utilities.h"
@@ -15,6 +14,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
+#import "WMFArticleFooterMenuCell.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
 
@@ -42,14 +42,12 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     _footerDataSource = [[SSArrayDataSource alloc] initWithItems:[self getMenuItemData]];
-    
-    self.footerDataSource.cellConfigureBlock = ^(SSBaseTableCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
-        [cell wmf_makeCellDividerBeEdgeToEdge];
-        cell.textLabel.numberOfLines = 0;
-        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        cell.imageView.contentMode = UIViewContentModeCenter;
-        cell.imageView.tintColor = [UIColor grayColor];
+
+    self.footerDataSource.cellClass          = [WMFArticleFooterMenuCell class];
+
+    self.footerDataSource.cellConfigureBlock = ^(WMFArticleFooterMenuCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
         cell.textLabel.text = menuItem.title;
+        cell.detailTextLabel.text = menuItem.subTitle;
         cell.imageView.image = [UIImage imageNamed:menuItem.imageName];
     };
     
@@ -62,9 +60,10 @@
 
 -(NSArray<WMFArticleFooterMenuItem*>*)getMenuItemData {
     
-    WMFArticleFooterMenuItem* (^makeItem)(WMFArticleFooterMenuItemType, NSString*, NSString*) = ^WMFArticleFooterMenuItem*(WMFArticleFooterMenuItemType type, NSString* title, NSString* imageName) {
+    WMFArticleFooterMenuItem* (^makeItem)(WMFArticleFooterMenuItemType, NSString*, NSString*, NSString*) = ^WMFArticleFooterMenuItem*(WMFArticleFooterMenuItemType type, NSString* title, NSString* subTitle, NSString* imageName) {
         return [[WMFArticleFooterMenuItem alloc] initWithType:type
                                                         title:title
+                                                     subTitle:subTitle
                                                     imageName:imageName];
     };
     
@@ -72,9 +71,10 @@
     [NSMutableArray arrayWithObjects:
      makeItem(WMFArticleFooterMenuItemTypeLanguages,
               [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
-              @"footer-switch-language"),
+              nil, @"footer-switch-language"),
      makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-              [[[MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]] stringByAppendingString:@"\n"] stringByAppendingString:MWLocalizedString(@"page-edit-history", nil)],
+              [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
+              MWLocalizedString(@"page-edit-history", nil),
               @"footer-edit-history"),
      nil
      ];
@@ -82,12 +82,14 @@
     if (self.article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
                                       MWLocalizedString(@"page-issues", nil),
+                                      nil,
                                       @"footer-warnings")];
     }
     
     if (self.article.disambiguationTitles.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
                                       MWLocalizedString(@"page-similar-titles", nil),
+                                      nil,
                                       @"footer-similar-pages")];
     }
     
