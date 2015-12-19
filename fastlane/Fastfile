@@ -141,7 +141,9 @@ platform :ios do
       scheme: "Wikipedia",
       # both of these flags are required for ad hoc
       export_method: 'ad-hoc',
-      use_legacy_build_api: true
+      use_legacy_build_api: true,
+      # override hockeyapp ID for release candidate so reports go corresponding "app"
+      xcargs: 'WMF_HOCKEYAPP_IDENTIFIER=78e94cb597309a55d5bb99c839aa18a8'
     )
 
     hockey(
