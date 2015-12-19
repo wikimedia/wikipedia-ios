@@ -552,7 +552,6 @@
 		B0E809551C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809541C0D1B510065EBC0 /* CLLocation+WMFBearingTests.m */; };
 		B0E809571C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */; };
 		B0E8095A1C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */; };
-		B0E8095C1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */; };
 		B0E8095E1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */; };
 		B0E809601C0D1BA30065EBC0 /* WMFSearchFetcherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */; };
 		B0E809621C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */; };
@@ -1632,7 +1631,6 @@
 		B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleListCellVisualTests.m; path = WikipediaUnitTests/Code/WMFArticleListCellVisualTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SavedArticlesFetcherTests.h; path = WikipediaUnitTests/Code/SavedArticlesFetcherTests.h; sourceTree = SOURCE_ROOT; };
 		B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedArticlesFetcherTests.m; path = WikipediaUnitTests/Code/SavedArticlesFetcherTests.m; sourceTree = SOURCE_ROOT; };
-		B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticlePreviewSerializationTests.m; path = WikipediaUnitTests/Code/MWKArticlePreviewSerializationTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsSerializationTests.m; path = WikipediaUnitTests/Code/WMFSearchResultsSerializationTests.m; sourceTree = SOURCE_ROOT; };
 		B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchFetcherTests.m; path = WikipediaUnitTests/Code/WMFSearchFetcherTests.m; sourceTree = SOURCE_ROOT; };
 		B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsMergeTests.m; path = WikipediaUnitTests/Code/WMFSearchResultsMergeTests.m; sourceTree = SOURCE_ROOT; };
@@ -3952,7 +3950,6 @@
 				B0E809561C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m */,
 				B0E809581C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.h */,
 				B0E809591C0D1B6D0065EBC0 /* SavedArticlesFetcherTests.m */,
-				B0E8095B1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m */,
 				B0E8095D1C0D1B930065EBC0 /* WMFSearchResultsSerializationTests.m */,
 				B0E8095F1C0D1BA30065EBC0 /* WMFSearchFetcherTests.m */,
 				B0E809611C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m */,
@@ -4786,7 +4783,6 @@
 				BC070C311C1F682400CAE9E2 /* WMFArticleImageGalleryDataSourceTests.m in Sources */,
 				B0E808D31C0D17A60065EBC0 /* MWKHistoryEntry+MWKRandom.m in Sources */,
 				B0E809531C0D1B440065EBC0 /* WMFSaveButtonControllerTests.m in Sources */,
-				B0E8095C1C0D1B860065EBC0 /* MWKArticlePreviewSerializationTests.m in Sources */,
 				B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */,
 				BC45FF501C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m in Sources */,
 				BC97FF0A1C18897500FA40E3 /* NSUserDefaults+WMFBatchRecordMode.m in Sources */,
