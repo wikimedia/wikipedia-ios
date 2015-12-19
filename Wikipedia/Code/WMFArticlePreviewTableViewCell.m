@@ -6,6 +6,7 @@
 #import "MWKImage.h"
 #import "UITableViewCell+SelectedBackground.h"
 #import <Masonry/Masonry.h>
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
 @interface WMFArticlePreviewTableViewCell ()
 
@@ -58,7 +59,7 @@
     self.saveButton.tintColor = [UIColor wmf_blueTintColor];
     [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
     self.saveButtonController.button = self.saveButton;
-
+    [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];
     self.loading = NO;
 }
