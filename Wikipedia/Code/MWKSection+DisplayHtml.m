@@ -14,7 +14,7 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
     NSString* html = nil;
 
     @try {
-        html = self.text;
+        html = [self getHTMLWrappedInTablesIfNeeded];
     }@catch (NSException* exception) {
         NSAssert(html, @"html was not created from section %@: %@", self.title, self.text);
     }
@@ -78,6 +78,17 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
             @"<a class='edit_section_button' data-action='edit_section' data-id='%d' id='edit_section_button_%d'></a>",
             self.sectionId,
             self.sectionId];
+}
+
+-(NSString*)getHTMLWrappedInTablesIfNeeded {
+    NSString *tableFormatString = @"<table><th>%@</th><tr><td>%@</td></tr></table>";
+    NSArray *titlesToWrap = @[@"References", @"External links", @"Notes", @"Further reading", @"Bibliography"];
+    for (NSString* sectionTitle in titlesToWrap) {
+        if ([self.line isEqualToString:sectionTitle]) {
+            return [NSString stringWithFormat:tableFormatString, sectionTitle, self.text];
+        }
+    }
+    return self.text;
 }
 
 @end
