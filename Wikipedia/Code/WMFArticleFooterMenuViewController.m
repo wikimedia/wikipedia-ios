@@ -71,20 +71,30 @@
                                                     imageName:imageName];
     };
     
-    return @[
-             makeItem(WMFArticleFooterMenuItemTypeLanguages,
-                      [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
-                      @"footer-switch-language"),
-             makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                      [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
-                      @"footer-edit-history"),
-             makeItem(WMFArticleFooterMenuItemTypePageIssues,
-                      MWLocalizedString(@"page-issues", nil),
-                      @"footer-warnings"),
-             makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
-                      MWLocalizedString(@"page-similar-titles", nil),
-                      @"footer-similar-pages")
-             ];
+    NSMutableArray* menuItems =
+    [NSMutableArray arrayWithObjects:
+     makeItem(WMFArticleFooterMenuItemTypeLanguages,
+              [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
+              @"footer-switch-language"),
+     makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+              [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
+              @"footer-edit-history"),
+     nil
+     ];
+    
+    if (self.article.pageIssues.count > 0) {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
+                                      MWLocalizedString(@"page-issues", nil),
+                                      @"footer-warnings")];
+    }
+    
+    if (self.article.disambiguationTitles.count > 0) {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
+                                      MWLocalizedString(@"page-similar-titles", nil),
+                                      @"footer-similar-pages")];
+    }
+    
+    return menuItems;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
