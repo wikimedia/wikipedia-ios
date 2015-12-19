@@ -2,7 +2,6 @@
 #import "WMFIntrinsicSizeTableView.h"
 #import "MWKArticle.h"
 #import <SSDataSources/SSDataSources.h>
-#import "NSDate+Utilities.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "WMFArticleFooterMenuItem.h"
@@ -15,6 +14,7 @@
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
 #import "WMFArticleFooterMenuCell.h"
+#import "WMFArticleFooterMenuDataSource.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
 
@@ -46,7 +46,7 @@
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
-    _footerDataSource = [[SSArrayDataSource alloc] initWithItems:[self getMenuItemData]];
+    _footerDataSource = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
 
     self.footerDataSource.cellClass          = [WMFArticleFooterMenuCell class];
 
@@ -61,44 +61,6 @@
     };
     
     self.footerDataSource.tableView = self.tableView;
-}
-
--(NSArray<WMFArticleFooterMenuItem*>*)getMenuItemData {
-    
-    WMFArticleFooterMenuItem* (^makeItem)(WMFArticleFooterMenuItemType, NSString*, NSString*, NSString*) = ^WMFArticleFooterMenuItem*(WMFArticleFooterMenuItemType type, NSString* title, NSString* subTitle, NSString* imageName) {
-        return [[WMFArticleFooterMenuItem alloc] initWithType:type
-                                                        title:title
-                                                     subTitle:subTitle
-                                                    imageName:imageName];
-    };
-    
-    NSMutableArray* menuItems =
-    [NSMutableArray arrayWithObjects:
-     makeItem(WMFArticleFooterMenuItemTypeLanguages,
-              [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
-              nil, @"footer-switch-language"),
-     makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-              [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
-              MWLocalizedString(@"page-edit-history", nil),
-              @"footer-edit-history"),
-     nil
-     ];
-    
-    if (self.article.pageIssues.count > 0) {
-        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
-                                      MWLocalizedString(@"page-issues", nil),
-                                      nil,
-                                      @"footer-warnings")];
-    }
-    
-    if (self.article.disambiguationTitles.count > 0) {
-        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
-                                      MWLocalizedString(@"page-similar-titles", nil),
-                                      nil,
-                                      @"footer-similar-pages")];
-    }
-    
-    return menuItems;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
