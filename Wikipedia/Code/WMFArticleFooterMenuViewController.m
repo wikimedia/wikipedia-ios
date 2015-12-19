@@ -13,7 +13,6 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
-#import "WMFArticleFooterMenuCell.h"
 #import "WMFArticleFooterMenuDataSource.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
@@ -47,19 +46,6 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
     _footerDataSource = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
-
-    self.footerDataSource.cellClass          = [WMFArticleFooterMenuCell class];
-
-    self.footerDataSource.cellConfigureBlock = ^(WMFArticleFooterMenuCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
-        cell.textLabel.text = menuItem.title;
-        cell.detailTextLabel.text = menuItem.subTitle;
-        cell.imageView.image = [UIImage imageNamed:menuItem.imageName];
-    };
-    
-    self.footerDataSource.tableActionBlock = ^BOOL(SSCellActionType action, UITableView *tableView, NSIndexPath *indexPath) {
-        return NO;
-    };
-    
     self.footerDataSource.tableView = self.tableView;
 }
 
