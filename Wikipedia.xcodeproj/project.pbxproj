@@ -2848,17 +2848,7 @@
 				B0E803A11C0CDB5A0065EBC0 /* WMFArticleFooterView.xib */,
 				B0E803A21C0CDB5A0065EBC0 /* WMFArticleFooterViewHeader.swift */,
 				B0E803A31C0CDB5A0065EBC0 /* WMFArticleFooterViewHeader.xib */,
-				B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */,
-				B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */,
-				B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */,
-				B06531671C2340BB003BD7DC /* WMFArticleFooterMenuItem.h */,
-				B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */,
-				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
-				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
-				B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */,
-				B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */,
-				B09D64E21C25032000A29514 /* WMFArticleFooterMenuCell.h */,
-				B09D64E31C25032000A29514 /* WMFArticleFooterMenuCell.m */,
+				B09D64E51C250B6400A29514 /* Footer Menu */,
 			);
 			name = Footer;
 			path = Wikipedia/Code/Footer;
@@ -3245,6 +3235,24 @@
 			name = Style;
 			path = Wikipedia/Code/Style;
 			sourceTree = SOURCE_ROOT;
+		};
+		B09D64E51C250B6400A29514 /* Footer Menu */ = {
+			isa = PBXGroup;
+			children = (
+				B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */,
+				B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */,
+				B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */,
+				B06531671C2340BB003BD7DC /* WMFArticleFooterMenuItem.h */,
+				B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */,
+				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
+				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
+				B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */,
+				B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */,
+				B09D64E21C25032000A29514 /* WMFArticleFooterMenuCell.h */,
+				B09D64E31C25032000A29514 /* WMFArticleFooterMenuCell.m */,
+			);
+			name = "Footer Menu";
+			sourceTree = "<group>";
 		};
 		BC22F44C1BA33CF400B64F4B /* Value Providers */ = {
 			isa = PBXGroup;
