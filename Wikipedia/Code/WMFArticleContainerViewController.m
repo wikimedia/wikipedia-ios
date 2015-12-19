@@ -509,9 +509,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
 
-    self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
-    self.footerMenuViewController.dataStore = self.dataStore;
-    
     [self fetchArticle];
 }
 
@@ -586,6 +583,10 @@ NS_ASSUME_NONNULL_BEGIN
         if (!self.article.isMain) {
             [self fetchReadMore];
         }
+        
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+        self.footerMenuViewController.dataStore = self.dataStore;
+        
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];
