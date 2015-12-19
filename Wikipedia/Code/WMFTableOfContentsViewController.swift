@@ -78,12 +78,29 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - Selection
-    public func deselectAllRows() {
-        guard let selectedIndexPaths = tableView.indexPathsForSelectedRows else {
+    func deselectAllRows() {
+        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
             return
         }
-        for (_, element) in selectedIndexPaths.enumerate() {
+        for (_, element) in visibleIndexPaths.enumerate() {
             if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
+                cell.setSectionSelected(false, animated: false)
+            }
+        }
+    }
+    func deselectAllRowsExceptForIndexPath(indexpath: NSIndexPath?, animated: Bool) {
+        guard let visibleIndexPaths = tableView.indexPathsForVisibleRows else {
+            return
+        }
+        for (_, element) in visibleIndexPaths.enumerate() {
+            
+            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(element) as? WMFTableOfContentsCell  {
+                if let indexpath = indexpath{
+                    if element.isEqual(indexpath){
+                        cell.setSectionSelected(true, animated: false)
+                        continue
+                    }
+                }
                 cell.setSectionSelected(false, animated: false)
             }
         }
@@ -101,6 +118,13 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         }
     }
 
+    public func addHighlightToItem(item: TableOfContentsItem, animated: Bool) {
+        if let indexPath = indexPathForItem(item){
+            if let cell: WMFTableOfContentsCell = tableView.cellForRowAtIndexPath(indexPath) as? WMFTableOfContentsCell  {
+                cell.setSectionSelected(true, animated: animated)
+            }
+        }
+    }
     // MARK: - Header
     func forceUpdateHeaderFrame(){
         //See reason for fix here: http://stackoverflow.com/questions/16471846/is-it-possible-to-use-autolayout-with-uitableviews-tableheaderview
@@ -169,9 +193,15 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - UITableViewDelegate
+    public override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        let item = items[indexPath.row]
+        addHighlightToItem(item, animated: true)
+        return true
+    }
+    
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
-        deselectAllRows()
+        deselectAllRowsExceptForIndexPath(indexPath, animated: false)
         tableOfContentsFunnel.logClick()
         addHighlightOfItemsRelatedTo(item, animated: true)
         delegate?.tableOfContentsController(self, didSelectItem: item)
@@ -180,6 +210,14 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     public func tableOfContentsAnimatorDidTapBackground(controller: WMFTableOfContentsAnimator) {
         tableOfContentsFunnel.logClose()
         delegate?.tableOfContentsControllerDidCancel(self)
+    }
+
+    // MARK: - UIScrollViewDelegate
+    public override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            let item = items[indexPath.row]
+            addHighlightOfItemsRelatedTo(item, animated: true)
+        }
     }
 
 }
