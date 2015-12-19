@@ -7,6 +7,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title  = MWLocalizedString(@"page-issues", nil);
     self.tableView.estimatedRowHeight = 90.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
