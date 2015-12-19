@@ -3244,17 +3244,17 @@
 			children = (
 				B0726DA61C216F4300E57B2A /* WMFArticleFooterMenuViewController.h */,
 				B0726DA71C216F4300E57B2A /* WMFArticleFooterMenuViewController.m */,
+				B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */,
 				B09D64E61C2514FF00A29514 /* WMFArticleFooterMenuDataSource.h */,
 				B09D64E71C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m */,
-				B0726DA81C216F4300E57B2A /* WMFArticleFooterMenuViewController.xib */,
 				B06531671C2340BB003BD7DC /* WMFArticleFooterMenuItem.h */,
 				B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */,
+				B09D64E21C25032000A29514 /* WMFArticleFooterMenuCell.h */,
+				B09D64E31C25032000A29514 /* WMFArticleFooterMenuCell.m */,
 				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
 				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
 				B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */,
 				B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */,
-				B09D64E21C25032000A29514 /* WMFArticleFooterMenuCell.h */,
-				B09D64E31C25032000A29514 /* WMFArticleFooterMenuCell.m */,
 			);
 			name = "Footer Menu";
 			sourceTree = "<group>";
