@@ -37,11 +37,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.tableView.estimatedRowHeight = 52.0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+
     _footerDataSource = [[SSArrayDataSource alloc] initWithItems:[self getMenuItemData]];
     
     self.footerDataSource.cellConfigureBlock = ^(SSBaseTableCell *cell, WMFArticleFooterMenuItem *menuItem, UITableView *tableView, NSIndexPath *indexPath) {
         [cell wmf_makeCellDividerBeEdgeToEdge];
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.imageView.contentMode = UIViewContentModeCenter;
         cell.imageView.tintColor = [UIColor grayColor];
         cell.textLabel.text = menuItem.title;
@@ -69,7 +74,7 @@
               [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", self.article.languagecount]],
               @"footer-switch-language"),
      makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-              [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]],
+              [[[MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:self.article.lastmodified]]] stringByAppendingString:@"\n"] stringByAppendingString:MWLocalizedString(@"page-edit-history", nil)],
               @"footer-edit-history"),
      nil
      ];
