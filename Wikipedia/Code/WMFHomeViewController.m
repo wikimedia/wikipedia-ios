@@ -673,7 +673,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     self.sectionLoadErrors[@(section)] = error;
-    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2)) {
+    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2) && self.view.superview) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
