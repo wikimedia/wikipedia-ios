@@ -22,6 +22,7 @@
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFDisambiguationPagesViewController.h"
+#import "WMFPageIssuesViewController.h"
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
 
@@ -134,8 +135,9 @@
 }
 
 -(void)showPageIssues {
-    
-//TODO: hook up.
+    WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
 }
 
 @end

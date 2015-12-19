@@ -31,6 +31,7 @@
 		0EF863511C19E4F100006D2D /* WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF863501C19E4F100006D2D /* WMFEmptyView.m */; };
 		222B052ECD9AB4BCC885B932 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8A04642A54B737002D28D70 /* Pods.framework */; };
 		AA61D5DAA39C2A7CB97B4791 /* Pods_WikipediaUnitTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */; };
+		B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */; };
 		B06531601C220921003BD7DC /* WMFArticlePreviewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */; };
 		B06531631C221BC4003BD7DC /* WMFArticlePreviewFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */; };
 		B06531691C2340BB003BD7DC /* WMFArticleFooterMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */; };
@@ -687,6 +688,8 @@
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		59CB2F41D52F438BED356EF4 /* Pods-WikipediaUnitTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		644C62F6A8B8E2ED7DFA53D5 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
+		B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPageIssuesViewController.h; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.h; sourceTree = SOURCE_ROOT; };
+		B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPageIssuesViewController.m; path = WikipediaUnitTests/Code/WMFPageIssuesViewController.m; sourceTree = SOURCE_ROOT; };
 		B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewDataSource.h; path = Wikipedia/Code/WMFArticlePreviewDataSource.h; sourceTree = SOURCE_ROOT; };
 		B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePreviewDataSource.m; path = Wikipedia/Code/WMFArticlePreviewDataSource.m; sourceTree = SOURCE_ROOT; };
 		B06531611C221BC4003BD7DC /* WMFArticlePreviewFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewFetcher.h; path = Wikipedia/Code/WMFArticlePreviewFetcher.h; sourceTree = SOURCE_ROOT; };
@@ -2851,6 +2854,8 @@
 				B06531681C2340BB003BD7DC /* WMFArticleFooterMenuItem.m */,
 				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
 				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
+				B01162E61C24D3B200C3B52B /* WMFPageIssuesViewController.h */,
+				B01162E71C24D3B200C3B52B /* WMFPageIssuesViewController.m */,
 			);
 			name = Footer;
 			path = Wikipedia/Code/Footer;
@@ -5104,6 +5109,7 @@
 				B0E805D11C0CE5420065EBC0 /* WMFFaceDetectionCache.m in Sources */,
 				B0E804C51C0CE0B40065EBC0 /* NSArray+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E8055B1C0CE0DC0065EBC0 /* UIView+WMFSearchSubviews.m in Sources */,
+				B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */,
 				B0E803BD1C0CDC360065EBC0 /* WMFArticleListTableViewCell.m in Sources */,
 				B0E806F51C0CEBB60065EBC0 /* ReferencesVC.m in Sources */,
 				B0E804411C0CDF850065EBC0 /* MenuButton.m in Sources */,
