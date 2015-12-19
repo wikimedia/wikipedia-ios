@@ -614,6 +614,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreDataSource fetch]
     .then(^(WMFRelatedSearchResults* readMoreResults) {
         @strongify(self);
+        if (!self) {
+            // NOTE(bgerstle): must bail here to prevent creating placeholder array w/ nil below
+            return;
+        }
         if ([readMoreResults.results count] > 0) {
             [self.webViewController setFooterViewControllers:@[self.readMoreListViewController]];
             [self appendReadMoreTableOfContentsItem];
