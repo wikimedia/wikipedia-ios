@@ -4,7 +4,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
+static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/piwik/";
 static NSString* const WMFPiwikSiteID    = @"4";
 
 @implementation PiwikTracker (WMFExtensions)
@@ -12,6 +12,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 + (void)wmf_start {
 #ifdef PIWIK_ENABLED
     [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
+    [[PiwikTracker sharedInstance] setDispatchInterval:60];
 #endif
 }
 
