@@ -20,6 +20,12 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 ## Building and Running
 This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
+Further you need ImageMagick and ghostscript; you can install both e.g. via Homebrew:
+
+```
+brew install imagemagick ghostscript
+```
+
 Once you have Xcode (and build dependencies) installed, run `make prebuild` to ensure any dependencies required to build the project (mainly our submodules) are setup.  At this point, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
 ## Development
