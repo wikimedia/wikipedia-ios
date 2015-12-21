@@ -161,6 +161,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self recentPageForIndexPath:indexPath] title];
 }
 
+- (WMFEmptyViewType)emptyViewType{
+    return WMFEmptyViewTypeNoHistory;
+}
+
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
     return YES;
 }
