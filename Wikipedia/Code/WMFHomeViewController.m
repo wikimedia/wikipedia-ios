@@ -79,8 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
 
-@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
-@property (nonatomic, strong, null_resettable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
+@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, nullable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
 
 @end
 
