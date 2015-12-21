@@ -149,28 +149,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
-if [[ "$CONFIGURATION" == "Alpha" ]]; then
-  install_framework "Pods/AFNetworking.framework"
-  install_framework "Pods/AnimatedGIFImageSerialization.framework"
-  install_framework "Pods/BlocksKit.framework"
-  install_framework "Pods/CocoaLumberjack.framework"
-  install_framework "Pods/HexColors.framework"
-  install_framework "Pods/KVOController.framework"
-  install_framework "Pods/MGSwipeTableCell.framework"
-  install_framework "Pods/Mantle.framework"
-  install_framework "Pods/Masonry.framework"
-  install_framework "Pods/OAStackView.framework"
-  install_framework "Pods/OMGHTTPURLRQ.framework"
-  install_framework "Pods/PiwikTracker.framework"
-  install_framework "Pods/PromiseKit.framework"
-  install_framework "Pods/SDWebImage.framework"
-  install_framework "Pods/SSDataSources.framework"
-  install_framework "Pods/SVWebViewController.framework"
-  install_framework "Pods/TSMessages.framework"
-  install_framework "Pods/Tweaks.framework"
-  install_framework "Pods/hpple.framework"
-  install_framework "Pods/libextobjc.framework"
-fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "Pods/AFNetworking.framework"
   install_framework "Pods/AnimatedGIFImageSerialization.framework"
