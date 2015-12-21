@@ -140,6 +140,7 @@
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash"= "Crash";
 
+"saved-title" = "Saved";
 "saved-pages-title" = "Saved pages";
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
@@ -152,6 +153,7 @@
 "saved-pages-none" = "No saved pages yet.";
 "saved-pages-image-download-error" = "Failed to download images for this saved page.";
 
+"history-title" = "History";
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
 
