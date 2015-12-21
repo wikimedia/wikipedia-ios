@@ -110,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
     return savedEntry.title;
 }
 
+- (WMFEmptyViewType)emptyViewType{
+    return WMFEmptyViewTypeNoSavedPages;
+}
+
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
     return YES;
 }

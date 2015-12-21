@@ -332,3 +332,7 @@
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
+"empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
+"empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
+"empty-no-history-title" = "Title of a blank screen shown when a user has no history";
+"empty-no-history-message" = "Message of a blank screen shown when a user has no history";
