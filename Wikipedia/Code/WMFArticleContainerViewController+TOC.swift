@@ -80,7 +80,9 @@ extension WMFArticleContainerViewController {
     public func appendReadMoreTableOfContentsItem() {
         if var items = createTableOfContentsSections() {
             items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
-            self.tableOfContentsViewController.items = items
+            if let tvc = self.tableOfContentsViewController {
+                tvc.items = items
+            }
         }
     }
 
