@@ -186,6 +186,10 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     [self.delegate controller:self didSetItems:self.items];
 }
 
+- (NSString*)analyticsName {
+    return @"Nearby";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
