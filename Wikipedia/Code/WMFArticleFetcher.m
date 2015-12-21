@@ -242,6 +242,7 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     @weakify(self);
     MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:title];
     if (!cachedArticle.revisionId) {
+        DDLogInfo(@"No cached article w/ revision ID found for %@, fetching instead.", title);
         return [self fetchArticleForPageTitle:title progress:progress];
     }
     return [self.revisionFetcher fetchLatestRevisionsForTitle:title
