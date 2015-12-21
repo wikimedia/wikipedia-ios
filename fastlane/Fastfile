@@ -47,7 +47,7 @@ platform :ios do
     add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
   end
 
-  desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
+  desc "Submit a new **Wikipedia Alpha** build to Apple TestFlight"
   lane :alpha do
     sigh(
       adhoc: false,
