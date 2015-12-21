@@ -689,7 +689,7 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* title =
             [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
-            self.previewingTitle = title;
+            self.previewingTitle          = title;
             self.sectionOfPreviewingTitle = sectionController;
             [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
             return [[WMFArticleContainerViewController alloc]
@@ -709,7 +709,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
         [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:self.previewingTitle inHomeSection:self.sectionOfPreviewingTitle];
         [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
-        self.previewingTitle = nil;
+        self.previewingTitle          = nil;
         self.sectionOfPreviewingTitle = nil;
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {

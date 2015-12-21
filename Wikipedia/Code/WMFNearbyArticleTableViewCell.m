@@ -28,6 +28,7 @@
 #import "UIImage+WMFStyle.h"
 #import "UITableViewCell+SelectedBackground.h"
 #import "UIImageView+WMFPlaceholder.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
 @interface WMFNearbyArticleTableViewCell ()
 
@@ -55,6 +56,7 @@
     self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
     self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
     [self wmf_addSelectedBackgroundView];
+    [self wmf_makeCellDividerBeEdgeToEdge];
 }
 
 - (void)prepareForReuse {
