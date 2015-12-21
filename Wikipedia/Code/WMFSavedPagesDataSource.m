@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return MWLocalizedString(@"saved-pages-title", nil);
+    return MWLocalizedString(@"saved-title", nil);
 }
 
 - (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {

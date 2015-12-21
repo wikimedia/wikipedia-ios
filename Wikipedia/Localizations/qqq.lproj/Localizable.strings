@@ -335,3 +335,7 @@
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-search-results-message" = "Shown when there are no search results";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
+"history-title" = "Title of the history screen shown on history tab";
+"saved-title" = "Title of the saved screen shown on the saved tab";
+
+
