@@ -246,9 +246,9 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         return [self fetchArticleForPageTitle:title progress:progress];
     }
     return [self.revisionFetcher fetchLatestRevisionsForTitle:title
-                                           resultLimit:1
-                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
-    .then(^(WMFRevisionQueryResults* results) {
+                                                  resultLimit:1
+                                           endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
+           .then(^(WMFRevisionQueryResults* results) {
         @strongify(self);
         if (!self) {
             return [AnyPromise promiseWithValue:[NSError cancelledError]];
@@ -262,11 +262,11 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
             return [self fetchArticleForPageTitle:title progress:progress];
         }
     })
-    .catch(^(NSError* error) {
+           .catch(^(NSError* error) {
         if (!cachedArticle) {
             return error;
         } else {
-            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ? : @{}];
             userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
             return [NSError errorWithDomain:error.domain
                                        code:error.code

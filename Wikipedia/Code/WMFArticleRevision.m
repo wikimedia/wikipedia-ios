@@ -10,7 +10,7 @@
 
 #define WMFArticleRevisionKey(key) WMF_SAFE_KEYPATH([WMFArticleRevision new], key)
 
-typedef NS_ENUM(NSInteger, WMFArticleRevisionError) {
+typedef NS_ENUM (NSInteger, WMFArticleRevisionError) {
     WMFArticleRevisionErrorMissingRevisionId = 1
 };
 
@@ -18,7 +18,7 @@ static NSString* const WMFArticleRevisionErrorDomain = @"WMFArticleRevisionError
 
 @implementation WMFArticleRevision
 
-- (BOOL)validate:(NSError *__autoreleasing *)error {
+- (BOOL)validate:(NSError* __autoreleasing*)error {
     if (!self.revisionId) {
         WMFSafeAssign(error, [NSError errorWithDomain:WMFArticleRevisionErrorDomain
                                                  code:WMFArticleRevisionErrorMissingRevisionId

@@ -25,10 +25,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.requestManager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
+        self.requestManager                    = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         self.requestManager.responseSerializer =
-         [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFRevisionQueryResults class]
-                                                   fromKeypath:@"query.pages"];
+            [WMFMantleJSONResponseSerializer serializerForArrayOf:[WMFRevisionQueryResults class]
+                                                      fromKeypath:@"query.pages"];
     }
     return self;
 }
