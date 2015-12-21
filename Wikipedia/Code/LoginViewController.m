@@ -104,14 +104,6 @@
     self.usernameUnderlineHeight.constant = 1.0f / [UIScreen mainScreen].scale;
     self.passwordUnderlineHeight.constant = self.usernameUnderlineHeight.constant;
 
-    /*
-       PreviewAndSaveViewController *previewAndSaveVC = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[PreviewAndSaveViewController class]];
-       self.titleLabel.text = (!previewAndSaveVC) ?
-        MWLocalizedString(@"navbar-title-mode-login", nil)
-        :
-        MWLocalizedString(@"navbar-title-mode-login-and-save", nil)
-       ;
-     */
     self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-login", nil);
 
     self.usernameField.textAlignment = NSTextAlignmentNatural;

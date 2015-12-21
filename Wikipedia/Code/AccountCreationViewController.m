@@ -156,15 +156,6 @@
     self.loginButton.userInteractionEnabled = YES;
     [self.loginButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loginButtonPushed:)]];
 
-    /*
-       id previewAndSaveVC = [WMFArticlePresenter firstViewControllerOnNavStackOfClass:[PreviewAndSaveViewController class]];
-       self.titleLabel.text = (!previewAndSaveVC) ?
-        MWLocalizedString(@"navbar-title-mode-create-account", nil)
-        :
-        MWLocalizedString(@"navbar-title-mode-create-account-and-save", nil)
-       ;
-     */
-
     self.titleLabel.text = MWLocalizedString(@"navbar-title-mode-create-account", nil);
 
     self.usernameField.textAlignment       = NSTextAlignmentNatural;
