@@ -77,7 +77,6 @@ platform :ios do
       notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-      upload_dsym_only: true
     )
 
     # Note: skipping submission means that the changelog isn't added
@@ -108,7 +107,6 @@ platform :ios do
       notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
-      upload_dsym_only: true
     )
 
     pilot(skip_submission: false, changelog: changelog)
