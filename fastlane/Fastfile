@@ -85,7 +85,7 @@ platform :ios do
 
     # all goes well, tag the new version on git
     add_git_tag(tag: new_version)
-    push_to_git_remote
+    sh "git push origin #{new_version}"
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for external testing."
