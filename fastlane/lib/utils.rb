@@ -1,7 +1,5 @@
 # Utility functions
 
-require 'git'
-
 # Returns true if the `NO_DEPLOY` env var is set to 1
 def deploy_disabled?
   ENV['NO_DEPLOY'] == '1'
