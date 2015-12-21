@@ -180,7 +180,6 @@ static dispatch_once_t launchToken;
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
         [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
     } else if ([self shouldShowLastReadArticleOnLaunch]) {
-
         if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
             MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
             if (lastRead) {
@@ -189,7 +188,7 @@ static dispatch_once_t launchToken;
                 [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
             }
         }
-        
+
         if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
             [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         }
