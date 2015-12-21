@@ -31,7 +31,7 @@
 - (id)wmf_jsonFromContentsOfFile:(NSString*)filename {
     NSError* error;
     id json = [NSJSONSerialization JSONObjectWithData:[self wmf_dataFromContentsOfFile:filename ofType:@"json"]
-                                              options:NSJSONReadingMutableContainers 
+                                              options:NSJSONReadingMutableContainers
                                                 error:&error];
     NSAssert(!error, @"Error reading JSON data from filename %@: %@", filename, error);
     return json;
