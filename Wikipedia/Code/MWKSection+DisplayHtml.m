@@ -6,8 +6,6 @@
 #import "Defines.h"
 #import "NSString+Extras.h"
 
-static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div class='issues_container' id='issues_container'><a href='#issues_container_close_button' id='issues_container_close_button' style='float:right;'>X</a></div>";
-
 @implementation MWKSection (DisplayHtml)
 
 - (NSString*)displayHTML {
@@ -38,12 +36,11 @@ static NSString* const MWKSectionDisambigAndPageIssuesPlaceholderDiv = @"<div cl
 - (NSString*)getHeaderTag {
     if ([self isLeadSection]) {
         return [NSString stringWithFormat:
-                @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@%@",
+                @"<h1 class='section_heading' %@ sectionId='%d'>%@</h1>%@",
                 self.anchorAsElementId,
                 self.sectionId,
                 self.title.text,
-                [self articleEntityDescriptionAsParagraph],
-                MWKSectionDisambigAndPageIssuesPlaceholderDiv];
+                [self articleEntityDescriptionAsParagraph]];
     } else {
         short headingTagSize = [self getHeadingTagSize];
         return [NSString stringWithFormat:

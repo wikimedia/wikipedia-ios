@@ -8,6 +8,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFSaveButtonController.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.snippetText     = [article summary];
             [cell setImage:[article bestThumbnailImage]];
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+            cell.saveButtonController.analyticsSource = self;
         };
 
         self.tableDeletionBlock = ^(WMFSavedPagesDataSource* dataSource,
@@ -94,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return MWLocalizedString(@"saved-pages-title", nil);
+    return MWLocalizedString(@"saved-title", nil);
 }
 
 - (MWKSavedPageEntry*)savedPageForIndexPath:(NSIndexPath*)indexPath {
@@ -105,6 +108,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     MWKSavedPageEntry* savedEntry = [self savedPageForIndexPath:indexPath];
     return savedEntry.title;
+}
+
+- (WMFEmptyViewType)emptyViewType{
+    return WMFEmptyViewTypeNoSavedPages;
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
@@ -142,6 +149,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
     return MWKHistoryDiscoveryMethodSaved;
+}
+
+- (NSString*)analyticsName {
+    return @"Saved";
 }
 
 @end

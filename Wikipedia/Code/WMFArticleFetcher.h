@@ -4,7 +4,6 @@
 @class MWKTitle;
 @class MWKDataStore;
 @class MWKArticle;
-@class MWKArticlePreview;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,16 +33,5 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isFetching;
 
 @end
-
-
-
-@interface WMFArticlePreviewFetcher : WMFArticleBaseFetcher
-
-//Fullfilled promise returns MWKArticlePreview
-- (AnyPromise*)fetchArticlePreviewForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
-
-@end
-
-
 
 NS_ASSUME_NONNULL_END

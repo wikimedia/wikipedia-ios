@@ -3,7 +3,7 @@
 
 #import "NSManagedObjectContext+SimpleFetch.h"
 #import "ArticleCoreDataObjects.h"
-//#import "SessionSingleton.h"
+#import "MWKSite.h"
 
 @implementation NSManagedObjectContext (SimpleFetch)
 
@@ -45,7 +45,7 @@
                        AND \
                        domain == %@",
                                   title,
-                                  @"wikipedia.org",//[SessionSingleton sharedInstance].site,
+                                  WMFDefaultSiteDomain,//[SessionSingleton sharedInstance].site,
                                   domain
                        ];
 

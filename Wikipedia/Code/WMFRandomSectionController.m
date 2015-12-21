@@ -10,6 +10,8 @@
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFSaveButtonController.h"
+
 
 static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
@@ -108,6 +110,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
         previewCell.loading = self.fetcher.isFetching;
         [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+        previewCell.saveButtonController.analyticsSource = self;
     }
 }
 
@@ -153,4 +156,9 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     }
 }
 
+- (NSString*)analyticsName {
+    return @"Random";
+}
+
 @end
+

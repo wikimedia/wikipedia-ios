@@ -16,7 +16,6 @@
 
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
-#import <PiwikTracker/PiwikTracker.h>
 #import "Wikipedia-Swift.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -217,7 +216,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] sendView:@"Search"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -569,6 +567,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self updateLanguageButtonsToPreferredLanguages];
     [self selectLanguageForSite:language.site];
     [controller dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (NSString*)analyticsName {
+    return @"Search";
 }
 
 @end

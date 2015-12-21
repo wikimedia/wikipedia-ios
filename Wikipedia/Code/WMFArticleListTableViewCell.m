@@ -5,6 +5,7 @@
 #import "UIImageView+WMFImageFetching.h"
 #import "UITableViewCell+SelectedBackground.h"
 #import "UIImageView+WMFPlaceholder.h"
+#import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
 
 @interface WMFArticleListTableViewCell ()
 
@@ -50,6 +51,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self configureImageViewWithPlaceholder];
+    [self wmf_makeCellDividerBeEdgeToEdge];
 }
 
 #pragma mark - Title

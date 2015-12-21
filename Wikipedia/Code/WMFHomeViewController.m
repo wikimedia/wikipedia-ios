@@ -5,6 +5,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
 @import SSDataSources;
+#import "PiwikTracker+WMFExtensions.h"
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -63,7 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
  WMFSearchPresentationDelegate,
- UIViewControllerPreviewingDelegate>
+ UIViewControllerPreviewingDelegate,
+ WMFAnalyticsLogging>
 
 @property (nonatomic, strong, null_resettable) WMFHomeSectionSchema* schemaManager;
 
@@ -76,6 +78,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
+
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, null_resettable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
 
 @end
 
@@ -210,10 +215,16 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
+
     [self configureDataSourceIfNeeded];
 
     if ([self isDisplayingCellsForSectionController:self.nearbySectionController]) {
         [self.locationManager startMonitoringLocation];
+    }
+
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
     }
 }
 
@@ -485,6 +496,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleListTableViewController* extendedList              = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
     extendedList.dataSource = [articleSectionController extendedListDataSource];
+    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
@@ -520,15 +532,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
-    id<WMFFetchingHomeSectionController> fetchingController =
-        (id<WMFFetchingHomeSectionController>)[self sectionControllerForSectionAtIndex : indexPath.section];
-    if (![fetchingController conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]) {
-        return;
-    }
-    [fetchingController fetchDataIfNeeded];
-}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     return UITableViewCellEditingStyleNone;
@@ -591,6 +594,25 @@ NS_ASSUME_NONNULL_BEGIN
     return footer;
 }
 
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+
+    if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]) {
+        [(id<WMFFetchingHomeSectionController>)controller fetchDataIfNeeded];
+    }
+
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
+        return;
+    }
+    if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
+        if (title) {
+            [[PiwikTracker sharedInstance] wmf_logActionScrollToTitle:title inHomeSection:controller];
+        }
+    }
+}
+
 - (BOOL)tableView:(UITableView*)tableView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
@@ -610,6 +632,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
         MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
         if (title) {
+            [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:title inHomeSection:controller];
             MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
             [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
         }
@@ -677,7 +700,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     DDLogVerbose(@"Encountered %@ in section %ld: %@", error, section, controller);
     self.sectionLoadErrors[@(section)] = error;
-    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2)) {
+    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2) && self.view.superview) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
@@ -718,6 +741,9 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* title =
             [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
+            self.previewingTitle          = title;
+            self.sectionOfPreviewingTitle = sectionController;
+            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
             return [[WMFArticleContainerViewController alloc]
                     initWithArticleTitle:title
                                dataStore:[self dataStore]
@@ -733,10 +759,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:self.previewingTitle inHomeSection:self.sectionOfPreviewingTitle];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle          = nil;
+        self.sectionOfPreviewingTitle = nil;
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+- (NSString*)analyticsName {
+    return @"Home";
 }
 
 @end
