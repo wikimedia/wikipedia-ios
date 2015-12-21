@@ -118,7 +118,6 @@ GEM
       fastlane_core (>= 0.16.0, < 1.0.0)
       mini_magick (~> 4.0.2)
     fuzzy_match (2.0.4)
-    git (1.2.9.1)
     google-api-client (0.8.6)
       activesupport (>= 3.2)
       addressable (~> 2.3)
@@ -271,4 +270,3 @@ PLATFORMS
 DEPENDENCIES
   cocoapods (~> 0.39.0)
   fastlane (~> 1.48.0)
-  git (~> 1.2)
