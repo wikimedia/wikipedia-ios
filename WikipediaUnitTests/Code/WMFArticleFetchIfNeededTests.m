@@ -17,43 +17,43 @@
 
 static inline id articleRevisionResponseWithRevId(NSUInteger revID) {
     return @{
-        @"batchcomplete":@YES,
-        @"query":@{
-            @"pages": @[
-                @{
-                    @"pageid":@981989,
-                    @"ns":@0,
-                    @"title":@"Harry Glicken",
-                    @"revisions":@[
-                        @{
-                            @"revid":@(revID),
-                            @"parentid":@695972196,
-                            @"minor":@YES,
-                            @"size":@22416
-                        }
-                    ]
-                }
-            ]
-        }
+               @"batchcomplete": @YES,
+               @"query": @{
+                   @"pages": @[
+                       @{
+                           @"pageid": @981989,
+                           @"ns": @0,
+                           @"title": @"Harry Glicken",
+                           @"revisions": @[
+                               @{
+                                   @"revid": @(revID),
+                                   @"parentid": @695972196,
+                                   @"minor": @YES,
+                                   @"size": @22416
+                               }
+                           ]
+                       }
+                   ]
+               }
     };
 }
 
 QuickSpecBegin(WMFArticleFetchIfNeededTests)
 
-__block WMFArticleFetcher* articleFetcher;
+__block WMFArticleFetcher * articleFetcher;
 configureTempDataStoreForEach(tempDataStore, ^{
     articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:tempDataStore];
 });
 startAndStopStubbingBetweenEach();
 
 describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
-    context(@"title is cached with revision ID",^{
+    context(@"title is cached with revision ID", ^{
         it(@"should fetch the latest if cache is out of date", ^{
             NSMutableDictionary* latestArticleJSON = [[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"] mutableCopy];
             [latestArticleJSON setValue:@3 forKeyPath:@"mobileview.revision"];
             MWKArticle* cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
-                                                    dataStore:tempDataStore
-                                                         dict:latestArticleJSON[@"mobileview"]];
+                                                                dataStore:tempDataStore
+                                                                     dict:latestArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(equal(@3));
             [cachedArticle importAndSaveImagesFromSectionHTML];
             [cachedArticle save];
@@ -122,9 +122,9 @@ describe(@"fetchLatestVersionOfTitleIfNeeded", ^{
         __block MWKArticle* cachedArticle;
         beforeEach(^{
             cachedArticleJSON = [[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"];
-            cachedArticle     = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
-                                                        dataStore:tempDataStore
-                                                             dict:cachedArticleJSON[@"mobileview"]];
+            cachedArticle = [[MWKArticle alloc] initWithTitle:[MWKTitle random]
+                                                    dataStore:tempDataStore
+                                                         dict:cachedArticleJSON[@"mobileview"]];
             expect(cachedArticle.revisionId).to(beNil());
             [cachedArticle importAndSaveImagesFromSectionHTML];
             [cachedArticle save];
