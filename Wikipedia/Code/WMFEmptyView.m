@@ -55,6 +55,29 @@
     return view;
 }
 
++ (instancetype)noSavedPagesEmptyView{
+    WMFEmptyView* view = [[self class] emptyView];
+    view.imageView.image   = [UIImage imageNamed:@"saved-blank"];
+    view.titleLabel.text   = MWLocalizedString(@"empty-no-saved-pages-title", nil);
+    view.messageLabel.text = MWLocalizedString(@"empty-no-saved-pages-message", nil);
+    
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    return view;
+}
+
++ (instancetype)noHistoryEmptyView{
+    WMFEmptyView* view = [[self class] emptyView];
+    view.imageView.image   = [UIImage imageNamed:@"recent-blank"];
+    view.titleLabel.text   = MWLocalizedString(@"empty-no-history-title", nil);
+    view.messageLabel.text = MWLocalizedString(@"empty-no-history-message", nil);
+    
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    return view;
+}
+
+
 - (void)layoutSubviews {
     [super layoutSubviews];
 

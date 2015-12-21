@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
 #import "WMFAnalyticsLogging.h"
+#import "UIViewController+WMFEmptyView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
@@ -24,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath;
 
 - (CGFloat)estimatedItemHeight;
+
+- (WMFEmptyViewType)emptyViewType;
 
 @end
 
