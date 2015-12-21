@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* readMoreDataSource;
 
 // Fetchers
-@property (nonatomic, strong, nullable) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
@@ -228,7 +228,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _readMoreListViewController;
 }
 
-- (nullable WMFArticleFetcher*)articleFetcher {
+- (WMFArticleFetcher*)articleFetcher {
     if (!_articleFetcher) {
         _articleFetcher = [[WMFArticleFetcher alloc] initWithDataStore:self.dataStore];
     }
