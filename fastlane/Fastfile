@@ -73,6 +73,7 @@ platform :ios do
     changelog = default_changelog
 
     hockey(
+      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
       notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
@@ -103,6 +104,7 @@ platform :ios do
     changelog = default_changelog
 
     hockey(
+      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
       notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
