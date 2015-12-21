@@ -3,11 +3,9 @@
 #import "Wikipedia-Swift.h"
 
 // Frameworks
-#if PIWIK_ENABLED
-@import PiwikTracker;
-#endif
 @import Masonry;
 #import <Tweaks/FBTweakInline.h>
+#import "PiwikTracker+WMFExtensions.h"
 
 //Utility
 #import "NSDate+Utilities.h"
@@ -107,9 +105,6 @@ static dispatch_once_t launchToken;
     [self configureHomeViewController];
     [self configureSavedViewController];
     [self configureRecentViewController];
-#if PIWIK_ENABLED
-    [[PiwikTracker sharedInstance] sendView:@"Home"];
-#endif
 }
 
 - (void)configureTabController {
@@ -226,6 +221,7 @@ static dispatch_once_t launchToken;
             [self loadMainUI];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
+            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeHome]];
         }];
     }];
 }
@@ -270,7 +266,7 @@ static dispatch_once_t launchToken;
     return (UINavigationController*)[self.rootTabBarController viewControllers][tab];
 }
 
-- (UIViewController*)rootViewControllerForTab:(WMFAppTabType)tab {
+- (UIViewController<WMFAnalyticsLogging>*)rootViewControllerForTab:(WMFAppTabType)tab {
     return [[[self navigationControllerForTab:tab] viewControllers] firstObject];
 }
 
@@ -449,23 +445,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-#if PIWIK_ENABLED
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-    switch (tab) {
-        case WMFAppTabTypeHome: {
-            [[PiwikTracker sharedInstance] sendView:@"Home"];
-        }
-        break;
-        case WMFAppTabTypeSaved: {
-            [[PiwikTracker sharedInstance] sendView:@"Saved"];
-        }
-        break;
-        case WMFAppTabTypeRecent: {
-            [[PiwikTracker sharedInstance] sendView:@"Recent"];
-        }
-        break;
-    }
-#endif
+    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
 }
 
 #pragma mark - Notifications

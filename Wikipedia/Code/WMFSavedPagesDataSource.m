@@ -8,6 +8,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "NSString+Extras.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFSaveButtonController.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.snippetText     = [article summary];
             [cell setImage:[article bestThumbnailImage]];
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+            cell.saveButtonController.analyticsSource = self;
         };
 
         self.tableDeletionBlock = ^(WMFSavedPagesDataSource* dataSource,
@@ -142,6 +145,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
     return MWKHistoryDiscoveryMethodSaved;
+}
+
+- (NSString*)analyticsName {
+    return @"Saved";
 }
 
 @end
