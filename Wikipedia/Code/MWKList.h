@@ -40,9 +40,9 @@ typedef id<NSCopying, NSObject> MWKListIndex;
 
 - (EntryType)entryAtIndex:(NSUInteger)index;
 
-- (EntryType __nullable)entryForListIndex:(IndexType)listIndex;
+- (EntryType __nullable)entryForListIndex:(MWKListIndex)listIndex;
 
-- (BOOL)containsEntryForListIndex:(IndexType)listIndex;
+- (BOOL)containsEntryForListIndex:(MWKListIndex)listIndex;
 
 #pragma mark - Mutating the List
 
