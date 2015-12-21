@@ -591,12 +591,23 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         [self hideProgressViewAnimated:YES];
-        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+
         MWKArticle* cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
         if (cachedFallback) {
             self.article = cachedFallback;
+            if (![error wmf_isNetworkConnectionError]) {
+                // don't show offline banner for cached articles
+                [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                          sticky:NO
+                                           dismissPreviousAlerts:NO
+                                                     tapCallBack:NULL];
+            }
         } else {
             [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                      sticky:NO
+                                       dismissPreviousAlerts:NO
+                                                 tapCallBack:NULL];
         }
     }).finally(^{
         @strongify(self);
