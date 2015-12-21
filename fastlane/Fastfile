@@ -43,7 +43,7 @@ platform :ios do
     else
       increment_build_number
     end
-    return "#{get_version_number}.#{get_build_number}"
+    "#{get_version_number}.#{get_build_number}"
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
