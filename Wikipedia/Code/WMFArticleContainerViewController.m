@@ -367,7 +367,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)refreshToolbarItem {
     if (!_refreshToolbarItem) {
-        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"] style:UIBarButtonItemStylePlain target:self action:@selector(fetchArticle)];
+        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(fetchArticleIfNeeded)];
     }
     return _refreshToolbarItem;
 }
