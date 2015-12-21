@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
 
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
-@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
 
 @end
 
