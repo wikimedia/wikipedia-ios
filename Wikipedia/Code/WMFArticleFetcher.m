@@ -11,6 +11,11 @@
 #import "WMFArticleRequestSerializer.h"
 #import "WMFArticleResponseSerializer.h"
 
+// Revisions
+#import "WMFArticleRevisionFetcher.h"
+#import "WMFArticleRevision.h"
+#import "WMFRevisionQueryResults.h"
+
 //Promises
 #import "Wikipedia-Swift.h"
 
@@ -22,6 +27,10 @@
 #import "MWKArticle+HTMLImageImport.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+NSString* const WMFArticleFetcherErrorDomain = @"WMFArticleFetcherErrorDomain";
+
+NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFetcherErrorCachedFallbackArticleKey";
 
 @interface WMFArticleBaseFetcher ()
 
@@ -191,6 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleFetcher ()
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+@property (nonatomic, strong) WMFArticleRevisionFetcher* revisionFetcher;
 
 @end
 
@@ -203,6 +213,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.operationManager.requestSerializer  = [WMFArticleRequestSerializer serializer];
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
         self.dataStore                           = dataStore;
+        self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
     }
     return self;
 }
@@ -218,6 +229,49 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
         return [NSError wmf_serializeArticleErrorWithReason:[e reason]];
     }
+}
+
+- (AnyPromise*)fetchLatestVersionOfTitleIfNeeded:(MWKTitle*)title
+                                        progress:(WMFProgressHandler __nullable)progress {
+    NSParameterAssert(title);
+    if (!title) {
+        DDLogError(@"Can't fetch nil title, cancelling implicitly.");
+        return [AnyPromise promiseWithValue:[NSError cancelledError]];
+    }
+
+    @weakify(self);
+    MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:title];
+    if (!cachedArticle.revisionId) {
+        return [self fetchArticleForPageTitle:title progress:progress];
+    }
+    return [self.revisionFetcher fetchLatestRevisionsForTitle:title
+                                           resultLimit:1
+                                    endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
+    .then(^(WMFRevisionQueryResults* results) {
+        @strongify(self);
+        if (!self) {
+            return [AnyPromise promiseWithValue:[NSError cancelledError]];
+        } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
+            DDLogInfo(@"Returning up-to-date local revision of %@", title);
+            if (progress) {
+                progress(1.0);
+            }
+            return [AnyPromise promiseWithValue:cachedArticle];
+        } else {
+            return [self fetchArticleForPageTitle:title progress:progress];
+        }
+    })
+    .catch(^(NSError* error) {
+        if (!cachedArticle) {
+            return error;
+        } else {
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ?: @{}];
+            userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+            return [NSError errorWithDomain:error.domain
+                                       code:error.code
+                                   userInfo:userInfo];
+        }
+    });
 }
 
 - (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress {

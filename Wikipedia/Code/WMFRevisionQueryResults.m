@@ -10,7 +10,8 @@
 #import "WMFArticleRevision.h"
 
 typedef NS_ENUM(NSInteger, WMFRevisionQueryResultsError) {
-    WMFRevisionQueryResultsErrorMissingTitle = 1
+    WMFRevisionQueryResultsErrorMissingTitle = 1,
+    WMFRevisionQueryResultsErrorEmptyRevisions,
 };
 
 static NSString* const WMFRevisionQueryResultsErrorDomain = @"WMFRevisionQueryResultsErrorDomain";
@@ -26,8 +27,10 @@ static NSString* const WMFRevisionQueryResultsErrorDomain = @"WMFRevisionQueryRe
     }
 
     if (!self.revisions.count) {
-        // NOTE: logging this here to ensure titleText property is set. Otherwise log isn't helpful
-        DDLogWarn(@"Unexpected empty revisions list for title %@.", self.titleText);
+        WMFSafeAssign(error, [NSError errorWithDomain:WMFRevisionQueryResultsErrorDomain
+                                                 code:WMFRevisionQueryResultsErrorEmptyRevisions
+                                             userInfo:nil]);
+        return NO;
     }
 
     return YES;

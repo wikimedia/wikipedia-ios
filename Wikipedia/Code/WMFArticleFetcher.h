@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+extern NSString* const WMFArticleFetcherErrorDomain;
+
+extern NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey;
 
 @interface WMFArticleFetcher : WMFArticleBaseFetcher
 
@@ -29,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Fullfilled promise returns MWKArticle
 - (AnyPromise*)fetchArticleForPageTitle:(MWKTitle*)pageTitle progress:(WMFProgressHandler __nullable)progress;
+
+- (AnyPromise*)fetchLatestVersionOfTitleIfNeeded:(MWKTitle*)title
+                                        progress:(WMFProgressHandler __nullable)progress;
 
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
