@@ -17,7 +17,7 @@
 
 - (instancetype)initWithType:(WMFArticleFooterMenuItemType)type
                        title:(NSString*)title
-                    subTitle:(NSString *)subTitle
+                    subTitle:(NSString*)subTitle
                    imageName:(NSString*)imageName {
     self = [super init];
     if (self) {

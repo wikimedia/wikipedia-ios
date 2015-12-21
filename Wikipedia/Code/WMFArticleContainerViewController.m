@@ -124,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL articleFetchWasAttempted;
 
-@property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
+@property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
 @property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
 
 @end
@@ -588,10 +588,9 @@ NS_ASSUME_NONNULL_BEGIN
         if (!self.article.isMain) {
             [self fetchReadMore];
         }
-        
+
         self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
         self.footerMenuViewController.dataStore = self.dataStore;
-        
     }).catch(^(NSError* error){
         @strongify(self);
         [self hideProgressViewAnimated:YES];

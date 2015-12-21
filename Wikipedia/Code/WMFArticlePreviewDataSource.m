@@ -45,12 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(fetcher);
     self = [super initWithItems:nil];
     if (self) {
-        self.titles = titles;
+        self.titles              = titles;
         self.site                = site;
         self.titlesSearchFetcher = fetcher;
 
         self.cellClass = [WMFArticlePreviewTableViewCell class];
-        
+
         @weakify(self);
         self.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell* cell,
                                     MWKSearchResult* searchResult,
@@ -64,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
             cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-            
         };
     }
     return self;

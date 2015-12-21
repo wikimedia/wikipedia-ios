@@ -4,6 +4,6 @@
 
 @interface WMFPageIssuesViewController : UITableViewController
 
-@property (nonatomic, strong) SSArrayDataSource *dataSource;
+@property (nonatomic, strong) SSArrayDataSource* dataSource;
 
 @end

@@ -17,7 +17,7 @@
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
 
-@property (nonatomic, strong) SSArrayDataSource *footerDataSource;
+@property (nonatomic, strong) SSArrayDataSource* footerDataSource;
 
 @property (nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView* tableView;
 @property (nonatomic, strong) MWKArticle* article;
@@ -43,14 +43,14 @@
     [super viewDidLoad];
 
     self.tableView.estimatedRowHeight = 52.0;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
-    _footerDataSource = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
+    _footerDataSource               = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
     self.footerDataSource.tableView = self.tableView;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    WMFArticleFooterMenuItem*selectedItem = [self menuItemForIndexPath:indexPath];
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    WMFArticleFooterMenuItem* selectedItem = [self menuItemForIndexPath:indexPath];
     switch (selectedItem.type) {
         case WMFArticleFooterMenuItemTypeLanguages:
             [self showLanguages];
@@ -67,11 +67,11 @@
     }
 }
 
--(WMFArticleFooterMenuItem*)menuItemForIndexPath:(NSIndexPath*)indexPath {
+- (WMFArticleFooterMenuItem*)menuItemForIndexPath:(NSIndexPath*)indexPath {
     return self.footerDataSource.allItems[indexPath.row];
 }
 
--(void) showDisambiguationItems {
+- (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
     }];
@@ -97,8 +97,8 @@
     }];
 }
 
--(void)showPageIssues {
-    WMFPageIssuesViewController *issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+- (void)showPageIssues {
+    WMFPageIssuesViewController* issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
 }

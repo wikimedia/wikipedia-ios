@@ -62,18 +62,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site {
     WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
     params.titles = titles;
-    
+
     @weakify(self);
     return [self.operationManager wmf_GETWithSite:site parameters:params]
-    .thenInBackground(^id(NSArray<MWKSearchResult*>* unsortedPreviews) {
+           .thenInBackground(^id (NSArray<MWKSearchResult*>* unsortedPreviews) {
         @strongify(self);
         if (!self) {
             return [NSError cancelledError];
         }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for title)
         return [titles wmf_mapAndRejectNil:^(MWKTitle* title) {
-            return [unsortedPreviews bk_match:^BOOL(MWKSearchResult* preview){
-                return [preview.displayTitle isEqualToString: title.text];
+            return [unsortedPreviews bk_match:^BOOL (MWKSearchResult* preview){
+                return [preview.displayTitle isEqualToString:title.text];
             }];
         }];
     });
@@ -101,7 +101,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary*)serializedParams:(WMFArticlePreviewRequestParameters*)params {
     NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
     [baseParams setValuesForKeysWithDictionary:@{
-         @"titles": [self barSeparatedTitlesStringFromTitles:params.titles],
+         @"titles":[self barSeparatedTitlesStringFromTitles:params.titles],
          @"exlimit": @(params.titles.count),
          @"pilimit": @(params.titles.count)
      }];
