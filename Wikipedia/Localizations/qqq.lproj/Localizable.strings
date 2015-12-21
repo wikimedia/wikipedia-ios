@@ -292,6 +292,9 @@
 "hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";
 "page-issues" = "Label for the button that shows the \"Page issues\" dialog, where information about the imperfections of the current page is provided (by displaying the warning/cleanup templates).\n{{Identical|Page issue}}";
 "page-similar-titles" = "Label for button that shows a list of similar titles (disambiguation) for the current page";
+"page-read-in-other-languages" = "Label for button showing number of languages an article is available in. $1 will be replaced with the number of languages";
+"page-last-edited" = "Label for button showing number of days since an article was last edited. $1 will be replaced with the number of days";
+"page-edit-history" = "Label for button used to show an article's complete edit history";
 "captcha-reload" = "Title for button used to request another CAPTCHA to solve";
 "captcha-prompt" = "Text prompting user to solve a CAPTCHA";
 "mwk-empty-title-error" = "Error description for when an operation couldn't be performed since no title was specified.";
