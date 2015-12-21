@@ -35,7 +35,7 @@ platform :ios do
     xctest(opts)
   end
 
-  desc "Increment the app's build number and commit the changes."
+  desc "Increment the app's build number without committing the changes. Returns a string of the new, bumped version."
   lane :bump do |options|
     opt_build_num = options[:build_number] || ENV['BUILD_NUMBER']
     if opt_build_num then
@@ -43,12 +43,13 @@ platform :ios do
     else
       increment_build_number
     end
-    commit_version_bump
-    add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
+    return "#{get_version_number}.#{get_build_number}"
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
   lane :alpha do
+    new_version = bump
+
     sigh(
       adhoc: false,
       force: true
@@ -71,6 +72,10 @@ platform :ios do
     # Note: skipping submission means that the changelog isn't added
     # This isn't a beta, so we can't submit to external testers
     pilot(skip_submission: true)
+
+    # all goes well, tag the new version on git
+    add_git_tag(tag: new_version)
+    push_to_git_remote
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for external testing."
