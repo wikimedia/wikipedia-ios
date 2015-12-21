@@ -1,6 +1,8 @@
 
 #import "WMFArticleFetcher.h"
 
+#import <Tweaks/FBTweakInline.h>
+
 //Tried not to do it, but we need it for the useageReports BOOL
 //Plan to refactor settings into an another object, then we can remove this.
 #import "SessionSingleton.h"
@@ -214,11 +216,17 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
         self.dataStore                           = dataStore;
         self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
+
         /*
-           Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
-           when cached article content is up to date.
+         Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
+         when cached article content is up to date.
          */
-        [self.revisionFetcher setTimeoutInterval:0.8];
+        FBTweakBind(self.revisionFetcher,
+                    timeoutInterval,
+                    @"Networking",
+                    @"Article",
+                    @"Revision Check Timeout",
+                    0.8);
     }
     return self;
 }
