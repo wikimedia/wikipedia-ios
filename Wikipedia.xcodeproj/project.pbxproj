@@ -848,7 +848,6 @@
 		B0E803901C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFSnapshotting.m"; path = "Wikipedia/Code/UIView+WMFSnapshotting.m"; sourceTree = SOURCE_ROOT; };
 		B0E803921C0CDACC0065EBC0 /* WMFScrollViewTopPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFScrollViewTopPanGestureRecognizer.h; path = Wikipedia/Code/WMFScrollViewTopPanGestureRecognizer.h; sourceTree = SOURCE_ROOT; };
 		B0E803931C0CDACC0065EBC0 /* WMFScrollViewTopPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFScrollViewTopPanGestureRecognizer.m; path = Wikipedia/Code/WMFScrollViewTopPanGestureRecognizer.m; sourceTree = SOURCE_ROOT; };
-		B0E803951C0CDADA0065EBC0 /* WMFListTransitionProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFListTransitionProvider.h; path = Wikipedia/Code/WMFListTransitionProvider.h; sourceTree = SOURCE_ROOT; };
 		B0E803961C0CDB150065EBC0 /* WMFNumberOfExtractCharacters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNumberOfExtractCharacters.h; path = Wikipedia/Code/WMFNumberOfExtractCharacters.h; sourceTree = SOURCE_ROOT; };
 		B0E803971C0CDB280065EBC0 /* WMFArticleFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFetcher.h; path = Wikipedia/Code/WMFArticleFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E803981C0CDB280065EBC0 /* WMFArticleFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFetcher.m; path = Wikipedia/Code/WMFArticleFetcher.m; sourceTree = SOURCE_ROOT; };
@@ -2740,7 +2739,6 @@
 				B0E803901C0CDABE0065EBC0 /* UIView+WMFSnapshotting.m */,
 				B0E803921C0CDACC0065EBC0 /* WMFScrollViewTopPanGestureRecognizer.h */,
 				B0E803931C0CDACC0065EBC0 /* WMFScrollViewTopPanGestureRecognizer.m */,
-				B0E803951C0CDADA0065EBC0 /* WMFListTransitionProvider.h */,
 			);
 			name = Transitions;
 			path = Wikipedia/Code/Transitions;
