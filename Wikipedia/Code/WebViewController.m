@@ -459,40 +459,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     return (elementScreenYOffset > 0) && (elementScreenYOffset < rect.size.height);
 }
 
-- (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
-                                      duration:(CGFloat)duration
-                                   thenHideTOC:(BOOL)hideTOC {
-    CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
-    if (CGRectIsNull(r)) {
-        return;
-    }
-
-    // Determine if the element is already intersecting the top of the screen.
-    // The method below is more efficient than calling
-    // getScreenRectForHtmlElementWithId again (as it was already called by
-    // getWebViewRectForHtmlElementWithId).
-    // if ([self rectIntersectsWebViewTop:r]) return;
-
-    CGPoint point = r.origin;
-
-    // Leave x unchanged.
-    point.x = self.webView.scrollView.contentOffset.x;
-
-    // Scroll the section up just a tad more so the top of section div is just above top of web view.
-    // This ensures the section that was scrolled to is considered the "current" section. (This is
-    // because the current section is the one intersecting the top of the screen.)
-
-    point.y += 2;
-
-    if ([elementId isEqualToString:@"section_heading_and_content_block_0"]) {
-        point = CGPointZero;
-    }
-
-    [self tocScrollWebViewToPoint:point
-                         duration:duration
-                      thenHideTOC:hideTOC];
-}
-
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
