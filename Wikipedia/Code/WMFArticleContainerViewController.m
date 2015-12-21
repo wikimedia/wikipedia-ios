@@ -25,7 +25,7 @@
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-
+#import "PiwikTracker+WMFExtensions.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -534,8 +534,15 @@ NS_ASSUME_NONNULL_BEGIN
         self.article = cachedArticle;
         [self fetchLatestRevisionIfNeeded];
     }
+<<<<<<< HEAD
 
     [self startSignificantlyViewedTimer];
+=======
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
+>>>>>>> origin/master
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -613,6 +620,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreDataSource fetch]
     .then(^(WMFRelatedSearchResults* readMoreResults) {
         @strongify(self);
+        if (!self) {
+            // NOTE(bgerstle): must bail here to prevent creating placeholder array w/ nil below
+            return;
+        }
         if ([readMoreResults.results count] > 0) {
             [self.webViewController setFooterViewControllers:@[self.readMoreListViewController]];
             [self appendReadMoreTableOfContentsItem];
@@ -755,12 +766,6 @@ NS_ASSUME_NONNULL_BEGIN
     return nil;
 }
 
-#pragma mark - Analytics
-
-- (NSString*)analyticsName {
-    return [self.article analyticsName];
-}
-
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
 
 - (void)headerImageGallery:(WMFArticleHeaderImageGalleryViewController* __nonnull)gallery
@@ -889,6 +894,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
+        if ([peekVC isKindOfClass:[WMFArticleContainerViewController class]]) {
+            self.previewingTitle = [(WMFArticleContainerViewController*)peekVC articleTitle];
+            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:self.previewingTitle fromSource:nil];
+        }
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
@@ -912,6 +921,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    self.previewingTitle = nil;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {

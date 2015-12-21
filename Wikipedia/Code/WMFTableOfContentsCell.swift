@@ -59,6 +59,12 @@ public class WMFTableOfContentsCell: UITableViewCell {
     }
     
     public func setSectionSelected(selected: Bool, animated: Bool) {
+        if(selected && self.sectionSelectionBackground.alpha > 0){
+            return;
+        }
+        if(!selected && self.sectionSelectionBackground.alpha == 0){
+            return;
+        }
         UIView.animateWithDuration(animated ? 0.3 : 0.0) {
             if (selected) {
                 self.sectionSelectionBackground.alpha = 1.0
@@ -91,7 +97,7 @@ public class WMFTableOfContentsCell: UITableViewCell {
             selectedSectionIndicator.alpha = 0.0
         }
     }
-
+    
     // MARK: - Indentation
 
     static let minimumIndentationWidth: CGFloat = 10

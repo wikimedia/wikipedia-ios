@@ -315,7 +315,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     //Only return if
     if (shouldShowContinueReading) {
-        MWKTitle* lastRead = [self.historyPages mostRecentEntry].title;
+        MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
         if (lastRead) {
             return [WMFHomeSection continueReadingSectionWithTitle:lastRead];
         }

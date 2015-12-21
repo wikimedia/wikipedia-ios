@@ -75,6 +75,7 @@ PODS:
   - SVWebViewController (1.0)
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
+    - Masonry (~> 0.6)
   - Tweaks (HEAD based on 2.0.0)
 
 DEPENDENCIES:
@@ -83,7 +84,8 @@ DEPENDENCIES:
   - BlocksKit/Core (~> 2.2.0)
   - BlocksKit/UIKit (~> 2.2.0)
   - CocoaLumberjack/Swift (~> 2.2)
-  - FBSnapshotTestCase (from `git@github.com:bgerstle/ios-snapshot-test-case.git`)
+  - FBSnapshotTestCase (from `git@github.com:bgerstle/ios-snapshot-test-case.git`,
+    commit `689eb6a63c95dd0fa8fcd2e7b7b745fd84c2e9a3`)
   - HockeySDK (~> 3.8.2)
   - hpple (~> 0.2)
   - KVOController
@@ -107,6 +109,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   FBSnapshotTestCase:
+    :commit: 689eb6a63c95dd0fa8fcd2e7b7b745fd84c2e9a3
     :git: git@github.com:bgerstle/ios-snapshot-test-case.git
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
@@ -134,7 +137,7 @@ CHECKOUT OPTIONS:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
   TSMessages:
-    :commit: 0f0b9b8794109cbb133e7dfecd26b75afb77dae4
+    :commit: d86e3fb47ee80175d8fa8d26d17b56e42a0d60d2
     :git: https://github.com/wikimedia/TSMessages.git
 
 SPEC CHECKSUMS:
@@ -163,7 +166,7 @@ SPEC CHECKSUMS:
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
-  TSMessages: 6e403b790139636c15ab4f51946537095e03e79c
+  TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
 
 COCOAPODS: 0.39.0
