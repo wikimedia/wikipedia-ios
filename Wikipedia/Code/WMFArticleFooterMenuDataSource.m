@@ -38,17 +38,18 @@
                                                     imageName:imageName];
     };
 
-    NSMutableArray* menuItems =
-        [NSMutableArray arrayWithObjects:
-         makeItem(WMFArticleFooterMenuItemTypeLanguages,
-                  [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
-                  nil, @"footer-switch-language"),
-         makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                  [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
-                  MWLocalizedString(@"page-edit-history", nil),
-                  @"footer-edit-history"),
-         nil
-        ];
+    NSMutableArray* menuItems = [NSMutableArray new];
+
+    if (article.languagecount > 0) {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLanguages,
+                                      [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
+                                      nil, @"footer-switch-language")];
+    }
+
+    [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                                  [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
+                                  MWLocalizedString(@"page-edit-history", nil),
+                                  @"footer-edit-history")];
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
