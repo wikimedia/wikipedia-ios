@@ -9,6 +9,7 @@
 
 #import "UIView+WMFDefaultNib.h"
 #import "UIViewController+WMFHideKeyboard.h"
+#import "UIViewController+WMFEmptyView.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
 #import "WMFArticleContainerViewController.h"
@@ -77,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateDeleteButton];
     [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
         [self updateDeleteButtonEnabledState];
+        [self updateEmptyState];
     }];
 }
 
@@ -125,6 +127,22 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.leftBarButtonItem.enabled = YES;
     } else {
         self.navigationItem.leftBarButtonItem.enabled = NO;
+    }
+}
+
+#pragma mark - Empty State
+
+- (void)updateEmptyState{
+    if(self.view.superview == nil){
+        return;
+    }
+
+    if ([self.dataSource titleCount] > 0) {
+        [self wmf_hideEmptyView];
+    } else {
+        if([self.dataSource respondsToSelector:@selector(emptyViewType)]){
+            [self wmf_showEmptyViewOfType:[self.dataSource emptyViewType]];
+        }
     }
 }
 
@@ -200,6 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.dataStore);
     [self connectTableViewAndDataSource];
     [self updateDeleteButtonEnabledState];
+    [self updateEmptyState];
     [[self dynamicDataSource] startUpdating];
     [self registerForPreviewingIfAvailable];
 }

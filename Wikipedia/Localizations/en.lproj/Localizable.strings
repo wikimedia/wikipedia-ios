@@ -375,5 +375,11 @@
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-search-results-message" = "Sorry, could not load the results";
 
+"empty-no-saved-pages-title" = "No saved pages yet";
+"empty-no-saved-pages-message" = "Save pages to view them later, even offline";
+
+"empty-no-history-title" = "No history to show";
+"empty-no-history-message" = "Keep track of what you've been reading here";
+
 "alert-no-internet" = "There's no internet connection";
 

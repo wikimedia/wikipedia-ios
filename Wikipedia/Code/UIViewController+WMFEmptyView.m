@@ -32,6 +32,22 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         case WMFEmptyViewTypeNoSearchResults:
             view = [WMFEmptyView noSearchResultsEmptyView];
             break;
+        case WMFEmptyViewTypeNoSavedPages:
+            view = [WMFEmptyView noSavedPagesEmptyView];
+            break;
+        case WMFEmptyViewTypeNoHistory:
+            view = [WMFEmptyView noHistoryEmptyView];
+            break;
+
+    }
+
+    UIView* container = self.view.superview;
+    if ([container isKindOfClass:[UIScrollView class]]) {
+        container = container.superview;
+    }
+    NSAssert(container != nil, @"Trying to add an empty view with no container view");
+    if(!container){
+        return;
     }
 
     if ([self.view isKindOfClass:[UIScrollView class]]) {
@@ -39,10 +55,6 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
     }
     [self.view addSubview:view];
 
-    UIView* container = view.superview;
-    if ([container isKindOfClass:[UIScrollView class]]) {
-        container = container.superview;
-    }
     [view mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(container);
         make.bottom.equalTo(container);
