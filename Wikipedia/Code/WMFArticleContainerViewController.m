@@ -42,12 +42,9 @@
 #import "MWKLanguageLink.h"
 #import "MWKHistoryList.h"
 #import "WMFRelatedSearchResults.h"
-#import "WMFRevisionQueryResults.h"
-#import "WMFArticleRevision.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
-#import "WMFArticleRevisionFetcher.h"
 
 // View
 #import "UIViewController+WMFEmptyView.h"
@@ -93,7 +90,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Fetchers
 @property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
-@property (nonatomic, strong, nonnull) WMFArticleRevisionFetcher* articleRevisionFetcher;
 
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
@@ -164,13 +160,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
-}
-
-- (WMFArticleRevisionFetcher*)articleRevisionFetcher {
-    if (!_articleRevisionFetcher) {
-        _articleRevisionFetcher = [[WMFArticleRevisionFetcher alloc] init];
-    }
-    return _articleRevisionFetcher;
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
@@ -583,13 +572,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticleIfNeeded {
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
-    [self unobserveArticleUpdates];
-    [self showProgressViewAnimated:YES];
-    [self wmf_hideEmptyView];
-
     if (self.article) {
         return;
     }
+    
+    [self unobserveArticleUpdates];
+    [self showProgressViewAnimated:YES];
+    [self wmf_hideEmptyView];
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
