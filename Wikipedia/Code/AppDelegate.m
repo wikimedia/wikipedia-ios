@@ -4,11 +4,9 @@
 #import "Wikipedia-Swift.h"
 
 #import "BITHockeyManager+WMFExtensions.h"
+#import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 
-@import PiwikTracker;
-static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/";
-static NSString* const WMFPiwikSiteID    = @"4";
 
 @import Tweaks;
 
@@ -48,10 +46,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
-
-#if PIWIK_ENABLED
-    [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
-#endif
+    [PiwikTracker wmf_start];
 
     WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
     [vc launchAppInWindow:self.window];

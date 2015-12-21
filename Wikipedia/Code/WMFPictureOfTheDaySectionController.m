@@ -133,6 +133,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 
+- (NSString*)analyticsName {
+    return @"Picture of the Day";
+}
+
 @end
 
 @implementation MWKImageInfo (Feed)

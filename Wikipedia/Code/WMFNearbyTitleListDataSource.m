@@ -137,6 +137,10 @@ NS_ASSUME_NONNULL_BEGIN
     return [self numberOfItems] == 0;
 }
 
+- (NSString*)analyticsName {
+    return @"Nearby";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
