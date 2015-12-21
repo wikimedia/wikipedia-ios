@@ -575,13 +575,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article) {
         return;
     }
-    
+
     [self unobserveArticleUpdates];
     [self showProgressViewAnimated:YES];
     [self wmf_hideEmptyView];
 
     @weakify(self);
-    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
+    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfTitleIfNeeded:self.articleTitle progress:^(CGFloat progress) {
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
