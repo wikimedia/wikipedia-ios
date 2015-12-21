@@ -526,7 +526,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self startSignificantlyViewedTimer];
     if (self.previewingTitle) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:nil];
         self.previewingTitle = nil;
     }
 }
@@ -875,7 +875,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:nil];
     self.previewingTitle = nil;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
