@@ -198,6 +198,10 @@ NS_ASSUME_NONNULL_BEGIN
     return MWKHistoryDiscoveryMethodUnknown;
 }
 
+- (NSString*)analyticsName {
+    return @"Recent";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

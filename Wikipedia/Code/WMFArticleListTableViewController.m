@@ -22,10 +22,14 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "Wikipedia-Swift.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "PiwikTracker+WMFExtensions.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
 
 @end
 
@@ -92,6 +96,8 @@
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
+    //TODO: disabling until new designs are made
+    return;
     if ([self.dataSource conformsToProtocol:@protocol(WMFArticleDeleteAllDataSource)]) {
         id<WMFArticleDeleteAllDataSource> deleteableDataSource = (id<WMFArticleDeleteAllDataSource>)self.dataSource;
 
@@ -114,6 +120,7 @@
 }
 
 - (void)updateDeleteButtonEnabledState {
+    //TODO: disabling until new designs are made
     if ([self.dataSource titleCount] > 0) {
         self.navigationItem.leftBarButtonItem.enabled = YES;
     } else {
@@ -197,12 +204,20 @@
     [self registerForPreviewingIfAvailable];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[self dynamicDataSource] stopUpdating];
 }
 
-- (void)traitCollectionDidChange:(UITraitCollection*)previousTraitCollection {
+- (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
 }
@@ -272,6 +287,8 @@
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
+    self.previewingTitle = title;
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
                                                            discoveryMethod:self.dataSource.discoveryMethod];
@@ -279,11 +296,17 @@
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    self.previewingTitle = nil;
     if (self.delegate) {
         [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
     } else {
         [self wmf_pushArticleViewController:viewControllerToCommit];
     }
+}
+
+- (NSString*)analyticsName {
+    return [self.dataSource analyticsName];
 }
 
 @end
@@ -300,3 +323,4 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
