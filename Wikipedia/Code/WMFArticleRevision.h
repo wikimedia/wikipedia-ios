@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) NSNumber* revisionId;
 
-@property (nonatomic, assign, readonly, getter=isMinorEdit) BOOL minorEdit;
+@property (nonatomic, assign, readonly, getter = isMinorEdit) BOOL minorEdit;
 
 @property (nonatomic, assign, readonly) NSNumber* sizeInBytes;
 

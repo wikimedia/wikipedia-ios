@@ -184,7 +184,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.protection     = [self requiredProtectionStatus:@"protection" dict:dict];
     self.editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
-    self.revisionId = [self optionalNumber:@"revision" dict:dict];
+    self.revisionId        = [self optionalNumber:@"revision" dict:dict];
     self.redirected        = [self optionalTitle:@"redirected" dict:dict];
     self.displaytitle      = [self optionalString:@"displaytitle" dict:dict];
     self.entityDescription = [self optionalString:@"description" dict:dict];

@@ -9,7 +9,7 @@
 #import "WMFRevisionQueryResults.h"
 #import "WMFArticleRevision.h"
 
-typedef NS_ENUM(NSInteger, WMFRevisionQueryResultsError) {
+typedef NS_ENUM (NSInteger, WMFRevisionQueryResultsError) {
     WMFRevisionQueryResultsErrorMissingTitle = 1,
     WMFRevisionQueryResultsErrorEmptyRevisions,
 };
@@ -18,7 +18,7 @@ static NSString* const WMFRevisionQueryResultsErrorDomain = @"WMFRevisionQueryRe
 
 @implementation WMFRevisionQueryResults
 
-- (BOOL)validate:(NSError *__autoreleasing *)error {
+- (BOOL)validate:(NSError* __autoreleasing*)error {
     if (!self.titleText.length) {
         WMFSafeAssign(error, [NSError errorWithDomain:WMFRevisionQueryResultsErrorDomain
                                                  code:WMFRevisionQueryResultsErrorMissingTitle
@@ -36,12 +36,12 @@ static NSString* const WMFRevisionQueryResultsErrorDomain = @"WMFRevisionQueryRe
     return YES;
 }
 
-- (void)setRevisions:(NSArray<WMFArticleRevision *> *)revisions {
-    _revisions = revisions ?: @[];
+- (void)setRevisions:(NSArray<WMFArticleRevision*>*)revisions {
+    _revisions = revisions ? : @[];
 }
 
-- (void)setTitleText:(NSString *)titleText {
-    _titleText = titleText ?: @"";
+- (void)setTitleText:(NSString*)titleText {
+    _titleText = titleText ? : @"";
 }
 
 + (NSValueTransformer*)revisionsJSONTransformer {
