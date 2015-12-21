@@ -26,7 +26,7 @@
 //Funnel
 #import "WMFShareFunnel.h"
 #import "ProtectedEditAttemptFunnel.h"
-
+#import "PiwikTracker+WMFExtensions.h"
 
 // Model
 #import "MWKDataStore.h"
@@ -125,6 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL articleFetchWasAttempted;
 
 @property (nonatomic, strong) WMFArticleFooterMenuViewController *footerMenuViewController;
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
 
 @end
 
@@ -525,6 +526,10 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.article && self.articleFetchWasAttempted) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
     }
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -621,6 +626,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self.readMoreDataSource fetch]
     .then(^(WMFRelatedSearchResults* readMoreResults) {
         @strongify(self);
+        if (!self) {
+            // NOTE(bgerstle): must bail here to prevent creating placeholder array w/ nil below
+            return;
+        }
         if ([readMoreResults.results count] > 0) {
             [self.webViewController setFooterViewControllers:@[self.readMoreListViewController, self.footerMenuViewController]];
             [self appendReadMoreTableOfContentsItem];
@@ -707,12 +716,6 @@ NS_ASSUME_NONNULL_BEGIN
         return [MWSiteLocalizedString(self.articleTitle.site, @"article-read-more-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
     return nil;
-}
-
-#pragma mark - Analytics
-
-- (NSString*)analyticsName {
-    return [self.article analyticsName];
 }
 
 #pragma mark - WMFArticleHeadermageGalleryViewControllerDelegate
@@ -843,6 +846,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
+        if ([peekVC isKindOfClass:[WMFArticleContainerViewController class]]) {
+            self.previewingTitle = [(WMFArticleContainerViewController*)peekVC articleTitle];
+            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:self.previewingTitle fromSource:nil];
+        }
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
@@ -866,6 +873,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    self.previewingTitle = nil;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {

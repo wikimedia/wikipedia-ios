@@ -9,7 +9,6 @@ default_platform :ios
 
 platform :ios do
   before_all do
-     ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
      # Set project for commit_version_bump, which seems to get confused by projects in other folders
      ENV['FL_BUILD_NUMBER_PROJECT'] = "Wikipedia.xcodeproj"
      ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
@@ -36,7 +35,7 @@ platform :ios do
     xctest(opts)
   end
 
-  desc "Increment the app's build number and commit the changes."
+  desc "Increment the app's build number without committing the changes. Returns a string of the new, bumped version."
   lane :bump do |options|
     opt_build_num = options[:build_number] || ENV['BUILD_NUMBER']
     if opt_build_num then
@@ -44,25 +43,37 @@ platform :ios do
     else
       increment_build_number
     end
-    commit_version_bump
-    add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
+    "#{get_version_number}.#{get_build_number}"
   end
 
-  desc "Submit a new **Wikipedia Alpha** Build to Apple TestFlight"
+  desc "Returns a default changelog."
+  lane :default_changelog do
+    changelog = changelog_from_git_commits(
+        between: [ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^", "HEAD"],
+        pretty: "- %s"
+    )
+    puts changelog
+    changelog
+  end
+
+  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
   lane :alpha do
+    new_version = bump
+
     sigh(
       adhoc: false,
       force: true
     )
 
     gym(
-      configuration: "Alpha",
-      scheme: "Wikipedia Alpha"
+      configuration: "Beta",
+      scheme: "Wikipedia Beta"
     )
 
-    changelog = git_commit_log
+    changelog = default_changelog
 
     hockey(
+      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
       notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
@@ -71,26 +82,34 @@ platform :ios do
     # Note: skipping submission means that the changelog isn't added
     # This isn't a beta, so we can't submit to external testers
     pilot(skip_submission: true)
+
+    # all goes well, tag the new version on git
+    add_git_tag(tag: new_version)
+    push_to_git_remote
   end
 
-  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
+  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for external testing."
   lane :beta do
     sigh(
       adhoc: false,
-      force: true,
-      filename: 'build/beta.mobileprovision'
+      force: true
     )
-    ipa(
+
+    gym(
       configuration: "Beta",
-      scheme: "Wikipedia Beta",
-      embed: 'build/beta.mobileprovision',
+      scheme: "Wikipedia Beta"
     )
+
+    changelog = default_changelog
+
     hockey(
-      notes: git_commit_log,
+      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
+      notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
     )
-    pilot(skip_submission: false, changelog: git_commit_log)
+
+    pilot(skip_submission: false, changelog: changelog)
   end
 
   desc "Upload a developer build to Hockey."
@@ -115,7 +134,7 @@ platform :ios do
     )
 
     hockey(
-      notes: git_commit_log,
+      notes: default_changelog,
       notify: '2', # Notify all testers
       status: '2', # Make available for download
       release_type: '2' # 'alpha' release type
@@ -141,11 +160,13 @@ platform :ios do
       scheme: "Wikipedia",
       # both of these flags are required for ad hoc
       export_method: 'ad-hoc',
-      use_legacy_build_api: true
+      use_legacy_build_api: true,
+      # override hockeyapp ID for release candidate so reports go corresponding RC "app"
+      xcargs: 'WMF_HOCKEYAPP_IDENTIFIER=78e94cb597309a55d5bb99c839aa18a8'
     )
 
     hockey(
-      notes: git_commit_log,
+      notes: default_changelog,
       notify: '0', # Do not notify
       status: '2', # Make available for download
       release_type: '0' # 'beta' release type
@@ -156,20 +177,23 @@ platform :ios do
   lane :store do
     sigh(
       adhoc: false,
-      force: true,
-      filename: 'build/release.mobileprovision'
+      force: true
     )
-    ipa(
+
+    gym(
       configuration: "Release",
-      scheme: "Wikipedia",
-      embed: 'build/release.mobileprovision',
+      scheme: "Wikipedia"
     )
+
+
     hockey(
-      notes: git_commit_log,
+      notes: default_changelog,
       notify: '0', # Do not notify
       status: '1', # Do not make available for download
-      release_type: '1' # 'store' release type
+      release_type: '1', # 'store' release type
+      upload_dsym_only: true
     )
+
     deliver force: true
   end
 

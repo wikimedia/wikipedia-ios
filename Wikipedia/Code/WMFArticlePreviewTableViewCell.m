@@ -13,7 +13,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* snippetLabel;
 @property (strong, nonatomic) IBOutlet UIButton* saveButton;
 
-@property (strong, nonatomic) WMFSaveButtonController* saveButtonController;
+@property (strong, nonatomic, readwrite) WMFSaveButtonController* saveButtonController;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* paddingConstraintTrailing;

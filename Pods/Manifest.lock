@@ -119,7 +119,7 @@ EXTERNAL SOURCES:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :path: ./vendor/SDWebImage
+    :path: "./vendor/SDWebImage"
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
 
