@@ -2,7 +2,6 @@
 var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
-var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
 var utilities = require("./utilities");
 
 // DOMContentLoaded fires before window.onload! That's good!
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "addImageOverflowXContainers", document ); // Needs to happen before "widenImages" transform.
     transformer.transform( "widenImages", document );
     transformer.transform( "hideTables", document );
-    transformer.transform( "collapsePageIssuesAndDisambig", document.getElementById( "section_heading_and_content_block_0" ) );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });
@@ -93,21 +91,10 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
-        var targetId = href.slice(1);
-        if ( "issues" === targetId ) {
-            var issuesPayload = issuesAndDisambig.issuesClicked( hrefTarget );
-            bridge.sendMessage( 'issuesClicked', issuesPayload );
-        } else if ( "disambig" === targetId ) {
-            var disambigPayload = issuesAndDisambig.disambigClicked( hrefTarget );
-            bridge.sendMessage( 'disambigClicked', disambigPayload );
-        } else if ( "issues_container_close_button" === targetId ) {
-            issuesAndDisambig.closeClicked();
-        } else {
-            // If it is a link to an anchor in the current page, use existing link handling
-            // so top floating native header height can be taken into account by the regular
-            // fragment handling logic.
-            bridge.sendMessage( 'linkClicked', { 'href': href });
-        }
+        // If it is a link to an anchor in the current page, use existing link handling
+        // so top floating native header height can be taken into account by the regular
+        // fragment handling logic.
+        bridge.sendMessage( 'linkClicked', { 'href': href });
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
         bridge.sendMessage('imageClicked', { 'url': url });

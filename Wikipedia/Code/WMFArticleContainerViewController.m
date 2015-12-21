@@ -21,6 +21,7 @@
 #import "SectionEditorViewController.h"
 #import "LanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
+#import "WMFArticleFooterMenuViewController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -35,7 +36,6 @@
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
-#import "MWKArticlePreview.h"
 #import "MWKHistoryList.h"
 #import "MWKProtectionStatus.h"
 #import "MWKSectionList.h"
@@ -113,7 +113,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
-@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+
+@property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
 
 @end
 
@@ -587,6 +589,12 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.article = article;
+        if (!self.article.isMain) {
+            [self fetchReadMore];
+        }
+
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+        self.footerMenuViewController.dataStore = self.dataStore;
     }).catch(^(NSError* error){
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
@@ -626,7 +634,7 @@ NS_ASSUME_NONNULL_BEGIN
             return;
         }
         if ([readMoreResults.results count] > 0) {
-            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController]];
+            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController, self.footerMenuViewController]];
             [self appendReadMoreTableOfContentsItem];
         }
     }).catch(^(NSError* error){

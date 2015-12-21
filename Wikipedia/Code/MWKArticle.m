@@ -515,4 +515,12 @@ static NSString* const WMFArticleReflistColumnSelector = @"/html/body/*[contains
     return htmlStr;
 }
 
+- (nullable NSArray<MWKTitle*>*)disambiguationTitles {
+    return [[self.sections.entries firstObject] disambiguationTitles];
+}
+
+- (nullable NSArray<NSString*>*)pageIssues {
+    return [[self.sections.entries firstObject] pageIssues];
+}
+
 @end

@@ -268,7 +268,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
             @strongify(self);
-            MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+            MWKSite* site = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:@"en"];
             [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -596,20 +596,6 @@ NSString* const WMFLicenseTitleOnENWiki =
                 [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
             }
         }];
-
-        /*
-           [_bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-
-           //NSLog(@"disambigClicked: %@", payload);
-
-           }];
-
-           [_bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-
-           //NSLog(@"issuesClicked: %@", payload);
-
-           }];
-         */
 
         UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                               action:@selector(shareMenuItemTapped:)];
