@@ -91,4 +91,8 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     }
 }
 
+- (NSString*)analyticsName {
+    return @"Continue Reading";
+}
+
 @end

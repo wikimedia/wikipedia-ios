@@ -105,4 +105,8 @@
     return 60.f;
 }
 
+- (NSString*)analyticsName {
+    return @"Search";
+}
+
 @end

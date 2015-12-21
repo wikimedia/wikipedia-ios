@@ -173,19 +173,31 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
-    [self.delegate controller:self didFailToUpdateWithError:error];
     if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
         || !self.searchResults) {
         // only show error view if empty or error is not "unknown location"
         self.nearbyError = error;
         [self.delegate controller:self didSetItems:self.items];
     }
+
+    //This means there were 0 results - not neccesarily a "real" error.
+    //Only inform the delegate if we get a real error.
+    if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
+        [self.delegate controller:self didFailToUpdateWithError:error];
+    }
+
+    //Don't try to update after we get an error.
+    [self.viewModel stopUpdates];
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
     self.nearbyError   = nil;
     self.searchResults = results;
     [self.delegate controller:self didSetItems:self.items];
+}
+
+- (NSString*)analyticsName {
+    return @"Nearby";
 }
 
 @end

@@ -3,6 +3,26 @@
 
   export PATH=$PATH:/usr/local/bin
 
+  which -s gs
+  if [[ $? != 0 ]]; then
+    echo "Please install ghostscript to create app icon overlays."
+    exit 0
+  fi
+
+  which -s convert
+  if [[ $? != 0 ]]; then
+    echo "Please install imagemagick to create app icon overlays."
+    exit 0
+  fi
+
+  which -s identify
+  if [[ $? != 0 ]]; then
+    echo "Please install imagemagick to create app icon overlays."
+    exit 0
+  fi
+
+  set -e
+
   function processIconSet() {
 
     #Get build number from info.plist

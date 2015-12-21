@@ -27,6 +27,8 @@
 #import "MWKHistoryEntry.h"
 #import "MWKDataStore.h"
 #import "WMFRelatedSearchResults.h"
+#import "WMFSaveButtonController.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -87,6 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
             cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+            cell.saveButtonController.analyticsSource = self;
         };
     }
     return self;
@@ -146,6 +149,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath* __nonnull)indexPath {
     return NO;
+}
+
+- (NSString*)analyticsName {
+    return @"Related";
 }
 
 @end
