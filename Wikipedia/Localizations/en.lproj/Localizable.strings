@@ -320,6 +320,9 @@
 
 "page-issues" = "Page issues";
 "page-similar-titles" = "Similar pages";
+"page-read-in-other-languages" = "Read in $1 languages";
+"page-last-edited" = "Edited $1 days ago";
+"page-edit-history" = "Full edit history";
 
 "captcha-reload" = "Show another captcha";
 "captcha-prompt" = "Enter CAPTCHA text from image above";
