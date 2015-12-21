@@ -275,6 +275,48 @@ static NSString* const WMFSectionSummaryXPathSelector = @"\
     }] componentsJoinedByString:@" "] wmf_summaryFromText];
 }
 
+static NSString* const WMFSectionDisambiguationTitlesXPathSelector = @"//div[@class='hatnote']//a/@href";
+
+- (nullable NSArray<MWKTitle*>*)disambiguationTitles {
+    NSArray* textNodes = [self elementsInTextMatchingXPath:WMFSectionDisambiguationTitlesXPathSelector];
+    return [textNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
+        if (node.text.length == 0 || [node.text containsString:@"redlink=1"]) {
+            return nil;
+        }
+        return [[MWKTitle alloc] initWithInternalLink:node.text site:self.site];
+    }];
+}
+
+/*
+   TODO: Add tests for issues from:
+    enwiki > biocoenosis
+        - "This article does not cite any references (sources). (July 2015)"
+    enwiki > toleration
+        - "This article possibly contains original research. (May 2011)",
+        - "The examples and perspective in this article or section might have an extensive bias or disproportional coverage towards one or more specific regions. (May 2011)"
+ */
+static NSString* const WMFSectionPageIssuesXPathSelector =
+    @"//td[(contains(@class,'mbox-text') or contains(@class,'ambox-text')) and not(count(descendant::td) > 0)]";
+
+static NSString* const WMFSectionPageIssueUnhiddenXPathSelector =
+    @"//*[not(ancestor-or-self::*[@class = 'hide-when-compact' or contains(@class, 'collapsed')])]/text()";
+
+- (nullable NSArray<NSString*>*)pageIssues {
+    NSArray* issueNodes = [self elementsInTextMatchingXPath:WMFSectionPageIssuesXPathSelector];
+    return [issueNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
+        if (node.raw.length == 0) {
+            return nil;
+        }
+        NSArray* unhiddenIssueNodes = [[TFHpple hppleWithHTMLData:[node.raw dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:WMFSectionPageIssueUnhiddenXPathSelector];
+
+        NSArray* issuesStrings = [unhiddenIssueNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
+            return ([[node.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) ? nil : node.content;
+        }];
+
+        return issuesStrings.count > 0 ? [issuesStrings componentsJoinedByString : @""] : nil;
+    }];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

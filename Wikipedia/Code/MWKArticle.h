@@ -171,4 +171,8 @@ static const NSInteger kMWKArticleSectionNone = -1;
 
 - (NSString*)summary;
 
+- (nullable NSArray<MWKTitle*>*)disambiguationTitles;
+
+- (nullable NSArray<NSString*>*)pageIssues;
+
 @end
