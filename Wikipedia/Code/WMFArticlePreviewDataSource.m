@@ -34,6 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticlePreviewDataSource
 
+- (NSString*)analyticsName {
+    return @"Article Disambiguation";
+}
+
 - (instancetype)initWithTitles:(NSArray<MWKTitle*>*)titles
                           site:(MWKSite*)site
                        fetcher:(WMFArticlePreviewFetcher*)fetcher {
