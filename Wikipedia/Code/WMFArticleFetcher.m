@@ -218,8 +218,8 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
 
         /*
-         Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
-         when cached article content is up to date.
+           Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
+           when cached article content is up to date.
          */
         FBTweakBind(self.revisionFetcher,
                     timeoutInterval,
