@@ -1971,12 +1971,16 @@
 			path = Wikipedia/Code/Defines;
 			sourceTree = SOURCE_ROOT;
 		};
-		042A5B1419253D2A0095E172 /* Navigation */ = {
+		042A5B1419253D2A0095E172 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				04CCCFE81935093A00E3F60C /* Secondary */,
+				B0E806C01C0CEB380065EBC0 /* WMFSettingsViewController.h */,
+				B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */,
+				B0E806BD1C0CEB380065EBC0 /* SecondaryMenuRowView.h */,
+				B0E806BE1C0CEB380065EBC0 /* SecondaryMenuRowView.m */,
+				B0E806BF1C0CEB380065EBC0 /* SecondaryMenuRowView.xib */,
 			);
-			name = Navigation;
+			name = Settings;
 			path = Wikipedia/Code/Navigation;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -2231,7 +2235,7 @@
 				041C55CF1950B260006CE0EF /* EditSummary */,
 				041A3B5718E11ED90079FF1C /* Languages */,
 				0449E63218A9844000D51524 /* Login */,
-				042A5B1419253D2A0095E172 /* Navigation */,
+				042A5B1419253D2A0095E172 /* Settings */,
 				04C91CE8195517030035ED1B /* Onboarding */,
 				04F27B6D18FE0F2E00EDD838 /* PageHistory */,
 				04DD89AE18BFE63A00DD5DAD /* Preview */,
@@ -2468,19 +2472,6 @@
 			);
 			name = References;
 			path = Wikipedia/Code/References;
-			sourceTree = SOURCE_ROOT;
-		};
-		04CCCFE81935093A00E3F60C /* Secondary */ = {
-			isa = PBXGroup;
-			children = (
-				B0E806BD1C0CEB380065EBC0 /* SecondaryMenuRowView.h */,
-				B0E806BE1C0CEB380065EBC0 /* SecondaryMenuRowView.m */,
-				B0E806BF1C0CEB380065EBC0 /* SecondaryMenuRowView.xib */,
-				B0E806C01C0CEB380065EBC0 /* WMFSettingsViewController.h */,
-				B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */,
-			);
-			name = Secondary;
-			path = Wikipedia/Code/Secondary;
 			sourceTree = SOURCE_ROOT;
 		};
 		04D149D818877343006B4104 /* Alerts */ = {
