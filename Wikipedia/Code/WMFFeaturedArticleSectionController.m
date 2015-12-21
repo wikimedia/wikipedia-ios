@@ -11,6 +11,7 @@
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFSaveButtonController.h"
 
 #import "NSString+FormattedAttributedString.h"
 
@@ -118,6 +119,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         [previewCell setImageURL:self.featuredArticlePreview.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
         [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+        previewCell.saveButtonController.analyticsSource = self;
     }
 }
 
@@ -142,6 +144,10 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
     });
+}
+
+- (NSString*)analyticsName {
+    return @"Featured Article";
 }
 
 @end

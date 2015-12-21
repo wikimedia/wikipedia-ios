@@ -7,13 +7,13 @@
         "buttonImageName": "close-mini",
         "buttonTintColor": "#727272",
         "contentFontSize": 12,
-        "contentTextColor": "#20c79d",
+        "contentTextColor": "#00C89C",
         "imageName": "good",
-        "imageTintColor": "#20c79d",
+        "imageTintColor": "#00C89C",
         "shadowColor": "#67B759",
         "shadowOffsetX": 0,
         "shadowOffsetY": 0,
-        "textColor": "#20c79d",
+        "textColor": "#00C89C",
         "titleFontSize": 14
     },
     "message": {
