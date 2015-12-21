@@ -33,6 +33,10 @@
     return self;
 }
 
+- (void)setTimeoutInterval:(NSTimeInterval)timeoutInterval {
+    self.requestManager.requestSerializer.timeoutInterval = timeoutInterval;
+}
+
 - (AnyPromise*)fetchLatestRevisionsForTitle:(MWKTitle*)title
                                 resultLimit:(NSUInteger)numberOfResults
                          endingWithRevision:(NSUInteger)revisionId {

@@ -214,6 +214,11 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         self.operationManager.responseSerializer = [WMFArticleResponseSerializer serializer];
         self.dataStore                           = dataStore;
         self.revisionFetcher                     = [[WMFArticleRevisionFetcher alloc] init];
+        /*
+         Setting short revision check timeouts, to ensure that poor connections don't drastically impact the case
+         when cached article content is up to date.
+        */
+        [self.revisionFetcher setTimeoutInterval:0.8];
     }
     return self;
 }
