@@ -271,15 +271,11 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     }
 
     return promisedArticle.catch(^(NSError* error) {
-        if (!cachedArticle) {
-            return error;
-        } else {
-            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ? : @{}];
-            userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
-            return [NSError errorWithDomain:error.domain
-                                       code:error.code
-                                   userInfo:userInfo];
-        }
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithDictionary:error.userInfo ? : @{}];
+        userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey] = cachedArticle;
+        return [NSError errorWithDomain:error.domain
+                                   code:error.code
+                               userInfo:userInfo];
     });
 }
 
