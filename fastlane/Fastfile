@@ -46,6 +46,16 @@ platform :ios do
     "#{get_version_number}.#{get_build_number}"
   end
 
+  desc "Returns a default changelog."
+  lane :default_changelog do
+    changelog = changelog_from_git_commits(
+        between: [ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^", "HEAD"],
+        pretty: "- %s"
+    )
+    puts changelog
+    changelog
+  end
+
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
   lane :alpha do
     new_version = bump
@@ -60,7 +70,7 @@ platform :ios do
       scheme: "Wikipedia Beta"
     )
 
-    changelog = changelog_from_git_commits(ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^")
+    changelog = default_changelog
 
     hockey(
       notes: changelog,
@@ -90,7 +100,7 @@ platform :ios do
       scheme: "Wikipedia Beta"
     )
 
-    changelog = changelog_from_git_commits(ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^")
+    changelog = default_changelog
 
     hockey(
       notes: changelog,
@@ -115,8 +125,6 @@ platform :ios do
     # force debug menu to be shown
     ENV['WMF_FORCE_DEBUG_MENU'] = '1'
 
-    changelog = changelog_from_git_commits "HEAD^^^^^"
-
     gym(
       configuration: "AdHoc",
       scheme: "Wikipedia AdHoc",
@@ -126,7 +134,7 @@ platform :ios do
     )
 
     hockey(
-      notes: changelog,
+      notes: default_changelog,
       notify: '2', # Notify all testers
       status: '2', # Make available for download
       release_type: '2' # 'alpha' release type
@@ -157,10 +165,8 @@ platform :ios do
       xcargs: 'WMF_HOCKEYAPP_IDENTIFIER=78e94cb597309a55d5bb99c839aa18a8'
     )
 
-    changelog = changelog_from_git_commits "HEAD^^^^^"
-
     hockey(
-      notes: changelog,
+      notes: default_changelog,
       notify: '0', # Do not notify
       status: '2', # Make available for download
       release_type: '0' # 'beta' release type
@@ -179,10 +185,9 @@ platform :ios do
       scheme: "Wikipedia"
     )
 
-    changelog = changelog_from_git_commits "HEAD^^^^^"
 
     hockey(
-      notes: changelog,
+      notes: default_changelog,
       notify: '0', # Do not notify
       status: '1', # Do not make available for download
       release_type: '1', # 'store' release type
