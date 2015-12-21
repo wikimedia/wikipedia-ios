@@ -47,7 +47,7 @@ platform :ios do
     add_git_tag(tag: "#{get_version_number}.#{get_build_number}")
   end
 
-  desc "Submit a new **Wikipedia Alpha** build to Apple TestFlight"
+  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
   lane :alpha do
     sigh(
       adhoc: false,
@@ -55,8 +55,8 @@ platform :ios do
     )
 
     gym(
-      configuration: "Alpha",
-      scheme: "Wikipedia Alpha"
+      configuration: "Beta",
+      scheme: "Wikipedia Beta"
     )
 
     changelog = changelog_from_git_commits(ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^")
@@ -73,7 +73,7 @@ platform :ios do
     pilot(skip_submission: true)
   end
 
-  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight"
+  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for external testing."
   lane :beta do
     sigh(
       adhoc: false,
