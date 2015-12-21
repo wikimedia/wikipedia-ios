@@ -1,10 +1,11 @@
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
+#import "WMFAnalyticsLogging.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
 
-@protocol WMFTitleListDataSource <NSObject>
+@protocol WMFTitleListDataSource <WMFAnalyticsLogging>
 
 - (nullable NSString*)displayTitle;
 

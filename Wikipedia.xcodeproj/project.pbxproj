@@ -20,6 +20,7 @@
 		0E26B0841C0F4F720004D687 /* WMFWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */; };
 		0E26B0871C0FD5170004D687 /* WMFBoringNavigationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
+		0E7AAEED1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */; };
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
 		0EBCA7461C162EE9004F1FD9 /* MWKLanguageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7451C162EE9004F1FD9 /* MWKLanguageFilter.m */; };
 		0EBCA7481C176389004F1FD9 /* WMFAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7471C176389004F1FD9 /* WMFAlertManager.swift */; };
@@ -587,6 +588,7 @@
 		BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15AF31C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m */; };
 		BCA15B011C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B001C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m */; };
 		BCA15B171C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */; };
+		BCAE0DFA1C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAE0DF91C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCC4D3551C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */; };
 		BCCB813D1C110702008BC602 /* NSDate+WMFDateRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB813A1C110702008BC602 /* NSDate+WMFDateRanges.m */; };
@@ -658,6 +660,8 @@
 		0E26B0851C0FD5170004D687 /* WMFBoringNavigationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBoringNavigationTransition.h; path = Wikipedia/Code/WMFBoringNavigationTransition.h; sourceTree = SOURCE_ROOT; };
 		0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBoringNavigationTransition.m; path = Wikipedia/Code/WMFBoringNavigationTransition.m; sourceTree = SOURCE_ROOT; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
+		0E7AAEEB1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PiwikTracker+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
+		0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PiwikTracker+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKTitleLanguageController.m; path = Wikipedia/Code/MWKTitleLanguageController.m; sourceTree = SOURCE_ROOT; };
 		0EBCA7421C162ECF004F1FD9 /* MWKTitleLanguageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKTitleLanguageController.h; path = Wikipedia/Code/MWKTitleLanguageController.h; sourceTree = SOURCE_ROOT; };
 		0EBCA7441C162EE9004F1FD9 /* MWKLanguageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKLanguageFilter.h; path = Wikipedia/Code/MWKLanguageFilter.h; sourceTree = SOURCE_ROOT; };
@@ -1715,6 +1719,8 @@
 		BCA15B051C0E91C600D0A3EA /* WMFModalImageGalleryViewController_Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFModalImageGalleryViewController_Subclass.h; path = Wikipedia/Code/WMFModalImageGalleryViewController_Subclass.h; sourceTree = SOURCE_ROOT; };
 		BCA15B151C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScreen+WMFImageWidth.h"; path = "Wikipedia/Code/UIScreen+WMFImageWidth.h"; sourceTree = SOURCE_ROOT; };
 		BCA15B161C0F48EF00D0A3EA /* UIScreen+WMFImageWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScreen+WMFImageWidth.m"; path = "Wikipedia/Code/UIScreen+WMFImageWidth.m"; sourceTree = SOURCE_ROOT; };
+		BCAE0DF81C247E7E006DDF51 /* UITableView+WMFLockedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+WMFLockedUpdates.h"; path = "Wikipedia/Code/UITableView+WMFLockedUpdates.h"; sourceTree = SOURCE_ROOT; };
+		BCAE0DF91C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+WMFLockedUpdates.m"; path = "Wikipedia/Code/UITableView+WMFLockedUpdates.m"; sourceTree = SOURCE_ROOT; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDTitleTests.m"; path = "WikipediaUnitTests/Code/NSDate+WMFPOTDTitleTests.m"; sourceTree = SOURCE_ROOT; };
 		BCCB81391C110702008BC602 /* NSDate+WMFDateRanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFDateRanges.h"; path = "Wikipedia/Code/NSDate+WMFDateRanges.h"; sourceTree = SOURCE_ROOT; };
@@ -2245,6 +2251,8 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				BCAE0DF81C247E7E006DDF51 /* UITableView+WMFLockedUpdates.h */,
+				BCAE0DF91C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m */,
 				BCCB81471C1109BD008BC602 /* SSBaseDataSource+WMFLayoutDirectionUtilities.h */,
 				BCCB81481C1109BD008BC602 /* SSBaseDataSource+WMFLayoutDirectionUtilities.m */,
 				BCCB81391C110702008BC602 /* NSDate+WMFDateRanges.h */,
@@ -2832,6 +2840,37 @@
 			name = Footer;
 			path = Wikipedia/Code/Footer;
 			sourceTree = SOURCE_ROOT;
+		};
+		0E7AAEEA1C21F4160046B5B6 /* WIkimedia EL */ = {
+			isa = PBXGroup;
+			children = (
+				B0E805771C0CE2C60065EBC0 /* CreateAccountFunnel.h */,
+				B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */,
+				B0E805791C0CE2C60065EBC0 /* EditFunnel.h */,
+				B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */,
+				B0E8057B1C0CE2C60065EBC0 /* EventLogger.h */,
+				B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */,
+				B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */,
+				B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */,
+				B0E8057F1C0CE2C60065EBC0 /* LoginFunnel.h */,
+				B0E805801C0CE2C60065EBC0 /* LoginFunnel.m */,
+				B0E805811C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.h */,
+				B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */,
+				B0E805831C0CE2C60065EBC0 /* ReadingActionFunnel.h */,
+				B0E805841C0CE2C60065EBC0 /* ReadingActionFunnel.m */,
+				B0E805871C0CE2C60065EBC0 /* ToCInteractionFunnel.h */,
+				B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */,
+				B0E805891C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.h */,
+				B0E8058A1C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m */,
+				B0E8058B1C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.h */,
+				B0E8058C1C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m */,
+				B0E805981C0CE2E40065EBC0 /* WMFSearchFunnel.h */,
+				B0E805991C0CE2E40065EBC0 /* WMFSearchFunnel.m */,
+				B0E8059B1C0CE2F50065EBC0 /* WMFShareFunnel.h */,
+				B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */,
+			);
+			name = "WIkimedia EL";
+			sourceTree = "<group>";
 		};
 		0E7E602E1B7CFA9B00ED1C69 /* Analytics */ = {
 			isa = PBXGroup;
@@ -4265,30 +4304,9 @@
 		D4B0ADFF19365F4600F0AC90 /* EventLogging */ = {
 			isa = PBXGroup;
 			children = (
-				B0E805771C0CE2C60065EBC0 /* CreateAccountFunnel.h */,
-				B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */,
-				B0E805791C0CE2C60065EBC0 /* EditFunnel.h */,
-				B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */,
-				B0E8057B1C0CE2C60065EBC0 /* EventLogger.h */,
-				B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */,
-				B0E8057D1C0CE2C60065EBC0 /* EventLoggingFunnel.h */,
-				B0E8057E1C0CE2C60065EBC0 /* EventLoggingFunnel.m */,
-				B0E8057F1C0CE2C60065EBC0 /* LoginFunnel.h */,
-				B0E805801C0CE2C60065EBC0 /* LoginFunnel.m */,
-				B0E805811C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.h */,
-				B0E805821C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m */,
-				B0E805831C0CE2C60065EBC0 /* ReadingActionFunnel.h */,
-				B0E805841C0CE2C60065EBC0 /* ReadingActionFunnel.m */,
-				B0E805871C0CE2C60065EBC0 /* ToCInteractionFunnel.h */,
-				B0E805881C0CE2C60065EBC0 /* ToCInteractionFunnel.m */,
-				B0E805891C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.h */,
-				B0E8058A1C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m */,
-				B0E8058B1C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.h */,
-				B0E8058C1C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m */,
-				B0E805981C0CE2E40065EBC0 /* WMFSearchFunnel.h */,
-				B0E805991C0CE2E40065EBC0 /* WMFSearchFunnel.m */,
-				B0E8059B1C0CE2F50065EBC0 /* WMFShareFunnel.h */,
-				B0E8059C1C0CE2F50065EBC0 /* WMFShareFunnel.m */,
+				0E7AAEEA1C21F4160046B5B6 /* WIkimedia EL */,
+				0E7AAEEB1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.h */,
+				0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */,
 			);
 			name = EventLogging;
 			path = Wikipedia/Code/EventLogging;
@@ -4922,6 +4940,7 @@
 				B0E806741C0CE9850065EBC0 /* QueuesSingleton.m in Sources */,
 				B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */,
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
+				0E7AAEED1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0E807681C0CEE3A0065EBC0 /* GalleryImage.m in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
@@ -5161,6 +5180,7 @@
 				B0E8066D1C0CE9030065EBC0 /* PageHistoryFetcher.m in Sources */,
 				B0E806B71C0CEB160065EBC0 /* LanguagesViewController.m in Sources */,
 				B0E805521C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m in Sources */,
+				BCAE0DFA1C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m in Sources */,
 				B0E804BE1C0CE0B40065EBC0 /* CLLocation+WMFBearing.m in Sources */,
 				B0E8030A1C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m in Sources */,
 				B0E807221C0CECE30065EBC0 /* CommunicationBridge.m in Sources */,
@@ -5442,6 +5462,11 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"PIWIK_ENABLED=1",
+				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -5550,6 +5575,11 @@
 				ENABLE_TESTABILITY = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"PIWIK_ENABLED=1",
+				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
@@ -5770,6 +5800,11 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"PIWIK_ENABLED=1",
+				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
