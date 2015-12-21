@@ -239,30 +239,38 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         return [AnyPromise promiseWithValue:[NSError cancelledError]];
     }
 
-    @weakify(self);
     MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:title];
-    if (!cachedArticle.revisionId) {
-        DDLogInfo(@"No cached article w/ revision ID found for %@, fetching instead.", title);
+    if (!cachedArticle) {
+        DDLogInfo(@"No cached article found for %@, fetching immediately.", title);
         return [self fetchArticleForPageTitle:title progress:progress];
     }
-    return [self.revisionFetcher fetchLatestRevisionsForTitle:title
-                                                  resultLimit:1
-                                           endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
-           .then(^(WMFRevisionQueryResults* results) {
-        @strongify(self);
-        if (!self) {
-            return [AnyPromise promiseWithValue:[NSError cancelledError]];
-        } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
-            DDLogInfo(@"Returning up-to-date local revision of %@", title);
-            if (progress) {
-                progress(1.0);
+
+    @weakify(self);
+    AnyPromise* promisedArticle;
+    if (!cachedArticle.revisionId) {
+        DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", title);
+        promisedArticle = [self fetchArticleForPageTitle:title progress:progress];
+    } else {
+        promisedArticle = [self.revisionFetcher fetchLatestRevisionsForTitle:title
+                                                                 resultLimit:1
+                                                          endingWithRevision:cachedArticle.revisionId.unsignedIntegerValue]
+                          .then(^(WMFRevisionQueryResults* results) {
+            @strongify(self);
+            if (!self) {
+                return [AnyPromise promiseWithValue:[NSError cancelledError]];
+            } else if ([results.revisions.firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
+                DDLogInfo(@"Returning up-to-date local revision of %@", title);
+                if (progress) {
+                    progress(1.0);
+                }
+                return [AnyPromise promiseWithValue:cachedArticle];
+            } else {
+                return [self fetchArticleForPageTitle:title progress:progress];
             }
-            return [AnyPromise promiseWithValue:cachedArticle];
-        } else {
-            return [self fetchArticleForPageTitle:title progress:progress];
-        }
-    })
-           .catch(^(NSError* error) {
+        });
+    }
+
+    return promisedArticle.catch(^(NSError* error) {
         if (!cachedArticle) {
             return error;
         } else {
