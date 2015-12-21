@@ -2955,15 +2955,15 @@
 			path = "Wikipedia/Code/UI-V5";
 			sourceTree = SOURCE_ROOT;
 		};
-		0E9DFEAB1BDEB82E0032606E /* Article Fetching */ = {
+		0E9DFEAB1BDEB82E0032606E /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				B0E803961C0CDB150065EBC0 /* WMFNumberOfExtractCharacters.h */,
 				BC23E4DF1C223F1000B5AFDE /* Content */,
-				B06531611C221BC4003BD7DC /* WMFArticlePreviewFetcher.h */,
-				B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */,
+				BCF445821C28ADD700F49E29 /* Previews */,
+				BC23E4DE1C223EAB00B5AFDE /* Revisions */,
 			);
-			name = "Article Fetching";
+			name = Networking;
 			path = "Wikipedia/Code/Article Fetching";
 			sourceTree = SOURCE_ROOT;
 		};
@@ -3241,8 +3241,7 @@
 				0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */,
 				0E0377741B4C47D500470BBE /* Table */,
 				0E2B06FB1B2D12B300EA2F53 /* Transitions */,
-				BC23E4DE1C223EAB00B5AFDE /* Revisions */,
-				0E9DFEAB1BDEB82E0032606E /* Article Fetching */,
+				0E9DFEAB1BDEB82E0032606E /* Networking */,
 				0E74DC821BEBBF4200A8A005 /* Footer */,
 			);
 			name = Article;
@@ -4237,6 +4236,15 @@
 			name = Common;
 			path = Wikipedia/Code/Common;
 			sourceTree = SOURCE_ROOT;
+		};
+		BCF445821C28ADD700F49E29 /* Previews */ = {
+			isa = PBXGroup;
+			children = (
+				B06531611C221BC4003BD7DC /* WMFArticlePreviewFetcher.h */,
+				B06531621C221BC4003BD7DC /* WMFArticlePreviewFetcher.m */,
+			);
+			name = Previews;
+			sourceTree = "<group>";
 		};
 		C42D94811A937DE000A4871A /* Custom Views */ = {
 			isa = PBXGroup;
