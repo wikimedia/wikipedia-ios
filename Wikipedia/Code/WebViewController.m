@@ -25,9 +25,6 @@
 #import "UIView+WMFRTLMirroring.h"
 #import "PageHistoryViewController.h"
 
-#import "WMFSectionHeadersViewController.h"
-#import "WMFSectionHeaderEditProtocol.h"
-
 #import "UIWebView+WMFJavascriptContext.h"
 #import "UIWebView+WMFTrackingView.h"
 #import "UIWebView+ElementLocation.h"
@@ -64,8 +61,6 @@ NSString* const WMFLicenseTitleOnENWiki =
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
-
-@property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
 /**
  *  Calculates the amount needed to compensate to specific HTML element locations.
@@ -493,7 +488,6 @@ NSString* const WMFLicenseTitleOnENWiki =
             //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
             dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
                 [self.delegate webViewController:self didLoadArticle:self.article];
-                [self.sectionHeadersViewController resetHeaders];
             });
         }];
 

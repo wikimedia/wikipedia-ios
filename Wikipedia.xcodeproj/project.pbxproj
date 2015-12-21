@@ -385,10 +385,6 @@
 		B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807031C0CEBDA0065EBC0 /* WMFShareOptionsController.m */; };
 		B0E8070D1C0CEBDA0065EBC0 /* WMFShareOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807051C0CEBDA0065EBC0 /* WMFShareOptionsView.m */; };
 		B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807101C0CEBF00065EBC0 /* WebViewController.m */; };
-		B0E8071A1C0CEC050065EBC0 /* WMFSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807131C0CEC050065EBC0 /* WMFSectionHeader.m */; };
-		B0E8071B1C0CEC050065EBC0 /* WMFSectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E807141C0CEC050065EBC0 /* WMFSectionHeader.xib */; };
-		B0E8071C1C0CEC050065EBC0 /* WMFSectionHeaderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807171C0CEC050065EBC0 /* WMFSectionHeaderModel.m */; };
-		B0E8071D1C0CEC050065EBC0 /* WMFSectionHeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807191C0CEC050065EBC0 /* WMFSectionHeadersViewController.m */; };
 		B0E8071F1C0CEC8A0065EBC0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8071E1C0CEC8A0065EBC0 /* main.m */; };
 		B0E807221C0CECE30065EBC0 /* CommunicationBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807211C0CECE30065EBC0 /* CommunicationBridge.m */; };
 		B0E807251C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807241C0CED1F0065EBC0 /* MWNetworkActivityIndicatorManager.m */; };
@@ -1352,14 +1348,6 @@
 		B0E8070E1C0CEBF00065EBC0 /* WebViewController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController_Private.h; path = Wikipedia/Code/WebViewController_Private.h; sourceTree = SOURCE_ROOT; };
 		B0E8070F1C0CEBF00065EBC0 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Wikipedia/Code/WebViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E807101C0CEBF00065EBC0 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = Wikipedia/Code/WebViewController.m; sourceTree = SOURCE_ROOT; };
-		B0E807121C0CEC050065EBC0 /* WMFSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSectionHeader.h; path = Wikipedia/Code/WMFSectionHeader.h; sourceTree = SOURCE_ROOT; };
-		B0E807131C0CEC050065EBC0 /* WMFSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSectionHeader.m; path = Wikipedia/Code/WMFSectionHeader.m; sourceTree = SOURCE_ROOT; };
-		B0E807141C0CEC050065EBC0 /* WMFSectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFSectionHeader.xib; path = Wikipedia/Code/WMFSectionHeader.xib; sourceTree = SOURCE_ROOT; };
-		B0E807151C0CEC050065EBC0 /* WMFSectionHeaderEditProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSectionHeaderEditProtocol.h; path = Wikipedia/Code/WMFSectionHeaderEditProtocol.h; sourceTree = SOURCE_ROOT; };
-		B0E807161C0CEC050065EBC0 /* WMFSectionHeaderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSectionHeaderModel.h; path = Wikipedia/Code/WMFSectionHeaderModel.h; sourceTree = SOURCE_ROOT; };
-		B0E807171C0CEC050065EBC0 /* WMFSectionHeaderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSectionHeaderModel.m; path = Wikipedia/Code/WMFSectionHeaderModel.m; sourceTree = SOURCE_ROOT; };
-		B0E807181C0CEC050065EBC0 /* WMFSectionHeadersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSectionHeadersViewController.h; path = Wikipedia/Code/WMFSectionHeadersViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E807191C0CEC050065EBC0 /* WMFSectionHeadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSectionHeadersViewController.m; path = Wikipedia/Code/WMFSectionHeadersViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E8071E1C0CEC8A0065EBC0 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/main.m; sourceTree = "<group>"; };
 		B0E807201C0CECE30065EBC0 /* CommunicationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommunicationBridge.h; path = Wikipedia/Code/CommunicationBridge.h; sourceTree = SOURCE_ROOT; };
 		B0E807211C0CECE30065EBC0 /* CommunicationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommunicationBridge.m; path = Wikipedia/Code/CommunicationBridge.m; sourceTree = SOURCE_ROOT; };
@@ -1920,22 +1908,6 @@
 			path = Wikipedia/Code/EditSummary;
 			sourceTree = SOURCE_ROOT;
 		};
-		041E322E1B72AB9A001D0E28 /* NativeSectionHeaders */ = {
-			isa = PBXGroup;
-			children = (
-				B0E807121C0CEC050065EBC0 /* WMFSectionHeader.h */,
-				B0E807131C0CEC050065EBC0 /* WMFSectionHeader.m */,
-				B0E807141C0CEC050065EBC0 /* WMFSectionHeader.xib */,
-				B0E807151C0CEC050065EBC0 /* WMFSectionHeaderEditProtocol.h */,
-				B0E807161C0CEC050065EBC0 /* WMFSectionHeaderModel.h */,
-				B0E807171C0CEC050065EBC0 /* WMFSectionHeaderModel.m */,
-				B0E807181C0CEC050065EBC0 /* WMFSectionHeadersViewController.h */,
-				B0E807191C0CEC050065EBC0 /* WMFSectionHeadersViewController.m */,
-			);
-			name = NativeSectionHeaders;
-			path = Wikipedia/Code/NativeSectionHeaders;
-			sourceTree = SOURCE_ROOT;
-		};
 		042244FA197F5E09005DD0BF /* AbuseFilterAlerts */ = {
 			isa = PBXGroup;
 			children = (
@@ -2010,7 +1982,6 @@
 				B0E8070E1C0CEBF00065EBC0 /* WebViewController_Private.h */,
 				B0E8070F1C0CEBF00065EBC0 /* WebViewController.h */,
 				B0E807101C0CEBF00065EBC0 /* WebViewController.m */,
-				041E322E1B72AB9A001D0E28 /* NativeSectionHeaders */,
 			);
 			name = WebView;
 			path = Wikipedia/Code/WebView;
@@ -4575,7 +4546,6 @@
 				B0E806C31C0CEB380065EBC0 /* SecondaryMenuRowView.xib in Resources */,
 				B0E802DF1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
-				B0E8071B1C0CEC050065EBC0 /* WMFSectionHeader.xib in Resources */,
 				B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */,
 				B0E803A71C0CDB5A0065EBC0 /* WMFArticleFooterViewHeader.xib in Resources */,
 				0EF8634E1C19E02700006D2D /* WMFEmptyView.xib in Resources */,
@@ -4907,7 +4877,6 @@
 				B0E8044A1C0CDF850065EBC0 /* WMFCrashAlertView.m in Sources */,
 				B0E805401C0CE0DC0065EBC0 /* UICollectionViewLayout+AttributeUtils.m in Sources */,
 				B0E803521C0CD82D0065EBC0 /* WMFModalImageGalleryViewController.m in Sources */,
-				B0E8071C1C0CEC050065EBC0 /* WMFSectionHeaderModel.m in Sources */,
 				B0E804CC1C0CE0B40065EBC0 /* NSCharacterSet+WMFExtras.m in Sources */,
 				B0E805CA1C0CE5250065EBC0 /* WMFImageController.swift in Sources */,
 				B0E8044C1C0CDF850065EBC0 /* WMFPageCollectionViewController.m in Sources */,
@@ -5007,7 +4976,6 @@
 				B0E8073F1C0CED810065EBC0 /* WMFMath.m in Sources */,
 				B0E805421C0CE0DC0065EBC0 /* UIColor+WMFStyle.m in Sources */,
 				B0E8056B1C0CE0F40065EBC0 /* TopActionSheetLabel.m in Sources */,
-				B0E8071A1C0CEC050065EBC0 /* WMFSectionHeader.m in Sources */,
 				B0E8041F1C0CDE830065EBC0 /* MWKTitle+WMFAnalyticsLogging.m in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0E803DC1C0CDD050065EBC0 /* UITabBarController+WMFExtensions.m in Sources */,
@@ -5221,7 +5189,6 @@
 				B0E805451C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.m in Sources */,
 				B0E802E81C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.m in Sources */,
 				B0E806F41C0CEBB60065EBC0 /* ReferenceGradientView.m in Sources */,
-				B0E8071D1C0CEC050065EBC0 /* WMFSectionHeadersViewController.m in Sources */,
 				B0E804CD1C0CE0B40065EBC0 /* NSDate+Utilities.m in Sources */,
 				B0E804C81C0CE0B40065EBC0 /* NSAttributedString+WMFModify.m in Sources */,
 				B0E806371C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m in Sources */,
