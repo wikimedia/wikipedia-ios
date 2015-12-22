@@ -36,7 +36,6 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     if (self) {
         self.searchSite    = site;
         self.savedPageList = savedPageList;
-        [self getNewRandomArticle];
     }
     return self;
 }
@@ -65,7 +64,15 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 - (void)performHeaderButtonAction {
-    [self getNewRandomArticle];
+    if (self.fetcher.isFetching) {
+        // don't let button presses change state while fetching
+        return;
+    }
+
+    [self fetchRandomArticle];
+
+    // invoke "did update" so we can show loading UI
+    [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
 }
 
 - (NSArray*)items {
@@ -111,7 +118,7 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     return self.result != nil;
 }
 
-- (void)getNewRandomArticle {
+- (void)fetchRandomArticle {
     if (self.fetcher.isFetching) {
         return;
     }
@@ -120,16 +127,33 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
     [self.fetcher fetchRandomArticleWithSite:self.searchSite]
     .then(^(id result){
         @strongify(self);
+        BOOL didHavePreviousResult = self.result != nil;
         self.result = result;
-        [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
+        if (didHavePreviousResult) {
+            // user refreshed, use didUpdate to maintain scroll position
+            [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
+        } else {
+            // replacing placeholder, maintaing position isn't important
+            [self.delegate controller:self didSetItems:self.items];
+        }
     })
     .catch(^(NSError* error){
         @strongify(self);
+        self.result = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
+        WMF_TECH_DEBT_TODO(show empty view)
+        [self.delegate controller : self didSetItems : self.items];
     });
 
     // call after fetch starts so loading indicator displays
     [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
+}
+
+- (void)fetchDataIfNeeded {
+    if (![self.result isKindOfClass:[MWKSearchResult class]]) {
+        // need to wrap this so that we can manually trigger it from header action
+        [self fetchRandomArticle];
+    }
 }
 
 - (NSString*)analyticsName {
@@ -137,3 +161,4 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 }
 
 @end
+
