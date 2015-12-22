@@ -122,7 +122,7 @@
 #pragma mark - Fetch
 
 - (void)startUpdates {
-    [self.locationManager restartLocationMonitoring];
+    [self.locationManager startMonitoringLocation];
 }
 
 - (void)stopUpdates {

@@ -51,7 +51,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     if ([entry.title.text length] == 0) {
         return;
     }
-    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.listIndex];
+    MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.title];
     if (oldEntry) {
         entry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
         [super removeEntry:oldEntry];

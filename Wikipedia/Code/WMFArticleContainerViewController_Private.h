@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Children
 @property (nonatomic, strong, nullable) WMFTableOfContentsViewController* tableOfContentsViewController;
-@property (nonatomic, strong, nullable) WebViewController* webViewController;
+@property (nonatomic, strong) WebViewController* webViewController;
 
 @end
 

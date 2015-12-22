@@ -79,8 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
 
-@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
-@property (nonatomic, strong, null_resettable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
+@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, nullable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
 
 @end
 
@@ -163,6 +163,16 @@ NS_ASSUME_NONNULL_BEGIN
     return _sectionControllers;
 }
 
+- (BOOL)isDisplayingCellsForSectionController:(id<WMFHomeSectionController>)controller {
+    NSInteger sectionIndex = [self indexForSectionController:controller];
+    if (sectionIndex == NSNotFound) {
+        return NO;
+    }
+    return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL (NSIndexPath* indexPath) {
+        return indexPath.section == sectionIndex;
+    }];
+}
+
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
@@ -189,8 +199,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionFooterHeight = 78.0;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweaksDidChangeWithNotification:) name:FBTweakShakeViewControllerDidDismissNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationDidEnterForegroundWithNotification:)
+                                                 name:UIApplicationWillEnterForegroundNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(tweaksDidChangeWithNotification:)
+                                                 name:FBTweakShakeViewControllerDidDismissNotification
+                                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -199,8 +215,13 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
-    [self configureDataSource];
-    [self.locationManager startMonitoringLocation];
+
+    [self configureDataSourceIfNeeded];
+
+    if ([self isDisplayingCellsForSectionController:self.nearbySectionController]) {
+        [self.locationManager startMonitoringLocation];
+    }
+
     if (self.previewingTitle) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
         self.previewingTitle = nil;
@@ -209,6 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    // stop location manager from updating.
     [self.locationManager stopMonitoringLocation];
 }
 
@@ -261,12 +283,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Data Source Configuration
 
-- (void)configureDataSource {
-    if ([self.dataSource numberOfSections] > 0) {
+- (void)configureDataSourceIfNeeded {
+    if (self.dataSource.tableView) {
         return;
     }
 
-    self.dataSource.rowAnimation = UITableViewRowAnimationFade;
+    self.dataSource.rowAnimation = UITableViewRowAnimationNone;
 
     @weakify(self);
 
@@ -284,14 +306,19 @@ NS_ASSUME_NONNULL_BEGIN
         [controller configureCell:cell withObject:object inTableView:parentView atIndexPath:indexPath];
     };
 
-    [self.tableView registerNib:[WMFHomeSectionHeader wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
-    [self.tableView registerNib:[WMFHomeSectionFooter wmf_classNib] forHeaderFooterViewReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
+    [self.tableView registerNib:[WMFHomeSectionHeader wmf_classNib]
+     forHeaderFooterViewReuseIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+
+    [self.tableView registerNib:[WMFHomeSectionFooter wmf_classNib]
+     forHeaderFooterViewReuseIdentifier:[WMFHomeSectionFooter wmf_nibName]];
 
     self.dataSource.tableView = self.tableView;
-    self.tableView.delegate   = self;
-    self.sectionLoadErrors    = [NSMutableDictionary dictionary];
-    [self reloadSectionControllers];
-    [self updateSectionSchema];
+    // HAX: setup empty state, otherwise we get out-of-bounds due to header/footer queries for non-existent sections
+    [self.dataSource reloadData];
+    self.tableView.delegate = self;
+
+    self.sectionLoadErrors = [NSMutableDictionary dictionary];
+    [self loadSectionControllers];
 }
 
 #pragma mark - Section Controller Creation
@@ -330,12 +357,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)reloadSectionControllers {
-    [self unloadAllSections];
-    [self loadSections];
+    [self unloadAllSectionControllers];
+    [self loadSectionControllers];
 }
 
-- (void)loadSections {
-    self.dataSource.tableView = nil;
+- (void)loadSectionControllers {
+    [self.tableView beginUpdates];
+
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFHomeSection* obj, NSUInteger idx, BOOL* stop) {
         switch (obj.type) {
             case WMFHomeSectionTypeHistory:
@@ -366,11 +394,14 @@ NS_ASSUME_NONNULL_BEGIN
                  */
         }
     }];
-    self.dataSource.tableView = self.tableView;
-    [self.tableView reloadData];
+
+    [self.tableView endUpdates];
 }
 
-- (id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
+- (nullable id<WMFHomeSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
+    if (index >= [self.dataSource numberOfSections]) {
+        return nil;
+    }
     SSSection* section = [self.dataSource sectionAtIndex:index];
     return self.sectionControllers[section.sectionIdentifier];
 }
@@ -389,9 +420,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     SSSection* section = [SSSection sectionWithItems:[controller items]];
     section.sectionIdentifier = controller.sectionIdentifier;
+    controller.delegate       = self;
 
     [self.dataSource appendSection:section];
-    controller.delegate = self;
+
+    if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]
+        && [self isDisplayingCellsForSectionController:controller]) {
+        [(id < WMFFetchingHomeSectionController >)controller fetchDataIfNeeded];
+    }
 }
 
 - (void)reloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
@@ -438,7 +474,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.dataSource removeSectionAtIndex:index];
 }
 
-- (void)unloadAllSections {
+- (void)unloadAllSectionControllers {
     [self.sectionControllers enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, id < WMFHomeSectionController > _Nonnull controller, BOOL* _Nonnull stop) {
         controller.delegate = nil;
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
@@ -480,6 +516,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFHomeSectionTypeSaved:
         case WMFHomeSectionTypeHistory: {
             WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
+            NSParameterAssert(controller);
             [self wmf_pushArticleViewControllerWithTitle:controller.title
                                          discoveryMethod:MWKHistoryDiscoveryMethodLink
                                                dataStore:self.dataStore];
@@ -502,7 +539,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:section];
-    WMFHomeSectionHeader* header            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+    if (!controller) {
+        return nil;
+    }
+
+    WMFHomeSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionHeader wmf_nibName]];
+
     header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
     NSMutableAttributedString* title = [[controller headerText] mutableCopy];
@@ -531,7 +573,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UIView*)tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:section];
-    WMFHomeSectionFooter* footer            = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionFooter wmf_nibName]];
+    if (!controller) {
+        return nil;
+    }
+    WMFHomeSectionFooter* footer = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFHomeSectionFooter wmf_nibName]];
     if ([controller respondsToSelector:@selector(footerText)]) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = controller.footerText;
@@ -551,6 +596,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+
+    if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]) {
+        [(id<WMFFetchingHomeSectionController>)controller fetchDataIfNeeded];
+    }
+
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
         && ![controller shouldSelectItemAtIndex:indexPath.item]) {
         return;
@@ -565,6 +615,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)tableView:(UITableView*)tableView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    NSParameterAssert(controller);
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]) {
         return [controller shouldSelectItemAtIndex:indexPath.item];
     }
@@ -573,6 +624,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    NSParameterAssert(controller);
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
         && ![controller shouldSelectItemAtIndex:indexPath.item]) {
         return;

@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Singleton `CIDetector` configured to detect faces in the background.
  */
-+ (instancetype)wmf_sharedLowAccuracyBackgroundFaceDetector;
++ (instancetype)wmf_sharedBackgroundFaceDetector;
 
 /**
  * Asynchronously detect faces in `image`, without doing extra processing for smiles or eyes.
