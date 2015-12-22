@@ -10,6 +10,8 @@
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFSaveButtonController.h"
+
 
 static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
@@ -94,14 +96,14 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
     if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
         WMFArticlePreviewTableViewCell* previewCell = (id)cell;
-        MWKSearchResult* result                     = object;
-        previewCell.titleText       = result.displayTitle;
-        previewCell.descriptionText = result.wikidataDescription;
-        previewCell.snippetText     = result.extract;
-        [previewCell setImageURL:result.thumbnailURL];
+        previewCell.titleText       = self.result.displayTitle;
+        previewCell.descriptionText = self.result.wikidataDescription;
+        previewCell.snippetText     = self.result.extract;
+        [previewCell setImageURL:self.result.thumbnailURL];
         [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
         previewCell.loading = self.fetcher.isFetching;
         [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+        previewCell.saveButtonController.analyticsSource = self;
     }
 }
 
@@ -114,19 +116,24 @@ static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier
         return;
     }
 
-    [self.delegate controller:self didSetItems:self.items];
-
     @weakify(self);
     [self.fetcher fetchRandomArticleWithSite:self.searchSite]
     .then(^(id result){
         @strongify(self);
         self.result = result;
-        [self.delegate controller:self didSetItems:self.items];
+        [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
     })
     .catch(^(NSError* error){
         @strongify(self);
         [self.delegate controller:self didFailToUpdateWithError:error];
     });
+
+    // call after fetch starts so loading indicator displays
+    [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
+}
+
+- (NSString*)analyticsName {
+    return @"Random";
 }
 
 @end

@@ -28,12 +28,4 @@
 
 #define URL_PRIVACY_POLICY @"https://m.wikimediafoundation.org/wiki/Privacy_Policy"
 
-#ifndef PIWIK_ENABLED
-    #if NDEBUG
-        #define PIWIK_ENABLED 0
-    #else
-        #define PIWIK_ENABLED 1
-    #endif
-#endif
-
 #endif

@@ -5,6 +5,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
 @import SSDataSources;
+#import "PiwikTracker+WMFExtensions.h"
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -37,6 +38,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFHomeSectionHeader.h"
 #import "WMFHomeSectionFooter.h"
+#import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
 #import "UIViewController+WMFArticlePresentation.h"
@@ -52,13 +54,18 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
+static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFHomeVCLogLevel
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFHomeViewController ()
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
  WMFSearchPresentationDelegate,
- UIViewControllerPreviewingDelegate>
+ UIViewControllerPreviewingDelegate,
+ WMFAnalyticsLogging>
 
 @property (nonatomic, strong, null_resettable) WMFHomeSectionSchema* schemaManager;
 
@@ -68,11 +75,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
-@property (nonatomic, strong) NSOperationQueue* collectionViewUpdateQueue;
-
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
 @property (nonatomic, strong) NSMutableDictionary* sectionLoadErrors;
+
+@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, null_resettable) id<WMFHomeSectionController> sectionOfPreviewingTitle;
 
 @end
 
@@ -111,8 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.nearbySectionController = nil;
 
     if ([self.sectionControllers count] > 0) {
-        [self updateSectionsOnOperationQueue];
-        [self reloadSectionsOnOperationQueue];
+        [self updateSectionSchemaIfNeeded];
+        [self reloadSectionControllers];
     }
 }
 
@@ -175,11 +183,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.title = MWLocalizedString(@"home-title", nil);
 
-    NSOperationQueue* queue = [[NSOperationQueue alloc] init];
-    queue.maxConcurrentOperationCount = 1;
-    queue.qualityOfService            = NSQualityOfServiceUserInteractive;
-    self.collectionViewUpdateQueue    = queue;
-
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.estimatedRowHeight           = 345.0;
@@ -200,6 +203,10 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidAppear:animated];
     [self configureDataSource];
     [self.locationManager startMonitoringLocation];
+    if (self.previewingTitle) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle = nil;
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -240,13 +247,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self updateSectionsIfNeeded];
+    [self updateSectionSchemaIfNeeded];
 }
 
 #pragma mark - Tweaks
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self updateSectionsIfNeeded];
+    [self updateSectionSchemaIfNeeded];
 }
 
 #pragma mark - Data Source Configuration
@@ -280,8 +287,8 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.tableView = self.tableView;
     self.tableView.delegate   = self;
     self.sectionLoadErrors    = [NSMutableDictionary dictionary];
-    [self reloadSectionsOnOperationQueue];
-    [self updateSectionsOnOperationQueue];
+    [self reloadSectionControllers];
+    [self updateSectionSchemaIfNeeded];
 }
 
 #pragma mark - Section Controller Creation
@@ -312,40 +319,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
-- (void)updateSectionsIfNeeded {
+- (void)updateSectionSchemaIfNeeded {
     [self wmf_hideEmptyView];
     BOOL forceUpdate = self.sectionLoadErrors.count > 0;
     self.sectionLoadErrors = [NSMutableDictionary dictionary];
     [self.schemaManager update:forceUpdate];
 }
 
-- (void)updateSectionsOnOperationQueue {
-    @weakify(self);
-    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            [self updateSectionsIfNeeded];
-            [operation finish];
-        });
-    }];
-}
-
-- (void)reloadSectionsOnOperationQueue {
-    @weakify(self);
-    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            [self unloadAllSections];
-            [operation finish];
-        });
-    }];
-    [self.collectionViewUpdateQueue wmf_addOperationWithAsyncBlock:^(WMFAsyncBlockOperation* _Nonnull operation) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            [self loadSections];
-            [operation finish];
-        });
-    }];
+- (void)reloadSectionControllers {
+    [self unloadAllSections];
+    [self loadSections];
 }
 
 - (void)loadSections {
@@ -419,18 +402,17 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.dataSource.tableView = nil;
-    [self.dataSource removeSectionAtIndex:sectionIndex];
-    SSSection* section = [SSSection sectionWithItems:[controller items]];
-    section.sectionIdentifier = controller.sectionIdentifier;
-    [self.dataSource insertSection:section atIndex:sectionIndex];
-    controller.delegate       = self;
-    self.dataSource.tableView = self.tableView;
-    /*
-       HAX: brute force all the things! this prevents occasional out-of-bounds exceptions due to the table view asking
-       for header views of the section we just deleted
-     */
-    [self.tableView reloadData];
+    SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];;
+    [section.items setArray:controller.items];
+
+    [self.tableView wmf_performUpdates:^{
+        /*
+           HAX: must reload entire table, otherwise UITableView crashes due to inserting nil in an internal array
+
+           This is true even when we tried wrapping in (nested) begin/endUpdate calls and asynchronous queueing of updates.
+         */
+        [self.tableView reloadData];
+    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFHomeSectionController>)controller {
@@ -475,6 +457,7 @@ NS_ASSUME_NONNULL_BEGIN
     WMFArticleListTableViewController* extendedList              = [[WMFArticleListTableViewController alloc] init];
     extendedList.dataStore  = self.dataStore;
     extendedList.dataSource = [articleSectionController extendedListDataSource];
+    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
     [self.navigationController pushViewController:extendedList animated:YES];
 }
 
@@ -563,6 +546,20 @@ NS_ASSUME_NONNULL_BEGIN
     return footer;
 }
 
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
+        return;
+    }
+    if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
+        MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
+        if (title) {
+            [[PiwikTracker sharedInstance] wmf_logActionScrollToTitle:title inHomeSection:controller];
+        }
+    }
+}
+
 - (BOOL)tableView:(UITableView*)tableView shouldHighlightRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]) {
@@ -580,6 +577,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller conformsToProtocol:@protocol(WMFArticleHomeSectionController)]) {
         MWKTitle* title = [(id < WMFArticleHomeSectionController >)controller titleForItemAtIndex:indexPath.row];
         if (title) {
+            [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:title inHomeSection:controller];
             MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
             [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
         }
@@ -601,7 +599,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFHomeSectionSchemaDelegate
 
 - (void)sectionSchemaDidUpdateSections:(WMFHomeSectionSchema*)schema {
-    [self reloadSectionsOnOperationQueue];
+    [self reloadSectionControllers];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
@@ -612,6 +610,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
+    DDLogVerbose(@"Reloading section %ld: %@", section, controller);
     [self reloadSectionForSectionController:controller];
 }
 
@@ -621,20 +620,21 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-    [self.tableView beginUpdates];
+    DDLogVerbose(@"Appending items in section %ld: %@", section, controller);
     [self.dataSource appendItems:items toSection:section];
-    [self.tableView endUpdates];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes {
-    NSInteger section = [self indexForSectionController:controller];
-    NSAssert(section != NSNotFound, @"Unknown section calling delegate");
-    if (section == NSNotFound) {
+    NSInteger sectionIndex = [self indexForSectionController:controller];
+    NSAssert(sectionIndex != NSNotFound, @"Unknown section calling delegate");
+    if (sectionIndex == NSNotFound) {
         return;
     }
-    [self.tableView beginUpdates];
-    [self.dataSource reloadCellsAtIndexes:indexes inSection:section];
-    [self.tableView endUpdates];
+    DDLogVerbose(@"Updating items in section %ld: %@", sectionIndex, controller);
+    [self.tableView wmf_performUpdates:^{
+        // see comment in reloadSectionController
+        [self.tableView reloadData];
+    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
 
 - (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error {
@@ -643,9 +643,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (section == NSNotFound) {
         return;
     }
-
+    DDLogVerbose(@"Encountered %@ in section %ld: %@", error, section, controller);
     self.sectionLoadErrors[@(section)] = error;
-    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2)) {
+    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2) && self.view.superview) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
@@ -686,6 +686,9 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* title =
             [(id < WMFArticleHomeSectionController >)sectionController titleForItemAtIndex:previewIndexPath.item];
         if (title) {
+            self.previewingTitle          = title;
+            self.sectionOfPreviewingTitle = sectionController;
+            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
             return [[WMFArticleContainerViewController alloc]
                     initWithArticleTitle:title
                                dataStore:[self dataStore]
@@ -701,10 +704,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+        [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:self.previewingTitle inHomeSection:self.sectionOfPreviewingTitle];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+        self.previewingTitle          = nil;
+        self.sectionOfPreviewingTitle = nil;
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+- (NSString*)analyticsName {
+    return @"Home";
 }
 
 @end

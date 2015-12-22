@@ -25,9 +25,6 @@
 #import "UIView+WMFRTLMirroring.h"
 #import "PageHistoryViewController.h"
 
-#import "WMFSectionHeadersViewController.h"
-#import "WMFSectionHeaderEditProtocol.h"
-
 #import "UIWebView+WMFJavascriptContext.h"
 #import "UIWebView+WMFTrackingView.h"
 #import "UIWebView+ElementLocation.h"
@@ -64,8 +61,6 @@ NSString* const WMFLicenseTitleOnENWiki =
 @property (nonatomic, strong) UIView* footerContainerView;
 @property (nonatomic, strong) NSMutableDictionary* footerViewHeadersByIndex;
 @property (nonatomic, strong) WMFArticleFooterView* footerLicenseView;
-
-@property (nonatomic, strong) WMFSectionHeadersViewController* sectionHeadersViewController;
 
 /**
  *  Calculates the amount needed to compensate to specific HTML element locations.
@@ -268,7 +263,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         @weakify(self);
         [_footerLicenseView.showLicenseButton bk_addEventHandler:^(id sender) {
             @strongify(self);
-            MWKSite* site = [[MWKSite alloc] initWithDomain:@"wikipedia.org" language:@"en"];
+            MWKSite* site = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:@"en"];
             [self.delegate webViewController:self didTapOnLinkForTitle:[site titleWithString:WMFLicenseTitleOnENWiki]];
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -459,40 +454,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     return (elementScreenYOffset > 0) && (elementScreenYOffset < rect.size.height);
 }
 
-- (void)tocScrollWebViewToSectionWithElementId:(NSString*)elementId
-                                      duration:(CGFloat)duration
-                                   thenHideTOC:(BOOL)hideTOC {
-    CGRect r = [self.webView getWebViewRectForHtmlElementWithId:elementId];
-    if (CGRectIsNull(r)) {
-        return;
-    }
-
-    // Determine if the element is already intersecting the top of the screen.
-    // The method below is more efficient than calling
-    // getScreenRectForHtmlElementWithId again (as it was already called by
-    // getWebViewRectForHtmlElementWithId).
-    // if ([self rectIntersectsWebViewTop:r]) return;
-
-    CGPoint point = r.origin;
-
-    // Leave x unchanged.
-    point.x = self.webView.scrollView.contentOffset.x;
-
-    // Scroll the section up just a tad more so the top of section div is just above top of web view.
-    // This ensures the section that was scrolled to is considered the "current" section. (This is
-    // because the current section is the one intersecting the top of the screen.)
-
-    point.y += 2;
-
-    if ([elementId isEqualToString:@"section_heading_and_content_block_0"]) {
-        point = CGPointZero;
-    }
-
-    [self tocScrollWebViewToPoint:point
-                         duration:duration
-                      thenHideTOC:hideTOC];
-}
-
 - (void)tocScrollWebViewToPoint:(CGPoint)point
                        duration:(CGFloat)duration
                     thenHideTOC:(BOOL)hideTOC {
@@ -527,7 +488,6 @@ NSString* const WMFLicenseTitleOnENWiki =
             //Need to introduce a delay here or the webview still might not be loaded. Should look at using the webview callbacks instead.
             dispatchOnMainQueueAfterDelayInSeconds(0.1, ^{
                 [self.delegate webViewController:self didLoadArticle:self.article];
-                [self.sectionHeadersViewController resetHeaders];
             });
         }];
 
@@ -596,20 +556,6 @@ NSString* const WMFLicenseTitleOnENWiki =
                 [self.delegate webViewController:self didTapEditForSection:self.article.sections[sectionIndex]];
             }
         }];
-
-        /*
-           [_bridge addListener:@"disambigClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-
-           //NSLog(@"disambigClicked: %@", payload);
-
-           }];
-
-           [_bridge addListener:@"issuesClicked" withBlock:^(NSString* messageType, NSDictionary* payload) {
-
-           //NSLog(@"issuesClicked: %@", payload);
-
-           }];
-         */
 
         UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                               action:@selector(shareMenuItemTapped:)];

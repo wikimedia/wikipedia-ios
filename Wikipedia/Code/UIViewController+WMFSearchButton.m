@@ -1,10 +1,3 @@
-//
-//  UIViewController+WMFSearchButton.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/30/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIViewController+WMFSearchButton_Testing.h"
 #import "WMFSearchViewController.h"
@@ -12,6 +5,8 @@
 #import "SessionSingleton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "MWKSite.h"
+#import "PiwikTracker+WMFExtensions.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,6 +58,7 @@ static BOOL isSearchPresentationAnimated = YES;
             _sharedSearchViewController = searchVC;
         }
         _sharedSearchViewController.searchResultDelegate = delegate;
+        [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController];
         [self presentViewController:_sharedSearchViewController animated:isSearchPresentationAnimated completion:nil];
     }];
 }

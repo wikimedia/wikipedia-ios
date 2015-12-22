@@ -1,6 +1,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
+#import "WMFAnalyticsLogging.h"
 
 @class SSSectionedDataSource, SSArrayDataSource;
 
@@ -8,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WMFHomeSectionController <NSObject>
+@protocol WMFHomeSectionController <WMFAnalyticsLogging>
 
 @property (nonatomic, weak) id<WMFHomeSectionControllerDelegate> delegate;
 
