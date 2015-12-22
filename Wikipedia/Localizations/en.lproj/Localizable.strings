@@ -344,7 +344,7 @@
 "welcome-whats-new-whats-new" = "What's New";
 "welcome-whats-new-bullet-one-title" = "A new way to Explore";
 "welcome-whats-new-bullet-one-text" = "Discover new and interesting articles just for you on the Explore screen.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "How this works...";
+"welcome-whats-new-bullet-one-more-info-button-text" = "How this works?";
 "welcome-whats-new-bullet-two-title" = "Designed for Reading";
 "welcome-whats-new-bullet-two-text" = "Updated design focused on providing a great reading experience.";
 "welcome-whats-new-button-title" = "Get started";
@@ -355,12 +355,12 @@
 "welcome-languages-title" = "Pick your languages";
 "welcome-languages-more-languages-button-title" = "Add more languages";
 "welcome-languages-button-title" = "Continue";
-"welcome-languages-footnote-text" = "Don't worry you can change this later.";
+"welcome-languages-footnote-text" = "Don't worry you can change this later";
 
 "welcome-usage-reports-title" = "Help us make Wikipedia better";
 "welcome-usage-reports-body-text" = "You can help us make the app better by allowing us to collect information about how you use the app.";
 "welcome-usage-reports-switch-text" = "Send usage reports";
-"welcome-usage-reports-button-title" = "Done";
+"welcome-usage-reports-button-title" = "Get started";
 "welcome-usage-reports-privacy-policy-button-text" = "Your privacy is important to us";
 
 "empty-no-feed-title" = "No Internet Connection";
