@@ -15,16 +15,13 @@
 
 @implementation CIDetector (WMFFaceDetection)
 
-+ (instancetype)wmf_sharedLowAccuracyBackgroundFaceDetector {
++ (instancetype)wmf_sharedBackgroundFaceDetector {
     static CIDetector* defaultFaceDetector;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         defaultFaceDetector = [CIDetector detectorOfType:CIDetectorTypeFace
                                                  context:[CIContext wmf_sharedBackgroundContext]
-                                                 options:@{
-                                   CIDetectorAccuracy: CIDetectorAccuracyLow,
-                                   CIDetectorMinFeatureSize: @(0.15)
-                               }];
+                                                 options:nil];
     });
     return defaultFaceDetector;
 }
