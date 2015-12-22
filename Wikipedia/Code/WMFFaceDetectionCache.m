@@ -66,7 +66,7 @@
 }
 
 - (AnyPromise*)getFaceBoundsInImage:(UIImage*)image {
-    return [[CIDetector wmf_sharedLowAccuracyBackgroundFaceDetector] wmf_detectFeaturelessFacesInImage:image]
+    return [[CIDetector wmf_sharedBackgroundFaceDetector] wmf_detectFeaturelessFacesInImage:image]
            .then(^(NSArray* features) {
         NSArray<NSValue*>* faceBounds = [image wmf_normalizeAndConvertBoundsFromCIFeatures:features];
         return faceBounds;
