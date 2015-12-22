@@ -321,6 +321,9 @@
 "welcome-whats-new-bullet-one-more-info-text" = "text informing users how articles are added to the Explore screen - this is shown modally over the welcome intro";
 "welcome-whats-new-bullet-one-more-info-done-button" = "This dismisses the modal view that explains how the explore screen works - Got it in English";
 "welcome-languages-title" = "Title text for the Language selection screen when users open the app for the first time - literally: Pick your languages";
+"welcome-languages-more-info-button-text" = "Button text for explaining how language selection relates to searching";
+"welcome-languages-more-info-text" = "Text explaining how users can control what language Wikipedias to search.";
+"welcome-languages-more-info-done-button" = "Text for button which dismisses the search language explanation.";
 "welcome-languages-more-languages-button-title" = "Button text for adding more languages";
 "welcome-languages-button-title" = "Button text for proceeding to the next welcome screen";
 "welcome-languages-footnote-text" = "Text explaining to the user that languages can be changed later";

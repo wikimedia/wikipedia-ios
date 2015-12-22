@@ -29,7 +29,7 @@
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-text", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-done-button", nil) otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-button-text", nil) message:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-text", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-whats-new-bullet-one-more-info-done-button", nil) otherButtonTitles:nil];
     [alert show];
 }
 
