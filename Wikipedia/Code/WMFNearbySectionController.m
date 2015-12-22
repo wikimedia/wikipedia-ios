@@ -34,7 +34,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
-@property (nonatomic, strong) WMFLocationSearchResults* searchResults;
+@property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
 @property (nonatomic, strong, nullable) NSError* nearbyError;
 
@@ -69,6 +69,22 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self;
 }
 
+#pragma mark - Accessors
+
+- (BOOL)hasResults {
+    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
+}
+
+- (void)setSearchResults:(nullable WMFLocationSearchResults *)searchResults {
+    self.nearbyError = nil;
+    _searchResults = searchResults;
+}
+
+- (void)setNearbyError:(NSError *)nearbyError {
+    self.searchResults = nil;
+    _nearbyError = nearbyError;
+}
+
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
     self.viewModel.site = searchSite;
 }
@@ -76,6 +92,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (MWKSite*)searchSite {
     return self.viewModel.site;
 }
+
+#pragma mark - WMFHomeSectionController
 
 - (id)sectionIdentifier {
     return WMFNearbySectionIdentifier;
@@ -94,7 +112,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSArray*)items {
-    if ([self.searchResults.results count] > 0) {
+    if ([self hasResults]) {
         return self.searchResults.results;
     } else if (self.nearbyError) {
         return @[@1];
@@ -118,10 +136,10 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.nearbyError) {
-        return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else if ([self hasResults]) {
+    if ([self hasResults]) {
         return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
+    } else if (self.nearbyError) {
+        return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
     } else {
         return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
     }
@@ -160,10 +178,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
 }
 
-- (BOOL)hasResults {
-    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
-}
-
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
@@ -181,7 +195,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
-    self.nearbyError   = nil;
     self.searchResults = results;
     [self.delegate controller:self didSetItems:self.items];
 }
