@@ -25,7 +25,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
-@property (nonatomic, strong) MWKSiteInfo* siteInfo;
+@property (nonatomic, strong, nullable) MWKSiteInfo* siteInfo;
 
 @end
 
@@ -39,7 +39,6 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     if (self) {
         self.site          = site;
         self.savedPageList = savedPageList;
-        [self fetchData];
     }
     return self;
 }
@@ -117,9 +116,8 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 #pragma mark - Fetching
 
-- (void)fetchData {
-    if (self.siteInfoFetcher.isFetching) {
-        DDLogInfo(@"Fetch is already pending, skipping redundant call.");
+- (void)fetchDataIfNeeded {
+    if (self.siteInfoFetcher.isFetching || self.siteInfo) {
         return;
     }
 
@@ -130,7 +128,10 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         [self.delegate controller:self didSetItems:self.items];
     }).catch(^(NSError* error){
         @strongify(self);
+        self.siteInfo = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
+        WMF_TECH_DEBT_TODO(show empty view)
+        [self.delegate controller : self didSetItems : self.items];
     });
 }
 

@@ -15,6 +15,7 @@
     [super awakeFromNib];
     self.tintColor                          = [UIColor wmf_logoBlue];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
+    self.rightButton.hidden                 = YES;
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);
@@ -24,15 +25,28 @@
     }];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.rightButtonEnabled = NO;
+}
+
 - (void)setRightButtonEnabled:(BOOL)rightButtonEnabled {
-    _rightButtonEnabled = rightButtonEnabled;
-    if (rightButtonEnabled) {
+    if (_rightButtonEnabled == rightButtonEnabled) {
+        return;
+    }
+    _rightButtonEnabled     = rightButtonEnabled;
+    self.rightButton.hidden = !self.rightButtonEnabled;
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+}
+
+- (void)updateConstraints {
+    if (self.rightButtonEnabled) {
         self.rightButtonWidthConstraint.constant = self.rightButtonWidthConstraintConstant;
-        self.rightButton.hidden                  = NO;
     } else {
         self.rightButtonWidthConstraint.constant = 0;
-        self.rightButton.hidden                  = YES;
     }
+    [super updateConstraints];
 }
 
 @end

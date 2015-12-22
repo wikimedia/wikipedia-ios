@@ -5,13 +5,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFRandomSectionController : NSObject<WMFArticleHomeSectionController>
+@interface WMFRandomSectionController : NSObject
+    <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList;
 
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
-
-- (void)getNewRandomArticle;
 
 @end
 
