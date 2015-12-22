@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UILabel* footnoteLabel;
+@property (strong, nonatomic) IBOutlet UIButton* howThisWorksButton;
 
 @end
 
@@ -28,6 +29,12 @@
     [self.moreLanguagesButton setTitle:MWLocalizedString(@"welcome-languages-more-languages-button-title", nil) forState:UIControlStateNormal];
     [self.nextStepButton setTitle:MWLocalizedString(@"welcome-languages-button-title", nil) forState:UIControlStateNormal];
     self.footnoteLabel.text = MWLocalizedString(@"welcome-languages-footnote-text", nil);
+    [self.howThisWorksButton setTitle:MWLocalizedString(@"welcome-languages-more-info-button-text", nil) forState:UIControlStateNormal];
+}
+
+- (IBAction)showHowThisWorksAlert:(id)sender {
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-languages-more-info-button-text", nil) message:MWLocalizedString(@"welcome-languages-more-info-text", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-languages-more-info-done-button", nil) otherButtonTitles:nil];
+    [alert show];
 }
 
 - (void)viewDidLayoutSubviews {
