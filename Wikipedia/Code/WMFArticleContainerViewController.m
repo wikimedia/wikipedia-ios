@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* readMoreDataSource;
 
 // Fetchers
-@property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
@@ -233,7 +233,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _articleFetcher;
 }
 
-- (nullable WebViewController*)webViewController {
+- (WebViewController*)webViewController {
     if (!_webViewController) {
         _webViewController                      = [WebViewController wmf_initialViewControllerFromClassStoryboard];
         _webViewController.delegate             = self;

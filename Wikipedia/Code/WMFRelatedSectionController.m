@@ -62,7 +62,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
         self.savedPageList        = savedPageList;
-        [self fetchRelatedArticles];
     }
     return self;
 }
@@ -165,10 +164,11 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 #pragma mark - Fetch
 
-- (void)fetchRelatedArticles {
-    if (self.relatedSearchFetcher.isFetching) {
+- (void)fetchDataIfNeeded {
+    if (self.relatedSearchFetcher.isFetching || self.searchResults) {
         return;
     }
+
     @weakify(self);
     [self.relatedTitleDataSource fetch]
     .then(^(WMFRelatedSearchResults* results){
@@ -178,7 +178,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     })
     .catch(^(NSError* error){
         @strongify(self);
+        self.searchResults = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
+        WMF_TECH_DEBT_TODO(show empty view)
+        [self.delegate controller : self didSetItems : self.items];
     });
 }
 

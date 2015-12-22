@@ -87,7 +87,7 @@
     return (id<MWKListObject>)[self objectInEntriesAtIndex : index];
 }
 
-- (id<MWKListObject> __nullable)entryForListIndex:(id)listIndex {
+- (id<MWKListObject> __nullable)entryForListIndex:(MWKListIndex)listIndex {
     return [self.entries bk_match:^BOOL (id < MWKListObject > obj) {
         if ([[obj listIndex] isEqual:listIndex]) {
             return YES;
@@ -96,7 +96,7 @@
     }];
 }
 
-- (BOOL)containsEntryForListIndex:(id)listIndex {
+- (BOOL)containsEntryForListIndex:(MWKListIndex)listIndex {
     id<MWKListObject> entry = [self entryForListIndex:listIndex];
     return (entry != nil);
 }
