@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* readMoreDataSource;
 
 // Fetchers
-@property (nonatomic, strong, null_resettable) WMFArticleFetcher* articleFetcher;
+@property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL articleFetchWasAttempted;
 
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
-@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
 
 @end
 
@@ -527,7 +527,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
     }
     if (self.previewingTitle) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:nil];
         self.previewingTitle = nil;
     }
 }
@@ -872,7 +872,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:nil];
     self.previewingTitle = nil;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];

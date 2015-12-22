@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-@property (nonatomic, strong, null_resettable) MWKTitle* previewingTitle;
+@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
 
 @end
 
