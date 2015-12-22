@@ -75,14 +75,14 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
 }
 
-- (void)setSearchResults:(nullable WMFLocationSearchResults *)searchResults {
+- (void)setSearchResults:(nullable WMFLocationSearchResults*)searchResults {
     self.nearbyError = nil;
-    _searchResults = searchResults;
+    _searchResults   = searchResults;
 }
 
-- (void)setNearbyError:(NSError *)nearbyError {
+- (void)setNearbyError:(NSError*)nearbyError {
     self.searchResults = nil;
-    _nearbyError = nearbyError;
+    _nearbyError       = nearbyError;
 }
 
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
