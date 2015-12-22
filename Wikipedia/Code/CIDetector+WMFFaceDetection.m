@@ -22,8 +22,8 @@
         defaultFaceDetector = [CIDetector detectorOfType:CIDetectorTypeFace
                                                  context:[CIContext wmf_sharedBackgroundContext]
                                                  options:@{
-                                   CIDetectorAccuracy: CIDetectorAccuracyLow,
-                                   CIDetectorMinFeatureSize: @(0.15)
+//                                   CIDetectorAccuracy: CIDetectorAccuracyLow,
+//                                   CIDetectorMinFeatureSize: @(0.15)
                                }];
     });
     return defaultFaceDetector;
