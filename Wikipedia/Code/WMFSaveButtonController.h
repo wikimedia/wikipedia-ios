@@ -2,6 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <Foundation/Foundation.h>
+#import "WMFAnalyticsLogging.h"
 
 @class MWKSavedPageList, MWKTitle, MWKSavedPageList;
 
@@ -19,5 +20,10 @@
 - (instancetype)initWithBarButtonItem:(UIBarButtonItem*)barButtonItem
                         savedPageList:(MWKSavedPageList*)savedPageList
                                 title:(MWKTitle*)title;
+
+/**
+ *  Set to provide a source for logging saved pages
+ */
+@property (weak, nonatomic) id<WMFAnalyticsLogging> analyticsSource;
 
 @end

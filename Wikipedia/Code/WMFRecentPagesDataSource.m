@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable NSString*)displayTitle {
-    return MWLocalizedString(@"history-label", nil);
+    return MWLocalizedString(@"history-title", nil);
 }
 
 - (NSUInteger)titleCount {
@@ -159,6 +159,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKTitle*)titleForIndexPath:(NSIndexPath*)indexPath {
     return [[self recentPageForIndexPath:indexPath] title];
+}
+
+- (WMFEmptyViewType)emptyViewType{
+    return WMFEmptyViewTypeNoHistory;
 }
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
@@ -196,6 +200,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
     return MWKHistoryDiscoveryMethodUnknown;
+}
+
+- (NSString*)analyticsName {
+    return @"Recent";
 }
 
 @end

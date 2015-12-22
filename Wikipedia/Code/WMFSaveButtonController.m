@@ -4,6 +4,7 @@
 #import "MWKArticle.h"
 #import "MWKUserDataStore.h"
 #import "SavedPagesFunnel.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 @interface WMFSaveButtonController ()
 
@@ -137,8 +138,10 @@
     BOOL isSaved = [self.savedPageList isSaved:self.title];
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveTitle:self.title fromSource:self.analyticsSource];
     } else {
         [self.savedPagesFunnel logDelete];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveTitle:self.title fromSource:self.analyticsSource];
     }
 
     [self observeSavedPages];

@@ -9,7 +9,6 @@
 #import "PaddedLabel.h"
 
 // View Controllers
-#import "HistoryViewController.h"
 #import "LanguagesViewController.h"
 #import "LoginViewController.h"
 #import "AboutViewController.h"

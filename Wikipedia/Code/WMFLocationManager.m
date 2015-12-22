@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self.locationManager requestWhenInUseAuthorization];
         return YES;
     }
-    DDLogInfo(@"%@ is skipping authorization request because status is %d.", self, status);
+    DDLogVerbose(@"%@ is skipping authorization request because status is %d.", self, status);
     return NO;
 }
 
@@ -210,7 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (locations.count == 0) {
         return;
     }
-    DDLogInfo(@"%@ updated location: %@", self, manager.location);
+    DDLogVerbose(@"%@ updated location: %@", self, manager.location);
     [self.delegate nearbyController:self didUpdateLocation:manager.location];
 }
 
@@ -224,12 +224,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
     if (self.locationUpdatesStopped) {
-        DDLogInfo(@"Suppressing error received after call to stop monitoring location: %@", error);
+        DDLogVerbose(@"Suppressing error received after call to stop monitoring location: %@", error);
         return;
     }
     #if TARGET_IPHONE_SIMULATOR
     else if (error.domain == kCLErrorDomain && error.code == kCLErrorLocationUnknown) {
-        DDLogInfo(@"Suppressing unknown location error.");
+        DDLogVerbose(@"Suppressing unknown location error.");
         return;
     }
     #endif
