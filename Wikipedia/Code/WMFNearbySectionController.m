@@ -80,7 +80,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     _searchResults   = searchResults;
 }
 
-- (void)setNearbyError:(NSError*)nearbyError {
+- (void)setNearbyError:(nullable NSError*)nearbyError {
     self.searchResults = nil;
     _nearbyError       = nearbyError;
 }
