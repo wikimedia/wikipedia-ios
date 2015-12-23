@@ -28,7 +28,7 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 @interface WMFHomeSection : MTLModel
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
++ (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 

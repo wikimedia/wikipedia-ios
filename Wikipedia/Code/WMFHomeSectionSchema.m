@@ -74,7 +74,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return schema;
 }
 
-- (instancetype)initWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {
+- (instancetype)initWithSite:(MWKSite*)site
+                  savedPages:(MWKSavedPageList*)savedPages
+                     history:(MWKHistoryList*)history {
     NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
@@ -99,6 +101,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     NSMutableArray<WMFHomeSection*>* startingSchema = [[WMFHomeSectionSchema startingSchema] mutableCopy];
 
     [startingSchema wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
+    [startingSchema wmf_safeAddObject:[WMFHomeSection nearbySectionWithLocation:nil]];
 
     WMFHomeSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
@@ -113,17 +116,17 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     [self updateSections:startingSchema];
 }
 
+
 /**
  *  Sections used to "seed" a user's "feed" with an initial set of content.
  *
- *  Does not contain featured section since it's specific to en.wikipedia.org, it will be added later if possible.
+ *  Omits certain sections which are not guaranteed to be available (e.g. featured articles & nearby).
  *
  *  @return An array of sections that can be used to start the "feed" from scratch.
  */
 + (NSArray<WMFHomeSection*>*)startingSchema {
     return @[[WMFHomeSection mainPageSection],
              [WMFHomeSection pictureOfTheDaySection],
-             [WMFHomeSection nearbySectionWithLocation:nil],
              [WMFHomeSection randomSection]];
 }
 
@@ -186,16 +189,14 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 - (void)update:(BOOL)force {
-    //Check Tweak
-    if (!FBTweakValue(@"Home", @"General", @"Always update on launch", NO)) {
-        //Check force flag and minimum relaod time
-        if (!force && self.lastUpdatedAt && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
-            return;
-        }
-    }
+    [self.locationManager restartLocationMonitoring];
 
-    //Start updating the location
-    [self.locationManager startMonitoringLocation];
+    if (!FBTweakValue(@"Home", @"General", @"Always update on launch", NO)
+        && !force
+        && self.lastUpdatedAt
+        && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
+        return;
+    }
 
     //Get updated static sections
     NSMutableArray<WMFHomeSection*>* sections = [[self staticSections] mutableCopy];
@@ -218,12 +219,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     WMFHomeSection* oldNearby = [self existingNearbySection];
 
-    //Check Tweak
-    if (!FBTweakValue(@"Home", @"Nearby", @"Always update on launch", NO)) {
-        //Check didtance to old location
-        if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby) {
-            return;
-        }
+    // Check distance to old location
+    if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby) {
+        return;
     }
 
     NSMutableArray<WMFHomeSection*>* sections = [self.sections mutableCopy];
@@ -231,7 +229,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
         return obj.type == WMFHomeSectionTypeNearby;
     }];
 
-    [sections addObject:[self nearbySectionWithLocation:location]];
+    [sections wmf_safeAddObject:[WMFHomeSection nearbySectionWithLocation:location]];
 
     [self updateSections:sections];
 }
@@ -275,10 +273,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     return random;
-}
-
-- (WMFHomeSection*)nearbySectionWithLocation:(CLLocation*)location {
-    return [WMFHomeSection nearbySectionWithLocation:location];
 }
 
 - (nullable WMFHomeSection*)existingNearbySection {
@@ -424,8 +418,18 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - WMFLocationManagerDelegate
 
+- (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled {
+    if (!enabled) {
+        [self updateSections:
+         [self.sections filteredArrayUsingPredicate:
+          [NSPredicate predicateWithBlock:^BOOL (WMFHomeSection* _Nonnull evaluatedObject,
+                                                 NSDictionary < NSString*, id > * _Nullable _) {
+            return evaluatedObject.type != WMFHomeSectionTypeNearby;
+        }]]];
+    }
+}
+
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    [controller stopMonitoringLocation];
     [self updateNearbySectionWithLocation:location];
 }
 

@@ -65,10 +65,15 @@ NS_ASSUME_NONNULL_BEGIN
     return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse;
 }
 
++ (BOOL)isDeniedOrDisabled {
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+}
+
 - (BOOL)requestAuthorizationIfNeeded {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (status == kCLAuthorizationStatusNotDetermined) {
-        DDLogVerbose(@"%@ is requesting authorization to access location when in use.", self);
+        NSParameterAssert([CLLocationManager locationServicesEnabled]);
+        DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
         [self.locationManager requestWhenInUseAuthorization];
         return YES;
     }
@@ -84,8 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startMonitoringLocation {
-    if (![[self class] isAuthorized]) {
-        [self requestAuthorizationIfNeeded];
+    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled]) {
         return;
     }
 
@@ -175,12 +179,18 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         case kCLAuthorizationStatusDenied: {
-            WMF_TECH_DEBT_TODO(inform delegate that access was denied)
+            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+                DDLogInfo(@"Informing delegate about denied access to user's location.");
+                [self.delegate nearbyController:self didChangeEnabledState:NO];
+            }
             break;
         }
 
         case kCLAuthorizationStatusAuthorizedWhenInUse: {
-            DDLogVerbose(@"%@ was granted access to location when in use, attempting to monitor location.", self);
+            DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
+            if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
+                [self.delegate nearbyController:self didChangeEnabledState:YES];
+            }
             [self startMonitoringLocation];
             break;
         }

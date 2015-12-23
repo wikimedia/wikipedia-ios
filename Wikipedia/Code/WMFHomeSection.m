@@ -5,6 +5,7 @@
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageEntry.h"
 #import "NSDate+Utilities.h"
+#import "WMFLocationManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -131,7 +132,10 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)nearbySectionWithLocation:(nullable CLLocation*)location {
++ (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        return nil;
+    }
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type     = WMFHomeSectionTypeNearby;
     item.location = location;
