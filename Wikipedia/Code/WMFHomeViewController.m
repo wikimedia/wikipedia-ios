@@ -703,10 +703,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     DDLogVerbose(@"Encountered %@ in section %ld: %@", error, section, controller);
     self.sectionLoadErrors[controller.sectionIdentifier] = error;
-    if (self.view.superview
-        && ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2)
-            || [error wmf_isNetworkConnectionError])) {
-        // show error after either a network conenction error or multiple section failures
+    if (self.view.superview && [error wmf_isNetworkConnectionError])) {
         [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
