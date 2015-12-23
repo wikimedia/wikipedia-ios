@@ -69,6 +69,8 @@
             return @"ios.json";
         case WMFAssetsFileTypeLanguages:
             return @"languages.json";
+        case WMFAssetsFileTypeMainPages:
+            return @"mainpages.json";
         default:
             return nil;
     }
