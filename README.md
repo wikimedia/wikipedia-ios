@@ -22,6 +22,8 @@ This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id49779983
 
 Once you have Xcode (and build dependencies) installed, run `make prebuild` to ensure any dependencies required to build the project (mainly our submodules) are setup.  At this point, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
+> Quick note: you might not see an app icon when first building the project after a clean checkout. See [Wikipedia App Icons](docs/app-icons.md) for information about generating the icons.
+
 ## Development
 ### Architecture
 *TODO: We hope to have some high-level documentation on the application's architecture soon.*

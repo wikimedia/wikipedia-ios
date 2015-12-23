@@ -154,8 +154,15 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSString*)articleHTML;
 
+- (/*nullable */NSArray<MWKTitle*>*)disambiguationTitles;
+
+- (/*nullable */NSArray<NSString*>*)pageIssues;
+
 @end
 
+/**
+ *  Deprecated methods & properties
+ */
 @interface MWKArticle ()
 
 /**
@@ -170,9 +177,5 @@ static const NSInteger kMWKArticleSectionNone = -1;
 - (NSSet<NSURL*>*)allImageURLs;
 
 - (NSString*)summary;
-
-- (nullable NSArray<MWKTitle*>*)disambiguationTitles;
-
-- (nullable NSArray<NSString*>*)pageIssues;
 
 @end

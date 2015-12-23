@@ -161,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self recentPageForIndexPath:indexPath] title];
 }
 
-- (WMFEmptyViewType)emptyViewType{
+- (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoHistory;
 }
 

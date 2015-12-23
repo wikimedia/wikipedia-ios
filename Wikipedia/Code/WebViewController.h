@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFWebViewControllerDelegate <NSObject>
 
-- (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewontroller;
+- (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController;
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article;
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section;
