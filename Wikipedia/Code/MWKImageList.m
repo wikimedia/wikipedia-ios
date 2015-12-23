@@ -87,7 +87,7 @@
 }
 
 - (BOOL)isEqualToImageList:(MWKImageList*)imageList {
-    return WMF_EQUAL(self.article, isEqualToArticle:, imageList.article)
+    return WMF_EQUAL(self.article.title, isEqualToTitle:, imageList.article.title)
            && WMF_EQUAL(self.mutableEntries, isEqualToArray:, [imageList mutableEntries]);
 }
 

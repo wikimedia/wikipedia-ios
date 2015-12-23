@@ -83,6 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  An array of view controllers which will be displayed above the receiver's @c UIWebView content from top to bottom.
+ *
+ *  Setting this property with an array containing the same view controllers in the same order has no effect.
  */
 @property (nonatomic, strong, nullable) NSArray<UIViewController*>* footerViewControllers;
 

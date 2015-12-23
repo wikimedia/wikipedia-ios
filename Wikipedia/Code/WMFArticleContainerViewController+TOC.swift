@@ -3,7 +3,7 @@ import Foundation
 import BlocksKit
 
 extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDelegate {
-    
+
     public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
         if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
             tableOfContentsViewController!.selectAndScrollToItem(item, animated: false)
@@ -19,7 +19,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
 
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
-                                            
+
         if let section = item as? MWKSection {
             // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
             self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
@@ -28,7 +28,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
         } else {
             assertionFailure("Unsupported selection of TOC item \(item)")
         }
-        
+
         // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
         dispatchOnMainQueueAfterDelayInSeconds(0.25) {
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -38,33 +38,31 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
     public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     public func tableOfContentsArticleSite() -> MWKSite {
         return self.articleTitle.site
     }
 }
 
 extension WMFArticleContainerViewController {
-    
+
     /**
      Create ToC items.
-     
+
      - note: This must be done in Swift because `WMFTableOfContentsViewControllerDelegate` is not an ObjC protocol,
      and therefore cannot be referenced in Objective-C.
-     
+
      - returns: sections of the ToC.
      */
     func createTableOfContentsSections() -> [TableOfContentsItem]?{
-        if let sections = self.article?.sections {
-            // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
-            let items = sections.entries.map() { $0 as! TableOfContentsItem }
-            return items
-        }else{
-            
+        guard let sections = self.article?.sections else {
             return nil
         }
+        // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
+        let items = sections.entries.map() { $0 as! TableOfContentsItem }
+        return items
     }
-    
+
     /**
     Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
     */
@@ -77,12 +75,11 @@ extension WMFArticleContainerViewController {
     /**
      Append a read more section to the table of contents.
      */
-    public func appendReadMoreTableOfContentsItem() {
+    public func appendReadMoreTableOfContentsItemIfNeeded() {
         assert(self.tableOfContentsViewController != nil, "Attempting to add read more when toc is nil")
-        guard let tvc = self.tableOfContentsViewController else{
-            return
-        }
-        
+        guard let tvc = self.tableOfContentsViewController
+              where !tvc.items.contains({ (item: TableOfContentsItem) in item.dynamicType == TableOfContentsReadMoreItem.self })
+              else { return }
         if var items = createTableOfContentsSections() {
             items.append(TableOfContentsReadMoreItem(site: self.articleTitle.site))
             tvc.items = items

@@ -15,12 +15,15 @@
 #import "WMFPageIssuesViewController.h"
 #import "WMFArticleFooterMenuDataSource.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
+
+@property (nonatomic, strong, readwrite) MWKArticle* article;
 
 @property (nonatomic, strong) SSArrayDataSource* footerDataSource;
 
 @property (nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView* tableView;
-@property (nonatomic, strong) MWKArticle* article;
 
 @end
 
@@ -33,6 +36,14 @@
     }
     return self;
 }
+
+#pragma mark - Accessors
+
+- (MWKDataStore*)dataStore {
+    return self.article.dataStore;
+}
+
+#pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -61,9 +72,10 @@
     self.footerDataSource.tableView = self.tableView;
 }
 
+#pragma mark - UITableViewDelegate
+
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    WMFArticleFooterMenuItem* selectedItem = [self menuItemForIndexPath:indexPath];
-    switch (selectedItem.type) {
+    switch ([(WMFArticleFooterMenuItem*)[self.footerDataSource itemAtIndexPath:indexPath] type]) {
         case WMFArticleFooterMenuItemTypeLanguages:
             [self showLanguages];
             break;
@@ -79,9 +91,7 @@
     }
 }
 
-- (WMFArticleFooterMenuItem*)menuItemForIndexPath:(NSIndexPath*)indexPath {
-    return self.footerDataSource.allItems[indexPath.row];
-}
+#pragma mark - Subview Actions
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
@@ -116,3 +126,5 @@
 }
 
 @end
+
+NS_ASSUME_NONNULL_END

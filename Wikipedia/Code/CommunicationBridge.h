@@ -20,4 +20,6 @@ typedef void (^ JSListener)(NSString*, NSDictionary*);
 // to "sendMessage:withPayload:" are queued until the html load completes.
 - (void)loadHTML:(NSString*)string withAssetsFile:(NSString*)fileName;
 
+WMF_TECH_DEBT_TODO(add error handling for HTML loading)
+
 @end

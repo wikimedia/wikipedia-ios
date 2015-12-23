@@ -222,16 +222,15 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     func handleDismissalGesture(gesture: UIScreenEdgePanGestureRecognizer) {
         
         switch(gesture.state) {
-        case (.Began):
+        case .Began:
             self.isInteractive = true
             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-        case (.Changed):
-//            let position = gesture.locationInView(gesture.view)
+        case .Changed:
             let translation = gesture.translationInView(gesture.view)
             let transitionProgress = translation.x / CGRectGetMaxX(self.presentedViewController!.view.bounds)
             self.updateInteractiveTransition(transitionProgress)
-            print(transitionProgress)
-        case (.Ended):
+            DDLogVerbose("TOC transition progress: \(transitionProgress)")
+        case .Ended:
             self.isInteractive = false
             let velocityRequiredToPresent = -CGRectGetMaxX(gesture.view!.bounds)
             let velocityRequiredToDismiss = CGRectGetWidth(gesture.view!.bounds)
@@ -256,7 +255,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             
             self.cancelInteractiveTransition()
             
-        case (.Cancelled):
+        case .Cancelled:
             self.isInteractive = false
             self.cancelInteractiveTransition()
             

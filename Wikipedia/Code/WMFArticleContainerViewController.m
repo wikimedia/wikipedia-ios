@@ -114,16 +114,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
 
-/**
- *  Need to track this so we don't update the progress bar when loading cached articles
- */
-@property (nonatomic, assign) BOOL webViewIsLoadingFetchedArticle;
-
-/**
- *  Need to track this so we can display the empty view reliably
- */
-@property (nonatomic, assign) BOOL articleFetchWasAttempted;
-
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
 @property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
 
@@ -175,24 +165,38 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
+    NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
+
     if (_article == article) {
         return;
     }
 
+    _footerMenuViewController      = nil;
     _tableOfContentsViewController = nil;
     _shareFunnel                   = nil;
     _shareOptionsController        = nil;
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
-    _article                       = article;
+    _article = article;
+
+    // always update webVC & headerGallery, even if nil so they are reset if needed
     self.webViewController.article = _article;
     [self.headerGallery showImagesInArticle:_article];
 
+    // always update toolbar
     [self setupToolbar];
-    [self createTableOfContentsViewController];
-    [self startSignificantlyViewedTimer];
-    if (article) {
+
+    // always update footers
+    [self updateArticleFootersIfNeeded];
+
+    if (self.article) {
+        [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
+
+        if (!self.article.isMain) {
+            [self createTableOfContentsViewController];
+            [self fetchReadMore];
+        }
     }
 }
 
@@ -369,7 +373,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIBarButtonItem*)refreshToolbarItem {
     if (!_refreshToolbarItem) {
-        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"] style:UIBarButtonItemStylePlain target:self action:@selector(fetchArticle)];
+        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(fetchArticleIfNeeded)];
     }
     return _refreshToolbarItem;
 }
@@ -402,9 +409,29 @@ NS_ASSUME_NONNULL_BEGIN
     return _languagesToolbarItem;
 }
 
+#pragma mark - Article Footers
+
+- (void)updateArticleFootersIfNeeded {
+    if (!self.article || self.article.isMain) {
+        [self.webViewController setFooterViewControllers:nil];
+        return;
+    }
+
+    if (self.footerMenuViewController.article != self.article) {
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+    }
+    NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
+    if (self.readMoreDataSource.relatedSearchResults.results.count > 0) {
+        [footerVCs addObject:self.readMoreListViewController];
+        [self appendReadMoreTableOfContentsItemIfNeeded];
+    }
+    [self.webViewController setFooterViewControllers:footerVCs];
+}
+
 #pragma mark - Progress
 
 - (void)addProgressView {
+    NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.progressView.superview.mas_top);
@@ -437,17 +464,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)hideProgressViewAnimated:(BOOL)animated {
-    //Don't remove the progress immediately, let the user see it then dismiss
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        if (!animated) {
-            [self _hideProgressView];
-            return;
-        }
+    if (!animated) {
+        [self _hideProgressView];
+        return;
+    }
 
-        [UIView animateWithDuration:0.25 animations:^{
-            [self _hideProgressView];
-        } completion:nil];
-    });
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _hideProgressView];
+    } completion:nil];
 }
 
 - (void)_hideProgressView {
@@ -459,6 +483,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     [self.progressView setProgress:progress animated:animated];
+}
+
+- (void)completeAndHideProgress {
+    [self updateProgress:1.0 animated:YES];
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self hideProgressViewAnimated:YES];
+    });
 }
 
 /**
@@ -508,24 +539,17 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self setupWebView];
 
-    self.article = [self.dataStore existingArticleWithTitle:self.articleTitle];
-
-    [self fetchArticle];
+    [self addProgressView];
+    [self hideProgressViewAnimated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-    [self startSignificantlyViewedTimer];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self addProgressView];
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:self.articleTitle];
-    if (!self.article && self.articleFetchWasAttempted) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
-    }
+    [self fetchArticleIfNeeded];
+
+    [self startSignificantlyViewedTimer];
     if (self.previewingTitle) {
         [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:nil];
         self.previewingTitle = nil;
@@ -533,11 +557,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
     [self removeProgressView];
-    [super viewWillDisappear:animated];
-    [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+
+    if ([[[NSUserDefaults standardUserDefaults] wmf_openArticleTitle] isEqualToTitle:self.articleTitle]) {
+        [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
+    }
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
@@ -572,69 +600,64 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Fetching
 
-- (void)fetchArticle {
-    @weakify(self);
+- (void)fetchArticleIfNeeded {
+    NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
+    if (self.article) {
+        return;
+    }
+
     [self unobserveArticleUpdates];
     [self showProgressViewAnimated:YES];
     [self wmf_hideEmptyView];
-    self.articleFetcherPromise = [self.articleFetcher fetchArticleForPageTitle:self.articleTitle progress:^(CGFloat progress) {
+
+    @weakify(self);
+    self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfTitleIfNeeded:self.articleTitle progress:^(CGFloat progress) {
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:progress] animated:YES];
     }].then(^(MWKArticle* article) {
         @strongify(self);
-        [self saveWebViewScrollOffset];
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
-        self.webViewIsLoadingFetchedArticle = YES;
         self.article = article;
-        if (!self.article.isMain) {
-            [self fetchReadMore];
-        }
-
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
-        self.footerMenuViewController.dataStore = self.dataStore;
+        /*
+         NOTE(bgerstle): add side effects to setArticle, not here. this ensures they happen even when falling back to 
+         cached content
+         */
     }).catch(^(NSError* error){
         @strongify(self);
+        DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         [self hideProgressViewAnimated:YES];
-        if (!self.article && self.view.superview) {
-            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-                //This can potentially fire after viewWillAppear, but before viewDidAppear.
-                //In that case it animates strnagely, delay showing this just in case.
-                [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
-            });
-        }
-        if (!self.presentingViewController) {
-            // only do error handling if not presenting gallery
 
-            if (self.discoveryMethod == MWKHistoryDiscoveryMethodSaved && [self.article isCached]) {
-                return;
+        MWKArticle* cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
+        if (cachedFallback) {
+            self.article = cachedFallback;
+            if (![error wmf_isNetworkConnectionError]) {
+                // don't show offline banner for cached articles
+                [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                          sticky:NO
+                                           dismissPreviousAlerts:NO
+                                                     tapCallBack:NULL];
             }
-
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-
-            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+        } else {
+            [self wmf_showEmptyViewOfType:WMFEmptyViewTypeArticleDidNotLoad];
+            [[WMFAlertManager sharedInstance] showErrorAlert:error
+                                                      sticky:NO
+                                       dismissPreviousAlerts:NO
+                                                 tapCallBack:NULL];
         }
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
-        self.articleFetchWasAttempted = YES;
         [self observeArticleUpdates];
     });
 }
 
 - (void)fetchReadMore {
     @weakify(self);
-    [self.readMoreDataSource fetch]
-    .then(^(WMFRelatedSearchResults* readMoreResults) {
-        @strongify(self);
-        if (!self) {
-            // NOTE(bgerstle): must bail here to prevent creating placeholder array w/ nil below
-            return;
-        }
-        if ([readMoreResults.results count] > 0) {
-            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController, self.footerMenuViewController]];
-            [self appendReadMoreTableOfContentsItem];
-        }
-    }).catch(^(NSError* error){
-        DDLogError(@"Read More Fetch Error: %@", [error localizedDescription]);
+    [self.readMoreDataSource fetch].then(^(WMFRelatedSearchResults* readMoreResults) {
+        [self updateArticleFootersIfNeeded];
+    })
+    .catch(^(NSError* error){
+        DDLogError(@"Read More Fetch Error: %@", error);
+        WMF_TECH_DEBT_TODO(show error view in read more)
     });
 }
 
@@ -686,11 +709,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
-    if (self.webViewIsLoadingFetchedArticle) {
-        [self updateProgress:1.0 animated:YES];
-        [self hideProgressViewAnimated:YES];
-        self.webViewIsLoadingFetchedArticle = NO;
-    }
+    [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
 }
 
@@ -738,7 +757,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!self.articleFetcherPromise) {
             // Fetch the article if it hasn't been fetched already
             DDLogInfo(@"User tapped lead image before article fetch started, fetching before showing gallery.");
-            [self fetchArticle];
+            [self fetchArticleIfNeeded];
         }
         fullscreenGallery =
             [[WMFModalImageGalleryViewController alloc] initWithImagesInFutureArticle:self.articleFetcherPromise
@@ -807,7 +826,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self.navigationController popToViewController:self animated:YES];
-    [self fetchArticle];
+    [self fetchArticleIfNeeded];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate

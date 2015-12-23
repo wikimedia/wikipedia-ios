@@ -79,7 +79,8 @@ public class WMFTableOfContentsViewController: UIViewController,
 
     public func selectAndScrollToItem(item: TableOfContentsItem, animated: Bool) {
         guard let indexPath = indexPathForItem(item) else {
-            fatalError("No indexPath known for TOC item \(item)")
+            assertionFailure("No indexPath known for TOC item \(item)")
+            return
         }
         deselectAllRows()
         tableView.selectRowAtIndexPath(indexPath, animated: animated, scrollPosition: UITableViewScrollPosition.Top)
