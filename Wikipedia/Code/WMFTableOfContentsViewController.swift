@@ -1,6 +1,6 @@
 
 import UIKit
-
+import Masonry
 
 public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
 
@@ -24,13 +24,20 @@ public protocol WMFTableOfContentsViewControllerDelegate : AnyObject {
     func tableOfContentsArticleSite() -> MWKSite
 }
 
-public class WMFTableOfContentsViewController: UITableViewController, WMFTableOfContentsAnimatorDelegate {
+public class WMFTableOfContentsViewController: UIViewController,
+                                               UITableViewDelegate,
+                                               UITableViewDataSource,
+                                               WMFTableOfContentsAnimatorDelegate {
     
     let tableOfContentsFunnel: ToCInteractionFunnel
 
+    var tableView: UITableView!
+
     var items: [TableOfContentsItem] {
         didSet{
-            self.tableView.reloadData()
+            if isViewLoaded() {
+                tableView.reloadData()
+            }
         }
     }
 
@@ -40,16 +47,15 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     weak var delegate: WMFTableOfContentsViewControllerDelegate?
 
     // MARK: - Init
-    public required init(presentingViewController: UIViewController, items: [TableOfContentsItem], delegate: WMFTableOfContentsViewControllerDelegate) {
+    public required init(presentingViewController: UIViewController,
+                         items: [TableOfContentsItem],
+                         delegate: WMFTableOfContentsViewControllerDelegate) {
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
-        super.init(style:.Grouped)
-        let tableBackgroundView = UIView()
-        tableBackgroundView.backgroundColor = UIColor.whiteColor()
-        tableView.backgroundView = tableBackgroundView;
-        self.animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
-        self.animator?.delegate = self
+        super.init(nibName: nil, bundle: nil)
+        animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
+        animator?.delegate = self
         modalPresentationStyle = .Custom
         transitioningDelegate = self.animator
     }
@@ -129,12 +135,24 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         }
     }
 
+    public override func loadView() {
+        super.loadView()
+        tableView = UITableView(frame: self.view.bounds, style: .Grouped)
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.addSubview(tableView)
+        tableView.mas_makeConstraints { make in
+            make.top.bottom().leading().and().trailing().equalTo()(self.view)
+        }
+        tableView.backgroundView = nil
+        tableView.backgroundColor = UIColor.whiteColor()
+    }
+
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
-        clearsSelectionOnViewWillAppear = false
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
@@ -156,11 +174,11 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
     
     // MARK: - UITableViewDataSource
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
 
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(WMFTableOfContentsCell.reuseIdentifier(), forIndexPath: indexPath) as! WMFTableOfContentsCell
         let selectedItems: [TableOfContentsItem] = tableView.indexPathsForSelectedRows?.map() { items[$0.row] } ?? []
         let item = items[indexPath.row]
@@ -173,20 +191,20 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - UITableViewDelegate
-    public override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
         assert(delegate != nil, "TOC delegate not set!")
         header.articleSite = delegate?.tableOfContentsArticleSite()
         return header
     }
     
-    public override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         let item = items[indexPath.row]
         addHighlightToItem(item, animated: true)
         return true
     }
     
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let item = items[indexPath.row]
         deselectAllRowsExceptForIndexPath(indexPath, animated: false)
         tableOfContentsFunnel.logClick()
@@ -200,7 +218,7 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - UIScrollViewDelegate
-    public override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         if let indexPath = self.tableView.indexPathForSelectedRow {
             let item = items[indexPath.row]
             addHighlightOfItemsRelatedTo(item, animated: true)
