@@ -22,7 +22,7 @@ platform :ios do
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
-    sim_os = options[:sim_os] || '9.1'
+    sim_os = options[:sim_os] || '9.2'
     destination = "platform=iOS Simulator,name=iPhone 6,OS=#{sim_os}"
     opts = {
       :scheme =>  scheme,
