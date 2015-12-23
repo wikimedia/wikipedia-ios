@@ -151,10 +151,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             @strongify(self);
             self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
         })
-        .catch(^(NSError* error) {
-            @strongify(self);
+        // NOTE: article load error is caught in article view, which will also show a banner
+        .finally(^{
             [self.loadingIndicator stopAnimating];
-            [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
         });
     }
     return self;

@@ -14,6 +14,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
+#import "NSMutableDictionary+WMFMaybeSet.h"
 
 @import CoreText;
 
@@ -42,6 +43,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 @property (readwrite, strong, nonatomic) MWKProtectionStatus* protection;     // required
 @property (readwrite, assign, nonatomic) BOOL editable;                       // required
 @property (readwrite, assign, nonatomic, getter = isMain) BOOL main;
+@property (readwrite, strong, nonatomic) NSNumber* revisionId;
 
 @property (readwrite, copy, nonatomic) NSString* entityDescription;            // optional; currently pulled separately via wikidata
 @property (readwrite, copy, nonatomic) NSString* snippet;
@@ -111,6 +113,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
            && WMF_EQUAL(self.protection, isEqual:, other.protection)
            && WMF_EQUAL(self.thumbnailURL, isEqualToString:, other.thumbnailURL)
            && WMF_EQUAL(self.imageURL, isEqualToString:, other.imageURL)
+           && WMF_EQUAL(self.revisionId, isEqualToNumber:, other.revisionId)
            && self.articleId == other.articleId
            && self.languagecount == other.languagecount
            && self.isMain == other.isMain
@@ -124,6 +127,12 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
            && WMF_IS_EQUAL(self.sections, article.sections);
 }
 
+- (NSUInteger)hash {
+    return self.title.hash
+           ^ flipBitsWithAdditionalRotation(self.revisionId.hash, 1)
+           ^ flipBitsWithAdditionalRotation(self.lastmodified.hash, 2);
+}
+
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.title.description];
 }
@@ -135,31 +144,29 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
 
     dict[@"schemaVersion"] = @(MWKArticleCurrentSchemaVersion);
 
-    if (self.redirected) {
-        dict[@"redirected"] = self.redirected.text;
-    }
-    dict[@"lastmodified"] = [self iso8601DateString:self.lastmodified];
+    [dict wmf_maybeSetObject:self.redirected.text forKey:@"redirect"];
+
+    [dict wmf_maybeSetObject:[self iso8601DateString:self.lastmodified] forKey:@"lastmodified"];
+
     if (!self.lastmodifiedby.anonymous) {
         dict[@"lastmodifiedby"] = [self.lastmodifiedby dataExport];
     }
+
     dict[@"id"]            = @(self.articleId);
     dict[@"languagecount"] = @(self.languagecount);
-    if (self.displaytitle) {
-        dict[@"displaytitle"] = self.displaytitle;
-    }
+
+    [dict wmf_maybeSetObject:self.displaytitle forKey:@"displaytitle"];
+
     dict[@"protection"] = [self.protection dataExport];
     dict[@"editable"]   = @(self.editable);
 
-    if (self.entityDescription) {
-        dict[@"description"] = self.entityDescription;
-    }
+    [dict wmf_maybeSetObject:self.entityDescription forKey:@"description"];
 
-    if (self.thumbnailURL) {
-        dict[@"thumbnailURL"] = self.thumbnailURL;
-    }
-    if (self.imageURL) {
-        dict[@"imageURL"] = self.imageURL;
-    }
+    [dict wmf_maybeSetObject:self.thumbnailURL forKey:@"thumbnailURL"];
+
+    [dict wmf_maybeSetObject:self.imageURL forKey:@"imageURL"];
+
+    [dict wmf_maybeSetObject:self.revisionId forKey:@"revision"];
 
     dict[@"mainpage"] = @(self.isMain);
 
@@ -177,6 +184,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
     self.protection     = [self requiredProtectionStatus:@"protection" dict:dict];
     self.editable       = [[self requiredNumber:@"editable" dict:dict] boolValue];
 
+    self.revisionId        = [self optionalNumber:@"revision" dict:dict];
     self.redirected        = [self optionalTitle:@"redirected" dict:dict];
     self.displaytitle      = [self optionalString:@"displaytitle" dict:dict];
     self.entityDescription = [self optionalString:@"description" dict:dict];

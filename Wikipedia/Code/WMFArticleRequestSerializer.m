@@ -31,7 +31,7 @@
         @"thumbwidth": [[UIScreen mainScreen] wmf_leadImageWidthForScale],
         @"prop": WMFJoinedPropertyParameters(@[@"sections", @"text", @"lastmodified", @"lastmodifiedby",
                                                @"languagecount", @"id", @"protection", @"editable", @"displaytitle",
-                                               @"thumb", @"description", @"image"])
+                                               @"thumb", @"description", @"image", @"revision"])
     }.mutableCopy;
 
     return params;

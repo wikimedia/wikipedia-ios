@@ -41,7 +41,7 @@ NSString* const WMFRedirectTitleKey = @"WMFRedirectTitleKey";
 @implementation NSError (WMFNetworkConnectionError)
 
 - (BOOL)wmf_isNetworkConnectionError {
-    if (self.domain == NSURLErrorDomain) {
+    if ([self.domain isEqualToString:NSURLErrorDomain]) {
         switch (self.code) {
             case NSURLErrorTimedOut:
 //            case NSURLErrorCannotFindHost:

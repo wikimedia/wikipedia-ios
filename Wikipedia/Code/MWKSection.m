@@ -150,7 +150,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 }
 
 - (BOOL)isEqualToSection:(MWKSection*)section {
-    return WMF_IS_EQUAL(self.article, section.article)
+    return WMF_IS_EQUAL(self.article.title, section.article.title)
            && self.sectionId == section.sectionId
            && self.references == section.references
            && WMF_EQUAL(self.toclevel, isEqualToNumber:, section.toclevel)

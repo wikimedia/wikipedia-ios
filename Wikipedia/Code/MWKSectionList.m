@@ -85,7 +85,7 @@
 }
 
 - (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList {
-    return WMF_EQUAL(self.article, isEqualToArticle:, [sectionList article])
+    return WMF_EQUAL(self.article.title, isEqualToTitle:, sectionList.article.title)
            && WMF_EQUAL(self.sections, isEqualToArray:, [sectionList sections]);
 }
 
