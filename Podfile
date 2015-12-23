@@ -26,6 +26,8 @@ pod 'libextobjc/EXTScope', '~> 0.4.1'
 pod 'BlocksKit/Core', '~> 2.2.0'
 pod 'BlocksKit/UIKit', '~> 2.2.0'
 pod 'PromiseKit', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
+pod 'PromiseKit/SystemConfiguration', :git => 'https://github.com/mxcl/PromiseKit.git', :branch => 'swift-2.0-beta5'
+
 pod 'Tweaks', :head
 
 # KVO
