@@ -9,7 +9,7 @@
 import XCTest
 
 let expectedFailureDescriptionPrefix =
-"Asynchronous wait failed: Exceeded timeout of 1 seconds, with unfulfilled expectations: \"testShouldNotFulfillExpectationWhenTimeoutExpires"
+"Asynchronous wait failed: Exceeded timeout of 0 seconds, with unfulfilled expectations: \"testShouldNotFulfillExpectationWhenTimeoutExpires"
 
 class XCTestCasePromiseKitSwiftTests: XCTestCase {
     override func recordFailureWithDescription(
@@ -34,12 +34,12 @@ class XCTestCasePromiseKitSwiftTests: XCTestCase {
         }
 
         var resolve: (() -> Void)!
-        expectPromise(toResolve()) { () -> Promise<Void> in
+        expectPromise(toResolve(), timeout: 0) { () -> Promise<Void> in
             let (p, fulfill, _) = Promise<Void>.pendingPromise()
             resolve = fulfill
             return p
         }
-        // Resolve after wait context, and which we should handle internally so it doesn't throw an assertion.
+        // Resolve after wait context, which we should handle internally so it doesn't throw an assertion.
         resolve()
     }
 }
