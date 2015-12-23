@@ -191,6 +191,15 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        DDLogVerbose(@"Suppresing %@ since location authorization is denied.", error);
+        /*
+         This controller is coded with the assumption that it will be destroyed in the event that the user revokes
+         location services authorization for the app or the device in general.
+        */
+        return;
+    }
+
     if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
         || !self.searchResults) {
         // only show error view if empty or error is not "unknown location"
