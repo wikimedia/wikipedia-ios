@@ -171,12 +171,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    _footerMenuViewController      = nil;
     _tableOfContentsViewController = nil;
     _shareFunnel                   = nil;
     _shareOptionsController        = nil;
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
-    _article                       = article;
+    _article = article;
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.webViewController.article = _article;
@@ -185,12 +186,14 @@ NS_ASSUME_NONNULL_BEGIN
     // always update toolbar
     [self setupToolbar];
 
+    // always update footers
+    [self updateArticleFootersIfNeeded];
+
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
 
         if (!self.article.isMain) {
-            self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
             [self createTableOfContentsViewController];
             [self fetchReadMore];
         }
@@ -404,6 +407,25 @@ NS_ASSUME_NONNULL_BEGIN
                                                                 action:@selector(showLanguagePicker)];
     }
     return _languagesToolbarItem;
+}
+
+#pragma mark - Article Footers
+
+- (void)updateArticleFootersIfNeeded {
+    if (!self.article || self.article.isMain) {
+        [self.webViewController setFooterViewControllers:nil];
+        return;
+    }
+
+    if (self.footerMenuViewController.article != self.article) {
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+    }
+    NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
+    if (self.readMoreDataSource.relatedSearchResults.results.count > 0) {
+        [footerVCs addObject:self.readMoreListViewController];
+        [self appendReadMoreTableOfContentsItemIfNeeded];
+    }
+    [self.webViewController setFooterViewControllers:footerVCs];
 }
 
 #pragma mark - Progress
@@ -630,18 +652,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchReadMore {
     @weakify(self);
-    [self.readMoreDataSource fetch]
-    .then(^(WMFRelatedSearchResults* readMoreResults) {
-        @strongify(self);
-        if (!self) {
-            // NOTE(bgerstle): must bail here to prevent creating placeholder array w/ nil below
-            return;
-        }
-        if ([readMoreResults.results count] > 0) {
-            [self.webViewController setFooterViewControllers:@[self.readMoreListViewController, self.footerMenuViewController]];
-            [self appendReadMoreTableOfContentsItem];
-        }
-    }).catch(^(NSError* error){
+    [self.readMoreDataSource fetch].then(^(WMFRelatedSearchResults* readMoreResults) {
+        [self updateArticleFootersIfNeeded];
+    })
+    .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
         WMF_TECH_DEBT_TODO(show error view in read more)
     });
