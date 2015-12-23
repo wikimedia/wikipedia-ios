@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
     return savedEntry.title;
 }
 
-- (WMFEmptyViewType)emptyViewType{
+- (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoSavedPages;
 }
 

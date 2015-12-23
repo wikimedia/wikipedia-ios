@@ -111,11 +111,11 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (nullable instancetype)featuredArticleSectionWithSiteIfSupported:(MWKSite *)site {
++ (nullable instancetype)featuredArticleSectionWithSiteIfSupported:(MWKSite*)site {
     NSParameterAssert(site);
-    if(![site.language isEqualToString:@"en"] || ![site.domain isEqualToString:@"wikipedia.org"]) {
+    if (![site.language isEqualToString:@"en"] || ![site.domain isEqualToString:@"wikipedia.org"]) {
         /*
-         HAX: "Today's Featured Article" template is only available on en.wikipedia.org.
+           HAX: "Today's Featured Article" template is only available on en.wikipedia.org.
          */
         return nil;
     }
