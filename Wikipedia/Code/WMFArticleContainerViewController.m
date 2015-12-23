@@ -618,8 +618,8 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.article = article;
         /*
-         NOTE(bgerstle): add side effects to setArticle, not here. this ensures they happen even when falling back to 
-         cached content
+           NOTE(bgerstle): add side effects to setArticle, not here. this ensures they happen even when falling back to
+           cached content
          */
     }).catch(^(NSError* error){
         @strongify(self);

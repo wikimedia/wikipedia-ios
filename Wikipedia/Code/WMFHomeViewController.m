@@ -6,6 +6,7 @@
 @import Tweaks;
 @import SSDataSources;
 #import "PiwikTracker+WMFExtensions.h"
+#import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -278,6 +279,21 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateSectionSchemaIfNeeded];
 }
 
+#pragma mark - Offline Handling
+
+- (void)showOfflineEmptyViewAndReloadWhenReachable {
+    NSParameterAssert(self.isViewLoaded && self.view.superview);
+
+    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+
+    @weakify(self);
+    SCNetworkReachability().then(^{
+        @strongify(self);
+        [self wmf_hideEmptyView];
+        [self reloadSectionControllers];
+    });
+}
+
 #pragma mark - Data Source Configuration
 
 - (void)configureDataSourceIfNeeded {
@@ -438,7 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];;
+    SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];
     [section.items setArray:controller.items];
 
     [self.tableView wmf_performUpdates:^{
@@ -476,6 +492,7 @@ NS_ASSUME_NONNULL_BEGIN
         controller.delegate = nil;
         [self.sectionControllers removeObjectForKey:controller.sectionIdentifier];
     }];
+    [self.sectionLoadErrors removeAllObjects];
     [self.dataSource removeAllSections];
 }
 
@@ -594,7 +611,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]) {
+    if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]
+        && self.sectionLoadErrors[controller.sectionIdentifier] == nil) {
+        // don't automatically re-fetch a section if it previously failed. ask user to refresh manually
         [(id < WMFFetchingHomeSectionController >)controller fetchDataIfNeeded];
     }
 
@@ -696,9 +715,9 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     DDLogVerbose(@"Encountered %@ in section %ld: %@", error, section, controller);
-    self.sectionLoadErrors[@(section)] = error;
-    if ([self.sectionLoadErrors count] > ([self.sectionControllers count] / 2) && self.view.superview) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+    self.sectionLoadErrors[controller.sectionIdentifier] = error;
+    if ([error wmf_isNetworkConnectionError]) {
+        [self showOfflineEmptyViewAndReloadWhenReachable];
     }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 }

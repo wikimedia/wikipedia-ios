@@ -65,6 +65,8 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/QuartzCore (3.0.0):
     - PromiseKit/CorePromise
+  - PromiseKit/SystemConfiguration (3.0.0):
+    - PromiseKit/CorePromise
   - PromiseKit/UIKit (3.0.0):
     - PromiseKit/CorePromise
   - Quick (0.8.0)
@@ -100,6 +102,8 @@ DEPENDENCIES:
   - OCMockito (~> 1.4.0)
   - PiwikTracker (HEAD)
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
+  - PromiseKit/SystemConfiguration (from `https://github.com/mxcl/PromiseKit.git`,
+    branch `swift-2.0-beta5`)
   - Quick (~> 0.8.0)
   - SDWebImage (from `./vendor/SDWebImage`)
   - SSDataSources (~> 0.8.0)
