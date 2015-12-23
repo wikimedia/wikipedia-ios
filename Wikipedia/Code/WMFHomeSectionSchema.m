@@ -84,23 +84,41 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return self;
 }
 
+/**
+ *  Reset the feed to its initial set, containing a specific array of items depending on the current site.
+ *
+ *  Inserts featured section as well as related sections from saved and/or history to the @c startingSchema.
+ *
+ *  @see startingSchema
+ */
 - (void)reset {
-    NSMutableArray* startingSchema = [[WMFHomeSectionSchema startingSchema] mutableCopy];
-    WMFHomeSection* saved          = [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
-    WMFHomeSection* recent         = [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved ? @[saved] : nil maxLength:1] firstObject];
-    if (recent) {
-        [startingSchema addObject:recent];
-    }
-    if (saved) {
-        [startingSchema addObject:saved];
-    }
+    NSMutableArray<WMFHomeSection*>* startingSchema = [[WMFHomeSectionSchema startingSchema] mutableCopy];
+
+    [startingSchema wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
+
+    WMFHomeSection* saved =
+        [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
+
+    WMFHomeSection* recent =
+        [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved ? @[saved] : nil maxLength:1] firstObject];
+
+    [startingSchema wmf_safeAddObject:recent];
+    [startingSchema wmf_safeAddObject:saved];
 
     self.lastUpdatedAt = nil;
     [self updateSections:startingSchema];
 }
 
-+ (NSArray*)startingSchema {
+/**
+ *  Sections used to "seed" a user's "feed" with an initial set of content.
+ *
+ *  Does not contain featured section since it's specific to en.wikipedia.org, it will be added later if possible.
+ *
+ *  @return An array of sections that can be used to start the "feed" from scratch.
+ */
++ (NSArray<WMFHomeSection*>*)startingSchema {
     return @[[WMFHomeSection mainPageSection],
+             [WMFHomeSection pictureOfTheDaySection],
              [WMFHomeSection nearbySectionWithLocation:nil],
              [WMFHomeSection randomSection]];
 }
@@ -184,7 +202,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mmrk - Create Schema Items
 
-- (NSArray*)staticSections {
+/**
+ *  Sections which should always be present in the "feed" (i.e. everything that isn't site specific).
+ *
+ *  @return An array of all existing site-independent sections.
+ */
+- (NSArray<WMFHomeSection*>*)staticSections {
     NSMutableArray<WMFHomeSection*>* sections = [NSMutableArray array];
 
     [sections wmf_safeAddObject:[self existingNearbySection]];
@@ -236,38 +259,28 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 #pragma mark - Daily Sections
 
 - (NSArray<WMFHomeSection*>*)featuredSections {
-    NSArray* previous = [self.sections bk_select:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
-            return YES;
-        }
-        return NO;
+    NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFHomeSection* obj) {
+        return obj.type == WMFHomeSectionTypeFeaturedArticle;
     }];
 
     //Don't add new ones if we aren't in english
-    if (![self.site.language isEqualToString:@"en"] && ![self.site.language isEqualToString:@"en-US"]) {
-        return previous;
-    }
-
-    NSMutableArray* featured = [NSMutableArray array];
-    [featured addObjectsFromArray:previous];
+    NSMutableArray* featured = [existingFeaturedArticleSections mutableCopy];
 
     WMFHomeSection* today = [featured bk_match:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeFeaturedArticle) {
-            if ([obj.dateCreated isToday]) {
-                return YES;
-            }
-        }
-        return NO;
+        NSAssert(obj.type == WMFHomeSectionTypeFeaturedArticle,
+                 @"List should only contain featured sections, got %@", featured);
+        return [obj.dateCreated isToday];
     }];
 
     if (!today) {
-        [featured addObject:[WMFHomeSection featuredArticleSectionWithSite:self.site]];
+        [featured wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
     NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
 
     //Sort by date
-    [featured sortWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
+    [featured sortWithOptions:NSSortStable
+              usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
 
