@@ -31,13 +31,9 @@ platform :ios do
       :destination => destination,
       :buildlog_path => './build',
       :output_directory => './build/reports',
-      :output_style => 'basic'
+      :output_style => 'basic',
+      :code_coverage => true
     }
-    if sim_os.start_with? "9" then
-      opts[:code_coverage] = true
-    else
-      opts[:xcargs] = "-enableCodeCoverage NO"
-    end
     opts[:output_types] = options[:junit] ? "junit" : ""
     scan(opts)
   end
