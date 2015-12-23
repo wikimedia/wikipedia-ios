@@ -1,6 +1,7 @@
 
 #import "WMFHomeSectionSchema.h"
 #import "MWKSite.h"
+#import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
@@ -8,6 +9,7 @@
 #import "Wikipedia-Swift.h"
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
+#import "WMFAssetsFile.h"
 
 @import Tweaks;
 @import CoreLocation;
@@ -34,6 +36,8 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 @property (nonatomic, strong, readwrite) MWKHistoryList* historyPages;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
+
+@property (nonatomic, strong, readwrite) WMFAssetsFile* mainPages;
 
 @property (nonatomic, strong, readwrite, nullable) NSDate* lastUpdatedAt;
 
@@ -114,6 +118,38 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
     return _locationManager;
 }
+
+#pragma mark - Main Article
+
+/*
+ * This is required so we don't show items related to main pages in the feed.
+ * Ideally, we would pull this info from a service - but for now this is the easiest way to do it.
+ * Note: we can get main pages individually for each site via the API, but not in an aggregate call.
+ */
+- (WMFAssetsFile*)mainPages {
+    if (!_mainPages) {
+        _mainPages = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages];
+    }
+    
+    return _mainPages;
+}
+
+- (MWKTitle*)mainArticleTitleForSite:(MWKSite*)site {
+    if(!site.language){
+        return nil;
+    }
+    NSString* titleText = self.mainPages.dictionary[site.language];
+    if(!titleText){
+        return nil;
+    }
+    return [site titleWithString:titleText];
+}
+
+- (BOOL)titleIsForMainArticle:(MWKTitle*)title {
+    MWKTitle* mainArticleTitle = [self mainArticleTitleForSite:title.site];
+    return ([title.text isEqualToString:mainArticleTitle.text]);
+}
+
 
 #pragma mark - Sections
 
@@ -351,7 +387,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [existingTitles containsObject:obj.title];
+        return [self titleIsForMainArticle:obj.title] || [existingTitles containsObject:obj.title];
     }];
 
     return [[entries bk_map:^id (MWKHistoryEntry* obj) {
@@ -365,7 +401,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     NSArray<MWKSavedPageEntry*>* entries = [self.savedPages.entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
-        return [existingTitles containsObject:obj.title];
+        return [self titleIsForMainArticle:obj.title] || [existingTitles containsObject:obj.title];
     }];
 
     return [[entries bk_map:^id (MWKSavedPageEntry* obj) {
@@ -393,9 +429,11 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"site"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"savedPages"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"historyPages"];
+    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"mainPages"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"delegate"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationManager"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationRequestStarted"];
+
     return behaviors;
 }
 

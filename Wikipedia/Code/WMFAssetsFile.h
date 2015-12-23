@@ -3,7 +3,8 @@
 typedef NS_ENUM (NSUInteger, WMFAssetsFileType) {
     WMFAssetsFileTypeUndefined = 0,
     WMFAssetsFileTypeConfig,
-    WMFAssetsFileTypeLanguages
+    WMFAssetsFileTypeLanguages,
+    WMFAssetsFileTypeMainPages
 };
 
 @interface WMFAssetsFile : NSObject
