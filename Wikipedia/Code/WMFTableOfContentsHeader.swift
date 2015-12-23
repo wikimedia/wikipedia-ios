@@ -22,10 +22,4 @@ public class WMFTableOfContentsHeader: UIView {
         }
         return headerString
     }
-    
-    public override func layoutSubviews() {
-        //See WMFTableOfContentsViewController.forceUpdateHeaderFrame for explanation
-        super.layoutSubviews()
-        self.contentsLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.contentsLabel.frame);
-    }
 }
