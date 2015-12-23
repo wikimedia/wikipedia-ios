@@ -48,7 +48,7 @@
        since we've asserted above that "en" or "en-US" is one of the OS preferred languages, we can assert that our
        controller contains a language link for "en"
      */
-    assertThat([self preferredLanguageCodes], contains(@"en", nil));
+    assertThat([self preferredLanguageCodes], hasItem(@"en"));
     [self verifyAllLanguageArrayProperties];
 }
 
