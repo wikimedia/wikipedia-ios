@@ -177,17 +177,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
     _article                       = article;
+
+    // always update webVC & headerGallery, even if nil so they are reset if needed
     self.webViewController.article = _article;
     [self.headerGallery showImagesInArticle:_article];
 
+    // always update toolbar
     [self setupToolbar];
 
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
-        self.refreshToolbarItem.tintColor = [UIColor wmf_blueTintColor];
 
         if (!self.article.isMain) {
+            self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
             [self createTableOfContentsViewController];
             [self fetchReadMore];
         }
@@ -592,12 +595,10 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         [self updateProgress:[self totalProgressWithArticleFetcherProgress:1.0] animated:YES];
         self.article = article;
-        if (!self.article.isMain) {
-            [self fetchReadMore];
-        }
-
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
-        self.footerMenuViewController.dataStore = self.dataStore;
+        /*
+         NOTE(bgerstle): add side effects to setArticle, not here. this ensures they happen even when falling back to 
+         cached content
+         */
     }).catch(^(NSError* error){
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
@@ -641,7 +642,8 @@ NS_ASSUME_NONNULL_BEGIN
             [self appendReadMoreTableOfContentsItem];
         }
     }).catch(^(NSError* error){
-        DDLogError(@"Read More Fetch Error: %@", [error localizedDescription]);
+        DDLogError(@"Read More Fetch Error: %@", error);
+        WMF_TECH_DEBT_TODO(show error view in read more)
     });
 }
 
