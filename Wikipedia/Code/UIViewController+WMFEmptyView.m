@@ -38,7 +38,6 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         case WMFEmptyViewTypeNoHistory:
             view = [WMFEmptyView noHistoryEmptyView];
             break;
-
     }
 
     UIView* container = self.view.superview;
@@ -46,7 +45,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         container = container.superview;
     }
     NSAssert(container != nil, @"Trying to add an empty view with no container view");
-    if(!container){
+    if (!container) {
         return;
     }
 

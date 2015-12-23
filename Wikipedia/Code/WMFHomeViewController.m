@@ -598,7 +598,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFHomeSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller conformsToProtocol:@protocol(WMFFetchingHomeSectionController)]) {
-        [(id<WMFFetchingHomeSectionController>)controller fetchDataIfNeeded];
+        [(id < WMFFetchingHomeSectionController >)controller fetchDataIfNeeded];
     }
 
     if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
