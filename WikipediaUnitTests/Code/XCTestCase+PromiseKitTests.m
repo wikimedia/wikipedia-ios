@@ -7,6 +7,7 @@
 //
 
 #import "XCTestCase+PromiseKit.h"
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 
 @interface XCTestCase_PromiseKitTests : XCTestCase
 @end
@@ -24,6 +25,10 @@
 }
 
 - (void)testShouldNotFulfillExpectationWhenTimeoutExpiresForResolution {
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
+        return;
+    }
+
     __block PMKResolver resolve;
     expectResolution(^{
         return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
@@ -35,6 +40,10 @@
 }
 
 - (void)testShouldNotFulfillExpectationWhenTimeoutExpiresForError {
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) {
+        return;
+    }
+
     __block PMKResolver resolve;
     [self expectAnyPromiseToCatch:^AnyPromise*{
         return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
