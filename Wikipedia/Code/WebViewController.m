@@ -326,6 +326,9 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (void)setFooterViewControllers:(NSArray<UIViewController*>*)footerViewControllers {
+    if (WMF_EQUAL(self.footerViewControllers, isEqualToArray:, footerViewControllers)) {
+        return;
+    }
     [_footerViewControllers bk_each:^(UIViewController* childVC) {
         [childVC willMoveToParentViewController:nil];
         [childVC.view removeFromSuperview];
