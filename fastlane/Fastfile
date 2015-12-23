@@ -21,18 +21,21 @@ platform :ios do
 
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
+    scheme = options[:scheme] || 'Wikipedia'
+    sim_os = options[:sim_os] || '9.2'
+    destination = "platform=iOS Simulator,name=iPhone 6,OS=#{sim_os}"
     opts = {
-      :scheme =>  options[:scheme] || 'Wikipedia',
+      :scheme =>  scheme,
       :workspace => 'Wikipedia.xcworkspace',
       :configuration => 'Debug',
-      :destination => "platform=iOS Simulator,name=iPhone 6,OS=#{options[:sim_os] || '9.1'}",
-      :destination_timeout => 240, # Increase timeout for Travis builds
-      :xcpretty_output => 'simple',
+      :destination => destination,
       :buildlog_path => './build',
-      :enable_code_coverage => true
+      :output_directory => './build/reports',
+      :output_style => 'basic',
+      :code_coverage => true
     }
-    opts[:reports] = [{ :report => 'junit', :output => 'build/reports/unit-tests.xml' }] if options[:junit]
-    xctest(opts)
+    opts[:output_types] = options[:junit] ? "junit" : ""
+    scan(opts)
   end
 
   desc "Increment the app's build number without committing the changes. Returns a string of the new, bumped version."

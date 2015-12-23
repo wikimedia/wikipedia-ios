@@ -31,7 +31,15 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
 + (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
-+ (instancetype)featuredArticleSectionWithSite:(MWKSite*)site;
+
+/**
+ *  Create a section which displays the featured article of the day for a specific site.
+ *
+ *  @param site The site to retrieve the featured article from.
+ *
+ *  @return A featured article section, or @c nil if the given site doesn't support featured articles.
+ */
++ (nullable instancetype)featuredArticleSectionWithSiteIfSupported:(MWKSite*)site;
 
 ///
 /// @name Static Sections

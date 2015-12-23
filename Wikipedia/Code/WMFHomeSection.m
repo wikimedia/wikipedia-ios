@@ -112,8 +112,14 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)featuredArticleSectionWithSite:(MWKSite*)site {
++ (nullable instancetype)featuredArticleSectionWithSiteIfSupported:(MWKSite*)site {
     NSParameterAssert(site);
+    if (![site.language isEqualToString:@"en"] || ![site.domain isEqualToString:@"wikipedia.org"]) {
+        /*
+           HAX: "Today's Featured Article" template is only available on en.wikipedia.org.
+         */
+        return nil;
+    }
     WMFHomeSection* item = [[WMFHomeSection alloc] init];
     item.type = WMFHomeSectionTypeFeaturedArticle;
     item.site = site;
