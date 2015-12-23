@@ -15,3 +15,4 @@
 #import "WMFImageController+Testing.h"
 #import "MWKSavedPageList+ImageMigrationTesting.h"
 #import "WMFHTTPHangingProtocol.h"
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"

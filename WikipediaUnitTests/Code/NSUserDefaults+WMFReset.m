@@ -12,6 +12,7 @@
 
 - (void)wmf_resetToDefaultValues {
     [self removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+    [self synchronize];
 }
 
 @end

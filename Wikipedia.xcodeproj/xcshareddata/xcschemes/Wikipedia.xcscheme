@@ -57,6 +57,15 @@
                   Identifier = "LegacyCoreDataMigratorTests">
                </Test>
                <Test
+                  Identifier = "MWKHistoryListPerformanceTests/testReadPerformance">
+               </Test>
+               <Test
+                  Identifier = "NSArray_PredicateTests/testPerformance">
+               </Test>
+               <Test
+                  Identifier = "NSString_FormattedAttributedStringTests/testPerformanceExample">
+               </Test>
+               <Test
                   Identifier = "WMFSearchFetcherTests">
                </Test>
             </SkippedTests>
@@ -94,6 +103,16 @@
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-WMFVisualTestBatchRecordMode"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "NO"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "FB_REFERENCE_IMAGE_DIR"
