@@ -60,7 +60,7 @@
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
     cell.numberLabel.text       = [NSString stringWithFormat:@"%li", indexPath.row + 1];
-    cell.languageNameLabel.text = langLink.name;
+    cell.languageNameLabel.text = langLink.localizedName;
 
     //can only delete non-OS languages
     if (![[MWKLanguageLinkController sharedInstance] languageIsOSLanguage:langLink]) {
