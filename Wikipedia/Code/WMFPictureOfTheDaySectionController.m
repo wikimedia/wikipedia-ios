@@ -33,9 +33,11 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @property (nonatomic, strong) MWKImageInfoFetcher* fetcher;
 
-@property (nonatomic, strong) MWKImageInfo* imageInfo;
+@property (nonatomic, strong, nullable) MWKImageInfo* imageInfo;
 
 @property (nonatomic, strong) NSDate* fetchedDate;
+
+@property (nonatomic, strong, nullable) AnyPromise* fetchRequest;
 
 @end
 
@@ -47,7 +49,6 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     if (self) {
         self.imageInfo   = [MWKImageInfo feedPlaceholder];
         self.fetchedDate = [NSDate date];
-        [self fetchData];
     }
     return self;
 }
@@ -61,19 +62,30 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 #pragma mark - Fetching
 
-- (void)fetchData {
+- (void)fetchDataIfNeeded {
+    if (self.fetchRequest || ![self.imageInfo isFeedPlaceholder]) {
+        return;
+    }
+
     @weakify(self);
-    [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
-                                    metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
-    .then(^(MWKImageInfo* info) {
+    self.fetchRequest =
+        [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
+                                        metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
+        .then(^(MWKImageInfo* info) {
         @strongify(self);
         self.imageInfo = info;
         [self.delegate controller:self didSetItems:self.items];
     })
-    .catch(^(NSError* error) {
+        .catch(^(NSError* error) {
         @strongify(self);
+        self.imageInfo = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
+        WMF_TECH_DEBT_TODO(show empty view)
+        [self.delegate controller : self didSetItems : self.items];
         DDLogError(@"POTD error: %@", error);
+    })
+        .finally(^{
+        self.fetchRequest = nil;
     });
 }
 

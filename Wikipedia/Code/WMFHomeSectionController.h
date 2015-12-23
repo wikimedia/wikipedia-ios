@@ -65,6 +65,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol WMFFetchingHomeSectionController <NSObject>
+
+- (void)fetchDataIfNeeded;
+
+@end
+
 /**
  *  Protocol for sections which display articles in some form (e.g. nearby or related articles).
  */

@@ -77,21 +77,18 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     if ([cell isKindOfClass:[WMFContinueReadingTableViewCell class]]) {
         WMFContinueReadingTableViewCell* readingCell = (id)cell;
         readingCell.title.text   = self.title.text;
-        readingCell.summary.text = [self getSummaryForTitle:self.title];
+        readingCell.summary.text = [self summaryForTitle:self.title];
         [readingCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     }
 }
 
-- (NSString*)getSummaryForTitle:(MWKTitle*)title {
-    NSString* description = [[self.dataStore existingArticleWithTitle:self.title].entityDescription wmf_stringByCapitalizingFirstCharacter];
-    if (!description) {
-        MWKArticle* article = [[MWKArticle alloc] initWithTitle:self.title dataStore:self.dataStore];
-        MWKSection* section = [article.sections firstNonEmptySection];
-        if (section) {
-            description = [section summary];
-        }
+- (NSString*)summaryForTitle:(MWKTitle*)title {
+    MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:self.title];
+    if (cachedArticle.entityDescription.length) {
+        return [cachedArticle.entityDescription wmf_stringByCapitalizingFirstCharacter];
+    } else {
+        return [[cachedArticle.sections firstNonEmptySection] summary];
     }
-    return description;
 }
 
 - (NSString*)analyticsName {

@@ -168,6 +168,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
                 @strongify(self);
                 self.nearbyError = nil;
                 [self.delegate controller:self didSetItems:self.items];
+                [self.viewModel stopUpdates];
                 [self.viewModel startUpdates];
             } forControlEvents:UIControlEventTouchUpInside];
         }
@@ -182,11 +183,20 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
 }
 
+- (void)fetchDataIfNeeded {
+    // Start updates if they haven't been started already. Don't redundantly start (or restart) or else views will flicker.
+    [self.viewModel startUpdates];
+}
+
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
-    self.nearbyError = error;
-    [self.delegate controller:self didSetItems:self.items];
+    if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
+        || !self.searchResults) {
+        // only show error view if empty or error is not "unknown location"
+        self.nearbyError = error;
+        [self.delegate controller:self didSetItems:self.items];
+    }
 
     //This means there were 0 results - not neccesarily a "real" error.
     //Only inform the delegate if we get a real error.
