@@ -34,7 +34,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 
-@property (nonatomic, strong) WMFLocationSearchResults* searchResults;
+@property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
 @property (nonatomic, strong, nullable) NSError* nearbyError;
 
@@ -69,6 +69,26 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self;
 }
 
+#pragma mark - Accessors
+
+- (BOOL)hasResults {
+    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
+}
+
+- (void)setSearchResults:(nullable WMFLocationSearchResults*)searchResults {
+    _searchResults   = searchResults;
+    if (!_searchResults) {
+        self.nearbyError = nil;
+    }
+}
+
+- (void)setNearbyError:(nullable NSError*)nearbyError {
+    _nearbyError       = nearbyError;
+    if (_nearbyError) {
+        self.searchResults = nil;
+    }
+}
+
 - (void)setSearchSite:(MWKSite* __nonnull)searchSite {
     self.viewModel.site = searchSite;
 }
@@ -76,6 +96,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 - (MWKSite*)searchSite {
     return self.viewModel.site;
 }
+
+#pragma mark - WMFHomeSectionController
 
 - (id)sectionIdentifier {
     return WMFNearbySectionIdentifier;
@@ -94,7 +116,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (NSArray*)items {
-    if ([self.searchResults.results count] > 0) {
+    if ([self hasResults]) {
         return self.searchResults.results;
     } else if (self.nearbyError) {
         return @[@1];
@@ -118,10 +140,10 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.nearbyError) {
-        return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else if ([self hasResults]) {
+    if ([self hasResults]) {
         return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
+    } else if (self.nearbyError) {
+        return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
     } else {
         return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
     }
@@ -161,10 +183,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
 }
 
-- (BOOL)hasResults {
-    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
-}
-
 - (void)fetchDataIfNeeded {
     // Start updates if they haven't been started already. Don't redundantly start (or restart) or else views will flicker.
     [self.viewModel startUpdates];
@@ -173,6 +191,15 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 #pragma mark - WMFNearbyViewModelDelegate
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        DDLogVerbose(@"Suppresing %@ since location authorization is denied.", error);
+        /*
+         This controller is coded with the assumption that it will be destroyed in the event that the user revokes
+         location services authorization for the app or the device in general.
+        */
+        return;
+    }
+
     if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
         || !self.searchResults) {
         // only show error view if empty or error is not "unknown location"
@@ -191,7 +218,6 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
-    self.nearbyError   = nil;
     self.searchResults = results;
     [self.delegate controller:self didSetItems:self.items];
 }

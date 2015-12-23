@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isAuthorized;
 
++ (BOOL)isDeniedOrDisabled;
+
 @end
 
 
@@ -31,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading;
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error;
+
+@optional
+
+- (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled;
 
 @end
 

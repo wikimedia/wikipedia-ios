@@ -119,14 +119,16 @@ NS_ASSUME_NONNULL_BEGIN
     self.nearbySectionController = nil;
 
     if ([self.sectionControllers count] > 0) {
-        [self updateSectionSchema];
+        [self updateSectionSchemaIfNeeded];
         [self reloadSectionControllers];
     }
 }
 
 - (WMFHomeSectionSchema*)schemaManager {
     if (!_schemaManager) {
-        _schemaManager          = [WMFHomeSectionSchema schemaWithSite:self.searchSite savedPages:self.savedPages history:self.recentPages];
+        _schemaManager = [WMFHomeSectionSchema schemaWithSite:self.searchSite
+                                                   savedPages:self.savedPages
+                                                      history:self.recentPages];
         _schemaManager.delegate = self;
     }
     return _schemaManager;
@@ -267,18 +269,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    //never loaded, do not reload
-    if ([self.dataSource numberOfSections] == 0) {
-        return;
-    }
-
-    [self updateSectionSchema];
+    [self updateSectionSchemaIfNeeded];
 }
 
 #pragma mark - Tweaks
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
-    [self updateSectionSchema];
+    [self updateSectionSchemaIfNeeded];
 }
 
 #pragma mark - Data Source Configuration
@@ -349,7 +346,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Management
 
-- (void)updateSectionSchema {
+- (void)updateSectionSchemaIfNeeded {
     [self wmf_hideEmptyView];
     BOOL forceUpdate = self.sectionLoadErrors.count > 0;
     self.sectionLoadErrors = [NSMutableDictionary dictionary];
