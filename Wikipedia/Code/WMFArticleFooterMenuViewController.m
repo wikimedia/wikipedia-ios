@@ -39,6 +39,16 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    // HAX: collapses space between grouped table sections
+    return 0.00001;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    // HAX: collapses space between grouped table sections
+    return 0.00001;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 

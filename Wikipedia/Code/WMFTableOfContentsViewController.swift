@@ -44,7 +44,10 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
         self.items = items
         self.delegate = delegate
         tableOfContentsFunnel = ToCInteractionFunnel()
-        super.init(nibName: nil, bundle: nil)
+        super.init(style:.Grouped)
+        let tableBackgroundView = UIView()
+        tableBackgroundView.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundView = tableBackgroundView;
         self.animator = WMFTableOfContentsAnimator(presentingViewController: presentingViewController, presentedViewController: self)
         self.animator?.delegate = self
         modalPresentationStyle = .Custom
@@ -125,31 +128,17 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
             }
         }
     }
-    // MARK: - Header
-    func forceUpdateHeaderFrame(){
-        //See reason for fix here: http://stackoverflow.com/questions/16471846/is-it-possible-to-use-autolayout-with-uitableviews-tableheaderview
-        self.tableView.tableHeaderView!.setNeedsLayout()
-        self.tableView.tableHeaderView!.layoutIfNeeded()
-        let headerHeight = self.tableView.tableHeaderView!.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height
-        var headerFrame = self.tableView.tableHeaderView!.frame;
-        headerFrame.size.height = headerHeight
-        self.tableView.tableHeaderView!.frame = headerFrame;
-        self.tableView.tableHeaderView = self.tableView.tableHeaderView
-    }
 
     // MARK: - UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
-        let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
-        assert(delegate != nil, "TOC delegate not set!")
-        header.articleSite = delegate?.tableOfContentsArticleSite()
-        self.tableView.tableHeaderView = header
         tableView.registerNib(WMFTableOfContentsCell.wmf_classNib(),
                               forCellReuseIdentifier: WMFTableOfContentsCell.reuseIdentifier())
         clearsSelectionOnViewWillAppear = false
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
-
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 25
         automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsetsMake(UIApplication.sharedApplication().statusBarFrame.size.height, 0, 0, 0)
         tableView.separatorStyle = .None
@@ -157,7 +146,6 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
 
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.forceUpdateHeaderFrame()
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
     }
@@ -165,14 +153,6 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     public override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         deselectAllRows()
-    }
-    
-    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
-        coordinator.animateAlongsideTransition({ (context) -> Void in
-            self.forceUpdateHeaderFrame()
-            }) { (context) -> Void in
-        }
     }
     
     // MARK: - UITableViewDataSource
@@ -193,6 +173,13 @@ public class WMFTableOfContentsViewController: UITableViewController, WMFTableOf
     }
 
     // MARK: - UITableViewDelegate
+    public override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = WMFTableOfContentsHeader.wmf_viewFromClassNib()
+        assert(delegate != nil, "TOC delegate not set!")
+        header.articleSite = delegate?.tableOfContentsArticleSite()
+        return header
+    }
+    
     public override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         let item = items[indexPath.row]
         addHighlightToItem(item, animated: true)

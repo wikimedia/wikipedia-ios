@@ -4,6 +4,7 @@
 "article-languages-downloading" = "Loading article languages...";
 "article-languages-filter-placeholder" = "Language Filter";
 "article-read-more-title" = "Read more";
+"article-about-title" = "About this article";
 "article-unable-to-load-section" = "Unable to load this section. Try refreshing the article to see if it fixes the problem.";
 "article-unable-to-load-article" = "Unable to load article.";
 "article-related-articles-title" = "Related articles";
