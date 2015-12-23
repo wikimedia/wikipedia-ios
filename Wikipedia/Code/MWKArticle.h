@@ -154,9 +154,9 @@ static const NSInteger kMWKArticleSectionNone = -1;
  */
 - (NSString*)articleHTML;
 
-- (/*nullable */NSArray<MWKTitle*>*)disambiguationTitles;
+- (/*nullable */ NSArray<MWKTitle*>*)disambiguationTitles;
 
-- (/*nullable */NSArray<NSString*>*)pageIssues;
+- (/*nullable */ NSArray<NSString*>*)pageIssues;
 
 @end
 

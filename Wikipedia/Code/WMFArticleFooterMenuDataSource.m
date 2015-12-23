@@ -3,6 +3,7 @@
 #import "MWKArticle.h"
 #import "NSDate+Utilities.h"
 #import "WMFArticleFooterMenuCell.h"
+#import "MWKTitle.h"
 
 @interface WMFArticleFooterMenuDataSource ()
 
@@ -42,25 +43,25 @@
 
     if (article.languagecount > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLanguages,
-                                      [MWLocalizedString(@"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
+                                      [MWSiteLocalizedString(article.title.site, @"page-read-in-other-languages", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%d", article.languagecount]],
                                       nil, @"footer-switch-language")];
     }
 
     [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                  [MWLocalizedString(@"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
-                                  MWLocalizedString(@"page-edit-history", nil),
+                                  [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
+                                  MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
                                   @"footer-edit-history")];
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
-                                      MWLocalizedString(@"page-issues", nil),
+                                      MWSiteLocalizedString(article.title.site, @"page-issues", nil),
                                       nil,
                                       @"footer-warnings")];
     }
 
     if (article.disambiguationTitles.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeDisambiguation,
-                                      MWLocalizedString(@"page-similar-titles", nil),
+                                      MWSiteLocalizedString(article.title.site, @"page-similar-titles", nil),
                                       nil,
                                       @"footer-similar-pages")];
     }
