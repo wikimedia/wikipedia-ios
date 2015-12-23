@@ -6,6 +6,7 @@
 @import Tweaks;
 @import SSDataSources;
 #import "PiwikTracker+WMFExtensions.h"
+#import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
 // Sections
 #import "WMFMainPageSectionController.h"
@@ -279,6 +280,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
     [self updateSectionSchema];
+}
+
+#pragma mark - Offline Handling
+
+- (void)showOfflineEmptyViewAndReloadWhenReachable {
+    NSParameterAssert(self.isViewLoaded && self.view.superview);
+
+    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+
+    @weakify(self);
+    SCNetworkReachability().then(^{
+        @strongify(self);
+        [self wmf_hideEmptyView];
+        [self reloadSectionControllers];
+    });
 }
 
 #pragma mark - Data Source Configuration
@@ -703,8 +719,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
     DDLogVerbose(@"Encountered %@ in section %ld: %@", error, section, controller);
     self.sectionLoadErrors[controller.sectionIdentifier] = error;
-    if (self.view.superview && [error wmf_isNetworkConnectionError])) {
-        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+    if ([error wmf_isNetworkConnectionError]) {
+        [self showOfflineEmptyViewAndReloadWhenReachable];
     }
     [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
 }
