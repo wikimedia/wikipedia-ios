@@ -92,10 +92,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
  *  @see startingSchema
  */
 - (void)reset {
-    NSMutableArray* startingSchema = [[WMFHomeSectionSchema startingSchema] mutableCopy];
-    if ([self isFeaturedArticleSupported]) {
-        [startingSchema addObject:[WMFHomeSection featuredArticleSectionWithSite:self.site]];
-    }
+    NSMutableArray<WMFHomeSection*>* startingSchema = [[WMFHomeSectionSchema startingSchema] mutableCopy];
+
+    [startingSchema wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
 
     WMFHomeSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
@@ -259,23 +258,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Daily Sections
 
-- (BOOL)isFeaturedArticleSupported {
-    /*
-     HAX: "Today's Featured Article" template is specific to en.wikipedia.org.
-    */
-    return [self.site.language isEqualToString:@"en"] && [self.site.domain isEqualToString:@"wikipedia.org"];;
-}
-
 - (NSArray<WMFHomeSection*>*)featuredSections {
     NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFHomeSection* obj) {
         return obj.type == WMFHomeSectionTypeFeaturedArticle;
     }];
 
     //Don't add new ones if we aren't in english
-    if (![self isFeaturedArticleSupported]) {
-        return existingFeaturedArticleSections;
-    }
-
     NSMutableArray* featured = [existingFeaturedArticleSections mutableCopy];
 
     WMFHomeSection* today = [featured bk_match:^BOOL (WMFHomeSection* obj) {
@@ -285,7 +273,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }];
 
     if (!today) {
-        [featured addObject:[WMFHomeSection featuredArticleSectionWithSite:self.site]];
+        [featured wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
     NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
