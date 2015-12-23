@@ -11,7 +11,7 @@ import XCTest
 let expectedFailureDescriptionPrefix =
 "Asynchronous wait failed: Exceeded timeout of 1 seconds, with unfulfilled expectations: \"testShouldNotFulfillExpectationWhenTimeoutExpires"
 
-class XCTestCase_PromiseKitSwiftTests: XCTestCase {
+class XCTestCasePromiseKitSwiftTests: XCTestCase {
     override func recordFailureWithDescription(
         description: String,
         inFile filePath: String,
@@ -28,6 +28,11 @@ class XCTestCase_PromiseKitSwiftTests: XCTestCase {
     }
 
     func testShouldNotFulfillExpectationWhenTimeoutExpires() {
+        guard NSProcessInfo.processInfo().wmf_isOperatingSystemMajorVersionAtLeast(9) else {
+            print("Skipping \(self.dynamicType).\(__FUNCTION__) since it crashes with symbolication errors on iOS < 9")
+            return
+        }
+
         var resolve: (() -> Void)!
         expectPromise(toResolve()) { () -> Promise<Void> in
             let (p, fulfill, _) = Promise<Void>.pendingPromise()
