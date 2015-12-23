@@ -138,6 +138,9 @@ public class WMFTableOfContentsViewController: UIViewController,
     public override func loadView() {
         super.loadView()
         tableView = UITableView(frame: self.view.bounds, style: .Grouped)
+        
+        assert(tableView.style == .Grouped, "Use grouped UITableView layout so our WMFTableOfContentsHeader's autolayout works properly. Formerly we used a .Plain table style and set self.tableView.tableHeaderView to our WMFTableOfContentsHeader, but doing so caused autolayout issues for unknown reasons. Instead, we now use a grouped layout and use WMFTableOfContentsHeader with viewForHeaderInSection, which plays nicely with autolayout. (grouped layouts also used because they allow the header to scroll *with* the section cells rather than floating)")
+        
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
