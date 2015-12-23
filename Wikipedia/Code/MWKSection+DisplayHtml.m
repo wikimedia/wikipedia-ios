@@ -77,9 +77,9 @@
             self.sectionId];
 }
 
--(NSString*)getHTMLWrappedInTablesIfNeeded {
-    NSString *tableFormatString = @"<table><th>%@</th><tr><td>%@</td></tr></table>";
-    NSArray *titlesToWrap = @[@"References", @"External links", @"Notes", @"Further reading", @"Bibliography"];
+- (NSString*)getHTMLWrappedInTablesIfNeeded {
+    NSString* tableFormatString = @"<table><th>%@</th><tr><td>%@</td></tr></table>";
+    NSArray* titlesToWrap       = @[@"References", @"External links", @"Notes", @"Further reading", @"Bibliography"];
     for (NSString* sectionTitle in titlesToWrap) {
         if ([self.line isEqualToString:sectionTitle]) {
             return [NSString stringWithFormat:tableFormatString, sectionTitle, self.text];
