@@ -19,6 +19,7 @@
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
 "article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
+"article-about-title" = "The text that is displayed before the 'about' section at the bottom of an article";
 "article-unable-to-load-section" = "Displayed within the article content when a section fails to render for some reason.";
 "article-unable-to-load-article" = "Alert text shown when unable to load an article";
 "article-related-articles-title" = "The title shown above article titles related to the current article.";

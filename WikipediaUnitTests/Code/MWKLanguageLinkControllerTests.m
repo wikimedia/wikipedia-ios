@@ -12,6 +12,7 @@
 #import "MWKLanguageLink.h"
 #import <OCHamcrest/OCHamcrest.h>
 #import "NSString+Extras.h"
+#import "NSUserDefaults+WMFReset.h"
 
 @interface MWKLanguageLinkControllerTests : XCTestCase
 @property (strong, nonatomic) MWKLanguageLinkController* controller;
@@ -23,6 +24,9 @@
 
 - (void)setUp {
     [super setUp];
+
+    // force language link controller to grab device language, not previous values set by another test
+    [[NSUserDefaults standardUserDefaults] wmf_resetToDefaultValues];
 
     NSAssert([[NSLocale preferredLanguages] containsObject:@"en-US"]
              || [[NSLocale preferredLanguages] containsObject:@"en"],
@@ -44,7 +48,7 @@
        since we've asserted above that "en" or "en-US" is one of the OS preferred languages, we can assert that our
        controller contains a language link for "en"
      */
-    assertThat([self preferredLanguageCodes], contains(@"en", nil));
+    assertThat([self preferredLanguageCodes], hasItem(@"en"));
     [self verifyAllLanguageArrayProperties];
 }
 
