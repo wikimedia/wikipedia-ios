@@ -5,7 +5,7 @@
 @class MWKTitle;
 @class MWKSavedPageList;
 
-@interface WMFRelatedSectionController : NSObject <WMFArticleHomeSectionController>
+@interface WMFRelatedSectionController : NSObject <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                        savedPageList:(MWKSavedPageList*)savedPageList;

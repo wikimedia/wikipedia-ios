@@ -2,7 +2,7 @@
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
 
-static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelDebug;
+static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelInfo;
 
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFLocationManagerLogLevel
