@@ -67,7 +67,7 @@
 
     [self expectFetcherToFinishWithError:nil];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     assertThat(self.downloadedArticles, is(@[stubbedArticle]));
     [self verifyPersistedImageInfoForArticle:stubbedArticle];
@@ -87,7 +87,8 @@
 
     [self expectFetcherToFinishWithError:nil];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
 
     assertThat(self.downloadedArticles, is(@[firstArticle, secondArticle]));
     [self verifyPersistedImageInfoForArticle:firstArticle];
@@ -115,7 +116,7 @@
 
     [self expectFetcherToFinishWithError:nil];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     // should not have fetched anything for cached article
     [MKTVerifyCount(self.mockArticleFetcher, MKTNever()) fetchArticleForPageTitle:cachedArticle.title progress:anything()];
@@ -144,7 +145,7 @@
 
     [self expectFetcherToFinishWithError:downloadError];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURLInBackground:anything()];
     assertThat(self.downloadedArticles, isEmpty());
@@ -176,7 +177,7 @@
 
     [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
@@ -207,7 +208,7 @@
 
     [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
@@ -242,7 +243,7 @@
 
     [self expectFetcherToFinishWithError:[NSError wmf_savedPageImageDownloadError]];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     assertThat(self.downloadedArticles, isEmpty());
     assertThat(self.downloadErrors, hasValue([NSError wmf_savedPageImageDownloadError]));
@@ -265,7 +266,7 @@
 
     [self expectFetcherToFinishWithError:downloadError];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     assertThat(self.downloadedArticles, is(@[secondArticle]));
     [self verifyPersistedImageInfoForArticle:secondArticle];
@@ -325,7 +326,7 @@
         });
     });
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     [MKTVerify(self.mockArticleFetcher) cancelFetchForPageTitle:firstTitle];
 
@@ -347,7 +348,7 @@
 
     [self.savedArticlesFetcher fetchAndObserveSavedPageList];
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 
     /*
        HAX: we need to save the article on behalf of the article fetcher in order for the savedArticlesFetcher to
@@ -375,7 +376,7 @@
         [asyncFetcherWorkExpectation fulfill];
     });
 
-    WaitForExpectations();
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 }
 
 #pragma mark - Utils
