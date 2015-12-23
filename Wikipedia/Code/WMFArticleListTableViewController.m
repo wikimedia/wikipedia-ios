@@ -132,15 +132,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Empty State
 
-- (void)updateEmptyState{
-    if(self.view.superview == nil){
+- (void)updateEmptyState {
+    if (self.view.superview == nil) {
         return;
     }
 
     if ([self.dataSource titleCount] > 0) {
         [self wmf_hideEmptyView];
     } else {
-        if([self.dataSource respondsToSelector:@selector(emptyViewType)]){
+        if ([self.dataSource respondsToSelector:@selector(emptyViewType)]) {
             [self wmf_showEmptyViewOfType:[self.dataSource emptyViewType]];
         }
     }
