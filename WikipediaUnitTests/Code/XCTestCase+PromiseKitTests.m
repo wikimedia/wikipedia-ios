@@ -18,7 +18,7 @@
                               inFile:(NSString*)filePath
                               atLine:(NSUInteger)lineNumber
                             expected:(BOOL)expected {
-    if (![description hasPrefix:@"Asynchronous wait failed: Exceeded timeout of 1 seconds, with unfulfilled expectations: \"testShouldNotFulfillExpectationWhenTimeoutExpires"]) {
+    if (![description hasPrefix:@"Asynchronous wait failed: Exceeded timeout of 0 seconds, with unfulfilled expectations: \"testShouldNotFulfillExpectationWhenTimeoutExpires"]) {
         // recorded failure wasn't the expected timeout
         [super recordFailureWithDescription:description inFile:filePath atLine:lineNumber expected:expected];
     }
@@ -30,12 +30,12 @@
     }
 
     __block PMKResolver resolve;
-    expectResolution(^{
+    expectResolutionWithTimeout(0, ^{
         return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
             resolve = aResolve;
         }];
     });
-    // Resolve after wait context, and which we should handle internally so it doesn't throw an assertion.
+    // Resolve after wait context, which we should handle internally so it doesn't throw an assertion.
     resolve(nil);
 }
 
@@ -49,8 +49,8 @@
         return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull aResolve) {
             resolve = aResolve;
         }];
-    } withPolicy:PMKCatchPolicyAllErrors timeout:1  WMFExpectFromHere];
-    // Resolve after wait context, and which we should handle internally so it doesn't throw an assertion.
+    } withPolicy:PMKCatchPolicyAllErrors timeout:0  WMFExpectFromHere];
+    // Resolve after wait context, which we should handle internally so it doesn't throw an assertion.
     resolve([NSError cancelledError]);
 }
 
