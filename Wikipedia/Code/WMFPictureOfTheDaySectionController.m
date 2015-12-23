@@ -70,21 +70,19 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     @weakify(self);
     self.fetchRequest =
         [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
-                                        metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]]
-        .then(^(MWKImageInfo* info) {
+                                        metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]];
+    self.fetchRequest.then(^(MWKImageInfo* info) {
         @strongify(self);
         self.imageInfo = info;
         [self.delegate controller:self didSetItems:self.items];
     })
-        .catch(^(NSError* error) {
+    .catch(^(NSError* error) {
         @strongify(self);
         self.imageInfo = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
-        WMF_TECH_DEBT_TODO(show empty view)
-        [self.delegate controller : self didSetItems : self.items];
-        DDLogError(@"POTD error: %@", error);
+        WMF_TECH_DEBT_TODO(show empty view);
     })
-        .finally(^{
+    .finally(^{
         self.fetchRequest = nil;
     });
 }
