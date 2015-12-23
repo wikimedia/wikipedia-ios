@@ -101,17 +101,17 @@
 }
 
 - (void)testImportsAllExpectedImagesFromFixture {
-        self.dataStore = [MWKDataStore temporaryDataStore];
+    self.dataStore = [MWKDataStore temporaryDataStore];
 
-        MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
+    MWKArticle* article = [[MWKArticle alloc] initWithTitle:[MWKTitle random] dataStore:self.dataStore];
 
-        [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
+    [article importMobileViewJSON:[[self wmf_bundle] wmf_jsonFromContentsOfFile:@"Obama"][@"mobileview"]];
 
-        [article importAndSaveImagesFromSectionHTML];
+    [article importAndSaveImagesFromSectionHTML];
 
-        // expected number is observed & recorded,
-        assertThat(@(article.images.count), is(@95));
-        [self.dataStore removeFolderAtBasePath];
+    // expected number is observed & recorded,
+    assertThat(@(article.images.count), is(@95));
+    [self.dataStore removeFolderAtBasePath];
 }
 
 @end
