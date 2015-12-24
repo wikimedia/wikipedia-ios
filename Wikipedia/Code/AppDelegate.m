@@ -7,6 +7,10 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 
+static NSString* const WMFIconShortcutTypeSearch          = @"org.wikimedia.wikipedia.icon-shortcut-random";
+static NSString* const WMFIconShortcutTypeContinueReading = @"org.wikimedia.wikipedia.icon-shortcut-continue-reading";
+static NSString* const WMFIconShortcutTypeRandom          = @"org.wikimedia.wikipedia.icon-shortcut-random";
+static NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.icon-shortcut-nearby";
 
 @import Tweaks;
 
@@ -52,9 +56,39 @@
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
 
+    [self createDynamicIconShortcutItems];
+    
     NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 
     return YES;
+}
+
+- (void)createDynamicIconShortcutItems {
+    if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) return;
+    
+    UIApplicationShortcutItem* (^makeShortcut)(NSString*, NSString*, NSString*, NSString*) = ^(NSString* type, NSString* title, NSString* subtitle, NSString* icon) {
+        return [[UIApplicationShortcutItem alloc] initWithType:type
+                                                localizedTitle:MWLocalizedString(title, nil)
+                                             localizedSubtitle:subtitle
+                                                          icon:[UIApplicationShortcutIcon iconWithTemplateImageName:icon]
+                                                      userInfo:nil];
+    };
+    
+    NSMutableArray* shortcutItems =
+    [[NSMutableArray alloc] initWithObjects:
+     makeShortcut(WMFIconShortcutTypeRandom, @"icon-shortcut-random-title", @"", @"random-quick-action"),
+     makeShortcut(WMFIconShortcutTypeNearby, @"icon-shortcut-nearby-title", @"", @"nearby-quick-action"),
+     nil
+     ];
+    
+    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+    if (lastRead) {
+        [shortcutItems addObject:makeShortcut(WMFIconShortcutTypeContinueReading, @"icon-shortcut-continue-reading-title", lastRead.text, @"home-continue-reading-mini")];
+    }
+    
+    [shortcutItems addObject:makeShortcut(WMFIconShortcutTypeSearch, @"icon-shortcut-search-title", @"", @"search")];
+    
+    [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
