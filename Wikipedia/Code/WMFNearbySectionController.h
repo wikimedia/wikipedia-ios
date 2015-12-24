@@ -5,6 +5,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+
 @interface WMFNearbySectionController : NSObject
     <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
 

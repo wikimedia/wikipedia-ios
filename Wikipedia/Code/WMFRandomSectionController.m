@@ -12,9 +12,6 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
-
-static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
-
 @interface WMFRandomSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;

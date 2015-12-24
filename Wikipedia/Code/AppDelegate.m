@@ -7,11 +7,6 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 
-static NSString* const WMFIconShortcutTypeSearch          = @"org.wikimedia.wikipedia.icon-shortcut-random";
-static NSString* const WMFIconShortcutTypeContinueReading = @"org.wikimedia.wikipedia.icon-shortcut-continue-reading";
-static NSString* const WMFIconShortcutTypeRandom          = @"org.wikimedia.wikipedia.icon-shortcut-random";
-static NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.icon-shortcut-nearby";
-
 @import Tweaks;
 
 @interface AppDelegate ()
@@ -56,14 +51,16 @@ static NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wiki
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
 
-    [self createDynamicIconShortcutItems];
+    [self updateDynamicIconShortcutItems];
     
     NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 
     return YES;
 }
 
-- (void)createDynamicIconShortcutItems {
+- (void)updateDynamicIconShortcutItems {
+    self.shortcutItemSelectedAtLaunch = nil;
+
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) return;
     
     UIApplicationShortcutItem* (^makeShortcut)(NSString*, NSString*, NSString*, NSString*) = ^(NSString* type, NSString* title, NSString* subtitle, NSString* icon) {
@@ -91,10 +88,15 @@ static NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wiki
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
+-(void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    self.shortcutItemSelectedAtLaunch = shortcutItem;
+}
+
 - (void)applicationWillResignActive:(UIApplication*)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     [[NSUserDefaults standardUserDefaults] wmf_setAppResignActiveDate:[NSDate date]];
+    [self updateDynamicIconShortcutItems];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication*)application {
@@ -114,6 +116,7 @@ static NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wiki
 
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self updateDynamicIconShortcutItems];
 }
 
 // TODO: fetch saved pages in the background

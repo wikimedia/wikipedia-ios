@@ -40,6 +40,10 @@
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
+#import "AppDelegate.h"
+#import "WMFRandomSectionController.h"
+#import "WMFNearbySectionController.h"
+
 /**
  *  Enums for each tab in the main tab bar.
  *
@@ -172,6 +176,11 @@ static dispatch_once_t launchToken;
 }
 
 - (void)resumeApp {
+    BOOL shortcutWasHandled = [self handleSelectionOfShortcutItemIfNecessary];
+    if (shortcutWasHandled) {
+        return;
+    }
+    
     if (![self launchCompleted]) {
         return;
     }
@@ -183,7 +192,6 @@ static dispatch_once_t launchToken;
         if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
             MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
             if (lastRead) {
-                [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
                 [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
                 [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
             }
@@ -207,6 +215,42 @@ static dispatch_once_t launchToken;
 - (void)pauseApp {
     [self downloadAssetsFilesIfNecessary];
     [self performHousekeepingIfNecessary];
+}
+
+-(BOOL)handleSelectionOfShortcutItemIfNecessary{
+    UIApplicationShortcutItem *shortcutItemSelectedAtLaunch = [((AppDelegate*)[UIApplication sharedApplication].delegate) shortcutItemSelectedAtLaunch];
+    if (shortcutItemSelectedAtLaunch) {
+        
+        // Ensure search view controller has been hidden.
+        [[self navigationControllerForTab:WMFAppTabTypeHome] dismissViewControllerAnimated:NO completion:nil];
+        
+        if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
+            // Show search without loosing underlying view hierarchy.
+
+            // HAX: fragile.
+            UIBarButtonItem* searchButton = ((WMFArticleContainerViewController*)((UINavigationController*)self.rootTabBarController.selectedViewController).topViewController).navigationItem.rightBarButtonItem;
+            NSAssert(searchButton, @"Search button not found.");
+            NSAssert([searchButton.target respondsToSelector:searchButton.action], @"Search button expected selector not found.");
+            
+            [searchButton.target performSelector:searchButton.action withObject:searchButton afterDelay:0];
+            return YES;
+        }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
+            [self popToHomeAndScrollToSectionWithIdentifier:WMFRandomSectionIdentifier performingHeaderButtonAction:YES];
+            return YES;
+        }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
+            [self popToHomeAndScrollToSectionWithIdentifier:WMFNearbySectionIdentifier performingHeaderButtonAction:NO];
+            return YES;
+        }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
+            // Fall through to normal "continue reading" handling.
+        }
+    }
+    return NO;
+}
+
+-(void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction{
+    [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+    [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+    [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
 }
 
 #pragma mark - Start App

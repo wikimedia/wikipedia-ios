@@ -496,6 +496,16 @@ NS_ASSUME_NONNULL_BEGIN
     [self.dataSource removeAllSections];
 }
 
+- (void)scrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction {
+    NSUInteger section = [self.dataSource indexOfSectionWithIdentifier:identifier];
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    if (performHeaderButtonAction) {
+        UIViewController *controller = (UIViewController *)[self sectionControllerForSectionAtIndex:section];
+        [controller performSelectorOnMainThread:@selector(performHeaderButtonAction) withObject:nil waitUntilDone:NO];
+    }
+}
+
 - (void)didTapFooterInSection:(NSUInteger)section {
     id<WMFHomeSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
     NSParameterAssert(controllerForSection);
