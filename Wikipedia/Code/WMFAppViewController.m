@@ -97,6 +97,9 @@ static dispatch_once_t launchToken;
 #pragma mark - Setup
 
 - (void)loadMainUI {
+    if (self.rootTabBarController) {
+        return;
+    }
     UITabBarController* tabBar = [[UIStoryboard storyboardWithName:@"WMFTabBarUI" bundle:nil] instantiateInitialViewController];
     [self addChildViewController:tabBar];
     [self.view addSubview:tabBar.view];
@@ -176,40 +179,40 @@ static dispatch_once_t launchToken;
 }
 
 - (void)resumeApp {
-    BOOL shortcutWasHandled = [self handleSelectionOfShortcutItemIfNecessary];
-    if (shortcutWasHandled) {
-        return;
-    }
-    
-    if (![self launchCompleted]) {
-        return;
-    }
-
-    if ([self shouldShowHomeScreenOnLaunch]) {
-        [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-        [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-    } else if ([self shouldShowLastReadArticleOnLaunch]) {
-        if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
-            MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-            if (lastRead) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-                [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
+    [self handleSelectionOfShortcutItemIfNecessaryThen:^(BOOL shortcutWasHandled){
+        if (shortcutWasHandled) {
+            return;
+        }
+        if (![self launchCompleted]) {
+            return;
+        }
+        
+        if ([self shouldShowHomeScreenOnLaunch]) {
+            [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+            [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+        } else if ([self shouldShowLastReadArticleOnLaunch]) {
+            if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
+                MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+                if (lastRead) {
+                    [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+                    [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
+                }
+            }
+            
+            if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
+                [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            }
+            if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
+                [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            }
+            if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
+                [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+            }
+            if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
+                [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             }
         }
-
-        if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-        if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
-            [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-        }
-    }
+    }];
 }
 
 - (void)pauseApp {
@@ -217,34 +220,50 @@ static dispatch_once_t launchToken;
     [self performHousekeepingIfNecessary];
 }
 
--(BOOL)handleSelectionOfShortcutItemIfNecessary{
+-(void)handleSelectionOfShortcutItemIfNecessaryThen:(void (^)(BOOL shortcutWasHandled))completion{
     UIApplicationShortcutItem *shortcutItemSelectedAtLaunch = [((AppDelegate*)[UIApplication sharedApplication].delegate) shortcutItemSelectedAtLaunch];
     if (shortcutItemSelectedAtLaunch) {
         
-        // Ensure search view controller has been hidden.
-        [[self navigationControllerForTab:WMFAppTabTypeHome] dismissViewControllerAnimated:NO completion:nil];
-        
-        if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
-            // Show search without loosing underlying view hierarchy.
+        // Main UI may *not* have been loaded if the user...
+        //      - minimized the app when viewing a "Welcome" screen
+        //      - then selected a 3d touch app icon shortcut menu item
+        [self loadMainUI];
+        [self hideSplashViewAnimated:NO];
+        [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
 
-            // HAX: fragile.
-            UIBarButtonItem* searchButton = ((WMFArticleContainerViewController*)((UINavigationController*)self.rootTabBarController.selectedViewController).topViewController).navigationItem.rightBarButtonItem;
-            NSAssert(searchButton, @"Search button not found.");
-            NSAssert([searchButton.target respondsToSelector:searchButton.action], @"Search button expected selector not found.");
-            
-            [searchButton.target performSelector:searchButton.action withObject:searchButton afterDelay:0];
-            return YES;
-        }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-            [self popToHomeAndScrollToSectionWithIdentifier:WMFRandomSectionIdentifier performingHeaderButtonAction:YES];
-            return YES;
-        }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-            [self popToHomeAndScrollToSectionWithIdentifier:WMFNearbySectionIdentifier performingHeaderButtonAction:NO];
-            return YES;
-        }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-            // Fall through to normal "continue reading" handling.
+        void (^handleSelection)() = ^void() {
+            if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
+                // Show search without loosing underlying view hierarchy.
+                
+                // HAX: fragile! fix!
+                UIBarButtonItem* searchButton = ((WMFArticleContainerViewController*)((UINavigationController*)self.rootTabBarController.selectedViewController).topViewController).navigationItem.rightBarButtonItem;
+                NSAssert(searchButton, @"Search button not found.");
+                NSAssert([searchButton.target respondsToSelector:searchButton.action], @"Search button expected selector not found.");
+                
+                [searchButton.target performSelector:searchButton.action withObject:searchButton afterDelay:0];
+                completion(YES);
+            }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
+                [self popToHomeAndScrollToSectionWithIdentifier:WMFRandomSectionIdentifier performingHeaderButtonAction:YES];
+                completion(YES);
+            }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
+                [self popToHomeAndScrollToSectionWithIdentifier:WMFNearbySectionIdentifier performingHeaderButtonAction:NO];
+                completion(YES);
+            }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
+                // Fall through to normal "Continue reading..." handling.
+                completion(NO);
+            }
+        };
+        
+        // Ensure the presentedViewController view controller (such as Search vc) has been hidden.
+        UINavigationController *homeNavController = [self navigationControllerForTab:WMFAppTabTypeHome];
+        if (homeNavController.presentedViewController) {
+            [homeNavController dismissViewControllerAnimated:NO completion:handleSelection];
+        }else{
+            handleSelection();
         }
+    }else{
+        completion(NO);
     }
-    return NO;
 }
 
 -(void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction{
