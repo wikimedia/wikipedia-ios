@@ -179,11 +179,12 @@ static dispatch_once_t launchToken;
 }
 
 - (void)resumeApp {
+    if (![self launchCompleted]) {
+        return;
+    }
+
     [self handleSelectionOfShortcutItemIfNecessaryThen:^(BOOL shortcutWasHandled){
         if (shortcutWasHandled) {
-            return;
-        }
-        if (![self launchCompleted]) {
             return;
         }
         
@@ -231,7 +232,9 @@ static dispatch_once_t launchToken;
         [self hideSplashViewAnimated:NO];
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
 
+        @weakify(self)
         void (^handleSelection)() = ^void() {
+            @strongify(self)
             if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
                 // Show search without loosing underlying view hierarchy.
                 
@@ -267,19 +270,23 @@ static dispatch_once_t launchToken;
 }
 
 -(void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction{
-    [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
     [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-    [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
+    dispatchOnMainQueueAfterDelayInSeconds(0.0, ^{ // Prevent crash when device not connected to Xcode.
+        [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
+    });
 }
 
 #pragma mark - Start App
 
 - (void)startApp {
     [self showSplashView];
+    @weakify(self)
     [self runDataMigrationIfNeededWithCompletion:^{
+        @strongify(self)
         [self.imageMigration setupAndStart];
         [self.savedArticlesFetcher fetchAndObserveSavedPageList];
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+            @strongify(self)
             [self loadMainUI];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
