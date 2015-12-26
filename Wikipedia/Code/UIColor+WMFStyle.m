@@ -186,7 +186,7 @@
 }
 
 + (instancetype)wmf_nearbyTickColor {
-    return [UIColor lightGrayColor];
+    return [UIColor wmf_999999Color];
 }
 
 + (instancetype)wmf_nearbyTitleColor {
