@@ -54,7 +54,7 @@
 }
 
 + (instancetype)wmf_nearbyDistanceFont {
-    return [UIFont systemFontOfSize:14.0f];
+    return [UIFont systemFontOfSize:12.0f];
 }
 
 + (instancetype)wmf_homeSectionHeaderFont {
