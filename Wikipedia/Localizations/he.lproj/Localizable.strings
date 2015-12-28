@@ -110,8 +110,7 @@
 "main-menu-language-selection-saved" = "בחירת השפה נשמרה";
 "main-menu-account-title-logged-out" = "חשבון";
 "main-menu-account-title-logged-in" = "נכנסת בתור: $1";
-// Fuzzy
-"main-menu-account-login" = "כניסה";
+"main-menu-account-login" = "כניסה לוויקיפדיה";
 "main-menu-account-logout" = "יציאה";
 "main-menu-show-title" = "תַראו לי...";
 "main-menu-show-history" = "לאחרונה";
@@ -301,3 +300,30 @@
 "home-potd-heading" = "תמונת היום עבור $1";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
 "potd-description-prefix" = "תמונת היום של $1";
+"welcome-whats-new-title" = "ברוך בואך לוויקיפדיה";
+"welcome-whats-new-whats-new" = "מה חדש";
+"welcome-whats-new-bullet-one-title" = "דרך חדשה לחקור";
+"welcome-whats-new-bullet-one-text" = "לגלות ערכים חדשים ומעניינים במיוחד בשבילך במסך \"לחקור\".";
+"welcome-whats-new-bullet-one-more-info-button-text" = "איך זה עובד...";
+"welcome-whats-new-bullet-two-title" = "מעוצב בשביל קריאה";
+"welcome-whats-new-bullet-two-text" = "עיצוב מעודכן שמתמקד בחוויית קריאה מצוינת.";
+"welcome-whats-new-button-title" = "להתחיל";
+"welcome-whats-new-bullet-one-more-info-text" = "בעת ביקור בערך, ערכים קשורים נוספים אוטומטית להזנה שלך. זה לא משנה את הצורה שבא אנחנו אוספים מידע והיסטוריית הקריאה שלך עדיין פרטית.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "הבנתי";
+// Fuzzy
+"welcome-languages-title" = "נא לבחור את השפות שלך";
+"welcome-languages-more-languages-button-title" = "הוספת שפות";
+"welcome-languages-button-title" = "המשך";
+"welcome-languages-footnote-text" = "אל דאגה, אפשר לשנות את זה אחר־כך.";
+"welcome-usage-reports-title" = "עזרו לנו לשפר את ויקיפדיה";
+"welcome-usage-reports-body-text" = "אתם יכולים לעזור לנו לשפר את היישום אם תאפשרו לנו לאסוף מידע על איך שאתם משתמשים בו.";
+"welcome-usage-reports-switch-text" = "לשלוח דיווחי שימוש";
+// Fuzzy
+"welcome-usage-reports-button-title" = "בוצע";
+"welcome-usage-reports-privacy-policy-button-text" = "אכפת לנו מהפרטיות שלך";
+"empty-no-feed-title" = "אין חיבור אינטרנט";
+"empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
+"empty-no-feed-action-message" = "בינתיים אפשר לקרוא דפים שמורים";
+"empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
+"empty-no-search-results-message" = "סליחה, לא ניתן לטעון את התוצאות";
+"alert-no-internet" = "אין חיבור אינטרנט";

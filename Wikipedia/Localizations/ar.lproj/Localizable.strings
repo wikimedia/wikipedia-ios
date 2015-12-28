@@ -64,6 +64,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "فتح الرابط";
 "open-link-cancel" = "إلغاء";
+"search-title" = "بحث";
 "search-searching" = "جارٍ البحث...";
 "search-field-placeholder-text" = "البحث في ويكيبيديا";
 "search-field-placeholder-text-zero" = "البحث في ويكيبيديا زيرو";
@@ -174,3 +175,4 @@
 "hockeyapp-alert-send-report" = "أرسل التقرير";
 "hockeyapp-alert-do-not-send" = "لا ترسل";
 "page-similar-titles" = "صفحات مشابهة";
+"home-title" = "استكشف";

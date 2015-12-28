@@ -90,8 +90,7 @@
 "search-titles" = "ਸਿਰਲੇਖ";
 "search-within-articles" = "ਲੇਖਾਂ ਦੇ ਵਿੱਚ";
 "search-did-you-mean" = "ਕੀ ਤੁਹਾਡਾ ਮਤਲਬ $1 ਸੀ?";
-// Fuzzy
-"search-recent-title" = "ਹਾਲੀਆ ਖੋਜਾਂ";
+"search-recent-title" = "ਹਾਲੀਆ ਖੋਜ਼ਾਂ";
 "search-recent-clear-confirmation-heading" = "ਸਾਰੀਆਂ ਹਾਲੀਆ ਖੋਜਾਂ ਮਿਟਾਓ?";
 "search-recent-clear-confirmation-sub-heading" = "ਇਸ ਕਾਰਜ ਨੂੰ ਰੱਦ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ!";
 "search-recent-clear-cancel" = "ਰੱਦ ਕਰੋ";
@@ -106,8 +105,7 @@
 "main-menu-language-selection-saved" = "ਬੋਲੀ ਦੀ ਚੋਣ ਸਾਂਭੀ ਗਈ";
 "main-menu-account-title-logged-out" = "ਖਾਤਾ";
 "main-menu-account-title-logged-in" = "$1 ਵਜੋਂ ਦਾਖ਼ਲ";
-// Fuzzy
-"main-menu-account-login" = "ਦਾਖ਼ਲ ਹੋਵੋ";
+"main-menu-account-login" = "ਵਿਕੀਪੀਡੀਆ 'ਚ ਦਾਖ਼ਲ ਹੋਵੋ";
 "main-menu-account-logout" = "ਵਿਦਾਈ ਲਉ";
 "main-menu-show-title" = "ਮੈਨੂੰ ਵਿਖਾਉ...";
 "main-menu-show-history" = "ਹਾਲੀਆ";
@@ -271,3 +269,22 @@
 "captcha-reload" = "ਹੋਰ ਕੈਪਚਾ ਦਿਖਾਵੋ";
 "captcha-prompt" = "ੳੁੱਪਰ ਦਿੱਤੇ ਚਿੱਤਰ ਵਿੱਚੋਂ ਕੈਪਚਾ ਲਿਖਿ";
 "home-title" = "ਵਿਚਰੋ";
+"welcome-whats-new-title" = "ਵਿਕੀਪੀਡੀਆ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ";
+"welcome-whats-new-whats-new" = "ਕੀ ਕੁਝ ਨਵਾਂ ਹੈ";
+"welcome-whats-new-bullet-one-title" = "ਵਿਚਰਨ ਦਾ ਨਵਾਂ ਤਰੀਕਾ";
+"welcome-whats-new-button-title" = "ਚਲੋ ਸ਼ੁਰੂ ਕਰੀਏ";
+"welcome-whats-new-bullet-one-more-info-done-button" = "ਮੈਂ ਜਾਣਦਾ ਹਾਂ";
+// Fuzzy
+"welcome-languages-title" = "ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ";
+"welcome-languages-more-languages-button-title" = "ਹੋਰ ਭਾਸ਼ਾਵਾਂ ਸ਼ਾਮਿਲ ਕਰੋ";
+"welcome-languages-button-title" = "ਜਾਰੀ ਰੱਖੋ";
+"welcome-languages-footnote-text" = "ਚਿੰਤਾ ਨਾ ਕਰੋ, ਤੁਸੀਂ ਇਸਨੂੰ ਬਾਅਦ 'ਚ ਬਦਲ ਸਕਦੇ ਹੋ";
+"welcome-usage-reports-title" = "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਹੋਰ ਵਧੀਆ ਬਣਾਉਣ ਲਈ ਸਾਡੀ ਮਦਦ ਕਰੋ";
+"welcome-usage-reports-switch-text" = "ਵਰਤੋਂ ਦੀਆਂ ਰਿਪੋਰਟਾਂ ਭੇਜੋ";
+// Fuzzy
+"welcome-usage-reports-button-title" = "ਹੋ ਗਿਆ";
+"welcome-usage-reports-privacy-policy-button-text" = "ਤੁਹਾਡੀ ਨਿੱਜਤਾ ਸਾਡੇ ਲਈ ਜ਼ਰੂਰੀ ਹੈ";
+"empty-no-feed-title" = "ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ";
+"empty-no-article-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਲੇਖ ਨਹੀਂ ਆ ਰਿਹਾ";
+"empty-no-search-results-message" = "ਮੁਆਫ਼ ਕਰਨਾ, ਨਤੀਜੇ ਨਹੀਂ ਆ ਰਹੇ";
+"alert-no-internet" = "ਇੱਥੇ ਕੋਈ ਅੰਤਰਜ਼ਾਲ ਜੋੜ ਨਹੀਂ ਹੈ";

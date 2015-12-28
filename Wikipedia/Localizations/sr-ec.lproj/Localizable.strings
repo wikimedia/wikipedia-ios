@@ -61,6 +61,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Учитај везу";
 "open-link-cancel" = "Откажи";
+"search-title" = "Претрага";
 "search-searching" = "Претражује...";
 "search-field-placeholder-text" = "Претрага Википедије";
 "search-loading-section-zero" = "Учитавање првог одељка чланка...";
@@ -69,7 +70,6 @@
 "search-cancel" = "Откажи";
 "search-titles" = "Наслови";
 "search-did-you-mean" = "Да ли сте мислили на $1?";
-// Fuzzy
 "search-recent-title" = "Скорашње претраге";
 "search-recent-clear-confirmation-heading" = "Обрисати скорашње претраге?";
 "search-recent-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
@@ -85,7 +85,6 @@
 "main-menu-language-selection-saved" = "Избор језика сачуван";
 "main-menu-account-title-logged-out" = "Налог";
 "main-menu-account-title-logged-in" = "Пријављен сте као: $1";
-// Fuzzy
 "main-menu-account-login" = "Пријави ме";
 "main-menu-account-logout" = "Одјави ме";
 "main-menu-show-title" = "Прикажи...";
@@ -210,3 +209,17 @@
 "page-issues" = "Недостаци странице";
 "page-similar-titles" = "Сличне странице";
 "captcha-prompt" = "Унесите текст са слике изнад";
+"welcome-whats-new-title" = "Добро дошли на Википедију";
+"welcome-whats-new-whats-new" = "Шта је ново";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Разумем!";
+// Fuzzy
+"welcome-languages-title" = "Изаберите језик";
+"welcome-languages-more-languages-button-title" = "Додај још језика";
+"welcome-languages-button-title" = "Настави";
+"welcome-usage-reports-switch-text" = "Пошаљи корисничке извештаје";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Готово";
+"empty-no-feed-title" = "Нема интернет везе";
+"empty-no-article-message" = "Учитавање чланка није успело";
+"empty-no-search-results-message" = "Учитавање резултата није успело";
+"alert-no-internet" = "Нема интернет везе";

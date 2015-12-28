@@ -13,7 +13,7 @@
 // Author: Shirayuki
 // Author: Siebrand
 
-"languages-title" = "Title for language picker";
+"languages-title" = "Title for language picker\n{{Identical|Language}}";
 "article-languages-label" = "Header label for per-article language selector screen.\n{{Identical|Choose language}}";
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
@@ -140,6 +140,7 @@
 "main-menu-more" = "Button for showing additional settings and menu items.\n{{Identical|More}}";
 "main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionall shown if in Xcode debug mode.\n{{Identical|Debug}}";
 "main-menu-debug-crash" = "Title for button that forces the application to crash.\n{{Identical|Crash}}";
+"saved-title" = "Title of the saved screen shown on the saved tab";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
@@ -151,6 +152,7 @@
 "saved-pages-description" = "Description of saved pages";
 "saved-pages-none" = "Title indicating there are no saved pages";
 "saved-pages-image-download-error" = "Error message shown when one or more images fails to save for offline use.";
+"history-title" = "Title of the history screen shown on history tab";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Article history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
@@ -314,7 +316,7 @@
 "welcome-whats-new-title" = "Welcome screen title - shown when a user opens the app for the first time (or first opens version 5.0) literally: Welcome to Wikipedia";
 "welcome-whats-new-whats-new" = "Header title above what's new on the welcome screen. literally: whats' new.";
 "welcome-whats-new-bullet-one-title" = "Welcome screen sub title - literally: A new way to explore";
-"welcome-whats-new-bullet-one-text" = "Text informing the user that you can discover new articles on the Explore Screen";
+"welcome-whats-new-bullet-one-text" = "Text informing the user that you can discover new articles on the Explore Screen. The word \"Explore\" in \"Explore screen\" must be the same as in {{msg-wikimedia|Wikipedia-ios-home-title}}.";
 "welcome-whats-new-bullet-one-more-info-button-text" = "Button text for showing privacy policy information regarding usage reports";
 "welcome-whats-new-bullet-two-title" = "Text informing the user that the app has been redisigned for reading";
 "welcome-whats-new-bullet-two-text" = "Text informing the user that the new deign is focused on providing a great reading experience";
@@ -326,24 +328,20 @@
 "welcome-languages-more-info-text" = "Text explaining how users can control what language Wikipedias to search.";
 "welcome-languages-more-info-done-button" = "Text for button which dismisses the search language explanation.";
 "welcome-languages-more-languages-button-title" = "Button text for adding more languages";
-"welcome-languages-button-title" = "Button text for proceeding to the next welcome screen";
+"welcome-languages-button-title" = "Button text for proceeding to the next welcome screen\n{{Identical|Continue}}";
 "welcome-languages-footnote-text" = "Text explaining to the user that languages can be changed later";
 "welcome-usage-reports-title" = "Title text for the useage reports step of the welcome process - literally: Help us make Wikipedia better";
 "welcome-usage-reports-body-text" = "Text asking users to enable usage reports so we can improve the app";
 "welcome-usage-reports-switch-text" = "Text below the switch that enables usage reports. The text explains what happens if you turn the switch on - Sending usage reports will be enabled";
-"welcome-usage-reports-button-title" = "Button title for finishing the welcome process. In english this is 'Done'";
+"welcome-usage-reports-button-title" = "Button title for finishing the welcome process. In english this is 'Done'\n{{Identical|Done}}";
 "welcome-usage-reports-privacy-policy-button-text" = "Button for showing the privacy policy from the usage reports welcome step";
 "empty-no-feed-title" = "Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
 "empty-no-article-message" = "Shown when an article cant be loaded in place of an article";
 "empty-no-search-results-message" = "Shown when there are no search results";
-"alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
 "empty-no-saved-pages-title" = "Title of a blank screen shown when a user has no saved pages";
 "empty-no-saved-pages-message" = "Message of a blank screen shown when a user has no saved pages";
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
 "empty-no-history-message" = "Message of a blank screen shown when a user has no history";
-"history-title" = "Title of the history screen shown on history tab";
-"saved-title" = "Title of the saved screen shown on the saved tab";
-
-
+"alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";

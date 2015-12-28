@@ -115,8 +115,7 @@
 "main-menu-language-selection-saved" = "语言选择已保存";
 "main-menu-account-title-logged-out" = "账户";
 "main-menu-account-title-logged-in" = "登录身份:$1";
-// Fuzzy
-"main-menu-account-login" = "登录";
+"main-menu-account-login" = "登录至维基百科";
 "main-menu-account-logout" = "退出";
 "main-menu-show-title" = "告诉我...";
 "main-menu-show-history" = "最近";
@@ -306,3 +305,30 @@
 "home-potd-heading" = "$1的每日图片";
 "potd-empty-error-description" = "无法检索$1的每日图片";
 "potd-description-prefix" = "$1的每日图片";
+"welcome-whats-new-title" = "欢迎来到维基百科";
+"welcome-whats-new-whats-new" = "最新动态";
+"welcome-whats-new-bullet-one-title" = "新的探索方法";
+"welcome-whats-new-bullet-one-text" = "在探索屏幕上浏览您认为新而有趣的条目。";
+"welcome-whats-new-bullet-one-more-info-button-text" = "它是如何工作的...";
+"welcome-whats-new-bullet-two-title" = "为阅读设计";
+"welcome-whats-new-bullet-two-text" = "专注于提供最佳阅读体验的更新设计。";
+"welcome-whats-new-button-title" = "开始";
+"welcome-whats-new-bullet-one-more-info-text" = "当您访问条目时，相关条目会自动添加至您的订阅源中。这不会更改我们收集您信息的方式，并且您的阅读历史仍然是私有的。";
+"welcome-whats-new-bullet-one-more-info-done-button" = "明白了";
+// Fuzzy
+"welcome-languages-title" = "选择您的语言";
+"welcome-languages-more-languages-button-title" = "添加更多语言";
+"welcome-languages-button-title" = "继续";
+"welcome-languages-footnote-text" = "不要担心，您可以稍后更新它。";
+"welcome-usage-reports-title" = "帮助我们使维基百科做的更好";
+"welcome-usage-reports-body-text" = "您可以通过允许我们收集有关您使用应用程序时产生的信息，帮助我们使应用程序更好。";
+"welcome-usage-reports-switch-text" = "发送使用情况报告";
+// Fuzzy
+"welcome-usage-reports-button-title" = "完成";
+"welcome-usage-reports-privacy-policy-button-text" = "您的隐私对我们很重要";
+"empty-no-feed-title" = "没有网络连接";
+"empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
+"empty-no-feed-action-message" = "同时您可以阅读保存的页面";
+"empty-no-article-message" = "对不起，无法加载条目";
+"empty-no-search-results-message" = "对不起，无法加载结果";
+"alert-no-internet" = "当前无网络连接";

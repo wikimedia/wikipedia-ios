@@ -19,6 +19,7 @@
 "article-read-more-title" = "閱讀更多";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "article-unable-to-load-article" = "無法載入條目。";
+"article-related-articles-title" = "相關條目";
 "info-box-title" = "快速預覽";
 "info-box-close-text" = "關閉";
 "table-title-other" = "更多資訊";
@@ -86,6 +87,7 @@
 "wikitext-upload-save-license-name" = "CC 姓名標示-相同方式分享 3.0";
 "open-link-title" = "開啟連結";
 "open-link-cancel" = "取消";
+"search-title" = "搜尋";
 "search-searching" = "搜尋中...";
 "search-no-matches" = "未找到符合的搜尋詞。";
 "search-field-placeholder-text" = "搜尋維基百科";
@@ -97,7 +99,6 @@
 "search-titles" = "標題";
 "search-within-articles" = "在條目內";
 "search-did-you-mean" = "您指的是 $1 嗎？";
-// Fuzzy
 "search-recent-title" = "近期搜尋";
 "search-recent-clear-confirmation-heading" = "刪除所有近期搜尋嗎？";
 "search-recent-clear-confirmation-sub-heading" = "此操作不能還原！";
@@ -113,8 +114,7 @@
 "main-menu-language-selection-saved" = "已儲存語言選擇";
 "main-menu-account-title-logged-out" = "帳號";
 "main-menu-account-title-logged-in" = "以 $1 的身分登入。";
-// Fuzzy
-"main-menu-account-login" = "登入";
+"main-menu-account-login" = "登入至維基百科";
 "main-menu-account-logout" = "登出";
 "main-menu-show-title" = "告訴我...";
 "main-menu-show-history" = "最近";
@@ -212,6 +212,8 @@
 "button-next" = "下一步";
 "button-done" = "已完成";
 "button-save" = "儲存";
+"button-save-for-later" = "儲存以供日後使用";
+"button-saved-for-later" = "儲存以供日後使用";
 "onboarding-create-account" = "建立帳號";
 "onboarding-login" = "登入";
 "onboarding-already-have-account" = "您已經擁有帳號了嗎？ $1";
@@ -290,3 +292,41 @@
 "captcha-reload" = "顯示其他驗證碼";
 "captcha-prompt" = "輸入上圖中的驗證碼文字";
 "mwk-empty-title-error" = "無法執行有空白標題的操作。";
+"home-title" = "探索";
+"home-continue-reading-heading" = "繼續閱讀";
+"home-continue-related-heading" = "因為您閱讀 $1";
+"home-more-like-footer" = "更像 $1";
+"home-nearby-nothing" = "附近什麼都沒有";
+"home-nearby-check-again" = "再次檢查";
+"home-featured-article-heading" = "$1 的特色條目";
+"home-main-page-heading" = "維基百科今日";
+"home-potd-heading" = "$1 的每日圖片";
+"potd-empty-error-description" = "抓取 $1 的每日圖片失敗";
+"potd-description-prefix" = "$1 的每日圖片";
+"welcome-whats-new-title" = "歡迎來到維基百科";
+"welcome-whats-new-whats-new" = "新功能";
+"welcome-whats-new-bullet-one-title" = "探索的新方式";
+"welcome-whats-new-bullet-one-text" = "只為你在 \"探索\" 畫面上探索有趣的新條目。";
+"welcome-whats-new-bullet-one-more-info-button-text" = "如何運作...";
+"welcome-whats-new-bullet-two-title" = "為了閱讀而設計";
+"welcome-whats-new-bullet-two-text" = "更新的設計專注於提供超讚的閱讀體驗。";
+"welcome-whats-new-button-title" = "入門";
+"welcome-whats-new-bullet-one-more-info-text" = "在您造訪一篇條目時，相關條目會自動新增至您的摘要中。這不會變更我們收集資訊的方式，您的閱讀歷史仍是私人的。";
+"welcome-whats-new-bullet-one-more-info-done-button" = "知道了";
+// Fuzzy
+"welcome-languages-title" = "挑選語言";
+"welcome-languages-more-languages-button-title" = "新增更多語言";
+"welcome-languages-button-title" = "繼續";
+"welcome-languages-footnote-text" = "日後您可以變更，無需擔心。";
+"welcome-usage-reports-title" = "協助我們使維基百科更佳";
+"welcome-usage-reports-body-text" = "透過允許我們收集關於您如何使用應用程式的資訊，您可以協助我們使應用程式更佳。";
+"welcome-usage-reports-switch-text" = "傳送使用情形報告";
+// Fuzzy
+"welcome-usage-reports-button-title" = "已完成";
+"welcome-usage-reports-privacy-policy-button-text" = "您的隱私對我們很重要";
+"empty-no-feed-title" = "無網際網路連線";
+"empty-no-feed-message" = "在有網際網路時，您可以看到推薦的條目";
+"empty-no-feed-action-message" = "與此同時，您可以閱讀儲存的條目";
+"empty-no-article-message" = "很抱歉，無法載入條目";
+"empty-no-search-results-message" = "很抱歉，無法載入結果";
+"alert-no-internet" = "無網際網路連線";
