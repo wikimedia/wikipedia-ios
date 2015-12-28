@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WMFArticleNavigationDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)wmf_isCitation;
 
 - (NSString*)wmf_internalLinkPath;
-
-- (void)wmf_informNavigationDelegate:(id<WMFArticleNavigationDelegate>)delegate
-                          withSender:(id<WMFArticleNavigation> __nullable)articleNavigator;
 
 @end
 

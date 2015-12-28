@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -12,7 +12,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="l4Z-Yh-AWy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
@@ -35,7 +34,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ScF-IW-gDl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="e79-4K-3DF" kind="relationship" relationship="rootViewController" id="7kY-8w-mEP"/>
@@ -50,10 +48,9 @@
             <objects>
                 <tableViewController id="Sqz-8C-QS3" customClass="WMFHomeViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="e1T-Xp-dOK">
-                        <rect key="frame" x="0.0" y="44" width="600" height="507"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </tableView>
                     <navigationItem key="navigationItem" id="Sdg-mT-j2B"/>
@@ -67,9 +64,8 @@
             <objects>
                 <tableViewController id="e79-4K-3DF" customClass="WMFArticleListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n0h-Oz-3rH">
-                        <rect key="frame" x="0.0" y="44" width="600" height="507"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
@@ -93,7 +89,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rIL-t0-IJM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="PJq-J4-m3k" kind="relationship" relationship="rootViewController" id="jcG-vE-clV"/>
@@ -108,9 +103,8 @@
             <objects>
                 <tableViewController id="PJq-J4-m3k" customClass="WMFArticleListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="RiJ-nm-vrg">
-                        <rect key="frame" x="0.0" y="44" width="600" height="507"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
@@ -134,7 +128,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c8d-c3-ZKx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="Sqz-8C-QS3" kind="relationship" relationship="rootViewController" id="7Xj-tq-r55"/>
@@ -146,7 +139,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo-onboarding" width="210" height="192"/>
         <image name="tabbar-explore" width="25" height="25"/>
         <image name="tabbar-recent" width="24" height="23"/>
         <image name="tabbar-save" width="17" height="23"/>
