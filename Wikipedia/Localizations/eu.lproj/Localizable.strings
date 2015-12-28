@@ -60,6 +60,7 @@
 "search-searching" = "Bilatzen...";
 "search-field-placeholder-text" = "Bilatu Wikipedian";
 "search-field-placeholder-text-zero" = "Bilatu Wikipedia Zeron";
+"search-loading-article-loaded" = "Artikulua kargatua.";
 "search-cancel" = "Utzi";
 "search-titles" = "Izenburuak";
 "search-within-articles" = "Artikuluen barruan";
@@ -145,6 +146,7 @@
 "button-next" = "Hurrengoa";
 "button-done" = "Egina";
 "button-save" = "Gorde";
+"button-save-for-later" = "Gorde gerorako";
 "onboarding-create-account" = "Kontua sortu";
 "onboarding-login" = "Saioa hasi";
 "onboarding-skip" = "Utzi";
@@ -179,13 +181,29 @@
 "nearby-loading" = "Gertuko artikuluak kargatzen...";
 "nearby-cancel" = "Utzi";
 "migration-skip-button-title" = "Ezabatu";
+"image-gallery-unknown-owner" = "Igotzaile ezezaguna.";
 "image-gallery-fetch-image-info-error-ok" = "OK";
 "hockeyapp-alert-send-report" = "Bidali txostena";
 "hockeyapp-alert-always-send" = "Beti bidali";
 "hockeyapp-alert-do-not-send" = "Ez bidali";
+"hockeyapp-alert-privacy" = "$1 pribatutasuna";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
+"captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
 "home-continue-reading-heading" = "Irakurtzen jarraitu";
+"home-more-like-footer" = "$1 bezalako artikulu gehiago";
+"home-nearby-nothing" = "Ezer ez gertu";
 "home-nearby-check-again" = "Egiaztatu berriro";
 "home-main-page-heading" = "Gaur Wikipedian";
+"welcome-whats-new-title" = "Ongi etorri Wikipediara";
+// Fuzzy
+"welcome-languages-title" = "Aukeratu zure hizkuntza";
+"welcome-languages-more-languages-button-title" = "Gehitu hizkuntza gehiago";
+"welcome-languages-button-title" = "Jarraitu";
+"welcome-usage-reports-title" = "Lagun gaitzazu Wikipedia hobetzen";
+"welcome-usage-reports-switch-text" = "Bidali erabilera-txostenak";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Egina";
+"welcome-usage-reports-privacy-policy-button-text" = "Zure pribatutasunak ardura digu";
+"empty-no-feed-title" = "Internet Konexiorik Ez";

@@ -108,8 +108,7 @@
 "main-menu-language-selection-saved" = "Gardouse a selección de idioma.";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
-// Fuzzy
-"main-menu-account-login" = "Iniciar sesión";
+"main-menu-account-login" = "Iniciar sesión na Wikipedia";
 "main-menu-account-logout" = "Saír";
 "main-menu-show-title" = "Mostrarme…";
 "main-menu-show-history" = "Recentes";
@@ -299,3 +298,30 @@
 "home-potd-heading" = "Imaxe do día para $1";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "potd-description-prefix" = "Imaxe do día para $1";
+"welcome-whats-new-title" = "Benvido á Wikipedia";
+"welcome-whats-new-whats-new" = "QUE HAI DE NOVO";
+"welcome-whats-new-bullet-one-title" = "Un xeito novo de Explorar";
+"welcome-whats-new-bullet-one-text" = "Descubrir artigos novos e interesantes só para vostede na pantalla de Explorar";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Como funciona isto...";
+"welcome-whats-new-bullet-two-title" = "Deseñado para ler";
+"welcome-whats-new-bullet-two-text" = "Deseño actualizado centrado en proporcionar unha mellor experiencia de lectura.";
+"welcome-whats-new-button-title" = "Comezar";
+"welcome-whats-new-bullet-one-more-info-text" = "Cando visita un artigo, os artigos relacionados engádense automaticamente á súa bandexa. Isto non cambia a forma na que recollemos a súa información, e o seu historial de lectura permanece privado.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Entendido";
+// Fuzzy
+"welcome-languages-title" = "Escoller as súas linguas";
+"welcome-languages-more-languages-button-title" = "Engadir máis linguas";
+"welcome-languages-button-title" = "Continuar";
+"welcome-languages-footnote-text" = "Non se preocupe, vostede pode cambiar isto máis tarde.";
+"welcome-usage-reports-title" = "Axúdenos a facer a Wikipedia mellor";
+"welcome-usage-reports-body-text" = "Pode axudarnos a facer mellor a app permitíndonos recoller información sobre a maneira na que vostede a usa.";
+"welcome-usage-reports-switch-text" = "Enviar informe de uso";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Feito";
+"welcome-usage-reports-privacy-policy-button-text" = "A súa privacidade é importante para nós";
+"empty-no-feed-title" = "Sen conexión a Internet";
+"empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
+"empty-no-feed-action-message" = "Mentras tanto, pode ler a páxinas gardadas";
+"empty-no-article-message" = "Sentímolo, non foi posible cargar o artigo";
+"empty-no-search-results-message" = "Sentímolo, non se puideron cargar os resultados";
+"alert-no-internet" = "Non hai conexión a Internet";

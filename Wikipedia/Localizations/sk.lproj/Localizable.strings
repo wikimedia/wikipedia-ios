@@ -104,7 +104,6 @@
 "main-menu-language-selection-saved" = "Výber jazyka bol uložený";
 "main-menu-account-title-logged-out" = "Účet";
 "main-menu-account-title-logged-in" = "Prihlásený ako: $1";
-// Fuzzy
 "main-menu-account-login" = "Prihlásiť sa";
 "main-menu-account-logout" = "Odhlásiť sa";
 "main-menu-show-title" = "Ukáž mi...";
@@ -252,7 +251,31 @@
 "captcha-reload" = "Zobraziť ďalšie captcha";
 "captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
 "home-continue-reading-heading" = "Pokračovať v čítaní";
+"home-more-like-footer" = "Viac článkov ako $1";
+"home-nearby-nothing" = "V okolí sa nič nenašlo";
+"home-nearby-check-again" = "Pozrieť sa znova";
 "home-featured-article-heading" = "Odporúčaný článok pre $1";
 "home-main-page-heading" = "Dnes na Wikipédii";
 "home-potd-heading" = "Obrázok dňa pre $1";
 "potd-description-prefix" = "Obrázok dňa pre $1";
+"welcome-whats-new-title" = "Vitajte na Wikipédii";
+"welcome-whats-new-whats-new" = "ČO JE NOVÉ";
+"welcome-whats-new-button-title" = "Začíname";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Rozumiem";
+// Fuzzy
+"welcome-languages-title" = "Vyberte si jazyky";
+"welcome-languages-more-languages-button-title" = "Pridať ďalšie jazyky";
+"welcome-languages-button-title" = "Pokračovať";
+"welcome-languages-footnote-text" = "Nebojte sa, tieto nastavenia môžete neskôr zmeniť.";
+"welcome-usage-reports-title" = "Pomôžte nám vylepšovať Wikipédiu";
+"welcome-usage-reports-body-text" = "Môžete nám pomôcť skvalitňovať aplikáciu tým, že nám umožníte zbierať informácie o vašom používaní aplikácie.";
+"welcome-usage-reports-switch-text" = "Odosielať správu o používaní";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Hotovo";
+"welcome-usage-reports-privacy-policy-button-text" = "Vaše súkromie je pre nás dôležité";
+"empty-no-feed-title" = "Žiadne pripojenie na internet";
+"empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
+"empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
+"empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
+"empty-no-search-results-message" = "Ospravedlňujeme sa, nebolo možné načítať výsledky vyhľadávania";
+"alert-no-internet" = "Žiadne pripojenie na internet";

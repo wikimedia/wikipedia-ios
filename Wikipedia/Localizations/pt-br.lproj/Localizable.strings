@@ -5,6 +5,7 @@
 // Author: Araceletorres
 // Author: Cainamarques
 // Author: Dianakc
+// Author: Eduardo Addad de Oliveira
 // Author: Fasouzafreitas
 // Author: Luckas
 // Author: Mordecool
@@ -99,8 +100,7 @@
 "search-titles" = "Titulos";
 "search-within-articles" = "Com artigos";
 "search-did-you-mean" = "Você quis dizer $1?";
-// Fuzzy
-"search-recent-title" = "Pesquisas recentes";
+"search-recent-title" = "recentemente Procurado";
 "search-recent-clear-confirmation-heading" = "Apagar todas as pesquisas recentes?";
 "search-recent-clear-confirmation-sub-heading" = "Esta ação não pode ser desfeita!";
 "search-recent-clear-cancel" = "Cancelar";
@@ -114,8 +114,7 @@
 "main-menu-language-selection-saved" = "Seleção de linguagem salva";
 "main-menu-account-title-logged-out" = "Conta";
 "main-menu-account-title-logged-in" = "Entrou como: $1";
-// Fuzzy
-"main-menu-account-login" = "Entrar";
+"main-menu-account-login" = "Entrar na Wikipédia";
 "main-menu-account-logout" = "Sair";
 "main-menu-show-title" = "Mostrar-me...";
 "main-menu-show-history" = "Recente";
@@ -290,3 +289,5 @@
 "page-similar-titles" = "Páginas similares";
 "captcha-reload" = "Mostrar outro código";
 "captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
+"home-title" = "explorar";
+"home-continue-reading-heading" = "continue lendo";

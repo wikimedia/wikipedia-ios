@@ -107,8 +107,7 @@
 "main-menu-language-selection-saved" = "Одбраниот јазик е зачуван";
 "main-menu-account-title-logged-out" = "Сметка";
 "main-menu-account-title-logged-in" = "Најавени сте како: $1";
-// Fuzzy
-"main-menu-account-login" = "Најава";
+"main-menu-account-login" = "Најава на Википедија";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";
 "main-menu-show-history" = "Скорешни";
@@ -298,3 +297,30 @@
 "home-potd-heading" = "Слика на денот за $1";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
 "potd-description-prefix" = "Слика на денот за $1";
+"welcome-whats-new-title" = "Добре дојдовте на Википедија";
+"welcome-whats-new-whats-new" = "ШТО ИМА НОВО";
+"welcome-whats-new-bullet-one-title" = "Нов начин да истражите";
+"welcome-whats-new-bullet-one-text" = "Откривајте нови интересни статии токму за Вас на екранот „Истражи“";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Како ова работи...";
+"welcome-whats-new-bullet-two-title" = "Предвидена за читање";
+"welcome-whats-new-bullet-two-text" = "Подновениот изглед е осмислен за да овозможи одлична околина за читање.";
+"welcome-whats-new-button-title" = "Почнете";
+"welcome-whats-new-bullet-one-more-info-text" = "Кога ќе посетите некоја статија, во каналот авоматски се додаваат сродни статии. Ова не го менува начинот на којшто ги прибираме Вашите информации, а Вашата историја на посетени статии останува тајна.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Јасно";
+// Fuzzy
+"welcome-languages-title" = "Изберете јазици";
+"welcome-languages-more-languages-button-title" = "Додај уште јазици";
+"welcome-languages-button-title" = "Продолжи";
+"welcome-languages-footnote-text" = "Не грижете се. Ова можете да го измените подоцна.";
+"welcome-usage-reports-title" = "Помогнете ни да ја подобриме Википедија";
+"welcome-usage-reports-body-text" = "Можете да ни помогнете да ја го подобриме прилогов со тоа што ќе ни дозволите да собираме информации за тоа како го користите.";
+"welcome-usage-reports-switch-text" = "Испраќај извештаи за употребата";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Готово";
+"welcome-usage-reports-privacy-policy-button-text" = "Вашата приватност ни значи";
+"empty-no-feed-title" = "Не сте поврзани со семрежјето";
+"empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
+"empty-no-feed-action-message" = "Во меѓувреме, можете да ги читате зачуваните страници";
+"empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
+"empty-no-search-results-message" = "За жал, не можев да го вчитам исходот";
+"alert-no-internet" = "Не сте поврзани со семрежјето";

@@ -81,8 +81,7 @@
 "main-menu-language-selection-saved" = "Kalbos pasirinkimas įrašytas";
 "main-menu-account-title-logged-out" = "Paskyra";
 "main-menu-account-title-logged-in" = "Prisijungta kaip: $1";
-// Fuzzy
-"main-menu-account-login" = "Prisijungti";
+"main-menu-account-login" = "Prisijunkite prie Vikipedijos";
 "main-menu-account-logout" = "Atsijungti";
 "main-menu-show-title" = "Rodyti man...";
 "main-menu-show-history" = "Naujausi";
@@ -197,3 +196,19 @@
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
 "page-similar-titles" = "Panašūs puslapiai";
 "captcha-reload" = "Rodyti kitą saugos kodą";
+"welcome-whats-new-title" = "Sveiki atvykę į Vikipedija";
+"welcome-whats-new-whats-new" = "KAS NAUJO";
+"welcome-whats-new-bullet-one-title" = "Naujas būdas tyrinėti";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Kaip tai veikia...";
+"welcome-whats-new-bullet-two-title" = "Sukurta skaityti";
+"welcome-whats-new-button-title" = "Pradėti";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Supratau";
+// Fuzzy
+"welcome-languages-title" = "Pasirink savo kalbas";
+"welcome-languages-more-languages-button-title" = "Pridėti daugiau kalbų";
+"welcome-languages-button-title" = "Tęsti";
+"welcome-usage-reports-switch-text" = "Siųsti naudojimo ataskaitas";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Atlikta";
+"empty-no-feed-title" = "Nėra interneto ryšio";
+"alert-no-internet" = "Ten nėra interneto ryšio";

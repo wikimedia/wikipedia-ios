@@ -97,8 +97,7 @@
 "main-menu-language-selection-saved" = "ٻولي جي چونڊ سانڍي وئي";
 "main-menu-account-title-logged-out" = "کاتو";
 "main-menu-account-title-logged-in" = "بطور: $1 لاڳ ان ٿيل";
-// Fuzzy
-"main-menu-account-login" = "لاگ ان";
+"main-menu-account-login" = "وڪيپيڊيا ۾ لاگ ان ٿيو";
 "main-menu-account-logout" = "لاگ آئوٽ";
 "main-menu-show-title" = "مونکي ڏيکاريو.";
 "main-menu-show-history" = "تازيون";
@@ -256,7 +255,7 @@
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
 "home-continue-reading-heading" = "پڙهڻ جاري رکو";
-"home-continue-related-heading" = "ڇو ته توهان پڙهو ٿا $1";
+"home-continue-related-heading" = "جيئن تہ توهان $1 پڙهيو";
 "home-more-like-footer" = "وڌيڪ $1 وانگر";
 "home-nearby-footer" = "توهان جي مڪانيت جي ويجھڙ مان وڌيڪ";
 "home-nearby-nothing" = "ڪجھ به ويجھڙ ۾ نه آهي";
@@ -265,3 +264,29 @@
 "home-main-page-heading" = "اڄ وڪيپيڊيا تي";
 "home-potd-heading" = "$1 لاءِ اڄ جي تصوير";
 "potd-description-prefix" = "$1 لاءِ اڄ جي تصوير";
+"welcome-whats-new-title" = "وڪيپيڊيا ۾ ڀليڪار";
+"welcome-whats-new-whats-new" = "نئون ڇا آهي";
+"welcome-whats-new-bullet-one-title" = "کوجڻ جو هڪ نئون طريقو";
+"welcome-whats-new-bullet-one-text" = "ايڪسپلور پردي تي صرف پنهنجي لاءِ نوان ۽ دلچسپ مقالا تلاش ڪريو.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "هيءُ ڪيئن ٿو ڪم ڪري...";
+"welcome-whats-new-bullet-two-title" = "مطالعي لاءِ جنساريل";
+"welcome-whats-new-bullet-two-text" = "تجديديل جنسار جو محور مطالعي جو آزمودو احسن بنائڻ آهي.";
+"welcome-whats-new-button-title" = "شروعات ڪريو";
+"welcome-whats-new-bullet-one-more-info-done-button" = "سمجھي ويس";
+// Fuzzy
+"welcome-languages-title" = "پنهنجون  ٻوليون چونڊيو";
+"welcome-languages-more-languages-button-title" = "ٻيون ٻوليون شامل ڪريو";
+"welcome-languages-button-title" = "جاري رکو";
+"welcome-languages-footnote-text" = "پريشان نہ ٿيو توهان انکي بعد ۾ تبديل ڪري سگهو ٿا.";
+"welcome-usage-reports-title" = "وڪيپيڊيا کي بهتر بڻائڻ ۾ اسانجي مدد ڪريو";
+"welcome-usage-reports-body-text" = "توهان ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪرڻ جي اجازت ڏئي اسانکي ايپ بهتر بڻائڻ ۾ مدد ڪري سگهو ٿا.";
+"welcome-usage-reports-switch-text" = "استعمال جون رپورٽون اماڻيو";
+// Fuzzy
+"welcome-usage-reports-button-title" = "ٿي ويو";
+"welcome-usage-reports-privacy-policy-button-text" = "توهان جي نويڪلائي اسان لاءِ اهم آهي";
+"empty-no-feed-title" = "باهمڄار (انٽرنيٽ) ڳانڍاپو غير موجود";
+"empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
+"empty-no-feed-action-message" = "ان دوران توهان پنهنجا سانڍل مضمون پڙهي سگهو ٿا";
+"empty-no-article-message" = "معاف ڪجو، مضمون اتاري نہ سگهياسين.";
+"empty-no-search-results-message" = "معاف ڪجو، نتيجا اتاري نہ سگهياسين.";
+"alert-no-internet" = "باهمڄار (انٽرنيٽ) سان ڪو بہ ڳانڍاپو نہ آهي.";

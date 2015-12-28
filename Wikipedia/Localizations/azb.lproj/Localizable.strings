@@ -1,5 +1,6 @@
 // Messages for تۆرکجه (تۆرکجه)
 // Exported from translatewiki.net
+// Author: Alp Er Tunqa
 // Author: Arjanizary
 // Author: Ebrahimi-amir
 // Author: Koroğlu
@@ -125,6 +126,7 @@
 "menu-share-accessibility-label" = "پایلاش";
 "menu-more-accessibility-label" = "چوخراق تنظیم‌لر";
 "menu-trash-accessibility-label" = "سیل";
+"menu-language-accessibility-label" = "دیل‌لر";
 "nearby-title" = "یاخیندا";
 "nearby-distance-label-meters" = "$1 مئتیر";
 "nearby-distance-label-km" = "$1 کیلومئتیر";

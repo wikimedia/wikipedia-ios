@@ -112,8 +112,7 @@
 "main-menu-language-selection-saved" = "Đã lưu phiên bản ngôn ngữ để tìm kiếm";
 "main-menu-account-title-logged-out" = "Tài khoản";
 "main-menu-account-title-logged-in" = "Đã đăng nhập là: $1.";
-// Fuzzy
-"main-menu-account-login" = "Đăng nhập";
+"main-menu-account-login" = "Đăng nhập vào Wikipedia";
 "main-menu-account-logout" = "Đăng xuất";
 "main-menu-show-title" = "Cho tôi xem…";
 "main-menu-show-history" = "Gần đây";
@@ -303,3 +302,30 @@
 "home-potd-heading" = "Hình trong ngày cho $1";
 "potd-empty-error-description" = "Thất bại khi lấy hình trong ngày cho $1";
 "potd-description-prefix" = "Hình trong ngày cho $1";
+"welcome-whats-new-title" = "Chào mừng bạn đến với Wikipedia";
+"welcome-whats-new-whats-new" = "CÓ GÌ MỚI";
+"welcome-whats-new-bullet-one-title" = "Một cách mới để Thám hiểm";
+"welcome-whats-new-bullet-one-text" = "Khám phá các bài mới và thú vị dành cho bạn trên màn hình Thám hiểm.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Ấy làm sao…";
+"welcome-whats-new-bullet-two-title" = "Thiết kế lại để dễ Đọc";
+"welcome-whats-new-bullet-two-text" = "Thiết kế mới chú trọng về trải nghiệm đọc.";
+"welcome-whats-new-button-title" = "Bắt đầu";
+"welcome-whats-new-bullet-one-more-info-text" = "Khi nào bạn mở một bài, các bài có liên quan được tự động thêm vào nguồn cấp của bạn. Điều này không thay đổi chúng tôi lấy thông tin của bạn như thế nào, và lịch sử đọc của bạn vẫn là riêng tư.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Được rồi";
+// Fuzzy
+"welcome-languages-title" = "Chọn các ngôn ngữ của bạn";
+"welcome-languages-more-languages-button-title" = "Thêm nhiều ngôn ngữ hơn";
+"welcome-languages-button-title" = "Tiếp tục";
+"welcome-languages-footnote-text" = "Đừng lo, bạn có thể lúc nào thay đổi danh sách này.";
+"welcome-usage-reports-title" = "Giúp chúng tôi cải thiện Wikipedia";
+"welcome-usage-reports-body-text" = "Bạn có thể giúp chúng tôi cải thiện ứng dụng này bằng cách cho phép chúng tôi thăm dò bạn sử dụng ứng dụng như thế nào.";
+"welcome-usage-reports-switch-text" = "Gửi báo cáo sử dụng";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Xong";
+"welcome-usage-reports-privacy-policy-button-text" = "Chúng tôi tôn trọng quyền riêng tư của bạn";
+"empty-no-feed-title" = "Không có kết nối Internet";
+"empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
+"empty-no-feed-action-message" = "Trong lúc ấy thì bạn có thể đọc các trang đã lưu";
+"empty-no-article-message" = "Rất tiếc, không thể tải bài";
+"empty-no-search-results-message" = "Rất tiếc, không thể tải kết quả";
+"alert-no-internet" = "Không có kết nối Internet";

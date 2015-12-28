@@ -3,6 +3,7 @@
 // Author: Adithyavr
 // Author: NehalDaveND
 // Author: Sahilrathod
+// Author: Sfic
 // Author: Vivek Rai
 // Author: Wikiuser13
 // Author: संजीव कुमार
@@ -41,6 +42,7 @@
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-cancel" = "रद्द करें";
+"search-title" = "खोजें";
 "search-field-placeholder-text-zero" = "विकिपीडिया शून्य खोजिये";
 "search-loading-section-remaining" = "बाकी अनुच्छेद  लोड हो रहा है।";
 "search-loading-article-loaded" = "लेख प्रस्तुत है।";
@@ -52,8 +54,7 @@
 "main-menu-language-toggle-hide" = "अधिक भाषाएँ";
 "main-menu-account-title-logged-out" = "खाता";
 "main-menu-account-title-logged-in" = "$1 के रूप में लॉग इन";
-// Fuzzy
-"main-menu-account-login" = "लॉग इन";
+"main-menu-account-login" = "विकिपीडिया में प्रवेश करें";
 "main-menu-account-logout" = "लॉगआउट";
 "main-menu-show-history" = "अभी";
 "main-menu-show-saved" = "संजोए पृष्ठ";
@@ -128,3 +129,15 @@
 "nearby-cancel" = "रद्द करें";
 "migration-skip-button-title" = "इसे हटाएँ";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
+"home-continue-related-heading" = "क्योंकि आपने $1 पढ़ा";
+"home-featured-article-heading" = "$1 हेतु निर्वाचित लेख";
+"home-main-page-heading" = "विकिपीडिया पर आज";
+"welcome-whats-new-title" = "विकिपीडिया में स्वागत है";
+"welcome-whats-new-whats-new" = "कुछ नया";
+"welcome-whats-new-bullet-one-more-info-button-text" = "यह कैसे कार्य करता है...";
+"welcome-whats-new-button-title" = "शुरू करें";
+"welcome-languages-more-languages-button-title" = "अन्य भाषा जोड़ें";
+// Fuzzy
+"welcome-usage-reports-button-title" = "पूर्ण हुआ";
+"welcome-usage-reports-privacy-policy-button-text" = "हमारे लिए आपकी गोपनीयता महत्वपूर्ण है।";
+"empty-no-feed-title" = "इंटरनेट नहीं जुड़ा है।";

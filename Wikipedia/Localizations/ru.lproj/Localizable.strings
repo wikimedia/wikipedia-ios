@@ -115,8 +115,7 @@
 "main-menu-language-selection-saved" = "Выбранный язык сохранен";
 "main-menu-account-title-logged-out" = "Учётная запись";
 "main-menu-account-title-logged-in" = "Вошёл как: $1";
-// Fuzzy
-"main-menu-account-login" = "Представиться";
+"main-menu-account-login" = "Войти в Википедию";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";
 "main-menu-show-history" = "Недавние";
@@ -305,3 +304,27 @@
 "home-potd-heading" = "Изображение дня за $1";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
 "potd-description-prefix" = "Изображение дня за $1";
+"welcome-whats-new-title" = "Добро пожаловать в Википедию";
+"welcome-whats-new-whats-new" = "ЧТО НОВОГО";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Как это работает…";
+"welcome-whats-new-bullet-two-title" = "Разработано для чтения";
+"welcome-whats-new-button-title" = "Начать";
+"welcome-whats-new-bullet-one-more-info-text" = "Когда вы открываете статью, связанные с ней статьи автоматически добавляются в вашу ленту. Это не изменяет то, как нами собирается ваша информация, так что ваше история чтение по-прежнему остаётся закрытой.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Понятно";
+// Fuzzy
+"welcome-languages-title" = "Выбери языки";
+"welcome-languages-more-languages-button-title" = "Добавить другие языки";
+"welcome-languages-button-title" = "Продолжить";
+"welcome-languages-footnote-text" = "Не волнуйтесь, вы можете внести изменения позже.";
+"welcome-usage-reports-title" = "Помогите нам сделать Википедию лучше";
+"welcome-usage-reports-body-text" = "Вы можете помочь нам сделать программу лучше,  позволив собирать информацию о том, как вы используете это приложение.";
+"welcome-usage-reports-switch-text" = "Отправлять отчёты об использовании";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Готово";
+"welcome-usage-reports-privacy-policy-button-text" = "Ваша конфиденциальность важна для нас";
+"empty-no-feed-title" = "Нет подключения к интернету";
+"empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
+"empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
+"empty-no-article-message" = "К сожалению, не удалось загрузить статью";
+"empty-no-search-results-message" = "К сожалению, не удалось загрузить результаты";
+"alert-no-internet" = "Нет соединения с интернетом";

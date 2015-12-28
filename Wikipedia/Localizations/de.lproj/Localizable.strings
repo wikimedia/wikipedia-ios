@@ -106,8 +106,7 @@
 "main-menu-language-selection-saved" = "Sprachauswahl gespeichert";
 "main-menu-account-title-logged-out" = "Benutzerkonto";
 "main-menu-account-title-logged-in" = "Angemeldet als: $1";
-// Fuzzy
-"main-menu-account-login" = "Anmelden";
+"main-menu-account-login" = "Bei Wikipedia anmelden";
 "main-menu-account-logout" = "Abmelden";
 "main-menu-show-title" = "Zeige mir …";
 "main-menu-show-history" = "Kürzlich";
@@ -297,3 +296,30 @@
 "home-potd-heading" = "Bild des Tages für $1";
 "potd-empty-error-description" = "Das Bild des Tages für $1 konnte nicht abgerufen werden";
 "potd-description-prefix" = "Bild des Tages für $1";
+"welcome-whats-new-title" = "Willkommen bei Wikipedia";
+"welcome-whats-new-whats-new" = "WAS IST NEU";
+"welcome-whats-new-bullet-one-title" = "Ein neuer Weg zum Entdecken";
+"welcome-whats-new-bullet-one-text" = "Entdecke neue und interessante Artikel nur für dich auf dem Entdecken-Bildschirm.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Wie dies funktioniert …";
+"welcome-whats-new-bullet-two-title" = "Für das Lesen entworfen";
+"welcome-whats-new-bullet-two-text" = "Aktualisiertes Design, das sich auf eine großartige Leseerfahrung richtet.";
+"welcome-whats-new-button-title" = "Anfangen";
+"welcome-whats-new-bullet-one-more-info-text" = "Wenn du einen Artikel besuchst, werden ähnliche Artikel automatisch zu deinem Feed hinzugefügt. Dies ändert nicht, wie wir deine Informationen sammeln und dein Leseverlauf bleibt privat.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Verstanden";
+// Fuzzy
+"welcome-languages-title" = "Wähle deine Sprachen aus";
+"welcome-languages-more-languages-button-title" = "Weitere Sprachen hinzufügen";
+"welcome-languages-button-title" = "Fortfahren";
+"welcome-languages-footnote-text" = "Keine Sorge, du kannst dies auch später ändern.";
+"welcome-usage-reports-title" = "Hilf uns, Wikipedia besser zu machen";
+"welcome-usage-reports-body-text" = "Du kannst uns dabei helfen, die App besser zu machen, indem du uns erlaubst, Informationen über deine Nutzung der App zu sammeln.";
+"welcome-usage-reports-switch-text" = "Nutzungsstatistiken senden";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Fertig";
+"welcome-usage-reports-privacy-policy-button-text" = "Dein Datenschutz ist uns wichtig";
+"empty-no-feed-title" = "Keine Internetverbindung";
+"empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
+"empty-no-feed-action-message" = "Du kannst in der Zwischenzeit gespeicherte Seiten lesen";
+"empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
+"empty-no-search-results-message" = "Leider können die Ergebnisse nicht geladen werden";
+"alert-no-internet" = "Es gibt keine Internetverbindung";

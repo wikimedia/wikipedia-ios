@@ -114,8 +114,7 @@
 "main-menu-language-selection-saved" = "Språkval sparades";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Inloggad som $1";
-// Fuzzy
-"main-menu-account-login" = "Logga in";
+"main-menu-account-login" = "Logga in på Wikipedia";
 "main-menu-account-logout" = "Logga ut";
 "main-menu-show-title" = "Visa mig...";
 "main-menu-show-history" = "Webbhistorik";
@@ -305,3 +304,30 @@
 "home-potd-heading" = "Dagens bild för $1";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
 "potd-description-prefix" = "Dagens bild för $1";
+"welcome-whats-new-title" = "Välkommen till Wikipedia";
+"welcome-whats-new-whats-new" = "VAD ÄR NYTT";
+"welcome-whats-new-bullet-one-title" = "Ett nytt sätt att utforska";
+"welcome-whats-new-bullet-one-text" = "Upptäck nya och intressanta artiklar bara för dig på Utforskningsskärmen.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Hur detta fungerar...";
+"welcome-whats-new-bullet-two-title" = "Designad för läsning";
+"welcome-whats-new-bullet-two-text" = "Uppdaterad design som fokuserar på att tillhandahålla en bra läsupplevelse.";
+"welcome-whats-new-button-title" = "Kom igång";
+"welcome-whats-new-bullet-one-more-info-text" = "När du besöker en artikel läggs relaterade artiklar till automatiskt i din ström. Detta ändrar inte hur vi samlar in din information och din läshistorik är fortfarande privat.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Jag förstår";
+// Fuzzy
+"welcome-languages-title" = "Välj ditt språk";
+"welcome-languages-more-languages-button-title" = "Lägg till fler språk";
+"welcome-languages-button-title" = "Fortsätt";
+"welcome-languages-footnote-text" = "Ingen fara, du kan ändra detta senare.";
+"welcome-usage-reports-title" = "Hjälp oss att göra Wikipedia bättre";
+"welcome-usage-reports-body-text" = "Du kan hjälpa oss att göra appen bättre genom att låta oss samla in information om hur du använder appen.";
+"welcome-usage-reports-switch-text" = "Skicka användningsrapporter";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Klar";
+"welcome-usage-reports-privacy-policy-button-text" = "Din integritet är viktig för oss";
+"empty-no-feed-title" = "Ingen Internetanslutning";
+"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
+"empty-no-feed-action-message" = "Du kan läsa sparade sidor under tiden";
+"empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
+"empty-no-search-results-message" = "Tyvärr, kunde inte läsa in resultaten";
+"alert-no-internet" = "Det finns ingen Internetanslutning";

@@ -306,3 +306,6 @@
 "home-potd-heading" = "Afbeelding van de dag voor $1";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
+"welcome-whats-new-title" = "Welkom op Wikipedia";
+"welcome-whats-new-bullet-one-title" = "Een nieuwe manier om te ontdekken";
+"empty-no-feed-title" = "Geen internetverbinding";

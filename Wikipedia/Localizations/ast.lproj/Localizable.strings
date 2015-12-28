@@ -1,5 +1,6 @@
 // Messages for Asturian (asturianu)
 // Exported from translatewiki.net
+// Author: Enolp
 // Author: Xuacu
 
 "languages-title" = "Llingües";
@@ -105,8 +106,7 @@
 "main-menu-language-selection-saved" = "Seleición d'idioma guardada";
 "main-menu-account-title-logged-out" = "Cuenta";
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1.";
-// Fuzzy
-"main-menu-account-login" = "Aniciar sesión";
+"main-menu-account-login" = "Aniciar sesión en Wikipedia";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Amosame...";
 "main-menu-show-history" = "De recién";
@@ -296,3 +296,30 @@
 "home-potd-heading" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "potd-description-prefix" = "Imaxe del día pal $1";
+"welcome-whats-new-title" = "Bienllegaos a Wikipedia";
+"welcome-whats-new-whats-new" = "LO MÁS NUEVO";
+"welcome-whats-new-bullet-one-title" = "Una manera nueva d'esplorar";
+"welcome-whats-new-bullet-one-text" = "Descubri artículos nuevos ya interesantes pa ti na pantalla Esplorar.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Cómo funciona...";
+"welcome-whats-new-bullet-two-title" = "Diseñada pa lleer";
+"welcome-whats-new-bullet-two-text" = "Diseñu anováu, centráu n'ufrir una gran esperiencia na llectura.";
+"welcome-whats-new-button-title" = "Primeros pasos";
+"welcome-whats-new-bullet-one-more-info-text" = "Cuando visites un artículu, los artículos rellacionaos amiéstense automáticamente a la to canal. Esto nun cambia cómo collechamos la to información, ya'l to historial de llectura caltiense priváu.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Entendílo";
+// Fuzzy
+"welcome-languages-title" = "Esbilla les tos llingües";
+"welcome-languages-more-languages-button-title" = "Amestar más llingües";
+"welcome-languages-button-title" = "Siguir";
+"welcome-languages-footnote-text" = "Nun t'esmolezas, llueu puedes cambialo.";
+"welcome-usage-reports-title" = "Ayúdanos a facer Wikipedia meyor";
+"welcome-usage-reports-body-text" = "Puedes ayudanos a ameyorar l'app permitiéndonos collechar información tocante al mou como uses l'app.";
+"welcome-usage-reports-switch-text" = "Unviar informes d'usu";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Fecho";
+"welcome-usage-reports-privacy-policy-button-text" = "La to intimidá ye importante pa nós";
+"empty-no-feed-title" = "Sin conexón a Internet";
+"empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
+"empty-no-feed-action-message" = "Entrín y non, puedes lleer páxines guardaes";
+"empty-no-article-message" = "Nun pudo cargase l'artículu";
+"empty-no-search-results-message" = "Nun pudieron cargase les resultancies";
+"alert-no-internet" = "Nun hai conexón a Internet";
