@@ -115,8 +115,7 @@
 "main-menu-language-selection-saved" = "言語の選択を保存しました";
 "main-menu-account-title-logged-out" = "アカウント";
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
-// Fuzzy
-"main-menu-account-login" = "ログイン";
+"main-menu-account-login" = "ウィキペディアにログイン";
 "main-menu-account-logout" = "ログアウト";
 "main-menu-show-title" = "表示...";
 "main-menu-show-history" = "最近閲覧した記事";
@@ -294,6 +293,7 @@
 "captcha-reload" = "別のcaptchaを表示";
 "captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
+"home-title" = "探してみよう";
 "home-continue-reading-heading" = "続けて読む";
 "home-continue-related-heading" = "$1 も読まれています";
 "home-more-like-footer" = "$1 なども読まれています";
@@ -304,3 +304,27 @@
 "home-potd-heading" = "$1日の写真";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
+"welcome-whats-new-title" = "ウィキペディアへようこそ";
+"welcome-whats-new-bullet-one-more-info-button-text" = "これは何に使われますか...";
+"welcome-whats-new-bullet-two-title" = "閲読用にデザインされました";
+"welcome-whats-new-bullet-two-text" = "新たなデザインでは、快適に閲読ができることに重点を置いて設計されました。";
+"welcome-whats-new-button-title" = "始める";
+"welcome-whats-new-bullet-one-more-info-text" = "記事にアクセスすると、関連する記事が自動的にあなたのフィードに追加されます。これはあなたの情報や閲読履歴を収集しますが、一切変更や公開されることはありません。";
+"welcome-whats-new-bullet-one-more-info-done-button" = "わかりました";
+// Fuzzy
+"welcome-languages-title" = "言語を選択してください";
+"welcome-languages-more-languages-button-title" = "その他の言語を追加";
+"welcome-languages-button-title" = "次へ";
+"welcome-languages-footnote-text" = "後でもこれを変更することができます。";
+"welcome-usage-reports-title" = "ウィキペディアをより良くしましょう";
+"welcome-usage-reports-body-text" = "アプリの使用状況の情報の収集を可能にすることで、このアプリの改善につながります。";
+"welcome-usage-reports-switch-text" = "利用状況レポートを送信";
+// Fuzzy
+"welcome-usage-reports-button-title" = "完了";
+"welcome-usage-reports-privacy-policy-button-text" = "あなたのプライバシーは私たちにとって重要なものです";
+"empty-no-feed-title" = "インターネットが接続されていません";
+"empty-no-feed-message" = "インターネットに接続しているときに、おすすめの記事を見ることができます";
+"empty-no-feed-action-message" = "保存したページを読むことができます";
+"empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
+"empty-no-search-results-message" = "申し訳ありませんが、結果を読み込むことができませんでした";
+"alert-no-internet" = "インターネットが接続されていません";

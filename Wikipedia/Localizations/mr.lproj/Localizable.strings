@@ -93,8 +93,7 @@
 "main-menu-language-selection-saved" = "भाषेची निवड जतन केली";
 "main-menu-account-title-logged-out" = "खाते";
 "main-menu-account-title-logged-in" = "सनोंद प्रवेशित:$1 म्हणून";
-// Fuzzy
-"main-menu-account-login" = "सनोंद-प्रवेश करा";
+"main-menu-account-login" = "विकिपीडियात सनोंद-प्रवेश करा";
 "main-menu-account-logout" = "सनोंद-निर्गम";
 "main-menu-show-title" = "मला दाखवा...";
 "main-menu-show-history" = "अलीकडील";

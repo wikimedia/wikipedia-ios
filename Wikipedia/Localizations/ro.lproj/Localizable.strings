@@ -10,6 +10,7 @@
 "article-read-more-title" = "Citiți mai multe";
 "article-unable-to-load-section" = "Această secțiune nu poate fi încărcată. Reîncărcați articolul pentru a vedea dacă problema se rezolvă astfel.";
 "article-unable-to-load-article" = "Imposibil de încărcat articolul.";
+"article-related-articles-title" = "Articole similare";
 "info-box-title" = "Informații pe scurt";
 "info-box-close-text" = "Închide";
 "table-title-other" = "Mai multe informații";
@@ -77,6 +78,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Deschide legătura";
 "open-link-cancel" = "Revocare";
+"search-title" = "Căutare";
 "search-searching" = "Se caută...";
 "search-no-matches" = "Nu s-au găsit potriviri pentru termenul căutat.";
 "search-field-placeholder-text" = "Căutare în Wikipedia";
@@ -88,7 +90,6 @@
 "search-titles" = "Titluri";
 "search-within-articles" = "În conținutul articolelor";
 "search-did-you-mean" = "V-ați referit la $1?";
-// Fuzzy
 "search-recent-title" = "Căutări recente";
 "search-recent-clear-confirmation-heading" = "Ștergeți toate căutările recente?";
 "search-recent-clear-confirmation-sub-heading" = "Această acțiune nu poate fi anulată!";
@@ -104,8 +105,7 @@
 "main-menu-language-selection-saved" = "Selectarea limbii salvată";
 "main-menu-account-title-logged-out" = "Cont";
 "main-menu-account-title-logged-in" = "Autentificat ca: $1";
-// Fuzzy
-"main-menu-account-login" = "Autentificare";
+"main-menu-account-login" = "Autentificare la Wikipedia";
 "main-menu-account-logout" = "Închide sesiunea";
 "main-menu-show-title" = "Arată-mi...";
 "main-menu-show-history" = "Recente";
@@ -203,6 +203,8 @@
 "button-next" = "Înainte";
 "button-done" = "Realizat";
 "button-save" = "Salvare";
+"button-save-for-later" = "Salvează pentru mai târziu";
+"button-saved-for-later" = "Salvat pentru mai târziu";
 "onboarding-create-account" = "Creare cont";
 "onboarding-login" = "Autentificare";
 "onboarding-already-have-account" = "Aveți deja un cont? $1";
@@ -281,3 +283,42 @@
 "captcha-reload" = "Arată alt text captcha";
 "captcha-prompt" = "Introduceți textul CAPTCHA din imaginea de mai sus";
 "mwk-empty-title-error" = "Imposibil de efectuat operațiunea cu un titlu gol.";
+"home-title" = "Explorare";
+"home-continue-reading-heading" = "Reia lectura";
+"home-continue-related-heading" = "Pentru că ați citit articolul $1";
+"home-more-like-footer" = "Mai multe precum $1";
+"home-nearby-footer" = "Mai multe articole din apropierea dumneavoastră";
+"home-nearby-nothing" = "Nimic în apropierea dumneavoastră";
+"home-nearby-check-again" = "Verifică din nou";
+"home-featured-article-heading" = "Articol de calitate în $1";
+"home-main-page-heading" = "Astăzi la Wikipedia";
+"home-potd-heading" = "Imaginea zilei în $1";
+"potd-empty-error-description" = "Nu s-a putut găsi imaginea zilei pentru $1";
+"potd-description-prefix" = "Imaginea zilei în $1";
+"welcome-whats-new-title" = "Bun venit la Wikipedia";
+"welcome-whats-new-whats-new" = "CE ESTE NOU";
+"welcome-whats-new-bullet-one-title" = "O nouă modalitate de Explorare";
+"welcome-whats-new-bullet-one-text" = "Descoperiți articole noi și interesante doar pentru dumneavoastră din pagina Explorare";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Cum funcționează...";
+"welcome-whats-new-bullet-two-title" = "Proiectată pentru lecturare";
+"welcome-whats-new-bullet-two-text" = "Design îmbunătățit pentru a oferi o experiență de lecturare perfectă.";
+"welcome-whats-new-button-title" = "Începeți";
+"welcome-whats-new-bullet-one-more-info-text" = "Când accesați un articol, articolele similare sunt adăugate automat în fluxul dumneavoastră. Acest lucru nu schimbă cu nimic modul în care colectăm informații personale, iar istoricul de lecturare este în continuare privat.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Am înțeles";
+// Fuzzy
+"welcome-languages-title" = "Alegeți-vă limbile";
+"welcome-languages-more-languages-button-title" = "Adaugă mai multe limbi";
+"welcome-languages-button-title" = "Continuă";
+"welcome-languages-footnote-text" = "Nu vă faceți griji, puteți modifica mai târziu.";
+"welcome-usage-reports-title" = "Ajutați-ne să îmbunătățim Wikipedia";
+"welcome-usage-reports-body-text" = "Ne puteți ajuta să îmbunătățim aplicația permițându-ne să colectăm informații despre modul în care o utilizați.";
+"welcome-usage-reports-switch-text" = "Trimite rapoarte de utilizare";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Gata";
+"welcome-usage-reports-privacy-policy-button-text" = "Confidențialitatea datelor este importantă pentru noi";
+"empty-no-feed-title" = "Fără conexiune la internet";
+"empty-no-feed-message" = "Puteți vedea articolele recomandate atunci când aveți acces la internet";
+"empty-no-feed-action-message" = "Între timp, puteți lectura paginile salvate";
+"empty-no-article-message" = "Ne pare rău, articolul nu poate fi încărcat";
+"empty-no-search-results-message" = "Ne pare rău, nu se pot încărca rezultatele";
+"alert-no-internet" = "Nu există conexiune la internet";

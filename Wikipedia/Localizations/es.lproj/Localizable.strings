@@ -5,6 +5,7 @@
 // Author: Macofe
 // Author: MadriCR
 // Author: Mcervera
+// Author: Rodm23
 // Author: VegaDark
 // Author: Vivaelcelta
 // Author: Wifidel
@@ -112,8 +113,7 @@
 "main-menu-language-selection-saved" = "Se guardó la selección de idioma.";
 "main-menu-account-title-logged-out" = "Cuenta";
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
-// Fuzzy
-"main-menu-account-login" = "Iniciar sesión";
+"main-menu-account-login" = "Iniciar sesión en Wikipedia";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Mostrarme…";
 "main-menu-show-history" = "Recientes";
@@ -303,3 +303,30 @@
 "home-potd-heading" = "Foto del día del $1";
 "potd-empty-error-description" = "No se pudo obtener la foto del día del $1";
 "potd-description-prefix" = "Foto del día del $1";
+"welcome-whats-new-title" = "Bienvenido a Wikipedia";
+"welcome-whats-new-whats-new" = "QUE HAY DE NUEVO";
+"welcome-whats-new-bullet-one-title" = "Una nueva manera de Explorar";
+"welcome-whats-new-bullet-one-text" = "Descubre nuevos e interesantes artículos sólo para ti en la pantalla de Explorar";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Cómo funciona...";
+"welcome-whats-new-bullet-two-title" = "Diseñado para Leer";
+"welcome-whats-new-bullet-two-text" = "Diseño actualizado enfocado en proporcionar una gran experiencia de lectura.";
+"welcome-whats-new-button-title" = "Empezar";
+"welcome-whats-new-bullet-one-more-info-text" = "Cuando visitas un artículo, los artículos relacionados son automáticamente añadidos a tu canal. Esto no cambia cómo recopilamos tu información, y tu historial de lectura sigue siendo privado.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Entendido";
+// Fuzzy
+"welcome-languages-title" = "Escoge tus idiomas";
+"welcome-languages-more-languages-button-title" = "Añade más idiomas";
+"welcome-languages-button-title" = "Continuar";
+"welcome-languages-footnote-text" = "No te preocupes, puedes cambiar esto después.";
+"welcome-usage-reports-title" = "Ayúdanos a mejorar Wikipedia";
+"welcome-usage-reports-body-text" = "Puedes ayudarnos a mejorar la aplicación si nos permites recopilar información acerca de cómo usas la aplicación.";
+"welcome-usage-reports-switch-text" = "Enviar informes de uso";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Hecho";
+"welcome-usage-reports-privacy-policy-button-text" = "Tu privacidad es importante para nosotros";
+"empty-no-feed-title" = "No hay conexión a Internet";
+"empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
+"empty-no-feed-action-message" = "Puedes leer páginas guardadas mientras tanto";
+"empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
+"empty-no-search-results-message" = "Lo sentimos, no se pudo cargar los resultados";
+"alert-no-internet" = "No hay conexión a internet";

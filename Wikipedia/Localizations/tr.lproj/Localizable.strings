@@ -117,8 +117,7 @@
 "main-menu-language-selection-saved" = "Dil seçimi kaydedildi";
 "main-menu-account-title-logged-out" = "Hesap";
 "main-menu-account-title-logged-in" = "$1 olarak oturum açıldı.";
-// Fuzzy
-"main-menu-account-login" = "Oturum aç";
+"main-menu-account-login" = "Vikipedi'de oturum aç";
 "main-menu-account-logout" = "Oturumu kapat";
 "main-menu-show-title" = "Göster...";
 "main-menu-show-history" = "Geçmiş";
@@ -308,3 +307,30 @@
 "home-potd-heading" = "$1 tarihli günün resmi";
 "potd-empty-error-description" = "$1 tarihli günün resmi alınamadı";
 "potd-description-prefix" = "$1 tarihli günün resmi";
+"welcome-whats-new-title" = "Vikipedi'ye hoş geldiniz";
+"welcome-whats-new-whats-new" = "NELER YENİ";
+"welcome-whats-new-bullet-one-title" = "Keşif için yeni bir yol";
+"welcome-whats-new-bullet-one-text" = "Keşfet ekranında, sadece size özel yeni ve ilginç makaleleri bulun";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Bu nasıl çalışıyor...";
+"welcome-whats-new-bullet-two-title" = "Okuma için tasarlandı";
+"welcome-whats-new-bullet-two-text" = "Güncellenen tasarım, harika bir okuma deneyimi sunmaya odaklanmıştır.";
+"welcome-whats-new-button-title" = "Başla";
+"welcome-whats-new-bullet-one-more-info-text" = "Bir maddeyi açtığınızda, ilgili maddeler otomatik olarak beslemenize eklenir. Bu, bilgilerinizi toplama şeklimizi değiştirmez ve okuma geçmişiniz yine gizli kalır.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Anladım";
+// Fuzzy
+"welcome-languages-title" = "Dilinizi seçin";
+"welcome-languages-more-languages-button-title" = "Daha fazla dil ekle";
+"welcome-languages-button-title" = "Devam et";
+"welcome-languages-footnote-text" = "Endişelenmeyin, bunu daha sonra değiştirebilirsiniz.";
+"welcome-usage-reports-title" = "Vikipedi'yi iyileştirmekte bize yardımcı olun";
+"welcome-usage-reports-body-text" = "Bize uygulamayı nasıl kullandığınız hakkında bilgi toplamak için izin vererek, uygulamayı iyileştirmemize yardımcı olabilirsiniz.";
+"welcome-usage-reports-switch-text" = "Kullanım raporlarını gönder";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Bitti";
+"welcome-usage-reports-privacy-policy-button-text" = "Gizliliğiniz bizim için önemlidir";
+"empty-no-feed-title" = "İnternet Bağlantısı Yok";
+"empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
+"empty-no-feed-action-message" = "Bu arada kayıtlı sayfaları okuyabilirsiniz";
+"empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
+"empty-no-search-results-message" = "Üzgünüz, sonuçlar yüklenemedi";
+"alert-no-internet" = "İnternet bağlantısı yok";

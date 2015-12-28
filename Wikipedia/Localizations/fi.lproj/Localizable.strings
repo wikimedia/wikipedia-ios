@@ -96,8 +96,7 @@
 "search-titles" = "Otsikot";
 "search-within-articles" = "Artikkeleissa";
 "search-did-you-mean" = "Tarkoititko $1?";
-// Fuzzy
-"search-recent-title" = "Äskettäin tehdyt haut";
+"search-recent-title" = "Viimeisimmät haut";
 "search-recent-clear-confirmation-heading" = "Poistetaanko kaikki äskettäiset haut?";
 "search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
 "search-recent-clear-cancel" = "Keskeytä";
@@ -112,8 +111,7 @@
 "main-menu-language-selection-saved" = "Kielivalinta tallennettu";
 "main-menu-account-title-logged-out" = "Käyttäjätili";
 "main-menu-account-title-logged-in" = "Olet kirjautunut käyttäjänä: $1";
-// Fuzzy
-"main-menu-account-login" = "Kirjaudu sisään";
+"main-menu-account-login" = "Kirjaudu Wikipediaan";
 "main-menu-account-logout" = "Kirjaudu ulos";
 "main-menu-show-title" = "Näytä minulle...";
 "main-menu-show-history" = "Tuoreet";

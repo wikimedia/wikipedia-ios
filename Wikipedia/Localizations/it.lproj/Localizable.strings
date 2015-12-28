@@ -123,8 +123,7 @@
 "main-menu-language-selection-saved" = "Selezione della lingua salvata";
 "main-menu-account-title-logged-out" = "Utenza";
 "main-menu-account-title-logged-in" = "Accesso effettuato come: $1";
-// Fuzzy
-"main-menu-account-login" = "Entra";
+"main-menu-account-login" = "Accedi a Wikipedia";
 "main-menu-account-logout" = "Esci";
 "main-menu-show-title" = "Fammi vedere...";
 "main-menu-show-history" = "Recenti";
@@ -154,7 +153,7 @@
 "saved-pages-clear-delete-all" = "Cancella tutto";
 "saved-pages-refresh-cancel-alert-title" = "Aggiornamento annullato";
 "saved-pages-refresh-cancel-alert-message" = "Le voci di Wikipedia sono aggiornate continuamente. Tocca aggiorna per ottenere le versioni più recenti di tutte le voci.";
-"saved-pages-refresh-cancel-alert-button" = "OK!";
+"saved-pages-refresh-cancel-alert-button" = "Capito";
 "saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
 "saved-pages-none" = "Nessuna pagina salvata ancora.";
 "page-history-title" = "Cronologia dell'articolo";
@@ -314,3 +313,26 @@
 "home-potd-heading" = "Immagine del giorno del $1";
 "potd-empty-error-description" = "Impossibile recuperare l'immagine del giorno del $1";
 "potd-description-prefix" = "Immagine del giorno per $1";
+"welcome-whats-new-title" = "Benvenuto su Wikipedia";
+"welcome-whats-new-whats-new" = "COSA C'È DI NUOVO";
+"welcome-whats-new-bullet-one-title" = "Un nuovo modo di esplorare";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Come funziona...";
+"welcome-whats-new-bullet-two-title" = "Progettato per la lettura";
+"welcome-whats-new-button-title" = "Inizia";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Capito";
+// Fuzzy
+"welcome-languages-title" = "Scegli le tue lingue";
+"welcome-languages-more-languages-button-title" = "Aggiungi più lingue";
+"welcome-languages-button-title" = "Continua";
+"welcome-languages-footnote-text" = "Non preoccuparti, puoi modificarle in seguito.";
+"welcome-usage-reports-title" = "Aiutaci a rendere Wikipedia migliore";
+"welcome-usage-reports-body-text" = "Puoi aiutarci a rendere migliore l'applicazione se ci permetti di raccogliere informazioni su come la usi.";
+"welcome-usage-reports-switch-text" = "Invia rapporti sull'utilizzo";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Fatto";
+"welcome-usage-reports-privacy-policy-button-text" = "La tua privacy è importante per noi";
+"empty-no-feed-title" = "Nessuna connessione internet";
+"empty-no-feed-action-message" = "Puoi leggere le pagine salvate nel frattempo";
+"empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
+"empty-no-search-results-message" = "Spiacenti, impossibile caricare i risultati";
+"alert-no-internet" = "Non c'è alcuna connessione a internet";

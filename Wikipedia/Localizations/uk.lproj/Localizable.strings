@@ -15,6 +15,7 @@
 "article-read-more-title" = "Детальніше";
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
 "article-unable-to-load-article" = "Не вдається завантажити статтю.";
+"article-related-articles-title" = "Статті по темі";
 "info-box-title" = "Швидкі факти";
 "info-box-close-text" = "Закрити";
 "table-title-other" = "Більше інформації";
@@ -82,6 +83,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Відкрити посилання";
 "open-link-cancel" = "Скасувати";
+"search-title" = "Пошук";
 "search-searching" = "Пошук...";
 "search-no-matches" = "Збігів не знайдено для пошукового терміну.";
 "search-field-placeholder-text" = "Пошук по Вікіпедії";
@@ -93,8 +95,7 @@
 "search-titles" = "Заголовки";
 "search-within-articles" = "У статтях";
 "search-did-you-mean" = "Можливо, Ви мали на увазі «$1»?";
-// Fuzzy
-"search-recent-title" = "Недавні пошукові запити";
+"search-recent-title" = "Недавні пошуки";
 "search-recent-clear-confirmation-heading" = "Вилучити усі недавні пошукові запити?";
 "search-recent-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "search-recent-clear-cancel" = "Скасувати";
@@ -109,8 +110,7 @@
 "main-menu-language-selection-saved" = "Вибір мови збережено";
 "main-menu-account-title-logged-out" = "Обліковий запис";
 "main-menu-account-title-logged-in" = "Увійшов в систему як: $1";
-// Fuzzy
-"main-menu-account-login" = "Вхід";
+"main-menu-account-login" = "Вхід у Вікіпедію";
 "main-menu-account-logout" = "Вихід";
 "main-menu-show-title" = "Показати мені...";
 "main-menu-show-history" = "Останні";
@@ -208,6 +208,8 @@
 "button-next" = "Далі";
 "button-done" = "Готово";
 "button-save" = "Зберегти";
+"button-save-for-later" = "Зберегти наперед";
+"button-saved-for-later" = "Збережено наперед";
 "onboarding-create-account" = "Зареєструватися";
 "onboarding-login" = "Увійти до системи";
 "onboarding-already-have-account" = "Вже маєте обліковий запис? $1";
@@ -286,3 +288,42 @@
 "captcha-reload" = "Показати інший малюнок";
 "captcha-prompt" = "Введіть текст з рисунку вище";
 "mwk-empty-title-error" = "Не вдається виконати операцію з порожнім заголовком.";
+"home-title" = "Ознайомлення";
+"home-continue-reading-heading" = "Продовжити читання";
+"home-continue-related-heading" = "Тому що ви прочитали $1";
+"home-more-like-footer" = "Більше схоже на $1";
+"home-nearby-footer" = "Більше про те, що неподалік від вас";
+"home-nearby-nothing" = "Нічого поблизу не має";
+"home-nearby-check-again" = "Перевірити ще раз";
+"home-featured-article-heading" = "Вибрана стаття за $1";
+"home-main-page-heading" = "Сьогодні на Вікіпедії";
+"home-potd-heading" = "Зображення дня за $1";
+"potd-empty-error-description" = "Не вдалося отримати зображення дня за $1";
+"potd-description-prefix" = "Зображення дня за $1";
+"welcome-whats-new-title" = "Ласкаво просимо до Вікіпедії";
+"welcome-whats-new-whats-new" = "ЩО НОВОГО";
+"welcome-whats-new-bullet-one-title" = "Новий шлях до ознайомлення";
+"welcome-whats-new-bullet-one-text" = "Відкрийте для себе нові і цікаві статті тільки для Вас на екрані Ознайомлення.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Як це працює...";
+"welcome-whats-new-bullet-two-title" = "Розроблено для читання";
+"welcome-whats-new-bullet-two-text" = "Оновлений дизайн фокусується на наданні чудових вражень при читанні.";
+"welcome-whats-new-button-title" = "Розпочати";
+"welcome-whats-new-bullet-one-more-info-text" = "Коли ви відкриваєте статтю, пов'язані з нею статті автоматично додаються у вашу стрічку. Це не змінює те, як нами збирається ваша інформація, тому ваша історія читання залишається закритою.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Зрозуміло";
+// Fuzzy
+"welcome-languages-title" = "Виберіть мови";
+"welcome-languages-more-languages-button-title" = "Додати ще мови";
+"welcome-languages-button-title" = "Продовжити";
+"welcome-languages-footnote-text" = "Не хвилюйтеся, ви можете змінити це пізніше.";
+"welcome-usage-reports-title" = "Допоможіть нам зробити Вікіпедію кращою";
+"welcome-usage-reports-body-text" = "Ви можете допомогти нам зробити програму кращою, дозволивши збирати інформацію про те, як ви використовуєте програму.";
+"welcome-usage-reports-switch-text" = "Надсилати звіти про використання";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Готово";
+"welcome-usage-reports-privacy-policy-button-text" = "Ваша конфіденційність важлива для нас";
+"empty-no-feed-title" = "Не має з'єднання з інтернетом";
+"empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
+"empty-no-feed-action-message" = "Поки що можете почитати збережені статті";
+"empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
+"empty-no-search-results-message" = "На жаль, не вдалося завантажити результати";
+"alert-no-internet" = "Не має з'єднання із інтернетом";

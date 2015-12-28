@@ -108,8 +108,7 @@
 "main-menu-language-selection-saved" = "ভাষা নির্বাচন সংরক্ষণ হয়েছে";
 "main-menu-account-title-logged-out" = "অ্যাকাউন্ট";
 "main-menu-account-title-logged-in" = "$1 হিসাবে প্রবেশ";
-// Fuzzy
-"main-menu-account-login" = "প্রবেশ";
+"main-menu-account-login" = "উইকিপিডিয়ায় প্রবেশ করুন";
 "main-menu-account-logout" = "প্রস্থান";
 "main-menu-show-title" = "আমাকে দেখাও...";
 "main-menu-show-history" = "সাম্প্রতিক";
@@ -273,3 +272,8 @@
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
 "captcha-reload" = "আরেকটি ক্যাপচা দেখান";
 "captcha-prompt" = "উপরের ছবি থেকে ক্যাপচা টেক্সট লিখুন";
+"welcome-whats-new-bullet-one-more-info-button-text" = "এটি কিভাবে কাজ করে...";
+"welcome-whats-new-bullet-one-more-info-done-button" = "বুঝেছি";
+"welcome-languages-button-title" = "অগ্রসর হোন";
+// Fuzzy
+"welcome-usage-reports-button-title" = "সম্পন্ন";

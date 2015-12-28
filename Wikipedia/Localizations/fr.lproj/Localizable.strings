@@ -9,6 +9,7 @@
 // Author: Orikrin1998
 // Author: Selhom
 // Author: Solucer
+// Author: Weft
 // Author: Wladek92
 
 "languages-title" = "Langues";
@@ -114,8 +115,7 @@
 "main-menu-language-selection-saved" = "Sélection de langue enregistrée";
 "main-menu-account-title-logged-out" = "Compte";
 "main-menu-account-title-logged-in" = "Connecté en tant que : $1";
-// Fuzzy
-"main-menu-account-login" = "Connexion";
+"main-menu-account-login" = "Connexion à Wikipédia";
 "main-menu-account-logout" = "Déconnexion";
 "main-menu-show-title" = "M’afficher…";
 "main-menu-show-history" = "Récent";
@@ -305,3 +305,30 @@
 "home-potd-heading" = "Image du jour pour $1";
 "potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
 "potd-description-prefix" = "Image du jour pour $1";
+"welcome-whats-new-title" = "Bienvenue sur Wikipédia";
+"welcome-whats-new-whats-new" = "QUOI DE NEUF";
+"welcome-whats-new-bullet-one-title" = "Une nouvelle manière d’Explorer";
+"welcome-whats-new-bullet-one-text" = "Découvrir de nouveaux articles intéressants juste pour vous dans l’écran Explorer";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Comment cela fonctionne…";
+"welcome-whats-new-bullet-two-title" = "Conçu pour la lecture";
+"welcome-whats-new-bullet-two-text" = "Forme mise à jour, axée sur la fourniture d’une meilleure expérience de lecture.";
+"welcome-whats-new-button-title" = "Commencer";
+"welcome-whats-new-bullet-one-more-info-text" = "Quand vous visitez un article, les articles connexes sont ajoutés automatiquement à votre fil. Cela ne modifie pas la manière dont nous collectons vos informations, et votre historique de lecture est toujours privé.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "L’obtenir";
+// Fuzzy
+"welcome-languages-title" = "Choisir vos langues";
+"welcome-languages-more-languages-button-title" = "Ajouter plus de langues";
+"welcome-languages-button-title" = "Continuer";
+"welcome-languages-footnote-text" = "Ne vous inquiétez pas, vous pourrez le modifier plus tard.";
+"welcome-usage-reports-title" = "Aidez nous à améliorer Wikipédia";
+"welcome-usage-reports-body-text" = "Vous pouvez nous aider à améliorer l’application en nous autorisant à collecter des informations sur la manière dont vous utilisez l’application.";
+"welcome-usage-reports-switch-text" = "Envoyez les rapports d’utilisation";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Terminé";
+"welcome-usage-reports-privacy-policy-button-text" = "Votre vie privée est importante pour nous";
+"empty-no-feed-title" = "Pas de connexion à Internet";
+"empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
+"empty-no-feed-action-message" = "Vous pouvez lire les pages enregistrées entre temps";
+"empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
+"empty-no-search-results-message" = "Désolé, impossible de charger les résultats";
+"alert-no-internet" = "Il n'y a pas de connexion internet";
