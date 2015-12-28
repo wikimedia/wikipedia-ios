@@ -10,6 +10,7 @@
 "article-read-more-title" = "Liest méi";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
+"article-related-articles-title" = "Ähnlech Artikelen";
 "info-box-title" = "Séier Fakten";
 "info-box-close-text" = "Zoumaachen";
 "table-title-other" = "Méi Informatiounen";
@@ -100,8 +101,7 @@
 "main-menu-language-selection-saved" = "Eraussiche vun der Sprooch gespäichert";
 "main-menu-account-title-logged-out" = "Benotzerkont";
 "main-menu-account-title-logged-in" = "Ageloggt als: $1";
-// Fuzzy
-"main-menu-account-login" = "Aloggen";
+"main-menu-account-login" = "Op Wikipedia aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-show-title" = "Weis mir...";
 "main-menu-show-history" = "Rezent";
@@ -275,8 +275,36 @@
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
 "home-continue-reading-heading" = "Virufuere mat Liesen";
+"home-continue-related-heading" = "Well Dir $1 geliest hutt";
 "home-more-like-footer" = "Méi wéi $1";
+"home-nearby-footer" = "Méi aus der Géigend wou Dir elo sidd";
+"home-nearby-nothing" = "Näischt nobäi";
 "home-nearby-check-again" = "Nach eng Kéier nokucken";
+"home-featured-article-heading" = "Besonneschen Artikel vum $1";
 "home-main-page-heading" = "Haut op Wikipedia";
 "home-potd-heading" = "Bild vum Dag vum $1";
+"potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
+"welcome-whats-new-title" = "Wëllkomm bei Wikipedia";
+"welcome-whats-new-whats-new" = "WAT ASS NEI";
+"welcome-whats-new-bullet-one-title" = "Eng nei Manéier fir z'entdecken";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Wéi et geet...";
+"welcome-whats-new-bullet-two-title" = "Fir d'Liesen entwéckelt";
+"welcome-whats-new-button-title" = "Fir unzefänken";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Verstan";
+// Fuzzy
+"welcome-languages-title" = "Sicht Är Sproochen eraus";
+"welcome-languages-more-languages-button-title" = "Méi Sproochen derbäisetzen";
+"welcome-languages-button-title" = "Virufueren";
+"welcome-languages-footnote-text" = "Dir kënnt dat méi spéit änneren.";
+"welcome-usage-reports-title" = "Hëlleft eis Wikipedia besser ze maachen";
+"welcome-usage-reports-switch-text" = "Rapporten iwwer d'Benotze schécken";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Fäerdeg";
+"welcome-usage-reports-privacy-policy-button-text" = "Ären Dateschutz ass wichteg fir eis";
+"empty-no-feed-title" = "Keng Internetverbindung";
+"empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
+"empty-no-feed-action-message" = "Dir kënnt an der Tëschenzäit gespäichert Säite liesen";
+"empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
+"empty-no-search-results-message" = "Leider kënnen d'Resultater net geluede ginn";
+"alert-no-internet" = "Dir hutt keng Internetverbindung";

@@ -86,6 +86,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "링크 열기";
 "open-link-cancel" = "취소";
+"search-title" = "검색";
 "search-searching" = "검색 중...";
 "search-no-matches" = "검색어와 일치하는 것을 찾을 수 없습니다.";
 "search-field-placeholder-text" = "위키백과 검색";
@@ -97,8 +98,7 @@
 "search-titles" = "제목";
 "search-within-articles" = "문서 안에서";
 "search-did-you-mean" = "$1 문서를 찾고 있었나요?";
-// Fuzzy
-"search-recent-title" = "최근 검색";
+"search-recent-title" = "최근 검색한 것";
 "search-recent-clear-confirmation-heading" = "최근 검색을 모두 삭제하겠습니까?";
 "search-recent-clear-confirmation-sub-heading" = "이 동작은 취소할 수 없습니다!";
 "search-recent-clear-cancel" = "취소";
@@ -113,8 +113,7 @@
 "main-menu-language-selection-saved" = "언어 선택이 저장됨";
 "main-menu-account-title-logged-out" = "계정";
 "main-menu-account-title-logged-in" = "로그인한 사용자: $1";
-// Fuzzy
-"main-menu-account-login" = "로그인";
+"main-menu-account-login" = "위키 피디아에 로그인 하기";
 "main-menu-account-logout" = "로그아웃";
 "main-menu-show-title" = "내개 보여주기...";
 "main-menu-show-history" = "최근";
@@ -212,6 +211,8 @@
 "button-next" = "다음";
 "button-done" = "완료";
 "button-save" = "저장";
+"button-save-for-later" = "나중에 쓰기 위해 저장";
+"button-saved-for-later" = "나중에 쓰기 위해 저장";
 "onboarding-create-account" = "계정 만들기";
 "onboarding-login" = "로그인";
 "onboarding-already-have-account" = "계정이 이미 있습니까? $1";
@@ -285,3 +286,31 @@
 "page-similar-titles" = "비슷한 문서";
 "captcha-reload" = "다른 캡챠 보이기";
 "captcha-prompt" = "위 그림에 있는 캡챠 텍스트를 입력하세요";
+"home-title" = "찾아보기";
+"home-continue-reading-heading" = "계속 읽기";
+"home-continue-related-heading" = "$1을 읽었기 때문";
+"home-more-like-footer" = "$1 등도 읽히고 있습니다";
+"home-nearby-check-again" = "다시 확인";
+"home-featured-article-heading" = "$1의 알찬 글";
+"home-potd-heading" = "$1의 그림";
+"potd-description-prefix" = "$1의 그림";
+"welcome-whats-new-title" = "위키피디아에 오신 것을 환영합니다.";
+"welcome-whats-new-whats-new" = "새로운 것";
+"welcome-whats-new-bullet-one-more-info-button-text" = "작동 원리";
+"welcome-whats-new-bullet-two-title" = "읽기용으로 설계되었습니다";
+"welcome-whats-new-button-title" = "시작하기";
+"welcome-whats-new-bullet-one-more-info-done-button" = "알았습니다";
+// Fuzzy
+"welcome-languages-title" = "당신의 언어를 선택하세요";
+"welcome-languages-more-languages-button-title" = "더 많은 언어 추가";
+"welcome-languages-button-title" = "계속";
+"welcome-languages-footnote-text" = "다음에도 변경할 수 있으니 걱정하지 마세요.";
+"welcome-usage-reports-title" = "위키피디아를 더 좋아지도록 도와주세요";
+"welcome-usage-reports-switch-text" = "사용 보고서 보내기";
+// Fuzzy
+"welcome-usage-reports-button-title" = "완료";
+"welcome-usage-reports-privacy-policy-button-text" = "당신의 사생활은 저희에게 중요합니다.";
+"empty-no-feed-title" = "인터넷 연결 없음";
+"empty-no-article-message" = "죄송합니다, 문서를 불러올 수 없습니다";
+"empty-no-search-results-message" = "죄송합니다, 결과를 불러올 수 없습니다";
+"alert-no-internet" = "인터넷 연결이 없습니다";

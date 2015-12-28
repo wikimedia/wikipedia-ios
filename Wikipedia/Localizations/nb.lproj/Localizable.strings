@@ -15,6 +15,7 @@
 "article-read-more-title" = "Les mer";
 "article-unable-to-load-section" = "Kunne ikke laste dette avsnittet. Prøv å oppdatere artikkelen for å se om det løser problemet.";
 "article-unable-to-load-article" = "Artikkelen kunne ikke lastes inn.";
+"article-related-articles-title" = "Relaterte artikler";
 "info-box-title" = "Raske fakta";
 "info-box-close-text" = "Lukk";
 "table-title-other" = "Mer informasjon";
@@ -82,6 +83,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Åpne lenke";
 "open-link-cancel" = "Avbryt";
+"search-title" = "Søk";
 "search-searching" = "Søker…";
 "search-no-matches" = "Ingen treff for søketermen.";
 "search-field-placeholder-text" = "Søk i Wikipedia";
@@ -93,8 +95,7 @@
 "search-titles" = "Titler";
 "search-within-articles" = "I artikler";
 "search-did-you-mean" = "Mente du $1?";
-// Fuzzy
-"search-recent-title" = "Nylige søk";
+"search-recent-title" = "Siste søk";
 "search-recent-clear-confirmation-heading" = "Slette alle nylige søk?";
 "search-recent-clear-confirmation-sub-heading" = "Handlingen kan ikke omgjøres!";
 "search-recent-clear-cancel" = "Avbryt";
@@ -109,8 +110,7 @@
 "main-menu-language-selection-saved" = "Språkvalg lagret";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Innlogget som: $1";
-// Fuzzy
-"main-menu-account-login" = "Logg inn";
+"main-menu-account-login" = "Logg inn på Wikipedia";
 "main-menu-account-logout" = "Logg ut";
 "main-menu-show-title" = "Vis meg…";
 "main-menu-show-history" = "Logg";
@@ -208,6 +208,8 @@
 "button-next" = "Neste";
 "button-done" = "Ferdig";
 "button-save" = "Lagre";
+"button-save-for-later" = "Lagre til senere";
+"button-saved-for-later" = "Lagret til senere";
 "onboarding-create-account" = "Opprett konto";
 "onboarding-login" = "Logg inn";
 "onboarding-already-have-account" = "Har du allerede en konto? $1";
@@ -286,3 +288,42 @@
 "captcha-reload" = "Vis en annen captcha";
 "captcha-prompt" = "Fyll inn CAPTCHA-teksten fra bildet ovenfor";
 "mwk-empty-title-error" = "Kunne ikke utføre operasjonen med en tom tittel.";
+"home-title" = "Utforsk";
+"home-continue-reading-heading" = "Fortsett å lese";
+"home-continue-related-heading" = "Fordi du leser $1";
+"home-more-like-footer" = "Mer som ligner $1";
+"home-nearby-footer" = "Mer i nærheten av din plassering";
+"home-nearby-nothing" = "Ingenting i nærheten";
+"home-nearby-check-again" = "Sjekk på nytt";
+"home-featured-article-heading" = "Fremhevet artikkel $1";
+"home-main-page-heading" = "I dag på Wikipedia";
+"home-potd-heading" = "Dagens bilde $1";
+"potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
+"potd-description-prefix" = "Dagens bilde $1";
+"welcome-whats-new-title" = "Velkommen til Wikipedia";
+"welcome-whats-new-whats-new" = "HVA ER NYTT";
+"welcome-whats-new-bullet-one-title" = "En ny måte å utforske på";
+"welcome-whats-new-bullet-one-text" = "Oppdag nye og interessante artikler på Oppdagelsesskjermen";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Hvordan dette fungerer…";
+"welcome-whats-new-bullet-two-title" = "Utformet for lesing";
+"welcome-whats-new-bullet-two-text" = "Oppdatert design rettet mot å gi en god leseopplevelse.";
+"welcome-whats-new-button-title" = "Kom i gang";
+"welcome-whats-new-bullet-one-more-info-text" = "Når du besøker en artikkel blir relaterte artikler automatisk lagt til i kanalen din. Dette endrer ikke hvordan vi samler inn informasjon, og lesehistorikken din forblir privat.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Forstått";
+// Fuzzy
+"welcome-languages-title" = "Velg språk";
+"welcome-languages-more-languages-button-title" = "Legg til flere språk";
+"welcome-languages-button-title" = "Fortsett";
+"welcome-languages-footnote-text" = "Ingen fare, du kan endre dette senere.";
+"welcome-usage-reports-title" = "Hjelp oss med å gjøre Wikipedia bedre";
+"welcome-usage-reports-body-text" = "Du kan hjelpe oss med å gjøre appen bedre ved å tillate at vi samler inn informasjon om hvordan du bruker den.";
+"welcome-usage-reports-switch-text" = "Send bruksrapporter";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Ferdig";
+"welcome-usage-reports-privacy-policy-button-text" = "Vi tar personvernet ditt på alvor";
+"empty-no-feed-title" = "Ingen internettforbindelse";
+"empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
+"empty-no-feed-action-message" = "Du kan lese lagrede sider i mellomtiden";
+"empty-no-article-message" = "Artikkelen kunne ikke lastes";
+"empty-no-search-results-message" = "Kunne ikke hente resultater";
+"alert-no-internet" = "Ingen internettforbindelse";

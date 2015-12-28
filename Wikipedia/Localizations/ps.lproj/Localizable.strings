@@ -185,3 +185,9 @@
 "captcha-prompt" = "له پورته انځور څخه کپچا متن ورکړئ";
 "home-more-like-footer" = "د $1 په څېر نور";
 "home-nearby-check-again" = "بيا آزمويل";
+"welcome-whats-new-bullet-one-more-info-button-text" = "دا څنگه کار کوي...";
+"welcome-whats-new-button-title" = "پيلول";
+"welcome-whats-new-bullet-one-more-info-done-button" = "پوه شوم";
+"welcome-languages-more-languages-button-title" = "نورې ژبې ورگډول";
+// Fuzzy
+"welcome-usage-reports-button-title" = "ترسره شو";

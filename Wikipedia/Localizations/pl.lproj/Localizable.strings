@@ -114,8 +114,7 @@
 "main-menu-language-selection-saved" = "Wybór języka zapisany.";
 "main-menu-account-title-logged-out" = "Konto";
 "main-menu-account-title-logged-in" = "Zalogowano jako: $1";
-// Fuzzy
-"main-menu-account-login" = "Zaloguj się";
+"main-menu-account-login" = "Zaloguj się do Wikipedii";
 "main-menu-account-logout" = "Wyloguj";
 "main-menu-show-title" = "Pokaż mnie...";
 "main-menu-show-history" = "Ostatnie";
@@ -294,3 +293,13 @@
 "home-nearby-check-again" = "Sprawdź ponownie";
 "home-main-page-heading" = "Dzisiaj w Wikipedii";
 "potd-description-prefix" = "Ilustracja dnia na $1";
+"welcome-whats-new-title" = "Witamy w Wikipedii";
+"welcome-whats-new-whats-new" = "CO NOWEGO";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Jak to działa...";
+"welcome-languages-more-languages-button-title" = "Dodaj więcej języków";
+"welcome-languages-button-title" = "Kontynuuj";
+"welcome-languages-footnote-text" = "Nie martw się, możesz to zmienić później.";
+// Fuzzy
+"welcome-usage-reports-button-title" = "Gotowe";
+"welcome-usage-reports-privacy-policy-button-text" = "Twoja prywatność jest dla nas ważna";
+"alert-no-internet" = "Nie ma połączenia internetowego";

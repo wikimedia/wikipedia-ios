@@ -5,6 +5,7 @@
 // Author: Ebraminio
 // Author: Fatemi127
 // Author: Hosseinblue
+// Author: Huji
 // Author: Leyth
 // Author: Macofe
 // Author: Mahdiz
@@ -21,6 +22,7 @@
 "article-read-more-title" = "بیشتر بخوانید";
 "article-unable-to-load-section" = "امکان براگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "article-unable-to-load-article" = "بارگذاری مقاله ناموفق بود.";
+"article-related-articles-title" = "مقاله‌های مرتبط";
 "info-box-title" = "واقعیت‌های سریع";
 "info-box-close-text" = "بستن";
 "table-title-other" = "اطلاعات بیشتر";
@@ -88,6 +90,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "باز کردن پیوند";
 "open-link-cancel" = "لغو";
+"search-title" = "جستجو";
 "search-searching" = "در حال جستجو...";
 "search-no-matches" = "هیچ موردی برای جستجو یافت نشد.";
 "search-field-placeholder-text" = "جستجوی ویکی‌پدیا";
@@ -99,7 +102,6 @@
 "search-titles" = "عنوان‌ها";
 "search-within-articles" = "در مقالات";
 "search-did-you-mean" = "منظورتان «$1» بود؟";
-// Fuzzy
 "search-recent-title" = "جستجوهای اخیر";
 "search-recent-clear-confirmation-heading" = "حذف همهٔ آخرین جستجوها؟";
 "search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
@@ -115,8 +117,7 @@
 "main-menu-language-selection-saved" = "انتخاب زبان ذخیره شد";
 "main-menu-account-title-logged-out" = "حساب کاربری";
 "main-menu-account-title-logged-in" = "ورود به عنوان: $1";
-// Fuzzy
-"main-menu-account-login" = "ورود به سامانه";
+"main-menu-account-login" = "ورود به ویکی‌پدیا";
 "main-menu-account-logout" = "خروج از سامانه";
 "main-menu-show-title" = "نشانم بده...";
 "main-menu-show-history" = "اخیر";
@@ -214,6 +215,8 @@
 "button-next" = "بعدی";
 "button-done" = "انجام شد";
 "button-save" = "ذخیره";
+"button-save-for-later" = "ذخیره برای بعد";
+"button-saved-for-later" = "ذخیره برای بعد";
 "onboarding-create-account" = "ایجاد حساب کاربری";
 "onboarding-login" = "ورود به سامانه";
 "onboarding-already-have-account" = "حساب کاربری دارید؟ $1.";
@@ -292,3 +295,42 @@
 "captcha-reload" = "نمایش کپچای دیگر";
 "captcha-prompt" = "متن کپچا را از تصویر بالا وارد کنید";
 "mwk-empty-title-error" = "با عنوان خالی امکان انجام عملیات نیست.";
+"home-title" = "مرور";
+"home-continue-reading-heading" = "ادامه خواندن";
+"home-continue-related-heading" = "چون شما $1 را مطالعه می‌کنید";
+"home-more-like-footer" = "موارد بیشتر شبیه $1";
+"home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
+"home-nearby-nothing" = "هیچ چیز در نزدیکی";
+"home-nearby-check-again" = "جستجوی مجدد";
+"home-featured-article-heading" = "مشخصات مقاله $1";
+"home-main-page-heading" = "امروز در ویکی‌پدیا";
+"home-potd-heading" = "تصویر روز برای $1";
+"potd-empty-error-description" = "خطا در دریافت تصویر روز برای $1";
+"potd-description-prefix" = "تصویر روز برای $1";
+"welcome-whats-new-title" = "به ویکی‌پدیا خوش آمدید";
+"welcome-whats-new-whats-new" = "موارد جدید";
+"welcome-whats-new-bullet-one-title" = "روش جدید برای مرور";
+"welcome-whats-new-bullet-one-text" = "پیدا کردن مقاله مورد علاقه و جدید برای شما در صفحهٔ مرور.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "این چگونه کار می‌کند...";
+"welcome-whats-new-bullet-two-title" = "برای مطالعه طراحی شده‌است";
+"welcome-whats-new-bullet-two-text" = "طرح به‌روز شده بر روی بهبود تجربهد مطالعه تمرکز کرده‌است.";
+"welcome-whats-new-button-title" = "شروع شده‌است";
+"welcome-whats-new-bullet-one-more-info-text" = "زمانی که شما یک مقاله را مطالعه می‌کنید، مقالات مرتبط به صورت خودکار به فید شما افزوده می‌شوند این مورد تغییری در نحوهٔ جمع‌آوری اطلاعات شما ندارد و تاریخچهٔ مواردی را که خواندید به صورت خصوصی باقی خواهد ماند.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "گرفتم";
+// Fuzzy
+"welcome-languages-title" = "زبان مورد نظرتان را انتخاب کنید";
+"welcome-languages-more-languages-button-title" = "زبان‌های بیشتر بیافزائید";
+"welcome-languages-button-title" = "ادامه";
+"welcome-languages-footnote-text" = "نگران نباشید این را بعدا می توانید تغییر دهید.";
+"welcome-usage-reports-title" = "به ما در بهبود ویکی‌پدیا کمک کنید";
+"welcome-usage-reports-body-text" = "با اجازه دادن به ما برای جمع‌آوری اطلاعات دربارهٔ نحوهٔ استفادهٔ شما از این اپلیکیشن، در بهبود آن کمک کنید.";
+"welcome-usage-reports-switch-text" = "ارسال گزارش‌های استفاده";
+// Fuzzy
+"welcome-usage-reports-button-title" = "انجام شد";
+"welcome-usage-reports-privacy-policy-button-text" = "امنیت شما برای ما اهمیت دارد";
+"empty-no-feed-title" = "عدم اتصال به اینترنت";
+"empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
+"empty-no-feed-action-message" = "فعلا می توانید صفحه‌های ذخیره شده را مطالعه کنید";
+"empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
+"empty-no-search-results-message" = "متاسفانه امکان بارگیری نتیجه نیست";
+"alert-no-internet" = "به اینترنت متصل نیستید";

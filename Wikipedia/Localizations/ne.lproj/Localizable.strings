@@ -167,3 +167,8 @@
 "migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
+"welcome-whats-new-title" = "विकिपिडियामा स्वागत् छ";
+"welcome-languages-more-languages-button-title" = "थप भाषाहरू थप्नुहोस्";
+"welcome-usage-reports-switch-text" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
+// Fuzzy
+"welcome-usage-reports-button-title" = "सकियो";
