@@ -186,7 +186,7 @@
 }
 
 + (instancetype)wmf_nearbyTickColor {
-    return [UIColor blackColor];
+    return [UIColor wmf_999999Color];
 }
 
 + (instancetype)wmf_nearbyTitleColor {
@@ -205,7 +205,7 @@
 }
 
 + (instancetype)wmf_nearbyDistanceBackgroundColor {
-    return [UIColor clearColor];
+    return [UIColor wmf_colorWithHex:0xAAAAAA alpha:1.0];
 }
 
 + (instancetype)wmf_999999Color {
@@ -220,7 +220,7 @@
 }
 
 + (instancetype)wmf_nearbyDistanceTextColor {
-    return [self wmf_999999Color];
+    return [UIColor whiteColor];
 }
 
 + (instancetype)wmf_emptyGrayTextColor {
