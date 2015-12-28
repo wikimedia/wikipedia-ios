@@ -1655,6 +1655,19 @@
 		BC318E141C1A38D900DACD9D /* PostNotificationMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostNotificationMatcher.swift; path = WikipediaUnitTests/Code/PostNotificationMatcher.swift; sourceTree = SOURCE_ROOT; };
 		BC318E161C1A5C2900DACD9D /* PostNotificationMatcherShorthand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PostNotificationMatcherShorthand.h; path = WikipediaUnitTests/Code/PostNotificationMatcherShorthand.h; sourceTree = SOURCE_ROOT; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC45D5231C31CD51007C72F3 /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5251C31CDC9007C72F3 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5291C31CE0E007C72F3 /* eo */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eo; path = eo.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D52A1C31CE65007C72F3 /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D52B1C31CE6A007C72F3 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D52C1C31CE79007C72F3 /* hy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hy; path = hy.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D52D1C31CE7D007C72F3 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D52F1C31CEAE007C72F3 /* mr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mr; path = mr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5301C31CEC7007C72F3 /* ps */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ps; path = ps.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5321C31CED5007C72F3 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5331C31CEE2007C72F3 /* te */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = te; path = te.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5341C31CEE6007C72F3 /* yi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = yi; path = yi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BC45D5351C31CEE9007C72F3 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BC45FF461C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSUserDefaults+WMFReset.h"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFReset.h"; sourceTree = SOURCE_ROOT; };
 		BC45FF471C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSUserDefaults+WMFReset.m"; path = "WikipediaUnitTests/Code/NSUserDefaults+WMFReset.m"; sourceTree = SOURCE_ROOT; };
 		BC45FF491C1B22C200BAE501 /* NSObject+WMFReflection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+WMFReflection.h"; path = "WikipediaUnitTests/Code/NSObject+WMFReflection.h"; sourceTree = SOURCE_ROOT; };
@@ -5421,6 +5434,19 @@
 				D47FEE2319C8CB3400B998C8 /* ce */,
 				D47FEE2519C8CB6B00B998C8 /* cs */,
 				D47FEE2819C8CC2600B998C8 /* pt-BR */,
+				BC45D5231C31CD51007C72F3 /* fa */,
+				BC45D5251C31CDC9007C72F3 /* ar */,
+				BC45D5291C31CE0E007C72F3 /* eo */,
+				BC45D52A1C31CE65007C72F3 /* hi */,
+				BC45D52B1C31CE6A007C72F3 /* hu */,
+				BC45D52C1C31CE79007C72F3 /* hy */,
+				BC45D52D1C31CE7D007C72F3 /* lt */,
+				BC45D52F1C31CEAE007C72F3 /* mr */,
+				BC45D5301C31CEC7007C72F3 /* ps */,
+				BC45D5321C31CED5007C72F3 /* ta */,
+				BC45D5331C31CEE2007C72F3 /* te */,
+				BC45D5341C31CEE6007C72F3 /* yi */,
+				BC45D5351C31CEE9007C72F3 /* da */,
 			);
 			name = Localizable.strings;
 			path = Localizations;
