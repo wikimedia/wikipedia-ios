@@ -3,15 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM (NSInteger, WMFTrackingViewLocation) {
-    WMFTrackingViewLocationTop,
-    WMFTrackingViewLocationBottom
-};
-
 @interface UIWebView (WMF_TrackingView)
-
-- (void)wmf_addTrackingView:(UIView*)view
-                 atLocation:(WMFTrackingViewLocation)location;
 
 - (UIView*)wmf_browserView;
 

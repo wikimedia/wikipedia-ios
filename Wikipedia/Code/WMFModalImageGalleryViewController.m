@@ -10,8 +10,6 @@
 #import "WMFBaseImageGalleryViewController_Subclass.h"
 #import "Wikipedia-Swift.h"
 
-#import "AnyPromise+WMFExtensions.h"
-
 // Utils
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
@@ -26,7 +24,6 @@
 #import "WMFImageGalleryDetailOverlayView.h"
 #import "UIFont+WMFStyle.h"
 #import "UIButton+WMFButton.h"
-#import "UICollectionViewFlowLayout+NSCopying.h"
 #import "UICollectionViewFlowLayout+WMFItemSizeThatFits.h"
 #import "WMFCollectionViewPageLayout.h"
 #import "UICollectionViewLayout+AttributeUtils.h"
