@@ -31,7 +31,6 @@
 #import "WMFCollectionViewPageLayout.h"
 #import "UICollectionViewLayout+AttributeUtils.h"
 #import "UILabel+WMFStyling.h"
-#import "UIButton+FrameUtils.h"
 #import "UIView+WMFFrameUtils.h"
 #import "WMFGradientView.h"
 #import "UICollectionView+WMFExtensions.h"

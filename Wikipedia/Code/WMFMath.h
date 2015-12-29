@@ -58,7 +58,12 @@ extern double WMFFlooredPercentage(double x) __attribute__((const)) __attribute_
 /// @name Geometry
 ///
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * 180.0 / M_PI)
-
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
-
+/**
+ *  Convert a number of Megabytes into the corresponding number of bytes.
+ *  @param m The number of Megabytes to convert into bytes.
+ *  @return Number of bytes equivalent to `m` megabytes.
+ */
+static inline NSUInteger MegabytesToBytes(NSUInteger m) {
+    static NSUInteger const MEGABYTE = 1 << 20;
+    return m * MEGABYTE;
+}

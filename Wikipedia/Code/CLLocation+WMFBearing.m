@@ -7,6 +7,7 @@
 //
 
 #import "CLLocation+WMFBearing.h"
+#import "WMFGeometry.h"
 
 @implementation CLLocation (WMFBearing)
 
