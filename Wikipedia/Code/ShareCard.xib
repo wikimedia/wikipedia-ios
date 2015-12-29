@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WMFShareCardViewController">
@@ -21,12 +21,10 @@
             <subviews>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rS3-u2-wzM" customClass="WMFShareCardImageContainer">
                     <rect key="frame" x="0.0" y="0.0" width="640" height="360"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cc_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="ihv-br-w7Q" userLabel="CC mark">
                     <rect key="frame" x="30" y="319" width="16" height="16"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="16" id="fxH-r4-SbP"/>
                         <constraint firstAttribute="height" constant="16" id="ndv-iT-Y91"/>
@@ -34,7 +32,6 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="by_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sjf-Tp-DH9" userLabel="BY mark">
                     <rect key="frame" x="48" y="319" width="16" height="16"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="UVg-fw-d0D"/>
                         <constraint firstAttribute="width" constant="16" id="n1G-Es-Cfi"/>
@@ -42,7 +39,6 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sa_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-fN-IRx" userLabel="SA mark">
                     <rect key="frame" x="66" y="319" width="16" height="16"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="16" id="XmD-n8-hhh"/>
                         <constraint firstAttribute="height" constant="16" id="wO7-Wb-CbW"/>
@@ -50,7 +46,6 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wikipedia_wordmark_gray.png" translatesAutoresizingMaskIntoConstraints="NO" id="6HC-uN-YYr" userLabel="Wikipedia Text Logo">
                     <rect key="frame" x="446" y="300" width="165" height="42"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="165" id="0M9-6P-ngj"/>
                         <constraint firstAttribute="height" constant="42" id="lae-oj-fPO"/>
@@ -58,7 +53,6 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Article title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="360" translatesAutoresizingMaskIntoConstraints="NO" id="rjC-wW-yPe" userLabel="Article Title">
                     <rect key="frame" x="30" y="260" width="360" height="35"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="360" id="7WA-vv-9BD"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="Bw8-R3-N0C"/>
@@ -72,7 +66,6 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Snippet" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="38" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="QlQ-cG-u6Y" userLabel="Selected Text">
                     <rect key="frame" x="30" y="1" width="580" height="225"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="225" id="GMh-Yg-20E"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="NzL-aY-Pki"/>
@@ -86,7 +79,6 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Article description" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="0.66000000000000003" preferredMaxLayoutWidth="360" translatesAutoresizingMaskIntoConstraints="NO" id="dbe-nb-kfi" userLabel="Article Description">
                     <rect key="frame" x="30" y="296" width="360" height="18"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="23" id="DLu-v8-aCf"/>
                         <constraint firstAttribute="width" constant="360" id="Fnd-oj-4Ri"/>
@@ -99,7 +91,6 @@
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
             </subviews>
-            <animations/>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Sjf-Tp-DH9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="48" id="1Xj-5c-KIu"/>
