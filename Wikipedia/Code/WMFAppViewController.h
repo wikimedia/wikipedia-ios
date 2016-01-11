@@ -7,4 +7,6 @@
 
 - (void)launchAppInWindow:(UIWindow*)window;
 
+@property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
+
 @end

@@ -221,7 +221,7 @@ static dispatch_once_t launchToken;
 }
 
 - (void)handleSelectionOfShortcutItemIfNecessaryThen:(void (^)(BOOL shortcutWasHandled))completion {
-    UIApplicationShortcutItem* shortcutItemSelectedAtLaunch = [((AppDelegate*)[UIApplication sharedApplication].delegate) shortcutItemSelectedAtLaunch];
+    UIApplicationShortcutItem* shortcutItemSelectedAtLaunch = self.shortcutItemSelectedAtLaunch;
     if (shortcutItemSelectedAtLaunch) {
         // Main UI may *not* have been loaded if the user...
         //      - minimized the app when viewing a "Welcome" screen

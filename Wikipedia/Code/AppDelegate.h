@@ -5,7 +5,4 @@
 
 @property (nonatomic, strong) UIWindow* window;
 
-// HAX
-@property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
-
 @end
