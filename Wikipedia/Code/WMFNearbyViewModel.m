@@ -16,7 +16,6 @@
 #import "WMFLocationSearchResults.h"
 #import "MWKLocationSearchResult.h"
 #import "MWKHistoryEntry.h"
-#import "CLLocation+WMFApproximateEquality.h"
 #import "CLLocation+WMFBearing.h"
 #import "WMFSearchResultDistanceProvider.h"
 #import "WMFSearchResultBearingProvider.h"

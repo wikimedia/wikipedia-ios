@@ -21,7 +21,7 @@
 #import "WMFCompassView.h"
 
 // Utils
-#import "WMFMath.h"
+#import "WMFGeometry.h"
 #import "NSString+WMFDistance.h"
 #import "UIColor+WMFStyle.h"
 #import "UIFont+WMFStyle.h"

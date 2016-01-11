@@ -1,7 +1,7 @@
 //  Created by Monte Hurd on 6/18/14.
 //  Copyright (c) 2014 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "DataHousekeeping.h"
+#import "MWKDataHousekeeping.h"
 #import "NSDate+Utilities.h"
 #import "SessionSingleton.h"
 #import "Wikipedia-Swift.h"
@@ -11,12 +11,12 @@
 
 #define MAX_HISTORY_ENTRIES 100
 
-@interface DataHousekeeping (){
+@interface MWKDataHousekeeping (){
 }
 
 @end
 
-@implementation DataHousekeeping
+@implementation MWKDataHousekeeping
 
 - (instancetype)init {
     self = [super init];

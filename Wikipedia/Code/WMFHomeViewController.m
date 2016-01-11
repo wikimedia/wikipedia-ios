@@ -51,7 +51,6 @@
 
 // Controllers
 #import "WMFLocationManager.h"
-#import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 

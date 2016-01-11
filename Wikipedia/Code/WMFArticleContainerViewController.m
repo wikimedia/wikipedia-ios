@@ -13,7 +13,6 @@
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFRelatedTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
-#import "UITabBarController+WMFExtensions.h"
 #import "WMFShareOptionsController.h"
 #import "WMFModalImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"

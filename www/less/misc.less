@@ -53,6 +53,29 @@ a{
     padding-bottom:0px;
 }
 
+// Horizontal divider between title/description and lead section text
+#content_block_0_hr {
+    border:1px solid #ccc;
+    margin-top: 12px;
+    margin-bottom: 16px;
+    width: 60px;
+    margin-left:0px;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+    #content_block_0_hr {
+        border-width:0.5px;
+    }
+}
+
+[dir="ltr"] #content_block_0_hr {
+    margin-left:0px;
+}
+
+[dir="rtl"] #content_block_0_hr {
+    margin-right:0px;
+}
+
 /*
  Hide the Safari "Add to reading list" menu on long-press on links and other elements.
 */

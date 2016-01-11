@@ -5,8 +5,8 @@
 
 @interface NSObject (Extras)
 
-- (BOOL)isNull;
+- (BOOL)isNull WMF_TECH_DEBT_DEPRECATED;
 
-- (BOOL)isDict;
+- (BOOL)isDict WMF_TECH_DEBT_DEPRECATED;
 
 @end

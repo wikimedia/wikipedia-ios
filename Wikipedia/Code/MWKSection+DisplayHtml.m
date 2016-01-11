@@ -24,10 +24,11 @@
     BOOL isMainPage = [SessionSingleton sharedInstance].currentArticle.isMain;
 
     return [NSString stringWithFormat:
-            @"<div id='section_heading_and_content_block_%d'>%@<div id='content_block_%d' class='content_block'>%@%@</div></div>",
+            @"<div id='section_heading_and_content_block_%d'>%@<div id='content_block_%d' class='content_block'>%@%@%@</div></div>",
             self.sectionId,
             (isMainPage ? @"" : [self getHeaderTag]),
             self.sectionId,
+            (([self isLeadSection]) && !isMainPage) ? @"<hr id='content_block_0_hr'>" : @"",
             (([self isLeadSection]) && !isMainPage) ? [self getEditPencilAnchor] : @"",
             html
     ];

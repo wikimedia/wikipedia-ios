@@ -9,7 +9,7 @@
 
 //Utility
 #import "NSDate+Utilities.h"
-#import "DataHousekeeping.h"
+#import "MWKDataHousekeeping.h"
 
 // Networking
 #import "SavedArticlesFetcher.h"
@@ -24,8 +24,6 @@
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIStoryboard+WMFExtensions.h"
-#import "UITabBarController+WMFExtensions.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
@@ -471,7 +469,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     //NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
     if (daysSinceLastHouseKeeping > 1) {
         //NSLog(@"Performing housekeeping...");
-        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        MWKDataHousekeeping* dataHouseKeeping = [[MWKDataHousekeeping alloc] init];
         [dataHouseKeeping performHouseKeeping];
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
         [[NSUserDefaults standardUserDefaults] synchronize];
