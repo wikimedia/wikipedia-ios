@@ -9,6 +9,7 @@
 "article-languages-downloading" = "مضمون جون ٻوليون لاهيندي...";
 "article-languages-filter-placeholder" = "ٻولي جي ڇاڻي";
 "article-read-more-title" = "وڌيڪ پڙهو";
+"article-about-title" = "هن مضمون بابت";
 "article-unable-to-load-section" = "هن حصي کي لوڊ ڪرڻ ۾ نالائق. مضمون کي تازو ڪرڻ جي ڪوشش ڪريو اهو ڏسڻ لاءِ ته ڇا اهو مسئلي کي حل ڪري ٿو.";
 "article-unable-to-load-article" = "مضمون لاهڻ لائق نه آهي.";
 "article-related-articles-title" = "لاڳاپيل مضمون";
@@ -119,6 +120,7 @@
 "main-menu-nearby" = "ويجهڙ ۾";
 "main-menu-more" = "وڌيڪ...";
 "main-menu-debug-crash" = "حادثو";
+"saved-title" = "سانڍيل";
 "saved-pages-title" = "سانڍيل صفحا";
 "saved-pages-clear-confirmation-heading" = "سڀ سانڍيل شيون ختم ڪريون؟";
 "saved-pages-clear-confirmation-sub-heading" = "هي عمل واپس نٿو ڪري سگهجي!";
@@ -128,6 +130,8 @@
 "saved-pages-refresh-cancel-alert-message" = "وڪيپيڊيا مضمونن ۾ هر وقت جدت آندي ويندي آهي. تازو ڪرڻ لاءِ ٽيپ ڪريو ته جيئن سڀني مضمونن جا تازا ترين ورزن ملن.";
 "saved-pages-refresh-cancel-alert-button" = "سمجھي ويس";
 "saved-pages-none" = "اڃان ڪي به صفحا سانڍيل نه آهن.";
+"saved-pages-image-download-error" = "هن سانڍيل صفحي لاءِ عڪس لاھڻ ۾ ناڪامي ٿي.";
+"history-title" = "سوانح";
 "page-history-title" = "مضون جي سوانح";
 "page-history-downloading" = "مضمون جي سوانح لاهيندي...";
 "navbar-title-mode-edit-wikitext" = "سنواريو";
@@ -252,6 +256,9 @@
 "hockeyapp-alert-privacy" = "$1 ذاتيات";
 "page-issues" = "صفحي جا مسئلا";
 "page-similar-titles" = "ان جهڙا صفحا";
+"page-read-in-other-languages" = "$1 ٻولين ۾ پڙھو";
+"page-last-edited" = "$1 ڏينهن اڳ ترميم ڪيل";
+"page-edit-history" = "پوري ترميمي سوانح";
 "mwk-empty-title-error" = "خالي عنوان تي آپريشن پيش ڪرڻ ۾ ناڪام.";
 "home-title" = "تلاش ڪريو";
 "home-continue-reading-heading" = "پڙهڻ جاري رکو";
@@ -273,20 +280,25 @@
 "welcome-whats-new-bullet-two-text" = "تجديديل جنسار جو محور مطالعي جو آزمودو احسن بنائڻ آهي.";
 "welcome-whats-new-button-title" = "شروعات ڪريو";
 "welcome-whats-new-bullet-one-more-info-done-button" = "سمجھي ويس";
-// Fuzzy
-"welcome-languages-title" = "پنهنجون  ٻوليون چونڊيو";
+"welcome-languages-title" = "ڳولا لاءِ ٻوليون";
+"welcome-languages-more-info-button-text" = "مون کي وڌيڪ ٻڌايو";
+"welcome-languages-more-info-text" = "وڪيپيڊيا مضمون مختلف ٻولين ۾ موجود آھن. اھا ٻولي چونڊيو جيڪا توھان ڳولا جي دوران استعمال ڪرڻ پسند ڪندئو. توھان بعد ۾ انکي تبديل بہ ڪري سگھو ٿا.";
+"welcome-languages-more-info-done-button" = "سمجھي ويس";
 "welcome-languages-more-languages-button-title" = "ٻيون ٻوليون شامل ڪريو";
 "welcome-languages-button-title" = "جاري رکو";
 "welcome-languages-footnote-text" = "پريشان نہ ٿيو توهان انکي بعد ۾ تبديل ڪري سگهو ٿا.";
 "welcome-usage-reports-title" = "وڪيپيڊيا کي بهتر بڻائڻ ۾ اسانجي مدد ڪريو";
 "welcome-usage-reports-body-text" = "توهان ايپ ڪيئن استعمال ڪريو ٿا جي معلومات جمع ڪرڻ جي اجازت ڏئي اسانکي ايپ بهتر بڻائڻ ۾ مدد ڪري سگهو ٿا.";
 "welcome-usage-reports-switch-text" = "استعمال جون رپورٽون اماڻيو";
-// Fuzzy
-"welcome-usage-reports-button-title" = "ٿي ويو";
+"welcome-usage-reports-button-title" = "شروع ڪريو";
 "welcome-usage-reports-privacy-policy-button-text" = "توهان جي نويڪلائي اسان لاءِ اهم آهي";
 "empty-no-feed-title" = "باهمڄار (انٽرنيٽ) ڳانڍاپو غير موجود";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
 "empty-no-feed-action-message" = "ان دوران توهان پنهنجا سانڍل مضمون پڙهي سگهو ٿا";
 "empty-no-article-message" = "معاف ڪجو، مضمون اتاري نہ سگهياسين.";
 "empty-no-search-results-message" = "معاف ڪجو، نتيجا اتاري نہ سگهياسين.";
+"empty-no-saved-pages-title" = "اڃان ڪي بہ صفحا سانڍيل نہ آهن";
+"empty-no-saved-pages-message" = "بعد ۾ ڏسڻ لاءِ صفحا سانڍيو ، ڀلي آف لائين بہ";
+"empty-no-history-title" = "ڏيکارڻ لاءِ ڪابہ سوانح ناھي";
+"empty-no-history-message" = "هتي توهان ڇا پڙهندا رهيا آهيو ان جي يادگيري رکو";
 "alert-no-internet" = "باهمڄار (انٽرنيٽ) سان ڪو بہ ڳانڍاپو نہ آهي.";

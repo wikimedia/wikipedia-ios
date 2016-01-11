@@ -17,6 +17,7 @@
 "article-languages-downloading" = "正在讀取條目語言...";
 "article-languages-filter-placeholder" = "語言篩選器";
 "article-read-more-title" = "閱讀更多";
+"article-about-title" = "關於此條目";
 "article-unable-to-load-section" = "無法載入本段落。請嘗試重新整理條目來解決問題。";
 "article-unable-to-load-article" = "無法載入條目。";
 "article-related-articles-title" = "相關條目";
@@ -137,6 +138,7 @@
 "main-menu-more" = "更多...";
 "main-menu-heading-debug" = "除錯";
 "main-menu-debug-crash" = "錯誤";
+"saved-title" = "已儲存";
 "saved-pages-title" = "已儲存的頁面";
 "saved-pages-clear-confirmation-heading" = "删除所有已儲存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能還原！";
@@ -147,6 +149,8 @@
 "saved-pages-refresh-cancel-alert-button" = "明白了";
 "saved-pages-description" = "儲存頁面很棒。試想一下，你存為書籤後即使在離線時也可以閱讀。";
 "saved-pages-none" = "尚未儲存頁面。";
+"saved-pages-image-download-error" = "此已儲存頁面中的圖片下載失敗";
+"history-title" = "歷史";
 "page-history-title" = "條目歷史";
 "page-history-downloading" = "讀取條目歷史中...";
 "navbar-title-mode-edit-wikitext" = "編輯";
@@ -289,6 +293,9 @@
 "hockeyapp-alert-privacy" = "$1 隱私";
 "page-issues" = "頁面問題";
 "page-similar-titles" = "相似頁面";
+"page-read-in-other-languages" = "在 $1 語言中閱讀";
+"page-last-edited" = "$1 日前編輯";
+"page-edit-history" = "完整編輯歷史";
 "captcha-reload" = "顯示其他驗證碼";
 "captcha-prompt" = "輸入上圖中的驗證碼文字";
 "mwk-empty-title-error" = "無法執行有空白標題的操作。";
@@ -313,20 +320,25 @@
 "welcome-whats-new-button-title" = "入門";
 "welcome-whats-new-bullet-one-more-info-text" = "在您造訪一篇條目時，相關條目會自動新增至您的摘要中。這不會變更我們收集資訊的方式，您的閱讀歷史仍是私人的。";
 "welcome-whats-new-bullet-one-more-info-done-button" = "知道了";
-// Fuzzy
-"welcome-languages-title" = "挑選語言";
+"welcome-languages-title" = "搜尋語言";
+"welcome-languages-more-info-button-text" = "告訴我更多";
+"welcome-languages-more-info-text" = "維基百科條目常常擁有多語言。選擇您想搜尋時使用的語言。稍後您可以變更。";
+"welcome-languages-more-info-done-button" = "明白了嗎？";
 "welcome-languages-more-languages-button-title" = "新增更多語言";
 "welcome-languages-button-title" = "繼續";
 "welcome-languages-footnote-text" = "日後您可以變更，無需擔心。";
 "welcome-usage-reports-title" = "協助我們使維基百科更佳";
 "welcome-usage-reports-body-text" = "透過允許我們收集關於您如何使用應用程式的資訊，您可以協助我們使應用程式更佳。";
 "welcome-usage-reports-switch-text" = "傳送使用情形報告";
-// Fuzzy
-"welcome-usage-reports-button-title" = "已完成";
+"welcome-usage-reports-button-title" = "入門";
 "welcome-usage-reports-privacy-policy-button-text" = "您的隱私對我們很重要";
 "empty-no-feed-title" = "無網際網路連線";
 "empty-no-feed-message" = "在有網際網路時，您可以看到推薦的條目";
 "empty-no-feed-action-message" = "與此同時，您可以閱讀儲存的條目";
 "empty-no-article-message" = "很抱歉，無法載入條目";
 "empty-no-search-results-message" = "很抱歉，無法載入結果";
+"empty-no-saved-pages-title" = "仍未儲存頁面";
+"empty-no-saved-pages-message" = "儲存頁面以便稍後檢視，甚至在離線時";
+"empty-no-history-title" = "無歷史可顯示";
+"empty-no-history-message" = "在此記錄您的閱讀歷程";
 "alert-no-internet" = "無網際網路連線";

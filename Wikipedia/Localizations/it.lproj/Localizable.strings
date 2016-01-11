@@ -146,6 +146,7 @@
 "main-menu-more" = "Altro...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Crash";
+"saved-title" = "Salvato";
 "saved-pages-title" = "Pagine salvate";
 "saved-pages-clear-confirmation-heading" = "Cancellare tutti gli elementi salvati?";
 "saved-pages-clear-confirmation-sub-heading" = "Questa azione non può essere annullata!";
@@ -156,6 +157,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Capito";
 "saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
 "saved-pages-none" = "Nessuna pagina salvata ancora.";
+"history-title" = "Cronologia";
 "page-history-title" = "Cronologia dell'articolo";
 "page-history-downloading" = "Caricamento della cronologia dell'articolo...";
 "navbar-title-mode-edit-wikitext" = "Modifica";
@@ -298,6 +300,9 @@
 "hockeyapp-alert-privacy" = "Privacy $1";
 "page-issues" = "Problemi alla pagina";
 "page-similar-titles" = "Pagine simili";
+"page-read-in-other-languages" = "Leggi in $1 lingue";
+"page-last-edited" = "Modificata $1 giorni fa";
+"page-edit-history" = "Cronologia completa";
 "captcha-reload" = "Mostra un altro captcha";
 "captcha-prompt" = "Inserisci il testo captcha dall'immagine sopra";
 "mwk-empty-title-error" = "Impossibile eseguire l'operazione con un titolo vuoto.";
@@ -320,19 +325,22 @@
 "welcome-whats-new-bullet-two-title" = "Progettato per la lettura";
 "welcome-whats-new-button-title" = "Inizia";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Capito";
-// Fuzzy
-"welcome-languages-title" = "Scegli le tue lingue";
+"welcome-languages-title" = "Lingue per la ricerca";
+"welcome-languages-more-info-button-text" = "Dimmi di più";
+"welcome-languages-more-info-done-button" = "Capito";
 "welcome-languages-more-languages-button-title" = "Aggiungi più lingue";
 "welcome-languages-button-title" = "Continua";
 "welcome-languages-footnote-text" = "Non preoccuparti, puoi modificarle in seguito.";
 "welcome-usage-reports-title" = "Aiutaci a rendere Wikipedia migliore";
 "welcome-usage-reports-body-text" = "Puoi aiutarci a rendere migliore l'applicazione se ci permetti di raccogliere informazioni su come la usi.";
 "welcome-usage-reports-switch-text" = "Invia rapporti sull'utilizzo";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Fatto";
+"welcome-usage-reports-button-title" = "Inizia";
 "welcome-usage-reports-privacy-policy-button-text" = "La tua privacy è importante per noi";
 "empty-no-feed-title" = "Nessuna connessione internet";
 "empty-no-feed-action-message" = "Puoi leggere le pagine salvate nel frattempo";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-search-results-message" = "Spiacenti, impossibile caricare i risultati";
+"empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
+"empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
+"empty-no-history-title" = "Nessuna cronologia da mostrare";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";

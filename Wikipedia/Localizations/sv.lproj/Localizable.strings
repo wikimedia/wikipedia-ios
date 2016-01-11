@@ -17,6 +17,7 @@
 "article-languages-downloading" = "Läser in artikelspråk...";
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Läs mer";
+"article-about-title" = "Om den här artikeln";
 "article-unable-to-load-section" = "Kunde inte hämta detta avsnitt. Prova att uppdatera artikeln för att kolla om det åtgärdar några problem.";
 "article-unable-to-load-article" = "Kunde inte läsa in artikeln.";
 "article-related-articles-title" = "Relaterade artiklar";
@@ -137,6 +138,7 @@
 "main-menu-more" = "Mer...";
 "main-menu-heading-debug" = "Felsökning";
 "main-menu-debug-crash" = "Krasch";
+"saved-title" = "Sparade";
 "saved-pages-title" = "Sparade artiklar";
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
@@ -147,6 +149,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Jag förstår";
 "saved-pages-description" = "Sparade sidor är väldigt händigt. Tänk på dem som bokmärken som du kan läsa även när du inte är ansluten.";
 "saved-pages-none" = "Inga sparade sidor ännu.";
+"saved-pages-image-download-error" = "Gick inte att ladda ner bilder för den här sparade sidan.";
+"history-title" = "Historik";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Läser in artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
@@ -289,6 +293,9 @@
 "hockeyapp-alert-privacy" = "$1s sekretess";
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
+"page-read-in-other-languages" = "Läs på $1 språk";
+"page-last-edited" = "Redigerad för $1 dagar sedan";
+"page-edit-history" = "Full redigeringshistorik";
 "captcha-reload" = "Visa en annan captcha";
 "captcha-prompt" = "Ange captchatexten från bilden ovan";
 "mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";
@@ -305,7 +312,7 @@
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
 "potd-description-prefix" = "Dagens bild för $1";
 "welcome-whats-new-title" = "Välkommen till Wikipedia";
-"welcome-whats-new-whats-new" = "VAD ÄR NYTT";
+"welcome-whats-new-whats-new" = "Vad är nytt";
 "welcome-whats-new-bullet-one-title" = "Ett nytt sätt att utforska";
 "welcome-whats-new-bullet-one-text" = "Upptäck nya och intressanta artiklar bara för dig på Utforskningsskärmen.";
 "welcome-whats-new-bullet-one-more-info-button-text" = "Hur detta fungerar...";
@@ -314,20 +321,25 @@
 "welcome-whats-new-button-title" = "Kom igång";
 "welcome-whats-new-bullet-one-more-info-text" = "När du besöker en artikel läggs relaterade artiklar till automatiskt i din ström. Detta ändrar inte hur vi samlar in din information och din läshistorik är fortfarande privat.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Jag förstår";
-// Fuzzy
-"welcome-languages-title" = "Välj ditt språk";
+"welcome-languages-title" = "Språk att söka på";
+"welcome-languages-more-info-button-text" = "Berätta mer";
+"welcome-languages-more-info-text" = "Wikipedia-artiklar är ofta tillgängliga på flera språk. Välj de språk du vill använda när du söker. Du kan ändra dessa senare.";
+"welcome-languages-more-info-done-button" = "Jag förstår";
 "welcome-languages-more-languages-button-title" = "Lägg till fler språk";
 "welcome-languages-button-title" = "Fortsätt";
 "welcome-languages-footnote-text" = "Ingen fara, du kan ändra detta senare.";
 "welcome-usage-reports-title" = "Hjälp oss att göra Wikipedia bättre";
 "welcome-usage-reports-body-text" = "Du kan hjälpa oss att göra appen bättre genom att låta oss samla in information om hur du använder appen.";
 "welcome-usage-reports-switch-text" = "Skicka användningsrapporter";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Klar";
+"welcome-usage-reports-button-title" = "Kom igång";
 "welcome-usage-reports-privacy-policy-button-text" = "Din integritet är viktig för oss";
-"empty-no-feed-title" = "Ingen Internetanslutning";
-"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har Internetåtkomst";
+"empty-no-feed-title" = "Ingen internetanslutning";
+"empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
 "empty-no-feed-action-message" = "Du kan läsa sparade sidor under tiden";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-search-results-message" = "Tyvärr, kunde inte läsa in resultaten";
+"empty-no-saved-pages-title" = "Inga sparade sidor ännu";
+"empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
+"empty-no-history-title" = "Ingen historik att visa";
+"empty-no-history-message" = "Håll koll på vad du har läst här";
 "alert-no-internet" = "Det finns ingen Internetanslutning";

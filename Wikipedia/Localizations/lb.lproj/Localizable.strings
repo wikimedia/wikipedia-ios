@@ -8,6 +8,7 @@
 "article-languages-downloading" = "Luede vun de Sprooche vum Artikel...";
 "article-languages-filter-placeholder" = "Sproochfilter";
 "article-read-more-title" = "Liest méi";
+"article-about-title" = "Iwwer dësen Artikel";
 "article-unable-to-load-section" = "Dësen Abschnitt konnt net geluede ginn. Probéiert fir den Artikel z'aktualiséieren an ze kucken ob dat de Problem léist.";
 "article-unable-to-load-article" = "Artikel konnt net geluede ginn.";
 "article-related-articles-title" = "Ähnlech Artikelen";
@@ -88,6 +89,7 @@
 "search-within-articles" = "An Artikelen";
 "search-did-you-mean" = "Mengt Dir $1?";
 "search-recent-title" = "Rezent gesicht";
+"search-recent-clear-confirmation-heading" = "All rezent Ufroe fir ze siche läschen?";
 "search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-delete-all" = "All läschen";
@@ -124,6 +126,7 @@
 "main-menu-more" = "Méi …";
 "main-menu-heading-debug" = "Feeler analyséieren";
 "main-menu-debug-crash" = "Crash";
+"saved-title" = "Gespäichert";
 "saved-pages-title" = "Gespäichert Säiten";
 "saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
@@ -134,6 +137,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Verstan";
 "saved-pages-description" = "Gespäichert Säite si flott. Denkt dru fir ze als Lieszeechen ze benotzen déi Dir liese kënnt wann Dir offline sidd.";
 "saved-pages-none" = "Nach keng gespäichert Säiten.";
+"saved-pages-image-download-error" = "D'Biller fir dës gespäichert Säit konnten net erofgeluede ginn.";
+"history-title" = "Versiounen";
 "page-history-title" = "Versioune vum Artikel";
 "page-history-downloading" = "Lëscht vun de Versioune vum Artikel gëtt gelueden...";
 "navbar-title-mode-edit-wikitext" = "Änneren";
@@ -271,6 +276,9 @@
 "hockeyapp-alert-privacy" = "$1-Dateschutz";
 "page-issues" = "Problemer mat der Säit";
 "page-similar-titles" = "Ähnlech Säiten";
+"page-read-in-other-languages" = "An $1 Sprooche liesen";
+"page-last-edited" = "Viru(n) $1 Deeg geännert";
+"page-edit-history" = "All Versioune vun der Säit";
 "captcha-reload" = "En anere Captcha weisen";
 "captcha-prompt" = "Gitt de Captcha-Text vum Bild heidriwwer an";
 "mwk-empty-title-error" = "Operatioun kann net mat engem eidelen Titel gemaach ginn.";
@@ -292,19 +300,24 @@
 "welcome-whats-new-bullet-two-title" = "Fir d'Liesen entwéckelt";
 "welcome-whats-new-button-title" = "Fir unzefänken";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Verstan";
-// Fuzzy
-"welcome-languages-title" = "Sicht Är Sproochen eraus";
+"welcome-languages-title" = "Sprooche fir ze sichen";
+"welcome-languages-more-info-button-text" = "Ech wëll méi wëssen";
+"welcome-languages-more-info-text" = "Wikipedia-Artikele sinn dacks a méi Sproochen disponibel. Sicht d'Sproochen eraus, déi Dir beim Siche benotze wëllt. Dir kënnt se duerno nach änneren.";
+"welcome-languages-more-info-done-button" = "Verstan";
 "welcome-languages-more-languages-button-title" = "Méi Sproochen derbäisetzen";
 "welcome-languages-button-title" = "Virufueren";
 "welcome-languages-footnote-text" = "Dir kënnt dat méi spéit änneren.";
 "welcome-usage-reports-title" = "Hëlleft eis Wikipedia besser ze maachen";
+"welcome-usage-reports-body-text" = "Dir kënnt eis hëllefe fir d'App besser ze maachen an deem Dir eis erlaabt Informatiounen ze sammele wéi Dir d'App benotzt.";
 "welcome-usage-reports-switch-text" = "Rapporten iwwer d'Benotze schécken";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Fäerdeg";
+"welcome-usage-reports-button-title" = "Fir unzefänken";
 "welcome-usage-reports-privacy-policy-button-text" = "Ären Dateschutz ass wichteg fir eis";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
 "empty-no-feed-action-message" = "Dir kënnt an der Tëschenzäit gespäichert Säite liesen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
 "empty-no-search-results-message" = "Leider kënnen d'Resultater net geluede ginn";
+"empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
+"empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
+"empty-no-history-title" = "Keen Historique vu Versioune weisen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";

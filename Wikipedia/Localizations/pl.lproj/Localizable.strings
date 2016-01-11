@@ -20,6 +20,7 @@
 "article-languages-downloading" = "Ładowanie języków artykułu...";
 "article-languages-filter-placeholder" = "Filtr językowy";
 "article-read-more-title" = "Czytaj więcej";
+"article-about-title" = "O tym artykule";
 "article-unable-to-load-section" = "Nie można pobrać tej sekcji. Spróbuj odświeżyć stronę i zobaczyć, czy to pomogło rozwiązać problem.";
 "article-unable-to-load-article" = "Nie można załadować artykułu.";
 "article-related-articles-title" = "Powiązane artykuły";
@@ -137,6 +138,7 @@
 "main-menu-more" = "Więcej...";
 "main-menu-heading-debug" = "Debugowanie";
 "main-menu-debug-crash" = "Awaria";
+"saved-title" = "Zapisane";
 "saved-pages-title" = "Zapisano strony";
 "saved-pages-clear-confirmation-heading" = "Usunąć wszystkie zapisane elementy?";
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
@@ -147,6 +149,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Wszystko jasne!";
 "saved-pages-description" = "Zapisane strony są całkiem fajne. Pomyśl o nich jako o zakładkach, które można przeczytać nawet wtedy, gdy jesteś w trybie offline.";
 "saved-pages-none" = "Nie zapisano jeszcze żadnych stron.";
+"history-title" = "Historia";
 "page-history-title" = "Historia artykułu";
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
@@ -299,7 +302,8 @@
 "welcome-languages-more-languages-button-title" = "Dodaj więcej języków";
 "welcome-languages-button-title" = "Kontynuuj";
 "welcome-languages-footnote-text" = "Nie martw się, możesz to zmienić później.";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Gotowe";
+"welcome-usage-reports-button-title" = "Zaczynamy";
 "welcome-usage-reports-privacy-policy-button-text" = "Twoja prywatność jest dla nas ważna";
+"empty-no-saved-pages-title" = "Nie zapisano jeszcze żadnych stron";
+"empty-no-history-title" = "Nie ma historii do pokazania";
 "alert-no-internet" = "Nie ma połączenia internetowego";

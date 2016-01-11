@@ -18,6 +18,7 @@
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
 "article-read-more-title" = "Meer lezen";
+"article-about-title" = "Over dit artikel";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
 "article-related-articles-title" = "Gerelateerde artikelen";
@@ -139,6 +140,7 @@
 "main-menu-more" = "Meer...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Crash";
+"saved-title" = "Opgeslagen";
 "saved-pages-title" = "Opgeslagen pagina's";
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
@@ -149,6 +151,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Begrepen";
 "saved-pages-description" = "Opgeslagen pagina's zijn allemachtig prachtig. Denk aan bladwijzers die u zelfs kunt lezen wanneer u offline bent.";
 "saved-pages-none" = "Nog geen opgeslagen pagina's.";
+"history-title" = "Geschiedenis";
 "page-history-title" = "Paginageschiedenis";
 "page-history-downloading" = "Paginageschiedenis laden...";
 "navbar-title-mode-edit-wikitext" = "Bewerken";
@@ -291,6 +294,8 @@
 "hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+"page-read-in-other-languages" = "Lezen in $1 talen";
+"page-last-edited" = "$1 dagen geleden bewerkt";
 "captcha-reload" = "Andere CAPTCHA weergeven";
 "captcha-prompt" = "Vul de CAPTCHA-tekst in";
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
@@ -307,5 +312,12 @@
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
 "welcome-whats-new-title" = "Welkom op Wikipedia";
+"welcome-whats-new-whats-new" = "Nieuw in deze versie";
 "welcome-whats-new-bullet-one-title" = "Een nieuwe manier om te ontdekken";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Vertel me meer";
+"welcome-languages-title" = "Talen om in te zoeken";
+"welcome-languages-more-info-button-text" = "Vertel me meer";
+"welcome-languages-more-info-done-button" = "Begrepen";
+"welcome-languages-footnote-text" = "Maak je geen zorgen, dit kun je later aanpassen";
+"welcome-usage-reports-button-title" = "Aan de slag";
 "empty-no-feed-title" = "Geen internetverbinding";

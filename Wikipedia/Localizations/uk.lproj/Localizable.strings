@@ -13,6 +13,7 @@
 "article-languages-downloading" = "Завантаження мов статті...";
 "article-languages-filter-placeholder" = "Мовний фільтр";
 "article-read-more-title" = "Детальніше";
+"article-about-title" = "Про цю статтю";
 "article-unable-to-load-section" = "Не вдається завантажити цей розділ. Спробуйте оновити статтю, і глянути, чи це вирішить проблему.";
 "article-unable-to-load-article" = "Не вдається завантажити статтю.";
 "article-related-articles-title" = "Статті по темі";
@@ -133,6 +134,7 @@
 "main-menu-more" = "Більше…";
 "main-menu-heading-debug" = "Налагодження";
 "main-menu-debug-crash" = "Падіння";
+"saved-title" = "Збережено";
 "saved-pages-title" = "Збережені сторінки";
 "saved-pages-clear-confirmation-heading" = "Видалити всі збережені елементи?";
 "saved-pages-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
@@ -143,6 +145,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Зрозуміло";
 "saved-pages-description" = "Збережені сторінки — це дуже зручно! Користуйтесь ними як закладками, які можна читати навіть, коли ви поза мережею.";
 "saved-pages-none" = "Наразі немає збережених сторінок.";
+"saved-pages-image-download-error" = "Не вдалося завантажити малюнки для цієї збереженої сторінки.";
+"history-title" = "Історія";
 "page-history-title" = "Історія статті";
 "page-history-downloading" = "Завантаження історії статті…";
 "navbar-title-mode-edit-wikitext" = "Змінити";
@@ -285,6 +289,9 @@
 "hockeyapp-alert-privacy" = "Приватність $1";
 "page-issues" = "Проблеми сторінки";
 "page-similar-titles" = "Подібні сторінки";
+"page-read-in-other-languages" = "Читати на $1 мовах";
+"page-last-edited" = "Відредаговано $1 днів тому";
+"page-edit-history" = "Повна історія редагування";
 "captcha-reload" = "Показати інший малюнок";
 "captcha-prompt" = "Введіть текст з рисунку вище";
 "mwk-empty-title-error" = "Не вдається виконати операцію з порожнім заголовком.";
@@ -310,20 +317,25 @@
 "welcome-whats-new-button-title" = "Розпочати";
 "welcome-whats-new-bullet-one-more-info-text" = "Коли ви відкриваєте статтю, пов'язані з нею статті автоматично додаються у вашу стрічку. Це не змінює те, як нами збирається ваша інформація, тому ваша історія читання залишається закритою.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Зрозуміло";
-// Fuzzy
-"welcome-languages-title" = "Виберіть мови";
+"welcome-languages-title" = "Мови для пошуку";
+"welcome-languages-more-info-button-text" = "Розкажіть мені більше";
+"welcome-languages-more-info-text" = "Статті Вікіпедії часто доступні на декількох мовах. Виберіть мови, які ви б хотіли використовувати під час пошуку. Пізніше зможете їх поміняти.";
+"welcome-languages-more-info-done-button" = "Зрозуміло";
 "welcome-languages-more-languages-button-title" = "Додати ще мови";
 "welcome-languages-button-title" = "Продовжити";
 "welcome-languages-footnote-text" = "Не хвилюйтеся, ви можете змінити це пізніше.";
 "welcome-usage-reports-title" = "Допоможіть нам зробити Вікіпедію кращою";
 "welcome-usage-reports-body-text" = "Ви можете допомогти нам зробити програму кращою, дозволивши збирати інформацію про те, як ви використовуєте програму.";
 "welcome-usage-reports-switch-text" = "Надсилати звіти про використання";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Готово";
+"welcome-usage-reports-button-title" = "Початок роботи";
 "welcome-usage-reports-privacy-policy-button-text" = "Ваша конфіденційність важлива для нас";
 "empty-no-feed-title" = "Не має з'єднання з інтернетом";
 "empty-no-feed-message" = "Ви можете побачити ваші рекомендовані статті, коли у вас є інтернет";
 "empty-no-feed-action-message" = "Поки що можете почитати збережені статті";
 "empty-no-article-message" = "На жаль, не вдалося завантажити статтю";
 "empty-no-search-results-message" = "На жаль, не вдалося завантажити результати";
+"empty-no-saved-pages-title" = "Ще не має збережених сторінок";
+"empty-no-saved-pages-message" = "Зберігайте сторінки для перегляду їх пізніше, навіть в автономному режимі";
+"empty-no-history-title" = "Немає історії для відображення";
+"empty-no-history-message" = "Стежте за тим, що ви вже прочитали";
 "alert-no-internet" = "Не має з'єднання із інтернетом";
