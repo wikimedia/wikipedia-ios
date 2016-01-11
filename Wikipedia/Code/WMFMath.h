@@ -67,3 +67,4 @@ static inline NSUInteger MegabytesToBytes(NSUInteger m) {
     static NSUInteger const MEGABYTE = 1 << 20;
     return m * MEGABYTE;
 }
+
