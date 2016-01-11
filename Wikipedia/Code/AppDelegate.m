@@ -6,6 +6,7 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
+#import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 @import Tweaks;
 
@@ -65,27 +66,19 @@
         return;
     }
 
-    UIApplicationShortcutItem* (^ makeShortcut)(NSString*, NSString*, NSString*, NSString*) = ^(NSString* type, NSString* title, NSString* subtitle, NSString* icon) {
-        return [[UIApplicationShortcutItem alloc] initWithType:type
-                                                localizedTitle:MWLocalizedString(title, nil)
-                                             localizedSubtitle:subtitle
-                                                          icon:[UIApplicationShortcutIcon iconWithTemplateImageName:icon]
-                                                      userInfo:nil];
-    };
-
     NSMutableArray* shortcutItems =
         [[NSMutableArray alloc] initWithObjects:
-         makeShortcut(WMFIconShortcutTypeRandom, @"icon-shortcut-random-title", @"", @"random-quick-action"),
-         makeShortcut(WMFIconShortcutTypeNearby, @"icon-shortcut-nearby-title", @"", @"nearby-quick-action"),
+         [UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeRandom],
+         [UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeNearby],
          nil
         ];
 
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
     if (lastRead) {
-        [shortcutItems addObject:makeShortcut(WMFIconShortcutTypeContinueReading, @"icon-shortcut-continue-reading-title", lastRead.text, @"home-continue-reading-mini")];
+        [shortcutItems addObject:[UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeContinueReading]];
     }
 
-    [shortcutItems addObject:makeShortcut(WMFIconShortcutTypeSearch, @"icon-shortcut-search-title", @"", @"search")];
+    [shortcutItems addObject:[UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeSearch]];
 
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }

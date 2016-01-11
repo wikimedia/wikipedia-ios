@@ -28,6 +28,7 @@
 #import "UIFont+WMFStyle.h"
 #import "NSString+WMFGlyphs.h"
 #import "WMFStyleManager.h"
+#import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 // View Controllers
 #import "WMFHomeViewController.h"
