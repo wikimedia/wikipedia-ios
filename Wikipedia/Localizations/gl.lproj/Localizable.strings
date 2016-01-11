@@ -11,6 +11,7 @@
 "article-languages-downloading" = "Cargando as linguas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de linguas";
 "article-read-more-title" = "Ler máis";
+"article-about-title" = "Acerca deste artigo";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
 "article-unable-to-load-article" = "Non se pode cargar o artigo.";
 "article-related-articles-title" = "Artigos relacionados";
@@ -131,6 +132,7 @@
 "main-menu-more" = "Máis...";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-debug-crash" = "Lixo";
+"saved-title" = "Gardado";
 "saved-pages-title" = "Páxinas gardadas";
 "saved-pages-clear-confirmation-heading" = "Borrar tódolos elementos gardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
@@ -141,6 +143,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
 "saved-pages-description" = "As páxinas gardadas son bastante útiles. Pense nelas como marcadores que poden lerse mesmo cando estea sen conexión.";
 "saved-pages-none" = "Aínda non hai páxinas gardadas.";
+"saved-pages-image-download-error" = "Erro ó descargar as imaxes desta páxina gardada.";
+"history-title" = "Historial";
 "page-history-title" = "Historial do artigo";
 "page-history-downloading" = "Cargando o historial do artigo...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -283,6 +287,9 @@
 "hockeyapp-alert-privacy" = "Confidencialidade de $1";
 "page-issues" = "Problemas na páxina";
 "page-similar-titles" = "Páxinas similares";
+"page-read-in-other-languages" = "Ler en $1 linguas";
+"page-last-edited" = "Editado fai $1 días";
+"page-edit-history" = "Historial de edición completo";
 "captcha-reload" = "Mostrar outro «captcha»";
 "captcha-prompt" = "Escriba o texto do CAPTCHA de arriba";
 "mwk-empty-title-error" = "Non se pode realizar a operación cun título baleiro.";
@@ -308,20 +315,25 @@
 "welcome-whats-new-button-title" = "Comezar";
 "welcome-whats-new-bullet-one-more-info-text" = "Cando visita un artigo, os artigos relacionados engádense automaticamente á súa bandexa. Isto non cambia a forma na que recollemos a súa información, e o seu historial de lectura permanece privado.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Entendido";
-// Fuzzy
-"welcome-languages-title" = "Escoller as súas linguas";
+"welcome-languages-title" = "Linguas a procurar";
+"welcome-languages-more-info-button-text" = "Máis información";
+"welcome-languages-more-info-text" = "Os artigos de Wikipedia moitas veces están dispoñibles en varias linguas. Seleccione as linguas que queira usar nas procuras. Pode cambiar isto máis tarde.";
+"welcome-languages-more-info-done-button" = "Entendido";
 "welcome-languages-more-languages-button-title" = "Engadir máis linguas";
 "welcome-languages-button-title" = "Continuar";
 "welcome-languages-footnote-text" = "Non se preocupe, vostede pode cambiar isto máis tarde.";
 "welcome-usage-reports-title" = "Axúdenos a facer a Wikipedia mellor";
 "welcome-usage-reports-body-text" = "Pode axudarnos a facer mellor a app permitíndonos recoller información sobre a maneira na que vostede a usa.";
 "welcome-usage-reports-switch-text" = "Enviar informe de uso";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Feito";
+"welcome-usage-reports-button-title" = "Comezar";
 "welcome-usage-reports-privacy-policy-button-text" = "A súa privacidade é importante para nós";
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
 "empty-no-feed-action-message" = "Mentras tanto, pode ler a páxinas gardadas";
 "empty-no-article-message" = "Sentímolo, non foi posible cargar o artigo";
 "empty-no-search-results-message" = "Sentímolo, non se puideron cargar os resultados";
+"empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
+"empty-no-saved-pages-message" = "Gardar páxinas para velas máis tarde, incluso sen conexión";
+"empty-no-history-title" = "Non hai ningún historial para amosar";
+"empty-no-history-message" = "Manter un rexistro do que fun lendo aquí";
 "alert-no-internet" = "Non hai conexión a Internet";

@@ -18,6 +18,7 @@
 "article-languages-downloading" = "言語リストを取得中...";
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-read-more-title" = "さらに読む";
+"article-about-title" = "この記事について";
 "article-unable-to-load-section" = "この節を読み込むことができません。問題が解決するかどうかの確認のために記事を更新してみてください。";
 "article-unable-to-load-article" = "記事を読み込むことができません。";
 "article-related-articles-title" = "関連記事";
@@ -138,6 +139,7 @@
 "main-menu-more" = "その他...";
 "main-menu-heading-debug" = "デバッグ";
 "main-menu-debug-crash" = "強制終了";
+"saved-title" = "保存済み";
 "saved-pages-title" = "保存したページ";
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
@@ -148,6 +150,8 @@
 "saved-pages-refresh-cancel-alert-button" = "了解";
 "saved-pages-description" = "保存したページはかなり便利です。オフラインの時でも読めるブックマークと考えてください。";
 "saved-pages-none" = "保存されたページはまだありません。";
+"saved-pages-image-download-error" = "保存したページの画像のダウンロードに失敗しました。";
+"history-title" = "履歴";
 "page-history-title" = "記事の履歴";
 "page-history-downloading" = "記事の履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
@@ -290,6 +294,9 @@
 "hockeyapp-alert-privacy" = "$1 のプライバシーについて";
 "page-issues" = "ページの問題点";
 "page-similar-titles" = "類似したページ";
+"page-read-in-other-languages" = "$1 の言語で読む";
+"page-last-edited" = "最終編集日: $1日前";
+"page-edit-history" = "すべての編集履歴";
 "captcha-reload" = "別のcaptchaを表示";
 "captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
@@ -301,30 +308,38 @@
 "home-nearby-nothing" = "付近の記事はありません";
 "home-nearby-check-again" = "もう一度確認する";
 "home-featured-article-heading" = "$1日の秀逸な記事";
+"home-main-page-heading" = "今日についての記事";
 "home-potd-heading" = "$1日の写真";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
 "welcome-whats-new-title" = "ウィキペディアへようこそ";
+"welcome-whats-new-whats-new" = "新着情報";
+"welcome-whats-new-bullet-one-text" = "「探してみよう」画面から、あなたにぴったりの新しく、面白い記事を見つけましょう。";
 "welcome-whats-new-bullet-one-more-info-button-text" = "これは何に使われますか...";
 "welcome-whats-new-bullet-two-title" = "閲読用にデザインされました";
 "welcome-whats-new-bullet-two-text" = "新たなデザインでは、快適に閲読ができることに重点を置いて設計されました。";
 "welcome-whats-new-button-title" = "始める";
 "welcome-whats-new-bullet-one-more-info-text" = "記事にアクセスすると、関連する記事が自動的にあなたのフィードに追加されます。これはあなたの情報や閲読履歴を収集しますが、一切変更や公開されることはありません。";
 "welcome-whats-new-bullet-one-more-info-done-button" = "わかりました";
-// Fuzzy
 "welcome-languages-title" = "言語を選択してください";
+"welcome-languages-more-info-button-text" = "もっと詳しく";
+"welcome-languages-more-info-text" = "ウィキペディアの記事は、多くの言語で利用可能となっています。検索する際に使用したい言語を選択してください。これは後からでも変更することができます。";
+"welcome-languages-more-info-done-button" = "わかりました";
 "welcome-languages-more-languages-button-title" = "その他の言語を追加";
 "welcome-languages-button-title" = "次へ";
 "welcome-languages-footnote-text" = "後でもこれを変更することができます。";
 "welcome-usage-reports-title" = "ウィキペディアをより良くしましょう";
 "welcome-usage-reports-body-text" = "アプリの使用状況の情報の収集を可能にすることで、このアプリの改善につながります。";
 "welcome-usage-reports-switch-text" = "利用状況レポートを送信";
-// Fuzzy
-"welcome-usage-reports-button-title" = "完了";
+"welcome-usage-reports-button-title" = "始める";
 "welcome-usage-reports-privacy-policy-button-text" = "あなたのプライバシーは私たちにとって重要なものです";
 "empty-no-feed-title" = "インターネットが接続されていません";
 "empty-no-feed-message" = "インターネットに接続しているときに、おすすめの記事を見ることができます";
 "empty-no-feed-action-message" = "保存したページを読むことができます";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-search-results-message" = "申し訳ありませんが、結果を読み込むことができませんでした";
+"empty-no-saved-pages-title" = "保存したページはまだありません";
+"empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧することができます";
+"empty-no-history-title" = "表示する履歴がありません";
+"empty-no-history-message" = "ここには、あなたが閲読した記事の履歴が表示されます";
 "alert-no-internet" = "インターネットが接続されていません";

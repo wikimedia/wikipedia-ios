@@ -9,6 +9,7 @@
 // Author: VegaDark
 // Author: Vivaelcelta
 // Author: Wifidel
+// Author: Yllelder
 
 "languages-title" = "Idiomas";
 "article-languages-label" = "Elige un idioma";
@@ -16,6 +17,7 @@
 "article-languages-downloading" = "Cargando idiomas del artículo…";
 "article-languages-filter-placeholder" = "Filtro de idiomas";
 "article-read-more-title" = "Leer más";
+"article-about-title" = "Acerca de este artículo";
 "article-unable-to-load-section" = "No se pudo cargar esta sección. Prueba recargar el artículo para ver si se soluciona el problema.";
 "article-unable-to-load-article" = "No se puede cargar el artículo.";
 "article-related-articles-title" = "Artículos relacionados";
@@ -136,6 +138,7 @@
 "main-menu-more" = "Más…";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-debug-crash" = "Fallar";
+"saved-title" = "Guardado";
 "saved-pages-title" = "Páginas guardadas";
 "saved-pages-clear-confirmation-heading" = "¿Borrar todos los elemento guardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción no se puede deshacer.";
@@ -146,6 +149,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Entendido";
 "saved-pages-description" = "Las páginas guardadas son bastante impresionantes. Piensa en ellas como marcadores que se pueden leer incluso cuando estás sin conexión.";
 "saved-pages-none" = "Todavía no hay páginas guardadas.";
+"saved-pages-image-download-error" = "Error al descargar las imágenes de esta página guardada.";
+"history-title" = "Historial";
 "page-history-title" = "Historial de página";
 "page-history-downloading" = "Cargando el historial de la página...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -288,6 +293,9 @@
 "hockeyapp-alert-privacy" = "Privacidad de $1";
 "page-issues" = "Problemas de la página";
 "page-similar-titles" = "Páginas similares";
+"page-read-in-other-languages" = "Leer en $1 idiomas";
+"page-last-edited" = "Editado hace $1 días";
+"page-edit-history" = "Historial de edición completo";
 "captcha-reload" = "Mostrar otro «captcha»";
 "captcha-prompt" = "Escribe el texto del CAPTCHA anterior";
 "mwk-empty-title-error" = "No se puede realizar la operación con un título vacío.";
@@ -313,20 +321,25 @@
 "welcome-whats-new-button-title" = "Empezar";
 "welcome-whats-new-bullet-one-more-info-text" = "Cuando visitas un artículo, los artículos relacionados son automáticamente añadidos a tu canal. Esto no cambia cómo recopilamos tu información, y tu historial de lectura sigue siendo privado.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Entendido";
-// Fuzzy
-"welcome-languages-title" = "Escoge tus idiomas";
+"welcome-languages-title" = "Idiomas de búsqueda";
+"welcome-languages-more-info-button-text" = "Cuéntame más";
+"welcome-languages-more-info-text" = "Los artículos de Wikipedia a menudo están disponibles en varios idiomas. Selecciona los idiomas que quieres usar en las búsquedas. Puedes cambiar esto más tarde.";
+"welcome-languages-more-info-done-button" = "Entendido";
 "welcome-languages-more-languages-button-title" = "Añade más idiomas";
 "welcome-languages-button-title" = "Continuar";
 "welcome-languages-footnote-text" = "No te preocupes, puedes cambiar esto después.";
 "welcome-usage-reports-title" = "Ayúdanos a mejorar Wikipedia";
 "welcome-usage-reports-body-text" = "Puedes ayudarnos a mejorar la aplicación si nos permites recopilar información acerca de cómo usas la aplicación.";
 "welcome-usage-reports-switch-text" = "Enviar informes de uso";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Hecho";
+"welcome-usage-reports-button-title" = "Empezar";
 "welcome-usage-reports-privacy-policy-button-text" = "Tu privacidad es importante para nosotros";
 "empty-no-feed-title" = "No hay conexión a Internet";
 "empty-no-feed-message" = "Puedes ver tus artículos recomendados cuando tengas Internet";
 "empty-no-feed-action-message" = "Puedes leer páginas guardadas mientras tanto";
 "empty-no-article-message" = "Lo sentimos, no se pudo cargar el artículo";
 "empty-no-search-results-message" = "Lo sentimos, no se pudo cargar los resultados";
+"empty-no-saved-pages-title" = "Todavía no hay páginas guardadas";
+"empty-no-saved-pages-message" = "Guarda páginas para verlas más tarde, incluso sin conexión";
+"empty-no-history-title" = "No hay ningún historial que mostrar";
+"empty-no-history-message" = "Mantener un registro de lo que he ido leyendo aquí";
 "alert-no-internet" = "No hay conexión a internet";

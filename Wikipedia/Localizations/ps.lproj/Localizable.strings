@@ -8,6 +8,8 @@
 "article-languages-downloading" = "د ليکنې د ژبو برسېرېدنې کې دی...";
 "article-languages-filter-placeholder" = "د ژبې چاڼگر";
 "article-read-more-title" = "نور لوستل";
+"article-about-title" = "د دې ليکنې په اړه";
+"article-related-articles-title" = "اړونده ليکنې";
 "info-box-title" = "چټک مالومات";
 "info-box-close-text" = "تړل";
 "table-title-other" = "نور مالومات";
@@ -51,6 +53,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "پرانيستې تړنه";
 "open-link-cancel" = "ناگارل";
+"search-title" = "پلټل";
 "search-searching" = "په پلټنې کې دی...";
 "search-field-placeholder-text" = "ويکيپېډيا پلټل";
 "search-field-placeholder-text-zero" = "ويکيپېډيا زيرو پلټل";
@@ -58,9 +61,9 @@
 "search-titles" = "سرليک";
 "search-within-articles" = "په ليکنو کې";
 "search-did-you-mean" = "آيا $1 مو موخه ده؟";
-// Fuzzy
-"search-recent-title" = "وروستنۍ پلټنې";
+"search-recent-title" = "تازه پلټل شوي";
 "search-recent-clear-confirmation-heading" = "ټولې وروستنۍ پلټنې ړنگول؟";
+"search-recent-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
 "search-recent-clear-cancel" = "ناگارل";
 "search-recent-clear-delete-all" = "ټول ړنگول";
 "settings-title" = "امستنې";
@@ -73,8 +76,7 @@
 "main-menu-language-selection-saved" = "ژبټاکنه مو خوندي شوه";
 "main-menu-account-title-logged-out" = "گڼون";
 "main-menu-account-title-logged-in" = "ننوتي ياست لکه: $1";
-// Fuzzy
-"main-menu-account-login" = "ننوتل";
+"main-menu-account-login" = "ويکيپېډيا کې ننوتل";
 "main-menu-account-logout" = "وتل";
 "main-menu-show-title" = "راښکاره يې کړه...";
 "main-menu-show-history" = "وروستني";
@@ -89,6 +91,7 @@
 "main-menu-nearby" = "نژدې";
 "main-menu-more" = "نور ...";
 "main-menu-debug-crash" = "ټکر";
+"saved-title" = "خوندي شو";
 "saved-pages-title" = "خوندي مخونه";
 "saved-pages-clear-confirmation-heading" = "ټول خوندي شوي توکي ړنگوۍ؟";
 "saved-pages-clear-confirmation-sub-heading" = "دا کړنه پر شا نه گرځول کېږي!";
@@ -96,6 +99,7 @@
 "saved-pages-clear-delete-all" = "ټول ړنگول";
 "saved-pages-refresh-cancel-alert-title" = "اوسمهالېدنه ناگارېدلې";
 "saved-pages-refresh-cancel-alert-button" = "پوه شوم";
+"history-title" = "پېښليک";
 "page-history-title" = "د ليکنې پېښليک";
 "page-history-downloading" = "د ليکنې پېښليک رابرسېرېږي...";
 "navbar-title-mode-edit-wikitext" = "سمول";
@@ -136,6 +140,8 @@
 "button-next" = "راتلونکی";
 "button-done" = "ترسره شو";
 "button-save" = "خوندي کول";
+"button-save-for-later" = "د وروسته لوستلو لپاره خوندي کول";
+"button-saved-for-later" = "د وروسته لوستلو لپاره خوندي شو";
 "onboarding-create-account" = "گڼون جوړول";
 "onboarding-login" = "ننوتل";
 "onboarding-already-have-account" = "آيا له پخوا نه يو گڼون لرې؟ $1";
@@ -181,13 +187,31 @@
 "hockeyapp-alert-privacy" = "$1 پټنتيا";
 "page-issues" = "د مخ ستونزې";
 "page-similar-titles" = "ورته مخونه";
+"page-read-in-other-languages" = "په $1 ژبه کې لوستل";
+"page-last-edited" = "$1 ورځې مخکې سم کړی";
+"page-edit-history" = "د سمون بشپړ پېښليک";
 "captcha-reload" = "يو بل کپچا ښکاره کول";
 "captcha-prompt" = "له پورته انځور څخه کپچا متن ورکړئ";
+"home-continue-related-heading" = "ځکه چې تاسې $1 لوستلی";
 "home-more-like-footer" = "د $1 په څېر نور";
+"home-nearby-nothing" = "نژدې څه نشته";
 "home-nearby-check-again" = "بيا آزمويل";
+"home-featured-article-heading" = "د $1 غوره ليکنه";
+"home-main-page-heading" = "نن په ويکيپېډيا کې";
+"home-potd-heading" = "د $1 د ورځې انځور";
+"potd-description-prefix" = "د $1 د ورځې انځور";
+"welcome-whats-new-title" = "ويکيپېډيا ته ښه راغلئ";
+"welcome-whats-new-whats-new" = "څه نوي دي";
 "welcome-whats-new-bullet-one-more-info-button-text" = "دا څنگه کار کوي...";
 "welcome-whats-new-button-title" = "پيلول";
 "welcome-whats-new-bullet-one-more-info-done-button" = "پوه شوم";
+"welcome-languages-title" = "د پلټلو ژبې";
+"welcome-languages-more-info-button-text" = "نور راته ووايه";
+"welcome-languages-more-info-done-button" = "وپوهېدم";
 "welcome-languages-more-languages-button-title" = "نورې ژبې ورگډول";
-// Fuzzy
-"welcome-usage-reports-button-title" = "ترسره شو";
+"welcome-usage-reports-switch-text" = "د کارېدنې راپورونه لېږل";
+"welcome-usage-reports-button-title" = "پيل شو";
+"empty-no-feed-title" = "انټرنټي اړيکتيا نشته";
+"empty-no-saved-pages-title" = "لا تر اوسه پورې خوندي مخونه نشته";
+"empty-no-history-title" = "د ښکاره کولو لپاره کوم پېښليک نشته";
+"alert-no-internet" = "کومه انټرنټي اړيکتيا نشته";

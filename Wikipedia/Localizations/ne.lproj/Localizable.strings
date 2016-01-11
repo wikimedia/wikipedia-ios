@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: NehalDaveND
 // Author: Nirjal stha
+// Author: जनक राज भट्ट
 // Author: राम प्रसाद जोशी
 // Author: सरोज कुमार ढकाल
 
@@ -75,6 +76,7 @@
 "main-menu-show-today" = "आज";
 "main-menu-nearby" = "नजिकै";
 "main-menu-more" = "थप...";
+"saved-title" = "संग्रह गर्ने";
 "saved-pages-title" = "संग्रहित पृष्ठहरू";
 "saved-pages-clear-cancel" = "रद्द गर्ने";
 "saved-pages-clear-delete-all" = "सबै मेट्ने";

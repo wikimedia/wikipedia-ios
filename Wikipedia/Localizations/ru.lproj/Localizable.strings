@@ -18,6 +18,7 @@
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
 "article-read-more-title" = "Читать подробнее";
+"article-about-title" = "Об этой статье";
 "article-unable-to-load-section" = "Не удаётся загрузить этот раздел. Попробуйте обновить статью. Возможно, это решит проблему.";
 "article-unable-to-load-article" = "Не удается загрузить эту статью.";
 "article-related-articles-title" = "Статьи по теме";
@@ -138,6 +139,7 @@
 "main-menu-more" = "Ещё…";
 "main-menu-heading-debug" = "Отладка";
 "main-menu-debug-crash" = "Падение";
+"saved-title" = "Сохранено";
 "saved-pages-title" = "Сохранённые страницы";
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
@@ -148,6 +150,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Понятно";
 "saved-pages-description" = "Сохранённые страницы — это довольно здорово. Подумайте о них, как о закладках, которые вы сможете читать даже тогда, когда вы  находитесь в оффлайне.";
 "saved-pages-none" = "Ещё нет сохранённых страниц.";
+"saved-pages-image-download-error" = "Не удалось загрузить изображения для этой сохранённой страницы.";
+"history-title" = "История";
 "page-history-title" = "История страницы";
 "page-history-downloading" = "Загрузка истории страницы…";
 "navbar-title-mode-edit-wikitext" = "Править";
@@ -290,6 +294,9 @@
 "hockeyapp-alert-privacy" = "Политика конфиденциальности $1";
 "page-issues" = "Вопросы по странице";
 "page-similar-titles" = "Похожие страницы";
+"page-read-in-other-languages" = "Читать на $1 языках";
+"page-last-edited" = "Отредактировано $1 д. назад";
+"page-edit-history" = "Полная история редактирования";
 "captcha-reload" = "Показать другой код";
 "captcha-prompt" = "Введите текст капчи с изображения выше";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
@@ -308,23 +315,29 @@
 "welcome-whats-new-whats-new" = "ЧТО НОВОГО";
 "welcome-whats-new-bullet-one-more-info-button-text" = "Как это работает…";
 "welcome-whats-new-bullet-two-title" = "Разработано для чтения";
+"welcome-whats-new-bullet-two-text" = "Обновлённый дизайн, в котором особое внимание уделено ещё большему удобству чтения.";
 "welcome-whats-new-button-title" = "Начать";
 "welcome-whats-new-bullet-one-more-info-text" = "Когда вы открываете статью, связанные с ней статьи автоматически добавляются в вашу ленту. Это не изменяет то, как нами собирается ваша информация, так что ваше история чтение по-прежнему остаётся закрытой.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Понятно";
-// Fuzzy
-"welcome-languages-title" = "Выбери языки";
+"welcome-languages-title" = "Языки для поиска";
+"welcome-languages-more-info-button-text" = "Расскажите об этом подробнее";
+"welcome-languages-more-info-text" = "Статьи Википедии часто доступны на нескольких языках. Выберите языки, которые вы бы хотели использовать при поиске. Вы можете изменить их позже.";
+"welcome-languages-more-info-done-button" = "Понятно";
 "welcome-languages-more-languages-button-title" = "Добавить другие языки";
 "welcome-languages-button-title" = "Продолжить";
 "welcome-languages-footnote-text" = "Не волнуйтесь, вы можете внести изменения позже.";
 "welcome-usage-reports-title" = "Помогите нам сделать Википедию лучше";
 "welcome-usage-reports-body-text" = "Вы можете помочь нам сделать программу лучше,  позволив собирать информацию о том, как вы используете это приложение.";
 "welcome-usage-reports-switch-text" = "Отправлять отчёты об использовании";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Готово";
+"welcome-usage-reports-button-title" = "Начать";
 "welcome-usage-reports-privacy-policy-button-text" = "Ваша конфиденциальность важна для нас";
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
 "empty-no-search-results-message" = "К сожалению, не удалось загрузить результаты";
+"empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
+"empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
+"empty-no-history-title" = "Нет истории для отображения";
+"empty-no-history-message" = "Отслеживайте то, что вы уже читали здесь";
 "alert-no-internet" = "Нет соединения с интернетом";

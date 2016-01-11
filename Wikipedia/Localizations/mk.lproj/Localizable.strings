@@ -10,6 +10,7 @@
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
 "article-languages-filter-placeholder" = "Јазичен филтер";
 "article-read-more-title" = "Прочитајте повеќе";
+"article-about-title" = "Уреди ја статијава";
 "article-unable-to-load-section" = "Не можам да го вчитам одделот. Видете дали ќе се реши проблемот ако ја превчитате страницата.";
 "article-unable-to-load-article" = "Не можам да ја вчитам статијата.";
 "article-related-articles-title" = "Поврзани статии";
@@ -130,6 +131,7 @@
 "main-menu-more" = "Повеќе...";
 "main-menu-heading-debug" = "Исправки";
 "main-menu-debug-crash" = "Уривање";
+"saved-title" = "Зачувано";
 "saved-pages-title" = "Зачувани страници";
 "saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
@@ -140,6 +142,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Јасно";
 "saved-pages-description" = "Зачуваните страници се одлична идеја. Претставете си ги како обележани (омилени) што можете да ги читате и кога не сте на линија.";
 "saved-pages-none" = "Засега нема зачувани страници.";
+"saved-pages-image-download-error" = "Не успеав да ги преземам сликите за оваа зачувана страница.";
+"history-title" = "Историја";
 "page-history-title" = "Историја на статијата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -282,6 +286,9 @@
 "hockeyapp-alert-privacy" = "Приватност на $1";
 "page-issues" = "Проблеми со страницата";
 "page-similar-titles" = "Слични страници";
+"page-read-in-other-languages" = "Прочитајте на $1 јазици";
+"page-last-edited" = "Изменето пред $1 дена";
+"page-edit-history" = "Цела историја на уредувања";
 "captcha-reload" = "Прикажи друга Captcha";
 "captcha-prompt" = "Внесете CAPTCHA текст од сликата погоре";
 "mwk-empty-title-error" = "Не можам да извршам задача со празен наслов.";
@@ -307,20 +314,25 @@
 "welcome-whats-new-button-title" = "Почнете";
 "welcome-whats-new-bullet-one-more-info-text" = "Кога ќе посетите некоја статија, во каналот авоматски се додаваат сродни статии. Ова не го менува начинот на којшто ги прибираме Вашите информации, а Вашата историја на посетени статии останува тајна.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Јасно";
-// Fuzzy
-"welcome-languages-title" = "Изберете јазици";
+"welcome-languages-title" = "Јазици за пребарување";
+"welcome-languages-more-info-button-text" = "Објасни ми";
+"welcome-languages-more-info-text" = "Статиите најчесто се достапни на повеќе јазици. Изберете ги јазиците за пребарување. Подоцна можете да ги смените.";
+"welcome-languages-more-info-done-button" = "Јасно";
 "welcome-languages-more-languages-button-title" = "Додај уште јазици";
 "welcome-languages-button-title" = "Продолжи";
 "welcome-languages-footnote-text" = "Не грижете се. Ова можете да го измените подоцна.";
 "welcome-usage-reports-title" = "Помогнете ни да ја подобриме Википедија";
 "welcome-usage-reports-body-text" = "Можете да ни помогнете да ја го подобриме прилогов со тоа што ќе ни дозволите да собираме информации за тоа како го користите.";
 "welcome-usage-reports-switch-text" = "Испраќај извештаи за употребата";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Готово";
+"welcome-usage-reports-button-title" = "Започи";
 "welcome-usage-reports-privacy-policy-button-text" = "Вашата приватност ни значи";
 "empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
 "empty-no-feed-action-message" = "Во меѓувреме, можете да ги читате зачуваните страници";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-search-results-message" = "За жал, не можев да го вчитам исходот";
+"empty-no-saved-pages-title" = "Засега нема зачувани страници";
+"empty-no-saved-pages-message" = "Зачувајте ги страниците за да ги читате подоцна, дури и кога немате линија";
+"empty-no-history-title" = "Нема историја";
+"empty-no-history-message" = "Тука се заведува сè имате читано";
 "alert-no-internet" = "Не сте поврзани со семрежјето";

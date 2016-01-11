@@ -229,3 +229,17 @@
 "page-issues" = "पानाची समस्या";
 "page-similar-titles" = "सारखी पाने";
 "mwk-empty-title-error" = "ही क्रिया रिकाम्या शिर्षकाने करता येत नाही.";
+"welcome-whats-new-title" = "विकिपीडियात स्वागत आहे";
+"welcome-whats-new-bullet-one-title" = "शोधण्यासाठी एक नविन मार्ग";
+"welcome-whats-new-bullet-two-title" = "वाचनासाठी आरेखित";
+"welcome-whats-new-button-title" = "सुरुवात् करा";
+"welcome-whats-new-bullet-one-more-info-done-button" = "समजले";
+"welcome-languages-more-languages-button-title" = "अधिक भाषा जोडा";
+"welcome-languages-button-title" = "चालू ठेवा";
+"welcome-usage-reports-switch-text" = "वापराचा अहवाल पाठवा";
+"welcome-usage-reports-privacy-policy-button-text" = "आपली गुप्तता आमच्यासाठी महत्त्वाची आहे";
+"empty-no-feed-title" = "जाल अनुबंध नाही";
+"empty-no-feed-action-message" = "यादरम्यान आपण जतन केलेली पाने वाचू शकता";
+"empty-no-article-message" = "माफ करा, लेख भारीत करु शकलो नाही";
+"empty-no-search-results-message" = "माफ करा, निकाल भारीत करु शकलो नाही";
+"alert-no-internet" = "तिथे जाल अनुबंध नाही";

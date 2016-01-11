@@ -9,8 +9,10 @@
 "article-languages-downloading" = "Загрузка моваў артыкула...";
 "article-languages-filter-placeholder" = "Моўны фільтар";
 "article-read-more-title" = "Даведацца болей";
+"article-about-title" = "Пра гэты артыкул";
 "article-unable-to-load-section" = "Немагчыма загрузіць гэтую сэкцыю. Паспрабуйце перазагрузіць артыкул і паглядзіце, ці дапаможа гэта вырашыць праблему.";
 "article-unable-to-load-article" = "Немагчыма загрузіць артыкул.";
+"article-related-articles-title" = "Зьвязаныя артыкулы";
 "info-box-title" = "Хуткія факты";
 "info-box-close-text" = "Закрыць";
 "table-title-other" = "Болей зьвестак";
@@ -78,6 +80,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Адкрыць спасылку";
 "open-link-cancel" = "Скасаваць";
+"search-title" = "Пошук";
 "search-searching" = "Пошук...";
 "search-no-matches" = "Ня знойдзена супадзеньняў з умовамі пошуку.";
 "search-field-placeholder-text" = "Пошук па Вікіпэдыі";
@@ -89,8 +92,7 @@
 "search-titles" = "Назвы";
 "search-within-articles" = "У артыкулах";
 "search-did-you-mean" = "Магчыма, вы мелі на ўвазе $1?";
-// Fuzzy
-"search-recent-title" = "Апошнія пошукавыя запыты";
+"search-recent-title" = "Нядаўна шукалі";
 "search-recent-clear-confirmation-heading" = "Выдаліць усе апошнія пошукавыя запыты?";
 "search-recent-clear-confirmation-sub-heading" = "Гэта дзеяньне немагчыма адмяніць!";
 "search-recent-clear-cancel" = "Скасаваць";
@@ -105,8 +107,7 @@
 "main-menu-language-selection-saved" = "Выбраная мова захаваная";
 "main-menu-account-title-logged-out" = "Рахунак";
 "main-menu-account-title-logged-in" = "Увайшлі як: $1";
-// Fuzzy
-"main-menu-account-login" = "Увайсьці";
+"main-menu-account-login" = "Увайсьці ў Вікіпэдыю";
 "main-menu-account-logout" = "Выйсьці";
 "main-menu-show-title" = "Паказаць мне...";
 "main-menu-show-history" = "Апошнія";
@@ -129,6 +130,7 @@
 "main-menu-more" = "Далей…";
 "main-menu-heading-debug" = "Наладка";
 "main-menu-debug-crash" = "Збой";
+"saved-title" = "Захаваны";
 "saved-pages-title" = "Захаваныя старонкі";
 "saved-pages-clear-confirmation-heading" = "Выдаліць усе захаваныя элемэнты?";
 "saved-pages-clear-confirmation-sub-heading" = "Гэта дзеяньне немагчыма адмяніць!";
@@ -139,6 +141,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Зразумела";
 "saved-pages-description" = "Захаваныя старонкі — гэта выдатна. Карыстайцеся імі як закладкамі, Вы зможаце чытаць іх нават, калі Вы оф-лайн.";
 "saved-pages-none" = "Пакуль няма захаваных старонак.";
+"saved-pages-image-download-error" = "Памылка загрузкі выявы для гэтай захаванай старонкі.";
+"history-title" = "Гісторыя";
 "page-history-title" = "Гісторыя артыкула";
 "page-history-downloading" = "Загрузка гісторыі артыкула...";
 "navbar-title-mode-edit-wikitext" = "Рэдагаваць";
@@ -204,6 +208,8 @@
 "button-next" = "Далей";
 "button-done" = "Выканана";
 "button-save" = "Захаваць";
+"button-save-for-later" = "Захаваць на пазьней";
+"button-saved-for-later" = "Захаваная на пазьней";
 "onboarding-create-account" = "Стварыць рахунак";
 "onboarding-login" = "Увайсьці";
 "onboarding-already-have-account" = "Ужо маеце рахунак? $1";
@@ -279,6 +285,20 @@
 "hockeyapp-alert-privacy" = "Умовы прыватнасьці $1";
 "page-issues" = "Хібы старонкі";
 "page-similar-titles" = "Падобныя старонкі";
+"page-read-in-other-languages" = "Чытаць на $1 мовах";
+"page-last-edited" = "Рэдагаваны $1 дзён таму";
+"page-edit-history" = "Уся гісторыя рэдагаваньняў";
 "captcha-reload" = "Паказаць іншы тэкст CAPTCHA";
 "captcha-prompt" = "Увядзіце тэкст CAPTCHA з выявы вышэй";
 "mwk-empty-title-error" = "Не атрымліваецца выканаць апэрацыю з пустой назвай.";
+"home-title" = "Дасьледаваньне";
+"home-continue-reading-heading" = "Працягваць чытаньне";
+"home-continue-related-heading" = "Таму што Вы чытаеце $1";
+"home-more-like-footer" = "Болей падобна на $1";
+"home-nearby-footer" = "Болей пра тое, што знаходзіцца побач з вамі";
+"home-nearby-nothing" = "Побач нічога няма";
+"home-nearby-check-again" = "Праверыць яшчэ раз";
+"home-featured-article-heading" = "Абраны артыкул за $1";
+"home-main-page-heading" = "Сёньня ў Вікіпэдыі";
+"home-potd-heading" = "Выява дня за $1";
+"potd-empty-error-description" = "Выява дня за $1 не была атрыманая";

@@ -20,6 +20,7 @@
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
 "article-languages-filter-placeholder" = "پالایه زبان";
 "article-read-more-title" = "بیشتر بخوانید";
+"article-about-title" = "دربارهٔ این مقاله";
 "article-unable-to-load-section" = "امکان براگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
 "article-unable-to-load-article" = "بارگذاری مقاله ناموفق بود.";
 "article-related-articles-title" = "مقاله‌های مرتبط";
@@ -140,6 +141,7 @@
 "main-menu-more" = "بیشتر...";
 "main-menu-heading-debug" = "اشکال‌زدائی";
 "main-menu-debug-crash" = "از کار افتادن";
+"saved-title" = "ذخیره شد";
 "saved-pages-title" = "صفحات ذخیره شده";
 "saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
 "saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
@@ -150,6 +152,8 @@
 "saved-pages-refresh-cancel-alert-button" = "گرفتم";
 "saved-pages-description" = "صفحات ذخیره‌شده بسیار عالی هستند. به آنها به چشم بوکمارک‌هایی نگاه کنید که می‌توانید بخوانید حتی زمانی که آفلاین هستید.";
 "saved-pages-none" = "هنوز صفحه‌ای ذخیره نشده‌است.";
+"saved-pages-image-download-error" = "خطا در بارگیری تصاویر برای این صفحهٔ ذخیره شده.";
+"history-title" = "تاریخچه";
 "page-history-title" = "تاریخچهٔ مقاله";
 "page-history-downloading" = "در حال بارگیری مقاله تاریخچه...";
 "navbar-title-mode-edit-wikitext" = "ویرایش";
@@ -292,6 +296,9 @@
 "hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
 "page-issues" = "موضوعات صفحه";
 "page-similar-titles" = "صفحات مشابه";
+"page-read-in-other-languages" = "خواندن به $1 زبان";
+"page-last-edited" = "تغییر یافته در $1 روز پیش";
+"page-edit-history" = "تاریخچهٔ کامل ویرایش";
 "captcha-reload" = "نمایش کپچای دیگر";
 "captcha-prompt" = "متن کپچا را از تصویر بالا وارد کنید";
 "mwk-empty-title-error" = "با عنوان خالی امکان انجام عملیات نیست.";
@@ -317,20 +324,25 @@
 "welcome-whats-new-button-title" = "شروع شده‌است";
 "welcome-whats-new-bullet-one-more-info-text" = "زمانی که شما یک مقاله را مطالعه می‌کنید، مقالات مرتبط به صورت خودکار به فید شما افزوده می‌شوند این مورد تغییری در نحوهٔ جمع‌آوری اطلاعات شما ندارد و تاریخچهٔ مواردی را که خواندید به صورت خصوصی باقی خواهد ماند.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "گرفتم";
-// Fuzzy
-"welcome-languages-title" = "زبان مورد نظرتان را انتخاب کنید";
+"welcome-languages-title" = "زبان برای جستجو";
+"welcome-languages-more-info-button-text" = "به من بیشتر بگو";
+"welcome-languages-more-info-text" = "مقالات ویکی‌پدیا معمولاً به چند زبان موجودند. زبانی را که قصد جستجو بر پایهٔ آن را دارید، انتخاب کنید. بعداً امکان تغییر وجود دارد.";
+"welcome-languages-more-info-done-button" = "گرفتم";
 "welcome-languages-more-languages-button-title" = "زبان‌های بیشتر بیافزائید";
 "welcome-languages-button-title" = "ادامه";
 "welcome-languages-footnote-text" = "نگران نباشید این را بعدا می توانید تغییر دهید.";
 "welcome-usage-reports-title" = "به ما در بهبود ویکی‌پدیا کمک کنید";
 "welcome-usage-reports-body-text" = "با اجازه دادن به ما برای جمع‌آوری اطلاعات دربارهٔ نحوهٔ استفادهٔ شما از این اپلیکیشن، در بهبود آن کمک کنید.";
 "welcome-usage-reports-switch-text" = "ارسال گزارش‌های استفاده";
-// Fuzzy
-"welcome-usage-reports-button-title" = "انجام شد";
+"welcome-usage-reports-button-title" = "شروع شد";
 "welcome-usage-reports-privacy-policy-button-text" = "امنیت شما برای ما اهمیت دارد";
 "empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
 "empty-no-feed-action-message" = "فعلا می توانید صفحه‌های ذخیره شده را مطالعه کنید";
 "empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
 "empty-no-search-results-message" = "متاسفانه امکان بارگیری نتیجه نیست";
+"empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
+"empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
+"empty-no-history-title" = "تاریخچه‌ای برای مشاهده وجود ندارد";
+"empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "alert-no-internet" = "به اینترنت متصل نیستید";

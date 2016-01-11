@@ -1,5 +1,6 @@
 // Messages for Indonesian (Bahasa Indonesia)
 // Exported from translatewiki.net
+// Author: Arief
 // Author: Arifin.wijaya
 // Author: BaconSenpai
 // Author: Bennylin
@@ -17,6 +18,7 @@
 "article-languages-downloading" = "Memuat bahasa artikel...";
 "article-languages-filter-placeholder" = "Saring Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
+"article-about-title" = "Mengenai berkas ini";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
 "article-unable-to-load-article" = "Tidak dapat memuat artikel.";
 "article-related-articles-title" = "Artikel terkait";
@@ -138,6 +140,7 @@
 "main-menu-more" = "Lainnya...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Hancur";
+"saved-title" = "Tersimpan";
 "saved-pages-title" = "Artikel tersimpan";
 "saved-pages-clear-confirmation-heading" = "Hapus semua butir yang disimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
@@ -148,6 +151,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Mengerti";
 "saved-pages-description" = "Halaman tersimpan cukup mengagumkan. Menganggap mereka sebagai penanda yang dapat Anda baca bahkan ketika Anda sedang luring.";
 "saved-pages-none" = "Tidak ada halaman yang disimpan.";
+"saved-pages-image-download-error" = "Gagal mengunduh gambar untuk halaman ini";
+"history-title" = "Riwayat";
 "page-history-title" = "Versi terdahulu artikel";
 "page-history-downloading" = "Memuat riwayat artikel...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
@@ -290,6 +295,8 @@
 "hockeyapp-alert-privacy" = "Privasi $1";
 "page-issues" = "Masalah halaman";
 "page-similar-titles" = "Halaman serupa";
+"page-last-edited" = "Diedit $1 hari lalu";
+"page-edit-history" = "Riwayat teredit semua";
 "captcha-reload" = "Tampilkan captcha yang lain";
 "captcha-prompt" = "Masukkan teks CAPTCHA dari gambar di atas";
 "mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";
@@ -305,3 +312,12 @@
 "home-potd-heading" = "Gambar hari ini untuk $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini untuk $1";
 "potd-description-prefix" = "Gambar hari ini untuk $1";
+"welcome-whats-new-whats-new" = "Apa yang baru?";
+"welcome-languages-title" = "Pencarian bahasa";
+"welcome-languages-more-info-button-text" = "Ceritakan padaku lebih banyak";
+"welcome-languages-more-info-done-button" = "Mengerti";
+"welcome-usage-reports-button-title" = "memulai";
+"empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
+"empty-no-saved-pages-message" = "Simpah laman untuk dilihat nanti, bahkan saat offline";
+"empty-no-history-title" = "Tidak ada riwayat yang muncul";
+"empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";

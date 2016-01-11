@@ -9,6 +9,7 @@
 "article-languages-downloading" = "Lade Artikelsprachen …";
 "article-languages-filter-placeholder" = "Sprachfilter";
 "article-read-more-title" = "Mehr lesen";
+"article-about-title" = "Über diesen Artikel";
 "article-unable-to-load-section" = "Dieser Abschnitt konnte nicht geladen werden. Versuche, den Artikel neu zu laden, um zu sehen, ob dies das Problem behebt.";
 "article-unable-to-load-article" = "Artikel konnte nicht geladen werden.";
 "article-related-articles-title" = "Ähnliche Artikel";
@@ -129,6 +130,7 @@
 "main-menu-more" = "Mehr …";
 "main-menu-heading-debug" = "Fehlerbehebung";
 "main-menu-debug-crash" = "Absturz";
+"saved-title" = "Gespeichert";
 "saved-pages-title" = "Gespeicherte Seiten";
 "saved-pages-clear-confirmation-heading" = "Alle gespeicherten Objekte löschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Diese Aktion kann nicht rückgängig gemacht werden!";
@@ -139,6 +141,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Verstanden";
 "saved-pages-description" = "Gespeicherte Seiten sind ziemlich genial. Betrachte sie als Lesezeichen, die du lesen kannst, auch wenn du offline bist.";
 "saved-pages-none" = "Noch keine gespeicherten Seiten.";
+"saved-pages-image-download-error" = "Die Bilder für diese gespeicherte Seite konnten nicht heruntergeladen werden.";
+"history-title" = "Versionsgeschichte";
 "page-history-title" = "Artikelversionsgeschichte";
 "page-history-downloading" = "Lade Artikelversionsgeschichte …";
 "navbar-title-mode-edit-wikitext" = "Bearbeiten";
@@ -281,6 +285,9 @@
 "hockeyapp-alert-privacy" = "$1-Datenschutz";
 "page-issues" = "Seitenprobleme";
 "page-similar-titles" = "Ähnliche Seiten";
+"page-read-in-other-languages" = "In $1 Sprachen lesen";
+"page-last-edited" = "Bearbeitet vor $1 Tagen";
+"page-edit-history" = "Vollständige Versionsgeschichte";
 "captcha-reload" = "Ein anderes Captcha anzeigen";
 "captcha-prompt" = "CAPTCHA-Text von dem oben stehenden Bild eingeben";
 "mwk-empty-title-error" = "Operation kann nicht mit einem leeren Titel ausgeführt werden.";
@@ -306,20 +313,25 @@
 "welcome-whats-new-button-title" = "Anfangen";
 "welcome-whats-new-bullet-one-more-info-text" = "Wenn du einen Artikel besuchst, werden ähnliche Artikel automatisch zu deinem Feed hinzugefügt. Dies ändert nicht, wie wir deine Informationen sammeln und dein Leseverlauf bleibt privat.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Verstanden";
-// Fuzzy
-"welcome-languages-title" = "Wähle deine Sprachen aus";
+"welcome-languages-title" = "Zu suchende Sprachen";
+"welcome-languages-more-info-button-text" = "Erzähl mir mehr";
+"welcome-languages-more-info-text" = "Wikipedia-Artikel sind oft in mehreren Sprachen verfügbar. Wähle die Sprachen aus, die du beim Suchen verwenden möchtest. Du kannst dies später ändern.";
+"welcome-languages-more-info-done-button" = "Verstanden";
 "welcome-languages-more-languages-button-title" = "Weitere Sprachen hinzufügen";
 "welcome-languages-button-title" = "Fortfahren";
 "welcome-languages-footnote-text" = "Keine Sorge, du kannst dies auch später ändern.";
 "welcome-usage-reports-title" = "Hilf uns, Wikipedia besser zu machen";
 "welcome-usage-reports-body-text" = "Du kannst uns dabei helfen, die App besser zu machen, indem du uns erlaubst, Informationen über deine Nutzung der App zu sammeln.";
 "welcome-usage-reports-switch-text" = "Nutzungsstatistiken senden";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Fertig";
+"welcome-usage-reports-button-title" = "Anfangen";
 "welcome-usage-reports-privacy-policy-button-text" = "Dein Datenschutz ist uns wichtig";
 "empty-no-feed-title" = "Keine Internetverbindung";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
 "empty-no-feed-action-message" = "Du kannst in der Zwischenzeit gespeicherte Seiten lesen";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-search-results-message" = "Leider können die Ergebnisse nicht geladen werden";
+"empty-no-saved-pages-title" = "Noch keine gespeicherten Seiten";
+"empty-no-saved-pages-message" = "Seiten zum späteren Betrachten speichern, auch offline";
+"empty-no-history-title" = "Keine Versionsgeschichte anzuzeigen";
+"empty-no-history-message" = "Gehe hier deinen gelesenen Seiten nach";
 "alert-no-internet" = "Es gibt keine Internetverbindung";
