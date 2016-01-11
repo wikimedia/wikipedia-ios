@@ -185,7 +185,7 @@ static dispatch_once_t launchToken;
         if (shortcutWasHandled) {
             return;
         }
-        
+
         if ([self shouldShowHomeScreenOnLaunch]) {
             [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
             [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
@@ -197,7 +197,7 @@ static dispatch_once_t launchToken;
                     [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
                 }
             }
-            
+
             if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
                 [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             }
@@ -219,10 +219,9 @@ static dispatch_once_t launchToken;
     [self performHousekeepingIfNecessary];
 }
 
--(void)handleSelectionOfShortcutItemIfNecessaryThen:(void (^)(BOOL shortcutWasHandled))completion{
-    UIApplicationShortcutItem *shortcutItemSelectedAtLaunch = [((AppDelegate*)[UIApplication sharedApplication].delegate) shortcutItemSelectedAtLaunch];
+- (void)handleSelectionOfShortcutItemIfNecessaryThen:(void (^)(BOOL shortcutWasHandled))completion {
+    UIApplicationShortcutItem* shortcutItemSelectedAtLaunch = [((AppDelegate*)[UIApplication sharedApplication].delegate) shortcutItemSelectedAtLaunch];
     if (shortcutItemSelectedAtLaunch) {
-        
         // Main UI may *not* have been loaded if the user...
         //      - minimized the app when viewing a "Welcome" screen
         //      - then selected a 3d touch app icon shortcut menu item
@@ -231,43 +230,43 @@ static dispatch_once_t launchToken;
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
 
         @weakify(self)
-        void (^handleSelection)() = ^void() {
+        void (^ handleSelection)() = ^void () {
             @strongify(self)
             if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
                 // Show search without loosing underlying view hierarchy.
-                
+
                 // HAX: fragile! fix!
                 UIBarButtonItem* searchButton = ((WMFArticleContainerViewController*)((UINavigationController*)self.rootTabBarController.selectedViewController).topViewController).navigationItem.rightBarButtonItem;
                 NSAssert(searchButton, @"Search button not found.");
                 NSAssert([searchButton.target respondsToSelector:searchButton.action], @"Search button expected selector not found.");
-                
+
                 [searchButton.target performSelector:searchButton.action withObject:searchButton afterDelay:0];
                 completion(YES);
-            }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
+            } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
                 [self popToHomeAndScrollToSectionWithIdentifier:WMFRandomSectionIdentifier performingHeaderButtonAction:YES];
                 completion(YES);
-            }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
+            } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
                 [self popToHomeAndScrollToSectionWithIdentifier:WMFNearbySectionIdentifier performingHeaderButtonAction:NO];
                 completion(YES);
-            }else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
+            } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
                 // Fall through to normal "Continue reading..." handling.
                 completion(NO);
             }
         };
-        
+
         // Ensure the presentedViewController view controller (such as Search vc) has been hidden.
-        UINavigationController *homeNavController = [self navigationControllerForTab:WMFAppTabTypeHome];
+        UINavigationController* homeNavController = [self navigationControllerForTab:WMFAppTabTypeHome];
         if (homeNavController.presentedViewController) {
             [homeNavController dismissViewControllerAnimated:NO completion:handleSelection];
-        }else{
+        } else {
             handleSelection();
         }
-    }else{
+    } else {
         completion(NO);
     }
 }
 
--(void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction{
+- (void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction {
     [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
     dispatchOnMainQueueAfterDelayInSeconds(0.0, ^{ // Prevent crash when device not connected to Xcode.
         [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
@@ -279,7 +278,7 @@ static dispatch_once_t launchToken;
 - (void)startApp {
     [self showSplashView];
     @weakify(self)
-    [self runDataMigrationIfNeededWithCompletion:^{
+    [self runDataMigrationIfNeededWithCompletion :^{
         @strongify(self)
         [self.imageMigration setupAndStart];
         [self.savedArticlesFetcher fetchAndObserveSavedPageList];

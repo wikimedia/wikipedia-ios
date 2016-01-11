@@ -52,7 +52,7 @@
     self.appViewController = vc;
 
     [self updateDynamicIconShortcutItems];
-    
+
     NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 
     return YES;
@@ -61,34 +61,36 @@
 - (void)updateDynamicIconShortcutItems {
     self.shortcutItemSelectedAtLaunch = nil;
 
-    if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) return;
-    
-    UIApplicationShortcutItem* (^makeShortcut)(NSString*, NSString*, NSString*, NSString*) = ^(NSString* type, NSString* title, NSString* subtitle, NSString* icon) {
+    if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) {
+        return;
+    }
+
+    UIApplicationShortcutItem* (^ makeShortcut)(NSString*, NSString*, NSString*, NSString*) = ^(NSString* type, NSString* title, NSString* subtitle, NSString* icon) {
         return [[UIApplicationShortcutItem alloc] initWithType:type
                                                 localizedTitle:MWLocalizedString(title, nil)
                                              localizedSubtitle:subtitle
                                                           icon:[UIApplicationShortcutIcon iconWithTemplateImageName:icon]
                                                       userInfo:nil];
     };
-    
+
     NSMutableArray* shortcutItems =
-    [[NSMutableArray alloc] initWithObjects:
-     makeShortcut(WMFIconShortcutTypeRandom, @"icon-shortcut-random-title", @"", @"random-quick-action"),
-     makeShortcut(WMFIconShortcutTypeNearby, @"icon-shortcut-nearby-title", @"", @"nearby-quick-action"),
-     nil
-     ];
-    
+        [[NSMutableArray alloc] initWithObjects:
+         makeShortcut(WMFIconShortcutTypeRandom, @"icon-shortcut-random-title", @"", @"random-quick-action"),
+         makeShortcut(WMFIconShortcutTypeNearby, @"icon-shortcut-nearby-title", @"", @"nearby-quick-action"),
+         nil
+        ];
+
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
     if (lastRead) {
         [shortcutItems addObject:makeShortcut(WMFIconShortcutTypeContinueReading, @"icon-shortcut-continue-reading-title", lastRead.text, @"home-continue-reading-mini")];
     }
-    
+
     [shortcutItems addObject:makeShortcut(WMFIconShortcutTypeSearch, @"icon-shortcut-search-title", @"", @"search")];
-    
+
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
--(void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+- (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     self.shortcutItemSelectedAtLaunch = shortcutItem;
 }
 

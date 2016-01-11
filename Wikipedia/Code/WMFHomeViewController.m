@@ -496,11 +496,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)scrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction {
-    NSUInteger section = [self.dataSource indexOfSectionWithIdentifier:identifier];
+    NSUInteger section     = [self.dataSource indexOfSectionWithIdentifier:identifier];
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
     if (performHeaderButtonAction) {
-        UIViewController *controller = (UIViewController *)[self sectionControllerForSectionAtIndex:section];
+        UIViewController* controller = (UIViewController*)[self sectionControllerForSectionAtIndex:section];
         [controller performSelectorOnMainThread:@selector(performHeaderButtonAction) withObject:nil waitUntilDone:NO];
     }
 }

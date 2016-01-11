@@ -74,14 +74,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setSearchResults:(nullable WMFLocationSearchResults*)searchResults {
-    _searchResults   = searchResults;
+    _searchResults = searchResults;
     if (!_searchResults) {
         self.nearbyError = nil;
     }
 }
 
 - (void)setNearbyError:(nullable NSError*)nearbyError {
-    _nearbyError       = nearbyError;
+    _nearbyError = nearbyError;
     if (_nearbyError) {
         self.searchResults = nil;
     }
@@ -192,9 +192,9 @@ NS_ASSUME_NONNULL_BEGIN
     if ([WMFLocationManager isDeniedOrDisabled]) {
         DDLogVerbose(@"Suppresing %@ since location authorization is denied.", error);
         /*
-         This controller is coded with the assumption that it will be destroyed in the event that the user revokes
-         location services authorization for the app or the device in general.
-        */
+           This controller is coded with the assumption that it will be destroyed in the event that the user revokes
+           location services authorization for the app or the device in general.
+         */
         return;
     }
 

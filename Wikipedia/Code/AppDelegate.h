@@ -11,6 +11,6 @@ static NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wiki
 @property (nonatomic, strong) UIWindow* window;
 
 // HAX
-@property (nonatomic, strong) UIApplicationShortcutItem *shortcutItemSelectedAtLaunch;
+@property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
 
 @end
