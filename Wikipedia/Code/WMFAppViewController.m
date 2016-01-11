@@ -269,7 +269,10 @@ static dispatch_once_t launchToken;
 
 - (void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction {
     [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-    dispatchOnMainQueueAfterDelayInSeconds(0.0, ^{ // Prevent crash when device not connected to Xcode.
+
+    //HAX: Need to wait for table view to be ready. (Prevents crash when device not connected to Xcode.)
+    //TODO: handle this better!
+    dispatchOnMainQueueAfterDelayInSeconds(0.0, ^{
         [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
     });
 }
