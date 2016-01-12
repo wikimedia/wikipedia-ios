@@ -272,7 +272,7 @@ static dispatch_once_t launchToken;
 
     //HAX: Need to wait for table view to be ready. (Prevents crash when device not connected to Xcode.)
     //TODO: handle this better!
-    dispatchOnMainQueueAfterDelayInSeconds(0.0, ^{
+    dispatchOnMainQueueAfterDelayInSeconds(0.2, ^{
         [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
     });
 }
