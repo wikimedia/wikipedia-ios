@@ -23,6 +23,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 
+NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbySectionController ()
