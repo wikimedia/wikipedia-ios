@@ -11,35 +11,39 @@ NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.i
 
 @implementation UIApplicationShortcutItem (WMFShortcutItem)
 
-+ (UIApplicationShortcutItem*)wmf_shortcutItemOfType:(NSString*)type {
-    NSString* title    = @"";
-    NSString* icon     = @"";
-    NSString* subtitle = @"";
++ (UIApplicationShortcutItem*)wmf_search {
+    return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeSearch
+                                            localizedTitle:MWLocalizedString(@"icon-shortcut-search-title", nil)
+                                         localizedSubtitle:@""
+                                                      icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"search"]
+                                                  userInfo:nil];
+}
 
-    if ([type isEqualToString:WMFIconShortcutTypeSearch]) {
-        title = @"icon-shortcut-search-title";
-        icon  = @"search";
-    } else if ([type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-        title = @"icon-shortcut-continue-reading-title";
-        icon  = @"home-continue-reading-mini";
-        MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-        if (lastRead) {
-            subtitle = lastRead.text;
-        }
-    } else if ([type isEqualToString:WMFIconShortcutTypeRandom]) {
-        title = @"icon-shortcut-random-title";
-        icon  = @"random-quick-action";
-    } else if ([type isEqualToString:WMFIconShortcutTypeNearby]) {
-        title = @"icon-shortcut-nearby-title";
-        icon  = @"nearby-quick-action";
++ (UIApplicationShortcutItem*)wmf_random {
+    return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeRandom
+                                            localizedTitle:MWLocalizedString(@"icon-shortcut-random-title", nil)
+                                         localizedSubtitle:@""
+                                                      icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"random-quick-action"]
+                                                  userInfo:nil];
+}
+
++ (nullable UIApplicationShortcutItem*)wmf_continueReading {
+    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+    if (lastRead.text.length == 0) {
+        return nil;
     }
+    return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeContinueReading
+                                            localizedTitle:MWLocalizedString(@"icon-shortcut-continue-reading-title", nil)
+                                         localizedSubtitle:lastRead.text
+                                                      icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"home-continue-reading-mini"]
+                                                  userInfo:nil];
+}
 
-    NSAssert(title.length > 0, @"Unknown icon shortcut type.");
-
-    return [[UIApplicationShortcutItem alloc] initWithType:type
-                                            localizedTitle:MWLocalizedString(title, nil)
-                                         localizedSubtitle:subtitle
-                                                      icon:[UIApplicationShortcutIcon iconWithTemplateImageName:icon]
++ (UIApplicationShortcutItem*)wmf_nearby {
+    return [[UIApplicationShortcutItem alloc] initWithType:WMFIconShortcutTypeNearby
+                                            localizedTitle:MWLocalizedString(@"icon-shortcut-nearby-title", nil)
+                                         localizedSubtitle:@""
+                                                      icon:[UIApplicationShortcutIcon iconWithTemplateImageName:@"nearby-quick-action"]
                                                   userInfo:nil];
 }
 

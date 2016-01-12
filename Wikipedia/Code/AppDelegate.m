@@ -66,19 +66,16 @@
         return;
     }
 
-    NSMutableArray* shortcutItems =
+    NSMutableArray<UIApplicationShortcutItem*>* shortcutItems =
         [[NSMutableArray alloc] initWithObjects:
-         [UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeRandom],
-         [UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeNearby],
+         [UIApplicationShortcutItem wmf_random],
+         [UIApplicationShortcutItem wmf_nearby],
          nil
         ];
 
-    MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-    if (lastRead) {
-        [shortcutItems addObject:[UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeContinueReading]];
-    }
+    [shortcutItems wmf_safeAddObject:[UIApplicationShortcutItem wmf_continueReading]];
 
-    [shortcutItems addObject:[UIApplicationShortcutItem wmf_shortcutItemOfType:WMFIconShortcutTypeSearch]];
+    [shortcutItems addObject:[UIApplicationShortcutItem wmf_search]];
 
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
