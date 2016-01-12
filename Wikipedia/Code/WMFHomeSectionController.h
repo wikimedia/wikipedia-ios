@@ -88,9 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
- *  @return A data source which will provide a larger list of items from this section.
+ *  @return A view controller with will provide a more data for this section.
  */
-- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource;
+- (UIViewController*)moreViewController;
 
 @end
 
