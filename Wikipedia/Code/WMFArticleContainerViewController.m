@@ -12,7 +12,7 @@
 #import "WMFArticleContainerViewController_Transitioning.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFRelatedTitleListDataSource.h"
-#import "WMFArticleListTableViewController.h"
+#import "WMFSelfSizingArticleListTableViewController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFModalImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
-@property (nonatomic, strong) WMFArticleListTableViewController* readMoreListViewController;
+@property (nonatomic, strong) WMFSelfSizingArticleListTableViewController* readMoreListViewController;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Logging
@@ -216,13 +216,12 @@ NS_ASSUME_NONNULL_BEGIN
         _readMoreDataSource =
             [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle
                                                        dataStore:self.dataStore
-                                                   savedPageList:self.savedPages
                                                      resultLimit:3];
     }
     return _readMoreDataSource;
 }
 
-- (WMFArticleListTableViewController*)readMoreListViewController {
+- (WMFSelfSizingArticleListTableViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
         _readMoreListViewController            = [[WMFSelfSizingArticleListTableViewController alloc] init];
         _readMoreListViewController.dataStore  = self.dataStore;
