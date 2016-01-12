@@ -336,7 +336,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Section Controller Creation
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFHomeSection*)item {
-    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title savedPageList:self.savedPages];
+    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore];
 }
 
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFHomeSection*)item {

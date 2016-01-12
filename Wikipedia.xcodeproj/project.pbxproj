@@ -12,6 +12,7 @@
 		04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D34DB11863D39000610A87 /* libxml2.dylib */; };
 		0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */; };
 		0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */; };
+		0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */; };
 		0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */; };
 		0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */; };
 		0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */; };
@@ -632,6 +633,8 @@
 		0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSelfSizingArticleListTableViewController.m; path = Wikipedia/Code/WMFSelfSizingArticleListTableViewController.m; sourceTree = SOURCE_ROOT; };
 		0E0361751C4488BC00FD9642 /* WMFLocationSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchListViewController.h; path = Wikipedia/Code/WMFLocationSearchListViewController.h; sourceTree = SOURCE_ROOT; };
 		0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchListViewController.m; path = Wikipedia/Code/WMFLocationSearchListViewController.m; sourceTree = SOURCE_ROOT; };
+		0E0361781C44905400FD9642 /* WMFRelatedTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedTitleViewController.h; path = Wikipedia/Code/WMFRelatedTitleViewController.h; sourceTree = SOURCE_ROOT; };
+		0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedTitleViewController.m; path = Wikipedia/Code/WMFRelatedTitleViewController.m; sourceTree = SOURCE_ROOT; };
 		0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsTableViewController.m; path = Code/WMFSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		0E09EABE1C4426470058F2D8 /* WMFSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSearchResultsTableViewController.h; path = Code/WMFSearchResultsTableViewController.h; sourceTree = "<group>"; };
 		0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSavedArticleTableViewController.m; sourceTree = "<group>"; };
@@ -2224,6 +2227,14 @@
 			path = Wikipedia/Code/PageHistory;
 			sourceTree = SOURCE_ROOT;
 		};
+		0E03617B1C44945300FD9642 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				0E0361781C44905400FD9642 /* WMFRelatedTitleViewController.h */,
+				0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */,
+			);
+			name = More;
+			sourceTree = "<group>";
 		};
 		0E03617D1C44948300FD9642 /* More */ = {
 			isa = PBXGroup;
@@ -2322,6 +2333,9 @@
 			children = (
 				B0E8031D1C0CD69B0065EBC0 /* WMFRelatedSectionController.h */,
 				B0E8031E1C0CD69B0065EBC0 /* WMFRelatedSectionController.m */,
+				B0E803B41C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.h */,
+				B0E803B51C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.m */,
+				0E03617B1C44945300FD9642 /* More */,
 				0E2691041B86BBD1009B8605 /* Fetcher */,
 			);
 			name = Related;
@@ -2395,18 +2409,6 @@
 			name = Analytics;
 			sourceTree = "<group>";
 		};
-		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
-			isa = PBXGroup;
-			children = (
-				B0E803B41C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.h */,
-				B0E803B51C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.m */,
-				B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */,
-				B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */,
-			);
-			name = "Data Sources";
-			path = "Wikipedia/Code/Data Sources";
-			sourceTree = SOURCE_ROOT;
-		};
 		0E2B06F81B2D127A00EA2F53 /* Article List */ = {
 			isa = PBXGroup;
 			children = (
@@ -2416,7 +2418,6 @@
 				0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */,
 				B0E803A81C0CDB8D0065EBC0 /* WMFTitleListDataSource.h */,
 				BC550B081B977C730082F298 /* Cells */,
-				0E2B06F71B2D126700EA2F53 /* Data Sources */,
 			);
 			name = "Article List";
 			path = "Wikipedia/Code/Article List";
@@ -3723,6 +3724,8 @@
 			children = (
 				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
 				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
+				B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */,
+				B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */,
 			);
 			name = Disambiguation;
 			sourceTree = "<group>";
@@ -5503,6 +5506,7 @@
 				B0E806B71C0CEB160065EBC0 /* LanguagesViewController.m in Sources */,
 				B0E805521C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m in Sources */,
 				BCAE0DFA1C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m in Sources */,
+				0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */,
 				B0E804BE1C0CE0B40065EBC0 /* CLLocation+WMFBearing.m in Sources */,
 				B0E8030A1C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m in Sources */,
 				B0E807221C0CECE30065EBC0 /* CommunicationBridge.m in Sources */,
