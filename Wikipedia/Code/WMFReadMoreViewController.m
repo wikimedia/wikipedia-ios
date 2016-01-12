@@ -57,9 +57,7 @@
 }
 
 - (AnyPromise*)fetch {
-    return [self.dataSource fetch].then(^(id results){
-        [self.tableView reloadData];
-    });
+    return [self.dataSource fetch];
 }
 
 - (BOOL)hasResults {
