@@ -79,6 +79,7 @@
 
         [self.saveTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.trailing.top.and.bottom.equalTo(self);
+            // make sure icon & button aren't squished together
             make.leading.equalTo(self.saveIconImageView.mas_trailing).with.offset(12.f);
         }];
     }
