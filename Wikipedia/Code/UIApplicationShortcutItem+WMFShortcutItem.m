@@ -4,6 +4,8 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "Wikipedia-Swift.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSString* const WMFIconShortcutTypeSearch          = @"org.wikimedia.wikipedia.icon-shortcut-search";
 NSString* const WMFIconShortcutTypeContinueReading = @"org.wikimedia.wikipedia.icon-shortcut-continue-reading";
 NSString* const WMFIconShortcutTypeRandom          = @"org.wikimedia.wikipedia.icon-shortcut-random";
@@ -48,3 +50,5 @@ NSString* const WMFIconShortcutTypeNearby          = @"org.wikimedia.wikipedia.i
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
