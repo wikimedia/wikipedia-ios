@@ -596,6 +596,7 @@
 		BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE71B11CC5800231BB1 /* test-notes.txt */; };
 		BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE81B11CC5800231BB1 /* user-anon.json */; };
 		BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE91B11CC5800231BB1 /* user-loggedin.json */; };
+		BCD557B31C455F840060A51A /* WMFTextualSaveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B21C455F840060A51A /* WMFTextualSaveButton.m */; };
 		BCE839591BF14DB900F5BBA4 /* TitlePreviewQuery.json in Resources */ = {isa = PBXBuildFile; fileRef = BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */; };
 		BCE839781BF3C9BB00F5BBA4 /* ObamaImageElement.html in Resources */ = {isa = PBXBuildFile; fileRef = BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */; };
 		BCF012331AD2FA38008D3675 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = BCF012321AD2FA38008D3675 /* assets */; };
@@ -1732,6 +1733,8 @@
 		BCD41DE71B11CC5800231BB1 /* test-notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-notes.txt"; sourceTree = "<group>"; };
 		BCD41DE81B11CC5800231BB1 /* user-anon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-anon.json"; sourceTree = "<group>"; };
 		BCD41DE91B11CC5800231BB1 /* user-loggedin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-loggedin.json"; sourceTree = "<group>"; };
+		BCD557B11C455F840060A51A /* WMFTextualSaveButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTextualSaveButton.h; sourceTree = "<group>"; };
+		BCD557B21C455F840060A51A /* WMFTextualSaveButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTextualSaveButton.m; sourceTree = "<group>"; };
 		BCE839581BF14DB900F5BBA4 /* TitlePreviewQuery.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TitlePreviewQuery.json; sourceTree = "<group>"; };
 		BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ObamaImageElement.html; sourceTree = "<group>"; };
 		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../Wikipedia/assets; sourceTree = "<group>"; };
@@ -3046,6 +3049,8 @@
 				B0E803CB1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m */,
 				B0E804351C0CDF850065EBC0 /* WMFBorderButton.h */,
 				B0E804361C0CDF850065EBC0 /* WMFBorderButton.m */,
+				BCD557B11C455F840060A51A /* WMFTextualSaveButton.h */,
+				BCD557B21C455F840060A51A /* WMFTextualSaveButton.m */,
 			);
 			name = Buttons;
 			sourceTree = "<group>";
@@ -5224,6 +5229,7 @@
 				B0E804251C0CDF350065EBC0 /* WMFAssetsFile.m in Sources */,
 				B0E805BE1C0CE4D40065EBC0 /* MWKDataHousekeeping.m in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleTableViewCell.m in Sources */,
+				BCD557B31C455F840060A51A /* WMFTextualSaveButton.m in Sources */,
 				B0E803B11C0CDBCF0065EBC0 /* WMFSearchDataSource.m in Sources */,
 				B0E8065A1C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.m in Sources */,
 				B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */,

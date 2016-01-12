@@ -9,11 +9,11 @@
 @interface WMFSaveButtonController : NSObject
 
 @property (copy, nonatomic) MWKTitle* title;
-@property (strong, nonatomic) UIButton* button;
+@property (strong, nonatomic) UIControl* button;
 @property (strong, nonatomic) UIBarButtonItem* barButtonItem;
 @property (strong, nonatomic) MWKSavedPageList* savedPageList;
 
-- (instancetype)initWithButton:(UIButton*)button
+- (instancetype)initWithButton:(UIControl*)button
                  savedPageList:(MWKSavedPageList*)savedPageList
                          title:(MWKTitle*)title;
 

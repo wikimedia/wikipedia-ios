@@ -15,7 +15,7 @@
 
 @implementation WMFSaveButtonController
 
-- (instancetype)initWithButton:(UIButton*)button
+- (instancetype)initWithButton:(UIControl*)button
                  savedPageList:(MWKSavedPageList*)savedPageList
                          title:(MWKTitle*)title {
     NSParameterAssert(savedPageList);
