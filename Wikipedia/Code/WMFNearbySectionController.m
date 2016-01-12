@@ -187,9 +187,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 }
 
 - (UIViewController*)moreViewController {
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] init];
-    vc.dataSource = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
-    vc.dataStore = self.dataStore;
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
     return vc;
 }
 
