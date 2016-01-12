@@ -23,6 +23,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 
+#import "WMFLocationSearchListViewController.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
@@ -32,7 +34,8 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 @property (nonatomic, strong) WMFNearbyViewModel* viewModel;
 
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
@@ -45,24 +48,24 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithSite:(MWKSite*)site
-               savedPageList:(MWKSavedPageList*)savedPageList
+                   dataStore:(MWKDataStore*)dataStore
              locationManager:(WMFLocationManager*)locationManager {
     return [self initWithSite:site
-                savedPageList:savedPageList
+                    dataStore:dataStore
                     viewModel:[[WMFNearbyViewModel alloc] initWithSite:site
                                                            resultLimit:3
                                                        locationManager:locationManager]];
 }
 
 - (instancetype)initWithSite:(MWKSite*)site
-               savedPageList:(MWKSavedPageList*)savedPageList
+                   dataStore:(MWKDataStore*)dataStore
                    viewModel:(WMFNearbyViewModel*)viewModel {
     NSParameterAssert(site);
-    NSParameterAssert(savedPageList);
+    NSParameterAssert(dataStore);
     NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
-        self.savedPageList      = savedPageList;
+        self.dataStore          = dataStore;
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
     }
@@ -71,19 +74,23 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
 
 #pragma mark - Accessors
 
+- (MWKSavedPageList*)savedPageList {
+    return self.dataStore.userDataStore.savedPageList;
+}
+
 - (BOOL)hasResults {
     return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
 }
 
 - (void)setSearchResults:(nullable WMFLocationSearchResults*)searchResults {
-    _searchResults   = searchResults;
+    _searchResults = searchResults;
     if (!_searchResults) {
         self.nearbyError = nil;
     }
 }
 
 - (void)setNearbyError:(nullable NSError*)nearbyError {
-    _nearbyError       = nearbyError;
+    _nearbyError = nearbyError;
     if (_nearbyError) {
         self.searchResults = nil;
     }
@@ -179,8 +186,11 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return [self hasResults];
 }
 
-- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
-    return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+- (UIViewController*)moreViewController {
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] init];
+    vc.dataSource = [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+    vc.dataStore = self.dataStore;
+    return vc;
 }
 
 - (void)fetchDataIfNeeded {
@@ -194,9 +204,9 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     if ([WMFLocationManager isDeniedOrDisabled]) {
         DDLogVerbose(@"Suppresing %@ since location authorization is denied.", error);
         /*
-         This controller is coded with the assumption that it will be destroyed in the event that the user revokes
-         location services authorization for the app or the device in general.
-        */
+           This controller is coded with the assumption that it will be destroyed in the event that the user revokes
+           location services authorization for the app or the device in general.
+         */
         return;
     }
 
