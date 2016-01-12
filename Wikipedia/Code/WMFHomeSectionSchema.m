@@ -116,7 +116,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     [self updateSections:startingSchema];
 }
 
-
 /**
  *  Sections used to "seed" a user's "feed" with an initial set of content.
  *
@@ -151,16 +150,16 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     if (!_mainPages) {
         _mainPages = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages];
     }
-    
+
     return _mainPages;
 }
 
 - (MWKTitle*)mainArticleTitleForSite:(MWKSite*)site {
-    if(!site.language){
+    if (!site.language) {
         return nil;
     }
     NSString* titleText = self.mainPages.dictionary[site.language];
-    if(!titleText){
+    if (!titleText) {
         return nil;
     }
     return [site titleWithString:titleText];
@@ -170,7 +169,6 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     MWKTitle* mainArticleTitle = [self mainArticleTitleForSite:title.site];
     return ([title.text isEqualToString:mainArticleTitle.text]);
 }
-
 
 #pragma mark - Sections
 
