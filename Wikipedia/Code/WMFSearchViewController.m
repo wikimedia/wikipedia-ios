@@ -1,7 +1,7 @@
 #import "WMFSearchViewController.h"
 
 #import "RecentSearchesViewController.h"
-#import "WMFArticleListTableViewController.h"
+#import "WMFSearchResultsTableViewController.h"
 
 #import "SessionSingleton.h"
 
@@ -42,7 +42,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) NSArray* searchLanguages;
 
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
-@property (nonatomic, strong) WMFArticleListTableViewController* resultsListController;
+@property (nonatomic, strong) WMFSearchResultsTableViewController* resultsListController;
 
 @property (strong, nonatomic) IBOutlet UITextField* searchField;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
@@ -100,11 +100,11 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Accessors
 
 - (NSString*)currentSearchTerm {
-    return [[(WMFSearchDataSource*)self.resultsListController.dataSource searchResults] searchTerm];
+    return [[self.resultsListController.dataSource searchResults] searchTerm];
 }
 
 - (NSString*)searchSuggestion {
-    return [[(WMFSearchDataSource*)self.resultsListController.dataSource searchResults] searchSuggestion];
+    return [[self.resultsListController.dataSource searchResults] searchSuggestion];
 }
 
 - (WMFSearchFetcher*)fetcher {

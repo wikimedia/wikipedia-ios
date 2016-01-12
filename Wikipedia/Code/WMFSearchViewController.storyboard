@@ -367,10 +367,10 @@
             </objects>
             <point key="canvasLocation" x="587" y="3712"/>
         </scene>
-        <!--Article List Table View Controller-->
+        <!--Search Results Table View Controller-->
         <scene sceneID="UeF-5R-zXb">
             <objects>
-                <tableViewController id="h3Q-u3-KJA" customClass="WMFArticleListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="h3Q-u3-KJA" customClass="WMFSearchResultsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="3cy-oJ-h8H">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="462"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
