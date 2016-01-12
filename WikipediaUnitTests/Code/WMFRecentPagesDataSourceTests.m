@@ -30,8 +30,7 @@ __block WMFRecentPagesDataSource* recentPagesDataSource;
 configureTempDataStoreForEach(tempDataStore, ^{
     MWKUserDataStore* userDataStore = tempDataStore.userDataStore;
     historyList = userDataStore.historyList;
-    recentPagesDataSource = [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:historyList
-                                                                           savedPages:userDataStore.savedPageList];
+    recentPagesDataSource = [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:historyList];
 });
 
 describe(@"partitioning by date", ^{
