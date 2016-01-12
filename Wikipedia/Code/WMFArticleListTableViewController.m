@@ -16,8 +16,6 @@
 #import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
-#import "WMFIntrinsicSizeTableView.h"
-
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -52,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setDataSource:(SSBaseDataSource<WMFTitleListDataSource>* __nullable)dataSource {
-    if ([_dataSource isEqual:dataSource]) {
+    if (_dataSource == dataSource) {
         return;
     }
 
@@ -67,14 +65,13 @@ NS_ASSUME_NONNULL_BEGIN
     //isViewLoaded is not enough.
     if ([self isViewLoaded] && self.view.window) {
         if (_dataSource) {
-            [self connectTableViewAndDataSource];
+            _dataSource.tableView = self.tableView;
             [[self dynamicDataSource] startUpdating];
         }
         [self.tableView wmf_scrollToTop:NO];
         [self.tableView reloadData];
     }
 
-    self.title = [_dataSource displayTitle];
     [self updateDeleteButton];
     [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
         [self updateDeleteButtonEnabledState];
@@ -86,39 +83,26 @@ NS_ASSUME_NONNULL_BEGIN
     return [NSString stringWithFormat:@"%@ dataSourceClass: %@", self, [self.dataSource class]];
 }
 
-#pragma mark - DataSource and Collection View Wiring
-
-- (void)connectTableViewAndDataSource {
-    _dataSource.tableView = self.tableView;
-    if ([_dataSource respondsToSelector:@selector(estimatedItemHeight)]) {
-        self.tableView.estimatedRowHeight = _dataSource.estimatedItemHeight;
-    }
-}
-
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
     //TODO: disabling until new designs are made
     return;
-    if ([self.dataSource conformsToProtocol:@protocol(WMFArticleDeleteAllDataSource)]) {
-        id<WMFArticleDeleteAllDataSource> deleteableDataSource = (id<WMFArticleDeleteAllDataSource>)self.dataSource;
-
-        if ([deleteableDataSource showsDeleteAllButton] == YES) {
-            @weakify(self);
-            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
-                @strongify(self);
-                UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[deleteableDataSource deleteAllConfirmationText]];
-                [sheet bk_setDestructiveButtonWithTitle:[deleteableDataSource deleteText] handler:^{
-                    [deleteableDataSource deleteAll];
-                    [self.tableView reloadData];
-                }];
-                [sheet bk_setCancelButtonWithTitle:[deleteableDataSource deleteCancelText] handler:NULL];
-                [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+    if ([self showsDeleteAllButton] && [self.dataSource respondsToSelector:@selector(deleteAll)]) {
+        @weakify(self);
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+            @strongify(self);
+            UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[self deleteAllConfirmationText]];
+            [sheet bk_setDestructiveButtonWithTitle:[self deleteText] handler:^{
+                [self.dataSource deleteAll];
+                [self.tableView reloadData];
             }];
-            return;
-        }
+            [sheet bk_setCancelButtonWithTitle:[self deleteCancelText] handler:NULL];
+            [sheet showFromTabBar:self.navigationController.tabBarController.tabBar];
+        }];
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
     }
-    self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)updateDeleteButtonEnabledState {
@@ -140,9 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self.dataSource titleCount] > 0) {
         [self wmf_hideEmptyView];
     } else {
-        if ([self.dataSource respondsToSelector:@selector(emptyViewType)]) {
-            [self wmf_showEmptyViewOfType:[self.dataSource emptyViewType]];
-        }
+        [self wmf_showEmptyViewOfType:[self emptyViewType]];
     }
 }
 
@@ -209,14 +191,15 @@ NS_ASSUME_NONNULL_BEGIN
     //See: http://stackoverflow.com/a/5377805/48311
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 
-    [self connectTableViewAndDataSource];
+    _dataSource.tableView = self.tableView;
+
     [self observeArticleUpdates];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSParameterAssert(self.dataStore);
-    [self connectTableViewAndDataSource];
+    self.dataSource.tableView = self.tableView;
     [self updateDeleteButtonEnabledState];
     [self updateEmptyState];
     [[self dynamicDataSource] startUpdating];
@@ -265,11 +248,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.delegate) {
         [self.delegate didSelectTitle:title
                                sender:self
-                      discoveryMethod:self.dataSource.discoveryMethod];
+                      discoveryMethod:[self discoveryMethod]];
         return;
     }
     [self wmf_pushArticleViewControllerWithTitle:title
-                                 discoveryMethod:[self.dataSource discoveryMethod]
+                                 discoveryMethod:[self discoveryMethod]
                                        dataStore:self.dataStore];
 }
 
@@ -310,7 +293,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
     return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
                                                                  dataStore:[self dataStore]
-                                                           discoveryMethod:self.dataSource.discoveryMethod];
+                                                           discoveryMethod:[self discoveryMethod]];
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
@@ -324,20 +307,32 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (NSString*)analyticsName {
-    return [self.dataSource analyticsName];
+- (MWKHistoryDiscoveryMethod)discoveryMethod {
+    return MWKHistoryDiscoveryMethodUnknown;
 }
 
-@end
+- (NSString*)analyticsName {
+    return @"Article List";
+}
 
-@implementation WMFSelfSizingArticleListTableViewController
+- (WMFEmptyViewType)emptyViewType {
+    return WMFEmptyViewTypeNone;
+}
 
-- (void)loadView {
-    [super loadView];
-    UITableView* tv = [[WMFIntrinsicSizeTableView alloc] initWithFrame:CGRectZero];
-    tv.translatesAutoresizingMaskIntoConstraints = NO;
-    tv.delegate                                  = self;
-    self.tableView                               = tv;
+- (BOOL)showsDeleteAllButton {
+    return NO;
+}
+
+- (NSString*)deleteAllConfirmationText {
+    return nil;
+}
+
+- (NSString*)deleteText {
+    return nil;
+}
+
+- (NSString*)deleteCancelText {
+    return nil;
 }
 
 @end
