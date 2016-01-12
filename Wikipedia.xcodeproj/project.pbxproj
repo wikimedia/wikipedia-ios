@@ -13,6 +13,7 @@
 		0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */; };
 		0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */; };
 		0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */; };
+		0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */; };
 		0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */; };
 		0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */; };
 		0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */; };
@@ -635,6 +636,8 @@
 		0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchListViewController.m; path = Wikipedia/Code/WMFLocationSearchListViewController.m; sourceTree = SOURCE_ROOT; };
 		0E0361781C44905400FD9642 /* WMFRelatedTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedTitleViewController.h; path = Wikipedia/Code/WMFRelatedTitleViewController.h; sourceTree = SOURCE_ROOT; };
 		0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedTitleViewController.m; path = Wikipedia/Code/WMFRelatedTitleViewController.m; sourceTree = SOURCE_ROOT; };
+		0E03617E1C456C4600FD9642 /* WMFReadMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFReadMoreViewController.h; path = Wikipedia/Code/WMFReadMoreViewController.h; sourceTree = SOURCE_ROOT; };
+		0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFReadMoreViewController.m; path = Wikipedia/Code/WMFReadMoreViewController.m; sourceTree = SOURCE_ROOT; };
 		0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsTableViewController.m; path = Code/WMFSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		0E09EABE1C4426470058F2D8 /* WMFSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSearchResultsTableViewController.h; path = Code/WMFSearchResultsTableViewController.h; sourceTree = "<group>"; };
 		0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSavedArticleTableViewController.m; sourceTree = "<group>"; };
@@ -2744,6 +2747,8 @@
 				B0E803661C0CD91D0065EBC0 /* WMFArticleContainerViewController.m */,
 				B0E803681C0CD9300065EBC0 /* WMFArticleContainerViewController_Private.h */,
 				B0E803691C0CD9300065EBC0 /* WMFArticleContainerViewController_Transitioning.h */,
+				0E03617E1C456C4600FD9642 /* WMFReadMoreViewController.h */,
+				0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */,
 			);
 			name = Article;
 			path = Wikipedia/Code/Article;
@@ -5506,6 +5511,7 @@
 				B0E806B71C0CEB160065EBC0 /* LanguagesViewController.m in Sources */,
 				B0E805521C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m in Sources */,
 				BCAE0DFA1C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m in Sources */,
+				0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */,
 				0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */,
 				B0E804BE1C0CE0B40065EBC0 /* CLLocation+WMFBearing.m in Sources */,
 				B0E8030A1C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m in Sources */,
