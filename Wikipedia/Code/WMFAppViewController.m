@@ -19,8 +19,6 @@
 
 // Model
 #import "MediaWikiKit.h"
-#import "WMFSavedPagesDataSource.h"
-#import "WMFRecentPagesDataSource.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -101,8 +99,8 @@ static dispatch_once_t launchToken;
     self.rootTabBarController = tabBar;
     [self configureTabController];
     [self configureHomeViewController];
-    [self configureSavedViewController];
-    [self configureRecentViewController];
+    [self configureArticleListController:self.savedArticlesViewController];
+    [self configureArticleListController:self.recentArticlesViewController];
 }
 
 - (void)configureTabController {
@@ -123,22 +121,6 @@ static dispatch_once_t launchToken;
 
 - (void)configureArticleListController:(WMFArticleListTableViewController*)controller {
     controller.dataStore = self.session.dataStore;
-}
-
-- (void)configureSavedViewController {
-    [self configureArticleListController:self.savedArticlesViewController];
-    if (!self.savedArticlesViewController.dataSource) {
-        self.savedArticlesViewController.dataSource =
-            [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self userDataStore].savedPageList];
-    }
-}
-
-- (void)configureRecentViewController {
-    [self configureArticleListController:self.recentArticlesViewController];
-    if (!self.recentArticlesViewController.dataSource) {
-        self.recentArticlesViewController.dataSource =
-            [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self userDataStore].historyList savedPages:[self userDataStore].savedPageList];
-    }
 }
 
 #pragma mark - Notifications
@@ -443,7 +425,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
+//    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
 }
 
 #pragma mark - Notifications

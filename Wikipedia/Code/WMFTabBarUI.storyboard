@@ -59,10 +59,10 @@
             </objects>
             <point key="canvasLocation" x="886" y="2881"/>
         </scene>
-        <!--Article List Table View Controller-->
+        <!--Saved Article Table View Controller-->
         <scene sceneID="Uaj-Q3-jYT">
             <objects>
-                <tableViewController id="e79-4K-3DF" customClass="WMFArticleListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="e79-4K-3DF" customClass="WMFSavedArticleTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="n0h-Oz-3rH">
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,10 +98,10 @@
             </objects>
             <point key="canvasLocation" x="2367" y="2115"/>
         </scene>
-        <!--Article List Table View Controller-->
+        <!--History Table View Controller-->
         <scene sceneID="Wf7-qC-7Gn">
             <objects>
-                <tableViewController id="PJq-J4-m3k" customClass="WMFArticleListTableViewController" sceneMemberID="viewController">
+                <tableViewController id="PJq-J4-m3k" customClass="WMFHistoryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="RiJ-nm-vrg">
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

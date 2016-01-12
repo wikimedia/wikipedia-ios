@@ -3,11 +3,7 @@
 #import "MWKDataStore.h"
 #import "MWKHistoryList.h"
 #import "MWKHistoryEntry.h"
-#import "MWKSavedPageList.h"
 #import "MWKArticle.h"
-#import "WMFArticleListTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
-#import "NSString+Extras.h"
 #import "NSDate+Utilities.h"
 #import "UIImageView+WMFImageFetching.h"
 #import "NSDateFormatter+WMFExtensions.h"
@@ -17,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFRecentPagesDataSource ()
 
 @property (nonatomic, strong, readwrite) MWKHistoryList* recentPages;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @end
 
@@ -27,29 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages savedPages:(MWKSavedPageList*)savedPages {
+- (nonnull instancetype)initWithRecentPagesList:(MWKHistoryList*)recentPages {
     NSParameterAssert(recentPages);
-    NSParameterAssert(savedPages);
     self = [super initWithSections:[WMFRecentPagesDataSource sectionsFromHistoryList:recentPages]];
     if (self) {
-        self.recentPages   = recentPages;
-        self.savedPageList = savedPages;
+        self.recentPages = recentPages;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rebuildSections) name:MWKHistoryListDidUpdateNotification object:recentPages];
-
-        self.cellClass = [WMFArticleListTableViewCell class];
-
-        @weakify(self);
-        self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
-                                    MWKHistoryEntry* entry,
-                                    UITableView* tableView,
-                                    NSIndexPath* indexPath) {
-            @strongify(self);
-            MWKArticle* article = [[self dataStore] articleWithTitle:entry.title];
-            cell.titleText       = article.title.text;
-            cell.descriptionText = [article.entityDescription wmf_stringByCapitalizingFirstCharacter];
-            [cell setImage:[article bestThumbnailImage]];
-        };
 
         self.tableDeletionBlock = ^(WMFRecentPagesDataSource* dataSource,
                                     UITableView* parentView,
@@ -130,11 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.tableView endUpdates];
 }
 
-- (void)setTableView:(nullable UITableView*)tableView {
-    [super setTableView:tableView];
-    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-}
-
 - (NSArray*)titles {
     return [[self.recentPages entries] bk_map:^id (MWKHistoryEntry* obj) {
         return obj.title;
@@ -143,10 +117,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKDataStore*)dataStore {
     return self.recentPages.dataStore;
-}
-
-- (nullable NSString*)displayTitle {
-    return MWLocalizedString(@"history-title", nil);
 }
 
 - (NSUInteger)titleCount {
@@ -161,10 +131,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self recentPageForIndexPath:indexPath] title];
 }
 
-- (WMFEmptyViewType)emptyViewType {
-    return WMFEmptyViewTypeNoHistory;
-}
-
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath {
     return YES;
 }
@@ -177,33 +143,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (BOOL)showsDeleteAllButton {
-    return YES;
-}
-
-- (NSString*)deleteAllConfirmationText {
-    return MWLocalizedString(@"history-clear-confirmation-heading", nil);
-}
-
-- (NSString*)deleteText {
-    return MWLocalizedString(@"history-clear-delete-all", nil);
-}
-
-- (NSString*)deleteCancelText {
-    return MWLocalizedString(@"history-clear-cancel", nil);
-}
-
 - (void)deleteAll {
     [self.recentPages removeAllEntries];
     [self.recentPages save];
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodUnknown;
-}
-
-- (NSString*)analyticsName {
-    return @"Recent";
 }
 
 @end
