@@ -95,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
     }];
 }
