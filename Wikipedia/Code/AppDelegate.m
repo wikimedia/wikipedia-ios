@@ -60,8 +60,6 @@
 }
 
 - (void)updateDynamicIconShortcutItems {
-    self.appViewController.shortcutItemSelectedAtLaunch = nil;
-
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) {
         return;
     }
@@ -81,7 +79,7 @@
 }
 
 - (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    self.appViewController.shortcutItemSelectedAtLaunch = shortcutItem;
+    [self.appViewController processShortcutItem:shortcutItem];
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {

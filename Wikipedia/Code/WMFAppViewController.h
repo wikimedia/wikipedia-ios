@@ -7,6 +7,6 @@
 
 - (void)launchAppInWindow:(UIWindow*)window;
 
-@property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
+- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion;
 
 @end

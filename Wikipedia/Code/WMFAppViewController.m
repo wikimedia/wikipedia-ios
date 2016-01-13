@@ -88,6 +88,9 @@ static dispatch_once_t launchToken;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
 
+@property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
+@property (nonatomic, strong) void (^ shortcutCompletion)(BOOL succeeded);
+
 @property (nonatomic) BOOL isPresentingOnboarding;
 
 @end
@@ -170,6 +173,11 @@ static dispatch_once_t launchToken;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 }
 
+- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
+    self.shortcutItemSelectedAtLaunch = item;
+    self.shortcutCompletion           = completion;
+}
+
 - (void)resumeApp {
     if (![self launchCompleted] || self.isPresentingOnboarding) {
         return;
@@ -223,6 +231,10 @@ static dispatch_once_t launchToken;
                 [self showNearbyListAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
                 [self showLastReadArticleAnimated:YES];
+            }
+            if (self.shortcutCompletion) {
+                self.shortcutCompletion(YES);
+                self.shortcutCompletion = NULL;
             }
         };
 
