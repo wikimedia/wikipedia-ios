@@ -351,16 +351,16 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-AppleLocale ar-EG"
+            argument = "-AppleLocale he_IL"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-AppleLanguages (he)"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-NSForceRightToLeftWritingDirection YES&#10;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-AppleTextDirection YES"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

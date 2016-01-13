@@ -36,7 +36,7 @@
 #pragma mark - Accessors
 
 - (UIImage*)iconImage {
-    return self.selected ? [UIImage imageNamed : @"save-filled-mini"] :[UIImage imageNamed:@"save-mini"];
+    return self.selected ? ([UIImage imageNamed:@"save-filled-mini"]) : ([UIImage imageNamed:@"save-mini"]);
 }
 
 - (NSString*)labelText {
