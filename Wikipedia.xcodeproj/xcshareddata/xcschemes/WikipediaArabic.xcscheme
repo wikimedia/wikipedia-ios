@@ -228,6 +228,12 @@
                   Identifier = "UIImageView_MWKImageTests">
                </Test>
                <Test
+                  Identifier = "UIViewController_WMFSearchButtonTests">
+               </Test>
+               <Test
+                  Identifier = "WMFArticleFetchIfNeededTests">
+               </Test>
+               <Test
                   Identifier = "WMFArticleImageInjectionTests">
                </Test>
                <Test
@@ -271,6 +277,9 @@
                </Test>
                <Test
                   Identifier = "WMFMathTests">
+               </Test>
+               <Test
+                  Identifier = "WMFModalArticleImageGalleryDataSourceTests">
                </Test>
                <Test
                   Identifier = "WMFPicOfTheDayTableViewCellVisualTests">
