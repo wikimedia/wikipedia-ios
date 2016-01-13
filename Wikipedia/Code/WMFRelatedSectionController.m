@@ -20,6 +20,8 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
+#import "WMFRelatedTitleViewController.h"
+
 // Style
 #import "UIFont+WMFStyle.h"
 #import "NSString+FormattedAttributedString.h"
@@ -31,7 +33,8 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* relatedTitleDataSource;
 
@@ -45,25 +48,29 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                       savedPageList:(MWKSavedPageList*)savedPageList {
+                           dataStore:(MWKDataStore*)dataStore {
     return [self initWithArticleTitle:title
-                        savedPageList:savedPageList
+                            dataStore:dataStore
                  relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
 }
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                       savedPageList:(MWKSavedPageList*)savedPageList
+                           dataStore:(MWKDataStore*)dataStore
                 relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
-    NSParameterAssert(savedPageList);
+    NSParameterAssert(dataStore);
     NSParameterAssert(relatedSearchFetcher);
     self = [super init];
     if (self) {
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
-        self.savedPageList        = savedPageList;
+        self.dataStore            = dataStore;
     }
     return self;
+}
+
+- (MWKSavedPageList*)savedPageList {
+    return self.dataStore.userDataStore.savedPageList;
 }
 
 - (id)sectionIdentifier {
@@ -144,18 +151,20 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
                                    initWithTitle:self.title
                                        dataStore:self.savedPageList.dataStore
-                                   savedPageList:self.savedPageList
                                      resultLimit:WMFMaxRelatedSearchResultLimit
                                          fetcher:self.relatedSearchFetcher];
     }
     return _relatedTitleDataSource;
 }
 
-- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
+- (UIViewController*)moreViewController {
     if (!self.relatedSearchFetcher.isFetching && !self.relatedTitleDataSource.relatedSearchResults) {
         [self.relatedTitleDataSource fetch];
     }
-    return self.relatedTitleDataSource;
+    WMFRelatedTitleViewController* vc = [[WMFRelatedTitleViewController alloc] init];
+    vc.dataSource = self.relatedTitleDataSource;
+    vc.dataStore  = self.dataStore;
+    return vc;
 }
 
 - (BOOL)hasResults {

@@ -22,8 +22,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-// TODO: move to separate file in article container folder
-@interface WMFSelfSizingArticleListTableViewController : WMFArticleListTableViewController
+
+@interface WMFArticleListTableViewController (WMFSubclasses)
+
+- (MWKHistoryDiscoveryMethod)discoveryMethod;
+- (NSString*)analyticsName;
+
+- (WMFEmptyViewType)emptyViewType;
+
+- (BOOL)showsDeleteAllButton;
+- (NSString*)deleteAllConfirmationText;
+- (NSString*)deleteText;
+- (NSString*)deleteCancelText;
 
 @end
 

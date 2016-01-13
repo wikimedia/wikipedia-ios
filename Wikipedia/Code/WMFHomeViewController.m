@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                      savedPageList:self.savedPages
+                                                                      dataStore:self.dataStore
                                                                     locationManager:self.locationManager];
     }
     return _nearbySectionController;
@@ -336,7 +336,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Section Controller Creation
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFHomeSection*)item {
-    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title savedPageList:self.savedPages];
+    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore];
 }
 
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFHomeSection*)item {
@@ -502,15 +502,14 @@ NS_ASSUME_NONNULL_BEGIN
         DDLogError(@"Unexpected footer tap for missing section %lu.", section);
         return;
     }
-    if (![controllerForSection respondsToSelector:@selector(extendedListDataSource)]) {
+    if (![controllerForSection respondsToSelector:@selector(moreViewController)]) {
         return;
     }
     id<WMFArticleHomeSectionController> articleSectionController = (id<WMFArticleHomeSectionController>)controllerForSection;
-    WMFArticleListTableViewController* extendedList              = [[WMFArticleListTableViewController alloc] init];
-    extendedList.dataStore  = self.dataStore;
-    extendedList.dataSource = [articleSectionController extendedListDataSource];
+
+    UIViewController* moreVC              = [articleSectionController moreViewController];
     [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
-    [self.navigationController pushViewController:extendedList animated:YES];
+    [self.navigationController pushViewController:moreVC animated:YES];
 }
 
 - (void)didTapHeaderInSection:(NSUInteger)section {

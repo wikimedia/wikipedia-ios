@@ -1,7 +1,7 @@
 
 #import "WMFHomeSectionController.h"
 
-@class WMFLocationManager, WMFNearbyViewModel, MWKSite, MWKSavedPageList;
+@class WMFLocationManager, WMFNearbyViewModel, MWKSite, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -9,11 +9,11 @@ NS_ASSUME_NONNULL_BEGIN
     <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site
-               savedPageList:(MWKSavedPageList*)savedPageList
+                   dataStore:(MWKDataStore*)dataStore
              locationManager:(WMFLocationManager*)locationManager;
 
 - (instancetype)initWithSite:(MWKSite*)site
-               savedPageList:(MWKSavedPageList*)savedPageList
+                   dataStore:(MWKDataStore*)dataStore
                    viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong) MWKSite* searchSite;

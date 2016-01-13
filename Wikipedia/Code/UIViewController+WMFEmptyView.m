@@ -38,6 +38,9 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         case WMFEmptyViewTypeNoHistory:
             view = [WMFEmptyView noHistoryEmptyView];
             break;
+        default:
+            return;
+    
     }
 
     UIView* container = self.view.superview;

@@ -1,10 +1,3 @@
-//
-//  WMFNearbyTitleListDataSource.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFNearbyTitleListDataSource.h"
 
@@ -20,8 +13,6 @@
 #import "MWKHistoryEntry.h"
 
 // Views
-#import "WMFNearbyArticleTableViewCell.h"
-#import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -46,28 +37,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([viewModel.site isEqualToSite:site]);
     self = [super initWithItems:nil];
     if (self) {
-        self.cellClass = [WMFNearbyArticleTableViewCell class];
-        @weakify(self);
-        self.cellConfigureBlock = ^(WMFNearbyArticleTableViewCell* nearbyCell,
-                                    MWKLocationSearchResult* result,
-                                    id parentView,
-                                    NSIndexPath* indexPath) {
-            @strongify(self);
-            nearbyCell.titleText       = result.displayTitle;
-            nearbyCell.descriptionText = result.wikidataDescription;
-            [nearbyCell setImageURL:result.thumbnailURL];
-            [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
-            [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
-        };
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
     }
     return self;
-}
-
-- (void)setTableView:(nullable UITableView*)tableView {
-    [super setTableView:tableView];
-    [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
 }
 
 - (void)setSite:(MWKSite* __nonnull)site {
@@ -78,18 +51,18 @@ NS_ASSUME_NONNULL_BEGIN
     return self.viewModel.site;
 }
 
-#pragma mark - WMFArticleListDynamicDataSource
-
-- (NSString* __nullable)displayTitle {
-    return MWLocalizedString(@"main-menu-nearby", nil);
+- (WMFSearchResultDistanceProvider*)distanceProviderForResultAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.viewModel distanceProviderForResultAtIndex:indexPath.row];
 }
+
+- (WMFSearchResultBearingProvider*)bearingProviderForResultAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.viewModel bearingProviderForResultAtIndex:indexPath.row];
+}
+
+#pragma mark - WMFArticleListDynamicDataSource
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath* __nonnull)indexPath {
     return NO;
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
 }
 
 - (NSArray*)titles {
@@ -135,10 +108,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)nearbyViewModel:(WMFNearbyViewModel*)viewModel shouldFetchTitlesForLocation:(CLLocation*)location {
     return [self numberOfItems] == 0;
-}
-
-- (NSString*)analyticsName {
-    return @"Nearby";
 }
 
 @end
