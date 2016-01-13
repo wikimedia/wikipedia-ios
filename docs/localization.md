@@ -32,9 +32,10 @@ _TODO: elaborate on considerations when implementing navigation in the app, i.e.
 Some important things to test across different locales (and operating systems):
 
 - View layout in LTR & RTL environments
-- Content overflow in long languages
 - custom `NSDateFormatter`
 - Data models for horizontal navigation which need to be reversed when app is RTL (e.g. image gallery data sources)
+
+Text overflow is also an important consideration when designing and implementing views, but doesn't require exhaustive locale testing.  Typically, it's sufficient to pass short, medium, and long strings to the test subject and verify proper wrapping, truncating, and/or layout behavior. See [`WMFArticleListCellVisualTests`](../WikipediaUnitTests/Code/WMFArticleListCellVisualTests.m) for an example.
 
 #### Internationalization testing strategies
 We run a certain set of tests across multiple operating systems and locales to verify business logic, and especially views, exhibit proper conditional behavior & appearance.  From a project setup standpoint, this involves:
