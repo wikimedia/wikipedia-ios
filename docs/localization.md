@@ -37,6 +37,13 @@ Some important things to test across different locales (and operating systems):
 - Data models for horizontal navigation which need to be reversed when app is RTL (e.g. image gallery data sources)
 
 #### Internationalization testing strategies
+We run a certain set of tests across multiple operating systems and locales to verify business logic, and especially views, exhibit proper conditional behavior & appearance.  From a project setup standpoint, this involves:
+
+- Running LTR tests on the main scheme on iOS 8 & 9 simulators
+- Running RTL tests in a separate, **Wikipedia Arabic** scheme on iOS 8 & 9 simulators
+
+> The RTL locale & writing direction are forced in the scheme using launch arguments as described in the [Testing Right-to-Left Layouts](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/TestingYourInternationalApp/TestingYourInternationalApp.html) section of Apple's "Internationalization and Localization Guide."
+
 ##### Unit tests
 Ideally, the code should be factored in such a way that the relevant inputs (i.e. OS version and/or layout direction) can be passed explicitly during tests.  For example, given a method that returns a different value based on a layout direction:
 ``` objc
