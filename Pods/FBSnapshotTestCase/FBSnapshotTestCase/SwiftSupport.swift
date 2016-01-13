@@ -10,11 +10,11 @@
 
 public extension FBSnapshotTestCase {
   public func FBSnapshotVerifyView(view: UIView, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), file: String = __FILE__, line: UInt = __LINE__) {
-    FBSnapshotVerifyViewOrLayer(view, identifier: identifier, suffixes: suffixes)
+    FBSnapshotVerifyViewOrLayer(view, identifier: identifier, suffixes: suffixes, file: file, line: line)
   }
 
   public func FBSnapshotVerifyLayer(layer: CALayer, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), file: String = __FILE__, line: UInt = __LINE__) {
-    FBSnapshotVerifyViewOrLayer(layer, identifier: identifier, suffixes: suffixes)
+    FBSnapshotVerifyViewOrLayer(layer, identifier: identifier, suffixes: suffixes, file: file, line: line)
   }
 
   private func FBSnapshotVerifyViewOrLayer(viewOrLayer: AnyObject, identifier: String = "", suffixes: NSOrderedSet = FBSnapshotTestCaseDefaultSuffixes(), file: String = __FILE__, line: UInt = __LINE__) {

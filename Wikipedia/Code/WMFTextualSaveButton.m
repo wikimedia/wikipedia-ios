@@ -15,8 +15,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self setupViews];
-        [self applySelectedState];
+        [self commonInit];
     }
     return self;
 }
@@ -24,10 +23,14 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupViews];
-        [self applySelectedState];
+        [self commonInit];
     }
     return self;
+}
+
+- (void)commonInit {
+    [self setupViews];
+    [self applyInitialState];
 }
 
 #pragma mark - Accessors
@@ -59,13 +62,15 @@
 - (void)addMissingViews {
     if (!self.saveIconImageView) {
         UIImageView* saveIconImageView = [UIImageView new];
-        saveIconImageView.contentMode = UIViewContentModeScaleAspectFit;
+        saveIconImageView.contentMode = UIViewContentModeCenter;
         [self addSubview:saveIconImageView];
         self.saveIconImageView = saveIconImageView;
 
         [self.saveIconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.leading.top.and.bottom.equalTo(self);
         }];
+        // imageView must hug content, otherwise it will expand and "push" label towards opposite edge
+        [self.saveIconImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     }
 
     if (!self.saveTextLabel) {
@@ -85,15 +90,25 @@
     }
 }
 
-- (void)applySelectedState {
+- (void)applyInitialState {
+    [self applySelectedState:NO];
+    [self applyTintColor];
+}
+
+- (void)applySelectedState:(BOOL)animated {
     [UIView transitionWithView:self
-                      duration:[CATransaction animationDuration]
+                      duration:animated ? [CATransaction animationDuration] : 0.0
                        options:UIViewAnimationOptionTransitionCrossDissolve
                     animations:^{
         self.saveIconImageView.image = [self iconImage];
         self.saveTextLabel.text = [self labelText];
     }
                     completion:nil];
+}
+
+- (void)applyTintColor {
+    self.saveTextLabel.textColor = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
+    self.saveIconImageView.tintColor = self.tintColor;
 }
 
 #pragma mark - UIControl
@@ -106,13 +121,12 @@
 
 - (void)tintColorDidChange {
     [super tintColorDidChange];
-    self.saveTextLabel.textColor = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
-    self.saveIconImageView.tintColor = self.tintColor;
+    [self applyTintColor];
 }
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    [self applySelectedState];
+    [self applySelectedState:YES];
 }
 
 @end

@@ -216,6 +216,12 @@
                   Identifier = "SavedArticlesFetcherTests">
                </Test>
                <Test
+                  Identifier = "SessionSingletonTests">
+               </Test>
+               <Test
+                  Identifier = "TWNStringsTests">
+               </Test>
+               <Test
                   Identifier = "UIImageViewWMFImageFetchingVisualTests">
                </Test>
                <Test
@@ -291,6 +297,9 @@
                   Identifier = "WMFSubstringUtilsTests">
                </Test>
                <Test
+                  Identifier = "XCTestCasePromiseKitSwiftTests">
+               </Test>
+               <Test
                   Identifier = "XCTestCase_PromiseKitSwiftTests">
                </Test>
                <Test
@@ -320,9 +329,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES"
-      language = "ar"
-      region = "EG">
+      allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -333,6 +340,20 @@
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-AppleLocale ar-EG"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-NSForceRightToLeftWritingDirection YES&#10;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-AppleTextDirection YES"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
