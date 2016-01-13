@@ -83,9 +83,15 @@ static dispatch_once_t launchToken;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
 
+@property (nonatomic) BOOL isPresentingOnboarding;
+
 @end
 
 @implementation WMFAppViewController
+
+- (BOOL)isPresentingOnboarding {
+    return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -160,41 +166,37 @@ static dispatch_once_t launchToken;
 }
 
 - (void)resumeApp {
-    if (![self launchCompleted]) {
+    if (![self launchCompleted] || self.isPresentingOnboarding) {
         return;
     }
 
-    [self handleSelectionOfShortcutItemIfNecessaryThen:^(BOOL shortcutWasHandled){
-        if (shortcutWasHandled) {
-            return;
-        }
-
-        if ([self shouldShowHomeScreenOnLaunch]) {
-            [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-            [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-        } else if ([self shouldShowLastReadArticleOnLaunch]) {
-            if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
-                MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-                if (lastRead) {
-                    [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-                    [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
-                }
-            }
-
-            if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
-                [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-            }
-            if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
-                [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-            }
-            if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
-                [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-            }
-            if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
-                [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    if ([self shouldShowHomeScreenOnLaunch]) {
+        [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+        [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+    } else if ([self shouldShowLastReadArticleOnLaunch]) {
+        if (FBTweakValue(@"Last Open Article", @"General", @"Restore on Launch", YES)) {
+            MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
+            if (lastRead) {
+                [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+                [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore];
             }
         }
-    }];
+
+        if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        }
+        if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        }
+        if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        }
+        if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
+            [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+        }
+    }
+
+    [self handleSelectionOfShortcutItemIfNecessary];
 }
 
 - (void)pauseApp {
@@ -202,16 +204,10 @@ static dispatch_once_t launchToken;
     [self performHousekeepingIfNecessary];
 }
 
-- (void)handleSelectionOfShortcutItemIfNecessaryThen:(void (^)(BOOL shortcutWasHandled))completion {
+- (void)handleSelectionOfShortcutItemIfNecessary {
     UIApplicationShortcutItem* shortcutItemSelectedAtLaunch = self.shortcutItemSelectedAtLaunch;
+    self.shortcutItemSelectedAtLaunch = nil;
     if (shortcutItemSelectedAtLaunch) {
-        // Main UI may *not* have been loaded if the user...
-        //      - minimized the app when viewing a "Welcome" screen
-        //      - then selected a 3d touch app icon shortcut menu item
-        [self loadMainUI];
-        [self hideSplashViewAnimated:NO];
-        [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
-
         @weakify(self)
         void (^ handleSelection)() = ^void () {
             @strongify(self)
@@ -224,16 +220,20 @@ static dispatch_once_t launchToken;
                 NSAssert([searchButton.target respondsToSelector:searchButton.action], @"Search button expected selector not found.");
 
                 [searchButton.target performSelector:searchButton.action withObject:searchButton afterDelay:0];
-                completion(YES);
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-                [self popToHomeAndScrollToSectionWithIdentifier:WMFRandomSectionIdentifier performingHeaderButtonAction:YES];
-                completion(YES);
+                
+                
+//TODO: hook up presenting a random article in web view
+                
+                
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-                [self popToHomeAndScrollToSectionWithIdentifier:WMFNearbySectionIdentifier performingHeaderButtonAction:NO];
-                completion(YES);
+                
+                
+//TODO: hook up presenting full nearby list
+                
+                
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
                 // Fall through to normal "Continue reading..." handling.
-                completion(NO);
             }
         };
 
@@ -244,19 +244,7 @@ static dispatch_once_t launchToken;
         } else {
             handleSelection();
         }
-    } else {
-        completion(NO);
     }
-}
-
-- (void)popToHomeAndScrollToSectionWithIdentifier:(NSString*)identifier performingHeaderButtonAction:(BOOL)performHeaderButtonAction {
-    [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
-
-    //HAX: Need to wait for table view to be ready. (Prevents crash when device not connected to Xcode.)
-    //TODO: handle this better!
-    dispatchOnMainQueueAfterDelayInSeconds(0.2, ^{
-        [self.homeViewController scrollToSectionWithIdentifier:identifier performingHeaderButtonAction:performHeaderButtonAction];
-    });
 }
 
 #pragma mark - Start App
