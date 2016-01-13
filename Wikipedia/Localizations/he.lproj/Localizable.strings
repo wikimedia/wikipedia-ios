@@ -13,6 +13,7 @@
 "article-languages-downloading" = "טעינת שפות הערך...";
 "article-languages-filter-placeholder" = "סינון שפה";
 "article-read-more-title" = "לקרוא עוד";
+"article-about-title" = "מידע על הערך הזה";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
 "article-unable-to-load-article" = "לא ניתן לטעון את הערך.";
 "article-related-articles-title" = "ערכים קשורים";
@@ -133,6 +134,7 @@
 "main-menu-more" = "עוד...";
 "main-menu-heading-debug" = "תיקון שגיאות";
 "main-menu-debug-crash" = "הקרסה";
+"saved-title" = "נשמר";
 "saved-pages-title" = "דפים שמורים";
 "saved-pages-clear-confirmation-heading" = "למחוק את כל הפריטים השמורים?";
 "saved-pages-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
@@ -143,6 +145,8 @@
 "saved-pages-refresh-cancel-alert-button" = "הבנתי";
 "saved-pages-description" = "דפים שמורים זה דבר די מגניב. הם כמו סימניות שאפשר לקרוא גם כשהמכשיר אינו מחובר לרשת.";
 "saved-pages-none" = "אין עדיין דפים שמורים.";
+"saved-pages-image-download-error" = "הורדת התמונות עבור הדך השמור הזה לא עבדה.";
+"history-title" = "היסטוריה";
 "page-history-title" = "היסטוריית הערך";
 "page-history-downloading" = "טעינת היסטוריית הדף";
 "navbar-title-mode-edit-wikitext" = "עריכה";
@@ -285,6 +289,9 @@
 "hockeyapp-alert-privacy" = "פרטיות של $1";
 "page-issues" = "בעיות בדף";
 "page-similar-titles" = "דפים דומים";
+"page-read-in-other-languages" = "לקרוא בעוד $1 שפות";
+"page-last-edited" = "נערך לפי $1 ימים";
+"page-edit-history" = "היסטוריית עריכה מלאה";
 "captcha-reload" = "להראות תמונת אימות אחרת";
 "captcha-prompt" = "נא להזין את הטקסט מהתמונה לעיל";
 "mwk-empty-title-error" = "לא ניתן לבצע את הפעולה עם כותרת ריקה.";
@@ -310,20 +317,25 @@
 "welcome-whats-new-button-title" = "להתחיל";
 "welcome-whats-new-bullet-one-more-info-text" = "בעת ביקור בערך, ערכים קשורים נוספים אוטומטית להזנה שלך. זה לא משנה את הצורה שבא אנחנו אוספים מידע והיסטוריית הקריאה שלך עדיין פרטית.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "הבנתי";
-// Fuzzy
-"welcome-languages-title" = "נא לבחור את השפות שלך";
+"welcome-languages-title" = "באילו שפות לחפש";
+"welcome-languages-more-info-button-text" = "ספרו לי עוד";
+"welcome-languages-more-info-text" = "ערכי ויקיפדיה זמינים לעתים קרובות בשפות רבות. נא לבחור את השפות שברצונך להשתמש בהן בעת החיפוש. אפשר לשנות את זה אחר־כך.";
+"welcome-languages-more-info-done-button" = "הבנתי";
 "welcome-languages-more-languages-button-title" = "הוספת שפות";
 "welcome-languages-button-title" = "המשך";
 "welcome-languages-footnote-text" = "אל דאגה, אפשר לשנות את זה אחר־כך.";
 "welcome-usage-reports-title" = "עזרו לנו לשפר את ויקיפדיה";
 "welcome-usage-reports-body-text" = "אתם יכולים לעזור לנו לשפר את היישום אם תאפשרו לנו לאסוף מידע על איך שאתם משתמשים בו.";
 "welcome-usage-reports-switch-text" = "לשלוח דיווחי שימוש";
-// Fuzzy
-"welcome-usage-reports-button-title" = "בוצע";
+"welcome-usage-reports-button-title" = "להתחיל";
 "welcome-usage-reports-privacy-policy-button-text" = "אכפת לנו מהפרטיות שלך";
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-feed-action-message" = "בינתיים אפשר לקרוא דפים שמורים";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-search-results-message" = "סליחה, לא ניתן לטעון את התוצאות";
+"empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
+"empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
+"empty-no-history-title" = "אין היסטוריה להציג";
+"empty-no-history-message" = "כאן אפשר לעקוב אחרי מה שקראת";
 "alert-no-internet" = "אין חיבור אינטרנט";

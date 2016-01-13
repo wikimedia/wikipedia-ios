@@ -85,6 +85,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Avaa linkki";
 "open-link-cancel" = "Peruuta";
+"search-title" = "Haku";
 "search-searching" = "Haetaan...";
 "search-no-matches" = "Hakutuloksia ei löytynyt hakusanallasi.";
 "search-field-placeholder-text" = "Wikipedia-haku";
@@ -134,6 +135,7 @@
 "main-menu-more" = "Lisää...";
 "main-menu-heading-debug" = "Vianetsintä";
 "main-menu-debug-crash" = "Virhe";
+"saved-title" = "Tallennettu";
 "saved-pages-title" = "Tallennetut sivut";
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
@@ -144,6 +146,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Selvä!";
 "saved-pages-description" = "Tallennetut sivut ovat melko loistavia. Ajattele niitä kirjanmerkkeinä, joita voit lukea ilman verkkoyhteyttä.";
 "saved-pages-none" = "Ei vielä tallennettuja sivuja.";
+"history-title" = "Historia";
 "page-history-title" = "Artikkelin historia";
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
 "navbar-title-mode-edit-wikitext" = "Muokkaa";

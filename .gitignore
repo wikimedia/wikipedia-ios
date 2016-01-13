@@ -1,6 +1,9 @@
 # Mac OS X ignores
 .DS_Store
 
+# Vim
+*.sw*
+
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
 build/
 *.pbxuser

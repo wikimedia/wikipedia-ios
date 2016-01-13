@@ -18,6 +18,7 @@
 "article-languages-downloading" = "条目语言载入中...";
 "article-languages-filter-placeholder" = "语言过滤器";
 "article-read-more-title" = "阅读更多";
+"article-about-title" = "关于此条目";
 "article-unable-to-load-section" = "无法载入此章节。请尝试刷新条目以查看问题是否解决。";
 "article-unable-to-load-article" = "无法加载条目。";
 "article-related-articles-title" = "相关条目";
@@ -138,6 +139,7 @@
 "main-menu-more" = "更多…";
 "main-menu-heading-debug" = "调试";
 "main-menu-debug-crash" = "崩溃";
+"saved-title" = "已保存";
 "saved-pages-title" = "已保存页面";
 "saved-pages-clear-confirmation-heading" = "删除所有保存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能撤销！";
@@ -148,6 +150,8 @@
 "saved-pages-refresh-cancel-alert-button" = "明白了";
 "saved-pages-description" = "保存页面非常棒。试想一下在您保存后，即使离线时也可以阅读。";
 "saved-pages-none" = "尚未保存页面。";
+"saved-pages-image-download-error" = "下载用于该保存页面的图片失败。";
+"history-title" = "历史";
 "page-history-title" = "条目历史";
 "page-history-downloading" = "加载条目历史...";
 "navbar-title-mode-edit-wikitext" = "编辑";
@@ -290,6 +294,9 @@
 "hockeyapp-alert-privacy" = "$1隐私";
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
+"page-read-in-other-languages" = "在$1种语言中阅读";
+"page-last-edited" = "编辑于$1天前";
+"page-edit-history" = "完整编辑历史";
 "captcha-reload" = "显示另一个验证码";
 "captcha-prompt" = "输入上面图片的验证码文字";
 "mwk-empty-title-error" = "无法执行带空标题的操作。";
@@ -315,20 +322,25 @@
 "welcome-whats-new-button-title" = "开始";
 "welcome-whats-new-bullet-one-more-info-text" = "当您访问条目时，相关条目会自动添加至您的订阅源中。这不会更改我们收集您信息的方式，并且您的阅读历史仍然是私有的。";
 "welcome-whats-new-bullet-one-more-info-done-button" = "明白了";
-// Fuzzy
-"welcome-languages-title" = "选择您的语言";
+"welcome-languages-title" = "要搜索的语言";
+"welcome-languages-more-info-button-text" = "告诉我们更多";
+"welcome-languages-more-info-text" = "维基百科条目经常有多种语言版本。选择您想在搜索时使用的语言。您可在稍后改变这些。";
+"welcome-languages-more-info-done-button" = "明白了";
 "welcome-languages-more-languages-button-title" = "添加更多语言";
 "welcome-languages-button-title" = "继续";
 "welcome-languages-footnote-text" = "不要担心，您可以稍后更新它。";
 "welcome-usage-reports-title" = "帮助我们使维基百科做的更好";
 "welcome-usage-reports-body-text" = "您可以通过允许我们收集有关您使用应用程序时产生的信息，帮助我们使应用程序更好。";
 "welcome-usage-reports-switch-text" = "发送使用情况报告";
-// Fuzzy
-"welcome-usage-reports-button-title" = "完成";
+"welcome-usage-reports-button-title" = "入门";
 "welcome-usage-reports-privacy-policy-button-text" = "您的隐私对我们很重要";
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
 "empty-no-feed-action-message" = "同时您可以阅读保存的页面";
 "empty-no-article-message" = "对不起，无法加载条目";
 "empty-no-search-results-message" = "对不起，无法加载结果";
+"empty-no-saved-pages-title" = "尚无保存的页面";
+"empty-no-saved-pages-message" = "保存页面以便日后查看，即便在离线时";
+"empty-no-history-title" = "没有要显示的历史";
+"empty-no-history-message" = "在此记录您的阅读经历";
 "alert-no-internet" = "当前无网络连接";

@@ -23,16 +23,17 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 
-NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+#import "WMFLocationSearchListViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
+NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
 @interface WMFNearbySectionController ()
 <WMFNearbyViewModelDelegate>
 
 @property (nonatomic, strong) WMFNearbyViewModel* viewModel;
 
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+@property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
@@ -45,24 +46,24 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithSite:(MWKSite*)site
-               savedPageList:(MWKSavedPageList*)savedPageList
+                   dataStore:(MWKDataStore*)dataStore
              locationManager:(WMFLocationManager*)locationManager {
     return [self initWithSite:site
-                savedPageList:savedPageList
+                    dataStore:dataStore
                     viewModel:[[WMFNearbyViewModel alloc] initWithSite:site
                                                            resultLimit:3
                                                        locationManager:locationManager]];
 }
 
 - (instancetype)initWithSite:(MWKSite*)site
-               savedPageList:(MWKSavedPageList*)savedPageList
+                   dataStore:(MWKDataStore*)dataStore
                    viewModel:(WMFNearbyViewModel*)viewModel {
     NSParameterAssert(site);
-    NSParameterAssert(savedPageList);
+    NSParameterAssert(dataStore);
     NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
-        self.savedPageList      = savedPageList;
+        self.dataStore          = dataStore;
         self.viewModel          = viewModel;
         self.viewModel.delegate = self;
     }
@@ -70,6 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Accessors
+
+- (MWKSavedPageList*)savedPageList {
+    return self.dataStore.userDataStore.savedPageList;
+}
 
 - (BOOL)hasResults {
     return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
@@ -179,8 +184,9 @@ NS_ASSUME_NONNULL_BEGIN
     return [self hasResults];
 }
 
-- (SSArrayDataSource<WMFTitleListDataSource>*)extendedListDataSource {
-    return [[WMFNearbyTitleListDataSource alloc] initWithSite:self.searchSite];
+- (UIViewController*)moreViewController {
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+    return vc;
 }
 
 - (void)fetchDataIfNeeded {

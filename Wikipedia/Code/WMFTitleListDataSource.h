@@ -1,14 +1,11 @@
 #import <Foundation/Foundation.h>
 #import "MWKHistoryEntry.h"
-#import "WMFAnalyticsLogging.h"
 #import "UIViewController+WMFEmptyView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @class MWKSavedPageList;
 
-@protocol WMFTitleListDataSource <WMFAnalyticsLogging>
-
-- (nullable NSString*)displayTitle;
+@protocol WMFTitleListDataSource
 
 @property (nonatomic, strong, readonly) NSArray* titles;
 
@@ -18,27 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)canDeleteItemAtIndexpath:(NSIndexPath*)indexPath;
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
-
 @optional
 
 - (void)deleteArticleAtIndexPath:(NSIndexPath*)indexPath;
-
-- (CGFloat)estimatedItemHeight;
-
-- (WMFEmptyViewType)emptyViewType;
-
-@end
-
-@protocol WMFArticleDeleteAllDataSource <NSObject>
-
-- (BOOL)showsDeleteAllButton;
-
-- (NSString*)deleteAllConfirmationText;
-
-- (NSString*)deleteText;
-
-- (NSString*)deleteCancelText;
 
 - (void)deleteAll;
 

@@ -1,6 +1,7 @@
 // Messages for Arabic (العربية)
 // Exported from translatewiki.net
 // Author: Haytham morsy
+// Author: Hocinend1
 // Author: Meno25
 // Author: Musab Moahmmed
 // Author: Omda4wady
@@ -12,8 +13,10 @@
 "languages-title" = "اللغات";
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
+"article-languages-downloading" = "جاري تحميل لغات المقال";
 "article-languages-filter-placeholder" = "مرشح اللغات";
 "article-read-more-title" = "قراءة المزيد";
+"article-about-title" = "حول المقال";
 "info-box-title" = "معلومات سريعة";
 "info-box-close-text" = "إغلاق";
 "table-title-other" = "مزيد من المعلومات";

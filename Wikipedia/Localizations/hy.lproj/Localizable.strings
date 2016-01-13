@@ -3,6 +3,7 @@
 // Author: Aram1985
 // Author: Vahe Gharakhanyan
 // Author: Xelgen
+// Author: Աշոտ1997
 
 "languages-title" = "Լեզուներ";
 "article-languages-label" = "Ընտրեք լեզուն";
@@ -61,7 +62,7 @@
 "search-recent-clear-delete-all" = "Ջնջել ամբողջը";
 "main-menu-title" = "Ավելին";
 "main-menu-heading-about" = "Ծրագրի մասին";
-"main-menu-language-title" = "Որոնել $1 Վիքիփեդիա";
+"main-menu-language-title" = "Որոնել $1 Վիքիպեդիա";
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Ցույց տալ լեզուները";
 "main-menu-language-toggle-hide" = "Թաքցնել լեզուները";

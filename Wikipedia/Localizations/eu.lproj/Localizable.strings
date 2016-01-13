@@ -12,6 +12,7 @@
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
 "article-languages-filter-placeholder" = "Hizkuntza Iragazkia";
 "article-read-more-title" = "Irakurri gehiago";
+"article-about-title" = "Artikulu honi buruz";
 "article-unable-to-load-article" = "Ezin da artikulua kargatu.";
 "article-related-articles-title" = "Lotutako artikuluak";
 "info-box-title" = "Datu azkarrak";
@@ -189,6 +190,7 @@
 "hockeyapp-alert-privacy" = "$1 pribatutasuna";
 "page-issues" = "Orriaren arazoak";
 "page-similar-titles" = "Antzeko orriak";
+"page-read-in-other-languages" = "Irakurri $1 hizkuntzatan";
 "captcha-reload" = "Erakutsi beste captcha bat";
 "home-title" = "Esploratu";
 "home-continue-reading-heading" = "Irakurtzen jarraitu";
@@ -197,8 +199,10 @@
 "home-nearby-check-again" = "Egiaztatu berriro";
 "home-main-page-heading" = "Gaur Wikipedian";
 "welcome-whats-new-title" = "Ongi etorri Wikipediara";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Esadazu gehiago";
 // Fuzzy
 "welcome-languages-title" = "Aukeratu zure hizkuntza";
+"welcome-languages-more-info-button-text" = "Esadazu gehiago";
 "welcome-languages-more-languages-button-title" = "Gehitu hizkuntza gehiago";
 "welcome-languages-button-title" = "Jarraitu";
 "welcome-usage-reports-title" = "Lagun gaitzazu Wikipedia hobetzen";

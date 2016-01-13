@@ -20,6 +20,7 @@
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
 "article-languages-filter-placeholder" = "Dil Süzgeci";
 "article-read-more-title" = "Devamı";
+"article-about-title" = "Bu madde hakkında";
 "article-unable-to-load-section" = "Bu bölüm yüklenemedi. Sorunu gidermek için sayfayı yenilemeyi deneyin.";
 "article-unable-to-load-article" = "Makale yüklenemedi.";
 "article-related-articles-title" = "İlgili maddeler";
@@ -140,6 +141,7 @@
 "main-menu-more" = "Daha fazla...";
 "main-menu-heading-debug" = "Hata ayıklama";
 "main-menu-debug-crash" = "Çökme";
+"saved-title" = "Kaydedilenler";
 "saved-pages-title" = "Kaydedilen sayfalar";
 "saved-pages-clear-confirmation-heading" = "Tüm kayıtlı ögeler silinsin mi?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
@@ -150,6 +152,8 @@
 "saved-pages-refresh-cancel-alert-button" = "Anladım";
 "saved-pages-description" = "Kaydedilmiş sayfalar çok güzeldir. Bunu çevrim dışıyken bile okuyabileceğiniz yer imleri olarak düşünün.";
 "saved-pages-none" = "Henüz kaydedilmiş bir sayfa yok.";
+"saved-pages-image-download-error" = "Bu kaydedilen sayfa için görseller indirilemedi.";
+"history-title" = "Geçmiş";
 "page-history-title" = "Madde geçmişi";
 "page-history-downloading" = "Madde geçmişi yükleniyor...";
 "navbar-title-mode-edit-wikitext" = "Değiştir";
@@ -292,6 +296,9 @@
 "hockeyapp-alert-privacy" = "$1 gizliliği";
 "page-issues" = "Sayfa sorunları";
 "page-similar-titles" = "Benzer sayfalar";
+"page-read-in-other-languages" = "$1 farklı dilde oku";
+"page-last-edited" = "$1 gün önce düzenlendi";
+"page-edit-history" = "Bütün düzenleme geçmişi";
 "captcha-reload" = "Başka bir captcha göster";
 "captcha-prompt" = "Yukarıdaki resimdeki CAPTCHA metnini girin";
 "mwk-empty-title-error" = "Başlıksız işlem gerçekleştirilemiyor.";
@@ -317,20 +324,25 @@
 "welcome-whats-new-button-title" = "Başla";
 "welcome-whats-new-bullet-one-more-info-text" = "Bir maddeyi açtığınızda, ilgili maddeler otomatik olarak beslemenize eklenir. Bu, bilgilerinizi toplama şeklimizi değiştirmez ve okuma geçmişiniz yine gizli kalır.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Anladım";
-// Fuzzy
-"welcome-languages-title" = "Dilinizi seçin";
+"welcome-languages-title" = "Aranacak diller";
+"welcome-languages-more-info-button-text" = "Daha fazla bilgi";
+"welcome-languages-more-info-text" = "Vikipedi makaleleri genellikle birden fazla dilde mevcuttur. Arama yaparken kullanmak istediğiniz dilleri seçin. Bunları daha sonra değiştirebilirsiniz.";
+"welcome-languages-more-info-done-button" = "Anladım";
 "welcome-languages-more-languages-button-title" = "Daha fazla dil ekle";
 "welcome-languages-button-title" = "Devam et";
 "welcome-languages-footnote-text" = "Endişelenmeyin, bunu daha sonra değiştirebilirsiniz.";
 "welcome-usage-reports-title" = "Vikipedi'yi iyileştirmekte bize yardımcı olun";
 "welcome-usage-reports-body-text" = "Bize uygulamayı nasıl kullandığınız hakkında bilgi toplamak için izin vererek, uygulamayı iyileştirmemize yardımcı olabilirsiniz.";
 "welcome-usage-reports-switch-text" = "Kullanım raporlarını gönder";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Bitti";
+"welcome-usage-reports-button-title" = "Kullanmaya başla";
 "welcome-usage-reports-privacy-policy-button-text" = "Gizliliğiniz bizim için önemlidir";
 "empty-no-feed-title" = "İnternet Bağlantısı Yok";
 "empty-no-feed-message" = "İnternet bağlantınız olduğunda, size önerilen makaleleri görebilirsiniz";
 "empty-no-feed-action-message" = "Bu arada kayıtlı sayfaları okuyabilirsiniz";
 "empty-no-article-message" = "Üzgünüz, makale yüklenemedi";
 "empty-no-search-results-message" = "Üzgünüz, sonuçlar yüklenemedi";
+"empty-no-saved-pages-title" = "Henüz kaydedilmiş bir sayfa yok";
+"empty-no-saved-pages-message" = "Sayfalarını daha sonra, çevrimdışı olsanız dahi, okumak için kaydedin";
+"empty-no-history-title" = "Görüntülenebilecek bir geçmiş yok";
+"empty-no-history-message" = "Okuduklarını buradan takip et";
 "alert-no-internet" = "İnternet bağlantısı yok";

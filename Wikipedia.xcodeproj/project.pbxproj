@@ -10,6 +10,13 @@
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D34DB11863D39000610A87 /* libxml2.dylib */; };
+		0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */; };
+		0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */; };
+		0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */; };
+		0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */; };
+		0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */; };
+		0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */; };
+		0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */; };
 		0E26B0721C0F4F550004D687 /* WMFAppViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */; };
 		0E26B0731C0F4F550004D687 /* WMFTabBarUI.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */; };
 		0E26B07F1C0F4F720004D687 /* WMFWelcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */; };
@@ -624,6 +631,20 @@
 		04D34DB11863D39000610A87 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
+		0E0361721C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSelfSizingArticleListTableViewController.h; path = Wikipedia/Code/WMFSelfSizingArticleListTableViewController.h; sourceTree = SOURCE_ROOT; };
+		0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSelfSizingArticleListTableViewController.m; path = Wikipedia/Code/WMFSelfSizingArticleListTableViewController.m; sourceTree = SOURCE_ROOT; };
+		0E0361751C4488BC00FD9642 /* WMFLocationSearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchListViewController.h; path = Wikipedia/Code/WMFLocationSearchListViewController.h; sourceTree = SOURCE_ROOT; };
+		0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchListViewController.m; path = Wikipedia/Code/WMFLocationSearchListViewController.m; sourceTree = SOURCE_ROOT; };
+		0E0361781C44905400FD9642 /* WMFRelatedTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedTitleViewController.h; path = Wikipedia/Code/WMFRelatedTitleViewController.h; sourceTree = SOURCE_ROOT; };
+		0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedTitleViewController.m; path = Wikipedia/Code/WMFRelatedTitleViewController.m; sourceTree = SOURCE_ROOT; };
+		0E03617E1C456C4600FD9642 /* WMFReadMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFReadMoreViewController.h; path = Wikipedia/Code/WMFReadMoreViewController.h; sourceTree = SOURCE_ROOT; };
+		0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFReadMoreViewController.m; path = Wikipedia/Code/WMFReadMoreViewController.m; sourceTree = SOURCE_ROOT; };
+		0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultsTableViewController.m; path = Code/WMFSearchResultsTableViewController.m; sourceTree = "<group>"; };
+		0E09EABE1C4426470058F2D8 /* WMFSearchResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSearchResultsTableViewController.h; path = Code/WMFSearchResultsTableViewController.h; sourceTree = "<group>"; };
+		0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSavedArticleTableViewController.m; sourceTree = "<group>"; };
+		0E09EAC01C4426470058F2D8 /* WMFSavedArticleTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSavedArticleTableViewController.h; sourceTree = "<group>"; };
+		0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFHistoryTableViewController.m; sourceTree = "<group>"; };
+		0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFHistoryTableViewController.h; sourceTree = "<group>"; };
 		0E26B0701C0F4F550004D687 /* WMFAppViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFAppViewController.storyboard; path = Wikipedia/Code/WMFAppViewController.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0711C0F4F550004D687 /* WMFTabBarUI.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFTabBarUI.storyboard; path = Wikipedia/Code/WMFTabBarUI.storyboard; sourceTree = SOURCE_ROOT; };
 		0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = WMFWelcome.storyboard; path = Wikipedia/Code/WMFWelcome.storyboard; sourceTree = SOURCE_ROOT; };
@@ -1840,7 +1861,7 @@
 				B0E806B21C0CEB160065EBC0 /* LanguagesViewController.storyboard */,
 			);
 			name = Languages;
-			path = Wikipedia/Code/Languages;
+			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
 		041C55CF1950B260006CE0EF /* EditSummary */ = {
@@ -2212,6 +2233,26 @@
 			path = Wikipedia/Code/PageHistory;
 			sourceTree = SOURCE_ROOT;
 		};
+		0E03617B1C44945300FD9642 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				0E0361781C44905400FD9642 /* WMFRelatedTitleViewController.h */,
+				0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */,
+			);
+			name = More;
+			sourceTree = "<group>";
+		};
+		0E03617D1C44948300FD9642 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				0E0361751C4488BC00FD9642 /* WMFLocationSearchListViewController.h */,
+				0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */,
+				B0E803B21C0CDBE20065EBC0 /* WMFNearbyTitleListDataSource.h */,
+				B0E803B31C0CDBE20065EBC0 /* WMFNearbyTitleListDataSource.m */,
+			);
+			name = More;
+			sourceTree = "<group>";
+		};
 		0E03E27E1B82EF7600C1FBD7 /* Fetcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -2261,6 +2302,25 @@
 			path = Wikipedia/Code/Views;
 			sourceTree = SOURCE_ROOT;
 		};
+		0E09EAC61C4426AC0058F2D8 /* Results List */ = {
+			isa = PBXGroup;
+			children = (
+				0E09EABE1C4426470058F2D8 /* WMFSearchResultsTableViewController.h */,
+				0E09EABD1C4426470058F2D8 /* WMFSearchResultsTableViewController.m */,
+			);
+			name = "Results List";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		0E09EAC71C442A130058F2D8 /* Container VC */ = {
+			isa = PBXGroup;
+			children = (
+				B0E803391C0CD76B0065EBC0 /* WMFSearchViewController.h */,
+				B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */,
+			);
+			name = "Container VC";
+			sourceTree = "<group>";
+		};
 		0E1B049F1BC59DEF00506F7D /* Continue Reading */ = {
 			isa = PBXGroup;
 			children = (
@@ -2279,6 +2339,9 @@
 			children = (
 				B0E8031D1C0CD69B0065EBC0 /* WMFRelatedSectionController.h */,
 				B0E8031E1C0CD69B0065EBC0 /* WMFRelatedSectionController.m */,
+				B0E803B41C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.h */,
+				B0E803B51C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.m */,
+				0E03617B1C44945300FD9642 /* More */,
 				0E2691041B86BBD1009B8605 /* Fetcher */,
 			);
 			name = Related;
@@ -2352,26 +2415,15 @@
 			name = Analytics;
 			sourceTree = "<group>";
 		};
-		0E2B06F71B2D126700EA2F53 /* Data Sources */ = {
-			isa = PBXGroup;
-			children = (
-				B0E803B41C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.h */,
-				B0E803B51C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.m */,
-				B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */,
-				B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */,
-			);
-			name = "Data Sources";
-			path = "Wikipedia/Code/Data Sources";
-			sourceTree = SOURCE_ROOT;
-		};
 		0E2B06F81B2D127A00EA2F53 /* Article List */ = {
 			isa = PBXGroup;
 			children = (
 				B0E803331C0CD7430065EBC0 /* WMFArticleListTableViewController.h */,
 				B0E803341C0CD7430065EBC0 /* WMFArticleListTableViewController.m */,
+				0E0361721C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.h */,
+				0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */,
 				B0E803A81C0CDB8D0065EBC0 /* WMFTitleListDataSource.h */,
 				BC550B081B977C730082F298 /* Cells */,
-				0E2B06F71B2D126700EA2F53 /* Data Sources */,
 			);
 			name = "Article List";
 			path = "Wikipedia/Code/Article List";
@@ -2387,7 +2439,7 @@
 				BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */,
 			);
 			name = Search;
-			path = Wikipedia/Code/Search;
+			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
 		0E4500B91B97A26800A33B55 /* Schema */ = {
@@ -2415,10 +2467,6 @@
 				0E8E9A571BFA501E0054A242 /* Featured Article */,
 				0EA1791D1BD95910004FF529 /* Random */,
 				0ED6897C1B8246F400B30427 /* Nearby */,
-				B0E802F61C0CD4D70065EBC0 /* WMFNearbySectionController.h */,
-				B0E802F71C0CD4D70065EBC0 /* WMFNearbySectionController.m */,
-				B0E803B21C0CDBE20065EBC0 /* WMFNearbyTitleListDataSource.h */,
-				B0E803B31C0CDBE20065EBC0 /* WMFNearbyTitleListDataSource.m */,
 				0E2691031B86BBC0009B8605 /* Related */,
 			);
 			name = Sections;
@@ -2582,14 +2630,14 @@
 				BC45D5A21C330480007C72F3 /* Model */,
 				0EAED8551BE9507C006B01E6 /* Networking */,
 				04C757621A1A9DC50084AC39 /* RecentSearches */,
-				B0E803391C0CD76B0065EBC0 /* WMFSearchViewController.h */,
-				B0E8033A1C0CD76B0065EBC0 /* WMFSearchViewController.m */,
+				0E09EAC71C442A130058F2D8 /* Container VC */,
+				0E09EAC61C4426AC0058F2D8 /* Results List */,
 				B0E803AF1C0CDBCF0065EBC0 /* WMFSearchDataSource.h */,
 				B0E803B01C0CDBCF0065EBC0 /* WMFSearchDataSource.m */,
 				B0E8033B1C0CD76B0065EBC0 /* WMFSearchViewController.storyboard */,
 			);
 			name = "View Controller";
-			path = "Wikipedia/Code/View Controller";
+			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
 		};
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
@@ -2597,6 +2645,9 @@
 			children = (
 				BC305C2E1BA0C97400E414B8 /* View Model */,
 				0E03E2A21B85310400C1FBD7 /* Views */,
+				B0E802F61C0CD4D70065EBC0 /* WMFNearbySectionController.h */,
+				B0E802F71C0CD4D70065EBC0 /* WMFNearbySectionController.m */,
+				0E03617D1C44948300FD9642 /* More */,
 			);
 			name = Nearby;
 			path = Wikipedia/Code/Nearby;
@@ -2699,6 +2750,8 @@
 				B0E803661C0CD91D0065EBC0 /* WMFArticleContainerViewController.m */,
 				B0E803681C0CD9300065EBC0 /* WMFArticleContainerViewController_Private.h */,
 				B0E803691C0CD9300065EBC0 /* WMFArticleContainerViewController_Transitioning.h */,
+				0E03617E1C456C4600FD9642 /* WMFReadMoreViewController.h */,
+				0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */,
 			);
 			name = Article;
 			path = Wikipedia/Code/Article;
@@ -3658,6 +3711,8 @@
 		BC45D5B01C330B95007C72F3 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				0E09EAC11C4426470058F2D8 /* WMFHistoryTableViewController.m */,
+				0E09EAC21C4426470058F2D8 /* WMFHistoryTableViewController.h */,
 				0EAAAFC91B43301C00E65A95 /* Model */,
 				B0E803AC1C0CDBC00065EBC0 /* WMFRecentPagesDataSource.h */,
 				B0E803AD1C0CDBC00065EBC0 /* WMFRecentPagesDataSource.m */,
@@ -3679,6 +3734,8 @@
 			children = (
 				B06531701C237538003BD7DC /* WMFDisambiguationPagesViewController.h */,
 				B06531711C237538003BD7DC /* WMFDisambiguationPagesViewController.m */,
+				B065315E1C220921003BD7DC /* WMFArticlePreviewDataSource.h */,
+				B065315F1C220921003BD7DC /* WMFArticlePreviewDataSource.m */,
 			);
 			name = Disambiguation;
 			sourceTree = "<group>";
@@ -4367,6 +4424,8 @@
 		BCD67E7E1C1F1433005179E1 /* Saved Pages */ = {
 			isa = PBXGroup;
 			children = (
+				0E09EAC01C4426470058F2D8 /* WMFSavedArticleTableViewController.h */,
+				0E09EABF1C4426470058F2D8 /* WMFSavedArticleTableViewController.m */,
 				0EAAAFC81B43301500E65A95 /* Models */,
 				BCD67E821C1F14C5005179E1 /* Event Logging */,
 				BCD67E801C1F1471005179E1 /* Fetchers */,
@@ -5253,6 +5312,7 @@
 				BC62FFC01C11064200533DA9 /* MWKImageInfoFetcher+PicOfTheDayInfo.m in Sources */,
 				B0E8076C1C0CEE3A0065EBC0 /* Saved.m in Sources */,
 				B0E806341C0CE7680065EBC0 /* MWKImageInfoResponseSerializer.m in Sources */,
+				0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */,
 				B0E805C91C0CE5250065EBC0 /* UIImage+Debug.swift in Sources */,
 				B0E807A91C0CEFE30065EBC0 /* MWKRecentSearchEntry.m in Sources */,
 				B0E8066A1C0CE9030065EBC0 /* MWKImageInfoFetcher.m in Sources */,
@@ -5290,7 +5350,9 @@
 				B0E804DF1C0CE0B40065EBC0 /* NSURL+WMFLinkParsing.m in Sources */,
 				B0E806CF1C0CEB6E0065EBC0 /* PageHistoryLabel.m in Sources */,
 				0E26B0831C0F4F720004D687 /* WMFWelcomeLanguageViewController.m in Sources */,
+				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */,
+				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B0E806991C0CEAC20065EBC0 /* AccountCreationViewController.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
@@ -5396,6 +5458,7 @@
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
 				B0E805CC1C0CE5250065EBC0 /* WMFImageDownload.swift in Sources */,
 				B0E805581C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m in Sources */,
+				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				B0E807981C0CEF970065EBC0 /* MWKSection+HTMLImageExtraction.m in Sources */,
 				B0E802D21C0CD35B0065EBC0 /* WMFHomeSection.m in Sources */,
@@ -5434,6 +5497,7 @@
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,
+				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
 				BC45FF531C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				B0E807B01C0CEFF70065EBC0 /* MWKHistoryList.m in Sources */,
@@ -5453,6 +5517,8 @@
 				B0E806B71C0CEB160065EBC0 /* LanguagesViewController.m in Sources */,
 				B0E805521C0CE0DC0065EBC0 /* UITableViewCell+WMFLayout.m in Sources */,
 				BCAE0DFA1C247E7E006DDF51 /* UITableView+WMFLockedUpdates.m in Sources */,
+				0E0361801C456C4600FD9642 /* WMFReadMoreViewController.m in Sources */,
+				0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */,
 				B0E804BE1C0CE0B40065EBC0 /* CLLocation+WMFBearing.m in Sources */,
 				B0E8030A1C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m in Sources */,
 				B0E807221C0CECE30065EBC0 /* CommunicationBridge.m in Sources */,

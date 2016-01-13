@@ -11,8 +11,7 @@
 #import "WMFSaveButtonController.h"
 #import "WMFArticleContainerViewController_Transitioning.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
-#import "WMFRelatedTitleListDataSource.h"
-#import "WMFArticleListTableViewController.h"
+#import "WMFReadMoreViewController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFModalImageGalleryViewController.h"
 #import "UIViewController+WMFSearchButton.h"
@@ -40,7 +39,6 @@
 #import "MWKSectionList.h"
 #import "MWKLanguageLink.h"
 #import "MWKHistoryList.h"
-#import "WMFRelatedSearchResults.h"
 
 // Networking
 #import "WMFArticleFetcher.h"
@@ -84,15 +82,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
 
-@property (nonatomic, strong) WMFRelatedTitleListDataSource* readMoreDataSource;
-
 // Fetchers
 @property (nonatomic, strong) WMFArticleFetcher* articleFetcher;
 @property (nonatomic, strong, nullable) AnyPromise* articleFetcherPromise;
 
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
-@property (nonatomic, strong) WMFArticleListTableViewController* readMoreListViewController;
+@property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
 
 // Logging
@@ -211,22 +207,9 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.recentPages entryForTitle:self.articleTitle];
 }
 
-- (WMFRelatedTitleListDataSource*)readMoreDataSource {
-    if (!_readMoreDataSource) {
-        _readMoreDataSource =
-            [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle
-                                                       dataStore:self.dataStore
-                                                   savedPageList:self.savedPages
-                                                     resultLimit:3];
-    }
-    return _readMoreDataSource;
-}
-
-- (WMFArticleListTableViewController*)readMoreListViewController {
+- (WMFReadMoreViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController            = [[WMFSelfSizingArticleListTableViewController alloc] init];
-        _readMoreListViewController.dataStore  = self.dataStore;
-        _readMoreListViewController.dataSource = self.readMoreDataSource;
+        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle dataStore:self.dataStore];
     }
     return _readMoreListViewController;
 }
@@ -420,7 +403,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
     }
     NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
-    if (self.readMoreDataSource.relatedSearchResults.results.count > 0) {
+    if ([self.readMoreListViewController hasResults]) {
         [footerVCs addObject:self.readMoreListViewController];
         [self appendReadMoreTableOfContentsItemIfNeeded];
     }
@@ -655,7 +638,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchReadMore {
     @weakify(self);
-    [self.readMoreDataSource fetch].then(^(WMFRelatedSearchResults* readMoreResults) {
+    [self.readMoreListViewController fetch].then(^(id readMoreResults) {
+        @strongify(self);
         [self updateArticleFootersIfNeeded];
     })
     .catch(^(NSError* error){

@@ -10,6 +10,7 @@
 "article-languages-downloading" = "Načítam zoznam jazykov...";
 "article-languages-filter-placeholder" = "Jazykový filter";
 "article-read-more-title" = "Ďalšie informácie";
+"article-about-title" = "O tomto článku";
 "article-unable-to-load-section" = "Túto sekciu sa nepodarilo načítať. Vyskúšajte obnoviť článok, problém sa tým možno odstráni.";
 "article-unable-to-load-article" = "Článok nebolo možné načítať.";
 "article-related-articles-title" = "Súvisiace články";
@@ -124,6 +125,7 @@
 "main-menu-show-today" = "Dnes";
 "main-menu-nearby" = "V okolí";
 "main-menu-more" = "Zobraziť viac...";
+"saved-title" = "Uložené";
 "saved-pages-title" = "Uložené stránky";
 "saved-pages-clear-confirmation-heading" = "Vymazať všetky uložené stránky?";
 "saved-pages-clear-confirmation-sub-heading" = "Táto akcia sa nedá vrátiť!";
@@ -133,6 +135,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Rozumiem";
 "saved-pages-description" = "Uložené stránky sú úžasné. Vyskúšajte si ich aj ako obľúbené stránky, ktoré je možné používať v offline režime.";
 "saved-pages-none" = "Žiadne uložené stránky.";
+"history-title" = "História";
 "page-history-title" = "História článku";
 "page-history-downloading" = "Načítavanie histórie článku...";
 "navbar-title-mode-edit-wikitext" = "Upraviť";
@@ -248,6 +251,8 @@
 "hockeyapp-alert-privacy" = "$1 súkromie";
 "page-issues" = "Problémy stránky";
 "page-similar-titles" = "Podobné stránky";
+"page-read-in-other-languages" = "Článok je dostupný v $1 jazykoch";
+"page-last-edited" = "Upravené pred $1 dňami";
 "captcha-reload" = "Zobraziť ďalšie captcha";
 "captcha-prompt" = "Zadajte CAPTCHA text z obrázku vyššie";
 "home-continue-reading-heading" = "Pokračovať v čítaní";
@@ -260,22 +265,26 @@
 "potd-description-prefix" = "Obrázok dňa pre $1";
 "welcome-whats-new-title" = "Vitajte na Wikipédii";
 "welcome-whats-new-whats-new" = "ČO JE NOVÉ";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Zistiť viac";
 "welcome-whats-new-button-title" = "Začíname";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Rozumiem";
 // Fuzzy
 "welcome-languages-title" = "Vyberte si jazyky";
+"welcome-languages-more-info-button-text" = "Zistiť viac";
+"welcome-languages-more-info-done-button" = "Rozumiem";
 "welcome-languages-more-languages-button-title" = "Pridať ďalšie jazyky";
 "welcome-languages-button-title" = "Pokračovať";
 "welcome-languages-footnote-text" = "Nebojte sa, tieto nastavenia môžete neskôr zmeniť.";
 "welcome-usage-reports-title" = "Pomôžte nám vylepšovať Wikipédiu";
 "welcome-usage-reports-body-text" = "Môžete nám pomôcť skvalitňovať aplikáciu tým, že nám umožníte zbierať informácie o vašom používaní aplikácie.";
 "welcome-usage-reports-switch-text" = "Odosielať správu o používaní";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Hotovo";
+"welcome-usage-reports-button-title" = "Začíname";
 "welcome-usage-reports-privacy-policy-button-text" = "Vaše súkromie je pre nás dôležité";
 "empty-no-feed-title" = "Žiadne pripojenie na internet";
 "empty-no-feed-message" = "Odporúčané články uvidíte keď budete pripojení na internet";
 "empty-no-feed-action-message" = "Medzitým si môžete čítať uložené stránky";
 "empty-no-article-message" = "Ospravedlňujeme sa, nebolo možné načítať článok";
 "empty-no-search-results-message" = "Ospravedlňujeme sa, nebolo možné načítať výsledky vyhľadávania";
+"empty-no-saved-pages-title" = "Žiadne uložené stránky.";
+"empty-no-history-title" = "Nemáte žiadnu históriu.";
 "alert-no-internet" = "Žiadne pripojenie na internet";

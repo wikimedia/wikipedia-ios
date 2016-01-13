@@ -1,15 +1,8 @@
-//
-//  WMFNearbyTitleListDataSource.h
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 9/8/15.
-//  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import <SSDataSources/SSArrayDataSource.h>
 #import "WMFTitleListDataSource.h"
 
-@class WMFNearbyViewModel, WMFLocationManager, MWKSite;
+@class WMFNearbyViewModel, WMFLocationManager, MWKSite, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSite:(MWKSite*)site
                    viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
+
+- (WMFSearchResultDistanceProvider*)distanceProviderForResultAtIndexPath:(NSIndexPath*)indexPath;
+- (WMFSearchResultBearingProvider*)bearingProviderForResultAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
 

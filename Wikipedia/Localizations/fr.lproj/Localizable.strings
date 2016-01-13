@@ -18,6 +18,7 @@
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
 "article-read-more-title" = "En savoir plus";
+"article-about-title" = "À propos de cet article";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
 "article-unable-to-load-article" = "Impossible de charger l’article.";
 "article-related-articles-title" = "Articles connexes";
@@ -138,6 +139,7 @@
 "main-menu-more" = "Plus…";
 "main-menu-heading-debug" = "Déboguage";
 "main-menu-debug-crash" = "Planter";
+"saved-title" = "Enregistré";
 "saved-pages-title" = "Pages enregistrées";
 "saved-pages-clear-confirmation-heading" = "Supprimer tous les éléments enregistrés ?";
 "saved-pages-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
@@ -148,6 +150,8 @@
 "saved-pages-refresh-cancel-alert-button" = "L’obtenir";
 "saved-pages-description" = "Les pages enregistrées sont assez impressionnantes. Voyez-les comme des favoris que vous pouvez lire même en étant déconnecté.";
 "saved-pages-none" = "Encore aucune page enregistrée.";
+"saved-pages-image-download-error" = "Échec du chargement des images pour cette page enregistrée.";
+"history-title" = "Historique";
 "page-history-title" = "Historique de l’article";
 "page-history-downloading" = "Chargement de l’historique de l’article…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
@@ -290,6 +294,9 @@
 "hockeyapp-alert-privacy" = "Confidentialité de $1";
 "page-issues" = "Problèmes de la page";
 "page-similar-titles" = "Pages similaires";
+"page-read-in-other-languages" = "Lire en $1 langues";
+"page-last-edited" = "Modifié il y a $1 jours";
+"page-edit-history" = "Historique complet des modifications";
 "captcha-reload" = "Afficher un autre captcha";
 "captcha-prompt" = "Entrer le texte du CAPTCHA dans l’image ci-dessus";
 "mwk-empty-title-error" = "Impossible d’effectuer l’opération avec un titre vide.";
@@ -306,7 +313,7 @@
 "potd-empty-error-description" = "Échec de récupération de l’image du jour pour $1";
 "potd-description-prefix" = "Image du jour pour $1";
 "welcome-whats-new-title" = "Bienvenue sur Wikipédia";
-"welcome-whats-new-whats-new" = "QUOI DE NEUF";
+"welcome-whats-new-whats-new" = "Quoi de neuf";
 "welcome-whats-new-bullet-one-title" = "Une nouvelle manière d’Explorer";
 "welcome-whats-new-bullet-one-text" = "Découvrir de nouveaux articles intéressants juste pour vous dans l’écran Explorer";
 "welcome-whats-new-bullet-one-more-info-button-text" = "Comment cela fonctionne…";
@@ -315,20 +322,25 @@
 "welcome-whats-new-button-title" = "Commencer";
 "welcome-whats-new-bullet-one-more-info-text" = "Quand vous visitez un article, les articles connexes sont ajoutés automatiquement à votre fil. Cela ne modifie pas la manière dont nous collectons vos informations, et votre historique de lecture est toujours privé.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "L’obtenir";
-// Fuzzy
-"welcome-languages-title" = "Choisir vos langues";
+"welcome-languages-title" = "Langues à rechercher";
+"welcome-languages-more-info-button-text" = "En savoir plus";
+"welcome-languages-more-info-text" = "Les articles de Wikipédia sont souvent disponibles dans plusieurs langues. Choisissez les langues que vous aimeriez utiliser lors de la recherche. Vous pourrez les modifier ultérieurement.";
+"welcome-languages-more-info-done-button" = "C’est bon";
 "welcome-languages-more-languages-button-title" = "Ajouter plus de langues";
 "welcome-languages-button-title" = "Continuer";
-"welcome-languages-footnote-text" = "Ne vous inquiétez pas, vous pourrez le modifier plus tard.";
+"welcome-languages-footnote-text" = "Ne vous inquiétez pas, vous pourrez modifier ceci plus tard.";
 "welcome-usage-reports-title" = "Aidez nous à améliorer Wikipédia";
 "welcome-usage-reports-body-text" = "Vous pouvez nous aider à améliorer l’application en nous autorisant à collecter des informations sur la manière dont vous utilisez l’application.";
 "welcome-usage-reports-switch-text" = "Envoyez les rapports d’utilisation";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Terminé";
+"welcome-usage-reports-button-title" = "Commencer";
 "welcome-usage-reports-privacy-policy-button-text" = "Votre vie privée est importante pour nous";
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
 "empty-no-feed-action-message" = "Vous pouvez lire les pages enregistrées entre temps";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-search-results-message" = "Désolé, impossible de charger les résultats";
+"empty-no-saved-pages-title" = "Encore aucune page enregistrée";
+"empty-no-saved-pages-message" = "Enregistrer des pages pour les lire ultérieurement, même hors ligne";
+"empty-no-history-title" = "Aucun historique à afficher";
+"empty-no-history-message" = "Garder trace de ce que vous avez lu ici";
 "alert-no-internet" = "Il n'y a pas de connexion internet";
