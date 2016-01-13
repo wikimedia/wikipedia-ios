@@ -14,6 +14,7 @@
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
 #import "WMFArticleFooterMenuDataSource.h"
+#import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -95,6 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    articleListVC.title = MWSiteLocalizedString(self.article.title.site, @"page-similar-titles", nil);
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
     }];
 }
