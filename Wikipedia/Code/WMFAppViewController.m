@@ -19,6 +19,7 @@
 
 // Model
 #import "MediaWikiKit.h"
+#import "MWKSearchResult.h"
 
 // Views
 #import "UIViewController+WMFStoryboardUtilities.h"
@@ -36,10 +37,12 @@
 #import "WMFWelcomeViewController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
+#import "WMFLocationSearchListViewController.h"
 
 #import "AppDelegate.h"
 #import "WMFRandomSectionController.h"
 #import "WMFNearbySectionController.h"
+#import "WMFRandomArticleFetcher.h"
 
 /**
  *  Enums for each tab in the main tab bar.
@@ -81,6 +84,7 @@ static dispatch_once_t launchToken;
 
 @property (nonatomic, strong) WMFLegacyImageDataMigration* imageMigration;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
+@property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
@@ -221,17 +225,13 @@ static dispatch_once_t launchToken;
 
                 [searchButton.target performSelector:searchButton.action withObject:searchButton afterDelay:0];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-                
-                
-//TODO: hook up presenting a random article in web view
-                
-                
+                [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+                [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+                [self showRandomArticleAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-                
-                
-//TODO: hook up presenting full nearby list
-                
-                
+                [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
+                [[self navigationControllerForTab:WMFAppTabTypeHome] popToRootViewControllerAnimated:NO];
+                [self showNearbyListAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
                 // Fall through to normal "Continue reading..." handling.
             }
@@ -327,6 +327,13 @@ static dispatch_once_t launchToken;
             [[SavedArticlesFetcher alloc] initWithSavedPageList:[[[SessionSingleton sharedInstance] userDataStore] savedPageList]];
     }
     return _savedArticlesFetcher;
+}
+
+- (WMFRandomArticleFetcher*)randomFetcher {
+    if (_randomFetcher == nil) {
+        _randomFetcher = [[WMFRandomArticleFetcher alloc] init];
+    }
+    return _randomFetcher;
 }
 
 - (SessionSingleton*)session {
@@ -432,6 +439,24 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)isShowingSplashView {
     return self.splashView.hidden == NO;
+}
+
+#pragma mark - App Shortcuts
+
+- (void)showRandomArticleAnimated:(BOOL)animated {
+    MWKSite* site = [self.session searchSite];
+    [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
+        MWKTitle* title = [site titleWithString:result.displayTitle];
+        [self.homeViewController wmf_pushArticleViewControllerWithTitle:title discoveryMethod:MWKHistoryDiscoveryMethodRandom dataStore:self.dataStore];
+    }).catch(^(NSError* error){
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    });
+}
+
+- (void)showNearbyListAnimated:(BOOL)animated {
+    MWKSite* site                           = [self.session searchSite];
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
+    [self.homeViewController.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - House Keeping
