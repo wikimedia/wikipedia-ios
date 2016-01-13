@@ -8,7 +8,7 @@
 @interface WMFRelatedSectionController : NSObject <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                       dataStore:(MWKDataStore*)dataStore;
+                           dataStore:(MWKDataStore*)dataStore;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore

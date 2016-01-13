@@ -137,7 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                      dataStore:self.dataStore
+                                                                          dataStore:self.dataStore
                                                                     locationManager:self.locationManager];
     }
     return _nearbySectionController;
@@ -517,7 +517,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     id<WMFArticleHomeSectionController> articleSectionController = (id<WMFArticleHomeSectionController>)controllerForSection;
 
-    UIViewController* moreVC              = [articleSectionController moreViewController];
+    UIViewController* moreVC = [articleSectionController moreViewController];
     [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
