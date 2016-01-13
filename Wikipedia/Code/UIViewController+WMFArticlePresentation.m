@@ -24,23 +24,36 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
                                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                                      dataStore:(MWKDataStore*)dataStore {
+    
+    [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:dataStore animated:YES];
+}
+
+- (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
+                               discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                                     dataStore:(MWKDataStore*)dataStore
+                                      animated:(BOOL)animated{
+    
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
     WMFArticleContainerViewController* articleContainerVC =
-        [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                              dataStore:dataStore
-                                                        discoveryMethod:discoveryMethod];
+    [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
+                                                          dataStore:dataStore
+                                                    discoveryMethod:discoveryMethod];
     [self wmf_pushArticleViewController:articleContainerVC];
 }
 
 - (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController {
+    [self wmf_pushArticleViewController:articleViewController animated:YES];
+}
+
+- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController animated:(BOOL)animated{
     NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
              articleViewController,
              self);
     id<WMFAnalyticsLogging> source = [self conformsToProtocol:@protocol(WMFAnalyticsLogging)] ? (id<WMFAnalyticsLogging>)self : nil;
 
     [[PiwikTracker sharedInstance] wmf_logViewForTitle:[articleViewController articleTitle] fromSource:source];
-    [self.navigationController pushViewController:articleViewController animated:YES];
+    [self.navigationController pushViewController:articleViewController animated:animated];
 
     //Delay this so any visual updates to lists are postponed until the article after the article is displayed
     //Some lists (like history) will show these artifacts as the push navigation is occuring.

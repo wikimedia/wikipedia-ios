@@ -14,7 +14,7 @@
 #import "WMFReadMoreViewController.h"
 #import "WMFShareOptionsController.h"
 #import "WMFModalImageGalleryViewController.h"
-#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "SectionEditorViewController.h"
 #import "LanguagesViewController.h"
