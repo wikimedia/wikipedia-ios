@@ -1,6 +1,5 @@
-#import <FBSnapshotTestCase/FBSnapshotTestCase.h>
+#import "FBSnapshotTestCase+WMFConvenience.h"
 #import "UIView+VisualTestSizingUtils.h"
-#import "UIApplication+VisualTestUtils.h"
 #import "WMFTextualSaveButton.h"
 
 @interface WMFTextualSaveButtonLayoutVisualTests : FBSnapshotTestCase
@@ -22,8 +21,7 @@
 }
 
 - (void)testLaysOutProperly {
-    // Compare saveButton appearance with snapshot matching OS version & writing direction
-    FBSnapshotVerifyView(self.saveButton, [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection]);
+    WMFSnapshotVerifyViewForOSAndWritingDirection(self.saveButton);
 }
 
 @end
