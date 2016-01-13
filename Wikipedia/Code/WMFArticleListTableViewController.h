@@ -26,11 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleListTableViewController (WMFSubclasses)
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod;
-- (NSString*)analyticsName;
+- (NSString*)                analyticsName;
 
 - (WMFEmptyViewType)emptyViewType;
 
-- (BOOL)showsDeleteAllButton;
+- (BOOL)     showsDeleteAllButton;
 - (NSString*)deleteAllConfirmationText;
 - (NSString*)deleteText;
 - (NSString*)deleteCancelText;

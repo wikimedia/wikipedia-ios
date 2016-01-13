@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
     return _window;
 }
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(nullable NSDictionary*)launchOptions {
     self.window.rootViewController = [UIViewController new];
     [self.window makeKeyAndVisible];
     return YES;

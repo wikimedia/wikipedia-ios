@@ -12,7 +12,7 @@
 
 @implementation WMFTextualSaveButton
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -36,7 +36,7 @@
 #pragma mark - Accessors
 
 - (UIImage*)iconImage {
-    return self.selected ? [UIImage imageNamed:@"save-filled-mini"] : [UIImage imageNamed:@"save-mini"];
+    return self.selected ? [UIImage imageNamed : @"save-filled-mini"] :[UIImage imageNamed:@"save-mini"];
 }
 
 - (NSString*)labelText {
@@ -50,7 +50,7 @@
 
     // subviews always follow super's tint color
     self.saveIconImageView.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
-    self.saveTextLabel.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
+    self.saveTextLabel.tintAdjustmentMode     = UIViewTintAdjustmentModeAutomatic;
 }
 
 /**
@@ -66,7 +66,7 @@
         [self addSubview:saveIconImageView];
         self.saveIconImageView = saveIconImageView;
 
-        [self.saveIconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.saveIconImageView mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.top.and.bottom.equalTo(self);
         }];
         // imageView must hug content, otherwise it will expand and "push" label towards opposite edge
@@ -75,14 +75,14 @@
 
     if (!self.saveTextLabel) {
         UILabel* saveTextLabel = [UILabel new];
-        saveTextLabel.numberOfLines = 1;
-        saveTextLabel.textAlignment = NSTextAlignmentNatural;
-        saveTextLabel.font = [UIFont systemFontOfSize:18.f];
+        saveTextLabel.numberOfLines        = 1;
+        saveTextLabel.textAlignment        = NSTextAlignmentNatural;
+        saveTextLabel.font                 = [UIFont systemFontOfSize:18.f];
         saveTextLabel.highlightedTextColor = [UIColor lightGrayColor];
         [self addSubview:saveTextLabel];
         self.saveTextLabel = saveTextLabel;
 
-        [self.saveTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.saveTextLabel mas_makeConstraints:^(MASConstraintMaker* make) {
             make.trailing.top.and.bottom.equalTo(self);
             // make sure icon & button aren't squished together
             make.leading.equalTo(self.saveIconImageView.mas_trailing).with.offset(12.f);
@@ -107,7 +107,7 @@
 }
 
 - (void)applyTintColor {
-    self.saveTextLabel.textColor = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
+    self.saveTextLabel.textColor     = self.highlighted ? [self.tintColor wmf_colorByApplyingDim] : self.tintColor;
     self.saveIconImageView.tintColor = self.tintColor;
 }
 

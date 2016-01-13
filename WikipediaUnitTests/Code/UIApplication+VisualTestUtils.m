@@ -13,7 +13,7 @@
 - (NSString*)wmf_systemVersionAndWritingDirection {
     return [@[[[UIDevice currentDevice] systemVersion],
               [self wmf_userInterfaceLayoutDirectionAsString]]
-                componentsJoinedByString:@"_"];
+componentsJoinedByString: @"_"];
 }
 
 - (NSString*)wmf_userInterfaceLayoutDirectionAsString {

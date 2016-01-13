@@ -28,11 +28,11 @@
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.articleTitle = title;
-        self.dataStore    = dataStore;
-        self.dataSource   = [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle dataStore:self.dataStore resultLimit:3];
+        self.articleTitle         = title;
+        self.dataStore            = dataStore;
+        self.dataSource           = [[WMFRelatedTitleListDataSource alloc] initWithTitle:self.articleTitle dataStore:self.dataStore resultLimit:3];
         self.dataSource.cellClass = [WMFArticlePreviewTableViewCell class];
-        
+
         @weakify(self);
         self.dataSource.cellConfigureBlock = ^(WMFArticlePreviewTableViewCell* cell,
                                                MWKSearchResult* searchResult,

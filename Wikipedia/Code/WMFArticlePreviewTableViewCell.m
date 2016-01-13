@@ -12,7 +12,7 @@
 @interface WMFArticlePreviewTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* snippetLabel;
-@property (weak, nonatomic) IBOutlet WMFTextualSaveButton *saveButton;
+@property (weak, nonatomic) IBOutlet WMFTextualSaveButton* saveButton;
 
 @property (strong, nonatomic, readwrite) WMFSaveButtonController* saveButtonController;
 
@@ -56,7 +56,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self rememberSettingsFromIB];
-    self.saveButton.tintColor = [UIColor wmf_blueTintColor];
+    self.saveButton.tintColor        = [UIColor wmf_blueTintColor];
     self.saveButtonController.button = self.saveButton;
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];

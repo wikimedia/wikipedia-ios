@@ -40,7 +40,6 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
             break;
         default:
             return;
-    
     }
 
     UIView* container = self.view.superview;
