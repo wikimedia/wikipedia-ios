@@ -12,27 +12,26 @@
 
 @dynamic dataSource;
 
-- (WMFSearchResults*)searchResults{
+- (WMFSearchResults*)searchResults {
     return self.dataSource.searchResults;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-    
+
     self.tableView.estimatedRowHeight = 60.0f;
 }
 
 - (void)setDataSource:(WMFSearchDataSource*)dataSource {
-
     dataSource.cellClass = [WMFArticleListTableViewCell class];
-    
+
     @weakify(self);
     dataSource.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell,
-                                MWKSearchResult* result,
-                                UITableView* tableView,
-                                NSIndexPath* indexPath) {
+                                      MWKSearchResult* result,
+                                      UITableView* tableView,
+                                      NSIndexPath* indexPath) {
         @strongify(self);
         MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
         [cell setTitleText:title.text highlightingText:self.searchResults.searchTerm];
@@ -68,6 +67,5 @@
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoSearchResults;
 }
-
 
 @end

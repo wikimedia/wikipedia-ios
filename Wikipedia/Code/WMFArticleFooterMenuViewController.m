@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
-    
+
     NSAssert(self.tableView.style == UITableViewStyleGrouped, @"Use grouped UITableView layout so we get separator above first cell and below last cell without having to implement any special logic");
 
     self.tableView.estimatedRowHeight = 52.0;

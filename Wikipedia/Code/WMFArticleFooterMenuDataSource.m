@@ -19,9 +19,9 @@
         self.article            = article;
         self.cellClass          = [WMFArticleListTableViewCell class];
         self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell, WMFArticleFooterMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
-            cell.titleLabel.text        = menuItem.title;
-            cell.descriptionLabel.text  = menuItem.subTitle;
-            cell.articleImageView.image = [UIImage imageNamed:menuItem.imageName];
+            cell.titleLabel.text              = menuItem.title;
+            cell.descriptionLabel.text        = menuItem.subTitle;
+            cell.articleImageView.image       = [UIImage imageNamed:menuItem.imageName];
             cell.articleImageView.contentMode = UIViewContentModeCenter;
         };
 
