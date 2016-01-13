@@ -52,6 +52,8 @@
     [super awakeFromNib];
     [self configureImageViewWithPlaceholder];
     [self wmf_makeCellDividerBeEdgeToEdge];
+    self.titleLabel.textAlignment = NSTextAlignmentNatural;
+    self.descriptionLabel.textAlignment = NSTextAlignmentNatural;
 }
 
 #pragma mark - Title
