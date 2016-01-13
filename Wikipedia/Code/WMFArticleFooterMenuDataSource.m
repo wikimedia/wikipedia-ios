@@ -2,7 +2,7 @@
 #import "WMFArticleFooterMenuItem.h"
 #import "MWKArticle.h"
 #import "NSDate+Utilities.h"
-#import "WMFArticleFooterMenuCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "MWKTitle.h"
 
 @interface WMFArticleFooterMenuDataSource ()
@@ -17,11 +17,12 @@
     self = [super initWithItems:[self menuItemsForArticle:article]];
     if (self) {
         self.article            = article;
-        self.cellClass          = [WMFArticleFooterMenuCell class];
-        self.cellConfigureBlock = ^(WMFArticleFooterMenuCell* cell, WMFArticleFooterMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
-            cell.textLabel.text       = menuItem.title;
-            cell.detailTextLabel.text = menuItem.subTitle;
-            cell.imageView.image      = [UIImage imageNamed:menuItem.imageName];
+        self.cellClass          = [WMFArticleListTableViewCell class];
+        self.cellConfigureBlock = ^(WMFArticleListTableViewCell* cell, WMFArticleFooterMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
+            cell.titleLabel.text        = menuItem.title;
+            cell.descriptionLabel.text  = menuItem.subTitle;
+            cell.articleImageView.image = [UIImage imageNamed:menuItem.imageName];
+            cell.articleImageView.contentMode = UIViewContentModeCenter;
         };
 
         self.tableActionBlock = ^BOOL (SSCellActionType action, UITableView* tableView, NSIndexPath* indexPath) {
