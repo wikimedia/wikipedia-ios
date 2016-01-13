@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
+extern NSString* const WMFRandomSectionIdentifier;
 
 @interface WMFRandomSectionController : NSObject
     <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>

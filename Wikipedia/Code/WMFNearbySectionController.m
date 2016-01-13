@@ -25,6 +25,8 @@
 
 #import "WMFLocationSearchListViewController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
 @interface WMFNearbySectionController ()
