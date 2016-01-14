@@ -23,14 +23,6 @@
 
 QuickSpecBegin(UIViewController_WMFSearchButtonTests)
 
-beforeSuite(^{
-    [UIViewController wmf_setSearchPresentationIsAnimated:NO];
-});
-
-afterSuite(^{
-    [UIViewController wmf_setSearchPresentationIsAnimated:YES];
-});
-
 __block DummySearchPresentationViewController* testVC;
 configureTempDataStoreForEach(tempDataStore, ^{
     testVC = [DummySearchPresentationViewController new];
