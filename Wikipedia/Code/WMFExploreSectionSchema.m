@@ -24,8 +24,8 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 6
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
-static NSString* const WMFHomeSectionsFileName      = @"WMFHomeSections";
-static NSString* const WMFHomeSectionsFileExtension = @"plist";
+static NSString* const WMFExploreSectionsFileName      = @"WMFHomeSections";
+static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 
 
@@ -453,7 +453,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 + (NSURL*)schemaFileURL {
-    return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFHomeSectionsFileName] stringByAppendingPathExtension:WMFHomeSectionsFileExtension]];
+    return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFExploreSectionsFileName] stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
 }
 
 + (void)saveSchemaToDisk:(WMFExploreSectionSchema*)schema {
@@ -466,6 +466,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 + (WMFExploreSectionSchema*)loadSchemaFromDisk {
+    //Need to map old class names
+    [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
+    [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
+
     return [NSKeyedUnarchiver unarchiveObjectWithFile:[[self schemaFileURL] path]];
 }
 
