@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController : UITableViewController<WMFSearchPresentationDelegate>
+@interface WMFExploreViewController : UITableViewController<WMFSearchPresentationDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;

@@ -53,7 +53,7 @@
 		B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BA1C0CD2260065EBC0 /* WMFStyleManager.m */; };
 		B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
 		B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */; };
-		B0E802C41C0CD2B80065EBC0 /* WMFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C31C0CD2B80065EBC0 /* WMFHomeViewController.m */; };
+		B0E802C41C0CD2B80065EBC0 /* WMFExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C31C0CD2B80065EBC0 /* WMFExploreViewController.m */; };
 		B0E802CB1C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */; };
 		B0E802CC1C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */; };
 		B0E802CD1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CA1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m */; };
@@ -714,8 +714,8 @@
 		B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+WMFButton.m"; path = "Wikipedia/Code/UIButton+WMFButton.m"; sourceTree = SOURCE_ROOT; };
 		B0E802BF1C0CD27F0065EBC0 /* WMFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAppViewController.h; path = Wikipedia/Code/WMFAppViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E802C01C0CD27F0065EBC0 /* WMFAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAppViewController.m; path = Wikipedia/Code/WMFAppViewController.m; sourceTree = SOURCE_ROOT; };
-		B0E802C21C0CD2B80065EBC0 /* WMFHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFHomeViewController.h; path = Wikipedia/Code/WMFHomeViewController.h; sourceTree = SOURCE_ROOT; };
-		B0E802C31C0CD2B80065EBC0 /* WMFHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFHomeViewController.m; path = Wikipedia/Code/WMFHomeViewController.m; sourceTree = SOURCE_ROOT; };
+		B0E802C21C0CD2B80065EBC0 /* WMFExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreViewController.h; path = Wikipedia/Code/WMFExploreViewController.h; sourceTree = SOURCE_ROOT; };
+		B0E802C31C0CD2B80065EBC0 /* WMFExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreViewController.m; path = Wikipedia/Code/WMFExploreViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E802C51C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPicOfTheDayTableViewCell_Testing.h; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell_Testing.h; sourceTree = SOURCE_ROOT; };
 		B0E802C61C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFPicOfTheDayTableViewCell.h; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802C71C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFPicOfTheDayTableViewCell.m; path = Wikipedia/Code/WMFPicOfTheDayTableViewCell.m; sourceTree = SOURCE_ROOT; };
@@ -2685,8 +2685,8 @@
 			children = (
 				0E4500BB1B97A28C00A33B55 /* Sections */,
 				0E03E2861B83948B00C1FBD7 /* Views */,
-				B0E802C21C0CD2B80065EBC0 /* WMFHomeViewController.h */,
-				B0E802C31C0CD2B80065EBC0 /* WMFHomeViewController.m */,
+				B0E802C21C0CD2B80065EBC0 /* WMFExploreViewController.h */,
+				B0E802C31C0CD2B80065EBC0 /* WMFExploreViewController.m */,
 			);
 			name = Explore;
 			path = Wikipedia/Code/Home;
@@ -5541,7 +5541,7 @@
 				B0E806ED1C0CEBA40065EBC0 /* RecentSearchesViewController.m in Sources */,
 				B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */,
 				B0E807671C0CEE3A0065EBC0 /* DiscoveryContext.m in Sources */,
-				B0E802C41C0CD2B80065EBC0 /* WMFHomeViewController.m in Sources */,
+				B0E802C41C0CD2B80065EBC0 /* WMFExploreViewController.m in Sources */,
 				B0E805431C0CE0DC0065EBC0 /* UIFont+WMFStyle.m in Sources */,
 				B0E803BF1C0CDC360065EBC0 /* WMFArticleListTableViewCell+WMFSearch.m in Sources */,
 				B0E805451C0CE0DC0065EBC0 /* UIImage+WMFFocalImageDrawing.m in Sources */,

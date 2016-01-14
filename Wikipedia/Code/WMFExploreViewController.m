@@ -1,4 +1,4 @@
-#import "WMFHomeViewController.h"
+#import "WMFExploreViewController.h"
 #import "Wikipedia-Swift.h"
 
 // Frameworks
@@ -59,7 +59,7 @@ static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController ()
+@interface WMFExploreViewController ()
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
  UIViewControllerPreviewingDelegate,
@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFHomeViewController
+@implementation WMFExploreViewController
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
