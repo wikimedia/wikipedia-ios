@@ -1,15 +1,15 @@
 
-#import "WMFHomeSectionHeader.h"
+#import "WMFExploreSectionHeader.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 
-@interface WMFHomeSectionHeader ()
+@interface WMFExploreSectionHeader ()
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* rightButtonWidthConstraint;
 @property (assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
 
 @end
 
-@implementation WMFHomeSectionHeader
+@implementation WMFExploreSectionHeader
 
 - (void)awakeFromNib {
     [super awakeFromNib];

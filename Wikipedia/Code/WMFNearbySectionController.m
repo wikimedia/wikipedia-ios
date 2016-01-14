@@ -104,7 +104,7 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
     return self.viewModel.site;
 }
 
-#pragma mark - WMFHomeSectionController
+#pragma mark - WMFExploreSectionController
 
 - (id)sectionIdentifier {
     return WMFNearbySectionIdentifier;

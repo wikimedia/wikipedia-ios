@@ -5,13 +5,13 @@
 
 @class SSSectionedDataSource, SSArrayDataSource;
 
-@protocol WMFHomeSectionControllerDelegate, WMFTitleListDataSource;
+@protocol WMFExploreSectionControllerDelegate, WMFTitleListDataSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WMFHomeSectionController <WMFAnalyticsLogging>
+@protocol WMFExploreSectionController <WMFAnalyticsLogging>
 
-@property (nonatomic, weak) id<WMFHomeSectionControllerDelegate> delegate;
+@property (nonatomic, weak) id<WMFExploreSectionControllerDelegate> delegate;
 
 - (NSString*)sectionIdentifier;
 
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol WMFFetchingHomeSectionController <NSObject>
+@protocol WMFFetchingExploreSectionController <NSObject>
 
 - (void)fetchDataIfNeeded;
 
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Protocol for sections which display articles in some form (e.g. nearby or related articles).
  */
-@protocol WMFArticleHomeSectionController <WMFHomeSectionController>
+@protocol WMFArticleExploreSectionController <WMFExploreSectionController>
 
 /**
  *  Provide the article title to be pushed in response to an item being tapped.
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Protocol for sections which display something other than articles.
  */
-@protocol WMFGenericHomeSectionController <WMFHomeSectionController>
+@protocol WMFGenericExploreSectionController <WMFExploreSectionController>
 
 /**
  *  Return a view controller to be presented modally when an item is tapped.
@@ -108,21 +108,19 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return A view controller which displays more details of the content at @c index.
  */
-- (UIViewController*)homeDetailViewControllerForItemAtIndex:(NSUInteger)index;
+- (UIViewController*)exploreDetailViewControllerForItemAtIndex:(NSUInteger)index;
 
 @end
 
-typedef void (^ WMFHomeSectionCellEnumerator)(id cell, NSIndexPath* indexPath);
+@protocol WMFExploreSectionControllerDelegate <NSObject>
 
-@protocol WMFHomeSectionControllerDelegate <NSObject>
+- (void)controller:(id<WMFExploreSectionController>)controller didSetItems:(NSArray*)items;
 
-- (void)controller:(id<WMFHomeSectionController>)controller didSetItems:(NSArray*)items;
+- (void)controller:(id<WMFExploreSectionController>)controller didAppendItems:(NSArray*)items;
 
-- (void)controller:(id<WMFHomeSectionController>)controller didAppendItems:(NSArray*)items;
+- (void)controller:(id<WMFExploreSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
 
-- (void)controller:(id<WMFHomeSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
-
-- (void)controller:(id<WMFHomeSectionController>)controller didFailToUpdateWithError:(NSError*)error;
+- (void)controller:(id<WMFExploreSectionController>)controller didFailToUpdateWithError:(NSError*)error;
 
 @end
 

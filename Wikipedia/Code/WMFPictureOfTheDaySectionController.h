@@ -6,9 +6,9 @@
 //  Copyright © 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFHomeSectionController.h"
+#import "WMFExploreSectionController.h"
 
 @interface WMFPictureOfTheDaySectionController : NSObject
-    <WMFGenericHomeSectionController, WMFFetchingHomeSectionController>
+    <WMFGenericExploreSectionController, WMFFetchingExploreSectionController>
 
 @end

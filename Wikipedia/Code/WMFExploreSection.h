@@ -14,18 +14,18 @@ NS_ASSUME_NONNULL_BEGIN
  *  enum is modified, the sections will be deserialized incorrectly
  *
  */
-typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
-    WMFHomeSectionTypeContinueReading = 0,
-    WMFHomeSectionTypeMainPage        = 1,
-    WMFHomeSectionTypeRandom          = 2,
-    WMFHomeSectionTypeNearby          = 3,
-    WMFHomeSectionTypeHistory         = 4,
-    WMFHomeSectionTypeSaved           = 5,
-    WMFHomeSectionTypeFeaturedArticle = 6,
-    WMFHomeSectionTypePictureOfTheDay = 7
+typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
+    WMFExploreSectionTypeContinueReading = 0,
+    WMFExploreSectionTypeMainPage        = 1,
+    WMFExploreSectionTypeRandom          = 2,
+    WMFExploreSectionTypeNearby          = 3,
+    WMFExploreSectionTypeHistory         = 4,
+    WMFExploreSectionTypeSaved           = 5,
+    WMFExploreSectionTypeFeaturedArticle = 6,
+    WMFExploreSectionTypePictureOfTheDay = 7
 };
 
-@interface WMFHomeSection : MTLModel
+@interface WMFExploreSection : MTLModel
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
 + (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
@@ -54,7 +54,7 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
  *
  *  Determines which metadata properties are available.
  */
-@property (nonatomic, assign, readonly) WMFHomeSectionType type;
+@property (nonatomic, assign, readonly) WMFExploreSectionType type;
 
 /**
  *  When the section was created.
@@ -96,7 +96,7 @@ typedef NS_ENUM (NSUInteger, WMFHomeSectionType){
  *  They are always in the order of featured, main page, random, nearby.
  *
  */
-- (NSComparisonResult)compare:(WMFHomeSection*)section;
+- (NSComparisonResult)compare:(WMFExploreSection*)section;
 
 @end
 
