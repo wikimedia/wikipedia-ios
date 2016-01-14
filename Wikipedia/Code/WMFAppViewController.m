@@ -463,9 +463,22 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)showLastReadArticleAnimated:(BOOL)animated {
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
     if (lastRead) {
+        if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
+            return;
+        }
         [self.tabBarController setSelectedIndex:WMFAppTabTypeHome];
         [self.homeViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore animated:animated];
     }
+}
+
+-(MWKTitle*)onscreenTitle {
+    if (self.tabBarController.selectedIndex == WMFAppTabTypeHome) {
+        if ([self.homeViewController.navigationController.topViewController isKindOfClass:[WMFArticleContainerViewController class]]){
+            WMFArticleContainerViewController* topVC = (WMFArticleContainerViewController*)self.homeViewController.navigationController.topViewController;
+            return topVC.articleTitle;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - App Shortcuts
