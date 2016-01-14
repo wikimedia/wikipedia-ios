@@ -39,7 +39,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFExploreSectionHeader.h"
 #import "WMFExploreSectionFooter.h"
-#import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
 #import "UIViewController+WMFArticlePresentation.h"
@@ -196,7 +195,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self updateSectionSchemaForce:YES];
     } forControlEvents:UIControlEventValueChanged];
 
-    [self resetRefreshControl];
+    [self resetRefreshControlWithCompletion:NULL];
 
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
@@ -381,12 +380,19 @@ NS_ASSUME_NONNULL_BEGIN
     return [MWLocalizedString(@"home-last-update-label", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[formatter stringFromDate:self.schemaManager.lastUpdatedAt]];
 }
 
-- (void)resetRefreshControl {
+- (void)resetRefreshControlWithCompletion:(nullable dispatch_block_t)completion {
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[self lastUpdatedString]];
-    //Show the updated label for a second before closing otherwise jarring
-    dispatchOnMainQueueAfterDelayInSeconds(1.00, ^{
-        [self.refreshControl endRefreshing];
-    });
+
+    [CATransaction begin];
+    [self.refreshControl endRefreshing];
+    [CATransaction setCompletionBlock:^{
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            if (completion) {
+                completion();
+            }
+        });
+    }];
+    [CATransaction commit];
 }
 
 - (void)updateSectionSchemaIfNeeded {
@@ -397,7 +403,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateSectionSchemaForce:(BOOL)force {
     [self.refreshControl beginRefreshing];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating…"];
-    self.sectionLoadErrors = [NSMutableDictionary dictionary];
+    self.sectionLoadErrors              = [NSMutableDictionary dictionary];
     [self.schemaManager update:force];
 }
 
@@ -409,7 +415,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadSectionControllers {
-
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
         switch (obj.type) {
             case WMFExploreSectionTypeHistory:
@@ -485,17 +490,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];
-    [section.items setArray:controller.items];
-
-    [self.tableView wmf_performUpdates:^{
-        /*
-           HAX: must reload entire table, otherwise UITableView crashes due to inserting nil in an internal array
-
-           This is true even when we tried wrapping in (nested) begin/endUpdate calls and asynchronous queueing of updates.
-         */
-        [self.tableView reloadData];
-    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
+    [self.tableView reloadData];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFExploreSectionController>)controller {
@@ -701,8 +696,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self wmf_hideEmptyView];
-    [self reloadSectionControllers];
-    [self resetRefreshControl];
+    [self resetRefreshControlWithCompletion:^{
+        [self reloadSectionControllers];
+    }];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
@@ -734,10 +730,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     DDLogVerbose(@"Updating items in section %ld: %@", sectionIndex, controller);
-    [self.tableView wmf_performUpdates:^{
-        // see comment in reloadSectionController
-        [self.tableView reloadData];
-    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
+    [self.tableView reloadData];
 }
 
 - (void)controller:(id<WMFExploreSectionController>)controller didFailToUpdateWithError:(NSError*)error {
