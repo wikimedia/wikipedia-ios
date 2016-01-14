@@ -383,16 +383,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetRefreshControlWithCompletion:(nullable dispatch_block_t)completion {
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[self lastUpdatedString]];
 
-    [CATransaction begin];
-    [self.refreshControl endRefreshing];
-    [CATransaction setCompletionBlock:^{
-        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-            if (completion) {
-                completion();
-            }
-        });
-    }];
-    [CATransaction commit];
+    //Don't hide the spinner so quickly - so users can see the change
+    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+        [CATransaction begin];
+        [self.refreshControl endRefreshing];
+        [CATransaction setCompletionBlock:^{
+            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+                if (completion) {
+                    completion();
+                }
+            });
+        }];
+        [CATransaction commit];
+    });
 }
 
 - (void)updateSectionSchemaIfNeeded {
