@@ -490,6 +490,9 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];
+
+    [section.items setArray:controller.items];
     [self.tableView reloadData];
 }
 
