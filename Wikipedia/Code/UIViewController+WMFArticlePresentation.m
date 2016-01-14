@@ -24,21 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
                                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                                      dataStore:(MWKDataStore*)dataStore {
-    
     [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:dataStore animated:YES];
 }
 
 - (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
                                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                                      dataStore:(MWKDataStore*)dataStore
-                                      animated:(BOOL)animated{
-    
+                                      animated:(BOOL)animated {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
     WMFArticleContainerViewController* articleContainerVC =
-    [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                          dataStore:dataStore
-                                                    discoveryMethod:discoveryMethod];
+        [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
+                                                              dataStore:dataStore
+                                                        discoveryMethod:discoveryMethod];
     [self wmf_pushArticleViewController:articleContainerVC];
 }
 
@@ -46,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController animated:(BOOL)animated{
+- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController animated:(BOOL)animated {
     NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
              articleViewController,
              self);

@@ -471,9 +471,9 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     }
 }
 
--(MWKTitle*)onscreenTitle {
+- (MWKTitle*)onscreenTitle {
     if (self.tabBarController.selectedIndex == WMFAppTabTypeHome) {
-        if ([self.homeViewController.navigationController.topViewController isKindOfClass:[WMFArticleContainerViewController class]]){
+        if ([self.homeViewController.navigationController.topViewController isKindOfClass:[WMFArticleContainerViewController class]]) {
             WMFArticleContainerViewController* topVC = (WMFArticleContainerViewController*)self.homeViewController.navigationController.topViewController;
             return topVC.articleTitle;
         }
