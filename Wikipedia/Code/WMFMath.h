@@ -54,6 +54,20 @@ extern double RoundWithPrecision(double (* rounder)(double), double x, unsigned 
  */
 extern double WMFFlooredPercentage(double x) __attribute__((const)) __attribute__((pure));
 
+/**
+ *  Convert angle in radians into hours on a clockface.
+ *
+ *  If we imagine a clockface instead of a unit circle (the hour 12 is aligned with 0 radians),
+ *  then we set the clock pointer to the given the degree, this function returns the number
+ *  of the nearest hour.
+ *
+ *  @param radians Angle in radians
+ *
+ *  @return NSInteger representing the corresponding reading on the clockface.
+ */
+
+NSInteger WMFRadiansToClock(double radians);
+
 ///
 /// @name Geometry
 ///

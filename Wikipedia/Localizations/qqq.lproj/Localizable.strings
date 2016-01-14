@@ -359,3 +359,5 @@
 "icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.";
+"compass-direction" = "Spoken description of compass direction, e.g. 'at 3 o'clock' means 'to the right'";
+
