@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setDataSource:(WMFRelatedTitleListDataSource*)dataSource {
-    
     self.title = [MWLocalizedString(@"home-more-like-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:dataSource.title.text];
 
     dataSource.cellClass = [WMFArticlePreviewTableViewCell class];

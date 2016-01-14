@@ -51,7 +51,6 @@
 
 // Controllers
 #import "WMFLocationManager.h"
-#import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
 static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
@@ -63,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeViewController ()
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
- WMFSearchPresentationDelegate,
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsLogging>
 
@@ -137,7 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
         _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                      dataStore:self.dataStore
+                                                                          dataStore:self.dataStore
                                                                     locationManager:self.locationManager];
     }
     return _nearbySectionController;
@@ -507,7 +505,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
     id<WMFArticleHomeSectionController> articleSectionController = (id<WMFArticleHomeSectionController>)controllerForSection;
 
-    UIViewController* moreVC              = [articleSectionController moreViewController];
+    UIViewController* moreVC = [articleSectionController moreViewController];
     [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
