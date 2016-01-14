@@ -23,7 +23,7 @@
 
 QuickSpecBegin(UIViewController_WMFSearchButtonTests)
 
-__block DummySearchPresentationViewController* testVC;
+__block DummySearchPresentationViewController * testVC;
 configureTempDataStoreForEach(tempDataStore, ^{
     testVC = [DummySearchPresentationViewController new];
     testVC.searchDataStore = tempDataStore;

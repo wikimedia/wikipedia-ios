@@ -19,8 +19,8 @@
         self.article            = article;
         self.cellClass          = [WMFArticleFooterMenuCell class];
         self.cellConfigureBlock = ^(WMFArticleFooterMenuCell* cell, WMFArticleFooterMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
-            cell.title = menuItem.title;
-            cell.subTitle = menuItem.subTitle;
+            cell.title     = menuItem.title;
+            cell.subTitle  = menuItem.subTitle;
             cell.imageName = menuItem.imageName;
         };
 
