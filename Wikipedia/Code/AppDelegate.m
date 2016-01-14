@@ -79,7 +79,7 @@
 }
 
 - (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    [self.appViewController processShortcutItem:shortcutItem];
+    [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
