@@ -475,11 +475,14 @@ NS_ASSUME_NONNULL_BEGIN
     controller.delegate       = self;
 
     [self.dataSource appendSection:section];
-
-    if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]
-        && [self isDisplayingCellsForSectionController:controller]) {
-        [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+    
+    if([self isDisplayingCellsForSectionController:controller]){
+        [self resetRefreshControlWithCompletion:NULL];
+        if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
+            [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+        }
     }
+    
 }
 
 - (void)reloadSectionForSectionController:(id<WMFExploreSectionController>)controller {
@@ -702,9 +705,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self wmf_hideEmptyView];
-    [self resetRefreshControlWithCompletion:^{
-        [self reloadSectionControllers];
-    }];
+    [self reloadSectionControllers];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
