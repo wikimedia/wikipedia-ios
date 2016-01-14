@@ -54,7 +54,7 @@
  */
 typedef NS_ENUM (NSUInteger, WMFAppTabType){
     WMFAppTabTypeExplore = 0,
-    WMFAppTabTypeExplored,
+    WMFAppTabTypeSaved,
     WMFAppTabTypeRecent
 };
 
@@ -367,7 +367,7 @@ static dispatch_once_t launchToken;
 }
 
 - (WMFArticleListTableViewController*)savedArticlesViewController {
-    return (WMFArticleListTableViewController*)[self rootViewControllerForTab:WMFAppTabTypeExplore];
+    return (WMFArticleListTableViewController*)[self rootViewControllerForTab:WMFAppTabTypeSaved];
 }
 
 - (WMFArticleListTableViewController*)recentArticlesViewController {
