@@ -475,14 +475,13 @@ NS_ASSUME_NONNULL_BEGIN
     controller.delegate       = self;
 
     [self.dataSource appendSection:section];
-    
-    if([self isDisplayingCellsForSectionController:controller]){
+
+    if ([self isDisplayingCellsForSectionController:controller]) {
         [self resetRefreshControlWithCompletion:NULL];
         if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
             [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
         }
     }
-    
 }
 
 - (void)reloadSectionForSectionController:(id<WMFExploreSectionController>)controller {
@@ -499,7 +498,15 @@ NS_ASSUME_NONNULL_BEGIN
     SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];
 
     [section.items setArray:controller.items];
-    [self.tableView reloadData];
+
+    [self.tableView wmf_performUpdates:^{
+        /*
+           HAX: must reload entire table, otherwise UITableView crashes due to inserting nil in an internal array
+
+           This is true even when we tried wrapping in (nested) begin/endUpdate calls and asynchronous queueing of updates.
+         */
+        [self.tableView reloadData];
+    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
 
 - (void)unloadSectionForSectionController:(id<WMFExploreSectionController>)controller {
@@ -737,7 +744,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     DDLogVerbose(@"Updating items in section %ld: %@", sectionIndex, controller);
-    [self.tableView reloadData];
+    [self.tableView wmf_performUpdates:^{
+        // see comment in reloadSectionController
+        [self.tableView reloadData];
+    } withoutMovingCellAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:sectionIndex]];
 }
 
 - (void)controller:(id<WMFExploreSectionController>)controller didFailToUpdateWithError:(NSError*)error {
