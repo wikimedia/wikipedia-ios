@@ -1,11 +1,11 @@
 
-#import "WMFHomeSectionController.h"
+#import "WMFExploreSectionController.h"
 
 @class WMFRelatedSearchFetcher;
 @class MWKTitle;
 @class MWKDataStore;
 
-@interface WMFRelatedSectionController : NSObject <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
+@interface WMFRelatedSectionController : NSObject <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;

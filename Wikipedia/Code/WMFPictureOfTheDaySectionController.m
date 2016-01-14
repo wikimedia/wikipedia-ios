@@ -87,7 +87,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     });
 }
 
-#pragma mark - WMFHomeSectionController
+#pragma mark - WMFExploreSectionController
 
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[WMFPicOfTheDayTableViewCell wmf_classNib]
@@ -137,7 +137,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return @[self.imageInfo];
 }
 
-- (UIViewController*)homeDetailViewControllerForItemAtIndex:(NSUInteger)index {
+- (UIViewController*)exploreDetailViewControllerForItemAtIndex:(NSUInteger)index {
     NSParameterAssert(self.fetchedDate);
     NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
     return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];

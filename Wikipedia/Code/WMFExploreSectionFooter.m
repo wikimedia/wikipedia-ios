@@ -1,8 +1,8 @@
 
-#import "WMFHomeSectionFooter.h"
+#import "WMFExploreSectionFooter.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 
-@implementation WMFHomeSectionFooter
+@implementation WMFExploreSectionFooter
 
 - (void)awakeFromNib {
     [super awakeFromNib];

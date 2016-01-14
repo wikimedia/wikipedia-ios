@@ -1,13 +1,13 @@
 
 #import <Mantle/Mantle.h>
 
-@class MWKSite, MWKSavedPageList, MWKHistoryList, WMFHomeSection;
+@class MWKSite, MWKSavedPageList, MWKHistoryList, WMFExploreSection;
 
-@protocol WMFHomeSectionSchemaDelegate;
+@protocol WMFExploreSectionSchemaDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeSectionSchema : MTLModel
+@interface WMFExploreSectionSchema : MTLModel
 
 /**
  *  Creates a schema by loading a persisted one from disk or
@@ -25,12 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 
-@property (nonatomic, weak, readwrite) id<WMFHomeSectionSchemaDelegate> delegate;
+@property (nonatomic, weak, readwrite) id<WMFExploreSectionSchemaDelegate> delegate;
 
 /**
  *  An array of the sections to be displayed on the home screen
  */
-@property (nonatomic, strong, readonly) NSArray<WMFHomeSection*>* sections;
+@property (nonatomic, strong, readonly) NSArray<WMFExploreSection*>* sections;
 
 /**
  *  Update the schema based on the internal business rules
@@ -56,9 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol WMFHomeSectionSchemaDelegate <NSObject>
+@protocol WMFExploreSectionSchemaDelegate <NSObject>
 
-- (void)sectionSchemaDidUpdateSections:(WMFHomeSectionSchema*)schema;
+- (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema;
 
 @end
 

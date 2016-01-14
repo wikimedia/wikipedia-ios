@@ -1,12 +1,12 @@
 
-#import "WMFHomeSectionController.h"
+#import "WMFExploreSectionController.h"
 
 @class MWKSite, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFFeaturedArticleSectionController : NSObject
-    <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
+    <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
 
 @property (nonatomic, strong, readonly) MWKSite* site;
 @property (nonatomic, strong, readonly) NSDate* date;
