@@ -378,12 +378,12 @@ NS_ASSUME_NONNULL_BEGIN
         formatter.timeStyle = NSDateFormatterShortStyle;
     }
 
-    return [MWLocalizedString(@"home-last-update-label", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[formatter stringFromDate:self.schemaManager.lastUpdatedAt]]
+    return [MWLocalizedString(@"home-last-update-label", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[formatter stringFromDate:self.schemaManager.lastUpdatedAt]];
 }
 
 - (void)resetRefreshControl {
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[self lastUpdatedString]];
-    //Show the updated label for a second before closing
+    //Show the updated label for a second before closing otherwise jarring
     dispatchOnMainQueueAfterDelayInSeconds(1.00, ^{
         [self.refreshControl endRefreshing];
     });
@@ -397,7 +397,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateSectionSchemaForce:(BOOL)force {
     [self.refreshControl beginRefreshing];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating…"];
-    [self wmf_hideEmptyView];
     self.sectionLoadErrors = [NSMutableDictionary dictionary];
     [self.schemaManager update:force];
 }
@@ -410,7 +409,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadSectionControllers {
-    [self.tableView beginUpdates];
 
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
         switch (obj.type) {
@@ -442,8 +440,6 @@ NS_ASSUME_NONNULL_BEGIN
                  */
         }
     }];
-
-    [self.tableView endUpdates];
 }
 
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
@@ -704,6 +700,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFExploreSectionSchemaDelegate
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
+    [self wmf_hideEmptyView];
     [self reloadSectionControllers];
     [self resetRefreshControl];
 }
