@@ -14,7 +14,7 @@
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
 #import "WMFArticleFooterMenuDataSource.h"
-#import "WMFArticleListTableViewCell.h"
+#import "WMFArticleFooterMenuCell.h"
 #import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
+    [self.tableView registerNib:[WMFArticleFooterMenuCell wmf_classNib] forCellReuseIdentifier:[WMFArticleFooterMenuCell identifier]];
 
     NSAssert(self.tableView.style == UITableViewStyleGrouped, @"Use grouped UITableView layout so we get separator above first cell and below last cell without having to implement any special logic");
 
