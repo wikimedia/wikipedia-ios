@@ -191,6 +191,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.title = MWLocalizedString(@"home-title", nil);
 
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl bk_addEventHandler:^(id sender) {
+        [self updateSectionSchemaForce:YES];
+    } forControlEvents:UIControlEventValueChanged];
+
+    [self resetRefreshControl];
+
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.estimatedRowHeight           = 345.0;
@@ -357,14 +364,45 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.savedPages];
 }
 
-#pragma mark - Section Management
+#pragma mark - Section Update
+
+- (NSString*)lastUpdatedString {
+    if (!self.schemaManager.lastUpdatedAt) {
+        return MWLocalizedString(@"home-last-update-never-label", nil);
+    }
+
+    static NSDateFormatter* formatter;
+    if (!formatter) {
+        formatter           = [NSDateFormatter new];
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+    }
+
+    return [MWLocalizedString(@"home-last-update-label", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[formatter stringFromDate:self.schemaManager.lastUpdatedAt]]
+}
+
+- (void)resetRefreshControl {
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[self lastUpdatedString]];
+    //Show the updated label for a second before closing
+    dispatchOnMainQueueAfterDelayInSeconds(1.00, ^{
+        [self.refreshControl endRefreshing];
+    });
+}
 
 - (void)updateSectionSchemaIfNeeded {
-    [self wmf_hideEmptyView];
     BOOL forceUpdate = self.sectionLoadErrors.count > 0;
-    self.sectionLoadErrors = [NSMutableDictionary dictionary];
-    [self.schemaManager update:forceUpdate];
+    [self updateSectionSchemaForce:forceUpdate];
 }
+
+- (void)updateSectionSchemaForce:(BOOL)force {
+    [self.refreshControl beginRefreshing];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating…"];
+    [self wmf_hideEmptyView];
+    self.sectionLoadErrors = [NSMutableDictionary dictionary];
+    [self.schemaManager update:force];
+}
+
+#pragma mark - Section Management
 
 - (void)reloadSectionControllers {
     [self unloadAllSectionControllers];
@@ -667,6 +705,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self reloadSectionControllers];
+    [self resetRefreshControl];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate
