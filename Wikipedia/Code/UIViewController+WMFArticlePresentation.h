@@ -28,11 +28,31 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param title            The associated article will be retrieved from @c dataStore or fetched from the API.
  *  @param discoveryMethod  How the title was discovered.
  *  @param dataStore        The data store the title will be read from or should be written to.
+ *  @param animated        Animate the transition.
+ */
+- (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
+                               discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
+                                     dataStore:(MWKDataStore*)dataStore
+                                      animated:(BOOL)animated;
+
+/**
+ *  Same as above with animated == YES
  */
 - (void)wmf_pushArticleViewControllerWithTitle:(MWKTitle*)title
                                discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
                                      dataStore:(MWKDataStore*)dataStore;
 
+/**
+ *  Push an article VC and invoke business rules associated with displaying articles
+ *
+ *  @param articleViewController The article VC to push
+ *  @param animated        Animate the transition.
+ */
+- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController animated:(BOOL)animated;
+
+/**
+ *  Same as above with animated == YES
+ */
 - (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController;
 
 @end

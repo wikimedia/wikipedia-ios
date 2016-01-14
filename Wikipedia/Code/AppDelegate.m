@@ -6,7 +6,7 @@
 #import "BITHockeyManager+WMFExtensions.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
-
+#import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
 @import Tweaks;
 
@@ -52,9 +52,34 @@
     [vc launchAppInWindow:self.window];
     self.appViewController = vc;
 
+    [self updateDynamicIconShortcutItems];
+
     NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 
     return YES;
+}
+
+- (void)updateDynamicIconShortcutItems {
+    if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) {
+        return;
+    }
+
+    NSMutableArray<UIApplicationShortcutItem*>* shortcutItems =
+        [[NSMutableArray alloc] initWithObjects:
+         [UIApplicationShortcutItem wmf_random],
+         [UIApplicationShortcutItem wmf_nearby],
+         nil
+        ];
+
+    [shortcutItems wmf_safeAddObject:[UIApplicationShortcutItem wmf_continueReading]];
+
+    [shortcutItems addObject:[UIApplicationShortcutItem wmf_search]];
+
+    [UIApplication sharedApplication].shortcutItems = shortcutItems;
+}
+
+- (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
 }
 
 - (void)applicationWillResignActive:(UIApplication*)application {
@@ -66,6 +91,7 @@
 - (void)applicationDidEnterBackground:(UIApplication*)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self updateDynamicIconShortcutItems];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication*)application {

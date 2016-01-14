@@ -7,4 +7,6 @@
 
 - (void)launchAppInWindow:(UIWindow*)window;
 
+- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion;
+
 @end

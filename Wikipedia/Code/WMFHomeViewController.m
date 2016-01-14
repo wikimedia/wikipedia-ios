@@ -51,7 +51,6 @@
 
 // Controllers
 #import "WMFLocationManager.h"
-#import "UIViewController+WMFSearchButton.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
 static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
@@ -63,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFHomeViewController ()
 <WMFHomeSectionSchemaDelegate,
  WMFHomeSectionControllerDelegate,
- WMFSearchPresentationDelegate,
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsLogging>
 

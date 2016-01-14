@@ -387,3 +387,7 @@
 
 "alert-no-internet" = "There's no internet connection";
 
+"icon-shortcut-search-title" = "Search Wikipedia";
+"icon-shortcut-continue-reading-title" = "Continue reading";
+"icon-shortcut-random-title" = "Random article";
+"icon-shortcut-nearby-title" = "Nearby articles";
