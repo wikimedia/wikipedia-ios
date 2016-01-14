@@ -125,7 +125,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
+    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]] && [object isKindOfClass:[MWKSearchResult class]]) {
         WMFArticlePreviewTableViewCell* previewCell = (id)cell;
         MWKSearchResult* result                     = object;
         previewCell.titleText       = result.displayTitle;
