@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 
+@property (nonatomic, strong, readonly, nullable) NSDate* lastUpdatedAt;
+
 @property (nonatomic, weak, readwrite) id<WMFExploreSectionSchemaDelegate> delegate;
 
 /**

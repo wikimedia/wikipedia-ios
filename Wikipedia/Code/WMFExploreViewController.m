@@ -191,6 +191,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.title = MWLocalizedString(@"home-title", nil);
 
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl bk_addEventHandler:^(id sender) {
+        [self updateSectionSchemaForce:YES];
+    } forControlEvents:UIControlEventValueChanged];
+
+    [self resetRefreshControlWithCompletion:NULL];
+
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.estimatedRowHeight           = 345.0;
@@ -357,14 +364,54 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.savedPages];
 }
 
-#pragma mark - Section Management
+#pragma mark - Section Update
+
+- (NSString*)lastUpdatedString {
+    if (!self.schemaManager.lastUpdatedAt) {
+        return MWLocalizedString(@"home-last-update-never-label", nil);
+    }
+
+    static NSDateFormatter* formatter;
+    if (!formatter) {
+        formatter           = [NSDateFormatter new];
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+    }
+
+    return [MWLocalizedString(@"home-last-update-label", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[formatter stringFromDate:self.schemaManager.lastUpdatedAt]];
+}
+
+- (void)resetRefreshControlWithCompletion:(nullable dispatch_block_t)completion {
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[self lastUpdatedString]];
+
+    //Don't hide the spinner so quickly - so users can see the change
+    dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
+        [CATransaction begin];
+        [self.refreshControl endRefreshing];
+        [CATransaction setCompletionBlock:^{
+            dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+                if (completion) {
+                    completion();
+                }
+            });
+        }];
+        [CATransaction commit];
+    });
+}
 
 - (void)updateSectionSchemaIfNeeded {
-    [self wmf_hideEmptyView];
     BOOL forceUpdate = self.sectionLoadErrors.count > 0;
-    self.sectionLoadErrors = [NSMutableDictionary dictionary];
-    [self.schemaManager update:forceUpdate];
+    [self updateSectionSchemaForce:forceUpdate];
 }
+
+- (void)updateSectionSchemaForce:(BOOL)force {
+    [self.refreshControl beginRefreshing];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-updating-label", nil)];
+    self.sectionLoadErrors              = [NSMutableDictionary dictionary];
+    [self.schemaManager update:force];
+}
+
+#pragma mark - Section Management
 
 - (void)reloadSectionControllers {
     [self unloadAllSectionControllers];
@@ -372,8 +419,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)loadSectionControllers {
-    [self.tableView beginUpdates];
-
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
         switch (obj.type) {
             case WMFExploreSectionTypeHistory:
@@ -404,8 +449,6 @@ NS_ASSUME_NONNULL_BEGIN
                  */
         }
     }];
-
-    [self.tableView endUpdates];
 }
 
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
@@ -434,9 +477,11 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.dataSource appendSection:section];
 
-    if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]
-        && [self isDisplayingCellsForSectionController:controller]) {
-        [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+    if ([self isDisplayingCellsForSectionController:controller]) {
+        [self resetRefreshControlWithCompletion:NULL];
+        if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
+            [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+        }
     }
 }
 
@@ -452,6 +497,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     SSSection* section = [self.dataSource sectionAtIndex:sectionIndex];
+
     [section.items setArray:controller.items];
 
     [self.tableView wmf_performUpdates:^{
@@ -666,6 +712,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFExploreSectionSchemaDelegate
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
+    [self wmf_hideEmptyView];
     [self reloadSectionControllers];
 }
 

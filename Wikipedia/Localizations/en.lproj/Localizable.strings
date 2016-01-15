@@ -342,6 +342,9 @@
 "home-featured-article-heading" = "Featured article for $1";
 "home-main-page-heading" = "Today on Wikipedia";
 "home-potd-heading" = "Picture of the day for $1";
+"home-last-update-label" = "Last Updated: $1";
+"home-last-update-never-label" = "Last Updated: Never";
+"home-updating-label" = "Updating…";
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
