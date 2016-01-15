@@ -12,11 +12,10 @@ set -e
 
 if [[ "${CONFIGURATION}" != "Release" || $WMF_FORCE_ITUNES_FILE_SHARING == "1" ]]; then
   echo "Enabling iTunes File Sharing for ${CONFIGURATION} build."
-  defaults write "${INFO_PLIST}" UIFileSharingEnabled true
+  defaults write "${INFO_PLIST}" UIFileSharingEnabled -bool YES
 fi
 
 if [[ "${CONFIGURATION}" != "Release" || $WMF_FORCE_DEBUG_MENU == "1" ]]; then
   echo "Showing debug menu for ${CONFIGURATION} build."
-  defaults write "${INFO_PLIST}" WMFShowDebugMenu true
+  defaults write "${INFO_PLIST}" WMFShowDebugMenu -bool YES
 fi
-
