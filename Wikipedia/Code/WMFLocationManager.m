@@ -173,7 +173,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     switch (status) {
-        case kCLAuthorizationStatusNotDetermined: {
+        case kCLAuthorizationStatusNotDetermined:
+        case kCLAuthorizationStatusRestricted: {
             DDLogVerbose(@"Ignoring not determined status call, should have already requested authorization.");
             break;
         }
@@ -186,18 +187,13 @@ NS_ASSUME_NONNULL_BEGIN
             break;
         }
 
-        case kCLAuthorizationStatusAuthorizedWhenInUse: {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        case kCLAuthorizationStatusAuthorizedAlways: {
             DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
             if ([self.delegate respondsToSelector:@selector(nearbyController:didChangeEnabledState:)]) {
                 [self.delegate nearbyController:self didChangeEnabledState:YES];
             }
             [self startMonitoringLocation];
-            break;
-        }
-
-        default: {
-            DDLogError(@"%@ was called with unexpected authorization status: %d", self, status);
-            NSAssert(NO, @"Unexpected location authorization status: %d", status);
             break;
         }
     }
