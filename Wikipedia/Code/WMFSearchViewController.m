@@ -162,6 +162,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureSearchField {
+    self.searchField.textAlignment = NSTextAlignmentNatural;
     [self setSeparatorViewHidden:YES animated:NO];
     [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
 }
@@ -292,11 +293,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (IBAction)textFieldDidChange {
     NSString* query = self.searchField.text;
-    
+
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
-        
         DDLogDebug(@"Search field text changed to: %@", query);
-        
+
         /**
          *  This check must performed before checking isEmpty and calling didCancelSearch
          *  This is to work around a "feature" of Siri which sets the textfield.text to nil
@@ -309,7 +309,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
          *  Tap a search result (which "cancels" the Siri UI)
          *  textFieldDidChange fires with textfield.text="" (This is the offending event!)
          *  textFieldDidChange fires with textfield.text="Mountain"
-         *  
+         *
          *  The event setting the textfield.text == nil causes many side effects which can cause crashes like:
          *  https://phabricator.wikimedia.org/T123241
          */
@@ -325,13 +325,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             [self didCancelSearch];
             return;
         }
-        
+
         [self setRecentSearchesHidden:YES animated:YES];
 
         DDLogDebug(@"Searching for %@ after delay.", query);
         [self searchForSearchTerm:query];
     });
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
