@@ -406,7 +406,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateSectionSchemaForce:(BOOL)force {
     [self.refreshControl beginRefreshing];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Updating…"];
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-updating-label", nil)];
     self.sectionLoadErrors              = [NSMutableDictionary dictionary];
     [self.schemaManager update:force];
 }

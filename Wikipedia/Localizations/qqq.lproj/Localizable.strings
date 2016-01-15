@@ -313,6 +313,7 @@
 "home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
 "home-last-update-label" = "Label that appears before the last updated time of the explore feed";
 "home-last-update-never-label" = "Label that appears when the explore feed has never been updated";
+"home-updating-label" = "Label that appears when a user is updating the explore feed to inform the user that an update is in progress";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-whats-new-title" = "Welcome screen title - shown when a user opens the app for the first time (or first opens version 5.0) literally: Welcome to Wikipedia";
