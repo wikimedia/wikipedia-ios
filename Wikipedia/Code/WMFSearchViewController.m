@@ -378,9 +378,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
         self.resultsListController.dataSource = dataSource;
 
-        [UIView animateWithDuration:0.25 animations:^{
-            [self updateUIWithResults:results];
-        }];
+        [self updateUIWithResults:results];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm
