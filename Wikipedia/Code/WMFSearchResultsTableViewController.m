@@ -56,8 +56,14 @@
     if (!mapping) {
         return result.wikidataDescription;
     }
-    NSString* description = result.wikidataDescription ? [@"\n" stringByAppendingString : [result.wikidataDescription wmf_stringByCapitalizingFirstCharacter]] : @"";
-    return [NSString stringWithFormat:@"Redirected from: %@%@", mapping.redirectFromTitle, description];
+
+    NSString* redirectedResultMessage = [MWLocalizedString(@"search-result-redirected-from", nil) stringByReplacingOccurrencesOfString:@"$1" withString:mapping.redirectFromTitle];
+
+    if (!result.wikidataDescription) {
+        return redirectedResultMessage;
+    } else {
+        return [NSString stringWithFormat:@"%@\n%@", redirectedResultMessage, [result.wikidataDescription wmf_stringByCapitalizingFirstCharacter]];
+    }
 }
 
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
