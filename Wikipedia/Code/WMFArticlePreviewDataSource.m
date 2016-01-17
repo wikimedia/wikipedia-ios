@@ -76,17 +76,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Fetching
 
-- (void)fetch {
-    @weakify(self);
-    [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
-    .then(^(NSArray<MWKSearchResult*>* searchResults) {
-        @strongify(self);
-        if (!self) {
-            return;
-        }
-        self.previewResults = searchResults;
-        [self updateItems:searchResults];
-    });
+- (AnyPromise*)fetch {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        @weakify(self);
+        [self.titlesSearchFetcher fetchArticlePreviewResultsForTitles:self.titles site:self.site]
+        .then(^(NSArray<MWKSearchResult*>* searchResults) {
+            @strongify(self);
+            if (!self) {
+                resolve((id)nil);
+            }
+            self.previewResults = searchResults;
+            [self updateItems:searchResults];
+            resolve((id)searchResults);
+        })
+        .catch(^(NSError* error){
+            resolve(error);
+        });
+    }];
 }
 
 #pragma mark - WMFArticleListDataSource

@@ -53,6 +53,11 @@
 #import "WMFLocationManager.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
+#import "MWKSite.h"
+#import "WMFTrendingViewController.h"
+#import "SessionSingleton.h"
+#import "NSDate+Utilities.h"
+
 static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFHomeVCLogLevel
@@ -83,6 +88,16 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @implementation WMFExploreViewController
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+
+    WMFTrendingViewController* trendingVC = [[WMFTrendingViewController alloc] initWithSite:[SessionSingleton sharedInstance].searchSite date:[NSDate dateWithDaysBeforeNow:0] dataStore:self.dataStore];
+
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:trendingVC]
+                       animated:YES
+                     completion:nil];
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

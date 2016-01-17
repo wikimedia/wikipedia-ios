@@ -541,6 +541,8 @@
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
 		B0F956A91C481BC000691810 /* WMFArticleFooterMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */; };
 		B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */; };
+		B0F956AE1C484E0500691810 /* WMFTrendingFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956AD1C484E0500691810 /* WMFTrendingFetcher.m */; };
+		B0F956B21C4859EE00691810 /* WMFTrendingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956B11C4859EE00691810 /* WMFTrendingViewController.m */; };
 		BC070C2F1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m in Sources */ = {isa = PBXBuildFile; fileRef = BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */; };
 		BC070C311C1F682400CAE9E2 /* WMFArticleImageGalleryDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC070C301C1F682400CAE9E2 /* WMFArticleImageGalleryDataSourceTests.m */; };
 		BC15E74A1BF4377C00679AA9 /* MonetPrefixSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC15E7491BF4377C00679AA9 /* MonetPrefixSearch.json */; };
@@ -1588,6 +1590,10 @@
 		B0F956A71C481BC000691810 /* WMFArticleFooterMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuCell.h; path = Wikipedia/Code/WMFArticleFooterMenuCell.h; sourceTree = SOURCE_ROOT; };
 		B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuCell.m; path = Wikipedia/Code/WMFArticleFooterMenuCell.m; sourceTree = SOURCE_ROOT; };
 		B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuCell.xib; path = Wikipedia/Code/WMFArticleFooterMenuCell.xib; sourceTree = SOURCE_ROOT; };
+		B0F956AC1C484E0500691810 /* WMFTrendingFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFTrendingFetcher.h; path = Wikipedia/Code/WMFTrendingFetcher.h; sourceTree = SOURCE_ROOT; };
+		B0F956AD1C484E0500691810 /* WMFTrendingFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFTrendingFetcher.m; path = Wikipedia/Code/WMFTrendingFetcher.m; sourceTree = SOURCE_ROOT; };
+		B0F956B01C4859EE00691810 /* WMFTrendingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFTrendingViewController.h; sourceTree = "<group>"; };
+		B0F956B11C4859EE00691810 /* WMFTrendingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFTrendingViewController.m; sourceTree = "<group>"; };
 		B8D04746551BF8DC9FF0160F /* Pods_WikipediaUnitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WikipediaUnitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC070C2D1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWKImage+CanonicalFilenames.h"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.h"; sourceTree = SOURCE_ROOT; };
 		BC070C2E1C1F2C0200CAE9E2 /* MWKImage+CanonicalFilenames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MWKImage+CanonicalFilenames.m"; path = "Wikipedia/Code/MWKImage+CanonicalFilenames.m"; sourceTree = SOURCE_ROOT; };
@@ -2783,6 +2789,17 @@
 			name = "Footer Menu";
 			sourceTree = "<group>";
 		};
+		B0F956AF1C48598800691810 /* Trending */ = {
+			isa = PBXGroup;
+			children = (
+				B0F956B01C4859EE00691810 /* WMFTrendingViewController.h */,
+				B0F956B11C4859EE00691810 /* WMFTrendingViewController.m */,
+				B0F956AC1C484E0500691810 /* WMFTrendingFetcher.h */,
+				B0F956AD1C484E0500691810 /* WMFTrendingFetcher.m */,
+			);
+			name = Trending;
+			sourceTree = "<group>";
+		};
 		BC22F44C1BA33CF400B64F4B /* Value Providers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3433,6 +3450,7 @@
 				BCD67E7E1C1F1433005179E1 /* Saved Pages */,
 				0E2B06F91B2D128D00EA2F53 /* Search */,
 				BC45D5871C32F849007C72F3 /* Settings */,
+				B0F956AF1C48598800691810 /* Trending */,
 				BC45D59F1C33018C007C72F3 /* User */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
 			);
@@ -5256,6 +5274,7 @@
 				B0E806481C0CE7F70065EBC0 /* AccountCreator.m in Sources */,
 				B0E802CB1C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.m in Sources */,
 				B0E8068E1C0CEA060065EBC0 /* WMFLocalizationProtocol.m in Sources */,
+				B0F956AE1C484E0500691810 /* WMFTrendingFetcher.m in Sources */,
 				B0E807551C0CEE230065EBC0 /* NSManagedObjectContext+SimpleFetch.m in Sources */,
 				B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */,
 				B0E803441C0CD7980065EBC0 /* WMFSearchFetcher.m in Sources */,
@@ -5379,6 +5398,7 @@
 				B0E802DD1C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m in Sources */,
 				B0E807741C0CEE920065EBC0 /* MWKSavedPageList+ImageMigrationTesting.m in Sources */,
 				B0E805971C0CE2C60065EBC0 /* WMFSuggestedPagesFunnel.m in Sources */,
+				B0F956B21C4859EE00691810 /* WMFTrendingViewController.m in Sources */,
 				B0E803B71C0CDBE20065EBC0 /* WMFRelatedTitleListDataSource.m in Sources */,
 				B0E804491C0CDF850065EBC0 /* WMFCollectionViewPageLayout.m in Sources */,
 				B0E804D51C0CE0B40065EBC0 /* NSObject+ConstraintsScale.m in Sources */,

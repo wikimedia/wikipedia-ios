@@ -76,6 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
                 return [preview.displayTitle isEqualToString:title.text];
             }];
         }];
+    })
+           .catch(^(NSError* error){
+        return error;
     });
 }
 
