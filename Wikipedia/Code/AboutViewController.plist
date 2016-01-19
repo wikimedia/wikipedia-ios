@@ -16,7 +16,7 @@
 	<key>repositories</key>
 	<dict>
 		<key>GitHub</key>
-		<string>https://github.com/wikimedia/apps-ios-wikipedia</string>
+		<string>https://github.com/wikimedia/wikipedia.ios</string>
 		<key>Gerrit</key>
 		<string>https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z</string>
 	</dict>
@@ -171,6 +171,12 @@ THE SOFTWARE.</string>
 		<string>Tomasz Finc</string>
 		<string>Vibha Bamba</string>
 		<string>Yuvi Panda</string>
+		<string>Sherah Smith</string>
+		<string>Nirzar Pangarkar</string>
+		<string>Kaity Hammerstein</string>
+		<string>Daisy Chen</string>
+		<string>Abbey Ripstra</string>
+		<string>Joshua Minor</string>
 	</array>
 </dict>
 </plist>
