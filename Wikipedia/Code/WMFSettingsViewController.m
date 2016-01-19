@@ -265,6 +265,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
         rowView.iconLabel.attributedText =
             [[NSAttributedString alloc] initWithString:icon
                                             attributes:attributes];
+        rowView.iconLabel.isAccessibilityElement = NO;
 
         id title = row[@"title"];
         if ([title isKindOfClass:[NSString class]]) {
