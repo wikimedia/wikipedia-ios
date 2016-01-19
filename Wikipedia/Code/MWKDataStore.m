@@ -27,13 +27,6 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 @implementation MWKDataStore
 
-#pragma mark - Class methods
-
-+ (NSString*)mainDataStorePath {
-    NSString* documentsFolder =
-        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentsFolder stringByAppendingPathComponent:@"Data"];
-}
 
 #pragma mark - Setup / Teardown
 
@@ -55,6 +48,14 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
         self.userDataStore = [[MWKUserDataStore alloc] initWithDataStore:self];
     }
     return self;
+}
+
+#pragma mark - Class methods
+
++ (NSString*)mainDataStorePath {
+    NSString* documentsFolder =
+    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    return [documentsFolder stringByAppendingPathComponent:@"Data"];
 }
 
 #pragma mark - Memory
