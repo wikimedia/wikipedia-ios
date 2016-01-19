@@ -19,9 +19,9 @@
         self.article            = article;
         self.cellClass          = [WMFArticleFooterMenuCell class];
         self.cellConfigureBlock = ^(WMFArticleFooterMenuCell* cell, WMFArticleFooterMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
-            cell.textLabel.text       = menuItem.title;
-            cell.detailTextLabel.text = menuItem.subTitle;
-            cell.imageView.image      = [UIImage imageNamed:menuItem.imageName];
+            cell.title     = menuItem.title;
+            cell.subTitle  = menuItem.subTitle;
+            cell.imageName = menuItem.imageName;
         };
 
         self.tableActionBlock = ^BOOL (SSCellActionType action, UITableView* tableView, NSIndexPath* indexPath) {

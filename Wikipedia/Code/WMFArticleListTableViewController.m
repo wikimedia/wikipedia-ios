@@ -13,7 +13,7 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
 #import "WMFArticleContainerViewController.h"
-#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
 #import <Masonry/Masonry.h>

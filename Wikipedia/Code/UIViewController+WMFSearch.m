@@ -10,8 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static BOOL isSearchPresentationAnimated = YES;
-
 @implementation UIViewController (WMFSearchButton)
 
 + (void)load {
@@ -23,10 +21,6 @@ static BOOL isSearchPresentationAnimated = YES;
                                              selector:@selector(wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:)
                                                  name:UIApplicationDidReceiveMemoryWarningNotification
                                                object:nil];
-}
-
-+ (void)wmf_setSearchPresentationIsAnimated:(BOOL)animated {
-    isSearchPresentationAnimated = animated;
 }
 
 + (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification*)note {
@@ -49,18 +43,22 @@ static BOOL isSearchPresentationAnimated = YES;
             return;
         }
 
-        MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
-
-        if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
-            WMFSearchViewController* searchVC =
-                [WMFSearchViewController searchViewControllerWithSite:searchSite
-                                                            dataStore:[delegate searchDataStore]];
-            _sharedSearchViewController = searchVC;
-        }
-        _sharedSearchViewController.searchResultDelegate = delegate;
-        [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController];
-        [self presentViewController:_sharedSearchViewController animated:isSearchPresentationAnimated completion:nil];
+        [self wmf_showSearchAnimated:YES delegate:delegate];
     }];
+}
+
+- (void)wmf_showSearchAnimated:(BOOL)animated delegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
+    MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
+
+    if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
+        WMFSearchViewController* searchVC =
+            [WMFSearchViewController searchViewControllerWithSite:searchSite
+                                                        dataStore:[delegate searchDataStore]];
+        _sharedSearchViewController = searchVC;
+    }
+    _sharedSearchViewController.searchResultDelegate = delegate;
+    [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController];
+    [self presentViewController:_sharedSearchViewController animated:animated completion:nil];
 }
 
 @end

@@ -155,14 +155,6 @@
                 self.unmodifiedWikiText          = revision;
                 self.editTextView.attributedText = [self getAttributedString:revision];
                 //[self.editTextView performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0.4f];
-
-                MWLanguageInfo* lang = [MWLanguageInfo languageInfoForCode:wikiTextSectionFetcher.section.article.site.domain];
-                UITextRange* range   = [self.editTextView textRangeFromPosition:self.editTextView.beginningOfDocument toPosition:self.editTextView.endOfDocument];
-                if ([lang.dir isEqualToString:@"rtl"]) {
-                    [self.editTextView setBaseWritingDirection:UITextWritingDirectionRightToLeft forRange:range];
-                } else {
-                    [self.editTextView setBaseWritingDirection:UITextWritingDirectionLeftToRight forRange:range];
-                }
             }
             break;
             case FETCH_FINAL_STATUS_CANCELLED: {

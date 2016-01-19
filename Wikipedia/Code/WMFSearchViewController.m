@@ -162,6 +162,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureSearchField {
+    self.searchField.textAlignment = NSTextAlignmentNatural;
     [self setSeparatorViewHidden:YES animated:NO];
     [self.searchField setPlaceholder:MWLocalizedString(@"search-field-placeholder-text", nil)];
 }
@@ -293,25 +294,42 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (IBAction)textFieldDidChange {
     NSString* query = self.searchField.text;
 
-    DDLogDebug(@"Search field text changed to: %@", query);
-
-    BOOL isFieldEmpty = [query wmf_trim].length == 0;
-    [self setSeparatorViewHidden:isFieldEmpty animated:YES];
-
-    if (isFieldEmpty) {
-        [self didCancelSearch];
-        return;
-    }
-
-    [self setRecentSearchesHidden:YES animated:YES];
-
     dispatchOnMainQueueAfterDelayInSeconds(0.4, ^{
-        if ([query isEqualToString:self.searchField.text]) {
-            DDLogDebug(@"Searching for %@ after delay.", query);
-            [self searchForSearchTerm:query];
-        } else {
+        DDLogDebug(@"Search field text changed to: %@", query);
+
+        /**
+         *  This check must performed before checking isEmpty and calling didCancelSearch
+         *  This is to work around a "feature" of Siri which sets the textfield.text to nil
+         *  when cancelling the Siri interface, and then immediately sets the text to its original value
+         *
+         *  The sequence of events is like so:
+         *  Say "Mountain" to Siri
+         *  "Mountain" is typed in the text field by Siri
+         *  textFieldDidChange fires with textfield.text="Mountain"
+         *  Tap a search result (which "cancels" the Siri UI)
+         *  textFieldDidChange fires with textfield.text="" (This is the offending event!)
+         *  textFieldDidChange fires with textfield.text="Mountain"
+         *
+         *  The event setting the textfield.text == nil causes many side effects which can cause crashes like:
+         *  https://phabricator.wikimedia.org/T123241
+         */
+        if (![query isEqualToString:self.searchField.text]) {
             DDLogInfo(@"Aborting search for %@ since query has changed to %@", query, self.searchField.text);
+            return;
         }
+
+        BOOL isFieldEmpty = [query wmf_trim].length == 0;
+        [self setSeparatorViewHidden:isFieldEmpty animated:YES];
+
+        if (isFieldEmpty) {
+            [self didCancelSearch];
+            return;
+        }
+
+        [self setRecentSearchesHidden:YES animated:YES];
+
+        DDLogDebug(@"Searching for %@ after delay.", query);
+        [self searchForSearchTerm:query];
     });
 }
 
@@ -359,9 +377,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
         self.resultsListController.dataSource = dataSource;
 
-        [UIView animateWithDuration:0.25 animations:^{
-            [self updateUIWithResults:results];
-        }];
+        [self updateUIWithResults:results];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm

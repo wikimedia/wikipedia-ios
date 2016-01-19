@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIViewController+WMFSearchButton.h"
+#import "UIViewController+WMFSearch.h"
 
 @class WMFSearchViewController;
 extern WMFSearchViewController* _sharedSearchViewController;

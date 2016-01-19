@@ -106,6 +106,8 @@
 "search-recent-clear-cancel" = "Cancel";
 "search-recent-clear-delete-all" = "Delete All";
 
+"search-result-redirected-from" = "Redirected from: $1";
+
 "settings-title" = "Settings";
 
 "main-menu-title" = "More";
@@ -342,6 +344,9 @@
 "home-featured-article-heading" = "Featured article for $1";
 "home-main-page-heading" = "Today on Wikipedia";
 "home-potd-heading" = "Picture of the day for $1";
+"home-last-update-label" = "Last Updated: $1";
+"home-last-update-never-label" = "Last Updated: Never";
+"home-updating-label" = "Updating…";
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
@@ -387,3 +392,7 @@
 
 "alert-no-internet" = "There's no internet connection";
 
+"icon-shortcut-search-title" = "Search Wikipedia";
+"icon-shortcut-continue-reading-title" = "Continue reading";
+"icon-shortcut-random-title" = "Random article";
+"icon-shortcut-nearby-title" = "Nearby articles";

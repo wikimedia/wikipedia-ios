@@ -14,6 +14,8 @@
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
 #import "WMFArticleFooterMenuDataSource.h"
+#import "WMFArticleFooterMenuCell.h"
+#import "UIView+WMFDefaultNib.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -63,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.tableView registerNib:[WMFArticleFooterMenuCell wmf_classNib] forCellReuseIdentifier:[WMFArticleFooterMenuCell identifier]];
+
     NSAssert(self.tableView.style == UITableViewStyleGrouped, @"Use grouped UITableView layout so we get separator above first cell and below last cell without having to implement any special logic");
 
     self.tableView.estimatedRowHeight = 52.0;
@@ -95,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
+    articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
     }];
 }

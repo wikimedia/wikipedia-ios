@@ -27,7 +27,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
 @interface WMFNearbySectionController ()
 <WMFNearbyViewModelDelegate>
@@ -104,7 +104,7 @@ static NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier
     return self.viewModel.site;
 }
 
-#pragma mark - WMFHomeSectionController
+#pragma mark - WMFExploreSectionController
 
 - (id)sectionIdentifier {
     return WMFNearbySectionIdentifier;

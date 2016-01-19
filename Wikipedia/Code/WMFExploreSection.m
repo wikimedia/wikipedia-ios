@@ -1,5 +1,5 @@
 
-#import "WMFHomeSection.h"
+#import "WMFExploreSection.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKHistoryEntry.h"
@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeSection ()
+@interface WMFExploreSection ()
 
-@property (nonatomic, assign, readwrite) WMFHomeSectionType type;
+@property (nonatomic, assign, readwrite) WMFExploreSectionType type;
 @property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFHomeSection
+@implementation WMFExploreSection
 
 - (instancetype)init {
     self = [super init];
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithCoder:coder];
     if (self) {
         //site was added after persistence. We need to provide a default value.
-        if (self.type == WMFHomeSectionTypeFeaturedArticle && self.site == nil) {
+        if (self.type == WMFExploreSectionTypeFeaturedArticle && self.site == nil) {
             self.site = [MWKSite siteWithLanguage:@"en"];
         }
     }
@@ -48,38 +48,38 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSInteger)dailyOrderingIndex {
     switch (self.type) {
-        case WMFHomeSectionTypeContinueReading:
+        case WMFExploreSectionTypeContinueReading:
             return 0;
-        case WMFHomeSectionTypeFeaturedArticle:
+        case WMFExploreSectionTypeFeaturedArticle:
             return 1;
-        case WMFHomeSectionTypeMainPage:
+        case WMFExploreSectionTypeMainPage:
             return 2;
-        case WMFHomeSectionTypePictureOfTheDay:
+        case WMFExploreSectionTypePictureOfTheDay:
             return 3;
-        case WMFHomeSectionTypeRandom:
+        case WMFExploreSectionTypeRandom:
             return 4;
-        case WMFHomeSectionTypeNearby:
+        case WMFExploreSectionTypeNearby:
             return 5;
 
-        case WMFHomeSectionTypeSaved:
-        case WMFHomeSectionTypeHistory:
+        case WMFExploreSectionTypeSaved:
+        case WMFExploreSectionTypeHistory:
             // Saved & History have identical same-day sorting behavior
             return 6;
     }
 }
 
-- (NSComparisonResult)compare:(WMFHomeSection*)section {
-    NSParameterAssert([section isKindOfClass:[WMFHomeSection class]]);
-    if (self.type == WMFHomeSectionTypeContinueReading) {
+- (NSComparisonResult)compare:(WMFExploreSection*)section {
+    NSParameterAssert([section isKindOfClass:[WMFExploreSection class]]);
+    if (self.type == WMFExploreSectionTypeContinueReading) {
         // continue reading always goes above everything else, regardless of date
         return NSOrderedAscending;
-    } else if (section.type == WMFHomeSectionTypeContinueReading) {
+    } else if (section.type == WMFExploreSectionTypeContinueReading) {
         // corollary of above, everything else always goes below continue reading, regardless of date
         return NSOrderedDescending;
-    } else if (self.type != WMFHomeSectionTypeSaved
-               && section.type != WMFHomeSectionTypeSaved
-               && self.type != WMFHomeSectionTypeHistory
-               && section.type != WMFHomeSectionTypeHistory
+    } else if (self.type != WMFExploreSectionTypeSaved
+               && section.type != WMFExploreSectionTypeSaved
+               && self.type != WMFExploreSectionTypeHistory
+               && section.type != WMFExploreSectionTypeHistory
                && [self.dateCreated isEqualToDateIgnoringTime:section.dateCreated]) {
         // explicit ordering for non-history/-saved items created w/in the same day
         NSInteger selfOrderingIndex  = [self dailyOrderingIndex];
@@ -100,14 +100,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Factory Methods
 
 + (instancetype)pictureOfTheDaySection {
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type = WMFHomeSectionTypePictureOfTheDay;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type = WMFExploreSectionTypePictureOfTheDay;
     return item;
 }
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title {
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type  = WMFHomeSectionTypeContinueReading;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type  = WMFExploreSectionTypeContinueReading;
     item.title = title;
     return item;
 }
@@ -120,15 +120,15 @@ NS_ASSUME_NONNULL_BEGIN
          */
         return nil;
     }
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type = WMFHomeSectionTypeFeaturedArticle;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type = WMFExploreSectionTypeFeaturedArticle;
     item.site = site;
     return item;
 }
 
 + (instancetype)mainPageSection {
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type = WMFHomeSectionTypeMainPage;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type = WMFExploreSectionTypeMainPage;
     return item;
 }
 
@@ -136,23 +136,23 @@ NS_ASSUME_NONNULL_BEGIN
     if ([WMFLocationManager isDeniedOrDisabled]) {
         return nil;
     }
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type     = WMFHomeSectionTypeNearby;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type     = WMFExploreSectionTypeNearby;
     item.location = location;
     return item;
 }
 
 + (instancetype)randomSection {
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type = WMFHomeSectionTypeRandom;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type = WMFExploreSectionTypeRandom;
     return item;
 }
 
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry {
     NSParameterAssert(entry.title);
     NSParameterAssert(entry.date);
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type        = WMFHomeSectionTypeHistory;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type        = WMFExploreSectionTypeHistory;
     item.title       = entry.title;
     item.dateCreated = entry.date;
     return item;
@@ -161,8 +161,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry {
     NSParameterAssert(entry.title);
     NSParameterAssert(entry.date);
-    WMFHomeSection* item = [[WMFHomeSection alloc] init];
-    item.type        = WMFHomeSectionTypeSaved;
+    WMFExploreSection* item = [[WMFExploreSection alloc] init];
+    item.type        = WMFExploreSectionTypeSaved;
     item.title       = entry.title;
     item.dateCreated = entry.date;
     return item;

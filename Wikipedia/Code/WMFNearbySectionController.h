@@ -1,12 +1,14 @@
 
-#import "WMFHomeSectionController.h"
+#import "WMFExploreSectionController.h"
 
 @class WMFLocationManager, WMFNearbyViewModel, MWKSite, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const WMFNearbySectionIdentifier;
+
 @interface WMFNearbySectionController : NSObject
-    <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
+    <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site
                    dataStore:(MWKDataStore*)dataStore

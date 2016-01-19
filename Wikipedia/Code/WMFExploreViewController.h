@@ -5,9 +5,11 @@
 @class MWKSavedPageList;
 @class MWKHistoryList;
 
+#import "UIViewController+WMFSearch.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFHomeViewController : UITableViewController
+@interface WMFExploreViewController : UITableViewController<WMFSearchPresentationDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;

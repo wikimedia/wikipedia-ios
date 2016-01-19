@@ -107,6 +107,7 @@
 "search-recent-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "search-recent-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
 "search-recent-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
+"search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
@@ -311,6 +312,9 @@
 "home-featured-article-heading" = "Heading above today's featured article. $1 will be replaced with today's date.";
 "home-main-page-heading" = "Heading above Main page.";
 "home-potd-heading" = "Heading above the Wikimedia Commons Picture of the Day. $1 will be replaced with the date for the picture of the day.";
+"home-last-update-label" = "Label that appears before the last updated time of the explore feed";
+"home-last-update-never-label" = "Label that appears when the explore feed has never been updated";
+"home-updating-label" = "Label that appears when a user is updating the explore feed to inform the user that an update is in progress";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-whats-new-title" = "Welcome screen title - shown when a user opens the app for the first time (or first opens version 5.0) literally: Welcome to Wikipedia";
@@ -345,3 +349,7 @@
 "empty-no-history-title" = "Title of a blank screen shown when a user has no history";
 "empty-no-history-message" = "Message of a blank screen shown when a user has no history";
 "alert-no-internet" = "Message shown in an alert banner when there is no connection to the internet.";
+"icon-shortcut-search-title" = "Title for app icon force touch shortcut to quickly open the search interface.";
+"icon-shortcut-continue-reading-title" = "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.";
+"icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article.";
+"icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";

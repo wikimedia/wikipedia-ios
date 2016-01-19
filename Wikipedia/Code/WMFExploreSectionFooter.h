@@ -1,7 +1,7 @@
 
 @import UIKit;
 
-@interface WMFHomeSectionFooter : UITableViewHeaderFooterView
+@interface WMFExploreSectionFooter : UITableViewHeaderFooterView
 
 @property (strong, nonatomic) IBOutlet UILabel* moreLabel;
 @property (strong, nonatomic) IBOutlet UIView* visibleBackgroundView;

@@ -1,7 +1,7 @@
 
 @import UIKit;
 
-@interface WMFHomeSectionHeader : UITableViewHeaderFooterView
+@interface WMFExploreSectionHeader : UITableViewHeaderFooterView
 
 @property (strong, nonatomic) IBOutlet UIImageView* icon;
 @property (strong, nonatomic) IBOutlet UILabel* titleView;

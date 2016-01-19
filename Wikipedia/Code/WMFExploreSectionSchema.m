@@ -1,11 +1,11 @@
 
-#import "WMFHomeSectionSchema.h"
+#import "WMFExploreSectionSchema.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "MWKSavedPageList.h"
 #import "MWKHistoryList.h"
-#import "WMFHomeSection.h"
+#import "WMFExploreSection.h"
 #import "Wikipedia-Swift.h"
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
@@ -24,12 +24,12 @@ static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 6
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
-static NSString* const WMFHomeSectionsFileName      = @"WMFHomeSections";
-static NSString* const WMFHomeSectionsFileExtension = @"plist";
+static NSString* const WMFExploreSectionsFileName      = @"WMFHomeSections";
+static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 
 
-@interface WMFHomeSectionSchema ()<WMFLocationManagerDelegate>
+@interface WMFExploreSectionSchema ()<WMFLocationManagerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
@@ -41,12 +41,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 @property (nonatomic, strong, readwrite, nullable) NSDate* lastUpdatedAt;
 
-@property (nonatomic, strong, readwrite) NSArray<WMFHomeSection*>* sections;
+@property (nonatomic, strong, readwrite) NSArray<WMFExploreSection*>* sections;
 
 @end
 
 
-@implementation WMFHomeSectionSchema
+@implementation WMFExploreSectionSchema
 
 - (NSString*)description {
     // HAX: prevent this from logging all its properties in its description, as this causes recursion to
@@ -61,14 +61,14 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
 
-    WMFHomeSectionSchema* schema = [self loadSchemaFromDisk];
+    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk];
 
     if (schema) {
         schema.site         = site;
         schema.savedPages   = savedPages;
         schema.historyPages = history;
     } else {
-        schema = [[WMFHomeSectionSchema alloc] initWithSite:site savedPages:savedPages history:history];
+        schema = [[WMFExploreSectionSchema alloc] initWithSite:site savedPages:savedPages history:history];
     }
 
     return schema;
@@ -98,15 +98,15 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
  *  @see startingSchema
  */
 - (void)reset {
-    NSMutableArray<WMFHomeSection*>* startingSchema = [[WMFHomeSectionSchema startingSchema] mutableCopy];
+    NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
 
-    [startingSchema wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
-    [startingSchema wmf_safeAddObject:[WMFHomeSection nearbySectionWithLocation:nil]];
+    [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
+    [startingSchema wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:nil]];
 
-    WMFHomeSection* saved =
+    WMFExploreSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
 
-    WMFHomeSection* recent =
+    WMFExploreSection* recent =
         [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved ? @[saved] : nil maxLength:1] firstObject];
 
     [startingSchema wmf_safeAddObject:recent];
@@ -123,10 +123,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
  *
  *  @return An array of sections that can be used to start the "feed" from scratch.
  */
-+ (NSArray<WMFHomeSection*>*)startingSchema {
-    return @[[WMFHomeSection mainPageSection],
-             [WMFHomeSection pictureOfTheDaySection],
-             [WMFHomeSection randomSection]];
++ (NSArray<WMFExploreSection*>*)startingSchema {
+    return @[[WMFExploreSection mainPageSection],
+             [WMFExploreSection pictureOfTheDaySection],
+             [WMFExploreSection randomSection]];
 }
 
 #pragma mark - Location
@@ -172,12 +172,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Sections
 
-- (void)updateSections:(NSArray<WMFHomeSection*>*)sections {
-    self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
+- (void)updateSections:(NSArray<WMFExploreSection*>*)sections {
+    self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
         return [obj1 compare:obj2];
     }];
     [self.delegate sectionSchemaDidUpdateSections:self];
-    [WMFHomeSectionSchema saveSchemaToDisk:self];
+    [WMFExploreSectionSchema saveSchemaToDisk:self];
 }
 
 #pragma mark - Update
@@ -197,13 +197,13 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     //Get updated static sections
-    NSMutableArray<WMFHomeSection*>* sections = [[self staticSections] mutableCopy];
+    NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
 
     //Add featured articles
     [sections addObjectsFromArray:[self featuredSections]];
 
     //Add Saved and History
-    NSArray<WMFHomeSection*>* recent = [self historyAndSavedPageSections];
+    NSArray<WMFExploreSection*>* recent = [self historyAndSavedPageSections];
     if ([recent count] > 0) {
         [sections addObjectsFromArray:recent];
     }
@@ -215,19 +215,19 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 - (void)updateNearbySectionWithLocation:(CLLocation*)location {
     NSParameterAssert(location);
 
-    WMFHomeSection* oldNearby = [self existingNearbySection];
+    WMFExploreSection* oldNearby = [self existingNearbySection];
 
     // Check distance to old location
     if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby) {
         return;
     }
 
-    NSMutableArray<WMFHomeSection*>* sections = [self.sections mutableCopy];
-    [sections bk_performReject:^BOOL (WMFHomeSection* obj) {
-        return obj.type == WMFHomeSectionTypeNearby;
+    NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+    [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+        return obj.type == WMFExploreSectionTypeNearby;
     }];
 
-    [sections wmf_safeAddObject:[WMFHomeSection nearbySectionWithLocation:location]];
+    [sections wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:location]];
 
     [self updateSections:sections];
 }
@@ -239,8 +239,8 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
  *
  *  @return An array of all existing site-independent sections.
  */
-- (NSArray<WMFHomeSection*>*)staticSections {
-    NSMutableArray<WMFHomeSection*>* sections = [NSMutableArray array];
+- (NSArray<WMFExploreSection*>*)staticSections {
+    NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
     [sections wmf_safeAddObject:[self existingNearbySection]];
     [sections wmf_safeAddObject:[self randomSection]];
@@ -251,14 +251,14 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     return sections;
 }
 
-- (WMFHomeSection*)randomSection {
-    WMFHomeSection* random = nil;
+- (WMFExploreSection*)randomSection {
+    WMFExploreSection* random = nil;
 
     MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
 
     if (![lastEntry.date isThisWeek]) {
-        random = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
-            if (obj.type == WMFHomeSectionTypeRandom) {
+        random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+            if (obj.type == WMFExploreSectionTypeRandom) {
                 return YES;
             }
             return NO;
@@ -267,15 +267,15 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
     //Always return a random section
     if (!random) {
-        random = [WMFHomeSection randomSection];
+        random = [WMFExploreSection randomSection];
     }
 
     return random;
 }
 
-- (nullable WMFHomeSection*)existingNearbySection {
-    WMFHomeSection* nearby = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
-        if (obj.type == WMFHomeSectionTypeNearby) {
+- (nullable WMFExploreSection*)existingNearbySection {
+    WMFExploreSection* nearby = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+        if (obj.type == WMFExploreSectionTypeNearby) {
             return YES;
         }
         return NO;
@@ -286,37 +286,37 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 
 #pragma mark - Daily Sections
 
-- (NSArray<WMFHomeSection*>*)featuredSections {
-    NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFHomeSection* obj) {
-        return obj.type == WMFHomeSectionTypeFeaturedArticle;
+- (NSArray<WMFExploreSection*>*)featuredSections {
+    NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
+        return obj.type == WMFExploreSectionTypeFeaturedArticle;
     }];
 
     //Don't add new ones if we aren't in english
     NSMutableArray* featured = [existingFeaturedArticleSections mutableCopy];
 
-    WMFHomeSection* today = [featured bk_match:^BOOL (WMFHomeSection* obj) {
-        NSAssert(obj.type == WMFHomeSectionTypeFeaturedArticle,
+    WMFExploreSection* today = [featured bk_match:^BOOL (WMFExploreSection* obj) {
+        NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
                  @"List should only contain featured sections, got %@", featured);
         return [obj.dateCreated isToday];
     }];
 
     if (!today) {
-        [featured wmf_safeAddObject:[WMFHomeSection featuredArticleSectionWithSiteIfSupported:self.site]];
+        [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
     NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
 
     //Sort by date
     [featured sortWithOptions:NSSortStable
-              usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
+              usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
 
     return [featured wmf_arrayByTrimmingToLength:max];
 }
 
-- (WMFHomeSection*)getOrCreateStaticTodaySectionOfType:(WMFHomeSectionType)type {
-    WMFHomeSection* existingSection = [self.sections bk_match:^BOOL (WMFHomeSection* obj) {
+- (WMFExploreSection*)getOrCreateStaticTodaySectionOfType:(WMFExploreSectionType)type {
+    WMFExploreSection* existingSection = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
         if (obj.type == type) {
             return YES;
         }
@@ -329,10 +329,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 
     switch (type) {
-        case WMFHomeSectionTypeMainPage:
-            return [WMFHomeSection mainPageSection];
-        case WMFHomeSectionTypePictureOfTheDay:
-            return [WMFHomeSection pictureOfTheDaySection];
+        case WMFExploreSectionTypeMainPage:
+            return [WMFExploreSection mainPageSection];
+        case WMFExploreSectionTypePictureOfTheDay:
+            return [WMFExploreSection pictureOfTheDaySection];
 
         default:
             NSAssert(NO, @"Cannot create static 'today' section of type %ld", type);
@@ -340,15 +340,15 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }
 }
 
-- (WMFHomeSection*)mainPageSection {
-    return [self getOrCreateStaticTodaySectionOfType:WMFHomeSectionTypeMainPage];
+- (WMFExploreSection*)mainPageSection {
+    return [self getOrCreateStaticTodaySectionOfType:WMFExploreSectionTypeMainPage];
 }
 
-- (WMFHomeSection*)picOfTheDaySection {
-    return [self getOrCreateStaticTodaySectionOfType:WMFHomeSectionTypePictureOfTheDay];
+- (WMFExploreSection*)picOfTheDaySection {
+    return [self getOrCreateStaticTodaySectionOfType:WMFExploreSectionTypePictureOfTheDay];
 }
 
-- (nullable WMFHomeSection*)continueReadingSection {
+- (nullable WMFExploreSection*)continueReadingSection {
     NSDate* resignActiveDate             = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
     BOOL const shouldShowContinueReading =
         FBTweakValue(@"Home", @"Continue Reading", @"Always Show", NO) ||
@@ -358,33 +358,33 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     if (shouldShowContinueReading) {
         MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
         if (lastRead) {
-            return [WMFHomeSection continueReadingSectionWithTitle:lastRead];
+            return [WMFExploreSection continueReadingSectionWithTitle:lastRead];
         }
     }
     return nil;
 }
 
-- (NSArray<WMFHomeSection*>*)historyAndSavedPageSections {
-    NSMutableArray<WMFHomeSection*>* sections = [NSMutableArray array];
+- (NSArray<WMFExploreSection*>*)historyAndSavedPageSections {
+    NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
     NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of history/saved", WMFMaximumNumberOfHistoryAndSavedSections);
 
-    NSArray<WMFHomeSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
-    NSArray<WMFHomeSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];
+    NSArray<WMFExploreSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
+    NSArray<WMFExploreSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];
 
     [sections addObjectsFromArray:saved];
     [sections addObjectsFromArray:history];
 
     //Sort by date
-    [sections sortWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (WMFHomeSection* _Nonnull obj1, WMFHomeSection* _Nonnull obj2) {
+    [sections sortWithOptions:NSSortStable | NSSortConcurrent usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
         return -[obj1.dateCreated compare:obj2.dateCreated];
     }];
 
     return [sections wmf_arrayByTrimmingToLength:max];
 }
 
-- (NSArray<WMFHomeSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
-    NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFHomeSection new], title)];
+- (NSArray<WMFExploreSection*>*)sectionsFromHistoryEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
+    NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], title)];
 
     NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries bk_select:^BOOL (MWKHistoryEntry* obj) {
         return obj.titleWasSignificantlyViewed;
@@ -396,12 +396,12 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }];
 
     return [[entries bk_map:^id (MWKHistoryEntry* obj) {
-        return [WMFHomeSection historySectionWithHistoryEntry:obj];
+        return [WMFExploreSection historySectionWithHistoryEntry:obj];
     }] wmf_arrayByTrimmingToLength:maxLength];
 }
 
-- (NSArray<WMFHomeSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFHomeSection*>*)existingSections maxLength:(NSUInteger)maxLength {
-    NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFHomeSection new], title)];
+- (NSArray<WMFExploreSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
+    NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], title)];
 
     NSArray<MWKSavedPageEntry*>* entries = [self.savedPages.entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
@@ -410,7 +410,7 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     }];
 
     return [[entries bk_map:^id (MWKSavedPageEntry* obj) {
-        return [WMFHomeSection savedSectionWithSavedPageEntry:obj];
+        return [WMFExploreSection savedSectionWithSavedPageEntry:obj];
     }] wmf_arrayByTrimmingToLength:maxLength];
 }
 
@@ -420,9 +420,9 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     if (!enabled) {
         [self updateSections:
          [self.sections filteredArrayUsingPredicate:
-          [NSPredicate predicateWithBlock:^BOOL (WMFHomeSection* _Nonnull evaluatedObject,
+          [NSPredicate predicateWithBlock:^BOOL (WMFExploreSection* _Nonnull evaluatedObject,
                                                  NSDictionary < NSString*, id > * _Nullable _) {
-            return evaluatedObject.type != WMFHomeSectionTypeNearby;
+            return evaluatedObject.type != WMFExploreSectionTypeNearby;
         }]]];
     }
 }
@@ -453,10 +453,10 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
 }
 
 + (NSURL*)schemaFileURL {
-    return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFHomeSectionsFileName] stringByAppendingPathExtension:WMFHomeSectionsFileExtension]];
+    return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFExploreSectionsFileName] stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
 }
 
-+ (void)saveSchemaToDisk:(WMFHomeSectionSchema*)schema {
++ (void)saveSchemaToDisk:(WMFExploreSectionSchema*)schema {
     dispatchOnBackgroundQueue(^{
         if (![NSKeyedArchiver archiveRootObject:schema toFile:[[self schemaFileURL] path]]) {
             //TODO: not sure what to do with an error here
@@ -465,7 +465,11 @@ static NSString* const WMFHomeSectionsFileExtension = @"plist";
     });
 }
 
-+ (WMFHomeSectionSchema*)loadSchemaFromDisk {
++ (WMFExploreSectionSchema*)loadSchemaFromDisk {
+    //Need to map old class names
+    [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
+    [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
+
     return [NSKeyedUnarchiver unarchiveObjectWithFile:[[self schemaFileURL] path]];
 }
 

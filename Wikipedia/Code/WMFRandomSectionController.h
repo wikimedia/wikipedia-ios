@@ -1,12 +1,14 @@
 
-#import "WMFHomeSectionController.h"
+#import "WMFExploreSectionController.h"
 
 @class MWKSite, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const WMFRandomSectionIdentifier;
+
 @interface WMFRandomSectionController : NSObject
-    <WMFArticleHomeSectionController, WMFFetchingHomeSectionController>
+    <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList;
 
