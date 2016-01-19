@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSUInteger const WMFMaximumNumberOfHistoryAndSavedSections = 20;
 static NSUInteger const WMFMaximumNumberOfFeaturedSections        = 10;
+static NSUInteger const WMFMaximumNumberOfTrendingSections        = 10;
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
@@ -124,7 +125,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  *  @return An array of sections that can be used to start the "feed" from scratch.
  */
 + (NSArray<WMFExploreSection*>*)startingSchema {
-    return @[[WMFExploreSection mainPageSection],
+    return @[[WMFExploreSection trendingSectionForDate:[NSDate dateWithDaysBeforeNow:1]],
+             [WMFExploreSection mainPageSection],
              [WMFExploreSection pictureOfTheDaySection],
              [WMFExploreSection randomSection]];
 }
@@ -196,13 +198,16 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return;
     }
 
-    //Get updated static sections
+    // Get updated static sections
     NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
 
-    //Add featured articles
+    // Add featured articles
     [sections addObjectsFromArray:[self featuredSections]];
 
-    //Add Saved and History
+    // Add trending articles
+    [sections addObjectsFromArray:[self trendingSections]];
+
+    // Add Saved and History
     NSArray<WMFExploreSection*>* recent = [self historyAndSavedPageSections];
     if ([recent count] > 0) {
         [sections addObjectsFromArray:recent];
@@ -286,12 +291,39 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Daily Sections
 
+- (NSArray<WMFExploreSection*>*)trendingSections {
+    NSArray* existingTrendingSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
+        return obj.type == WMFExploreSectionTypeTrending;
+    }];
+
+    NSMutableArray* trendingSections = [existingTrendingSections mutableCopy];
+
+    WMFExploreSection* yesterday = [trendingSections bk_match:^BOOL (WMFExploreSection* obj) {
+        NSAssert(obj.type == WMFExploreSectionTypeTrending,
+                 @"List should only contain trending sections, got %@", trendingSections);
+        return [obj.dateCreated isYesterday];
+    }];
+
+    if (!yesterday) {
+        [trendingSections wmf_safeAddObject:[WMFExploreSection trendingSectionForDate:[NSDate dateWithDaysBeforeNow:1]]];
+    }
+
+    NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of trending", WMFMaximumNumberOfTrendingSections);
+
+    //Sort by date
+    [trendingSections sortWithOptions:NSSortStable
+              usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+        return -[obj1.dateCreated compare:obj2.dateCreated];
+    }];
+
+    return [trendingSections wmf_arrayByTrimmingToLength:max];
+}
+
 - (NSArray<WMFExploreSection*>*)featuredSections {
     NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeFeaturedArticle;
     }];
 
-    //Don't add new ones if we aren't in english
     NSMutableArray* featured = [existingFeaturedArticleSections mutableCopy];
 
     WMFExploreSection* today = [featured bk_match:^BOOL (WMFExploreSection* obj) {

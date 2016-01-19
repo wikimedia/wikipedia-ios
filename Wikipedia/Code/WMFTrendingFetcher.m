@@ -5,6 +5,7 @@
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "WMFNetworkUtilities.h"
 #import "MWKSite.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @interface WMFTrendingFetcher ()
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
@@ -47,10 +48,10 @@
 }
 
 - (NSString*)getTrendingURLStringForSite:(MWKSite*)site date:(NSDate*)date {
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSString* dateString = [formatter stringFromDate:date];
-    return [NSString stringWithFormat:@"https://wikimedia.org/api/rest_v1/metrics/pageviews/top/%@.wikipedia/all-access/%@", site.language, dateString];
+    return [NSString stringWithFormat:
+            @"https://wikimedia.org/api/rest_v1/metrics/pageviews/top/%@.wikipedia/all-access/%@",
+            site.language,
+            [[NSDateFormatter wmf_englishSlashDelimitedYearMonthDayFormatter] stringFromDate:date]];
 }
 
 @end
