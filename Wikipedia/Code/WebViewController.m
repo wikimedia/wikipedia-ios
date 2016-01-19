@@ -182,15 +182,23 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 #pragma mark - Headers & Footers
 
-- (void)scrollToFooterAtIndex:(NSUInteger)index {
+- (UIView*)footerAtIndex:(NSUInteger)index {
     UIView* footerView       = self.footerViewControllers[index].view;
     UIView* footerViewHeader = self.footerViewHeadersByIndex[@(index)];
-    UIView* viewToScrollTo   = footerViewHeader ? : footerView;
+    return footerViewHeader ? : footerView;
+}
 
+- (void)scrollToFooterAtIndex:(NSUInteger)index {
+    UIView* viewToScrollTo = [self footerAtIndex:index];
     CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
                                                             fromView:self.footerContainerView];
     footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
     [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
+}
+
+- (void)accessibilityCursorToFooterAtIndex:(NSUInteger)index {
+    UIView* viewToScrollTo = [self footerAtIndex:index];
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
 }
 
 - (NSInteger)visibleFooterIndex {
@@ -407,6 +415,11 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated];
+}
+
+- (void)accessibilityCursorToSection:(MWKSection*)section {
+    NSString *js = [NSString stringWithFormat:@"focus_element = document.getElementById('%@'); other_element = document.body;  other_element.setAttribute('tabindex', 0); focus_element.setAttribute('tabindex', 0); other_element.focus(); focus_element.focus();", section.anchor];
+    [self.webView stringByEvaluatingJavaScriptFromString:js];
 }
 
 - (nullable MWKSection*)currentVisibleSection {
