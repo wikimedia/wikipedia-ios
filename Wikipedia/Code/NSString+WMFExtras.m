@@ -1,5 +1,5 @@
 
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "TFHpple.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "SessionSingleton.h"
@@ -9,7 +9,7 @@
 #import "MediaWikiKit.h"
 #import "NSString+WMFHTMLParsing.h"
 
-@implementation NSString (Extras)
+@implementation NSString (WMFExtras)
 
 - (NSString*)wmf_safeSubstringToIndex:(NSUInteger)index {
     return [self substringToIndex:MIN(self.length, index)];

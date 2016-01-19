@@ -5,7 +5,7 @@
 #import "WikipediaAppUtils.h"
 #import "UIWebView+LoadAssetsHtml.h"
 #import "Defines.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import <BlocksKit/BlocksKit.h>
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"

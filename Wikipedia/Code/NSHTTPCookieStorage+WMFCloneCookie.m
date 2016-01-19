@@ -1,11 +1,11 @@
 //  Created by Monte Hurd on 2/11/14.
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
-#import "NSHTTPCookieStorage+CloneCookie.h"
+#import "NSHTTPCookieStorage+WMFCloneCookie.h"
 
-@implementation NSHTTPCookieStorage (CloneCookie)
+@implementation NSHTTPCookieStorage (WMFCloneCookie)
 
-- (void)recreateCookie:(NSString*)cookieToRecreate usingCookieAsTemplate:(NSString*)templateCookie {
+- (void)wmf_recreateCookie:(NSString*)cookieToRecreate usingCookieAsTemplate:(NSString*)templateCookie {
     void (^ cloneCookie)(NSString*, NSString*) = ^void (NSString* name1, NSString* name2){
         NSUInteger (^ getIndexOfCookie)(NSString*) = ^NSUInteger (NSString* name){
             return [self.cookies indexOfObjectPassingTest:^BOOL (id obj, NSUInteger idx, BOOL* stop) {

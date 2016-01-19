@@ -5,7 +5,7 @@
 #import "NSObject+ConstraintsScale.h"
 #import "PageHistoryLabel.h"
 #import "Defines.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "UIFont+WMFStyle.h"
 #import "NSDateFormatter+WMFExtensions.h"
 

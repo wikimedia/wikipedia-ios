@@ -7,7 +7,7 @@
 //
 
 #import "WMFShareCardViewController.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "WMFShareCardImageContainer.h"
 #import "MWLanguageInfo.h"
 #import "WikipediaAppUtils.h"

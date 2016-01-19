@@ -6,7 +6,7 @@
 #import "MWKTitle.h"
 #import "WMFSearchResults.h"
 #import "MWKSearchRedirectMapping.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 @implementation WMFSearchResultsTableViewController
 

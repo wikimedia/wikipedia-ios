@@ -2,7 +2,7 @@
 #import "MediaWikiKit.h"
 
 #import <BlocksKit/BlocksKit.h>
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "Wikipedia-Swift.h"
 
 #import <BlocksKit/BlocksKit.h>

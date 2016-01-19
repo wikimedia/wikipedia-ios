@@ -5,7 +5,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
-#import "NSObject+Extras.h"
+#import "NSObject+WMFExtras.h"
 
 @interface ThumbnailFetcher ()
 

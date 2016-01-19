@@ -15,7 +15,7 @@
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
 #import "PaddedLabel.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"

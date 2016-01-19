@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager+UniqueRequests.h"
+#import "AFHTTPRequestOperationManager+WMFUniqueRequests.h"
 #import <BlocksKit/BlocksKit.h>
 
-@implementation AFHTTPRequestOperationManager (UniqueRequests)
+@implementation AFHTTPRequestOperationManager (WMFUniqueRequests)
 
 - (AFHTTPRequestOperation*)wmf_findOperationWithMethod:(NSString*)method
                                              URLString:(NSString*)URLString

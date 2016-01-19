@@ -10,7 +10,7 @@
 #import <hpple/TFHpple.h>
 #import <BlocksKit/BlocksKit.h>
 #import "WikipediaAppUtils.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 #import "NSString+WMFHTMLParsing.h"
 #import "MWKCitation.h"
 #import "MWKSection+DisplayHtml.h"
