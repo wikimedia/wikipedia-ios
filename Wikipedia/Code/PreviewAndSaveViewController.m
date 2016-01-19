@@ -89,6 +89,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
 @implementation PreviewAndSaveViewController
 
+- (void)dealloc {
+    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+}
+
 - (NSString*)getSummary {
     NSMutableArray* summaryArray = @[].mutableCopy;
 
@@ -269,10 +273,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
     }
-}
-
-- (void)dealloc {
-    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)observeValueForKeyPath:(NSString*)keyPath
