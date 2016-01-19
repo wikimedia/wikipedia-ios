@@ -34,7 +34,7 @@
                                       NSIndexPath* indexPath) {
         @strongify(self);
         MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
-        [cell setTitleText:title.text highlightingText:self.searchResults.searchTerm];
+        [cell wmf_setTitleText:title.text highlightingText:self.searchResults.searchTerm];
         cell.descriptionText = [self descriptionForSearchResult:result];
         [cell setImageURL:result.thumbnailURL];
     };
