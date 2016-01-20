@@ -15,7 +15,7 @@
 /**
  *  Flag which represents whether or not the receiver was being previewed in Interface Builder (IB).
  */
-@property (nonatomic, assign, getter=isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
+@property (nonatomic, assign, getter = isInterfaceBuilderPreviewing) BOOL interfaceBuilderPreviewing;
 
 /**
  *  The image view shown to the left (in LTR) of the text.
@@ -33,7 +33,7 @@
 
 @implementation WMFTextualSaveButton
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -76,8 +76,8 @@
     if (self.isInterfaceBuilderPreviewing) {
         // HAX: NSBundle.mainBundle is _not_ the application when the view is being created by IB
         return [UIImage imageNamed:imageName
-                          inBundle:[NSBundle bundleForClass:[self class]]
-     compatibleWithTraitCollection:self.traitCollection];
+                                     inBundle:[NSBundle bundleForClass:[self class]]
+                compatibleWithTraitCollection:self.traitCollection];
     } else {
         return [UIImage imageNamed:imageName];
     }
@@ -96,8 +96,8 @@
 #pragma mark - View Setup
 
 - (void)setupSubviews {
-    self.saveIconImageView             = [UIImageView new];
-    self.saveIconImageView.contentMode = UIViewContentModeCenter;
+    self.saveIconImageView                    = [UIImageView new];
+    self.saveIconImageView.contentMode        = UIViewContentModeCenter;
     self.saveIconImageView.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [self addSubview:self.saveIconImageView];
 
@@ -112,7 +112,7 @@
     self.saveTextLabel.textAlignment        = NSTextAlignmentNatural;
     self.saveTextLabel.font                 = [UIFont systemFontOfSize:18.f];
     self.saveTextLabel.highlightedTextColor = [UIColor lightGrayColor];
-    self.saveTextLabel.tintAdjustmentMode     = UIViewTintAdjustmentModeAutomatic;
+    self.saveTextLabel.tintAdjustmentMode   = UIViewTintAdjustmentModeAutomatic;
     [self.saveTextLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
     [self addSubview:self.saveTextLabel];
 
@@ -131,7 +131,7 @@
 - (void)applySelectedState:(BOOL)animated {
     dispatch_block_t animations = ^{
         self.saveIconImageView.image = [self iconImage];
-        self.saveTextLabel.text = [self labelText];
+        self.saveTextLabel.text      = [self labelText];
     };
     if (!animated) {
         animations();

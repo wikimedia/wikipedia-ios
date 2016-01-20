@@ -16,12 +16,12 @@
 @implementation WMFSaveButtonController
 
 - (instancetype)initWithControl:(UIControl*)button
-                 savedPageList:(MWKSavedPageList*)savedPageList
-                         title:(MWKTitle*)title {
+                  savedPageList:(MWKSavedPageList*)savedPageList
+                          title:(MWKTitle*)title {
     NSParameterAssert(savedPageList);
     self = [super init];
     if (self) {
-        self.control        = button;
+        self.control       = button;
         self.title         = title;
         self.savedPageList = savedPageList;
     }
@@ -66,8 +66,8 @@
 
 - (void)setControl:(UIButton*)button {
     [_control removeTarget:self
-                   action:@selector(toggleSave:)
-         forControlEvents:UIControlEventTouchUpInside];
+                    action:@selector(toggleSave:)
+          forControlEvents:UIControlEventTouchUpInside];
 
     [button addTarget:self
                action:@selector(toggleSave:)
