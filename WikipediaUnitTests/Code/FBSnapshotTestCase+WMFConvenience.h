@@ -28,12 +28,15 @@
 
 @interface FBSnapshotTestCase (WMFConvenience)
 
-- (void)wmf_visuallyVerifyMultilineLabelWithText:(id)stringOrAttributedString;
+- (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width;
 
-- (void)wmf_visuallyVerifyCellWithIdentifier:(NSString*)identifier
-                               fromTableView:(UITableView*)tableView
-                         configuredWithBlock:(void (^)(UITableViewCell*))block;
+- (void)wmf_verifyCellWithIdentifier:(NSString*)identifier
+                       fromTableView:(UITableView*)tableView
+                               width:(CGFloat)width
+                 configuredWithBlock:(void (^)(UITableViewCell*))block;
 
-- (void)wmf_verifyViewAtScreenWidth:(UIView*)view;
+- (void)wmf_verifyView:(UIView*)view width:(CGFloat)width;
+
+- (void)wmf_verifyViewAtWindowWidth:(UIView*)view;
 
 @end

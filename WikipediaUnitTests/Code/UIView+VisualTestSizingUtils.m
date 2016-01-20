@@ -8,37 +8,25 @@
 
 #import "UIView+VisualTestSizingUtils.h"
 
-static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrientationPortrait;
-
 @implementation UIView (VisualTestSizingUtils)
 
-- (CGRect)wmf_sizeThatFitsScreenWidth {
-    return [self wmf_sizeThatFitsScreenWidthForOrientation:WMFDefaultTestOrientation];
-}
-
-- (CGRect)wmf_sizeThatFitsScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
-    WMF_TECH_DEBT_TODO(use nativeBounds of mainScreen)
-    CGSize preHeightAdjustmentSize = (CGSize){
-        .width  = UIInterfaceOrientationIsLandscape(orientation) ? 568 : 320,
-        .height = 0
-    };
-
-    CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:preHeightAdjustmentSize
+- (CGRect)wmf_sizeThatFitsWidth:(CGFloat)width {
+    CGSize sizeThatFitsWidth = [self systemLayoutSizeFittingSize:CGSizeMake(width, 0)
                                    withHorizontalFittingPriority:UILayoutPriorityRequired
                                          verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-
     return (CGRect){
                .origin = CGPointZero,
                .size   = CGSizeMake(floor(sizeThatFitsWidth.width), floor(sizeThatFitsWidth.height))
     };
 }
 
-- (void)wmf_sizeToFitScreenWidth {
-    [self wmf_sizeToFitScreenWidthForOrientation:WMFDefaultTestOrientation];
+- (void)wmf_sizeToFitWindowWidth {
+    UIWindow* window = self.window ? : [[UIApplication sharedApplication] keyWindow];
+    [self wmf_sizeToFitWidth:window.bounds.size.width];
 }
 
-- (void)wmf_sizeToFitScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
-    self.frame = [self wmf_sizeThatFitsScreenWidthForOrientation:orientation];
+- (void)wmf_sizeToFitWidth:(CGFloat)width {
+    self.frame = [self wmf_sizeThatFitsWidth:width];
 }
 
 @end
@@ -49,8 +37,8 @@ static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrien
 
 @implementation UICollectionViewCell (VisualTestSizingUtils)
 
-- (void)wmf_sizeToFitScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
-    [super wmf_sizeToFitScreenWidthForOrientation:orientation];
+- (void)wmf_sizeToFitWidth:(CGFloat)width {
+    [super wmf_sizeToFitWidth:width];
     self.contentView.frame = self.frame;
 }
 
@@ -62,8 +50,8 @@ static UIInterfaceOrientation const WMFDefaultTestOrientation = UIInterfaceOrien
 
 @implementation UITableViewCell (VisualTestSizingUtils)
 
-- (void)wmf_sizeToFitScreenWidthForOrientation:(UIInterfaceOrientation)orientation {
-    [super wmf_sizeToFitScreenWidthForOrientation:orientation];
+- (void)wmf_sizeToFitWidth:(CGFloat)width {
+    [super wmf_sizeToFitWidth:width];
     self.contentView.frame = self.frame;
 }
 

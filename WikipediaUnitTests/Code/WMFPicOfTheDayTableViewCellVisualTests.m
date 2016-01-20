@@ -39,13 +39,13 @@
 }
 
 - (void)testInitialStateOnlyShowsPlaceholderWithoutCaption {
-    [self wmf_verifyViewAtScreenWidth:self.cell];
+    [self wmf_verifyView:self.cell width:320.f];
 }
 
 - (void)testStillShowsPlaceholderWithoutCaptionWhileImageIsDownloading {
     [NSURLProtocol registerClass:[WMFHTTPHangingProtocol class]];
     [self.cell setImageURL:[NSURL URLWithString:@"http://dummyimage.com/foo"]];
-    [self wmf_verifyViewAtScreenWidth:self.cell];
+    [self wmf_verifyView:self.cell width:320.f];
     [NSURLProtocol unregisterClass:[WMFHTTPHangingProtocol class]];
 }
 
@@ -72,7 +72,7 @@
 
     [self waitForExpectationsWithTimeout:5 handler:nil];
 
-    [self wmf_verifyViewAtScreenWidth:self.cell];
+    [self wmf_verifyView:self.cell width:320.f];
     [[LSNocilla sharedInstance] stop];
 }
 

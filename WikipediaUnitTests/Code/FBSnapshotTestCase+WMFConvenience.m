@@ -7,8 +7,9 @@
 
 @implementation FBSnapshotTestCase (WMFConvenience)
 
-- (void)wmf_visuallyVerifyMultilineLabelWithText:(id)stringOrAttributedString {
-    WMFSnapshotVerifyView([self wmf_getLabelConfiguredWithBlock:^(UILabel* label){
+- (void)wmf_verifyMultilineLabelWithText:(id)stringOrAttributedString width:(CGFloat)width {
+    WMFSnapshotVerifyView([self wmf_getLabelSizedToFitWidth:width
+                                        configuredWithBlock:^(UILabel* label){
         if ([stringOrAttributedString isKindOfClass:[NSString class]]) {
             label.text = stringOrAttributedString;
         } else if ([stringOrAttributedString isKindOfClass:[NSAttributedString class]]) {
@@ -17,19 +18,28 @@
     }]);
 }
 
-- (void)wmf_visuallyVerifyCellWithIdentifier:(NSString*)identifier
-                               fromTableView:(UITableView*)tableView
-                         configuredWithBlock:(void (^)(UITableViewCell*))block {
-    WMFSnapshotVerifyView([self wmf_getCellWithIdentifier:identifier fromTableView:tableView configuredWithBlock:^(UITableViewCell* cell){
+- (void)wmf_verifyCellWithIdentifier:(NSString*)identifier
+                       fromTableView:(UITableView*)tableView
+                               width:(CGFloat)width
+                 configuredWithBlock:(void (^)(UITableViewCell*))block {
+    WMFSnapshotVerifyView([self wmf_getCellWithIdentifier:identifier
+                                            fromTableView:tableView
+                                          sizedToFitWidth:width
+                                      configuredWithBlock:^(UITableViewCell* cell){
         if (block) {
             block(cell);
         }
     }]);
 }
 
-- (void)wmf_verifyViewAtScreenWidth:(UIView*)view {
-    [view wmf_sizeToFitScreenWidth];
+- (void)wmf_verifyView:(UIView*)view width:(CGFloat)width {
+    [view wmf_sizeToFitWidth:width];
     WMFSnapshotVerifyView(view);
+}
+
+- (void)wmf_verifyViewAtWindowWidth:(UIView*)view {
+    UIWindow* window = view.window ? : [[UIApplication sharedApplication] keyWindow];
+    [self wmf_verifyView:view width:window.bounds.size.width];
 }
 
 @end
