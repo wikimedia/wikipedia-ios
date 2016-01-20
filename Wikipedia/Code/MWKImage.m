@@ -5,7 +5,7 @@
 #import "WMFImageURLParsing.h"
 #import "WMFGeometry.h"
 #import "Wikipedia-Swift.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 @interface MWKImage ()
 

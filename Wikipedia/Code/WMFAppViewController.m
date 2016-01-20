@@ -97,12 +97,13 @@ static dispatch_once_t launchToken;
 
 @implementation WMFAppViewController
 
-- (BOOL)isPresentingOnboarding {
-    return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
-}
-
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+- (BOOL)isPresentingOnboarding {
+    return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
 }
 
 #pragma mark - Setup

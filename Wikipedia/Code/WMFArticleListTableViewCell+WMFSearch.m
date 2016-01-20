@@ -17,7 +17,7 @@
     return [UIFont boldSystemFontOfSize:[self titleLabelFontSize]];
 }
 
-- (void)setTitleText:(NSString*)text highlightingText:(NSString*)highlightText {
+- (void)wmf_setTitleText:(NSString*)text highlightingText:(NSString*)highlightText {
     if (highlightText.length == 0) {
         self.titleLabel.text = text;
         return;

@@ -4,7 +4,7 @@
 #import "NSAttributedString+WMFSavedPagesAttributedStrings.h"
 #import "NSString+FormattedAttributedString.h"
 #import "Defines.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "UIColor+WMFHexColor.h"
 
 static NSInteger const kTitleColor  = 0x000000;

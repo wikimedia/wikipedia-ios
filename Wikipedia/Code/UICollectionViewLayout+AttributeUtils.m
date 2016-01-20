@@ -18,8 +18,8 @@
 - (NSArray*)wmf_sortAttributesByLeadingEdgeDistance:(NSArray*)attributes toPoint:(CGPoint)point {
     return [attributes sortedArrayUsingComparator:^NSComparisonResult (UICollectionViewLayoutAttributes* attr1,
                                                                        UICollectionViewLayoutAttributes* attr2) {
-        float leadingEdgeDistance1 = fabs(point.x - attr1.frame.origin.x);
-        float leadingEdgeDistance2 = fabs(point.x - attr2.frame.origin.x);
+        float leadingEdgeDistance1 = fabs(point.x - CGRectGetMinX(attr1.frame));
+        float leadingEdgeDistance2 = fabs(point.x - CGRectGetMinX(attr2.frame));
         return leadingEdgeDistance1 - leadingEdgeDistance2;
     }];
 }

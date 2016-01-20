@@ -8,7 +8,7 @@
 
 #import "WMFSavedArticleTableViewController.h"
 
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 #import "WMFSavedPagesDataSource.h"
 #import "MWKDataStore.h"

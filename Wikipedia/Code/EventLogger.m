@@ -2,7 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "EventLogger.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "WikipediaAppUtils.h"
 
 NSString* const WMFLoggingEndpoint =

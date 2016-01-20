@@ -2,7 +2,7 @@
 #import "MWKLanguageFilter.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 @import KVOController;
 
 @interface MWKLanguageFilter ()

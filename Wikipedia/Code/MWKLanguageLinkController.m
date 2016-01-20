@@ -10,7 +10,7 @@
 #import "MWKTitle.h"
 #import "MWKLanguageLink.h"
 #import "NSObjectUtilities.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "MediaWikiKit.h"
 #import "Defines.h"
 #import "WMFAssetsFile.h"
