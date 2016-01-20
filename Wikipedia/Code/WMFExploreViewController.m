@@ -620,6 +620,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[controller headerButtonIcon] forState:UIControlStateNormal];
+        [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
         [header.rightButton bk_addEventHandler:^(id sender) {
             [controller performHeaderButtonAction];
         } forControlEvents:UIControlEventTouchUpInside];
