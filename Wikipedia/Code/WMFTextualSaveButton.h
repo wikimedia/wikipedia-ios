@@ -27,18 +27,7 @@
  *  @c contentHorizontalAlignment), but a custom control was needed for complete RTL compliance in iOS 8 & 9. See
  *  https://phabricator.wikimedia.org/T121681 for more information, including screenshots.
  */
+IB_DESIGNABLE
 @interface WMFTextualSaveButton : UIControl
-
-/**
- *  The image view shown to the left (in LTR) of the text.
- */
-@property (nonatomic, weak) IBOutlet UIImageView* saveIconImageView;
-
-/**
- *  The text shown to the right of the image which describes the future state of the article.
- *
- *  In other words, if the article isn't saved, it says "Save for later".
- */
-@property (nonatomic, weak) IBOutlet UILabel* saveTextLabel;
 
 @end

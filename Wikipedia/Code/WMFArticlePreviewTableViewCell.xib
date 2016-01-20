@@ -47,18 +47,15 @@
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-xI-hgr" userLabel="Summary Label">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-xI-hgr" userLabel="Summary Label">
                         <rect key="frame" x="18" y="255" width="325" height="20"/>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                         <color key="textColor" red="0.1179822162" green="0.1180102006" blue="0.11798047270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dw6-G9-a5t" customClass="WMFTextualSaveButton">
-                        <rect key="frame" x="18" y="295" width="50" height="30"/>
+                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dw6-G9-a5t" customClass="WMFTextualSaveButton">
+                        <rect key="frame" x="18" y="295" width="325" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="50" placeholder="YES" id="5UN-mH-MZ1"/>
-                        </constraints>
                     </view>
                 </subviews>
                 <constraints>
@@ -66,6 +63,7 @@
                     <constraint firstItem="Fv1-CZ-slW" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="Fh9-xm-cRY"/>
                     <constraint firstItem="owd-9L-ejU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="GNk-Wg-WeK"/>
                     <constraint firstItem="Dw6-G9-a5t" firstAttribute="top" secondItem="zIr-xI-hgr" secondAttribute="bottom" constant="20" id="GoB-IW-fHB"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="H4W-PI-Akf"/>
                     <constraint firstItem="zIr-xI-hgr" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="NE7-ZG-P1g"/>
                     <constraint firstItem="zIr-xI-hgr" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="SDn-bL-rUj"/>
                     <constraint firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" constant="18" id="U9x-vi-00m"/>
