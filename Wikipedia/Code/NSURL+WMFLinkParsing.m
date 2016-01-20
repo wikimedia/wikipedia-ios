@@ -7,10 +7,10 @@
 //
 
 #import "NSURL+WMFLinkParsing.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "NSString+WMFPageUtilities.h"
 #import "MWKTitle.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 @implementation NSURL (WMFLinkParsing)
 

@@ -4,7 +4,7 @@
 #import "MWKSection+DisplayHtml.h"
 #import "SessionSingleton.h"
 #import "Defines.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 @implementation MWKSection (DisplayHtml)
 

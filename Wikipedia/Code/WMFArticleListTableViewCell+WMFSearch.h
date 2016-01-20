@@ -9,6 +9,6 @@
  *  @param text          The text of the title
  *  @param highlightText The part of the title to highlight
  */
-- (void)setTitleText:(NSString*)text highlightingText:(NSString*)highlightText;
+- (void)wmf_setTitleText:(NSString*)text highlightingText:(NSString*)highlightText;
 
 @end

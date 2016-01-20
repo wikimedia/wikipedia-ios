@@ -3,7 +3,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (Extras)
+@interface NSObject (WMFExtras)
 
 - (BOOL)isNull WMF_TECH_DEBT_DEPRECATED;
 

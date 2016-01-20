@@ -2,7 +2,7 @@
 #import "WMFArticleResponseSerializer.h"
 #import <Mantle/Mantle.h>
 #import "WMFFixtureRecording.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 @implementation WMFArticleResponseSerializer
 

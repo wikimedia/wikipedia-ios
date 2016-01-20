@@ -53,7 +53,7 @@
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 @import SafariServices;
 

@@ -90,7 +90,7 @@ static NSString* const LongSearchResultDescription =
 #pragma mark - Test Utils
 
 - (void)populateTitleLabelWithString:(NSString*)titleText searchQuery:(NSString*)query {
-    [self.searchResultCell setTitleText:titleText highlightingText:query];
+    [self.searchResultCell wmf_setTitleText:titleText highlightingText:query];
 }
 
 @end

@@ -119,7 +119,7 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         // start gradient at the top of the image description label
         double const imageDescriptionTop =
             self.detailOverlayView.frame.size.height
-            - self.detailOverlayView.imageDescriptionLabel.frame.origin.y;
+            - CGRectGetMinY(self.detailOverlayView.imageDescriptionLabel.frame);
         double const relativeImageDescriptionTop = 1.0 - imageDescriptionTop / self.detailOverlayView.frame.size.height;
         self.gradientView.gradientLayer.startPoint = CGPointMake(0.5, relativeImageDescriptionTop);
     }

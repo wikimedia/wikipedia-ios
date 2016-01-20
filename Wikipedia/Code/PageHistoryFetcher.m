@@ -5,8 +5,8 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
-#import "NSString+Extras.h"
-#import "NSObject+Extras.h"
+#import "NSString+WMFExtras.h"
+#import "NSObject+WMFExtras.h"
 #import "NSDate+Utilities.h"
 #import "MediaWikiKit.h"
 

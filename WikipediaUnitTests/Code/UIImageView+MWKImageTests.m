@@ -162,7 +162,7 @@
 
     assertThat(self.imageView.image, is(successfulDownload.image));
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata],
               @"Face detection should NOT have ran.");
 
     assertThat(@(testMetadata.didDetectFaces), isFalse());
@@ -198,7 +198,7 @@
 
     assertThat(self.imageView.image, is(successfulDownload.image));
 
-    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL],
               @"Face detection should NOT have ran.");
 
     [MKTVerify(self.mockImageController) fetchImageWithURL:testURL];
@@ -233,7 +233,7 @@
 
     assertThat(self.imageView.image, is(testImage));
 
-    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata] == YES,
+    XCTAssert([[UIImageView faceDetectionCache] imageRequiresFaceDetection:testMetadata],
               @"Face detection should NOT have ran.");
 
     [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:testURL];
@@ -267,7 +267,7 @@
 
     assertThat(self.imageView.image, is(testImage));
 
-    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL] == YES,
+    XCTAssert([[UIImageView faceDetectionCache] imageAtURLRequiresFaceDetection:testURL],
               @"Face detection should NOT have ran.");
 
     [MKTVerifyCount(self.mockImageController, MKTNever()) fetchImageWithURL:testURL];
