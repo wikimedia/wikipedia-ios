@@ -93,8 +93,17 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Asynchornous Fetch and Present
 
 - (void)fetchImageThenShowShareCard {
+    NSURL* imageURL = [NSURL wmf_optionalURLWithString:self.article.imageURL];
+    if (!imageURL) {
+        if (self.article.imageURL) {
+            DDLogError(@"Failed to construct URL from article image URL: %@", self.article.imageURL);
+        }
+        [self showShareOptionsWithImage:nil];
+        return;
+    }
+
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]].then(^(WMFImageDownload* download){
+    [[WMFImageController sharedInstance] fetchImageWithURL:imageURL].then(^(WMFImageDownload* download){
         @strongify(self);
         [self showShareOptionsWithImage:download.image];
     }).catch(^(NSError* error){
