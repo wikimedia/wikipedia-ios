@@ -57,7 +57,7 @@
     [super awakeFromNib];
     [self rememberSettingsFromIB];
     self.saveButton.tintColor        = [UIColor wmf_blueTintColor];
-    self.saveButtonController.button = self.saveButton;
+    self.saveButtonController.control = self.saveButton;
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];
     self.loading = NO;
