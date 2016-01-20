@@ -51,6 +51,7 @@
 
 // Controllers
 #import "WMFLocationManager.h"
+#import "WMFRelatedSectionBlackList.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
 static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
@@ -126,7 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (!_schemaManager) {
         _schemaManager = [WMFExploreSectionSchema schemaWithSite:self.searchSite
                                                       savedPages:self.savedPages
-                                                         history:self.recentPages];
+                                                         history:self.recentPages
+                                                       blackList:[WMFRelatedSectionBlackList sharedBlackList]];
         _schemaManager.delegate = self;
     }
     return _schemaManager;
@@ -335,13 +337,14 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableView.delegate = self;
 
     self.sectionLoadErrors = [NSMutableDictionary dictionary];
+    [self updateSectionSchemaForce:NO];
     [self loadSectionControllers];
 }
 
 #pragma mark - Section Controller Creation
 
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore];
+    return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title blackList:[WMFRelatedSectionBlackList sharedBlackList] dataStore:self.dataStore tabBar:self.navigationController.tabBarController.tabBar];
 }
 
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFExploreSection*)item {
@@ -616,6 +619,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     if ([controller respondsToSelector:@selector(headerButtonIcon)]) {
         header.rightButtonEnabled = YES;
+        [[header rightButton] setImage:[controller headerButtonIcon] forState:UIControlStateNormal];
         [header.rightButton bk_addEventHandler:^(id sender) {
             [controller performHeaderButtonAction];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -714,6 +718,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self wmf_hideEmptyView];
     [self reloadSectionControllers];
+}
+
+- (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
+//    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:index];
+    [self.dataSource.sections removeObjectAtIndex:index];
+    [self.tableView reloadData];
 }
 
 #pragma mark - WMFHomeSectionControllerDelegate

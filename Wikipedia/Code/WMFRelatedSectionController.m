@@ -12,6 +12,8 @@
 
 // Frameworks
 #import "Wikipedia-Swift.h"
+#import "WMFRelatedSectionBlackList.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 // View
 #import "WMFArticlePreviewTableViewCell.h"
@@ -32,11 +34,15 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @interface WMFRelatedSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKTitle* title;
+@property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList* blackList;
+
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* relatedTitleDataSource;
+
+@property (nonatomic, strong, readwrite) UITabBar* tabBar;
 
 @property (nonatomic, strong) WMFRelatedSearchResults* searchResults;
 
@@ -48,23 +54,33 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore {
+                           blackList:(WMFRelatedSectionBlackList*)blackList
+                           dataStore:(MWKDataStore*)dataStore
+                              tabBar:(UITabBar*)tabBar {
     return [self initWithArticleTitle:title
+                            blackList:blackList
                             dataStore:dataStore
-                 relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]];
+                 relatedSearchFetcher:[[WMFRelatedSearchFetcher alloc] init]
+                               tabBar:tabBar];
 }
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
+                           blackList:(WMFRelatedSectionBlackList*)blackList
                            dataStore:(MWKDataStore*)dataStore
-                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
+                relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher
+                              tabBar:(UITabBar*)tabBar {
     NSParameterAssert(title);
+    NSParameterAssert(blackList);
     NSParameterAssert(dataStore);
     NSParameterAssert(relatedSearchFetcher);
+    NSParameterAssert(tabBar);
     self = [super init];
     if (self) {
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
+        self.blackList            = blackList;
         self.dataStore            = dataStore;
+        self.tabBar               = tabBar;
     }
     return self;
 }
@@ -79,6 +95,21 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (UIImage*)headerIcon {
     return [UIImage imageNamed:@"home-recent"];
+}
+
+- (UIImage*)headerButtonIcon {
+    return [UIImage imageNamed:@"overflow-mini"];
+}
+
+- (void)performHeaderButtonAction {
+    NSParameterAssert(self.tabBar);
+    UIActionSheet* sheet = [[UIActionSheet alloc] bk_initWithTitle:nil];
+    [sheet bk_addButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil) handler:^{
+        [self.blackList addBlackListTitle:self.title];
+    }];
+
+    [sheet bk_setCancelButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) handler:NULL];
+    [sheet showFromTabBar:self.tabBar];
 }
 
 - (NSAttributedString*)headerText {
