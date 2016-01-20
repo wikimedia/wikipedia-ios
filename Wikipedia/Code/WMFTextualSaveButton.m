@@ -61,7 +61,7 @@
 - (void)prepareForInterfaceBuilder {
     [super prepareForInterfaceBuilder];
     self.interfaceBuilderPreviewing = YES;
-    if (!self.saveIconImageView.image || self.saveTextLabel.text) {
+    if (!self.saveIconImageView.image || !self.saveTextLabel.text) {
         // re-apply initial state, using assets from the correct bundle
         [self applyInitialState];
         NSParameterAssert(self.saveTextLabel.text);
