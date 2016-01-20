@@ -10,7 +10,6 @@
 #import "NSHTTPCookieStorage+CloneCookie.h"
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
-#import "MenuButton.h"
 #import "PaddedLabel.h"
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
@@ -21,7 +20,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 
@@ -49,9 +47,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
