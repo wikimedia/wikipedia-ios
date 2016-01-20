@@ -15,25 +15,6 @@
 @interface WMFDummyAppDelegate : UIResponder <UIApplicationDelegate>
 @property (nonatomic, strong) UIWindow* window;
 @end
-#endif
-
-int main(int argc, char* argv[]) {
-#if DEBUG
-    // disable app when unit testing to allow tests to run in isolation (w/o side effects)
-    BOOL const isUnitTesting = NSClassFromString(@"XCTestCase") != nil;
-#endif
-    @autoreleasepool {
-        return UIApplicationMain(argc,
-                                 argv,
-                                 nil,
-                                 #if DEBUG
-                                 isUnitTesting ? NSStringFromClass([WMFDummyAppDelegate class]) :
-                                 #endif
-                                 NSStringFromClass([AppDelegate class]));
-    }
-}
-
-#if DEBUG
 
 @implementation WMFDummyAppDelegate
 
@@ -51,5 +32,17 @@ int main(int argc, char* argv[]) {
 }
 
 @end
-
 #endif
+
+int main(int argc, char* argv[]) {
+    @autoreleasepool {
+        NSString* delegateClass = NSStringFromClass([AppDelegate class]);
+#if DEBUG
+        // disable app when unit testing to allow tests to run in isolation (w/o side effects)
+        if (NSClassFromString(@"XCTestCase") != nil) {
+            delegateClass = NSStringFromClass([WMFDummyAppDelegate class]);
+        }
+#endif
+        return UIApplicationMain(argc, argv, nil, delegateClass);
+    }
+}
