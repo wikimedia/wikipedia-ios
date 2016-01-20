@@ -12,7 +12,7 @@
 @interface WMFArticlePreviewTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* snippetLabel;
-@property (weak, nonatomic) IBOutlet WMFTextualSaveButton* saveButton;
+@property (strong, nonatomic) IBOutlet WMFTextualSaveButton* saveButton;
 
 @property (strong, nonatomic, readwrite) WMFSaveButtonController* saveButtonController;
 
