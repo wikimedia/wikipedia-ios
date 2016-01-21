@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DataMigrationProgressViewController">
             <connections>
-                <outlet property="progressIndicator" destination="GeP-Ts-2S2" id="n9q-dL-QWa"/>
+                <outlet property="progressIndicator" destination="SgH-4D-gQm" id="ubu-GY-wPS"/>
                 <outlet property="progressLabel" destination="9Bj-11-8XX" id="ek2-9N-3Sx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,27 +17,26 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3 / 40 Imported" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Bj-11-8XX">
-                    <rect key="frame" x="101" y="238" width="119" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 / 40 Imported" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Bj-11-8XX">
+                    <rect key="frame" x="100" y="239" width="120" height="20"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeP-Ts-2S2" customClass="WMFProgressLineView">
-                    <rect key="frame" x="8" y="282" width="304" height="4"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="SgH-4D-gQm">
+                    <rect key="frame" x="8" y="283" width="304" height="2"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="4" id="h2T-Cl-4kv"/>
+                        <constraint firstAttribute="height" constant="2" id="bRk-Pc-glW"/>
                     </constraints>
-                </view>
+                </progressView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="GeP-Ts-2S2" firstAttribute="top" secondItem="9Bj-11-8XX" secondAttribute="bottom" constant="23.5" id="G01-bV-XBG"/>
-                <constraint firstAttribute="centerY" secondItem="GeP-Ts-2S2" secondAttribute="centerY" id="IzW-CW-wJG"/>
+                <constraint firstItem="SgH-4D-gQm" firstAttribute="top" secondItem="9Bj-11-8XX" secondAttribute="bottom" constant="24" id="TUt-nS-96L"/>
                 <constraint firstAttribute="centerX" secondItem="9Bj-11-8XX" secondAttribute="centerX" id="cRM-yQ-ug6"/>
-                <constraint firstItem="GeP-Ts-2S2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="d9q-M6-Shg"/>
-                <constraint firstAttribute="trailing" secondItem="GeP-Ts-2S2" secondAttribute="trailing" constant="8" id="dZQ-oA-Doj"/>
+                <constraint firstAttribute="trailing" secondItem="SgH-4D-gQm" secondAttribute="trailing" constant="8" id="mQs-8I-wgh"/>
+                <constraint firstItem="SgH-4D-gQm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="wtf-hP-X8c"/>
+                <constraint firstItem="SgH-4D-gQm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="xBb-gA-P0v"/>
             </constraints>
             <point key="canvasLocation" x="673" y="442"/>
         </view>
