@@ -3,10 +3,6 @@
 
 @interface UIColor (WMFStyle)
 
-+ (instancetype)wmf_logoBlue;
-
-+ (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha;
-
 + (instancetype)wmf_blueTintColor;
 
 + (instancetype)wmf_tapHighlightColor;

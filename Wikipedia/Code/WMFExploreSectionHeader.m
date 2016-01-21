@@ -13,9 +13,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.tintColor                          = [UIColor wmf_logoBlue];
+    self.tintColor                          = [UIColor wmf_blueTintColor];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden                 = YES;
+    self.rightButton.tintColor              = [UIColor wmf_blueTintColor];
     @weakify(self);
     [self bk_whenTapped:^{
         @strongify(self);
