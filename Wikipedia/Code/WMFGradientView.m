@@ -18,10 +18,6 @@
     return self;
 }
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
 - (void)setStartColor:(UIColor*)startColor endColor:(UIColor*)endColor {
     _startColor = startColor;
     _endColor   = endColor;

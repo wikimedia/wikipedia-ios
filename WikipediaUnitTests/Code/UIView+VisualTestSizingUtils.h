@@ -8,20 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIScreen (WMFWidthForOrientation)
-
-- (CGFloat)wmf_widthForOrientation:(UIInterfaceOrientation)orientation;
-
-@end
-
 @interface UIView (VisualTestSizingUtils)
 
-- (void)wmf_sizeToFitScreenWidth;
+- (void)wmf_sizeToFitWindowWidth;
 
-- (void)wmf_sizeToFitScreenWidthForOrientation:(UIInterfaceOrientation)orientation;
+- (void)wmf_sizeToFitWidth:(CGFloat)width;
 
-- (CGRect)wmf_sizeThatFitsScreenWidth;
-
-- (CGRect)wmf_sizeThatFitsScreenWidthForOrientation:(UIInterfaceOrientation)orientation;
+- (CGRect)wmf_sizeThatFitsWidth:(CGFloat)width;
 
 @end

@@ -33,8 +33,10 @@ QuickConfigurationBegin(WMFGalleryDataSourceTestsConfiguration)
         });
 
         it(@"should reorder the items if necessary", ^{
-            [[rawItems wmf_reverseArrayIfApplicationIsRTL]
-             enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            NSArray* expectedItems =
+                [[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0] ?
+                [rawItems wmf_reverseArrayIfApplicationIsRTL] : rawItems;
+            [expectedItems enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
                 expect([dataSource itemAtIndexPath:[NSIndexPath indexPathForItem:idx inSection:0]])
                 .toWithDescription(equal(obj), [NSString stringWithFormat:@"Expected item at index %lu to be %@", idx, obj]);
             }];
