@@ -17,9 +17,13 @@ import CocoaLumberjack
 
 public let WMFImageControllerErrorDomain = "WMFImageControllerErrorDomain"
 public enum WMFImageControllerErrorCode: Int, CancellableErrorType {
+    /// Failed to find cached image data for the provided URL.
     case DataNotFound
-    case FetchCancelled
+
+    /// The provided URL was empty or `nil`.
     case InvalidOrEmptyURL
+
+    /// Fetch was cancelled because the image controller which was asked to fetch the URL was deallocated.
     case Deinit
 
     var error: NSError {
@@ -29,7 +33,7 @@ public enum WMFImageControllerErrorCode: Int, CancellableErrorType {
     public var cancelled: Bool {
         // NOTE: don't forget to register add'l "cancelled" codes in WMFImageController.initialize
         switch self {
-            case .FetchCancelled, .InvalidOrEmptyURL, .Deinit:
+            case .Deinit:
                 return true
             default:
                 return false
@@ -50,10 +54,6 @@ public func ==(cacheErrorCode: WMFImageControllerErrorCode, err: NSError) -> Boo
 public class WMFImageController : NSObject {
     public override class func initialize() {
         if self === WMFImageController.self {
-            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
-                                                 code: WMFImageControllerErrorCode.FetchCancelled.rawValue)
-            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
-                                                 code: WMFImageControllerErrorCode.InvalidOrEmptyURL.rawValue)
             NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
                                                  code: WMFImageControllerErrorCode.Deinit.rawValue)
         }
@@ -126,7 +126,7 @@ public class WMFImageController : NSObject {
         .recover() { _ -> Promise<Void> in Promise() }
         // when placeholder handling is finished, fetch mainURL
         .then() { [weak self] in
-            self?.fetchImageWithURL(mainURL) ?? WMFImageController.cancelledPromise()
+            self?.fetchImageWithURL(mainURL) ?? Promise(error: WMFImageControllerErrorCode.Deinit)
         }
         // handle the main image
         .then(mainImageBlock)
@@ -149,9 +149,13 @@ public class WMFImageController : NSObject {
     /**
      Retrieve the data and uncompressed image for `url`.
      
+     If the URL is `nil`, then the promise will be rejected with `InvalidOrEmptyURL`.
+     
      - parameter url: URL which corresponds to the image being retrieved. Ignores URL schemes.
      
      - returns: A `WMFImageDownload` with the image data and the origin it was loaded from.
+
+     - seealso: WMFImageControllerErrorCode
      */
     public func fetchImageWithURL(
                     url: NSURL?,
@@ -334,16 +338,6 @@ public class WMFImageController : NSObject {
             DDLogVerbose("Adding cancellable for \(url)")
             cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
-    }
-
-    /// Utility for creating a `Promise` cancelled with a WMFImageController error
-    class func cancelledPromise<T>() -> Promise<T> {
-        return Promise(error: WMFImageControllerErrorCode.FetchCancelled.error)
-    }
-
-    /// Utility for creating an `AnyPromise` cancelled with a WMFImageController error
-    class func cancelledPromise() -> AnyPromise {
-        return AnyPromise(bound: cancelledPromise() as Promise<Void>)
     }
 }
 
