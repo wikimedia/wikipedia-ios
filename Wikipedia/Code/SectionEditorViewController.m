@@ -47,6 +47,7 @@
         @strongify(self)
         [self.navigationController popViewControllerAnimated : YES];
     }];
+    buttonX.accessibilityLabel = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;
 
 
