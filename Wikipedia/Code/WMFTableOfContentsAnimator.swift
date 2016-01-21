@@ -105,14 +105,14 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         
         // Position the presented view off the top of the container view
         var f = transitionContext.finalFrameForViewController(presentedController)
-        f.origin.x += f.size.width
+        f.origin.x -= f.size.width
         presentedControllerView.frame = f
         
         containerView.addSubview(presentedControllerView)
         
         animateTransition(self.isInteractive, duration: self.transitionDuration(transitionContext), animations: { () -> Void in
             var f = presentedControllerView.frame
-            f.origin.x -= f.size.width
+            f.origin.x += f.size.width
             presentedControllerView.frame = f
             }, completion: {(completed: Bool) -> Void in
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
@@ -124,7 +124,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         
         animateTransition(self.isInteractive, duration: self.transitionDuration(transitionContext), animations: { () -> Void in
             var f = presentedControllerView.frame
-            f.origin.x += f.size.width
+            f.origin.x -= f.size.width
             presentedControllerView.frame = f
 
             }, completion: {(completed: Bool) -> Void in
@@ -154,7 +154,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     // MARK: - Gestures
     lazy var presentationGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer.init(target: self, action: Selector("handlePresentationGesture:"))
-        gesture.edges = .Right
+        gesture.edges = .Left
         return gesture
     }()
     
@@ -183,15 +183,19 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         case (.Changed):
             let position = gesture.locationInView(gesture.view);
             let distanceFromRight = CGRectGetMaxX(gesture.view!.bounds) - position.x
-            let transitionProgress = distanceFromRight / CGRectGetMaxX(gesture.view!.bounds)
+            let distanceFromLeft = position.x
+
+let distance = distanceFromLeft //distanceFromRight
+
+            let transitionProgress = distance / CGRectGetMaxX(gesture.view!.bounds)
             self.updateInteractiveTransition(transitionProgress)
         case (.Ended):
             self.isInteractive = false
-            let velocityRequiredToPresent = -CGRectGetWidth(gesture.view!.bounds)
+            let velocityRequiredToPresent = CGRectGetWidth(gesture.view!.bounds)
             let velocityRequiredToDismiss = CGRectGetWidth(gesture.view!.bounds)
             
             let velocityX = gesture.velocityInView(gesture.view).x
-            if velocityX > velocityRequiredToDismiss{
+            if velocityX < velocityRequiredToDismiss{
                 self.cancelInteractiveTransition()
                 return
             }
@@ -227,12 +231,12 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         case .Changed:
             let translation = gesture.translationInView(gesture.view)
-            let transitionProgress = translation.x / CGRectGetMaxX(self.presentedViewController!.view.bounds)
+            let transitionProgress = -translation.x / CGRectGetMaxX(self.presentedViewController!.view.bounds)
             self.updateInteractiveTransition(transitionProgress)
             DDLogVerbose("TOC transition progress: \(transitionProgress)")
         case .Ended:
             self.isInteractive = false
-            let velocityRequiredToPresent = -CGRectGetMaxX(gesture.view!.bounds)
+            let velocityRequiredToPresent = CGRectGetMaxX(gesture.view!.bounds)
             let velocityRequiredToDismiss = CGRectGetWidth(gesture.view!.bounds)
             
             let velocityX = gesture.velocityInView(gesture.view).x
@@ -271,7 +275,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         }
         
         if let translation = self.dismissalGesture?.translationInView(dismissalGesture?.view) {
-            if(translation.x > 0){
+            if(translation.x < 0){
                 return true
             }else{
                 return false
