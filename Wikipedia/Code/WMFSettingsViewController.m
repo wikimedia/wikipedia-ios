@@ -342,6 +342,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
             @"icon": WIKIGLYPH_DOWN,
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -349,6 +350,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ABOUT),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }.mutableCopy
         ,
         @{
@@ -357,6 +359,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
             @"icon": WIKIGLYPH_DOWN,
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -372,6 +375,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }.mutableCopy
         ,
         @{
@@ -402,7 +406,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ZERO),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader),
         }.mutableCopy
         ,
         @{
@@ -440,6 +444,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_LOGIN),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -447,7 +452,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink)
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }
         ,
         @{
@@ -455,7 +460,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton),
         }.mutableCopy
     ].mutableCopy;
 
