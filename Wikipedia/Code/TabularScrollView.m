@@ -115,8 +115,8 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TabularScrollViewItemTapped" object:self userInfo:
      @{
-         @"tappedItem": tappedView,
-         @"tappedChild": tappedChildView
+       @"tappedItem": tappedView ? tappedView : @"undefined tapped view",
+       @"tappedChild": tappedChildView ? tappedChildView : @"undefined tapped child"
      }
     ];
 }
