@@ -548,7 +548,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
+    // TODO: remove if not used never more
+//    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
 //    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
 }
 
