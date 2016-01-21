@@ -40,9 +40,9 @@
     self.savedPagesList = [[MWKSavedPageList alloc] initWithDataStore:self.dataStore];
 
     self.button               = [[UIButton alloc] init];
-    self.saveButtonController = [[WMFSaveButtonController alloc] initWithButton:self.button
-                                                                  savedPageList:self.savedPagesList
-                                                                          title:nil];
+    self.saveButtonController = [[WMFSaveButtonController alloc] initWithControl:self.button
+                                                                   savedPageList:self.savedPagesList
+                                                                           title:nil];
 
     assertThat(@([self.savedPagesList countOfEntries]), is(equalToInt(0)));
 }
@@ -100,8 +100,8 @@
 - (void)testShouldUpdateButtonStateWhenSet {
     self.saveButtonController.title = self.titleSFEn;
     [self.savedPagesList addSavedPageWithTitle:self.titleSFEn];
-    self.saveButtonController.button = [UIButton new];
-    assertThat(@(self.saveButtonController.button.state), is(equalToInt(UIControlStateSelected)));
+    self.saveButtonController.control = [UIButton new];
+    assertThat(@(self.saveButtonController.control.state), is(equalToInt(UIControlStateSelected)));
 }
 
 - (void)testToggleFromSavedToUnsaved {

@@ -216,10 +216,22 @@
                   Identifier = "SavedArticlesFetcherTests">
                </Test>
                <Test
+                  Identifier = "SessionSingletonTests">
+               </Test>
+               <Test
+                  Identifier = "TWNStringsTests">
+               </Test>
+               <Test
                   Identifier = "UIImageViewWMFImageFetchingVisualTests">
                </Test>
                <Test
                   Identifier = "UIImageView_MWKImageTests">
+               </Test>
+               <Test
+                  Identifier = "UIViewController_WMFSearchButtonTests">
+               </Test>
+               <Test
+                  Identifier = "WMFArticleFetchIfNeededTests">
                </Test>
                <Test
                   Identifier = "WMFArticleImageInjectionTests">
@@ -267,6 +279,9 @@
                   Identifier = "WMFMathTests">
                </Test>
                <Test
+                  Identifier = "WMFModalArticleImageGalleryDataSourceTests">
+               </Test>
+               <Test
                   Identifier = "WMFPicOfTheDayTableViewCellVisualTests">
                </Test>
                <Test
@@ -289,6 +304,9 @@
                </Test>
                <Test
                   Identifier = "WMFSubstringUtilsTests">
+               </Test>
+               <Test
+                  Identifier = "XCTestCasePromiseKitSwiftTests">
                </Test>
                <Test
                   Identifier = "XCTestCase_PromiseKitSwiftTests">
@@ -320,9 +338,7 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES"
-      language = "ar"
-      region = "EG">
+      allowLocationSimulation = "YES">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
@@ -333,6 +349,20 @@
             ReferencedContainer = "container:Wikipedia.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-AppleLocale he_IL"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-AppleLanguages (he)"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-NSForceRightToLeftWritingDirection YES&#10;"
+            isEnabled = "NO">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

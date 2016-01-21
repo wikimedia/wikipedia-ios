@@ -47,35 +47,28 @@
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="1000" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-xI-hgr" userLabel="Summary Label">
-                        <rect key="frame" x="18" y="254" width="325" height="28"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-xI-hgr" userLabel="Summary Label">
+                        <rect key="frame" x="18" y="255" width="325" height="20"/>
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                         <color key="textColor" red="0.1179822162" green="0.1180102006" blue="0.11798047270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t8-YJ-CHQ" userLabel="Save Button" customClass="WMFTitleInsetRespectingButton">
-                        <rect key="frame" x="18" y="300" width="119" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" priority="999" constant="25" id="ZOx-Th-1hZ"/>
-                        </constraints>
-                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="Save for later" image="save-mini">
-                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
+                    <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dw6-G9-a5t" customClass="WMFTextualSaveButton">
+                        <rect key="frame" x="18" y="295" width="325" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="8t8-YJ-CHQ" firstAttribute="top" secondItem="zIr-xI-hgr" secondAttribute="bottom" constant="18" id="9lm-xg-Nem"/>
+                    <constraint firstAttribute="bottom" secondItem="Dw6-G9-a5t" secondAttribute="bottom" constant="20" id="5QY-Pz-9c7"/>
                     <constraint firstItem="Fv1-CZ-slW" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="Fh9-xm-cRY"/>
                     <constraint firstItem="owd-9L-ejU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="GNk-Wg-WeK"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="top" secondItem="zIr-xI-hgr" secondAttribute="bottom" constant="20" id="GoB-IW-fHB"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="H4W-PI-Akf"/>
                     <constraint firstItem="zIr-xI-hgr" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="NE7-ZG-P1g"/>
                     <constraint firstItem="zIr-xI-hgr" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="SDn-bL-rUj"/>
                     <constraint firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" constant="18" id="U9x-vi-00m"/>
                     <constraint firstItem="oU4-K5-u5M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="cUT-bg-qEm"/>
-                    <constraint firstAttribute="bottom" secondItem="8t8-YJ-CHQ" secondAttribute="bottom" constant="20" id="jbk-Of-Iuu"/>
-                    <constraint firstItem="8t8-YJ-CHQ" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="nDa-ui-ao4"/>
+                    <constraint firstItem="Dw6-G9-a5t" firstAttribute="leading" secondItem="zIr-xI-hgr" secondAttribute="leading" id="fgt-i9-3Lb"/>
                     <constraint firstItem="Fv1-CZ-slW" firstAttribute="top" secondItem="oU4-K5-u5M" secondAttribute="bottom" constant="4" id="tNo-se-rTn"/>
                     <constraint firstItem="oU4-K5-u5M" firstAttribute="trailing" secondItem="owd-9L-ejU" secondAttribute="trailing" id="tSk-DO-1o3"/>
                     <constraint firstItem="oU4-K5-u5M" firstAttribute="top" secondItem="owd-9L-ejU" secondAttribute="bottom" constant="14" id="tlh-j8-jaJ"/>
@@ -93,14 +86,11 @@
                 <outlet property="paddingConstraintBelowDescription" destination="ueI-bG-lNw" id="d61-7a-WZL"/>
                 <outlet property="paddingConstraintLeading" destination="cUT-bg-qEm" id="FAI-E0-dNW"/>
                 <outlet property="paddingConstraintTrailing" destination="U9x-vi-00m" id="E59-BG-HJt"/>
-                <outlet property="saveButton" destination="8t8-YJ-CHQ" id="Xz1-yh-TJc"/>
+                <outlet property="saveButton" destination="Dw6-G9-a5t" id="ggS-7J-XMK"/>
                 <outlet property="snippetLabel" destination="zIr-xI-hgr" id="CYF-N6-D5X"/>
                 <outlet property="titleLabel" destination="oU4-K5-u5M" id="QsL-E9-Mei"/>
             </connections>
             <point key="canvasLocation" x="250.5" y="525"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="save-mini" width="12" height="17"/>
-    </resources>
 </document>

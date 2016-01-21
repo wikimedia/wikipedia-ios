@@ -34,11 +34,11 @@
 }
 
 - (void)testTrimReference {
-    [self wmf_visuallyVerifyMultilineLabelWithText:[self attrString]];
+    [self wmf_verifyMultilineLabelWithText:[self attrString] width:320.f];
 }
 
 - (void)testTrim {
-    [self wmf_visuallyVerifyMultilineLabelWithText:[[self attrString] wmf_trim]];
+    [self wmf_verifyMultilineLabelWithText:[[self attrString] wmf_trim] width:320.f];
 }
 
 - (void)testAllWhiteSpaceString {

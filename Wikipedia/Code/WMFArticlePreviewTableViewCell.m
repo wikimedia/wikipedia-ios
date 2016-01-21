@@ -7,11 +7,12 @@
 #import "UITableViewCell+SelectedBackground.h"
 #import <Masonry/Masonry.h>
 #import "UITableViewCell+WMFEdgeToEdgeSeparator.h"
+#import "WMFTextualSaveButton.h"
 
 @interface WMFArticlePreviewTableViewCell ()
 
 @property (strong, nonatomic) IBOutlet UILabel* snippetLabel;
-@property (strong, nonatomic) IBOutlet UIButton* saveButton;
+@property (strong, nonatomic) IBOutlet WMFTextualSaveButton* saveButton;
 
 @property (strong, nonatomic, readwrite) WMFSaveButtonController* saveButtonController;
 
@@ -55,10 +56,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self rememberSettingsFromIB];
-    [self.saveButton wmf_setButtonType:WMFButtonTypeBookmarkMini];
-    self.saveButton.tintColor = [UIColor wmf_blueTintColor];
-    [self.saveButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
-    self.saveButtonController.button = self.saveButton;
+    self.saveButton.tintColor         = [UIColor wmf_blueTintColor];
+    self.saveButtonController.control = self.saveButton;
     [self wmf_makeCellDividerBeEdgeToEdge];
     [self setupBlurViewAndLoadingIndicator];
     self.loading = NO;
