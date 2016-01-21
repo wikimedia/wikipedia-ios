@@ -34,7 +34,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLinkController.h"
 
@@ -110,8 +109,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -296,11 +293,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 }
 
 - (void)setRowData {
-    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD;
-
-
-    //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-
     NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
     NSString* languageName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:languageCode];
     if (!languageName) {
@@ -692,12 +684,5 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
     [self wmf_hideKeyboard];
 }
-
-/*
-   -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-   {
-    self.scrollView.orientation = !self.scrollView.orientation;
-   }
- */
 
 @end

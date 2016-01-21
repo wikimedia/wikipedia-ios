@@ -54,7 +54,7 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
 
 + (NSString*)mainDataStorePath {
     NSString* documentsFolder =
-    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     return [documentsFolder stringByAppendingPathComponent:@"Data"];
 }
 

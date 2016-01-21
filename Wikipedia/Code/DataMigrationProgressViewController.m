@@ -13,7 +13,7 @@
 
 #import <BlocksKit/BlocksKit+UIKit.h>
 
-typedef NS_ENUM(NSInteger, MigrationButtonIndexIds) {
+typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
     BUTTON_INDEX_DISCARD = 0,
     BUTTON_INDEX_SUBMIT  = 1
 };

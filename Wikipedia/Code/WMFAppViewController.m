@@ -25,7 +25,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIFont+WMFStyle.h"
-#import "NSString+WMFGlyphs.h"
 #import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
@@ -100,7 +99,6 @@ static dispatch_once_t launchToken;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 - (BOOL)isPresentingOnboarding {
     return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];

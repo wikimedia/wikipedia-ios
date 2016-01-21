@@ -9,7 +9,6 @@
 #import <BlocksKit/BlocksKit.h>
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
@@ -52,8 +51,6 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     self.webView.delegate = self;
     [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
