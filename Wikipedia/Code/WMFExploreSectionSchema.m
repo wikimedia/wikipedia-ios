@@ -10,6 +10,7 @@
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
 #import "WMFAssetsFile.h"
+#import "WMFRelatedSectionBlackList.h"
 
 @import Tweaks;
 @import CoreLocation;
@@ -34,6 +35,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 @property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readwrite) MWKHistoryList* historyPages;
+@property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList* blackList;
 
 @property (nonatomic, strong) WMFLocationManager* locationManager;
 
@@ -56,10 +58,11 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Setup
 
-+ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history {
++ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history blackList:(WMFRelatedSectionBlackList*)blackList {
     NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
+    NSParameterAssert(blackList);
 
     WMFExploreSectionSchema* schema = [self loadSchemaFromDisk];
 
@@ -67,8 +70,9 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         schema.site         = site;
         schema.savedPages   = savedPages;
         schema.historyPages = history;
+        schema.blackList    = blackList;
     } else {
-        schema = [[WMFExploreSectionSchema alloc] initWithSite:site savedPages:savedPages history:history];
+        schema = [[WMFExploreSectionSchema alloc] initWithSite:site savedPages:savedPages history:history blackList:blackList];
     }
 
     return schema;
@@ -76,18 +80,33 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (instancetype)initWithSite:(MWKSite*)site
                   savedPages:(MWKSavedPageList*)savedPages
-                     history:(MWKHistoryList*)history {
+                     history:(MWKHistoryList*)history
+                   blackList:(WMFRelatedSectionBlackList*)blackList {
     NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
+    NSParameterAssert(blackList);
     self = [super init];
     if (self) {
         self.site         = site;
         self.savedPages   = savedPages;
         self.historyPages = history;
+        self.blackList    = blackList;
         [self reset];
     }
     return self;
+}
+
+- (void)setBlackList:(WMFRelatedSectionBlackList *)blackList{
+    if(_blackList){
+        [self.KVOController unobserve:_blackList];
+    }
+    
+    _blackList = blackList;
+    
+    [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, blackListTitles) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
+        [observer updateWithChangesInBlackList:object];
+    }];
 }
 
 /**
@@ -180,6 +199,18 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [WMFExploreSectionSchema saveSchemaToDisk:self];
 }
 
+- (void)removeSection:(WMFExploreSection*)section{
+    NSUInteger index = [self.sections indexOfObject:section];
+    if(index == NSNotFound){
+        return;
+    }
+    NSMutableArray* sections = [self.sections mutableCopy];
+    [sections removeObject:section];
+    self.sections = sections;
+    [self.delegate sectionSchema:self didRemoveSection:section atIndex:index];
+    [WMFExploreSectionSchema saveSchemaToDisk:self];
+}
+
 #pragma mark - Update
 
 - (void)update {
@@ -230,6 +261,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [sections wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:location]];
 
     [self updateSections:sections];
+}
+
+- (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
+    //enumerate in reverse so that indexes are always correct
+    [[blackList.blackListTitles wmf_mapAndRejectNil:^id(MWKTitle * obj) {
+        return [self existingSectionForTitle:obj];
+    }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self removeSection:obj];
+    }];
 }
 
 #pragma mmrk - Create Schema Items
@@ -364,6 +404,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return nil;
 }
 
+- (nullable WMFExploreSection*)existingSectionForTitle:(MWKTitle*)title {
+    return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+        if (obj.title == title) {
+            return YES;
+        }
+        return NO;
+    }];
+}
+
 - (NSArray<WMFExploreSection*>*)historyAndSavedPageSections {
     NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
@@ -389,6 +438,11 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries bk_select:^BOOL (MWKHistoryEntry* obj) {
         return obj.titleWasSignificantlyViewed;
     }];
+    
+    entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
+        return [self.blackList titleIsBlackListed:obj.title];
+    }];
+
     entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
@@ -403,7 +457,11 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 - (NSArray<WMFExploreSection*>*)sectionsFromSavedEntriesExcludingExistingTitlesInSections:(nullable NSArray<WMFExploreSection*>*)existingSections maxLength:(NSUInteger)maxLength {
     NSArray<MWKTitle*>* existingTitles = [existingSections valueForKeyPath:WMF_SAFE_KEYPATH([WMFExploreSection new], title)];
 
-    NSArray<MWKSavedPageEntry*>* entries = [self.savedPages.entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
+    NSArray<MWKHistoryEntry*>* entries = [self.savedPages.entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
+        return [self.blackList titleIsBlackListed:obj.title];
+    }];
+
+    entries = [entries wmf_arrayByTrimmingToLength:maxLength + [existingSections count]];
 
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
         return [self titleIsForMainArticle:obj.title] || [existingTitles containsObject:obj.title];
@@ -448,6 +506,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"delegate"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationManager"];
     [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationRequestStarted"];
+    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"blackList"];
 
     return behaviors;
 }
