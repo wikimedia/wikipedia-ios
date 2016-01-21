@@ -8,7 +8,7 @@
 
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 
-@interface AFHTTPRequestOperationManager (UniqueRequests)
+@interface AFHTTPRequestOperationManager (WMFUniqueRequests)
 
 /**
  * Find an <b>executing</b> operation matching the specified criteria.

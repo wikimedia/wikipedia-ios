@@ -30,7 +30,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -360,7 +360,7 @@ NSString* const WMFLicenseTitleOnENWiki =
      */
     UIView* browserView = [self.webView wmf_browserView];
 
-    if (floor(browserView.frame.origin.y) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
+    if (floor(CGRectGetMinY(browserView.frame)) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
         [browserView setFrame:(CGRect){
              .origin = CGPointMake(0, headerBottom),
              .size = browserView.frame.size

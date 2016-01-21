@@ -382,7 +382,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)resetRefreshControlWithCompletion:(nullable dispatch_block_t)completion {
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:[self lastUpdatedString]];
 
     //Don't hide the spinner so quickly - so users can see the change
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
@@ -406,7 +405,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateSectionSchemaForce:(BOOL)force {
     [self.refreshControl beginRefreshing];
-    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-updating-label", nil)];
     self.sectionLoadErrors              = [NSMutableDictionary dictionary];
     [self.schemaManager update:force];
 }

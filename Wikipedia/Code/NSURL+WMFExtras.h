@@ -3,7 +3,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSURL (Extras)
+@interface NSURL (WMFExtras)
 
 /**
  * Convenience for handling `nil` strings when creating a URL.

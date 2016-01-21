@@ -1,7 +1,7 @@
 
 #import "WMFHistoryTableViewController.h"
 
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 #import "WMFRecentPagesDataSource.h"
 #import "MWKDataStore.h"

@@ -1,6 +1,6 @@
 
 #import "UIView+WMFDefaultNib.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 @implementation UIView (WMFDefaultNib)
 

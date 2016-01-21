@@ -15,13 +15,13 @@
 
 @implementation WMFSaveButtonController
 
-- (instancetype)initWithButton:(UIButton*)button
-                 savedPageList:(MWKSavedPageList*)savedPageList
-                         title:(MWKTitle*)title {
+- (instancetype)initWithControl:(UIControl*)button
+                  savedPageList:(MWKSavedPageList*)savedPageList
+                          title:(MWKTitle*)title {
     NSParameterAssert(savedPageList);
     self = [super init];
     if (self) {
-        self.button        = button;
+        self.control       = button;
         self.title         = title;
         self.savedPageList = savedPageList;
     }
@@ -42,7 +42,7 @@
 }
 
 - (void)dealloc {
-    [self unobserveSavedPages];
+      [self unobserveSavedPages];
 }
 
 #pragma mark - Accessors
@@ -64,16 +64,16 @@
     [self updateSavedButtonState];
 }
 
-- (void)setButton:(UIButton*)button {
-    [_button removeTarget:self
-                   action:@selector(toggleSave:)
-         forControlEvents:UIControlEventTouchUpInside];
+- (void)setControl:(UIButton*)button {
+    [_control removeTarget:self
+                    action:@selector(toggleSave:)
+          forControlEvents:UIControlEventTouchUpInside];
 
     [button addTarget:self
                action:@selector(toggleSave:)
      forControlEvents:UIControlEventTouchUpInside];
 
-    _button = button;
+    _control = button;
     [self updateSavedButtonState];
 }
 
@@ -118,7 +118,7 @@
 
 - (void)updateSavedButtonState {
     BOOL isSaved = [self isSaved];
-    self.button.selected = isSaved;
+    self.control.selected = isSaved;
     if (isSaved) {
         self.barButtonItem.image = [UIImage imageNamed:@"save-filled"];
     } else {

@@ -1,5 +1,5 @@
 //
-//  NSString+ExtrasTests.m
+//  NSString+WMFExtrasTests.m
 //  Wikipedia
 //
 //  Created by Adam Baso on 3/2/15.
