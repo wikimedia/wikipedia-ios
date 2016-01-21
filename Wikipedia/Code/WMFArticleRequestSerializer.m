@@ -112,9 +112,11 @@ static BOOL _headerSent = NO;
             kSCNetworkReachabilityFlagsTransientConnection
             )
         ) {
+        CFRelease(reachabilityRef);
         return YES;
     }
 
+    CFRelease(reachabilityRef);
     return NO;
 }
 
