@@ -11,7 +11,7 @@
 #import "MWKLanguageLinkController_Private.h"
 #import "MWKLanguageLink.h"
 #import <OCHamcrest/OCHamcrest.h>
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "NSUserDefaults+WMFReset.h"
 
 @interface MWKLanguageLinkControllerTests : XCTestCase

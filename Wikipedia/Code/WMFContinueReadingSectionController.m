@@ -12,7 +12,7 @@
 #import "MWKTitle.h"
 #import "MWKDataStore.h"
 #import "MWKArticle.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"

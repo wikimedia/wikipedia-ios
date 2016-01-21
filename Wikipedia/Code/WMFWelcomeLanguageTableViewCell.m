@@ -35,9 +35,9 @@
     [super layoutSubviews];
     //Remove indentation for delete control
     self.contentView.frame = CGRectMake(0,
-                                        self.contentView.frame.origin.y,
-                                        self.contentView.frame.size.width,
-                                        self.contentView.frame.size.height);
+                                        CGRectGetMinX(self.contentView.frame),
+                                        CGRectGetWidth(self.contentView.frame),
+                                        CGRectGetHeight(self.contentView.frame));
 }
 
 - (void)prepareForReuse {

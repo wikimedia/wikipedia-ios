@@ -4,7 +4,7 @@
 #import "MWKLanguageLinkFetcher.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
-#import "NSObject+Extras.h"
+#import "NSObject+WMFExtras.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
 #import "WMFNetworkUtilities.h"

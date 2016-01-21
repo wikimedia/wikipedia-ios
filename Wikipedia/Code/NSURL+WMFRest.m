@@ -2,7 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "NSURL+WMFRest.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 @implementation NSURL (WMFRest)
 

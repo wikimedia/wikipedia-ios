@@ -15,6 +15,10 @@
 
 @implementation WMFSaveButtonController
 
+- (void)dealloc {
+    [self unobserveSavedPages];
+}
+
 - (instancetype)initWithButton:(UIButton*)button
                  savedPageList:(MWKSavedPageList*)savedPageList
                          title:(MWKTitle*)title {
@@ -39,10 +43,6 @@
         self.savedPageList = savedPageList;
     }
     return self;
-}
-
-- (void)dealloc {
-    [self unobserveSavedPages];
 }
 
 #pragma mark - Accessors

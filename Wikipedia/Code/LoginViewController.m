@@ -7,7 +7,7 @@
 #import "LoginTokenFetcher.h"
 #import "AccountLogin.h"
 #import "SessionSingleton.h"
-#import "NSHTTPCookieStorage+CloneCookie.h"
+#import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
 #import "PaddedLabel.h"
@@ -307,11 +307,11 @@
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
 
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] recreateCookie:cookie1Name
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
                                             usingCookieAsTemplate:cookie2Name
     ];
 
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] recreateCookie:@"centralauth_Session"
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
                                             usingCookieAsTemplate:@"centralauth_User"
     ];
 }

@@ -9,8 +9,8 @@
 #import "WMFBlockDefinitions.h"
 #import "WMFGCDHelpers.h"
 
-#import "NSURL+Extras.h"
-#import "NSString+Extras.h"
+#import "NSURL+WMFExtras.h"
+#import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "WMFRangeUtils.h"
 #import "UIView+WMFDefaultNib.h"

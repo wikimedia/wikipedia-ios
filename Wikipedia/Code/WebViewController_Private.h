@@ -15,7 +15,7 @@
 #import "MWLanguageInfo.h"
 #import "Defines.h"
 #import "UIWebView+ElementLocation.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "PaddedLabel.h"
 #import "EditFunnel.h"
 #import "AccountCreationViewController.h"

@@ -13,7 +13,7 @@
 
 #import "WMFShareFunnel.h"
 
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "NSString+WMFHTMLParsing.h"
 
 #import "UIView+WMFSnapshotting.h"
@@ -23,7 +23,7 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "MWKArticle.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 #import "MWKTitle.h"
 
 NS_ASSUME_NONNULL_BEGIN
