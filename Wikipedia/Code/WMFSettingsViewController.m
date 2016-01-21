@@ -293,11 +293,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 }
 
 - (void)setRowData {
-    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD;
-
-
-    //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-
     NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
     NSString* languageName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:languageCode];
     if (!languageName) {
@@ -684,12 +679,5 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
     [self wmf_hideKeyboard];
 }
-
-/*
-   -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-   {
-    self.scrollView.orientation = !self.scrollView.orientation;
-   }
- */
 
 @end
