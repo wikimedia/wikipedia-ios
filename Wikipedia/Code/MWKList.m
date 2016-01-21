@@ -31,16 +31,6 @@
     return self;
 }
 
-- (BOOL)isEqual:(id)object {
-    if (self == object) {
-        return YES;
-    } else if ([object isKindOfClass:[self class]]) {
-        return WMF_EQUAL(self.entries, isEqualToArray:, [(MWKList*)object entries]);
-    } else {
-        return NO;
-    }
-}
-
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.entries];
 }

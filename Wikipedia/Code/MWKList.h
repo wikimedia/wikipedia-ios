@@ -1,4 +1,5 @@
 
+#import <Mantle/Mantle.h>
 #import "MWKDataObject.h"
 #import "WMFBlockDefinitions.h"
 
@@ -22,7 +23,7 @@ typedef id<NSCopying, NSObject> MWKListIndex;
  * @c IndexType.
  */
 @interface MWKList
-<EntryType : MWKListEntry, IndexType :  MWKListIndex> : MWKDataObject<NSFastEnumeration>
+<EntryType : MWKListEntry, IndexType :  MWKListIndex> : MTLModel<NSFastEnumeration>
 // Note: ObjC generics give uncrustify a headache: https://github.com/bengardner/uncrustify/issues/404
 
  - (instancetype)initWithEntries:(NSArray<EntryType>* __nullable)entries;
@@ -64,5 +65,7 @@ typedef id<NSCopying, NSObject> MWKListIndex;
 - (AnyPromise*)save;
 
 @end
+
+
 
 NS_ASSUME_NONNULL_END
