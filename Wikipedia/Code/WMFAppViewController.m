@@ -100,7 +100,6 @@ static dispatch_once_t launchToken;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
 - (BOOL)isPresentingOnboarding {
     return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
 }

@@ -308,11 +308,11 @@
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
 
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
-                                            usingCookieAsTemplate:cookie2Name
+                                                usingCookieAsTemplate:cookie2Name
     ];
 
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
-                                            usingCookieAsTemplate:@"centralauth_User"
+                                                usingCookieAsTemplate:@"centralauth_User"
     ];
 }
 

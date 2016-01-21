@@ -3,7 +3,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, TabularScrollViewOrientation) {
+typedef NS_ENUM (NSInteger, TabularScrollViewOrientation) {
     TABULAR_SCROLLVIEW_LAYOUT_VERTICAL   = 0,
     TABULAR_SCROLLVIEW_LAYOUT_HORIZONTAL = 1
 };
