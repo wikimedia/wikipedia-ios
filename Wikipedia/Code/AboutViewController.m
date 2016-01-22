@@ -243,7 +243,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
                                                                                withString:foundation];
     setDivHTML(@"footer", footer);
 
-    NSString* textDirection   = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+    NSString* textDirection   = ([WikipediaAppUtils isDeviceLayoutDirectionRTL] ? @"rtl" : @"ltr");
     NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
     [webView stringByEvaluatingJavaScriptFromString:textDirectionJS];
 

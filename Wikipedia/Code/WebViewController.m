@@ -607,7 +607,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     NSString* html = [self.article articleHTML];
 
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
-    NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+    NSString* uidir              = ([WikipediaAppUtils isDeviceLayoutDirectionRTL] ? @"rtl" : @"ltr");
 
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);

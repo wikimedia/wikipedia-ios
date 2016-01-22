@@ -89,7 +89,7 @@
         );
 
     // Adjust for RTL langs.
-    if ([WikipediaAppUtils isDeviceLanguageRTL]) {
+    if ([WikipediaAppUtils isDeviceLayoutDirectionRTL]) {
         _padding = UIEdgeInsetsMake(padding.top, padding.right, padding.bottom, padding.left);
     } else {
         _padding = padding;

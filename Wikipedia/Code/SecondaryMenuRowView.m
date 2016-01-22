@@ -41,7 +41,7 @@
     [super awakeFromNib];
     self.insetTopBorderView.backgroundColor = BORDER_COLOR;
 
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [WikipediaAppUtils isDeviceLayoutDirectionRTL];
 
     self.iconLabel.textAlignment = isRTL ? NSTextAlignmentLeft : NSTextAlignmentRight;
 

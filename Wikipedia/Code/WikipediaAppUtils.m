@@ -179,7 +179,7 @@ static WMFAssetsFile* languageFile = nil;
     }
 }
 
-+ (BOOL)isDeviceLanguageRTL {
++ (BOOL)isDeviceLayoutDirectionRTL {
     return [UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
 }
 

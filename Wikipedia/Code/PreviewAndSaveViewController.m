@@ -472,7 +472,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                 error:(NSError*)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
         MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.section.site.language];
-        NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+        NSString* uidir              = ([WikipediaAppUtils isDeviceLayoutDirectionRTL] ? @"rtl" : @"ltr");
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {

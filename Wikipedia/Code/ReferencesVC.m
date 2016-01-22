@@ -114,7 +114,7 @@
     self.xButton.userInteractionEnabled = YES;
     [self.topContainerView addSubview:self.xButton];
 
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [WikipediaAppUtils isDeviceLayoutDirectionRTL];
 
     self.nextButton                                           = [[WikiGlyphButton alloc] init];
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -267,7 +267,7 @@
 - (NSDictionary*)reversePayloadArraysIfRTL:(NSDictionary*)payload {
     //NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
     //MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [WikipediaAppUtils isDeviceLayoutDirectionRTL];
     if (isRTL) {
         //if ([languageInfo.dir isEqualToString:@"ltr"]) {
         NSArray* a = payload[@"linkId"];
@@ -484,7 +484,7 @@
             return;
         }
 
-        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+        BOOL isRTL = [WikipediaAppUtils isDeviceLayoutDirectionRTL];
 
         UIPageViewControllerNavigationDirection dir = isRTL
                                                       ?
@@ -505,7 +505,7 @@
             return;
         }
 
-        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+        BOOL isRTL = [WikipediaAppUtils isDeviceLayoutDirectionRTL];
 
         UIPageViewControllerNavigationDirection dir = isRTL
                                                       ?
