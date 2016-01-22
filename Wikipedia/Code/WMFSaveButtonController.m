@@ -42,7 +42,7 @@
 }
 
 - (void)dealloc {
-      [self unobserveSavedPages];
+    [self unobserveSavedPages];
 }
 
 #pragma mark - Accessors

@@ -26,4 +26,6 @@
 
 - (void)setBearingProvider:(WMFSearchResultBearingProvider*)bearingProvider;
 
++ (CGFloat)estimatedRowHeight;
+
 @end

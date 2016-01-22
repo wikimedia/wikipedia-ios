@@ -14,4 +14,6 @@
 
 - (void)setDisplayTitle:(NSString*)displayTitle;
 
++ (CGFloat)estimatedRowHeight;
+
 @end
