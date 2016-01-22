@@ -366,6 +366,17 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.savedPages];
 }
 
+#pragma mark - Delayed Fetching
+
+- (void)fetchSectionIfShowing:(id<WMFExploreSectionController, WMFFetchingExploreSectionController>)controller {
+    if ([self isDisplayingCellsForSectionController:controller]) {
+        DDLogVerbose(@"Fetching section after delay: %@", controller);
+        [controller fetchDataIfNeeded];
+    } else {
+        DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
+    }
+}
+
 #pragma mark - Section Update
 
 - (NSString*)lastUpdatedString {
@@ -480,7 +491,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self isDisplayingCellsForSectionController:controller]) {
         [self resetRefreshControlWithCompletion:NULL];
         if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
-            [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+            [(NSObject < WMFFetchingExploreSectionController >*)controller performSelector:@selector(fetchDataIfNeeded) withObject:nil afterDelay:0.25];
         }
     }
 }
@@ -664,17 +675,28 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]
         && self.sectionLoadErrors[controller.sectionIdentifier] == nil) {
         // don't automatically re-fetch a section if it previously failed. ask user to refresh manually
-        [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+        [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
     }
 
-    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
-        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
-        return;
-    }
-    if ([controller conformsToProtocol:@protocol(WMFArticleExploreSectionController)]) {
+    if ([controller conformsToProtocol:@protocol(WMFArticleExploreSectionController)]
+        && (![controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+            || [controller shouldSelectItemAtIndex:indexPath.item])) {
         MWKTitle* title = [(id < WMFArticleExploreSectionController >)controller titleForItemAtIndex:indexPath.row];
         if (title) {
             [[PiwikTracker sharedInstance] wmf_logActionScrollToTitle:title inHomeSection:controller];
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL(NSIndexPath* i) {
+        return i.section == indexPath.section;
+    }];
+    if (visibleIndexPathsInSection.count == 0) {
+        id controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
+            DDLogInfo(@"Cancelling fetch for scrolled-away section: %@", controller);
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchSectionIfShowing:) object:controller];
         }
     }
 }
