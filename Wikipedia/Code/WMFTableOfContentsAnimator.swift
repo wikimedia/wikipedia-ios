@@ -185,8 +185,8 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             self.presentingViewController?.presentViewController(self.presentedViewController!, animated: true, completion: nil)
         case (.Changed):
             let position = gesture.locationInView(gesture.view);
-            let distance = WikipediaAppUtils.isDeviceLayoutDirectionRTL() ? position.x : CGRectGetMaxX(gesture.view!.bounds) - position.x
-            let transitionProgress = distance / CGRectGetMaxX(gesture.view!.bounds)
+            let distanceFromSide = WikipediaAppUtils.isDeviceLayoutDirectionRTL() ? position.x : CGRectGetMaxX(gesture.view!.bounds) - position.x
+            let transitionProgress = distanceFromSide / CGRectGetMaxX(gesture.view!.bounds)
             self.updateInteractiveTransition(transitionProgress)
         case (.Ended):
             self.isInteractive = false
