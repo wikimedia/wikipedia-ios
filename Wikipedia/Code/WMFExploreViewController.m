@@ -202,9 +202,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
-    self.tableView.estimatedRowHeight           = 345.0;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionHeaderHeight = 78.0;
+    self.tableView.estimatedSectionHeaderHeight = 52.0;
     self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionFooterHeight = 78.0;
 
@@ -589,6 +588,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    NSParameterAssert(controller);
+    return [controller estimatedRowHeight];
+}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     return UITableViewCellEditingStyleNone;

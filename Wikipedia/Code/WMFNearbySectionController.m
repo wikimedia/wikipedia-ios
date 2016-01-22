@@ -234,6 +234,10 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
     return @"Nearby";
 }
 
+- (CGFloat)estimatedRowHeight {
+    return [WMFNearbyArticleTableViewCell estimatedRowHeight];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -147,6 +147,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return @"Picture of the Day";
 }
 
+- (CGFloat)estimatedRowHeight {
+    return [WMFPicOfTheDayTableViewCell estimatedRowHeight];
+}
+
 @end
 
 @implementation MWKImageInfo (Feed)

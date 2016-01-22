@@ -184,4 +184,10 @@
     self.saveButtonController.title         = title;
 }
 
+#pragma mark - Height Estimation
+
++ (CGFloat)estimatedRowHeight {
+    return 345.f;
+}
+
 @end

@@ -95,4 +95,8 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return @"Continue Reading";
 }
 
+- (CGFloat)estimatedRowHeight {
+    return [WMFContinueReadingTableViewCell estimatedRowHeight];
+}
+
 @end

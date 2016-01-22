@@ -142,13 +142,17 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         @strongify(self);
         self.featuredArticlePreview = nil;
         [self.delegate controller:self didFailToUpdateWithError:error];
-        WMF_TECH_DEBT_TODO(show empty view)
-        [self.delegate controller : self didSetItems : self.items];
+        WMF_TECH_DEBT_TODO(show empty view);
+        [self.delegate controller:self didSetItems:self.items];
     });
 }
 
 - (NSString*)analyticsName {
     return @"Featured Article";
+}
+
+- (CGFloat)estimatedRowHeight {
+    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
 @end
