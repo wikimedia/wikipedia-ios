@@ -4,6 +4,7 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "Defines.h"
+#import "Wikipedia-Swift.h"
 
 @implementation PaddedLabel
 
@@ -89,7 +90,7 @@
         );
 
     // Adjust for RTL langs.
-    if ([WikipediaAppUtils isDeviceLayoutDirectionRTL]) {
+    if ([[UIApplication sharedApplication] wmf_isRTL]) {
         _padding = UIEdgeInsetsMake(padding.top, padding.right, padding.bottom, padding.left);
     } else {
         _padding = padding;

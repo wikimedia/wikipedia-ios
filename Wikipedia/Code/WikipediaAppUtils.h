@@ -16,7 +16,6 @@ WMF_TECH_DEBT_DEPRECATED_MSG("This class is deprecated, its methods should be br
 + (NSString*)versionedUserAgent;
 + (NSString*)relativeTimestamp:(NSDate*)date;
 + (NSString*)languageNameForCode:(NSString*)code;
-+ (BOOL)     isDeviceLayoutDirectionRTL;
 
 + (void)copyAssetsFolderToAppDataDocuments;
 

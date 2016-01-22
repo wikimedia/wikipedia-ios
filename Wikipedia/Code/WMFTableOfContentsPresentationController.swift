@@ -88,7 +88,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     override public func frameOfPresentedViewInContainerView() -> CGRect {
         var frame = self.containerView!.bounds;
-        if !WMFTableOfContentsAnimator.shouldMoveTOCToLeft(){
+        if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
             frame.origin.x += self.visibleBackgroundWidth
         }
         frame.size.width -= self.visibleBackgroundWidth
