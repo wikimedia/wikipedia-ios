@@ -59,6 +59,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
  */
 - (instancetype)init NS_DESIGNATED_INITIALIZER NS_AVAILABLE_IPHONE(__IPHONE_8_0);
 
+
+#pragma mark - File Info
+
+@property (nonatomic, strong) UIButton* infoButton;
+
+- (void)updateInfoButtonVisibility;
+
 #pragma mark - Chrome
 
 /**
@@ -249,10 +256,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         make.height.mas_equalTo(WMFImageGalleryTopGradientHeight);
     }];
 
-    @weakify(self)
-    UIButton * closeButton = [UIButton wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
-        @strongify(self)
-        [self closeButtonTapped : sender];
+    @weakify(self);
+    UIButton* closeButton = [UIButton wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
+        @strongify(self);
+        [self closeButtonTapped:sender];
     }];
     closeButton.tintColor = [UIColor whiteColor];
     [self.view addSubview:closeButton];
@@ -262,6 +269,16 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         make.width.and.height.mas_equalTo(60.f);
         make.leading.equalTo(self.view.mas_leading);
         make.top.equalTo(self.view.mas_top);
+    }];
+
+    self.infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [self.infoButton addTarget:self action:@selector(didTapInfoButton) forControlEvents:UIControlEventTouchUpInside];
+    self.infoButton.tintColor = [UIColor whiteColor];
+    [self.view addSubview:self.infoButton];
+    [self.infoButton mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.width.and.height.mas_equalTo(60.f);
+        make.centerY.equalTo(self.closeButton);
+        make.trailing.and.top.equalTo(self.view);
     }];
 
     UITapGestureRecognizer* chromeTapGestureRecognizer =
@@ -318,6 +335,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                     animations:^{
         self.topGradientView.hidden = [self isChromeHidden];
         self.closeButton.hidden = [self isChromeHidden];
+        self.infoButton.hidden = [self isChromeHidden];
         for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
             [self updateDetailVisibilityForCellAtIndexPath:indexPath animated:NO];
         }
@@ -336,6 +354,28 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             [self.delegate didDismissGalleryController:self];
         }
     }];
+}
+
+#pragma mark - File Info
+
+- (void)updateInfoButtonVisibility {
+    NSAssert(self.collectionView.indexPathsForVisibleItems.count == 1,
+             @"Expected paging collection view to only have one visible item at time, got %@",
+             self.collectionView.indexPathsForVisibleItems);
+    NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
+
+    self.infoButton.hidden =
+        self.isChromeHidden && [[self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath] filePageURL] != nil;
+}
+
+- (void)didTapInfoButton {
+    NSAssert(self.collectionView.indexPathsForVisibleItems.count == 1,
+             @"Expected paging collection view to only have one visible item at time, got %@",
+             self.collectionView.indexPathsForVisibleItems);
+    NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
+    NSParameterAssert(visibleIndexPath);
+    MWKImageInfo* info = [self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath];
+    [self wmf_openExternalUrl:info.filePageURL];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -366,6 +406,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (self.didApplyCurrentPage) {
         [[self modalGalleryDataSource] fetchDataAtIndexPath:indexPath];
     }
+
+    [self updateInfoButtonVisibility];
 }
 
 #pragma mark - Cell Updates
@@ -546,6 +588,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource
          updatedItemsAtIndexes:(NSIndexSet*)indexes {
     [self.loadingIndicator stopAnimating];
+    [self updateInfoButtonVisibility];
     /*
        NOTE: Do not call `reloadItemsAtIndexPaths:` because that will cause an infinite loop with the collection view
        reloading the cell, which asks the dataSource to fetch data, which triggers this method, which reloads the cell...
