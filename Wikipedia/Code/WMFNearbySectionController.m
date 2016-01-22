@@ -2,8 +2,9 @@
 
 // Controllers
 #import "WMFNearbyTitleListDataSource.h"
-#import "WMFNearbyViewModel.h"
 #import "WMFLocationManager.h"
+#import "WMFCompassViewModel.h"
+#import "WMFLocationSearchFetcher.h"
 
 // Models
 #import "WMFLocationSearchResults.h"
@@ -27,18 +28,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+NSString* const WMFNearbySectionIdentifier         = @"WMFNearbySectionIdentifier";
+static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @interface WMFNearbySectionController ()
-<WMFNearbyViewModelDelegate>
 
-@property (nonatomic, strong) WMFNearbyViewModel* viewModel;
+@property (nonatomic, strong, readwrite) MWKSite* searchSite;
+
+@property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
+@property (nonatomic, strong) WMFCompassViewModel* compassViewModel;
+
+@property (nonatomic, weak) id<Cancellable> lastFetch;
 @property (nonatomic, strong, nullable) NSError* nearbyError;
 
 @end
@@ -48,26 +54,15 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 @synthesize delegate = _delegate;
 
 - (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-             locationManager:(WMFLocationManager*)locationManager {
-    return [self initWithSite:site
-                    dataStore:dataStore
-                    viewModel:[[WMFNearbyViewModel alloc] initWithSite:site
-                                                           resultLimit:3
-                                                       locationManager:locationManager]];
-}
-
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-                   viewModel:(WMFNearbyViewModel*)viewModel {
+                   dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
     NSParameterAssert(dataStore);
-    NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
-        self.dataStore          = dataStore;
-        self.viewModel          = viewModel;
-        self.viewModel.delegate = self;
+        self.searchSite = site;
+        self.dataStore             = dataStore;
+        self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
+        self.compassViewModel      = [[WMFCompassViewModel alloc] init];
     }
     return self;
 }
@@ -76,6 +71,13 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
 - (MWKSavedPageList*)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
+}
+
+- (void)setLocation:(CLLocation*)location {
+    if (WMF_IS_EQUAL(_location, location)) {
+        return;
+    }
+    _location = location;
 }
 
 - (BOOL)hasResults {
@@ -94,14 +96,6 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
     if (_nearbyError) {
         self.searchResults = nil;
     }
-}
-
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    self.viewModel.site = searchSite;
-}
-
-- (MWKSite*)searchSite {
-    return self.viewModel.site;
 }
 
 #pragma mark - WMFExploreSectionController
@@ -164,8 +158,8 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
         nearbyCell.titleText       = result.displayTitle;
         nearbyCell.descriptionText = result.wikidataDescription;
         [nearbyCell setImageURL:result.thumbnailURL];
-        [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
-        [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
+        [nearbyCell setDistanceProvider:[self.compassViewModel distanceProviderForResult:result]];
+        [nearbyCell setBearingProvider:[self.compassViewModel bearingProviderForResult:result]];
         [nearbyCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]]) {
         WMFEmptyNearbyTableViewCell* nearbyCell = (id)cell;
@@ -175,8 +169,7 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
                 @strongify(self);
                 self.nearbyError = nil;
                 [self.delegate controller:self didSetItems:self.items];
-                [self.viewModel stopUpdates];
-                [self.viewModel startUpdates];
+                [self fetchTitlesForLocation:self.location];
             } forControlEvents:UIControlEventTouchUpInside];
         }
     }
@@ -187,47 +180,67 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 }
 
 - (UIViewController*)moreViewController {
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithLocation:self.location searchSite:self.searchSite dataStore:self.dataStore];
     return vc;
 }
 
-- (void)fetchDataIfNeeded {
-    // Start updates if they haven't been started already. Don't redundantly start (or restart) or else views will flicker.
-    [self.viewModel startUpdates];
+#pragma mark - Fetch
+
+- (BOOL)fetchedResultsAreCloseToLocation:(CLLocation*)location {
+    if ([self.searchResults.location distanceFromLocation:location] < 500
+        && [self.searchResults.searchSite isEqualToSite:self.searchSite] && [self.searchResults.results count] > 0) {
+        return YES;
+    }
+
+    return NO;
 }
 
-#pragma mark - WMFNearbyViewModelDelegate
-
-- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
-    if ([WMFLocationManager isDeniedOrDisabled]) {
-        DDLogVerbose(@"Suppresing %@ since location authorization is denied.", error);
-        /*
-           This controller is coded with the assumption that it will be destroyed in the event that the user revokes
-           location services authorization for the app or the device in general.
-         */
+- (void)fetchDataIfNeeded {
+    if (!self.location) {
         return;
     }
 
-    if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
-        || !self.searchResults) {
-        // only show error view if empty or error is not "unknown location"
-        self.nearbyError = error;
-        [self.delegate controller:self didSetItems:self.items];
+    if ([self fetchedResultsAreCloseToLocation:self.location]) {
+        DDLogVerbose(@"Not fetching nearby titles for %@ since it is too close to previously fetched location: %@.",
+                     self.location, self.searchResults.location);
+        return;
     }
 
-    //This means there were 0 results - not neccesarily a "real" error.
-    //Only inform the delegate if we get a real error.
-    if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
-        [self.delegate controller:self didFailToUpdateWithError:error];
-    }
-
-    //Don't try to update after we get an error.
-    [self.viewModel stopUpdates];
+    [self fetchTitlesForLocation:self.location];
 }
 
-- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
-    self.searchResults = results;
-    [self.delegate controller:self didSetItems:self.items];
+- (void)fetchTitlesForLocation:(CLLocation* __nullable)location {
+    [self.lastFetch cancel];
+    id<Cancellable> fetch;
+    @weakify(self);
+    [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite
+                                             location:location
+                                          resultLimit:WMFNearbySectionFetchCount
+                                          cancellable:&fetch]
+    .then(^(WMFLocationSearchResults* locationSearchResults) {
+        @strongify(self);
+        self.searchResults = locationSearchResults;
+        [self.delegate controller:self didSetItems:self.items];
+    })
+    .catch(^(NSError* error) {
+        @strongify(self);
+        //This means there were 0 results - not neccesarily a "real" error.
+        //Only inform the delegate if we get a real error.
+        if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
+            [self.delegate controller:self didFailToUpdateWithError:error];
+        }
+    });
+    self.lastFetch = fetch;
+}
+
+#pragma mark - Location Updates
+
+- (void)startMonitoringLocation {
+    [self.compassViewModel startUpdates];
+}
+
+- (void)stopMonitoringLocation {
+    [self.compassViewModel stopUpdates];
 }
 
 - (NSString*)analyticsName {

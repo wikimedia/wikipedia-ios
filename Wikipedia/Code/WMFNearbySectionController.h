@@ -1,7 +1,7 @@
 
 #import "WMFExploreSectionController.h"
-
-@class WMFLocationManager, WMFNearbyViewModel, MWKSite, MWKDataStore;
+@import CoreLocation;
+@class WMFLocationManager, MWKSite, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -11,14 +11,14 @@ extern NSString* const WMFNearbySectionIdentifier;
     <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
 
 - (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-             locationManager:(WMFLocationManager*)locationManager;
+                   dataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-                   viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
+@property (nonatomic, strong, readonly) MWKSite* searchSite;
 
-@property (nonatomic, strong) MWKSite* searchSite;
+@property (nonatomic, strong) CLLocation* location;
+
+- (void)startMonitoringLocation;
+- (void)stopMonitoringLocation;
 
 @end
 
