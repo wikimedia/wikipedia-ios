@@ -12,6 +12,7 @@
 @import XCTest;
 #import "Global.h"
 #import "WMFTestFixtureUtilities.h"
+#import "WMFTestEnvironment.h"
 #import "MWKTitle+Random.h"
 #import "MWKSite+Random.h"
 #import "NSUserDefaults+WMFBatchRecordMode.h"
