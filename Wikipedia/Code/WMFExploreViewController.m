@@ -395,7 +395,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)resetRefreshControlWithCompletion:(nullable dispatch_block_t)completion {
-
     //Don't hide the spinner so quickly - so users can see the change
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
         [CATransaction begin];
@@ -418,7 +417,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateSectionSchemaForce:(BOOL)force {
     [self.refreshControl beginRefreshing];
-    self.sectionLoadErrors              = [NSMutableDictionary dictionary];
+    self.sectionLoadErrors = [NSMutableDictionary dictionary];
     [self.schemaManager update:force];
 }
 
@@ -491,7 +490,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self isDisplayingCellsForSectionController:controller]) {
         [self resetRefreshControlWithCompletion:NULL];
         if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
-            [(NSObject < WMFFetchingExploreSectionController >*)controller performSelector:@selector(fetchDataIfNeeded) withObject:nil afterDelay:0.25];
+            [(NSObject < WMFFetchingExploreSectionController > *)controller performSelector:@selector(fetchDataIfNeeded) withObject:nil afterDelay:0.25];
         }
     }
 }
@@ -600,7 +599,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView*)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
     NSParameterAssert(controller);
     return [controller estimatedRowHeight];
@@ -688,8 +687,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL(NSIndexPath* i) {
+- (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
         return i.section == indexPath.section;
     }];
     if (visibleIndexPathsInSection.count == 0) {

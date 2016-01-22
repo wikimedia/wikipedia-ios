@@ -97,13 +97,13 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return self;
 }
 
-- (void)setBlackList:(WMFRelatedSectionBlackList *)blackList{
-    if(_blackList){
+- (void)setBlackList:(WMFRelatedSectionBlackList*)blackList {
+    if (_blackList) {
         [self.KVOController unobserve:_blackList];
     }
-    
+
     _blackList = blackList;
-    
+
     [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, blackListTitles) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
         [observer updateWithChangesInBlackList:object];
     }];
@@ -199,9 +199,9 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [WMFExploreSectionSchema saveSchemaToDisk:self];
 }
 
-- (void)removeSection:(WMFExploreSection*)section{
+- (void)removeSection:(WMFExploreSection*)section {
     NSUInteger index = [self.sections indexOfObject:section];
-    if(index == NSNotFound){
+    if (index == NSNotFound) {
         return;
     }
     NSMutableArray* sections = [self.sections mutableCopy];
@@ -265,9 +265,9 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
     //enumerate in reverse so that indexes are always correct
-    [[blackList.blackListTitles wmf_mapAndRejectNil:^id(MWKTitle * obj) {
+    [[blackList.blackListTitles wmf_mapAndRejectNil:^id (MWKTitle* obj) {
         return [self existingSectionForTitle:obj];
-    }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         [self removeSection:obj];
     }];
 }
@@ -438,7 +438,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSArray<MWKHistoryEntry*>* entries = [self.historyPages.entries bk_select:^BOOL (MWKHistoryEntry* obj) {
         return obj.titleWasSignificantlyViewed;
     }];
-    
+
     entries = [entries bk_reject:^BOOL (MWKHistoryEntry* obj) {
         return [self.blackList titleIsBlackListed:obj.title];
     }];
