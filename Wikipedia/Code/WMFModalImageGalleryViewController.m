@@ -462,9 +462,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)updateImageForCell:(WMFImageGalleryCollectionViewCell*)cell
                atIndexPath:(NSIndexPath*)indexPath
-       placeholderImageURL:(NSURL*)placeholderImageURL
+       placeholderImageURL:(NSURL* __nullable)placeholderImageURL
                       info:(MWKImageInfo* __nullable)infoForImage {
     NSParameterAssert(cell);
+
     @weakify(self);
     [[WMFImageController sharedInstance]
      cascadingFetchWithMainURL:infoForImage.imageThumbURL
@@ -478,6 +479,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         [self setPlaceholderImage:download.image ofInfo:infoForImage forCellAtIndexPath:indexPath];
     }]
     .catch(^(NSError* error) {
+        @strongify(self);
+        BOOL const isInvalidURL =
+            [WMFImageControllerErrorDomain hasSuffix:error.domain]
+            && error.code == WMFImageControllerErrorInvalidOrEmptyURL;
+        if (isInvalidURL || !self) {
+            return;
+        }
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     });
