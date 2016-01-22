@@ -66,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsLogging>
 
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
+@property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
+
 @property (nonatomic, strong, null_resettable) WMFExploreSectionSchema* schemaManager;
 
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
@@ -101,6 +104,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (MWKSavedPageList*)savedPages {
+    return self.dataStore.userDataStore.savedPageList;
+}
+
+- (MWKHistoryList*)recentPages {
+    return self.dataStore.userDataStore.historyList;
+}
+
 - (UIBarButtonItem*)settingsBarButtonItem {
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
                                             style:UIBarButtonItemStylePlain
@@ -108,11 +119,21 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+- (void)setSearchSite:(MWKSite *)searchSite {
+    NSParameterAssert(self.dataStore);
+    [self setSearchSite:self.searchSite dataStore:self.dataStore];
+}
+
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore {
     if ([_searchSite isEqualToSite:searchSite]) {
         return;
     }
+
+    NSParameterAssert(searchSite);
+    NSParameterAssert(dataStore);
+
     _searchSite = searchSite;
+    _dataStore = dataStore;
 
     self.schemaManager           = nil;
     self.nearbySectionController = nil;

@@ -134,10 +134,7 @@ static dispatch_once_t launchToken;
 }
 
 - (void)configureExploreViewController {
-    self.exploreViewController.searchSite  = [self.session searchSite];
-    self.exploreViewController.dataStore   = self.session.dataStore;
-    self.exploreViewController.savedPages  = self.session.userDataStore.savedPageList;
-    self.exploreViewController.recentPages = self.session.userDataStore.historyList;
+    [self.exploreViewController setSearchSite:[self.session searchSite] dataStore:self.dataStore];
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController*)controller {
@@ -548,7 +545,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-//    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
+    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
 }
 
 #pragma mark - Notifications
