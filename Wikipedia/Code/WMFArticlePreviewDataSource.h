@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
                           site:(MWKSite*)site
                        fetcher:(WMFArticlePreviewFetcher*)fetcher NS_DESIGNATED_INITIALIZER;
 
-- (void)fetch;
+- (AnyPromise*)fetch;
 
 @end
 

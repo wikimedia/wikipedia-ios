@@ -22,7 +22,8 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
     WMFExploreSectionTypeHistory         = 4,
     WMFExploreSectionTypeSaved           = 5,
     WMFExploreSectionTypeFeaturedArticle = 6,
-    WMFExploreSectionTypePictureOfTheDay = 7
+    WMFExploreSectionTypePictureOfTheDay = 7,
+    WMFExploreSectionTypeTrending        = 8
 };
 
 @interface WMFExploreSection : MTLModel
@@ -31,6 +32,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 + (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
++ (instancetype)trendingSectionForDate:(NSDate*)date;
 
 /**
  *  Create a section which displays the featured article of the day for a specific site.

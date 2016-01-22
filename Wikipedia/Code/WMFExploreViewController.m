@@ -19,6 +19,7 @@
 #import "WMFExploreSectionSchema.h"
 #import "WMFExploreSection.h"
 #import "WMFPictureOfTheDaySectionController.h"
+#import "WMFTrendingSectionController.h"
 
 // Models
 #import "WMFAsyncBlockOperation.h"
@@ -53,6 +54,10 @@
 #import "WMFLocationManager.h"
 #import "WMFRelatedSectionBlackList.h"
 #import "UIViewController+WMFArticlePresentation.h"
+
+#import "MWKSite.h"
+#import "SessionSingleton.h"
+#import "NSDate+Utilities.h"
 
 static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
 #undef LOG_LEVEL_DEF
@@ -370,6 +375,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.savedPages];
 }
 
+- (WMFTrendingSectionController*)trendingSectionControllerForItem:(WMFExploreSection*)section {
+    return [[WMFTrendingSectionController alloc] initWithDate:section.dateCreated
+                                                         site:self.searchSite
+                                                    dataStore:self.dataStore];
+}
+
 #pragma mark - Section Update
 
 - (NSString*)lastUpdatedString {
@@ -446,6 +457,9 @@ NS_ASSUME_NONNULL_BEGIN
                 break;
             case WMFExploreSectionTypePictureOfTheDay:
                 [self loadSectionForSectionController:[self picOfTheDaySectionController]];
+                break;
+            case WMFExploreSectionTypeTrending:
+                [self loadSectionForSectionController:[self trendingSectionControllerForItem:obj]];
                 break;
                 /*
                    !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
@@ -568,6 +582,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeFeaturedArticle:
         case WMFExploreSectionTypePictureOfTheDay:
         case WMFExploreSectionTypeRandom:
+        case WMFExploreSectionTypeTrending:
             [self selectFirstRowInSection:section];
             break;
         case WMFExploreSectionTypeNearby:
