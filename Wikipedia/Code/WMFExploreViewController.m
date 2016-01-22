@@ -54,9 +54,9 @@
 #import "WMFRelatedSectionBlackList.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
-static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
+static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF WMFHomeVCLogLevel
+#define LOG_LEVEL_DEF WMFExploreVCLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -725,7 +725,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
-//    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:index];
     [self.dataSource.sections removeObjectAtIndex:index];
     [self.tableView reloadData];
 }
