@@ -35,8 +35,12 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     
     private(set) public var isInteractive: Bool
     
+    static func shouldMoveTOCToLeft() -> Bool {
+        return WikipediaAppUtils.isDeviceLayoutDirectionRTL() && !NSProcessInfo.processInfo().wmf_isOperatingSystemVersionLessThan9_0_0()
+    }
+    
     private func rtlMultiplier() -> CGFloat {
-        return WikipediaAppUtils.isDeviceLayoutDirectionRTL() ? -1.0 : 1.0
+        return WMFTableOfContentsAnimator.shouldMoveTOCToLeft() ? -1.0 : 1.0
     }
     
     // MARK: - WMFTableOfContentsPresentationControllerTapDelegate
@@ -157,7 +161,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     // MARK: - Gestures
     lazy var presentationGesture: UIScreenEdgePanGestureRecognizer = {
         let gesture = UIScreenEdgePanGestureRecognizer.init(target: self, action: Selector("handlePresentationGesture:"))
-        gesture.edges = WikipediaAppUtils.isDeviceLayoutDirectionRTL() ? .Left : .Right
+        gesture.edges = WMFTableOfContentsAnimator.shouldMoveTOCToLeft() ? .Left : .Right
         return gesture
     }()
     
@@ -185,7 +189,7 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             self.presentingViewController?.presentViewController(self.presentedViewController!, animated: true, completion: nil)
         case (.Changed):
             let position = gesture.locationInView(gesture.view);
-            let distanceFromSide = WikipediaAppUtils.isDeviceLayoutDirectionRTL() ? position.x : CGRectGetMaxX(gesture.view!.bounds) - position.x
+            let distanceFromSide = WMFTableOfContentsAnimator.shouldMoveTOCToLeft() ? position.x : CGRectGetMaxX(gesture.view!.bounds) - position.x
             let transitionProgress = distanceFromSide / CGRectGetMaxX(gesture.view!.bounds)
             self.updateInteractiveTransition(transitionProgress)
         case (.Ended):
