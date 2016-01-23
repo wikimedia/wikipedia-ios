@@ -19,19 +19,18 @@
 @implementation WMFPageCollectionViewController
 
 - (void)applyCurrentPage:(BOOL)animated {
-    if ([self isViewLoaded]) {
-        // check page bounds here in case it was set before view was loaded
-        NSParameterAssert(self.currentPage < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
+    NSParameterAssert(self.isViewLoaded);
+    // check page bounds here in case it was set before view was loaded
+    NSParameterAssert(self.currentPage < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
 
-        // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
-        UICollectionViewLayoutAttributes* currentPageAttributes =
-            [self.collectionViewLayout layoutAttributesForItemAtIndexPath:
-             [NSIndexPath indexPathForItem:self.currentPage inSection:0]];
-        NSAssert(currentPageAttributes,
-                 @"Layout attributes for current page were nil because %@ was called too early!",
-                 NSStringFromSelector(_cmd));
-        [self.collectionView setContentOffset:currentPageAttributes.frame.origin animated:animated];
-    }
+    // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
+    UICollectionViewLayoutAttributes* currentPageAttributes =
+        [self.collectionViewLayout layoutAttributesForItemAtIndexPath:
+         [NSIndexPath indexPathForItem:self.currentPage inSection:0]];
+    NSAssert(currentPageAttributes,
+             @"Layout attributes for current page were nil because %@ was called too early!",
+             NSStringFromSelector(_cmd));
+    [self.collectionView setContentOffset:currentPageAttributes.frame.origin animated:animated];
 }
 
 - (void)setCurrentPage:(NSUInteger)currentPage {
@@ -47,7 +46,9 @@
         return;
     }
     [self primitiveSetCurrentPage:currentPage];
-    [self applyCurrentPage:animated];
+    if (self.isViewLoaded) {
+        [self applyCurrentPage:animated];
+    }
 }
 
 - (void)primitiveSetCurrentPage:(NSUInteger)page {

@@ -363,7 +363,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
              @"Expected paging collection view to only have one visible item at time, got %@",
              self.collectionView.indexPathsForVisibleItems);
     NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
-
     self.infoButton.hidden =
         self.isChromeHidden && [[self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath] filePageURL] != nil;
 }
@@ -390,6 +389,13 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return gestureRecognizer == self.chromeTapGestureRecognizer;
 }
 
+#pragma mark - WMFPageCollectionViewController
+
+- (void)applyCurrentPage:(BOOL)animated {
+    [super applyCurrentPage:animated];
+    [self updateInfoButtonVisibility];
+}
+
 #pragma mark - CollectionView
 
 #pragma mark Delegate
@@ -406,8 +412,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     if (self.didApplyCurrentPage) {
         [[self modalGalleryDataSource] fetchDataAtIndexPath:indexPath];
     }
-
-    [self updateInfoButtonVisibility];
 }
 
 #pragma mark - Cell Updates
