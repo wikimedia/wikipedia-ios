@@ -8,6 +8,7 @@
 #import "WikipediaAppUtils.h"
 #import "NSObject+ConstraintsScale.h"
 #import "MediaWikiKit.h"
+#import "Wikipedia-Swift.h"
 
 #define MENU_HEADING_FONT_SIZE (13.0 * MENUS_SCALE_MULTIPLIER)
 #define MENU_SUB_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.5f alpha:1.0f]
@@ -41,7 +42,7 @@
     [super awakeFromNib];
     self.insetTopBorderView.backgroundColor = BORDER_COLOR;
 
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [[UIApplication sharedApplication] wmf_isRTL];
 
     self.iconLabel.textAlignment = isRTL ? NSTextAlignmentLeft : NSTextAlignmentRight;
 

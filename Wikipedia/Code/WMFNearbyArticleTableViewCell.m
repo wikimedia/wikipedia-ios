@@ -74,6 +74,10 @@
     [self.articleImageView wmf_configureWithDefaultPlaceholder];
 }
 
++ (CGFloat)estimatedRowHeight {
+    return 120.f;
+}
+
 #pragma mark - Compass
 
 - (void)setBearingProvider:(WMFSearchResultBearingProvider*)bearingProvider {

@@ -26,6 +26,10 @@
     [self.KVOControllerNonRetaining unobserve:self.potdImageView];
 }
 
++ (CGFloat)estimatedRowHeight {
+    return 346.f;
+}
+
 - (void)setDisplayTitle:(NSString*)displayTitle {
     self.displayTitleLabel.text = displayTitle;
 }
