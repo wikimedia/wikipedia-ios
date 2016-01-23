@@ -10,6 +10,7 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "Wikipedia-Swift.h"
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -243,7 +244,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
                                                                                withString:foundation];
     setDivHTML(@"footer", footer);
 
-    NSString* textDirection   = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+    NSString* textDirection   = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
     NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
     [webView stringByEvaluatingJavaScriptFromString:textDirectionJS];
 
