@@ -345,7 +345,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - Dismissal
 
-- (void)closeButtonTapped:(id)sender {
+- (BOOL)didRequestDismiss {
     if ([self.delegate respondsToSelector:@selector(willDismissGalleryController:)]) {
         [self.delegate willDismissGalleryController:self];
     }
@@ -354,6 +354,15 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             [self.delegate didDismissGalleryController:self];
         }
     }];
+    return YES;
+}
+
+- (void)closeButtonTapped:(id)sender {
+    [self didRequestDismiss];
+}
+
+- (BOOL)accessibilityPerformEscape {
+    return [self didRequestDismiss];
 }
 
 #pragma mark - File Info

@@ -304,4 +304,11 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     [searchBar resignFirstResponder];
 }
 
+#pragma mark - UIAccessibilityAction
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return true;
+}
+
 @end

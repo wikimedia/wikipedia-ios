@@ -686,4 +686,11 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self wmf_hideKeyboard];
 }
 
+#pragma mark - UIAccessibilityAction
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return YES;
+}
+
 @end

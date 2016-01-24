@@ -278,9 +278,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Dismissal
 
-- (IBAction)didTapCloseButton:(id)sender {
+- (void)dismiss {
     [self.searchField resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)didTapCloseButton:(id)sender {
+    [self dismiss];
+}
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismiss];
+    return YES;
 }
 
 #pragma mark - UITextFieldDelegate
