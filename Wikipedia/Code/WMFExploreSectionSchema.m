@@ -253,6 +253,10 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return;
     }
 
+    if (oldNearby.location && [oldNearby.dateCreated isToday]) {
+        return;
+    }
+
     NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
     [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeNearby;
@@ -262,6 +266,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     [self updateSections:sections];
 }
+
+- (void)removeNearbySection{
+    NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+    [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+        return obj.type == WMFExploreSectionTypeNearby;
+    }];
+    [self updateSections:sections];
+}
+
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
     //enumerate in reverse so that indexes are always correct
@@ -500,6 +513,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        [self removeNearbySection];
+        [self.locationManager stopMonitoringLocation];
+        return;
+    }
+
+    if (![error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown) {
+        //TODO: anything we need to handle here?
+    }
 }
 
 #pragma mark - Persistance
