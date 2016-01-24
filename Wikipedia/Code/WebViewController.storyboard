@@ -42,6 +42,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Z6r-VJ-hik"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="accessibilityViewIsModal" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </containerView>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Hk-lZ-HoX" userLabel="TOC Container View">
                                 <rect key="frame" x="320" y="0.0" width="160" height="568"/>
