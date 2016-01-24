@@ -36,7 +36,7 @@
 #import "WMFWelcomeViewController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFLocationSearchListViewController.h"
+#import "WMFNearbyListViewController.h"
 #import "UIViewController+WMFSearch.h"
 
 #import "AppDelegate.h"
@@ -489,7 +489,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)showNearbyListAnimated:(BOOL)animated {
     MWKSite* site                           = [self.session searchSite];
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
+    WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:YES];
 }
 
