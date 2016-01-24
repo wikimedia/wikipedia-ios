@@ -8,6 +8,7 @@
 @property (strong, nonatomic) NSString* articleTitle;
 @property (strong, nonatomic) NSString* languageName;
 @property (strong, nonatomic) NSString* languageCode;
+@property (strong, nonatomic) NSString* languageID;
 
 @property (nonatomic) BOOL isPreferred;
 

@@ -219,6 +219,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     cell.languageName          = langLink.name;
     cell.articleTitle          = langLink.pageTitleText;
     cell.languageCode          = [self stringForLanguageCode:langLink.languageCode];
+    cell.languageID            = langLink.languageCode;
 }
 
 - (NSString*)stringForLanguageCode:(NSString*)code {
