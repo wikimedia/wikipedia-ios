@@ -171,6 +171,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.containerViewController.toolbarItems enumerateObjectsUsingBlock:^(__kindof UIBarButtonItem* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.enabled = enabled;
     }];
+    self.containerViewController.navigationController.navigationBar.accessibilityElementsHidden = !enabled;
+    self.containerViewController.navigationController.toolbar.accessibilityElementsHidden = !enabled;
 }
 
 #pragma mark - Share Options
@@ -209,6 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self.shareOptions.cardImageViewContainer addGestureRecognizer:tapForCardOnCardImageViewRecognizer];
         [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
         [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
     }];
 }
 
