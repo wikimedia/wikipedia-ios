@@ -35,7 +35,10 @@
         @strongify(self);
         MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
         [cell wmf_setTitleText:title.text highlightingText:self.searchResults.searchTerm];
+        cell.titleLabel.accessibilityLanguage = self.dataSource.searchSite.language;
         cell.descriptionText = [self descriptionForSearchResult:result];
+        // TODO: In "Redirected from: $1", "$1" can be in any language; need to handle that too, currently (continuing) doing nothing for such cases
+        cell.descriptionLabel.accessibilityLanguage = [self redirectMappingForResult:result] == nil ? self.dataSource.searchSite.language : nil;
         [cell setImageURL:result.thumbnailURL];
     };
 
