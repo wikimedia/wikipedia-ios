@@ -15,6 +15,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
         } else {
             assertionFailure("Couldn't find current position of user at current offset!")
         }
+        hideArticleViewForAccessibility(true)
     }
 
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,
@@ -29,6 +30,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
             assertionFailure("Unsupported selection of TOC item \(item)")
         }
 
+        hideArticleViewForAccessibility(false)
         // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
         dispatchOnMainQueueAfterDelayInSeconds(0.25) {
             self.dismissViewControllerAnimated(true, completion: nil)
@@ -36,11 +38,18 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
     }
 
     public func tableOfContentsControllerDidCancel(controller: WMFTableOfContentsViewController) {
+        hideArticleViewForAccessibility(false)
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     public func tableOfContentsArticleSite() -> MWKSite {
         return self.articleTitle.site
+    }
+
+    public func hideArticleViewForAccessibility(hide: Bool) {
+        self.navigationController?.view.accessibilityElementsHidden = hide
+        self.navigationController?.navigationBar.accessibilityElementsHidden = hide
+        self.navigationController?.tabBarController?.view.accessibilityElementsHidden = hide
     }
 }
 
