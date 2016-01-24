@@ -120,7 +120,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
-    [startingSchema wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:nil]];
+    [startingSchema wmf_safeAddObject:[self nearbySectionWithLocation:nil]];
 
     WMFExploreSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
@@ -258,7 +258,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return obj.type == WMFExploreSectionTypeNearby;
     }];
 
-    [sections wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:location]];
+    [sections wmf_safeAddObject:[self nearbySectionWithLocation:location]];
 
     [self updateSections:sections];
 }
@@ -378,6 +378,13 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
             NSAssert(NO, @"Cannot create static 'today' section of type %ld", type);
             return nil;
     }
+}
+
+- (WMFExploreSection*)nearbySectionWithLocation:(nullable CLLocation*)location {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        return nil;
+    }
+    return [WMFExploreSection nearbySectionWithLocation:location];
 }
 
 - (WMFExploreSection*)mainPageSection {
