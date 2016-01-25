@@ -105,6 +105,11 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    self.title = MWLocalizedString(@"home-title", nil);
+}
+
 #pragma mark - Accessors
 
 - (MWKSavedPageList*)savedPages {
@@ -214,8 +219,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = MWLocalizedString(@"home-title", nil);
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl bk_addEventHandler:^(id sender) {

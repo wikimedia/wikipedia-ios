@@ -17,6 +17,11 @@
 
 @implementation WMFHistoryTableViewController
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    self.title = MWLocalizedString(@"history-title", nil);
+}
+
 - (MWKHistoryList*)historyList {
     return self.dataStore.userDataStore.historyList;
 }
@@ -27,8 +32,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = MWLocalizedString(@"history-title", nil);
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
