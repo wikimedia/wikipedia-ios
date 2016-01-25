@@ -1,23 +1,20 @@
 
 #import <SSDataSources/SSArrayDataSource.h>
 #import "WMFTitleListDataSource.h"
+@import CoreLocation;
 
-@class WMFNearbyViewModel, WMFLocationManager, MWKSite, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
+@class WMFLocationManager, MWKSite, WMFSearchResultDistanceProvider, WMFSearchResultBearingProvider;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFNearbyTitleListDataSource : SSArrayDataSource
-    <WMFArticleListDynamicDataSource>
+    <WMFTitleListDataSource>
 
-@property (nonatomic, strong) MWKSite* site;
+@property (nonatomic, strong, readonly) MWKSite* site;
 
-- (instancetype)initWithSite:(MWKSite*)site;
+@property (nonatomic, strong) CLLocation* location;
 
-- (instancetype)initWithSite:(MWKSite*)site
-                   viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
-
-- (WMFSearchResultDistanceProvider*)distanceProviderForResultAtIndexPath:(NSIndexPath*)indexPath;
-- (WMFSearchResultBearingProvider*)bearingProviderForResultAtIndexPath:(NSIndexPath*)indexPath;
+- (instancetype)initWithSite:(MWKSite*)site NS_DESIGNATED_INITIALIZER;
 
 @end
 

@@ -133,9 +133,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location {
-    if ([WMFLocationManager isDeniedOrDisabled]) {
-        return nil;
-    }
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type     = WMFExploreSectionTypeNearby;
     item.location = location;

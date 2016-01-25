@@ -26,6 +26,8 @@
 		0E26B0831C0F4F720004D687 /* WMFWelcomeLanguageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */; };
 		0E26B0841C0F4F720004D687 /* WMFWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */; };
 		0E26B0871C0FD5170004D687 /* WMFBoringNavigationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */; };
+		0E3268BC1C52A91000131F5F /* WMFCompassViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3268BB1C52A91000131F5F /* WMFCompassViewModel.m */; };
+		0E3268BF1C52C35900131F5F /* WMFNearbyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3268BE1C52C35900131F5F /* WMFNearbyListViewController.m */; };
 		0E331BF51C49647600DDE02A /* WMFRelatedSectionBlackList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E7AAEED1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */; };
@@ -77,7 +79,6 @@
 		B0E802FB1C0CD4EC0065EBC0 /* WMFLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802FA1C0CD4EC0065EBC0 /* WMFLocationManager.m */; };
 		B0E803001C0CD5000065EBC0 /* WMFLocationSearchFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802FD1C0CD5000065EBC0 /* WMFLocationSearchFetcher.m */; };
 		B0E803011C0CD5000065EBC0 /* WMFLocationSearchResults.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802FF1C0CD5000065EBC0 /* WMFLocationSearchResults.m */; };
-		B0E803041C0CD5130065EBC0 /* WMFNearbyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803031C0CD5130065EBC0 /* WMFNearbyViewModel.m */; };
 		B0E803091C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803061C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m */; };
 		B0E8030A1C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E803081C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.m */; };
 		B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8030C1C0CD5E00065EBC0 /* WMFNearbyArticleTableViewCell.m */; };
@@ -666,6 +667,10 @@
 		0E26B07E1C0F4F720004D687 /* WMFWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeViewController.m; path = Wikipedia/Code/WMFWelcomeViewController.m; sourceTree = SOURCE_ROOT; };
 		0E26B0851C0FD5170004D687 /* WMFBoringNavigationTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFBoringNavigationTransition.h; path = Wikipedia/Code/WMFBoringNavigationTransition.h; sourceTree = SOURCE_ROOT; };
 		0E26B0861C0FD5170004D687 /* WMFBoringNavigationTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBoringNavigationTransition.m; path = Wikipedia/Code/WMFBoringNavigationTransition.m; sourceTree = SOURCE_ROOT; };
+		0E3268BA1C52A91000131F5F /* WMFCompassViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFCompassViewModel.h; path = Wikipedia/Code/WMFCompassViewModel.h; sourceTree = SOURCE_ROOT; };
+		0E3268BB1C52A91000131F5F /* WMFCompassViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFCompassViewModel.m; path = Wikipedia/Code/WMFCompassViewModel.m; sourceTree = SOURCE_ROOT; };
+		0E3268BD1C52C35900131F5F /* WMFNearbyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNearbyListViewController.h; sourceTree = "<group>"; };
+		0E3268BE1C52C35900131F5F /* WMFNearbyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNearbyListViewController.m; sourceTree = "<group>"; };
 		0E331BF31C49647600DDE02A /* WMFRelatedSectionBlackList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRelatedSectionBlackList.h; path = Wikipedia/Code/WMFRelatedSectionBlackList.h; sourceTree = SOURCE_ROOT; };
 		0E331BF41C49647600DDE02A /* WMFRelatedSectionBlackList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFRelatedSectionBlackList.m; path = Wikipedia/Code/WMFRelatedSectionBlackList.m; sourceTree = SOURCE_ROOT; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
@@ -765,8 +770,6 @@
 		B0E802FD1C0CD5000065EBC0 /* WMFLocationSearchFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchFetcher.m; path = Wikipedia/Code/WMFLocationSearchFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E802FE1C0CD5000065EBC0 /* WMFLocationSearchResults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFLocationSearchResults.h; path = Wikipedia/Code/WMFLocationSearchResults.h; sourceTree = SOURCE_ROOT; };
 		B0E802FF1C0CD5000065EBC0 /* WMFLocationSearchResults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFLocationSearchResults.m; path = Wikipedia/Code/WMFLocationSearchResults.m; sourceTree = SOURCE_ROOT; };
-		B0E803021C0CD5130065EBC0 /* WMFNearbyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFNearbyViewModel.h; path = Wikipedia/Code/WMFNearbyViewModel.h; sourceTree = SOURCE_ROOT; };
-		B0E803031C0CD5130065EBC0 /* WMFNearbyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFNearbyViewModel.m; path = Wikipedia/Code/WMFNearbyViewModel.m; sourceTree = SOURCE_ROOT; };
 		B0E803051C0CD5320065EBC0 /* WMFSearchResultBearingProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSearchResultBearingProvider.h; path = Wikipedia/Code/WMFSearchResultBearingProvider.h; sourceTree = SOURCE_ROOT; };
 		B0E803061C0CD5320065EBC0 /* WMFSearchResultBearingProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSearchResultBearingProvider.m; path = Wikipedia/Code/WMFSearchResultBearingProvider.m; sourceTree = SOURCE_ROOT; };
 		B0E803071C0CD5320065EBC0 /* WMFSearchResultDistanceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSearchResultDistanceProvider.h; path = Wikipedia/Code/WMFSearchResultDistanceProvider.h; sourceTree = SOURCE_ROOT; };
@@ -2310,7 +2313,6 @@
 			isa = PBXGroup;
 			children = (
 				0EE151901BF5402D0039828A /* Table View Cell */,
-				0EE151921BF540420039828A /* Compass View */,
 			);
 			name = Views;
 			path = Wikipedia/Code/Views;
@@ -2456,6 +2458,15 @@
 			name = Search;
 			path = Wikipedia/Code;
 			sourceTree = SOURCE_ROOT;
+		};
+		0E3268C01C52C84D00131F5F /* Nearby */ = {
+			isa = PBXGroup;
+			children = (
+				0E3268BD1C52C35900131F5F /* WMFNearbyListViewController.h */,
+				0E3268BE1C52C35900131F5F /* WMFNearbyListViewController.m */,
+			);
+			name = Nearby;
+			sourceTree = "<group>";
 		};
 		0E331BF61C49648000DDE02A /* Blacklist */ = {
 			isa = PBXGroup;
@@ -2667,10 +2678,10 @@
 		0ED6897C1B8246F400B30427 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
-				BC305C2E1BA0C97400E414B8 /* View Model */,
-				0E03E2A21B85310400C1FBD7 /* Views */,
 				B0E802F61C0CD4D70065EBC0 /* WMFNearbySectionController.h */,
 				B0E802F71C0CD4D70065EBC0 /* WMFNearbySectionController.m */,
+				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
+				0E03E2A21B85310400C1FBD7 /* Views */,
 				0E03617D1C44948300FD9642 /* More */,
 			);
 			name = Nearby;
@@ -2697,6 +2708,7 @@
 		0EE151921BF540420039828A /* Compass View */ = {
 			isa = PBXGroup;
 			children = (
+				BC305C2E1BA0C97400E414B8 /* Compass View Model */,
 				B0E8031A1C0CD6820065EBC0 /* WMFCompassView.h */,
 				B0E8031B1C0CD6820065EBC0 /* WMFCompassView.m */,
 			);
@@ -2853,15 +2865,14 @@
 			name = Localizations;
 			sourceTree = "<group>";
 		};
-		BC305C2E1BA0C97400E414B8 /* View Model */ = {
+		BC305C2E1BA0C97400E414B8 /* Compass View Model */ = {
 			isa = PBXGroup;
 			children = (
-				0E03E27E1B82EF7600C1FBD7 /* Fetcher */,
-				B0E803021C0CD5130065EBC0 /* WMFNearbyViewModel.h */,
-				B0E803031C0CD5130065EBC0 /* WMFNearbyViewModel.m */,
+				0E3268BA1C52A91000131F5F /* WMFCompassViewModel.h */,
+				0E3268BB1C52A91000131F5F /* WMFCompassViewModel.m */,
 				BC22F44C1BA33CF400B64F4B /* Value Providers */,
 			);
-			name = "View Model";
+			name = "Compass View Model";
 			path = "Wikipedia/Code/View Model";
 			sourceTree = SOURCE_ROOT;
 		};
@@ -2912,6 +2923,7 @@
 		BC45D54E1C31EAD6007C72F3 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				0EE151921BF540420039828A /* Compass View */,
 				BC45D56C1C32E910007C72F3 /* Buttons */,
 				BC45D5691C32E79C007C72F3 /* Paging Collection View */,
 				B0E8043D1C0CDF850065EBC0 /* WMFGradientView.h */,
@@ -3457,6 +3469,7 @@
 				BC45D5871C32F849007C72F3 /* Settings */,
 				BC45D59F1C33018C007C72F3 /* User */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
+				0E3268C01C52C84D00131F5F /* Nearby */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -5526,6 +5539,7 @@
 				BCCB81451C11084B008BC602 /* WMFModalPOTDGalleryDataSource.m in Sources */,
 				0E331BF51C49647600DDE02A /* WMFRelatedSectionBlackList.m in Sources */,
 				B0726DA91C216F4300E57B2A /* WMFArticleFooterMenuViewController.m in Sources */,
+				0E3268BF1C52C35900131F5F /* WMFNearbyListViewController.m in Sources */,
 				B0E806D01C0CEB6E0065EBC0 /* PageHistoryResultCell.m in Sources */,
 				BC23E4E51C22429100B5AFDE /* WMFRevisionQueryResults.m in Sources */,
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
@@ -5600,13 +5614,13 @@
 				B0E806821C0CE9C70065EBC0 /* WMFNetworkUtilities.m in Sources */,
 				B0E804CB1C0CE0B40065EBC0 /* NSBundle+WMFInfoUtils.m in Sources */,
 				B0E805901C0CE2C60065EBC0 /* EventLoggingFunnel.m in Sources */,
+				0E3268BC1C52A91000131F5F /* WMFCompassViewModel.m in Sources */,
 				B0E806B61C0CEB160065EBC0 /* LanguageCell.m in Sources */,
 				B0E803AE1C0CDBC00065EBC0 /* WMFRecentPagesDataSource.m in Sources */,
 				B0E8033C1C0CD76B0065EBC0 /* WMFSearchViewController.m in Sources */,
 				B0E8044B1C0CDF850065EBC0 /* WMFGradientView.m in Sources */,
 				BC23E4E21C223FAE00B5AFDE /* WMFArticleRevision.m in Sources */,
 				B0E804BF1C0CE0B40065EBC0 /* DDLog+WMFLogger.m in Sources */,
-				B0E803041C0CD5130065EBC0 /* WMFNearbyViewModel.m in Sources */,
 				B0E8031F1C0CD69B0065EBC0 /* WMFRelatedSectionController.m in Sources */,
 				B09D64E81C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m in Sources */,
 				B0E807541C0CEE230065EBC0 /* NSManagedObject+WMFModelFactory.m in Sources */,

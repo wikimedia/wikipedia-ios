@@ -120,7 +120,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
-    [startingSchema wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:nil]];
+    [startingSchema wmf_safeAddObject:[self nearbySectionWithLocation:nil]];
 
     WMFExploreSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
@@ -253,15 +253,28 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return;
     }
 
+    if (oldNearby.location && [oldNearby.dateCreated isToday]) {
+        return;
+    }
+
     NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
     [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeNearby;
     }];
 
-    [sections wmf_safeAddObject:[WMFExploreSection nearbySectionWithLocation:location]];
+    [sections wmf_safeAddObject:[self nearbySectionWithLocation:location]];
 
     [self updateSections:sections];
 }
+
+- (void)removeNearbySection{
+    NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+    [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+        return obj.type == WMFExploreSectionTypeNearby;
+    }];
+    [self updateSections:sections];
+}
+
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
     //enumerate in reverse so that indexes are always correct
@@ -380,6 +393,13 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 }
 
+- (WMFExploreSection*)nearbySectionWithLocation:(nullable CLLocation*)location {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        return nil;
+    }
+    return [WMFExploreSection nearbySectionWithLocation:location];
+}
+
 - (WMFExploreSection*)mainPageSection {
     return [self getOrCreateStaticTodaySectionOfType:WMFExploreSectionTypeMainPage];
 }
@@ -493,6 +513,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
+    if ([WMFLocationManager isDeniedOrDisabled]) {
+        [self removeNearbySection];
+        [self.locationManager stopMonitoringLocation];
+        return;
+    }
+
+    if (![error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown) {
+        //TODO: anything we need to handle here?
+    }
 }
 
 #pragma mark - Persistance

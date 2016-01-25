@@ -50,7 +50,6 @@
 #import "WMFArticleListTableViewController.h"
 
 // Controllers
-#import "WMFLocationManager.h"
 #import "WMFRelatedSectionBlackList.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
@@ -74,7 +73,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, null_resettable) WMFNearbySectionController* nearbySectionController;
 @property (nonatomic, strong) NSMutableDictionary* sectionControllers;
 
-@property (nonatomic, strong) WMFLocationManager* locationManager;
 @property (nonatomic, strong) SSSectionedDataSource* dataSource;
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
@@ -95,12 +93,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.navigationItem.titleView          = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
+        self.navigationItem.titleView                        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
         self.navigationItem.titleView.isAccessibilityElement = YES;
-        self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-accessibility-label", nil);
-        self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
-        self.navigationItem.leftBarButtonItem  = [self settingsBarButtonItem];
-        self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+        self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-accessibility-label", nil);
+        self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
+        self.navigationItem.leftBarButtonItem                = [self settingsBarButtonItem];
+        self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItemWithDelegate:self];
     }
     return self;
 }
@@ -165,18 +163,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFNearbySectionController*)nearbySectionController {
     if (!_nearbySectionController) {
-        _nearbySectionController = [[WMFNearbySectionController alloc] initWithSite:self.searchSite
-                                                                          dataStore:self.dataStore
-                                                                    locationManager:self.locationManager];
+        _nearbySectionController = [[WMFNearbySectionController alloc]
+                                    initWithSite:self.searchSite
+                                       dataStore:self.dataStore];
     }
     return _nearbySectionController;
-}
-
-- (WMFLocationManager*)locationManager {
-    if (!_locationManager) {
-        _locationManager = [[WMFLocationManager alloc] init];
-    }
-    return _locationManager;
 }
 
 - (SSSectionedDataSource*)dataSource {
@@ -254,7 +245,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self configureDataSourceIfNeeded];
 
     if ([self isDisplayingCellsForSectionController:self.nearbySectionController]) {
-        [self.locationManager startMonitoringLocation];
+        [self.nearbySectionController startMonitoringLocation];
     }
 
     if (self.previewingTitle) {
@@ -266,7 +257,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     // stop location manager from updating.
-    [self.locationManager stopMonitoringLocation];
+    [self.nearbySectionController stopMonitoringLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -373,6 +364,12 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title blackList:[WMFRelatedSectionBlackList sharedBlackList] dataStore:self.dataStore tabBar:self.navigationController.tabBarController.tabBar];
 }
 
+- (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
+    self.nearbySectionController.delegate = nil;
+    self.nearbySectionController.location = item.location;
+    return self.nearbySectionController;
+}
+
 - (WMFContinueReadingSectionController*)continueReadingSectionControllerForSchemaItem:(WMFExploreSection*)item {
     return [[WMFContinueReadingSectionController alloc] initWithArticleTitle:item.title dataStore:self.dataStore];
 }
@@ -463,7 +460,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [self loadSectionForSectionController:[self relatedSectionControllerForSectionSchemaItem:obj]];
                 break;
             case WMFExploreSectionTypeNearby:
-                [self loadSectionForSectionController:self.nearbySectionController];
+                [self loadSectionForSectionController:[self nearbySectionControllerForSchemaItem:obj]];
                 break;
             case WMFExploreSectionTypeContinueReading:
                 [self loadSectionForSectionController:[self continueReadingSectionControllerForSchemaItem:obj]];
@@ -698,6 +695,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
+    if ([controller isKindOfClass:[WMFNearbySectionController class]]) {
+        [self.nearbySectionController startMonitoringLocation];
+    }
+
     if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]
         && self.sectionLoadErrors[controller.sectionIdentifier] == nil) {
         // don't automatically re-fetch a section if it previously failed. ask user to refresh manually
@@ -723,6 +724,22 @@ NS_ASSUME_NONNULL_BEGIN
         if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
             DDLogInfo(@"Cancelling fetch for scrolled-away section: %@", controller);
             [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchSectionIfShowing:) object:controller];
+        }
+    }
+
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+
+    if ([controller isKindOfClass:[WMFNearbySectionController class]]) {
+        __block BOOL isShowingNearbyCells = NO;
+        [[self.tableView indexPathsForVisibleRows] enumerateObjectsUsingBlock:^(NSIndexPath* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            if (indexPath.section == obj.section) {
+                isShowingNearbyCells = YES;
+                *stop = YES;
+            }
+        }];
+
+        if(!isShowingNearbyCells){
+            [self.nearbySectionController stopMonitoringLocation];
         }
     }
 }
