@@ -32,4 +32,15 @@
  */
 @property (nonatomic) BOOL didApplyCurrentPage;
 
+/**
+ *  Method which is invoked to update the collection view to display the current page.
+ *
+ *  Subclasses can override this to perform additional updates when the page changes.
+ *
+ *  @note Subclasses must invoke @c super.
+ *
+ *  @param animated Whether or not the transition is animated.
+ */
+- (void)applyCurrentPage:(BOOL)animated;
+
 @end

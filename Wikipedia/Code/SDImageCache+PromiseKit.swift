@@ -21,7 +21,7 @@ extension SDImageCache {
             if image != nil {
                 fulfill((image, asImageOrigin(cacheType)))
             } else {
-                reject(WMFImageControllerErrorCode.DataNotFound.error)
+                reject(WMFImageControllerError.DataNotFound)
             }
         })
 

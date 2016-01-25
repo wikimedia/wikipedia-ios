@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
     return [self itemAtIndexPath:indexPath];
 }
 
-- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
+- (nullable NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
     return [[[self imageAtIndexPath:indexPath] largestVariant] sourceURL];
 }
 

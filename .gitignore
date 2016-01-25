@@ -2,7 +2,7 @@
 .DS_Store
 
 # Vim
-*.sw
+*.sw[op]
 
 # Xcode/ObjC ignores, copied from https://github.com/github/gitignore/blob/master/Objective-C.gitignore
 build/
@@ -61,3 +61,4 @@ Wikipedia/assets/
 
 # Git
 *.orig
+

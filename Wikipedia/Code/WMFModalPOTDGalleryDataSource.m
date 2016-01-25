@@ -57,7 +57,7 @@ NSUInteger const WMFDefaultNumberOfPOTDDates = 15;
     return [self itemAtIndexPath:indexPath];
 }
 
-- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
+- (nullable NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath {
     return [self.homeInfo[[self dateAtIndexPath:indexPath]] imageThumbURL];
 }
 

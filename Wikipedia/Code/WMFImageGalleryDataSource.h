@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Protocol which allows various data sources to be used by a base image gallery view controller class.
  *
@@ -15,6 +17,8 @@
  */
 @protocol WMFImageGalleryDataSource <NSObject>
 
-- (NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath;
+- (nullable NSURL*)imageURLAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
+
+NS_ASSUME_NONNULL_END
