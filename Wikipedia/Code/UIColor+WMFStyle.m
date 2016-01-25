@@ -4,22 +4,6 @@
 
 @implementation UIColor (WMFStyle)
 
-+ (instancetype)wmf_logoBlue {
-    // measured from WMF logo using DigitalColorMeter
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [self wmf_logoBlueWithAlpha:1.0];
-    });
-    return c;
-}
-
-+ (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha {
-    // measured from WMF logo using DigitalColorMeter
-    return [UIColor colorWithRed:0.08203125 green:0.40625 blue:0.5859375 alpha:alpha];
-}
-
 + (instancetype)wmf_summaryTextColor {
     static UIColor* c = nil;
 

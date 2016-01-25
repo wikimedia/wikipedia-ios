@@ -10,4 +10,8 @@
 
 @implementation WMFContinueReadingTableViewCell
 
++ (CGFloat)estimatedRowHeight {
+    return 82.f;
+}
+
 @end

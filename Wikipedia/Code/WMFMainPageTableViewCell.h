@@ -6,4 +6,6 @@
 
 @property (nonatomic, strong) IBOutlet UILabel* mainPageTitle;
 
++ (CGFloat)estimatedRowHeight;
+
 @end

@@ -157,7 +157,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
+    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]] && [object isKindOfClass:[MWKSearchResult class]]) {
         WMFArticlePreviewTableViewCell* previewCell = (id)cell;
         MWKSearchResult* result                     = object;
         previewCell.titleText       = result.displayTitle;
@@ -201,6 +201,10 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (BOOL)hasResults {
     return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
+}
+
+- (CGFloat)estimatedRowHeight {
+    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
 #pragma mark - Fetch

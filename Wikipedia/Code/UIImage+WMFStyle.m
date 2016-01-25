@@ -2,6 +2,7 @@
 //  Copyright (c) 2015 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIImage+WMFStyle.h"
+#import "NSProcessInfo+WMFOperatingSystemVersionChecks.h"
 
 @implementation UIImage (WMFStyle)
 
@@ -23,6 +24,14 @@
     UIImage* image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+- (UIImage*)wmf_imageFlippedForRTLLayoutDirectionIfAtLeastiOS9 {
+    return ([[NSProcessInfo processInfo] wmf_isOperatingSystemVersionLessThan9_0_0]) ? self : self.imageFlippedForRightToLeftLayoutDirection;
+}
+
++ (UIImage*)wmf_imageFlippedForRTLLayoutDirectionNamed:(NSString*)name {
+    return [[UIImage imageNamed:name] wmf_imageFlippedForRTLLayoutDirectionIfAtLeastiOS9];
 }
 
 @end

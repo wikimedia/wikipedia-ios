@@ -22,7 +22,6 @@
 
 #import "WMFShareCardViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "PageHistoryViewController.h"
 
 #import "UIWebView+WMFJavascriptContext.h"
@@ -42,8 +41,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     @"Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License";
 
 @interface WebViewController () <ReferencesVCDelegate>
-
-@property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 /*
    NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
@@ -105,21 +102,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     return self;
 }
 
-#pragma mark - Tool Bar
-
-- (void)setupBottomMenuButtons {
-    @weakify(self)
-    self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
-        @strongify(self)
-        [self editHistoryButtonPushed];
-    }];
-
-    self.toolbarItems = @[
-        self.buttonEditHistory,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-    ];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -130,11 +112,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self addFooterView];
 
     self.referencesHidden = YES;
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
-    [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
-
-    [self setupBottomMenuButtons];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
@@ -630,7 +607,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     NSString* html = [self.article articleHTML];
 
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
-    NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+    NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);

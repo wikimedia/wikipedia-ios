@@ -341,6 +341,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(didTapTableOfContentsButton:)];
+        _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
         return _tableOfContentsToolbarItem;
     }
     return _tableOfContentsToolbarItem;

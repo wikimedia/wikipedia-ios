@@ -16,6 +16,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "Defines.h"
 #import "NSObject+ConstraintsScale.h"
+#import "Wikipedia-Swift.h"
 
 // Show prev-next buttons instead of page dots if number of refs exceeds this number.
 #define PAGE_CONTROL_MAX_REFS 10
@@ -109,11 +110,12 @@
                               color:[UIColor darkGrayColor]
                                size:22.0 * MENUS_SCALE_MULTIPLIER
                      baselineOffset:0];
+    self.xButton.accessibilityLabel = MWLocalizedString(@"close-button-accessibility-label", nil);
     self.xButton.label.textAlignment    = NSTextAlignmentCenter;
     self.xButton.userInteractionEnabled = YES;
     [self.topContainerView addSubview:self.xButton];
 
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [[UIApplication sharedApplication] wmf_isRTL];
 
     self.nextButton                                           = [[WikiGlyphButton alloc] init];
     self.nextButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -266,7 +268,7 @@
 - (NSDictionary*)reversePayloadArraysIfRTL:(NSDictionary*)payload {
     //NSString *domain = [SessionSingleton sharedInstance].currentArticleDomain;
     //MWLanguageInfo *languageInfo = [MWLanguageInfo languageInfoForCode:domain];
-    BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+    BOOL isRTL = [[UIApplication sharedApplication] wmf_isRTL];
     if (isRTL) {
         //if ([languageInfo.dir isEqualToString:@"ltr"]) {
         NSArray* a = payload[@"linkId"];
@@ -483,7 +485,7 @@
             return;
         }
 
-        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+        BOOL isRTL = [[UIApplication sharedApplication] wmf_isRTL];
 
         UIPageViewControllerNavigationDirection dir = isRTL
                                                       ?
@@ -504,7 +506,7 @@
             return;
         }
 
-        BOOL isRTL = [WikipediaAppUtils isDeviceLanguageRTL];
+        BOOL isRTL = [[UIApplication sharedApplication] wmf_isRTL];
 
         UIPageViewControllerNavigationDirection dir = isRTL
                                                       ?

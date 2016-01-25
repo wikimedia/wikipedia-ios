@@ -54,9 +54,9 @@
 #import "WMFRelatedSectionBlackList.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
-static DDLogLevel const WMFHomeVCLogLevel = DDLogLevelVerbose;
+static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF WMFHomeVCLogLevel
+#define LOG_LEVEL_DEF WMFExploreVCLogLevel
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -65,6 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
  WMFExploreSectionControllerDelegate,
  UIViewControllerPreviewingDelegate,
  WMFAnalyticsLogging>
+
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
+@property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
 
 @property (nonatomic, strong, null_resettable) WMFExploreSectionSchema* schemaManager;
 
@@ -93,6 +96,9 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.navigationItem.titleView          = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
+        self.navigationItem.titleView.isAccessibilityElement = YES;
+        self.navigationItem.titleView.accessibilityLabel = MWLocalizedString(@"home-accessibility-label", nil);
+        self.navigationItem.titleView.accessibilityTraits |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem  = [self settingsBarButtonItem];
         self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
     }
@@ -101,6 +107,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (MWKSavedPageList*)savedPages {
+    return self.dataStore.userDataStore.savedPageList;
+}
+
+- (MWKHistoryList*)recentPages {
+    return self.dataStore.userDataStore.historyList;
+}
+
 - (UIBarButtonItem*)settingsBarButtonItem {
     return [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"]
                                             style:UIBarButtonItemStylePlain
@@ -108,11 +122,21 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
+- (void)setSearchSite:(MWKSite *)searchSite {
+    NSParameterAssert(self.dataStore);
+    [self setSearchSite:self.searchSite dataStore:self.dataStore];
+}
+
+- (void)setSearchSite:(MWKSite* __nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore {
     if ([_searchSite isEqualToSite:searchSite]) {
         return;
     }
+
+    NSParameterAssert(searchSite);
+    NSParameterAssert(dataStore);
+
     _searchSite = searchSite;
+    _dataStore = dataStore;
 
     self.schemaManager           = nil;
     self.nearbySectionController = nil;
@@ -202,9 +226,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
-    self.tableView.estimatedRowHeight           = 345.0;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionHeaderHeight = 78.0;
+    self.tableView.estimatedSectionHeaderHeight = 52.0;
     self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionFooterHeight = 78.0;
 
@@ -367,6 +390,17 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.savedPages];
 }
 
+#pragma mark - Delayed Fetching
+
+- (void)fetchSectionIfShowing:(id<WMFExploreSectionController, WMFFetchingExploreSectionController>)controller {
+    if ([self isDisplayingCellsForSectionController:controller]) {
+        DDLogVerbose(@"Fetching section after delay: %@", controller);
+        [controller fetchDataIfNeeded];
+    } else {
+        DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
+    }
+}
+
 #pragma mark - Section Update
 
 - (NSString*)lastUpdatedString {
@@ -385,7 +419,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)resetRefreshControlWithCompletion:(nullable dispatch_block_t)completion {
-
     //Don't hide the spinner so quickly - so users can see the change
     dispatchOnMainQueueAfterDelayInSeconds(1.0, ^{
         [CATransaction begin];
@@ -408,7 +441,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateSectionSchemaForce:(BOOL)force {
     [self.refreshControl beginRefreshing];
-    self.sectionLoadErrors              = [NSMutableDictionary dictionary];
+    self.sectionLoadErrors = [NSMutableDictionary dictionary];
     [self.schemaManager update:force];
 }
 
@@ -481,7 +514,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self isDisplayingCellsForSectionController:controller]) {
         [self resetRefreshControlWithCompletion:NULL];
         if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
-            [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+            [(NSObject < WMFFetchingExploreSectionController > *)controller performSelector:@selector(fetchDataIfNeeded) withObject:nil afterDelay:0.25];
         }
     }
 }
@@ -590,6 +623,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView*)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath*)indexPath {
+    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+    NSParameterAssert(controller);
+    return [controller estimatedRowHeight];
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView*)tableView editingStyleForRowAtIndexPath:(NSIndexPath*)indexPath {
     return UITableViewCellEditingStyleNone;
 }
@@ -659,17 +698,28 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]
         && self.sectionLoadErrors[controller.sectionIdentifier] == nil) {
         // don't automatically re-fetch a section if it previously failed. ask user to refresh manually
-        [(id < WMFFetchingExploreSectionController >)controller fetchDataIfNeeded];
+        [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
     }
 
-    if ([controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
-        && ![controller shouldSelectItemAtIndex:indexPath.item]) {
-        return;
-    }
-    if ([controller conformsToProtocol:@protocol(WMFArticleExploreSectionController)]) {
+    if ([controller conformsToProtocol:@protocol(WMFArticleExploreSectionController)]
+        && (![controller respondsToSelector:@selector(shouldSelectItemAtIndex:)]
+            || [controller shouldSelectItemAtIndex:indexPath.item])) {
         MWKTitle* title = [(id < WMFArticleExploreSectionController >)controller titleForItemAtIndex:indexPath.row];
         if (title) {
             [[PiwikTracker sharedInstance] wmf_logActionScrollToTitle:title inHomeSection:controller];
+        }
+    }
+}
+
+- (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+    NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
+        return i.section == indexPath.section;
+    }];
+    if (visibleIndexPathsInSection.count == 0) {
+        id controller = [self sectionControllerForSectionAtIndex:indexPath.section];
+        if ([controller conformsToProtocol:@protocol(WMFFetchingExploreSectionController)]) {
+            DDLogInfo(@"Cancelling fetch for scrolled-away section: %@", controller);
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchSectionIfShowing:) object:controller];
         }
     }
 }
@@ -720,7 +770,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
-//    id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:index];
     [self.dataSource.sections removeObjectAtIndex:index];
     [self.tableView reloadData];
 }

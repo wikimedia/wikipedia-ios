@@ -159,5 +159,9 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return @"Random";
 }
 
+- (CGFloat)estimatedRowHeight {
+    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
+}
+
 @end
 
