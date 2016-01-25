@@ -42,7 +42,6 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 - (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
     @synchronized(self) {
         if (![NSKeyedArchiver archiveRootObject:self toFile:[[[self class] fileURL] path]]) {
-            //TODO: not sure what to do with an error here
             DDLogError(@"Failed to save sections to disk!");
             if (errorHandler) {
                 errorHandler([NSError wmf_unableToSaveErrorWithReason:@"NSKeyedArchiver failed to save blacklist to disk"]);
