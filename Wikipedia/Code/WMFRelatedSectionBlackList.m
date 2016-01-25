@@ -11,6 +11,7 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 - (id <NSCopying, NSObject>)listIndex {
     return self;
 }
+
 @end
 
 @interface WMFRelatedSectionBlackList ()
@@ -59,20 +60,32 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 }
 
 - (void)addBlackListTitle:(MWKTitle*)title {
+    [self addEntry:title];
+}
+
+- (void)addEntry:(MWKTitle*)entry {
     @synchronized(self) {
-        [self addEntry:title];
+        [super addEntry:entry];
     }
 }
 
 - (void)removeBlackListTitle:(MWKTitle*)title {
+    [self removeEntry:title];
+}
+
+- (void)removeEntry:(MWKTitle*)entry {
     @synchronized(self) {
-        [self removeEntry:title];
+        [super removeEntry:entry];
     }
 }
 
 - (BOOL)titleIsBlackListed:(MWKTitle*)title {
+    return [self containsEntryForListIndex:title];
+}
+
+- (BOOL)containsEntryForListIndex:(MWKTitle*)listIndex {
     @synchronized(self) {
-        return [self containsEntryForListIndex:title];
+        return [super containsEntryForListIndex:listIndex];
     }
 }
 
