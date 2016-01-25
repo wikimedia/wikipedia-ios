@@ -871,6 +871,9 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     if (![url wmf_isInternalLink]) {
+        if ([url wmf_isCitation]) {
+            return nil;
+        }
         return [[SFSafariViewController alloc] initWithURL:url];
     } else {
         if (![url wmf_isIntraPageFragment]) {
