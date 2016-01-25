@@ -867,7 +867,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
+    if ([url.absoluteString isEqualToString:@""]) {
+        return nil;
+    }
     if (![url wmf_isInternalLink]) {
+        if ([url wmf_isCitation]) {
+            return nil;
+        }
         return [[SFSafariViewController alloc] initWithURL:url];
     } else {
         if (![url wmf_isIntraPageFragment]) {
