@@ -403,3 +403,6 @@
 
 "close-button-accessibility-label" = "Close";
 "back-button-accessibility-label" = "Back";
+
+"compass-direction" = "at $1 o'clock";
+

@@ -201,4 +201,20 @@
     [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
 }
 
+#pragma mark - Accessibility
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (NSString*)accessibilityLabel {
+    NSString *titleAndDescription;
+    if (self.descriptionText) {
+        titleAndDescription = [NSString stringWithFormat:@"%@, %@", self.titleText, self.descriptionText];
+    } else {
+        titleAndDescription = self.titleText;
+    }
+    return [NSString stringWithFormat: @"%@, %@ %@", titleAndDescription, self.distanceLabel.text, self.compassView.accessibilityLabel];
+}
+
 @end
