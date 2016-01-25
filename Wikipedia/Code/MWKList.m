@@ -31,6 +31,13 @@
     return self;
 }
 
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
+    if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKList new], mutableEntries)]){
+        return MTLPropertyStoragePermanent;
+    }
+    return MTLPropertyStorageNone;
+}
+
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.entries];
 }
