@@ -495,7 +495,7 @@ NS_ASSUME_NONNULL_BEGIN
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     MWKHistoryEntry* entry      = [historyList entryForTitle:self.articleTitle];
     if (!entry.titleWasSignificantlyViewed) {
-        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Home", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
 

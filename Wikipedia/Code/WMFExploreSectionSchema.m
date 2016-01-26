@@ -220,7 +220,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 - (void)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
 
-    if (!FBTweakValue(@"Home", @"General", @"Always update on launch", NO)
+    if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
         && !force
         && self.lastUpdatedAt
         && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
@@ -357,7 +357,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
-    NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
 
     //Sort by date
     [featured sortWithOptions:NSSortStable
@@ -411,7 +411,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 - (nullable WMFExploreSection*)continueReadingSection {
     NSDate* resignActiveDate             = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
     BOOL const shouldShowContinueReading =
-        FBTweakValue(@"Home", @"Continue Reading", @"Always Show", NO) ||
+        FBTweakValue(@"Explore", @"Continue Reading", @"Always Show", NO) ||
         fabs([resignActiveDate timeIntervalSinceNow]) >= WMFTimeBeforeDisplayingLastReadArticle;
 
     //Only return if
@@ -436,7 +436,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 - (NSArray<WMFExploreSection*>*)historyAndSavedPageSections {
     NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
-    NSUInteger max = FBTweakValue(@"Home", @"Sections", @"Max number of history/saved", WMFMaximumNumberOfHistoryAndSavedSections);
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", WMFMaximumNumberOfHistoryAndSavedSections);
 
     NSArray<WMFExploreSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
     NSArray<WMFExploreSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];
