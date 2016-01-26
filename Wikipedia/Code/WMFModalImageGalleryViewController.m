@@ -540,9 +540,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             && error.code == WMFImageControllerErrorInvalidOrEmptyURL;
         if (isInvalidURL || !self) {
             /*
-             NOTE(bgerstle): ignoring invalid URL errors since we're intentionally hitting this path when infoForImage is
-             nil and we don't want to show the user an error if infoForImage.imageThumbURL is nil
-            */
+               NOTE(bgerstle): ignoring invalid URL errors since we're intentionally hitting this path when infoForImage is
+               nil and we don't want to show the user an error if infoForImage.imageThumbURL is nil
+             */
             return;
         }
         DDLogWarn(@"Failed to load image for cell at %@: %@", indexPath, error);

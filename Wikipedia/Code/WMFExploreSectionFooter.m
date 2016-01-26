@@ -3,7 +3,7 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIImage+WMFStyle.h"
 
-@interface WMFExploreSectionFooter()
+@interface WMFExploreSectionFooter ()
 
 @property (strong, nonatomic) IBOutlet UIImageView* moreChevronImageView;
 
@@ -13,8 +13,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    self.clipsToBounds = NO;
+
+    self.clipsToBounds              = NO;
     self.moreChevronImageView.image = [UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-right"];
     @weakify(self);
     [self bk_whenTapped:^{

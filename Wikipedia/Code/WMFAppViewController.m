@@ -488,7 +488,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {
-    MWKSite* site                           = [self.session searchSite];
+    MWKSite* site                   = [self.session searchSite];
     WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:YES];
 }

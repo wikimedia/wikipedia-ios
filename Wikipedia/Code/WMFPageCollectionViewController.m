@@ -24,8 +24,8 @@
     NSParameterAssert(self.currentPage < [self.collectionView.dataSource collectionView:self.collectionView numberOfItemsInSection:0]);
 
     // can't use scrollToItem because it doesn't handle post-rotation scrolling well on iOS 6
-    WMF_TECH_DEBT_TODO(try using scrollToItem:animated:)
-    UICollectionViewLayoutAttributes* currentPageAttributes =
+    WMF_TECH_DEBT_TODO(try using scrollToItem: animated:)
+    UICollectionViewLayoutAttributes * currentPageAttributes =
         [self.collectionViewLayout layoutAttributesForItemAtIndexPath:
          [NSIndexPath indexPathForItem:self.currentPage inSection:0]];
     NSAssert(currentPageAttributes,

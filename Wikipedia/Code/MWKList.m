@@ -32,7 +32,7 @@
 }
 
 + (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
-    if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKList new], mutableEntries)]){
+    if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKList new], mutableEntries)]) {
         return MTLPropertyStoragePermanent;
     }
     return MTLPropertyStorageNone;

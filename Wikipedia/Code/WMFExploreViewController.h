@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
-- (void)setSearchSite:(MWKSite * _Nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore;
+- (void)setSearchSite:(MWKSite* _Nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore;
 
 @end
 
