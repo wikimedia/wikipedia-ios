@@ -92,6 +92,9 @@ static dispatch_once_t launchToken;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
+/// Use @c rootTabBarController instead.
+- (UITabBarController*)tabBarController NS_UNAVAILABLE;
+
 @end
 
 @implementation WMFAppViewController
@@ -216,13 +219,13 @@ static dispatch_once_t launchToken;
         void (^ handleSelection)() = ^void () {
             @strongify(self)
             if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [self.exploreViewController wmf_showSearchAnimated:YES delegate:self.exploreViewController];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [self showRandomArticleAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
                 [self showNearbyListAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
@@ -296,7 +299,7 @@ static dispatch_once_t launchToken;
     }
 
     if (fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingExploreScreen) {
-        if (![self exploreViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeExplore) {
+        if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
             return YES;
         }
     }
@@ -450,7 +453,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - Explore VC
 
 - (void)showExplore {
-    [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
 }
 
@@ -462,13 +465,13 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
             return;
         }
-        [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
         [self.exploreViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore animated:animated];
     }
 }
 
 - (MWKTitle*)onscreenTitle {
-    UINavigationController* navVC = [self navigationControllerForTab:self.tabBarController.selectedIndex];
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     if ([navVC.topViewController isKindOfClass:[WMFArticleContainerViewController class]]) {
         return ((WMFArticleContainerViewController*)navVC.topViewController).articleTitle;
     }
@@ -490,7 +493,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)showNearbyListAnimated:(BOOL)animated {
     MWKSite* site                           = [self.session searchSite];
     WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
-    [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:YES];
+    [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
 
 #pragma mark - House Keeping
