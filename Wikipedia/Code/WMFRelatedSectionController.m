@@ -106,6 +106,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     UIActionSheet* sheet = [[UIActionSheet alloc] bk_initWithTitle:nil];
     [sheet bk_addButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-prompt", nil) handler:^{
         [self.blackList addBlackListTitle:self.title];
+        [self.blackList save];
     }];
 
     [sheet bk_setCancelButtonWithTitle:MWLocalizedString(@"home-hide-suggestion-cancel", nil) handler:NULL];

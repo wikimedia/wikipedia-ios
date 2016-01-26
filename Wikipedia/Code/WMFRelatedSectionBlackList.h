@@ -1,16 +1,13 @@
 
-#import <Mantle/Mantle.h>
+#import "MWKList.h"
+#import "MWKTitle.h"
 
-@class MWKTitle;
+@interface MWKTitle (MWKListObject)<MWKListObject>
+@end
 
-@interface WMFRelatedSectionBlackList : MTLModel
+@interface WMFRelatedSectionBlackList : MWKList<MWKTitle*, MWKTitle*>
 
 + (instancetype)sharedBlackList;
-
-/**
- *  Observable - observe to get KVO notifications
- */
-@property (nonatomic, strong, readonly) NSArray<MWKTitle*>* blackListTitles;
 
 /**
  *  Add a title to the black list
@@ -33,7 +30,5 @@
  */
 - (BOOL)titleIsBlackListed:(MWKTitle*)title;
 
-
-- (void)removeAllTitles;
 
 @end

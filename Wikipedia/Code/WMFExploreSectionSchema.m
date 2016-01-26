@@ -103,8 +103,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 
     _blackList = blackList;
-
-    [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, blackListTitles) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
+    
+    [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, entries) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
         [observer updateWithChangesInBlackList:object];
     }];
 }
@@ -278,7 +278,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
     //enumerate in reverse so that indexes are always correct
-    [[blackList.blackListTitles wmf_mapAndRejectNil:^id (MWKTitle* obj) {
+    [[blackList.entries wmf_mapAndRejectNil:^id(MWKTitle * obj) {
         return [self existingSectionForTitle:obj];
     }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         [self removeSection:obj];

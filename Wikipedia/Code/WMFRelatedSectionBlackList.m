@@ -1,9 +1,18 @@
 
 
 #import "WMFRelatedSectionBlackList.h"
+#import "MWKList+Subclass.h"
 
 static NSString* const WMFRelatedSectionBlackListFileName      = @"WMFRelatedSectionBlackList";
 static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
+
+@implementation MWKTitle (MWKListObject)
+
+- (id <NSCopying, NSObject>)listIndex {
+    return self;
+}
+
+@end
 
 @interface WMFRelatedSectionBlackList ()
 
@@ -26,22 +35,22 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
     return blackList;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        _mutableBlackListTitles = [NSMutableArray array];
-    }
-    return self;
-}
-
 + (NSURL*)fileURL {
     return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFRelatedSectionBlackListFileName] stringByAppendingPathExtension:WMFRelatedSectionBlackListFileExtension]];
 }
 
-+ (void)saveToDisk:(WMFRelatedSectionBlackList*)blackList {
-    if (![NSKeyedArchiver archiveRootObject:blackList toFile:[[self fileURL] path]]) {
-        //TODO: not sure what to do with an error here
-        DDLogError(@"Failed to save sections to disk!");
+- (void)performSaveWithCompletion:(dispatch_block_t)completion error:(WMFErrorHandler)errorHandler {
+    @synchronized(self) {
+        if (![NSKeyedArchiver archiveRootObject:self toFile:[[[self class] fileURL] path]]) {
+            DDLogError(@"Failed to save sections to disk!");
+            if (errorHandler) {
+                errorHandler([NSError wmf_unableToSaveErrorWithReason:@"NSKeyedArchiver failed to save blacklist to disk"]);
+            }
+        } else {
+            if (completion) {
+                completion();
+            }
+        }
     }
 }
 
@@ -50,71 +59,33 @@ static NSString* const WMFRelatedSectionBlackListFileExtension = @"plist";
 }
 
 - (void)addBlackListTitle:(MWKTitle*)title {
+    [self addEntry:title];
+}
+
+- (void)addEntry:(MWKTitle*)entry {
     @synchronized(self) {
-        [self.mutableBlackListTitles addObject:title];
-        [[self class] saveToDisk:self];
+        [super addEntry:entry];
     }
 }
 
 - (void)removeBlackListTitle:(MWKTitle*)title {
+    [self removeEntry:title];
+}
+
+- (void)removeEntry:(MWKTitle*)entry {
     @synchronized(self) {
-        [self.mutableBlackListTitles removeObject:title];
-        [[self class] saveToDisk:self];
+        [super removeEntry:entry];
     }
 }
 
 - (BOOL)titleIsBlackListed:(MWKTitle*)title {
+    return [self containsEntryForListIndex:title];
+}
+
+- (BOOL)containsEntryForListIndex:(MWKTitle*)listIndex {
     @synchronized(self) {
-        return [self.mutableBlackListTitles containsObject:title];
-        [[self class] saveToDisk:self];
+        return [super containsEntryForListIndex:listIndex];
     }
-}
-
-- (void)removeAllTitles {
-    @synchronized(self) {
-        [self.mutableBlackListTitles removeAllObjects];
-        [[self class] saveToDisk:self];
-    }
-}
-
-- (NSArray<MWKTitle*>*)blackListTitles {
-    return _mutableBlackListTitles;
-}
-
-- (NSMutableArray*)mutableBlackListTitles {
-    return [self mutableArrayValueForKey:WMF_SAFE_KEYPATH(self, blackListTitles)];
-}
-
-- (NSUInteger)countOfBlackListTitles {
-    return [_mutableBlackListTitles count];
-}
-
-- (id)objectInBlackListTitlesAtIndex:(NSUInteger)idx {
-    return [_mutableBlackListTitles objectAtIndex:idx];
-}
-
-- (void)insertObject:(id)anObject inBlackListTitlesAtIndex:(NSUInteger)idx {
-    [_mutableBlackListTitles insertObject:anObject atIndex:idx];
-}
-
-- (void)insertBlackListTitles:(NSArray*)entrieArray atIndexes:(NSIndexSet*)indexes {
-    [_mutableBlackListTitles insertObjects:entrieArray atIndexes:indexes];
-}
-
-- (void)removeObjectFromBlackListTitlesAtIndex:(NSUInteger)idx {
-    [_mutableBlackListTitles removeObjectAtIndex:idx];
-}
-
-- (void)removeBlackListTitlesAtIndexes:(NSIndexSet*)indexes {
-    [_mutableBlackListTitles removeObjectsAtIndexes:indexes];
-}
-
-- (void)replaceObjectInBlackListTitlesAtIndex:(NSUInteger)idx withObject:(id)anObject {
-    [_mutableBlackListTitles replaceObjectAtIndex:idx withObject:anObject];
-}
-
-- (void)replaceBlackListTitlesAtIndexes:(NSIndexSet*)indexes withEntries:(NSArray*)entrieArray {
-    [_mutableBlackListTitles replaceObjectsAtIndexes:indexes withObjects:entrieArray];
 }
 
 @end
