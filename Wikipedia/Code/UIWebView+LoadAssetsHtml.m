@@ -22,7 +22,7 @@
 
     NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 
-    NSString* fileContents = fileContents = [NSMutableString stringWithContentsOfFile:path
+    NSString* fileContents = [NSMutableString stringWithContentsOfFile:path
                                                         encoding:NSUTF8StringEncoding
                                                            error:nil];
 
