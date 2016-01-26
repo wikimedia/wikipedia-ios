@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate>
+@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKArticle* article;
 
@@ -100,8 +100,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
     articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:articleListVC] animated:YES completion:^{
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
+    navController.delegate = self;
+    [self presentViewController:navController animated:YES completion:^{
     }];
+}
+
+- (void)navigationController:(UINavigationController*)navigationController
+      willShowViewController:(UIViewController*)viewController
+                    animated:(BOOL)animated {
+    BOOL isToolbarEmpty = [viewController toolbarItems].count == 0;
+    [navigationController setToolbarHidden:isToolbarEmpty];
 }
 
 - (void)showEditHistory {
