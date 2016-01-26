@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"home-title", nil);
 }
@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (void)setSearchSite:(MWKSite *)searchSite {
+- (void)setSearchSite:(MWKSite*)searchSite {
     NSParameterAssert(self.dataStore);
     [self setSearchSite:self.searchSite dataStore:self.dataStore];
 }
@@ -139,7 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(dataStore);
 
     _searchSite = searchSite;
-    _dataStore = dataStore;
+    _dataStore  = dataStore;
 
     self.schemaManager           = nil;
     self.nearbySectionController = nil;
@@ -738,7 +738,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         }];
 
-        if(!isShowingNearbyCells){
+        if (!isShowingNearbyCells) {
             [self.nearbySectionController stopMonitoringLocation];
         }
     }

@@ -33,7 +33,7 @@ static NSUInteger const WMFNearbyDataSourceFetchCount = 20;
     NSParameterAssert(site);
     self = [super initWithItems:nil];
     if (self) {
-        self.site = site;
+        self.site                  = site;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
     }
     return self;

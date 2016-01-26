@@ -59,7 +59,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.searchSite = site;
+        self.searchSite            = site;
         self.dataStore             = dataStore;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel      = [[WMFCompassViewModel alloc] init];

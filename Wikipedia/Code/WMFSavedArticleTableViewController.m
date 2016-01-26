@@ -27,7 +27,7 @@
 
 @implementation WMFSavedArticleTableViewController
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"saved-title", nil);
 }

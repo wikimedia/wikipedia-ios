@@ -208,13 +208,13 @@
 }
 
 - (NSString*)accessibilityLabel {
-    NSString *titleAndDescription;
+    NSString* titleAndDescription;
     if (self.descriptionText) {
         titleAndDescription = [NSString stringWithFormat:@"%@, %@", self.titleText, self.descriptionText];
     } else {
         titleAndDescription = self.titleText;
     }
-    return [NSString stringWithFormat: @"%@, %@ %@", titleAndDescription, self.distanceLabel.text, self.compassView.accessibilityLabel];
+    return [NSString stringWithFormat:@"%@, %@ %@", titleAndDescription, self.distanceLabel.text, self.compassView.accessibilityLabel];
 }
 
 @end
