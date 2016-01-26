@@ -187,16 +187,16 @@ static dispatch_once_t launchToken;
         [self showLastReadArticleAnimated:YES];
     }
 
-    if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
-    if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
         [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
-    if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show success on launch", NO)) {
         [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
-    if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
 }
