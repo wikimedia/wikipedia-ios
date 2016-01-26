@@ -19,7 +19,11 @@
     if (self) {
         self.article              = article;
         self.dataStore            = dataStore;
-        self.dataSource           = [[WMFArticlePreviewDataSource alloc] initWithTitles:self.article.disambiguationTitles site:self.article.site fetcher:[[WMFArticlePreviewFetcher alloc] init]];
+        self.dataSource           =
+        [[WMFArticlePreviewDataSource alloc] initWithTitles:self.article.disambiguationTitles
+                                                       site:self.article.site
+                                                  dataStore:dataStore
+                                                    fetcher:[[WMFArticlePreviewFetcher alloc] init]];
         self.dataSource.tableView = self.tableView;
     }
     return self;

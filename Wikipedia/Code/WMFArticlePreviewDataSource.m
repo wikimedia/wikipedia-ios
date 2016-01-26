@@ -19,6 +19,7 @@
 #import "MWKArticle.h"
 #import "MWKSearchResult.h"
 #import "MWKHistoryEntry.h"
+#import "MWKDataStore.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
 @property (nonatomic, assign) NSUInteger resultLimit;
 
+@property (nonatomic, strong) MWKDataStore* dataStore;
+
 @end
 
 @implementation WMFArticlePreviewDataSource
@@ -40,11 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTitles:(NSArray<MWKTitle*>*)titles
                           site:(MWKSite*)site
+                     dataStore:(MWKDataStore*)dataStore
                        fetcher:(WMFArticlePreviewFetcher*)fetcher {
     NSParameterAssert(titles);
     NSParameterAssert(fetcher);
+    NSParameterAssert(dataStore);
     self = [super initWithItems:nil];
     if (self) {
+        self.dataStore           = dataStore;
         self.titles              = titles;
         self.site                = site;
         self.titlesSearchFetcher = fetcher;
@@ -63,10 +69,17 @@ NS_ASSUME_NONNULL_BEGIN
             cell.descriptionText = searchResult.wikidataDescription;
             cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
+
+            [cell setSaveableTitle:title savedPageList:self.savedPageList];
+            
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
     return self;
+}
+
+- (MWKSavedPageList*)savedPageList {
+    return self.dataStore.userDataStore.savedPageList;
 }
 
 - (void)setTableView:(nullable UITableView*)tableView {
