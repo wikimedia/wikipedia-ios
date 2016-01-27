@@ -17,7 +17,7 @@
 
 @implementation WMFHistoryTableViewController
 
--(void)awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.title = MWLocalizedString(@"history-title", nil);
 }

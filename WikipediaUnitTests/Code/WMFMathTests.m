@@ -56,16 +56,16 @@ static BOOL didAssert = NO;
 
 - (void)testRadiansToClock {
     XCTAssertEqual(WMFRadiansToClock(0), 12);
-    XCTAssertEqual(WMFRadiansToClock(M_PI/6), 1);
-    XCTAssertEqual(WMFRadiansToClock(M_PI/2), 3);
+    XCTAssertEqual(WMFRadiansToClock(M_PI / 6), 1);
+    XCTAssertEqual(WMFRadiansToClock(M_PI / 2), 3);
     XCTAssertEqual(WMFRadiansToClock(M_PI), 6);
-    XCTAssertEqual(WMFRadiansToClock(1.5*M_PI), 9);
-    XCTAssertEqual(WMFRadiansToClock(2*M_PI), 12);
-    XCTAssertEqual(WMFRadiansToClock(-M_PI/2), 9);
+    XCTAssertEqual(WMFRadiansToClock(1.5 * M_PI), 9);
+    XCTAssertEqual(WMFRadiansToClock(2 * M_PI), 12);
+    XCTAssertEqual(WMFRadiansToClock(-M_PI / 2), 9);
     XCTAssertEqual(WMFRadiansToClock(-M_PI), 6);
-    XCTAssertEqual(WMFRadiansToClock(4*M_PI), 12);
-    XCTAssertEqual(WMFRadiansToClock(-3.5*M_PI), 3);
-    XCTAssertEqual(WMFRadiansToClock(M_PI/6-0.001), 1);
+    XCTAssertEqual(WMFRadiansToClock(4 * M_PI), 12);
+    XCTAssertEqual(WMFRadiansToClock(-3.5 * M_PI), 3);
+    XCTAssertEqual(WMFRadiansToClock(M_PI / 6 - 0.001), 1);
 }
 
 @end

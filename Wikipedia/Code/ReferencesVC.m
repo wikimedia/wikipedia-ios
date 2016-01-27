@@ -110,7 +110,7 @@
                               color:[UIColor darkGrayColor]
                                size:22.0 * MENUS_SCALE_MULTIPLIER
                      baselineOffset:0];
-    self.xButton.accessibilityLabel = MWLocalizedString(@"close-button-accessibility-label", nil);
+    self.xButton.accessibilityLabel     = MWLocalizedString(@"close-button-accessibility-label", nil);
     self.xButton.label.textAlignment    = NSTextAlignmentCenter;
     self.xButton.userInteractionEnabled = YES;
     [self.topContainerView addSubview:self.xButton];

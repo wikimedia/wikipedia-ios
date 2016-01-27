@@ -37,7 +37,7 @@
 }
 
 + (NSArray<NSInvocation*>*)testInvocations {
-    return WMFIsTravis() ? @[] : [super testInvocations];
+    return [[NSProcessInfo processInfo] wmf_isTravis] ? @[] : [super testInvocations];
 }
 
 #pragma mark - Downloading

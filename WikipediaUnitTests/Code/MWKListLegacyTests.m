@@ -55,7 +55,7 @@
                    @"Ice sheet", nil
                    ));
 
-    
+
     PushExpectation();
     [list removeEntry:list.mostRecentEntry];
     [list save].then(^(){
@@ -69,9 +69,9 @@
     MWKDataStore* dataStore2 = [[MWKDataStore alloc] initWithBasePath:self.dataStore.basePath];
     assertThat(dataStore2.savedPageListData, hasEntry(MWKSavedPageExportedSchemaVersionKey,
                                                       @(MWKSavedPageListSchemaVersionCurrent)));
-    
+
     MWKSavedPageList* list2 = dataStore2.userDataStore.savedPageList;
-    
+
     assertThat(list2, is(equalTo(list)));
 }
 
