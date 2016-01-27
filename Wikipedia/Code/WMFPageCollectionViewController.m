@@ -97,12 +97,12 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate {
     if (!decelerate) {
-        _currentPage = [self mostVisibleItemIndex];
+        [self primitiveSetCurrentPage:[self mostVisibleItemIndex]];
     }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView*)scrollView {
-    _currentPage = [self mostVisibleItemIndex];
+    [self primitiveSetCurrentPage:[self mostVisibleItemIndex]];
 }
 
 @end

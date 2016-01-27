@@ -23,6 +23,21 @@
 
 - (void)setCurrentPage:(NSUInteger)currentPage animated:(BOOL)animated;
 
+///
+/// Subclass Overrides
+///
+
+/**
+ *  Called whenever the page is changed programmatically or by the user scrolling.
+ *
+ *  Override this method to do additional UI updates or logic when the page changes.
+ *
+ *  @warning Your implementation must call @c super.
+ *
+ *  @param page The new value of current page.
+ */
+- (void)primitiveSetCurrentPage:(NSUInteger)page;
+
 /**
  * Flag which dictates whether or not the current `currentPage` has been applied.
  *
