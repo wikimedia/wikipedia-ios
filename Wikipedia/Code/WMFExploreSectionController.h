@@ -3,33 +3,97 @@
 #import "MWKHistoryEntry.h"
 #import "WMFAnalyticsLogging.h"
 
-@class SSSectionedDataSource, SSArrayDataSource;
-
-@protocol WMFExploreSectionControllerDelegate, WMFTitleListDataSource;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFExploreSectionController <WMFAnalyticsLogging>
 
-@property (nonatomic, weak) id<WMFExploreSectionControllerDelegate> delegate;
+/**
+ *  The items of the section. Must be KVO-able
+ */
+@property (nonatomic, strong, readonly) NSArray* items;
 
+/**
+ *  Called to update data if no items or errors
+ */
+- (AnyPromise*)fetchDataIfNeeded;
+
+
+/**
+ *  Called to update data no matter what state
+ */
+- (AnyPromise*)fetchDataUserInitiated;
+
+/**
+ *  Clear items and errors
+ */
+- (void)resetData;
+
+/**
+ *  Called when a section is about to be displayed
+ */
+- (void)willDisplaySection;
+
+/**
+ *  Called when finished displaying a section
+ */
+- (void)didEndDisplayingSection;
+
+/**
+ *  Used to uniquely identify a section
+ *
+ *  @return The identifier
+ */
 - (NSString*)sectionIdentifier;
 
+/**
+ *  An icon to be displayed in the section's header
+ *
+ *  @return An image
+ */
 - (UIImage*)headerIcon;
 
+/**
+ *  The text to be displayed in the header.
+ *  Note this is an attributed stirng to allow links to be embeded
+ *  Additional styling will be added bfore display time.
+ *
+ *  @return The header string
+ */
 - (NSAttributedString*)headerText;
 
+/**
+ *  Called to allow the controller to register cells in the table view
+ *
+ *  @param tableView The tableView
+ */
 - (void)registerCellsInTableView:(UITableView*)tableView;
 
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
+/**
+ *  Return the identifier for the cell at the specified index.
+ *  Used to dequeue a cell
+ *
+ *  @param index The index of the object
+ *
+ *  @return The identifer for the cell to be dequeued
+ */
+- (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
 
-- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
+//- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
 
-- (NSArray*)items;
+/**
+ *  Description
+ *
+ *  @param cell      The cell to configure
+ *  @param indexPath The indexPath of the cell
+ */
+- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
 
+/**
+ *  Estimated height of the cells in the section
+ *
+ *  @return The height
+ */
 - (CGFloat)estimatedRowHeight;
-
-@optional
 
 /**
  *  Determine whether or not an item is selectable.
@@ -41,11 +105,54 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return Whether or not the item at the given index should be selected.
  */
-- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index;
+- (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
 
+/**
+ *  The discovery method associated with where this section's data originated from.
+ *
+ *  @return A discovery method.
+ */
+- (MWKHistoryDiscoveryMethod)discoveryMethod;
+
+@end
+
+/**
+ *  Protocol for sections with an overflow button on the right side of the header
+ */
+@protocol WMFHeaderMenuProviding <NSObject>
+
+
+/**
+ * Provide an action sheet with menu options
+ * NOTE: you cannot currently implement both WMFHeaderMenuProviding and WMFHeaderActionProviding - they are implemented using the same button
+ */
+- (UIActionSheet*)menuActionSheet;
+
+@end
+/**
+ *  Protocol for sections with an custom action button on the right side of the header.
+ * NOTE: you cannot currently implement both WMFHeaderMenuProviding and WMFHeaderActionProviding - they are implemented using the same button
+ */
+@protocol WMFHeaderActionProviding <NSObject>
+
+/**
+ *  Specify the image for the button
+ *
+ *  @return The image
+ */
 - (UIImage*)headerButtonIcon;
 
+/**
+ *  Perform the action associated with the button
+ */
 - (void)performHeaderButtonAction;
+
+@end
+
+/**
+ *  Protocol for controllers displaying a footer
+ */
+@protocol WMFMoreFooterProviding <NSObject>
 
 /**
  *  Specify the text for an optional footer which allows the user to see a list of more content.
@@ -57,26 +164,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)footerText;
 
 /**
- *  The discovery method associated with where this section's data originated from.
- *
- *  Defaults to @c MWKHistoryDiscoveryMethodSearch if not implemented.
- *
- *  @return A discovery method.
+ *  @return A view controller with will provide a more data for this section.
  */
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
-
-@end
-
-@protocol WMFFetchingExploreSectionController <NSObject>
-
-- (void)fetchDataIfNeeded;
+- (UIViewController*)moreViewController;
 
 @end
 
 /**
  *  Protocol for sections which display articles in some form (e.g. nearby or related articles).
  */
-@protocol WMFArticleExploreSectionController <WMFExploreSectionController>
+@protocol WMFTitleProviding <NSObject>
 
 /**
  *  Provide the article title to be pushed in response to an item being tapped.
@@ -85,45 +182,28 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The title of the item at @c index.
  */
-- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index;
-
-@optional
-
-/**
- *  @return A view controller with will provide a more data for this section.
- */
-- (UIViewController*)moreViewController;
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
 
 /**
  *  Protocol for sections which display something other than articles.
  */
-@protocol WMFGenericExploreSectionController <WMFExploreSectionController>
+@protocol WMFDetailPresenting <NSObject>
 
 /**
  *  Return a view controller to be presented modally when an item is tapped.
  *
  *  The caller will present the view controller returned by this method modally.
  *
- *  @param index The index of the cell that was tapped.
+ *  @param indexPath The indexPath of the cell that was tapped.
  *
  *  @return A view controller which displays more details of the content at @c index.
  */
-- (UIViewController*)exploreDetailViewControllerForItemAtIndex:(NSUInteger)index;
+- (UIViewController*)exploreDetailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
 
-@protocol WMFExploreSectionControllerDelegate <NSObject>
 
-- (void)controller:(id<WMFExploreSectionController>)controller didSetItems:(NSArray*)items;
-
-- (void)controller:(id<WMFExploreSectionController>)controller didAppendItems:(NSArray*)items;
-
-- (void)controller:(id<WMFExploreSectionController>)controller didUpdateItemsAtIndexes:(NSIndexSet*)indexes;
-
-- (void)controller:(id<WMFExploreSectionController>)controller didFailToUpdateWithError:(NSError*)error;
-
-@end
 
 NS_ASSUME_NONNULL_END
