@@ -105,7 +105,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 
     _blackList = blackList;
-    
+
     [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, entries) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
         [observer updateWithChangesInBlackList:object];
     }];
@@ -122,7 +122,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
-    [startingSchema wmf_safeAddObject:[self nearbySectionWithLocation:nil]];
 
     WMFExploreSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
@@ -246,7 +245,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return YES;
 }
 
-- (void)updateNearbySectionWithLocation:(CLLocation*)location {
+- (void)insertNearbySectionWithLocation:(CLLocation*)location {
     NSParameterAssert(location);
 
     WMFExploreSection* oldNearby = [self existingNearbySection];
@@ -256,6 +255,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return;
     }
 
+    // Check if already updated today
     if (oldNearby.location && [oldNearby.dateCreated isToday]) {
         return;
     }
@@ -270,7 +270,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [self updateSections:sections];
 }
 
-- (void)removeNearbySection{
+- (void)removeNearbySection {
     NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
     [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeNearby;
@@ -278,10 +278,9 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [self updateSections:sections];
 }
 
-
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
     //enumerate in reverse so that indexes are always correct
-    [[blackList.entries wmf_mapAndRejectNil:^id(MWKTitle * obj) {
+    [[blackList.entries wmf_mapAndRejectNil:^id (MWKTitle* obj) {
         return [self existingSectionForTitle:obj];
     }] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(WMFExploreSection* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         [self removeSection:obj];
@@ -331,7 +330,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (nullable WMFExploreSection*)existingNearbySection {
     WMFExploreSection* nearby = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeNearby) {
+        if (obj.type == WMFExploreSectionTypeNearby && obj.location) {
             return YES;
         }
         return NO;
@@ -509,7 +508,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    [self updateNearbySectionWithLocation:location];
+    [self insertNearbySectionWithLocation:location];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
