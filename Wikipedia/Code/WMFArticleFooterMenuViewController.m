@@ -102,8 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
     articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
     navController.delegate = self;
-    [self presentViewController:navController animated:YES completion:^{
-    }];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)navigationController:(UINavigationController*)navigationController
