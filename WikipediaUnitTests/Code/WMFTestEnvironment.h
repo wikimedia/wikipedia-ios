@@ -14,7 +14,7 @@
 
 static inline BOOL WMFIsTravis() {
     const char* travisValue = getenv("TRAVIS");
-    return travisValue != NULL && strcasecmp(travisValue, "true") == 0;
+    return travisValue != NULL;
 }
 
 #endif /* WMFTestEnvironment_h */
