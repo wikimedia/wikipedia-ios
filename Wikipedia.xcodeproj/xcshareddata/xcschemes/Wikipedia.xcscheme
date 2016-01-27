@@ -104,11 +104,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-WMFVisualTestBatchRecordMode"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "NO"
+            argument = "-WMFVisualTestBatchRecordMode NO"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -124,6 +120,11 @@
          <EnvironmentVariable
             key = "FB_REFERENCE_IMAGE_DIR"
             value = "$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "TRAVIS"
+            value = "$(TRAVIS)"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
