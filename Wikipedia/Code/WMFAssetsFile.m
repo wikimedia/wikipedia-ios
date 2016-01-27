@@ -7,11 +7,11 @@
 
 @property (nonatomic) WMFAssetsFileType fileType;
 
-@property (nonatomic, retain) NSData* data;
+@property (nonatomic, strong) NSData* data;
 
-@property (nonatomic, retain, readwrite) NSDictionary* dictionary;
+@property (nonatomic, strong, readwrite) NSDictionary* dictionary;
 
-@property (nonatomic, retain, readwrite) NSArray* array;
+@property (nonatomic, strong, readwrite) NSArray* array;
 
 @end
 
@@ -56,6 +56,8 @@
     if (!_array && self.data) {
         NSError* error = nil;
         _array = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:&error];
+        NSAssert([_array isKindOfClass:[NSArray class]], @"Expected array, got %@", _array);
+        NSAssert(!error, @"Unexpected JSON error: %@", error);
         if (![_array isKindOfClass:[NSArray class]]) {
             _array = nil;
         }
