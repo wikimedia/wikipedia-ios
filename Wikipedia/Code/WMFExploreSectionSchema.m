@@ -217,14 +217,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [self update:NO];
 }
 
-- (void)update:(BOOL)force {
+- (BOOL)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
 
     if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
         && !force
         && self.lastUpdatedAt
         && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
-        return;
+        return NO;
     }
 
     //Get updated static sections
@@ -241,6 +241,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     self.lastUpdatedAt = [NSDate date];
     [self updateSections:sections];
+    return YES;
 }
 
 - (void)updateNearbySectionWithLocation:(CLLocation*)location {
