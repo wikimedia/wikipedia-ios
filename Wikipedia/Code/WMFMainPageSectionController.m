@@ -31,8 +31,6 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @implementation WMFMainPageSectionController
 
-@synthesize delegate = _delegate;
-
 - (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
     self = [super init];
@@ -77,62 +75,29 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
 }
 
-- (NSArray*)items {
-    if (self.siteInfo) {
-        return @[self.siteInfo];
-    } else {
-        return @[@1];
-    }
+- (NSString*)cellIdentifier {
+    return [WMFMainPageTableViewCell identifier];
 }
 
-- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    return [self.siteInfo mainPageTitle];
+- (UINib*)cellNib {
+    return [WMFMainPageTableViewCell wmf_classNib];
 }
 
-- (void)registerCellsInTableView:(UITableView*)tableView {
-    [tableView registerNib:[WMFMainPageTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPageTableViewCell identifier]];
-    [tableView registerNib:[WMFMainPagePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFMainPagePlaceholderTableViewCell identifier]];
+- (NSUInteger)numberOfPlaceholderCells {
+    return 1;
 }
 
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.siteInfo) {
-        return [WMFMainPageTableViewCell cellForTableView:tableView];
-    } else {
-        return [WMFMainPagePlaceholderTableViewCell cellForTableView:tableView];
-    }
+- (nullable NSString*)placeholderCellIdentifier {
+    return [WMFMainPagePlaceholderTableViewCell identifier];
 }
 
-- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFMainPageTableViewCell class]]) {
-        WMFMainPageTableViewCell* mainPageCell = (id)cell;
-        mainPageCell.mainPageTitle.text = self.siteInfo.mainPageTitleText;
-        [mainPageCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    }
+- (nullable UINib*)placeholderCellNib {
+    return [WMFMainPagePlaceholderTableViewCell wmf_classNib];
 }
 
-- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.siteInfo != nil;
-}
-
-#pragma mark - Fetching
-
-- (void)fetchDataIfNeeded {
-    if (self.siteInfoFetcher.isFetching || self.siteInfo) {
-        return;
-    }
-
-    @weakify(self);
-    [self.siteInfoFetcher fetchSiteInfoForSite:self.site].then(^(MWKSiteInfo* data) {
-        @strongify(self);
-        self.siteInfo = data;
-        [self.delegate controller:self didSetItems:self.items];
-    }).catch(^(NSError* error){
-        @strongify(self);
-        self.siteInfo = nil;
-        [self.delegate controller:self didFailToUpdateWithError:error];
-        WMF_TECH_DEBT_TODO(show empty view)
-        [self.delegate controller : self didSetItems : self.items];
-    });
+- (void)configureCell:(WMFMainPageTableViewCell*)cell withItem:(MWKSiteInfo*)item atIndexPath:(NSIndexPath*)indexPath {
+    cell.mainPageTitle.text = item.mainPageTitleText;
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
 - (NSString*)analyticsName {
@@ -141,6 +106,25 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 - (CGFloat)estimatedRowHeight {
     return [WMFMainPageTableViewCell estimatedRowHeight];
+}
+
+- (AnyPromise*)fetchData {
+    @weakify(self);
+    return [self.siteInfoFetcher fetchSiteInfoForSite:self.site].then(^(MWKSiteInfo* data) {
+        @strongify(self);
+        self.siteInfo = data;
+        return @[self.siteInfo];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        self.siteInfo = nil;
+        return error;
+    });
+}
+
+#pragma mark - WMFTitleProviding
+
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.siteInfo mainPageTitle];
 }
 
 @end
