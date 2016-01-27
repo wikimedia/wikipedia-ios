@@ -18,6 +18,10 @@
 
 @implementation WMFArticleListTableViewCell
 
++ (CGFloat)estimatedRowHeight {
+    return 60.f;
+}
+
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_configureWithDefaultPlaceholder];
 

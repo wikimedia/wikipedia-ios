@@ -19,6 +19,8 @@
  */
 - (void)setImageURL:(NSURL*)imageURL;
 
++ (CGFloat)estimatedRowHeight;
+
 @end
 
 

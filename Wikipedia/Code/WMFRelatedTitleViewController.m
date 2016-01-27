@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
 
     [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
+    self.tableView.estimatedRowHeight = [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
 - (void)setDataSource:(WMFRelatedTitleListDataSource*)dataSource {

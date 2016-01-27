@@ -11,6 +11,7 @@
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
+#import "UITableView+WMFLockedUpdates.h"
 
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -128,7 +129,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)unobserveArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
@@ -142,12 +143,8 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* otherTitle = [self.dataSource titleForIndexPath:indexPath];
         return [title isEqualToTitle:otherTitle];
     }];
-    
-    //update cells in place. Updating with relaod method causes the tableview to scroll
-    [indexPathsToRefresh enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        self.dataSource.cellConfigureBlock([self.tableView cellForRowAtIndexPath:obj], [self.dataSource itemAtIndexPath:obj], self.tableView, obj);
-    }];
-    
+
+    [self.dataSource reloadCellsAtIndexPaths:indexPathsToRefresh];
 }
 
 #pragma mark - Previewing
