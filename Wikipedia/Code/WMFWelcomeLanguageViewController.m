@@ -1,17 +1,13 @@
 
-#import "WMFWelcomeLanguageViewController.h"
+#import "WMFWelcomeLanguageViewController_Testing.h"
 #import "WMFWelcomeLanguageTableViewCell.h"
-#import "MWKLanguageLinkController.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLink.h"
-#import "LanguagesViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 
-
-@interface WMFWelcomeLanguageViewController ()<LanguageSelectionDelegate>
+@interface WMFWelcomeLanguageViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UITableView* languageTableView;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UILabel* footnoteLabel;
@@ -43,7 +39,7 @@
 }
 
 - (void)lockTableViewIfContentFits {
-    //Don't make it scroll unless we have too (rare to have so many languages)
+    //Don't make it scroll unless we have to (rare to have so many languages)
     if (self.languageTableView.contentSize.height < self.languageTableView.frame.size.height) {
         self.languageTableView.scrollEnabled = NO;
     } else {

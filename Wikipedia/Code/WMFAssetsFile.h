@@ -11,13 +11,13 @@ typedef NS_ENUM (NSUInteger, WMFAssetsFileType) {
 
 @property (nonatomic, readonly) WMFAssetsFileType fileType;
 
-@property (nonatomic, retain, readonly) NSString* path;
+@property (nonatomic, strong, readonly) NSString* path;
 
-@property (nonatomic, retain, readonly) NSArray* array;
+@property (nonatomic, strong, readonly) NSArray* array;
 
-@property (nonatomic, retain, readonly) NSDictionary* dictionary;
+@property (nonatomic, strong, readonly) NSDictionary* dictionary;
 
-@property (nonatomic, retain, readonly) NSURL* url;
+@property (nonatomic, strong, readonly) NSURL* url;
 
 - (id)initWithFileType:(WMFAssetsFileType)file;
 

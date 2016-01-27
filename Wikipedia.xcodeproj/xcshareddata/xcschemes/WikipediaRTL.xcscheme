@@ -358,10 +358,6 @@
             argument = "-AppleLanguages (he)"
             isEnabled = "YES">
          </CommandLineArgument>
-         <CommandLineArgument
-            argument = "-NSForceRightToLeftWritingDirection YES&#10;"
-            isEnabled = "NO">
-         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
