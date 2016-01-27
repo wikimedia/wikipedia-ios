@@ -37,12 +37,7 @@ afterEach(^{
     if (_sharedSearchViewController.view.window) {
         [_sharedSearchViewController dismissViewControllerAnimated:NO completion:nil];
 
-        [self expectationForPredicate:
-         [NSPredicate predicateWithBlock:
-          ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-            return evaluatedObject.view.window == nil;
-        }]        evaluatedWithObject:_sharedSearchViewController handler:nil];
-        [self waitForExpectationsWithTimeout:10 handler:nil];
+        expect(_sharedSearchViewController.view.window).withTimeout(10).toEventually(beNil());
     }
 
     _sharedSearchViewController = nil;
@@ -59,13 +54,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
     [searchBarItem.target performSelector:searchBarItem.action withObject:searchBarItem];
     #pragma clang diagnostic pop
 
-    // using XCTestExpecation because Nimble's polling matchers are failing on Travis
-    [self expectationForPredicate:
-     [NSPredicate predicateWithBlock:
-      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-        return evaluatedObject.presentedViewController.view.window != nil;
-    }]        evaluatedWithObject:presentingVC handler:nil];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    expect(presentingVC.view.window).withTimeout(10).toEventually(beNil());
 
     WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
 
@@ -80,12 +69,7 @@ WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WM
 void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
     UIViewController* presentedVC = vc.presentedViewController;
     [vc dismissViewControllerAnimated:NO completion:nil];
-    [self expectationForPredicate:
-     [NSPredicate predicateWithBlock:
-      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-        return presentedVC.view.window == nil;
-    }]        evaluatedWithObject:presentedVC handler:nil];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
+    expect(presentedVC.view.window).withTimeout(10).toEventually(beNil());
 };
 
 void (^ dismissSearchFromTestVCAndWait)() = ^() {

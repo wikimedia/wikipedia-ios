@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
             [cell setImageURL:searchResult.thumbnailURL];
 
             [cell setSaveableTitle:title savedPageList:self.savedPageList];
-            
+
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
         };
     }
