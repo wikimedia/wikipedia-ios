@@ -1759,7 +1759,7 @@
 		BCE839771BF3C9BB00F5BBA4 /* ObamaImageElement.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ObamaImageElement.html; sourceTree = "<group>"; };
 		BCEF55771C52B564007DF8B2 /* ErrorWorkaround.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorWorkaround.swift; sourceTree = "<group>"; };
 		BCEF557F1C52BB1E007DF8B2 /* WMFImageController+ErrorDomainSanity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WMFImageController+ErrorDomainSanity.m"; sourceTree = "<group>"; };
-		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../Wikipedia/assets; sourceTree = "<group>"; };
+		BCF012321AD2FA38008D3675 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		BCF2C5B91BA9D6760063412D /* ml */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ml; path = ml.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5BB1BA9D6A30063412D /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCF2C5BC1BA9D6AF0063412D /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };

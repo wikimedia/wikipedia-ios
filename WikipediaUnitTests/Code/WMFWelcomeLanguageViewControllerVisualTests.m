@@ -44,8 +44,8 @@
 
 - (void)testShowsCurrentLanguageList {
     if ([[MWKLanguageLinkController sharedInstance] preferredLanguages].count < 1) {
-        MWKLanguageLink* otherLang = [[MWKLanguageLinkController sharedInstance] otherLanguages].firstObject;
-        [self.welcomeLanguageVC languagesController:nil didSelectLanguage:otherLang];
+        [[MWKLanguageLinkController sharedInstance] addPreferredLanguageForCode:@"en"];
+        [self.welcomeLanguageVC languagesController:nil didSelectLanguage:[[MWKLanguageLinkController sharedInstance] preferredLanguages].firstObject];
     }
 
     WMFSnapshotVerifyViewForOSAndWritingDirection(self.welcomeLanguageVC.view);
