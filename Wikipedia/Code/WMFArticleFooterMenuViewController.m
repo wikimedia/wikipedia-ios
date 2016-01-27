@@ -16,6 +16,7 @@
 #import "WMFArticleFooterMenuDataSource.h"
 #import "WMFArticleFooterMenuCell.h"
 #import "UIView+WMFDefaultNib.h"
+#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -108,8 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)navigationController:(UINavigationController*)navigationController
       willShowViewController:(UIViewController*)viewController
                     animated:(BOOL)animated {
-    BOOL isToolbarEmpty = [viewController toolbarItems].count == 0;
-    [navigationController setToolbarHidden:isToolbarEmpty];
+    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 - (void)showEditHistory {
