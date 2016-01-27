@@ -22,6 +22,8 @@ static NSUInteger const WMFMaximumNumberOfFeaturedSections        = 10;
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
+static NSTimeInterval const WMFTimeBeforeRefreshingRandom = 60 * 60 * 24 * 7; //7 days
+
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
@@ -306,17 +308,17 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (WMFExploreSection*)randomSection {
-    WMFExploreSection* random = nil;
-
+    
+    WMFExploreSection* random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+        if (obj.type == WMFExploreSectionTypeRandom) {
+            return YES;
+        }
+        return NO;
+    }];
+;
     MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
-
-    if (![lastEntry.date isThisWeek]) {
-        random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-            if (obj.type == WMFExploreSectionTypeRandom) {
-                return YES;
-            }
-            return NO;
-        }];
+    if(lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.date] > WMFTimeBeforeRefreshingRandom) {
+        random = [WMFExploreSection randomSection];
     }
 
     //Always return a random section
