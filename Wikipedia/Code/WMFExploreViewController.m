@@ -169,22 +169,16 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (BOOL)rowAtIndexPathIsOnlyRowVisiableInSection:(NSIndexPath*)indexPath {
+- (BOOL)rowAtIndexPathIsOnlyRowVisibleInSection:(NSIndexPath*)indexPath {
     NSArray<NSIndexPath*>* visibleIndexPathsInSection = [self.tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
         return i.section == indexPath.section;
     }];
-
-    //the cell dissappearing may still appear in this list
-    visibleIndexPathsInSection = [visibleIndexPathsInSection bk_reject:^BOOL (id obj) {
-        return [indexPath isEqual:obj];
-    }];
-
-    //First one on screen
-    if ([visibleIndexPathsInSection count] == 0) {
+    
+    if([visibleIndexPathsInSection count] == 1 && [[visibleIndexPathsInSection firstObject] isEqual:indexPath]){
         return YES;
+    }else{
+        return NO;
     }
-
-    return NO;
 }
 
 - (NSArray*)visibleSectionControllers {
@@ -437,7 +431,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([self rowAtIndexPathIsOnlyRowVisiableInSection:indexPath]) {
+    if (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath]) {
         [controller willDisplaySection];
     }
 
@@ -456,7 +450,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([self rowAtIndexPathIsOnlyRowVisiableInSection:indexPath]) {
+    if (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath]) {
         [controller didEndDisplayingSection];
     }
 
