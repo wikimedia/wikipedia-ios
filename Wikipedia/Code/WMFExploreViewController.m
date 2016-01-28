@@ -584,12 +584,12 @@ NS_ASSUME_NONNULL_BEGIN
     [self.KVOController unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
 
     [self.KVOController observe:controller keyPath:WMF_SAFE_KEYPATH(controller, items) options:0 block:^(WMFExploreViewController* observer, id < WMFExploreSectionController > object, NSDictionary* change) {
-        NSUInteger sectionIndex = [self indexForSectionController:controller];
+        NSUInteger sectionIndex = [observer indexForSectionController:controller];
         if (sectionIndex == NSNotFound) {
             return;
         }
 
-        [self.tableView reloadData];
+        [observer.tableView reloadData];
         return;
 
         //TODO: enable animated updates. Currently causes more jitters
@@ -604,7 +604,7 @@ NS_ASSUME_NONNULL_BEGIN
             [indexPathArray addObject:newPath];
         }];
 
-        [self.tableView wmf_performUpdates:^{
+        [observer.tableView wmf_performUpdates:^{
             NSNumber* kind = [change objectForKey:NSKeyValueChangeKindKey];
             if ([kind integerValue] == NSKeyValueChangeInsertion) { // Rows were added
                 [observer.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
