@@ -74,6 +74,10 @@
     //[self.view randomlyColorSubviews];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.view);
+}
+
 - (void)setupPageController {
     self.pageController =
         [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll

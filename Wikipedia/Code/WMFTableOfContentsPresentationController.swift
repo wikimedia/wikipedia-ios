@@ -43,6 +43,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
     }
     
+    // MARK: - Accessibility
+    func togglePresentingViewControllerAccessibility(accessible: Bool) {
+        self.presentingViewController.view.accessibilityElementsHidden = !accessible
+    }
+
     // MARK: - UIPresentationController
     override public func presentationTransitionWillBegin() {
         // Add the dimming view and the presented view to the heirarchy
@@ -50,6 +55,9 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.containerView!.addSubview(self.backgroundView)
         self.containerView!.addSubview(self.presentedView()!)
         
+        // Hide the presenting view controller for accessibility
+        self.togglePresentingViewControllerAccessibility(false)
+
         //Add shadow to the presented view
         self.presentedView()?.layer.shadowOpacity = 0.5
         self.presentedView()?.clipsToBounds = false
@@ -79,6 +87,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     override public func dismissalTransitionDidEnd(completed: Bool) {
         if completed {
             self.backgroundView.removeFromSuperview()
+            self.togglePresentingViewControllerAccessibility(true)
             //Remove shadow from the presented View
             self.presentedView()?.layer.shadowOpacity = 0.0
             self.presentedView()?.clipsToBounds = true
