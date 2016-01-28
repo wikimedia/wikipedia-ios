@@ -13,7 +13,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <BlocksKit/BlocksKit.h>
 #import <Masonry/Masonry.h>
-#import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 
@@ -61,8 +60,6 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -222,6 +219,7 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     cell.languageName          = langLink.name;
     cell.articleTitle          = langLink.pageTitleText;
     cell.languageCode          = [self stringForLanguageCode:langLink.languageCode];
+    cell.languageID            = langLink.languageCode;
 }
 
 - (NSString*)stringForLanguageCode:(NSString*)code {
@@ -304,6 +302,13 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
 
 - (void)searchBarSearchButtonClicked:(UISearchBar*)searchBar {
     [searchBar resignFirstResponder];
+}
+
+#pragma mark - UIAccessibilityAction
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return true;
 }
 
 @end

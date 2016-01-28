@@ -341,6 +341,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(didTapTableOfContentsButton:)];
+        _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
         return _tableOfContentsToolbarItem;
     }
     return _tableOfContentsToolbarItem;
@@ -494,7 +495,7 @@ NS_ASSUME_NONNULL_BEGIN
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     MWKHistoryEntry* entry      = [historyList entryForTitle:self.articleTitle];
     if (!entry.titleWasSignificantlyViewed) {
-        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Home", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
 
@@ -866,7 +867,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
+    if ([url.absoluteString isEqualToString:@""]) {
+        return nil;
+    }
     if (![url wmf_isInternalLink]) {
+        if ([url wmf_isCitation]) {
+            return nil;
+        }
         return [[SFSafariViewController alloc] initWithURL:url];
     } else {
         if (![url wmf_isIntraPageFragment]) {

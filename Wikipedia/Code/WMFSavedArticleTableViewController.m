@@ -27,14 +27,17 @@
 
 @implementation WMFSavedArticleTableViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.title = MWLocalizedString(@"saved-title", nil);
+}
+
 - (MWKSavedPageList*)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = MWLocalizedString(@"saved-title", nil);
 
     [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 

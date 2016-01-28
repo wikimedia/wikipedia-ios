@@ -34,7 +34,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLinkController.h"
 
@@ -110,8 +109,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -268,6 +265,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
         rowView.iconLabel.attributedText =
             [[NSAttributedString alloc] initWithString:icon
                                             attributes:attributes];
+        rowView.iconLabel.isAccessibilityElement = NO;
 
         id title = row[@"title"];
         if ([title isKindOfClass:[NSString class]]) {
@@ -296,11 +294,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 }
 
 - (void)setRowData {
-    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD;
-
-
-    //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-
     NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
     NSString* languageName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:languageCode];
     if (!languageName) {
@@ -342,6 +335,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
             @"icon": WIKIGLYPH_DOWN,
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -349,6 +343,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ABOUT),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }.mutableCopy
         ,
         @{
@@ -357,6 +352,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
             @"icon": WIKIGLYPH_DOWN,
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -372,6 +368,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }.mutableCopy
         ,
         @{
@@ -402,7 +399,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ZERO),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader),
         }.mutableCopy
         ,
         @{
@@ -440,6 +437,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_LOGIN),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -447,7 +445,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink)
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }
         ,
         @{
@@ -455,7 +453,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton),
         }.mutableCopy
     ].mutableCopy;
 
@@ -688,11 +686,11 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self wmf_hideKeyboard];
 }
 
-/*
-   -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-   {
-    self.scrollView.orientation = !self.scrollView.orientation;
-   }
- */
+#pragma mark - UIAccessibilityAction
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return YES;
+}
 
 @end

@@ -66,6 +66,12 @@ static CGFloat const WMFLanguageNameLabelHeight   = 18.f;
     self.languageCodeLabel.text = languageCode;
 }
 
+- (void)setLanguageID:(NSString*)languageID {
+    _languageID                              = languageID;
+    _articleTitleLabel.accessibilityLanguage = languageID;
+    _languageNameLabel.accessibilityLanguage = languageID;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self prepareForReuse];

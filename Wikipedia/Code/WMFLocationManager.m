@@ -15,6 +15,23 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
 
 /**
+ *  @name Location Manager State
+ *
+ *  We need to keep track of these properties to ensure that the UI isn't emptied if the location manager is restarted,
+ *  which will temporarily set its @c location and @c heading properties to @c nil.
+ */
+
+/**
+ *  The last-known location reported by the @c locationManager.
+ */
+@property (nonatomic, strong, readwrite, nullable) CLLocation* lastLocation;
+
+/**
+ *  The last-known heading reported by the @c locationManager.
+ */
+@property (nonatomic, strong, readwrite, nullable) CLHeading* lastHeading;
+
+/**
  *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
  *  We use this to ignore events after a stop has been requested
  */
@@ -32,11 +49,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 - (CLHeading*)heading {
-    return self.locationManager.heading;
+    return self.lastHeading;
 }
 
 - (CLLocation*)location {
-    return self.locationManager.location;
+    return self.lastLocation;
 }
 
 - (CLLocationManager*)locationManager {
@@ -46,7 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
         _locationManager.activityType = CLActivityTypeFitness;
         /*
            Update location every 1 meter. This is separate from how often we update the titles that are near a given
-           location. See WMFNearbyViewModel.
+           location.
          */
         _locationManager.distanceFilter = 1;
     }
@@ -203,19 +220,26 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.locationUpdatesStopped) {
         return;
     }
-    if (locations.count == 0) {
+    if (!manager.location) {
+        // ignore nil values to keep last known heading on the screen
         return;
     }
-    DDLogVerbose(@"%@ updated location: %@", self, manager.location);
-    [self.delegate nearbyController:self didUpdateLocation:manager.location];
+    self.lastLocation = manager.location;
+    DDLogVerbose(@"%@ updated location: %@", self, self.lastLocation);
+    [self.delegate nearbyController:self didUpdateLocation:self.lastLocation];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
     if (self.locationUpdatesStopped) {
         return;
     }
-    DDLogVerbose(@"%@ updated heading to %@", self, newHeading);
-    [self.delegate nearbyController:self didUpdateHeading:newHeading];
+    if (!newHeading) {
+        // ignore nil values to keep last known heading on the screen
+        return;
+    }
+    self.lastHeading = newHeading;
+    DDLogVerbose(@"%@ updated heading to %@", self, self.lastHeading);
+    [self.delegate nearbyController:self didUpdateHeading:self.lastHeading];
 }
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {

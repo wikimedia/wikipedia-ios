@@ -52,7 +52,7 @@
     self.articleImageView.layer.borderWidth         = 1.0 / [UIScreen mainScreen].scale;
     self.articleImageView.layer.borderColor         = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
-    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_nearbyDistanceBackgroundColor];
+    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_customGray];
     self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
     self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
     [self wmf_addSelectedBackgroundView];
@@ -72,6 +72,10 @@
 
 - (void)configureImageViewWithPlaceholder {
     [self.articleImageView wmf_configureWithDefaultPlaceholder];
+}
+
++ (CGFloat)estimatedRowHeight {
+    return 120.f;
 }
 
 #pragma mark - Compass
@@ -154,7 +158,7 @@
 
     return [[NSAttributedString alloc] initWithString:self.descriptionText attributes:@{
                 NSFontAttributeName: [UIFont wmf_nearbyDescriptionFont],
-                NSForegroundColorAttributeName: [UIColor wmf_nearbyDescriptionColor],
+                NSForegroundColorAttributeName: [UIColor wmf_customGray],
                 NSParagraphStyleAttributeName: paragraphStyle
             }];
 }
@@ -195,6 +199,22 @@
 
 - (void)setImage:(MWKImage*)image {
     [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
+}
+
+#pragma mark - Accessibility
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (NSString*)accessibilityLabel {
+    NSString* titleAndDescription;
+    if (self.descriptionText) {
+        titleAndDescription = [NSString stringWithFormat:@"%@, %@", self.titleText, self.descriptionText];
+    } else {
+        titleAndDescription = self.titleText;
+    }
+    return [NSString stringWithFormat:@"%@, %@ %@", titleAndDescription, self.distanceLabel.text, self.compassView.accessibilityLabel];
 }
 
 @end

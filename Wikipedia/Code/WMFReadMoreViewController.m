@@ -22,8 +22,7 @@
 
 @dynamic dataSource;
 
-- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
-{
+- (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
     self = [super init];

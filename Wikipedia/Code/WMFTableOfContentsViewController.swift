@@ -136,6 +136,12 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
 
+    private func didRequestClose(controller: WMFTableOfContentsAnimator?) -> Bool {
+        tableOfContentsFunnel.logClose()
+        delegate?.tableOfContentsControllerDidCancel(self)
+        return delegate != nil
+    }
+
     public override func loadView() {
         super.loadView()
         tableView = UITableView(frame: self.view.bounds, style: .Grouped)
@@ -217,8 +223,7 @@ public class WMFTableOfContentsViewController: UIViewController,
     }
 
     public func tableOfContentsAnimatorDidTapBackground(controller: WMFTableOfContentsAnimator) {
-        tableOfContentsFunnel.logClose()
-        delegate?.tableOfContentsControllerDidCancel(self)
+        didRequestClose(controller)
     }
 
     // MARK: - UIScrollViewDelegate
@@ -229,5 +234,9 @@ public class WMFTableOfContentsViewController: UIViewController,
         }
     }
 
+    // MARK: - UIAccessibilityAction
+    public override func accessibilityPerformEscape() -> Bool {
+        return didRequestClose(nil)
+    }
 }
 

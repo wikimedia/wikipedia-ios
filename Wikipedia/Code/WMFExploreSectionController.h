@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray*)items;
 
+- (CGFloat)estimatedRowHeight;
+
 @optional
 
 /**

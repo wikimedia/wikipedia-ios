@@ -19,7 +19,6 @@
 #import "UIViewController+WMFChildViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "SectionEditorViewController.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 #import "PaddedLabel.h"
@@ -85,9 +84,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){

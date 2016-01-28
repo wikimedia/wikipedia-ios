@@ -28,7 +28,7 @@
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
 #define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
 
-typedef NS_ENUM(NSInteger, EnumActionSheetButtons) {
+typedef NS_ENUM (NSInteger, EnumActionSheetButtons) {
     BUTTON_TERMS   = 0,
     BUTTON_LICENSE = 1
 };

@@ -25,7 +25,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIFont+WMFStyle.h"
-#import "NSString+WMFGlyphs.h"
 #import "WMFStyleManager.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
@@ -37,8 +36,9 @@
 #import "WMFWelcomeViewController.h"
 #import "WMFArticleContainerViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFLocationSearchListViewController.h"
+#import "WMFNearbyListViewController.h"
 #import "UIViewController+WMFSearch.h"
+#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
 #import "WMFRandomSectionController.h"
@@ -93,6 +93,9 @@ static dispatch_once_t launchToken;
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
+/// Use @c rootTabBarController instead.
+- (UITabBarController*)tabBarController NS_UNAVAILABLE;
+
 @end
 
 @implementation WMFAppViewController
@@ -100,7 +103,6 @@ static dispatch_once_t launchToken;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 - (BOOL)isPresentingOnboarding {
     return [self.presentedViewController isKindOfClass:[WMFWelcomeViewController class]];
@@ -136,10 +138,7 @@ static dispatch_once_t launchToken;
 }
 
 - (void)configureExploreViewController {
-    self.exploreViewController.searchSite  = [self.session searchSite];
-    self.exploreViewController.dataStore   = self.session.dataStore;
-    self.exploreViewController.savedPages  = self.session.userDataStore.savedPageList;
-    self.exploreViewController.recentPages = self.session.userDataStore.historyList;
+    [self.exploreViewController setSearchSite:[self.session searchSite] dataStore:self.dataStore];
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController*)controller {
@@ -192,16 +191,16 @@ static dispatch_once_t launchToken;
         [self showLastReadArticleAnimated:YES];
     }
 
-    if (FBTweakValue(@"Alerts", @"General", @"Show error on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
-    if (FBTweakValue(@"Alerts", @"General", @"Show warning on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show warning on launch", NO)) {
         [[WMFAlertManager sharedInstance] showWarningAlert:@"You have been warned" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
-    if (FBTweakValue(@"Alerts", @"General", @"Show success on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show success on launch", NO)) {
         [[WMFAlertManager sharedInstance] showSuccessAlert:@"You are successful" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
-    if (FBTweakValue(@"Alerts", @"General", @"Show message on lanuch", NO)) {
+    if (FBTweakValue(@"Alerts", @"General", @"Show message on launch", NO)) {
         [[WMFAlertManager sharedInstance] showAlert:@"You have been notified" sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
 }
@@ -221,13 +220,13 @@ static dispatch_once_t launchToken;
         void (^ handleSelection)() = ^void () {
             @strongify(self)
             if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [self.exploreViewController wmf_showSearchAnimated:YES delegate:self.exploreViewController];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [self showRandomArticleAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-                [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
                 [self showNearbyListAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
@@ -301,7 +300,7 @@ static dispatch_once_t launchToken;
     }
 
     if (fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingExploreScreen) {
-        if (![self exploreViewControllerIsDisplayingContent] && [self.tabBarController selectedIndex] == WMFAppTabTypeExplore) {
+        if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
             return YES;
         }
     }
@@ -455,7 +454,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 #pragma mark - Explore VC
 
 - (void)showExplore {
-    [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
 }
 
@@ -467,13 +466,13 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
             return;
         }
-        [self.tabBarController setSelectedIndex:WMFAppTabTypeExplore];
+        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
         [self.exploreViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore animated:animated];
     }
 }
 
 - (MWKTitle*)onscreenTitle {
-    UINavigationController* navVC = [self navigationControllerForTab:self.tabBarController.selectedIndex];
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     if ([navVC.topViewController isKindOfClass:[WMFArticleContainerViewController class]]) {
         return ((WMFArticleContainerViewController*)navVC.topViewController).articleTitle;
     }
@@ -493,9 +492,9 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {
-    MWKSite* site                           = [self.session searchSite];
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
-    [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:YES];
+    MWKSite* site                   = [self.session searchSite];
+    WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
+    [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
 
 #pragma mark - House Keeping
@@ -549,9 +548,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-    // TODO: remove if not used never more
-//    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-//    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
+    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
+    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
 }
 
 #pragma mark - Notifications
@@ -565,8 +563,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController*)navigationController
       willShowViewController:(UIViewController*)viewController
                     animated:(BOOL)animated {
-    BOOL isToolbarEmpty = [viewController toolbarItems].count == 0;
-    [navigationController setToolbarHidden:isToolbarEmpty];
+    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 @end

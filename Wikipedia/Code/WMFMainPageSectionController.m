@@ -139,6 +139,10 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return @"Main Page";
 }
 
+- (CGFloat)estimatedRowHeight {
+    return [WMFMainPageTableViewCell estimatedRowHeight];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END

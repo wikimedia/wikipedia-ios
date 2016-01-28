@@ -31,14 +31,11 @@
     return self;
 }
 
-- (BOOL)isEqual:(id)object {
-    if (self == object) {
-        return YES;
-    } else if ([object isKindOfClass:[self class]]) {
-        return WMF_EQUAL(self.entries, isEqualToArray:, [(MWKList*)object entries]);
-    } else {
-        return NO;
++ (MTLPropertyStorage)storageBehaviorForPropertyWithKey:(NSString*)propertyKey {
+    if ([propertyKey isEqualToString:WMF_SAFE_KEYPATH([MWKList new], mutableEntries)]) {
+        return MTLPropertyStoragePermanent;
     }
+    return MTLPropertyStorageNone;
 }
 
 - (NSString*)description {

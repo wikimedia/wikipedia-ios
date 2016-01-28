@@ -47,6 +47,10 @@
     [super tearDown];
 }
 
++ (NSArray<NSInvocation*>*)testInvocations {
+    return [[NSProcessInfo processInfo] wmf_isTravis] ? @[] : [super testInvocations];
+}
+
 - (void)testSuccessfulFetchWritesArticleToDataStoreWithoutDuplicatingData {
     MWKSite* site        = [MWKSite siteWithDomain:@"wikipedia.org" language:@"en"];
     MWKTitle* dummyTitle = [site titleWithString:@"Foo"];

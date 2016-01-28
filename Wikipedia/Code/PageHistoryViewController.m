@@ -13,7 +13,6 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "PageHistoryFetcher.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 
@@ -51,8 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){

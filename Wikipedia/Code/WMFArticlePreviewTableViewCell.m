@@ -97,8 +97,8 @@
 }
 
 - (void)removeDescriptionVerticalPadding {
-    self.paddingConstraintAboveDescription.constant = 0;
-    self.paddingConstraintBelowDescription.constant = 0;
+    self.paddingConstraintAboveDescription.constant = 0.0f;
+    self.paddingConstraintBelowDescription.constant = 6.0f;
 }
 
 - (void)restoreDescriptionVerticalPadding {
@@ -128,8 +128,8 @@
         pStyle.lineBreakMode = NSLineBreakByTruncatingTail;
         pStyle.baseWritingDirection = NSWritingDirectionNatural;
         pStyle.lineHeightMultiple = 1.35;
-        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0],
-                       NSForegroundColorAttributeName: [UIColor blackColor],
+        attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:14.0],
+                       NSForegroundColorAttributeName: [UIColor darkGrayColor],
                        NSParagraphStyleAttributeName: pStyle};
     });
     return attributes;
@@ -182,6 +182,12 @@
 - (void)setSaveableTitle:(MWKTitle*)title savedPageList:(MWKSavedPageList*)savedPageList {
     self.saveButtonController.savedPageList = savedPageList;
     self.saveButtonController.title         = title;
+}
+
+#pragma mark - Height Estimation
+
++ (CGFloat)estimatedRowHeight {
+    return 345.f;
 }
 
 @end

@@ -2,7 +2,6 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "MenuLabel.h"
-#import "WikiGlyph_Chars.h"
 #import "Defines.h"
 #import "UIFont+WMFStyle.h"
 
@@ -61,26 +60,12 @@
 - (void)setText:(NSString*)text {
     UIFont* font = (self.fontBold) ? [UIFont boldSystemFontOfSize : self.fontSize] :[UIFont systemFontOfSize:self.fontSize];
 
-    NSMutableDictionary* attributes =
-        @{
-        NSFontAttributeName: font,
-        NSForegroundColorAttributeName: self.color
-    }.mutableCopy;
-
-    // Quick hack to allow WikiGlyph check character buttons.
-    // (Would be nice to have a "isWikiGlyph" function which would determine if a
-    // single character string was a WikiGlyph rather than using isEqualToString.)
-    if ([text isEqualToString:WIKIGLYPH_TICK]) {
-        self.adjustsFontSizeToFitWidth  = NO;
-        attributes[NSFontAttributeName] = [UIFont wmf_glyphFontOfSize:self.fontSize];
-        NSMutableParagraphStyle* paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-        paragraphStyle.alignment                  = NSTextAlignmentCenter;
-        attributes[NSParagraphStyleAttributeName] = paragraphStyle;
-    }
-
     self.attributedText =
         [[NSAttributedString alloc] initWithString:text
-                                        attributes:attributes];
+                                        attributes:@{
+             NSFontAttributeName: font,
+             NSForegroundColorAttributeName: self.color
+         }];
 }
 
 @end
