@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -11,11 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="361" height="346"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="361" height="345"/>
+                <rect key="frame" x="0.0" y="0.0" width="361" height="345.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="owd-9L-ejU">
-                        <rect key="frame" x="18" y="24" width="325" height="160"/>
+                        <rect key="frame" x="13" y="13" width="335" height="160"/>
                         <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -35,44 +35,44 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oU4-K5-u5M" userLabel="Title Label">
-                        <rect key="frame" x="18" y="198" width="325" height="29"/>
-                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
+                        <rect key="frame" x="13" y="187" width="335" height="24"/>
+                        <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="21"/>
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fv1-CZ-slW" userLabel="Description Label">
-                        <rect key="frame" x="18" y="231" width="325" height="19"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" white="0.60342281880000004" alpha="1" colorSpace="calibratedWhite"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fv1-CZ-slW" userLabel="Description Label">
+                        <rect key="frame" x="13" y="215" width="335" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.56862745098039214" green="0.59215686274509804" blue="0.63921568627450975" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIr-xI-hgr" userLabel="Summary Label">
-                        <rect key="frame" x="18" y="255" width="325" height="20"/>
-                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
-                        <color key="textColor" red="0.1179822162" green="0.1180102006" blue="0.11798047270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="13" y="238" width="335" height="17"/>
+                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dw6-G9-a5t" customClass="WMFTextualSaveButton">
-                        <rect key="frame" x="18" y="295" width="325" height="30"/>
+                        <rect key="frame" x="13" y="275" width="335" height="52.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Dw6-G9-a5t" secondAttribute="bottom" constant="20" id="5QY-Pz-9c7"/>
+                    <constraint firstAttribute="bottom" secondItem="Dw6-G9-a5t" secondAttribute="bottom" constant="18" id="5QY-Pz-9c7"/>
                     <constraint firstItem="Fv1-CZ-slW" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="Fh9-xm-cRY"/>
-                    <constraint firstItem="owd-9L-ejU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="GNk-Wg-WeK"/>
+                    <constraint firstItem="owd-9L-ejU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="GNk-Wg-WeK"/>
                     <constraint firstItem="Dw6-G9-a5t" firstAttribute="top" secondItem="zIr-xI-hgr" secondAttribute="bottom" constant="20" id="GoB-IW-fHB"/>
                     <constraint firstItem="Dw6-G9-a5t" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="H4W-PI-Akf"/>
                     <constraint firstItem="zIr-xI-hgr" firstAttribute="leading" secondItem="oU4-K5-u5M" secondAttribute="leading" id="NE7-ZG-P1g"/>
                     <constraint firstItem="zIr-xI-hgr" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="SDn-bL-rUj"/>
-                    <constraint firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" constant="18" id="U9x-vi-00m"/>
-                    <constraint firstItem="oU4-K5-u5M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="cUT-bg-qEm"/>
+                    <constraint firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" constant="13" id="U9x-vi-00m"/>
+                    <constraint firstItem="oU4-K5-u5M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="cUT-bg-qEm"/>
                     <constraint firstItem="Dw6-G9-a5t" firstAttribute="leading" secondItem="zIr-xI-hgr" secondAttribute="leading" id="fgt-i9-3Lb"/>
                     <constraint firstItem="Fv1-CZ-slW" firstAttribute="top" secondItem="oU4-K5-u5M" secondAttribute="bottom" constant="4" id="tNo-se-rTn"/>
                     <constraint firstItem="oU4-K5-u5M" firstAttribute="trailing" secondItem="owd-9L-ejU" secondAttribute="trailing" id="tSk-DO-1o3"/>
                     <constraint firstItem="oU4-K5-u5M" firstAttribute="top" secondItem="owd-9L-ejU" secondAttribute="bottom" constant="14" id="tlh-j8-jaJ"/>
-                    <constraint firstItem="zIr-xI-hgr" firstAttribute="top" secondItem="Fv1-CZ-slW" secondAttribute="bottom" constant="4" id="ueI-bG-lNw"/>
+                    <constraint firstItem="zIr-xI-hgr" firstAttribute="top" secondItem="Fv1-CZ-slW" secondAttribute="bottom" constant="6" id="ueI-bG-lNw"/>
                     <constraint firstItem="Fv1-CZ-slW" firstAttribute="trailing" secondItem="oU4-K5-u5M" secondAttribute="trailing" id="v0a-5Q-iky"/>
                     <constraint firstItem="oU4-K5-u5M" firstAttribute="leading" secondItem="owd-9L-ejU" secondAttribute="leading" id="vaJ-H3-gah"/>
                 </constraints>

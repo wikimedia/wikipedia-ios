@@ -110,7 +110,7 @@
     self.saveTextLabel                      = [UILabel new];
     self.saveTextLabel.numberOfLines        = 1;
     self.saveTextLabel.textAlignment        = NSTextAlignmentNatural;
-    self.saveTextLabel.font                 = [UIFont systemFontOfSize:18.f];
+    self.saveTextLabel.font                 = [UIFont boldSystemFontOfSize:14.f];
     self.saveTextLabel.highlightedTextColor = [UIColor lightGrayColor];
     self.saveTextLabel.tintAdjustmentMode   = UIViewTintAdjustmentModeAutomatic;
     [self.saveTextLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];

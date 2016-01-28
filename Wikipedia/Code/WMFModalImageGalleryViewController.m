@@ -274,6 +274,8 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     self.infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [self.infoButton addTarget:self action:@selector(didTapInfoButton) forControlEvents:UIControlEventTouchUpInside];
     self.infoButton.tintColor = [UIColor whiteColor];
+    // NOTE(bgerstle): info button starts hidden, and is conditionally revealed once info is downloaded for the current image
+    self.infoButton.hidden = YES;
     [self.view addSubview:self.infoButton];
     [self.infoButton mas_makeConstraints:^(MASConstraintMaker* make) {
         make.width.and.height.mas_equalTo(60.f);
@@ -335,7 +337,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                     animations:^{
         self.topGradientView.hidden = [self isChromeHidden];
         self.closeButton.hidden = [self isChromeHidden];
-        self.infoButton.hidden = [self isChromeHidden];
+        [self updateInfoButtonVisibility];
         for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
             [self updateDetailVisibilityForCellAtIndexPath:indexPath animated:NO];
         }
@@ -368,12 +370,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 #pragma mark - File Info
 
 - (void)updateInfoButtonVisibility {
-    NSAssert(self.collectionView.indexPathsForVisibleItems.count == 1,
-             @"Expected paging collection view to only have one visible item at time, got %@",
-             self.collectionView.indexPathsForVisibleItems);
-    NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
+    NSIndexPath* visibleIndexPath = [NSIndexPath indexPathForItem:self.currentPage inSection:0];
     self.infoButton.hidden =
-        self.isChromeHidden && [[self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath] filePageURL] != nil;
+        self.isChromeHidden
+        || [[self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath] filePageURL] == nil;
 }
 
 - (void)didTapInfoButton {
@@ -383,6 +383,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
     NSParameterAssert(visibleIndexPath);
     MWKImageInfo* info = [self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath];
+    NSParameterAssert(info);
     [self wmf_openExternalUrl:info.filePageURL];
 }
 
@@ -398,11 +399,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return gestureRecognizer == self.chromeTapGestureRecognizer;
 }
 
-#pragma mark - WMFPageCollectionViewController
+#pragma mark - WMFPagingCollectionViewController 
 
-- (void)applyCurrentPage:(BOOL)animated {
-    [super applyCurrentPage:animated];
-    [self updateInfoButtonVisibility];
+- (void)primitiveSetCurrentPage:(NSUInteger)page {
+   [super primitiveSetCurrentPage:page];
+   [self updateInfoButtonVisibility];
 }
 
 #pragma mark - CollectionView

@@ -41,7 +41,7 @@ Text overflow is also an important consideration when designing and implementing
 We run a certain set of tests across multiple operating systems and locales to verify business logic, and especially views, exhibit proper conditional behavior & appearance.  From a project setup standpoint, this involves:
 
 - Running LTR tests on the main scheme on iOS 8 & 9 simulators
-- Running RTL tests in a separate, **Wikipedia Arabic** scheme on iOS 8 & 9 simulators
+- Running RTL tests in a separate, **Wikipedia RTL** scheme on iOS 8 & 9 simulators
 
 > The RTL locale & writing direction are forced in the scheme using launch arguments as described in the [Testing Right-to-Left Layouts](https://developer.apple.com/library/ios/documentation/MacOSX/Conceptual/BPInternational/TestingYourInternationalApp/TestingYourInternationalApp.html) section of Apple's "Internationalization and Localization Guide."
 

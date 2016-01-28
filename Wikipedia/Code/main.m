@@ -6,6 +6,8 @@
 #import "AppDelegate.h"
 
 #if DEBUG
+#import "WikipediaAppUtils.h"
+
 /**
  *  Dummy application delegate for use in unit testing.
  *
@@ -23,6 +25,13 @@
         _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     return _window;
+}
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions {
+    // HAX: usually session singleton does this, but we need to do it manually before any tests run to ensure
+    // things like languages.json are available
+    [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];
+    return YES;
 }
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(nullable NSDictionary*)launchOptions {

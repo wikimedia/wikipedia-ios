@@ -359,10 +359,27 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-NSForceRightToLeftWritingDirection YES&#10;"
-            isEnabled = "NO">
+            argument = "-WMFVisualTestBatchRecordMode NO"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "FB_REFERENCE_IMAGE_DIR"
+            value = "$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "TRAVIS"
+            value = "$(TRAVIS)"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "WMF_FIXTURE_DIRECTORY"
+            value = "$(SOURCE_ROOT)/WikipediaUnitTests/Fixtures"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

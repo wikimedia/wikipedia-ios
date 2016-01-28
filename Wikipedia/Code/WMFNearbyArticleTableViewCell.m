@@ -52,7 +52,7 @@
     self.articleImageView.layer.borderWidth         = 1.0 / [UIScreen mainScreen].scale;
     self.articleImageView.layer.borderColor         = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
-    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_nearbyDistanceBackgroundColor];
+    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_customGray];
     self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
     self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
     [self wmf_addSelectedBackgroundView];
@@ -158,7 +158,7 @@
 
     return [[NSAttributedString alloc] initWithString:self.descriptionText attributes:@{
                 NSFontAttributeName: [UIFont wmf_nearbyDescriptionFont],
-                NSForegroundColorAttributeName: [UIColor wmf_nearbyDescriptionColor],
+                NSForegroundColorAttributeName: [UIColor wmf_customGray],
                 NSParagraphStyleAttributeName: paragraphStyle
             }];
 }
