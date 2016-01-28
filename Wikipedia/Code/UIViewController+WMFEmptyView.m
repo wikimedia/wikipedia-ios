@@ -15,9 +15,7 @@
 static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 
 - (UIView*)wmf_emptyView {
-    CFTypeRef viewKeyRef = CFBridgingRetain(WMFEmptyViewKey);
-    id valueToReturn = [self bk_associatedValueForKey:viewKeyRef];
-    CFRelease(viewKeyRef);
+    id valueToReturn = [self bk_associatedValueForKey:(__bridge const void *)(WMFEmptyViewKey)];
     
     return valueToReturn;
 }
@@ -65,9 +63,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
         make.bottom.equalTo(container);
         make.leading.and.trailing.equalTo(container);
     }];
-    CFTypeRef viewKeyRef = CFBridgingRetain(WMFEmptyViewKey);
-    [self bk_associateValue:view withKey:viewKeyRef];
-    CFRelease(viewKeyRef);
+    [self bk_associateValue:view withKey:(__bridge const void *)(WMFEmptyViewKey)];
 }
 
 - (void)wmf_hideEmptyView {
@@ -77,9 +73,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
     UIView* view = [self wmf_emptyView];
     [view removeFromSuperview];
 
-    CFTypeRef viewKeyRef = CFBridgingRetain(WMFEmptyViewKey);
-    [self bk_associateValue:nil withKey:viewKeyRef];
-    CFRelease(viewKeyRef);
+    [self bk_associateValue:nil withKey:(__bridge const void *)(WMFEmptyViewKey)];
 }
 
 @end
