@@ -79,11 +79,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Permissions
 
 + (BOOL)isAuthorized {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse;
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse;
 }
 
 + (BOOL)isDeniedOrDisabled {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied;
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ;
 }
 
 - (BOOL)requestAuthorizationIfNeeded {
@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    NSParameterAssert([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse);
+    NSParameterAssert([WMFLocationManager isAuthorized]);
 
     DDLogVerbose(@"%@ will start location & heading updates.", self);
 
