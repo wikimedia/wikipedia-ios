@@ -581,9 +581,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [controller registerCellsInTableView:self.tableView];
 
-    [self.KVOController unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
+    [self.KVOControllerNonRetaining unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
 
-    [self.KVOController observe:controller keyPath:WMF_SAFE_KEYPATH(controller, items) options:0 block:^(WMFExploreViewController* observer, id < WMFExploreSectionController > object, NSDictionary* change) {
+    [self.KVOControllerNonRetaining observe:controller keyPath:WMF_SAFE_KEYPATH(controller, items) options:0 block:^(WMFExploreViewController* observer, id < WMFExploreSectionController > object, NSDictionary* change) {
         NSUInteger sectionIndex = [observer indexForSectionController:controller];
         if (sectionIndex == NSNotFound) {
             return;
