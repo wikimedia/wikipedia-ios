@@ -129,12 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
     
     self.schemaManager = nil;
     [self createSectionSchemaIfNeeded];
-    
-    if (![self updateSectionSchemaForce:NO]) {
-        [self reloadSectionControllers];
-    }
-
-
 }
 
 - (WMFExploreSectionControllerCache*)sectionControllerCache {
@@ -548,10 +542,12 @@ NS_ASSUME_NONNULL_BEGIN
                                                      history:self.recentPages
                                                    blackList:[WMFRelatedSectionBlackList sharedBlackList]];
     self.schemaManager.delegate = self;
+    [self loadSectionControllersForCurrentSectionSchema];
     [self updateSectionSchemaForce:NO];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView reloadData];
+
 }
 
 
@@ -602,13 +598,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Loading
 
-- (void)reloadSectionControllers {
+- (void)loadSectionControllersForCurrentSectionSchema {
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
         id<WMFExploreSectionController> controller = [self.sectionControllerCache controllerForSection:obj];
         [self loadSectionForSectionController:controller];
     }];
-
-    [self.tableView reloadData];
 }
 
 - (void)loadSectionForSectionController:(id<WMFExploreSectionController>)controller {
@@ -714,7 +708,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
     [self wmf_hideEmptyView];
-    [self reloadSectionControllers];
+    [self loadSectionControllersForCurrentSectionSchema];
+    [self.tableView reloadData];
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
