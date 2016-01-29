@@ -93,7 +93,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.navigationItem.titleView                        = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"W"]];
+        UIButton* b = [UIButton buttonWithType:UIButtonTypeCustom];
+        [b adjustsImageWhenHighlighted];
+        UIImage* w = [UIImage imageNamed:@"W"];
+        [b setImage:w forState:UIControlStateNormal];
+        [b sizeToFit];
+        @weakify(self);
+        [b bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            [self.tableView setContentOffset:CGPointZero animated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.titleView                        = b;
         self.navigationItem.titleView.isAccessibilityElement = YES;
         self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-accessibility-label", nil);
         self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
