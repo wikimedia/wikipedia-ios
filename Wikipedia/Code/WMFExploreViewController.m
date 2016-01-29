@@ -311,7 +311,13 @@ NS_ASSUME_NONNULL_BEGIN
     SCNetworkReachability().then(^{
         @strongify(self);
         [self wmf_hideEmptyView];
-        [self reloadSectionControllers];
+        [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            @weakify(self);
+            [obj fetchDataIfError].catch(^(NSError* error){
+                @strongify(self);
+                [self showOfflineEmptyViewAndReloadWhenReachable];
+            });
+        }];
     });
 }
 
@@ -571,9 +577,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fetchSectionIfShowing:(id<WMFExploreSectionController>)controller {
     if ([self isDisplayingCellsForSectionController:controller]) {
         DDLogVerbose(@"Fetching section after delay: %@", controller);
-        [controller fetchDataIfNeeded].finally(^{
+        @weakify(self);
+        [controller fetchDataIfNeeded].catch(^(NSError* error){
+            @strongify(self);
+            [self showOfflineEmptyViewAndReloadWhenReachable];
+        }).finally(^{
             [self resetRefreshControlWithCompletion:NULL];
         });
+
     } else {
         DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
     }
