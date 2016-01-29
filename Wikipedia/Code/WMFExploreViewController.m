@@ -126,26 +126,15 @@ NS_ASSUME_NONNULL_BEGIN
 
     _searchSite = searchSite;
     _dataStore  = dataStore;
-
-    //Only reset the schemaManager and reload the table if it was already created
-    if (_schemaManager) {
-        self.schemaManager = nil;
-        if (![self updateSectionSchemaIfNeeded]) {
-            [self reloadSectionControllers];
-        }
+    
+    self.schemaManager = nil;
+    [self createSectionSchemaIfNeeded];
+    
+    if (![self updateSectionSchemaForce:NO]) {
+        [self reloadSectionControllers];
     }
-}
 
-- (WMFExploreSectionSchema*)schemaManager {
-    NSParameterAssert(self.dataStore);
-    if (!_schemaManager) {
-        _schemaManager = [WMFExploreSectionSchema schemaWithSite:self.searchSite
-                                                      savedPages:self.savedPages
-                                                         history:self.recentPages
-                                                       blackList:[WMFRelatedSectionBlackList sharedBlackList]];
-        _schemaManager.delegate = self;
-    }
-    return _schemaManager;
+
 }
 
 - (WMFExploreSectionControllerCache*)sectionControllerCache {
@@ -245,15 +234,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
 
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-        if (![self updateSectionSchemaForce:NO]) {
-            [self reloadSectionControllers];
-        }
-    });
+    [self createSectionSchemaIfNeeded];
 
     [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
@@ -500,20 +481,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-#pragma mark - Delayed Fetching
-
-- (void)fetchSectionIfShowing:(id<WMFExploreSectionController>)controller {
-    if ([self isDisplayingCellsForSectionController:controller]) {
-        DDLogVerbose(@"Fetching section after delay: %@", controller);
-        [controller fetchDataIfNeeded].finally(^{
-            [self resetRefreshControlWithCompletion:NULL];
-        });
-    } else {
-        DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
-    }
-}
-
-#pragma mark - Section Update
+#pragma mark - Refresh Control
 
 - (NSString*)lastUpdatedString {
     if (!self.schemaManager.lastUpdatedAt) {
@@ -550,16 +518,78 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
+#pragma mark - Create Schema
+
+- (void)createSectionSchemaIfNeeded{
+    if(self.schemaManager){
+        return;
+    }
+    if(!self.searchSite){
+        return;
+    }
+    if(!self.savedPages){
+        return;
+    }
+    if(!self.recentPages){
+        return;
+    }
+    if(!self.isViewLoaded){
+        return;
+    }
+    
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:self.searchSite
+                                                  savedPages:self.savedPages
+                                                     history:self.recentPages
+                                                   blackList:[WMFRelatedSectionBlackList sharedBlackList]];
+    self.schemaManager.delegate = self;
+    [self updateSectionSchemaForce:NO];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - Section Update
+
 - (BOOL)updateSectionSchemaIfNeeded {
     return [self updateSectionSchemaForce:NO];
 }
 
 - (BOOL)updateSectionSchemaForce:(BOOL)force {
+    if(!self.schemaManager){
+        return NO;
+    }
+    if(!self.isViewLoaded){
+        return NO;
+    }
     [self.refreshControl beginRefreshing];
     return [self.schemaManager update:force];
 }
 
-#pragma mark - Section Management
+#pragma mark - Delayed Fetching
+
+- (void)fetchSectionIfShowing:(id<WMFExploreSectionController>)controller {
+    if ([self isDisplayingCellsForSectionController:controller]) {
+        DDLogVerbose(@"Fetching section after delay: %@", controller);
+        [controller fetchDataIfNeeded].finally(^{
+            [self resetRefreshControlWithCompletion:NULL];
+        });
+    } else {
+        DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
+    }
+}
+
+#pragma mark - Section Info
+
+- (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
+    return [self.sectionControllerCache controllerForSection:self.schemaManager.sections[index]];
+}
+
+- (NSInteger)indexForSectionController:(id<WMFExploreSectionController>)controller {
+    return [self.schemaManager.sections indexOfObject:[self.sectionControllerCache sectionForController:controller]];
+}
+
+#pragma mark - Section Loading
 
 - (void)reloadSectionControllers {
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
@@ -568,14 +598,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     [self.tableView reloadData];
-}
-
-- (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    return [self.sectionControllerCache controllerForSection:self.schemaManager.sections[index]];
-}
-
-- (NSInteger)indexForSectionController:(id<WMFExploreSectionController>)controller {
-    return [self.schemaManager.sections indexOfObject:[self.sectionControllerCache sectionForController:controller]];
 }
 
 - (void)loadSectionForSectionController:(id<WMFExploreSectionController>)controller {
