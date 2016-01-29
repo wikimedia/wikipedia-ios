@@ -67,7 +67,6 @@
 		B0E802CD1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CA1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m */; };
 		B0E802D21C0CD35B0065EBC0 /* WMFExploreSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */; };
 		B0E802D31C0CD35B0065EBC0 /* WMFExploreSectionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802D11C0CD35B0065EBC0 /* WMFExploreSectionSchema.m */; };
-		B0E802D61C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802D51C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.m */; };
 		B0E802DD1C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802D91C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m */; };
 		B0E802DE1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802DB1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m */; };
 		B0E802DF1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802DC1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib */; };
@@ -754,8 +753,6 @@
 		B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSection.m; path = Wikipedia/Code/WMFExploreSection.m; sourceTree = SOURCE_ROOT; };
 		B0E802D01C0CD35B0065EBC0 /* WMFExploreSectionSchema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionSchema.h; path = Wikipedia/Code/WMFExploreSectionSchema.h; sourceTree = SOURCE_ROOT; };
 		B0E802D11C0CD35B0065EBC0 /* WMFExploreSectionSchema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSectionSchema.m; path = Wikipedia/Code/WMFExploreSectionSchema.m; sourceTree = SOURCE_ROOT; };
-		B0E802D41C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SSSectionedDataSource+WMFSectionConvenience.h"; path = "Wikipedia/Code/SSSectionedDataSource+WMFSectionConvenience.h"; sourceTree = SOURCE_ROOT; };
-		B0E802D51C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SSSectionedDataSource+WMFSectionConvenience.m"; path = "Wikipedia/Code/SSSectionedDataSource+WMFSectionConvenience.m"; sourceTree = SOURCE_ROOT; };
 		B0E802D71C0CD3A30065EBC0 /* WMFExploreSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionController.h; path = Wikipedia/Code/WMFExploreSectionController.h; sourceTree = SOURCE_ROOT; };
 		B0E802D81C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFContinueReadingSectionController.h; path = Wikipedia/Code/WMFContinueReadingSectionController.h; sourceTree = SOURCE_ROOT; };
 		B0E802D91C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFContinueReadingSectionController.m; path = Wikipedia/Code/WMFContinueReadingSectionController.m; sourceTree = SOURCE_ROOT; };
@@ -2186,8 +2183,6 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				B0E802D41C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.h */,
-				B0E802D51C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.m */,
 				BC45D5861C32F823007C72F3 /* Collections */,
 				BC45D57F1C32F650007C72F3 /* Time & Date */,
 				BC45D5851C32F813007C72F3 /* Strings */,
@@ -5605,7 +5600,6 @@
 				B0E802C11C0CD27F0065EBC0 /* WMFAppViewController.m in Sources */,
 				B0E805561C0CE0DC0065EBC0 /* UIView+RemoveConstraints.m in Sources */,
 				B0E806F91C0CEBC70065EBC0 /* SectionEditorViewController.m in Sources */,
-				B0E802D61C0CD3940065EBC0 /* SSSectionedDataSource+WMFSectionConvenience.m in Sources */,
 				BCA15AF41C0E724E00D0A3EA /* SSBaseDataSource+WMFLayoutDirectionUtilities.m in Sources */,
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,
