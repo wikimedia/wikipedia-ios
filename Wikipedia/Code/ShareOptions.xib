@@ -86,6 +86,9 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="accessibilityViewIsModal" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="cardImageView" destination="03i-BN-coA" id="RBr-MU-eHs"/>
                 <outlet property="cardImageViewContainer" destination="hVy-ZG-x1g" id="kaq-LC-CXb"/>

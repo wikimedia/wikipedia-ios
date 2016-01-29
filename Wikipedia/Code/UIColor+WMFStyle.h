@@ -41,6 +41,8 @@
 
 + (instancetype)wmf_999999Color;
 
++ (instancetype)wmf_customGray;
+
 + (instancetype)wmf_placeholderImageTintColor;
 
 + (instancetype)wmf_placeholderImageBackgroundColor;

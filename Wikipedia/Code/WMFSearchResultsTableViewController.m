@@ -74,7 +74,7 @@
 }
 
 - (WMFEmptyViewType)emptyViewType {
-    return WMFEmptyViewTypeNoSearchResults;
+    return WMFEmptyViewTypeNone; //Is controlled by the search VC
 }
 
 @end

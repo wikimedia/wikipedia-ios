@@ -6,6 +6,7 @@
 #import "WMFNetworkUtilities.h"
 #import "MWKTitle.h"
 #import "UIScreen+WMFImageWidth.h"
+#import "WMFUtilityMacros.h"
 
 @implementation WMFArticleRequestSerializer
 
@@ -95,7 +96,7 @@ static BOOL _headerSent = NO;
 }
 
 - (BOOL)urlIsReachableOverCellularNetwork:(NSURL*)url {
-    SCNetworkReachabilityRef reachabilityRef =
+    SCNetworkReachabilityRef WMFReleaseOnExit reachabilityRef =
         SCNetworkReachabilityCreateWithName(NULL, [[url host] UTF8String]);
     SCNetworkReachabilityFlags reachabilityFlags;
     SCNetworkReachabilityGetFlags(reachabilityRef, &reachabilityFlags);

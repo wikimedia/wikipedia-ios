@@ -38,6 +38,7 @@
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFNearbyListViewController.h"
 #import "UIViewController+WMFSearch.h"
+#import "UINavigationController+WMFHideEmptyToolbar.h"
 
 #import "AppDelegate.h"
 #import "WMFRandomSectionController.h"
@@ -562,8 +563,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)navigationController:(UINavigationController*)navigationController
       willShowViewController:(UIViewController*)viewController
                     animated:(BOOL)animated {
-    BOOL isToolbarEmpty = [viewController toolbarItems].count == 0;
-    [navigationController setToolbarHidden:isToolbarEmpty];
+    [navigationController wmf_hideToolbarIfViewControllerHasNoToolbarItems:viewController];
 }
 
 @end
