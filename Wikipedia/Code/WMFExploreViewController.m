@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     _searchSite = searchSite;
     _dataStore  = dataStore;
-    
+
     self.schemaManager = nil;
     [self createSectionSchemaIfNeeded];
 }
@@ -305,7 +305,7 @@ NS_ASSUME_NONNULL_BEGIN
     SCNetworkReachability().then(^{
         @strongify(self);
         [self wmf_hideEmptyView];
-        [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             @weakify(self);
             [obj fetchDataIfError].catch(^(NSError* error){
                 @strongify(self);
@@ -443,7 +443,7 @@ NS_ASSUME_NONNULL_BEGIN
         return i.section == indexPath.section;
     }];
 
-    //the cell dissappearing may still appear in this list
+    //the cell disappearing may still appear in this list
     visibleIndexPathsInSection = [visibleIndexPathsInSection bk_reject:^BOOL (id obj) {
         return [indexPath isEqual:obj];
     }];
@@ -520,36 +520,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Create Schema
 
-- (void)createSectionSchemaIfNeeded{
-    if(self.schemaManager){
+- (void)createSectionSchemaIfNeeded {
+    if (self.schemaManager) {
         return;
     }
-    if(!self.searchSite){
+    if (!self.searchSite) {
         return;
     }
-    if(!self.savedPages){
+    if (!self.savedPages) {
         return;
     }
-    if(!self.recentPages){
+    if (!self.recentPages) {
         return;
     }
-    if(!self.isViewLoaded){
+    if (!self.isViewLoaded) {
         return;
     }
-    
+
     self.schemaManager = [WMFExploreSectionSchema schemaWithSite:self.searchSite
-                                                  savedPages:self.savedPages
-                                                     history:self.recentPages
-                                                   blackList:[WMFRelatedSectionBlackList sharedBlackList]];
+                                                      savedPages:self.savedPages
+                                                         history:self.recentPages
+                                                       blackList:[WMFRelatedSectionBlackList sharedBlackList]];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
     [self updateSectionSchemaForce:NO];
     self.tableView.dataSource = self;
-    self.tableView.delegate = self;
+    self.tableView.delegate   = self;
     [self.tableView reloadData];
-
 }
-
 
 #pragma mark - Section Update
 
@@ -558,10 +556,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)updateSectionSchemaForce:(BOOL)force {
-    if(!self.schemaManager){
+    if (!self.schemaManager) {
         return NO;
     }
-    if(!self.isViewLoaded){
+    if (!self.isViewLoaded) {
         return NO;
     }
     [self.refreshControl beginRefreshing];
@@ -580,7 +578,6 @@ NS_ASSUME_NONNULL_BEGIN
         }).finally(^{
             [self resetRefreshControlWithCompletion:NULL];
         });
-
     } else {
         DDLogInfo(@"Section for controller %@ is no longer visible, skipping fetch.", controller);
     }

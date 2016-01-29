@@ -62,13 +62,13 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 - (NSString*)cellIdentifier {
     @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
+                                   reason:@"Method must be implemented by subclass"
                                  userInfo:nil];
 }
 
 - (UINib*)cellNib {
     @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
+                                   reason:@"Method must be implemented by subclass"
                                  userInfo:nil];
 }
 
@@ -89,7 +89,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 - (void)configureCell:(UITableViewCell*)cell withItem:(id)item atIndexPath:(nonnull NSIndexPath*)indexPath {
     @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
+                                   reason:@"Method must be implemented by subclass"
                                  userInfo:nil];
 }
 

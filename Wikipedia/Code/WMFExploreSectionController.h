@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The text to be displayed in the header.
  *  Note this is an attributed stirng to allow links to be embeded
- *  Additional styling will be added bfore display time.
+ *  Additional styling will be added before display time.
  *
  *  @return The header string
  */
