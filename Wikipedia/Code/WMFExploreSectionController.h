@@ -17,6 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (AnyPromise*)fetchDataIfNeeded;
 
+/**
+ *  Called to update data if no items and previously recieved an error
+ */
+- (AnyPromise*)fetchDataIfError;
 
 /**
  *  Called to update data no matter what state

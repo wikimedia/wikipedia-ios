@@ -8,7 +8,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Base implementation of WMFExploreSectionController protocol
- *  See WMFExploreSectionController.h for further documentation
+ *  This class implements many of the WMFExploreSectionController methods needed for conformance.
+ *  Read each category below to see what is implmeneted and what is not.
+ *
+ *  See WMFExploreSectionController.h for further documentation.
  */
 @interface WMFBaseExploreSectionController : NSObject
 
@@ -89,8 +92,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFBaseExploreSectionController (WMFExploreSectionControllerOverrideMethods)
 
+/**
+ *  Clears the current items. Override if you need to perform additional cleanup.
+ */
 - (void)resetData;
 
+/**
+ *  Returns no for placeholders and empty cells. Otehrwise YES
+ *  Override if you need to further customize this behavior.
+ */
 - (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
 
 /**
@@ -109,6 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray* items;
 
 - (AnyPromise*)fetchDataIfNeeded;
+
+- (AnyPromise*)fetchDataIfError;
 
 - (AnyPromise*)fetchDataUserInitiated;
 

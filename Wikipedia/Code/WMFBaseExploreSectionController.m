@@ -153,17 +153,21 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 }
 
 - (AnyPromise*)fetchDataIfNeeded {
-    return [self fetchDataForce:NO];
+    return [self fetchDataIgnoreError:NO ignoreCurrentItems:NO];
+}
+
+- (AnyPromise*)fetchDataIfError{
+    return [self fetchDataIgnoreError:YES ignoreCurrentItems:NO];
 }
 
 - (AnyPromise*)fetchDataUserInitiated {
-    return [self fetchDataForce:YES];
+    return [self fetchDataIgnoreError:YES ignoreCurrentItems:YES];
 }
 
-- (AnyPromise*)fetchDataForce:(BOOL)force {
-    if (!force && [self lastFetchFailed]) {
+- (AnyPromise*)fetchDataIgnoreError:(BOOL)ignoreError ignoreCurrentItems:(BOOL)ignoreCurrentItems {
+    if (!ignoreError && [self lastFetchFailed]) {
         return [AnyPromise promiseWithValue:self.fetchError];
-    } else if (!force && [self hasResults]) {
+    } else if (!ignoreCurrentItems && [self hasResults]) {
         return [AnyPromise promiseWithValue:self.items];
     } else if ([self isFetching]) {
         return [AnyPromise promiseWithValue:self.items];
