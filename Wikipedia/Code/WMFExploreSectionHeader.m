@@ -7,12 +7,18 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint* rightButtonWidthConstraint;
 @property (assign, nonatomic) CGFloat rightButtonWidthConstraintConstant;
 
+@property (strong, nonatomic) IBOutlet UIImageView* icon;
+@property (strong, nonatomic) IBOutlet UIView* iconContainerView;
+@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
+
 @end
 
 @implementation WMFExploreSectionHeader
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self reset];
     self.tintColor                          = [UIColor wmf_blueTintColor];
     self.rightButtonWidthConstraintConstant = self.rightButtonWidthConstraint.constant;
     self.rightButton.hidden                 = YES;
@@ -26,8 +32,40 @@
     }];
 }
 
+-(void)setImage:(UIImage *)image {
+    _image = image;
+    self.icon.image = image;
+}
+
+-(void)setImageTintColor:(UIColor *)imageTintColor {
+    _imageTintColor = imageTintColor;
+    self.icon.tintColor = imageTintColor;
+}
+
+-(void)setImageBackgroundColor:(UIColor *)imageBackgroundColor {
+    _imageBackgroundColor = imageBackgroundColor;
+    self.iconContainerView.backgroundColor = imageBackgroundColor;
+}
+
+-(void)setTitle:(NSAttributedString *)title {
+    _title = title;
+    self.titleLabel.attributedText = title;
+}
+
+-(void)setSubTitle:(NSAttributedString *)subTitle {
+    _subTitle = subTitle;
+    self.subTitleLabel.attributedText = subTitle;
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
+    [self reset];
+}
+
+
+-(void)reset {
+    self.titleLabel.text = @"";
+    self.subTitleLabel.text = @"";
     self.rightButtonEnabled = NO;
 }
 

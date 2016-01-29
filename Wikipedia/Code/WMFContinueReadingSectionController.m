@@ -16,6 +16,8 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
+#import "WikipediaAppUtils.h"
+#import "Wikipedia-Swift.h"
 
 static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
@@ -50,8 +52,21 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return [UIImage imageNamed:@"home-continue-reading-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+}
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    NSString* relativeTimeString = [WikipediaAppUtils relativeTimestamp:[[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate]];
+    return [[NSAttributedString alloc] initWithString:relativeTimeString attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {

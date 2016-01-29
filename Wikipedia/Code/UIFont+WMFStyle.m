@@ -57,8 +57,12 @@
     return [UIFont systemFontOfSize:12.0f];
 }
 
-+ (instancetype)wmf_homeSectionHeaderFont {
-    return [UIFont systemFontOfSize:16.0];
++ (instancetype)wmf_homeSectionHeaderTitleFont {
+    return [UIFont boldSystemFontOfSize:12.0];
+}
+
++ (instancetype)wmf_homeSectionHeaderSubTitleFont {
+    return [UIFont boldSystemFontOfSize:15.0];
 }
 
 @end

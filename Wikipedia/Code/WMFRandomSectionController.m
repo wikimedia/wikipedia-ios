@@ -56,8 +56,20 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return [UIImage imageNamed:@"random-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-random", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+}
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-sub-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {

@@ -211,9 +211,9 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionHeaderHeight = 52.0;
+    self.tableView.estimatedSectionHeaderHeight = 66.0;
     self.tableView.sectionFooterHeight          = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionFooterHeight = 78.0;
+    self.tableView.estimatedSectionFooterHeight = 50.0;
 
     [self.tableView registerNib:[WMFExploreSectionHeader wmf_classNib]
      forHeaderFooterViewReuseIdentifier:[WMFExploreSectionHeader wmf_nibName]];
@@ -360,6 +360,20 @@ NS_ASSUME_NONNULL_BEGIN
     return UITableViewCellEditingStyleNone;
 }
 
+-(void)configureHeader:(WMFExploreSectionHeader*)header withStylingFromController:(id<WMFExploreSectionController>)controller {
+    header.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    header.imageTintColor = [controller headerIconTintColor];
+    header.imageBackgroundColor = [controller headerIconBackgroundColor];
+    
+    NSMutableAttributedString* title = [[controller headerTitle] mutableCopy];
+    [title addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderTitleFont] range:NSMakeRange(0, title.length)];
+    header.title = title;
+    
+    NSMutableAttributedString* subTitle = [[controller headerSubTitle] mutableCopy];
+    [subTitle addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderSubTitleFont] range:NSMakeRange(0, subTitle.length)];
+    header.subTitle = subTitle;
+}
+
 - (nullable UIView*)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section; {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     if (!controller) {
@@ -368,13 +382,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     WMFExploreSectionHeader* header = (id)[tableView dequeueReusableHeaderFooterViewWithIdentifier:[WMFExploreSectionHeader wmf_nibName]];
 
-    header.icon.image     = [[controller headerIcon] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    header.icon.tintColor = [UIColor wmf_homeSectionHeaderTextColor];
-    NSMutableAttributedString* title = [[controller headerText] mutableCopy];
-    [title addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderFont] range:NSMakeRange(0, title.length)];
-    header.titleView.attributedText = title;
-    header.titleView.tintColor      = [UIColor wmf_homeSectionHeaderLinkTextColor];
-
+    [self configureHeader:header withStylingFromController:controller];
+    
     @weakify(self);
     header.whenTapped = ^{
         @strongify(self);
@@ -412,7 +421,7 @@ NS_ASSUME_NONNULL_BEGIN
     if ([controller conformsToProtocol:@protocol(WMFMoreFooterProviding)]) {
         footer.visibleBackgroundView.alpha = 1.0;
         footer.moreLabel.text              = [(id < WMFMoreFooterProviding >)controller footerText];
-        footer.moreLabel.textColor         = [UIColor wmf_homeSectionFooterTextColor];
+        footer.moreLabel.textColor         = [UIColor wmf_exploreSectionFooterTextColor];
         @weakify(self);
         footer.whenTapped = ^{
             @strongify(self);

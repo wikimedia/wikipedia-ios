@@ -127,7 +127,7 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderTextColor {
++ (instancetype)wmf_exploreSectionHeaderTitleColor {
     static UIColor* c = nil;
 
     static dispatch_once_t onceToken;
@@ -137,8 +137,30 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionFooterTextColor {
-    return [self wmf_homeSectionHeaderTextColor];
++ (instancetype)wmf_exploreSectionHeaderSubTitleColor {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
+    });
+    return c;
+}
+
++ (instancetype)wmf_exploreSectionFooterTextColor {
+    return [self wmf_exploreSectionHeaderTitleColor];
+}
+
++ (instancetype)wmf_exploreSectionHeaderIconTintColor {
+    return [UIColor wmf_colorWithHex:0x9CA1A7 alpha:1.0];
+}
+
++ (instancetype)wmf_exploreSectionHeaderIconBackgroundColor {
+    return [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
+}
+
++ (instancetype)wmf_exploreSectionHeaderLinkTextColor {
+    return [self wmf_blueTintColor];
 }
 
 + (instancetype)wmf_blueTintColor {
@@ -159,10 +181,6 @@
         c = [UIColor colorWithRed:238.0f / 255.0f green:238.0f / 255.0f blue:238.0f / 255.0f alpha:1];
     });
     return c;
-}
-
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor {
-    return [self wmf_blueTintColor];
 }
 
 + (instancetype)wmf_nearbyArrowColor {

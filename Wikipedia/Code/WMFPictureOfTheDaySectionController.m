@@ -58,12 +58,20 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [UIImage imageNamed:@"potd-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:
-            [MWLocalizedString(@"home-potd-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                    withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.fetchedDate]]
-                                           attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-    ];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+}
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.fetchedDate] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {

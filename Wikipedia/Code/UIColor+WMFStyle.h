@@ -27,11 +27,17 @@
 
 + (instancetype)wmf_tableOfContentsSubsectionTextColor;
 
-+ (instancetype)wmf_homeSectionHeaderTextColor;
++ (instancetype)wmf_exploreSectionHeaderTitleColor;
 
-+ (instancetype)wmf_homeSectionFooterTextColor;
++ (instancetype)wmf_exploreSectionHeaderSubTitleColor;
 
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor;
++ (instancetype)wmf_exploreSectionFooterTextColor;
+
++ (instancetype)wmf_exploreSectionHeaderLinkTextColor;
+
++ (instancetype)wmf_exploreSectionHeaderIconTintColor;
+
++ (instancetype)wmf_exploreSectionHeaderIconBackgroundColor;
 
 /**
  *  Color which is used in places like cell separators & various 1px lines in the interface.

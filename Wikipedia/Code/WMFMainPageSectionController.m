@@ -13,6 +13,7 @@
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,17 +51,6 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return _siteInfoFetcher;
 }
 
-+ (NSDateFormatter*)dateFormatter {
-    static NSDateFormatter* dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    });
-    return dateFormatter;
-}
-
 #pragma mark - HomeSectionController
 
 - (id)sectionIdentifier {
@@ -71,8 +61,20 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [UIImage imageNamed:@"featured-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+}
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-main-page-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:[NSDate date]] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {
