@@ -99,24 +99,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 #pragma mark - WMFExploreSectionController
 
-- (NSString*)sectionIdentifier {
-    @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
-                                 userInfo:nil];
-}
-
-- (UIImage*)headerIcon {
-    @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
-                                 userInfo:nil];
-}
-
-- (NSAttributedString*)headerText {
-    @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
-                                 userInfo:nil];
-}
-
 - (void)registerCellsInTableView:(UITableView*)tableView {
     [tableView registerNib:[self cellNib] forCellReuseIdentifier:[self cellIdentifier]];
     if ([self placeholderCellIdentifier] && [self placeholderCellNib]) {
@@ -156,12 +138,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     }
 }
 
-- (CGFloat)estimatedRowHeight {
-    @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
-                                 userInfo:nil];
-}
-
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
     return MWKHistoryDiscoveryMethodUnknown;
 }
@@ -174,12 +150,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
         return NO;
     }
     return YES;
-}
-
-- (void)willDisplaySection {
-}
-
-- (void)didEndDisplayingSection {
 }
 
 - (AnyPromise*)fetchDataIfNeeded {
@@ -236,14 +206,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 - (void)resetData {
     self.fetchError = nil;
     [self setItemsToPlaceholders];
-}
-
-#pragma mark - WMFAnalyticsLogging
-
-- (NSString*)analyticsName {
-    @throw [NSException exceptionWithName:WMFExploreSectionControllerException
-                                   reason:@"Method mut be implemented by subclass"
-                                 userInfo:nil];
 }
 
 #pragma mark - Utility

@@ -9,6 +9,6 @@
 #import "WMFBaseExploreSectionController.h"
 
 @interface WMFPictureOfTheDaySectionController : WMFBaseExploreSectionController
-    <WMFDetailPresenting>
+    <WMFExploreSectionController, WMFDetailProviding>
 
 @end

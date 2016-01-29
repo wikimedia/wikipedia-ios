@@ -173,10 +173,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSArray<NSIndexPath*>* visibleIndexPathsInSection = [self.tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
         return i.section == indexPath.section;
     }];
-    
-    if([visibleIndexPathsInSection count] == 1 && [[visibleIndexPathsInSection firstObject] isEqual:indexPath]){
+
+    if ([visibleIndexPathsInSection count] == 1 && [[visibleIndexPathsInSection firstObject] isEqual:indexPath]) {
         return YES;
-    }else{
+    } else {
         return NO;
     }
 }
@@ -256,7 +256,9 @@ NS_ASSUME_NONNULL_BEGIN
     });
 
     [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj willDisplaySection];
+        if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
+            [obj willDisplaySection];
+        }
     }];
 
     if (self.previewingTitle) {
@@ -269,7 +271,9 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidDisappear:animated];
     // stop location manager from updating.
     [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj didEndDisplayingSection];
+        if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
+            [obj didEndDisplayingSection];
+        }
     }];
 }
 
@@ -431,7 +435,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath]) {
+    if ([controller respondsToSelector:@selector(willDisplaySection)] && (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath])) {
         [controller willDisplaySection];
     }
 
@@ -450,7 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath]) {
+    if ([controller respondsToSelector:@selector(didEndDisplayingSection)] && (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath])) {
         [controller didEndDisplayingSection];
     }
 
@@ -489,8 +493,8 @@ NS_ASSUME_NONNULL_BEGIN
             MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
             [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
         }
-    } else if ([controller conformsToProtocol:@protocol(WMFDetailPresenting)]) {
-        UIViewController* vc = [(id < WMFDetailPresenting >)controller exploreDetailViewControllerForItemAtIndexPath:indexPath];
+    } else if ([controller conformsToProtocol:@protocol(WMFDetailProviding)]) {
+        UIViewController* vc = [(id < WMFDetailProviding >)controller exploreDetailViewControllerForItemAtIndexPath:indexPath];
         NSParameterAssert(vc);
         [self presentViewController:vc animated:YES completion:NULL];
     }
@@ -726,8 +730,8 @@ NS_ASSUME_NONNULL_BEGIN
                                dataStore:[self dataStore]
                          discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
         }
-    } else if ([sectionController conformsToProtocol:@protocol(WMFDetailPresenting)]) {
-        UIViewController* vc = [(id < WMFDetailPresenting >)sectionController exploreDetailViewControllerForItemAtIndexPath:previewIndexPath];
+    } else if ([sectionController conformsToProtocol:@protocol(WMFDetailProviding)]) {
+        UIViewController* vc = [(id < WMFDetailProviding >)sectionController exploreDetailViewControllerForItemAtIndexPath:previewIndexPath];
         NSParameterAssert(vc);
         [self presentViewController:vc animated:YES completion:NULL];
     }

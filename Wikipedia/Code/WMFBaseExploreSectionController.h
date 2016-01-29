@@ -9,10 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Base implementation of WMFExploreSectionController protocol
  *  See WMFExploreSectionController.h for further documentation
- *  If a method from the WMFExploreSectionController protocol is not listed below,
- *  do not implement it as you will override base functionality
  */
-@interface WMFBaseExploreSectionController : NSObject <WMFExploreSectionController>
+@interface WMFBaseExploreSectionController : NSObject
 
 - (instancetype)initWithItems:(NSArray*)items;
 
@@ -23,27 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  The methods in this category must be implemented by all subclasses
  */
-@interface WMFBaseExploreSectionController (WMFBaseExploreRequiredMethods)
-
-- (NSString*)sectionIdentifier;
-
-
-- (UIImage*)headerIcon;
-
-- (NSAttributedString*)headerText;
-
+@interface WMFBaseExploreSectionController (WMFBaseExploreSubclassRequiredMethods)
 
 - (NSString*)cellIdentifier;
 
 - (UINib*)cellNib;
 
-
 - (void)configureCell:(UITableViewCell*)cell withItem:(id)item atIndexPath:(NSIndexPath*)indexPath;
-
-- (CGFloat)estimatedRowHeight;
-
-
-- (NSString*)analyticsName;
 
 @end
 
@@ -51,23 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  The methods in this category are optional
  */
 @interface WMFBaseExploreSectionController (WMFBaseExploreOptionalMethods)
-
-/**
- *  Called before the section is displayed
- */
-- (void)willDisplaySection;
-
-/**
- *  Called when a section goes offscreen
- */
-- (void)didEndDisplayingSection;
-
-/**
- *  Used to mark items in history
- *
- *  @return The discoveryMethod. Default is MWKHistoryDiscoveryMethodUnknown
- */
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
 
 /**
  *  Default returns a successful promise with the current items
@@ -116,5 +83,43 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @end
+
+/**
+ *  The following methods of WMFExploreSectionController are implemented by WMFBaseExploreSectionController.
+ */
+@interface WMFBaseExploreSectionController (WMFExploreSectionControllerOverrideMethods)
+
+- (void)resetData;
+
+- (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
+
+/**
+ *  Default is .Unknown
+ */
+- (MWKHistoryDiscoveryMethod)discoveryMethod;
+
+@end
+
+/**
+ *  The following methods of WMFExploreSectionController are implemented by WMFBaseExploreSectionController.
+ *  Subclasses do NOT need to implement these except to change behavior.
+ */
+@interface WMFBaseExploreSectionController (WMFExploreSectionControllerImplementedMethods)
+
+@property (nonatomic, strong, readonly) NSArray* items;
+
+- (AnyPromise*)fetchDataIfNeeded;
+
+- (AnyPromise*)fetchDataUserInitiated;
+
+- (void)registerCellsInTableView:(UITableView*)tableView;
+
+- (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
+
+- (void)configureCell:(UITableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
+
+@end
+
+
 
 NS_ASSUME_NONNULL_END

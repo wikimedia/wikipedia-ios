@@ -118,7 +118,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     });
 }
 
-#pragma mark - WMFDetailPresenting
+#pragma mark - WMFDetailProviding
 
 - (UIViewController*)exploreDetailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];

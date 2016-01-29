@@ -29,16 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetData;
 
 /**
- *  Called when a section is about to be displayed
- */
-- (void)willDisplaySection;
-
-/**
- *  Called when finished displaying a section
- */
-- (void)didEndDisplayingSection;
-
-/**
  *  Used to uniquely identify a section
  *
  *  @return The identifier
@@ -78,7 +68,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath;
 
-//- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath;
 
 /**
  *  Description
@@ -113,6 +102,18 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A discovery method.
  */
 - (MWKHistoryDiscoveryMethod)discoveryMethod;
+
+@optional
+
+/**
+ *  Called when a section is about to be displayed
+ */
+- (void)willDisplaySection;
+
+/**
+ *  Called when finished displaying a section
+ */
+- (void)didEndDisplayingSection;
 
 @end
 
@@ -189,7 +190,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  Protocol for sections which display something other than articles.
  */
-@protocol WMFDetailPresenting <NSObject>
+@protocol WMFDetailProviding <NSObject>
 
 /**
  *  Return a view controller to be presented modally when an item is tapped.
