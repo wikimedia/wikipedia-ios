@@ -403,7 +403,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                     //Without the delay there is a weird animation due to the table also reloading simultaneously
                     [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
                 });
-                [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"search-no-matches", nil) sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             }
         }
 
