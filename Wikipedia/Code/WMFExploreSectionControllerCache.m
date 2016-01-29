@@ -24,11 +24,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
+
+
 @interface WMFExploreSectionControllerCache ()
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, strong) NSMutableDictionary* sectionControllersBySection;
+@property (nonatomic, strong) NSCache* sectionControllersBySection;
+@property (nonatomic, strong) NSMapTable* sectionsBySectionController;
 
 @end
 
@@ -40,13 +44,16 @@ NS_ASSUME_NONNULL_BEGIN
     if (self) {
         self.site                        = site;
         self.dataStore                   = dataStore;
-        self.sectionControllersBySection = [NSMutableDictionary dictionary];
+        self.sectionControllersBySection = [[NSCache alloc] init];
+        self.sectionControllersBySection.countLimit = WMFExploreSectionControllerCacheLimit;
+        self.sectionsBySectionController = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory|NSMapTableObjectPointerPersonality
+                                                     valueOptions:NSMapTableWeakMemory];
     }
     return self;
 }
 
 - (id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
-    id<WMFExploreSectionController> controller = self.sectionControllersBySection[section];
+    id<WMFExploreSectionController> controller = [self.sectionControllersBySection objectForKey:section];
     if (!controller) {
         switch (section.type) {
             case WMFExploreSectionTypeHistory:
@@ -76,21 +83,14 @@ NS_ASSUME_NONNULL_BEGIN
                    a new case is added to the enum, enforcing that all sections are handled here.
                  */
         }
-        self.sectionControllersBySection[section] = controller;
+        [self.sectionControllersBySection setObject:controller forKey:section];
+        [self.sectionsBySectionController setObject:section forKey:controller];
     }
     return controller;
 }
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller {
-    __block WMFExploreSection* section = nil;
-    [self.sectionControllersBySection enumerateKeysAndObjectsUsingBlock:^(WMFExploreSection* _Nonnull key, id < WMFExploreSectionController > _Nonnull obj, BOOL* _Nonnull stop) {
-        if ([[controller sectionIdentifier] isEqualToString:[obj sectionIdentifier]]) {
-            section = key;
-            *stop = YES;
-        }
-    }];
-    
-    return section;
+    return [self.sectionsBySectionController objectForKey:controller];
 }
 
 #pragma mark - Section Controller Creation
