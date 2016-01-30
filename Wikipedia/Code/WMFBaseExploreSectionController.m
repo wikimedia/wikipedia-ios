@@ -156,7 +156,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return [self fetchDataIgnoreError:NO ignoreCurrentItems:NO];
 }
 
-- (AnyPromise*)fetchDataIfError{
+- (AnyPromise*)fetchDataIfError {
     return [self fetchDataIgnoreError:YES ignoreCurrentItems:NO];
 }
 

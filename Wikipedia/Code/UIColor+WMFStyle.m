@@ -139,7 +139,7 @@
 
 + (instancetype)wmf_exploreSectionHeaderSubTitleColor {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
@@ -221,7 +221,7 @@
 
 + (instancetype)wmf_customGray {
     static UIColor* c = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x9AA0A7 alpha:1.0];
