@@ -65,8 +65,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 }
 
 - (NSAttributedString*)headerSubTitle {
-    NSString* relativeTimeString = [WikipediaAppUtils relativeTimestamp:[[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate]];
-    return [[NSAttributedString alloc] initWithString:relativeTimeString attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    NSDate* resignActiveDate     = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
+    NSString* relativeTimeString = [WikipediaAppUtils relativeTimestamp:resignActiveDate];
+    return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {
