@@ -366,11 +366,11 @@ NS_ASSUME_NONNULL_BEGIN
     header.imageBackgroundColor = [controller headerIconBackgroundColor];
 
     NSMutableAttributedString* title = [[controller headerTitle] mutableCopy];
-    [title addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderTitleFont] range:NSMakeRange(0, title.length)];
+    [title addAttribute:NSFontAttributeName value:[UIFont wmf_exploreSectionHeaderTitleFont] range:NSMakeRange(0, title.length)];
     header.title = title;
 
     NSMutableAttributedString* subTitle = [[controller headerSubTitle] mutableCopy];
-    [subTitle addAttribute:NSFontAttributeName value:[UIFont wmf_homeSectionHeaderSubTitleFont] range:NSMakeRange(0, subTitle.length)];
+    [subTitle addAttribute:NSFontAttributeName value:[UIFont wmf_exploreSectionHeaderSubTitleFont] range:NSMakeRange(0, subTitle.length)];
     header.subTitle = subTitle;
 }
 
