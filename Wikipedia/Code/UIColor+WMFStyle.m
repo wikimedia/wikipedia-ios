@@ -128,27 +128,15 @@
 }
 
 + (instancetype)wmf_exploreSectionHeaderTitleColor {
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
-    });
-    return c;
+    return [UIColor wmf_customGray];
 }
 
 + (instancetype)wmf_exploreSectionHeaderSubTitleColor {
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
-    });
-    return c;
+    return [UIColor wmf_customGray];
 }
 
 + (instancetype)wmf_exploreSectionFooterTextColor {
-    return [self wmf_exploreSectionHeaderTitleColor];
+    return [self wmf_customGray];
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconTintColor {
