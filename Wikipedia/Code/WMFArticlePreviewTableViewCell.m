@@ -137,22 +137,24 @@
 
 #pragma mark - Image
 
-- (void)setImageURL:(NSURL*)imageURL {
-    [super setImageURL:imageURL];
+- (AnyPromise*)setImageURL:(NSURL*)imageURL {
+    AnyPromise* promise = [super setImageURL:imageURL];
     if (imageURL) {
         [self restoreImageToFullHeight];
     } else {
         [self collapseImageHeightToZero];
     }
+    return promise;
 }
 
-- (void)setImage:(MWKImage*)image {
-    [super setImage:image];
+- (AnyPromise*)setImage:(MWKImage*)image {
+    AnyPromise* promise = [super setImage:image];
     if (image) {
         [self restoreImageToFullHeight];
     } else {
         [self collapseImageHeightToZero];
     }
+    return promise;
 }
 
 - (void)collapseImageHeightToZero {

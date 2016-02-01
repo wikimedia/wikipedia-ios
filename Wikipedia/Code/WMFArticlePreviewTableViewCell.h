@@ -26,20 +26,6 @@
 @interface WMFArticlePreviewTableViewCell (Outlets)
 
 /**
- *  Label used to display the receiver's @c snippet.
- *
- */
-@property (nonatomic, strong) IBOutlet UILabel* snippetLabel;
-
-/**
- *  The button used to display the saved state of the receiver's @c title.
- *
- *  This class will automatically
- *  configure any buttons connected to this property in Interface Builder (during @c awakeFromNib).
- */
-@property (strong, nonatomic) IBOutlet UIButton* saveButton;
-
-/**
  *  Cause cell to blur and show spinning loading indicator.
  *
  *  @param loading    Shows/hides blur and loading indicator

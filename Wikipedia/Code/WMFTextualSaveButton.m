@@ -10,6 +10,8 @@
 #import <Masonry/Masonry.h>
 #import "UIColor+WMFStyle.h"
 
+static CGFloat WMFTextualSaveButtonImageToTextPadding = 12.f;
+
 @interface WMFTextualSaveButton ()
 
 /**
@@ -69,6 +71,11 @@
     }
 }
 
+- (void)setContentMode:(UIViewContentMode)contentMode {
+    [super setContentMode:contentMode];
+    [self setNeedsUpdateConstraints];
+}
+
 #pragma mark - Accessors
 
 - (UIImage*)iconImage {
@@ -93,6 +100,19 @@
     }
 }
 
+- (CGSize)intrinsicContentSize {
+    // NOTE(bgerstle): need custom intrinsic content size to prevent compression beyond intrinsic size of subviews
+    CGSize imageViewIntrinsicContentSize = self.saveIconImageView.intrinsicContentSize;
+    CGSize labelIntrinsicContentSize     = self.saveTextLabel.intrinsicContentSize;
+    CGSize intrinsicSize                 = (CGSize){
+        .width = imageViewIntrinsicContentSize.width
+                 + labelIntrinsicContentSize.width
+                 + WMFTextualSaveButtonImageToTextPadding,
+        .height = fmaxf(imageViewIntrinsicContentSize.height, labelIntrinsicContentSize.height)
+    };
+    return intrinsicSize;
+}
+
 #pragma mark - View Setup
 
 - (void)setupSubviews {
@@ -101,12 +121,6 @@
     self.saveIconImageView.tintAdjustmentMode = UIViewTintAdjustmentModeAutomatic;
     [self addSubview:self.saveIconImageView];
 
-    [self.saveIconImageView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.leading.top.and.bottom.equalTo(self);
-    }];
-    // imageView must hug content, otherwise it will expand and "push" label towards opposite edge
-    [self.saveIconImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
-
     self.saveTextLabel                      = [UILabel new];
     self.saveTextLabel.numberOfLines        = 1;
     self.saveTextLabel.textAlignment        = NSTextAlignmentNatural;
@@ -114,12 +128,41 @@
     self.saveTextLabel.highlightedTextColor = [UIColor lightGrayColor];
     self.saveTextLabel.tintAdjustmentMode   = UIViewTintAdjustmentModeAutomatic;
     [self.saveTextLabel setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [self addSubview:self.saveTextLabel];
+    [self addSubview:self.saveTextLabel];;
+
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
+
+    // imageView must hug content, otherwise it will expand and "push" label towards opposite edge
+    [self.saveIconImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+
+    [self.saveIconImageView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.leading.equalTo(self);
+        if (self.contentMode == UIViewContentModeBottom) {
+            make.bottom.equalTo(self);
+        } else {
+            if (self.contentMode != UIViewContentModeScaleToFill) {
+                DDLogWarn(@"No custom layout for %ld, using default scale to fill behavior.", self.contentMode);
+            }
+            make.top.and.bottom.equalTo(self);
+        }
+    }];
 
     [self.saveTextLabel mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.trailing.top.and.bottom.equalTo(self);
+        make.trailing.equalTo(self);
         // make sure icon & button aren't squished together
-        make.leading.equalTo(self.saveIconImageView.mas_trailing).with.offset(12.f);
+        make.leading.equalTo(self.saveIconImageView.mas_trailing).with.offset(WMFTextualSaveButtonImageToTextPadding);
+        if (self.contentMode == UIViewContentModeBottom) {
+            make.bottom.equalTo(self);
+        } else {
+            if (self.contentMode != UIViewContentModeScaleToFill) {
+                DDLogWarn(@"No custom layout for %ld, using default scale to fill behavior.", self.contentMode);
+            }
+            make.trailing.top.and.bottom.equalTo(self);
+        }
     }];
 }
 

@@ -12,12 +12,12 @@
 /**
  *  Set the recievers @c image using an MWKImage
  */
-- (void)setImage:(MWKImage*)image;
+- (AnyPromise*)setImage:(MWKImage*)image;
 
 /**
  *  Set the recievers @c image using a URL
  */
-- (void)setImageURL:(NSURL*)imageURL;
+- (AnyPromise*)setImageURL:(NSURL*)imageURL;
 
 + (CGFloat)estimatedRowHeight;
 

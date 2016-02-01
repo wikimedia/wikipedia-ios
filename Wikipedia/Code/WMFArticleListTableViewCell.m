@@ -82,12 +82,12 @@
 
 #pragma mark - Image
 
-- (void)setImageURL:(NSURL*)imageURL {
-    [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
+- (AnyPromise*)setImageURL:(NSURL*)imageURL {
+    return [self.articleImageView wmf_setImageWithURL:imageURL detectFaces:YES];
 }
 
-- (void)setImage:(MWKImage*)image {
-    [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
+- (AnyPromise*)setImage:(MWKImage*)image {
+    return [self.articleImageView wmf_setImageWithMetadata:image detectFaces:YES];
 }
 
 @end
