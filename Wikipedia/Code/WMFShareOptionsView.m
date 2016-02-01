@@ -20,6 +20,8 @@ static int const kCornerRadius = 4.2f;
     [self.shareAsCardLabel wmf_roundCorners:UIRectCornerBottomLeft | UIRectCornerBottomRight toRadius:kCornerRadius];
     self.shareAsTextLabel.layer.cornerRadius       = kCornerRadius;
     self.shareAsTextLabel.layer.masksToBounds      = YES;
+    self.cancelLabel.layer.cornerRadius       = kCornerRadius;
+    self.cancelLabel.layer.masksToBounds      = YES;
     self.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
