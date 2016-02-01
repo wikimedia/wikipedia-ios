@@ -21,5 +21,6 @@ typedef NS_ENUM (NSUInteger, WMFEmptyViewType) {
 
 - (void)wmf_showEmptyViewOfType:(WMFEmptyViewType)type;
 - (void)wmf_hideEmptyView;
+- (BOOL)wmf_isShowingEmptyView;
 
 @end

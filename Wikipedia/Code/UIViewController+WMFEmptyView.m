@@ -76,4 +76,9 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
     [self bk_associateValue:nil withKey:(__bridge const void *)(WMFEmptyViewKey)];
 }
 
+- (BOOL)wmf_isShowingEmptyView{
+    return [self wmf_emptyView] != nil;
+}
+
+
 @end
