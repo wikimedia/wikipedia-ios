@@ -22,6 +22,8 @@ static NSUInteger const WMFMaximumNumberOfFeaturedSections        = 10;
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
+static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 24 * 7; //7 days
+
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
@@ -120,7 +122,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
-    [startingSchema wmf_safeAddObject:[self nearbySectionWithLocation:nil]];
 
     WMFExploreSection* saved =
         [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
@@ -217,14 +218,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [self update:NO];
 }
 
-- (void)update:(BOOL)force {
+- (BOOL)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
 
     if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
         && !force
         && self.lastUpdatedAt
         && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
-        return;
+        return NO;
     }
 
     //Get updated static sections
@@ -241,9 +242,10 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     self.lastUpdatedAt = [NSDate date];
     [self updateSections:sections];
+    return YES;
 }
 
-- (void)updateNearbySectionWithLocation:(CLLocation*)location {
+- (void)insertNearbySectionWithLocationIfNeeded:(CLLocation*)location {
     NSParameterAssert(location);
 
     WMFExploreSection* oldNearby = [self existingNearbySection];
@@ -253,6 +255,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return;
     }
 
+    // Check if already updated today
     if (oldNearby.location && [oldNearby.dateCreated isToday]) {
         return;
     }
@@ -304,17 +307,16 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (WMFExploreSection*)randomSection {
-    WMFExploreSection* random = nil;
-
+    WMFExploreSection* random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+        if (obj.type == WMFExploreSectionTypeRandom) {
+            return YES;
+        }
+        return NO;
+    }];
+    ;
     MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
-
-    if (![lastEntry.date isThisWeek]) {
-        random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-            if (obj.type == WMFExploreSectionTypeRandom) {
-                return YES;
-            }
-            return NO;
-        }];
+    if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.date] > WMFTimeBeforeRefreshingRandom) {
+        random = [WMFExploreSection randomSection];
     }
 
     //Always return a random section
@@ -327,7 +329,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (nullable WMFExploreSection*)existingNearbySection {
     WMFExploreSection* nearby = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeNearby) {
+        if (obj.type == WMFExploreSectionTypeNearby && obj.location) {
             return YES;
         }
         return NO;
@@ -425,7 +427,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (nullable WMFExploreSection*)existingSectionForTitle:(MWKTitle*)title {
     return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.title == title) {
+        if ([obj.title isEqualToTitle:title]) {
             return YES;
         }
         return NO;
@@ -505,7 +507,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
-    [self updateNearbySectionWithLocation:location];
+    [self insertNearbySectionWithLocationIfNeeded:location];
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {

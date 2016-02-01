@@ -1,8 +1,8 @@
-#import "WMFExploreSectionController.h"
+#import "WMFBaseExploreSectionController.h"
 
 @class MWKTitle, MWKDataStore;
 
-@interface WMFContinueReadingSectionController : NSObject <WMFArticleExploreSectionController>
+@interface WMFContinueReadingSectionController : WMFBaseExploreSectionController <WMFExploreSectionController, WMFTitleProviding>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;

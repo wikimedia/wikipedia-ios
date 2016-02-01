@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param force If YES force an update
  */
-- (void)update:(BOOL)force;
+- (BOOL)update:(BOOL)force;
 
 /**
  *  Reset the schema - removes all items and restores back to the "startingSchema"

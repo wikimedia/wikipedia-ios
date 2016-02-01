@@ -27,19 +27,20 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 @end
 
 @implementation WMFContinueReadingSectionController
-@synthesize delegate = _delegate;
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
-    self = [super init];
+    self = [super initWithItems:@[title]];
     if (self) {
         self.title     = title;
         self.dataStore = dataStore;
     }
     return self;
 }
+
+#pragma mark - WMFBaseExploreSectionController
 
 - (id)sectionIdentifier {
     return WMFContinueReadingSectionIdentifier;
@@ -53,34 +54,43 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"home-continue-reading-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
 }
 
+- (NSString*)cellIdentifier {
+    return [WMFContinueReadingTableViewCell wmf_nibName];
+}
+
+- (UINib*)cellNib {
+    return [WMFContinueReadingTableViewCell wmf_classNib];
+}
+
+- (NSUInteger)numberOfPlaceholderCells {
+    return 0;
+}
+
+- (void)configureCell:(WMFContinueReadingTableViewCell*)cell withItem:(MWKTitle*)item atIndexPath:(NSIndexPath*)indexPath {
+    cell.title.text   = item.text;
+    cell.summary.text = [self summaryForTitle:item];
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+}
+
 - (MWKHistoryDiscoveryMethod)discoveryMethod {
     return MWKHistoryDiscoveryMethodReloadFromNetwork;
 }
 
-- (NSArray*)items {
-    return @[self.title];
+- (CGFloat)estimatedRowHeight {
+    return [WMFContinueReadingTableViewCell estimatedRowHeight];
 }
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
+- (NSString*)analyticsName {
+    return @"Continue Reading";
+}
+
+#pragma mark - WMFTitleProviding
+
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
     return self.title;
 }
 
-- (void)registerCellsInTableView:(UITableView*)tableView {
-    [tableView registerNib:[WMFContinueReadingTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFContinueReadingTableViewCell identifier]];
-}
-
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [WMFContinueReadingTableViewCell cellForTableView:tableView];
-}
-
-- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFContinueReadingTableViewCell class]]) {
-        WMFContinueReadingTableViewCell* readingCell = (id)cell;
-        readingCell.title.text   = self.title.text;
-        readingCell.summary.text = [self summaryForTitle:self.title];
-        [readingCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    }
-}
+#pragma mark - Utility
 
 - (NSString*)summaryForTitle:(MWKTitle*)title {
     MWKArticle* cachedArticle = [self.dataStore existingArticleWithTitle:self.title];
@@ -89,14 +99,6 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     } else {
         return [[cachedArticle.sections firstNonEmptySection] summary];
     }
-}
-
-- (NSString*)analyticsName {
-    return @"Continue Reading";
-}
-
-- (CGFloat)estimatedRowHeight {
-    return [WMFContinueReadingTableViewCell estimatedRowHeight];
 }
 
 @end

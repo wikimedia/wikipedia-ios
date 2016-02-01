@@ -528,7 +528,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.navigationItem.titleView.isAccessibilityElement = YES;
     self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-button-accessibility-label", nil);
     self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitButton;
-
 }
 
 #pragma mark - ViewController

@@ -30,18 +30,18 @@ NSString* WMFParseImageNameFromSourceURL(NSString* sourceURL)  __attribute__((ov
     }
 
     /*
-     For URLs in form "https://upload.wikimedia.org/.../Filename.jpg/XXXpx-Filename.jpg" try to acquire filename via
-     the second to last path component, which has only one extension.
-    */
+       For URLs in form "https://upload.wikimedia.org/.../Filename.jpg/XXXpx-Filename.jpg" try to acquire filename via
+       the second to last path component, which has only one extension.
+     */
     NSString* filenameComponent = pathComponents[pathComponents.count - 2];
     if ([[filenameComponent.pathExtension wmf_asMIMEType] hasPrefix:@"image"]) {
         return filenameComponent;
     }
 
     NSString* thumbOrFileComponent = [pathComponents lastObject];
-    NSArray* matches   = [WMFImageURLParsingRegex() matchesInString:thumbOrFileComponent
-                                                            options:0
-                                                              range:NSMakeRange(0, [thumbOrFileComponent length])];
+    NSArray* matches               = [WMFImageURLParsingRegex() matchesInString:thumbOrFileComponent
+                                                                        options:0
+                                                                          range:NSMakeRange(0, [thumbOrFileComponent length])];
 
     if (matches.count > 0) {
         // Found a "XXXpx-" prefix, extract substring and return as filename
