@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WMFArticleSelectionDelegate.h"
 
-@class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore, WMFArticleContainerViewController;
+@class MWKTitle, MWKArticle, MWKSavedPageList, MWKHistoryList, MWKDataStore, WMFArticleViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,12 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param articleViewController The article VC to push
  *  @param animated        Animate the transition.
  */
-- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController animated:(BOOL)animated;
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)articleViewController animated:(BOOL)animated;
 
 /**
  *  Same as above with animated == YES
  */
-- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController;
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)articleViewController;
 
 @end
 

@@ -579,7 +579,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.searchResultDelegate didSelectTitle:title sender:self discoveryMethod:discoveryMethod];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
                                            sender:(id)sender {
     [self.searchResultDelegate didCommitToPreviewedArticleViewController:articleViewController sender:self];
 }

@@ -14,7 +14,7 @@
 #import "MWKHistoryEntry.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -33,18 +33,18 @@ NS_ASSUME_NONNULL_BEGIN
                                       animated:(BOOL)animated {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
-    WMFArticleContainerViewController* articleContainerVC =
-        [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
+    WMFArticleViewController* articleContainerVC =
+        [[WMFArticleViewController alloc] initWithArticleTitle:title
                                                               dataStore:dataStore
                                                         discoveryMethod:discoveryMethod];
     [self wmf_pushArticleViewController:articleContainerVC];
 }
 
-- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController {
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)articleViewController {
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)wmf_pushArticleViewController:(WMFArticleContainerViewController*)articleViewController animated:(BOOL)animated {
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)articleViewController animated:(BOOL)animated {
     NSAssert(self.navigationController, @"Illegal attempt to push article %@ from %@ without a navigation controller.",
              articleViewController,
              self);

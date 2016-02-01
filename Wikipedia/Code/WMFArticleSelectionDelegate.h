@@ -10,13 +10,13 @@
 #import "MWKHistoryEntry.h"
 
 @class MWKTitle;
-@class WMFArticleContainerViewController;
+@class WMFArticleViewController;
 
 @protocol WMFArticleSelectionDelegate <NSObject>
 
 - (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
                                            sender:(id)sender;
 
 @end

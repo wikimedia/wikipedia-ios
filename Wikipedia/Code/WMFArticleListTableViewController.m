@@ -12,7 +12,7 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleViewController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UIViewController+WMFArticlePresentation.h"
 
@@ -264,7 +264,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
                                            sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewController:articleViewController];
@@ -285,13 +285,13 @@ NS_ASSUME_NONNULL_BEGIN
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
     self.previewingTitle = title;
     [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                                 dataStore:[self dataStore]
-                                                           discoveryMethod:[self discoveryMethod]];
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title
+                                                        dataStore:[self dataStore]
+                                                  discoveryMethod:[self discoveryMethod]];
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
+     commitViewController:(WMFArticleViewController*)viewControllerToCommit {
     [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
     self.previewingTitle = nil;
     if (self.delegate) {

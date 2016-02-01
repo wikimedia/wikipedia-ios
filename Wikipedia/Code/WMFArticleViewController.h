@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleContainerViewController : UIViewController
+@interface WMFArticleViewController : UIViewController
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore

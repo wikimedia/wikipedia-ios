@@ -34,7 +34,7 @@
 #import "WMFArticleListTableViewController.h"
 #import "DataMigrationProgressViewController.h"
 #import "WMFWelcomeViewController.h"
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleViewController.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "WMFNearbyListViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -473,8 +473,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (MWKTitle*)onscreenTitle {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if ([navVC.topViewController isKindOfClass:[WMFArticleContainerViewController class]]) {
-        return ((WMFArticleContainerViewController*)navVC.topViewController).articleTitle;
+    if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
+        return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
     }
     return nil;
 }

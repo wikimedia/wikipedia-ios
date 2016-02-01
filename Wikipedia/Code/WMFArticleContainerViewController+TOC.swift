@@ -2,7 +2,7 @@
 import Foundation
 import BlocksKit
 
-extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDelegate {
+extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
         if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
@@ -44,7 +44,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
     }
 }
 
-extension WMFArticleContainerViewController {
+extension WMFArticleViewController {
 
     /**
      Create ToC items.

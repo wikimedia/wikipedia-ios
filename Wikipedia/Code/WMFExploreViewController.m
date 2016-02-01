@@ -37,7 +37,7 @@
 
 // Child View Controllers
 #import "UIViewController+WMFArticlePresentation.h"
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
@@ -740,7 +740,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
                                            sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewController:articleViewController];
@@ -766,7 +766,7 @@ NS_ASSUME_NONNULL_BEGIN
             self.previewingTitle          = title;
             self.sectionOfPreviewingTitle = sectionController;
             [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
-            return [[WMFArticleContainerViewController alloc]
+            return [[WMFArticleViewController alloc]
                     initWithArticleTitle:title
                                dataStore:[self dataStore]
                          discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
@@ -782,12 +782,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:self.previewingTitle inHomeSection:self.sectionOfPreviewingTitle];
         [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
         self.previewingTitle          = nil;
         self.sectionOfPreviewingTitle = nil;
-        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }

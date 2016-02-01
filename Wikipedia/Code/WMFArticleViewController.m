@@ -1,4 +1,4 @@
-#import "WMFArticleContainerViewController_Private.h"
+#import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 
 // Frameworks
@@ -9,7 +9,6 @@
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFSaveButtonController.h"
-#import "WMFArticleContainerViewController_Transitioning.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFReadMoreViewController.h"
 #import "WMFShareOptionsController.h"
@@ -63,7 +62,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleContainerViewController ()
+@interface WMFArticleViewController ()
 <WMFWebViewControllerDelegate,
  UINavigationControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
@@ -114,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation WMFArticleContainerViewController
+@implementation WMFArticleViewController
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -799,7 +798,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
+- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
                                            sender:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{
         [self wmf_pushArticleViewController:articleViewController];
@@ -874,8 +873,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
-        if ([peekVC isKindOfClass:[WMFArticleContainerViewController class]]) {
-            self.previewingTitle = [(WMFArticleContainerViewController*)peekVC articleTitle];
+        if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
+            self.previewingTitle = [(WMFArticleViewController*)peekVC articleTitle];
             [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:self.previewingTitle fromSource:nil];
         }
         self.webViewController.isPeeking = YES;
@@ -897,9 +896,9 @@ NS_ASSUME_NONNULL_BEGIN
         return [[SFSafariViewController alloc] initWithURL:url];
     } else {
         if (![url wmf_isIntraPageFragment]) {
-            return [[WMFArticleContainerViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]
-                                                                         dataStore:self.dataStore
-                                                                   discoveryMethod:self.discoveryMethod];
+            return [[WMFArticleViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]
+                                                                dataStore:self.dataStore
+                                                          discoveryMethod:self.discoveryMethod];
         }
     }
     return nil;
@@ -909,8 +908,8 @@ NS_ASSUME_NONNULL_BEGIN
      commitViewController:(UIViewController*)viewControllerToCommit {
     [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:nil];
     self.previewingTitle = nil;
-    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
