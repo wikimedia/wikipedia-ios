@@ -79,8 +79,7 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateFormat = @"EEEE MMMM dd";
-        _dateFormatter.locale = [NSLocale currentLocale];
+        [_dateFormatter setLocalizedDateFormatFromTemplate:@"EEEEMMMMdd"];
     });
     return _dateFormatter;
 }
