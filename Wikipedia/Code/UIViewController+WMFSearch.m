@@ -1,5 +1,5 @@
 
-#import "UIViewController+WMFSearchButton_Testing.h"
+#import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
@@ -11,6 +11,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFSearchButton)
+
+static MWKDataStore* _dataStore = nil;
+static WMFSearchViewController* _sharedSearchViewController = nil;
+
++ (void)wmf_setSearchButtonDataStore:(MWKDataStore*)dataStore{
+    NSParameterAssert(dataStore);
+    _dataStore = dataStore;
+    [self wmf_clearSearchViewController];
+}
+
++ (void)wmf_clearSearchViewController {
+    _sharedSearchViewController = nil;
+}
 
 + (void)load {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -24,39 +37,37 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (void)wmfSearchButton_applicationDidEnterBackgroundWithNotification:(NSNotification*)note {
-    [self wmfSearchButton_resetSharedSearchButton];
+    [self wmf_clearSearchViewController];
 }
 
 + (void)wmfSearchButton_applicationDidReceiveMemoryWarningWithNotification:(NSNotification*)note {
-    [self wmfSearchButton_resetSharedSearchButton];
+    [self wmf_clearSearchViewController];
 }
 
-- (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
+- (UIBarButtonItem*)wmf_searchBarButtonItem{
     @weakify(self);
-    @weakify(delegate);
     return [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"search"]
                                                style:UIBarButtonItemStylePlain
                                              handler:^(id sender) {
         @strongify(self);
-        @strongify(delegate);
-        if (!delegate || !self) {
+        if (!self) {
             return;
         }
 
-        [self wmf_showSearchAnimated:YES delegate:delegate];
+        [self wmf_showSearchAnimated:YES];
     }];
 }
 
-- (void)wmf_showSearchAnimated:(BOOL)animated delegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate {
+- (void)wmf_showSearchAnimated:(BOOL)animated{
+    NSParameterAssert(_dataStore);
     MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
 
     if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
         WMFSearchViewController* searchVC =
             [WMFSearchViewController searchViewControllerWithSite:searchSite
-                                                        dataStore:[delegate searchDataStore]];
+                                                        dataStore:_dataStore];
         _sharedSearchViewController = searchVC;
     }
-    _sharedSearchViewController.searchResultDelegate = delegate;
     [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController];
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];
 }

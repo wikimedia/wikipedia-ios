@@ -25,7 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
+@interface WMFArticleListTableViewController ()<UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 @property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
@@ -176,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     self.tableView.backgroundColor    = [UIColor wmf_articleListBackgroundColor];
     self.tableView.separatorColor     = [UIColor wmf_lightGrayColor];
@@ -248,27 +248,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_pushArticleViewControllerWithTitle:title
                                  discoveryMethod:[self discoveryMethod]
                                        dataStore:self.dataStore];
-}
-
-#pragma mark - WMFSearchPresentationDelegate
-
-- (MWKDataStore*)searchDataStore {
-    return self.dataStore;
-}
-
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:title
-                                     discoveryMethod:discoveryMethod
-                                           dataStore:self.dataStore];
-    }];
-}
-
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
-                                           sender:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewController:articleViewController];
-    }];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate

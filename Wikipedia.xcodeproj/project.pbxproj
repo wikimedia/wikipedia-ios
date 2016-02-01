@@ -563,7 +563,6 @@
 		BC45FF4B1C1B22C200BAE501 /* NSObject+WMFReflection.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4A1C1B22C200BAE501 /* NSObject+WMFReflection.m */; };
 		BC45FF4E1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */; };
 		BC45FF501C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF4F1C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m */; };
-		BC45FF531C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */; };
 		BC52D0F71C207D3300F625A9 /* TWNStringsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */; };
 		BC5620931B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */; };
 		BC56209D1B6BAB910013FFB0 /* Exoplanet.mobileview.json in Resources */ = {isa = PBXBuildFile; fileRef = BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */; };
@@ -903,7 +902,6 @@
 		B0E803DB1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableViewCell+WMFEdgeToEdgeSeparator.m"; path = "Wikipedia/Code/UITableViewCell+WMFEdgeToEdgeSeparator.m"; sourceTree = SOURCE_ROOT; };
 		B0E803E41C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFStoryboardUtilities.h"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.h"; sourceTree = SOURCE_ROOT; };
 		B0E803E51C0CDD450065EBC0 /* UIViewController+WMFStoryboardUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFStoryboardUtilities.m"; path = "Wikipedia/Code/UIViewController+WMFStoryboardUtilities.m"; sourceTree = SOURCE_ROOT; };
-		B0E803EB1C0CDD740065EBC0 /* WMFArticleSelectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFArticleSelectionDelegate.h; path = Wikipedia/Code/WMFArticleSelectionDelegate.h; sourceTree = SOURCE_ROOT; };
 		B0E803EC1C0CDD850065EBC0 /* UIViewController+WMFArticlePresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFArticlePresentation.h"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.h"; sourceTree = SOURCE_ROOT; };
 		B0E803ED1C0CDD850065EBC0 /* UIViewController+WMFArticlePresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFArticlePresentation.m"; path = "Wikipedia/Code/UIViewController+WMFArticlePresentation.m"; sourceTree = SOURCE_ROOT; };
 		B0E803EF1C0CDD950065EBC0 /* WMFAsyncBlockOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncBlockOperation.h; path = Wikipedia/Code/WMFAsyncBlockOperation.h; sourceTree = SOURCE_ROOT; };
@@ -1658,8 +1656,6 @@
 		BC45FF4C1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "QueuesSingleton+AllManagers.h"; path = "WikipediaUnitTests/Code/QueuesSingleton+AllManagers.h"; sourceTree = SOURCE_ROOT; };
 		BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "QueuesSingleton+AllManagers.m"; path = "WikipediaUnitTests/Code/QueuesSingleton+AllManagers.m"; sourceTree = SOURCE_ROOT; };
 		BC45FF4F1C1B7AE000BAE501 /* UIViewController+WMFSearchButtonTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFSearchButtonTests.m"; path = "WikipediaUnitTests/Code/UIViewController+WMFSearchButtonTests.m"; sourceTree = SOURCE_ROOT; };
-		BC45FF511C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFSearchButton_Testing.h"; path = "Wikipedia/Code/UIViewController+WMFSearchButton_Testing.h"; sourceTree = SOURCE_ROOT; };
-		BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFSearchButton_Testing.m"; path = "Wikipedia/Code/UIViewController+WMFSearchButton_Testing.m"; sourceTree = SOURCE_ROOT; };
 		BC52D0F61C207D3300F625A9 /* TWNStringsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWNStringsTests.m; sourceTree = "<group>"; };
 		BC5620921B6970EE0013FFB0 /* 640px-President_Barack_Obama.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "640px-President_Barack_Obama.jpg"; sourceTree = "<group>"; };
 		BC56209C1B6BAB910013FFB0 /* Exoplanet.mobileview.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Exoplanet.mobileview.json; sourceTree = "<group>"; };
@@ -2467,8 +2463,6 @@
 				0EAED8561BE95090006B01E6 /* View Controller */,
 				B0E803361C0CD7550065EBC0 /* UIViewController+WMFSearch.h */,
 				B0E803371C0CD7550065EBC0 /* UIViewController+WMFSearch.m */,
-				BC45FF511C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.h */,
-				BC45FF521C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m */,
 			);
 			name = Search;
 			path = Wikipedia/Code;
@@ -3008,7 +3002,6 @@
 		BC45D5521C31EC0E007C72F3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				B0E803EB1C0CDD740065EBC0 /* WMFArticleSelectionDelegate.h */,
 				B0E803EC1C0CDD850065EBC0 /* UIViewController+WMFArticlePresentation.h */,
 				B0E803ED1C0CDD850065EBC0 /* UIViewController+WMFArticlePresentation.m */,
 			);
@@ -5603,7 +5596,6 @@
 				B0E805551C0CE0DC0065EBC0 /* UIView+IBExtras.swift in Sources */,
 				B0E807291C0CED530065EBC0 /* MWLanguageInfo.m in Sources */,
 				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
-				BC45FF531C1B829B00BAE501 /* UIViewController+WMFSearchButton_Testing.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				B0E807B01C0CEFF70065EBC0 /* MWKHistoryList.m in Sources */,
 				B0E807081C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m in Sources */,

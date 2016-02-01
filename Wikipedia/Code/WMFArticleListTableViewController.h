@@ -1,10 +1,9 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFTitleListDataSource.h"
-#import "WMFArticleSelectionDelegate.h"
 #import "WMFAnalyticsLogging.h"
 
-@class SSBaseDataSource, MWKDataStore;
+@class SSBaseDataSource, MWKDataStore, WMFArticleViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  If left @c nil, falls back to pushing an article container using its @c navigationController.
  */
-@property (nonatomic, weak, nullable) id<WMFArticleSelectionDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFArticleListTableViewControllerDelegate> delegate;
 
 @end
 

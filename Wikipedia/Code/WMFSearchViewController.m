@@ -19,6 +19,7 @@
 #import "Wikipedia-Swift.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "UIViewController+WMFArticlePresentation.h"
 #import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
@@ -33,7 +34,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 <UISearchBarDelegate,
  WMFRecentSearchesViewControllerDelegate,
  UITextFieldDelegate,
- WMFArticleSelectionDelegate,
+ WMFArticleListTableViewControllerDelegate,
  LanguageSelectionDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
@@ -205,6 +206,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSParameterAssert(self.presentingViewController.navigationController);
+    //Must be presented on a view controller that can push an article
 
     self.searchFieldTop.constant = 0;
     [self.view setNeedsUpdateConstraints];
@@ -573,7 +576,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
 
-#pragma mark - WMFArticleSelectionDelegate
+#pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
     [self.searchResultDelegate didSelectTitle:title sender:self discoveryMethod:discoveryMethod];

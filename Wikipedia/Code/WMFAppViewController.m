@@ -126,6 +126,7 @@ static dispatch_once_t launchToken;
     [self configureExploreViewController];
     [self configureArticleListController:self.savedArticlesViewController];
     [self configureArticleListController:self.recentArticlesViewController];
+    [[self class] wmf_setSearchButtonDataStore:self.dataStore];
 }
 
 - (void)configureTabController {
@@ -221,7 +222,7 @@ static dispatch_once_t launchToken;
             @strongify(self)
             if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
                 [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-                [self.exploreViewController wmf_showSearchAnimated:YES delegate:self.exploreViewController];
+                [self.exploreViewController wmf_showSearchAnimated:YES];
             } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
                 [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
                 [self showRandomArticleAnimated:YES];

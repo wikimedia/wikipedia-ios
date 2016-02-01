@@ -43,6 +43,7 @@
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFRelatedSectionController.h"
+#import "UIViewController+WMFSearch.h"
 
 
 static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelOff;
@@ -94,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-accessibility-label", nil);
         self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem                = [self settingsBarButtonItem];
-        self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItemWithDelegate:self];
+        self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItem];
     }
     return self;
 }

@@ -67,7 +67,6 @@ NS_ASSUME_NONNULL_BEGIN
  UINavigationControllerDelegate,
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
- WMFSearchPresentationDelegate,
  SectionEditorViewControllerDelegate,
  UIViewControllerPreviewingDelegate,
  LanguageSelectionDelegate>
@@ -535,7 +534,7 @@ NS_ASSUME_NONNULL_BEGIN
     [super viewDidLoad];
     [self setupToolbar];
     [self setUpTitleBarButton];
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
@@ -782,27 +781,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)willDismissGalleryController:(WMFModalImageGalleryViewController* __nonnull)gallery {
     self.headerGallery.currentPage = gallery.currentPage;
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - WMFSearchPresentationDelegate
-
-- (MWKDataStore*)searchDataStore {
-    return self.dataStore;
-}
-
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:title
-                                     discoveryMethod:discoveryMethod
-                                           dataStore:self.dataStore];
-    }];
-}
-
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleViewController*)articleViewController
-                                           sender:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewController:articleViewController];
-    }];
 }
 
 #pragma mark - Edit Section
