@@ -58,11 +58,11 @@
 }
 
 + (instancetype)wmf_exploreSectionHeaderTitleFont {
-    return [UIFont boldSystemFontOfSize:12.0];
+    return [UIFont systemFontOfSize:12.0];
 }
 
 + (instancetype)wmf_exploreSectionHeaderSubTitleFont {
-    return [UIFont boldSystemFontOfSize:15.0];
+    return [UIFont boldSystemFontOfSize:14.0];
 }
 
 @end
