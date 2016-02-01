@@ -427,7 +427,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (nullable WMFExploreSection*)existingSectionForTitle:(MWKTitle*)title {
     return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.title == title) {
+        if ([obj.title isEqualToTitle:title]) {
             return YES;
         }
         return NO;
