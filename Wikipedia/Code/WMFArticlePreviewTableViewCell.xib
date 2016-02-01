@@ -47,7 +47,7 @@
                         <nil key="highlightedColor"/>
                         <size key="shadowOffset" width="0.0" height="0.0"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-Pm-E5o">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vc8-Pm-E5o" userLabel="Summary and Save Container">
                         <rect key="frame" x="13" y="223" width="335" height="109"/>
                         <subviews>
                             <view contentMode="bottom" horizontalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Dw6-G9-a5t" customClass="WMFTextualSaveButton">
@@ -104,6 +104,7 @@
                 <outlet property="descriptionLabel" destination="Fv1-CZ-slW" id="FEd-5F-Dgj"/>
                 <outlet property="imageHeightConstraint" destination="EnI-0P-X4A" id="wjM-va-eFa"/>
                 <outlet property="paddingConstraintAboveDescription" destination="tNo-se-rTn" id="MsP-cv-vNl"/>
+                <outlet property="paddingConstraintBelowDescription" destination="Znq-5L-JnP" id="UN9-sS-J1a"/>
                 <outlet property="paddingConstraintLeading" destination="cUT-bg-qEm" id="FAI-E0-dNW"/>
                 <outlet property="paddingConstraintTrailing" destination="U9x-vi-00m" id="E59-BG-HJt"/>
                 <outlet property="saveButton" destination="Dw6-G9-a5t" id="ggS-7J-XMK"/>
