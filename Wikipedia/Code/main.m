@@ -27,7 +27,7 @@
     return _window;
 }
 
-- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication*)application willFinishLaunchingWithOptions:(nullable NSDictionary*)launchOptions {
     // HAX: usually session singleton does this, but we need to do it manually before any tests run to ensure
     // things like languages.json are available
     [WikipediaAppUtils copyAssetsFolderToAppDataDocuments];

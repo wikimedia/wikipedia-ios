@@ -399,11 +399,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     return gestureRecognizer == self.chromeTapGestureRecognizer;
 }
 
-#pragma mark - WMFPagingCollectionViewController 
+#pragma mark - WMFPagingCollectionViewController
 
 - (void)primitiveSetCurrentPage:(NSUInteger)page {
-   [super primitiveSetCurrentPage:page];
-   [self updateInfoButtonVisibility];
+    [super primitiveSetCurrentPage:page];
+    [self updateInfoButtonVisibility];
 }
 
 #pragma mark - CollectionView
