@@ -511,11 +511,32 @@ NS_ASSUME_NONNULL_BEGIN
     self.significantlyViewedTimer = nil;
 }
 
+#pragma mark - Title Button
+
+- (void)setUpTitleBarButton {
+    UIButton* b = [UIButton buttonWithType:UIButtonTypeCustom];
+    [b adjustsImageWhenHighlighted];
+    UIImage* w = [UIImage imageNamed:@"W"];
+    [b setImage:w forState:UIControlStateNormal];
+    [b sizeToFit];
+    @weakify(self);
+    [b bk_addEventHandler:^(id sender) {
+        @strongify(self);
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView                        = b;
+    self.navigationItem.titleView.isAccessibilityElement = YES;
+    self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-button-accessibility-label", nil);
+    self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitButton;
+
+}
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupToolbar];
+    [self setUpTitleBarButton];
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
