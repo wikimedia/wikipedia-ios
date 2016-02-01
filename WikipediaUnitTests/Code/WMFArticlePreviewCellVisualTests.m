@@ -65,7 +65,10 @@
                          description:self.shortDescription
                              extract:self.shortExtract
                             imageURL:nil];
-    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
+    FBSnapshotVerifyViewWithOptions(self.cell,
+                                    [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
+                                    FBSnapshotTestCaseDefaultSuffixes(),
+                                    0.01);
 }
 
 - (void)testLayoutWithLongExtractAndImage {
@@ -81,7 +84,10 @@
                          description:self.shortDescription
                              extract:self.longExtract
                             imageURL:nil];
-    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
+    FBSnapshotVerifyViewWithOptions(self.cell,
+                                    [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
+                                    FBSnapshotTestCaseDefaultSuffixes(),
+                                    0.01);
 }
 
 #pragma mark - Utils
@@ -105,7 +111,7 @@
         .andReturn(200)
         .withBody([[self wmf_bundle] wmf_dataFromContentsOfFile:@"golden-gate" ofType:@".jpg"]);
 
-        expectResolutionWithTimeout(2, ^{
+        expectResolutionWithTimeout(5, ^{
             return [self.cell setImageURL:imageURL];
         });
     } else {
