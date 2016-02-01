@@ -64,7 +64,7 @@
     [super viewDidLoad];
     self.title = MWLocalizedString(@"main-menu-nearby", nil);
     [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
-    self.tableView.estimatedRowHeight= [WMFNearbyArticleTableViewCell estimatedRowHeight];
+    self.tableView.estimatedRowHeight = [WMFNearbyArticleTableViewCell estimatedRowHeight];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
