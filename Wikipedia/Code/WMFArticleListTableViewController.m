@@ -39,7 +39,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dealloc {
     [self unobserveArticleUpdates];
-    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+    // NOTE(bgerstle): must check if dataSource was set to prevent creation of KVOControllerNonRetaining during dealloc
+    // happens during tests, creating KVOControllerNonRetaining during dealloc attempts to create weak ref, causing crash
+    if (self.dataSource) {
+        [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+    }
 }
 
 #pragma mark - Accessors
