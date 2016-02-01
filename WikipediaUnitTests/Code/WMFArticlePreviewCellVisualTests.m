@@ -60,15 +60,12 @@
     WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
 }
 
-- (void)testLayoutWithShortExtractWithout {
+- (void)testLayoutWithShortExtractWithoutImage {
     [self configureCellWithTitleText:self.shortTitleText
                          description:self.shortDescription
                              extract:self.shortExtract
                             imageURL:nil];
-    FBSnapshotVerifyViewWithOptions(self.cell,
-                                    [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
-                                    FBSnapshotTestCaseDefaultSuffixes(),
-                                    0.01);
+    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
 }
 
 - (void)testLayoutWithLongExtractAndImage {
@@ -84,10 +81,7 @@
                          description:self.shortDescription
                              extract:self.longExtract
                             imageURL:nil];
-    FBSnapshotVerifyViewWithOptions(self.cell,
-                                    [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
-                                    FBSnapshotTestCaseDefaultSuffixes(),
-                                    0.01);
+    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
 }
 
 #pragma mark - Utils
