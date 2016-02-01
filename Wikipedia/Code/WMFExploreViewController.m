@@ -715,6 +715,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - WMFSearchPresentationDelegate
