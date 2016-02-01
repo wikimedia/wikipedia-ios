@@ -142,12 +142,11 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* otherTitle = [self.dataSource titleForIndexPath:indexPath];
         return [title isEqualToTitle:otherTitle];
     }];
-    
+
     //update cells in place. Updating with relaod method causes the tableview to scroll
-    [indexPathsToRefresh enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [indexPathsToRefresh enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         self.dataSource.cellConfigureBlock([self.tableView cellForRowAtIndexPath:obj], [self.dataSource itemAtIndexPath:obj], self.tableView, obj);
     }];
-    
 }
 
 #pragma mark - Previewing

@@ -113,16 +113,16 @@
     } else {
         tappedView = sender;
     }
-    
+
     if (!tappedView) {
         return;
     }
-    
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithObject:tappedView forKey:@"tappedItem"];
+
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObject:tappedView forKey:@"tappedItem"];
     if (tappedChildView) {
         [userInfo setObject:tappedChildView forKey:@"tappedChild"];
     }
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"TabularScrollViewItemTapped" object:self userInfo:userInfo];
 }
 

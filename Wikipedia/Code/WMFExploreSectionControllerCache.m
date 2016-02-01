@@ -42,12 +42,12 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
                    dataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
-        self.site                        = site;
-        self.dataStore                   = dataStore;
-        self.sectionControllersBySection = [[NSCache alloc] init];
+        self.site                                   = site;
+        self.dataStore                              = dataStore;
+        self.sectionControllersBySection            = [[NSCache alloc] init];
         self.sectionControllersBySection.countLimit = WMFExploreSectionControllerCacheLimit;
-        self.sectionsBySectionController = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory|NSMapTableObjectPointerPersonality
-                                                     valueOptions:NSMapTableWeakMemory];
+        self.sectionsBySectionController            = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
+                                                                            valueOptions:NSMapTableWeakMemory];
     }
     return self;
 }

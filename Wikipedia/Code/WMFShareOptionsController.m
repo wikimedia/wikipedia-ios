@@ -172,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
         obj.enabled = enabled;
     }];
     self.containerViewController.navigationController.navigationBar.accessibilityElementsHidden = !enabled;
-    self.containerViewController.navigationController.toolbar.accessibilityElementsHidden = !enabled;
+    self.containerViewController.navigationController.toolbar.accessibilityElementsHidden       = !enabled;
 }
 
 #pragma mark - Share Options

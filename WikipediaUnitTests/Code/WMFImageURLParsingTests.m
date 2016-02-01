@@ -45,7 +45,7 @@
 
 - (void)testImageWithMultiplePeriodsInFilename {
     NSString* testURLString =
-    @"//upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg/440px-Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg";
+        @"//upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg/440px-Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg";
     assertThat(WMFParseImageNameFromSourceURL(testURLString),
                is(equalTo(@"Blacksmith%27s_tools_-_geograph.org.uk_-_1483374.jpg")));
 }

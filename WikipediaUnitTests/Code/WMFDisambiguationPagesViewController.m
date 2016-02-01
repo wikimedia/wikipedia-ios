@@ -17,13 +17,13 @@
 - (instancetype)initWithArticle:(MWKArticle*)article dataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
-        self.article              = article;
-        self.dataStore            = dataStore;
-        self.dataSource           =
-        [[WMFArticlePreviewDataSource alloc] initWithTitles:self.article.disambiguationTitles
-                                                       site:self.article.site
-                                                  dataStore:dataStore
-                                                    fetcher:[[WMFArticlePreviewFetcher alloc] init]];
+        self.article    = article;
+        self.dataStore  = dataStore;
+        self.dataSource =
+            [[WMFArticlePreviewDataSource alloc] initWithTitles:self.article.disambiguationTitles
+                                                           site:self.article.site
+                                                      dataStore:dataStore
+                                                        fetcher:[[WMFArticlePreviewFetcher alloc] init]];
         self.dataSource.tableView = self.tableView;
     }
     return self;

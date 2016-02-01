@@ -308,10 +308,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showOfflineEmptyViewAndReloadWhenReachable {
     NSParameterAssert(self.isViewLoaded && self.view.superview);
-    if(![self wmf_isShowingEmptyView]){
+    if (![self wmf_isShowingEmptyView]) {
         return;
     }
-    
+
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
 
     @weakify(self);
@@ -587,7 +587,7 @@ NS_ASSUME_NONNULL_BEGIN
         @weakify(self);
         [controller fetchDataIfNeeded].catch(^(NSError* error){
             @strongify(self);
-            if([error wmf_isNetworkConnectionError]){
+            if ([error wmf_isNetworkConnectionError]) {
                 [self showOfflineEmptyViewAndReloadWhenReachable];
             }
         }).finally(^{

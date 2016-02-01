@@ -10,6 +10,7 @@
 		041EFC371996A1F800B2CB28 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041EFC361996A1F800B2CB28 /* MapKit.framework */; };
 		0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */; };
 		04D34DB21863D39000610A87 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04D34DB11863D39000610A87 /* libxml2.dylib */; };
+		087BFC581C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */; };
 		0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */; };
 		0E0361771C4488BC00FD9642 /* WMFLocationSearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361761C4488BC00FD9642 /* WMFLocationSearchListViewController.m */; };
 		0E03617A1C44905400FD9642 /* WMFRelatedTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0361791C44905400FD9642 /* WMFRelatedTitleViewController.m */; };
@@ -32,7 +33,6 @@
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */; };
 		0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */; };
-		0E7AAEED1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */; };
 		0E7FC4631C517B00000E878B /* WMFBlacklistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */; };
 		0EA4D8941C4867BF0043622B /* UITableView+WMFLockedUpdates.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */; };
 		0EBCA7431C162ECF004F1FD9 /* MWKTitleLanguageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBCA7411C162ECF004F1FD9 /* MWKTitleLanguageController.m */; };
@@ -642,6 +642,8 @@
 		0493C2D319526A0100EBB973 /* WikiFont-Glyphs.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WikiFont-Glyphs.ttf"; sourceTree = "<group>"; };
 		04D34DB11863D39000610A87 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04E9A78218F73C7200F7ECF7 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		087BFC561C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PiwikTracker+WMFExtensions.h"; sourceTree = "<group>"; };
+		087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PiwikTracker+WMFExtensions.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
 		0E0361721C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFSelfSizingArticleListTableViewController.h; path = Wikipedia/Code/WMFSelfSizingArticleListTableViewController.h; sourceTree = SOURCE_ROOT; };
 		0E0361731C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSelfSizingArticleListTableViewController.m; path = Wikipedia/Code/WMFSelfSizingArticleListTableViewController.m; sourceTree = SOURCE_ROOT; };
@@ -683,8 +685,6 @@
 		0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBaseExploreSectionController.m; path = Wikipedia/Code/WMFBaseExploreSectionController.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FBF1C5725C20099B02E /* WMFExploreSectionControllerCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionControllerCache.h; path = Wikipedia/Code/WMFExploreSectionControllerCache.h; sourceTree = SOURCE_ROOT; };
 		0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSectionControllerCache.m; path = Wikipedia/Code/WMFExploreSectionControllerCache.m; sourceTree = SOURCE_ROOT; };
-		0E7AAEEB1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PiwikTracker+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
-		0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PiwikTracker+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBlacklistTests.m; path = WikipediaUnitTests/Code/WMFBlacklistTests.m; sourceTree = SOURCE_ROOT; };
 		0EA4D8921C4867BF0043622B /* UITableView+WMFLockedUpdates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+WMFLockedUpdates.m"; sourceTree = "<group>"; };
 		0EA4D8931C4867BF0043622B /* UITableView+WMFLockedUpdates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+WMFLockedUpdates.h"; sourceTree = "<group>"; };
@@ -3171,8 +3171,8 @@
 			isa = PBXGroup;
 			children = (
 				B0E804191C0CDE610065EBC0 /* WMFAnalyticsLogging.h */,
-				0E7AAEEB1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.h */,
-				0E7AAEEC1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m */,
+				087BFC561C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.h */,
+				087BFC571C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m */,
 				B0E8041A1C0CDE710065EBC0 /* MWKArticle+WMFAnalyticsLogging.h */,
 				B0E8041B1C0CDE710065EBC0 /* MWKArticle+WMFAnalyticsLogging.m */,
 				B0E8041D1C0CDE830065EBC0 /* MWKTitle+WMFAnalyticsLogging.h */,
@@ -3181,7 +3181,8 @@
 				B0E804211C0CDE930065EBC0 /* MWKSite+WMFAnalyticsLogging.m */,
 			);
 			name = Piwik;
-			sourceTree = "<group>";
+			path = wikipedia/Code;
+			sourceTree = SOURCE_ROOT;
 		};
 		BC45D5711C32EADD007C72F3 /* NSObject */ = {
 			isa = PBXGroup;
@@ -5381,7 +5382,6 @@
 				B0E806741C0CE9850065EBC0 /* QueuesSingleton.m in Sources */,
 				B0E8055E1C0CE0DC0065EBC0 /* UIViewController+WMFChildViewController.m in Sources */,
 				B0E806D21C0CEB6E0065EBC0 /* PageHistoryViewController.m in Sources */,
-				0E7AAEED1C21F4410046B5B6 /* PiwikTracker+WMFExtensions.m in Sources */,
 				B0E803CC1C0CDC9B0065EBC0 /* WMFTitleInsetRespectingButton.m in Sources */,
 				B0E807681C0CEE3A0065EBC0 /* GalleryImage.m in Sources */,
 				B0E803FA1C0CDDBA0065EBC0 /* WMFUnderlineButton.m in Sources */,
@@ -5488,6 +5488,7 @@
 				B0E8073C1C0CED810065EBC0 /* WikipediaAppUtils.m in Sources */,
 				BC45D59C1C33006E007C72F3 /* ArticleData.xcdatamodeld in Sources */,
 				BC22F99A1C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m in Sources */,
+				087BFC581C5FFD0F0038A6C9 /* PiwikTracker+WMFExtensions.m in Sources */,
 				B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */,
 				B0E8078F1C0CEF660065EBC0 /* MWKUser.m in Sources */,
 				B0E804E11C0CE0B40065EBC0 /* NSURLRequest+WMFUtilities.m in Sources */,

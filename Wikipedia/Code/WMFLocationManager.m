@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (BOOL)isDeniedOrDisabled {
-    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted ;
+    return [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted;
 }
 
 - (BOOL)requestAuthorizationIfNeeded {
