@@ -94,7 +94,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (UIImage*)headerIcon {
-    return [UIImage imageNamed:@"home-recent"];
+    return [UIImage imageNamed:@"recent-mini"];
 }
 
 - (UIImage*)headerButtonIcon {
