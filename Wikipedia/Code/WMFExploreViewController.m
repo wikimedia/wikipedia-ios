@@ -231,7 +231,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self createSectionSchemaIfNeeded];
 
     [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
+        if ([obj respondsToSelector:@selector(willDisplaySection)]) {
             [obj willDisplaySection];
         }
     }];
