@@ -32,7 +32,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
                            dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
-    self = [super initWithItems:@[self.title]];
+    self = [super initWithItems:@[title]];
     if (self) {
         self.title     = title;
         self.dataStore = dataStore;
