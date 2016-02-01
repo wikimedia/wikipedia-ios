@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dealloc {
     [self unobserveArticleUpdates];
+    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
 }
 
 #pragma mark - Accessors
@@ -51,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
     _dataSource.tableView     = nil;
     self.tableView.dataSource = nil;
 
-    [self.KVOController unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
 
     _dataSource = dataSource;
 
@@ -66,9 +67,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self updateDeleteButton];
-    [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
-        [self updateDeleteButtonEnabledState];
-        [self updateEmptyState];
+    [self.KVOControllerNonRetaining observe:self.dataSource
+                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WMFArticleListTableViewController* observer,
+                                              SSBaseDataSource < WMFTitleListDataSource > * object,
+                                              NSDictionary* change) {
+        [observer updateDeleteButtonEnabledState];
+        [observer updateEmptyState];
     }];
 }
 
