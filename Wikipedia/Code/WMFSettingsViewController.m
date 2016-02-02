@@ -466,7 +466,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
             @"accessibilityTraits": @(UIAccessibilityTraitButton)
-            }.mutableCopy
+        }.mutableCopy
     ].mutableCopy;
 
     self.rowData = rowData;
@@ -600,7 +600,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
                 break;
             }
             case SECONDARY_MENU_ROW_INDEX_DEBUG_TWEAKS: {
-                FBTweakViewController *tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
+                FBTweakViewController* tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
                 tweaksVC.tweaksDelegate = self;
                 [self presentViewController:tweaksVC animated:YES completion:nil];
                 break;
@@ -650,7 +650,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)tweakViewControllerPressedDone:(FBTweakViewController *)tweakViewController {
+- (void)tweakViewControllerPressedDone:(FBTweakViewController*)tweakViewController {
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
