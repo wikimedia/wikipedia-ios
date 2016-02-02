@@ -8,8 +8,6 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 
-@import Tweaks;
-
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController* appViewController;
@@ -38,7 +36,7 @@
 
 - (UIWindow*)window {
     if (!_window) {
-        _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     }
     return _window;
 }
