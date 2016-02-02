@@ -220,6 +220,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
 "share-as-image" = "Share as image";
 "share-as-text" = "Share as text";
+"share-cancel" = "Cancel";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";

@@ -25,6 +25,7 @@
 #import "MWKArticle.h"
 #import "NSURL+WMFExtras.h"
 #import "MWKTitle.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -140,8 +141,10 @@ NS_ASSUME_NONNULL_BEGIN
     shareOptionsView.cardImageViewContainer.userInteractionEnabled = YES;
     shareOptionsView.shareAsCardLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsTextLabel.userInteractionEnabled       = YES;
+    shareOptionsView.cancelLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsCardLabel.text                         = MWLocalizedString(@"share-as-image", nil);
     shareOptionsView.shareAsTextLabel.text                         = MWLocalizedString(@"share-as-text", nil);
+    shareOptionsView.cancelLabel.text = MWLocalizedString(@"share-cancel", nil);
     shareOptionsView.cardImageView.image                           = self.shareImage;
 
     [self.containerViewController.view addSubview:shareOptionsView];
@@ -211,6 +214,13 @@ NS_ASSUME_NONNULL_BEGIN
         [self.shareOptions.cardImageViewContainer addGestureRecognizer:tapForCardOnCardImageViewRecognizer];
         [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
         [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
+        @weakify(self);
+        [self.shareOptions.cancelLabel bk_whenTapped:^{
+            [self dismissShareOptionsWithCompletion:^{
+                @strongify(self);
+                [self cleanup];
+            }];
+        }];
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
     }];
 }
