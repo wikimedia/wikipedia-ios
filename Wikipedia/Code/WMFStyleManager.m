@@ -24,6 +24,14 @@ static WMFStyleManager* _styleManager = nil;
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.305 green:0.305 blue:0.296 alpha:1]];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setTranslucent:NO];
+    
+    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"]];
+    [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tabbar-shadow"]];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor wmf_customGray] }
+                                             forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor wmf_blueTintColor] }
+                                             forState:UIControlStateSelected];
+    
     [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor wmf_blueTintColor]];
 }

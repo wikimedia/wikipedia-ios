@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ebr-hF-Cp5">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
@@ -27,7 +28,7 @@
         <scene sceneID="Lqf-ge-2v5">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="bzO-gj-jpB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" id="tEK-7k-93Q"/>
+                    <tabBarItem key="tabBarItem" title="Saved" image="tabbar-save" selectedImage="tabbar-save-selected" id="tEK-7k-93Q"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ScF-IW-gDl">
@@ -82,7 +83,7 @@
         <scene sceneID="2zr-9G-QMd">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="ROQ-sG-rcF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" id="ZNo-7p-3PU"/>
+                    <tabBarItem key="tabBarItem" title="Recent" image="tabbar-recent" selectedImage="tabbar-recent-selected" id="ZNo-7p-3PU"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="rIL-t0-IJM">
@@ -121,7 +122,7 @@
         <scene sceneID="my8-ht-Vqg">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" id="EJe-8j-1e6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Explore" image="tabbar-explore" id="fCG-Qf-VzW"/>
+                    <tabBarItem key="tabBarItem" title="Explore" image="tabbar-explore" selectedImage="tabbar-explore-selected" id="fCG-Qf-VzW"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="c8d-c3-ZKx">
@@ -139,7 +140,10 @@
     </scenes>
     <resources>
         <image name="tabbar-explore" width="25" height="25"/>
+        <image name="tabbar-explore-selected" width="25" height="25"/>
         <image name="tabbar-recent" width="24" height="23"/>
+        <image name="tabbar-recent-selected" width="24" height="23"/>
         <image name="tabbar-save" width="17" height="23"/>
+        <image name="tabbar-save-selected" width="17" height="23"/>
     </resources>
 </document>
