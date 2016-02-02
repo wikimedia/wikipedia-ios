@@ -142,7 +142,7 @@
 "main-menu-more" = "More...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Crash";
-"main-menu-debug-tweaks" = "Tweaks";
+"main-menu-debug-tweaks" = "Developer settings";
 
 "saved-title" = "Saved";
 "saved-pages-title" = "Saved pages";
