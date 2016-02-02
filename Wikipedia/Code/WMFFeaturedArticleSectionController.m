@@ -13,7 +13,8 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
-#import "NSString+FormattedAttributedString.h"
+#import "NSDateFormatter+WMFExtensions.h"
+#import "UIColor+WMFHexColor.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -75,11 +76,20 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     return [UIImage imageNamed:@"featured-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return
-        [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:self.date]]
-                                                                          substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}]];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
+}
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {

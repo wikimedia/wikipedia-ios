@@ -362,4 +362,11 @@
 "close-button-accessibility-label" = "Accessibility label for a button that closes a dialog.";
 "back-button-accessibility-label" = "Accessibility label for a button to navigate back.";
 "compass-direction" = "Spoken description of compass direction, e.g. 'at 3 o'clock' means 'to the right'";
-
+"explore-featured-article-heading" = "Text for 'Featured article' header";
+"explore-continue-reading-heading" = "Text for 'Continue Reading' header";
+"explore-nearby-heading" = "Text for 'Nearby places' header";
+"explore-continue-related-heading" = "Text for 'Because you read' header";
+"explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
+"explore-random-article-heading" = "Text for 'Random article' header";
+"explore-random-article-sub-heading" = "Subtext beneath the 'Random article' header with name of language Wikipedia";
+"explore-potd-heading" = "Text for 'Picture of the day' header";

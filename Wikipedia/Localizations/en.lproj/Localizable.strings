@@ -408,3 +408,11 @@
 
 "compass-direction" = "at $1 o'clock";
 
+"explore-featured-article-heading" = "Featured article";
+"explore-continue-reading-heading" = "Continue reading";
+"explore-nearby-heading" = "Nearby places";
+"explore-continue-related-heading" = "Because you read";
+"explore-main-page-heading" = "Today on Wikipedia";
+"explore-random-article-heading" = "Random article";
+"explore-random-article-sub-heading" = "English Wikipedia";
+"explore-potd-heading" = "Picture of the day";
