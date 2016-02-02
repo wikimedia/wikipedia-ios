@@ -3,12 +3,12 @@
 
 @interface WMFExploreSectionHeader : UITableViewHeaderFooterView
 
-@property (strong, nonatomic) UIImage* image;
-@property (strong, nonatomic) UIColor* imageTintColor;
-@property (strong, nonatomic) UIColor* imageBackgroundColor;
+- (void)setImage:(UIImage*)image;
+- (void)setImageTintColor:(UIColor*)imageTintColor;
+- (void)setImageBackgroundColor:(UIColor*)imageBackgroundColor;
 
-@property (strong, nonatomic) NSAttributedString* title;
-@property (strong, nonatomic) NSAttributedString* subTitle;
+- (void)setTitle:(NSAttributedString*)title;
+- (void)setSubTitle:(NSAttributedString*)subTitle;
 
 @property (strong, nonatomic) IBOutlet UIButton* rightButton;
 
