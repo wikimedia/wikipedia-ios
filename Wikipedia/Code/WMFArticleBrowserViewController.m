@@ -200,11 +200,13 @@ NS_ASSUME_NONNULL_BEGIN
         UINavigationController* nav = [[UINavigationController alloc] init];
         nav.navigationBarHidden = YES;
         nav.toolbarHidden       = YES;
+        [self addChildViewController:nav];
         [self.view addSubview:nav.view];
         [nav.view mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.and.top.and.bottom.equalTo(self.view);
         }];
         nav.delegate                  = self;
+        [nav didMoveToParentViewController:self];
         _internalNavigationController = nav;
     }
     return _internalNavigationController;
