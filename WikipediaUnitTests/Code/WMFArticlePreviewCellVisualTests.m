@@ -68,7 +68,7 @@
     FBSnapshotVerifyViewWithOptions(self.cell,
                                     [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
                                     FBSnapshotTestCaseDefaultSuffixes(),
-                                    0.01);
+                                    0.1);
 }
 
 - (void)testLayoutWithLongExtractAndImage {
@@ -84,7 +84,10 @@
                          description:self.shortDescription
                              extract:self.longExtract
                             imageURL:nil];
-    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
+    FBSnapshotVerifyViewWithOptions(self.cell,
+                                    [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
+                                    FBSnapshotTestCaseDefaultSuffixes(),
+                                    0.1);
 }
 
 #pragma mark - Utils
