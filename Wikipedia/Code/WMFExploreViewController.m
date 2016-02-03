@@ -311,7 +311,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showOfflineEmptyViewAndReloadWhenReachable {
     NSParameterAssert(self.isViewLoaded && self.view.superview);
-    if (![self wmf_isShowingEmptyView]) {
+    if ([self wmf_isShowingEmptyView]) {
         return;
     }
 
