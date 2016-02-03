@@ -9,144 +9,100 @@
 @import Quick;
 @import Nimble;
 
-#import "UIViewController+WMFSearchButton_Testing.h"
+#import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
-#import "MWKDataStore+TempDataStoreForEach.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 #import "SessionSingleton.h"
 
-@interface DummySearchPresentationViewController : UIViewController
-    <WMFSearchPresentationDelegate>
+@interface UIViewController (WMFSharedTestAccess)
 
-@property (nonatomic, strong) MWKDataStore* searchDataStore;
++ (WMFSearchViewController*)sharedSearchViewController;
++ (void)                    wmf_clearSearchViewController;
 
 @end
 
 QuickSpecBegin(UIViewController_WMFSearchButtonTests)
 
-__block DummySearchPresentationViewController * testVC;
-configureTempDataStoreForEach(tempDataStore, ^{
-    testVC = [DummySearchPresentationViewController new];
-    testVC.searchDataStore = tempDataStore;
-    UIWindow* tempWindow = [[UIWindow alloc] init];
-    tempWindow.rootViewController = testVC;
-    [tempWindow makeKeyAndVisible];
+static UIWindow * window = nil;
+static UIViewController* testVC = nil;
+
+beforeSuite(^{
+    [UIViewController wmf_setSearchButtonDataStore:[MWKDataStore temporaryDataStore]];
+    testVC = [UIViewController new];
+    window = [[UIWindow alloc] init];
+    window.rootViewController = testVC;
+    [window makeKeyAndVisible];
 });
 
 afterEach(^{
     // tear down search
-    if (_sharedSearchViewController.view.window) {
-        [_sharedSearchViewController dismissViewControllerAnimated:NO completion:nil];
+    if ([UIViewController sharedSearchViewController].view.window) {
+        [[UIViewController sharedSearchViewController] dismissViewControllerAnimated:NO completion:nil];
 
         [self expectationForPredicate:
          [NSPredicate predicateWithBlock:
           ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
             return evaluatedObject.view.window == nil;
-        }]        evaluatedWithObject:_sharedSearchViewController handler:nil];
+        }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
         [self waitForExpectationsWithTimeout:10 handler:nil];
     }
 
-    _sharedSearchViewController = nil;
+    [UIViewController wmf_clearSearchViewController];
     [testVC.view.window resignKeyWindow];
 });
 
-WMFSearchViewController*(^ presentSearchByTappingButtonInVC)(UIViewController<WMFSearchPresentationDelegate>*) =
-    ^(UIViewController<WMFSearchPresentationDelegate>* presentingVC) {
-    UIBarButtonItem* searchBarItem = [presentingVC wmf_searchBarButtonItemWithDelegate:presentingVC];
-
-    // perform search button press manually
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [searchBarItem.target performSelector:searchBarItem.action withObject:searchBarItem];
-    #pragma clang diagnostic pop
-
-    // using XCTestExpecation because Nimble's polling matchers are failing on Travis
-    [self expectationForPredicate:
-     [NSPredicate predicateWithBlock:
-      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-        return evaluatedObject.presentedViewController.view.window != nil;
-    }]        evaluatedWithObject:presentingVC handler:nil];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
-
-    WMFSearchViewController* searchVC = (WMFSearchViewController*)presentingVC.presentedViewController;
-
-    expect(searchVC).to(beAnInstanceOf([WMFSearchViewController class]));
-    expect(searchVC).to(equal(_sharedSearchViewController));
-    expect(searchVC.searchResultDelegate).to(equal(presentingVC));
-    expect(searchVC.searchSite).to(equal([[SessionSingleton sharedInstance] searchSite]));
-
-    return searchVC;
-};
-
-void (^ dismissSearchFromVCAndWait)(UIViewController*) = ^(UIViewController* vc) {
-    UIViewController* presentedVC = vc.presentedViewController;
-    [vc dismissViewControllerAnimated:NO completion:nil];
-    [self expectationForPredicate:
-     [NSPredicate predicateWithBlock:
-      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-        return presentedVC.view.window == nil;
-    }]        evaluatedWithObject:presentedVC handler:nil];
-    [self waitForExpectationsWithTimeout:10 handler:nil];
-};
-
-void (^ dismissSearchFromTestVCAndWait)() = ^() {
-    dismissSearchFromVCAndWait(testVC);
-};
 
 describe(@"search button", ^{
-    it(@"should present a search VC modally", ^{
-        presentSearchByTappingButtonInVC(testVC);
+    it(@"should have the same (correct) site when presented consecutively", ^{
+        [testVC wmf_showSearchAnimated:NO];
+
+        WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
+        [oldSearchVC dismissViewControllerAnimated:NO completion:NULL];
+
+        [testVC wmf_showSearchAnimated:NO];
+
+        expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
+        
+        expect([UIViewController sharedSearchViewController].searchSite).to(equal(oldSearchVC.searchSite));
+
     });
 
-    it(@"should have the same (correct) delegate & site when presented consecutively", ^{
-        WMFSearchViewController* firstSearchVC = presentSearchByTappingButtonInVC(testVC);
+    it(@"should have correct site when presented after changes to search site", ^{
+        [testVC wmf_showSearchAnimated:NO];
 
-        dismissSearchFromTestVCAndWait();
-
-        WMFSearchViewController* secondSearchVC = presentSearchByTappingButtonInVC(testVC);
-        expect(secondSearchVC).to(equal(firstSearchVC));
-        expect(secondSearchVC.searchSite).to(equal(firstSearchVC.searchSite));
-    });
-
-    it(@"should have correct delegate & site when presented after changes to search site", ^{
-        WMFSearchViewController* oldSearchVC = presentSearchByTappingButtonInVC(testVC);
-
-        dismissSearchFromTestVCAndWait();
+        WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
+        [oldSearchVC dismissViewControllerAnimated:NO completion:NULL];
 
         [[SessionSingleton sharedInstance] setSearchLanguage:
          [[[SessionSingleton sharedInstance] searchLanguage] stringByAppendingString:@"a"]];
 
-        expect(presentSearchByTappingButtonInVC(testVC)).toNot(equal(oldSearchVC));
+        [testVC wmf_showSearchAnimated:NO];
+
+        expect([UIViewController sharedSearchViewController]).toNot(equal(oldSearchVC));
     });
 
     it(@"should be presentable from different view controllers", ^{
-        WMFSearchViewController* oldSearchVC = presentSearchByTappingButtonInVC(testVC);
-        dismissSearchFromTestVCAndWait();
+        [testVC wmf_showSearchAnimated:NO];
 
-        DummySearchPresentationViewController* otherTestVC = [DummySearchPresentationViewController new];
-        otherTestVC.searchDataStore = testVC.searchDataStore;
+        WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
+        [oldSearchVC dismissViewControllerAnimated:NO completion:NULL];
+
+        UIViewController* otherTestVC = [UIViewController new];
         testVC.view.window.rootViewController = otherTestVC;
-        WMFSearchViewController* newSearchVC = presentSearchByTappingButtonInVC(otherTestVC);
-        expect(newSearchVC).to(equal(oldSearchVC));
+        [otherTestVC wmf_showSearchAnimated:NO];
+        expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
     });
 });
 
 describe(@"global searchVC", ^{
     void (^ verifyGlobalVCOutOfWindowResetAfterNotificationNamed)(NSString*) = ^(NSString* notificationName) {
-        presentSearchByTappingButtonInVC(testVC);
+        [testVC wmf_showSearchAnimated:NO];
 
-        expect(_sharedSearchViewController).toNot(beNil());
-
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
-
-        expect(_sharedSearchViewController).toNot(beNil());
-
-        dismissSearchFromTestVCAndWait();
-
-        expect(_sharedSearchViewController).toNot(beNil());
+        expect([UIViewController sharedSearchViewController]).toNot(beNil());
 
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationName object:nil];
 
-        expect(_sharedSearchViewController).to(beNil());
+        expect([UIViewController sharedSearchViewController]).to(beNil());
     };
 
     it(@"should be reset on memory warnings when it is not in the window", ^{
@@ -159,18 +115,3 @@ describe(@"global searchVC", ^{
 });
 
 QuickSpecEnd
-
-@implementation DummySearchPresentationViewController
-
-#pragma mark - WMFSearchPresentationDelegate
-
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender {
-    WMF_TECH_DEBT_TODO(verify these callbacks)
-}
-
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    WMF_TECH_DEBT_TODO(verify these callbacks)
-}
-
-@end

@@ -28,10 +28,10 @@
 
 - (void)testPrunesEntriesWithEmptyTitles {
     MWKHistoryList* list = [[MWKHistoryList alloc] initWithEntries:nil];
-    [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"Foo"] discoveryMethod:MWKHistoryDiscoveryMethodLink];
+    [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@"Foo"]];
     assertThat(@([list countOfEntries]), is(@1));
 
-    [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@""] discoveryMethod:MWKHistoryDiscoveryMethodLink];
+    [list addPageToHistoryWithTitle:[[MWKSite siteWithCurrentLocale] titleWithString:@""]];
     assertThat(@([list countOfEntries]), is(@1));
 }
 

@@ -264,16 +264,6 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
-//- (BOOL)discoveryMethodRequiresScrollPositionRestore {
-//    if (self.discoveryMethod == MWKHistoryDiscoveryMethodSaved ||
-//        self.discoveryMethod == MWKHistoryDiscoveryMethodBackForward ||
-//        self.discoveryMethod == MWKHistoryDiscoveryMethodReloadFromNetwork ||
-//        self.discoveryMethod == MWKHistoryDiscoveryMethodReloadFromCache) {
-//        return YES;
-//    }
-//    return NO;
-//}
-
 #pragma mark - Navigation
 
 - (void)pushArticleWithTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {

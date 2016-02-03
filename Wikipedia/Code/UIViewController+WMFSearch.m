@@ -11,10 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation UIViewController (WMFSearchButton)
 
-static MWKDataStore* _dataStore = nil;
+static MWKDataStore * _dataStore = nil;
 static WMFSearchViewController* _sharedSearchViewController = nil;
 
-+ (void)wmf_setSearchButtonDataStore:(MWKDataStore*)dataStore{
++ (void)wmf_setSearchButtonDataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
     _dataStore = dataStore;
     [self wmf_clearSearchViewController];
@@ -22,6 +22,10 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
 
 + (void)wmf_clearSearchViewController {
     _sharedSearchViewController = nil;
+}
+
++ (WMFSearchViewController*)sharedSearchViewController {
+    return _sharedSearchViewController;
 }
 
 + (void)load {
@@ -43,7 +47,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
     [self wmf_clearSearchViewController];
 }
 
-- (UIBarButtonItem*)wmf_searchBarButtonItem{
+- (UIBarButtonItem*)wmf_searchBarButtonItem {
     @weakify(self);
     return [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"search"]
                                                style:UIBarButtonItemStylePlain
@@ -57,7 +61,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
     }];
 }
 
-- (void)wmf_showSearchAnimated:(BOOL)animated{
+- (void)wmf_showSearchAnimated:(BOOL)animated {
     NSParameterAssert(_dataStore);
     MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
 
