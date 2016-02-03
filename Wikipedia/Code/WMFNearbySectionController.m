@@ -38,9 +38,6 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
-@property (nonatomic, strong) MWKDataStore* dataStore;
-
 @property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
 @property (nonatomic, strong) WMFCompassViewModel* compassViewModel;
@@ -53,22 +50,14 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
                             site:(MWKSite*)site
                        dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
-    NSParameterAssert(dataStore);
-    self = [super init];
+    self = [super initWithDataStore:dataStore];
     if (self) {
         self.location              = location;
         self.searchSite            = site;
-        self.dataStore             = dataStore;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel      = [[WMFCompassViewModel alloc] init];
     }
     return self;
-}
-
-#pragma mark - Accessors
-
-- (MWKSavedPageList*)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
 }
 
 #pragma mark - WMFExploreSectionController

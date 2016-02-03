@@ -3,7 +3,8 @@
 #import "MWKSiteInfoFetcher.h"
 #import "WMFEnglishFeaturedTitleFetcher.h"
 
-
+#import "MWKDataStore.h"
+#import "MWKUserDataStore.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKSiteInfo.h"
@@ -21,7 +22,6 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 @interface WMFMainPageSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
@@ -31,12 +31,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @implementation WMFMainPageSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
+- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
-    self = [super init];
+    self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site          = site;
-        self.savedPageList = savedPageList;
+        self.site = site;
     }
     return self;
 }

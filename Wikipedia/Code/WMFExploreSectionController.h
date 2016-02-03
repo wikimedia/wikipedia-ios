@@ -100,12 +100,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
 
+
 /**
- *  The discovery method associated with where this section's data originated from.
+ *  Return a view controller to be presented when an item is tapped.
  *
- *  @return A discovery method.
+ *  The caller will present the view controller returned by this method modally.
+ *
+ *  @param indexPath The indexPath of the cell that was tapped.
+ *
+ *  @return A view controller which displays more details of the content at @c index.
  */
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath;
+
 
 @optional
 
@@ -177,38 +183,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Protocol for sections which display articles in some form (e.g. nearby or related articles).
+ *  Used primarily for event logging
  */
 @protocol WMFTitleProviding <NSObject>
 
 /**
- *  Provide the article title to be pushed in response to an item being tapped.
+ *  Provide the title representing the item at the index path.
  *
- *  @param index The index of the cell which was tapped.
+ *  @param indexPath The index of the item.
  *
- *  @return The title of the item at @c index.
+ *  @return The title of the item at @c indexPath.
  */
 - (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
-
-/**
- *  Protocol for sections which display something other than articles.
- */
-@protocol WMFDetailProviding <NSObject>
-
-/**
- *  Return a view controller to be presented modally when an item is tapped.
- *
- *  The caller will present the view controller returned by this method modally.
- *
- *  @param indexPath The indexPath of the cell that was tapped.
- *
- *  @return A view controller which displays more details of the content at @c index.
- */
-- (UIViewController*)exploreDetailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath;
-
-@end
-
 
 
 NS_ASSUME_NONNULL_END

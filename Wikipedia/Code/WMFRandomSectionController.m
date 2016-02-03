@@ -5,6 +5,7 @@
 #import "MWKSite.h"
 #import "MWKSavedPageList.h"
 #import "MWKSearchResult.h"
+#import "MWKDataStore.h"
 
 #import "WMFArticlePreviewTableViewCell.h"
 #import "WMFArticlePlaceholderTableViewCell.h"
@@ -19,7 +20,6 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 @interface WMFRandomSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
@@ -30,13 +30,10 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @implementation WMFRandomSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
-    NSParameterAssert(site);
-    NSParameterAssert(savedPageList);
-    self = [super init];
+- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+    self = [super initWithDataStore:dataStore];
     if (self) {
-        self.searchSite    = site;
-        self.savedPageList = savedPageList;
+        self.searchSite = site;
     }
     return self;
 }

@@ -12,6 +12,8 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
+#import "MWKDataStore.h"
+#import "MWKUserDataStore.h"
 
 #import "NSString+FormattedAttributedString.h"
 
@@ -23,7 +25,6 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) NSDate* date;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
 
@@ -33,14 +34,15 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @implementation WMFFeaturedArticleSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site date:(NSDate*)date savedPageList:(MWKSavedPageList*)savedPageList {
+- (instancetype)initWithSite:(MWKSite*)site
+                        date:(NSDate*)date
+                   dataStore:(MWKDataStore*)dataStore{
     NSParameterAssert(site);
     NSParameterAssert(date);
-    self = [super init];
+    self = [super initWithDataStore:dataStore];
     if (self) {
         self.site          = site;
         self.date          = date;
-        self.savedPageList = savedPageList;
     }
     return self;
 }

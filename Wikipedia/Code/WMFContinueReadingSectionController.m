@@ -1,10 +1,3 @@
-//
-//  WMFContinueReadingSectionController.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 10/7/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFContinueReadingSectionController.h"
 #import "WMFContinueReadingTableViewCell.h"
@@ -22,7 +15,6 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 @interface WMFContinueReadingSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKTitle* title;
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 @end
 
@@ -31,11 +23,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
-    NSParameterAssert(dataStore);
-    self = [super initWithItems:@[title]];
+    self = [super initWithDataStore:dataStore items:@[title]];
     if (self) {
         self.title     = title;
-        self.dataStore = dataStore;
     }
     return self;
 }
