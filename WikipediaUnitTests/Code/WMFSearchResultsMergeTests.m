@@ -22,7 +22,8 @@ static MWKSearchResult* dummySearchResultWithIndex(NSUInteger index) {
                                               extract:@"baz"
                                          thumbnailURL:[NSURL URLWithString:@"http://foo.bar/baz"]
                                                 index:@(index)
-                                     isDisambiguation:NO];
+                                     isDisambiguation:NO
+                                               isList:NO];
 }
 
 QuickSpecBegin(WMFSearchResultMergeTests)
