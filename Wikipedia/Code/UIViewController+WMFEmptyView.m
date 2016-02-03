@@ -1,14 +1,6 @@
-//
-//  UIViewController+WMFEmptyView.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 12/10/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFEmptyView.h"
-#import <Masonry/Masonry.h>
 
 @implementation UIViewController (WMFEmptyView)
 
@@ -47,16 +39,14 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
             return;
     }
 
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    view.frame            = self.view.bounds;
+
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView*)self.view setScrollEnabled:NO];
     }
     [self.view addSubview:view];
 
-    [view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.view);
-        make.bottom.equalTo(self.view);
-        make.leading.and.trailing.equalTo(self.view);
-    }];
     [self bk_associateValue:view withKey:(__bridge const void*)(WMFEmptyViewKey)];
 }
 
