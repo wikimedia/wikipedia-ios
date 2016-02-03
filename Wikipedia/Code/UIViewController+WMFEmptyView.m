@@ -47,24 +47,15 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
             return;
     }
 
-    UIView* container = self.view.superview;
-    if ([container isKindOfClass:[UIScrollView class]]) {
-        container = container.superview;
-    }
-    NSAssert(container != nil, @"Trying to add an empty view with no container view");
-    if (!container) {
-        return;
-    }
-
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView*)self.view setScrollEnabled:NO];
     }
     [self.view addSubview:view];
 
     [view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(container);
-        make.bottom.equalTo(container);
-        make.leading.and.trailing.equalTo(container);
+        make.top.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+        make.leading.and.trailing.equalTo(self.view);
     }];
     [self bk_associateValue:view withKey:(__bridge const void*)(WMFEmptyViewKey)];
 }
@@ -80,7 +71,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 }
 
 - (BOOL)wmf_isShowingEmptyView {
-    return [self wmf_emptyView] != nil;
+    return [self wmf_emptyView].superview != nil;
 }
 
 @end
