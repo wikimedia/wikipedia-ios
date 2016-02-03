@@ -260,7 +260,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    UIEdgeInsets insets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height, 0.0, self.navigationController.toolbar.frame.size.height, 0.0);
+    UIEdgeInsets insets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, 0.0, self.navigationController.toolbar.frame.size.height, 0.0);
     [[self.internalNavigationController viewControllers] enumerateObjectsUsingBlock:^(__kindof WMFArticleViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.contentInsets = insets;
     }];
