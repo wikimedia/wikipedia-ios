@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFNavigationController
 
-- (UIStatusBarStyle)preferredStatusBarStyle{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
@@ -92,7 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UINavigationController*)embeddedBrowserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source {
     NSParameterAssert(viewController);
     WMFArticleBrowserViewController* vc = [[WMFArticleBrowserViewController alloc] initWithDataStore:viewController.dataStore];
-    WMFNavigationController* nav = [[WMFNavigationController alloc] initWithRootViewController:vc];
+    WMFNavigationController* nav        = [[WMFNavigationController alloc] initWithRootViewController:vc];
     [vc pushArticleViewController:viewController source:source animated:NO];
     return nav;
 }
@@ -198,6 +198,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UINavigationController*)internalNavigationController {
     if (!_internalNavigationController) {
         UINavigationController* nav = [[UINavigationController alloc] init];
+        nav.view.clipsToBounds  = NO;
         nav.navigationBarHidden = YES;
         nav.toolbarHidden       = YES;
         [self addChildViewController:nav];
@@ -205,7 +206,7 @@ NS_ASSUME_NONNULL_BEGIN
         [nav.view mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.and.top.and.bottom.equalTo(self.view);
         }];
-        nav.delegate                  = self;
+        nav.delegate = self;
         [nav didMoveToParentViewController:self];
         _internalNavigationController = nav;
     }
@@ -221,7 +222,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.edgesForExtendedLayout = UIRectEdgeTop;
+    self.edgesForExtendedLayout               = UIRectEdgeNone;
+    self.automaticallyAdjustsScrollViewInsets = YES;
 
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
     self.navigationController.navigationBar.translucent  = YES;
@@ -254,16 +256,12 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.navigationController);
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
 
-- (void)viewWillLayoutSubviews{
+- (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    UIEdgeInsets insets = UIEdgeInsetsMake(self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, 0.0, self.navigationController.toolbar.frame.size.height, 0.0);
-    [[self.internalNavigationController viewControllers] enumerateObjectsUsingBlock:^(__kindof WMFArticleViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        obj.contentInsets = insets;
-    }];
     [self.view bringSubviewToFront:self.progressView];
 }
 
@@ -342,12 +340,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showProgressViewAnimated:(BOOL)animated {
     self.progressView.progress = 0.05;
-    
+
     if (!animated) {
         [self _showProgressView];
         return;
     }
-    
+
     [UIView animateWithDuration:0.25 animations:^{
         [self _showProgressView];
     } completion:^(BOOL finished) {
@@ -362,7 +360,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (progress < self.progressView.progress) {
         return;
     }
-    if(self.progressView.alpha < 0.1){
+    if (self.progressView.alpha < 0.1) {
         [self showProgressViewAnimated:YES];
     }
 
@@ -381,7 +379,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self _hideProgressView];
         return;
     }
-    
+
     [UIView animateWithDuration:0.25 animations:^{
         [self _hideProgressView];
     } completion:nil];
@@ -390,7 +388,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)_hideProgressView {
     self.progressView.alpha = 0.0;
 }
-
 
 #pragma mark - Toolbar Setup
 
@@ -478,15 +475,23 @@ NS_ASSUME_NONNULL_BEGIN
     [self showShareSheetFrombarButtonItem:nil];
 }
 
+- (void)articleController:(WMFArticleViewController*)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated {
+    [self updateProgress:progress animated:animated];
+}
+
 - (void)articleControllerDidLoadArticle:(WMFArticleViewController*)controller {
     [self setupToolbar];
+    [self completeAndHideProgress];
+}
+
+- (void)articleControllerDidFailToLoadArticle:(WMFArticleViewController*)controller {
+    [self hideProgressViewAnimated:YES];
 }
 
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
     [[self currentArticleViewController] setDelegate:nil];
-    [[self currentArticleViewController] setProgressView:nil];
 }
 
 - (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
@@ -503,9 +508,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self setupToolbar];
 
     self.shareOptionsController = nil;
+    //HACK: the transition view wrapping the view controller clips subcviews
+    //We need to so this to make sure the webview shows through the navigation bar when scrolling behind it
+    viewController.view.superview.superview.clipsToBounds = NO;
     WMFArticleViewController* vc = (WMFArticleViewController*)viewController;
     [vc setDelegate:self];
-    [vc setProgressView:self.progressView];
     //Delay this so any visual updates to lists are postponed until the article after the article is displayed
     //Some lists (like history) will show these artifacts as the push navigation is occuring.
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{

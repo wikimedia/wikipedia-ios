@@ -42,13 +42,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL restoreScrollPositionOnArticleLoad;
 
 
-
-
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
-@property (strong, nonatomic, nullable, readonly) WMFShareFunnel* shareFunnel;
+@end
 
-@property (nonatomic) UIEdgeInsets contentInsets;
+
+@interface WMFArticleViewController (WMFBrowserViewControllerInterface)
+
+
+@property (strong, nonatomic, nullable, readonly) WMFShareFunnel* shareFunnel;
 
 - (BOOL)canRefresh;
 - (BOOL)canShare;

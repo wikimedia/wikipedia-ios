@@ -102,15 +102,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     return self;
 }
 
-- (void)setContentInsets:(UIEdgeInsets)contentInsets {
-    self.webView.scrollView.contentInset          = contentInsets;
-    self.webView.scrollView.scrollIndicatorInsets = contentInsets;
-}
-
-- (UIEdgeInsets)contentInsets {
-    return self.webView.scrollView.contentInset;
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -121,6 +112,10 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self addFooterView];
 
     self.referencesHidden = YES;
+
+    self.view.clipsToBounds               = NO;
+    self.webView.clipsToBounds            = NO;
+    self.webView.scrollView.clipsToBounds = NO;
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];

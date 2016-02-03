@@ -234,14 +234,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Public
 
-- (void)setContentInsets:(UIEdgeInsets)contentInsets {
-    self.webViewController.contentInsets = contentInsets;
-}
-
-- (UIEdgeInsets)contentInsets {
-    return self.webViewController.contentInsets;
-}
-
 - (BOOL)canRefresh {
     return self.article != nil;
 }
@@ -351,6 +343,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpTitleBarButton];
+    self.view.clipsToBounds = NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
