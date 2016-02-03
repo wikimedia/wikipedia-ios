@@ -14,7 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)articleControllerDidTapShareSelectedText:(WMFArticleViewController*)controller;
 
+- (void)articleController:(WMFArticleViewController*)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated;
+
 - (void)articleControllerDidLoadArticle:(WMFArticleViewController*)controller;
+
+- (void)articleControllerDidFailToLoadArticle:(WMFArticleViewController*)controller;
 
 @end
 
@@ -42,9 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
-@property (strong, nonatomic, nullable) WMFShareFunnel* shareFunnel;
-
-@property (strong, nonatomic, nullable) UIProgressView* progressView;
+@property (strong, nonatomic, nullable, readonly) WMFShareFunnel* shareFunnel;
 
 @property (nonatomic) UIEdgeInsets contentInsets;
 

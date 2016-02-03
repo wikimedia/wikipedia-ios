@@ -239,7 +239,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.navigationItem.titleView           = [[UIImageView alloc] initWithImage:w];
     self.navigationItem.titleView.tintColor = [UIColor wmf_readerWGray];
 
-    [self addProgressView];
     self.navigationTitleStack = [NSMutableArray array];
 
     if (self.initialViewController) {
@@ -247,6 +246,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.initialViewController       = nil;
         self.initialViewControllerSource = nil;
     }
+    [self addProgressView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -264,6 +264,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[self.internalNavigationController viewControllers] enumerateObjectsUsingBlock:^(__kindof WMFArticleViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.contentInsets = insets;
     }];
+    [self.view bringSubviewToFront:self.progressView];
 }
 
 #pragma mark - Navigation
@@ -331,12 +332,65 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.progressView.superview.mas_top);
+        make.top.equalTo(self.mas_topLayoutGuide);
         make.left.equalTo(self.progressView.superview.mas_left);
         make.right.equalTo(self.progressView.superview.mas_right);
         make.height.equalTo(@2.0);
     }];
+    [self hideProgressViewAnimated:NO];
 }
+
+- (void)showProgressViewAnimated:(BOOL)animated {
+    self.progressView.progress = 0.05;
+    
+    if (!animated) {
+        [self _showProgressView];
+        return;
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _showProgressView];
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)_showProgressView {
+    self.progressView.alpha = 1.0;
+}
+
+- (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
+    if (progress < self.progressView.progress) {
+        return;
+    }
+    if(self.progressView.alpha < 0.1){
+        [self showProgressViewAnimated:YES];
+    }
+
+    [self.progressView setProgress:progress animated:animated];
+}
+
+- (void)completeAndHideProgress {
+    [self updateProgress:1.0 animated:YES];
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        [self hideProgressViewAnimated:YES];
+    });
+}
+
+- (void)hideProgressViewAnimated:(BOOL)animated {
+    if (!animated) {
+        [self _hideProgressView];
+        return;
+    }
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        [self _hideProgressView];
+    } completion:nil];
+}
+
+- (void)_hideProgressView {
+    self.progressView.alpha = 0.0;
+}
+
 
 #pragma mark - Toolbar Setup
 

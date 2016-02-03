@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
+@property (strong, nonatomic, nullable, readwrite) WMFShareFunnel* shareFunnel;
+
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry* historyEntry;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
@@ -149,7 +151,6 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMore];
         }
     }
-    [self.delegate articleControllerDidLoadArticle:self];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -286,51 +287,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Progress
 
-- (void)showProgressViewAnimated:(BOOL)animated {
-    self.progressView.progress = 0.05;
-
-    if (!animated) {
-        [self _showProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25 animations:^{
-        [self _showProgressView];
-    } completion:^(BOOL finished) {
-    }];
-}
-
-- (void)_showProgressView {
-    self.progressView.alpha = 1.0;
-}
-
-- (void)hideProgressViewAnimated:(BOOL)animated {
-    if (!animated) {
-        [self _hideProgressView];
-        return;
-    }
-
-    [UIView animateWithDuration:0.25 animations:^{
-        [self _hideProgressView];
-    } completion:nil];
-}
-
-- (void)_hideProgressView {
-    self.progressView.alpha = 0.0;
-}
-
 - (void)updateProgress:(CGFloat)progress animated:(BOOL)animated {
-    if (progress < self.progressView.progress) {
-        return;
-    }
-    [self.progressView setProgress:progress animated:animated];
-}
-
-- (void)completeAndHideProgress {
-    [self updateProgress:1.0 animated:YES];
-    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
-        [self hideProgressViewAnimated:YES];
-    });
+    [self.delegate articleController:self didUpdateArticleLoadProgress:progress animated:animated];
 }
 
 /**
@@ -397,8 +355,6 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
     [self setupWebView];
-
-    [self hideProgressViewAnimated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -467,7 +423,6 @@ NS_ASSUME_NONNULL_BEGIN
     }
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
     [self unobserveArticleUpdates];
-    [self showProgressViewAnimated:YES];
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfTitleIfNeeded:self.articleTitle progress:^(CGFloat progress) {
@@ -483,7 +438,6 @@ NS_ASSUME_NONNULL_BEGIN
     }).catch(^(NSError* error){
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
-        [self hideProgressViewAnimated:YES];
 
         MWKArticle* cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
         if (cachedFallback) {
@@ -561,8 +515,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didLoadArticle:(MWKArticle*)article {
-    [self completeAndHideProgress];
     [self scrollWebViewToRequestedPosition];
+    [self.delegate articleControllerDidLoadArticle:self];
 }
 
 - (void)webViewController:(WebViewController*)controller didTapEditForSection:(MWKSection*)section {
