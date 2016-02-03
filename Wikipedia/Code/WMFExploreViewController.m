@@ -674,7 +674,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController, WMFMoreFooterProviding> articleSectionController = (id<WMFExploreSectionController, WMFMoreFooterProviding>)controllerForSection;
 
     UIViewController* moreVC = [articleSectionController moreViewController];
-    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
+    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreInExploreSection:articleSectionController];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 

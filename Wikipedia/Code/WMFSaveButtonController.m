@@ -138,10 +138,10 @@
     BOOL isSaved = [self.savedPageList isSaved:self.title];
     if (isSaved) {
         [self.savedPagesFunnel logSaveNew];
-        [[PiwikTracker sharedInstance] wmf_logActionSaveTitle:self.title fromSource:self.analyticsSource];
+        [[PiwikTracker sharedInstance] wmf_logActionSaveTitleFromSource:self.analyticsSource];
     } else {
         [self.savedPagesFunnel logDelete];
-        [[PiwikTracker sharedInstance] wmf_logActionUnsaveTitle:self.title fromSource:self.analyticsSource];
+        [[PiwikTracker sharedInstance] wmf_logActionUnsaveTitleFromSource:self.analyticsSource];
     }
 
     [self observeSavedPages];

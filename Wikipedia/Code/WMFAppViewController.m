@@ -263,7 +263,7 @@ static dispatch_once_t launchToken;
             [self loadMainUI];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
-            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore] fromSource:nil];
         }];
     }];
 }
@@ -550,7 +550,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
     WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab]];
+    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab] fromSource:nil];
 }
 
 #pragma mark - Notifications

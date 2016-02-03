@@ -1,5 +1,5 @@
 @import UIKit;
-#import "MWKHistoryEntry.h"
+#import "WMFAnalyticsLogging.h"
 
 @class MWKDataStore;
 @class MWKTitle;
@@ -9,7 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : UIViewController
+@interface WMFArticleViewController : UIViewController<WMFAnalyticsLogging>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;

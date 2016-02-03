@@ -893,6 +893,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+#pragma mark - WMFAnalyticsLogging
+
+
+- (NSString*)analyticsName {
+    return @"Article";
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
