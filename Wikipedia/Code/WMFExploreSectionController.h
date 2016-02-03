@@ -47,13 +47,36 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage*)headerIcon;
 
 /**
- *  The text to be displayed in the header.
+ *  Color used for icon tint
+ *
+ *  @return A color
+ */
+- (UIColor*)headerIconTintColor;
+
+/**
+ *  Background color of section's header icon container view
+ *
+ *  @return A color
+ */
+- (UIColor*)headerIconBackgroundColor;
+
+/**
+ *  The text to be displayed on the first line of the header.
  *  Note this is an attributed stirng to allow links to be embeded
  *  Additional styling will be added before display time.
  *
- *  @return The header string
+ *  @return The header title string
  */
-- (NSAttributedString*)headerText;
+- (NSAttributedString*)headerTitle;
+
+/**
+ *  The text to be displayed on the second line of the header.
+ *  Note this is an attributed stirng to allow links to be embeded
+ *  Additional styling will be added bfore display time.
+ *
+ *  @return The header sub-title string
+ */
+- (NSAttributedString*)headerSubTitle;
 
 /**
  *  Called to allow the controller to register cells in the table view

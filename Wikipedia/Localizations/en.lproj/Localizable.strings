@@ -141,7 +141,8 @@
 "main-menu-nearby" = "Nearby";
 "main-menu-more" = "More...";
 "main-menu-heading-debug" = "Debug";
-"main-menu-debug-crash"= "Crash";
+"main-menu-debug-crash" = "Crash";
+"main-menu-debug-tweaks" = "Developer settings";
 
 "saved-title" = "Saved";
 "saved-pages-title" = "Saved pages";
@@ -220,6 +221,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
 "share-as-image" = "Share as image";
 "share-as-text" = "Share as text";
+"share-cancel" = "Cancel";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
@@ -407,3 +409,11 @@
 
 "compass-direction" = "at $1 o'clock";
 
+"explore-featured-article-heading" = "Featured article";
+"explore-continue-reading-heading" = "Continue reading";
+"explore-nearby-heading" = "Nearby places";
+"explore-continue-related-heading" = "Because you read";
+"explore-main-page-heading" = "Today on Wikipedia";
+"explore-random-article-heading" = "Random article";
+"explore-random-article-sub-heading" = "English Wikipedia";
+"explore-potd-heading" = "Picture of the day";

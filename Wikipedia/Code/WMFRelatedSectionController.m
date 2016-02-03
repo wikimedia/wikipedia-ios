@@ -27,7 +27,6 @@
 
 // Style
 #import "UIFont+WMFStyle.h"
-#import "NSString+FormattedAttributedString.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -84,12 +83,20 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     return [UIImage imageNamed:@"recent-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return
-        [MWLocalizedString(@"home-continue-related-heading", nil) attributedStringWithAttributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-                                                                             substitutionStrings:@[self.title.text]
-                                                                          substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}]
-        ];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
+}
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-continue-related-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:self.title.text attributes:@{NSForegroundColorAttributeName: [UIColor wmf_blueTintColor]}];
 }
 
 - (NSString*)cellIdentifier {

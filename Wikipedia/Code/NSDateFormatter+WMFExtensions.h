@@ -41,4 +41,6 @@
 
 + (instancetype)wmf_englishHyphenatedYearMonthDayFormatter;
 
++ (instancetype)wmf_dayNameMonthNameDayOfMonthNumberDateFormatter;
+
 @end
