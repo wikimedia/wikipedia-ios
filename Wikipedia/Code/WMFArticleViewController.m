@@ -627,7 +627,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)willDismissGalleryController:(WMFModalImageGalleryViewController* __nonnull)gallery {
     self.headerGallery.currentPage = gallery.currentPage;
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Edit Section
