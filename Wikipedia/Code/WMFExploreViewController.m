@@ -210,6 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self resetRefreshControlWithCompletion:NULL];
 
+    self.tableView.scrollsToTop = YES;
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
