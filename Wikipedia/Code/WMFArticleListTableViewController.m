@@ -241,8 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
         [self.delegate didSelectTitle:title
-                               sender:self
-                      discoveryMethod:[self discoveryMethod]];
+                               sender:self];
         return;
     }
     [self wmf_pushArticleViewControllerWithTitle:title
@@ -278,10 +277,6 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         [self wmf_pushArticleViewController:viewControllerToCommit];
     }
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodUnknown;
 }
 
 - (NSString*)analyticsName {

@@ -68,10 +68,6 @@
     return WMFEmptyViewTypeNoSavedPages;
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSaved;
-}
-
 - (NSString*)analyticsName {
     return @"Saved";
 }

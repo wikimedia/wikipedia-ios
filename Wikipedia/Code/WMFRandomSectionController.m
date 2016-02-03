@@ -94,10 +94,6 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodRandom;
-}
-
 - (NSString*)analyticsName {
     return @"Random";
 }

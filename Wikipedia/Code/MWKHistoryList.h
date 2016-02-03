@@ -23,10 +23,8 @@ extern NSString* const MWKHistoryListDidUpdateNotification;
  *  Calling this on a page already in the history will simply update its @c date.
  *
  *  @param title           The title of the page to add
- *  @param discoveryMethod The method of discovery. MWKHistoryDiscoveryMethodUnknown is ignored if updating an existing
- *                         entry.
  */
-- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title;
 
 /**
  *  Save the scroll position of a page.

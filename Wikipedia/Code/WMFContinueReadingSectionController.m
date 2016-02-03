@@ -72,10 +72,6 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodReloadFromNetwork;
-}
-
 - (CGFloat)estimatedRowHeight {
     return [WMFContinueReadingTableViewCell estimatedRowHeight];
 }

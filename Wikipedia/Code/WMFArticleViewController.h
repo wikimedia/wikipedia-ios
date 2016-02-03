@@ -12,12 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleViewController : UIViewController
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore
-                     discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod;
+                           dataStore:(MWKDataStore*)dataStore;
 
 @property (nonatomic, strong, readonly) MWKTitle* articleTitle;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
-@property (nonatomic, assign, readonly) MWKHistoryDiscoveryMethod discoveryMethod;
 
 @end
 

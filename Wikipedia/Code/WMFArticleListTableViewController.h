@@ -7,6 +7,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol WMFArticleListTableViewControllerDelegate <NSObject>
+
+- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender;
+
+- (void)didCommitToPreviewedArticleViewController:(UINavigationController*)articleViewController
+                                           sender:(id)sender;
+
+@end
+
+
 @interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsLogging>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
@@ -24,8 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleListTableViewController (WMFSubclasses)
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
-- (NSString*)                analyticsName;
+- (NSString*)analyticsName;
 
 - (WMFEmptyViewType)emptyViewType;
 

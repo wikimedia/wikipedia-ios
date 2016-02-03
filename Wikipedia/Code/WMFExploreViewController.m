@@ -709,14 +709,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethodForSectionController:(id<WMFExploreSectionController>)sectionController {
-    if ([sectionController respondsToSelector:@selector(discoveryMethod)]) {
-        return [sectionController discoveryMethod];
-    } else {
-        return MWKHistoryDiscoveryMethodSearch;
-    }
-}
-
 #pragma mark - WMFExploreSectionSchemaDelegate
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema {
