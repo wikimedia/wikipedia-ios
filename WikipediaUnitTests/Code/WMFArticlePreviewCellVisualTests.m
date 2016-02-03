@@ -65,7 +65,10 @@
                          description:self.shortDescription
                              extract:self.shortExtract
                             imageURL:nil];
-    WMFSnapshotVerifyViewForOSAndWritingDirection(self.cell);
+    FBSnapshotVerifyViewWithOptions(self.cell,
+                                    [[UIApplication sharedApplication] wmf_systemVersionAndWritingDirection],
+                                    FBSnapshotTestCaseDefaultSuffixes(),
+                                    0.01);
 }
 
 - (void)testLayoutWithLongExtractAndImage {
