@@ -3,16 +3,17 @@
 #import "WMFTitleListDataSource.h"
 #import "WMFAnalyticsLogging.h"
 
-@class SSBaseDataSource, MWKDataStore, WMFArticleBrowserViewController;
+@class SSBaseDataSource, MWKDataStore, WMFArticleBrowserViewController, WMFArticleListTableViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol WMFArticleListTableViewControllerDelegate <NSObject>
 
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender;
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title;
 
-- (void)didCommitToPreviewedArticleViewController:(UINavigationController*)articleViewController
-                                           sender:(id)sender;
+- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title;
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController;
 
 @end
 

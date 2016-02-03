@@ -580,19 +580,34 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender{
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title{
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
-        [presenter presentViewController:vc animated:YES completion:NULL];
+        if([presenter isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)presenter viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]){
+            WMFArticleBrowserViewController* vc = [[(UINavigationController*)presenter viewControllers] firstObject];
+            [vc pushArticleWithTitle:title source:self animated:YES];
+        }else{
+            UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
+            [presenter presentViewController:vc animated:YES completion:NULL];
+        }
     }];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(UINavigationController*)articleViewController
-                                           sender:(id)sender {
+- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title{
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    return vc;
+}
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController{
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter presentViewController:articleViewController animated:YES completion:NULL];
+        if([presenter isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)presenter viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]){
+            WMFArticleBrowserViewController* vc = [[(UINavigationController*)presenter viewControllers] firstObject];
+            [vc pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
+        }else{
+            UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:self];
+            [presenter presentViewController:vc animated:YES completion:NULL];
+        }
     }];
 }
 

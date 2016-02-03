@@ -239,8 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_hideKeyboard];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
-        [self.delegate didSelectTitle:title
-                               sender:self];
+        [self.delegate listViewContoller:self didSelectTitle:title];
         return;
     }
     UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
@@ -261,8 +260,12 @@ NS_ASSUME_NONNULL_BEGIN
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
     self.isPreviewing = YES;
     [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
-    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
-    return vc;
+    
+    if (self.delegate) {
+        return [self.delegate listViewContoller:self viewControllerForPreviewingTitle:title];
+    } else {
+        return [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
+    }
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
@@ -270,7 +273,7 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
     self.isPreviewing = NO;
     if (self.delegate) {
-        [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
+        [self.delegate listViewContoller:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
     }
