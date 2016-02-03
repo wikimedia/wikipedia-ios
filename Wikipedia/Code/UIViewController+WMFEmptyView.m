@@ -25,6 +25,9 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 
     UIView* view = nil;
     switch (type) {
+        case WMFEmptyViewTypeBlank:
+            view = [WMFEmptyView blankEmptyView];
+            break;
         case WMFEmptyViewTypeNoFeed:
             view = [WMFEmptyView noFeedEmptyView];
             break;
