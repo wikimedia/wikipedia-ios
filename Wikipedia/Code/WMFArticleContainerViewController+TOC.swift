@@ -86,7 +86,7 @@ extension WMFArticleViewController {
         }
     }
 
-    public func didTapTableOfContentsButton(sender: AnyObject?) {
+    public func showTableOfContents() {
         presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
 
     }

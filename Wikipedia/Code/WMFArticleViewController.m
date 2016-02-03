@@ -8,17 +8,12 @@
 // Controller
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFSaveButtonController.h"
 #import "WMFArticleHeaderImageGalleryViewController.h"
 #import "WMFReadMoreViewController.h"
-#import "WMFShareOptionsController.h"
 #import "WMFModalImageGalleryViewController.h"
-#import "UIViewController+WMFSearch.h"
-#import "UIViewController+WMFArticlePresentation.h"
 #import "SectionEditorViewController.h"
-#import "LanguagesViewController.h"
-#import "MWKLanguageLinkController.h"
 #import "WMFArticleFooterMenuViewController.h"
+#import "WMFArticleBrowserViewController.h"
 
 //Funnel
 #import "WMFShareFunnel.h"
@@ -27,16 +22,15 @@
 
 // Model
 #import "MWKDataStore.h"
-#import "MWKArticle+WMFAnalyticsLogging.h"
 #import "MWKCitation.h"
 #import "MWKTitle.h"
 #import "MWKSavedPageList.h"
 #import "MWKUserDataStore.h"
 #import "MWKArticle+WMFSharing.h"
+#import "MWKHistoryEntry.h"
 #import "MWKHistoryList.h"
 #import "MWKProtectionStatus.h"
 #import "MWKSectionList.h"
-#import "MWKLanguageLink.h"
 #import "MWKHistoryList.h"
 
 // Networking
@@ -68,12 +62,10 @@ NS_ASSUME_NONNULL_BEGIN
  WMFArticleHeaderImageGalleryViewControllerDelegate,
  WMFImageGalleryViewControllerDelegate,
  SectionEditorViewControllerDelegate,
- UIViewControllerPreviewingDelegate,
- LanguageSelectionDelegate>
+ UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, assign, readwrite) MWKHistoryDiscoveryMethod discoveryMethod;
 
 // Data
 @property (nonatomic, strong, readonly) MWKHistoryEntry* historyEntry;
@@ -87,20 +79,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
-@property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
-
-// Logging
-@property (strong, nonatomic, nullable) WMFShareFunnel* shareFunnel;
-@property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-@property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
-@property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
-@property (strong, nonatomic) UIProgressView* progressView;
 
 @property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
@@ -108,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
 
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
-@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, assign) BOOL isPreviewing;
 
 @end
 
@@ -119,36 +100,18 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
-                           dataStore:(MWKDataStore*)dataStore
-                     discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+                           dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
     NSParameterAssert(dataStore);
 
     self = [super init];
     if (self) {
-        self.articleTitle    = title;
-        self.dataStore       = dataStore;
-        self.discoveryMethod = discoveryMethod;
+        self.articleTitle = title;
+        self.dataStore    = dataStore;
         [self observeArticleUpdates];
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
-}
-
-#pragma mark - Article languages
-
-- (void)showLanguagePicker {
-    LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.articleTitle              = self.articleTitle;
-    languagesVC.languageSelectionDelegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
-}
-
-- (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:language.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
-    }];
 }
 
 #pragma mark - Accessors
@@ -166,8 +129,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     _footerMenuViewController      = nil;
     _tableOfContentsViewController = nil;
-    _shareFunnel                   = nil;
-    _shareOptionsController        = nil;
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
     _article = article;
@@ -175,9 +136,6 @@ NS_ASSUME_NONNULL_BEGIN
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.webViewController.article = _article;
     [self.headerGallery showImagesInArticle:_article];
-
-    // always update toolbar
-    [self setupToolbar];
 
     // always update footers
     [self updateArticleFootersIfNeeded];
@@ -191,6 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMore];
         }
     }
+    [self.delegate articleControllerDidLoadArticle:self];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -203,6 +162,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (MWKHistoryEntry*)historyEntry {
     return [self.recentPages entryForTitle:self.articleTitle];
+}
+
+- (nullable WMFShareFunnel*)shareFunnel {
+    NSParameterAssert(self.article);
+    if (!self.article) {
+        return nil;
+    }
+    if (!_shareFunnel) {
+        _shareFunnel = [[WMFShareFunnel alloc] initWithArticle:self.article];
+    }
+    return _shareFunnel;
 }
 
 - (WMFReadMoreViewController*)readMoreListViewController {
@@ -236,41 +206,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _headerGallery;
 }
 
-- (nullable WMFShareFunnel*)shareFunnel {
-    NSParameterAssert(self.article);
-    if (!self.article) {
-        return nil;
-    }
-    if (!_shareFunnel) {
-        _shareFunnel = [[WMFShareFunnel alloc] initWithArticle:self.article];
-    }
-    return _shareFunnel;
-}
-
-- (nullable WMFShareOptionsController*)shareOptionsController {
-    NSParameterAssert(self.article);
-    if (!self.article) {
-        return nil;
-    }
-    if (!_shareOptionsController) {
-        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:self.article
-                                                                         shareFunnel:self.shareFunnel];
-    }
-    return _shareOptionsController;
-}
-
-- (UIProgressView*)progressView {
-    if (!_progressView) {
-        UIProgressView* progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-        progress.translatesAutoresizingMaskIntoConstraints = NO;
-        progress.trackTintColor                            = [UIColor clearColor];
-        progress.tintColor                                 = [UIColor wmf_blueTintColor];
-        _progressView                                      = progress;
-    }
-
-    return _progressView;
-}
-
 #pragma mark - Notifications and Observations
 
 - (void)applicationWillResignActiveWithNotification:(NSNotification*)note {
@@ -296,98 +231,38 @@ NS_ASSUME_NONNULL_BEGIN
     [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
 }
 
-#pragma mark - Toolbar Setup
+#pragma mark - Public
 
-- (void)setupToolbar {
-    [self updateToolbarItemsIfNeeded];
-    [self updateToolbarItemEnabledState];
+- (void)setContentInsets:(UIEdgeInsets)contentInsets {
+    self.webViewController.contentInsets = contentInsets;
 }
 
-- (void)updateToolbarItemsIfNeeded {
-    if (!self.saveButtonController) {
-        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.savedPages title:self.articleTitle];
+- (UIEdgeInsets)contentInsets {
+    return self.webViewController.contentInsets;
+}
+
+- (BOOL)canRefresh {
+    return self.article != nil;
+}
+
+- (BOOL)canShare {
+    return self.article != nil;
+}
+
+- (BOOL)hasLanguages {
+    return self.article.languagecount > 1;
+}
+
+- (BOOL)hasTableOfContents {
+    return self.article != nil && !self.article.isMain;
+}
+
+- (NSString*)shareText {
+    NSString* text = [self.webViewController selectedText];
+    if (text.length == 0) {
+        text = [self.article shareSnippet];
     }
-
-    NSArray<UIBarButtonItem*>* toolbarItems =
-        [NSArray arrayWithObjects:
-         self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
-         self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
-         self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:18.f],
-         self.languagesToolbarItem,
-         [self flexibleSpaceToolbarItem],
-         self.tableOfContentsToolbarItem,
-         nil];
-
-    if (self.toolbarItems.count != toolbarItems.count) {
-        // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
-        [self setToolbarItems:toolbarItems animated:YES];
-    }
-}
-
-- (void)updateToolbarItemEnabledState {
-    self.refreshToolbarItem.enabled         = self.article != nil;
-    self.shareToolbarItem.enabled           = self.article != nil;
-    self.languagesToolbarItem.enabled       = self.article.languagecount > 1;
-    self.tableOfContentsToolbarItem.enabled = self.article != nil && !self.article.isMain;
-}
-
-#pragma mark - Toolbar Items
-
-- (UIBarButtonItem*)tableOfContentsToolbarItem {
-    if (!_tableOfContentsToolbarItem) {
-        _tableOfContentsToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toc"]
-                                                                       style:UIBarButtonItemStylePlain
-                                                                      target:self
-                                                                      action:@selector(didTapTableOfContentsButton:)];
-        _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
-        return _tableOfContentsToolbarItem;
-    }
-    return _tableOfContentsToolbarItem;
-}
-
-- (UIBarButtonItem*)saveToolbarItem {
-    if (!_saveToolbarItem) {
-        _saveToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"save"] style:UIBarButtonItemStylePlain target:nil action:nil];
-    }
-    return _saveToolbarItem;
-}
-
-- (UIBarButtonItem*)refreshToolbarItem {
-    if (!_refreshToolbarItem) {
-        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(fetchArticleIfNeeded)];
-    }
-    return _refreshToolbarItem;
-}
-
-- (UIBarButtonItem*)flexibleSpaceToolbarItem {
-    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                         target:nil
-                                                         action:NULL];
-}
-
-- (UIBarButtonItem*)shareToolbarItem {
-    if (!_shareToolbarItem) {
-        @weakify(self);
-        _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                                            handler:^(id sender){
-            @strongify(self);
-            [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
-        }];
-    }
-    return _shareToolbarItem;
-}
-
-- (UIBarButtonItem*)languagesToolbarItem {
-    if (!_languagesToolbarItem) {
-        _languagesToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"language"]
-                                                                 style:UIBarButtonItemStylePlain
-                                                                target:self
-                                                                action:@selector(showLanguagePicker)];
-    }
-    return _languagesToolbarItem;
+    return text;
 }
 
 #pragma mark - Article Footers
@@ -410,21 +285,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Progress
-
-- (void)addProgressView {
-    NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
-    [self.view addSubview:self.progressView];
-    [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.progressView.superview.mas_top);
-        make.left.equalTo(self.progressView.superview.mas_left);
-        make.right.equalTo(self.progressView.superview.mas_right);
-        make.height.equalTo(@2.0);
-    }];
-}
-
-- (void)removeProgressView {
-    [self.progressView removeFromSuperview];
-}
 
 - (void)showProgressViewAnimated:(BOOL)animated {
     self.progressView.progress = 0.05;
@@ -532,28 +392,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupToolbar];
     [self setUpTitleBarButton];
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
 
     [self setupWebView];
 
-    [self addProgressView];
     [self hideProgressViewAnimated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self registerForPreviewingIfAvailable];
-
     [self fetchArticleIfNeeded];
 
     [self startSignificantlyViewedTimer];
-    if (self.previewingTitle) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:nil];
-        self.previewingTitle = nil;
+    if (self.isPreviewing) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
+        self.isPreviewing = NO;
     }
 }
 
@@ -567,7 +423,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self stopSignificantlyViewedTimer];
     [self saveWebViewScrollOffset];
-    [self removeProgressView];
     if ([[[NSUserDefaults standardUserDefaults] wmf_openArticleTitle] isEqualToTitle:self.articleTitle]) {
         [[NSUserDefaults standardUserDefaults] wmf_setOpenArticleTitle:nil];
     }
@@ -610,10 +465,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article) {
         return;
     }
-
+    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
     [self unobserveArticleUpdates];
     [self showProgressViewAnimated:YES];
-    [self wmf_hideEmptyView];
 
     @weakify(self);
     self.articleFetcherPromise = [self.articleFetcher fetchLatestVersionOfTitleIfNeeded:self.articleTitle progress:^(CGFloat progress) {
@@ -652,6 +506,7 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         self.articleFetcherPromise = nil;
         [self observeArticleUpdates];
+        [self wmf_hideEmptyView];
     });
 }
 
@@ -672,7 +527,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)scrollWebViewToRequestedPosition {
     if (self.articleTitle.fragment) {
         [self.webViewController scrollToFragment:self.articleTitle.fragment];
-    } else if ([self.historyEntry discoveryMethodRequiresScrollPositionRestore] && self.historyEntry.scrollPosition > 0) {
+    } else if (self.restoreScrollPositionOnArticleLoad && self.historyEntry.scrollPosition > 0) {
+        self.restoreScrollPositionOnArticleLoad = NO;
         [self.webViewController scrollToVerticalOffset:self.historyEntry.scrollPosition];
     }
     [self markFragmentAsProcessed];
@@ -681,16 +537,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)markFragmentAsProcessed {
     //Create a title without the fragment so it wont be followed anymore
     self.articleTitle = [[MWKTitle alloc] initWithSite:self.articleTitle.site normalizedTitle:self.articleTitle.text fragment:nil];
-}
-
-#pragma mark - Share
-
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
-    if (text.length == 0) {
-        text = [self.article shareSnippet];
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
-    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
 }
 
 #pragma mark - WebView Transition
@@ -724,7 +570,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
-    [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
@@ -732,7 +579,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
-    [self shareArticleWithTextSnippet:text fromButton:nil];
+    [self.delegate articleControllerDidTapShareSelectedText:self];
 }
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
@@ -851,10 +698,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
-        if ([peekVC isKindOfClass:[WMFArticleViewController class]]) {
-            self.previewingTitle = [(WMFArticleViewController*)peekVC articleTitle];
-            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:self.previewingTitle fromSource:nil];
-        }
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
+        self.isPreviewing                = YES;
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
@@ -875,8 +720,7 @@ NS_ASSUME_NONNULL_BEGIN
     } else {
         if (![url wmf_isIntraPageFragment]) {
             return [[WMFArticleViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]
-                                                                dataStore:self.dataStore
-                                                          discoveryMethod:self.discoveryMethod];
+                                                                dataStore:self.dataStore];
         }
     }
     return nil;
@@ -884,13 +728,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:nil];
-    self.previewingTitle = nil;
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
+    self.isPreviewing = NO;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit];
+        [self pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+}
+
+#pragma mark - Article Navigation
+
+
+- (void)pushArticleViewController:(WMFArticleViewController*)articleViewController animated:(BOOL)animated {
+    //Delay this so any visual updates to lists are postponed until the article after the article is displayed
+    //Some lists (like history) will show these artifacts as the push navigation is occuring.
+    dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+        MWKHistoryList* historyList = articleViewController.dataStore.userDataStore.historyList;
+        [historyList addPageToHistoryWithTitle:articleViewController.articleTitle];
+        [historyList save];
+    });
+}
+
+- (void)pushArticleViewControllerWithTitle:(MWKTitle*)title animated:(BOOL)animated {
+    WMFArticleViewController* articleViewController =
+        [[WMFArticleViewController alloc] initWithArticleTitle:title
+                                                     dataStore:self.dataStore];
+    [self pushArticleViewController:articleViewController animated:animated];
 }
 
 #pragma mark - WMFAnalyticsLogging

@@ -48,6 +48,7 @@
                             </containerView>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Hk-lZ-HoX" userLabel="TOC Container View">
                                 <rect key="frame" x="320" y="0.0" width="160" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="WUm-Ge-3SR"/>
                                 </constraints>

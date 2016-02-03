@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL isPeeking;
 
+@property (nonatomic) UIEdgeInsets contentInsets;
+
 /**
  * Currently-selected text in the webview, if there is any.
  * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.

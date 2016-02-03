@@ -102,6 +102,15 @@ NSString* const WMFLicenseTitleOnENWiki =
     return self;
 }
 
+- (void)setContentInsets:(UIEdgeInsets)contentInsets {
+    self.webView.scrollView.contentInset          = contentInsets;
+    self.webView.scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+- (UIEdgeInsets)contentInsets {
+    return self.webView.scrollView.contentInset;
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
