@@ -12,6 +12,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
+#import "WMFArticleBrowserViewController.h"
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
 
@@ -134,6 +135,13 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         return error;
     });
 }
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
+    return vc;
+}
+
 
 #pragma mark - WMFTitleProviding
 

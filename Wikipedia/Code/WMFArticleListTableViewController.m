@@ -12,9 +12,8 @@
 #import "UIViewController+WMFEmptyView.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
 
-#import "WMFArticleViewController.h"
+#import "WMFArticleBrowserViewController.h"
 #import "UIViewController+WMFSearch.h"
-#import "UIViewController+WMFArticlePresentation.h"
 
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
@@ -28,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleListTableViewController ()<UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, assign) BOOL isPreviewing;
 
 @end
 
@@ -203,9 +202,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (self.previewingTitle) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
-        self.previewingTitle = nil;
+    if (self.isPreviewing) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
+        self.isPreviewing = NO;
     }
 }
 
@@ -244,9 +243,8 @@ NS_ASSUME_NONNULL_BEGIN
                                sender:self];
         return;
     }
-    [self wmf_pushArticleViewControllerWithTitle:title
-                                 discoveryMethod:[self discoveryMethod]
-                                       dataStore:self.dataStore];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
@@ -261,21 +259,20 @@ NS_ASSUME_NONNULL_BEGIN
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
-    self.previewingTitle = title;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
-    return [[WMFArticleViewController alloc] initWithArticleTitle:title
-                                                        dataStore:[self dataStore]
-                                                  discoveryMethod:[self discoveryMethod]];
+    self.isPreviewing = YES;
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
+    return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
-    self.previewingTitle = nil;
+     commitViewController:(UINavigationController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
+    self.isPreviewing = NO;
     if (self.delegate) {
         [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
     } else {
-        [self wmf_pushArticleViewController:viewControllerToCommit];
+        [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
     }
 }
 

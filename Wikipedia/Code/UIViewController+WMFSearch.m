@@ -3,7 +3,6 @@
 #import "WMFSearchViewController.h"
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
-#import "UIViewController+WMFArticlePresentation.h"
 #import "MWKSite.h"
 #import "PiwikTracker+WMFExtensions.h"
 
@@ -68,7 +67,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
                                                         dataStore:_dataStore];
         _sharedSearchViewController = searchVC;
     }
-    [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController];
+    [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController fromSource:nil];
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];
 }
 

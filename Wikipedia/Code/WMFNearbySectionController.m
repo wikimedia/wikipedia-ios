@@ -23,6 +23,7 @@
 #import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFArticleBrowserViewController.h"
 
 #import "WMFLocationSearchListViewController.h"
 
@@ -131,6 +132,12 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     }
 
     return [self fetchTitlesForLocation:self.location];
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
+    return vc;
 }
 
 #pragma mark - WMFTitleProviding

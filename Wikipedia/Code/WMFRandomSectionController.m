@@ -12,6 +12,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
+#import "WMFArticleBrowserViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -111,6 +112,12 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
         [self.cell setLoading:NO];
         return error;
     });
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
+    return vc;
 }
 
 - (void)didEndDisplayingSection {

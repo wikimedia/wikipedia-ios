@@ -9,6 +9,7 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
+#import "WMFArticleBrowserViewController.h"
 
 static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
@@ -68,6 +69,12 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 - (NSString*)analyticsName {
     return @"Continue Reading";
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:YES source:self];
+    return vc;
 }
 
 #pragma mark - WMFTitleProviding

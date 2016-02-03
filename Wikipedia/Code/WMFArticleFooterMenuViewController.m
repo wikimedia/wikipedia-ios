@@ -10,13 +10,14 @@
 #import "LanguagesViewController.h"
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
-#import "UIViewController+WMFArticlePresentation.h"
+#import "WMFArticleViewController.h"
 #import "WMFDisambiguationPagesViewController.h"
 #import "WMFPageIssuesViewController.h"
 #import "WMFArticleFooterMenuDataSource.h"
 #import "WMFArticleFooterMenuCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
+#import "WMFArticleBrowserViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -128,7 +129,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:language.title discoveryMethod:MWKHistoryDiscoveryMethodLink dataStore:self.dataStore];
+        WMFArticleViewController* articleContainerVC =
+            [[WMFArticleViewController alloc] initWithArticleTitle:language.title
+                                                         dataStore:self.dataStore];
+        [self.navigationController pushViewController:articleContainerVC animated:YES];
     }];
 }
 

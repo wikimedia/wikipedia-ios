@@ -3,7 +3,7 @@
 #import "WMFTitleListDataSource.h"
 #import "WMFAnalyticsLogging.h"
 
-@class SSBaseDataSource, MWKDataStore, WMFArticleViewController;
+@class SSBaseDataSource, MWKDataStore, WMFArticleBrowserViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -34,8 +34,7 @@
 #import "WMFArticleListTableViewController.h"
 #import "DataMigrationProgressViewController.h"
 #import "WMFWelcomeViewController.h"
-#import "WMFArticleViewController.h"
-#import "UIViewController+WMFArticlePresentation.h"
+#import "WMFArticleBrowserViewController.h"
 #import "WMFNearbyListViewController.h"
 #import "UIViewController+WMFSearch.h"
 #import "UINavigationController+WMFHideEmptyToolbar.h"
@@ -468,7 +467,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
             return;
         }
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [self.exploreViewController wmf_pushArticleViewControllerWithTitle:lastRead discoveryMethod:MWKHistoryDiscoveryMethodReloadFromNetwork dataStore:self.session.dataStore animated:animated];
+        UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.session.dataStore articleTitle:lastRead restoreScrollPosition:NO source:nil];
+        [self presentViewController:vc animated:YES completion:NULL];
     }
 }
 
@@ -486,7 +486,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     MWKSite* site = [self.session searchSite];
     [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
         MWKTitle* title = [site titleWithString:result.displayTitle];
-        [self.exploreViewController wmf_pushArticleViewControllerWithTitle:title discoveryMethod:MWKHistoryDiscoveryMethodRandom dataStore:self.dataStore animated:animated];
+        UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.session.dataStore articleTitle:title restoreScrollPosition:NO source:nil];
+        [self presentViewController:vc animated:YES completion:NULL];
     }).catch(^(NSError* error){
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     });

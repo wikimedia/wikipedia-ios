@@ -14,6 +14,7 @@
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFArticleBrowserViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -118,6 +119,12 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         self.siteInfo = nil;
         return error;
     });
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
+    return vc;
 }
 
 #pragma mark - WMFTitleProviding

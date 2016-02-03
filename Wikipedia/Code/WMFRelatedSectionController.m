@@ -23,6 +23,7 @@
 #import "WMFSaveButtonController.h"
 
 #import "WMFRelatedTitleViewController.h"
+#import "WMFArticleBrowserViewController.h"
 
 // Style
 #import "UIFont+WMFStyle.h"
@@ -138,6 +139,12 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
         self.searchResults = nil;
         return error;
     });
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
+    return vc;
 }
 
 #pragma mark - WMFHeaderMenuProviding

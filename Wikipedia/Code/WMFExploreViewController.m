@@ -36,8 +36,7 @@
 #import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
-#import "UIViewController+WMFArticlePresentation.h"
-#import "WMFArticleViewController.h"
+#import "WMFArticleBrowserViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
@@ -68,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
-@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, assign) BOOL isPreviewing;
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
 @end
@@ -688,10 +687,10 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory: {
             WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
-            NSParameterAssert(controller);
-            [self wmf_pushArticleViewControllerWithTitle:controller.title
-                                         discoveryMethod:MWKHistoryDiscoveryMethodLink
-                                               dataStore:self.dataStore];
+            NSParameterAssert(controller.title);
+            UINavigationController* vc = [WMFArticleBrowserViewController
+                                                      embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:controller.title restoreScrollPosition:NO source:controller];
+            [self presentViewController:vc animated:YES completion:NULL];
             break;
         }
     }
