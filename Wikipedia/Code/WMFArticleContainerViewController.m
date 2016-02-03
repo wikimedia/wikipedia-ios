@@ -302,6 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setupToolbar {
     
+    // HAX: Using a background image instead of Transluscency: False; because of a bug, Transluscency messes up the toolbar height and creates a ~200px gap beteen the bar and article
     [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"white-patch"] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
     self.navigationController.toolbar.shadowColor = [UIColor colorWithWhite:0 alpha:0.08];
     self.navigationController.toolbar.shadowOffset = CGSizeMake(0.0, -1.0);
