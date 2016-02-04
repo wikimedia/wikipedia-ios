@@ -66,8 +66,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
 
-
 @property (nonatomic, assign, getter = isRecentSearchesHidden) BOOL recentSearchesHidden;
+
+@property (nonatomic, assign) UIStatusBarStyle previousStatusBarStyle;
 
 - (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated;
 
@@ -183,10 +184,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - UIViewController
 
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -206,6 +203,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 
     self.searchFieldTop.constant = 0;
     [self.view setNeedsUpdateConstraints];
@@ -222,6 +221,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:self.previousStatusBarStyle animated:animated];
 
     if (!self.presentedViewController) {
         /*
