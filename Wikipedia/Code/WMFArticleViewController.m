@@ -518,7 +518,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self pushArticleViewController:vc animated:YES];
 }
 
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
@@ -687,6 +687,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)pushArticleViewController:(WMFArticleViewController*)articleViewController animated:(BOOL)animated {
+    [self.navigationController pushViewController:articleViewController animated:YES];
     //Delay this so any visual updates to lists are postponed until the article after the article is displayed
     //Some lists (like history) will show these artifacts as the push navigation is occuring.
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
