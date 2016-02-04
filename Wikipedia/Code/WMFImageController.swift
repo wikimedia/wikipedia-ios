@@ -15,47 +15,46 @@ import CocoaLumberjack
 /// @name Constants
 ///
 
-public let WMFImageControllerErrorDomain = "WMFImageControllerErrorDomain"
-public enum WMFImageControllerErrorCode: Int, CancellableErrorType {
+/**
+WMFImageControllerError
+
+- warning: Due to issues with `ErrorType` to `NSError` bridging, you must check domains of bridged errors like so:
+
+                [MyCustomErrorTypeErrorDomain hasSuffix:nsError.domain]
+
+           because the generated constant in the Swift header (in this case, `WMFImageControllerErrorDomain` in 
+           "Wikipedia-Swift.h") doesn't match the actual domain when `ErrorType` is cast to `NSError`.
+
+- DataNotFound:      Failed to find cached image data for the provided URL.
+- InvalidOrEmptyURL: The provided URL was empty or `nil`.
+- Deinit:            Fetch was cancelled because the image controller was deallocated.
+*/
+@objc public enum WMFImageControllerError: Int, ErrorType {
     case DataNotFound
-    case FetchCancelled
     case InvalidOrEmptyURL
     case Deinit
+}
 
-    var error: NSError {
-        return NSError(domain: WMFImageControllerErrorDomain, code: self.rawValue, userInfo: nil)
-    }
-
+extension WMFImageControllerError: CancellableErrorType {
     public var cancelled: Bool {
-        // NOTE: don't forget to register add'l "cancelled" codes in WMFImageController.initialize
-        switch self {
-            case .FetchCancelled, .InvalidOrEmptyURL, .Deinit:
+        get {
+            // NOTE: don't forget to register add'l "cancelled" codes in WMFImageController.initialize
+            switch self {
+            case .Deinit:
                 return true
             default:
                 return false
+            }
         }
     }
-}
-
-public func ==(err: NSError, cacheErrCode: WMFImageControllerErrorCode) -> Bool {
-    return err.code == cacheErrCode.rawValue
-}
-
-// need to declare the "flipped" version of NSError == WMFImageCacheErrorCode
-public func ==(cacheErrorCode: WMFImageControllerErrorCode, err: NSError) -> Bool {
-    return err == cacheErrorCode
 }
 
 @objc
 public class WMFImageController : NSObject {
     public override class func initialize() {
         if self === WMFImageController.self {
-            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
-                                                 code: WMFImageControllerErrorCode.FetchCancelled.rawValue)
-            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
-                                                 code: WMFImageControllerErrorCode.InvalidOrEmptyURL.rawValue)
-            NSError.registerCancelledErrorDomain(WMFImageControllerErrorDomain,
-                                                 code: WMFImageControllerErrorCode.Deinit.rawValue)
+            let deinitError = WMFImageControllerError.Deinit as NSError
+            NSError.registerCancelledErrorDomain(deinitError.domain, code: deinitError.code)
         }
     }
 
@@ -122,11 +121,11 @@ public class WMFImageController : NSObject {
         return cachedImageWithURL(cachedPlaceholderURL)
         // handle cached placeholder
         .then(cachedPlaceholderImageBlock)
-        // ignore cache misses for placeholder
+        // ignore placeholder errors
         .recover() { _ -> Promise<Void> in Promise() }
         // when placeholder handling is finished, fetch mainURL
         .then() { [weak self] in
-            self?.fetchImageWithURL(mainURL) ?? WMFImageController.cancelledPromise()
+            self?.fetchImageWithURL(mainURL) ?? Promise(error: WMFImageControllerError.Deinit)
         }
         // handle the main image
         .then(mainImageBlock)
@@ -149,9 +148,13 @@ public class WMFImageController : NSObject {
     /**
      Retrieve the data and uncompressed image for `url`.
      
+     If the URL is `nil`, then the promise will be rejected with `InvalidOrEmptyURL`.
+     
      - parameter url: URL which corresponds to the image being retrieved. Ignores URL schemes.
      
      - returns: A `WMFImageDownload` with the image data and the origin it was loaded from.
+
+     - seealso: WMFImageControllerError
      */
     public func fetchImageWithURL(
                     url: NSURL?,
@@ -252,7 +255,7 @@ public class WMFImageController : NSObject {
 
         return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
             guard let strongSelf: WMFImageController = self else {
-                throw WMFImageControllerErrorCode.Deinit
+                throw WMFImageControllerError.Deinit
             }
 
             if strongSelf.hasDataOnDiskForImageWithURL(url) {
@@ -295,7 +298,7 @@ public class WMFImageController : NSObject {
     - returns: A rejected promise with `InvalidOrEmptyURL` error if `url` is `nil`, otherwise the promise from `then`.
     */
     private func checkForValidURL(url: NSURL?, @noescape then: (NSURL) -> Promise<WMFImageDownload>) -> Promise<WMFImageDownload> {
-        return url.map(then) ?? Promise(error: WMFImageControllerErrorCode.InvalidOrEmptyURL.error)
+        return url.map(then) ?? Promise(error: WMFImageControllerError.InvalidOrEmptyURL)
     }
 
     // MARK: - Cancellation
@@ -334,16 +337,6 @@ public class WMFImageController : NSObject {
             DDLogVerbose("Adding cancellable for \(url)")
             cancellables.setObject(cancellable, forKey: url.absoluteString)
         }
-    }
-
-    /// Utility for creating a `Promise` cancelled with a WMFImageController error
-    class func cancelledPromise<T>() -> Promise<T> {
-        return Promise(error: WMFImageControllerErrorCode.FetchCancelled.error)
-    }
-
-    /// Utility for creating an `AnyPromise` cancelled with a WMFImageController error
-    class func cancelledPromise() -> AnyPromise {
-        return AnyPromise(bound: cancelledPromise() as Promise<Void>)
     }
 }
 
@@ -386,11 +379,9 @@ extension WMFImageController {
         return AnyPromise(bound:
             cachedImageWithURL(url)
             .then() { $0.image }
-            .recover() { (err) -> Promise<UIImage?> in
-                let error = err as NSError
-                if error.domain == WMFImageControllerErrorDomain
-                    && error.code == WMFImageControllerErrorCode.DataNotFound.rawValue {
-                        return Promise<UIImage?>(nil)
+            .recover() { (err: ErrorType) -> Promise<UIImage?> in
+                if let e = err as? WMFImageControllerError where e == WMFImageControllerError.DataNotFound {
+                    return Promise<UIImage?>(nil)
                 } else {
                     return Promise(error: err)
                 }

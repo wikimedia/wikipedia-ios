@@ -53,7 +53,7 @@
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 @import SafariServices;
 
@@ -341,6 +341,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(didTapTableOfContentsButton:)];
+        _tableOfContentsToolbarItem.accessibilityLabel = MWLocalizedString(@"table-of-contents-button-label", nil);
         return _tableOfContentsToolbarItem;
     }
     return _tableOfContentsToolbarItem;
@@ -494,7 +495,7 @@ NS_ASSUME_NONNULL_BEGIN
     MWKHistoryList* historyList = self.dataStore.userDataStore.historyList;
     MWKHistoryEntry* entry      = [historyList entryForTitle:self.articleTitle];
     if (!entry.titleWasSignificantlyViewed) {
-        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Home", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
+        self.significantlyViewedTimer = [NSTimer scheduledTimerWithTimeInterval:FBTweakValue(@"Explore", @"Related items", @"Required viewing time", 30.0) target:self selector:@selector(significantlyViewedTimerFired:) userInfo:nil repeats:NO];
     }
 }
 
@@ -510,11 +511,31 @@ NS_ASSUME_NONNULL_BEGIN
     self.significantlyViewedTimer = nil;
 }
 
+#pragma mark - Title Button
+
+- (void)setUpTitleBarButton {
+    UIButton* b = [UIButton buttonWithType:UIButtonTypeCustom];
+    [b adjustsImageWhenHighlighted];
+    UIImage* w = [UIImage imageNamed:@"W"];
+    [b setImage:w forState:UIControlStateNormal];
+    [b sizeToFit];
+    @weakify(self);
+    [b bk_addEventHandler:^(id sender) {
+        @strongify(self);
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView                        = b;
+    self.navigationItem.titleView.isAccessibilityElement = YES;
+    self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-button-accessibility-label", nil);
+    self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitButton;
+}
+
 #pragma mark - ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupToolbar];
+    [self setUpTitleBarButton];
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
@@ -866,7 +887,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (UIViewController*)viewControllerForPreviewURL:(NSURL*)url {
+    if ([url.absoluteString isEqualToString:@""]) {
+        return nil;
+    }
     if (![url wmf_isInternalLink]) {
+        if ([url wmf_isCitation]) {
+            return nil;
+        }
         return [[SFSafariViewController alloc] initWithURL:url];
     } else {
         if (![url wmf_isIntraPageFragment]) {

@@ -34,7 +34,6 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLinkController.h"
 
@@ -44,6 +43,8 @@
 // Other
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
+
+@import Tweaks;
 
 #pragma mark - Defines
 
@@ -76,18 +77,20 @@ typedef NS_ENUM (NSUInteger, SecondaryMenuRowIndex) {
     SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG,
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK,
     SECONDARY_MENU_ROW_INDEX_HEADING_BLANK_2,
-    SECONDARY_MENU_ROW_INDEX_FAQ
+    SECONDARY_MENU_ROW_INDEX_FAQ,
+    SECONDARY_MENU_ROW_INDEX_DEBUG_TWEAKS
 };
 
-static uint const WMFDebugSectionCount                                    = 2;
+static uint const WMFDebugSectionCount                                    = 3;
 static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH,
-    SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG
+    SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG,
+    SECONDARY_MENU_ROW_INDEX_DEBUG_TWEAKS
 };
 
 #pragma mark - Private
 
-@interface WMFSettingsViewController () <LanguageSelectionDelegate, UIScrollViewDelegate>
+@interface WMFSettingsViewController () <LanguageSelectionDelegate, UIScrollViewDelegate, FBTweakViewControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
 @property (strong, nonatomic) NSMutableArray* rowData;
@@ -110,8 +113,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -268,6 +269,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
         rowView.iconLabel.attributedText =
             [[NSAttributedString alloc] initWithString:icon
                                             attributes:attributes];
+        rowView.iconLabel.isAccessibilityElement = NO;
 
         id title = row[@"title"];
         if ([title isKindOfClass:[NSString class]]) {
@@ -296,11 +298,6 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 }
 
 - (void)setRowData {
-    //NSString *ltrSafeCaretCharacter = [WikipediaAppUtils isDeviceLanguageRTL] ? WIKIGLYPH_BACKWARD : WIKIGLYPH_FORWARD;
-
-
-    //NSString *currentArticleTitle = [SessionSingleton sharedInstance].currentArticleTitle;
-
     NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
     NSString* languageName = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:languageCode];
     if (!languageName) {
@@ -342,6 +339,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE),
             @"icon": WIKIGLYPH_DOWN,
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -349,6 +347,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ABOUT),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }.mutableCopy
         ,
         @{
@@ -357,6 +356,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_ABOUT),
             @"icon": WIKIGLYPH_DOWN,
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -372,6 +372,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_LEGAL),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }.mutableCopy
         ,
         @{
@@ -402,7 +403,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_ZERO),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader),
         }.mutableCopy
         ,
         @{
@@ -440,6 +441,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_LOGIN),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
         ,
         @{
@@ -447,7 +449,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_HEADING_DEBUG),
             @"icon": @"",
             @"type": @(ROW_TYPE_HEADING),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink)
+            @"accessibilityTraits": @(UIAccessibilityTraitHeader)
         }
         ,
         @{
@@ -455,7 +457,15 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
             @"tag": @(SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH),
             @"icon": @"",
             @"type": @(ROW_TYPE_SELECTION),
-            @"accessibilityTraits": @(UIAccessibilityTraitLink),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
+        }.mutableCopy
+        ,
+        @{
+            @"title": MWLocalizedString(@"main-menu-debug-tweaks", nil), //TODO localize
+            @"tag": @(SECONDARY_MENU_ROW_INDEX_DEBUG_TWEAKS),
+            @"icon": @"",
+            @"type": @(ROW_TYPE_SELECTION),
+            @"accessibilityTraits": @(UIAccessibilityTraitButton)
         }.mutableCopy
     ].mutableCopy;
 
@@ -589,6 +599,12 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
                  [NSURL URLWithString:@"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"]];
                 break;
             }
+            case SECONDARY_MENU_ROW_INDEX_DEBUG_TWEAKS: {
+                FBTweakViewController* tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
+                tweaksVC.tweaksDelegate = self;
+                [self presentViewController:tweaksVC animated:YES completion:nil];
+                break;
+            }
             default:
                 break;
         }
@@ -634,45 +650,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-#pragma mark - Animation
-
-- (UILabel*)getLabelCopyToAnimate:(UILabel*)labelToCopy {
-    UILabel* labelCopy = [[UILabel alloc] init];
-    CGRect sourceRect  = [labelToCopy convertRect:labelToCopy.bounds toView:self.view];
-    labelCopy.frame           = sourceRect;
-    labelCopy.text            = labelToCopy.text;
-    labelCopy.font            = labelToCopy.font;
-    labelCopy.textColor       = [UIColor colorWithWhite:0.3 alpha:1.0];
-    labelCopy.backgroundColor = [UIColor clearColor];
-    labelCopy.textAlignment   = labelToCopy.textAlignment;
-    labelCopy.lineBreakMode   = labelToCopy.lineBreakMode;
-    labelCopy.numberOfLines   = labelToCopy.numberOfLines;
-    [self.view addSubview:labelCopy];
-    return labelCopy;
-}
-
-- (CGPoint)getLocationForView:(UIView*)view xf:(CGAffineTransform)xf {
-    CGPoint point       = [view convertPoint:view.center toView:self.view];
-    CGPoint scaledPoint = [view convertPoint:CGPointApplyAffineTransform(view.center, xf) toView:self.view];
-    scaledPoint.y = point.y;
-    return scaledPoint;
-}
-
-- (void)animateView:(UIView*)view
-      toDestination:(CGPoint)destPoint
-         afterDelay:(CGFloat)delay
-           duration:(CGFloat)duration
-          transform:(CGAffineTransform)xf {
-    [UIView animateWithDuration:duration
-                          delay:delay
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-        view.center = destPoint;
-        view.alpha = 0.3f;
-        view.transform = xf;
-    } completion:^(BOOL finished) {
-        [view removeFromSuperview];
-    }];
+- (void)tweakViewControllerPressedDone:(FBTweakViewController*)tweakViewController {
+    [tweakViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Memory
@@ -688,11 +667,11 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self wmf_hideKeyboard];
 }
 
-/*
-   -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-   {
-    self.scrollView.orientation = !self.scrollView.orientation;
-   }
- */
+#pragma mark - UIAccessibilityAction
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return YES;
+}
 
 @end

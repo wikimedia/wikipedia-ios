@@ -12,7 +12,7 @@
 
 #define PREVIEW_BLUE_COLOR [UIColor colorWithRed:0.2 green:0.4784 blue:1.0 alpha:1.0]
 
-//#import "NSString+Extras.h"
+//#import "NSString+WMFExtras.h"
 
 @interface PreviewLicenseView ()
 
@@ -28,10 +28,10 @@
 #define TERMS_LINK @"https://wikimediafoundation.org/wiki/Terms_of_Use"
 #define LICENSE_LINK @"https://creativecommons.org/licenses/by-sa/3.0/"
 
-enum {
+typedef NS_ENUM (NSInteger, EnumActionSheetButtons) {
     BUTTON_TERMS   = 0,
     BUTTON_LICENSE = 1
-} EnumActionSheetButtons;
+};
 
 @implementation PreviewLicenseView {
     UIActionSheet* _sheet;

@@ -8,7 +8,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
-#import "UIView+WMFRTLMirroring.h"
 
 #define MAX_SUMMARY_LENGTH 255
 
@@ -36,9 +35,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){

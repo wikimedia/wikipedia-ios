@@ -21,14 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
-@interface MWKImageInfo (Feed)
-
-+ (instancetype)feedPlaceholder;
-
-- (BOOL)isFeedPlaceholder;
-
-@end
-
 @interface WMFPictureOfTheDaySectionController ()
 
 @property (nonatomic, strong) MWKImageInfoFetcher* fetcher;
@@ -37,17 +29,13 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @property (nonatomic, strong) NSDate* fetchedDate;
 
-@property (nonatomic, strong, nullable) AnyPromise* fetchRequest;
-
 @end
 
 @implementation WMFPictureOfTheDaySectionController
-@synthesize delegate = _delegate;
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.imageInfo   = [MWKImageInfo feedPlaceholder];
         self.fetchedDate = [NSDate date];
     }
     return self;
@@ -60,39 +48,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return _fetcher;
 }
 
-#pragma mark - Fetching
-
-- (void)fetchDataIfNeeded {
-    if (self.fetchRequest || ![self.imageInfo isFeedPlaceholder]) {
-        return;
-    }
-
-    @weakify(self);
-    self.fetchRequest =
-        [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
-                                        metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]];
-    self.fetchRequest.then(^(MWKImageInfo* info) {
-        @strongify(self);
-        self.imageInfo = info;
-        [self.delegate controller:self didSetItems:self.items];
-    })
-    .catch(^(NSError* error) {
-        @strongify(self);
-        self.imageInfo = nil;
-        [self.delegate controller:self didFailToUpdateWithError:error];
-        WMF_TECH_DEBT_TODO(show empty view);
-    })
-    .finally(^{
-        self.fetchRequest = nil;
-    });
-}
-
-#pragma mark - WMFExploreSectionController
-
-- (void)registerCellsInTableView:(UITableView*)tableView {
-    [tableView registerNib:[WMFPicOfTheDayTableViewCell wmf_classNib]
-     forCellReuseIdentifier:[WMFPicOfTheDayTableViewCell wmf_nibName]];
-}
+#pragma mark - WMFBaseExploreSectionController
 
 - (NSString*)sectionIdentifier {
     return NSStringFromClass([self class]);
@@ -102,72 +58,82 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [UIImage imageNamed:@"potd-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:
-            [MWLocalizedString(@"home-potd-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                    withString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.fetchedDate]]
-                                           attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-    ];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    return [tableView dequeueReusableCellWithIdentifier:[WMFPicOfTheDayTableViewCell wmf_nibName]];
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return ![self.imageInfo isFeedPlaceholder];
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-potd-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (void)configureCell:(WMFPicOfTheDayTableViewCell*)cell
-           withObject:(MWKImageInfo*)info
-          inTableView:(UITableView*)tableView
-          atIndexPath:(NSIndexPath*)indexPath {
-    if ([info isFeedPlaceholder]) {
-        return;
-    }
-    [cell setImageURL:info.imageThumbURL];
-    if (info.imageDescription.length) {
-        [cell setDisplayTitle:info.imageDescription];
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.fetchedDate] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+}
+
+- (NSString*)cellIdentifier {
+    return [WMFPicOfTheDayTableViewCell wmf_nibName];
+}
+
+- (UINib*)cellNib {
+    return [WMFPicOfTheDayTableViewCell wmf_classNib];
+}
+
+- (NSUInteger)numberOfPlaceholderCells {
+    return 1;
+}
+
+- (nullable NSString*)placeholderCellIdentifier {
+    return [WMFPicOfTheDayTableViewCell wmf_nibName];
+}
+
+- (nullable UINib*)placeholderCellNib {
+    return [WMFPicOfTheDayTableViewCell wmf_classNib];
+}
+
+- (void)configureCell:(WMFPicOfTheDayTableViewCell*)cell withItem:(MWKImageInfo*)item atIndexPath:(NSIndexPath*)indexPath {
+    [cell setImageURL:item.imageThumbURL];
+    if (item.imageDescription.length) {
+        [cell setDisplayTitle:item.imageDescription];
     } else {
-        [cell setDisplayTitle:info.canonicalPageTitle];
+        [cell setDisplayTitle:item.canonicalPageTitle];
     }
-}
-
-- (NSArray*)items {
-    return @[self.imageInfo];
-}
-
-- (UIViewController*)exploreDetailViewControllerForItemAtIndex:(NSUInteger)index {
-    NSParameterAssert(self.fetchedDate);
-    NSParameterAssert(![self.imageInfo isFeedPlaceholder]);
-    return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 
 - (NSString*)analyticsName {
     return @"Picture of the Day";
 }
 
-@end
-
-@implementation MWKImageInfo (Feed)
-
-+ (instancetype)feedPlaceholder {
-    return [[MWKImageInfo alloc] initWithCanonicalPageTitle:WMFPlaceholderImageInfoTitle
-                                           canonicalFileURL:[NSURL URLWithString:[@"/" stringByAppendingString:WMFPlaceholderImageInfoTitle]]
-                                           imageDescription:nil
-                                                    license:nil
-                                                filePageURL:nil
-                                              imageThumbURL:nil
-                                                      owner:nil
-                                                  imageSize:CGSizeZero
-                                                  thumbSize:CGSizeZero];
+- (CGFloat)estimatedRowHeight {
+    return [WMFPicOfTheDayTableViewCell estimatedRowHeight];
 }
 
-- (BOOL)isFeedPlaceholder {
-    return self.canonicalPageTitle == WMFPlaceholderImageInfoTitle;
+- (AnyPromise*)fetchData {
+    @weakify(self);
+    return [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
+                                           metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]].then(^(MWKImageInfo* info) {
+        @strongify(self);
+        self.imageInfo = info;
+        return @[self.imageInfo];
+    })
+           .catch(^(NSError* error) {
+        @strongify(self);
+        self.imageInfo = nil;
+        return error;
+    });
+}
+
+#pragma mark - WMFDetailProviding
+
+- (UIViewController*)exploreDetailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 
 @end
+
 
 NS_ASSUME_NONNULL_END
 

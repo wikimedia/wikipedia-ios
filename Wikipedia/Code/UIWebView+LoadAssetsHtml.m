@@ -20,17 +20,11 @@
         string = @"";
     }
 
-    static NSString* path = nil;
-    if (!path) {
-        path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
-    }
+    NSString* path = [[self getAssetsPath] stringByAppendingPathComponent:fileName];
 
-    static NSString* fileContents = nil;
-    if (!fileContents) {
-        fileContents = [NSMutableString stringWithContentsOfFile:path
-                                                        encoding:NSUTF8StringEncoding
-                                                           error:nil];
-    }
+    NSString* fileContents = [NSMutableString stringWithContentsOfFile:path
+                                                              encoding:NSUTF8StringEncoding
+                                                                 error:nil];
 
     [self loadHTMLString:[NSString stringWithFormat:fileContents, string]
                  baseURL:[NSURL URLWithString:path]];

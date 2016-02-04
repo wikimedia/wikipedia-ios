@@ -141,7 +141,8 @@
 "main-menu-nearby" = "Nearby";
 "main-menu-more" = "More...";
 "main-menu-heading-debug" = "Debug";
-"main-menu-debug-crash"= "Crash";
+"main-menu-debug-crash" = "Crash";
+"main-menu-debug-tweaks" = "Developer settings";
 
 "saved-title" = "Saved";
 "saved-pages-title" = "Saved pages";
@@ -220,6 +221,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
 "share-as-image" = "Share as image";
 "share-as-text" = "Share as text";
+"share-cancel" = "Cancel";
 
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
@@ -257,6 +259,7 @@
 "license-footer-name" = "CC BY-SA 3.0";
 
 "table-of-contents-heading" = "Contents";
+"table-of-contents-button-label" = "Table of Contents";
 
 "abuse-filter-warning-heading" = "This looks like an unconstructive edit, are you sure you want to save it?";
 "abuse-filter-warning-subheading" = "Your edit may contain one or more of the following:";
@@ -347,6 +350,10 @@
 "home-last-update-label" = "Last Updated: $1";
 "home-last-update-never-label" = "Last Updated: Never";
 "home-updating-label" = "Updating…";
+"home-hide-suggestion-prompt" = "Hide this suggestion";
+"home-hide-suggestion-cancel" = "Cancel";
+"home-accessibility-label" = "Wikipedia, Explore";
+"home-button-accessibility-label" = "Home Button";
 
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
@@ -396,3 +403,17 @@
 "icon-shortcut-continue-reading-title" = "Continue reading";
 "icon-shortcut-random-title" = "Random article";
 "icon-shortcut-nearby-title" = "Nearby articles";
+
+"close-button-accessibility-label" = "Close";
+"back-button-accessibility-label" = "Back";
+
+"compass-direction" = "at $1 o'clock";
+
+"explore-featured-article-heading" = "Featured article";
+"explore-continue-reading-heading" = "Continue reading";
+"explore-nearby-heading" = "Nearby places";
+"explore-continue-related-heading" = "Because you read";
+"explore-main-page-heading" = "Today on Wikipedia";
+"explore-random-article-heading" = "Random article";
+"explore-random-article-sub-heading" = "English Wikipedia";
+"explore-potd-heading" = "Picture of the day";

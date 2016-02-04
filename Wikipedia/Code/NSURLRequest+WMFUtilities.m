@@ -7,7 +7,7 @@
 //
 
 #import "NSURLRequest+WMFUtilities.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 /*
    HAX: We need to rely on the request's path extension for these checks since UIWebView doesn't set "Accept" headers

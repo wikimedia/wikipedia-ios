@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "WMFAsyncTestCase.h"
 #import "XCTestCase+DataStoreFixtureTesting.h"
 #import "MWKSavedPageList.h"
 #import "MWKSavedPageListDataExportConstants.h"
@@ -16,7 +17,7 @@
 #define HC_SHORTHAND 1
 #import <OCHamcrest/OCHamcrest.h>
 
-@interface MWKListLegacyTests : XCTestCase
+@interface MWKListLegacyTests : WMFAsyncTestCase
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @end
 
@@ -54,17 +55,24 @@
                    @"Ice sheet", nil
                    ));
 
-    expectResolution(^{
-        // need to modify the list in order for it to save
-        [list removeEntry:list.mostRecentEntry];
-        return [list save];
+
+    PushExpectation();
+    [list removeEntry:list.mostRecentEntry];
+    [list save].then(^(){
+        [self popExpectationAfter:nil];
+    }).catch(^(NSError* error){
+        XCTFail(@"Error callback erroneously called with error %@", error);
     });
+    WaitForExpectations();
 
     // a migrated list should save as the current version
     MWKDataStore* dataStore2 = [[MWKDataStore alloc] initWithBasePath:self.dataStore.basePath];
     assertThat(dataStore2.savedPageListData, hasEntry(MWKSavedPageExportedSchemaVersionKey,
                                                       @(MWKSavedPageListSchemaVersionCurrent)));
-    assertThat(dataStore2.userDataStore.savedPageList, is(equalTo(list)));
+
+    MWKSavedPageList* list2 = dataStore2.userDataStore.savedPageList;
+
+    assertThat(list2, is(equalTo(list)));
 }
 
 @end

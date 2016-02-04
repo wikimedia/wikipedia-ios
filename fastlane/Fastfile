@@ -32,7 +32,8 @@ platform :ios do
       :buildlog_path => './build',
       :output_directory => './build/reports',
       :output_style => 'basic',
-      :code_coverage => true
+      :code_coverage => true,
+      :xcargs => "TRAVIS=#{ENV["TRAVIS"]}"
     }
     opts[:output_types] = options[:junit] ? "junit" : ""
     scan(opts)

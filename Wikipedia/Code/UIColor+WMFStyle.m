@@ -4,22 +4,6 @@
 
 @implementation UIColor (WMFStyle)
 
-+ (instancetype)wmf_logoBlue {
-    // measured from WMF logo using DigitalColorMeter
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [self wmf_logoBlueWithAlpha:1.0];
-    });
-    return c;
-}
-
-+ (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha {
-    // measured from WMF logo using DigitalColorMeter
-    return [UIColor colorWithRed:0.08203125 green:0.40625 blue:0.5859375 alpha:alpha];
-}
-
 + (instancetype)wmf_summaryTextColor {
     static UIColor* c = nil;
 
@@ -143,18 +127,28 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderTextColor {
-    static UIColor* c = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        c = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
-    });
-    return c;
++ (instancetype)wmf_exploreSectionHeaderTitleColor {
+    return [UIColor wmf_customGray];
 }
 
-+ (instancetype)wmf_homeSectionFooterTextColor {
-    return [self wmf_homeSectionHeaderTextColor];
++ (instancetype)wmf_exploreSectionHeaderSubTitleColor {
+    return [UIColor wmf_customGray];
+}
+
++ (instancetype)wmf_exploreSectionFooterTextColor {
+    return [self wmf_customGray];
+}
+
++ (instancetype)wmf_exploreSectionHeaderIconTintColor {
+    return [UIColor wmf_colorWithHex:0x9CA1A7 alpha:1.0];
+}
+
++ (instancetype)wmf_exploreSectionHeaderIconBackgroundColor {
+    return [UIColor wmf_colorWithHex:0xF5F5F5 alpha:1.0];
+}
+
++ (instancetype)wmf_exploreSectionHeaderLinkTextColor {
+    return [self wmf_blueTintColor];
 }
 
 + (instancetype)wmf_blueTintColor {
@@ -177,10 +171,6 @@
     return c;
 }
 
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor {
-    return [self wmf_blueTintColor];
-}
-
 + (instancetype)wmf_nearbyArrowColor {
     return [UIColor blackColor];
 }
@@ -199,7 +189,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x666666 alpha:1.0];
-        ;
     });
     return c;
 }
@@ -214,7 +203,16 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         c = [UIColor wmf_colorWithHex:0x999999 alpha:1.0];
-        ;
+    });
+    return c;
+}
+
++ (instancetype)wmf_customGray {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x9AA0A7 alpha:1.0];
     });
     return c;
 }
@@ -235,6 +233,17 @@
         c = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     });
     return c;
+}
+
+- (instancetype)wmf_colorByApplyingDim {
+    // NOTE(bgerstle): 0.6 is hand-tuned to roughly match UIImageView's default tinting amount
+    return [self wmf_colorByScalingComponents:0.6];
+}
+
+- (instancetype)wmf_colorByScalingComponents:(CGFloat)amount {
+    CGFloat r, g, b, a;
+    [self getRed:&r green:&g blue:&b alpha:&a];
+    return [UIColor colorWithRed:r * amount green:g * amount blue:b * amount alpha:a];
 }
 
 @end

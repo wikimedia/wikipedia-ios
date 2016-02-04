@@ -10,7 +10,7 @@
 #import "MWKTitle.h"
 #import "MWKLanguageLink.h"
 #import "NSObjectUtilities.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "MediaWikiKit.h"
 #import "Defines.h"
 #import "WMFAssetsFile.h"
@@ -71,6 +71,7 @@ static id _sharedInstance;
 
 - (void)loadLanguagesFromFile {
     WMFAssetsFile* assetsFile = [[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeLanguages];
+    NSParameterAssert(assetsFile.array);
     self.allLanguages = [assetsFile.array bk_map:^id (NSDictionary* langAsset) {
         NSString* code = langAsset[@"code"];
         NSString* localizedName = langAsset[@"canonical_name"];
@@ -87,6 +88,7 @@ static id _sharedInstance;
                                                         name:langAsset[@"name"]
                                                localizedName:localizedName];
     }];
+    NSParameterAssert(self.allLanguages.count);
 }
 
 - (BOOL)isCompoundLanguageCode:(NSString*)code {
@@ -111,8 +113,8 @@ static id _sharedInstance;
 
 - (void)updateLanguageArrays {
     [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, allLanguages)];
-    NSArray* preferredLangusageCodes = [self readPreferredLanguageCodes];
-    self.preferredLanguages = [preferredLangusageCodes wmf_mapAndRejectNil:^id (NSString* langString) {
+    NSArray* preferredLanguageCodes = [self readPreferredLanguageCodes];
+    self.preferredLanguages = [preferredLanguageCodes wmf_mapAndRejectNil:^id (NSString* langString) {
         return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* langLink) {
             return [langLink.languageCode isEqualToString:langString];
         }];
@@ -130,6 +132,7 @@ static id _sharedInstance;
 }
 
 - (void)addPreferredLanguageForCode:(NSString*)languageCode {
+    NSParameterAssert(languageCode);
     NSMutableArray<NSString*>* langCodes = [[self readPreferredLanguageCodes] mutableCopy];
     [langCodes removeObject:languageCode];
     [langCodes insertObject:languageCode atIndex:0];

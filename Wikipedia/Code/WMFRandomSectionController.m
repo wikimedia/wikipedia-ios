@@ -12,6 +12,8 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @interface WMFRandomSectionController ()
@@ -20,13 +22,13 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 @property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
-@property (nonatomic, strong) MWKSearchResult* result;
+@property (nonatomic, strong, nullable) MWKSearchResult* result;
+
+@property (nonatomic, weak) WMFArticlePreviewTableViewCell* cell;
 
 @end
 
 @implementation WMFRandomSectionController
-
-@synthesize delegate = _delegate;
 
 - (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
@@ -54,110 +56,103 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return [UIImage imageNamed:@"random-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-random", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
 
-- (UIImage*)headerButtonIcon {
-    return [UIImage imageNamed:@"refresh-mini"];
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
 }
 
-- (void)performHeaderButtonAction {
-    if (self.fetcher.isFetching) {
-        // don't let button presses change state while fetching
-        return;
-    }
-
-    [self fetchRandomArticle];
-
-    // invoke "did update" so we can show loading UI
-    [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (NSArray*)items {
-    if (self.result) {
-        return @[self.result];
-    } else {
-        return @[@1];
-    }
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-random-article-sub-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    return [self.searchSite titleWithString:self.result.displayTitle];
+- (NSString*)cellIdentifier {
+    return [WMFArticlePreviewTableViewCell identifier];
 }
 
-- (void)registerCellsInTableView:(UITableView*)tableView {
-    [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
-    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
+- (UINib*)cellNib {
+    return [WMFArticlePreviewTableViewCell wmf_classNib];
 }
 
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.result) {
-        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
-    } else {
-        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
-    }
+- (NSUInteger)numberOfPlaceholderCells {
+    return 1;
 }
 
-- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
-        WMFArticlePreviewTableViewCell* previewCell = (id)cell;
-        previewCell.titleText       = self.result.displayTitle;
-        previewCell.descriptionText = self.result.wikidataDescription;
-        previewCell.snippetText     = self.result.extract;
-        [previewCell setImageURL:self.result.thumbnailURL];
-        [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
-        previewCell.loading = self.fetcher.isFetching;
-        [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-        previewCell.saveButtonController.analyticsSource = self;
-    }
+- (nullable NSString*)placeholderCellIdentifier {
+    return [WMFArticlePlaceholderTableViewCell identifier];
 }
 
-- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.result != nil;
+- (nullable UINib*)placeholderCellNib {
+    return [WMFArticlePlaceholderTableViewCell wmf_classNib];
 }
 
-- (void)fetchRandomArticle {
-    if (self.fetcher.isFetching) {
-        return;
-    }
-
-    @weakify(self);
-    [self.fetcher fetchRandomArticleWithSite:self.searchSite]
-    .then(^(id result){
-        @strongify(self);
-        BOOL didHavePreviousResult = self.result != nil;
-        self.result = result;
-        if (didHavePreviousResult) {
-            // user refreshed, use didUpdate to maintain scroll position
-            [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
-        } else {
-            // replacing placeholder, maintaing position isn't important
-            [self.delegate controller:self didSetItems:self.items];
-        }
-    })
-    .catch(^(NSError* error){
-        @strongify(self);
-        self.result = nil;
-        [self.delegate controller:self didFailToUpdateWithError:error];
-        WMF_TECH_DEBT_TODO(show empty view)
-        [self.delegate controller : self didSetItems : self.items];
-    });
-
-    // call after fetch starts so loading indicator displays
-    [self.delegate controller:self didUpdateItemsAtIndexes:[NSIndexSet indexSetWithIndex:0]];
+- (void)configureCell:(WMFArticlePreviewTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+    cell.titleText       = item.displayTitle;
+    cell.descriptionText = item.wikidataDescription;
+    cell.snippetText     = item.extract;
+    [cell setImageURL:item.thumbnailURL];
+    [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+    cell.saveButtonController.analyticsSource = self;
 }
 
-- (void)fetchDataIfNeeded {
-    if (![self.result isKindOfClass:[MWKSearchResult class]]) {
-        // need to wrap this so that we can manually trigger it from header action
-        [self fetchRandomArticle];
-    }
+- (CGFloat)estimatedRowHeight {
+    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
+}
+
+- (MWKHistoryDiscoveryMethod)discoveryMethod {
+    return MWKHistoryDiscoveryMethodRandom;
 }
 
 - (NSString*)analyticsName {
     return @"Random";
 }
 
+- (AnyPromise*)fetchData {
+    [self.cell setLoading:YES];
+    @weakify(self);
+    return [self.fetcher fetchRandomArticleWithSite:self.searchSite]
+           .then(^(id result){
+        @strongify(self);
+        [self.cell setLoading:NO];
+        self.result = result;
+        return @[result];
+    })
+           .catch(^(NSError* error){
+        @strongify(self);
+        self.result = nil;
+        [self.cell setLoading:NO];
+        return error;
+    });
+}
+
+- (void)didEndDisplayingSection {
+    self.cell = nil;
+}
+
+#pragma mark - WMFHeaderActionProviding
+
+- (UIImage*)headerButtonIcon {
+    return [UIImage imageNamed:@"refresh-mini"];
+}
+
+- (void)performHeaderButtonAction {
+    [self fetchDataUserInitiated];
+}
+
+#pragma mark - WMFTitleProviding
+
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.searchSite titleWithString:self.result.displayTitle];
+}
+
 @end
+
+NS_ASSUME_NONNULL_END
 

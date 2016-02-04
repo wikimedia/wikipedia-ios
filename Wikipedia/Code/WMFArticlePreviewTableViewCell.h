@@ -9,6 +9,8 @@
 
 @property (nonatomic, strong) NSString* snippetText;
 
++ (CGFloat)estimatedRowHeight;
+
 /**
  *  Wire up the save button with the title and saved page list
  *  to enable saving.

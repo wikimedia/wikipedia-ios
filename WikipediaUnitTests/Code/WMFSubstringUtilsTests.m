@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 
 
 #define HC_SHORTHAND 1

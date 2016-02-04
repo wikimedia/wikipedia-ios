@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFExploreViewController : UITableViewController<WMFSearchPresentationDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
-@property (nonatomic, strong) MWKDataStore* dataStore;
-@property (nonatomic, strong) MWKSavedPageList* savedPages;
-@property (nonatomic, strong) MWKHistoryList* recentPages;
+@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+
+- (void)setSearchSite:(MWKSite* _Nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore;
 
 @end
 

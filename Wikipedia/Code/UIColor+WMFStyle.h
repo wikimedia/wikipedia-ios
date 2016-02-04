@@ -3,10 +3,6 @@
 
 @interface UIColor (WMFStyle)
 
-+ (instancetype)wmf_logoBlue;
-
-+ (instancetype)wmf_logoBlueWithAlpha:(CGFloat)alpha;
-
 + (instancetype)wmf_blueTintColor;
 
 + (instancetype)wmf_tapHighlightColor;
@@ -31,11 +27,17 @@
 
 + (instancetype)wmf_tableOfContentsSubsectionTextColor;
 
-+ (instancetype)wmf_homeSectionHeaderTextColor;
++ (instancetype)wmf_exploreSectionHeaderTitleColor;
 
-+ (instancetype)wmf_homeSectionFooterTextColor;
++ (instancetype)wmf_exploreSectionHeaderSubTitleColor;
 
-+ (instancetype)wmf_homeSectionHeaderLinkTextColor;
++ (instancetype)wmf_exploreSectionFooterTextColor;
+
++ (instancetype)wmf_exploreSectionHeaderLinkTextColor;
+
++ (instancetype)wmf_exploreSectionHeaderIconTintColor;
+
++ (instancetype)wmf_exploreSectionHeaderIconBackgroundColor;
 
 /**
  *  Color which is used in places like cell separators & various 1px lines in the interface.
@@ -44,6 +46,8 @@
 
 
 + (instancetype)wmf_999999Color;
+
++ (instancetype)wmf_customGray;
 
 + (instancetype)wmf_placeholderImageTintColor;
 
@@ -66,5 +70,21 @@
 + (instancetype)wmf_emptyGrayTextColor;
 
 + (instancetype)wmf_settingsBackgroundColor;
+
+///
+/// @name Derivative Colors
+///
+
+/**
+ *  @return A dimmed copy of the receiver.
+ *
+ *  @see -wmf_colorByScalingComponents:
+ */
+- (instancetype)wmf_colorByApplyingDim;
+
+/**
+ *  @return A copy of the receiver, applying @c amount as a scalar to its red, green, blue, and alpha values.
+ */
+- (instancetype)wmf_colorByScalingComponents:(CGFloat)amount;
 
 @end

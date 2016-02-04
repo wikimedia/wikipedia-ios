@@ -19,7 +19,7 @@
 #import "Wikipedia-Swift.h"
 
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
 #import "UIImage+WMFStyle.h"
@@ -278,9 +278,18 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Dismissal
 
-- (IBAction)didTapCloseButton:(id)sender {
+- (void)dismiss {
     [self.searchField resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)didTapCloseButton:(id)sender {
+    [self dismiss];
+}
+
+- (BOOL)accessibilityPerformEscape {
+    [self dismiss];
+    return YES;
 }
 
 #pragma mark - UITextFieldDelegate
@@ -394,7 +403,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
                     //Without the delay there is a weird animation due to the table also reloading simultaneously
                     [self.resultsListController wmf_showEmptyViewOfType:WMFEmptyViewTypeNoSearchResults];
                 });
-                [[WMFAlertManager sharedInstance] showAlert:MWLocalizedString(@"search-no-matches", nil) sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
             }
         }
 

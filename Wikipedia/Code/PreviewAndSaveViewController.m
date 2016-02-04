@@ -15,7 +15,7 @@
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
 #import "PaddedLabel.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "MenuButton.h"
 #import "EditSummaryViewController.h"
 #import "PreviewLicenseView.h"
@@ -88,6 +88,10 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 @end
 
 @implementation PreviewAndSaveViewController
+
+- (void)dealloc {
+    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
+}
 
 - (NSString*)getSummary {
     NSMutableArray* summaryArray = @[].mutableCopy;
@@ -269,10 +273,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         [self.scrollView scrollSubViewToTop:self.previewLabel animated:YES];
     }
-}
-
-- (void)dealloc {
-    [self.previewWebView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)observeValueForKeyPath:(NSString*)keyPath
@@ -472,7 +472,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                 error:(NSError*)error {
     if ([sender isKindOfClass:[PreviewHtmlFetcher class]]) {
         MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.section.site.language];
-        NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+        NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
         switch (status) {
             case FETCH_FINAL_STATUS_SUCCEEDED: {

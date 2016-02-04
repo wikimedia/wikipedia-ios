@@ -22,7 +22,6 @@
 
 #import "WMFShareCardViewController.h"
 #import "UIWebView+WMFSuppressSelection.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "PageHistoryViewController.h"
 
 #import "UIWebView+WMFJavascriptContext.h"
@@ -30,7 +29,7 @@
 #import "UIWebView+ElementLocation.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
@@ -42,8 +41,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     @"Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License";
 
 @interface WebViewController () <ReferencesVCDelegate>
-
-@property (nonatomic, strong) UIBarButtonItem* buttonEditHistory;
 
 /*
    NOTE: Need to add headers/footers as subviews as opposed to using contentInset, due to running into the following
@@ -105,21 +102,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     return self;
 }
 
-#pragma mark - Tool Bar
-
-- (void)setupBottomMenuButtons {
-    @weakify(self)
-    self.buttonEditHistory = [UIBarButtonItem wmf_buttonType:WMFButtonTypePencil handler:^(id sender){
-        @strongify(self)
-        [self editHistoryButtonPushed];
-    }];
-
-    self.toolbarItems = @[
-        self.buttonEditHistory,
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-    ];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
@@ -130,11 +112,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self addFooterView];
 
     self.referencesHidden = YES;
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
-    [self.navigationController.toolbar wmf_mirrorIfDeviceRTL];
-
-    [self setupBottomMenuButtons];
 
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
@@ -360,7 +337,7 @@ NSString* const WMFLicenseTitleOnENWiki =
      */
     UIView* browserView = [self.webView wmf_browserView];
 
-    if (floor(browserView.frame.origin.y) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
+    if (floor(CGRectGetMinY(browserView.frame)) != floor(headerBottom)) { // Prevent weird recursion when doing 3d touch peek.
         [browserView setFrame:(CGRect){
              .origin = CGPointMake(0, headerBottom),
              .size = browserView.frame.size
@@ -639,7 +616,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     NSString* html = [self.article articleHTML];
 
     MWLanguageInfo* languageInfo = [MWLanguageInfo languageInfoForCode:self.article.site.language];
-    NSString* uidir              = ([WikipediaAppUtils isDeviceLanguageRTL] ? @"rtl" : @"ltr");
+    NSString* uidir              = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
 
     // If any of these are nil, the bridge "sendMessage:" calls will crash! So catch 'em here.
     BOOL safeToCrossBridge = (languageInfo.code && languageInfo.dir && uidir && html);
@@ -721,6 +698,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (CGFloat)getRefsPanelHeight {
+    // TODO: this code could be changed to use size classes instead of orientation which is deprecated from iOS 8
     CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         percentOfHeight *= 0.5;

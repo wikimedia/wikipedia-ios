@@ -42,13 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
-- (id<WMFArticleListDynamicDataSource>)dynamicDataSource {
-    if ([self.dataSource conformsToProtocol:@protocol(WMFArticleListDynamicDataSource)]) {
-        return (id<WMFArticleListDynamicDataSource>)self.dataSource;
-    }
-    return nil;
-}
-
 - (void)setDataSource:(SSBaseDataSource<WMFTitleListDataSource>* __nullable)dataSource {
     if (_dataSource == dataSource) {
         return;
@@ -66,7 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
     if ([self isViewLoaded] && self.view.window) {
         if (_dataSource) {
             _dataSource.tableView = self.tableView;
-            [[self dynamicDataSource] startUpdating];
         }
         [self.tableView wmf_scrollToTop:NO];
         [self.tableView reloadData];
@@ -150,7 +142,11 @@ NS_ASSUME_NONNULL_BEGIN
         MWKTitle* otherTitle = [self.dataSource titleForIndexPath:indexPath];
         return [title isEqualToTitle:otherTitle];
     }];
-    [self.tableView reloadRowsAtIndexPaths:indexPathsToRefresh withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    //update cells in place. Updating with relaod method causes the tableview to scroll
+    [indexPathsToRefresh enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        self.dataSource.cellConfigureBlock([self.tableView cellForRowAtIndexPath:obj], [self.dataSource itemAtIndexPath:obj], self.tableView, obj);
+    }];
 }
 
 #pragma mark - Previewing
@@ -202,7 +198,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.dataSource.tableView = self.tableView;
     [self updateDeleteButtonEnabledState];
     [self updateEmptyState];
-    [[self dynamicDataSource] startUpdating];
     [self registerForPreviewingIfAvailable];
 }
 
@@ -216,7 +211,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[self dynamicDataSource] stopUpdating];
 }
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {

@@ -7,10 +7,9 @@
 #import "LoginTokenFetcher.h"
 #import "AccountLogin.h"
 #import "SessionSingleton.h"
-#import "NSHTTPCookieStorage+CloneCookie.h"
+#import "NSHTTPCookieStorage+WMFCloneCookie.h"
 #import "AccountCreationViewController.h"
 #import "WMF_Colors.h"
-#import "MenuButton.h"
 #import "PaddedLabel.h"
 #import "CreateAccountFunnel.h"
 #import "PreviewAndSaveViewController.h"
@@ -21,7 +20,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIView+WMFRTLMirroring.h"
 #import "MediaWikiKit.h"
 #import "Wikipedia-Swift.h"
 
@@ -49,9 +47,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
-    [self.navigationController.navigationBar wmf_mirrorIfDeviceRTL];
 
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
@@ -312,12 +307,12 @@
     NSString* cookie1Name = [NSString stringWithFormat:@"%@wikiSession", domain];
     NSString* cookie2Name = [NSString stringWithFormat:@"%@wikiUserID", domain];
 
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] recreateCookie:cookie1Name
-                                            usingCookieAsTemplate:cookie2Name
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:cookie1Name
+                                                usingCookieAsTemplate:cookie2Name
     ];
 
-    [[NSHTTPCookieStorage sharedHTTPCookieStorage] recreateCookie:@"centralauth_Session"
-                                            usingCookieAsTemplate:@"centralauth_User"
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] wmf_recreateCookie:@"centralauth_Session"
+                                                usingCookieAsTemplate:@"centralauth_User"
     ];
 }
 

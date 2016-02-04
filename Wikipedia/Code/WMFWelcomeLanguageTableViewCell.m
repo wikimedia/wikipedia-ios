@@ -1,5 +1,6 @@
 
 #import "WMFWelcomeLanguageTableViewCell.h"
+#import "Wikipedia-Swift.h"
 
 @implementation WMFWelcomeLanguageTableViewCell
 
@@ -31,13 +32,8 @@
     }
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    //Remove indentation for delete control
-    self.contentView.frame = CGRectMake(0,
-                                        self.contentView.frame.origin.y,
-                                        self.contentView.frame.size.width,
-                                        self.contentView.frame.size.height);
+- (BOOL)shouldIndentWhileEditing {
+    return NO;
 }
 
 - (void)prepareForReuse {

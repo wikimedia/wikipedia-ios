@@ -10,8 +10,8 @@
 
 #import "UIImage+WMFSerialization.h"
 #import "NSURLRequest+WMFUtilities.h"
-#import "NSString+Extras.h"
-#import "NSURL+Extras.h"
+#import "NSString+WMFExtras.h"
+#import "NSURL+WMFExtras.h"
 #import "NSURL+WMFRest.h"
 
 // Set the level for logs in this file

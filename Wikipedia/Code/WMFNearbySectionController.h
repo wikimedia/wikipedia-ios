@@ -1,24 +1,21 @@
 
-#import "WMFExploreSectionController.h"
-
-@class WMFLocationManager, WMFNearbyViewModel, MWKSite, MWKDataStore;
+#import "WMFBaseExploreSectionController.h"
+@import CoreLocation;
+@class WMFLocationManager, MWKSite, MWKDataStore;
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString* const WMFNearbySectionIdentifier;
 
-@interface WMFNearbySectionController : NSObject
-    <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
+@interface WMFNearbySectionController : WMFBaseExploreSectionController
+    <WMFExploreSectionController, WMFTitleProviding, WMFMoreFooterProviding>
 
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-             locationManager:(WMFLocationManager*)locationManager;
+- (instancetype)initWithLocation:(CLLocation*)location
+                            site:(MWKSite*)site
+                       dataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-                   viewModel:(WMFNearbyViewModel*)viewModel NS_DESIGNATED_INITIALIZER;
-
-@property (nonatomic, strong) MWKSite* searchSite;
+@property (nonatomic, strong, readonly) MWKSite* searchSite;
+@property (nonatomic, strong, readonly) CLLocation* location;
 
 @end
 

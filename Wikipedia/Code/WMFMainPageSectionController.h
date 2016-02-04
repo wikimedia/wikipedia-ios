@@ -1,12 +1,12 @@
 
-#import "WMFExploreSectionController.h"
+#import "WMFBaseExploreSectionController.h"
 
 @class MWKSite, MWKSavedPageList;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFMainPageSectionController : NSObject
-    <WMFArticleExploreSectionController, WMFFetchingExploreSectionController>
+@interface WMFMainPageSectionController : WMFBaseExploreSectionController
+    <WMFExploreSectionController, WMFTitleProviding>
 
 @property (nonatomic, strong, readonly) MWKSite* site;
 

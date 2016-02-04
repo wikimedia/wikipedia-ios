@@ -2,8 +2,9 @@
 
 // Controllers
 #import "WMFNearbyTitleListDataSource.h"
-#import "WMFNearbyViewModel.h"
 #import "WMFLocationManager.h"
+#import "WMFCompassViewModel.h"
+#import "WMFLocationSearchFetcher.h"
 
 // Models
 #import "WMFLocationSearchResults.h"
@@ -18,7 +19,7 @@
 
 // Views
 #import "WMFNearbyArticleTableViewCell.h"
-#import "WMFEmptyNearbyTableViewCell.h"
+#import "WMFEmptySectionTableViewCell.h"
 #import "WMFNearbyPlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
@@ -27,47 +28,39 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
+NSString* const WMFNearbySectionIdentifier         = @"WMFNearbySectionIdentifier";
+static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @interface WMFNearbySectionController ()
-<WMFNearbyViewModelDelegate>
 
-@property (nonatomic, strong) WMFNearbyViewModel* viewModel;
+@property (nonatomic, strong, readwrite) MWKSite* searchSite;
+@property (nonatomic, strong, readwrite) CLLocation* location;
+
+@property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong, nullable) WMFLocationSearchResults* searchResults;
 
-@property (nonatomic, strong, nullable) NSError* nearbyError;
+@property (nonatomic, strong) WMFCompassViewModel* compassViewModel;
 
 @end
 
 @implementation WMFNearbySectionController
 
-@synthesize delegate = _delegate;
-
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-             locationManager:(WMFLocationManager*)locationManager {
-    return [self initWithSite:site
-                    dataStore:dataStore
-                    viewModel:[[WMFNearbyViewModel alloc] initWithSite:site
-                                                           resultLimit:3
-                                                       locationManager:locationManager]];
-}
-
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore
-                   viewModel:(WMFNearbyViewModel*)viewModel {
+- (instancetype)initWithLocation:(CLLocation*)location
+                            site:(MWKSite*)site
+                       dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
     NSParameterAssert(dataStore);
-    NSParameterAssert(viewModel);
     self = [super init];
     if (self) {
-        self.dataStore          = dataStore;
-        self.viewModel          = viewModel;
-        self.viewModel.delegate = self;
+        self.location              = location;
+        self.searchSite            = site;
+        self.dataStore             = dataStore;
+        self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
+        self.compassViewModel      = [[WMFCompassViewModel alloc] init];
     }
     return self;
 }
@@ -76,32 +69,6 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
 
 - (MWKSavedPageList*)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
-}
-
-- (BOOL)hasResults {
-    return self.searchResults && self.searchResults.results && self.searchResults.results.count > 0;
-}
-
-- (void)setSearchResults:(nullable WMFLocationSearchResults*)searchResults {
-    _searchResults = searchResults;
-    if (!_searchResults) {
-        self.nearbyError = nil;
-    }
-}
-
-- (void)setNearbyError:(nullable NSError*)nearbyError {
-    _nearbyError = nearbyError;
-    if (_nearbyError) {
-        self.searchResults = nil;
-    }
-}
-
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite {
-    self.viewModel.site = searchSite;
-}
-
-- (MWKSite*)searchSite {
-    return self.viewModel.site;
 }
 
 #pragma mark - WMFExploreSectionController
@@ -114,124 +81,128 @@ NSString* const WMFNearbySectionIdentifier = @"WMFNearbySectionIdentifier";
     return [UIImage imageNamed:@"home-nearby"];
 }
 
-- (NSAttributedString*)headerText {
-    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"main-menu-nearby", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_exploreSectionHeaderIconTintColor];
 }
+
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_exploreSectionHeaderIconBackgroundColor];
+}
+
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+}
+
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+}
+
+- (NSString*)cellIdentifier {
+    return [WMFNearbyArticleTableViewCell identifier];
+}
+
+- (UINib*)cellNib {
+    return [WMFNearbyArticleTableViewCell wmf_classNib];
+}
+
+- (nullable NSString*)placeholderCellIdentifier {
+    return [WMFNearbyPlaceholderTableViewCell identifier];
+}
+
+- (nullable UINib*)placeholderCellNib {
+    return [WMFNearbyPlaceholderTableViewCell wmf_classNib];
+}
+
+- (void)configureCell:(WMFNearbyArticleTableViewCell*)cell withItem:(MWKLocationSearchResult*)item atIndexPath:(nonnull NSIndexPath*)indexPath {
+    NSParameterAssert([item isKindOfClass:[MWKLocationSearchResult class]]);
+    NSParameterAssert([cell isKindOfClass:[WMFNearbyArticleTableViewCell class]]);
+
+    cell.titleText       = item.displayTitle;
+    cell.descriptionText = item.wikidataDescription;
+    [cell setImageURL:item.thumbnailURL];
+    [cell setDistanceProvider:[self.compassViewModel distanceProviderForResult:item]];
+    [cell setBearingProvider:[self.compassViewModel bearingProviderForResult:item]];
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+}
+
+- (void)configureEmptyCell:(WMFEmptySectionTableViewCell*)cell {
+    cell.emptyTextLabel.text = MWLocalizedString(@"home-nearby-nothing", nil);
+    [cell.reloadButton setTitle:MWLocalizedString(@"home-nearby-check-again", nil) forState:UIControlStateNormal];
+}
+
+- (void)willDisplaySection {
+    [self.compassViewModel startUpdates];
+}
+
+- (void)didEndDisplayingSection {
+    [self.compassViewModel stopUpdates];
+}
+
+- (CGFloat)estimatedRowHeight {
+    return [WMFNearbyArticleTableViewCell estimatedRowHeight];
+}
+
+- (NSString*)analyticsName {
+    return @"Nearby";
+}
+
+- (AnyPromise*)fetchData {
+    if ([self fetchedResultsAreCloseToLocation:self.location]) {
+        DDLogVerbose(@"Not fetching nearby titles for %@ since it is too close to previously fetched location: %@.",
+                     self.location, self.searchResults.location);
+        return [AnyPromise promiseWithValue:self.items];
+    }
+
+    return [self fetchTitlesForLocation:self.location];
+}
+
+#pragma mark - WMFTitleProviding
+
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [self.searchResults titleForResultAtIndex:indexPath.row];
+}
+
+#pragma mark - WMFMoreFooterProviding
 
 - (NSString*)footerText {
     return MWLocalizedString(@"home-nearby-footer", nil);
 }
 
-- (NSArray*)items {
-    if ([self hasResults]) {
-        return self.searchResults.results;
-    } else if (self.nearbyError) {
-        return @[@1];
-    } else {
-        return @[@1, @2, @3];
-    }
-}
-
-- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    id result = self.items[index];
-    if ([result isKindOfClass:[MWKSearchResult class]]) {
-        return [self.searchResults titleForResultAtIndex:index];
-    }
-    return nil;
-}
-
-- (void)registerCellsInTableView:(UITableView* __nonnull)tableView {
-    [tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
-    [tableView registerNib:[WMFNearbyPlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyPlaceholderTableViewCell identifier]];
-    [tableView registerNib:[WMFEmptyNearbyTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptyNearbyTableViewCell identifier]];
-}
-
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([self hasResults]) {
-        return [WMFNearbyArticleTableViewCell cellForTableView:tableView];
-    } else if (self.nearbyError) {
-        return [WMFEmptyNearbyTableViewCell cellForTableView:tableView];
-    } else {
-        return [WMFNearbyPlaceholderTableViewCell cellForTableView:tableView];
-    }
-}
-
-- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFNearbyArticleTableViewCell class]] && [object isKindOfClass:[MWKLocationSearchResult class]]) {
-        WMFNearbyArticleTableViewCell* nearbyCell = (id)cell;
-        MWKLocationSearchResult* result           = object;
-        NSParameterAssert([result isKindOfClass:[MWKLocationSearchResult class]]);
-        nearbyCell.titleText       = result.displayTitle;
-        nearbyCell.descriptionText = result.wikidataDescription;
-        [nearbyCell setImageURL:result.thumbnailURL];
-        [nearbyCell setDistanceProvider:[self.viewModel distanceProviderForResultAtIndex:indexPath.item]];
-        [nearbyCell setBearingProvider:[self.viewModel bearingProviderForResultAtIndex:indexPath.item]];
-        [nearbyCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    } else if ([cell isKindOfClass:[WMFEmptyNearbyTableViewCell class]]) {
-        WMFEmptyNearbyTableViewCell* nearbyCell = (id)cell;
-        if (![nearbyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
-            @weakify(self);
-            [nearbyCell.reloadButton bk_addEventHandler:^(id sender) {
-                @strongify(self);
-                self.nearbyError = nil;
-                [self.delegate controller:self didSetItems:self.items];
-                [self.viewModel stopUpdates];
-                [self.viewModel startUpdates];
-            } forControlEvents:UIControlEventTouchUpInside];
-        }
-    }
-}
-
-- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return [self hasResults];
-}
-
 - (UIViewController*)moreViewController {
-    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithSearchSite:self.searchSite dataStore:self.dataStore];
+    WMFLocationSearchListViewController* vc = [[WMFLocationSearchListViewController alloc] initWithLocation:self.location searchSite:self.searchSite dataStore:self.dataStore];
     return vc;
 }
 
-- (void)fetchDataIfNeeded {
-    // Start updates if they haven't been started already. Don't redundantly start (or restart) or else views will flicker.
-    [self.viewModel startUpdates];
-}
+#pragma mark - Utility
 
-#pragma mark - WMFNearbyViewModelDelegate
-
-- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didFailWithError:(NSError*)error {
-    if ([WMFLocationManager isDeniedOrDisabled]) {
-        DDLogVerbose(@"Suppresing %@ since location authorization is denied.", error);
-        /*
-           This controller is coded with the assumption that it will be destroyed in the event that the user revokes
-           location services authorization for the app or the device in general.
-         */
-        return;
+- (BOOL)fetchedResultsAreCloseToLocation:(CLLocation*)location {
+    if ([self.searchResults.location distanceFromLocation:location] < 500
+        && [self.searchResults.searchSite isEqualToSite:self.searchSite] && [self.searchResults.results count] > 0) {
+        return YES;
     }
 
-    if (!([error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown)
-        || !self.searchResults) {
-        // only show error view if empty or error is not "unknown location"
-        self.nearbyError = error;
-        [self.delegate controller:self didSetItems:self.items];
-    }
-
-    //This means there were 0 results - not neccesarily a "real" error.
-    //Only inform the delegate if we get a real error.
-    if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
-        [self.delegate controller:self didFailToUpdateWithError:error];
-    }
-
-    //Don't try to update after we get an error.
-    [self.viewModel stopUpdates];
+    return NO;
 }
 
-- (void)nearbyViewModel:(WMFNearbyViewModel*)viewModel didUpdateResults:(WMFLocationSearchResults*)results {
-    self.searchResults = results;
-    [self.delegate controller:self didSetItems:self.items];
-}
-
-- (NSString*)analyticsName {
-    return @"Nearby";
+- (AnyPromise*)fetchTitlesForLocation:(CLLocation* __nullable)location {
+    @weakify(self);
+    return [self.locationSearchFetcher fetchArticlesWithSite:self.searchSite
+                                                    location:location
+                                                 resultLimit:WMFNearbySectionFetchCount
+                                                 cancellable:NULL]
+           .then(^(WMFLocationSearchResults* locationSearchResults) {
+        @strongify(self);
+        self.searchResults = locationSearchResults;
+        return self.searchResults.results;
+    })
+           .catch(^(NSError* error) {
+        //This means there were 0 results - not neccesarily a "real" error.
+        //Only inform the delegate if we get a real error.
+        if (!([error.domain isEqualToString:MTLJSONAdapterErrorDomain] && error.code == MTLJSONAdapterErrorInvalidJSONDictionary)) {
+            return error;
+        }
+        return (NSError*)nil;
+    });
 }
 
 @end

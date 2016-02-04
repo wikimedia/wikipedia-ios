@@ -13,7 +13,8 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
 
-#import "NSString+FormattedAttributedString.h"
+#import "NSDateFormatter+WMFExtensions.h"
+#import "UIColor+WMFHexColor.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,8 +33,6 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 @end
 
 @implementation WMFFeaturedArticleSectionController
-
-@synthesize delegate = _delegate;
 
 - (instancetype)initWithSite:(MWKSite*)site date:(NSDate*)date savedPageList:(MWKSavedPageList*)savedPageList {
     NSParameterAssert(site);
@@ -67,7 +66,7 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     return dateFormatter;
 }
 
-#pragma mark - HomeSectionController
+#pragma mark - WMFBaseExploreSectionController
 
 - (id)sectionIdentifier {
     return [WMFFeaturedArticleSectionIdentifierPrefix stringByAppendingString:self.date.description];
@@ -77,78 +76,77 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     return [UIImage imageNamed:@"featured-mini"];
 }
 
-- (NSAttributedString*)headerText {
-    return
-        [MWLocalizedString(@"home-featured-article-heading", nil) attributedStringWithAttributes:@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}
-                                                                             substitutionStrings:@[[[[self class] dateFormatter] stringFromDate:self.date]]
-                                                                          substitutionAttributes:@[@{NSForegroundColorAttributeName: [UIColor wmf_homeSectionHeaderTextColor]}]];
+- (UIColor*)headerIconTintColor {
+    return [UIColor wmf_colorWithHex:0xE6B84F alpha:1.0];
 }
 
-- (NSArray*)items {
-    if (self.featuredArticlePreview) {
-        return @[self.featuredArticlePreview];
-    } else {
-        return @[@1];
-    }
+- (UIColor*)headerIconBackgroundColor {
+    return [UIColor wmf_colorWithHex:0xFCF5E4 alpha:1.0];
 }
 
-- (nullable MWKTitle*)titleForItemAtIndex:(NSUInteger)index {
-    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.featuredArticlePreview.displayTitle fragment:nil];
+- (NSAttributedString*)headerTitle {
+    return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-featured-article-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
-- (void)registerCellsInTableView:(UITableView*)tableView {
-    [tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
-    [tableView registerNib:[WMFArticlePlaceholderTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePlaceholderTableViewCell identifier]];
+- (NSAttributedString*)headerSubTitle {
+    return [[NSAttributedString alloc] initWithString:[[NSDateFormatter wmf_dayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
-- (UITableViewCell*)dequeueCellForTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if (self.featuredArticlePreview) {
-        return [WMFArticlePreviewTableViewCell cellForTableView:tableView];
-    } else {
-        return [WMFArticlePlaceholderTableViewCell cellForTableView:tableView];
-    }
+- (NSString*)cellIdentifier {
+    return [WMFArticlePreviewTableViewCell identifier];
 }
 
-- (void)configureCell:(UITableViewCell*)cell withObject:(id)object inTableView:(UITableView*)tableView atIndexPath:(NSIndexPath*)indexPath {
-    if ([cell isKindOfClass:[WMFArticlePreviewTableViewCell class]]) {
-        WMFArticlePreviewTableViewCell* previewCell = (WMFArticlePreviewTableViewCell*)cell;
-        previewCell.titleText       = self.featuredArticlePreview.displayTitle;
-        previewCell.descriptionText = self.featuredArticlePreview.wikidataDescription;
-        previewCell.snippetText     = self.featuredArticlePreview.extract;
-        [previewCell setImageURL:self.featuredArticlePreview.thumbnailURL];
-        [previewCell setSaveableTitle:[self titleForItemAtIndex:indexPath.row] savedPageList:self.savedPageList];
-        [previewCell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-        previewCell.saveButtonController.analyticsSource = self;
-    }
+- (UINib*)cellNib {
+    return [WMFArticlePreviewTableViewCell wmf_classNib];
 }
 
-- (BOOL)shouldSelectItemAtIndex:(NSUInteger)index {
-    return self.featuredArticlePreview != nil;
+- (NSUInteger)numberOfPlaceholderCells {
+    return 1;
 }
 
-#pragma mark - Fetching
+- (nullable NSString*)placeholderCellIdentifier {
+    return [WMFArticlePlaceholderTableViewCell identifier];
+}
 
-- (void)fetchDataIfNeeded {
-    if (self.featuredTitlePreviewFetcher.isFetching || self.featuredArticlePreview) {
-        return;
-    }
+- (nullable UINib*)placeholderCellNib {
+    return [WMFArticlePlaceholderTableViewCell wmf_classNib];
+}
 
-    @weakify(self);
-    [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:self.date].then(^(MWKSearchResult* data) {
-        @strongify(self);
-        self.featuredArticlePreview = data;
-        [self.delegate controller:self didSetItems:self.items];
-    }).catch(^(NSError* error){
-        @strongify(self);
-        self.featuredArticlePreview = nil;
-        [self.delegate controller:self didFailToUpdateWithError:error];
-        WMF_TECH_DEBT_TODO(show empty view)
-        [self.delegate controller : self didSetItems : self.items];
-    });
+- (void)configureCell:(WMFArticlePreviewTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+    cell.titleText       = item.displayTitle;
+    cell.descriptionText = item.wikidataDescription;
+    cell.snippetText     = item.extract;
+    [cell setImageURL:item.thumbnailURL];
+    [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
+    [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
+    cell.saveButtonController.analyticsSource = self;
+}
+
+- (CGFloat)estimatedRowHeight {
+    return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsName {
     return @"Featured Article";
+}
+
+- (AnyPromise*)fetchData {
+    @weakify(self);
+    return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:self.date].then(^(MWKSearchResult* data) {
+        @strongify(self);
+        self.featuredArticlePreview = data;
+        return @[self.featuredArticlePreview];
+    }).catch(^(NSError* error){
+        @strongify(self);
+        self.featuredArticlePreview = nil;
+        return error;
+    });
+}
+
+#pragma mark - WMFTitleProviding
+
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
+    return [[MWKTitle alloc] initWithSite:self.site normalizedTitle:self.featuredArticlePreview.displayTitle fragment:nil];
 }
 
 @end

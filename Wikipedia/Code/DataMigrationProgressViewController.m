@@ -13,10 +13,10 @@
 
 #import <BlocksKit/BlocksKit+UIKit.h>
 
-enum {
+typedef NS_ENUM (NSInteger, MigrationButtonIndexIds) {
     BUTTON_INDEX_DISCARD = 0,
     BUTTON_INDEX_SUBMIT  = 1
-} MigrationButtonIndexIds;
+};
 
 @interface DataMigrationProgressViewController ()<LegacyCoreDataMigratorProgressDelegate, MFMailComposeViewControllerDelegate>
 

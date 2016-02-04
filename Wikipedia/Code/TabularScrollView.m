@@ -113,12 +113,17 @@
     } else {
         tappedView = sender;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TabularScrollViewItemTapped" object:self userInfo:
-     @{
-         @"tappedItem": tappedView,
-         @"tappedChild": tappedChildView
-     }
-    ];
+
+    if (!tappedView) {
+        return;
+    }
+
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObject:tappedView forKey:@"tappedItem"];
+    if (tappedChildView) {
+        [userInfo setObject:tappedChildView forKey:@"tappedChild"];
+    }
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TabularScrollViewItemTapped" object:self userInfo:userInfo];
 }
 
 - (void)setOrientation:(TabularScrollViewOrientation)orientation {

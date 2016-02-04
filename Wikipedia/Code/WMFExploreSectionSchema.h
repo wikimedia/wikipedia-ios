@@ -1,7 +1,7 @@
 
 #import <Mantle/Mantle.h>
 
-@class MWKSite, MWKSavedPageList, MWKHistoryList, WMFExploreSection;
+@class MWKSite, MWKSavedPageList, MWKHistoryList, WMFExploreSection, WMFRelatedSectionBlackList;
 
 @protocol WMFExploreSectionSchemaDelegate;
 
@@ -16,14 +16,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param site site for populating sections
  *  @param savedPages Saved pages for populating sections
  *  @param history    History for populating sections
+ *  @param blackList  Blacklist for removing realated sections
  *
  *  @return The schema
  */
-+ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history;
++ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history blackList:(WMFRelatedSectionBlackList*)blackList;
 
 @property (nonatomic, strong, readonly) MWKSite* site;
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
+@property (nonatomic, strong, readonly) WMFRelatedSectionBlackList* blackList;
 
 @property (nonatomic, strong, readonly, nullable) NSDate* lastUpdatedAt;
 
@@ -48,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param force If YES force an update
  */
-- (void)update:(BOOL)force;
+- (BOOL)update:(BOOL)force;
 
 /**
  *  Reset the schema - removes all items and restores back to the "startingSchema"
@@ -61,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol WMFExploreSectionSchemaDelegate <NSObject>
 
 - (void)sectionSchemaDidUpdateSections:(WMFExploreSectionSchema*)schema;
+- (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index;
 
 @end
 

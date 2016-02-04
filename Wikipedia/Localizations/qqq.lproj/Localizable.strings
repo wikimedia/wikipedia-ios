@@ -141,6 +141,7 @@
 "main-menu-more" = "Button for showing additional settings and menu items.\n{{Identical|More}}";
 "main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionall shown if in Xcode debug mode.\n{{Identical|Debug}}";
 "main-menu-debug-crash" = "Title for button that forces the application to crash.\n{{Identical|Crash}}";
+"main-menu-debug-tweaks" = "Title for button that shows debugging settings options.";
 "saved-title" = "Title of the saved screen shown on the saved tab\n{{Identical|Saved}}";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
@@ -208,6 +209,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks. $2 will be a user-selected text snippet, which should be wrapped in the localized double quote marks.";
 "share-as-image" = "Button label for sharing as an image card";
 "share-as-text" = "Button label for sharing as a text snippet (instead of as an image card)";
+"share-cancel" = "Button which dismisses the share dialog, cancelling the action.";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
@@ -237,6 +239,7 @@
 "license-footer-text" = "Brief footer text linking to CC-BY-SA license. '$1' is placeholder for the {{msg-wm|Wikipedia-ios-license-footer-name}} message";
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
+"table-of-contents-button-label" = "Accessibility label for the Table of Contents button";
 "abuse-filter-warning-heading" = "Header text for unconstructive edit warning";
 "abuse-filter-warning-subheading" = "Subheading text for potentially unconstructive edit warning";
 "abuse-filter-warning-caps" = "Label text for typing in all capitals";
@@ -315,6 +318,10 @@
 "home-last-update-label" = "Label that appears before the last updated time of the explore feed";
 "home-last-update-never-label" = "Label that appears when the explore feed has never been updated";
 "home-updating-label" = "Label that appears when a user is updating the explore feed to inform the user that an update is in progress";
+"home-hide-suggestion-prompt" = "Title of button shown for users to confirm the hiding of a suggestion in the explore feed";
+"home-hide-suggestion-cancel" = "Title of the button for cancelling the hiding of an explore feed suggestion";
+"home-accessibility-label" = "Accessibility heading for the Explore page, indicating both that this is the Wikipedia app (as in the logo that is displayed visually) and that this is the Explore page.";
+"home-button-accessibility-label" = "Accessibility heading for a button on articles allowing users to jump back to the home screen";
 "potd-empty-error-description" = "Error message when app fails to download Commons Picture of the Day. $1 will be substitued with the date which the app attempted to retrieve.";
 "potd-description-prefix" = "Prefix to picture of the day description which states it was the picture of the day for a specific date. The $1 token is subtituted for the date.";
 "welcome-whats-new-title" = "Welcome screen title - shown when a user opens the app for the first time (or first opens version 5.0) literally: Welcome to Wikipedia";
@@ -353,3 +360,14 @@
 "icon-shortcut-continue-reading-title" = "Title for app icon force touch shortcut to quickly re-open the last article the user was reading.";
 "icon-shortcut-random-title" = "Title for app icon force touch shortcut to quickly open a random article.";
 "icon-shortcut-nearby-title" = "Title for app icon force touch shortcut to quickly open the nearby articles interface.";
+"close-button-accessibility-label" = "Accessibility label for a button that closes a dialog.";
+"back-button-accessibility-label" = "Accessibility label for a button to navigate back.";
+"compass-direction" = "Spoken description of compass direction, e.g. 'at 3 o'clock' means 'to the right'";
+"explore-featured-article-heading" = "Text for 'Featured article' header";
+"explore-continue-reading-heading" = "Text for 'Continue Reading' header";
+"explore-nearby-heading" = "Text for 'Nearby places' header";
+"explore-continue-related-heading" = "Text for 'Because you read' header";
+"explore-main-page-heading" = "Text for 'Today on Wikipedia' header";
+"explore-random-article-heading" = "Text for 'Random article' header";
+"explore-random-article-sub-heading" = "Subtext beneath the 'Random article' header with name of language Wikipedia";
+"explore-potd-heading" = "Text for 'Picture of the day' header";

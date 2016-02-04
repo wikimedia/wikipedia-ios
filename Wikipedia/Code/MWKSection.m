@@ -11,7 +11,7 @@
 #import "NSString+WMFHTMLParsing.h"
 #import <hpple/TFHpple.h>
 #import "WikipediaAppUtils.h"
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import <BlocksKit/BlocksKit.h>
 
 NS_ASSUME_NONNULL_BEGIN

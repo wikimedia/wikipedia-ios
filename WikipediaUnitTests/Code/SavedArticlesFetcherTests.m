@@ -36,6 +36,10 @@
     [super tearDown];
 }
 
++ (NSArray<NSInvocation*>*)testInvocations {
+    return [[NSProcessInfo processInfo] wmf_isTravis] ? @[] : [super testInvocations];
+}
+
 #pragma mark - Downloading
 
 - (void)testStartDownloadingArticleWhenAddedToList {

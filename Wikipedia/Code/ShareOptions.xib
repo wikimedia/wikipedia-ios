@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="WMFShareOptionsView">
-            <rect key="frame" x="0.0" y="0.0" width="310" height="294"/>
+            <rect key="frame" x="0.0" y="0.0" width="310" height="347"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVy-ZG-x1g" userLabel="Card Container" customClass="WMFShareOptionsView">
@@ -16,14 +16,12 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="03i-BN-coA" userLabel="Card Image">
                             <rect key="frame" x="10" y="10" width="280" height="169"/>
-                            <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="169" id="LNk-QJ-mUs"/>
                                 <constraint firstAttribute="width" constant="280" id="RYJ-TD-Qnt"/>
                             </constraints>
                         </imageView>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
@@ -34,8 +32,10 @@
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share as Card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoA-Aj-DCC" userLabel="Share as Card" customClass="PaddedLabel">
                     <rect key="frame" x="5" y="195" width="300" height="44"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                    </accessibility>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="mEn-8M-ZHO"/>
@@ -46,8 +46,10 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share as Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THd-XS-Au4" userLabel="Share as Text" customClass="PaddedLabel">
                     <rect key="frame" x="5" y="245" width="300" height="44"/>
-                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                    </accessibility>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="tZC-Ea-6ns"/>
@@ -58,14 +60,26 @@
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Iw-g7-tft" userLabel="Gray Spacer 1">
                     <rect key="frame" x="5" y="194" width="300" height="1"/>
-                    <animations/>
                     <color key="backgroundColor" white="0.74968635948905105" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="OPT-Qb-uRw"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3GM-he-dkL" customClass="PaddedLabel">
+                    <rect key="frame" x="5" y="295" width="300" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" button="YES" staticText="YES"/>
+                    </accessibility>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="v0U-bu-KAp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="hVy-ZG-x1g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="26z-I3-fUS"/>
@@ -73,11 +87,14 @@
                 <constraint firstItem="9Iw-g7-tft" firstAttribute="top" secondItem="hVy-ZG-x1g" secondAttribute="bottom" id="5hN-sr-Euy"/>
                 <constraint firstItem="9Iw-g7-tft" firstAttribute="trailing" secondItem="hVy-ZG-x1g" secondAttribute="trailing" id="6ho-HF-gio"/>
                 <constraint firstItem="JoA-Aj-DCC" firstAttribute="trailing" secondItem="hVy-ZG-x1g" secondAttribute="trailing" id="BE0-mW-gds"/>
+                <constraint firstItem="3GM-he-dkL" firstAttribute="trailing" secondItem="THd-XS-Au4" secondAttribute="trailing" id="Ge1-A4-dd1"/>
                 <constraint firstItem="THd-XS-Au4" firstAttribute="leading" secondItem="hVy-ZG-x1g" secondAttribute="leading" id="VKO-Lt-tEE"/>
                 <constraint firstItem="THd-XS-Au4" firstAttribute="trailing" secondItem="hVy-ZG-x1g" secondAttribute="trailing" id="Wyv-Ly-ElT"/>
                 <constraint firstItem="JoA-Aj-DCC" firstAttribute="top" secondItem="9Iw-g7-tft" secondAttribute="bottom" id="YDh-8k-z02"/>
-                <constraint firstAttribute="bottom" secondItem="THd-XS-Au4" secondAttribute="bottom" constant="5" id="ZjY-Md-uPj"/>
+                <constraint firstAttribute="bottom" secondItem="3GM-he-dkL" secondAttribute="bottom" constant="8" id="fM9-BL-WQB"/>
+                <constraint firstItem="3GM-he-dkL" firstAttribute="top" secondItem="THd-XS-Au4" secondAttribute="bottom" constant="6" id="h6H-Qf-bMI"/>
                 <constraint firstItem="9Iw-g7-tft" firstAttribute="leading" secondItem="hVy-ZG-x1g" secondAttribute="leading" id="kAj-Sn-o34"/>
+                <constraint firstItem="3GM-he-dkL" firstAttribute="leading" secondItem="THd-XS-Au4" secondAttribute="leading" id="lIH-mp-aoZ"/>
                 <constraint firstItem="hVy-ZG-x1g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="npQ-t8-OWV"/>
                 <constraint firstItem="THd-XS-Au4" firstAttribute="top" secondItem="JoA-Aj-DCC" secondAttribute="bottom" constant="6" id="w8H-ee-fl0"/>
                 <constraint firstAttribute="trailing" secondItem="hVy-ZG-x1g" secondAttribute="trailing" constant="5" id="zh1-Kh-tUj"/>
@@ -86,13 +103,17 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="accessibilityViewIsModal" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="cancelLabel" destination="3GM-he-dkL" id="8Kd-pN-9nz"/>
                 <outlet property="cardImageView" destination="03i-BN-coA" id="RBr-MU-eHs"/>
                 <outlet property="cardImageViewContainer" destination="hVy-ZG-x1g" id="kaq-LC-CXb"/>
                 <outlet property="shareAsCardLabel" destination="JoA-Aj-DCC" id="9jy-3h-ewQ"/>
                 <outlet property="shareAsTextLabel" destination="THd-XS-Au4" id="x1F-zW-2yP"/>
             </connections>
-            <point key="canvasLocation" x="119" y="195"/>
+            <point key="canvasLocation" x="119" y="221.5"/>
         </view>
     </objects>
 </document>

@@ -223,4 +223,17 @@ static CGFloat const WMFCompassOppositeLineWidth = 2.0;
     }
 }
 
+#pragma mark - Accessibility
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (NSString*)accessibilityLabel {
+    NSInteger clockDirection = WMFRadiansToClock(self.angleRadians);
+    NSString* label          = MWLocalizedString(@"compass-direction", nil);
+    label = [label stringByReplacingOccurrencesOfString:@"$1" withString:[NSString localizedStringWithFormat:@"%@", @(clockDirection)]];
+    return label;
+}
+
 @end

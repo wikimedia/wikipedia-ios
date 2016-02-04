@@ -15,7 +15,7 @@
 // Networking
 #import <AFNetworking/AFHTTPRequestOperationManager.h>
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "AFHTTPRequestOperationManager+UniqueRequests.h"
+#import "AFHTTPRequestOperationManager+WMFUniqueRequests.h"
 #import "MWKImageInfoFetcher.h"
 #import "MWKImageInfoResponseSerializer.h"
 

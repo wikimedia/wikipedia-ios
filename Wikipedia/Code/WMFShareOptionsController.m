@@ -13,7 +13,7 @@
 
 #import "WMFShareFunnel.h"
 
-#import "NSString+Extras.h"
+#import "NSString+WMFExtras.h"
 #import "NSString+WMFHTMLParsing.h"
 
 #import "UIView+WMFSnapshotting.h"
@@ -23,8 +23,9 @@
 #import "PaddedLabel.h"
 #import "WikipediaAppUtils.h"
 #import "MWKArticle.h"
-#import "NSURL+Extras.h"
+#import "NSURL+WMFExtras.h"
 #import "MWKTitle.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -94,12 +95,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchImageThenShowShareCard {
     @weakify(self);
-    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]].then(^(WMFImageDownload* download){
+    [[WMFImageController sharedInstance] fetchImageWithURL:[NSURL wmf_optionalURLWithString:self.article.imageURL]]
+    .catch(^(NSError* error){
+        DDLogInfo(@"Ignoring share card image error: %@", error);
+        return nil;
+    })
+    .then(^(WMFImageDownload* _Nullable download){
         @strongify(self);
         [self showShareOptionsWithImage:download.image];
-    }).catch(^(NSError* error){
-        @strongify(self);
-        [self showShareOptionsWithImage:nil];
     });
 }
 
@@ -138,8 +141,10 @@ NS_ASSUME_NONNULL_BEGIN
     shareOptionsView.cardImageViewContainer.userInteractionEnabled = YES;
     shareOptionsView.shareAsCardLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsTextLabel.userInteractionEnabled       = YES;
+    shareOptionsView.cancelLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsCardLabel.text                         = MWLocalizedString(@"share-as-image", nil);
     shareOptionsView.shareAsTextLabel.text                         = MWLocalizedString(@"share-as-text", nil);
+    shareOptionsView.cancelLabel.text = MWLocalizedString(@"share-cancel", nil);
     shareOptionsView.cardImageView.image                           = self.shareImage;
 
     [self.containerViewController.view addSubview:shareOptionsView];
@@ -169,6 +174,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self.containerViewController.toolbarItems enumerateObjectsUsingBlock:^(__kindof UIBarButtonItem* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.enabled = enabled;
     }];
+    self.containerViewController.navigationController.navigationBar.accessibilityElementsHidden = !enabled;
+    self.containerViewController.navigationController.toolbar.accessibilityElementsHidden       = !enabled;
 }
 
 #pragma mark - Share Options
@@ -207,6 +214,14 @@ NS_ASSUME_NONNULL_BEGIN
         [self.shareOptions.cardImageViewContainer addGestureRecognizer:tapForCardOnCardImageViewRecognizer];
         [self.shareOptions.shareAsCardLabel addGestureRecognizer:tapForCardOnButtonRecognizer];
         [self.shareOptions.shareAsTextLabel addGestureRecognizer:tapForTextRecognizer];
+        @weakify(self);
+        [self.shareOptions.cancelLabel bk_whenTapped:^{
+            [self dismissShareOptionsWithCompletion:^{
+                @strongify(self);
+                [self cleanup];
+            }];
+        }];
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.shareOptions);
     }];
 }
 

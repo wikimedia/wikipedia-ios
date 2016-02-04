@@ -5,7 +5,7 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "MWNetworkActivityIndicatorManager.h"
 #import "SessionSingleton.h"
-#import "NSObject+Extras.h"
+#import "NSObject+WMFExtras.h"
 #import "Defines.h"
 #import "WikipediaAppUtils.h"
 #import "WMF_Colors.h"
