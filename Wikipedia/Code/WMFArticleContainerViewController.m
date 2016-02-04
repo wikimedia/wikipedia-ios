@@ -54,6 +54,7 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURL+WMFExtras.h"
+#import "UIToolbar+WMFStyling.h"
 
 @import SafariServices;
 
@@ -301,13 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Toolbar Setup
 
 - (void)setupToolbar {
-    
-    // HAX: Using a background image instead of Translucency: False; because of a bug, Translucency messes up the toolbar height and creates a ~200px gap beteen the bar and article
-    [self.navigationController.toolbar setBackgroundImage:[UIImage imageNamed:@"white-patch"] forToolbarPosition:UIBarPositionBottom barMetrics:UIBarMetricsDefault];
-    self.navigationController.toolbar.shadowColor = [UIColor colorWithWhite:0 alpha:0.08];
-    self.navigationController.toolbar.shadowOffset = CGSizeMake(0.0, -1.0);
-    self.navigationController.toolbar.shadowRadius = 1.0f;
-    self.navigationController.toolbar.shadowOpacity = 1.0f;
+    [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
     
     [self updateToolbarItemsIfNeeded];
     [self updateToolbarItemEnabledState];
