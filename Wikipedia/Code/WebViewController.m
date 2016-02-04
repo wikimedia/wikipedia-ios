@@ -432,6 +432,15 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self scrollToFragment:section.anchor animated:animated];
 }
 
+- (void)accessibilityCursorToSection:(MWKSection*)section {
+    // This might shift the visual scroll position. To prevent it affecting other users,
+    // we will only do it when we detect than an assistive technology which actually needs this is running.
+    if (UIAccessibilityIsVoiceOverRunning()) {
+        [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"accessibilityCursorToFragment"
+                                                        withArguments:@[section.anchor]];
+    }
+}
+
 - (nullable MWKSection*)currentVisibleSection {
     NSInteger indexOfFirstOnscreenSection =
         [self.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
