@@ -187,10 +187,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     return NO;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleDefault;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 

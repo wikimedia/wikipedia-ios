@@ -158,10 +158,6 @@ NSString* const WMFLicenseTitleOnENWiki =
     return NO;
 }
 
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationFade;
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [[self.webView wmf_javascriptContext][@"setPreRotationRelativeScrollOffset"] callWithArguments:nil];
