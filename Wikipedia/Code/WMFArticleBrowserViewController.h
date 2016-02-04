@@ -4,6 +4,7 @@
 #import "WMFArticleViewController.h"
 
 @class MWKTitle, MWKDataStore;
+@class WMFTableOfContentsViewController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The navigationController
  */
-+ (UINavigationController*)embeddedBrowserViewControllerWithDataStore:(MWKDataStore*)dataStore;
++ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore;
 
 /**
  *  Convienence, The same as above, additionally set the first article with the given title
@@ -46,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The navigationController
  */
-+ (UINavigationController*)embeddedBrowserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source;
++ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source;
 
 /**
  *  Convienence ,The same as above, instead setting the first article with the given article view controller
@@ -56,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @return The navigationController
  */
-+ (UINavigationController*)embeddedBrowserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source;
++ (WMFArticleBrowserViewController*)browserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source;
 
 
 
@@ -77,6 +78,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
 
 - (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+
+@end
+
+
+@interface WMFArticleBrowserViewController ()
+
+// Data
+@property (nonatomic, strong, readonly, nullable) MWKArticle* currentArticle;
 
 @end
 

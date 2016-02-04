@@ -439,6 +439,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addProgressView {
     NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
+    if(self.navigationController.navigationBarHidden){
+        return;
+    }
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.progressView.superview.mas_top);

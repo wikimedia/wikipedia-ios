@@ -34,19 +34,7 @@ BOOL useSingleBrowserController() {
     return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", YES);
 }
 
-@interface WMFNavigationController : UINavigationController
-
-@end
-
-@implementation WMFNavigationController
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
-@end
-
-@interface WMFArticleBrowserViewController ()<UINavigationControllerDelegate, WMFArticleViewControllerDelegate, LanguageSelectionDelegate>
+@interface WMFArticleBrowserViewController ()<UINavigationControllerDelegate, WMFArticleViewControllerDelegate, LanguageSelectionDelegate, UIToolbarDelegate, UINavigationBarDelegate>
 
 @property (nonatomic, strong, readwrite) UINavigationController* internalNavigationController;
 @property (nonatomic, strong) NSMutableArray<MWKTitle*>* navigationTitleStack;
@@ -57,6 +45,9 @@ BOOL useSingleBrowserController() {
 @property (nonatomic, strong, nullable) id<WMFAnalyticsLogging> initialViewControllerSource;
 
 @property (strong, nonatomic) UIProgressView* progressView;
+
+@property (nonatomic, strong) UINavigationBar* navigationBar;
+@property (nonatomic, strong) UIToolbar* bottomBar;
 
 @property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* backToolbarItem;
@@ -83,25 +74,24 @@ BOOL useSingleBrowserController() {
     return self;
 }
 
-+ (UINavigationController*)embeddedBrowserViewControllerWithDataStore:(MWKDataStore*)dataStore {
++ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
     WMFArticleBrowserViewController* vc = [[WMFArticleBrowserViewController alloc] initWithDataStore:dataStore];
-    return [[WMFNavigationController alloc] initWithRootViewController:vc];
+    return vc;
 }
 
-+ (UINavigationController*)embeddedBrowserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source {
++ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
     vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
-    return [self embeddedBrowserViewControllerWithArticleViewController:vc source:source];
+    return [self browserViewControllerWithArticleViewController:vc source:source];
 }
 
-+ (UINavigationController*)embeddedBrowserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source {
++ (WMFArticleBrowserViewController*)browserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source {
     NSParameterAssert(viewController);
     WMFArticleBrowserViewController* vc = [[WMFArticleBrowserViewController alloc] initWithDataStore:viewController.dataStore];
     vc.initialViewController       = viewController;
     vc.initialViewControllerSource = source;
-    WMFNavigationController* nav = [[WMFNavigationController alloc] initWithRootViewController:vc];
-    return nav;
+    return vc;
 }
 
 - (MWKTitle*)titleOfCurrentArticle {
@@ -215,7 +205,9 @@ BOOL useSingleBrowserController() {
         [self addChildViewController:nav];
         [self.view addSubview:nav.view];
         [nav.view mas_makeConstraints:^(MASConstraintMaker* make) {
-            make.leading.and.trailing.and.top.and.bottom.equalTo(self.view);
+            make.leading.and.trailing.equalTo(self.view);
+            make.top.equalTo(self.navigationBar.mas_bottom);
+            make.bottom.equalTo(self.bottomBar.mas_top);
         }];
         nav.delegate = self;
         [nav didMoveToParentViewController:self];
@@ -226,26 +218,50 @@ BOOL useSingleBrowserController() {
 
 #pragma mark - UIViewController
 
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    if (bar == self.navigationBar) {
+        return UIBarPositionTopAttached;
+    }
+    return UIBarPositionBottom;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.tintColor    = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent  = YES;
-    self.navigationController.toolbarHidden              = NO;
-
-    @weakify(self);
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain handler:^(id sender) {
-        @strongify(self);
-        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
-    }];
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
     UIImage* w = [UIImage imageNamed:@"W"];
     self.navigationItem.titleView           = [[UIImageView alloc] initWithImage:w];
     self.navigationItem.titleView.tintColor = [UIColor wmf_readerWGray];
+
+    @weakify(self);
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+        @strongify(self);
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }];
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+
+    UINavigationBar* bar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    bar.barTintColor = [UIColor blackColor];
+    bar.tintColor    = [UIColor whiteColor];
+    bar.translucent  = YES;
+    bar.delegate     = self;
+    [bar pushNavigationItem:self.navigationItem animated:NO];
+    [self.view addSubview:bar];
+    [bar mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.equalTo(self.mas_topLayoutGuide);
+        make.leading.and.trailing.equalTo(self.view);
+    }];
+    self.navigationBar = bar;
+
+    UIToolbar* bottom = [[UIToolbar alloc] initWithFrame:CGRectZero];
+    bottom.delegate = self;
+    [self.view addSubview:bottom];
+    [bottom mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.leading.and.trailing.equalTo(self.view);
+    }];
+    self.bottomBar = bottom;
 
     self.navigationTitleStack = [NSMutableArray array];
 
@@ -259,7 +275,6 @@ BOOL useSingleBrowserController() {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSParameterAssert(self.navigationController);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -269,6 +284,10 @@ BOOL useSingleBrowserController() {
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     [self.view bringSubviewToFront:self.progressView];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Navigation
@@ -285,7 +304,6 @@ BOOL useSingleBrowserController() {
 }
 
 - (void)pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
-    NSParameterAssert(self.navigationController);
     viewController.delegate = self;
     [[PiwikTracker sharedInstance] wmf_logView:viewController fromSource:source];
     [self.internalNavigationController pushViewController:viewController animated:animated];
@@ -337,7 +355,7 @@ BOOL useSingleBrowserController() {
     NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
     [self.view addSubview:self.progressView];
     [self.progressView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.mas_topLayoutGuide);
+        make.top.equalTo(self.navigationBar.mas_bottom);
         make.left.equalTo(self.progressView.superview.mas_left);
         make.right.equalTo(self.progressView.superview.mas_right);
         make.height.equalTo(@2.0);
@@ -420,9 +438,9 @@ BOOL useSingleBrowserController() {
          self.tableOfContentsToolbarItem,
          nil];
 
-    if (self.toolbarItems.count != toolbarItems.count) {
+    if (self.bottomBar.items.count != toolbarItems.count) {
         // HAX: only update toolbar if # of items has changed, otherwise items will (somehow) get lost
-        [self setToolbarItems:toolbarItems animated:YES];
+        [self.bottomBar setItems:toolbarItems];
     }
 }
 
@@ -465,7 +483,7 @@ BOOL useSingleBrowserController() {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     languagesVC.articleTitle              = [[self currentViewController] articleTitle];
     languagesVC.languageSelectionDelegate = self;
-    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
@@ -513,16 +531,14 @@ BOOL useSingleBrowserController() {
         self.currentIndex          = [[navigationController viewControllers] count] - 1;
     }
 
-    vc = (WMFArticleViewController*)viewController;
+    vc          = (WMFArticleViewController*)viewController;
     vc.delegate = self;
     //HACK: the transition view wrapping the view controller clips subcviews
     //We need to so this to make sure the webview shows through the navigation bar when scrolling behind it
     vc.view.superview.superview.clipsToBounds = NO;
-    
+
     [self setupToolbar];
-
 }
-
 
 - (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
     WMFArticleViewController* vc = (WMFArticleViewController*)viewController;
@@ -533,6 +549,10 @@ BOOL useSingleBrowserController() {
         [historyList addPageToHistoryWithTitle:vc.articleTitle];
         [historyList save];
     });
+}
+
+- (nullable MWKArticle*)currentArticle {
+    return [[self currentViewController] article];
 }
 
 @end
@@ -559,19 +579,17 @@ BOOL useSingleBrowserController() {
             [(WMFArticleBrowserViewController*)[self.navigationController parentViewController] pushArticleViewController:viewController source:source animated:animated];
         } else if ([self isKindOfClass:[WMFArticleBrowserViewController class]]) {
             [(WMFArticleBrowserViewController*)self pushArticleViewController:viewController source:source animated:animated];
-        } else if ([self isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)self viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-            [(WMFArticleBrowserViewController*)[[(UINavigationController*)self viewControllers] firstObject] pushArticleViewController:viewController source:source animated:YES];
-        } else if ([[self presentedViewController] isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)[self presentedViewController] viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-            [(WMFArticleBrowserViewController*)[[(UINavigationController*)[self presentedViewController] viewControllers] firstObject] pushArticleViewController:viewController source:source animated:animated];
+        } else if ([[self presentedViewController] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+            [(WMFArticleBrowserViewController*)[self presentedViewController] pushArticleViewController:viewController source:source animated:animated];
         } else {
-            [self presentViewController:[WMFArticleBrowserViewController embeddedBrowserViewControllerWithArticleViewController:viewController source:source] animated:animated completion:NULL];
+            [self presentViewController:[WMFArticleBrowserViewController browserViewControllerWithArticleViewController:viewController source:source] animated:animated completion:NULL];
         }
     } else {
-        if(self.navigationController != nil) {
+        if (self.navigationController != nil) {
             [self.navigationController pushViewController:viewController animated:animated];
-        }else if([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]] && [[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] isKindOfClass:[UINavigationController class]]){
+        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]] && [[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] isKindOfClass:[UINavigationController class]]) {
             [(UINavigationController*)[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] pushViewController:viewController animated:animated];
-        }else{
+        } else {
             NSAssert(0, @"Unexpected view controller hierarchy");
         }
         [[PiwikTracker sharedInstance] wmf_logView:viewController fromSource:source];
