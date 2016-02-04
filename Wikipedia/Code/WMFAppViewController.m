@@ -216,34 +216,19 @@ static dispatch_once_t launchToken;
     UIApplicationShortcutItem* shortcutItemSelectedAtLaunch = self.shortcutItemSelectedAtLaunch;
     self.shortcutItemSelectedAtLaunch = nil;
     if (shortcutItemSelectedAtLaunch) {
-        @weakify(self)
-        void (^ handleSelection)() = ^void () {
-            @strongify(self)
-            if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
-                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-                [self.exploreViewController wmf_showSearchAnimated:YES];
-            } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-                [self showRandomArticleAnimated:YES];
-            } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-                [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-                [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-                [self showNearbyListAnimated:YES];
-            } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-                [self showLastReadArticleAnimated:YES];
-            }
-            if (self.shortcutCompletion) {
-                self.shortcutCompletion(YES);
-                self.shortcutCompletion = NULL;
-            }
-        };
-
-        // Ensure the presentedViewController view controller (such as Search vc) has been hidden.
-        UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
-        if (exploreNavController.presentedViewController) {
-            [exploreNavController dismissViewControllerAnimated:NO completion:handleSelection];
-        } else {
-            handleSelection();
+        if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
+            [self showSearchAnimated:YES];
+        } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
+            [self showRandomArticleAnimated:YES];
+        } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [self showNearbyListAnimated:YES];
+        } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
+            [self showLastReadArticleAnimated:YES];
+        }
+        if (self.shortcutCompletion) {
+            self.shortcutCompletion(YES);
+            self.shortcutCompletion = NULL;
         }
     }
 }
@@ -466,10 +451,39 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
             return;
         }
+        if([self articleBrowserIsBeingDisplayed]){
+            WMFArticleBrowserViewController* vc = [self currentlyDisplayedArticleBrowser];
+            [vc pushArticleWithTitle:lastRead restoreScrollPosition:YES source:nil animated:YES];
+            return;
+        }
+        
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+        UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+        if (exploreNavController.presentedViewController) {
+            [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+        }
         UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.session.dataStore articleTitle:lastRead restoreScrollPosition:NO source:nil];
         [self presentViewController:vc animated:YES completion:NULL];
+
     }
+}
+
+- (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser{
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject];
+        return vc;
+    }
+    return nil;
+}
+
+- (BOOL)articleBrowserIsBeingDisplayed{
+    UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        return YES;
+    }
+
+    return NO;
 }
 
 - (MWKTitle*)onscreenTitle {
@@ -477,12 +491,34 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
         return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
     }
+    
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        
+        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject];
+        return [vc titleOfCurrentArticle];
+    }
     return nil;
+}
+
+#pragma mark - Show Search
+
+- (void)showSearchAnimated:(BOOL)animated{
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if (exploreNavController.presentedViewController) {
+        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+    }
+    [self.exploreViewController wmf_showSearchAnimated:animated];
 }
 
 #pragma mark - App Shortcuts
 
 - (void)showRandomArticleAnimated:(BOOL)animated {
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if (exploreNavController.presentedViewController) {
+        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+    }
     MWKSite* site = [self.session searchSite];
     [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
         MWKTitle* title = [site titleWithString:result.displayTitle];
@@ -494,6 +530,12 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 }
 
 - (void)showNearbyListAnimated:(BOOL)animated {
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
+    if (exploreNavController.presentedViewController) {
+        [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
+    }
+    [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
     MWKSite* site                   = [self.session searchSite];
     WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];

@@ -97,6 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
     return nav;
 }
 
+- (MWKTitle*)titleOfCurrentArticle{
+    return [self.navigationTitleStack lastObject];
+}
+
 #pragma mark - Accessors
 
 - (UIProgressView*)progressView {

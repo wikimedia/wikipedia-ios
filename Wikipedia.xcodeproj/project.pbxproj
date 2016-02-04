@@ -2579,6 +2579,34 @@
 			name = "WIkimedia Event Logging";
 			sourceTree = "<group>";
 		};
+		0E87313E1C62C695008AF0AE /* Browser VIew Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0E4B5FC41C5BFFFB0099B02E /* WMFArticleBrowserViewController.h */,
+				0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */,
+			);
+			name = "Browser VIew Controller";
+			sourceTree = "<group>";
+		};
+		0E87313F1C62C69E008AF0AE /* Article View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0E803681C0CD9300065EBC0 /* WMFArticleViewController_Private.h */,
+				B0E803651C0CD91D0065EBC0 /* WMFArticleViewController.h */,
+				B0E803661C0CD91D0065EBC0 /* WMFArticleViewController.m */,
+			);
+			name = "Article View Controller";
+			sourceTree = "<group>";
+		};
+		0E8731401C62C6B8008AF0AE /* Read More */ = {
+			isa = PBXGroup;
+			children = (
+				0E03617E1C456C4600FD9642 /* WMFReadMoreViewController.h */,
+				0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */,
+			);
+			name = "Read More";
+			sourceTree = "<group>";
+		};
 		0E8E9A571BFA501E0054A242 /* Featured Article */ = {
 			isa = PBXGroup;
 			children = (
@@ -2798,17 +2826,12 @@
 		0EFB48071B3BAFE900381F99 /* Article */ = {
 			isa = PBXGroup;
 			children = (
-				0E4B5FC41C5BFFFB0099B02E /* WMFArticleBrowserViewController.h */,
-				0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */,
+				0E87313E1C62C695008AF0AE /* Browser VIew Controller */,
+				0E87313F1C62C69E008AF0AE /* Article View Controller */,
+				BC45D5AB1C330A8E007C72F3 /* Article Components */,
 				BC45D5521C31EC0E007C72F3 /* Common */,
 				BC45D5AA1C330A75007C72F3 /* Model */,
 				0E9DFEAB1BDEB82E0032606E /* Networking */,
-				BC45D5AB1C330A8E007C72F3 /* Subviews */,
-				B0E803651C0CD91D0065EBC0 /* WMFArticleViewController.h */,
-				B0E803661C0CD91D0065EBC0 /* WMFArticleViewController.m */,
-				B0E803681C0CD9300065EBC0 /* WMFArticleViewController_Private.h */,
-				0E03617E1C456C4600FD9642 /* WMFReadMoreViewController.h */,
-				0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */,
 			);
 			name = Article;
 			path = Wikipedia/Code/Article;
@@ -3712,7 +3735,7 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		BC45D5AB1C330A8E007C72F3 /* Subviews */ = {
+		BC45D5AB1C330A8E007C72F3 /* Article Components */ = {
 			isa = PBXGroup;
 			children = (
 				0E74DC821BEBBF4200A8A005 /* Article Footer */,
@@ -3723,8 +3746,9 @@
 				04CCA0BD19830837000E982A /* References */,
 				0E4D1CFD1BBDC72F009BEB64 /* Table of Contents */,
 				04478625185145090050563B /* WebView */,
+				0E8731401C62C6B8008AF0AE /* Read More */,
 			);
-			name = Subviews;
+			name = "Article Components";
 			sourceTree = "<group>";
 		};
 		BC45D5AC1C330AC5007C72F3 /* Model */ = {

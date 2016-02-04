@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
+- (MWKTitle*)titleOfCurrentArticle;
+
 - (instancetype)init NS_UNAVAILABLE;
 
 /**
