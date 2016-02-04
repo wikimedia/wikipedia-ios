@@ -451,27 +451,19 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
             return;
         }
-        if([self articleBrowserIsBeingDisplayed]){
-            WMFArticleBrowserViewController* vc = [self currentlyDisplayedArticleBrowser];
-            [vc pushArticleWithTitle:lastRead restoreScrollPosition:YES source:nil animated:YES];
-            return;
-        }
         
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
-        if (exploreNavController.presentedViewController) {
-            [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
-        }
-        UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.session.dataStore articleTitle:lastRead restoreScrollPosition:NO source:nil];
-        [self presentViewController:vc animated:YES completion:NULL];
+        [[self exploreViewController] wmf_pushArticleWithTitle:lastRead dataStore:self.session.dataStore restoreScrollPosition:YES source:nil animated:YES];
+        
+        
 
     }
 }
 
 - (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser{
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject];
         return vc;
     }
     return nil;
@@ -479,7 +471,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)articleBrowserIsBeingDisplayed{
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
         return YES;
     }
 
@@ -492,9 +484,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
     }
     
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        
-        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] firstObject];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject];
         return [vc titleOfCurrentArticle];
     }
     return nil;
@@ -522,8 +513,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     MWKSite* site = [self.session searchSite];
     [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
         MWKTitle* title = [site titleWithString:result.displayTitle];
-        UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.session.dataStore articleTitle:title restoreScrollPosition:NO source:nil];
-        [self presentViewController:vc animated:YES completion:NULL];
+        [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore source:nil animated:YES];
     }).catch(^(NSError* error){
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     });

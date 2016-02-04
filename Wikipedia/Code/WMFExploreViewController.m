@@ -495,7 +495,11 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:controller];
     UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
-    [self presentViewController:vc animated:YES completion:NULL];
+    if([vc isKindOfClass:[WMFArticleViewController class]]){
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc source:self animated:YES];
+    }else{
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
 #pragma mark - Refresh Control
@@ -698,9 +702,7 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeHistory: {
             WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
             NSParameterAssert(controller.title);
-            UINavigationController* vc = [WMFArticleBrowserViewController
-                                                      embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:controller.title restoreScrollPosition:NO source:controller];
-            [self presentViewController:vc animated:YES completion:NULL];
+            [self wmf_pushArticleWithTitle:controller.title dataStore:self.dataStore source:self animated:YES];
             break;
         }
     }
@@ -738,7 +740,6 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.isPreviewing = YES;
-    //vc.source = self;
     self.sectionOfPreviewingTitle = sectionController;
     [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
     return vc;
@@ -750,7 +751,13 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
     self.isPreviewing             = NO;
     self.sectionOfPreviewingTitle = nil;
-    [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    
+    if([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]){
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
+    }else{
+        [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    }
+    
 }
 
 - (NSString*)analyticsName {

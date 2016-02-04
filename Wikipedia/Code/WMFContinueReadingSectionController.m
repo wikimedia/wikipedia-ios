@@ -89,7 +89,8 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
-    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:YES source:self];
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    vc.restoreScrollPositionOnArticleLoad = YES;
     return vc;
 }
 

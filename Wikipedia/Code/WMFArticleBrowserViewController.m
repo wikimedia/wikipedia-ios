@@ -26,7 +26,13 @@
 #import "WMFArticleViewController.h"
 #import "LanguagesViewController.h"
 
+@import Tweaks;
+
 NS_ASSUME_NONNULL_BEGIN
+
+BOOL useSingleBrowserController() {
+    return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", YES);
+}
 
 @interface WMFNavigationController : UINavigationController
 
@@ -92,12 +98,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (UINavigationController*)embeddedBrowserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source {
     NSParameterAssert(viewController);
     WMFArticleBrowserViewController* vc = [[WMFArticleBrowserViewController alloc] initWithDataStore:viewController.dataStore];
-    WMFNavigationController* nav        = [[WMFNavigationController alloc] initWithRootViewController:vc];
-    [vc pushArticleViewController:viewController source:source animated:NO];
+    vc.initialViewController       = viewController;
+    vc.initialViewControllerSource = source;
+    WMFNavigationController* nav = [[WMFNavigationController alloc] initWithRootViewController:vc];
     return nav;
 }
 
-- (MWKTitle*)titleOfCurrentArticle{
+- (MWKTitle*)titleOfCurrentArticle {
     return [self.navigationTitleStack lastObject];
 }
 
@@ -188,13 +195,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable WMFShareOptionsController*)shareOptionsController {
-    NSParameterAssert([[self currentArticleViewController] article]);
-    if (![[self currentArticleViewController] article]) {
+    NSParameterAssert([[self currentViewController] article]);
+    if (![[self currentViewController] article]) {
         return nil;
     }
     if (!_shareOptionsController) {
-        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:[[self currentArticleViewController] article]
-                                                                         shareFunnel:[[self currentArticleViewController] shareFunnel]];
+        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:[[self currentViewController] article]
+                                                                         shareFunnel:[[self currentViewController] shareFunnel]];
     }
     return _shareOptionsController;
 }
@@ -217,21 +224,14 @@ NS_ASSUME_NONNULL_BEGIN
     return _internalNavigationController;
 }
 
-- (WMFArticleViewController*)currentArticleViewController {
-    return (WMFArticleViewController*)self.internalNavigationController.topViewController;
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.edgesForExtendedLayout               = UIRectEdgeNone;
-    self.automaticallyAdjustsScrollViewInsets = YES;
-
     self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
-    self.navigationController.navigationBar.translucent  = YES;
     self.navigationController.navigationBar.tintColor    = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent  = YES;
     self.navigationController.toolbarHidden              = NO;
 
     @weakify(self);
@@ -240,6 +240,8 @@ NS_ASSUME_NONNULL_BEGIN
         [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
     }];
     self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     UIImage* w = [UIImage imageNamed:@"W"];
     self.navigationItem.titleView           = [[UIImageView alloc] initWithImage:w];
@@ -284,6 +286,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
     NSParameterAssert(self.navigationController);
+    viewController.delegate = self;
     [[PiwikTracker sharedInstance] wmf_logView:viewController fromSource:source];
     [self.internalNavigationController pushViewController:viewController animated:animated];
 }
@@ -402,9 +405,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateToolbarItemsIfNeeded {
     if (!self.saveButtonController) {
-        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.dataStore.userDataStore.savedPageList title:[[self currentArticleViewController] articleTitle]];
+        self.saveButtonController = [[WMFSaveButtonController alloc] initWithBarButtonItem:self.saveToolbarItem savedPageList:self.dataStore.userDataStore.savedPageList title:[[self currentViewController] articleTitle]];
     } else {
-        self.saveButtonController.title = [[self currentArticleViewController] articleTitle];
+        self.saveButtonController.title = [[self currentViewController] articleTitle];
     }
 
     NSArray<UIBarButtonItem*>* toolbarItems =
@@ -426,22 +429,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateToolbarItemEnabledState {
     self.backToolbarItem.enabled            = [self previousIndex] != NSNotFound;
     self.forwardToolbarItem.enabled         = [self nextIndex] != NSNotFound;
-    self.refreshToolbarItem.enabled         = [[self currentArticleViewController] canRefresh];
-    self.shareToolbarItem.enabled           = [[self currentArticleViewController] canShare];
-    self.languagesToolbarItem.enabled       = [[self currentArticleViewController] hasLanguages];
-    self.tableOfContentsToolbarItem.enabled = [[self currentArticleViewController] hasTableOfContents];
+    self.refreshToolbarItem.enabled         = [[self currentViewController] canRefresh];
+    self.shareToolbarItem.enabled           = [[self currentViewController] canShare];
+    self.languagesToolbarItem.enabled       = [[self currentViewController] hasLanguages];
+    self.tableOfContentsToolbarItem.enabled = [[self currentViewController] hasTableOfContents];
 }
 
 #pragma mark - Reload
 
 - (void)fetchArticleIfNeeded {
-    [[self currentArticleViewController] fetchArticleIfNeeded];
+    [[self currentViewController] fetchArticleIfNeeded];
 }
 
 #pragma mark - ToC
 
 - (void)showTableOfContents {
-    [[self currentArticleViewController] showTableOfContents];
+    [[self currentViewController] showTableOfContents];
 }
 
 #pragma mark - Share
@@ -451,8 +454,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)showShareSheetFrombarButtonItem:(nullable UIBarButtonItem*)item {
-    NSString* text = [[self currentArticleViewController] shareText];
-    [[[self currentArticleViewController] shareFunnel] logShareButtonTappedResultingInSelection:text];
+    NSString* text = [[self currentViewController] shareText];
+    [[[self currentViewController] shareFunnel] logShareButtonTappedResultingInSelection:text];
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:item];
 }
 
@@ -460,7 +463,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showLanguagePicker {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
-    languagesVC.articleTitle              = [[self currentArticleViewController] articleTitle];
+    languagesVC.articleTitle              = [[self currentViewController] articleTitle];
     languagesVC.languageSelectionDelegate = self;
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
 }
@@ -495,10 +498,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - UINavigationControllerDelegate
 
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
-    [[self currentArticleViewController] setDelegate:nil];
-}
+    WMFArticleViewController* vc = (WMFArticleViewController*)[self.internalNavigationController topViewController];
+    vc.delegate = nil;
 
-- (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
+    self.shareOptionsController = nil;
+
     if (self.currentViewController != viewController) {
         //unknown view controller being displayed
         //rebuild the navigation stack
@@ -509,14 +513,19 @@ NS_ASSUME_NONNULL_BEGIN
         self.currentIndex          = [[navigationController viewControllers] count] - 1;
     }
 
-    [self setupToolbar];
-
-    self.shareOptionsController = nil;
+    vc = (WMFArticleViewController*)viewController;
+    vc.delegate = self;
     //HACK: the transition view wrapping the view controller clips subcviews
     //We need to so this to make sure the webview shows through the navigation bar when scrolling behind it
-    viewController.view.superview.superview.clipsToBounds = NO;
+    vc.view.superview.superview.clipsToBounds = NO;
+    
+    [self setupToolbar];
+
+}
+
+
+- (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
     WMFArticleViewController* vc = (WMFArticleViewController*)viewController;
-    [vc setDelegate:self];
     //Delay this so any visual updates to lists are postponed until the article after the article is displayed
     //Some lists (like history) will show these artifacts as the push navigation is occuring.
     dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
@@ -527,6 +536,56 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
+
+@implementation UIViewController (WMFArticlePresentation)
+
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
+    vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
+    [self wmf_pushArticleViewController:vc source:source animated:animated];
+}
+
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+    [self wmf_pushArticleWithTitle:title dataStore:dataStore restoreScrollPosition:NO source:source animated:animated];
+}
+
+/**
+ *  HACK:// need to support multiple navigation schemes, so its easiest to just interrogate the stack for known situations.
+ *  When removing one of the navigation options, this can be cleaned up
+ */
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+    if (useSingleBrowserController()) {
+        if ([self isKindOfClass:[WMFArticleViewController class]] && [[self.navigationController parentViewController] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+            [(WMFArticleBrowserViewController*)[self.navigationController parentViewController] pushArticleViewController:viewController source:source animated:animated];
+        } else if ([self isKindOfClass:[WMFArticleBrowserViewController class]]) {
+            [(WMFArticleBrowserViewController*)self pushArticleViewController:viewController source:source animated:animated];
+        } else if ([self isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)self viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+            [(WMFArticleBrowserViewController*)[[(UINavigationController*)self viewControllers] firstObject] pushArticleViewController:viewController source:source animated:YES];
+        } else if ([[self presentedViewController] isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)[self presentedViewController] viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+            [(WMFArticleBrowserViewController*)[[(UINavigationController*)[self presentedViewController] viewControllers] firstObject] pushArticleViewController:viewController source:source animated:animated];
+        } else {
+            [self presentViewController:[WMFArticleBrowserViewController embeddedBrowserViewControllerWithArticleViewController:viewController source:source] animated:animated completion:NULL];
+        }
+    } else {
+        if(self.navigationController != nil) {
+            [self.navigationController pushViewController:viewController animated:animated];
+        }else if([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]] && [[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] isKindOfClass:[UINavigationController class]]){
+            [(UINavigationController*)[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] pushViewController:viewController animated:animated];
+        }else{
+            NSAssert(0, @"Unexpected view controller hierarchy");
+        }
+        [[PiwikTracker sharedInstance] wmf_logView:viewController fromSource:source];
+
+        dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
+            MWKHistoryList* historyList = viewController.dataStore.userDataStore.historyList;
+            [historyList addPageToHistoryWithTitle:viewController.articleTitle];
+            [historyList save];
+        });
+    }
+}
+
+@end
+
 
 
 

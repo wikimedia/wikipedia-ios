@@ -150,8 +150,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
-    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
-    return vc;
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 
 #pragma mark - WMFHeaderMenuProviding

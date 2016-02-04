@@ -583,13 +583,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title{
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        if([presenter isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)presenter viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]){
-            WMFArticleBrowserViewController* vc = [[(UINavigationController*)presenter viewControllers] firstObject];
-            [vc pushArticleWithTitle:title source:self animated:YES];
-        }else{
-            UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
-            [presenter presentViewController:vc animated:YES completion:NULL];
-        }
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
     }];
 }
 
@@ -601,13 +595,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController{
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        if([presenter isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)presenter viewControllers] firstObject] isKindOfClass:[WMFArticleBrowserViewController class]]){
-            WMFArticleBrowserViewController* vc = [[(UINavigationController*)presenter viewControllers] firstObject];
-            [vc pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
-        }else{
-            UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:self];
-            [presenter presentViewController:vc animated:YES completion:NULL];
-        }
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
     }];
 }
 

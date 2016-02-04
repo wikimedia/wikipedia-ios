@@ -70,4 +70,16 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+@interface UIViewController (WMFArticlePresentation)
+
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+
+@end
+
+
+
 NS_ASSUME_NONNULL_END

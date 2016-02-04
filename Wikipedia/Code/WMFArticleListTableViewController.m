@@ -242,8 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self.delegate listViewContoller:self didSelectTitle:title];
         return;
     }
-    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
-    [self presentViewController:vc animated:YES completion:NULL];
+    [self wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
@@ -260,11 +259,11 @@ NS_ASSUME_NONNULL_BEGIN
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
     self.isPreviewing = YES;
     [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
-    
+
     if (self.delegate) {
         return [self.delegate listViewContoller:self viewControllerForPreviewingTitle:title];
     } else {
-        return [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:self.dataStore articleTitle:title restoreScrollPosition:NO source:self];
+        return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
     }
 }
 
@@ -275,7 +274,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.delegate) {
         [self.delegate listViewContoller:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {
-        [self presentViewController:viewControllerToCommit animated:YES completion:NULL];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
     }
 }
 

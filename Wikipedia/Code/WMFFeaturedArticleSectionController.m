@@ -38,13 +38,13 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 - (instancetype)initWithSite:(MWKSite*)site
                         date:(NSDate*)date
-                   dataStore:(MWKDataStore*)dataStore{
+                   dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
     NSParameterAssert(date);
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site          = site;
-        self.date          = date;
+        self.site = site;
+        self.date = date;
     }
     return self;
 }
@@ -148,10 +148,8 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
-    UINavigationController* vc = [WMFArticleBrowserViewController embeddedBrowserViewControllerWithDataStore:[self dataStore] articleTitle:title restoreScrollPosition:NO source:self];
-    return vc;
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
-
 
 #pragma mark - WMFTitleProviding
 
