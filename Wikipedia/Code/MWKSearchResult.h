@@ -17,12 +17,15 @@
 
 @property (nonatomic, assign, readonly) BOOL isDisambiguation;
 
+@property (nonatomic, assign, readonly) BOOL isList;
+
 - (instancetype)initWithArticleID:(NSInteger)articleID
                      displayTitle:(NSString*)displayTitle
               wikidataDescription:(NSString*)wikidataDescription
                           extract:(NSString*)extract
                      thumbnailURL:(NSURL*)thumbnailURL
                             index:(NSNumber*)index
-                 isDisambiguation:(BOOL)isDisambiguation;
+                 isDisambiguation:(BOOL)isDisambiguation
+                           isList:(BOOL)isList;
 
 @end

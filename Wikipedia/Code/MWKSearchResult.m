@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign, readwrite) BOOL isDisambiguation;
 
+@property (nonatomic, assign, readwrite) BOOL isList;
+
 @end
 
 @implementation MWKSearchResult
@@ -30,7 +32,8 @@
                           extract:(NSString*)extract
                      thumbnailURL:(NSURL*)thumbnailURL
                             index:(NSNumber*)index
-                 isDisambiguation:(BOOL)isDisambiguation {
+                 isDisambiguation:(BOOL)isDisambiguation
+                           isList:(BOOL)isList{
     self = [super init];
     if (self) {
         self.articleID           = articleID;
@@ -40,6 +43,7 @@
         self.thumbnailURL        = thumbnailURL;
         self.index               = index;
         self.isDisambiguation    = isDisambiguation;
+        self.isList              = isList;
     }
     return self;
 }
@@ -67,6 +71,13 @@
 
 + (MTLValueTransformer*)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* extract, BOOL* success, NSError* __autoreleasing* error) {
+        
+        // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
+        // weights relative quality of the random titles it retrieves.
+        if ([extract isEqualToString:@"..."]){
+            extract = nil;
+        }
+        
         return [extract wmf_summaryFromText];
     }];
 }
@@ -88,6 +99,18 @@
     }];
 }
 
++ (NSValueTransformer*)isListJSONTransformer {
+    return [MTLValueTransformer
+            transformerUsingForwardBlock:^(NSArray* value, BOOL* success, NSError** error) {
+                // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
+                // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
+                if (value.count && [value.firstObject containsString:@"Wikimedia list article"]) {
+                    return @YES;
+                }
+                return @NO;
+            }];
+}
+
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{
                WMF_SAFE_KEYPATH(MWKSearchResult.new, displayTitle): @"title",
@@ -96,7 +119,8 @@
                WMF_SAFE_KEYPATH(MWKSearchResult.new, wikidataDescription): @"terms.description",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, extract): @"extract",
                WMF_SAFE_KEYPATH(MWKSearchResult.new, index): @"index",
-               WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"]
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, isDisambiguation): @[@"pageprops.disambiguation", @"terms.description"],
+               WMF_SAFE_KEYPATH(MWKSearchResult.new, isList): @"terms.description"
     };
 }
 

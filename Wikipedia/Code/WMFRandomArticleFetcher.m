@@ -68,7 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
     NSSortDescriptor* descripSorter  = [[NSSortDescriptor alloc] initWithKey:@"wikidataDescription" ascending:NO];
     NSSortDescriptor* thumbSorter    = [[NSSortDescriptor alloc] initWithKey:@"thumbnailURL" ascending:NO];
     NSSortDescriptor* disambigSorter = [[NSSortDescriptor alloc] initWithKey:@"isDisambiguation" ascending:YES];
-    results = [results sortedArrayUsingDescriptors:@[disambigSorter, extractSorter, thumbSorter, descripSorter]];
+    NSSortDescriptor* listSorter = [[NSSortDescriptor alloc] initWithKey:@"isList" ascending:YES];
+    results = [results sortedArrayUsingDescriptors:@[disambigSorter, listSorter, extractSorter, thumbSorter, descripSorter]];
     return [results firstObject];
 }
 
