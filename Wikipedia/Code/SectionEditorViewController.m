@@ -43,9 +43,9 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     @weakify(self)
-    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeCaretLeft handler:^(id sender){
+    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
         @strongify(self)
-        [self.navigationController popViewControllerAnimated : YES];
+        [self.delegate sectionEditorFinishedEditing:self];
     }];
     buttonX.accessibilityLabel            = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;

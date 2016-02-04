@@ -825,7 +825,8 @@ NS_ASSUME_NONNULL_BEGIN
         SectionEditorViewController* sectionEditVC = [SectionEditorViewController wmf_initialViewControllerFromClassStoryboard];
         sectionEditVC.section  = section;
         sectionEditVC.delegate = self;
-        [self.navigationController pushViewController:sectionEditVC animated:YES];
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:sectionEditVC];
+        [self presentViewController:nc animated:YES completion:NULL];
     } else {
         ProtectedEditAttemptFunnel* funnel = [[ProtectedEditAttemptFunnel alloc] init];
         [funnel logProtectionStatus:[[self.article.protection allowedGroupsForAction:@"edit"] componentsJoinedByString:@","]];
@@ -845,7 +846,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - SectionEditorViewControllerDelegate
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
-    [self.navigationController popToViewController:self animated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
     [self fetchArticleIfNeeded];
 }
 
