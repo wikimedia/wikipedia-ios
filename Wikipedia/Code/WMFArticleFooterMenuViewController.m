@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate, UINavigationControllerDelegate>
+@interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate, UINavigationControllerDelegate, WMFArticleListTableViewControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKArticle* article;
 
@@ -101,7 +101,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showDisambiguationItems {
     WMFDisambiguationPagesViewController* articleListVC = [[WMFDisambiguationPagesViewController alloc] initWithArticle:self.article dataStore:self.dataStore];
-    articleListVC.title = MWLocalizedString(@"page-similar-titles", nil);
+    articleListVC.delegate = self;
+    articleListVC.title    = MWLocalizedString(@"page-similar-titles", nil);
     UINavigationController* navController = [[UINavigationController alloc] initWithRootViewController:articleListVC];
     navController.delegate = self;
     [self presentViewController:navController animated:YES completion:nil];
@@ -140,6 +141,27 @@ NS_ASSUME_NONNULL_BEGIN
     WMFPageIssuesViewController* issuesVC = [[WMFPageIssuesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     issuesVC.dataSource = [[SSArrayDataSource alloc] initWithItems:self.article.pageIssues];
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:issuesVC] animated:YES completion:nil];
+}
+
+#pragma mark - WMFArticleListTableViewControllerDelegate
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+    UIViewController* presenter = [self presentingViewController];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:nil animated:YES];
+    }];
+}
+
+- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    return vc;
+}
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+    UIViewController* presenter = [self presentingViewController];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:nil animated:YES];
+    }];
 }
 
 @end
