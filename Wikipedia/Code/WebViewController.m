@@ -418,8 +418,12 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (void)accessibilityCursorToSection:(MWKSection*)section {
-    NSString *js = [NSString stringWithFormat:@"focus_element = document.getElementById('%@'); other_element = document.body;  other_element.setAttribute('tabindex', 0); focus_element.setAttribute('tabindex', 0); other_element.focus(); focus_element.focus();", section.anchor];
-    [self.webView stringByEvaluatingJavaScriptFromString:js];
+    // This might shift the visual scroll position. To prevent it affecting other users,
+    // we will only do it when we detect than an assistive technology which actually needs this is running.
+    if (UIAccessibilityIsVoiceOverRunning()) {
+        [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"accessibilityCursorToFragment"
+                                                        withArguments:@[section.anchor]];
+    }
 }
 
 - (nullable MWKSection*)currentVisibleSection {
