@@ -22,6 +22,7 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFShareOptionsController.h"
 #import "WMFShareFunnel.h"
+#import "UIToolbar+WMFStyling.h"
 
 #import "WMFArticleViewController.h"
 #import "LanguagesViewController.h"
@@ -255,6 +256,8 @@ BOOL useSingleBrowserController() {
     self.navigationBar = bar;
 
     UIToolbar* bottom = [[UIToolbar alloc] initWithFrame:CGRectZero];
+    [bottom wmf_applySolidWhiteBackgroundWithTopShadow];
+
     bottom.delegate = self;
     [self.view addSubview:bottom];
     [bottom mas_makeConstraints:^(MASConstraintMaker* make) {
@@ -267,7 +270,7 @@ BOOL useSingleBrowserController() {
 
     if (self.initialViewController) {
         [self pushArticleViewController:self.initialViewController source:self.initialViewControllerSource animated:NO];
-        [self setupToolbar];
+        [self updateToolbar];
         self.initialViewController       = nil;
         self.initialViewControllerSource = nil;
     }
@@ -415,7 +418,7 @@ BOOL useSingleBrowserController() {
 
 #pragma mark - Toolbar Setup
 
-- (void)setupToolbar {
+- (void)updateToolbar {
     [self updateToolbarItemsIfNeeded];
     [self updateToolbarItemEnabledState];
 }
@@ -504,7 +507,7 @@ BOOL useSingleBrowserController() {
 }
 
 - (void)articleControllerDidLoadArticle:(WMFArticleViewController*)controller {
-    [self setupToolbar];
+    [self updateToolbar];
     [self completeAndHideProgress];
 }
 
@@ -536,7 +539,7 @@ BOOL useSingleBrowserController() {
     //We need to so this to make sure the webview shows through the navigation bar when scrolling behind it
     vc.view.superview.superview.clipsToBounds = NO;
 
-    [self setupToolbar];
+    [self updateToolbar];
 }
 
 - (void)navigationController:(UINavigationController*)navigationController didShowViewController:(UIViewController*)viewController animated:(BOOL)animated {

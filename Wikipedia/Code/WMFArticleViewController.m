@@ -161,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self.headerGallery showImagesInArticle:_article];
 
     // always update toolbar
-    [self setupToolbar];
+    [self updateToolbar];
 
     // always update footers
     [self updateArticleFootersIfNeeded];
@@ -309,9 +309,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Toolbar Setup
 
-- (void)setupToolbar {
-    [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
-    
+- (void)updateToolbar {
     [self updateToolbarItemsIfNeeded];
     [self updateToolbarItemEnabledState];
 }
@@ -442,7 +440,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addProgressView {
     NSAssert(!self.progressView.superview, @"Illegal attempt to re-add progress view.");
-    if(self.navigationController.navigationBarHidden){
+    if (self.navigationController.navigationBarHidden) {
         return;
     }
     [self.view addSubview:self.progressView];
@@ -566,7 +564,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupToolbar];
+    [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
+
+    [self updateToolbar];
 
     [self setUpTitleBarButton];
     self.view.clipsToBounds                   = NO;
