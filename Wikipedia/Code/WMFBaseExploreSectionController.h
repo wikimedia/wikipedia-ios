@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 #import "WMFExploreSectionController.h"
 
-@class WMFEmptySectionTableViewCell;
+@class WMFEmptySectionTableViewCell, MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +15,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface WMFBaseExploreSectionController : NSObject
 
-- (instancetype)initWithItems:(NSArray*)items;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items;
+
+@property (nonatomic, strong, readonly) MWKDataStore* dataStore;
+
+@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
+
+@property (nonatomic, strong, readonly) MWKHistoryList* historyList;
 
 @property (nonatomic, strong, readonly) NSArray* items;
 
@@ -102,11 +112,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  Override if you need to further customize this behavior.
  */
 - (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath;
-
-/**
- *  Default is .Unknown
- */
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
 
 @end
 

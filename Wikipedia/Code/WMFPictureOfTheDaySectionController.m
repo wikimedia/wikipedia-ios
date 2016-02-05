@@ -1,10 +1,3 @@
-//
-//  WMFPictureOfTheDaySectionController.m
-//  Wikipedia
-//
-//  Created by Brian Gerstle on 11/23/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFPictureOfTheDaySectionController.h"
 #import "MWKSite.h"
@@ -33,8 +26,8 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @implementation WMFPictureOfTheDaySectionController
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+    self = [super initWithDataStore:dataStore];
     if (self) {
         self.fetchedDate = [NSDate date];
     }
@@ -126,9 +119,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     });
 }
 
-#pragma mark - WMFDetailProviding
-
-- (UIViewController*)exploreDetailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     return [[WMFModalImageGalleryViewController alloc] initWithInfo:self.imageInfo forDate:self.fetchedDate];
 }
 

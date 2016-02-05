@@ -1,12 +1,22 @@
 
 #import <UIKit/UIKit.h>
 #import "WMFTitleListDataSource.h"
-#import "WMFArticleSelectionDelegate.h"
 #import "WMFAnalyticsLogging.h"
 
-@class SSBaseDataSource, MWKDataStore;
+@class SSBaseDataSource, MWKDataStore, WMFArticleListTableViewController;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol WMFArticleListTableViewControllerDelegate <NSObject>
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title;
+
+- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title;
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController;
+
+@end
+
 
 @interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsLogging>
 
@@ -18,15 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  If left @c nil, falls back to pushing an article container using its @c navigationController.
  */
-@property (nonatomic, weak, nullable) id<WMFArticleSelectionDelegate> delegate;
+@property (nonatomic, weak, nullable) id<WMFArticleListTableViewControllerDelegate> delegate;
 
 @end
 
 
 @interface WMFArticleListTableViewController (WMFSubclasses)
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod;
-- (NSString*)                analyticsName;
+- (NSString*)analyticsName;
 
 - (WMFEmptyViewType)emptyViewType;
 

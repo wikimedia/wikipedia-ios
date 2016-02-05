@@ -40,9 +40,9 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
+- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title{
     NSParameterAssert(title);
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title discoveryMethod:discoveryMethod];
+    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title];
     [self addEntry:entry];
     return entry;
 }
@@ -53,7 +53,6 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
     }
     MWKHistoryEntry* oldEntry = [self entryForListIndex:entry.title];
     if (oldEntry) {
-        entry.discoveryMethod = entry.discoveryMethod == MWKHistoryDiscoveryMethodUnknown ? oldEntry.discoveryMethod : entry.discoveryMethod;
         [super removeEntry:oldEntry];
     }
     [super addEntry:entry];

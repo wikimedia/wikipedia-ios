@@ -1,6 +1,5 @@
 
 #import "PiwikTracker+WMFExtensions.h"
-#import "MWKTitle+WMFAnalyticsLogging.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,20 +15,13 @@ static NSString* const WMFPiwikSiteID    = @"4";
 #endif
 }
 
-- (void)wmf_logView:(id<WMFAnalyticsLogging>)view {
+- (void)wmf_logView:(id<WMFAnalyticsLogging>)view fromSource:(nullable id<WMFAnalyticsLogging>)source{
     NSParameterAssert([view analyticsName]);
 #ifdef PIWIK_ENABLED
-    [self sendView:[view analyticsName]];
-#endif
-}
-
-- (void)wmf_logViewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
-    NSParameterAssert([title analyticsName]);
-#ifdef PIWIK_ENABLED
     if (source) {
-        [self sendViewsFromArray:@[[source analyticsName], @"Article", [title analyticsName]]];
+        [self sendViewsFromArray:@[[source analyticsName], [view analyticsName]]];
     } else {
-        [self sendViewsFromArray:@[@"Article", [title analyticsName]]];
+        [self sendView:[view analyticsName]];
     }
 #endif
 }
@@ -40,36 +32,36 @@ static NSString* const WMFPiwikSiteID    = @"4";
 #endif
 }
 
-- (void)wmf_logActionPreviewForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+- (void)wmf_logActionPreviewFromSource:(nullable id<WMFAnalyticsLogging>)source {
     [self wmf_sendEventWithCategory:@"Preview" action:@"Shown" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionPreviewDismissedForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+- (void)wmf_logActionPreviewDismissedFromSource:(nullable id<WMFAnalyticsLogging>)source{
     [self wmf_sendEventWithCategory:@"Preview" action:@"Dismissed" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionPreviewCommittedForTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+- (void)wmf_logActionPreviewCommittedFromSource:(nullable id<WMFAnalyticsLogging>)source{
     [self wmf_sendEventWithCategory:@"Preview" action:@"Converted" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionSaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+- (void)wmf_logActionSaveTitleFromSource:(nullable id<WMFAnalyticsLogging>)source {
     [self wmf_sendEventWithCategory:@"Save" action:@"Save" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionUnsaveTitle:(MWKTitle*)title fromSource:(nullable id<WMFAnalyticsLogging>)source {
+- (void)wmf_logActionUnsaveTitleFromSource:(nullable id<WMFAnalyticsLogging>)source {
     [self wmf_sendEventWithCategory:@"Save" action:@"Unsave" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionScrollToTitle:(MWKTitle*)title inHomeSection:(id<WMFAnalyticsLogging>)section {
-    [self wmf_sendEventWithCategory:@"Home" action:@"View Article" name:[section analyticsName] value:nil];
+- (void)wmf_logActionScrollToItemInExploreSection:(id<WMFAnalyticsLogging>)section{
+    [self wmf_sendEventWithCategory:@"Explore" action:@"View Item" name:[section analyticsName] value:nil];
 }
 
-- (void)wmf_logActionOpenTitle:(MWKTitle*)title inHomeSection:(id<WMFAnalyticsLogging>)section {
-    [self wmf_sendEventWithCategory:@"Home" action:@"Open Article" name:[section analyticsName] value:nil];
+- (void)wmf_logActionOpenItemInExploreSection:(id<WMFAnalyticsLogging>)section{
+    [self wmf_sendEventWithCategory:@"Explore" action:@"Open Item" name:[section analyticsName] value:nil];
 }
 
-- (void)wmf_logActionOpenMoreForHomeSection:(id<WMFAnalyticsLogging>)section {
-    [self sendEventWithCategory:@"Home" action:@"Open More Like" name:[section analyticsName] value:nil];
+- (void)wmf_logActionOpenMoreInExploreSection:(id<WMFAnalyticsLogging>)section {
+    [self sendEventWithCategory:@"Explore" action:@"Open More Like" name:[section analyticsName] value:nil];
 }
 
 @end

@@ -64,6 +64,7 @@
     [super viewDidLoad];
     self.title = MWLocalizedString(@"main-menu-nearby", nil);
     [self.tableView registerNib:[WMFNearbyArticleTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFNearbyArticleTableViewCell identifier]];
+    self.tableView.estimatedRowHeight = [WMFNearbyArticleTableViewCell estimatedRowHeight];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,10 +75,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.compassViewModel stopUpdates];
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
 }
 
 - (NSString*)analyticsName {

@@ -40,6 +40,8 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 
 - (instancetype)initWithSite:(MWKSite*)site
                    dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(site);
+    NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
         self.site                                   = site;
@@ -52,46 +54,51 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
     return self;
 }
 
-- (id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
-    id<WMFExploreSectionController> controller = [self.sectionControllersBySection objectForKey:section];
-    if (!controller) {
-        switch (section.type) {
-            case WMFExploreSectionTypeHistory:
-            case WMFExploreSectionTypeSaved:
-                controller = [self relatedSectionControllerForSectionSchemaItem:section];
-                break;
-            case WMFExploreSectionTypeNearby:
-                controller = [self nearbySectionControllerForSchemaItem:section];
-                break;
-            case WMFExploreSectionTypeContinueReading:
-                controller = [self continueReadingSectionControllerForSchemaItem:section];
-                break;
-            case WMFExploreSectionTypeRandom:
-                controller = [self randomSectionControllerForSchemaItem:section];
-                break;
-            case WMFExploreSectionTypeMainPage:
-                controller = [self mainPageSectionControllerForSchemaItem:section];
-                break;
-            case WMFExploreSectionTypeFeaturedArticle:
-                controller = [self featuredArticleSectionControllerForSchemaItem:section];
-                break;
-            case WMFExploreSectionTypePictureOfTheDay:
-                controller = [self picOfTheDaySectionController];
-                break;
-                /*
-                   !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
-                   a new case is added to the enum, enforcing that all sections are handled here.
-                 */
-        }
-        [self.sectionControllersBySection setObject:controller forKey:section];
-        [self.sectionsBySectionController setObject:section forKey:controller];
-    }
-    return controller;
+- (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
+    id<WMFExploreSectionController> controller = [self.sectionControllersBySection objectForKey:section];    return controller;
 }
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller {
     return [self.sectionsBySectionController objectForKey:controller];
 }
+
+- (id<WMFExploreSectionController>)newControllerForSection:(WMFExploreSection*)section{
+    id<WMFExploreSectionController> controller;
+    switch (section.type) {
+        case WMFExploreSectionTypeHistory:
+        case WMFExploreSectionTypeSaved:
+            controller = [self relatedSectionControllerForSectionSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeNearby:
+            controller = [self nearbySectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeContinueReading:
+            controller = [self continueReadingSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeRandom:
+            controller = [self randomSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeMainPage:
+            controller = [self mainPageSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypeFeaturedArticle:
+            controller = [self featuredArticleSectionControllerForSchemaItem:section];
+            break;
+        case WMFExploreSectionTypePictureOfTheDay:
+            controller = [self picOfTheDaySectionController];
+            break;
+            /*
+             !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
+             a new case is added to the enum, enforcing that all sections are handled here.
+             */
+    }
+
+    [self.sectionControllersBySection setObject:controller forKey:section];
+    [self.sectionsBySectionController setObject:section forKey:controller];
+
+    return controller;
+}
+
 
 #pragma mark - Section Controller Creation
 
@@ -108,19 +115,19 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRandomSectionController alloc] initWithSite:self.site savedPageList:self.dataStore.userDataStore.savedPageList];
+    return [[WMFRandomSectionController alloc] initWithSite:self.site dataStore:self.dataStore];
 }
 
 - (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFMainPageSectionController alloc] initWithSite:self.site savedPageList:self.dataStore.userDataStore.savedPageList];
+    return [[WMFMainPageSectionController alloc] initWithSite:self.site dataStore:self.dataStore];
 }
 
 - (WMFPictureOfTheDaySectionController*)picOfTheDaySectionController {
-    return [[WMFPictureOfTheDaySectionController alloc] init];
+    return [[WMFPictureOfTheDaySectionController alloc] initWithDataStore:self.dataStore];
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.dataStore.userDataStore.savedPageList];
+    return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated dataStore:self.dataStore];
 }
 
 @end

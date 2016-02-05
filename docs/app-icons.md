@@ -13,7 +13,7 @@ The first is the main asset catalog, where all bundled images are stored for but
 
 ## Generating App Icons
 
-1. Install imagemagick and ghostscript via Homeview: `brew install imagemagick ghostscript`
+1. Install imagemagick and ghostscript via Homebrew: `brew install imagemagick ghostscript`
 2. Build the project
 
 This should have run `scripts/process-icons.sh`, and generated app icons for the current configuration (most likely Debug).

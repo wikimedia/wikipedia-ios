@@ -118,10 +118,6 @@ NS_ASSUME_NONNULL_BEGIN
     return [self.previewResults count];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodLink;
-}
-
 - (nullable NSString*)displayTitle {
     return MWLocalizedString(@"page-similar-titles", nil);
 }

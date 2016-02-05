@@ -23,6 +23,16 @@
     return [self wmf_viewFromClassNib];
 }
 
++ (instancetype)blankEmptyView {
+    WMFEmptyView* view = [[self class] emptyView];
+    [view.imageView removeFromSuperview];
+    [view.messageLabel removeFromSuperview];
+    [view.titleLabel removeFromSuperview];
+    [view.actionLabel removeFromSuperview];
+    [view.actionLine removeFromSuperview];
+    return view;
+}
+
 + (instancetype)noFeedEmptyView {
     WMFEmptyView* view = [[self class] emptyView];
     view.imageView.image   = [UIImage imageNamed:@"no-internet"];

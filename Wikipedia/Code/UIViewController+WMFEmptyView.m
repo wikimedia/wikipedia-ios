@@ -1,14 +1,6 @@
-//
-//  UIViewController+WMFEmptyView.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 12/10/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "UIViewController+WMFEmptyView.h"
 #import "WMFEmptyView.h"
-#import <Masonry/Masonry.h>
 
 @implementation UIViewController (WMFEmptyView)
 
@@ -25,6 +17,9 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 
     UIView* view = nil;
     switch (type) {
+        case WMFEmptyViewTypeBlank:
+            view = [WMFEmptyView blankEmptyView];
+            break;
         case WMFEmptyViewTypeNoFeed:
             view = [WMFEmptyView noFeedEmptyView];
             break;
@@ -44,25 +39,14 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
             return;
     }
 
-    UIView* container = self.view.superview;
-    if ([container isKindOfClass:[UIScrollView class]]) {
-        container = container.superview;
-    }
-    NSAssert(container != nil, @"Trying to add an empty view with no container view");
-    if (!container) {
-        return;
-    }
+    view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    view.frame            = self.view.bounds;
 
     if ([self.view isKindOfClass:[UIScrollView class]]) {
         [(UIScrollView*)self.view setScrollEnabled:NO];
     }
     [self.view addSubview:view];
 
-    [view mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(container);
-        make.bottom.equalTo(container);
-        make.leading.and.trailing.equalTo(container);
-    }];
     [self bk_associateValue:view withKey:(__bridge const void*)(WMFEmptyViewKey)];
 }
 
@@ -77,7 +61,7 @@ static NSString * WMFEmptyViewKey = @"WMFEmptyView";
 }
 
 - (BOOL)wmf_isShowingEmptyView {
-    return [self wmf_emptyView] != nil;
+    return [self wmf_emptyView].superview != nil;
 }
 
 @end

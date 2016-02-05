@@ -1,7 +1,7 @@
 
 #import "WMFBaseExploreSectionController.h"
 
-@class MWKSite, MWKSavedPageList;
+@class MWKSite;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithSite:(MWKSite*)site
                         date:(NSDate*)date
-               savedPageList:(MWKSavedPageList*)savedPageList;
+               dataStore:(MWKDataStore*)dataStore;
 
 @end
 

@@ -41,6 +41,8 @@
 
     [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
 
+    self.tableView.estimatedRowHeight = [WMFArticlePreviewTableViewCell estimatedRowHeight];
+
     WMFSavedPagesDataSource* ds = [[WMFSavedPagesDataSource alloc] initWithSavedPagesList:[self savedPageList]];
 
     ds.cellClass = [WMFArticlePreviewTableViewCell class];
@@ -66,10 +68,6 @@
 
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoSavedPages;
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSaved;
 }
 
 - (NSString*)analyticsName {

@@ -69,10 +69,6 @@
     }
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
-}
-
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNone; //Is controlled by the search VC
 }

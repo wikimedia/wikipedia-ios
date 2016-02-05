@@ -23,6 +23,7 @@
 #import "WMFSaveButtonController.h"
 
 #import "WMFRelatedTitleViewController.h"
+#import "WMFArticleBrowserViewController.h"
 
 // Style
 #import "UIFont+WMFStyle.h"
@@ -38,8 +39,6 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 @property (nonatomic, strong, readwrite) WMFRelatedSectionBlackList* blackList;
 
 @property (nonatomic, strong, readwrite) WMFRelatedSearchFetcher* relatedSearchFetcher;
-@property (nonatomic, strong, readonly) MWKSavedPageList* savedPageList;
-@property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* relatedTitleDataSource;
 
@@ -66,20 +65,14 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
                 relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher {
     NSParameterAssert(title);
     NSParameterAssert(blackList);
-    NSParameterAssert(dataStore);
     NSParameterAssert(relatedSearchFetcher);
-    self = [super init];
+    self = [super initWithDataStore:dataStore];
     if (self) {
         self.relatedSearchFetcher = relatedSearchFetcher;
         self.title                = title;
         self.blackList            = blackList;
-        self.dataStore            = dataStore;
     }
     return self;
-}
-
-- (MWKSavedPageList*)savedPageList {
-    return self.dataStore.userDataStore.savedPageList;
 }
 
 - (id)sectionIdentifier {
@@ -155,6 +148,11 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     });
 }
 
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+}
+
 #pragma mark - WMFHeaderMenuProviding
 
 - (UIActionSheet*)menuActionSheet {
@@ -184,7 +182,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
          */
         _relatedTitleDataSource = [[WMFRelatedTitleListDataSource alloc]
                                    initWithTitle:self.title
-                                       dataStore:self.savedPageList.dataStore
+                                       dataStore:self.dataStore
                                      resultLimit:WMFMaxRelatedSearchResultLimit
                                          fetcher:self.relatedSearchFetcher];
     }

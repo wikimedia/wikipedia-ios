@@ -35,6 +35,8 @@
 
     [self.tableView registerNib:[WMFArticleListTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticleListTableViewCell identifier]];
 
+    self.tableView.estimatedRowHeight = [WMFArticleListTableViewCell estimatedRowHeight];
+
     WMFRecentPagesDataSource* ds = [[WMFRecentPagesDataSource alloc] initWithRecentPagesList:[self historyList]];
 
     ds.cellClass = [WMFArticleListTableViewCell class];
@@ -56,10 +58,6 @@
 
 - (WMFEmptyViewType)emptyViewType {
     return WMFEmptyViewTypeNoHistory;
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodUnknown;
 }
 
 - (NSString*)analyticsName {
