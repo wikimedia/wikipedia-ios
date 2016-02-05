@@ -54,6 +54,7 @@
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
 #import "NSURL+WMFExtras.h"
+#import "UIToolbar+WMFStyling.h"
 
 @import SafariServices;
 
@@ -309,6 +310,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Toolbar Setup
 
 - (void)setupToolbar {
+    [self.navigationController.toolbar wmf_applySolidWhiteBackgroundWithTopShadow];
+    
     [self updateToolbarItemsIfNeeded];
     [self updateToolbarItemEnabledState];
 }

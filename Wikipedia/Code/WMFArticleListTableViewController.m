@@ -11,6 +11,7 @@
 #import "UIViewController+WMFHideKeyboard.h"
 #import "UIViewController+WMFEmptyView.h"
 #import "UIScrollView+WMFContentOffsetUtils.h"
+#import "UITableView+WMFLockedUpdates.h"
 
 #import "WMFArticleBrowserViewController.h"
 #import "UIViewController+WMFSearch.h"
@@ -37,6 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)dealloc {
     [self unobserveArticleUpdates];
+    // NOTE(bgerstle): must check if dataSource was set to prevent creation of KVOControllerNonRetaining during dealloc
+    // happens during tests, creating KVOControllerNonRetaining during dealloc attempts to create weak ref, causing crash
+    if (self.dataSource) {
+        [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+    }
 }
 
 #pragma mark - Accessors
@@ -49,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
     _dataSource.tableView     = nil;
     self.tableView.dataSource = nil;
 
-    [self.KVOController unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
+    [self.KVOControllerNonRetaining unobserve:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)];
 
     _dataSource = dataSource;
 
@@ -64,9 +70,14 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self updateDeleteButton];
-    [self.KVOController observe:self.dataSource keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles) options:NSKeyValueObservingOptionInitial block:^(WMFArticleListTableViewController* observer, SSBaseDataSource < WMFTitleListDataSource > * object, NSDictionary* change) {
-        [self updateDeleteButtonEnabledState];
-        [self updateEmptyState];
+    [self.KVOControllerNonRetaining observe:self.dataSource
+                                    keyPath:WMF_SAFE_KEYPATH(self.dataSource, titles)
+                                    options:NSKeyValueObservingOptionInitial
+                                      block:^(WMFArticleListTableViewController* observer,
+                                              SSBaseDataSource < WMFTitleListDataSource > * object,
+                                              NSDictionary* change) {
+        [observer updateDeleteButtonEnabledState];
+        [observer updateEmptyState];
     }];
 }
 
@@ -127,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)unobserveArticleUpdates {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MWKArticleSavedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)articleUpdatedWithNotification:(NSNotification*)note {
@@ -142,10 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
         return [title isEqualToTitle:otherTitle];
     }];
 
-    //update cells in place. Updating with relaod method causes the tableview to scroll
-    [indexPathsToRefresh enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        self.dataSource.cellConfigureBlock([self.tableView cellForRowAtIndexPath:obj], [self.dataSource itemAtIndexPath:obj], self.tableView, obj);
-    }];
+    [self.dataSource reloadCellsAtIndexPaths:indexPathsToRefresh];
 }
 
 #pragma mark - Previewing

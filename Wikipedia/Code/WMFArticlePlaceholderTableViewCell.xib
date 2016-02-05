@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="420" id="KGk-i7-Jjw" customClass="WMFArticlePlaceholderTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="420.5"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="421"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
@@ -16,7 +16,6 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="article-card-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-Ue-BfV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="420" id="cRc-7K-8PK"/>
                         </constraints>
@@ -27,8 +26,7 @@
                         </variation>
                     </imageView>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC6-LC-20b" userLabel="Save Button" customClass="WMFTitleInsetRespectingButton">
-                        <rect key="frame" x="18" y="374.5" width="119" height="25"/>
-                        <animations/>
+                        <rect key="frame" x="18" y="375" width="119" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="999" constant="25" id="AEV-vl-3YX"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nQE-Ht-SAz"/>
@@ -46,7 +44,6 @@
                         </variation>
                     </button>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="pC6-LC-20b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="1vd-Gr-Mmq"/>
                     <constraint firstItem="RoZ-Ue-BfV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8hK-JT-Orq"/>
@@ -56,7 +53,6 @@
                     <constraint firstAttribute="bottom" secondItem="pC6-LC-20b" secondAttribute="bottom" constant="20" id="v65-6H-bIH"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="placeholderImageView" destination="RoZ-Ue-BfV" id="lWS-2z-6Vu"/>
                 <outlet property="placeholderSaveButton" destination="pC6-LC-20b" id="0eV-Y1-lCy"/>
