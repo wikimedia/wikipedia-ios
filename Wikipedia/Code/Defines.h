@@ -14,8 +14,6 @@
 
 #define HIDE_KEYBOARD_ON_SCROLL_THRESHOLD 55.0f
 
-#define THUMBNAIL_MINIMUM_SIZE_TO_CACHE CGSizeMake(35, 35)
-
 #define CHROME_COLOR [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0]
 
 #define ALERT_FONT_SIZE (12.0 * MENUS_SCALE_MULTIPLIER)

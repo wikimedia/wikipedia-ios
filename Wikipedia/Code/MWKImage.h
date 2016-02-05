@@ -166,6 +166,8 @@
 
 - (BOOL)isLeadImage;
 
++ (CGSize)minimumImageSizeForGalleryInclusion;
+
 @end
 
 #pragma mark - Deprecated Methods

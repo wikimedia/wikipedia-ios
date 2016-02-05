@@ -278,4 +278,8 @@
     return [self.article.image isEqualToImage:self];
 }
 
++ (CGSize)minimumImageSizeForGalleryInclusion {
+    return CGSizeMake(80, 80);
+}
+
 @end

@@ -40,11 +40,11 @@
 
     NSString* imgHeight = imageNode.attributes[@"height"];
 
-    if (imgHeight && imgHeight.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.height) {
+    if (imgHeight && imgHeight.integerValue < MWKImage.minimumImageSizeForGalleryInclusion.height) {
         return;
     }
     NSString* imgWidth = imageNode.attributes[@"width"];
-    if (imgWidth && imgWidth.integerValue < THUMBNAIL_MINIMUM_SIZE_TO_CACHE.width) {
+    if (imgWidth && imgWidth.integerValue < MWKImage.minimumImageSizeForGalleryInclusion.width) {
         return;
     }
 

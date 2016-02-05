@@ -13,6 +13,7 @@
 #import "UIImageView+WMFImageFetching.h"
 #import "UIImageView+WMFPlaceholder.h"
 #import "SSArrayDataSource+WMFReverseIfRTL.h"
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +27,29 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic emptyView;
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
-    self = [super wmf_initWithItemsAndReverseIfNeeded:article.images.uniqueLargestVariants];
+    
+    NSArray* images = [article.images.uniqueLargestVariants bk_select:^BOOL (MWKImage* image) {
+        // Keep image if it's the article image even if we can't determine its size - we always want to show article image as first "lead" image by gallery.
+        if ([article.image isEqualToImage:image]) {
+            return YES;
+        }
+        
+        if (!image.width || !image.height) {
+            // HAX: if this image MWKImage record doesn't have a width and height value (because it wasn't determined by parsing it
+            // from the article HTML's image url) see if the cache can tell us the size.
+            SDImageCache* myCache = [SDImageCache wmf_appSupportCacheWithNamespace:@"default"];
+            UIImage* img = [myCache imageFromDiskCacheForKey:image.sourceURLString];
+            image.width  = @(img.size.width);
+            image.height = @(img.size.height);
+            // Should we update the image's MWKImage record here so next time it *will* have the size?
+        }
+        
+        BOOL isImageBigEnoughForGallery = (image.width.integerValue > MWKImage.minimumImageSizeForGalleryInclusion.width && image.height.integerValue > MWKImage.minimumImageSizeForGalleryInclusion.height);
+        
+        return isImageBigEnoughForGallery;
+    }];
+    
+    self = [super wmf_initWithItemsAndReverseIfNeeded:images];
     if (self) {
         self.article   = article;
         self.emptyView = [[UIImageView alloc] init];
