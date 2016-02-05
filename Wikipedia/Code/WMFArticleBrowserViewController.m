@@ -203,7 +203,7 @@ BOOL useSingleBrowserController() {
         nav.navigationBarHidden = YES;
         nav.toolbarHidden       = YES;
         [self addChildViewController:nav];
-        [self.view addSubview:nav.view];
+        [self.view insertSubview:nav.view atIndex:0];
         [nav.view mas_makeConstraints:^(MASConstraintMaker* make) {
             make.leading.and.trailing.equalTo(self.view);
             make.top.equalTo(self.navigationBar.mas_bottom);
@@ -267,6 +267,7 @@ BOOL useSingleBrowserController() {
 
     if (self.initialViewController) {
         [self pushArticleViewController:self.initialViewController source:self.initialViewControllerSource animated:NO];
+        [self setupToolbar];
         self.initialViewController       = nil;
         self.initialViewControllerSource = nil;
     }
