@@ -14,9 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithSite:(MWKSite*)site
                    dataStore:(MWKDataStore*)dataStore;
 
-- (id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section;
+- (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section;
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller;
+
+- (id<WMFExploreSectionController>)newControllerForSection:(WMFExploreSection*)section;
 
 @end
 
