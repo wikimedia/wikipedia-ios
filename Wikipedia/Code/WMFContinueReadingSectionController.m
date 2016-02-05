@@ -1,10 +1,3 @@
-//
-//  WMFContinueReadingSectionController.m
-//  Wikipedia
-//
-//  Created by Corey Floyd on 10/7/15.
-//  Copyright © 2015 Wikimedia Foundation. All rights reserved.
-//
 
 #import "WMFContinueReadingSectionController.h"
 #import "WMFContinueReadingTableViewCell.h"
@@ -16,6 +9,7 @@
 #import "UITableViewCell+WMFLayout.h"
 #import "MWKSection.h"
 #import "MWKSectionList.h"
+#import "WMFArticleBrowserViewController.h"
 #import "WikipediaAppUtils.h"
 #import "Wikipedia-Swift.h"
 
@@ -24,7 +18,6 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 @interface WMFContinueReadingSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKTitle* title;
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 
 @end
 
@@ -33,11 +26,9 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(title);
-    NSParameterAssert(dataStore);
-    self = [super initWithItems:@[title]];
+    self = [super initWithDataStore:dataStore items:@[title]];
     if (self) {
         self.title     = title;
-        self.dataStore = dataStore;
     }
     return self;
 }
@@ -88,16 +79,19 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodReloadFromNetwork;
-}
-
 - (CGFloat)estimatedRowHeight {
     return [WMFContinueReadingTableViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsName {
     return @"Continue Reading";
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    vc.restoreScrollPositionOnArticleLoad = YES;
+    return vc;
 }
 
 #pragma mark - WMFTitleProviding

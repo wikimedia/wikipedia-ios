@@ -40,6 +40,8 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 
 - (instancetype)initWithSite:(MWKSite*)site
                    dataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(site);
+    NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
         self.site                                   = site;
@@ -113,19 +115,19 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRandomSectionController alloc] initWithSite:self.site savedPageList:self.dataStore.userDataStore.savedPageList];
+    return [[WMFRandomSectionController alloc] initWithSite:self.site dataStore:self.dataStore];
 }
 
 - (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFMainPageSectionController alloc] initWithSite:self.site savedPageList:self.dataStore.userDataStore.savedPageList];
+    return [[WMFMainPageSectionController alloc] initWithSite:self.site dataStore:self.dataStore];
 }
 
 - (WMFPictureOfTheDaySectionController*)picOfTheDaySectionController {
-    return [[WMFPictureOfTheDaySectionController alloc] init];
+    return [[WMFPictureOfTheDaySectionController alloc] initWithDataStore:self.dataStore];
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated savedPageList:self.dataStore.userDataStore.savedPageList];
+    return [[WMFFeaturedArticleSectionController alloc] initWithSite:item.site date:item.dateCreated dataStore:self.dataStore];
 }
 
 @end

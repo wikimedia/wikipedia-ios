@@ -12,6 +12,9 @@
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
+#import "WMFArticleBrowserViewController.h"
+#import "MWKDataStore.h"
+#import "MWKUserDataStore.h"
 
 #import "NSDateFormatter+WMFExtensions.h"
 #import "UIColor+WMFHexColor.h"
@@ -24,7 +27,6 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) NSDate* date;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) WMFEnglishFeaturedTitleFetcher* featuredTitlePreviewFetcher;
 
@@ -34,14 +36,15 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
 
 @implementation WMFFeaturedArticleSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site date:(NSDate*)date savedPageList:(MWKSavedPageList*)savedPageList {
+- (instancetype)initWithSite:(MWKSite*)site
+                        date:(NSDate*)date
+                   dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
     NSParameterAssert(date);
-    self = [super init];
+    self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site          = site;
-        self.date          = date;
-        self.savedPageList = savedPageList;
+        self.site = site;
+        self.date = date;
     }
     return self;
 }
@@ -141,6 +144,11 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
         self.featuredArticlePreview = nil;
         return error;
     });
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 
 #pragma mark - WMFTitleProviding

@@ -113,6 +113,10 @@ NSString* const WMFLicenseTitleOnENWiki =
 
     self.referencesHidden = YES;
 
+    self.view.clipsToBounds               = NO;
+    self.webView.clipsToBounds            = NO;
+    self.webView.scrollView.clipsToBounds = NO;
+
     self.webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     self.webView.scrollView.backgroundColor  = [UIColor wmf_articleBackgroundColor];
 
@@ -152,10 +156,6 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationFade;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size

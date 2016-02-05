@@ -9,8 +9,6 @@
 #import "MWKHistoryEntry.h"
 #import "MWKRandom.h"
 
-extern MWKHistoryDiscoveryMethod MWKHistoryDiscoveryMethodMakeRandom();
-
 @interface MWKHistoryEntry (MWKRandom)
 <MWKRandom>
 

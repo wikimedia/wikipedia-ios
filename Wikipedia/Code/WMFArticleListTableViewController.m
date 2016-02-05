@@ -13,9 +13,8 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "UITableView+WMFLockedUpdates.h"
 
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleBrowserViewController.h"
 #import "UIViewController+WMFSearch.h"
-#import "UIViewController+WMFArticlePresentation.h"
 
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit.h>
@@ -26,10 +25,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFArticleListTableViewController ()<WMFSearchPresentationDelegate, UIViewControllerPreviewingDelegate>
+@interface WMFArticleListTableViewController ()<UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, assign) BOOL isPreviewing;
 
 @end
 
@@ -184,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.extendedLayoutIncludesOpaqueBars     = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
 
-    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItemWithDelegate:self];
+    self.navigationItem.rightBarButtonItem = [self wmf_searchBarButtonItem];
 
     self.tableView.backgroundColor    = [UIColor wmf_articleListBackgroundColor];
     self.tableView.separatorColor     = [UIColor wmf_lightGrayColor];
@@ -211,9 +210,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (self.previewingTitle) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
-        self.previewingTitle = nil;
+    if (self.isPreviewing) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
+        self.isPreviewing = NO;
     }
 }
 
@@ -248,35 +247,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_hideKeyboard];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
-        [self.delegate didSelectTitle:title
-                               sender:self
-                      discoveryMethod:[self discoveryMethod]];
+        [self.delegate listViewContoller:self didSelectTitle:title];
         return;
     }
-    [self wmf_pushArticleViewControllerWithTitle:title
-                                 discoveryMethod:[self discoveryMethod]
-                                       dataStore:self.dataStore];
-}
-
-#pragma mark - WMFSearchPresentationDelegate
-
-- (MWKDataStore*)searchDataStore {
-    return self.dataStore;
-}
-
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:title
-                                     discoveryMethod:discoveryMethod
-                                           dataStore:self.dataStore];
-    }];
-}
-
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewController:articleViewController];
-    }];
+    [self wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
@@ -291,26 +265,25 @@ NS_ASSUME_NONNULL_BEGIN
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
-    self.previewingTitle = title;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
-    return [[WMFArticleContainerViewController alloc] initWithArticleTitle:title
-                                                                 dataStore:[self dataStore]
-                                                           discoveryMethod:[self discoveryMethod]];
-}
+    self.isPreviewing = YES;
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
 
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
-     commitViewController:(WMFArticleContainerViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
-    self.previewingTitle = nil;
     if (self.delegate) {
-        [self.delegate didCommitToPreviewedArticleViewController:viewControllerToCommit sender:self];
+        return [self.delegate listViewContoller:self viewControllerForPreviewingTitle:title];
     } else {
-        [self wmf_pushArticleViewController:viewControllerToCommit];
+        return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
     }
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodUnknown;
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+     commitViewController:(UINavigationController*)viewControllerToCommit {
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
+    self.isPreviewing = NO;
+    if (self.delegate) {
+        [self.delegate listViewContoller:self didCommitToPreviewedViewController:viewControllerToCommit];
+    } else {
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
+    }
 }
 
 - (NSString*)analyticsName {

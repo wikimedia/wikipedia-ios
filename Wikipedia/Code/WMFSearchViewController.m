@@ -24,6 +24,7 @@
 #import "UIButton+WMFButton.h"
 #import "UIImage+WMFStyle.h"
 
+#import "WMFArticleBrowserViewController.h"
 #import "LanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
 
@@ -33,7 +34,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 <UISearchBarDelegate,
  WMFRecentSearchesViewControllerDelegate,
  UITextFieldDelegate,
- WMFArticleSelectionDelegate,
+ WMFArticleListTableViewControllerDelegate,
  LanguageSelectionDelegate>
 
 @property (nonatomic, strong) MWKSite* searchSite;
@@ -65,8 +66,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* contentViewTop;
 
-
 @property (nonatomic, assign, getter = isRecentSearchesHidden) BOOL recentSearchesHidden;
+
+@property (nonatomic, assign) UIStatusBarStyle previousStatusBarStyle;
 
 - (void)setRecentSearchesHidden:(BOOL)hidingRecentSearches animated:(BOOL)animated;
 
@@ -182,10 +184,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - UIViewController
 
-- (BOOL)prefersStatusBarHidden {
-    return NO;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -205,6 +203,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 
     self.searchFieldTop.constant = 0;
     [self.view setNeedsUpdateConstraints];
@@ -221,6 +221,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:self.previousStatusBarStyle animated:animated];
 
     if (!self.presentedViewController) {
         /*
@@ -573,15 +574,25 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:NULL];
 }
 
-#pragma mark - WMFArticleSelectionDelegate
+#pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    [self.searchResultDelegate didSelectTitle:title sender:self discoveryMethod:discoveryMethod];
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title{
+    UIViewController* presenter = [self presentingViewController];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
+    }];
 }
 
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender {
-    [self.searchResultDelegate didCommitToPreviewedArticleViewController:articleViewController sender:self];
+- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title{
+    WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
+    return vc;
+}
+
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController{
+    UIViewController* presenter = [self presentingViewController];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
+    }];
 }
 
 #pragma mark - LanguageSelectionDelegate

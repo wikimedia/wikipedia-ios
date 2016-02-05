@@ -36,14 +36,16 @@
 #import "UITableView+WMFLockedUpdates.h"
 
 // Child View Controllers
-#import "UIViewController+WMFArticlePresentation.h"
-#import "WMFArticleContainerViewController.h"
+#import "WMFArticleBrowserViewController.h"
 #import "WMFSettingsViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "WMFTitleListDataSource.h"
 #import "WMFArticleListTableViewController.h"
 #import "WMFRelatedSectionController.h"
+#import "UIViewController+WMFSearch.h"
 
+// Controllers
+#import "WMFRelatedSectionBlackList.h"
 
 static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelOff;
 #undef LOG_LEVEL_DEF
@@ -59,13 +61,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
 
-@property (nonatomic, strong, null_resettable) WMFExploreSectionSchema* schemaManager;
+@property (nonatomic, strong, nullable) WMFExploreSectionSchema* schemaManager;
 
 @property (nonatomic, strong) WMFExploreSectionControllerCache* sectionControllerCache;
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
-@property (nonatomic, strong, nullable) MWKTitle* previewingTitle;
+@property (nonatomic, assign) BOOL isPreviewing;
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
 @end
@@ -94,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.navigationItem.titleView.accessibilityLabel     = MWLocalizedString(@"home-accessibility-label", nil);
         self.navigationItem.titleView.accessibilityTraits   |= UIAccessibilityTraitHeader;
         self.navigationItem.leftBarButtonItem                = [self settingsBarButtonItem];
-        self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItemWithDelegate:self];
+        self.navigationItem.rightBarButtonItem               = [self wmf_searchBarButtonItem];
     }
     return self;
 }
@@ -208,6 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self resetRefreshControlWithCompletion:NULL];
 
+    self.tableView.scrollsToTop = YES;
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
@@ -246,9 +249,9 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 
-    if (self.previewingTitle) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedForTitle:self.previewingTitle fromSource:self];
-        self.previewingTitle = nil;
+    if (self.isPreviewing) {
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
+        self.isPreviewing = NO;
     }
 }
 
@@ -308,7 +311,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showOfflineEmptyViewAndReloadWhenReachable {
     NSParameterAssert(self.isViewLoaded && self.view.superview);
-    if (![self wmf_isShowingEmptyView]) {
+    if ([self wmf_isShowingEmptyView]) {
         return;
     }
 
@@ -449,7 +452,7 @@ NS_ASSUME_NONNULL_BEGIN
             || [controller shouldSelectItemAtIndexPath:indexPath])) {
         MWKTitle* title = [(id < WMFTitleProviding >)controller titleForItemAtIndexPath:indexPath];
         if (title) {
-            [[PiwikTracker sharedInstance] wmf_logActionScrollToTitle:title inHomeSection:controller];
+            [[PiwikTracker sharedInstance] wmf_logActionScrollToItemInExploreSection:controller];
         }
     }
 }
@@ -489,17 +492,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (![controller shouldSelectItemAtIndexPath:indexPath]) {
         return;
     }
-    if ([controller conformsToProtocol:@protocol(WMFTitleProviding)]) {
-        MWKTitle* title = [(id < WMFTitleProviding >)controller titleForItemAtIndexPath:indexPath];
-        if (title) {
-            [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:title inHomeSection:controller];
-            MWKHistoryDiscoveryMethod discoveryMethod = [self discoveryMethodForSectionController:controller];
-            [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
-        }
-    } else if ([controller conformsToProtocol:@protocol(WMFDetailProviding)]) {
-        UIViewController* vc = [(id < WMFDetailProviding >)controller exploreDetailViewControllerForItemAtIndexPath:indexPath];
-        NSParameterAssert(vc);
-        [self presentViewController:vc animated:YES completion:NULL];
+
+    [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:controller];
+    UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
+    if([vc isKindOfClass:[WMFArticleViewController class]]){
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc source:self animated:YES];
+    }else{
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
@@ -692,7 +691,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController, WMFMoreFooterProviding> articleSectionController = (id<WMFExploreSectionController, WMFMoreFooterProviding>)controllerForSection;
 
     UIViewController* moreVC = [articleSectionController moreViewController];
-    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreForHomeSection:articleSectionController];
+    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreInExploreSection:articleSectionController];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 
@@ -712,10 +711,8 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory: {
             WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
-            NSParameterAssert(controller);
-            [self wmf_pushArticleViewControllerWithTitle:controller.title
-                                         discoveryMethod:MWKHistoryDiscoveryMethodLink
-                                               dataStore:self.dataStore];
+            NSParameterAssert(controller.title);
+            [self wmf_pushArticleWithTitle:controller.title dataStore:self.dataStore source:self animated:YES];
             break;
         }
     }
@@ -725,14 +722,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:section];
     [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethodForSectionController:(id<WMFExploreSectionController>)sectionController {
-    if ([sectionController respondsToSelector:@selector(discoveryMethod)]) {
-        return [sectionController discoveryMethod];
-    } else {
-        return MWKHistoryDiscoveryMethodSearch;
-    }
 }
 
 #pragma mark - WMFExploreSectionSchemaDelegate
@@ -747,25 +736,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-#pragma mark - WMFSearchPresentationDelegate
-
-- (MWKDataStore*)searchDataStore {
-    return self.dataStore;
-}
-
-- (void)didSelectTitle:(MWKTitle*)title sender:(id)sender discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewControllerWithTitle:title discoveryMethod:discoveryMethod dataStore:self.dataStore];
-    }];
-}
-
-- (void)didCommitToPreviewedArticleViewController:(WMFArticleContainerViewController*)articleViewController
-                                           sender:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self wmf_pushArticleViewController:articleViewController];
-    }];
-}
-
 #pragma mark - UIViewControllerPreviewingDelegate
 
 - (nullable UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
@@ -778,38 +748,26 @@ NS_ASSUME_NONNULL_BEGIN
 
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    if ([sectionController conformsToProtocol:@protocol(WMFTitleProviding)]) {
-        MWKTitle* title =
-            [(id < WMFTitleProviding >)sectionController titleForItemAtIndexPath:previewIndexPath];
-        if (title) {
-            self.previewingTitle          = title;
-            self.sectionOfPreviewingTitle = sectionController;
-            [[PiwikTracker sharedInstance] wmf_logActionPreviewForTitle:title fromSource:self];
-            return [[WMFArticleContainerViewController alloc]
-                    initWithArticleTitle:title
-                               dataStore:[self dataStore]
-                         discoveryMethod:[self discoveryMethodForSectionController:sectionController]];
-        }
-    } else if ([sectionController conformsToProtocol:@protocol(WMFDetailProviding)]) {
-        UIViewController* vc = [(id < WMFDetailProviding >)sectionController exploreDetailViewControllerForItemAtIndexPath:previewIndexPath];
-        NSParameterAssert(vc);
-        [self presentViewController:vc animated:YES completion:NULL];
-    }
-
-    return nil;
+    UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
+    self.isPreviewing = YES;
+    self.sectionOfPreviewingTitle = sectionController;
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
+    return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    if ([viewControllerToCommit isKindOfClass:[WMFArticleContainerViewController class]]) {
-        [[PiwikTracker sharedInstance] wmf_logActionOpenTitle:self.previewingTitle inHomeSection:self.sectionOfPreviewingTitle];
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedForTitle:self.previewingTitle fromSource:self];
-        self.previewingTitle          = nil;
-        self.sectionOfPreviewingTitle = nil;
-        [self wmf_pushArticleViewController:(WMFArticleContainerViewController*)viewControllerToCommit];
-    } else {
+    [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:self.sectionOfPreviewingTitle];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
+    self.isPreviewing             = NO;
+    self.sectionOfPreviewingTitle = nil;
+    
+    if([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]){
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
+    }else{
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
+    
 }
 
 - (NSString*)analyticsName {

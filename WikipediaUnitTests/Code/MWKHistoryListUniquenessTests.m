@@ -49,10 +49,8 @@
 }
 
 - (void)testStatePersistsWhenSaved {
-    MWKHistoryEntry* losAngeles = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                         discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr
-                                                           discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* losAngeles = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
+    MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr];
 
     /*
        HAX: dates are not precisely stored, so the difference must be >1s for the order to be persisted accurately.
@@ -74,14 +72,12 @@
     [persistedList.entries enumerateObjectsUsingBlock:^(MWKHistoryEntry* actualEntry, NSUInteger idx, BOOL* _) {
         MWKHistoryEntry* expectedEntry = self->historyList.entries[idx];
         assertThat(actualEntry.title, is(expectedEntry.title));
-        assertThat(@(actualEntry.discoveryMethod), is(@(expectedEntry.discoveryMethod)));
         assertThat(@([actualEntry.date timeIntervalSinceDate:expectedEntry.date]), is(lessThanOrEqualTo(@1)));
     }];
 }
 
 - (void)testAddingIdenticalObjectUpdatesExistingEntryDate {
-    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                    discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
     NSDate* previousDate = entry.date;
     [historyList addEntry:entry];
     [historyList addEntry:entry];
@@ -91,11 +87,9 @@
 
 - (void)testAddingEquivalentObjectUpdatesExistingEntryDate {
     MWKTitle* title1        = [titleSFEn.site titleWithString:@"This is a title"];
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:title1
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:title1];
     MWKTitle* copyOfTitle1        = [titleSFEn.site titleWithString:@"This is a title"];
-    MWKHistoryEntry* copyOfEntry1 = [[MWKHistoryEntry alloc] initWithTitle:copyOfTitle1
-                                                           discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* copyOfEntry1 = [[MWKHistoryEntry alloc] initWithTitle:copyOfTitle1];
     [historyList addEntry:entry1];
     [historyList addEntry:copyOfEntry1];
     assertThat(historyList.entries, equalTo(@[copyOfEntry1]));
@@ -103,20 +97,16 @@
 }
 
 - (void)testAddingTheSameTitleFromDifferentSites {
-    MWKHistoryEntry* en = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    MWKHistoryEntry* fr = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr
-                                                 discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* en = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
+    MWKHistoryEntry* fr = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr];
     [historyList addEntry:en];
     [historyList addEntry:fr];
     assertThat([historyList entries], is(@[fr, en]));
 }
 
 - (void)testListOrdersByDateDescending {
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
-    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
+    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     NSAssert([[entry2.date laterDate:entry1.date] isEqualToDate:entry2.date],
@@ -126,11 +116,9 @@
 }
 
 - (void)testListOrderAfterAddingSameEntry {
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
     entry1.date = [[NSDate date] dateByAddingTimeInterval:-60]; //the past
-    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn
-                                                     discoveryMethod :MWKHistoryDiscoveryMethodSearch];
+    MWKHistoryEntry* entry2 = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
     [historyList addEntry:entry1];
     [historyList addEntry:entry2];
     assertThat([historyList entries], is(@[entry2, entry1])); //ordered by date

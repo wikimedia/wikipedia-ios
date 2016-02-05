@@ -114,7 +114,8 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             f.origin.x -= f.size.width * UIApplication.sharedApplication().wmf_tocRTLMultiplier
             presentedControllerView.frame = f
             }, completion: {(completed: Bool) -> Void in
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                let cancelled = transitionContext.transitionWasCancelled()
+                transitionContext.completeTransition(!cancelled)
         })
     }
     
@@ -127,7 +128,8 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             presentedControllerView.frame = f
 
             }, completion: {(completed: Bool) -> Void in
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                let cancelled = transitionContext.transitionWasCancelled()
+                transitionContext.completeTransition(!cancelled)
         })
     }
     
@@ -187,31 +189,31 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
         case (.Ended):
             self.isInteractive = false
             let velocityRequiredToPresent = -CGRectGetWidth(gesture.view!.bounds) * UIApplication.sharedApplication().wmf_tocRTLMultiplier
-            let velocityRequiredToDismiss = CGRectGetWidth(gesture.view!.bounds)
+            let velocityRequiredToDismiss = -velocityRequiredToPresent
             
             let velocityX = gesture.velocityInView(gesture.view).x
-            if velocityX * UIApplication.sharedApplication().wmf_tocRTLMultiplier > velocityRequiredToDismiss{
-                self.cancelInteractiveTransition()
+            if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss){
+                cancelInteractiveTransition()
                 return
             }
             
-            if velocityX > velocityRequiredToPresent{
-                self.finishInteractiveTransition()
+            if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent){
+                finishInteractiveTransition()
                 return
             }
             
             let progressRequiredToPresent = 0.33
             
             if(self.percentComplete >= CGFloat(progressRequiredToPresent)){
-                self.finishInteractiveTransition()
+                finishInteractiveTransition()
                 return
             }
             
-            self.cancelInteractiveTransition()
+            cancelInteractiveTransition()
             
         case (.Cancelled):
             self.isInteractive = false
-            self.cancelInteractiveTransition()
+            cancelInteractiveTransition()
             
         default :
             break
@@ -231,32 +233,32 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
             DDLogVerbose("TOC transition progress: \(transitionProgress)")
         case .Ended:
             self.isInteractive = false
-            let velocityRequiredToPresent = -CGRectGetMaxX(gesture.view!.bounds) * UIApplication.sharedApplication().wmf_tocRTLMultiplier
-            let velocityRequiredToDismiss = CGRectGetWidth(gesture.view!.bounds)
+            let velocityRequiredToPresent = -CGRectGetWidth(gesture.view!.bounds) * UIApplication.sharedApplication().wmf_tocRTLMultiplier
+            let velocityRequiredToDismiss = -velocityRequiredToPresent
             
             let velocityX = gesture.velocityInView(gesture.view).x
-            if velocityX > velocityRequiredToDismiss{
-                self.finishInteractiveTransition()
+            if velocityX*velocityRequiredToDismiss > 1 && abs(velocityX) > abs(velocityRequiredToDismiss){
+                finishInteractiveTransition()
                 return
             }
             
-            if velocityX > velocityRequiredToPresent{
-                self.cancelInteractiveTransition()
+            if velocityX*velocityRequiredToPresent > 1 && abs(velocityX) > abs(velocityRequiredToPresent){
+                cancelInteractiveTransition()
                 return
             }
             
-            let progressRequiredToDismiss = 0.33
+            let progressRequiredToDismiss = 0.50
             
             if(self.percentComplete >= CGFloat(progressRequiredToDismiss)){
-                self.finishInteractiveTransition()
+                finishInteractiveTransition()
                 return
             }
             
-            self.cancelInteractiveTransition()
+            cancelInteractiveTransition()
             
         case .Cancelled:
             self.isInteractive = false
-            self.cancelInteractiveTransition()
+            cancelInteractiveTransition()
             
         default :
             break

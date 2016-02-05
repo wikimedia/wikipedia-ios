@@ -58,6 +58,7 @@ public class WMFTableOfContentsViewController: UIViewController,
         animator?.delegate = self
         modalPresentationStyle = .Custom
         transitioningDelegate = self.animator
+                            
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -176,11 +177,13 @@ public class WMFTableOfContentsViewController: UIViewController,
         super.viewWillAppear(animated)
         self.delegate?.tableOfContentsControllerWillDisplay(self)
         tableOfContentsFunnel.logOpen()
+        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: animated)
     }
-
+    
     public override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         deselectAllRows()
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: animated)
     }
     
     // MARK: - UITableViewDataSource

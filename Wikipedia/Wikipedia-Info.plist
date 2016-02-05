@@ -61,7 +61,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<false/>
 	<key>WMFHockeyAppIdentifier</key>
 	<string>${WMF_HOCKEYAPP_IDENTIFIER}</string>
 	<key>WMFShowDebugMenu</key>
