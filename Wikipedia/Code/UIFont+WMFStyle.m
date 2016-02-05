@@ -49,7 +49,7 @@
     return [UIFont fontWithName:@"Georgia" size:20.0];
 }
 
-+ (instancetype)wmf_nearbyDescriptionFont {
++ (instancetype)wmf_subtitle {
     return [UIFont systemFontOfSize:14.0f];
 }
 

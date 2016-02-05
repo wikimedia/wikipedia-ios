@@ -23,6 +23,7 @@
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
 #import "UIImage+WMFStyle.h"
+#import "UIFont+WMFStyle.h"
 
 #import "LanguagesViewController.h"
 #import "UIViewController+WMFEmptyView.h"
@@ -180,6 +181,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.otherLanguagesButton setClipsToBounds:YES];
 
     [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
+    self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
+
     [self.otherLanguagesButton sizeToFit];
 
     [self updateLanguageButtonsToPreferredLanguages];
@@ -440,7 +443,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (CGFloat)searchFieldHeightForCurrentTraitCollection {
-    return self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 44 : 72;
+    return self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? 44 : 64;
 }
 
 - (void)updateViewConstraints {
