@@ -181,7 +181,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     return [[self.schemaManager.sections objectsAtIndexes:visibleSectionIndexes] wmf_mapAndRejectNil:^id (WMFExploreSection* obj) {
-        return [self.sectionControllerCache controllerForSection:obj];
+        return [self sectionControllerForSection:obj];
     }];
 }
 
@@ -609,8 +609,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Section Info
 
+- (id<WMFExploreSectionController>)sectionControllerForSection:(WMFExploreSection*)section {
+    id<WMFExploreSectionController> sectionController = [self.sectionControllerCache controllerForSection:section];
+    if(!sectionController){
+        sectionController = [self.sectionControllerCache newControllerForSection:section];
+        [self registerSectionForSectionController:sectionController];
+    }
+    return sectionController;
+}
+
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    return [self.sectionControllerCache controllerForSection:self.schemaManager.sections[index]];
+    WMFExploreSection* section = self.schemaManager.sections[index];
+    return [self sectionControllerForSection:section];
 }
 
 - (NSInteger)indexForSectionController:(id<WMFExploreSectionController>)controller {
@@ -621,31 +631,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)loadSectionControllersForCurrentSectionSchema {
     [self.schemaManager.sections enumerateObjectsUsingBlock:^(WMFExploreSection* obj, NSUInteger idx, BOOL* stop) {
-        id<WMFExploreSectionController> controller = [self.sectionControllerCache controllerForSection:obj];
-        [self loadSectionForSectionController:controller];
+        [self sectionControllerForSection:obj];
     }];
 }
 
-- (void)loadSectionForSectionController:(id<WMFExploreSectionController>)controller {
+- (void)registerSectionForSectionController:(id<WMFExploreSectionController>)controller {
     if (!controller) {
         return;
     }
-
+    
     [controller registerCellsInTableView:self.tableView];
-
+    
     [self.KVOControllerNonRetaining unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
-
+    
     [self.KVOControllerNonRetaining observe:controller keyPath:WMF_SAFE_KEYPATH(controller, items) options:0 block:^(WMFExploreViewController* observer, id < WMFExploreSectionController > object, NSDictionary* change) {
         NSUInteger sectionIndex = [observer indexForSectionController:controller];
         if (sectionIndex == NSNotFound) {
             return;
         }
-
+        
         [observer.tableView reloadData];
         return;
-
+        
         //TODO: enable animated updates. Currently causes more jitters
-
+        
         NSIndexSet* indices = [change objectForKey:NSKeyValueChangeIndexesKey];
         if (indices == nil) {
             return;
@@ -655,7 +664,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSIndexPath* newPath = [NSIndexPath indexPathForRow:idx inSection:sectionIndex];
             [indexPathArray addObject:newPath];
         }];
-
+        
         [observer.tableView wmf_performUpdates:^{
             NSNumber* kind = [change objectForKey:NSKeyValueChangeKindKey];
             if ([kind integerValue] == NSKeyValueChangeInsertion) { // Rows were added
@@ -667,6 +676,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         } withoutMovingCellAtIndexPath:[[self.tableView indexPathsForVisibleRows] firstObject]];
     }];
+
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {
