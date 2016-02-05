@@ -549,7 +549,8 @@ NSString* const WMFLicenseTitleOnENWiki =
 
             NSNumber* imageWidth = payload[@"width"];
             NSNumber* imageHeight = payload[@"height"];
-            if ((imageWidth.integerValue < MWKImage.minimumImageSizeForGalleryInclusion.width) || (imageHeight.integerValue < MWKImage.minimumImageSizeForGalleryInclusion.height)) {
+            CGSize imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
                 return;
             }
 

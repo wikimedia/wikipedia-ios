@@ -39,12 +39,10 @@
     }
 
     NSString* imgHeight = imageNode.attributes[@"height"];
-
-    if (imgHeight && imgHeight.integerValue < MWKImage.minimumImageSizeForGalleryInclusion.height) {
-        return;
-    }
     NSString* imgWidth = imageNode.attributes[@"width"];
-    if (imgWidth && imgWidth.integerValue < MWKImage.minimumImageSizeForGalleryInclusion.width) {
+    
+    CGSize size = CGSizeMake([imgWidth floatValue], [imgHeight floatValue]);
+    if (![MWKImage isSizeLargeEnoughForGalleryInclusion:size]) {
         return;
     }
 

@@ -166,7 +166,9 @@
 
 - (BOOL)isLeadImage;
 
-+ (CGSize)minimumImageSizeForGalleryInclusion;
+- (BOOL)isLargeEnoughForGalleryInclusion;
+
++ (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size;
 
 @end
 

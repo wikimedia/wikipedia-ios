@@ -282,4 +282,13 @@
     return CGSizeMake(80, 80);
 }
 
+- (BOOL)isLargeEnoughForGalleryInclusion {
+    return [MWKImage isSizeLargeEnoughForGalleryInclusion:[self estimatedSize]];
+}
+
++ (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size {
+    return (size.width > MWKImage.minimumImageSizeForGalleryInclusion.width) &&
+        (size.height > MWKImage.minimumImageSizeForGalleryInclusion.height);
+}
+
 @end

@@ -45,9 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
             // Should we update the image's MWKImage record here so next time it *will* have the size?
         }
         
-        BOOL isImageBigEnoughForGallery = (image.width.integerValue > MWKImage.minimumImageSizeForGalleryInclusion.width && image.height.integerValue > MWKImage.minimumImageSizeForGalleryInclusion.height);
-        
-        return isImageBigEnoughForGallery;
+        return [image isLargeEnoughForGalleryInclusion];
     }];
     
     self = [super wmf_initWithItemsAndReverseIfNeeded:images];
