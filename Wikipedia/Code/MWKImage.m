@@ -282,7 +282,48 @@
     return CGSizeMake(80, 80);
 }
 
+- (BOOL)isCanonical {
+    return [MWKImage fileSizePrefix:self.sourceURLString] == NSNotFound;
+}
+
+- (MWKImage *)largestNonCanonicalVariant {
+    NSString *largestNonCanonicalVariantURL = [[[self.article.images imageSizeVariants:self.sourceURLString] bk_select:^BOOL (NSString* url) {
+        return [MWKImage fileSizePrefix:url] != NSNotFound;
+    }] lastObject];
+    return [self.article imageWithURL:largestNonCanonicalVariantURL];
+}
+
+-(UIImage*)imageFromAppImageCache {
+    return [[WMFImageController wmf_appImageCache] imageFromDiskCacheForKey:self.sourceURLString];
+}
+
 - (BOOL)isLargeEnoughForGalleryInclusion {
+    
+    // HAX: If this image MWKImage record doesn't have width/height values (because it
+    // wasn't determined when parsing the article HTML's image url) see if the cache can
+    // tell us the size.
+    if (![self hasEstimatedSize]) {
+        UIImage* image = [self imageFromAppImageCache];
+        if(!CGSizeEqualToSize(image.size, CGSizeZero)){
+            self.width  = @(image.size.width);
+            self.height = @(image.size.height);
+            [self save];
+        }
+    }
+
+    // HAX: if self STILL doesn't have an estimated size we can likely infer if it's big
+    // enough if it's canonical *and* the largest non-canonical image *is* big enough.
+    // i.e. If this is "Fish.jpg" we know it's bigger than "220px-Fish.jpg" because if you
+    // request an image larger than "Fish.jpg" the scaler will give you back an image tag
+    // with "Fish.jpg". So if you have a size prefix, ie "220px-" you know it's smaller
+    // than the canonical. So we can infer that "Fish.jpg" is large enough if
+    // "220px-Fish.jpg" is large enough.
+    if (![self hasEstimatedSize] && [self isCanonical]) {
+        if ([[self largestNonCanonicalVariant] isLargeEnoughForGalleryInclusion]) {
+            return YES;
+        }
+    }
+    
     return [MWKImage isSizeLargeEnoughForGalleryInclusion:[self estimatedSize]];
 }
 

@@ -28,24 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
     
-    NSArray* images = [article.images.uniqueLargestVariants bk_select:^BOOL (MWKImage* image) {
+    NSArray* images = [article.images.uniqueLargestVariants bk_select:^BOOL (MWKImage* largestVariantImage) {
+        
         // Keep image if it's the article image even if we can't determine its size - we
         // always want to show article image as first "lead" image by gallery.
-        if ([article.image isEqualToImage:image]) {
+        if ([article.image isEqualToImage:largestVariantImage]) {
             return YES;
         }
         
-        if (!image.width || !image.height) {
-            // HAX: if this image MWKImage record doesn't have a width and height value (because
-            // it wasn't determined by parsing it from the article HTML's image url) see if the
-            // cache can tell us the size.
-            UIImage* img = [[WMFImageController wmf_appImageCache] imageFromDiskCacheForKey:image.sourceURLString];
-            image.width  = @(img.size.width);
-            image.height = @(img.size.height);
-            // Should we update the image's MWKImage record here so next time it *will* have the size?
-        }
-        
-        return [image isLargeEnoughForGalleryInclusion];
+        return [largestVariantImage isLargeEnoughForGalleryInclusion];
     }];
     
     self = [super wmf_initWithItemsAndReverseIfNeeded:images];
