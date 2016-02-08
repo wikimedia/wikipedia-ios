@@ -173,7 +173,7 @@
     MWKSite* migratedSite       = [self.migrator migrateArticleSite:oldArticle];
     NSArray* oldArticleSections = [oldArticle sectionsBySectionId];
 
-    assertThat(@(migratedArticle.sections.count), is(equalToInt(oldArticleSections.count)));
+    assertThat(@(migratedArticle.sections.count), is(equalToUnsignedInteger(oldArticleSections.count)));
     [oldArticleSections enumerateObjectsUsingBlock:^(Section* oldSection, NSUInteger idx, BOOL* stop) {
         MWKSection* migratedSection = migratedArticle.sections[idx];
         assertThat(@(migratedSection.sectionId), is(oldSection.sectionId));
@@ -185,7 +185,7 @@
         assertThat(migratedSection.line, is(oldSection.title));
         assertThat(migratedSection.text, is(oldSection.html));
 
-        assertThat(@(migratedSection.images.count), is(equalToUnsignedInt(oldSection.sectionImage.count)));
+        assertThat(@(migratedSection.images.count), is(equalToUnsignedInteger(oldSection.sectionImage.count)));
         for (SectionImage* sectionImage in oldSection.sectionImage) {
             MWKImage* migratedSectionImage = [migratedSection.images imageWithURL:sectionImage.image.sourceUrl];
             assertThat(migratedSectionImage, is(notNilValue()));
@@ -209,7 +209,7 @@
 - (void)verifyArticleSectionAndLeadImages:(MWKArticle*)migratedArticle correspondsToOldArticle:(Article*)oldArticle {
     NSArray* oldArticleImages          = [oldArticle allImages];
     NSUInteger const thumbnailModifier = oldArticle.thumbnailImage ? 1 : 0;
-    assertThat(@(migratedArticle.images.count), is(equalToInt(oldArticleImages.count + thumbnailModifier)));
+    assertThat(@(migratedArticle.images.count), is(equalToUnsignedInteger(oldArticleImages.count + thumbnailModifier)));
     for (NSUInteger i = thumbnailModifier; i < oldArticleImages.count; i++) {
         Image* oldImage         = oldArticleImages[i];
         MWKImage* migratedImage = migratedArticle.images[i + thumbnailModifier];
