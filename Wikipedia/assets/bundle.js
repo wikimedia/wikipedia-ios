@@ -207,7 +207,11 @@ function maybeSendMessageForTarget(event, hrefTarget){
         bridge.sendMessage( 'linkClicked', { 'href': href });
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
-        bridge.sendMessage('imageClicked', { 'url': url });
+         bridge.sendMessage('imageClicked', {
+                            'url': url,
+                            'width': (event.target.naturalWidth / window.devicePixelRatio),
+                            'height': (event.target.naturalHeight / window.devicePixelRatio)
+                            });
     } else if (href) {
         bridge.sendMessage( 'linkClicked', { 'href': href });
     } else {

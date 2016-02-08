@@ -166,6 +166,10 @@
 
 - (BOOL)isLeadImage;
 
+- (BOOL)isLargeEnoughForGalleryInclusion;
+
++ (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size;
+
 @end
 
 #pragma mark - Deprecated Methods

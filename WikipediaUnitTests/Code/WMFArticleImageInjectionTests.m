@@ -110,7 +110,7 @@
     [article importAndSaveImagesFromSectionHTML];
 
     // expected number is observed & recorded,
-    assertThat(@(article.images.count), is(@95));
+    assertThat(@(article.images.count), is(@90));
     [self.dataStore removeFolderAtBasePath];
 }
 

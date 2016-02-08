@@ -69,6 +69,10 @@ public class WMFImageController : NSObject {
                                   namespace: defaultNamespace)
     }()
 
+    public func syncCachedImageWithURL(url: String) -> UIImage? {
+        return imageManager.imageCache.imageFromDiskCacheForKey(url)
+    }
+    
     public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]
 
     public class func sharedInstance() -> WMFImageController {
