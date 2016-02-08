@@ -547,6 +547,13 @@ NSString* const WMFLicenseTitleOnENWiki =
                 return;
             }
 
+            NSNumber* imageWidth = payload[@"width"];
+            NSNumber* imageHeight = payload[@"height"];
+            CGSize imageSize = CGSizeMake(imageWidth.floatValue, imageHeight.floatValue);
+            if (![MWKImage isSizeLargeEnoughForGalleryInclusion:imageSize]) {
+                return;
+            }
+
             NSString* selectedImageURL = payload[@"url"];
             NSCParameterAssert(selectedImageURL.length);
             if (!selectedImageURL.length) {
@@ -558,32 +565,6 @@ NSString* const WMFLicenseTitleOnENWiki =
         }];
     }
     return _bridge;
-}
-
-#pragma mark Web view html content live location retrieval
-
-- (void)printLiveContentLocationTestingOutputToConsole {
-    // Test with the top image (presently) on the San Francisco article.
-    // (would test p.x and p.y against CGFLOAT_MAX to ensure good value was retrieved)
-    CGPoint p = [self.webView getScreenCoordsForHtmlImageWithSrc:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/da/SF_From_Marin_Highlands3.jpg/280px-SF_From_Marin_Highlands3.jpg"];
-    NSLog(@"p = %@", NSStringFromCGPoint(p));
-
-    CGPoint p2 = [self.webView getWebViewCoordsForHtmlImageWithSrc:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/da/SF_From_Marin_Highlands3.jpg/280px-SF_From_Marin_Highlands3.jpg"];
-    NSLog(@"p2 = %@", NSStringFromCGPoint(p2));
-
-    // Also test location of second section on page.
-    // (would test r with CGRectIsNull(r) to ensure good values were retrieved)
-    CGRect r = [self.webView getScreenRectForHtmlElementWithId:@"section_heading_and_content_block_1"];
-    NSLog(@"r = %@", NSStringFromCGRect(r));
-
-    CGRect r2 = [self.webView getWebViewRectForHtmlElementWithId:@"section_heading_and_content_block_1"];
-    NSLog(@"r2 = %@", NSStringFromCGRect(r2));
-}
-
-- (void)debugScrollLeadSanFranciscoArticleImageToTopLeft {
-    // Awesome! Now works regarless of pinch-zoom scale!
-    CGPoint p = [self.webView getWebViewCoordsForHtmlImageWithSrc:@"//upload.wikimedia.org/wikipedia/commons/thumb/d/da/SF_From_Marin_Highlands3.jpg/280px-SF_From_Marin_Highlands3.jpg"];
-    [self.webView.scrollView setContentOffset:p animated:YES];
 }
 
 #pragma mark - Display article
@@ -892,5 +873,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     }
     return [super canPerformAction:action withSender:sender];
 }
+
+
 
 @end
