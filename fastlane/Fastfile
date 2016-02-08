@@ -16,7 +16,13 @@ platform :ios do
 
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
-    make 'lint' unless test_disabled?
+    make 'lint'
+    xcodebuild(
+      workspace: "Wikipedia.xcworkspace",
+      scheme: "Wikipedia",
+      configuration: "Debug",
+      analyze: true
+    )
   end
 
   desc "Runs unit tests, optionally generating a JUnit report."

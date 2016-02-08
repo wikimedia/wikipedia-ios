@@ -5952,11 +5952,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
-					"-Werror=switch",
-					"-Werror=arc-retain-cycles",
-					"-Werror=incompatible-pointer-types",
-					"-Werror=incomplete-implementation",
-					"-Werror=nonnull",
+					"-Werror",
+					"-Wno-error=nullability-completeness",
+					"-Wno-error=deprecated-declarations",
 				);
 				WMF_HOCKEYAPP_IDENTIFIER = 2295c3698bbd0b050f257772dd2bdbb2;
 				WRAPPER_EXTENSION = app;
@@ -6068,11 +6066,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = (
 					"$(inherited)",
-					"-Werror=switch",
-					"-Werror=arc-retain-cycles",
-					"-Werror=incompatible-pointer-types",
-					"-Werror=incomplete-implementation",
-					"-Werror=nonnull",
+					"-Werror",
+					"-Wno-error=nullability-completeness",
+					"-Wno-error=deprecated-declarations",
 				);
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
@@ -6297,11 +6293,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WARNING_CFLAGS = (
 					"$(inherited)",
-					"-Werror=switch",
-					"-Werror=arc-retain-cycles",
-					"-Werror=incompatible-pointer-types",
-					"-Werror=incomplete-implementation",
-					"-Werror=nonnull",
+					"-Werror",
+					"-Wno-error=nullability-completeness",
+					"-Wno-error=deprecated-declarations",
 				);
 				WMF_HOCKEYAPP_IDENTIFIER = 7138507aefac3ee74c295f75a0b857e4;
 				WRAPPER_EXTENSION = app;
@@ -6333,11 +6327,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Wikipedia/Code/Wikipedia-Bridging-Header.h";
 				WARNING_CFLAGS = (
 					"$(inherited)",
-					"-Werror=switch",
-					"-Werror=arc-retain-cycles",
-					"-Werror=incompatible-pointer-types",
-					"-Werror=incomplete-implementation",
-					"-Werror=nonnull",
+					"-Werror",
+					"-Wno-error=nullability-completeness",
+					"-Wno-error=deprecated-declarations",
 				);
 				WMF_HOCKEYAPP_IDENTIFIER = 5d80da08a6761e5c6456736af7ebad88;
 				WRAPPER_EXTENSION = app;
