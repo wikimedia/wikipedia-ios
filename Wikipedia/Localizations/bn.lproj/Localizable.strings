@@ -131,6 +131,7 @@
 "main-menu-more" = "আরও...";
 "main-menu-heading-debug" = "ডিবাগ";
 "main-menu-debug-crash" = "ক্র্যাশ";
+"saved-title" = "সংরক্ষিত";
 "saved-pages-title" = "সংরক্ষিত পাতা";
 "saved-pages-clear-confirmation-heading" = "সংরক্ষিত সব আইটেম অপসারণ করবেন?";
 "saved-pages-clear-confirmation-sub-heading" = "এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না!";
@@ -141,6 +142,7 @@
 "saved-pages-refresh-cancel-alert-button" = "বুঝেছি";
 "saved-pages-description" = "সংরক্ষিত পাতা বেশ ভালো। তাদের বুকমার্ক হিসাবে চিন্তা করুন যা এমনকি আপনি অফলাইনে থাকাকালীন আপনি পড়তে পারেন।";
 "saved-pages-none" = "এখনো কোন পাতা সংরক্ষিত হয়নি।";
+"history-title" = "ইতিহাস";
 "page-history-title" = "নিবন্ধের ইতিহাস";
 "page-history-downloading" = "নিবন্ধের ইতিহাস লোড হচ্ছে...";
 "navbar-title-mode-edit-wikitext" = "সম্পাদনা";
@@ -158,7 +160,7 @@
 "edit-summary-choice-fixed-grammar" = "ব্যাকরণ ঠিক করা হয়েছে";
 "edit-summary-choice-fixed-inaccuracy" = "অশুদ্ধ ঠিক করা";
 "edit-summary-choice-fixed-styling" = "নকশা ঠিক করা হয়েছে";
-"edit-summary-choice-fixed-typos" = "টাইপো ঠিক করা হয়েছে";
+"edit-summary-choice-fixed-typos" = "বানান ঠিক করা হয়েছে";
 "edit-summary-choice-added-category" = "বিষয়শ্রেণী যোগ করা হয়েছে";
 "edit-summary-choice-added-missing-info" = "অনুপস্থিত তথ্য যোগ করা হয়েছে";
 "edit-summary-choice-added-clarification" = "ব্যাখ্যা যোগ করা";
@@ -272,8 +274,11 @@
 "page-similar-titles" = "অনুরূপ পাতাগুলি";
 "captcha-reload" = "আরেকটি ক্যাপচা দেখান";
 "captcha-prompt" = "উপরের ছবি থেকে ক্যাপচা টেক্সট লিখুন";
+"welcome-whats-new-title" = "উইকিপিডিয়ায় স্বাগতম";
+"welcome-whats-new-whats-new" = "নতুন কি";
 "welcome-whats-new-bullet-one-more-info-button-text" = "এটি কিভাবে কাজ করে...";
 "welcome-whats-new-bullet-one-more-info-done-button" = "বুঝেছি";
+"welcome-languages-more-info-done-button" = "বুঝেছি";
 "welcome-languages-button-title" = "অগ্রসর হোন";
 // Fuzzy
 "welcome-usage-reports-button-title" = "সম্পন্ন";

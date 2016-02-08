@@ -5,6 +5,7 @@
 // Author: Bsitzmann
 // Author: Dicto23456
 // Author: Dyaydyasasha2015
+// Author: JackLantern
 // Author: Kopcap94
 // Author: Macofe
 // Author: Mariya
@@ -300,6 +301,7 @@
 "captcha-reload" = "Показать другой код";
 "captcha-prompt" = "Введите текст капчи с изображения выше";
 "mwk-empty-title-error" = "Не удаётся выполнить операцию с пустым заголовком.";
+"home-title" = "Исследуйте!";
 "home-continue-reading-heading" = "Продолжить чтение";
 "home-continue-related-heading" = "Потому что вы читали статью $1";
 "home-more-like-footer" = "Ещё похожее на $1";
@@ -313,6 +315,8 @@
 "potd-description-prefix" = "Изображение дня за $1";
 "welcome-whats-new-title" = "Добро пожаловать в Википедию";
 "welcome-whats-new-whats-new" = "ЧТО НОВОГО";
+"welcome-whats-new-bullet-one-title" = "Новый способ знакомства";
+"welcome-whats-new-bullet-one-text" = "Откройте для себя новые и интересные именно для Вас статьи на экране «Исследуйте!».";
 "welcome-whats-new-bullet-one-more-info-button-text" = "Как это работает…";
 "welcome-whats-new-bullet-two-title" = "Разработано для чтения";
 "welcome-whats-new-bullet-two-text" = "Обновлённый дизайн, в котором особое внимание уделено ещё большему удобству чтения.";

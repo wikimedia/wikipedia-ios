@@ -10,6 +10,7 @@
 // Author: Giacomo Checchin
 // Author: Gianfranco
 // Author: Giuseppe Forte
+// Author: JackLantern
 // Author: Macofe
 // Author: Martinligabue
 // Author: Nastoshka
@@ -26,6 +27,7 @@
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
 "article-languages-filter-placeholder" = "Filtra lingua";
 "article-read-more-title" = "Leggi altro";
+"article-about-title" = "Su questa voce";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
 "article-unable-to-load-article" = "Impossibile caricare questa pagina.";
 "article-related-articles-title" = "Voci correlate";
@@ -157,6 +159,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Capito";
 "saved-pages-description" = "Le pagine salvate sono fantastiche. Considerale come preferiti che puoi leggere anche quando sei offline.";
 "saved-pages-none" = "Nessuna pagina salvata ancora.";
+"saved-pages-image-download-error" = "Impossibile scaricare le immagini per questa pagina salvata.";
 "history-title" = "Cronologia";
 "page-history-title" = "Cronologia dell'articolo";
 "page-history-downloading" = "Caricamento della cronologia dell'articolo...";
@@ -321,12 +324,16 @@
 "welcome-whats-new-title" = "Benvenuto su Wikipedia";
 "welcome-whats-new-whats-new" = "COSA C'È DI NUOVO";
 "welcome-whats-new-bullet-one-title" = "Un nuovo modo di esplorare";
+"welcome-whats-new-bullet-one-text" = "Scopri nuove ed interessanti voci solo per te sulla schermata Esplora.";
 "welcome-whats-new-bullet-one-more-info-button-text" = "Come funziona...";
 "welcome-whats-new-bullet-two-title" = "Progettato per la lettura";
+"welcome-whats-new-bullet-two-text" = "Design aggiornato focalizzato sulla fornitura di una grande esperienza di lettura.";
 "welcome-whats-new-button-title" = "Inizia";
+"welcome-whats-new-bullet-one-more-info-text" = "Quando visiti una voce, le voci correlate vengono aggiunte automaticamente al tuo feed. Questo non cambia il modo in cui raccogliamo le tue informazioni, e la tua cronologia di lettura è ancora privata.";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Capito";
 "welcome-languages-title" = "Lingue per la ricerca";
 "welcome-languages-more-info-button-text" = "Dimmi di più";
+"welcome-languages-more-info-text" = "Le voci di Wikipedia sono spesso disponibili in più lingue. Scegli le lingue che desideri utilizzare durante la ricerca. Potrai modificarle in seguito.";
 "welcome-languages-more-info-done-button" = "Capito";
 "welcome-languages-more-languages-button-title" = "Aggiungi più lingue";
 "welcome-languages-button-title" = "Continua";
@@ -337,10 +344,12 @@
 "welcome-usage-reports-button-title" = "Inizia";
 "welcome-usage-reports-privacy-policy-button-text" = "La tua privacy è importante per noi";
 "empty-no-feed-title" = "Nessuna connessione internet";
+"empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";
 "empty-no-feed-action-message" = "Puoi leggere le pagine salvate nel frattempo";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-search-results-message" = "Spiacenti, impossibile caricare i risultati";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
 "empty-no-saved-pages-message" = "Salva le pagine per vederle in seguito, anche non connesso";
 "empty-no-history-title" = "Nessuna cronologia da mostrare";
+"empty-no-history-message" = "Tieni traccia di quello che hai letto qui";
 "alert-no-internet" = "Non c'è alcuna connessione a internet";

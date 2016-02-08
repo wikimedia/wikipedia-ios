@@ -26,6 +26,7 @@
 "account-creation-saving" = "Tê tomarkirin...";
 "account-creation-username-placeholder-text" = "Navê bikarhêner";
 "account-creation-password-placeholder-text" = " Şîfre";
+"login-password-empty" = "Bo têketinê nasnav pêwist e.";
 "login-user-blocked" = "Bikarhêner hatiye astengkirin.";
 "login-account-creation" = "Hesabê te tune ye? Tevlî Wîkîpediyayê bibe.";
 "login-username-placeholder-text" = "Navê bikarhêner";
@@ -45,7 +46,6 @@
 "search-titles" = "Sernav";
 "search-within-articles" = "Di nav gotaran de";
 "search-did-you-mean" = "Gelo mebesta te $1 bû?";
-// Fuzzy
 "search-recent-title" = "Lêgerînên dawî";
 "search-recent-clear-cancel" = "Betal bike";
 "search-recent-clear-delete-all" = "Hemûyan Jê Bibe";
@@ -57,12 +57,12 @@
 "main-menu-language-selection-saved" = "Beşa ziman hate tomarkirin";
 "main-menu-account-title-logged-out" = "Hesab";
 "main-menu-account-title-logged-in" = "Têketî wek: $1";
-// Fuzzy
-"main-menu-account-login" = "Têkeve";
+"main-menu-account-login" = "Têkeve Wîkîpediyayê";
 "main-menu-account-logout" = "Derkeve";
 "main-menu-show-history" = "dawî";
 "main-menu-show-saved" = "Rûpelên tomarkirî";
 "main-menu-random" = "Ketober";
+"main-menu-about" = "Di derbarê sepana Wîkîpediyayê de";
 "main-menu-privacy-policy" = "Siyaseta taybetîtiyê";
 "main-menu-terms-of-use" = "Mercên bikaranînê";
 "main-menu-heading-zero" = "Wîkîpediya Zero";
@@ -71,6 +71,8 @@
 "saved-pages-title" = "Rûpelên tomarkirî";
 "saved-pages-clear-cancel" = "Betal bike";
 "saved-pages-clear-delete-all" = "Hemûyan Jê Bibe";
+"saved-pages-refresh-cancel-alert-title" = "Rojanekirin hate betalkirin";
+"history-title" = "Dîrok";
 "page-history-title" = "Dîroka gotarê";
 "page-history-downloading" = "Dîroka gotarê tê barkirin...";
 "navbar-title-mode-edit-wikitext" = "Biguherîne";

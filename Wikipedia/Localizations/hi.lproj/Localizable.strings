@@ -6,6 +6,7 @@
 // Author: Sfic
 // Author: Vivek Rai
 // Author: Wikiuser13
+// Author: YmKavishwar
 // Author: संजीव कुमार
 
 "article-languages-label" = "भाषा चुनें";
@@ -38,7 +39,7 @@
 "login-password-placeholder-text" = "कूटशब्द";
 "wikitext-upload-captcha-error" = "कॅप्चा सत्यापन की आवश्यकता है";
 "wikitext-upload-save" = "सहेज रहा है...";
-"wikitext-upload-save-sign-in" = "लॉग इन";
+"wikitext-upload-save-sign-in" = "प्रवेश";
 "wikitext-upload-save-terms-name" = "उपयोग की शर्तें";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-cancel" = "रद्द करें";
@@ -70,7 +71,7 @@
 "saved-pages-refresh-cancel-alert-button" = "समझ में आया";
 "page-history-title" = "लेख इतिहास";
 "navbar-title-mode-edit-wikitext" = "सम्पादन";
-"navbar-title-mode-login" = "लॉग इन";
+"navbar-title-mode-login" = "प्रवेश";
 "navbar-title-mode-create-account" = "खाता बनाएँ";
 "navbar-title-mode-edit-wikitext-preview" = "पूर्वावलोकन";
 "navbar-title-mode-edit-wikitext-summary" = "अपने संपादन का वर्णन करें";
