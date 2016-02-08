@@ -294,7 +294,7 @@
 }
 
 -(UIImage*)imageFromAppImageCache {
-    return [[WMFImageController wmf_appImageCache] imageFromDiskCacheForKey:self.sourceURLString];
+    return [WMFImageController syncCachedImageWithURL:self.sourceURLString];
 }
 
 - (BOOL)isLargeEnoughForGalleryInclusion {

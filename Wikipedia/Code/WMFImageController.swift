@@ -69,8 +69,12 @@ public class WMFImageController : NSObject {
                                   namespace: defaultNamespace)
     }()
 
-    public static func wmf_appImageCache() -> SDImageCache {
+    static func wmf_appImageCache() -> SDImageCache {
         return SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
+    }
+
+    public static func syncCachedImageWithURL(url: String) -> UIImage? {
+        return wmf_appImageCache().imageFromDiskCacheForKey(url)
     }
     
     public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]
