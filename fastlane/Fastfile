@@ -21,6 +21,8 @@ platform :ios do
       workspace: "Wikipedia.xcworkspace",
       scheme: "Wikipedia",
       configuration: "Debug",
+      sdk: 'iphonesimulator',
+      destination: 'platform=iOS Simulator,OS=9.2,name=iPhone 6',
       analyze: true
     )
   end
