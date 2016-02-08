@@ -10,7 +10,7 @@ lint:
 	@scripts/uncrustify_all.sh
 
 submodules: ##Install or update submodules
-	git submodule update --init --recursive
+	# No-op, uncomment to re-enable submodules git submodule update --init --recursive
 
 prebuild: ##Install dependencies needed to build the project
 prebuild: submodules
