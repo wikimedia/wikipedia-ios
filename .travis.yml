@@ -22,9 +22,6 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-after_failure:
-  - tail -n 500 ./build/xcodebuild.og
-
 branches:
   only:
     - master

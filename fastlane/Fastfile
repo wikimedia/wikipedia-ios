@@ -213,7 +213,4 @@ platform :ios do
 
   end
 
-  error do |lane, exception|
-    `cat build/xcodebuild.log` if lane == "verify"
-  end
 end
