@@ -11,7 +11,7 @@
 
 #import "UIViewController+WMFSearch.h"
 #import "WMFSearchViewController.h"
-#import "MWKDataStore+TemporaryDataStore.h"
+#import "MWKDataStore+TempDataStoreForEach.h"
 #import "SessionSingleton.h"
 
 @interface UIViewController (WMFSharedTestAccess)
@@ -23,43 +23,77 @@
 
 QuickSpecBegin(UIViewController_WMFSearchButtonTests)
 
-static UIWindow * window = nil;
-static UIViewController* testVC = nil;
+#pragma mark - Utils
 
-beforeSuite(^{
-    [UIViewController wmf_setSearchButtonDataStore:[MWKDataStore temporaryDataStore]];
+/**
+ *  Dismiss the shared search view controller and wait for its view to leave the window.
+ *
+ *  The added wait is necessary because the view doesn't disappear synchronously even though the dismissal is not animated.
+ */
+dispatch_block_t dismissSearchAndWait = ^ {
+    [[UIViewController sharedSearchViewController] dismissViewControllerAnimated:NO completion:nil];
+
+    [self expectationForPredicate:
+     [NSPredicate predicateWithBlock:
+      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
+          return evaluatedObject.view.window == nil;
+      }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+};
+
+/**
+ *  Present the shared search view controller from a given presenting view controller and wait for its view to enter the window.
+ *
+ *  The added wait is necessary because the view doesn't appear synchronously even though the presentation is not animated.
+ */
+void(^presentSearchFromVCAndWait)(UIViewController* presentingVC) = ^ (UIViewController* presentingVC) {
+    [presentingVC wmf_showSearchAnimated:NO];
+
+    [self expectationForPredicate:
+     [NSPredicate predicateWithBlock:
+      ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
+          return evaluatedObject.view.window != nil;
+      }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+};
+
+#pragma mark - Setup
+
+/**
+ *  Dummy @c UIViewController which is used to present search.
+ *
+ *  Recycled between tests.
+ *
+ *  @warning Do not call @c wmf_showSearch: directly on this or other view controllers during tests. Use the utility
+ *           functions provided above to ensure the search view is in the window before proceeding.
+ */
+__block UIViewController* testVC = nil;
+
+configureTempDataStoreForEach(tempDataStore, ^{
+    [UIViewController wmf_setSearchButtonDataStore:tempDataStore];
     testVC = [UIViewController new];
-    window = [[UIWindow alloc] init];
-    window.rootViewController = testVC;
-    [window makeKeyAndVisible];
+    [[[UIApplication sharedApplication] keyWindow] setRootViewController:testVC];
 });
 
 afterEach(^{
     // tear down search
     if ([UIViewController sharedSearchViewController].view.window) {
-        [[UIViewController sharedSearchViewController] dismissViewControllerAnimated:NO completion:nil];
-
-        [self expectationForPredicate:
-         [NSPredicate predicateWithBlock:
-          ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-            return evaluatedObject.view.window == nil;
-        }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
-        [self waitForExpectationsWithTimeout:10 handler:nil];
+        dismissSearchAndWait();
     }
-
     [UIViewController wmf_clearSearchViewController];
-    [testVC.view.window resignKeyWindow];
+    testVC.view.window.rootViewController = nil;
 });
 
+#pragma mark - Tests
 
 describe(@"search button", ^{
     it(@"should have the same (correct) site when presented consecutively", ^{
-        [testVC wmf_showSearchAnimated:NO];
+        presentSearchFromVCAndWait(testVC);
 
         WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
-        [oldSearchVC dismissViewControllerAnimated:NO completion:NULL];
+        dismissSearchAndWait();
 
-        [testVC wmf_showSearchAnimated:NO];
+        presentSearchFromVCAndWait(testVC);
 
         expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
         
@@ -68,35 +102,40 @@ describe(@"search button", ^{
     });
 
     it(@"should have correct site when presented after changes to search site", ^{
-        [testVC wmf_showSearchAnimated:NO];
+        presentSearchFromVCAndWait(testVC);
 
         WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
-        [oldSearchVC dismissViewControllerAnimated:NO completion:NULL];
+
+        dismissSearchAndWait();
 
         [[SessionSingleton sharedInstance] setSearchLanguage:
          [[[SessionSingleton sharedInstance] searchLanguage] stringByAppendingString:@"a"]];
 
-        [testVC wmf_showSearchAnimated:NO];
+        presentSearchFromVCAndWait(testVC);
 
         expect([UIViewController sharedSearchViewController]).toNot(equal(oldSearchVC));
     });
 
     it(@"should be presentable from different view controllers", ^{
-        [testVC wmf_showSearchAnimated:NO];
+        presentSearchFromVCAndWait(testVC);
 
         WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
-        [oldSearchVC dismissViewControllerAnimated:NO completion:NULL];
+
+        dismissSearchAndWait();
 
         UIViewController* otherTestVC = [UIViewController new];
+
         testVC.view.window.rootViewController = otherTestVC;
-        [otherTestVC wmf_showSearchAnimated:NO];
+
+        presentSearchFromVCAndWait(otherTestVC);
+
         expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
     });
 });
 
 describe(@"global searchVC", ^{
     void (^ verifyGlobalVCOutOfWindowResetAfterNotificationNamed)(NSString*) = ^(NSString* notificationName) {
-        [testVC wmf_showSearchAnimated:NO];
+        presentSearchFromVCAndWait(testVC);
 
         expect([UIViewController sharedSearchViewController]).toNot(beNil());
 
