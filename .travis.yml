@@ -25,3 +25,9 @@ after_success:
 branches:
   only:
     - master
+
+matrix:
+  allow_failures:
+    # linting & static analysis don't need to fail a build, just give feedback
+    - env: IOS_VER="9.2" FL_ARGS="analyze"
+
