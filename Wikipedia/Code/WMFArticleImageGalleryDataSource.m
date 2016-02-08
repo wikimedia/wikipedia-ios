@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic emptyView;
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
-    self = [super wmf_initWithItemsAndReverseIfNeeded:article.images.uniqueLargestVariants];
+    self = [super initWithItemsAndReverseIfNeeded:article.images.uniqueLargestVariants];
     if (self) {
         self.article   = article;
         self.emptyView = [[UIImageView alloc] init];
