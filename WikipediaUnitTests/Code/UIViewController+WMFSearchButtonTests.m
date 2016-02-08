@@ -62,9 +62,8 @@ describe(@"search button", ^{
         [testVC wmf_showSearchAnimated:NO];
 
         expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
-        
-        expect([UIViewController sharedSearchViewController].searchSite).to(equal(oldSearchVC.searchSite));
 
+        expect([UIViewController sharedSearchViewController].searchSite).to(equal(oldSearchVC.searchSite));
     });
 
     it(@"should have correct site when presented after changes to search site", ^{

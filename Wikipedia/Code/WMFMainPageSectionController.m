@@ -124,7 +124,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
     return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 

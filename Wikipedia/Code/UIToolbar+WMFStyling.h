@@ -2,6 +2,6 @@
 
 @interface UIToolbar (WMFStyling)
 
--(void)wmf_applySolidWhiteBackgroundWithTopShadow;
+- (void)wmf_applySolidWhiteBackgroundWithTopShadow;
 
 @end

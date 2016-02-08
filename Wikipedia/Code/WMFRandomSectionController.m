@@ -127,7 +127,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
     return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 
