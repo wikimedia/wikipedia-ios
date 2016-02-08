@@ -1,30 +1,32 @@
 
 #import <UIKit/UIKit.h>
-#import "WMFArticleSelectionDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MWKSite, MWKDataStore, WMFSearchViewController;
 
-@protocol WMFSearchPresentationDelegate <WMFArticleSelectionDelegate>
-
-- (MWKDataStore*)searchDataStore;
-
-@end
-
 @interface UIViewController (WMFSearchButton)
+
+/**
+ *  This datastore is passed to the search VC
+ *
+ *  @param dataStore The datastore
+ */
++ (void)wmf_setSearchButtonDataStore:(MWKDataStore*)dataStore;
 
 /**
  *  Standard way of creating a search button for installation in the receiver's toolbar or navigation bar.
  *
- *  @param delegate The delegate which provides data needed to create the search view controller.
- *
- *  @return A new bar button item which will call @c wmf_presentSearchViewController: when pressed.
+ *  @return A new bar button item which will call @c wmf_showSearchAnimated: when pressed.
  */
-- (UIBarButtonItem*)wmf_searchBarButtonItemWithDelegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate;
+- (UIBarButtonItem*)wmf_searchBarButtonItem;
 
-
-- (void)wmf_showSearchAnimated:(BOOL)animated delegate:(UIViewController<WMFSearchPresentationDelegate>*)delegate;
+/**
+ *  Present a search view controller
+ *
+ *  @param animated Animate the transition
+ */
+- (void)wmf_showSearchAnimated:(BOOL)animated;
 
 @end
 

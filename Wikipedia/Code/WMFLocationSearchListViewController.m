@@ -77,10 +77,6 @@
     [self.compassViewModel stopUpdates];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
-}
-
 - (NSString*)analyticsName {
     return @"Nearby";
 }

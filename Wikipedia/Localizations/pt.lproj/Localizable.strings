@@ -146,6 +146,7 @@
 "saved-pages-refresh-cancel-alert-button" = "Percebido";
 "saved-pages-description" = "As páginas guardadas são bastante úteis. Pense como se fossem marcadores que pode ler mesmo quando estiver offline.";
 "saved-pages-none" = "Sem páginas guardadas ainda.";
+"saved-pages-image-download-error" = "Falha ao descarregar as imagens desta página guardada.";
 "history-title" = "Histórico";
 "page-history-title" = "Histórico do artigo";
 "page-history-downloading" = "A carregar o histórico do artigo...";
@@ -288,6 +289,9 @@
 "hockeyapp-alert-privacy" = "Privacidade de $1";
 "page-issues" = "Problemas da página";
 "page-similar-titles" = "Páginas semelhantes";
+"page-read-in-other-languages" = "Ler em $1 idiomas";
+"page-last-edited" = "Editado há $1 dias";
+"page-edit-history" = "Histórico completo";
 "captcha-reload" = "Mostrar outro código";
 "captcha-prompt" = "Insira o código CAPTCHA da imagem acima";
 "home-title" = "Explorar";
@@ -304,8 +308,8 @@
 "welcome-whats-new-bullet-one-more-info-button-text" = "Como isto funciona...";
 "welcome-whats-new-button-title" = "Começar";
 "welcome-whats-new-bullet-one-more-info-done-button" = "Entendido!";
-// Fuzzy
-"welcome-languages-title" = "Escolha o seu idioma";
+"welcome-languages-title" = "Idiomas de pesquisa";
+"welcome-languages-more-info-button-text" = "Conte-me mais";
 "welcome-languages-more-info-done-button" = "Entendido!";
 "welcome-languages-more-languages-button-title" = "Adicionar mais idiomas";
 "welcome-languages-button-title" = "Continuar";
@@ -319,4 +323,7 @@
 "empty-no-feed-action-message" = "Entretanto, pode ler páginas que tenha guardadas";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-search-results-message" = "Desculpe, não foi possível carregar os resultados";
+"empty-no-saved-pages-title" = "Sem páginas guardadas ainda";
+"empty-no-saved-pages-message" = "Guarde páginas para ler mais tarde, mesmo que seja offline";
+"empty-no-history-title" = "Sem histórico para exibir";
 "alert-no-internet" = "Sem ligação à Internet.";

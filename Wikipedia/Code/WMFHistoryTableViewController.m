@@ -60,10 +60,6 @@
     return WMFEmptyViewTypeNoHistory;
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodUnknown;
-}
-
 - (NSString*)analyticsName {
     return @"Recent";
 }

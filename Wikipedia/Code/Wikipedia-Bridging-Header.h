@@ -19,7 +19,7 @@
 #import "NSError+WMFExtensions.h"
 
 // View Controllers
-#import "WMFArticleContainerViewController_Private.h"
+#import "WMFArticleViewController_Private.h"
 #import "WebViewController.h"
 
 // Diagnostics

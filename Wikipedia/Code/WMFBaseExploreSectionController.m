@@ -11,12 +11,17 @@
 #import "WMFEmptySectionTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
+#import "MWKDataStore.h"
+#import "MWKUserDataStore.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectionControllerException";
 
 @interface WMFBaseExploreSectionController ()
+
+@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
+
 /**
  *  The items visible to the WMFExploreViewController
  *  May contain placeholder items
@@ -35,17 +40,11 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 #pragma mark - Init
 
-- (instancetype)initWithItems:(NSArray*)items {
-    self = [self init];
-    if (self) {
-        [self.mutableItems addObjectsFromArray:items];
-    }
-    return self;
-}
-
-- (instancetype)init {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+    NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
+        self.dataStore = dataStore;
         self.mutableItems = [NSMutableArray array];
         if ([self numberOfPlaceholderCells] > 0) {
             [self setItemsToPlaceholders];
@@ -54,7 +53,24 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return self;
 }
 
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items {
+    NSParameterAssert(items);
+    self = [self initWithDataStore:dataStore];
+    if (self) {
+        [self.mutableItems addObjectsFromArray:items];
+    }
+    return self;
+}
+
 #pragma mark - WMFBaseExploreSectionController
+
+- (MWKSavedPageList*)savedPageList {
+    return self.dataStore.userDataStore.savedPageList;
+}
+
+- (MWKHistoryList*)historyList{
+    return self.dataStore.userDataStore.historyList;
+}
 
 - (NSUInteger)numberOfPlaceholderCells {
     return 3;
@@ -136,10 +152,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     } else {
         [self configureCell:cell withItem:self.items[indexPath.row] atIndexPath:indexPath];
     }
-}
-
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodUnknown;
 }
 
 - (BOOL)shouldSelectItemAtIndexPath:(NSIndexPath*)indexPath {

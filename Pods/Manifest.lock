@@ -38,7 +38,7 @@ PODS:
   - Mantle/extobjc (2.0.6)
   - Masonry (0.6.2)
   - MGSwipeTableCell (1.5.3)
-  - Nimble (3.0.0)
+  - Nimble (3.1.0)
   - Nocilla (0.10.0)
   - OAStackView (0.2.0):
     - KVOController (~> 1.0)
@@ -95,7 +95,7 @@ DEPENDENCIES:
   - Mantle (~> 2.0.0)
   - Masonry (= 0.6.2)
   - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
-  - Nimble (~> 3.0.0)
+  - Nimble (~> 3.1.0)
   - Nocilla
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
@@ -158,7 +158,7 @@ SPEC CHECKSUMS:
   Mantle: 299966b00759634931699f69cb6a30b9239b944d
   Masonry: 362e8a1cc0beada4a4c4832d5e863da2a51533be
   MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d

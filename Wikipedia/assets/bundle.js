@@ -207,7 +207,11 @@ function maybeSendMessageForTarget(event, hrefTarget){
         bridge.sendMessage( 'linkClicked', { 'href': href });
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
          var url = event.target.getAttribute('src');
-        bridge.sendMessage('imageClicked', { 'url': url });
+         bridge.sendMessage('imageClicked', {
+                            'url': url,
+                            'width': (event.target.naturalWidth / window.devicePixelRatio),
+                            'height': (event.target.naturalHeight / window.devicePixelRatio)
+                            });
     } else if (href) {
         bridge.sendMessage( 'linkClicked', { 'href': href });
     } else {
@@ -359,6 +363,21 @@ function scrollToFragment(fragmentId){
 }
 
 global.scrollToFragment = scrollToFragment;
+
+function accessibilityCursorToFragment(fragmentId){
+    /* Attempt to move accessibility cursor to fragment. We need to /change/ focus,
+     in order to have the desired effect, so we first give focus to the body element,
+     then move it to the desired fragment. */
+    var focus_element = document.getElementById(fragmentId);
+    var other_element = document.body;
+    other_element.setAttribute('tabindex', 0);
+    other_element.focus();
+    focus_element.setAttribute('tabindex', 0);
+    focus_element.focus();
+}
+
+global.accessibilityCursorToFragment = accessibilityCursorToFragment;
+
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],7:[function(require,module,exports){
 function Transformer() {

@@ -5,12 +5,14 @@
 #import "MWKSite.h"
 #import "MWKSavedPageList.h"
 #import "MWKSearchResult.h"
+#import "MWKDataStore.h"
 
 #import "WMFArticlePreviewTableViewCell.h"
 #import "WMFArticlePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFSaveButtonController.h"
+#import "WMFArticleBrowserViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +21,6 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 @interface WMFRandomSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
-@property (nonatomic, strong) MWKSavedPageList* savedPageList;
 @property (nonatomic, strong) WMFRandomArticleFetcher* fetcher;
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
@@ -30,13 +31,10 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @implementation WMFRandomSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
-    NSParameterAssert(site);
-    NSParameterAssert(savedPageList);
-    self = [super init];
+- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
+    self = [super initWithDataStore:dataStore];
     if (self) {
-        self.searchSite    = site;
-        self.savedPageList = savedPageList;
+        self.searchSite = site;
     }
     return self;
 }
@@ -106,10 +104,6 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodRandom;
-}
-
 - (NSString*)analyticsName {
     return @"Random";
 }
@@ -130,6 +124,11 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
         [self.cell setLoading:NO];
         return error;
     });
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 
 - (void)didEndDisplayingSection {

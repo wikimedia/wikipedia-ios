@@ -49,6 +49,8 @@
 
 + (instancetype)wmf_customGray;
 
++ (instancetype)wmf_readerWGray;
+
 + (instancetype)wmf_placeholderImageTintColor;
 
 + (instancetype)wmf_placeholderImageBackgroundColor;

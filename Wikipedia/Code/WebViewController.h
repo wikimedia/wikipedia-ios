@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL isPeeking;
 
+@property (nonatomic) UIEdgeInsets contentInsets;
+
 /**
  * Currently-selected text in the webview, if there is any.
  * @return The selection if it's longer than `kMinimumTextSelectionLength`, otherwise an empty string.
@@ -56,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated;
 
+- (void)accessibilityCursorToSection:(MWKSection*)section;
+
 - (nullable MWKSection*)currentVisibleSection;
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
@@ -88,7 +92,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) NSArray<UIViewController*>* footerViewControllers;
 
+- (UIView*)footerAtIndex:(NSUInteger)index;
 - (void)scrollToFooterAtIndex:(NSUInteger)index;
+- (void)accessibilityCursorToFooterAtIndex:(NSUInteger)index;
 
 - (NSInteger)visibleFooterIndex;
 

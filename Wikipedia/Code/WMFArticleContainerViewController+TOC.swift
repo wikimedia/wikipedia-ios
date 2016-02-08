@@ -2,7 +2,7 @@
 import Foundation
 import BlocksKit
 
-extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDelegate {
+extension WMFArticleViewController : WMFTableOfContentsViewControllerDelegate {
 
     public func tableOfContentsControllerWillDisplay(controller: WMFTableOfContentsViewController){
         if let item: TableOfContentsItem = webViewController.currentVisibleSection() {
@@ -19,19 +19,29 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
 
     public func tableOfContentsController(controller: WMFTableOfContentsViewController,
                                           didSelectItem item: TableOfContentsItem) {
-
+        var dismissVCCompletionHandler: (() -> Void)?
         if let section = item as? MWKSection {
             // HAX: webview has issues scrolling when browser view is out of bounds, disable animation if needed
             self.webViewController.scrollToSection(section, animated: self.webViewController.isWebContentVisible)
+            dismissVCCompletionHandler = {
+                // HAX: This is terrible, but iOS events not under our control would steal our focus if we didn't wait long enough here and due to problems in UIWebView, we cannot work around it either.
+                dispatchOnMainQueueAfterDelayInSeconds(1) {
+                    self.webViewController.accessibilityCursorToSection(section)
+                }
+            }
         } else if let footerItem = item as? TableOfContentsFooterItem {
-            self.webViewController.scrollToFooterAtIndex(UInt(footerItem.footerViewIndex.rawValue))
+            let footerIndex = UInt(footerItem.footerViewIndex.rawValue)
+            self.webViewController.scrollToFooterAtIndex(footerIndex)
+            dismissVCCompletionHandler = {
+                self.webViewController.accessibilityCursorToFooterAtIndex(footerIndex)
+            }
         } else {
             assertionFailure("Unsupported selection of TOC item \(item)")
         }
 
         // Don't dismiss immediately - it looks jarring - let the user see the ToC selection before dismissing
         dispatchOnMainQueueAfterDelayInSeconds(0.25) {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(true, completion: dismissVCCompletionHandler)
         }
     }
 
@@ -44,7 +54,7 @@ extension WMFArticleContainerViewController : WMFTableOfContentsViewControllerDe
     }
 }
 
-extension WMFArticleContainerViewController {
+extension WMFArticleViewController {
 
     /**
      Create ToC items.
@@ -86,7 +96,7 @@ extension WMFArticleContainerViewController {
         }
     }
 
-    public func didTapTableOfContentsButton(sender: AnyObject?) {
+    public func showTableOfContents() {
         presentViewController(self.tableOfContentsViewController!, animated: true, completion: nil)
 
     }

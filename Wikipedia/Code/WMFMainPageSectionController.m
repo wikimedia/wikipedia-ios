@@ -3,7 +3,8 @@
 #import "MWKSiteInfoFetcher.h"
 #import "WMFEnglishFeaturedTitleFetcher.h"
 
-
+#import "MWKDataStore.h"
+#import "MWKUserDataStore.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKSiteInfo.h"
@@ -13,6 +14,7 @@
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
+#import "WMFArticleBrowserViewController.h"
 #import "NSDateFormatter+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,7 +24,6 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 @interface WMFMainPageSectionController ()
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
-@property (nonatomic, strong, readwrite) MWKSavedPageList* savedPageList;
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
@@ -32,12 +33,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @implementation WMFMainPageSectionController
 
-- (instancetype)initWithSite:(MWKSite*)site savedPageList:(MWKSavedPageList*)savedPageList {
+- (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
-    self = [super init];
+    self = [super initWithDataStore:dataStore];
     if (self) {
-        self.site          = site;
-        self.savedPageList = savedPageList;
+        self.site = site;
     }
     return self;
 }
@@ -121,6 +121,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         self.siteInfo = nil;
         return error;
     });
+}
+
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 
 #pragma mark - WMFTitleProviding

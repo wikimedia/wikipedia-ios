@@ -48,10 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
     [super setDataSource:dataSource];
 }
 
-- (MWKHistoryDiscoveryMethod)discoveryMethod {
-    return MWKHistoryDiscoveryMethodSearch;
-}
-
 - (NSString*)analyticsName {
     return @"Related";
 }
