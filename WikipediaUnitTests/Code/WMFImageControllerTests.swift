@@ -112,7 +112,7 @@ class WMFImageControllerTests: XCTestCase {
             pipe: { (imgDownload: WMFImageDownload) -> Void in
                 XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
             },
-            timeout: 2) { () -> Promise<WMFImageDownload> in
+            timeout: 5) { () -> Promise<WMFImageDownload> in
                 let retry = afterFirstDownloadStarts.then() { _ -> Promise<WMFImageDownload> in
                     // cancel the first download
                     self.imageController.cancelFetchForURL(testURL)
@@ -154,7 +154,7 @@ class WMFImageControllerTests: XCTestCase {
                                     evaluatedWithObject: operation,
                                     handler: nil)
 
-            wmf_waitForExpectations(5)
+            wmf_waitForExpectations(10)
 
             operation.cancel()
 
@@ -173,7 +173,7 @@ class WMFImageControllerTests: XCTestCase {
             }
 
 
-            wmf_waitForExpectations(5)
+            wmf_waitForExpectations(10)
 
             LSNocilla.sharedInstance().stop()
         }
