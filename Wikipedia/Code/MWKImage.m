@@ -286,25 +286,24 @@
     return [MWKImage fileSizePrefix:self.sourceURLString] == NSNotFound;
 }
 
-- (MWKImage *)largestNonCanonicalVariant {
-    NSString *largestNonCanonicalVariantURL = [[[self.article.images imageSizeVariants:self.sourceURLString] bk_select:^BOOL (NSString* url) {
+- (MWKImage*)largestNonCanonicalVariant {
+    NSString* largestNonCanonicalVariantURL = [[[self.article.images imageSizeVariants:self.sourceURLString] bk_select:^BOOL (NSString* url) {
         return [MWKImage fileSizePrefix:url] != NSNotFound;
     }] lastObject];
     return [self.article imageWithURL:largestNonCanonicalVariantURL];
 }
 
--(UIImage*)imageFromAppImageCache {
+- (UIImage*)imageFromAppImageCache {
     return [[WMFImageController sharedInstance] syncCachedImageWithURL:self.sourceURLString];
 }
 
 - (BOOL)isLargeEnoughForGalleryInclusion {
-    
     // HAX: If this image MWKImage record doesn't have width/height values (because it
     // wasn't determined when parsing the article HTML's image url) see if the cache can
     // tell us the size.
     if (![self hasEstimatedSize]) {
         UIImage* image = [self imageFromAppImageCache];
-        if(!CGSizeEqualToSize(image.size, CGSizeZero)){
+        if (!CGSizeEqualToSize(image.size, CGSizeZero)) {
             self.width  = @(image.size.width);
             self.height = @(image.size.height);
             [self save];
@@ -323,13 +322,13 @@
             return YES;
         }
     }
-    
+
     return [MWKImage isSizeLargeEnoughForGalleryInclusion:[self estimatedSize]];
 }
 
 + (BOOL)isSizeLargeEnoughForGalleryInclusion:(CGSize)size {
     return (size.width > MWKImage.minimumImageSizeForGalleryInclusion.width) &&
-        (size.height > MWKImage.minimumImageSizeForGalleryInclusion.height);
+           (size.height > MWKImage.minimumImageSizeForGalleryInclusion.height);
 }
 
 @end

@@ -30,14 +30,14 @@ QuickSpecBegin(UIViewController_WMFSearchButtonTests)
  *
  *  The added wait is necessary because the view doesn't disappear synchronously even though the dismissal is not animated.
  */
-dispatch_block_t dismissSearchAndWait = ^ {
+dispatch_block_t dismissSearchAndWait = ^{
     [[UIViewController sharedSearchViewController] dismissViewControllerAnimated:NO completion:nil];
 
     [self expectationForPredicate:
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-          return evaluatedObject.view.window == nil;
-      }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
+        return evaluatedObject.view.window == nil;
+    }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
 };
 
@@ -46,14 +46,14 @@ dispatch_block_t dismissSearchAndWait = ^ {
  *
  *  The added wait is necessary because the view doesn't appear synchronously even though the presentation is not animated.
  */
-void(^presentSearchFromVCAndWait)(UIViewController* presentingVC) = ^ (UIViewController* presentingVC) {
+void (^ presentSearchFromVCAndWait)(UIViewController* presentingVC) = ^(UIViewController* presentingVC) {
     [presentingVC wmf_showSearchAnimated:NO];
 
     [self expectationForPredicate:
      [NSPredicate predicateWithBlock:
       ^BOOL (UIViewController* _Nonnull evaluatedObject, NSDictionary < NSString*, id > * _Nullable bindings) {
-          return evaluatedObject.view.window != nil;
-      }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
+        return evaluatedObject.view.window != nil;
+    }]        evaluatedWithObject:[UIViewController sharedSearchViewController] handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
 };
 

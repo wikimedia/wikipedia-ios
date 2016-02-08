@@ -874,6 +874,4 @@ NSString* const WMFLicenseTitleOnENWiki =
     return [super canPerformAction:action withSender:sender];
 }
 
-
-
 @end

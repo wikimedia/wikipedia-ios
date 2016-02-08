@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
     NSArray* images = [article.images.uniqueLargestVariants bk_select:^BOOL (MWKImage* largestVariantImage) {
-
         // Keep image if it's the article image even if we can't determine its size - we
         // always want to show article image as first "lead" image by gallery.
         if ([article.image isEqualToImage:largestVariantImage]) {
