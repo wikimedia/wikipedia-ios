@@ -3,6 +3,7 @@
 // Author: Arief
 // Author: Arifin.wijaya
 // Author: BaconSenpai
+// Author: Beeyan
 // Author: Bennylin
 // Author: C5st4wr6ch
 // Author: Fate Kage
@@ -116,8 +117,7 @@
 "main-menu-language-selection-saved" = "Pilihan bahasa yang disimpan";
 "main-menu-account-title-logged-out" = "Akun";
 "main-menu-account-title-logged-in" = "Masuk log sebagai: $1";
-// Fuzzy
-"main-menu-account-login" = "Masuk log";
+"main-menu-account-login" = "Masuk log ke Wikipedia";
 "main-menu-account-logout" = "Keluar log";
 "main-menu-show-title" = "Tunjukkan padaku...";
 "main-menu-show-history" = "Terkini";
@@ -295,8 +295,9 @@
 "hockeyapp-alert-privacy" = "Privasi $1";
 "page-issues" = "Masalah halaman";
 "page-similar-titles" = "Halaman serupa";
-"page-last-edited" = "Diedit $1 hari lalu";
-"page-edit-history" = "Riwayat teredit semua";
+"page-read-in-other-languages" = "Baca dalam bahasa $1";
+"page-last-edited" = "Disunting $1 hari yang lalu";
+"page-edit-history" = "Semua riwayat suntingan";
 "captcha-reload" = "Tampilkan captcha yang lain";
 "captcha-prompt" = "Masukkan teks CAPTCHA dari gambar di atas";
 "mwk-empty-title-error" = "Tidak dapat melakukan operasi dengan judul yang kosong.";
@@ -312,12 +313,35 @@
 "home-potd-heading" = "Gambar hari ini untuk $1";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini untuk $1";
 "potd-description-prefix" = "Gambar hari ini untuk $1";
+"welcome-whats-new-title" = "Selamat datang di Wikipedia";
 "welcome-whats-new-whats-new" = "Apa yang baru?";
+"welcome-whats-new-bullet-one-title" = "Cara baru untuk menjelajah";
+"welcome-whats-new-bullet-one-text" = "Temukan artikel baru dan menarik untuk Anda pada layar Penjelajahan.";
+"welcome-whats-new-bullet-one-more-info-button-text" = "Ceritakan lebih banyak";
+"welcome-whats-new-bullet-two-title" = "Dirancang untuk Bacaan";
+"welcome-whats-new-bullet-two-text" = "Desain terbaru terpusat pada penyediaan sebuah pengalaman baca yang menyenangkan.";
+"welcome-whats-new-button-title" = "Mulai";
+"welcome-whats-new-bullet-one-more-info-text" = "Ketika Anda mengunjungi suatu artikel, makan artikel terkait akan ditambahkan secara otomatis pada umpan web Anda. Hal ini tidak akan mengubah cara kami mengumpulkan informasi dari Anda dan sejarah bacaan Anda masih tetap bersifat pribadi.";
+"welcome-whats-new-bullet-one-more-info-done-button" = "Mengerti";
 "welcome-languages-title" = "Pencarian bahasa";
 "welcome-languages-more-info-button-text" = "Ceritakan padaku lebih banyak";
+"welcome-languages-more-info-text" = "Artikel Wikipedia seringkali tersedia dalam beberapa bahasa. Pilih bahasa yang Anda inginkan saat melakukan pencarian. Anda bisa mengubahnya nanti.";
 "welcome-languages-more-info-done-button" = "Mengerti";
-"welcome-usage-reports-button-title" = "memulai";
+"welcome-languages-more-languages-button-title" = "Tambahkan bahasa lainnya";
+"welcome-languages-button-title" = "Lanjutkan";
+"welcome-languages-footnote-text" = "Jangan khawatir, Anda bisa mengubahnya nanti";
+"welcome-usage-reports-title" = "Bantu Wikipedia menjadi lebih baik";
+"welcome-usage-reports-body-text" = "Anda dapat membantu kami membuat aplikasi ini lebih baik lagi dengan membolehkan kami untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi ini.";
+"welcome-usage-reports-switch-text" = "Kirim laporan penggunaan";
+"welcome-usage-reports-button-title" = "Memulai";
+"welcome-usage-reports-privacy-policy-button-text" = "Privasi Anda penting bagi kami";
+"empty-no-feed-title" = "Tidak ada sambungan internet";
+"empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
+"empty-no-feed-action-message" = "Anda masih bisa membaca laman tersimpan";
+"empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
+"empty-no-search-results-message" = "Maaf, hasil tidak dapat dimuat";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
-"empty-no-saved-pages-message" = "Simpah laman untuk dilihat nanti, bahkan saat offline";
+"empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
+"alert-no-internet" = "Tidak ada sambungan internet";

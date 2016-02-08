@@ -67,8 +67,7 @@
 "search-titles" = "טיטלען";
 "search-within-articles" = "אינערהאלב ארטיקלען";
 "search-did-you-mean" = "צי האט איר געמיינט $1?";
-// Fuzzy
-"search-recent-title" = "לעצטיקע זוכן";
+"search-recent-title" = "לעצטנס געזוכט";
 "search-recent-clear-confirmation-heading" = "אויסמעקן אלע לעצטיקע זוכן?";
 "search-recent-clear-cancel" = "אַנולירן";
 "search-recent-clear-delete-all" = "אויסמעקן אלץ";
@@ -82,8 +81,7 @@
 "main-menu-language-selection-saved" = "שפראך אויסקלייב געהיטן";
 "main-menu-account-title-logged-out" = "קאנטע";
 "main-menu-account-title-logged-in" = "ארײַנלאגירט: $1";
-// Fuzzy
-"main-menu-account-login" = "אַרײַנלאגירן";
+"main-menu-account-login" = "אַרײַנלאגירן צו וויקיפעדיע";
 "main-menu-account-logout" = "אַרויסלאָגירן";
 "main-menu-show-title" = "ווײַז מיך…";
 "main-menu-show-history" = "לעצטיק";

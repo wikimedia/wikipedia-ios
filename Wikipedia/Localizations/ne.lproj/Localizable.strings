@@ -82,6 +82,7 @@
 "saved-pages-clear-delete-all" = "सबै मेट्ने";
 "saved-pages-refresh-cancel-alert-button" = "पाउनु भयो";
 "saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";
+"history-title" = "ईतिहास";
 // Fuzzy
 "page-history-title" = "पृष्ठको इतिहास";
 // Fuzzy
@@ -170,7 +171,9 @@
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
 "welcome-whats-new-title" = "विकिपिडियामा स्वागत् छ";
+"welcome-whats-new-whats-new" = "केहि नयाँ";
+"welcome-languages-more-info-button-text" = "मलाई थप भन्नुहोस";
+"welcome-languages-more-info-done-button" = "पाउनु भयो";
 "welcome-languages-more-languages-button-title" = "थप भाषाहरू थप्नुहोस्";
 "welcome-usage-reports-switch-text" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
-// Fuzzy
-"welcome-usage-reports-button-title" = "सकियो";
+"welcome-usage-reports-button-title" = "शुरु भयो";
