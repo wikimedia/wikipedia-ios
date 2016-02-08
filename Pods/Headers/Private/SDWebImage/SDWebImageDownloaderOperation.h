@@ -1,1 +1,1 @@
-../../../../vendor/SDWebImage/SDWebImage/SDWebImageDownloaderOperation.h
+../../../SDWebImage/SDWebImage/SDWebImageDownloaderOperation.h

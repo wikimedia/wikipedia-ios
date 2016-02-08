@@ -1,1 +1,1 @@
-../../../../vendor/SDWebImage/SDWebImage/SDWebImageDecoder.h
+../../../SDWebImage/SDWebImage/SDWebImageDecoder.h

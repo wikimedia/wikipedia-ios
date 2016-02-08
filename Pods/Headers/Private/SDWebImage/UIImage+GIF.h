@@ -1,1 +1,1 @@
-../../../../vendor/SDWebImage/SDWebImage/UIImage+GIF.h
+../../../SDWebImage/SDWebImage/UIImage+GIF.h
