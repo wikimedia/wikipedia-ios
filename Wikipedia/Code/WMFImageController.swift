@@ -64,17 +64,13 @@ public class WMFImageController : NSObject {
 
     private static let _sharedInstance: WMFImageController = {
         let downloader = SDWebImageDownloader.sharedDownloader()
-        let cache = WMFImageController.wmf_appImageCache()
+        let cache = SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
         return WMFImageController(manager: SDWebImageManager(downloader: downloader, cache: cache),
                                   namespace: defaultNamespace)
     }()
 
-    static func wmf_appImageCache() -> SDImageCache {
-        return SDImageCache.wmf_appSupportCacheWithNamespace(defaultNamespace)
-    }
-
-    public static func syncCachedImageWithURL(url: String) -> UIImage? {
-        return wmf_appImageCache().imageFromDiskCacheForKey(url)
+    public func syncCachedImageWithURL(url: String) -> UIImage? {
+        return imageManager.imageCache.imageFromDiskCacheForKey(url)
     }
     
     public static let backgroundImageFetchOptions: SDWebImageOptions = [.LowPriority, .ContinueInBackground]

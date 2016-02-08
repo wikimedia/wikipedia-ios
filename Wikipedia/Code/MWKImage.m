@@ -294,7 +294,7 @@
 }
 
 -(UIImage*)imageFromAppImageCache {
-    return [WMFImageController syncCachedImageWithURL:self.sourceURLString];
+    return [[WMFImageController sharedInstance] syncCachedImageWithURL:self.sourceURLString];
 }
 
 - (BOOL)isLargeEnoughForGalleryInclusion {
