@@ -451,16 +451,13 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
             return;
         }
-        
+
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
         [[self exploreViewController] wmf_pushArticleWithTitle:lastRead dataStore:self.session.dataStore restoreScrollPosition:YES source:nil animated:YES];
-        
-        
-
     }
 }
 
-- (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser{
+- (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
         WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject];
@@ -469,7 +466,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     return nil;
 }
 
-- (BOOL)articleBrowserIsBeingDisplayed{
+- (BOOL)articleBrowserIsBeingDisplayed {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
     if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
         return YES;
@@ -483,7 +480,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if ([navVC.topViewController isKindOfClass:[WMFArticleViewController class]]) {
         return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
     }
-    
+
     if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
         WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject];
         return [vc titleOfCurrentArticle];
@@ -493,7 +490,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - Show Search
 
-- (void)showSearchAnimated:(BOOL)animated{
+- (void)showSearchAnimated:(BOOL)animated {
     [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
     UINavigationController* exploreNavController = [self navigationControllerForTab:WMFAppTabTypeExplore];
     if (exploreNavController.presentedViewController) {

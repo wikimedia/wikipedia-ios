@@ -49,7 +49,7 @@
 }
 
 - (void)testStatePersistsWhenSaved {
-    MWKHistoryEntry* losAngeles = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
+    MWKHistoryEntry* losAngeles   = [[MWKHistoryEntry alloc] initWithTitle:titleLAEn];
     MWKHistoryEntry* sanFrancisco = [[MWKHistoryEntry alloc] initWithTitle:titleSFFr];
 
     /*
@@ -78,7 +78,7 @@
 
 - (void)testAddingIdenticalObjectUpdatesExistingEntryDate {
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:titleSFEn];
-    NSDate* previousDate = entry.date;
+    NSDate* previousDate   = entry.date;
     [historyList addEntry:entry];
     [historyList addEntry:entry];
     assertThat(historyList.entries, is(@[entry]));
@@ -86,8 +86,8 @@
 }
 
 - (void)testAddingEquivalentObjectUpdatesExistingEntryDate {
-    MWKTitle* title1        = [titleSFEn.site titleWithString:@"This is a title"];
-    MWKHistoryEntry* entry1 = [[MWKHistoryEntry alloc] initWithTitle:title1];
+    MWKTitle* title1              = [titleSFEn.site titleWithString:@"This is a title"];
+    MWKHistoryEntry* entry1       = [[MWKHistoryEntry alloc] initWithTitle:title1];
     MWKTitle* copyOfTitle1        = [titleSFEn.site titleWithString:@"This is a title"];
     MWKHistoryEntry* copyOfEntry1 = [[MWKHistoryEntry alloc] initWithTitle:copyOfTitle1];
     [historyList addEntry:entry1];

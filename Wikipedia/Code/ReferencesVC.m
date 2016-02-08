@@ -75,6 +75,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.view);
 }
 

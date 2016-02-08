@@ -27,19 +27,17 @@ NS_ASSUME_NONNULL_BEGIN
 @dynamic emptyView;
 
 - (instancetype)initWithArticle:(MWKArticle*)article {
-    
     NSArray* images = [article.images.uniqueLargestVariants bk_select:^BOOL (MWKImage* largestVariantImage) {
-        
         // Keep image if it's the article image even if we can't determine its size - we
         // always want to show article image as first "lead" image by gallery.
         if ([article.image isEqualToImage:largestVariantImage]) {
             return YES;
         }
-        
+
         return [largestVariantImage isLargeEnoughForGalleryInclusion];
     }];
-    
-    self = [super wmf_initWithItemsAndReverseIfNeeded:images];
+
+    self = [super initWithItemsAndReverseIfNeeded:images];
     if (self) {
         self.article   = article;
         self.emptyView = [[UIImageView alloc] init];

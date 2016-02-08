@@ -45,7 +45,7 @@
     @weakify(self)
     UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
         @strongify(self)
-        [self.delegate sectionEditorFinishedEditing:self];
+        [self.delegate sectionEditorFinishedEditing : self];
     }];
     buttonX.accessibilityLabel            = MWLocalizedString(@"back-button-accessibility-label", nil);
     self.navigationItem.leftBarButtonItem = buttonX;

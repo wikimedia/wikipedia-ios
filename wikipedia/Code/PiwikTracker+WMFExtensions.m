@@ -15,7 +15,7 @@ static NSString* const WMFPiwikSiteID    = @"4";
 #endif
 }
 
-- (void)wmf_logView:(id<WMFAnalyticsLogging>)view fromSource:(nullable id<WMFAnalyticsLogging>)source{
+- (void)wmf_logView:(id<WMFAnalyticsLogging>)view fromSource:(nullable id<WMFAnalyticsLogging>)source {
     NSParameterAssert([view analyticsName]);
 #ifdef PIWIK_ENABLED
     if (source) {
@@ -36,11 +36,11 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [self wmf_sendEventWithCategory:@"Preview" action:@"Shown" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionPreviewDismissedFromSource:(nullable id<WMFAnalyticsLogging>)source{
+- (void)wmf_logActionPreviewDismissedFromSource:(nullable id<WMFAnalyticsLogging>)source {
     [self wmf_sendEventWithCategory:@"Preview" action:@"Dismissed" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionPreviewCommittedFromSource:(nullable id<WMFAnalyticsLogging>)source{
+- (void)wmf_logActionPreviewCommittedFromSource:(nullable id<WMFAnalyticsLogging>)source {
     [self wmf_sendEventWithCategory:@"Preview" action:@"Converted" name:[source analyticsName] value:nil];
 }
 
@@ -52,11 +52,11 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [self wmf_sendEventWithCategory:@"Save" action:@"Unsave" name:[source analyticsName] value:nil];
 }
 
-- (void)wmf_logActionScrollToItemInExploreSection:(id<WMFAnalyticsLogging>)section{
+- (void)wmf_logActionScrollToItemInExploreSection:(id<WMFAnalyticsLogging>)section {
     [self wmf_sendEventWithCategory:@"Explore" action:@"View Item" name:[section analyticsName] value:nil];
 }
 
-- (void)wmf_logActionOpenItemInExploreSection:(id<WMFAnalyticsLogging>)section{
+- (void)wmf_logActionOpenItemInExploreSection:(id<WMFAnalyticsLogging>)section {
     [self wmf_sendEventWithCategory:@"Explore" action:@"Open Item" name:[section analyticsName] value:nil];
 }
 

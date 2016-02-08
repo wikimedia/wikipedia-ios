@@ -5,11 +5,6 @@ def deploy_disabled?
   ENV['NO_DEPLOY'] == '1'
 end
 
-# Returns true if the `NO_TEST` env var is set to 1
-def test_disabled?
-  ENV['NO_TEST'] == '1'
-end
-
 # Runs goals from the project's Makefile, this requires going up to the project directory.
 # :args: Additional arguments to be passed to `make`.
 # Returns The result of the `make` command

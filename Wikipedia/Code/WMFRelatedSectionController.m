@@ -149,7 +149,7 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
 }
 
 - (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title              = [self titleForItemAtIndexPath:indexPath];
+    MWKTitle* title = [self titleForItemAtIndexPath:indexPath];
     return [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
 }
 

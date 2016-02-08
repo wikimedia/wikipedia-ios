@@ -33,7 +33,7 @@
                      thumbnailURL:(NSURL*)thumbnailURL
                             index:(NSNumber*)index
                  isDisambiguation:(BOOL)isDisambiguation
-                           isList:(BOOL)isList{
+                           isList:(BOOL)isList {
     self = [super init];
     if (self) {
         self.articleID           = articleID;
@@ -71,13 +71,12 @@
 
 + (MTLValueTransformer*)extractJSONTransformer {
     return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* extract, BOOL* success, NSError* __autoreleasing* error) {
-        
         // HAX: sometimes the api gives us "..." for the extract, which is not useful and messes up how random
         // weights relative quality of the random titles it retrieves.
-        if ([extract isEqualToString:@"..."]){
+        if ([extract isEqualToString:@"..."]) {
             extract = nil;
         }
-        
+
         return [extract wmf_summaryFromText];
     }];
 }
@@ -102,13 +101,13 @@
 + (NSValueTransformer*)isListJSONTransformer {
     return [MTLValueTransformer
             transformerUsingForwardBlock:^(NSArray* value, BOOL* success, NSError** error) {
-                // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
-                // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
-                if (value.count && [value.firstObject containsString:@"Wikimedia list article"]) {
-                    return @YES;
-                }
-                return @NO;
-            }];
+        // HAX: check wiki data description for "Wikimedia list article" string. Not perfect
+        // and enwiki specific, but confirmed with max that without doing separate wikidata query, there's no way to tell if it's a list at the moment.
+        if (value.count && [value.firstObject containsString:@"Wikimedia list article"]) {
+            return @YES;
+        }
+        return @NO;
+    }];
 }
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {

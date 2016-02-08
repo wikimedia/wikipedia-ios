@@ -2,6 +2,7 @@ language: objective-c
 osx_image: xcode7.2
 env:
   - IOS_VER="9.2" FL_ARGS="verify"
+  - IOS_VER="9.2" FL_ARGS="analyze"
   - IOS_VER="9.2" FL_ARGS="verify scheme:WikipediaRTL"
   - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER}"
   - IOS_VER="8.4" FL_ARGS="verify sim_os:${IOS_VER} scheme:WikipediaRTL"
@@ -21,9 +22,12 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-after_failure:
-  - tail -n 500 ./build/xcodebuild.og
-
 branches:
   only:
     - master
+
+matrix:
+  allow_failures:
+    # linting & static analysis don't need to fail a build, just give feedback
+    - env: IOS_VER="9.2" FL_ARGS="analyze"
+

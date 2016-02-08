@@ -210,7 +210,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self resetRefreshControlWithCompletion:NULL];
 
-    self.tableView.scrollsToTop = YES;
+    self.tableView.scrollsToTop                 = YES;
     self.tableView.dataSource                   = nil;
     self.tableView.delegate                     = nil;
     self.tableView.sectionHeaderHeight          = UITableViewAutomaticDimension;
@@ -495,9 +495,9 @@ NS_ASSUME_NONNULL_BEGIN
 
     [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:controller];
     UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
-    if([vc isKindOfClass:[WMFArticleViewController class]]){
+    if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController*)vc source:self animated:YES];
-    }else{
+    } else {
         [self presentViewController:vc animated:YES completion:nil];
     }
 }
@@ -610,7 +610,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id<WMFExploreSectionController>)sectionControllerForSection:(WMFExploreSection*)section {
     id<WMFExploreSectionController> sectionController = [self.sectionControllerCache controllerForSection:section];
-    if(!sectionController){
+    if (!sectionController) {
         sectionController = [self.sectionControllerCache newControllerForSection:section];
         [self registerSectionForSectionController:sectionController];
     }
@@ -638,22 +638,22 @@ NS_ASSUME_NONNULL_BEGIN
     if (!controller) {
         return;
     }
-    
+
     [controller registerCellsInTableView:self.tableView];
-    
+
     [self.KVOControllerNonRetaining unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
-    
+
     [self.KVOControllerNonRetaining observe:controller keyPath:WMF_SAFE_KEYPATH(controller, items) options:0 block:^(WMFExploreViewController* observer, id < WMFExploreSectionController > object, NSDictionary* change) {
         NSUInteger sectionIndex = [observer indexForSectionController:controller];
         if (sectionIndex == NSNotFound) {
             return;
         }
-        
+
         [observer.tableView reloadData];
         return;
-        
+
         //TODO: enable animated updates. Currently causes more jitters
-        
+
         NSIndexSet* indices = [change objectForKey:NSKeyValueChangeIndexesKey];
         if (indices == nil) {
             return;
@@ -663,7 +663,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSIndexPath* newPath = [NSIndexPath indexPathForRow:idx inSection:sectionIndex];
             [indexPathArray addObject:newPath];
         }];
-        
+
         [observer.tableView wmf_performUpdates:^{
             NSNumber* kind = [change objectForKey:NSKeyValueChangeKindKey];
             if ([kind integerValue] == NSKeyValueChangeInsertion) { // Rows were added
@@ -675,7 +675,6 @@ NS_ASSUME_NONNULL_BEGIN
             }
         } withoutMovingCellAtIndexPath:[[self.tableView indexPathsForVisibleRows] firstObject]];
     }];
-
 }
 
 - (void)didTapFooterInSection:(NSUInteger)section {
@@ -749,7 +748,7 @@ NS_ASSUME_NONNULL_BEGIN
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
-    self.isPreviewing = YES;
+    self.isPreviewing             = YES;
     self.sectionOfPreviewingTitle = sectionController;
     [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
     return vc;
@@ -761,13 +760,12 @@ NS_ASSUME_NONNULL_BEGIN
     [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
     self.isPreviewing             = NO;
     self.sectionOfPreviewingTitle = nil;
-    
-    if([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]){
+
+    if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
-    }else{
+    } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
-    
 }
 
 - (NSString*)analyticsName {

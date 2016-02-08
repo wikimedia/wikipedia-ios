@@ -62,7 +62,7 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
     return [self.sectionsBySectionController objectForKey:controller];
 }
 
-- (id<WMFExploreSectionController>)newControllerForSection:(WMFExploreSection*)section{
+- (id<WMFExploreSectionController>)newControllerForSection:(WMFExploreSection*)section {
     id<WMFExploreSectionController> controller;
     switch (section.type) {
         case WMFExploreSectionTypeHistory:
@@ -88,8 +88,8 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
             controller = [self picOfTheDaySectionController];
             break;
             /*
-             !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
-             a new case is added to the enum, enforcing that all sections are handled here.
+               !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
+               a new case is added to the enum, enforcing that all sections are handled here.
              */
     }
 
@@ -98,7 +98,6 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 
     return controller;
 }
-
 
 #pragma mark - Section Controller Creation
 
