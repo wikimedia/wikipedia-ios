@@ -58,6 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated;
 
+- (void)accessibilityCursorToSection:(MWKSection*)section;
+
 - (nullable MWKSection*)currentVisibleSection;
 
 - (void)scrollToVerticalOffset:(CGFloat)offset;
@@ -90,7 +92,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) NSArray<UIViewController*>* footerViewControllers;
 
+- (UIView*)footerAtIndex:(NSUInteger)index;
 - (void)scrollToFooterAtIndex:(NSUInteger)index;
+- (void)accessibilityCursorToFooterAtIndex:(NSUInteger)index;
 
 - (NSInteger)visibleFooterIndex;
 

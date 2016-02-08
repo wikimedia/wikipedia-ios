@@ -182,15 +182,23 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 #pragma mark - Headers & Footers
 
-- (void)scrollToFooterAtIndex:(NSUInteger)index {
+- (UIView*)footerAtIndex:(NSUInteger)index {
     UIView* footerView       = self.footerViewControllers[index].view;
     UIView* footerViewHeader = self.footerViewHeadersByIndex[@(index)];
-    UIView* viewToScrollTo   = footerViewHeader ? : footerView;
+    return footerViewHeader ? : footerView;
+}
 
+- (void)scrollToFooterAtIndex:(NSUInteger)index {
+    UIView* viewToScrollTo = [self footerAtIndex:index];
     CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
                                                             fromView:self.footerContainerView];
     footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
     [self.webView.scrollView setContentOffset:footerViewOrigin animated:YES];
+}
+
+- (void)accessibilityCursorToFooterAtIndex:(NSUInteger)index {
+    UIView* viewToScrollTo = [self footerAtIndex:index];
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, viewToScrollTo);
 }
 
 - (NSInteger)visibleFooterIndex {
@@ -407,6 +415,15 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)scrollToSection:(MWKSection*)section animated:(BOOL)animated {
     [self scrollToFragment:section.anchor animated:animated];
+}
+
+- (void)accessibilityCursorToSection:(MWKSection*)section {
+    // This might shift the visual scroll position. To prevent it affecting other users,
+    // we will only do it when we detect than an assistive technology which actually needs this is running.
+    if (UIAccessibilityIsVoiceOverRunning()) {
+        [self.webView.wmf_javascriptContext.globalObject invokeMethod:@"accessibilityCursorToFragment"
+                                                        withArguments:@[section.anchor]];
+    }
 }
 
 - (nullable MWKSection*)currentVisibleSection {
