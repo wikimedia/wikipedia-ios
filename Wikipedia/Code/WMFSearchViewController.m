@@ -174,8 +174,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.tintColor = [UIColor wmf_blueTintColor];
     }];
-    
-    UIImage* buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+
+    UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
     UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
     [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
     [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
