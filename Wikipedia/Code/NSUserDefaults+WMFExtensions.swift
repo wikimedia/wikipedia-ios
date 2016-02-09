@@ -26,8 +26,12 @@ extension NSUserDefaults {
         return self.wmf_dateForKey(WMFAppBecomeActiveDateKey)
     }
     
-    public func wmf_setAppBecomeActiveDate(date: NSDate) {
-        self.setObject(date, forKey: WMFAppBecomeActiveDateKey)
+    public func wmf_setAppBecomeActiveDate(date: NSDate?) {
+        if let date = date {
+            self.setObject(date, forKey: WMFAppBecomeActiveDateKey)
+        }else{
+            self.removeObjectForKey(WMFAppBecomeActiveDateKey)
+        }
         self.synchronize()
     }
     
@@ -35,8 +39,12 @@ extension NSUserDefaults {
         return self.wmf_dateForKey(WMFAppResignActiveDateKey)
     }
     
-    public func wmf_setAppResignActiveDate(date: NSDate) {
-        self.setObject(date, forKey: WMFAppResignActiveDateKey)
+    public func wmf_setAppResignActiveDate(date: NSDate?) {
+        if let date = date {
+            self.setObject(date, forKey: WMFAppResignActiveDateKey)
+        }else{
+            self.removeObjectForKey(WMFAppResignActiveDateKey)
+        }
         self.synchronize()
     }
     
