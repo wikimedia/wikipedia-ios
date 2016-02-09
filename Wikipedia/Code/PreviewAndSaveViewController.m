@@ -171,10 +171,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
     self.navigationItem.rightBarButtonItem = forwardButton;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PreviewWebViewBeganScrolling" object:self userInfo:nil];
-}
-
 - (void)goBack {
     if (self.mode == PREVIEW_MODE_EDIT_WIKITEXT_WARNING) {
         [self.funnel logAbuseFilterWarningBack:self.abuseFilterCode];
