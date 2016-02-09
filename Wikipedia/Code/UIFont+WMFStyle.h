@@ -21,7 +21,7 @@
 + (instancetype)wmf_tableOfContentsSubsectionFont;
 
 + (instancetype)wmf_nearbyTitleFont;
-+ (instancetype)wmf_nearbyDescriptionFont;
++ (instancetype)wmf_subtitle;
 + (instancetype)wmf_nearbyDistanceFont;
 
 + (instancetype)wmf_exploreSectionHeaderTitleFont;

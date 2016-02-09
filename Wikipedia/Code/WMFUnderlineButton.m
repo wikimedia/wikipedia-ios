@@ -1,5 +1,7 @@
 
 #import "WMFUnderlineButton.h"
+#import "UIFont+WMFStyle.h"
+
 @import Masonry;
 
 @interface WMFUnderlineButton ()
@@ -13,8 +15,7 @@
 - (instancetype)initWithCoder:(NSCoder*)coder {
     self = [super initWithCoder:coder];
     if (self) {
-        [self addUnderline];
-        [self setTitleColor:self.tintColor forState:UIControlStateSelected];
+        [self configureStyle];
     }
     return self;
 }
@@ -22,10 +23,15 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addUnderline];
-        [self setTitleColor:self.tintColor forState:UIControlStateSelected];
+        [self configureStyle];
     }
     return self;
+}
+
+- (void)configureStyle {
+    self.titleLabel.font = [UIFont wmf_subtitle];
+    [self addUnderline];
+    [self setTitleColor:self.tintColor forState:UIControlStateSelected];
 }
 
 - (void)setTintColor:(UIColor*)tintColor {
