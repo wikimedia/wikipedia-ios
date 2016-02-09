@@ -185,10 +185,10 @@ static dispatch_once_t launchToken;
 
     if ([self shouldProcessAppShortcutOnLaunch]) {
         [self processApplicationShortcutItem];
-    } else if ([self shouldShowExploreScreenOnLaunch]) {
-        [self showExplore];
     } else if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
+    } else if ([self shouldShowExploreScreenOnLaunch]) {
+        [self showExplore];
     }
 
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
@@ -284,7 +284,7 @@ static dispatch_once_t launchToken;
         return NO;
     }
 
-    if (fabs([resignActiveDate timeIntervalSinceNow]) <= WMFTimeBeforeRefreshingExploreScreen) {
+    if (fabs([resignActiveDate timeIntervalSinceNow]) < WMFTimeBeforeRefreshingExploreScreen) {
         if (![self exploreViewControllerIsDisplayingContent] && [self.rootTabBarController selectedIndex] == WMFAppTabTypeExplore) {
             return YES;
         }
