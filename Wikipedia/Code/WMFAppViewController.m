@@ -459,8 +459,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
         return vc;
     }
     return nil;
@@ -468,7 +468,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)articleBrowserIsBeingDisplayed {
     UINavigationController* navVC = [self navigationControllerForTab:self.rootTabBarController.selectedIndex];
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
         return YES;
     }
 
@@ -481,8 +481,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         return ((WMFArticleViewController*)navVC.topViewController).articleTitle;
     }
 
-    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[UINavigationController class]] && [[[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-        WMFArticleBrowserViewController* vc = [[(UINavigationController*)navVC.presentedViewController viewControllers] lastObject];
+    if (navVC.presentedViewController && [navVC.presentedViewController isKindOfClass:[WMFArticleBrowserViewController class]]) {
+        WMFArticleBrowserViewController* vc = (id)navVC.presentedViewController;
         return [vc titleOfCurrentArticle];
     }
     return nil;
