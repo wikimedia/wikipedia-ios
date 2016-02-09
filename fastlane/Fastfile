@@ -16,7 +16,15 @@ platform :ios do
 
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
-    make 'lint' unless test_disabled?
+    make 'lint'
+    xcodebuild(
+      workspace: "Wikipedia.xcworkspace",
+      scheme: "Wikipedia",
+      configuration: "Debug",
+      sdk: 'iphonesimulator',
+      destination: 'platform=iOS Simulator,OS=9.2,name=iPhone 6',
+      analyze: true
+    )
   end
 
   desc "Runs unit tests, optionally generating a JUnit report."
@@ -207,7 +215,4 @@ platform :ios do
 
   end
 
-  error do |lane, exception|
-    `cat build/xcodebuild.log` if lane == "verify"
-  end
 end

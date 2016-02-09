@@ -40,7 +40,7 @@ NSString* const MWKHistoryListDidUpdateNotification = @"MWKHistoryListDidUpdateN
 
 #pragma mark - Update Methods
 
-- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title{
+- (MWKHistoryEntry*)addPageToHistoryWithTitle:(MWKTitle*)title {
     NSParameterAssert(title);
     MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithTitle:title];
     [self addEntry:entry];

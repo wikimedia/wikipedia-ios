@@ -588,19 +588,19 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title{
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
         [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
     }];
 }
 
-- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title{
+- (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:self.dataStore];
     return vc;
 }
 
-- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController{
+- (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
         [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];

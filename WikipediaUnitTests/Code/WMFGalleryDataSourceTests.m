@@ -53,7 +53,7 @@ describe(@"SSArrayDataSource.wmf_initWithitemsAndReverseIfNeeded", ^{
         NSArray* items = @[@0, @1, @2];
         return @{
             @"items": items,
-            @"dataSource": [[SSArrayDataSource alloc] wmf_initWithItemsAndReverseIfNeeded:items]
+            @"dataSource": [[SSArrayDataSource alloc] initWithItemsAndReverseIfNeeded:items]
         };
     });
 });

@@ -189,7 +189,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (void)scrollToFooterAtIndex:(NSUInteger)index {
-    UIView* viewToScrollTo = [self footerAtIndex:index];
+    UIView* viewToScrollTo   = [self footerAtIndex:index];
     CGPoint footerViewOrigin = [self.webView.scrollView convertPoint:viewToScrollTo.frame.origin
                                                             fromView:self.footerContainerView];
     footerViewOrigin.y -= self.webView.scrollView.contentInset.top;
@@ -890,7 +890,5 @@ NSString* const WMFLicenseTitleOnENWiki =
     }
     return [super canPerformAction:action withSender:sender];
 }
-
-
 
 @end

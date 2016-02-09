@@ -1,3 +1,0 @@
-[submodule "vendor/SDWebImage"]
-	path = vendor/SDWebImage
-	url = https://github.com/bgerstle/SDWebImage

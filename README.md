@@ -20,7 +20,9 @@ The app is primarily being developed by the Wikimedia Foundation's [Mobile Apps 
 ## Building and Running
 This project requires [Xcode 7](https://itunes.apple.com/us/app/xcode/id497799835) or higher to build.  The easiest way to get Xcode is from the [App Store](https://itunes.apple.com/us/app/xcode/id497799835?mt=12), but you can also download it from [developer.apple.com](https://developer.apple.com/) if you have an AppleID registered with an Apple developer account.
 
-Once you have Xcode (and build dependencies) installed, run `make prebuild` to ensure any dependencies required to build the project (mainly our submodules) are setup.  At this point, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
+<!--No submodules being used, but if any are added, the following line should be uncommented-->
+<!--Once you have Xcode (and build dependencies) installed, run `make prebuild` to ensure any dependencies required to build the project (mainly our submodules) are setup.-->
+At this point, you should be able to open `Wikipedia.xcworkspace` and run the app on the iOS Simulator (using the **Wikipedia** scheme and target). If you encounter any issues, please don't hesitate to let us know via bug reports or messaging us on IRC (see above).
 
 > Quick note: you might not see an app icon when first building the project after a clean checkout. See [Wikipedia App Icons](docs/app-icons.md) for information about generating the icons.
 

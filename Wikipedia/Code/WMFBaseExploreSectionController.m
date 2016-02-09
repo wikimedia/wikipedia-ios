@@ -44,7 +44,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.dataStore = dataStore;
+        self.dataStore    = dataStore;
         self.mutableItems = [NSMutableArray array];
         if ([self numberOfPlaceholderCells] > 0) {
             [self setItemsToPlaceholders];
@@ -68,7 +68,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return self.dataStore.userDataStore.savedPageList;
 }
 
-- (MWKHistoryList*)historyList{
+- (MWKHistoryList*)historyList {
     return self.dataStore.userDataStore.historyList;
 }
 

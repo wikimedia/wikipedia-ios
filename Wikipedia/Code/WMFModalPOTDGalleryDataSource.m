@@ -37,7 +37,7 @@ NSUInteger const WMFDefaultNumberOfPOTDDates = 15;
        wmf_datesUntilToday).
      */
     NSArray<NSDate*>* dates = [[date dateBySubtractingDays:WMFDefaultNumberOfPOTDDates] wmf_datesUntilDate:date];
-    self = [self wmf_initWithItemsAndReverseIfNeeded:dates];
+    self = [self initWithItemsAndReverseIfNeeded:dates];
     if (self) {
         self.homeInfo    = [NSMutableDictionary dictionaryWithObject:info forKey:dates.firstObject];
         self.galleryInfo = [NSMutableDictionary new];

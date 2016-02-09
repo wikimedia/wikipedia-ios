@@ -10,7 +10,7 @@ lint:
 	@scripts/uncrustify_all.sh
 
 submodules: ##Install or update submodules
-	git submodule update --init --recursive
+	# No-op, uncomment to re-enable submodules git submodule update --init --recursive
 
 prebuild: ##Install dependencies needed to build the project
 prebuild: submodules
@@ -24,7 +24,8 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 
 travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
-	@bundle install --without dev;
+	@brew install uncrustify || brew upgrade uncrustify; \
+	bundle install --without dev;
 
 #!!!!!
 #!!!!! Xcode dependencies
