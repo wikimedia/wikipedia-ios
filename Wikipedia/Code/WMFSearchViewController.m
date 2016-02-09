@@ -23,6 +23,7 @@
 #import "NSString+FormattedAttributedString.h"
 #import "UIButton+WMFButton.h"
 #import "UIImage+WMFStyle.h"
+#import "UIFont+WMFStyle.h"
 
 #import "WMFArticleBrowserViewController.h"
 #import "LanguagesViewController.h"
@@ -173,9 +174,17 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         obj.tintColor = [UIColor wmf_blueTintColor];
     }];
-    UIImage* buttonBackground = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+
+    UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+    UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
     [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+    [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
+    [self.otherLanguagesButton.layer setCornerRadius:2.0f];
+    [self.otherLanguagesButton setClipsToBounds:YES];
+
     [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
+    self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
+
     [self.otherLanguagesButton sizeToFit];
 
     [self updateLanguageButtonsToPreferredLanguages];
@@ -502,6 +511,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)resizeLanguageButtonsIfNeeded {
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         [obj sizeToFit];
+        CGRect f = obj.frame;
+        f.size.height = 30.0f;
+        obj.frame = f;
     }];
     CGFloat buttonWidth = [[self.languageButtons bk_reduce:@0 withBlock:^id (NSNumber* sum, UIButton* obj) {
         return @(obj.frame.size.width + [sum floatValue]);
