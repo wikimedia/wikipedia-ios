@@ -145,7 +145,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     } else if ([object isKindOfClass:[MWKSection class]]) {
         return [self isEqualToSection:object];
     } else {
-        return nil;
+        return NO;
     }
 }
 
