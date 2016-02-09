@@ -22,10 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.tableDeletionBlock = ^(WMFSavedPagesDataSource* dataSource,
                                     UITableView* parentView,
                                     NSIndexPath* indexPath){
-            [parentView beginUpdates];
             [dataSource deleteArticleAtIndexPath:indexPath];
-            [parentView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [parentView endUpdates];
         };
 
         [self.KVOController observe:self.savedPageList keyPath:WMF_SAFE_KEYPATH(self.savedPageList, entries) options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionPrior block:^(WMFSavedPagesDataSource* observer, MWKSavedPageList* object, NSDictionary* change) {
