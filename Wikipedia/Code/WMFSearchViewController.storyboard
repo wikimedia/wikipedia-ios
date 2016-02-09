@@ -217,7 +217,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="search" translatesAutoresizingMaskIntoConstraints="NO" id="Khe-vM-8ul" userLabel="magnifying glass">
-                                        <rect key="frame" x="16" y="31" width="16" height="21"/>
+                                        <rect key="frame" x="16" y="31.5" width="16" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="16" id="6Bx-qT-nsc"/>
                                             <constraint firstAttribute="height" constant="21" id="gKW-bJ-laF"/>
@@ -238,7 +238,9 @@
                                     <constraint firstAttribute="trailing" secondItem="Kjf-LF-NvO" secondAttribute="trailing" constant="5" id="dhk-Qt-ipY"/>
                                     <constraint firstItem="Nef-Ia-7Gd" firstAttribute="leading" secondItem="d0q-nT-gUD" secondAttribute="leading" constant="42" id="f6B-qa-3hz"/>
                                     <constraint firstItem="a3z-uC-8hv" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="gwj-4Q-d0l"/>
+                                    <constraint firstItem="Khe-vM-8ul" firstAttribute="centerY" secondItem="d0q-nT-gUD" secondAttribute="centerY" id="oV5-TL-mte"/>
                                     <constraint firstItem="Kjf-LF-NvO" firstAttribute="height" secondItem="Nef-Ia-7Gd" secondAttribute="height" id="olR-5u-Pe9"/>
+                                    <constraint firstItem="Khe-vM-8ul" firstAttribute="centerY" secondItem="Nef-Ia-7Gd" secondAttribute="centerY" id="qTv-UA-DaY"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
@@ -251,6 +253,12 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MSq-kI-XU6"/>
+                                        <exclude reference="oV5-TL-mte"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
