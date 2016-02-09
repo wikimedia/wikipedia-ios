@@ -2,6 +2,14 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "WMFSettingsViewController.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "WMFSettingsTableViewCell.h"
+#import "UIView+WMFDefaultNib.h"
+#import "WMFSettingsDataSource.h"
+
+@import SSDataSources;
+
+/*
 
 // Views
 #import "TabularScrollView.h"
@@ -90,20 +98,63 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
 #pragma mark - Private
 
-@interface WMFSettingsViewController () <LanguageSelectionDelegate, UIScrollViewDelegate, FBTweakViewControllerDelegate>
+*/
+
+@interface WMFSettingsViewController () /*<LanguageSelectionDelegate, UIScrollViewDelegate, FBTweakViewControllerDelegate>*/
+
+@property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
+@property (strong, nonatomic) IBOutlet UITableView* tableView;
+
+
+/*
 
 @property (strong, nonatomic) IBOutlet TabularScrollView* scrollView;
 @property (strong, nonatomic) NSMutableArray* rowData;
 @property (strong, nonatomic) NSMutableArray* rowViews;
 @property (strong, nonatomic) NSDictionary* highlightedTextAttributes;
 
+*/
+
 @end
 
+
 @implementation WMFSettingsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    [self configureBackButton];
+
+    [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
+    
+    [self configureTableDataSource];
+
+    self.tableView.estimatedRowHeight = 52.0;
+    self.tableView.rowHeight          = UITableViewAutomaticDimension;
+}
+
+-(void)configureTableDataSource {
+    _elementDataSource = [[WMFSettingsDataSource alloc] init];
+
+    self.elementDataSource.rowAnimation = UITableViewRowAnimationFade;
+    self.elementDataSource.tableView = self.tableView;
+}
 
 - (NSString*)title {
     return MWLocalizedString(@"settings-title", nil);
 }
+
+-(void)configureBackButton {
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
+}
+
+/*
+
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
@@ -673,5 +724,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
     [self dismissViewControllerAnimated:YES completion:nil];
     return YES;
 }
+ 
+*/
 
 @end
