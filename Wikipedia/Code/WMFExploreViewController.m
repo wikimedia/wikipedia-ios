@@ -320,7 +320,7 @@ NS_ASSUME_NONNULL_BEGIN
     @weakify(self);
     SCNetworkReachability().then(^{
         @strongify(self);
-        [self wmf_hideEmptyView];
+        [self.tableView reloadData];
         [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             @weakify(self);
             [obj fetchDataIfError].catch(^(NSError* error){
@@ -328,6 +328,7 @@ NS_ASSUME_NONNULL_BEGIN
                 [self showOfflineEmptyViewAndReloadWhenReachable];
             });
         }];
+        [self wmf_hideEmptyView];
     });
 }
 

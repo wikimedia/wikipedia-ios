@@ -46,9 +46,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     if (self) {
         self.dataStore    = dataStore;
         self.mutableItems = [NSMutableArray array];
-        if ([self numberOfPlaceholderCells] > 0) {
-            [self setItemsToPlaceholders];
-        }
+        [self setItemsToPlaceholders];
     }
     return self;
 }
@@ -96,11 +94,9 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return nil;
 }
 
-- (BOOL)showsEmptyCell {
-    return NO;
-}
-
 - (void)configureEmptyCell:(WMFEmptySectionTableViewCell*)cell {
+    cell.emptyTextLabel.text = MWLocalizedString(@"home-empty-section", nil);
+    [cell.reloadButton setTitle:MWLocalizedString(@"home-empty-section-check-again", nil) forState:UIControlStateNormal];
 }
 
 - (void)configureCell:(UITableViewCell*)cell withItem:(id)item atIndexPath:(nonnull NSIndexPath*)indexPath {
@@ -120,9 +116,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     if ([self placeholderCellIdentifier] && [self placeholderCellNib]) {
         [tableView registerNib:[self placeholderCellNib] forCellReuseIdentifier:[self placeholderCellIdentifier]];
     }
-    if ([self shouldShowEmptyCell]) {
-        [tableView registerNib:[WMFEmptySectionTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptySectionTableViewCell identifier]];
-    }
+    [tableView registerNib:[WMFEmptySectionTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFEmptySectionTableViewCell identifier]];
 }
 
 - (NSString*)cellIdentifierForItemIndexPath:(NSIndexPath*)indexPath {
@@ -145,7 +139,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
             [emptyCell.reloadButton bk_addEventHandler:^(id sender) {
                 @strongify(self);
                 [self resetData];
-                [self fetchData];
+                [self fetchDataIfError];
             } forControlEvents:UIControlEventTouchUpInside];
         }
         [self configureEmptyCell:emptyCell];
@@ -184,27 +178,21 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     } else if ([self isFetching]) {
         return [AnyPromise promiseWithValue:self.items];
     } else {
+        [self setItemsToPlaceholders];
         @weakify(self);
         self.fetcherPromise = [self fetchData].then(^(NSArray* items){
             @strongify(self);
             self.fetcherPromise = nil;
             self.fetchError = nil;
             self.fetchedItems = items;
-            if ([self.mutableItems count] == 0) {
-                [self.mutableItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])]];
-            } else if ([self.mutableItems count] == [items count]) {
-                [self.mutableItems replaceObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])] withObjects:items];
-            } else {
-                [self.mutableItems removeObjectsInArray:self.mutableItems];
-                [self.mutableItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])]];
-            }
+            [self setItemsToFetchedItems:items];
             return self.items;
         }).catch(^(NSError* error){
             @strongify(self);
             self.fetcherPromise = nil;
             self.fetchError = error;
             self.fetchedItems = nil;
-            [self.mutableItems removeObjectsInArray:self.mutableItems];
+            [self setItemsToError:error];
             @weakify(self);
             //Clear network error on network reconnect
             if ([error wmf_isNetworkConnectionError]) {
@@ -227,12 +215,31 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 #pragma mark - Utility
 
 - (void)setItemsToPlaceholders {
+    if (![self shouldShowPlaceholderCell]) {
+        return;
+    }
     NSMutableArray* placeholders = [NSMutableArray array];
     for (int i = 0; i < [self numberOfPlaceholderCells]; i++) {
         [placeholders addObject:@(i)];
     }
     [self.mutableItems removeObjectsInArray:self.mutableItems];
     [self.mutableItems addObjectsFromArray:placeholders];
+}
+
+- (void)setItemsToError:(NSError*)error {
+    [self.mutableItems removeObjectsInArray:self.mutableItems];
+    [self.mutableItems addObject:error];
+}
+
+- (void)setItemsToFetchedItems:(NSArray*)items {
+    if ([self.mutableItems count] == 0) {
+        [self.mutableItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])]];
+    } else if ([self.mutableItems count] == [items count]) {
+        [self.mutableItems replaceObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])] withObjects:items];
+    } else {
+        [self.mutableItems removeObjectsInArray:self.mutableItems];
+        [self.mutableItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])]];
+    }
 }
 
 - (BOOL)shouldShowPlaceholderCell {
@@ -247,8 +254,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 - (BOOL)shouldShowEmptyCell {
     if ([self.fetchedItems count] == 0
-        && self.fetchError
-        && [self shouldShowEmptyCell]) {
+        && self.fetchError) {
         return YES;
     }
     return NO;
