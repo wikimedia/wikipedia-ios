@@ -6,6 +6,7 @@
 
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* iconName;
+@property (strong, nonatomic) UIColor* iconColor;
 
 @property (nonatomic) WMFSettingsMenuItemDisclosureType disclosureType;
 

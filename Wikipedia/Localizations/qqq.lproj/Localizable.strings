@@ -109,6 +109,7 @@
 "search-recent-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
+"settings-project" = "Title for button letting user choose primary language Wikipedia for the app.";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";

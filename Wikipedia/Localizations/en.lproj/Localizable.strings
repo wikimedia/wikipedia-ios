@@ -109,6 +109,7 @@
 "search-result-redirected-from" = "Redirected from: $1";
 
 "settings-title" = "Settings";
+"settings-project" = "Wikipedia project";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";

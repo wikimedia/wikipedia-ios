@@ -1,6 +1,9 @@
 #import "WMFSettingsDataSource.h"
 #import "WMFSettingsTableViewCell.h"
 #import "WMFSettingsMenuItem.h"
+#import "UIColor+WMFHexColor.h"
+#import "SessionSingleton.h"
+#import "MWKSite.h"
 
 @implementation WMFSettingsDataSource
 
@@ -10,6 +13,7 @@
         self.cellClass          = [WMFSettingsTableViewCell class];
         self.cellConfigureBlock = ^(WMFSettingsTableViewCell* cell, WMFSettingsMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
             cell.title     = menuItem.title;
+            cell.iconColor = menuItem.iconColor;
             cell.iconName  = menuItem.iconName;
             cell.disclosureType = menuItem.disclosureType;
             cell.disclosureText = menuItem.disclosureText;
@@ -19,49 +23,120 @@
             return NO;
         };
         
-        NSArray<NSArray<WMFSettingsMenuItem*>*>* sections = @[[self sectionOne], [self sectionTwo]];
-        [self insertSections:sections
+        NSArray<SSSection*>* allSections = [self allSections];
+        [self insertSections:allSections
                    atIndexes:[NSIndexSet indexSetWithIndexesInRange:
-                              NSMakeRange(0, sections.count)]];
+                              NSMakeRange(0, allSections.count)]];
     }
     return self;
 }
 
-- (NSString *)titleForHeaderInSection:(NSInteger)section {
-    return @"Placeholder Header";
+- (NSArray<SSSection*>*)allSections{
+    return @[
+             [self section_1],
+             [self section_2],
+             [self section_3],
+             [self section_4],
+             [self section_5],
+             [self section_6],
+             [self section_7]
+             ];
 }
 
-- (NSString *)titleForFooterInSection:(NSInteger)section {
-    return @"Placeholder Footer with a really long string that should wrap to many lines because the translation is very long";
-}
-
-- (NSArray<NSArray<WMFSettingsMenuItem*>*>*)sectionsX{
-    return @[[self sectionOne], [self sectionTwo]];
-}
-
-WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, WMFSettingsMenuItemDisclosureType, NSString*) = ^WMFSettingsMenuItem*(NSString* title, NSString* iconName, WMFSettingsMenuItemDisclosureType disclosureType, NSString* disclosureText) {
+WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMenuItemDisclosureType, NSString*) = ^WMFSettingsMenuItem*(NSString* title, NSString* iconName, NSInteger iconColor, WMFSettingsMenuItemDisclosureType disclosureType, NSString* disclosureText) {
     return [[WMFSettingsMenuItem alloc] initWithTitle:title
                                              iconName:iconName
+                                            iconColor:[UIColor wmf_colorWithHex:iconColor alpha:1.0]
                                        disclosureType:disclosureType
                                        disclosureText:disclosureText];
 };
 
--(NSArray<WMFSettingsMenuItem*>*)sectionOne {
-    return @[
-             makeItem(@"title one", @"good", WMFSettingsMenuItemDisclosureType_ViewController, @""),
-             makeItem(@"title two with a really long string that should wrap to many lines because the translation is very long and so on and so forth", @"bad", WMFSettingsMenuItemDisclosureType_Switch, @""),
-             makeItem(@"title three", @"star", WMFSettingsMenuItemDisclosureType_ExternalLink, @""),
-             makeItem(@"title four", @"mic", WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText, @"EN")
-            ];
+-(SSSection*)section_1 {
+    NSString* userName  = [SessionSingleton sharedInstance].keychainCredentials.userName;
+    userName = @"Monte";
+    NSString *loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString:@"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
+    
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(loginString, @"settings-user", userName ? 0xFF8E2B : 0x9CA1A7, WMFSettingsMenuItemDisclosureType_ViewController, @"")
+       ]];
+    section.header = @"";
+    section.footer = @"";
+    return section;
 }
 
--(NSArray<WMFSettingsMenuItem*>*)sectionTwo {
-    return @[
-             makeItem(@"title 1", @"good", WMFSettingsMenuItemDisclosureType_ViewController, @""),
-             makeItem(@"title 2", @"bad", WMFSettingsMenuItemDisclosureType_Switch, @""),
-             makeItem(@"title 3", @"star", WMFSettingsMenuItemDisclosureType_ExternalLink, @""),
-             makeItem(@"another title two with a really long string that should wrap to many lines because the translation is very long and so on and so forth", @"mic", WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText, @"EN")
-             ];
+-(SSSection*)section_2 {
+    NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(MWLocalizedString(@"settings-project", nil), @"settings-project", 0x1F95DE, WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText, [languageCode uppercaseString])
+       ]];
+    section.header = @"";
+    section.footer = @"";
+    return section;
+}
+
+-(SSSection*)section_3 {
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(MWLocalizedString(@"main-menu-privacy-policy", nil), @"settings-privacy", 0x884FDC, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(MWLocalizedString(@"main-menu-terms-of-use", nil), @"settings-terms", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(MWLocalizedString(@"preference_title_eventlogging_opt_in", nil), @"settings-analytics", 0x95D15A, WMFSettingsMenuItemDisclosureType_Switch, @"")
+       ]];
+    section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
+    section.footer = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
+    return section;
+}
+
+-(SSSection*)section_4 {
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(MWLocalizedString(@"zero-warn-when-leaving", nil), @"settings-zero", 0x1F95DE,WMFSettingsMenuItemDisclosureType_Switch, @""),
+       makeItem(MWLocalizedString(@"main-menu-zero-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink, @"")
+       ]];
+    section.header = MWLocalizedString(@"main-menu-heading-zero", nil);
+    section.footer = @"";
+    return section;
+}
+
+-(SSSection*)section_5 {
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(MWLocalizedString(@"main-menu-rate-app", nil), @"settings-rate", 0xFEA13D, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(MWLocalizedString(@"main-menu-send-feedback", nil), @"settings-feedback", 0x00B18D, WMFSettingsMenuItemDisclosureType_ViewController, @"")
+       ]];
+    section.header = @"";
+    section.footer = @"";
+    return section;
+}
+
+-(SSSection*)section_6 {
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(MWLocalizedString(@"main-menu-about", nil), @"settings-about", 0x000000, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(MWLocalizedString(@"main-menu-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink, @"")
+       ]];
+    section.header = @"";
+    section.footer = @"";
+    return section;
+}
+
+-(SSSection*)section_7 {
+    SSSection* section =
+    [SSSection sectionWithItems:
+     @[
+       makeItem(MWLocalizedString(@"main-menu-debug-crash", nil), @"settings-crash", 0xFF1B33, WMFSettingsMenuItemDisclosureType_None, @""),
+       makeItem(MWLocalizedString(@"main-menu-debug-tweaks", nil), @"settings-dev", 0x1F95DE,WMFSettingsMenuItemDisclosureType_ViewController, @"")
+       ]];
+    section.header = @"Debug";
+    section.footer = @"";
+    return section;
 }
 
 @end

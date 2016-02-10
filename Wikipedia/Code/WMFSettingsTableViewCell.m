@@ -1,4 +1,5 @@
 #import "WMFSettingsTableViewCell.h"
+#import "UIColor+WMFHexColor.h"
 
 @interface WMFSettingsTableViewCell ()
 
@@ -20,7 +21,7 @@
 
 -(void)setIconName:(NSString *)iconName {
     _iconName = iconName;
-    self.titleIcon.image = [UIImage imageNamed:iconName];
+    self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 -(void)setDisclosureText:(NSString *)disclosureText {
@@ -28,13 +29,25 @@
     self.disclosureLabel.text = disclosureText;
 }
 
+-(void)setIconColor:(UIColor *)iconColor {
+    _iconColor = iconColor;
+    self.titleIcon.backgroundColor = iconColor;
+    self.titleIcon.tintColor = [UIColor whiteColor];
+}
+
 -(void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     _disclosureType = disclosureType;
     switch (disclosureType) {
+        case WMFSettingsMenuItemDisclosureType_None:
+            self.disclosureIcon.hidden = YES;
+            self.disclosureLabel.hidden = YES;
+            self.disclosureIcon.image = nil;
+            self.disclosureSwitch.hidden = YES;
+            break;
         case WMFSettingsMenuItemDisclosureType_ExternalLink:
             self.disclosureIcon.hidden = NO;
             self.disclosureLabel.hidden = YES;
-            self.disclosureIcon.image = [UIImage imageNamed:@"share-mini"];
+            self.disclosureIcon.image = [[UIImage imageNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_Switch:
@@ -46,13 +59,13 @@
         case WMFSettingsMenuItemDisclosureType_ViewController:
             self.disclosureIcon.hidden = NO;
             self.disclosureLabel.hidden = YES;
-            self.disclosureIcon.image = [UIImage imageNamed:@"chevron-right"];
+            self.disclosureIcon.image = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
             self.disclosureIcon.hidden = NO;
             self.disclosureLabel.hidden = NO;
-            self.disclosureIcon.image = [UIImage imageNamed:@"chevron-right"];
+            self.disclosureIcon.image = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.disclosureSwitch.hidden = YES;
             break;
         default:
@@ -62,6 +75,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
