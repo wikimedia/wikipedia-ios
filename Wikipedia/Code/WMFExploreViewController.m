@@ -241,6 +241,10 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
 
+    if ([self wmf_isShowingEmptyView]) {
+        return;
+    }
+
     [self createSectionSchemaIfNeeded];
 
     [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
