@@ -10,7 +10,7 @@
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
 
-#import "WMFMainPageTableViewCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
@@ -78,11 +78,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFMainPageTableViewCell identifier];
+    return [WMFArticleListTableViewCell identifier];
 }
 
 - (UINib*)cellNib {
-    return [WMFMainPageTableViewCell wmf_classNib];
+    return [WMFArticleListTableViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
@@ -97,8 +97,10 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [WMFMainPagePlaceholderTableViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFMainPageTableViewCell*)cell withItem:(MWKSiteInfo*)item atIndexPath:(NSIndexPath*)indexPath {
-    cell.mainPageTitle.text = item.mainPageTitleText;
+- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSiteInfo*)item atIndexPath:(NSIndexPath*)indexPath {
+    MWKTitle* title = item.mainPageTitle;
+    cell.titleText                        = title.text;
+    cell.titleLabel.accessibilityLanguage = item.site.language;
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
@@ -107,7 +109,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFMainPageTableViewCell estimatedRowHeight];
+    return [WMFArticleListTableViewCell estimatedRowHeight];
 }
 
 - (AnyPromise*)fetchData {
