@@ -5,7 +5,6 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView* titleIcon;
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-
 @property (strong, nonatomic) IBOutlet UILabel* disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView* disclosureIcon;
 @property (strong, nonatomic) IBOutlet UISwitch* disclosureSwitch;
@@ -74,14 +73,11 @@
 }
 
 - (void)awakeFromNib {
-    // Initialization code
     self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

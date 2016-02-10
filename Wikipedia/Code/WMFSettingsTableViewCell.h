@@ -4,13 +4,11 @@
 
 @interface WMFSettingsTableViewCell : SSBaseTableCell
 
+@property (nonatomic) WMFSettingsMenuItemDisclosureType disclosureType;
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* iconName;
 @property (strong, nonatomic) UIColor* iconColor;
-
-@property (nonatomic) WMFSettingsMenuItemDisclosureType disclosureType;
-
-// Used only if disclosureType is WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText.
+// "disclosureText" is used only if disclosureType is WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText.
 @property (strong, nonatomic) NSString* disclosureText;
 
 @end

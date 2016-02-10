@@ -100,7 +100,7 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
 */
 
-@interface WMFSettingsViewController () /*<LanguageSelectionDelegate, UIScrollViewDelegate, FBTweakViewControllerDelegate>*/
+@interface WMFSettingsViewController () <UITableViewDelegate> /*<LanguageSelectionDelegate, UIScrollViewDelegate, FBTweakViewControllerDelegate>*/
 
 @property (nonatomic, strong) SSSectionedDataSource *elementDataSource;
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
@@ -131,6 +131,8 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
 
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
+    
+    self.tableView.delegate = self;
 }
 
 -(void)configureTableDataSource {
@@ -151,6 +153,37 @@ static SecondaryMenuRowIndex const WMFDebugSections[WMFDebugSectionCount] = {
         [self dismissViewControllerAnimated : YES completion : nil];
     }];
     self.navigationItem.leftBarButtonItems = @[xButton];
+}
+
+- (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    switch ([(WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath] type]) {
+        case WMFSettingsMenuItemType_Login:
+            break;
+        case WMFSettingsMenuItemType_SearchLanguage:
+            break;
+        case WMFSettingsMenuItemType_PrivacyPolicy:
+            break;
+        case WMFSettingsMenuItemType_Terms:
+            break;
+        case WMFSettingsMenuItemType_SendUsageReports:
+            break;
+        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
+            break;
+        case WMFSettingsMenuItemType_ZeroFAQ:
+            break;
+        case WMFSettingsMenuItemType_RateApp:
+            break;
+        case WMFSettingsMenuItemType_SendFeedback:
+            break;
+        case WMFSettingsMenuItemType_About:
+            break;
+        case WMFSettingsMenuItemType_FAQ:
+            break;
+        case WMFSettingsMenuItemType_DebugCrash:
+            break;
+        case WMFSettingsMenuItemType_DevSettings:
+            break;
+    }
 }
 
 /*

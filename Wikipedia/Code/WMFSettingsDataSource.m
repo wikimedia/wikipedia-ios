@@ -43,12 +43,13 @@
              ];
 }
 
-WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMenuItemDisclosureType, NSString*) = ^WMFSettingsMenuItem*(NSString* title, NSString* iconName, NSInteger iconColor, WMFSettingsMenuItemDisclosureType disclosureType, NSString* disclosureText) {
-    return [[WMFSettingsMenuItem alloc] initWithTitle:title
-                                             iconName:iconName
-                                            iconColor:[UIColor wmf_colorWithHex:iconColor alpha:1.0]
-                                       disclosureType:disclosureType
-                                       disclosureText:disclosureText];
+WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*, NSInteger, WMFSettingsMenuItemDisclosureType, NSString*) = ^WMFSettingsMenuItem*(WMFSettingsMenuItemType type, NSString* title, NSString* iconName, NSInteger iconColor, WMFSettingsMenuItemDisclosureType disclosureType, NSString* disclosureText) {
+    return [[WMFSettingsMenuItem alloc] initWithType:type
+                                               title:title
+                                            iconName:iconName
+                                           iconColor:[UIColor wmf_colorWithHex:iconColor alpha:1.0]
+                                      disclosureType:disclosureType
+                                      disclosureText:disclosureText];
 };
 
 -(SSSection*)section_1 {
@@ -59,7 +60,7 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(loginString, @"settings-user", userName ? 0xFF8E2B : 0x9CA1A7, WMFSettingsMenuItemDisclosureType_ViewController, @"")
+       makeItem(WMFSettingsMenuItemType_Login, loginString, @"settings-user", userName ? 0xFF8E2B : 0x9CA1A7, WMFSettingsMenuItemDisclosureType_ViewController, @"")
        ]];
     section.header = @"";
     section.footer = @"";
@@ -71,7 +72,7 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(MWLocalizedString(@"settings-project", nil), @"settings-project", 0x1F95DE, WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText, [languageCode uppercaseString])
+       makeItem(WMFSettingsMenuItemType_SearchLanguage, MWLocalizedString(@"settings-project", nil), @"settings-project", 0x1F95DE, WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText, [languageCode uppercaseString])
        ]];
     section.header = @"";
     section.footer = @"";
@@ -82,9 +83,9 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(MWLocalizedString(@"main-menu-privacy-policy", nil), @"settings-privacy", 0x884FDC, WMFSettingsMenuItemDisclosureType_ViewController, @""),
-       makeItem(MWLocalizedString(@"main-menu-terms-of-use", nil), @"settings-terms", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ViewController, @""),
-       makeItem(MWLocalizedString(@"preference_title_eventlogging_opt_in", nil), @"settings-analytics", 0x95D15A, WMFSettingsMenuItemDisclosureType_Switch, @"")
+       makeItem(WMFSettingsMenuItemType_PrivacyPolicy, MWLocalizedString(@"main-menu-privacy-policy", nil), @"settings-privacy", 0x884FDC, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(WMFSettingsMenuItemType_Terms, MWLocalizedString(@"main-menu-terms-of-use", nil), @"settings-terms", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(WMFSettingsMenuItemType_SendUsageReports, MWLocalizedString(@"preference_title_eventlogging_opt_in", nil), @"settings-analytics", 0x95D15A, WMFSettingsMenuItemDisclosureType_Switch, @"")
        ]];
     section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
     section.footer = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
@@ -95,8 +96,8 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(MWLocalizedString(@"zero-warn-when-leaving", nil), @"settings-zero", 0x1F95DE,WMFSettingsMenuItemDisclosureType_Switch, @""),
-       makeItem(MWLocalizedString(@"main-menu-zero-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink, @"")
+       makeItem(WMFSettingsMenuItemType_ZeroWarnWhenLeaving, MWLocalizedString(@"zero-warn-when-leaving", nil), @"settings-zero", 0x1F95DE,WMFSettingsMenuItemDisclosureType_Switch, @""),
+       makeItem(WMFSettingsMenuItemType_ZeroFAQ, MWLocalizedString(@"main-menu-zero-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink, @"")
        ]];
     section.header = MWLocalizedString(@"main-menu-heading-zero", nil);
     section.footer = @"";
@@ -107,8 +108,8 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(MWLocalizedString(@"main-menu-rate-app", nil), @"settings-rate", 0xFEA13D, WMFSettingsMenuItemDisclosureType_ViewController, @""),
-       makeItem(MWLocalizedString(@"main-menu-send-feedback", nil), @"settings-feedback", 0x00B18D, WMFSettingsMenuItemDisclosureType_ViewController, @"")
+       makeItem(WMFSettingsMenuItemType_RateApp, MWLocalizedString(@"main-menu-rate-app", nil), @"settings-rate", 0xFEA13D, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(WMFSettingsMenuItemType_SendFeedback, MWLocalizedString(@"main-menu-send-feedback", nil), @"settings-feedback", 0x00B18D, WMFSettingsMenuItemDisclosureType_ViewController, @"")
        ]];
     section.header = @"";
     section.footer = @"";
@@ -119,8 +120,8 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(MWLocalizedString(@"main-menu-about", nil), @"settings-about", 0x000000, WMFSettingsMenuItemDisclosureType_ViewController, @""),
-       makeItem(MWLocalizedString(@"main-menu-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink, @"")
+       makeItem(WMFSettingsMenuItemType_About, MWLocalizedString(@"main-menu-about", nil), @"settings-about", 0x000000, WMFSettingsMenuItemDisclosureType_ViewController, @""),
+       makeItem(WMFSettingsMenuItemType_FAQ, MWLocalizedString(@"main-menu-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink, @"")
        ]];
     section.header = @"";
     section.footer = @"";
@@ -131,8 +132,8 @@ WMFSettingsMenuItem* (^ makeItem)(NSString*, NSString*, NSInteger, WMFSettingsMe
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(MWLocalizedString(@"main-menu-debug-crash", nil), @"settings-crash", 0xFF1B33, WMFSettingsMenuItemDisclosureType_None, @""),
-       makeItem(MWLocalizedString(@"main-menu-debug-tweaks", nil), @"settings-dev", 0x1F95DE,WMFSettingsMenuItemDisclosureType_ViewController, @"")
+       makeItem(WMFSettingsMenuItemType_DebugCrash, MWLocalizedString(@"main-menu-debug-crash", nil), @"settings-crash", 0xFF1B33, WMFSettingsMenuItemDisclosureType_None, @""),
+       makeItem(WMFSettingsMenuItemType_DevSettings, MWLocalizedString(@"main-menu-debug-tweaks", nil), @"settings-dev", 0x1F95DE,WMFSettingsMenuItemDisclosureType_ViewController, @"")
        ]];
     section.header = @"Debug";
     section.footer = @"";

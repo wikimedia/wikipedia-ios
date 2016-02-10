@@ -3,6 +3,8 @@
 
 @interface WMFSettingsMenuItem ()
 
+@property (nonatomic, assign, readwrite) WMFSettingsMenuItemType type;
+
 @property (nonatomic, copy, readwrite) NSString* title;
 
 @property (nonatomic, copy, readwrite) NSString* iconName;
@@ -17,13 +19,15 @@
 
 @implementation WMFSettingsMenuItem
 
-- (instancetype)initWithTitle:(NSString*)title
-                     iconName:(NSString*)iconName
-                     iconColor:(UIColor*)iconColor
-               disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
-               disclosureText:(NSString*)disclosureText {
+- (instancetype)initWithType:(WMFSettingsMenuItemType)type
+                       title:(NSString*)title
+                    iconName:(NSString*)iconName
+                   iconColor:(UIColor*)iconColor
+              disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
+              disclosureText:(NSString*)disclosureText {
     self = [super init];
     if (self) {
+        self.type           = type;
         self.title          = title;
         self.iconName       = iconName;
         self.iconColor      = iconColor;
