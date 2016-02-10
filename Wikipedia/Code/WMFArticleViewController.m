@@ -144,10 +144,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
 
-    if (_article == article) {
-        return;
-    }
-
     _footerMenuViewController      = nil;
     _tableOfContentsViewController = nil;
     _shareFunnel                   = nil;
@@ -163,9 +159,6 @@ NS_ASSUME_NONNULL_BEGIN
     // always update toolbar
     [self updateToolbar];
 
-    // always update footers
-    [self updateArticleFootersIfNeeded];
-
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
@@ -175,6 +168,10 @@ NS_ASSUME_NONNULL_BEGIN
             [self fetchReadMore];
         }
     }
+    
+    // always update footers
+    [self updateArticleFootersIfNeeded];
+
 }
 
 - (MWKHistoryList*)recentPages {
@@ -646,8 +643,13 @@ NS_ASSUME_NONNULL_BEGIN
     if (!force && self.article) {
         return;
     }
+
+    //only show a blank view if we have nothing to show
+    if (!self.article) {
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+    }
+
     [self showProgressViewAnimated:YES];
-    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
     [self unobserveArticleUpdates];
 
     @weakify(self);
@@ -858,7 +860,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self fetchArticleForce:YES];
+    [self fetchArticle];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
