@@ -324,8 +324,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
     SCNetworkReachability().then(^{
-        self.isWaitingForNetworkToReconnect = NO;
         @strongify(self);
+        self.isWaitingForNetworkToReconnect = NO;
         [self.tableView reloadData];
         [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             @weakify(self);
