@@ -389,7 +389,7 @@
 "empty-no-feed-action-message" = "You can read saved pages meanwhile";
 
 "empty-no-article-message" = "Sorry, could not load the article";
-"empty-no-search-results-message" = "Sorry, could not load the results";
+"empty-no-search-results-message" = "No results found";
 
 "empty-no-saved-pages-title" = "No saved pages yet";
 "empty-no-saved-pages-message" = "Save pages to view them later, even offline";
