@@ -27,29 +27,16 @@
 }
 
 - (void)rebuildSections {
-    CGPoint tableContentOffset = self.tableView.contentOffset;
-
-    [self removeAllSections];
-    NSArray<SSSection*>* allSections =
-    @[
-      [self section_1],
-      [self section_2],
-      [self section_3],
-      [self section_4],
-      [self section_5],
-      [self section_6],
-      [self section_7]
-      ];
-
-    [UIView setAnimationsEnabled:NO];
-
-    [self.tableView beginUpdates];
-    [self insertSections:allSections atIndexes:[NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, allSections.count)]];
-    [self.tableView setContentOffset:tableContentOffset];
-    [self.tableView endUpdates];
-
-    
-    [UIView setAnimationsEnabled:YES];
+    [self.sections setArray:@[
+         [self section_1],
+         [self section_2],
+         [self section_3],
+         [self section_4],
+         [self section_5],
+         [self section_6],
+         [self section_7]
+     ]];
+    [self.tableView reloadData];
 }
 
 WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*, NSInteger, WMFSettingsMenuItemDisclosureType, NSString*, BOOL) = ^WMFSettingsMenuItem*(WMFSettingsMenuItemType type, NSString* title, NSString* iconName, NSInteger iconColor, WMFSettingsMenuItemDisclosureType disclosureType, NSString* disclosureText, BOOL isSwitchOn) {
