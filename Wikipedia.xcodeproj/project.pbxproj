@@ -71,13 +71,9 @@
 		B0E802D21C0CD35B0065EBC0 /* WMFExploreSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802CF1C0CD35B0065EBC0 /* WMFExploreSection.m */; };
 		B0E802D31C0CD35B0065EBC0 /* WMFExploreSectionSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802D11C0CD35B0065EBC0 /* WMFExploreSectionSchema.m */; };
 		B0E802DD1C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802D91C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m */; };
-		B0E802DE1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802DB1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m */; };
-		B0E802DF1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802DC1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib */; };
 		B0E802E81C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802E11C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.m */; };
 		B0E802E91C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802E21C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.xib */; };
 		B0E802EA1C0CD4350065EBC0 /* WMFMainPageSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802E41C0CD4350065EBC0 /* WMFMainPageSectionController.m */; };
-		B0E802EB1C0CD4350065EBC0 /* WMFMainPageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802E61C0CD4350065EBC0 /* WMFMainPageTableViewCell.m */; };
-		B0E802EC1C0CD4350065EBC0 /* WMFMainPageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E802E71C0CD4350065EBC0 /* WMFMainPageTableViewCell.xib */; };
 		B0E802EF1C0CD4920065EBC0 /* WMFFeaturedArticleSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802EE1C0CD4920065EBC0 /* WMFFeaturedArticleSectionController.m */; };
 		B0E802F21C0CD4AC0065EBC0 /* WMFRandomSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802F11C0CD4AC0065EBC0 /* WMFRandomSectionController.m */; };
 		B0E802F51C0CD4C00065EBC0 /* WMFRandomArticleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802F41C0CD4C00065EBC0 /* WMFRandomArticleFetcher.m */; };
@@ -759,17 +755,11 @@
 		B0E802D71C0CD3A30065EBC0 /* WMFExploreSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFExploreSectionController.h; path = Wikipedia/Code/WMFExploreSectionController.h; sourceTree = SOURCE_ROOT; };
 		B0E802D81C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFContinueReadingSectionController.h; path = Wikipedia/Code/WMFContinueReadingSectionController.h; sourceTree = SOURCE_ROOT; };
 		B0E802D91C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFContinueReadingSectionController.m; path = Wikipedia/Code/WMFContinueReadingSectionController.m; sourceTree = SOURCE_ROOT; };
-		B0E802DA1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFContinueReadingTableViewCell.h; path = Wikipedia/Code/WMFContinueReadingTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		B0E802DB1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFContinueReadingTableViewCell.m; path = Wikipedia/Code/WMFContinueReadingTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		B0E802DC1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFContinueReadingTableViewCell.xib; path = Wikipedia/Code/WMFContinueReadingTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B0E802E01C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMainPagePlaceholderTableViewCell.h; path = Wikipedia/Code/WMFMainPagePlaceholderTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		B0E802E11C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMainPagePlaceholderTableViewCell.m; path = Wikipedia/Code/WMFMainPagePlaceholderTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		B0E802E21C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFMainPagePlaceholderTableViewCell.xib; path = Wikipedia/Code/WMFMainPagePlaceholderTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B0E802E31C0CD4350065EBC0 /* WMFMainPageSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMainPageSectionController.h; path = Wikipedia/Code/WMFMainPageSectionController.h; sourceTree = SOURCE_ROOT; };
 		B0E802E41C0CD4350065EBC0 /* WMFMainPageSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMainPageSectionController.m; path = Wikipedia/Code/WMFMainPageSectionController.m; sourceTree = SOURCE_ROOT; };
-		B0E802E51C0CD4350065EBC0 /* WMFMainPageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMainPageTableViewCell.h; path = Wikipedia/Code/WMFMainPageTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		B0E802E61C0CD4350065EBC0 /* WMFMainPageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMainPageTableViewCell.m; path = Wikipedia/Code/WMFMainPageTableViewCell.m; sourceTree = SOURCE_ROOT; };
-		B0E802E71C0CD4350065EBC0 /* WMFMainPageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFMainPageTableViewCell.xib; path = Wikipedia/Code/WMFMainPageTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		B0E802ED1C0CD4920065EBC0 /* WMFFeaturedArticleSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFFeaturedArticleSectionController.h; path = Wikipedia/Code/WMFFeaturedArticleSectionController.h; sourceTree = SOURCE_ROOT; };
 		B0E802EE1C0CD4920065EBC0 /* WMFFeaturedArticleSectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFFeaturedArticleSectionController.m; path = Wikipedia/Code/WMFFeaturedArticleSectionController.m; sourceTree = SOURCE_ROOT; };
 		B0E802F01C0CD4AC0065EBC0 /* WMFRandomSectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFRandomSectionController.h; path = Wikipedia/Code/WMFRandomSectionController.h; sourceTree = SOURCE_ROOT; };
@@ -2348,9 +2338,6 @@
 			children = (
 				B0E802D81C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.h */,
 				B0E802D91C0CD3FB0065EBC0 /* WMFContinueReadingSectionController.m */,
-				B0E802DA1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.h */,
-				B0E802DB1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m */,
-				B0E802DC1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib */,
 			);
 			name = "Continue Reading";
 			path = "Wikipedia/Code/Continue Reading";
@@ -2690,9 +2677,6 @@
 				B0E802E01C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.h */,
 				B0E802E11C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.m */,
 				B0E802E21C0CD4350065EBC0 /* WMFMainPagePlaceholderTableViewCell.xib */,
-				B0E802E51C0CD4350065EBC0 /* WMFMainPageTableViewCell.h */,
-				B0E802E61C0CD4350065EBC0 /* WMFMainPageTableViewCell.m */,
-				B0E802E71C0CD4350065EBC0 /* WMFMainPageTableViewCell.xib */,
 			);
 			name = "Main Page";
 			path = "Wikipedia/Code/Main Page";
@@ -5018,7 +5002,6 @@
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				B0E803BE1C0CDC360065EBC0 /* WMFArticleListTableViewCell.xib in Resources */,
 				B0E806C31C0CEB380065EBC0 /* SecondaryMenuRowView.xib in Resources */,
-				B0E802DF1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.xib in Resources */,
 				B0E803771C0CD9C10065EBC0 /* WMFTableOfContentsCell.xib in Resources */,
 				B0E804151C0CDE480065EBC0 /* SectionEditorViewController.storyboard in Resources */,
 				B0E803A71C0CDB5A0065EBC0 /* WMFArticleFooterViewHeader.xib in Resources */,
@@ -5044,7 +5027,6 @@
 				B0E806E41C0CEB930065EBC0 /* PreviewLicenseView.xib in Resources */,
 				B0E806EC1C0CEBA40065EBC0 /* RecentSearchCell.xib in Resources */,
 				B0E806A11C0CEAE10065EBC0 /* DataMigrationProgressViewController.xib in Resources */,
-				B0E802EC1C0CD4350065EBC0 /* WMFMainPageTableViewCell.xib in Resources */,
 				B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */,
 				BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */,
 				B0E806B81C0CEB160065EBC0 /* LanguagesViewController.storyboard in Resources */,
@@ -5499,7 +5481,6 @@
 				B0E804D51C0CE0B40065EBC0 /* NSObject+ConstraintsScale.m in Sources */,
 				B0E8055D1C0CE0DC0065EBC0 /* UIViewController+SafePreviewing.swift in Sources */,
 				B0E8076A1C0CEE3A0065EBC0 /* Image.m in Sources */,
-				B0E802DE1C0CD3FB0065EBC0 /* WMFContinueReadingTableViewCell.m in Sources */,
 				B0E8073C1C0CED810065EBC0 /* WikipediaAppUtils.m in Sources */,
 				BC45D59C1C33006E007C72F3 /* ArticleData.xcdatamodeld in Sources */,
 				BC22F99A1C17BCED003232CD /* SSArrayDataSource+WMFReverseIfRTL.m in Sources */,
@@ -5629,7 +5610,6 @@
 				B0E8070C1C0CEBDA0065EBC0 /* WMFShareOptionsController.m in Sources */,
 				B0E8054A1C0CE0DC0065EBC0 /* UIImageView+WMFContentOffset.m in Sources */,
 				B0E804281C0CDF510065EBC0 /* WMFGeometry.c in Sources */,
-				B0E802EB1C0CD4350065EBC0 /* WMFMainPageTableViewCell.m in Sources */,
 				B0E806491C0CE7F70065EBC0 /* AccountLogin.m in Sources */,
 				B0E806B91C0CEB160065EBC0 /* MWKLanguageLinkController.m in Sources */,
 				B0E802F51C0CD4C00065EBC0 /* WMFRandomArticleFetcher.m in Sources */,
