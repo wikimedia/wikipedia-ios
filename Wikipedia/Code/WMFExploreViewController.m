@@ -310,7 +310,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Offline Handling
 
 - (void)showOfflineEmptyViewAndReloadWhenReachable {
-    NSParameterAssert(self.isViewLoaded && self.view.superview);
+    NSParameterAssert(self.isViewLoaded);
     if ([self wmf_isShowingEmptyView]) {
         return;
     }
