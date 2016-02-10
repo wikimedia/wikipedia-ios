@@ -225,7 +225,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         && !force
         && self.lastUpdatedAt
         && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
-        return NO;
+        return [self updateContinueReading];
     }
 
     //Get updated static sections
@@ -241,6 +241,24 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 
     self.lastUpdatedAt = [NSDate date];
+    [self updateSections:sections];
+    return YES;
+}
+
+- (BOOL)updateContinueReading {
+    WMFExploreSection* old = [self existingCOntinueReadingSection];
+    WMFExploreSection* new = [self continueReadingSection];
+    if ([[old title] isEqual:[new title]]) {
+        return NO;
+    }
+
+    //Get updated static sections
+    NSMutableArray<WMFExploreSection*>* sections = [[self sections] mutableCopy];
+    [sections removeObject:old];
+
+    if (new) {
+        [sections insertObject:new atIndex:0];
+    }
     [self updateSections:sections];
     return YES;
 }
@@ -423,6 +441,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         }
     }
     return nil;
+}
+
+- (nullable)existingCOntinueReadingSection {
+    return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+        if (obj.type == WMFExploreSectionTypeContinueReading) {
+            return YES;
+        }
+        return NO;
+    }];
 }
 
 - (nullable WMFExploreSection*)existingSectionForTitle:(MWKTitle*)title {
