@@ -38,22 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_setButtonType:(WMFButtonType)type {
     switch (type) {
         case WMFButtonTypeX:
-            [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+            [self setImage:[[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
             break;
         case WMFButtonTypeCaretLeft:
             [self setImage:[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] forState:UIControlStateNormal];
-            break;
-        case WMFButtonTypeBookmarkMini:
-            [self setImage:[UIImage imageNamed:@"save-mini"] forState:UIControlStateNormal];
-            [self setImage:[UIImage imageNamed:@"save-filled-mini"] forState:UIControlStateSelected];
-            [self setTitle:MWLocalizedString(@"button-save-for-later", nil) forState:UIControlStateNormal];
-            [self setTitle:MWLocalizedString(@"button-saved-for-later", nil) forState:UIControlStateSelected];
-            break;
-        case WMFButtonTypeClose:
-            [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-            break;
-        case WMFButtonTypeClearMini:
-            [self setImage:[UIImage imageNamed:@"clear-mini"] forState:UIControlStateNormal];
             break;
         default:
             break;
