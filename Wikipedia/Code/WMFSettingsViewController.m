@@ -33,10 +33,12 @@
 #import "MWKSite.h"
 #import "NSBundle+WMFInfoUtils.h"
 
-// Constants
+// URLS
 static NSString* const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString* const WMFSettingsURLTerms   = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
 static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/app/id324715238";
+static NSString* const WMFSettingsURLFAQ     = @"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ";
+static NSString* const WMFSettingsURLEmail   = @"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:";
 static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
 @interface WMFSettingsViewController () <UITableViewDelegate, LanguageSelectionDelegate, FBTweakViewControllerDelegate>
@@ -134,8 +136,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
             break;
         case WMFSettingsMenuItemType_FAQ:
-            [self wmf_openExternalUrl:
-             [NSURL URLWithString:@"https://www.mediawiki.org/wiki/Wikimedia_Apps/iOS_FAQ"]];
+            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLFAQ]];
             break;
         case WMFSettingsMenuItemType_DebugCrash:
             [[self class] generateTestCrash];
@@ -165,8 +166,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 }
 
 -(NSURL*)emailURL {
-    NSString* mailURL =
-    [NSString stringWithFormat:@"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:%@", [WikipediaAppUtils versionedUserAgent]];
+    NSString* mailURL = [WMFSettingsURLEmail stringByAppendingString:[WikipediaAppUtils versionedUserAgent]];
     return [NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
