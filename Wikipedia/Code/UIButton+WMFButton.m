@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIButton*)wmf_buttonType:(WMFButtonType)type handler:(void (^ __nullable)(id sender))action {
     UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = (CGRect){{0, 0}, {40, 40}};
+    button.frame = (CGRect){{0, 0}, {24, 40}};
 
     [button wmf_setButtonType:type];
 
