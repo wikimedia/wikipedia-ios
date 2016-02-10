@@ -368,7 +368,7 @@ NS_ASSUME_NONNULL_BEGIN
         _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
-                                                              action:@selector(fetchArticleIfNeeded)];
+                                                              action:@selector(fetchArticle)];
     }
     return _refreshToolbarItem;
 }
@@ -641,9 +641,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Fetching
 
-- (void)fetchArticleIfNeeded {
+- (void)fetchArticleForce:(BOOL)force {
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
-    if (self.article) {
+    if (!force && self.article) {
         return;
     }
     [self showProgressViewAnimated:YES];
@@ -689,6 +689,14 @@ NS_ASSUME_NONNULL_BEGIN
         [self observeArticleUpdates];
         [self wmf_hideEmptyView];
     });
+}
+
+- (void)fetchArticle {
+    [self fetchArticleForce:YES];
+}
+
+- (void)fetchArticleIfNeeded {
+    [self fetchArticleForce:NO];
 }
 
 - (void)fetchReadMore {
@@ -850,7 +858,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self fetchArticleIfNeeded];
+    [self fetchArticleForce:YES];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
