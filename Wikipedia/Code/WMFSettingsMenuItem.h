@@ -10,19 +10,19 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemDisclosureType){
 };
 
 typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
-    WMFSettingsMenuItemType_Login,                  //SECONDARY_MENU_ROW_INDEX_LOGIN,
-    WMFSettingsMenuItemType_SearchLanguage,         //SECONDARY_MENU_ROW_INDEX_SEARCH_LANGUAGE,
-    WMFSettingsMenuItemType_PrivacyPolicy,          //SECONDARY_MENU_ROW_INDEX_PRIVACY_POLICY
-    WMFSettingsMenuItemType_Terms,                  //SECONDARY_MENU_ROW_INDEX_TERMS
-    WMFSettingsMenuItemType_SendUsageReports,       //SECONDARY_MENU_ROW_INDEX_SEND_USAGE_REPORTS
-    WMFSettingsMenuItemType_ZeroWarnWhenLeaving,    //SECONDARY_MENU_ROW_INDEX_ZERO_WARN_WHEN_LEAVING
-    WMFSettingsMenuItemType_ZeroFAQ,                //SECONDARY_MENU_ROW_INDEX_ZERO_FAQ
-    WMFSettingsMenuItemType_RateApp,                //SECONDARY_MENU_ROW_INDEX_RATE_APP
-    WMFSettingsMenuItemType_SendFeedback,           //SECONDARY_MENU_ROW_INDEX_SEND_FEEDBACK
-    WMFSettingsMenuItemType_About,                  //SECONDARY_MENU_ROW_INDEX_ABOUT
-    WMFSettingsMenuItemType_FAQ,                    //SECONDARY_MENU_ROW_INDEX_FAQ
-    WMFSettingsMenuItemType_DebugCrash,             //SECONDARY_MENU_ROW_INDEX_DEBUG_CRASH
-    WMFSettingsMenuItemType_DevSettings             //SECONDARY_MENU_ROW_INDEX_DEBUG_TWEAKS
+    WMFSettingsMenuItemType_Login,                 
+    WMFSettingsMenuItemType_SearchLanguage,        
+    WMFSettingsMenuItemType_PrivacyPolicy,         
+    WMFSettingsMenuItemType_Terms,                 
+    WMFSettingsMenuItemType_SendUsageReports,      
+    WMFSettingsMenuItemType_ZeroWarnWhenLeaving,   
+    WMFSettingsMenuItemType_ZeroFAQ,               
+    WMFSettingsMenuItemType_RateApp,               
+    WMFSettingsMenuItemType_SendFeedback,          
+    WMFSettingsMenuItemType_About,                 
+    WMFSettingsMenuItemType_FAQ,                   
+    WMFSettingsMenuItemType_DebugCrash,            
+    WMFSettingsMenuItemType_DevSettings
 };
 
 @interface WMFSettingsMenuItem : MTLModel
@@ -39,10 +39,13 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
 
 @property (nonatomic, copy, readonly) NSString* disclosureText;
 
+@property (nonatomic, readonly) BOOL isSwitchOn;
+
 - (instancetype)initWithType:(WMFSettingsMenuItemType)type
                        title:(NSString*)title
                     iconName:(NSString*)iconName
                    iconColor:(UIColor*)iconColor
               disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
-              disclosureText:(NSString*)disclosureText;
+              disclosureText:(NSString*)disclosureText
+                  isSwitchOn:(BOOL)isSwitchOn;
 @end

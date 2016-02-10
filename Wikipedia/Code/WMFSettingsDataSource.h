@@ -2,4 +2,6 @@
 
 @interface WMFSettingsDataSource : SSSectionedDataSource
 
+- (void)rebuildSections;
+
 @end

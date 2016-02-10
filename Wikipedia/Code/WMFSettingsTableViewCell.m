@@ -72,6 +72,11 @@
     }
 }
 
+-(void)setIsSwitchOn:(BOOL)isSwitchOn {
+    _isSwitchOn = isSwitchOn;
+    [self.disclosureSwitch setOn:isSwitchOn];
+}
+
 - (void)awakeFromNib {
     self.disclosureIcon.tintColor = [UIColor wmf_colorWithHex:0xC7C7C7 alpha:1.0];
 }
