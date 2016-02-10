@@ -69,7 +69,8 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_Login, loginString, @"settings-user", userName ? 0xFF8E2B : 0x9CA1A7, WMFSettingsMenuItemDisclosureType_ViewController, @"", NO)
+       makeItem(WMFSettingsMenuItemType_Login, loginString, @"settings-user", userName ? 0xFF8E2B : 0x9CA1A7, WMFSettingsMenuItemDisclosureType_ViewController, @"", NO),
+       makeItem(WMFSettingsMenuItemType_Support, MWLocalizedString(@"settings-support", nil), @"settings-support", 0xFF1B33, WMFSettingsMenuItemDisclosureType_ExternalLink, @"", NO)
        ]];
     section.header = @"";
     section.footer = @"";

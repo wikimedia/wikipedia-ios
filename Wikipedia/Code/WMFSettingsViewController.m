@@ -30,11 +30,14 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "MWKLanguageLinkController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "MWKSite.h"
+#import "NSBundle+WMFInfoUtils.h"
 
 // Constants
 static NSString* const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString* const WMFSettingsURLTerms   = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
 static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/app/id324715238";
+static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?utm_medium=WikipediaApp&utm_campaign=iOS&utm_source=<app-version>&uselang=<langcode>";
 
 @interface WMFSettingsViewController () <UITableViewDelegate, LanguageSelectionDelegate, FBTweakViewControllerDelegate>
 
@@ -101,6 +104,9 @@ static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/ap
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
             break;
+        case WMFSettingsMenuItemType_Support:
+            [self wmf_openExternalUrl:[self donationURL]];
+            break;
         case WMFSettingsMenuItemType_PrivacyPolicy:
             [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
             break;
@@ -121,11 +127,8 @@ static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/ap
         case WMFSettingsMenuItemType_RateApp:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate]];
             break;
-        case WMFSettingsMenuItemType_SendFeedback:{
-            NSString* mailURL =
-            [NSString stringWithFormat:@"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:%@", [WikipediaAppUtils versionedUserAgent]];
-            [self wmf_openExternalUrl:[NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        }
+        case WMFSettingsMenuItemType_SendFeedback:
+            [self wmf_openExternalUrl:[self emailURL]];
             break;
         case WMFSettingsMenuItemType_About:
             [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
@@ -144,6 +147,27 @@ static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/ap
         }
             break;
     }
+}
+
+-(NSURL*)donationURL {
+    NSString *url = WMFSettingsURLSupport;
+    
+    NSString *languageCode = [SessionSingleton sharedInstance].searchSite.language;
+    languageCode = [languageCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
+    appVersion = [appVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    url = [url stringByReplacingOccurrencesOfString:@"<langcode>" withString:languageCode];
+    url = [url stringByReplacingOccurrencesOfString:@"<app-version>" withString:appVersion];
+    
+    return [NSURL URLWithString:url];
+}
+
+-(NSURL*)emailURL {
+    NSString* mailURL =
+    [NSString stringWithFormat:@"mailto:mobile-ios-wikipedia@wikimedia.org?subject=Feedback:%@", [WikipediaAppUtils versionedUserAgent]];
+    return [NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 - (void)displayLogoutActionSheet {
