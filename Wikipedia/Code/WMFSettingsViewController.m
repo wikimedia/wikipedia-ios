@@ -62,14 +62,36 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
-    
-    self.tableView.delegate = self;
 }
 
 -(void)configureTableDataSource {
-    self.elementDataSource = [[WMFSettingsDataSource alloc] init];
-    self.elementDataSource.rowAnimation = UITableViewRowAnimationNone;
-    self.elementDataSource.tableView = self.tableView;
+    self.elementDataSource                  = [[WMFSettingsDataSource alloc] init];
+    self.elementDataSource.rowAnimation     = UITableViewRowAnimationNone;
+    self.elementDataSource.tableView        = self.tableView;
+    self.elementDataSource.cellClass        = [WMFSettingsTableViewCell class];
+    self.elementDataSource.tableActionBlock = ^BOOL (SSCellActionType action, UITableView* tableView, NSIndexPath* indexPath) {
+        return NO;
+    };
+    
+    @weakify(self)
+    self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell* cell, WMFSettingsMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
+        
+        cell.title          = menuItem.title;
+        cell.iconColor      = menuItem.iconColor;
+        cell.iconName       = menuItem.iconName;
+        cell.disclosureType = menuItem.disclosureType;
+        cell.disclosureText = menuItem.disclosureText;
+        
+        @strongify(self)
+        [cell.disclosureSwitch setOn:[self getSwitchOnValueForMenuItemType:menuItem.type]];
+        
+        [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
+        [cell.disclosureSwitch bk_addEventHandler:^(UISwitch* sender){
+            @strongify(self)
+            [self handleSwitchValueChangedTo:sender.isOn forMenuItemType:menuItem.type];
+        } forControlEvents:UIControlEventValueChanged];
+        
+    };
 }
 
 - (NSString*)title {
@@ -90,6 +112,33 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     // Reload data source on view will appear so any state changes made by presented
     // view controllers will automatically be reflected when they are dismissed.
     [self.elementDataSource rebuildSections];
+}
+
+-(BOOL)getSwitchOnValueForMenuItemType:(WMFSettingsMenuItemType)type {
+    switch (type) {
+        case WMFSettingsMenuItemType_SendUsageReports:
+            return [SessionSingleton sharedInstance].shouldSendUsageReports;
+            break;
+        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
+            return [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving;
+            break;
+        default:
+            return NO;
+            break;
+    }
+}
+
+-(void)handleSwitchValueChangedTo:(BOOL)isOn forMenuItemType:(WMFSettingsMenuItemType)type {
+    switch (type) {
+        case WMFSettingsMenuItemType_SendUsageReports:
+            [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
+            break;
+        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
+            [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving = isOn;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -115,14 +164,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
         case WMFSettingsMenuItemType_Terms:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
             break;
-        case WMFSettingsMenuItemType_SendUsageReports:
-            [SessionSingleton sharedInstance].shouldSendUsageReports = ![SessionSingleton sharedInstance].shouldSendUsageReports;
-            [self.elementDataSource rebuildSections];
-            break;
-        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
-            [[SessionSingleton sharedInstance].zeroConfigState toggleWarnWhenLeaving];
-            [self.elementDataSource rebuildSections];
-            break;
         case WMFSettingsMenuItemType_ZeroFAQ:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
             break;
@@ -146,6 +187,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             tweaksVC.tweaksDelegate = self;
             [self presentViewController:tweaksVC animated:YES completion:nil];
         }
+        default:
             break;
     }
 }

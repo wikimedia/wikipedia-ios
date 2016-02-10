@@ -13,7 +13,6 @@
 // "disclosureText" is used only if disclosureType is WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText.
 @property (strong, nonatomic) NSString* disclosureText;
 
-// "isSwitchOn" is used only if disclosureType is WMFSettingsMenuItemDisclosureType_Switch.
-@property (nonatomic) BOOL isSwitchOn;
+@property (strong, nonatomic) IBOutlet UISwitch* disclosureSwitch;
 
 @end

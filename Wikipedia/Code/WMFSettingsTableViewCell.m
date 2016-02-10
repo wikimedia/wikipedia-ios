@@ -7,7 +7,6 @@
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* disclosureLabel;
 @property (strong, nonatomic) IBOutlet UIImageView* disclosureIcon;
-@property (strong, nonatomic) IBOutlet UISwitch* disclosureSwitch;
 
 @end
 
@@ -70,11 +69,6 @@
         default:
             break;
     }
-}
-
--(void)setIsSwitchOn:(BOOL)isSwitchOn {
-    _isSwitchOn = isSwitchOn;
-    [self.disclosureSwitch setOn:isSwitchOn];
 }
 
 - (void)awakeFromNib {
