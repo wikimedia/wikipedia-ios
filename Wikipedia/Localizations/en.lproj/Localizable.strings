@@ -14,7 +14,8 @@
 
 "table-title-other" = "More information";
 
-"saved-history-clear-all" = "Clear";
+"saved-clear-all" = "Clear";
+"history-clear-all" = "Clear";
 
 "history-label" = "Recent";
 "history-section-today" = "Today";
@@ -22,10 +23,10 @@
 "history-section-lastweek" = "Last week";
 "history-section-lastmonth" = "Last month";
 
-"history-clear-confirmation-heading" = "Delete all recent items?";
+"history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "history-clear-cancel" = "Cancel";
-"history-clear-delete-all" = "Delete All";
+"history-clear-delete-all" = "Yes, delete all";
 "history-description" = "You probably deleted all of them. Next time you go to a page you can get back to it from here.";
 "history-none" = "No recent pages here.";
 
@@ -148,10 +149,10 @@
 
 "saved-title" = "Saved";
 "saved-pages-title" = "Saved pages";
-"saved-pages-clear-confirmation-heading" = "Delete all saved items?";
+"saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved pages?";
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-delete-all" = "Delete All";
+"saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-refresh-cancel-alert-title" = "Update cancelled";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia articles are updated all the time. Tap refresh to get the latest versions of all the articles.";
 "saved-pages-refresh-cancel-alert-button" = "Got it";
