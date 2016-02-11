@@ -154,14 +154,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ([(WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath] type]) {
-        case WMFSettingsMenuItemType_Login:{
-            NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
-            if (userName) {
-                [self displayLogoutActionSheet];
-            }else{
-                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
-            }
-        }
+        case WMFSettingsMenuItemType_Login:
+            [self showLoginOrLogout];
             break;
         case WMFSettingsMenuItemType_SearchLanguage:
             [self showLanguages];
@@ -223,7 +217,16 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     return [NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
-- (void)displayLogoutActionSheet {
+-(void)showLoginOrLogout {
+    NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
+    if (userName) {
+        [self showLogoutActionSheet];
+    }else{
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
+    }
+}
+
+- (void)showLogoutActionSheet {
     UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:MWLocalizedString(@"main-menu-account-logout-are-you-sure", nil)];
 
     @weakify(self)
