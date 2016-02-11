@@ -277,15 +277,17 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 }
 
 - (void)rebuildSections {
-    [self.elementDataSource.sections setArray:@[
-                              [self section_1],
-                              [self section_2],
-                              [self section_3],
-                              [self section_4],
-                              [self section_5],
-                              [self section_6],
-                              [self section_7]
-                              ]];
+    NSMutableArray *sections = [[NSMutableArray alloc] init];
+    
+    [sections wmf_safeAddObject:[self section_1]];
+    [sections wmf_safeAddObject:[self section_2]];
+    [sections wmf_safeAddObject:[self section_3]];
+    [sections wmf_safeAddObject:[self section_4]];
+    [sections wmf_safeAddObject:[self section_5]];
+    [sections wmf_safeAddObject:[self section_6]];
+    [sections wmf_safeAddObject:[self section_7]];
+    
+    [self.elementDataSource.sections setArray:sections];
     [self.elementDataSource.tableView reloadData];
 }
 
@@ -419,6 +421,10 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 }
 
 -(SSSection*)section_7 {
+    if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
+        return nil;
+    }
+    
     SSSection* section =
     [SSSection sectionWithItems:
      @[
