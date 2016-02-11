@@ -80,9 +80,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
         cell.iconColor      = menuItem.iconColor;
         cell.iconName       = menuItem.iconName;
         cell.disclosureType = menuItem.disclosureType;
-        cell.disclosureText = menuItem.disclosureText;
         
         @strongify(self)
+        cell.disclosureText = [self getDisclosureTextForMenuItemType:menuItem.type];
         [cell.disclosureSwitch setOn:[self getSwitchOnValueForMenuItemType:menuItem.type]];
         
         [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
@@ -112,6 +112,17 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     // Reload data source on view will appear so any state changes made by presented
     // view controllers will automatically be reflected when they are dismissed.
     [self.elementDataSource rebuildSections];
+}
+
+-(nullable NSString*)getDisclosureTextForMenuItemType:(WMFSettingsMenuItemType)type {
+    switch (type) {
+        case WMFSettingsMenuItemType_SearchLanguage:
+            return [[SessionSingleton sharedInstance].searchSite.language uppercaseString];
+            break;
+        default:
+            break;
+    }
+    return nil;
 }
 
 -(BOOL)getSwitchOnValueForMenuItemType:(WMFSettingsMenuItemType)type {

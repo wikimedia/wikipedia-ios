@@ -13,8 +13,6 @@
 
 @property (nonatomic, assign, readwrite) WMFSettingsMenuItemDisclosureType disclosureType;
 
-@property (nonatomic, copy, readwrite) NSString* disclosureText;
-
 @end
 
 @implementation WMFSettingsMenuItem
@@ -23,8 +21,7 @@
                        title:(NSString*)title
                     iconName:(NSString*)iconName
                    iconColor:(UIColor*)iconColor
-              disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
-              disclosureText:(NSString*)disclosureText {
+              disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     self = [super init];
     if (self) {
         self.type           = type;
@@ -32,7 +29,6 @@
         self.iconName       = iconName;
         self.iconColor      = iconColor;
         self.disclosureType = disclosureType;
-        self.disclosureText = disclosureText;
     }
     return self;
 }
