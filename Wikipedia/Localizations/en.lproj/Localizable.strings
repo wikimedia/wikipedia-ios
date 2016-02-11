@@ -110,7 +110,7 @@
 
 "settings-title" = "Settings";
 "settings-project" = "Wikipedia project";
-"settings-support" = "Support Wikimedia";
+"settings-support" = "Support Wikipedia";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -138,7 +138,7 @@
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Privacy policy";
 "main-menu-terms-of-use" = "Terms of use";
-"main-menu-rate-app" = "Rate app";
+"main-menu-rate-app" = "Rate the app";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-show-today" = "Today";
