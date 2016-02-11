@@ -10,9 +10,10 @@
 @property (strong, nonatomic) NSString* iconName;
 @property (strong, nonatomic) UIColor* iconColor;
 
-// "disclosureText" is used only if disclosureType is WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText.
+/// Shown only if disclosureType is WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
 @property (strong, nonatomic) NSString* disclosureText;
 
+/// Shown only if disclosureType is WMFSettingsMenuItemDisclosureType_Switch
 @property (strong, nonatomic) IBOutlet UISwitch* disclosureSwitch;
 
 @end
