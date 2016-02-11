@@ -286,14 +286,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [self.elementDataSource.tableView reloadData];
 }
 
-WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*, NSInteger, WMFSettingsMenuItemDisclosureType) = ^WMFSettingsMenuItem*(WMFSettingsMenuItemType type, NSString* title, NSString* iconName, NSInteger iconColor, WMFSettingsMenuItemDisclosureType disclosureType) {
-    return [[WMFSettingsMenuItem alloc] initWithType:type
-                                               title:title
-                                            iconName:iconName
-                                           iconColor:[UIColor wmf_colorWithHex:iconColor alpha:1.0]
-                                      disclosureType:disclosureType];
-};
-
 -(SSSection*)section_1 {
     NSString* userName  = [SessionSingleton sharedInstance].keychainCredentials.userName;
     NSString *loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString:@"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
@@ -301,8 +293,17 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_Login, loginString, @"settings-user", userName ? 0xFF8E2B : 0x9CA1A7, WMFSettingsMenuItemDisclosureType_ViewController),
-       makeItem(WMFSettingsMenuItemType_Support, MWLocalizedString(@"settings-support", nil), @"settings-support", 0xFF1B33, WMFSettingsMenuItemDisclosureType_ExternalLink)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_Login
+                                           title:loginString
+                                        iconName:@"settings-user"
+                                       iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9CA1A7) alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_Support
+                                           title:MWLocalizedString(@"settings-support", nil)
+                                        iconName:@"settings-support"
+                                       iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink]
        ]];
     section.header = @"";
     section.footer = @"";
@@ -313,7 +314,11 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_SearchLanguage, MWLocalizedString(@"settings-project", nil), @"settings-project", 0x1F95DE, WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_SearchLanguage
+                                           title:MWLocalizedString(@"settings-project", nil)
+                                        iconName:@"settings-project"
+                                       iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText]
        ]];
     section.header = @"";
     section.footer = @"";
@@ -324,9 +329,23 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_PrivacyPolicy, MWLocalizedString(@"main-menu-privacy-policy", nil), @"settings-privacy", 0x884FDC, WMFSettingsMenuItemDisclosureType_ViewController),
-       makeItem(WMFSettingsMenuItemType_Terms, MWLocalizedString(@"main-menu-terms-of-use", nil), @"settings-terms", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ViewController),
-       makeItem(WMFSettingsMenuItemType_SendUsageReports, MWLocalizedString(@"preference_title_eventlogging_opt_in", nil), @"settings-analytics", 0x95D15A, WMFSettingsMenuItemDisclosureType_Switch)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_PrivacyPolicy
+                                           title:MWLocalizedString(@"main-menu-privacy-policy", nil)
+                                        iconName:@"settings-privacy"
+                                       iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_Terms
+                                           title:MWLocalizedString(@"main-menu-terms-of-use", nil)
+                                        iconName:@"settings-terms"
+                                       iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_SendUsageReports
+                                           title:MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
+                                        iconName:@"settings-analytics"
+                                       iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_Switch]
        ]];
     section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
     section.footer = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
@@ -337,8 +356,17 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_ZeroWarnWhenLeaving, MWLocalizedString(@"zero-warn-when-leaving", nil), @"settings-zero", 0x1F95DE,WMFSettingsMenuItemDisclosureType_Switch),
-       makeItem(WMFSettingsMenuItemType_ZeroFAQ, MWLocalizedString(@"main-menu-zero-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving
+                                           title:MWLocalizedString(@"zero-warn-when-leaving", nil)
+                                        iconName:@"settings-zero"
+                                       iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_Switch],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_ZeroFAQ
+                                           title:MWLocalizedString(@"main-menu-zero-faq", nil)
+                                        iconName:@"settings-faq"
+                                       iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink]
        ]];
     section.header = MWLocalizedString(@"main-menu-heading-zero", nil);
     section.footer = @"";
@@ -349,8 +377,17 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_RateApp, MWLocalizedString(@"main-menu-rate-app", nil), @"settings-rate", 0xFEA13D, WMFSettingsMenuItemDisclosureType_ViewController),
-       makeItem(WMFSettingsMenuItemType_SendFeedback, MWLocalizedString(@"main-menu-send-feedback", nil), @"settings-feedback", 0x00B18D, WMFSettingsMenuItemDisclosureType_ViewController)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_RateApp
+                                           title:MWLocalizedString(@"main-menu-rate-app", nil)
+                                        iconName:@"settings-rate"
+                                       iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_SendFeedback
+                                           title:MWLocalizedString(@"main-menu-send-feedback", nil)
+                                        iconName:@"settings-feedback"
+                                       iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController]
        ]];
     section.header = @"";
     section.footer = @"";
@@ -361,8 +398,17 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_About, MWLocalizedString(@"main-menu-about", nil), @"settings-about", 0x000000, WMFSettingsMenuItemDisclosureType_ViewController),
-       makeItem(WMFSettingsMenuItemType_FAQ, MWLocalizedString(@"main-menu-faq", nil), @"settings-faq", 0x99A1A7, WMFSettingsMenuItemDisclosureType_ExternalLink)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_About
+                                           title:MWLocalizedString(@"main-menu-about", nil)
+                                        iconName:@"settings-about"
+                                       iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_FAQ
+                                           title:MWLocalizedString(@"main-menu-faq", nil)
+                                        iconName:@"settings-faq"
+                                       iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink]
        ]];
     section.header = @"";
     section.footer = @"";
@@ -373,8 +419,17 @@ WMFSettingsMenuItem* (^ makeItem)(WMFSettingsMenuItemType, NSString*, NSString*,
     SSSection* section =
     [SSSection sectionWithItems:
      @[
-       makeItem(WMFSettingsMenuItemType_DebugCrash, MWLocalizedString(@"main-menu-debug-crash", nil), @"settings-crash", 0xFF1B33, WMFSettingsMenuItemDisclosureType_None),
-       makeItem(WMFSettingsMenuItemType_DevSettings, MWLocalizedString(@"main-menu-debug-tweaks", nil), @"settings-dev", 0x1F95DE,WMFSettingsMenuItemDisclosureType_ViewController)
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_DebugCrash
+                                           title:MWLocalizedString(@"main-menu-debug-crash", nil)
+                                        iconName:@"settings-crash"
+                                       iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_None],
+       
+       [[WMFSettingsMenuItem alloc] initWithType:WMFSettingsMenuItemType_DevSettings
+                                           title:MWLocalizedString(@"main-menu-debug-tweaks", nil)
+                                        iconName:@"settings-dev"
+                                       iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                  disclosureType:WMFSettingsMenuItemDisclosureType_ViewController]
        ]];
     section.header = MWLocalizedString(@"main-menu-heading-debug", nil);
     section.footer = @"";
