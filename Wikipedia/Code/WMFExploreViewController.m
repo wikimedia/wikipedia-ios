@@ -67,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
 
+@property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
+
 @property (nonatomic, assign) BOOL isPreviewing;
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
@@ -315,12 +317,16 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
+    self.isWaitingForNetworkToReconnect = YES;
+    [self.refreshControl endRefreshing];
+    [self.tableView reloadData];
 
+    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeNoFeed];
     @weakify(self);
     SCNetworkReachability().then(^{
         @strongify(self);
-        [self wmf_hideEmptyView];
+        self.isWaitingForNetworkToReconnect = NO;
+        [self.tableView reloadData];
         [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             @weakify(self);
             [obj fetchDataIfError].catch(^(NSError* error){
@@ -328,16 +334,23 @@ NS_ASSUME_NONNULL_BEGIN
                 [self showOfflineEmptyViewAndReloadWhenReachable];
             });
         }];
+        [self wmf_hideEmptyView];
     });
 }
 
 #pragma mark - UITableViewDatasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+    if (self.isWaitingForNetworkToReconnect) {
+        return 0;
+    }
     return [[self.schemaManager sections] count];
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.isWaitingForNetworkToReconnect) {
+        return 0;
+    }
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:section];
     NSParameterAssert(controller);
     return [[controller items] count];
