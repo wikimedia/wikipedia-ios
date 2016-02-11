@@ -157,7 +157,7 @@
     paragraphStyle.paragraphSpacingBefore = 2.0;
 
     return [[NSAttributedString alloc] initWithString:self.descriptionText attributes:@{
-                NSFontAttributeName: [UIFont wmf_nearbyDescriptionFont],
+                NSFontAttributeName: [UIFont wmf_subtitle],
                 NSForegroundColorAttributeName: [UIColor wmf_customGray],
                 NSParagraphStyleAttributeName: paragraphStyle
             }];

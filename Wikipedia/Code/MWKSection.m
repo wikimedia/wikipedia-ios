@@ -145,7 +145,7 @@ NSString* const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
     } else if ([object isKindOfClass:[MWKSection class]]) {
         return [self isEqualToSection:object];
     } else {
-        return nil;
+        return NO;
     }
 }
 
@@ -280,7 +280,7 @@ static NSString* const WMFSectionDisambiguationTitlesXPathSelector = @"//div[@cl
 - (nullable NSArray<MWKTitle*>*)disambiguationTitles {
     NSArray* textNodes = [self elementsInTextMatchingXPath:WMFSectionDisambiguationTitlesXPathSelector];
     return [textNodes wmf_mapAndRejectNil:^id (TFHppleElement* node) {
-        if (node.text.length == 0 || [node.text containsString:@"redlink=1"]) {
+        if (node.text.length == 0 || [node.text containsString:@"redlink=1"] || ![node.text containsString:WMFInternalLinkPathPrefix]) {
             return nil;
         }
         return [[MWKTitle alloc] initWithInternalLink:node.text site:self.site];

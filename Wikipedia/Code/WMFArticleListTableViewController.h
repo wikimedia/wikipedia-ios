@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFEmptyViewType)emptyViewType;
 
 - (BOOL)     showsDeleteAllButton;
+- (NSString*)deleteButtonText;
 - (NSString*)deleteAllConfirmationText;
 - (NSString*)deleteText;
 - (NSString*)deleteCancelText;
