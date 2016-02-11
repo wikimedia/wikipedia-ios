@@ -15,6 +15,7 @@
 @interface NSDate (Utilities)
 + (NSCalendar*)currentCalendar;   // avoid bottlenecks
 
+
 // Relative dates from the current date
 + (NSDate*)dateTomorrow;
 + (NSDate*)dateYesterday;
@@ -24,6 +25,8 @@
 + (NSDate*)dateWithHoursBeforeNow:(NSInteger)dHours;
 + (NSDate*)dateWithMinutesFromNow:(NSInteger)dMinutes;
 + (NSDate*)dateWithMinutesBeforeNow:(NSInteger)dMinutes;
+
+- (NSString*)relativeTimestamp;
 
 // Short string utilities
 - (NSString*)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle;
