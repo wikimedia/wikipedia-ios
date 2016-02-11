@@ -1,7 +1,7 @@
 
 #import "WMFMainPageSectionController.h"
 #import "MWKSiteInfoFetcher.h"
-#import "WMFEnglishFeaturedTitleFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
@@ -27,7 +27,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
+@property (nonatomic, strong) WMFArticlePreviewFetcher* titleSearchFetcher;
+
 @property (nonatomic, strong, nullable) MWKSiteInfo* siteInfo;
+
+@property (nonatomic, strong, nullable) MWKSearchResult* mainPageSearchResult;
 
 @end
 
@@ -49,6 +53,13 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         _siteInfoFetcher = [[MWKSiteInfoFetcher alloc] init];
     }
     return _siteInfoFetcher;
+}
+
+- (WMFArticlePreviewFetcher*)titleSearchFetcher {
+    if (_titleSearchFetcher == nil) {
+        _titleSearchFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _titleSearchFetcher;
 }
 
 #pragma mark - HomeSectionController
@@ -97,10 +108,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [WMFMainPagePlaceholderTableViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSiteInfo*)item atIndexPath:(NSIndexPath*)indexPath {
-    MWKTitle* title = item.mainPageTitle;
-    cell.titleText                        = title.text;
-    cell.titleLabel.accessibilityLanguage = item.site.language;
+- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+    cell.titleText                        = item.displayTitle;
+    cell.titleLabel.accessibilityLanguage = self.site.language;
+    cell.descriptionText = item.wikidataDescription;
+    [cell setImageURL:item.thumbnailURL];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
@@ -117,10 +129,15 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [self.siteInfoFetcher fetchSiteInfoForSite:self.site].then(^(MWKSiteInfo* data) {
         @strongify(self);
         self.siteInfo = data;
-        return @[self.siteInfo];
+        return [self.titleSearchFetcher fetchArticlePreviewResultsForTitles:@[self.siteInfo.mainPageTitle] site:self.site];
+    }).then(^(NSArray<MWKSearchResult*>* searchResults) {
+        @strongify(self);
+        self.mainPageSearchResult = [searchResults firstObject];
+        return @[self.mainPageSearchResult];
     }).catch(^(NSError* error){
         @strongify(self);
         self.siteInfo = nil;
+        self.mainPageSearchResult = nil;
         return error;
     });
 }
