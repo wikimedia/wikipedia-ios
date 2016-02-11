@@ -682,12 +682,19 @@ NS_ASSUME_NONNULL_BEGIN
                                                       sticky:NO
                                        dismissPreviousAlerts:NO
                                                  tapCallBack:NULL];
+
+            if ([error wmf_isNetworkConnectionError]) {
+                @weakify(self);
+                SCNetworkReachability().then(^{
+                    @strongify(self);
+                    [self fetchArticleIfNeeded];
+                });
+            }
         }
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
         [self observeArticleUpdates];
-        [self wmf_hideEmptyView];
     });
 }
 
