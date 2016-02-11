@@ -371,5 +371,7 @@
 "explore-random-article-heading" = "Text for 'Random article' header";
 "explore-random-article-sub-heading" = "Subtext beneath the 'Random article' header with name of language Wikipedia";
 "explore-potd-heading" = "Text for 'Picture of the day' header";
+"saved-clear-all" = "Text of the button shown at the top of saved pages which deletes all the saved pages";
+"history-clear-all" = "Text of the button shown at the top of history which deletes all history";
 "home-empty-section" = "Text shown when a section of the home screen has no results";
 "home-empty-section-check-again" = "Button title to reload a section when it has no results";
