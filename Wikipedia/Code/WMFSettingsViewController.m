@@ -35,6 +35,8 @@
 
 #pragma mark - Static URLs
 
+NS_ASSUME_NONNULL_BEGIN
+
 static NSString* const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString* const WMFSettingsURLTerms   = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
 static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/app/id324715238";
@@ -83,7 +85,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     self.navigationItem.leftBarButtonItems = @[xButton];
 }
 
-- (NSString*)title {
+- (nullable NSString*)title {
     return MWLocalizedString(@"settings-title", nil);
 }
 
@@ -386,7 +388,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     return section;
 }
 
--(SSSection*)section_7 {
+-(nullable SSSection*)section_7 {
     if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
         return nil;
     }
@@ -572,3 +574,5 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
