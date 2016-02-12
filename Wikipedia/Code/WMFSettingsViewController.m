@@ -308,12 +308,12 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 - (void)loadSections {
     NSMutableArray *sections = [[NSMutableArray alloc] init];
     
-    [sections wmf_safeAddObject:[self section_1]];
-    [sections wmf_safeAddObject:[self section_2]];
-    [sections wmf_safeAddObject:[self section_3]];
-    [sections wmf_safeAddObject:[self section_4]];
-    [sections wmf_safeAddObject:[self section_5]];
-    [sections wmf_safeAddObject:[self section_6]];
+    [sections addObject:[self section_1]];
+    [sections addObject:[self section_2]];
+    [sections addObject:[self section_3]];
+    [sections addObject:[self section_4]];
+    [sections addObject:[self section_5]];
+    [sections addObject:[self section_6]];
     [sections wmf_safeAddObject:[self section_7]];
     
     [self.elementDataSource.sections setArray:sections];
