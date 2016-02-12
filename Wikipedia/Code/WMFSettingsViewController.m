@@ -105,6 +105,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
         cell.disclosureType = menuItem.disclosureType;
         cell.disclosureText = menuItem.disclosureText;
         
+        cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+        
         @strongify(self)
         [cell.disclosureSwitch setOn:[self getSwitchOnValueForMenuItemType:menuItem.type]];
         
