@@ -421,7 +421,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_Support: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -433,8 +432,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                            isSwitchOn:NO];
 
         }
-            break;
-            
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -445,7 +442,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -457,7 +453,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                            isSwitchOn:NO];
 
         }
-            break;
         case WMFSettingsMenuItemType_Terms: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -469,7 +464,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                            isSwitchOn:NO];
 
         }
-            break;
         case WMFSettingsMenuItemType_SendUsageReports: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -481,7 +475,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                            isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
 
         }
-            break;
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -492,7 +485,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
         }
-            break;
         case WMFSettingsMenuItemType_ZeroFAQ: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -503,7 +495,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_RateApp: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -514,7 +505,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_SendFeedback: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -525,7 +515,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_About: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -536,7 +525,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_FAQ: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -547,7 +535,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_DebugCrash: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -558,7 +545,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
         case WMFSettingsMenuItemType_DevSettings: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
@@ -569,7 +555,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                        disclosureText:nil
                                            isSwitchOn:NO];
         }
-            break;
     }
 }
 
