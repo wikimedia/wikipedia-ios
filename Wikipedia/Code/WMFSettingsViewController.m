@@ -111,7 +111,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
         [cell.disclosureSwitch bk_addEventHandler:^(UISwitch* sender){
             @strongify(self)
             menuItem.isSwitchOn = sender.isOn;
-            [self updateStateForMenuItem:menuItem isSwitchOnValue:sender.isOn];
+            [self updateStateForMenuItemType:menuItem.type isSwitchOnValue:sender.isOn];
         } forControlEvents:UIControlEventValueChanged];
         
     };
@@ -129,8 +129,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
 #pragma mark - Switch tap handling
 
--(void)updateStateForMenuItem:(WMFSettingsMenuItem*)menuItem isSwitchOnValue:(BOOL)isOn{
-    switch (menuItem.type) {
+-(void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn{
+    switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports:
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
             break;
