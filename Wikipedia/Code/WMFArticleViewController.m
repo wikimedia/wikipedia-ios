@@ -144,7 +144,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
 
-    _footerMenuViewController      = nil;
+    //HACK: puposely not rebuilding the footer becuase it cant handle it - it needs to be
+    //updated to handle being rebuilt and injected into the web view
+//    _footerMenuViewController      = nil;
     _tableOfContentsViewController = nil;
     _shareFunnel                   = nil;
     _shareOptionsController        = nil;
@@ -165,13 +167,10 @@ NS_ASSUME_NONNULL_BEGIN
 
         if (!self.article.isMain) {
             [self createTableOfContentsViewController];
-            [self fetchReadMore];
         }
-    }
-    
-    // always update footers
-    [self updateArticleFootersIfNeeded];
 
+        [self addArticleFootersIfNeeded];
+    }
 }
 
 - (MWKHistoryList*)recentPages {
@@ -416,21 +415,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Footers
 
-- (void)updateArticleFootersIfNeeded {
+- (void)addArticleFootersIfNeeded {
     if (!self.article || self.article.isMain) {
         [self.webViewController setFooterViewControllers:nil];
         return;
     }
 
-    if (self.footerMenuViewController.article != self.article) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+    if (self.footerMenuViewController) {
+        return;
     }
+
+    self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
     NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
-    if ([self.readMoreListViewController hasResults]) {
-        [footerVCs addObject:self.readMoreListViewController];
-        [self appendReadMoreTableOfContentsItemIfNeeded];
-    }
-    [self.webViewController setFooterViewControllers:footerVCs];
+
+    @weakify(self);
+    [self fetchReadMore].then(^(id readMoreResults) {
+        if ([self.readMoreListViewController hasResults]) {
+            [footerVCs addObject:self.readMoreListViewController];
+            [self appendReadMoreTableOfContentsItemIfNeeded];
+        }
+    })
+    .catch(^(NSError* error){
+        DDLogError(@"Read More Fetch Error: %@", error);
+        WMF_TECH_DEBT_TODO(show error view in read more)
+    }).finally(^{
+        @strongify(self);
+        [self.webViewController setFooterViewControllers:footerVCs];
+    });
 }
 
 #pragma mark - Progress
@@ -701,16 +712,11 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchArticleForce:NO];
 }
 
-- (void)fetchReadMore {
-    @weakify(self);
-    [self.readMoreListViewController fetch].then(^(id readMoreResults) {
-        @strongify(self);
-        [self updateArticleFootersIfNeeded];
-    })
-    .catch(^(NSError* error){
-        DDLogError(@"Read More Fetch Error: %@", error);
-        WMF_TECH_DEBT_TODO(show error view in read more)
-    });
+- (AnyPromise*)fetchReadMore {
+    if (self.article.isMain) {
+        return [AnyPromise promiseWithValue:nil];
+    }
+    return [self.readMoreListViewController fetch];
 }
 
 #pragma mark - Share
