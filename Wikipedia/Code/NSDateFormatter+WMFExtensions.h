@@ -43,4 +43,6 @@
 
 + (instancetype)wmf_dayNameMonthNameDayOfMonthNumberDateFormatter;
 
++ (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter;
+
 @end

@@ -63,15 +63,32 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     return _dateFormatter;
 }
 
+
 + (instancetype)wmf_englishHyphenatedYearMonthDayFormatter {
     static NSDateFormatter* _dateFormatter;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _dateFormatter = [[NSDateFormatter alloc] init];
-        _dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'";
-        _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
+        _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"-"];
     });
     return _dateFormatter;
+}
+
++ (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter {
+    static NSDateFormatter* _dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"/"];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    });
+    return _dateFormatter;
+}
+
++ (instancetype)wmf_newEnglishYearMonthDayFormatterWithSeparator:(NSString*)separator {
+    NSString* quotedSeparator      = [@[@"'", separator, @"'"] componentsJoinedByString: @""];
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = [@[@"yyyy", @"MM", @"dd"] componentsJoinedByString: quotedSeparator];
+    dateFormatter.locale     = [NSLocale localeWithLocaleIdentifier:@"en"];
+    return dateFormatter;
 }
 
 + (instancetype)wmf_dayNameMonthNameDayOfMonthNumberDateFormatter {
