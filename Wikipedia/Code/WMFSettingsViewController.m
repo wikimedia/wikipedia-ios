@@ -255,13 +255,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 }
 
 -(nullable NSIndexPath*)indexPathOfVisibleCellOfType:(WMFSettingsMenuItemType)type {
-    for (NSIndexPath *indexPath in self.tableView.indexPathsForVisibleRows) {
-        WMFSettingsMenuItem* item = [self.elementDataSource itemAtIndexPath:indexPath];
-        if (item.type == type) {
-            return indexPath;
-        }
-    }
-    return nil;
+    return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL (NSIndexPath* indexPath) {
+        return ((WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
+    }];
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
