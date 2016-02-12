@@ -20,7 +20,6 @@
 #import "EditFunnel.h"
 #import "AccountCreationViewController.h"
 #import "WikiGlyph_Chars.h"
-#import "UINavigationController+TopActionSheet.h"
 #import "ReferencesVC.h"
 #import "WMF_Colors.h"
 #import "WikiGlyphButton.h"

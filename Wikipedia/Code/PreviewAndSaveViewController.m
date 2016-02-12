@@ -10,7 +10,6 @@
 #import "EditTokenFetcher.h"
 #import "SessionSingleton.h"
 #import "PreviewWebView.h"
-#import "UINavigationController+TopActionSheet.h"
 #import "Defines.h"
 #import "WMF_Colors.h"
 #import "CommunicationBridge.h"
@@ -448,7 +447,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController topActionSheetHide];
 
     [[WMFAlertManager sharedInstance] dismissAlert];
 
@@ -586,9 +584,8 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
                         }
 
                         // Hides the license panel. Needed if logged in and a disallow is triggered.
-                        [self.navigationController topActionSheetHide];
-
                         [[WMFAlertManager sharedInstance] dismissAlert];
+                        
                         AbuseFilterAlertType alertType =
                             (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
                         [self showAbuseFilterAlertOfType:alertType];

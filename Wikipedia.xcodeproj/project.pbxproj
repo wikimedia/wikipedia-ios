@@ -266,8 +266,6 @@
 		B0E805641C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805341C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m */; };
 		B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805361C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m */; };
 		B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */; };
-		B0E8056B1C0CE0F40065EBC0 /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805681C0CE0F40065EBC0 /* TopActionSheetLabel.m */; };
-		B0E8056C1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		B0E8058F1C0CE2C60065EBC0 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */; };
@@ -1110,10 +1108,6 @@
 		B0E805371C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+WMFTrackingView.h"; path = "Wikipedia/Code/UIWebView+WMFTrackingView.h"; sourceTree = SOURCE_ROOT; };
 		B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+WMFTrackingView.m"; path = "Wikipedia/Code/UIWebView+WMFTrackingView.m"; sourceTree = SOURCE_ROOT; };
 		B0E805391C0CE0DC0065EBC0 /* WMFOpenExternalLinkDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFOpenExternalLinkDelegateProtocol.h; path = Wikipedia/Code/WMFOpenExternalLinkDelegateProtocol.h; sourceTree = SOURCE_ROOT; };
-		B0E805671C0CE0F40065EBC0 /* TopActionSheetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopActionSheetLabel.h; path = Wikipedia/Code/TopActionSheetLabel.h; sourceTree = SOURCE_ROOT; };
-		B0E805681C0CE0F40065EBC0 /* TopActionSheetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopActionSheetLabel.m; path = Wikipedia/Code/TopActionSheetLabel.m; sourceTree = SOURCE_ROOT; };
-		B0E805691C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+TopActionSheet.h"; path = "Wikipedia/Code/UINavigationController+TopActionSheet.h"; sourceTree = SOURCE_ROOT; };
-		B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+TopActionSheet.m"; path = "Wikipedia/Code/UINavigationController+TopActionSheet.m"; sourceTree = SOURCE_ROOT; };
 		B0E805731C0CE24B0065EBC0 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Wikipedia/Code/Defines.h; sourceTree = SOURCE_ROOT; };
 		B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WikiGlyph_Chars.h; path = Wikipedia/Code/WikiGlyph_Chars.h; sourceTree = SOURCE_ROOT; };
 		B0E805751C0CE24B0065EBC0 /* WMF_Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMF_Colors.h; path = Wikipedia/Code/WMF_Colors.h; sourceTree = SOURCE_ROOT; };
@@ -1935,18 +1929,6 @@
 			);
 			name = "View Controller";
 			path = Wikipedia/Code/Navigation;
-			sourceTree = SOURCE_ROOT;
-		};
-		043F18DA18D9691D00D8489A /* TopActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				B0E805671C0CE0F40065EBC0 /* TopActionSheetLabel.h */,
-				B0E805681C0CE0F40065EBC0 /* TopActionSheetLabel.m */,
-				B0E805691C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.h */,
-				B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */,
-			);
-			name = TopActionSheet;
-			path = Wikipedia/Code/TopActionSheet;
 			sourceTree = SOURCE_ROOT;
 		};
 		0442F57C1900718600F55DF9 /* Fonts */ = {
@@ -3100,7 +3082,6 @@
 		BC45D56A1C32E7C5007C72F3 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				043F18DA18D9691D00D8489A /* TopActionSheet */,
 				B0E804291C0CDF850065EBC0 /* MenuButton.h */,
 				B0E8042A1C0CDF850065EBC0 /* MenuButton.m */,
 				B0E8042B1C0CDF850065EBC0 /* MenuLabel.h */,
@@ -5425,7 +5406,6 @@
 				B0E807961C0CEF970065EBC0 /* MWKImage.m in Sources */,
 				B0E8073F1C0CED810065EBC0 /* WMFMath.m in Sources */,
 				B0E805421C0CE0DC0065EBC0 /* UIColor+WMFStyle.m in Sources */,
-				B0E8056B1C0CE0F40065EBC0 /* TopActionSheetLabel.m in Sources */,
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0E805CB1C0CE5250065EBC0 /* WMFImageController+Debug.swift in Sources */,
 				0E26B0811C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m in Sources */,
@@ -5509,7 +5489,6 @@
 				B0E805621C0CE0DC0065EBC0 /* UIWebView+LoadAssetsHtml.m in Sources */,
 				B0E804D01C0CE0B40065EBC0 /* NSHTTPCookieStorage+WMFCloneCookie.m in Sources */,
 				0EF5BB6A1C110BFC00DE75E1 /* WMFLocalization.m in Sources */,
-				B0E8056C1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m in Sources */,
 				B0E805591C0CE0DC0065EBC0 /* UIView+WMFFrameUtils.m in Sources */,
 				B0E803761C0CD9C10065EBC0 /* WMFTableOfContentsCell.swift in Sources */,
 				B0E803251C0CD6B90065EBC0 /* WMFRelatedSearchResults.m in Sources */,
