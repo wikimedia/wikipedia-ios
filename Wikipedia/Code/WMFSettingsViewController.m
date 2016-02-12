@@ -310,8 +310,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                   [self itemForType:WMFSettingsMenuItemType_Login],
                                   [self itemForType:WMFSettingsMenuItemType_Support]
                                   ]];
-    section.header = @"";
-    section.footer = @"";
+    section.header = nil;
+    section.footer = nil;
     return section;
 }
 
@@ -320,8 +320,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [SSSection sectionWithItems:@[
                                   [self itemForType:WMFSettingsMenuItemType_SearchLanguage]
                                   ]];
-    section.header = @"";
-    section.footer = @"";
+    section.header = nil;
+    section.footer = nil;
     return section;
 }
 
@@ -344,7 +344,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                   [self itemForType:WMFSettingsMenuItemType_ZeroFAQ]
                                   ]];
     section.header = MWLocalizedString(@"main-menu-heading-zero", nil);
-    section.footer = @"";
+    section.footer = nil;
     return section;
 }
 
@@ -354,8 +354,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                   [self itemForType:WMFSettingsMenuItemType_RateApp],
                                   [self itemForType:WMFSettingsMenuItemType_SendFeedback]
                                   ]];
-    section.header = @"";
-    section.footer = @"";
+    section.header = nil;
+    section.footer = nil;
     return section;
 }
 
@@ -365,8 +365,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                   [self itemForType:WMFSettingsMenuItemType_About],
                                   [self itemForType:WMFSettingsMenuItemType_FAQ]
                                   ]];
-    section.header = @"";
-    section.footer = @"";
+    section.header = nil;
+    section.footer = nil;
     return section;
 }
 
@@ -381,7 +381,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                    [self itemForType:WMFSettingsMenuItemType_DevSettings]
                                    ]];
     section.header = MWLocalizedString(@"main-menu-heading-debug", nil);
-    section.footer = @"";
+    section.footer = nil;
     return section;
 }
 
