@@ -104,16 +104,14 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
         cell.iconName       = menuItem.iconName;
         cell.disclosureType = menuItem.disclosureType;
         cell.disclosureText = menuItem.disclosureText;
-        
+        [cell.disclosureSwitch setOn:menuItem.isSwitchOn];
         cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
-        
-        @strongify(self)
-        [cell.disclosureSwitch setOn:[self getSwitchOnValueForMenuItemType:menuItem.type]];
         
         [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
         [cell.disclosureSwitch bk_addEventHandler:^(UISwitch* sender){
             @strongify(self)
-            [self handleSwitchValueChangedTo:sender.isOn forMenuItemType:menuItem.type];
+            menuItem.isSwitchOn = sender.isOn;
+            [self updateStateForMenuItem:menuItem isSwitchOnValue:sender.isOn];
         } forControlEvents:UIControlEventValueChanged];
         
     };
@@ -129,26 +127,10 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     }
 }
 
-#pragma mark - Switch state
-
--(BOOL)getSwitchOnValueForMenuItemType:(WMFSettingsMenuItemType)type {
-    switch (type) {
-        case WMFSettingsMenuItemType_SendUsageReports:
-            return [SessionSingleton sharedInstance].shouldSendUsageReports;
-            break;
-        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving:
-            return [SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving;
-            break;
-        default:
-            return NO;
-            break;
-    }
-}
-
 #pragma mark - Switch tap handling
 
--(void)handleSwitchValueChangedTo:(BOOL)isOn forMenuItemType:(WMFSettingsMenuItemType)type {
-    switch (type) {
+-(void)updateStateForMenuItem:(WMFSettingsMenuItem*)menuItem isSwitchOnValue:(BOOL)isOn{
+    switch (menuItem.type) {
         case WMFSettingsMenuItemType_SendUsageReports:
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
             break;
@@ -434,7 +416,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-user"
                                             iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9CA1A7) alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_Support: {
@@ -444,7 +427,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-support"
                                             iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
 
         }
             break;
@@ -456,7 +440,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-project"
                                             iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                       disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]];
+                                       disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_PrivacyPolicy: {
@@ -466,7 +451,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-privacy"
                                             iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
 
         }
             break;
@@ -477,7 +463,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-terms"
                                             iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
 
         }
             break;
@@ -488,7 +475,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-analytics"
                                             iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
 
         }
             break;
@@ -499,7 +487,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-zero"
                                             iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
         }
             break;
         case WMFSettingsMenuItemType_ZeroFAQ: {
@@ -509,7 +498,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-faq"
                                             iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_RateApp: {
@@ -519,7 +509,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-rate"
                                             iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_SendFeedback: {
@@ -529,7 +520,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-feedback"
                                             iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_About: {
@@ -539,7 +531,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-about"
                                             iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_FAQ: {
@@ -549,7 +542,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-faq"
                                             iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_DebugCrash: {
@@ -559,7 +553,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-crash"
                                             iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_None
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
         case WMFSettingsMenuItemType_DevSettings: {
@@ -569,7 +564,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                              iconName:@"settings-dev"
                                             iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil];
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
         }
             break;
     }

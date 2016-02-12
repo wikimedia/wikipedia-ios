@@ -40,10 +40,13 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
 
 @property (nonatomic, copy, readonly) NSString* disclosureText;
 
+@property (nonatomic, assign, readwrite) BOOL isSwitchOn;
+
 - (instancetype)initWithType:(WMFSettingsMenuItemType)type
                        title:(NSString*)title
                     iconName:(NSString*)iconName
                    iconColor:(UIColor*)iconColor
               disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
-              disclosureText:(NSString*)disclosureText;
+              disclosureText:(NSString*)disclosureText
+                  isSwitchOn:(BOOL)isSwitchOn;
 @end

@@ -24,7 +24,8 @@
                     iconName:(NSString*)iconName
                    iconColor:(UIColor*)iconColor
               disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
-              disclosureText:(NSString*)disclosureText {
+              disclosureText:(NSString*)disclosureText
+                  isSwitchOn:(BOOL)isSwitchOn {
     self = [super init];
     if (self) {
         self.type           = type;
@@ -33,6 +34,7 @@
         self.iconColor      = iconColor;
         self.disclosureType = disclosureType;
         self.disclosureText = disclosureText;
+        self.isSwitchOn     = isSwitchOn;
     }
     return self;
 }
