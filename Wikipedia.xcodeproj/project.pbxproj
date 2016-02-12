@@ -268,7 +268,6 @@
 		B0E805661C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805381C0CE0DC0065EBC0 /* UIWebView+WMFTrackingView.m */; };
 		B0E8056B1C0CE0F40065EBC0 /* TopActionSheetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805681C0CE0F40065EBC0 /* TopActionSheetLabel.m */; };
 		B0E8056C1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */; };
-		B0E805711C0CE1060065EBC0 /* AlertLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8056E1C0CE1060065EBC0 /* AlertLabel.m */; };
 		B0E8058D1C0CE2C60065EBC0 /* CreateAccountFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E805781C0CE2C60065EBC0 /* CreateAccountFunnel.m */; };
 		B0E8058E1C0CE2C60065EBC0 /* EditFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057A1C0CE2C60065EBC0 /* EditFunnel.m */; };
 		B0E8058F1C0CE2C60065EBC0 /* EventLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8057C1C0CE2C60065EBC0 /* EventLogger.m */; };
@@ -1115,8 +1114,6 @@
 		B0E805681C0CE0F40065EBC0 /* TopActionSheetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopActionSheetLabel.m; path = Wikipedia/Code/TopActionSheetLabel.m; sourceTree = SOURCE_ROOT; };
 		B0E805691C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+TopActionSheet.h"; path = "Wikipedia/Code/UINavigationController+TopActionSheet.h"; sourceTree = SOURCE_ROOT; };
 		B0E8056A1C0CE0F40065EBC0 /* UINavigationController+TopActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationController+TopActionSheet.m"; path = "Wikipedia/Code/UINavigationController+TopActionSheet.m"; sourceTree = SOURCE_ROOT; };
-		B0E8056D1C0CE1060065EBC0 /* AlertLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertLabel.h; path = Wikipedia/Code/AlertLabel.h; sourceTree = SOURCE_ROOT; };
-		B0E8056E1C0CE1060065EBC0 /* AlertLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertLabel.m; path = Wikipedia/Code/AlertLabel.m; sourceTree = SOURCE_ROOT; };
 		B0E805731C0CE24B0065EBC0 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = Wikipedia/Code/Defines.h; sourceTree = SOURCE_ROOT; };
 		B0E805741C0CE24B0065EBC0 /* WikiGlyph_Chars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WikiGlyph_Chars.h; path = Wikipedia/Code/WikiGlyph_Chars.h; sourceTree = SOURCE_ROOT; };
 		B0E805751C0CE24B0065EBC0 /* WMF_Colors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMF_Colors.h; path = Wikipedia/Code/WMF_Colors.h; sourceTree = SOURCE_ROOT; };
@@ -2212,16 +2209,6 @@
 			path = Wikipedia/Code/References;
 			sourceTree = SOURCE_ROOT;
 		};
-		04D149D818877343006B4104 /* Alerts */ = {
-			isa = PBXGroup;
-			children = (
-				B0E8056D1C0CE1060065EBC0 /* AlertLabel.h */,
-				B0E8056E1C0CE1060065EBC0 /* AlertLabel.m */,
-			);
-			name = Alerts;
-			path = Wikipedia/Code/Alerts;
-			sourceTree = SOURCE_ROOT;
-		};
 		04DD89AE18BFE63A00DD5DAD /* Preview */ = {
 			isa = PBXGroup;
 			children = (
@@ -3114,7 +3101,6 @@
 			isa = PBXGroup;
 			children = (
 				043F18DA18D9691D00D8489A /* TopActionSheet */,
-				04D149D818877343006B4104 /* Alerts */,
 				B0E804291C0CDF850065EBC0 /* MenuButton.h */,
 				B0E8042A1C0CDF850065EBC0 /* MenuButton.m */,
 				B0E8042B1C0CDF850065EBC0 /* MenuLabel.h */,
@@ -5443,7 +5429,6 @@
 				B0E805921C0CE2C60065EBC0 /* ProtectedEditAttemptFunnel.m in Sources */,
 				B0E805CB1C0CE5250065EBC0 /* WMFImageController+Debug.swift in Sources */,
 				0E26B0811C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m in Sources */,
-				B0E805711C0CE1060065EBC0 /* AlertLabel.m in Sources */,
 				B0E803DD1C0CDD050065EBC0 /* UITableViewCell+WMFEdgeToEdgeSeparator.m in Sources */,
 				B0E807DD1C0CF04A0065EBC0 /* MWKSectionList.m in Sources */,
 				B0E807D81C0CF04A0065EBC0 /* MWKImageInfo.m in Sources */,
