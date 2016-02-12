@@ -120,15 +120,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [self loadSections];
 }
 
-#pragma mark - Teardown
-
--(void)dealloc {
-    if ([SessionSingleton sharedInstance].keychainCredentials) {
-        [self.KVOControllerNonRetaining unobserve:[SessionSingleton sharedInstance].keychainCredentials
-                                          keyPath:WMF_SAFE_KEYPATH([SessionSingleton sharedInstance].keychainCredentials, userName)];
-    }
-}
-
 #pragma mark - Switch tap handling
 
 -(void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn{
