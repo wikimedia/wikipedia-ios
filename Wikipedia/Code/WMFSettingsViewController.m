@@ -176,7 +176,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             [self wmf_openExternalUrl:[self emailURL]];
             break;
         case WMFSettingsMenuItemType_About:
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
+                               animated:YES
+                             completion:nil];
             break;
         case WMFSettingsMenuItemType_FAQ:
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLFAQ]];
@@ -219,7 +221,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     if (userName) {
         [self showLogoutActionSheet];
     }else{
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]] animated:YES completion:nil];
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]]
+                           animated:YES
+                         completion:nil];
     }
 }
 
@@ -251,7 +255,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 - (void)showLanguages {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     languagesVC.languageSelectionDelegate = self;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC] animated:YES completion:nil];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC]
+                       animated:YES
+                     completion:nil];
 }
 
 -(nullable NSIndexPath*)indexPathOfVisibleCellOfType:(WMFSettingsMenuItemType)type {
