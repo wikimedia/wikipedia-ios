@@ -151,15 +151,15 @@ NS_ASSUME_NONNULL_BEGIN
     NSAssert([article.title isEqualToTitle:self.articleTitle],
              @"Invalid article set for VC expecting article data for title: %@", self.articleTitle);
 
-    _shareFunnel                   = nil;
-    _shareOptionsController        = nil;
+    _shareFunnel            = nil;
+    _shareOptionsController = nil;
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
     _article = article;
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
     self.footerMenuViewController.article = _article;
-    self.webViewController.article = _article;
+    self.webViewController.article        = _article;
     [self.headerGallery showImagesInArticle:_article];
 
     // always update toolbar
@@ -172,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
 
-        WMF_TECH_DEBT_TODO(also block non-main-namespace);
+        WMF_TECH_DEBT_TODO(also block non - main - namespace);
         if (!self.article.isMain) {
             [self createTableOfContentsViewController];
             [self fetchReadMoreIfNeeded];
@@ -427,8 +427,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article) {
         NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
         /*
-         NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
-        */
+           NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+         */
         if ([self.readMoreListViewController hasResults]) {
             [footerVCs addObject:self.readMoreListViewController];
             [self appendReadMoreTableOfContentsItemIfNeeded];
@@ -718,13 +718,13 @@ NS_ASSUME_NONNULL_BEGIN
     })
     .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
-        WMF_TECH_DEBT_TODO(show read more w/ an error view and allow user to retry?);
+        WMF_TECH_DEBT_TODO(show read more w / an error view and allow user to retry ? );
     });
 }
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+- (void)shareArticleWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     if (text.length == 0) {
         text = [self.article shareSnippet];
     }

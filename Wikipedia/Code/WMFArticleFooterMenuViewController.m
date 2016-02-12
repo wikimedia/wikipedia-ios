@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setArticle:(MWKArticle *)article {
+- (void)setArticle:(MWKArticle*)article {
     if (WMF_EQUAL(self.article, isEqualToArticle:, article)) {
         return;
     }

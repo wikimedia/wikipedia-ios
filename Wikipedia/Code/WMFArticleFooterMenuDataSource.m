@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-- (void)setArticle:(nullable MWKArticle *)article {
+- (void)setArticle:(nullable MWKArticle*)article {
     if (WMF_EQUAL(self.article, isEqualToArticle:, article)) {
         return;
     }
