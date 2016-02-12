@@ -33,7 +33,8 @@
 #import "NSBundle+WMFInfoUtils.h"
 #import "UIColor+WMFHexColor.h"
 
-// URLS
+#pragma mark - Static URLs
+
 static NSString* const WMFSettingsURLZeroFAQ = @"https://m.wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 static NSString* const WMFSettingsURLTerms   = @"https://m.wikimediafoundation.org/wiki/Terms_of_Use";
 static NSString* const WMFSettingsURLRate    = @"itms-apps://itunes.apple.com/app/id324715238";
@@ -50,6 +51,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
 
 @implementation WMFSettingsViewController
+
+#pragma mark - Setup
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -71,11 +74,17 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                       }];
 }
 
--(void)dealloc {
-    if ([SessionSingleton sharedInstance].keychainCredentials) {
-        [self.KVOControllerNonRetaining unobserve:[SessionSingleton sharedInstance].keychainCredentials
-                                          keyPath:WMF_SAFE_KEYPATH([SessionSingleton sharedInstance].keychainCredentials, userName)];
-    }
+-(void)configureBackButton {
+    @weakify(self)
+    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
+        @strongify(self)
+        [self dismissViewControllerAnimated : YES completion : nil];
+    }];
+    self.navigationItem.leftBarButtonItems = @[xButton];
+}
+
+- (NSString*)title {
+    return MWLocalizedString(@"settings-title", nil);
 }
 
 -(void)configureTableDataSource {
@@ -109,18 +118,16 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [self loadSections];
 }
 
-- (NSString*)title {
-    return MWLocalizedString(@"settings-title", nil);
+#pragma mark - Teardown
+
+-(void)dealloc {
+    if ([SessionSingleton sharedInstance].keychainCredentials) {
+        [self.KVOControllerNonRetaining unobserve:[SessionSingleton sharedInstance].keychainCredentials
+                                          keyPath:WMF_SAFE_KEYPATH([SessionSingleton sharedInstance].keychainCredentials, userName)];
+    }
 }
 
--(void)configureBackButton {
-    @weakify(self)
-    UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
-        @strongify(self)
-        [self dismissViewControllerAnimated : YES completion : nil];
-    }];
-    self.navigationItem.leftBarButtonItems = @[xButton];
-}
+#pragma mark - Switch state
 
 -(BOOL)getSwitchOnValueForMenuItemType:(WMFSettingsMenuItemType)type {
     switch (type) {
@@ -136,6 +143,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     }
 }
 
+#pragma mark - Switch tap handling
+
 -(void)handleSwitchValueChangedTo:(BOOL)isOn forMenuItemType:(WMFSettingsMenuItemType)type {
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports:
@@ -148,6 +157,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             break;
     }
 }
+
+#pragma mark - Cell tap handling
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     switch ([(WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath] type]) {
@@ -196,6 +207,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     }
 }
 
+#pragma mark - Dynamic URLs
+
 -(NSURL*)donationURL {
     NSString *url = WMFSettingsURLSupport;
     
@@ -215,6 +228,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     NSString* mailURL = [WMFSettingsURLEmail stringByAppendingString:[WikipediaAppUtils versionedUserAgent]];
     return [NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
+
+#pragma mark - Log in and out
 
 -(void)showLoginOrLogout {
     NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
@@ -252,18 +267,14 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     }
 }
 
+#pragma mark - Languages
+
 - (void)showLanguages {
     LanguagesViewController* languagesVC = [LanguagesViewController wmf_initialViewControllerFromClassStoryboard];
     languagesVC.languageSelectionDelegate = self;
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:languagesVC]
                        animated:YES
                      completion:nil];
-}
-
--(nullable NSIndexPath*)indexPathOfVisibleCellOfType:(WMFSettingsMenuItemType)type {
-    return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL (NSIndexPath* indexPath) {
-        return ((WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
-    }];
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
@@ -274,6 +285,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
+
+#pragma mark - Debugging
 
 + (void)generateTestCrash {
     if ([[BITHockeyManager sharedHockeyManager] crashManager]) {
@@ -288,12 +301,22 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [tweakViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - Cell reloading
+
+-(nullable NSIndexPath*)indexPathOfVisibleCellOfType:(WMFSettingsMenuItemType)type {
+    return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL (NSIndexPath* indexPath) {
+        return ((WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
+    }];
+}
+
 -(void)reloadVisibleCellOfType:(WMFSettingsMenuItemType)type {
     NSIndexPath *indexPath = [self indexPathOfVisibleCellOfType:type];
     if (indexPath) {
         [self.elementDataSource replaceItemAtIndexPath:indexPath withItem:[self itemForType:type]];
     }
 }
+
+#pragma mark - Sections structure
 
 - (void)loadSections {
     NSMutableArray *sections = [[NSMutableArray alloc] init];
@@ -309,6 +332,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [self.elementDataSource.sections setArray:sections];
     [self.elementDataSource.tableView reloadData];
 }
+
+#pragma mark - Section structure
 
 -(SSSection*)section_1 {
     SSSection* section =
@@ -390,6 +415,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     section.footer = nil;
     return section;
 }
+
+#pragma mark - Row structure
 
 - (WMFSettingsMenuItem*)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
