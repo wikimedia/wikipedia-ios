@@ -107,7 +107,7 @@
             WMFSafeAssign(error,
                           [NSError errorWithDomain:@"WMFMostReadSerializationErrorDomain"
                                               code:0
-                                          userInfo:@{@"WMFMostReadFailingProjectUserInfoKey": value ? : [NSNull null]}]);
+                                          userInfo:value ? @{@"WMFMostReadFailingProjectUserInfoKey" : value}:nil]);
             return nil;
         }
         return [[MWKSite alloc] initWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
