@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSString* const WMFMostReadTitleFetcherErrorDomain = @"WMFMostReadTitleFetcherErrorDomain";
+NSString* const WMFMostReadTitleFetcherErrorDomain                 = @"WMFMostReadTitleFetcherErrorDomain";
 NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostReadTitleFetcherErrorFailingDateUserInfoKey";
 
 @interface WMFMostReadTitleFetcher ()
@@ -33,7 +33,7 @@ NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostRe
     if (self) {
         AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager wmf_createDefaultManager];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.operationManager = manager;
+        self.operationManager      = manager;
     }
     return self;
 }
@@ -42,7 +42,7 @@ NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostRe
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchMostReadTitlesForSite:(MWKSite *)site date:(NSDate *)date {
+- (AnyPromise*)fetchMostReadTitlesForSite:(MWKSite*)site date:(NSDate*)date {
     NSParameterAssert(site);
     NSParameterAssert(date);
     NSString* dateString = [[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date];
@@ -55,7 +55,7 @@ NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostRe
     }
 
     NSString* path = [NSString stringWithFormat:@"/metrics/pageviews/top/%@.%@/all-access/%@",
-                                                site.language, site.domain, dateString];
+                      site.language, site.domain, dateString];
 
     NSString* requestURLString = [WMFWikimediaRestAPIURLStringWithVersion(1) stringByAppendingPathComponent:path];
 
@@ -76,7 +76,7 @@ NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostRe
             }
             NSCAssert(fabs(date.timeIntervalSinceReferenceDate - firstItem.date.timeIntervalSinceReferenceDate) < 86400,
                       @"Date for most-read articles (%@) doesn't match original fetch date: %@", firstItem.date, date);
-            resolve(firstItem ?: parseError);
+            resolve(firstItem ? : parseError);
         }
                            failure:^(AFHTTPRequestOperation* operation, NSError* error) {
             resolve(error);

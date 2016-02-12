@@ -24,12 +24,12 @@
 
 @implementation WMFMostReadTitlesResponseItem
 
-- (void)setArticles:(NSArray<WMFMostReadTitlesResponseItemArticle *> *)articles {
+- (void)setArticles:(NSArray<WMFMostReadTitlesResponseItemArticle*>*)articles {
     NSAssert(!_articles, @"Unexpected call to %@, property is supposed to be mutable!", NSStringFromSelector(_cmd));
-    _articles = [articles bk_reject:^BOOL(WMFMostReadTitlesResponseItemArticle* article) {
+    _articles = [articles bk_reject:^BOOL (WMFMostReadTitlesResponseItemArticle* article) {
         return [article.titleText isEqualToString:@"-"]
-               // TODO: get namespace prefixes for self.site
-               || [self isArticleTitleMainPage:article];
+        // TODO: get namespace prefixes for self.site
+        || [self isArticleTitleMainPage:article];
     }];
 }
 
@@ -53,7 +53,7 @@
 }
 
 + (MTLValueTransformer*)articlesJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (id value, BOOL* success, NSError* __autoreleasing* error) {
         NSArray<WMFMostReadTitlesResponseItemArticle*>* rawArticles =
             [MTLJSONAdapter modelsOfClass:[WMFMostReadTitlesResponseItemArticle class]
                             fromJSONArray:value
@@ -63,9 +63,9 @@
 }
 
 + (MTLValueTransformer*)dateJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSDictionary* componentsMap,
-                                                                 BOOL *outSuccess,
-                                                                 NSError *__autoreleasing *outError) {
+    return [MTLValueTransformer transformerUsingForwardBlock :^id (NSDictionary* componentsMap,
+                                                                   BOOL* outSuccess,
+                                                                   NSError* __autoreleasing* outError) {
         NSDateComponents* components = [[NSDateComponents alloc] init];
 
         BOOL success = YES;
@@ -74,11 +74,11 @@
         // DRY up setting specific component, returning nil if an error occurs
         // HAX: for some reason these fields come back as strings, not ints
         #define setComponent(key) \
-        do { \
+    do { \
         NSNumber* value = [componentsMap wmf_nonnullValueOfType:[NSString class] forKey:@#key error:outError]; \
         success &= value != nil; \
         components.key = value.intValue; \
-        } while(0)
+    } while (0)
 
         setComponent(day);
         setComponent(month);
@@ -103,15 +103,15 @@
 }
 
 + (MTLValueTransformer*)siteJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(NSString* value,
-                                                                 BOOL *success,
-                                                                 NSError *__autoreleasing *error) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSString* value,
+                                                                  BOOL* success,
+                                                                  NSError* __autoreleasing* error) {
         NSArray* components = [value componentsSeparatedByString:@"."];
         if (!value.length || components.count < 2) {
             WMFSafeAssign(error,
                           [NSError errorWithDomain:@"WMFMostReadSerializationErrorDomain"
                                               code:0
-                                          userInfo:@{@"WMFMostReadFailingProjectUserInfoKey": value ?: [NSNull null]}]);
+                                          userInfo:@{@"WMFMostReadFailingProjectUserInfoKey": value ? : [NSNull null]}]);
             return nil;
         }
         return [[MWKSite alloc] initWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];

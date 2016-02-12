@@ -295,7 +295,7 @@ NS_ASSUME_NONNULL_BEGIN
     return NO;
 }
 
-- (NSString*)deleteButtonText{
+- (NSString*)deleteButtonText {
     return nil;
 }
 

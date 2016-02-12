@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMostReadSectionController
 
-- (instancetype)initWithDate:(NSDate *)date site:(MWKSite *)site dataStore:(MWKDataStore *)dataStore {
+- (instancetype)initWithDate:(NSDate*)date site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.site = site;
@@ -92,13 +92,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSAttributedString*)headerTitle {
     return [[NSAttributedString alloc]
             initWithString:MWLocalizedString(@"explore-most-read-heading", nil)
-            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+                attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (NSAttributedString*)headerSubTitle {
     return [[NSAttributedString alloc]
             initWithString:[[NSDateFormatter wmf_mediumDateFormatterWithoutTime] stringFromDate:self.date]
-            attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+                attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
 - (UIColor*)headerIconTintColor {
@@ -111,14 +111,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark Detail
 
-- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UIViewController*)detailViewControllerForItemAtIndexPath:(NSIndexPath*)indexPath {
     return [[WMFArticleViewController alloc] initWithArticleTitle:[self titleForItemAtIndexPath:indexPath]
                                                         dataStore:self.dataStore];
 }
 
 #pragma mark - TitleProviding
 
-- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (nullable MWKTitle*)titleForItemAtIndexPath:(NSIndexPath*)indexPath {
     if (indexPath.row >= self.items.count) {
         return nil;
     }

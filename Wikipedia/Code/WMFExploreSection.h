@@ -28,7 +28,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 
 @interface WMFExploreSection : MTLModel
 
-+ (instancetype)mostReadSectionForDate:(NSDate *)date site:(MWKSite*)site;
++ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site;
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
 + (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;

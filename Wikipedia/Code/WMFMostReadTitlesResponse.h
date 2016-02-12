@@ -11,7 +11,7 @@
 @class MWKSite;
 
 @interface WMFMostReadTitlesResponseItemArticle : MTLModel
-<MTLJSONSerializing>
+    <MTLJSONSerializing>
 
 @property (nonatomic, strong, readonly) NSString* titleText;
 @property (nonatomic, assign, readonly) NSUInteger rank;
@@ -20,7 +20,7 @@
 @end
 
 @interface WMFMostReadTitlesResponseItem : MTLModel
-<MTLJSONSerializing>
+    <MTLJSONSerializing>
 
 @property (nonatomic, strong, readonly) NSDate* date;
 @property (nonatomic, strong, readonly) NSArray<WMFMostReadTitlesResponseItemArticle*>* articles;
@@ -29,7 +29,7 @@
 @end
 
 @interface WMFMostReadTitlesResponse : MTLModel
-<MTLJSONSerializing>
+    <MTLJSONSerializing>
 
 @property (nonatomic, strong, readonly) NSArray<WMFMostReadTitlesResponseItem*>* items;
 

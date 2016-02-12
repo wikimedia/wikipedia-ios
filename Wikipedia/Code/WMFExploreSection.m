@@ -101,11 +101,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Factory Methods
 
-+ (instancetype)mostReadSectionForDate:(NSDate *)date site:(MWKSite*)site {
++ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
     WMFExploreSection* trending = [[WMFExploreSection alloc] init];
-    trending.type = WMFExploreSectionTypeMostRead;
+    trending.type        = WMFExploreSectionTypeMostRead;
     trending.dateCreated = date;
-    trending.site = site;
+    trending.site        = site;
     return trending;
 }
 

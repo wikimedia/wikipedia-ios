@@ -68,7 +68,7 @@
     return YES;
 }
 
-- (NSString*)deleteButtonText{
+- (NSString*)deleteButtonText {
     return MWLocalizedString(@"history-clear-all", nil);
 }
 

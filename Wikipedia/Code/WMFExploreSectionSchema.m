@@ -372,15 +372,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  *  @return An array of "most read" sections that should be in an updated version of the receiver.
  */
 - (NSArray<WMFExploreSection*>*)mostReadSectionsWithUpdateIfNeeded {
-    NSArray<WMFExploreSection*>* mostReadSections = [self.sections bk_select:^BOOL(WMFExploreSection* section) {
+    NSArray<WMFExploreSection*>* mostReadSections = [self.sections bk_select:^BOOL (WMFExploreSection* section) {
         return section.type == WMFExploreSectionTypeMostRead;
     }];
 
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
 
-    BOOL containsLatestSectionEquivalent = [mostReadSections bk_match:^BOOL(WMFExploreSection* mostReadSection) {
+    BOOL containsLatestSectionEquivalent = [mostReadSections bk_match:^BOOL (WMFExploreSection* mostReadSection) {
         return [mostReadSection.dateCreated isEqualToDateIgnoringTime:latestMostReadSection.dateCreated]
-                && [mostReadSection.site isEqualToSite:latestMostReadSection.site];
+        && [mostReadSection.site isEqualToSite:latestMostReadSection.site];
     }];
 
     if (!containsLatestSectionEquivalent) {
@@ -400,7 +400,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  *  @return A new "most read" explore section with the most recent date which is likely to have data.
  */
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
-    NSDate* now = [NSDate date];
+    NSDate* now       = [NSDate date];
     NSDate* fetchDate = [now dateBySubtractingDays:1];
     if (fetchDate.hour < 6) {
         DDLogInfo(@"Yesterday's most read articles might not be ready, falling back to previous day");

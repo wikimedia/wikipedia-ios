@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString* const WMFInvalidValueForKeyErrorDomain;
 extern NSString* const WMFFailingDictionaryUserInfoKey;
 
-typedef NS_ENUM(UInt32, WMFInvalidValueForKeyError) {
+typedef NS_ENUM (UInt32, WMFInvalidValueForKeyError) {
     WMFInvalidValueForKeyErrorNoValue,
     WMFInvalidValueForKeyErrorNullValue,
     WMFInvalidValueForKeyErrorIncorrectType
@@ -23,7 +23,7 @@ typedef NS_ENUM(UInt32, WMFInvalidValueForKeyError) {
 
 - (nullable id)wmf_nonnullValueOfType:(Class)type
                                forKey:(NSString*)key
-                                error:(NSError* _Nullable  __autoreleasing*)error;
+                                error:(NSError* _Nullable __autoreleasing*)error;
 
 @end
 
