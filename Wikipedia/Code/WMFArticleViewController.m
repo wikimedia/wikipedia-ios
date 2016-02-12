@@ -93,24 +93,22 @@ NS_ASSUME_NONNULL_BEGIN
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
+@property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-
-@property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
-
-// Previewing
-@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
-
-@property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
-@property (nonatomic, assign) BOOL isPreviewing;
-
 @property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
+
+// Previewing
+@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
+@property (nonatomic, assign) BOOL isPreviewing;
+
+@property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
 @end
 
@@ -137,15 +135,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (WMFArticleFooterMenuViewController*)footerMenuViewController {
+    if (!_footerMenuViewController) {
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+    }
+    return _footerMenuViewController;
+}
+
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
+    NSAssert([article.title isEqualToTitle:self.articleTitle],
+             @"Invalid article set for VC expecting article data for title: %@", self.articleTitle);
 
-    _footerMenuViewController      = nil;
-    _tableOfContentsViewController = nil;
     _shareFunnel                   = nil;
     _shareOptionsController        = nil;
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
@@ -153,25 +158,26 @@ NS_ASSUME_NONNULL_BEGIN
     _article = article;
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
+    self.footerMenuViewController.article = _article;
     self.webViewController.article = _article;
     [self.headerGallery showImagesInArticle:_article];
 
     // always update toolbar
     [self updateToolbar];
 
+    // always update footers
+    [self updateWebviewFootersIfNeeded];
+
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
 
+        WMF_TECH_DEBT_TODO(also block non-main-namespace);
         if (!self.article.isMain) {
             [self createTableOfContentsViewController];
-            [self fetchReadMore];
+            [self fetchReadMoreIfNeeded];
         }
     }
-    
-    // always update footers
-    [self updateArticleFootersIfNeeded];
-
 }
 
 - (MWKHistoryList*)recentPages {
@@ -223,7 +229,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFReadMoreViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController          = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle dataStore:self.dataStore];
+        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
+                                                                             dataStore:self.dataStore];
         _readMoreListViewController.delegate = self;
     }
     return _readMoreListViewController;
@@ -416,21 +423,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Footers
 
-- (void)updateArticleFootersIfNeeded {
-    if (!self.article || self.article.isMain) {
+- (void)updateWebviewFootersIfNeeded {
+    if (self.article) {
+        NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
+        /*
+         NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+        */
+        if ([self.readMoreListViewController hasResults]) {
+            [footerVCs addObject:self.readMoreListViewController];
+            [self appendReadMoreTableOfContentsItemIfNeeded];
+        }
+        [self.webViewController setFooterViewControllers:footerVCs];
+    } else {
         [self.webViewController setFooterViewControllers:nil];
-        return;
     }
-
-    if (self.footerMenuViewController.article != self.article) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
-    }
-    NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
-    if ([self.readMoreListViewController hasResults]) {
-        [footerVCs addObject:self.readMoreListViewController];
-        [self appendReadMoreTableOfContentsItemIfNeeded];
-    }
-    [self.webViewController setFooterViewControllers:footerVCs];
 }
 
 #pragma mark - Progress
@@ -701,15 +707,18 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchArticleForce:NO];
 }
 
-- (void)fetchReadMore {
+- (void)fetchReadMoreIfNeeded {
+    NSAssert(self.article, @"Invalid read more fetch before getting article.");
+    NSAssert(!self.article.isMain, @"Invalid read more fetch for main page.");
     @weakify(self);
-    [self.readMoreListViewController fetchIfNeeded].then(^(id readMoreResults) {
+    [self.readMoreListViewController fetchIfNeeded].then(^{
         @strongify(self);
-        [self updateArticleFootersIfNeeded];
+        // update footers to include read more if there are results
+        [self updateWebviewFootersIfNeeded];
     })
     .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
-        WMF_TECH_DEBT_TODO(show error view in read more)
+        WMF_TECH_DEBT_TODO(show read more w/ an error view and allow user to retry?);
     });
 }
 
