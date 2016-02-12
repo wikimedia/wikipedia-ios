@@ -703,7 +703,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchReadMore {
     @weakify(self);
-    [self.readMoreListViewController fetch].then(^(id readMoreResults) {
+    [self.readMoreListViewController fetchIfNeeded].then(^(id readMoreResults) {
         @strongify(self);
         [self updateArticleFootersIfNeeded];
     })

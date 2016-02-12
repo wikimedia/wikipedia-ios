@@ -4,7 +4,7 @@
 #import "NSDate+Utilities.h"
 #import "WMFArticleFooterMenuCell.h"
 #import "MWKTitle.h"
-
+#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -58,17 +58,17 @@ NS_ASSUME_NONNULL_BEGIN
                                       nil, @"footer-switch-language")];
     }
 
-#if 0 || defined(NDEBUG)
-    [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                  [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
-                                  MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
-                                  @"footer-edit-history")];
-#else
-    [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                  [article.lastmodified mediumString],
-                                  MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
-                                  @"footer-edit-history")];
-#endif
+    if (FBTweakValue(@"Article", @"Article Metadata Footer", @"Show last edit timestamp", NO)) {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                                      [article.lastmodified mediumString],
+                                      MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
+                                      @"footer-edit-history")];
+    } else {
+        [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                                      [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
+                                      MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
+                                      @"footer-edit-history")];
+    }
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,

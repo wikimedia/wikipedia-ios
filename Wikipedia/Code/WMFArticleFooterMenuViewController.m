@@ -23,9 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleFooterMenuViewController () <UITableViewDelegate, LanguageSelectionDelegate, UINavigationControllerDelegate, WMFArticleListTableViewControllerDelegate>
 
-@property (nonatomic, strong, readwrite) MWKArticle* article;
-
-@property (nonatomic, strong) SSArrayDataSource* footerDataSource;
+@property (nonatomic, strong) WMFArticleFooterMenuDataSource* footerDataSource;
 
 @property (nonatomic, strong) IBOutlet WMFIntrinsicSizeTableView* tableView;
 
@@ -36,9 +34,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithArticle:(MWKArticle*)article {
     self = [super init];
     if (self) {
-        self.article = article;
+        self.footerDataSource = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
     }
     return self;
+}
+
+- (void)setArticle:(MWKArticle *)article {
+    if (WMF_EQUAL(self.article, isEqualToArticle:, article)) {
+        return;
+    }
+    self.footerDataSource.article = article;
+}
+
+- (MWKArticle*)article {
+    return self.footerDataSource.article;
 }
 
 #pragma mark - Accessors
@@ -74,7 +83,6 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
 
-    _footerDataSource               = [[WMFArticleFooterMenuDataSource alloc] initWithArticle:self.article];
     self.footerDataSource.tableView = self.tableView;
 }
 
