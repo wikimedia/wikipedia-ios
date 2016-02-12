@@ -375,3 +375,4 @@
 "history-clear-all" = "Text of the button shown at the top of history which deletes all history";
 "home-empty-section" = "Text shown when a section of the home screen has no results";
 "home-empty-section-check-again" = "Button title to reload a section when it has no results";
+"explore-most-read-heading" = "Text for 'Most read articles' explore section header.";

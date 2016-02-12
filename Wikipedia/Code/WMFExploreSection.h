@@ -22,11 +22,13 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
     WMFExploreSectionTypeHistory         = 4,
     WMFExploreSectionTypeSaved           = 5,
     WMFExploreSectionTypeFeaturedArticle = 6,
-    WMFExploreSectionTypePictureOfTheDay = 7
+    WMFExploreSectionTypePictureOfTheDay = 7,
+    WMFExploreSectionTypeMostRead        = 8
 };
 
 @interface WMFExploreSection : MTLModel
 
++ (instancetype)mostReadSectionForDate:(NSDate *)date site:(MWKSite*)site;
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
 + (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
