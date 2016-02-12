@@ -136,7 +136,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Accessors
 
 - (WMFArticleFooterMenuViewController*)footerMenuViewController {
-    if (!_footerMenuViewController) {
+    if (!_footerMenuViewController && [self hasAboutThisArticle]) {
         self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
     }
     return _footerMenuViewController;
@@ -162,22 +162,15 @@ NS_ASSUME_NONNULL_BEGIN
     self.webViewController.article        = _article;
     [self.headerGallery showImagesInArticle:_article];
 
-    // always update toolbar
-    [self updateToolbar];
-
-    // always update footers
-    [self updateWebviewFootersIfNeeded];
-
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
-
-        WMF_TECH_DEBT_TODO(also block non - main - namespace);
-        if (!self.article.isMain) {
-            [self createTableOfContentsViewController];
-            [self fetchReadMoreIfNeeded];
-        }
     }
+
+    [self updateToolbar];
+    [self createTableOfContentsViewControllerIfNeeded];
+    [self fetchReadMoreIfNeeded];
+    [self updateWebviewFootersIfNeeded];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -300,7 +293,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)hasTableOfContents {
-    return self.article != nil && !self.article.isMain;
+    return self.article && !self.article.isMain && self.article.sections.count > 0;
+}
+
+- (BOOL)hasReadMore {
+    WMF_TECH_DEBT_TODO(filter articles outside main namespace);
+    return self.article && !self.article.isMain;
+}
+
+- (BOOL)hasAboutThisArticle {
+    return self.article && !self.article.isMain;
 }
 
 - (NSString*)shareText {
@@ -424,19 +426,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Footers
 
 - (void)updateWebviewFootersIfNeeded {
-    if (self.article) {
-        NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
-        /*
-           NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
-         */
-        if ([self.readMoreListViewController hasResults]) {
-            [footerVCs addObject:self.readMoreListViewController];
-            [self appendReadMoreTableOfContentsItemIfNeeded];
-        }
-        [self.webViewController setFooterViewControllers:footerVCs];
-    } else {
-        [self.webViewController setFooterViewControllers:nil];
+    NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
+    [footerVCs wmf_safeAddObject:self.footerMenuViewController];
+    /*
+       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+     */
+    if ([self hasReadMore] && [self.readMoreListViewController hasResults]) {
+        [footerVCs addObject:self.readMoreListViewController];
+        [self appendReadMoreTableOfContentsItemIfNeeded];
     }
+    [self.webViewController setFooterViewControllers:footerVCs];
 }
 
 #pragma mark - Progress
@@ -708,8 +707,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)fetchReadMoreIfNeeded {
-    NSAssert(self.article, @"Invalid read more fetch before getting article.");
-    NSAssert(!self.article.isMain, @"Invalid read more fetch for main page.");
+    if (![self hasReadMore]) {
+        return;
+    }
+
     @weakify(self);
     [self.readMoreListViewController fetchIfNeeded].then(^{
         @strongify(self);
@@ -982,7 +983,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - WMFAnalyticsLogging
-
 
 - (NSString*)analyticsName {
     return @"Article";

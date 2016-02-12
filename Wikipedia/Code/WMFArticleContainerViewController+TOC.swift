@@ -64,19 +64,15 @@ extension WMFArticleViewController {
 
      - returns: sections of the ToC.
      */
-    func createTableOfContentsSections() -> [TableOfContentsItem]?{
-        guard let sections = self.article?.sections else {
-            return nil
-        }
+    func createTableOfContentsSections() -> [TableOfContentsItem]? {
         // HAX: need to forcibly downcast each section object to our protocol type. yay objc/swift interop!
-        let items = sections.entries.map() { $0 as! TableOfContentsItem }
-        return items
+        return hasTableOfContents() ? article?.sections?.entries.map() { $0 as! TableOfContentsItem } : nil
     }
 
     /**
     Create a new instance of `WMFTableOfContentsViewController` which is configured to be used with the receiver.
     */
-    public func createTableOfContentsViewController() {
+    public func createTableOfContentsViewControllerIfNeeded() {
         if let items = createTableOfContentsSections() {
             self.tableOfContentsViewController = WMFTableOfContentsViewController(presentingViewController: self, items: items, delegate: self)
         }
