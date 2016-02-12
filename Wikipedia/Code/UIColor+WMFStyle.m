@@ -161,6 +161,10 @@
     return c;
 }
 
++ (instancetype)wmf_lightBlueTintColor {
+    return [UIColor colorWithRed:0.92 green:0.95 blue:1.0 alpha:1.0];
+}
+
 + (instancetype)wmf_tapHighlightColor {
     static UIColor* c = nil;
 
@@ -243,6 +247,12 @@
         c = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     });
     return c;
+}
+
+- (instancetype)wmf_copyWithAlpha:(CGFloat)alpha {
+    CGFloat r, g, b, _;
+    [self getRed:&r green:&g blue:&b alpha:&_];
+    return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
 
 - (instancetype)wmf_colorByApplyingDim {
