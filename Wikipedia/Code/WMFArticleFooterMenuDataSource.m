@@ -5,18 +5,14 @@
 #import "WMFArticleFooterMenuCell.h"
 #import "MWKTitle.h"
 
-@interface WMFArticleFooterMenuDataSource ()
 
-@property (nonatomic, strong, readwrite) MWKArticle* article;
-
-@end
+NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticleFooterMenuDataSource
 
-- (instancetype)initWithArticle:(MWKArticle*)article {
-    self = [super initWithItems:[self menuItemsForArticle:article]];
+- (instancetype)initWithArticle:(nullable MWKArticle*)article {
+    self = [super initWithItems:nil];
     if (self) {
-        self.article            = article;
         self.cellClass          = [WMFArticleFooterMenuCell class];
         self.cellConfigureBlock = ^(WMFArticleFooterMenuCell* cell, WMFArticleFooterMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
             cell.title     = menuItem.title;
@@ -27,11 +23,26 @@
         self.tableActionBlock = ^BOOL (SSCellActionType action, UITableView* tableView, NSIndexPath* indexPath) {
             return NO;
         };
+
+        self.article = article;
     }
     return self;
 }
 
-- (NSArray<WMFArticleFooterMenuItem*>*)menuItemsForArticle:(MWKArticle*)article {
+- (void)setArticle:(nullable MWKArticle *)article {
+    if (WMF_EQUAL(self.article, isEqualToArticle:, article)) {
+        return;
+    }
+    _article = article;
+    [self updateItemsForArticle:article];
+}
+
+- (void)updateItemsForArticle:(nullable MWKArticle*)article {
+    if (!article) {
+        [self removeAllItems];
+        return;
+    }
+
     WMFArticleFooterMenuItem* (^ makeItem)(WMFArticleFooterMenuItemType, NSString*, NSString*, NSString*) = ^WMFArticleFooterMenuItem*(WMFArticleFooterMenuItemType type, NSString* title, NSString* subTitle, NSString* imageName) {
         return [[WMFArticleFooterMenuItem alloc] initWithType:type
                                                         title:title
@@ -39,7 +50,7 @@
                                                     imageName:imageName];
     };
 
-    NSMutableArray* menuItems = [NSMutableArray new];
+    NSMutableArray<WMFArticleFooterMenuItem*>* menuItems = [NSMutableArray arrayWithCapacity:4];
 
     if (article.languagecount > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLanguages,
@@ -47,10 +58,17 @@
                                       nil, @"footer-switch-language")];
     }
 
+#if 0 || defined(NDEBUG)
     [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
                                   [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
                                   MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
                                   @"footer-edit-history")];
+#else
+    [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
+                                  [article.lastmodified mediumString],
+                                  MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
+                                  @"footer-edit-history")];
+#endif
 
     if (article.pageIssues.count > 0) {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypePageIssues,
@@ -65,8 +83,9 @@
                                       nil,
                                       @"footer-similar-pages")];
     }
-
-    return menuItems;
+    [self updateItems:menuItems];
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
