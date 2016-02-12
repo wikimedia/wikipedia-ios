@@ -161,50 +161,53 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 #pragma mark - Cell tap handling
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    switch ([(WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath] type]) {
-        case WMFSettingsMenuItemType_Login:
-            [self showLoginOrLogout];
-            break;
-        case WMFSettingsMenuItemType_SearchLanguage:
-            [self showLanguages];
-            break;
-        case WMFSettingsMenuItemType_Support:
-            [self wmf_openExternalUrl:[self donationURL]];
-            break;
-        case WMFSettingsMenuItemType_PrivacyPolicy:
-            [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
-            break;
-        case WMFSettingsMenuItemType_Terms:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
-            break;
-        case WMFSettingsMenuItemType_ZeroFAQ:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
-            break;
-        case WMFSettingsMenuItemType_RateApp:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate]];
-            break;
-        case WMFSettingsMenuItemType_SendFeedback:
-            [self wmf_openExternalUrl:[self emailURL]];
-            break;
-        case WMFSettingsMenuItemType_About:
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
-                               animated:YES
-                             completion:nil];
-            break;
-        case WMFSettingsMenuItemType_FAQ:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLFAQ]];
-            break;
-        case WMFSettingsMenuItemType_DebugCrash:
-            [[self class] generateTestCrash];
-            break;
-        case WMFSettingsMenuItemType_DevSettings: {
-            FBTweakViewController* tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
-            tweaksVC.tweaksDelegate = self;
-            [self presentViewController:tweaksVC animated:YES completion:nil];
+    //HAX: "dispatch_async" is a workaround for a weird tap delay. http://stackoverflow.com/a/30787046
+    dispatch_async(dispatch_get_main_queue(), ^{
+        switch ([(WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath] type]) {
+            case WMFSettingsMenuItemType_Login:
+                [self showLoginOrLogout];
+                break;
+            case WMFSettingsMenuItemType_SearchLanguage:
+                [self showLanguages];
+                break;
+            case WMFSettingsMenuItemType_Support:
+                [self wmf_openExternalUrl:[self donationURL]];
+                break;
+            case WMFSettingsMenuItemType_PrivacyPolicy:
+                [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
+                break;
+            case WMFSettingsMenuItemType_Terms:
+                [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLTerms]];
+                break;
+            case WMFSettingsMenuItemType_ZeroFAQ:
+                [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
+                break;
+            case WMFSettingsMenuItemType_RateApp:
+                [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate]];
+                break;
+            case WMFSettingsMenuItemType_SendFeedback:
+                [self wmf_openExternalUrl:[self emailURL]];
+                break;
+            case WMFSettingsMenuItemType_About:
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[AboutViewController wmf_initialViewControllerFromClassStoryboard]]
+                                   animated:YES
+                                 completion:nil];
+                break;
+            case WMFSettingsMenuItemType_FAQ:
+                [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLFAQ]];
+                break;
+            case WMFSettingsMenuItemType_DebugCrash:
+                [[self class] generateTestCrash];
+                break;
+            case WMFSettingsMenuItemType_DevSettings: {
+                FBTweakViewController* tweaksVC = [[FBTweakViewController alloc] initWithStore:[FBTweakStore sharedInstance]];
+                tweaksVC.tweaksDelegate = self;
+                [self presentViewController:tweaksVC animated:YES completion:nil];
+            }
+            default:
+                break;
         }
-        default:
-            break;
-    }
+    });
 }
 
 #pragma mark - Dynamic URLs
