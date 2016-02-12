@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)wmf_setButtonType:(WMFButtonType)type {
     switch (type) {
         case WMFButtonTypeX:
-            [self setImage:[[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+            [self setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
             break;
         case WMFButtonTypeCaretLeft:
             [self setImage:[UIImage wmf_imageFlippedForRTLLayoutDirectionNamed:@"chevron-left"] forState:UIControlStateNormal];
