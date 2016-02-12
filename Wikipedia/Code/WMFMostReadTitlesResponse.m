@@ -94,11 +94,7 @@
         }
 
         WMFSafeAssign(outSuccess, success);
-        if (success) {
-            return date;
-        } else {
-            return nil;
-        }
+        return date;
     }];
 }
 
