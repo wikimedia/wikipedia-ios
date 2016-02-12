@@ -290,14 +290,14 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
 #pragma mark - Cell reloading
 
--(nullable NSIndexPath*)indexPathOfVisibleCellOfType:(WMFSettingsMenuItemType)type {
+-(nullable NSIndexPath*)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
     return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL (NSIndexPath* indexPath) {
         return ((WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
     }];
 }
 
 -(void)reloadVisibleCellOfType:(WMFSettingsMenuItemType)type {
-    NSIndexPath *indexPath = [self indexPathOfVisibleCellOfType:type];
+    NSIndexPath *indexPath = [self indexPathForVisibleCellOfType:type];
     if (indexPath) {
         [self.elementDataSource replaceItemAtIndexPath:indexPath withItem:[self itemForType:type]];
     }
