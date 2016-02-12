@@ -11,8 +11,8 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemDisclosureType){
 
 typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_Login,                 
-    WMFSettingsMenuItemType_SearchLanguage,        
     WMFSettingsMenuItemType_Support,
+    WMFSettingsMenuItemType_SearchLanguage,
     WMFSettingsMenuItemType_PrivacyPolicy,
     WMFSettingsMenuItemType_Terms,                 
     WMFSettingsMenuItemType_SendUsageReports,      
@@ -38,9 +38,12 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
 
 @property (nonatomic, assign, readonly) WMFSettingsMenuItemDisclosureType disclosureType;
 
+@property (nonatomic, copy, readonly) NSString* disclosureText;
+
 - (instancetype)initWithType:(WMFSettingsMenuItemType)type
                        title:(NSString*)title
                     iconName:(NSString*)iconName
                    iconColor:(UIColor*)iconColor
-              disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType;
+              disclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType
+              disclosureText:(NSString*)disclosureText;
 @end
