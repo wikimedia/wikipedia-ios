@@ -162,7 +162,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (AnyPromise*)fetchData {
     @weakify(self);
     return [self.mostReadTitlesFetcher fetchMostReadTitlesForSite:self.site date:self.date]
-           .thenInBackground(^id (WMFMostReadTitlesResponseItem* mostReadResponse) {
+           .then(^id (WMFMostReadTitlesResponseItem* mostReadResponse) {
         @strongify(self);
         NSParameterAssert([mostReadResponse.site isEqualToSite:self.site]);
         if (!self) {
