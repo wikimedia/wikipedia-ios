@@ -7,7 +7,13 @@
 
 - (instancetype)initWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore;
 
-- (AnyPromise*)fetch;
+/**
+ *  Idempotently fetch new results.
+ *
+ *  @return A promise which resolves to @c WMFRelatedSearchResults, which were either fetched from the network or results
+ *          from a previous successful fetch.
+ */
+- (AnyPromise*)fetchIfNeeded;
 
 - (BOOL)hasResults;
 
