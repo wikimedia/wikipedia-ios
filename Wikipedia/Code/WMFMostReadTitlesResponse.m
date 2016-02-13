@@ -11,7 +11,7 @@
 #import "Wikipedia-Swift.h"
 #import "WMFAssetsFile.h"
 
-typedef NS_ENUM(NSUInteger, WMFMostReadTitlesResponseError) {
+typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
     WMFMostReadTitlesResponseErrorEmptyItems
 };
 
@@ -122,7 +122,7 @@ typedef NS_ENUM(NSUInteger, WMFMostReadTitlesResponseError) {
 
 @implementation WMFMostReadTitlesResponse
 
-- (BOOL)validate:(NSError *__autoreleasing *)error {
+- (BOOL)validate:(NSError* __autoreleasing*)error {
     if (self.items.count > 0) {
         return YES;
     } else {

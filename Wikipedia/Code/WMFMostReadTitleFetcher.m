@@ -16,6 +16,7 @@
 #import "NSDateFormatter+WMFExtensions.h"
 #import <Mantle/MTLJSONAdapter.h>
 #import "WMFMostReadTitlesResponse.h"
+#import "NSCalendar+WMFCommonCalendars.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -64,18 +65,17 @@ NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostRe
                         parameters:nil
                            success:^(AFHTTPRequestOperation* operation, NSDictionary* responseObject) {
             NSError* parseError;
-            WMFMostReadTitlesResponseItem* firstItem;
             WMFMostReadTitlesResponse* titlesResponse = [MTLJSONAdapter modelOfClass:[WMFMostReadTitlesResponse class]
                                                                   fromJSONDictionary:responseObject
                                                                                error:&parseError];
-            if (titlesResponse) {
-                firstItem = titlesResponse.items.firstObject;
-                if (!firstItem) {
-                    parseError = [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil];
-                }
-            }
-            NSCAssert(fabs(date.timeIntervalSinceReferenceDate - firstItem.date.timeIntervalSinceReferenceDate) < 86400,
-                      @"Date for most-read articles (%@) doesn't match original fetch date: %@", firstItem.date, date);
+            WMFMostReadTitlesResponseItem* firstItem = titlesResponse.items.firstObject;
+
+            NSCAssert([[NSCalendar wmf_utcGregorianCalendar] compareDate:date
+                                                                  toDate:firstItem.date
+                                                       toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame,
+                      @"Date for most-read articles (%@) doesn't match original fetch date: %@",
+                      firstItem.date, date);
+
             resolve(firstItem ? : parseError);
         }
                            failure:^(AFHTTPRequestOperation* operation, NSError* error) {
