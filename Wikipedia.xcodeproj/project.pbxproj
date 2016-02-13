@@ -602,6 +602,9 @@
 		BCCEC12A1B1F68CF00A8B522 /* test-notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE71B11CC5800231BB1 /* test-notes.txt */; };
 		BCCEC12B1B1F68CF00A8B522 /* user-anon.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE81B11CC5800231BB1 /* user-anon.json */; };
 		BCD31FFE1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD31FFD1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.m */; };
+		BCD320021C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320011C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m */; };
+		BCD320041C6EC26E00317D08 /* WMFMostReadDateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320031C6EC26E00317D08 /* WMFMostReadDateTests.m */; };
+		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE91B11CC5800231BB1 /* user-loggedin.json */; };
 		BCD557B31C455F840060A51A /* WMFTextualSaveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B21C455F840060A51A /* WMFTextualSaveButton.m */; };
 		BCD557B81C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */; };
@@ -1743,6 +1746,11 @@
 		BCCC67B71BA9FCDA0017E311 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BCD31FFC1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSCalendar+WMFCommonCalendars.h"; path = "Wikipedia/Code/NSCalendar+WMFCommonCalendars.h"; sourceTree = SOURCE_ROOT; };
 		BCD31FFD1C6EB3EE00317D08 /* NSCalendar+WMFCommonCalendars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSCalendar+WMFCommonCalendars.m"; path = "Wikipedia/Code/NSCalendar+WMFCommonCalendars.m"; sourceTree = SOURCE_ROOT; };
+		BCD320001C6EBA4B00317D08 /* NSDate+WMFMostReadDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFMostReadDate.h"; path = "Wikipedia/Code/NSDate+WMFMostReadDate.h"; sourceTree = SOURCE_ROOT; };
+		BCD320011C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFMostReadDate.m"; path = "Wikipedia/Code/NSDate+WMFMostReadDate.m"; sourceTree = SOURCE_ROOT; };
+		BCD320031C6EC26E00317D08 /* WMFMostReadDateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFMostReadDateTests.m; sourceTree = "<group>"; };
+		BCD320081C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTimeZone+WMFTestingUtils.h"; path = "WikipediaUnitTests/Code/NSTimeZone+WMFTestingUtils.h"; sourceTree = SOURCE_ROOT; };
+		BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimeZone+WMFTestingUtils.m"; path = "WikipediaUnitTests/Code/NSTimeZone+WMFTestingUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-gate.jpg"; sourceTree = "<group>"; };
 		BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainPageMobileView.json; sourceTree = "<group>"; };
 		BCD41DE01B11CC5800231BB1 /* Obama.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Obama.json; sourceTree = "<group>"; };
@@ -4252,6 +4260,8 @@
 				BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */,
 				BC62AE601C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.h */,
 				BC62AE611C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.m */,
+				BCD320081C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.h */,
+				BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */,
 			);
 			name = Utilities;
 			path = WikipediaUnitTests/Code/Utilities;
@@ -4262,6 +4272,7 @@
 			children = (
 				BCAF23081C6BEB3A005F2D8D /* WMFMostReadSectionController.h */,
 				BCAF23091C6BEB3A005F2D8D /* WMFMostReadSectionController.m */,
+				BCD31FFF1C6EBA3C00317D08 /* Utils */,
 				BCAF23101C6CF152005F2D8D /* Models */,
 				BCAF230B1C6BEC30005F2D8D /* Fetcher */,
 			);
@@ -4401,6 +4412,23 @@
 				B0E802C81C0CD2F70065EBC0 /* WMFPicOfTheDayTableViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		BCD31FFF1C6EBA3C00317D08 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BCD320001C6EBA4B00317D08 /* NSDate+WMFMostReadDate.h */,
+				BCD320011C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		BCD320071C6EC44300317D08 /* Time Zone Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BCD320031C6EC26E00317D08 /* WMFMostReadDateTests.m */,
+			);
+			name = "Time Zone Tests";
 			sourceTree = "<group>";
 		};
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
@@ -4558,6 +4586,7 @@
 				BCEF557F1C52BB1E007DF8B2 /* WMFImageController+ErrorDomainSanity.m */,
 				BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */,
 				08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */,
+				BCD320071C6EC44300317D08 /* Time Zone Tests */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -5310,6 +5339,7 @@
 				B0E808AC1C0D16B30065EBC0 /* FBSnapshotTestCase+WMFConvenience.m in Sources */,
 				B0E808A91C0D16A00065EBC0 /* UIView+VisualTestSizingUtils.m in Sources */,
 				BC45FF481C1B1F9F00BAE501 /* NSUserDefaults+WMFReset.m in Sources */,
+				BCD320041C6EC26E00317D08 /* WMFMostReadDateTests.m in Sources */,
 				B0E809291C0D19D00065EBC0 /* MWKArticleExtractionTests.m in Sources */,
 				BC22F9961C176F9D003232CD /* WMFBaseImageGalleryViewControllerTests.m in Sources */,
 				B0E808C71C0D176A0065EBC0 /* MWKListTestBase.m in Sources */,
@@ -5327,6 +5357,7 @@
 				B0E8094B1C0D1AD90065EBC0 /* NSAttributedString+WMFModifyTests.m in Sources */,
 				B0E8089C1C0D165B0065EBC0 /* XCTestCase+SwiftDefaults.swift in Sources */,
 				B0E808891C0D15C70065EBC0 /* NSManagedObjectContext+WMFTempContext.m in Sources */,
+				BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */,
 				B0E808831C0D15A20065EBC0 /* MWKDataStore+TemporaryDataStore.m in Sources */,
 				B0E809571C0D1B5F0065EBC0 /* WMFArticleListCellVisualTests.m in Sources */,
 				B0E8086D1C0D15170065EBC0 /* WMFCodingStyle.m in Sources */,
@@ -5610,6 +5641,7 @@
 				B0E805501C0CE0DC0065EBC0 /* UITableView+DynamicCellHeight.m in Sources */,
 				B0E805CC1C0CE5250065EBC0 /* WMFImageDownload.swift in Sources */,
 				B0E805581C0CE0DC0065EBC0 /* UIView+WMFDefaultNib.m in Sources */,
+				BCD320021C6EBA4B00317D08 /* NSDate+WMFMostReadDate.m in Sources */,
 				0E09EAC41C4426470058F2D8 /* WMFSavedArticleTableViewController.m in Sources */,
 				B0E803481C0CD7AA0065EBC0 /* WMFSearchResults.m in Sources */,
 				B0E807981C0CEF970065EBC0 /* MWKSection+HTMLImageExtraction.m in Sources */,

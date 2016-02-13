@@ -11,7 +11,8 @@
 #import "WMFLocationManager.h"
 #import "WMFAssetsFile.h"
 #import "WMFRelatedSectionBlackList.h"
-#import "NSDate+Utilities.h"
+#import "NSDate+WMFMostReadDate.h"
+#import "NSCalendar+WMFCommonCalendars.h"
 
 @import Tweaks;
 @import CoreLocation;
@@ -379,8 +380,11 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
 
     BOOL containsLatestSectionEquivalent = [mostReadSections bk_match:^BOOL (WMFExploreSection* mostReadSection) {
-        return [mostReadSection.dateCreated isEqualToDateIgnoringTime:latestMostReadSection.dateCreated]
-        && [mostReadSection.site isEqualToSite:latestMostReadSection.site];
+        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar] compareDate:mostReadSection.dateCreated
+                                                                            toDate:latestMostReadSection.dateCreated
+                                                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+        BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
+        return matchesDay && matchesSite;
     }];
 
     if (!containsLatestSectionEquivalent) {
@@ -389,24 +393,10 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return mostReadSections;
 }
 
-/**
- *  Build a new "most read" explore section with the latest date which is likely to be populated with data.
- *
- *  @note @c NSDate is always in UTC (all times are relative to reference date 2001 Jan 1 0:00:00 UTC)
- *
- *  If it's currently past 06:00 UTC, fetch yesterday's most read articles.  Otherwise, fall back to the previous day.
- *  This is designed to minimize the chance of getting an error due to data not being available for the requested day.
- *
- *  @return A new "most read" explore section with the most recent date which is likely to have data.
- */
+
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
-    NSDate* now       = [NSDate date];
-    NSDate* fetchDate = [now dateBySubtractingDays:1];
-    if (fetchDate.hour < 6) {
-        DDLogInfo(@"Yesterday's most read articles might not be ready, falling back to previous day");
-        fetchDate = [fetchDate dateBySubtractingDays:1];
-    }
-    return [WMFExploreSection mostReadSectionForDate:fetchDate site:self.site];
+    return [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
+                                                site:self.site];
 }
 
 - (NSArray<WMFExploreSection*>*)featuredSections {

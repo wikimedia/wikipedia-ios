@@ -89,7 +89,7 @@ typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
         setComponent(year);
 
         if (success) {
-            components.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+            components.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
             date = [[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian] dateFromComponents:components];
             if (!date) {
                 success = NO;

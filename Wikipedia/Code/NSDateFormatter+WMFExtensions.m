@@ -11,7 +11,7 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     dispatch_once(&onceToken, ^{
         // need to use "en" locale, otherwise the timestamp will fail to parse when the current locale is arabic on iOS 6
         iso8601Formatter = [NSDateFormatter new];
-        iso8601Formatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        iso8601Formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
         iso8601Formatter.dateFormat = WMF_ISO8601_FORMAT;;
         iso8601Formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en"];
     });
@@ -29,7 +29,7 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
 + (NSDateFormatter*)wmf_shortTimeFormatterWithLocale:(NSLocale*)locale {
     NSDateFormatter* shortTimeFormatter = [NSDateFormatter new];
-    shortTimeFormatter.timeZone          = [NSTimeZone timeZoneWithName:@"UTC"];
+    shortTimeFormatter.timeZone          = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     shortTimeFormatter.dateStyle         = NSDateFormatterNoStyle;
     shortTimeFormatter.timeStyle         = NSDateFormatterShortStyle;
     shortTimeFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
@@ -43,13 +43,23 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     if (!longDateFormatter) {
         // See: https://www.mediawiki.org/wiki/Manual:WfTimestamp
         longDateFormatter = [[NSDateFormatter alloc] init];
-        [longDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [longDateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
         [longDateFormatter setDateFormat:WMF_ISO8601_FORMAT];
         longDateFormatter.dateStyle         = NSDateFormatterLongStyle;
         longDateFormatter.timeStyle         = NSDateFormatterNoStyle;
         longDateFormatter.formatterBehavior = NSDateFormatterBehavior10_4;
     }
     return longDateFormatter;
+}
+
++ (instancetype)wmf_utcMediumDateFormatterWithoutTime {
+    static NSDateFormatter* _dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[self wmf_mediumDateFormatterWithoutTime] copy];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    });
+    return _dateFormatter;
 }
 
 + (instancetype)wmf_mediumDateFormatterWithoutTime {
@@ -77,7 +87,7 @@ static NSString* const WMF_ISO8601_FORMAT = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _dateFormatter = [self wmf_newEnglishYearMonthDayFormatterWithSeparator:@"/"];
-        _dateFormatter.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        _dateFormatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return _dateFormatter;
 }

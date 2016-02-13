@@ -15,7 +15,7 @@
     static NSCalendar* utcGregorianCalendar;
     dispatch_once(&onceToken, ^{
         utcGregorianCalendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-        utcGregorianCalendar.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+        utcGregorianCalendar.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     });
     return utcGregorianCalendar;
 }
