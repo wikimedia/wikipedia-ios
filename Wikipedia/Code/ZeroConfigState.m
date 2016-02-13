@@ -15,7 +15,7 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroOnDialogShownOnce"];
 }
 
--(void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
+- (void)setWarnWhenLeaving:(BOOL)warnWhenLeaving {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:warnWhenLeaving]
                                               forKey:@"ZeroWarnWhenLeaving"];
     [[NSUserDefaults standardUserDefaults] synchronize];

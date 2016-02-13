@@ -447,7 +447,6 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-
     [[WMFAlertManager sharedInstance] dismissAlert];
 
 
@@ -585,7 +584,7 @@ typedef NS_ENUM (NSInteger, WMFPreviewAndSaveMode) {
 
                         // Hides the license panel. Needed if logged in and a disallow is triggered.
                         [[WMFAlertManager sharedInstance] dismissAlert];
-                        
+
                         AbuseFilterAlertType alertType =
                             (error.code == WIKITEXT_UPLOAD_ERROR_ABUSEFILTER_DISALLOWED) ? ABUSE_FILTER_DISALLOW : ABUSE_FILTER_WARNING;
                         [self showAbuseFilterAlertOfType:alertType];

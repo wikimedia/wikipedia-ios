@@ -54,8 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
     ];
 }
 
-
-
 static WMFAssetsFile* languageFile = nil;
 
 + (void)didReceiveMemoryWarningWithNotification:(NSNotification*)note {
