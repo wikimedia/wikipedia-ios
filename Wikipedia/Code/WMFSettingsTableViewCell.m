@@ -12,58 +12,58 @@
 
 @implementation WMFSettingsTableViewCell
 
--(void)setTitle:(NSString *)title {
-    _title = title;
+- (void)setTitle:(NSString*)title {
+    _title               = title;
     self.titleLabel.text = title;
 }
 
--(void)setIconName:(NSString *)iconName {
-    _iconName = iconName;
+- (void)setIconName:(NSString*)iconName {
+    _iconName            = iconName;
     self.titleIcon.image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
--(void)setDisclosureText:(NSString *)disclosureText {
-    _disclosureText = disclosureText;
+- (void)setDisclosureText:(NSString*)disclosureText {
+    _disclosureText           = disclosureText;
     self.disclosureLabel.text = disclosureText;
 }
 
--(void)setIconColor:(UIColor *)iconColor {
-    _iconColor = iconColor;
+- (void)setIconColor:(UIColor*)iconColor {
+    _iconColor                     = iconColor;
     self.titleIcon.backgroundColor = iconColor;
-    self.titleIcon.tintColor = [UIColor whiteColor];
+    self.titleIcon.tintColor       = [UIColor whiteColor];
 }
 
--(void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
+- (void)setDisclosureType:(WMFSettingsMenuItemDisclosureType)disclosureType {
     _disclosureType = disclosureType;
     switch (disclosureType) {
         case WMFSettingsMenuItemDisclosureType_None:
-            self.disclosureIcon.hidden = YES;
-            self.disclosureLabel.hidden = YES;
-            self.disclosureIcon.image = nil;
+            self.disclosureIcon.hidden   = YES;
+            self.disclosureLabel.hidden  = YES;
+            self.disclosureIcon.image    = nil;
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_ExternalLink:
-            self.disclosureIcon.hidden = NO;
-            self.disclosureLabel.hidden = YES;
-            self.disclosureIcon.image = [[UIImage imageNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.disclosureIcon.hidden   = NO;
+            self.disclosureLabel.hidden  = YES;
+            self.disclosureIcon.image    = [[UIImage imageNamed:@"mini-external"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_Switch:
-            self.disclosureIcon.hidden = YES;
-            self.disclosureLabel.hidden = YES;
-            self.disclosureIcon.image = nil;
+            self.disclosureIcon.hidden   = YES;
+            self.disclosureLabel.hidden  = YES;
+            self.disclosureIcon.image    = nil;
             self.disclosureSwitch.hidden = NO;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewController:
-            self.disclosureIcon.hidden = NO;
-            self.disclosureLabel.hidden = YES;
-            self.disclosureIcon.image = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.disclosureIcon.hidden   = NO;
+            self.disclosureLabel.hidden  = YES;
+            self.disclosureIcon.image    = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.disclosureSwitch.hidden = YES;
             break;
         case WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText:
-            self.disclosureIcon.hidden = NO;
-            self.disclosureLabel.hidden = NO;
-            self.disclosureIcon.image = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+            self.disclosureIcon.hidden   = NO;
+            self.disclosureLabel.hidden  = NO;
+            self.disclosureIcon.image    = [[UIImage imageNamed:@"chevron-right"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             self.disclosureSwitch.hidden = YES;
             break;
         default:
@@ -81,7 +81,7 @@
     self.iconColor = self.iconColor;
 }
 
--(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
     //HAX: reset the titleIcon's background color so there's not a tiny flicker at the beginning of the selection cell selection animation.
     self.iconColor = self.iconColor;

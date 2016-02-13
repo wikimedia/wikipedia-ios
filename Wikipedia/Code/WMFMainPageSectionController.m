@@ -112,7 +112,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 - (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
     cell.titleText                        = item.displayTitle;
     cell.titleLabel.accessibilityLanguage = self.site.language;
-    cell.descriptionText = item.wikidataDescription;
+    cell.descriptionText                  = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }

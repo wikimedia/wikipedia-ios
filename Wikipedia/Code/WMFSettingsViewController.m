@@ -62,21 +62,21 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [self configureBackButton];
 
     [self.tableView registerNib:[WMFSettingsTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFSettingsTableViewCell identifier]];
-    
+
     [self configureTableDataSource];
 
     self.tableView.estimatedRowHeight = 52.0;
     self.tableView.rowHeight          = UITableViewAutomaticDimension;
-    
+
     [self.KVOControllerNonRetaining observe:[SessionSingleton sharedInstance].keychainCredentials
                                     keyPath:WMF_SAFE_KEYPATH([SessionSingleton sharedInstance].keychainCredentials, userName)
                                     options:NSKeyValueObservingOptionInitial
                                       block:^(WMFSettingsViewController* observer, id object, NSDictionary* change) {
-                                          [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
-                                      }];
+        [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
+    }];
 }
 
--(void)configureBackButton {
+- (void)configureBackButton {
     @weakify(self)
     UIBarButtonItem * xButton = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
@@ -89,7 +89,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     return MWLocalizedString(@"settings-title", nil);
 }
 
--(void)configureTableDataSource {
+- (void)configureTableDataSource {
     self.elementDataSource                  = [[SSSectionedDataSource alloc] init];
     self.elementDataSource.rowAnimation     = UITableViewRowAnimationNone;
     self.elementDataSource.tableView        = self.tableView;
@@ -97,10 +97,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     self.elementDataSource.tableActionBlock = ^BOOL (SSCellActionType action, UITableView* tableView, NSIndexPath* indexPath) {
         return NO;
     };
-    
+
     @weakify(self)
     self.elementDataSource.cellConfigureBlock = ^(WMFSettingsTableViewCell* cell, WMFSettingsMenuItem* menuItem, UITableView* tableView, NSIndexPath* indexPath) {
-        
         cell.title          = menuItem.title;
         cell.iconColor      = menuItem.iconColor;
         cell.iconName       = menuItem.iconName;
@@ -108,21 +107,20 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
         cell.disclosureText = menuItem.disclosureText;
         [cell.disclosureSwitch setOn:menuItem.isSwitchOn];
         cell.selectionStyle = (menuItem.disclosureType == WMFSettingsMenuItemDisclosureType_Switch) ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
-        
+
         [cell.disclosureSwitch bk_removeEventHandlersForControlEvents:UIControlEventValueChanged];
         [cell.disclosureSwitch bk_addEventHandler:^(UISwitch* sender){
             @strongify(self)
             menuItem.isSwitchOn = sender.isOn;
             [self updateStateForMenuItemType:menuItem.type isSwitchOnValue:sender.isOn];
         } forControlEvents:UIControlEventValueChanged];
-        
     };
     [self loadSections];
 }
 
 #pragma mark - Switch tap handling
 
--(void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn{
+- (void)updateStateForMenuItemType:(WMFSettingsMenuItemType)type isSwitchOnValue:(BOOL)isOn {
     switch (type) {
         case WMFSettingsMenuItemType_SendUsageReports:
             [SessionSingleton sharedInstance].shouldSendUsageReports = isOn;
@@ -187,33 +185,33 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
 #pragma mark - Dynamic URLs
 
--(NSURL*)donationURL {
-    NSString *url = WMFSettingsURLSupport;
-    
-    NSString *languageCode = [SessionSingleton sharedInstance].searchSite.language;
+- (NSURL*)donationURL {
+    NSString* url = WMFSettingsURLSupport;
+
+    NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
     languageCode = [languageCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString *appVersion = [[NSBundle mainBundle] wmf_debugVersion];
+
+    NSString* appVersion = [[NSBundle mainBundle] wmf_debugVersion];
     appVersion = [appVersion stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+
     url = [url stringByReplacingOccurrencesOfString:@"<langcode>" withString:languageCode];
     url = [url stringByReplacingOccurrencesOfString:@"<app-version>" withString:appVersion];
-    
+
     return [NSURL URLWithString:url];
 }
 
--(NSURL*)emailURL {
+- (NSURL*)emailURL {
     NSString* mailURL = [WMFSettingsURLEmail stringByAppendingString:[WikipediaAppUtils versionedUserAgent]];
     return [NSURL URLWithString:[mailURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 }
 
 #pragma mark - Log in and out
 
--(void)showLoginOrLogout {
+- (void)showLoginOrLogout {
     NSString* userName = [SessionSingleton sharedInstance].keychainCredentials.userName;
     if (userName) {
         [self showLogoutActionSheet];
-    }else{
+    } else {
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[LoginViewController wmf_initialViewControllerFromClassStoryboard]]
                            animated:YES
                          completion:nil];
@@ -224,17 +222,17 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:MWLocalizedString(@"main-menu-account-logout-are-you-sure", nil)];
 
     @weakify(self)
-    [sheet bk_setDestructiveButtonWithTitle:MWLocalizedString(@"main-menu-account-logout", nil) handler:^{
+    [sheet bk_setDestructiveButtonWithTitle : MWLocalizedString(@"main-menu-account-logout", nil) handler :^{
         @strongify(self)
         [self logout];
         [self reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
     }];
-    
+
     [sheet bk_setCancelButtonWithTitle:MWLocalizedString(@"main-menu-account-logout-cancel", nil) handler:nil];
     [sheet showInView:self.view];
 }
 
--(void)logout {
+- (void)logout {
     //TODO: find better home for this.
     [SessionSingleton sharedInstance].keychainCredentials.userName   = nil;
     [SessionSingleton sharedInstance].keychainCredentials.password   = nil;
@@ -258,9 +256,9 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
     [[SessionSingleton sharedInstance] setSearchLanguage:language.languageCode];
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
-    
+
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];
-    
+
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -281,14 +279,14 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 
 #pragma mark - Cell reloading
 
--(nullable NSIndexPath*)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
+- (nullable NSIndexPath*)indexPathForVisibleCellOfType:(WMFSettingsMenuItemType)type {
     return [self.tableView.indexPathsForVisibleRows bk_match:^BOOL (NSIndexPath* indexPath) {
         return ((WMFSettingsMenuItem*)[self.elementDataSource itemAtIndexPath:indexPath]).type == type;
     }];
 }
 
--(void)reloadVisibleCellOfType:(WMFSettingsMenuItemType)type {
-    NSIndexPath *indexPath = [self indexPathForVisibleCellOfType:type];
+- (void)reloadVisibleCellOfType:(WMFSettingsMenuItemType)type {
+    NSIndexPath* indexPath = [self indexPathForVisibleCellOfType:type];
     if (indexPath) {
         [self.elementDataSource replaceItemAtIndexPath:indexPath withItem:[self itemForType:type]];
     }
@@ -297,8 +295,8 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 #pragma mark - Sections structure
 
 - (void)loadSections {
-    NSMutableArray *sections = [[NSMutableArray alloc] init];
-    
+    NSMutableArray* sections = [[NSMutableArray alloc] init];
+
     [sections addObject:[self section_1]];
     [sections addObject:[self section_2]];
     [sections addObject:[self section_3]];
@@ -306,89 +304,89 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     [sections addObject:[self section_5]];
     [sections addObject:[self section_6]];
     [sections wmf_safeAddObject:[self section_7]];
-    
+
     [self.elementDataSource.sections setArray:sections];
     [self.elementDataSource.tableView reloadData];
 }
 
 #pragma mark - Section structure
 
--(SSSection*)section_1 {
+- (SSSection*)section_1 {
     SSSection* section =
-    [SSSection sectionWithItems:@[
-                                  [self itemForType:WMFSettingsMenuItemType_Login],
-                                  [self itemForType:WMFSettingsMenuItemType_Support]
-                                  ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_Login],
+             [self itemForType:WMFSettingsMenuItemType_Support]
+         ]];
     section.header = nil;
     section.footer = nil;
     return section;
 }
 
--(SSSection*)section_2 {
+- (SSSection*)section_2 {
     SSSection* section =
-    [SSSection sectionWithItems:@[
-                                  [self itemForType:WMFSettingsMenuItemType_SearchLanguage]
-                                  ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_SearchLanguage]
+         ]];
     section.header = nil;
     section.footer = nil;
     return section;
 }
 
--(SSSection*)section_3 {
+- (SSSection*)section_3 {
     SSSection* section =
-    [SSSection sectionWithItems:@[
-                                  [self itemForType:WMFSettingsMenuItemType_PrivacyPolicy],
-                                  [self itemForType:WMFSettingsMenuItemType_Terms],
-                                  [self itemForType:WMFSettingsMenuItemType_SendUsageReports]
-                                  ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_PrivacyPolicy],
+             [self itemForType:WMFSettingsMenuItemType_Terms],
+             [self itemForType:WMFSettingsMenuItemType_SendUsageReports]
+         ]];
     section.header = MWLocalizedString(@"main-menu-heading-legal", nil);
     section.footer = MWLocalizedString(@"preference_summary_eventlogging_opt_in", nil);
     return section;
 }
 
--(SSSection*)section_4 {
+- (SSSection*)section_4 {
     SSSection* section =
-    [SSSection sectionWithItems:@[
-                                  [self itemForType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving],
-                                  [self itemForType:WMFSettingsMenuItemType_ZeroFAQ]
-                                  ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_ZeroWarnWhenLeaving],
+             [self itemForType:WMFSettingsMenuItemType_ZeroFAQ]
+         ]];
     section.header = MWLocalizedString(@"main-menu-heading-zero", nil);
     section.footer = nil;
     return section;
 }
 
--(SSSection*)section_5 {
+- (SSSection*)section_5 {
     SSSection* section =
-    [SSSection sectionWithItems:@[
-                                  [self itemForType:WMFSettingsMenuItemType_RateApp],
-                                  [self itemForType:WMFSettingsMenuItemType_SendFeedback]
-                                  ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_RateApp],
+             [self itemForType:WMFSettingsMenuItemType_SendFeedback]
+         ]];
     section.header = nil;
     section.footer = nil;
     return section;
 }
 
--(SSSection*)section_6 {
+- (SSSection*)section_6 {
     SSSection* section =
-    [SSSection sectionWithItems:@[
-                                  [self itemForType:WMFSettingsMenuItemType_About],
-                                  [self itemForType:WMFSettingsMenuItemType_FAQ]
-                                  ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_About],
+             [self itemForType:WMFSettingsMenuItemType_FAQ]
+         ]];
     section.header = nil;
     section.footer = nil;
     return section;
 }
 
--(nullable SSSection*)section_7 {
+- (nullable SSSection*)section_7 {
     if (![[NSBundle mainBundle] wmf_shouldShowDebugMenu]) {
         return nil;
     }
-    
+
     SSSection* section =
-    [SSSection sectionWithItems: @[
-                                   [self itemForType:WMFSettingsMenuItemType_DebugCrash],
-                                   [self itemForType:WMFSettingsMenuItemType_DevSettings]
-                                   ]];
+        [SSSection sectionWithItems:@[
+             [self itemForType:WMFSettingsMenuItemType_DebugCrash],
+             [self itemForType:WMFSettingsMenuItemType_DevSettings]
+         ]];
     section.header = MWLocalizedString(@"main-menu-heading-debug", nil);
     section.footer = nil;
     return section;
@@ -399,152 +397,147 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 - (WMFSettingsMenuItem*)itemForType:(WMFSettingsMenuItemType)type {
     switch (type) {
         case WMFSettingsMenuItemType_Login: {
-            
-            NSString* userName  = [SessionSingleton sharedInstance].keychainCredentials.userName;
-            NSString *loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString:@"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
-            
+            NSString* userName    = [SessionSingleton sharedInstance].keychainCredentials.userName;
+            NSString* loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString : @"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
+
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:loginString
-                                             iconName:@"settings-user"
-                                            iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9CA1A7) alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:loginString
+                                                 iconName:@"settings-user"
+                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9CA1A7) alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Support: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"settings-support", nil)
-                                             iconName:@"settings-support"
-                                            iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
-
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"settings-support", nil)
+                                                 iconName:@"settings-support"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SearchLanguage: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"settings-project", nil)
-                                             iconName:@"settings-project"
-                                            iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                       disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"settings-project", nil)
+                                                 iconName:@"settings-project"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_PrivacyPolicy: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-privacy-policy", nil)
-                                             iconName:@"settings-privacy"
-                                            iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
-
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-privacy-policy", nil)
+                                                 iconName:@"settings-privacy"
+                                                iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_Terms: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-terms-of-use", nil)
-                                             iconName:@"settings-terms"
-                                            iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
-
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-terms-of-use", nil)
+                                                 iconName:@"settings-terms"
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SendUsageReports: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
-                                             iconName:@"settings-analytics"
-                                            iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                       disclosureText:nil
-                                           isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
-
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
+                                                 iconName:@"settings-analytics"
+                                                iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
         }
         case WMFSettingsMenuItemType_ZeroWarnWhenLeaving: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"zero-warn-when-leaving", nil)
-                                             iconName:@"settings-zero"
-                                            iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_Switch
-                                       disclosureText:nil
-                                           isSwitchOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"zero-warn-when-leaving", nil)
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
         }
         case WMFSettingsMenuItemType_ZeroFAQ: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-zero-faq", nil)
-                                             iconName:@"settings-faq"
-                                            iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-zero-faq", nil)
+                                                 iconName:@"settings-faq"
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_RateApp: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-rate-app", nil)
-                                             iconName:@"settings-rate"
-                                            iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-rate-app", nil)
+                                                 iconName:@"settings-rate"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SendFeedback: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-send-feedback", nil)
-                                             iconName:@"settings-feedback"
-                                            iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-send-feedback", nil)
+                                                 iconName:@"settings-feedback"
+                                                iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_About: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-about", nil)
-                                             iconName:@"settings-about"
-                                            iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-about", nil)
+                                                 iconName:@"settings-about"
+                                                iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_FAQ: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-faq", nil)
-                                             iconName:@"settings-faq"
-                                            iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-faq", nil)
+                                                 iconName:@"settings-faq"
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_DebugCrash: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-debug-crash", nil)
-                                             iconName:@"settings-crash"
-                                            iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_None
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-debug-crash", nil)
+                                                 iconName:@"settings-crash"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_DevSettings: {
             return
-            [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"main-menu-debug-tweaks", nil)
-                                             iconName:@"settings-dev"
-                                            iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
-                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
-                                       disclosureText:nil
-                                           isSwitchOn:NO];
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-debug-tweaks", nil)
+                                                 iconName:@"settings-dev"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
         }
     }
 }

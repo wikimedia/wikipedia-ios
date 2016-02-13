@@ -10,19 +10,19 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemDisclosureType){
 };
 
 typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
-    WMFSettingsMenuItemType_Login,                 
+    WMFSettingsMenuItemType_Login,
     WMFSettingsMenuItemType_Support,
     WMFSettingsMenuItemType_SearchLanguage,
     WMFSettingsMenuItemType_PrivacyPolicy,
-    WMFSettingsMenuItemType_Terms,                 
-    WMFSettingsMenuItemType_SendUsageReports,      
-    WMFSettingsMenuItemType_ZeroWarnWhenLeaving,   
-    WMFSettingsMenuItemType_ZeroFAQ,               
-    WMFSettingsMenuItemType_RateApp,               
-    WMFSettingsMenuItemType_SendFeedback,          
-    WMFSettingsMenuItemType_About,                 
-    WMFSettingsMenuItemType_FAQ,                   
-    WMFSettingsMenuItemType_DebugCrash,            
+    WMFSettingsMenuItemType_Terms,
+    WMFSettingsMenuItemType_SendUsageReports,
+    WMFSettingsMenuItemType_ZeroWarnWhenLeaving,
+    WMFSettingsMenuItemType_ZeroFAQ,
+    WMFSettingsMenuItemType_RateApp,
+    WMFSettingsMenuItemType_SendFeedback,
+    WMFSettingsMenuItemType_About,
+    WMFSettingsMenuItemType_FAQ,
+    WMFSettingsMenuItemType_DebugCrash,
     WMFSettingsMenuItemType_DevSettings
 };
 
