@@ -189,6 +189,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
             return self.items;
         }).catch(^(NSError* error){
             @strongify(self);
+            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
             self.fetcherPromise = nil;
             self.fetchError = error;
             self.fetchedItems = nil;
