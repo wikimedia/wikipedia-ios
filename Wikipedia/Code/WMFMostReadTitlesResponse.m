@@ -11,6 +11,10 @@
 #import "Wikipedia-Swift.h"
 #import "WMFAssetsFile.h"
 
+typedef NS_ENUM(NSUInteger, WMFMostReadTitlesResponseError) {
+    WMFMostReadTitlesResponseErrorEmptyItems
+};
+
 @implementation WMFMostReadTitlesResponseItemArticle
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
@@ -117,6 +121,17 @@
 @end
 
 @implementation WMFMostReadTitlesResponse
+
+- (BOOL)validate:(NSError *__autoreleasing *)error {
+    if (self.items.count > 0) {
+        return YES;
+    } else {
+        WMFSafeAssign(error, [NSError errorWithDomain:NSStringFromClass([self class])
+                                                 code:WMFMostReadTitlesResponseErrorEmptyItems
+                                             userInfo:nil]);
+        return NO;
+    }
+}
 
 + (NSDictionary*)JSONKeyPathsByPropertyKey {
     return @{WMF_SAFE_KEYPATH(WMFMostReadTitlesResponse.new, items): @"items"};
