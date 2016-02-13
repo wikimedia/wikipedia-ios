@@ -4,7 +4,7 @@
 // Frameworks
 #import <BlocksKit/BlocksKit+UIKit.h>
 @import Tweaks;
-@import SSDataSources;
+
 #import "PiwikTracker+WMFExtensions.h"
 #import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
