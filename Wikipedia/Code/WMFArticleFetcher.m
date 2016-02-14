@@ -73,8 +73,6 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         resolve([NSError wmf_errorWithType:WMFErrorTypeStringMissingParameter userInfo:nil]);
     }
 
-    [self updateRequestSerializerMCCMNCHeader];
-
     NSURL* url = useDeskTopURL ? [pageTitle.site apiEndpoint] : [pageTitle.site mobileApiEndpoint];
 
     AFHTTPRequestOperation* operation = [self.operationManager GET:url.absoluteString parameters:pageTitle success:^(AFHTTPRequestOperation* operation, id response) {
@@ -162,16 +160,6 @@ NSString* const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
 - (void)cancelAllFetches {
     [self.operationManager.operationQueue cancelAllOperations];
-}
-
-#pragma mark - MCCMNC Header
-
-- (void)updateRequestSerializerMCCMNCHeader {
-    if ([SessionSingleton sharedInstance].shouldSendUsageReports) {
-        [self requestSerializer].shouldSendMCCMNCheader = YES;
-    } else {
-        [self requestSerializer].shouldSendMCCMNCheader = NO;
-    }
 }
 
 @end
