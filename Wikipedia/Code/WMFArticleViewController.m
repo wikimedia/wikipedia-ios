@@ -327,10 +327,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray<UIBarButtonItem*>* toolbarItems =
         [NSArray arrayWithObjects:
-         self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
+         self.languagesToolbarItem,
+         [self flexibleSpaceToolbarItem],
          self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
          self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:18.f],
-         self.languagesToolbarItem,
          [self flexibleSpaceToolbarItem],
          self.tableOfContentsToolbarItem,
          nil];
@@ -342,7 +342,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemEnabledState {
-    self.refreshToolbarItem.enabled         = [self canRefresh];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
     self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
@@ -625,6 +624,12 @@ NS_ASSUME_NONNULL_BEGIN
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
     [self.webViewController didMoveToParentViewController:self];
+
+    _pullToRefresh = [[UIRefreshControl alloc] init];
+    _pullToRefresh.enabled         = [self canRefresh];
+    [_pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
+    [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
+
 }
 
 #pragma mark - Save Offset
@@ -707,6 +712,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticle {
     [self fetchArticleForce:YES];
+    [_pullToRefresh endRefreshing];
 }
 
 - (void)fetchArticleIfNeeded {
