@@ -22,13 +22,18 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     // MARK: - Views
     lazy var backgroundView :UIView = {
         let view = UIView(frame: CGRectZero)
-        view.backgroundColor = UIColor(white: 1.0, alpha: 0.8)
+        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: Selector("didTap:"))
         view.addGestureRecognizer(tap)
         return view
         }()
+
+    // MARK: - Status Bar Background
+
+    var statusBarBg: UIView = UIView()
+
 
     // MARK: - Tap Gesture
     lazy var tapGesture :UIView = {
@@ -55,6 +60,14 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.containerView!.addSubview(self.backgroundView)
         self.containerView!.addSubview(self.presentedView()!)
         
+        // Add a status bar background so the TOC scroll below it
+        self.statusBarBg = UIView(frame: CGRectMake(self.containerView!.frame.origin.x, 0, self.containerView!.frame.size.width, UIApplication.sharedApplication().statusBarFrame.size.height))
+        let statusBarBgBottomBorder = UIView(frame: CGRectMake(self.containerView!.frame.origin.x, UIApplication.sharedApplication().statusBarFrame.size.height, self.containerView!.frame.size.width, 0.5))
+        self.statusBarBg.backgroundColor = UIColor.whiteColor()
+        statusBarBgBottomBorder.backgroundColor = UIColor.lightGrayColor()
+        self.statusBarBg.addSubview(statusBarBgBottomBorder)
+        self.presentedView()!.addSubview(self.statusBarBg)
+
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
@@ -87,7 +100,9 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     override public func dismissalTransitionDidEnd(completed: Bool) {
         if completed {
             self.backgroundView.removeFromSuperview()
+            self.statusBarBg.removeFromSuperview()
             self.togglePresentingViewControllerAccessibility(true)
+
             //Remove shadow from the presented View
             self.presentedView()?.layer.shadowOpacity = 0.0
             self.presentedView()?.clipsToBounds = true
@@ -111,5 +126,14 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
             self.backgroundView.frame = self.containerView!.bounds
             }, completion:nil)
+
+        if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
+        {
+            self.statusBarBg.hidden = true
+        }
+        else if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        {
+            self.statusBarBg.hidden = false
+        }
     }
 }
