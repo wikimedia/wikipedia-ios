@@ -999,7 +999,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString*)analyticsName {
-    return self.articleTitle.site.domain;
+    return [[self.articleTitle.site URL] absoluteString];
 }
 
 @end
