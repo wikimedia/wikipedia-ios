@@ -68,6 +68,10 @@
     return YES;
 }
 
+- (NSString*)deleteButtonText {
+    return MWLocalizedString(@"history-clear-all", nil);
+}
+
 - (NSString*)deleteAllConfirmationText {
     return MWLocalizedString(@"history-clear-confirmation-heading", nil);
 }

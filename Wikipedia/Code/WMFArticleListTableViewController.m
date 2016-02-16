@@ -88,11 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Delete Button
 
 - (void)updateDeleteButton {
-    //TODO: disabling until new designs are made
-    return;
     if ([self showsDeleteAllButton] && [self.dataSource respondsToSelector:@selector(deleteAll)]) {
         @weakify(self);
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithImage:[UIImage imageNamed:@"trash"] style:UIBarButtonItemStylePlain handler:^(id sender) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:[self deleteButtonText] style:UIBarButtonItemStylePlain handler:^(id sender) {
             @strongify(self);
             UIActionSheet* sheet = [UIActionSheet bk_actionSheetWithTitle:[self deleteAllConfirmationText]];
             [sheet bk_setDestructiveButtonWithTitle:[self deleteText] handler:^{
@@ -108,7 +106,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateDeleteButtonEnabledState {
-    //TODO: disabling until new designs are made
     if ([self.dataSource titleCount] > 0) {
         self.navigationItem.leftBarButtonItem.enabled = YES;
     } else {
@@ -296,6 +293,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)showsDeleteAllButton {
     return NO;
+}
+
+- (NSString*)deleteButtonText {
+    return nil;
 }
 
 - (NSString*)deleteAllConfirmationText {

@@ -14,16 +14,19 @@
 
 "table-title-other" = "More information";
 
+"saved-clear-all" = "Clear";
+"history-clear-all" = "Clear";
+
 "history-label" = "Recent";
 "history-section-today" = "Today";
 "history-section-yesterday" = "Yesterday";
 "history-section-lastweek" = "Last week";
 "history-section-lastmonth" = "Last month";
 
-"history-clear-confirmation-heading" = "Delete all recent items?";
+"history-clear-confirmation-heading" = "Are you sure you want to delete all your recent items?";
 "history-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "history-clear-cancel" = "Cancel";
-"history-clear-delete-all" = "Delete All";
+"history-clear-delete-all" = "Yes, delete all";
 "history-description" = "You probably deleted all of them. Next time you go to a page you can get back to it from here.";
 "history-none" = "No recent pages here.";
 
@@ -39,7 +42,7 @@
 "zero-learn-more-learn-more" = "Read more";
 "zero-learn-more-no-thanks" = "Dismiss";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-"zero-warn-when-leaving" = "Warn if leaving Wikipedia Zero";
+"zero-warn-when-leaving" = "Warn if leaving Zero";
 "zero-settings-devmode" = "Zero devmode";
 
 "account-creation-captcha-required" = "CAPTCHA verification required.";
@@ -109,32 +112,36 @@
 "search-result-redirected-from" = "Redirected from: $1";
 
 "settings-title" = "Settings";
+"settings-project" = "Wikipedia project";
+"settings-support" = "Support Wikipedia";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
 "main-menu-language-title" = "Search $1 Wikipedia";
-"main-menu-faq" = "FAQ";
+"main-menu-faq" = "Frequently asked questions";
 "main-menu-language-toggle-show" = "Show languages";
 "main-menu-language-toggle-hide" = "Hide languages";
 "main-menu-language-selection-saved" = "Language selection saved";
 "main-menu-account-title-logged-out" = "Account";
-"main-menu-account-title-logged-in" = "Logged in as: $1";
-"main-menu-account-login" = "Log in to Wikipedia";
+"main-menu-account-title-logged-in" = "Logged in as $1";
+"main-menu-account-login" = "Log in";
 "main-menu-account-logout" = "Log out";
+"main-menu-account-logout-are-you-sure" = "Are you sure you want to log out?";
+"main-menu-account-logout-cancel" = "Cancel";
 "main-menu-show-title" = "Show me...";
 "main-menu-show-history" = "Recent";
 "main-menu-show-saved" = "Saved pages";
 "main-menu-current-article-save" = "Save $1 for offline reading";
 "main-menu-random" = "Random";
 "main-menu-feedback-heading" = "Feedback";
-"main-menu-send-feedback" = "Send app feedback";
+"main-menu-send-feedback" = "Write to us";
 "main-menu-show-page-history" = "History of changes to $1";
 "main-menu-credits" = "Credits";
-"main-menu-about" = "About the Wikipedia app";
+"main-menu-about" = "About the app";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Privacy policy";
 "main-menu-terms-of-use" = "Terms of use";
-"main-menu-rate-app" = "Rate app";
+"main-menu-rate-app" = "Rate the app";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-show-today" = "Today";
@@ -146,10 +153,10 @@
 
 "saved-title" = "Saved";
 "saved-pages-title" = "Saved pages";
-"saved-pages-clear-confirmation-heading" = "Delete all saved items?";
+"saved-pages-clear-confirmation-heading" = "Are you sure you want to delete all your saved pages?";
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-delete-all" = "Delete All";
+"saved-pages-clear-delete-all" = "Yes, delete all";
 "saved-pages-refresh-cancel-alert-title" = "Update cancelled";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia articles are updated all the time. Tap refresh to get the latest versions of all the articles.";
 "saved-pages-refresh-cancel-alert-button" = "Got it";
@@ -338,6 +345,8 @@
 "mwk-empty-title-error" = "Unable to perform operation with empty title.";
 
 "home-title" = "Explore";
+"home-empty-section" = "No results";
+"home-empty-section-check-again" = "Try again";
 "home-continue-reading-heading" = "Continue Reading";
 "home-continue-related-heading" = "Because you read $1";
 "home-more-like-footer" = "More like $1";

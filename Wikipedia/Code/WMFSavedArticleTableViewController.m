@@ -78,6 +78,10 @@
     return YES;
 }
 
+- (NSString*)deleteButtonText {
+    return MWLocalizedString(@"saved-clear-all", nil);
+}
+
 - (NSString*)deleteAllConfirmationText {
     return MWLocalizedString(@"saved-pages-clear-confirmation-heading", nil);
 }

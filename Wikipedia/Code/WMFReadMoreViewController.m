@@ -55,8 +55,12 @@
     return self.dataStore.userDataStore.savedPageList;
 }
 
-- (AnyPromise*)fetch {
-    return [self.dataSource fetch];
+- (AnyPromise*)fetchIfNeeded {
+    if ([self hasResults]) {
+        return [AnyPromise promiseWithValue:self.dataSource.relatedSearchResults];
+    } else {
+        return [self.dataSource fetch];
+    }
 }
 
 - (BOOL)hasResults {

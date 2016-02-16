@@ -81,13 +81,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFBaseExploreSectionController (WMFEmptyCellSupport)
 
 /**
- *  Return Yes to show an empty cell when there are no results
- *
- *  @return Return YES to show empty cells, otherwise NO. Default = NO
- */
-- (BOOL)showsEmptyCell;
-
-/**
  *  Configure the empty cell
  *
  *  @param cell The cell to configure

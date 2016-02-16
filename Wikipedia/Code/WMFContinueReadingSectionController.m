@@ -1,6 +1,6 @@
 
 #import "WMFContinueReadingSectionController.h"
-#import "WMFContinueReadingTableViewCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKTitle.h"
 #import "MWKDataStore.h"
@@ -10,8 +10,8 @@
 #import "MWKSection.h"
 #import "MWKSectionList.h"
 #import "WMFArticleBrowserViewController.h"
-#import "WikipediaAppUtils.h"
 #import "Wikipedia-Swift.h"
+#import "NSDate+Utilities.h"
 
 static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadingSectionIdentifier";
 
@@ -31,6 +31,10 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
         self.title = title;
     }
     return self;
+}
+
+- (MWKArticle*)article {
+    return [self.dataStore existingArticleWithTitle:self.title];
 }
 
 #pragma mark - WMFBaseExploreSectionController
@@ -57,30 +61,32 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 
 - (NSAttributedString*)headerSubTitle {
     NSDate* resignActiveDate     = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
-    NSString* relativeTimeString = [WikipediaAppUtils relativeTimestamp:resignActiveDate];
+    NSString* relativeTimeString = [resignActiveDate relativeTimestamp];
     return [[NSAttributedString alloc] initWithString:[relativeTimeString wmf_stringByCapitalizingFirstCharacter] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFContinueReadingTableViewCell wmf_nibName];
+    return [WMFArticleListTableViewCell wmf_nibName];
 }
 
 - (UINib*)cellNib {
-    return [WMFContinueReadingTableViewCell wmf_classNib];
+    return [WMFArticleListTableViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
     return 0;
 }
 
-- (void)configureCell:(WMFContinueReadingTableViewCell*)cell withItem:(MWKTitle*)item atIndexPath:(NSIndexPath*)indexPath {
-    cell.title.text   = item.text;
-    cell.summary.text = [self summaryForTitle:item];
+- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKTitle*)item atIndexPath:(NSIndexPath*)indexPath {
+    MWKArticle* article = [self article];
+    cell.titleText       = item.text;
+    cell.descriptionText = [article entityDescription];
+    [cell setImage:article.image];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFContinueReadingTableViewCell estimatedRowHeight];
+    return [WMFArticleListTableViewCell estimatedRowHeight];
 }
 
 - (NSString*)analyticsName {

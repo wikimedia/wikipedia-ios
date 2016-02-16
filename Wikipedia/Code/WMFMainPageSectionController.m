@@ -1,7 +1,7 @@
 
 #import "WMFMainPageSectionController.h"
 #import "MWKSiteInfoFetcher.h"
-#import "WMFEnglishFeaturedTitleFetcher.h"
+#import "WMFArticlePreviewFetcher.h"
 
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
@@ -10,12 +10,13 @@
 #import "MWKSiteInfo.h"
 #import "MWKSearchResult.h"
 
-#import "WMFMainPageTableViewCell.h"
+#import "WMFArticleListTableViewCell.h"
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "UITableViewCell+WMFLayout.h"
 #import "WMFArticleBrowserViewController.h"
 #import "NSDateFormatter+WMFExtensions.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +28,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 
 @property (nonatomic, strong) MWKSiteInfoFetcher* siteInfoFetcher;
 
+@property (nonatomic, strong) WMFArticlePreviewFetcher* titleSearchFetcher;
+
 @property (nonatomic, strong, nullable) MWKSiteInfo* siteInfo;
+
+@property (nonatomic, strong, nullable) MWKSearchResult* mainPageSearchResult;
 
 @end
 
@@ -49,6 +54,13 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         _siteInfoFetcher = [[MWKSiteInfoFetcher alloc] init];
     }
     return _siteInfoFetcher;
+}
+
+- (WMFArticlePreviewFetcher*)titleSearchFetcher {
+    if (_titleSearchFetcher == nil) {
+        _titleSearchFetcher = [[WMFArticlePreviewFetcher alloc] init];
+    }
+    return _titleSearchFetcher;
 }
 
 #pragma mark - HomeSectionController
@@ -78,11 +90,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (NSString*)cellIdentifier {
-    return [WMFMainPageTableViewCell identifier];
+    return [WMFArticleListTableViewCell identifier];
 }
 
 - (UINib*)cellNib {
-    return [WMFMainPageTableViewCell wmf_classNib];
+    return [WMFArticleListTableViewCell wmf_classNib];
 }
 
 - (NSUInteger)numberOfPlaceholderCells {
@@ -97,8 +109,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [WMFMainPagePlaceholderTableViewCell wmf_classNib];
 }
 
-- (void)configureCell:(WMFMainPageTableViewCell*)cell withItem:(MWKSiteInfo*)item atIndexPath:(NSIndexPath*)indexPath {
-    cell.mainPageTitle.text = item.mainPageTitleText;
+- (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKSearchResult*)item atIndexPath:(NSIndexPath*)indexPath {
+    cell.titleText                        = item.displayTitle;
+    cell.titleLabel.accessibilityLanguage = self.site.language;
+    cell.descriptionText                  = item.wikidataDescription;
+    [cell setImageURL:item.thumbnailURL];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
@@ -107,7 +122,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (CGFloat)estimatedRowHeight {
-    return [WMFMainPageTableViewCell estimatedRowHeight];
+    return [WMFArticleListTableViewCell estimatedRowHeight];
 }
 
 - (AnyPromise*)fetchData {
@@ -115,10 +130,15 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     return [self.siteInfoFetcher fetchSiteInfoForSite:self.site].then(^(MWKSiteInfo* data) {
         @strongify(self);
         self.siteInfo = data;
-        return @[self.siteInfo];
+        return [self.titleSearchFetcher fetchArticlePreviewResultsForTitles:@[self.siteInfo.mainPageTitle] site:self.site];
+    }).then(^(NSArray<MWKSearchResult*>* searchResults) {
+        @strongify(self);
+        self.mainPageSearchResult = [searchResults firstObject];
+        return @[self.mainPageSearchResult];
     }).catch(^(NSError* error){
         @strongify(self);
         self.siteInfo = nil;
+        self.mainPageSearchResult = nil;
         return error;
     });
 }
