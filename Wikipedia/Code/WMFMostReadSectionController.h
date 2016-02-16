@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMostReadSectionController : WMFBaseExploreSectionController
-    <WMFExploreSectionController, WMFTitleProviding>
+    <WMFExploreSectionController, WMFTitleProviding, WMFMoreFooterProviding>
 
 @property (nonatomic, copy, readonly) MWKSite* site;
 @property (nonatomic, strong, readonly) NSDate* date;

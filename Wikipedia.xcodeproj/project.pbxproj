@@ -605,6 +605,8 @@
 		BCD320041C6EC26E00317D08 /* WMFMostReadDateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320031C6EC26E00317D08 /* WMFMostReadDateTests.m */; };
 		BCD3200A1C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */; };
 		BCD3200D1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */; };
+		BCD320141C73966500317D08 /* WMFMostReadListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320131C73966500317D08 /* WMFMostReadListTableViewController.m */; };
+		BCD320181C73992F00317D08 /* WMFMostReadListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */; };
 		BCD41DF61B11CC5E00231BB1 /* user-loggedin.json in Resources */ = {isa = PBXBuildFile; fileRef = BCD41DE91B11CC5800231BB1 /* user-loggedin.json */; };
 		BCD557B31C455F840060A51A /* WMFTextualSaveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B21C455F840060A51A /* WMFTextualSaveButton.m */; };
 		BCD557B81C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD557B71C4584180060A51A /* WMFTextualSaveButtonLayoutVisualTests.m */; };
@@ -1750,6 +1752,10 @@
 		BCD320091C6EC6BC00317D08 /* NSTimeZone+WMFTestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTimeZone+WMFTestingUtils.m"; path = "WikipediaUnitTests/Code/NSTimeZone+WMFTestingUtils.m"; sourceTree = SOURCE_ROOT; };
 		BCD3200B1C737E0000317D08 /* NSNumber+MWKTitleNamespace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNumber+MWKTitleNamespace.h"; path = "Wikipedia/Code/NSNumber+MWKTitleNamespace.h"; sourceTree = SOURCE_ROOT; };
 		BCD3200C1C737E0000317D08 /* NSNumber+MWKTitleNamespace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNumber+MWKTitleNamespace.m"; path = "Wikipedia/Code/NSNumber+MWKTitleNamespace.m"; sourceTree = SOURCE_ROOT; };
+		BCD320121C73966500317D08 /* WMFMostReadListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMostReadListTableViewController.h; path = Wikipedia/Code/WMFMostReadListTableViewController.h; sourceTree = SOURCE_ROOT; };
+		BCD320131C73966500317D08 /* WMFMostReadListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMostReadListTableViewController.m; path = Wikipedia/Code/WMFMostReadListTableViewController.m; sourceTree = SOURCE_ROOT; };
+		BCD320161C73992F00317D08 /* WMFMostReadListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFMostReadListDataSource.h; path = Wikipedia/Code/WMFMostReadListDataSource.h; sourceTree = SOURCE_ROOT; };
+		BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMostReadListDataSource.m; path = Wikipedia/Code/WMFMostReadListDataSource.m; sourceTree = SOURCE_ROOT; };
 		BCD41DDE1B11CC5800231BB1 /* golden-gate.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-gate.jpg"; sourceTree = "<group>"; };
 		BCD41DDF1B11CC5800231BB1 /* MainPageMobileView.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MainPageMobileView.json; sourceTree = "<group>"; };
 		BCD41DE01B11CC5800231BB1 /* Obama.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Obama.json; sourceTree = "<group>"; };
@@ -2821,7 +2827,6 @@
 				0E87313E1C62C695008AF0AE /* Browser VIew Controller */,
 				0E87313F1C62C69E008AF0AE /* Article View Controller */,
 				BC45D5AB1C330A8E007C72F3 /* Article Components */,
-				BC45D5521C31EC0E007C72F3 /* Common */,
 				BC45D5AA1C330A75007C72F3 /* Model */,
 				0E9DFEAB1BDEB82E0032606E /* Networking */,
 			);
@@ -3015,13 +3020,6 @@
 				BC45D5761C32EE13007C72F3 /* UIView */,
 			);
 			name = Utilities;
-			sourceTree = "<group>";
-		};
-		BC45D5521C31EC0E007C72F3 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Common;
 			sourceTree = "<group>";
 		};
 		BC45D5531C31ECB1007C72F3 /* RTL Utilities */ = {
@@ -4249,6 +4247,7 @@
 			children = (
 				BCAF23081C6BEB3A005F2D8D /* WMFMostReadSectionController.h */,
 				BCAF23091C6BEB3A005F2D8D /* WMFMostReadSectionController.m */,
+				BCD320151C7396DD00317D08 /* More Most Read */,
 				BCD31FFF1C6EBA3C00317D08 /* Utils */,
 				BCAF23101C6CF152005F2D8D /* Models */,
 				BCAF230B1C6BEC30005F2D8D /* Fetcher */,
@@ -4408,6 +4407,17 @@
 				BCD320031C6EC26E00317D08 /* WMFMostReadDateTests.m */,
 			);
 			name = "Time Zone Tests";
+			sourceTree = "<group>";
+		};
+		BCD320151C7396DD00317D08 /* More Most Read */ = {
+			isa = PBXGroup;
+			children = (
+				BCD320121C73966500317D08 /* WMFMostReadListTableViewController.h */,
+				BCD320131C73966500317D08 /* WMFMostReadListTableViewController.m */,
+				BCD320161C73992F00317D08 /* WMFMostReadListDataSource.h */,
+				BCD320171C73992F00317D08 /* WMFMostReadListDataSource.m */,
+			);
+			name = "More Most Read";
 			sourceTree = "<group>";
 		};
 		BCD41DDD1B11CC5800231BB1 /* Fixtures */ = {
@@ -5424,6 +5434,7 @@
 				B0E805511C0CE0DC0065EBC0 /* UITableViewCell+SelectedBackground.m in Sources */,
 				B0E807A41C0CEFBD0065EBC0 /* MWKSiteInfo.m in Sources */,
 				B0E805BF1C0CE4D40065EBC0 /* WMFBackgroundTaskManager.swift in Sources */,
+				BCD320181C73992F00317D08 /* WMFMostReadListDataSource.m in Sources */,
 				BCA15AE51C0E213300D0A3EA /* LoggingDefaults.swift in Sources */,
 				B0E804D21C0CE0B40065EBC0 /* NSLocale+WMFExtras.swift in Sources */,
 				B0E803C81C0CDC5F0065EBC0 /* WMFArticlePlaceholderTableViewCell.m in Sources */,
@@ -5589,6 +5600,7 @@
 				B0E807B81C0CF0180065EBC0 /* MWKSavedPageList.m in Sources */,
 				B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */,
 				B0E8032C1C0CD6E10065EBC0 /* WMFExploreSectionHeader.m in Sources */,
+				BCD320141C73966500317D08 /* WMFMostReadListTableViewController.m in Sources */,
 				B0E8054D1C0CE0DC0065EBC0 /* UIScrollView+ScrollSubviewToLocation.m in Sources */,
 				B0E8078C1C0CEF660065EBC0 /* MWKDataObject.m in Sources */,
 				B0E806331C0CE7680065EBC0 /* MTLValueTransformer+WMFNumericValueTransformer.m in Sources */,

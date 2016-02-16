@@ -20,8 +20,8 @@
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "Wikipedia-Swift.h"
 #import "NSNumber+MWKTitleNamespace.h"
-
 #import <Tweaks/FBTweakInline.h>
+#import "WMFMostReadListTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -146,6 +146,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UIColor*)headerIconBackgroundColor {
     return [UIColor wmf_lightBlueTintColor];
+}
+
+#pragma mark Footer
+
+- (NSString*)footerText {
+    return MWLocalizedString(@"explore-most-read-footer", nil);
+}
+
+- (UIViewController*)moreViewController {
+    return [[WMFMostReadListTableViewController alloc] initWithPreviews:self.previews
+                                                               fromSite:self.site
+                                                              dataStore:self.dataStore];
 }
 
 #pragma mark Detail
