@@ -83,8 +83,28 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     return [[NSAttributedString alloc] initWithString:MWLocalizedString(@"explore-nearby-heading", nil) attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
+- (void) reverseGeoCode {
+    CLGeocoder *currentAddress = [[CLGeocoder alloc]init];
+    [currentAddress reverseGeocodeLocation:self.location
+                         completionHandler:^(NSArray *placemarks, NSError *error) {
+
+                             // Handle fallback for null
+                             // if rate limit is hit or location not found use the first list item name here
+                             if(error) {
+                                 self.subTitle = [NSString stringWithFormat:@"-"];
+                             }
+                             else {
+                                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                                 self.subTitle = [NSString stringWithFormat:@"%@, %@", placemark.name, placemark.locality];
+                             }
+                         }
+     ];
+}
+
 - (NSAttributedString*)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+
+    [self reverseGeoCode];
+    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", self.subTitle] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
 }
 
 - (NSString*)cellIdentifier {

@@ -16,6 +16,7 @@ extern NSString* const WMFNearbySectionIdentifier;
 
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) CLLocation* location;
+@property (nonatomic, strong) NSString* subTitle;
 
 @end
 
