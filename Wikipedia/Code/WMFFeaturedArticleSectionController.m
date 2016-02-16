@@ -58,17 +58,6 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     return _featuredTitlePreviewFetcher;
 }
 
-+ (NSDateFormatter*)dateFormatter {
-    static NSDateFormatter* dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-        dateFormatter.timeStyle = NSDateFormatterNoStyle;
-    });
-    return dateFormatter;
-}
-
 #pragma mark - WMFBaseExploreSectionController
 
 - (id)sectionIdentifier {

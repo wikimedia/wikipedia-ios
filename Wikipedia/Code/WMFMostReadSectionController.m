@@ -76,7 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString*)localDateDisplayString {
     if (!_localDateDisplayString) {
-        _localDateDisplayString = [[NSDateFormatter wmf_utcMediumDateFormatterWithoutTime] stringFromDate:self.date];
+        _localDateDisplayString =
+            [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
     }
     return _localDateDisplayString;
 }
@@ -139,12 +140,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSAttributedString*)headerSubTitle {
-    NSString* subheading =
-        [MWLocalizedString(@"explore-most-read-subheading", nil)
-         stringByReplacingOccurrencesOfString:@"$1"
-                                   withString:self.localDateDisplayString];
     return [[NSAttributedString alloc]
-            initWithString:subheading
+            initWithString:self.localDateDisplayString
                 attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
