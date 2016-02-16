@@ -115,9 +115,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSAttributedString*)headerTitle {
-    return [[NSAttributedString alloc]
-            initWithString:MWLocalizedString(@"explore-most-read-heading", nil)
-                attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
+    NSString* headingWithSite =
+        [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                        withString:self.site.URL.host];
+    NSDictionary* attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
+    return [[NSAttributedString alloc] initWithString:headingWithSite attributes:attributes];
 }
 
 - (NSAttributedString*)headerSubTitle {
