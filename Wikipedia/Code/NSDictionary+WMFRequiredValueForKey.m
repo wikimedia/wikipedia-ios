@@ -15,9 +15,9 @@ NSString* const WMFFailingDictionaryUserInfoKey  = @"WMFFailingDictionaryUserInf
 
 @implementation NSDictionary (WMFRequiredValueForKey)
 
-- (nullable id)wmf_nonnullValueOfType:(Class)type
-                               forKey:(NSString*)key
-                                error:(NSError* _Nullable __autoreleasing*)outError {
+- (nullable id)wmf_instanceOfClass:(Class)aClass
+                            forKey:(NSString*)key
+                             error:(NSError* _Nullable __autoreleasing*)outError {
     NSParameterAssert(key);
     NSError*(^ errorWithCode)(WMFInvalidValueForKeyError) = ^(WMFInvalidValueForKeyError code) {
         return [NSError errorWithDomain:WMFInvalidValueForKeyErrorDomain
@@ -35,8 +35,8 @@ NSString* const WMFFailingDictionaryUserInfoKey  = @"WMFFailingDictionaryUserInf
         DDLogError(@"Unexpected null for key %@ in %@.", key, self);
         WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorNullValue));
         return nil;
-    } else if (![value isKindOfClass:type]) {
-        DDLogError(@"Expected instance of %@, but got %@ for key %@", type, [value class], key);
+    } else if (![value isKindOfClass:aClass]) {
+        DDLogError(@"Expected instance of %@, but got %@ for key %@", aClass, [value class], key);
         WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorIncorrectType));
         return nil;
     } else {

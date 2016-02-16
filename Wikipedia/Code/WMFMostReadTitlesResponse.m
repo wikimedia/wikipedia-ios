@@ -104,9 +104,9 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
         NSDate* date;
 
         NSInteger (^ nonnullComponentForKey)(NSString*) = ^(NSString* key) {
-            NSNumber* value = [componentsMap wmf_nonnullValueOfType:[NSString class]
-                                                             forKey:key
-                                                              error:outError];
+            NSNumber* value = [componentsMap wmf_instanceOfClass:[NSString class]
+                                                          forKey:key
+                                                           error:outError];
             if (!value) {
                 success = NO;
             }

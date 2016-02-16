@@ -21,9 +21,9 @@ typedef NS_ENUM (UInt32, WMFInvalidValueForKeyError) {
 
 @interface NSDictionary (WMFRequiredValueForKey)
 
-- (nullable id)wmf_nonnullValueOfType:(Class)type
-                               forKey:(NSString*)key
-                                error:(NSError* _Nullable __autoreleasing*)error;
+- (nullable id)wmf_instanceOfClass:(Class)type
+                            forKey:(NSString*)key
+                             error:(NSError* _Nullable __autoreleasing*)outError;
 
 @end
 
