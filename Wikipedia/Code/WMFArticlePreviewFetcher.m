@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
                                               site:(MWKSite*)site
                                      extractLength:(NSUInteger)extractLength {
     WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
-    params.titles = titles;
+    params.titles        = titles;
     params.extractLength = extractLength;
 
     @weakify(self);
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _titles = @[];
+        _titles        = @[];
         _extractLength = WMFNumberOfExtractCharacters;
     }
     return self;

@@ -393,7 +393,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return mostReadSections;
 }
 
-
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
     return [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
                                                 site:self.site];

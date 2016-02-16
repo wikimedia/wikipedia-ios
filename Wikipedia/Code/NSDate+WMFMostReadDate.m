@@ -24,7 +24,6 @@
 
 + (instancetype)wmf_latestMostReadDataWithLikelyAvailableData {
     return [[NSDate date] wmf_bestMostReadFetchDate];
-
 }
 
 @end

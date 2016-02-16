@@ -33,9 +33,9 @@
 
     if (extractLength > 0) {
         defaults[@"explaintext"] = @"";
-        defaults[@"exintro"] = @YES;
-        defaults[@"exchars"] = @(extractLength);
-        defaults[@"prop"] = [defaults[@"prop"] stringByAppendingString:@"|extracts"];
+        defaults[@"exintro"]     = @YES;
+        defaults[@"exchars"]     = @(extractLength);
+        defaults[@"prop"]        = [defaults[@"prop"] stringByAppendingString:@"|extracts"];
     }
 
     return defaults;
