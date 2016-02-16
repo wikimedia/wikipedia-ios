@@ -30,8 +30,8 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
     return [NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_APIError userInfo:userInfoBuilder];
 }
 
-NSString* WMFWikimediaRestAPIURLStringWithVersion(UInt32 restAPIVersion) {
-    return [NSString stringWithFormat:@"https://wikimedia.org/api/rest_v%d", restAPIVersion];
+NSString* WMFWikimediaRestAPIURLStringWithVersion(unsigned int restAPIVersion) {
+    return [NSString stringWithFormat:@"https://wikimedia.org/api/rest_v%u", restAPIVersion];
 }
 
 @implementation NSError (WMFFetchFinalStatus)

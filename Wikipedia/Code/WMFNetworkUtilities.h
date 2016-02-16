@@ -34,7 +34,7 @@ extern NSError* WMFErrorForApiErrorObject(NSDictionary* apiError);
  *
  *  @return The URL string for the "wikimedia.org" REST API endpoint verison.
  */
-extern NSString* WMFWikimediaRestAPIURLStringWithVersion(UInt32 restAPIVersion);
+extern NSString* WMFWikimediaRestAPIURLStringWithVersion(unsigned int restAPIVersion);
 
 #import "FetcherBase.h"
 
