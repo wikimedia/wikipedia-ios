@@ -31,10 +31,6 @@ NSString* const WMFFailingDictionaryUserInfoKey  = @"WMFFailingDictionaryUserInf
         DDLogError(@"Unexpected nil for key %@ in %@.", key, self);
         WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorNoValue));
         return nil;
-    } else if ([[NSNull null] isEqual:value]) {
-        DDLogError(@"Unexpected null for key %@ in %@.", key, self);
-        WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorNullValue));
-        return nil;
     } else if (![value isKindOfClass:aClass]) {
         DDLogError(@"Expected instance of %@, but got %@ for key %@", aClass, [value class], key);
         WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorIncorrectType));

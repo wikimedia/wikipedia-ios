@@ -15,7 +15,6 @@ extern NSString* const WMFFailingDictionaryUserInfoKey;
 
 typedef NS_ENUM (UInt32, WMFInvalidValueForKeyError) {
     WMFInvalidValueForKeyErrorNoValue,
-    WMFInvalidValueForKeyErrorNullValue,
     WMFInvalidValueForKeyErrorIncorrectType
 };
 
