@@ -204,14 +204,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerForPreviewingIfAvailable];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
