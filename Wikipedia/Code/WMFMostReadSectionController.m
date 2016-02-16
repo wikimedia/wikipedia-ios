@@ -9,6 +9,7 @@
 #import "WMFMostReadSectionController.h"
 #import "Wikipedia-Swift.h"
 
+#import "UIScreen+WMFImageWidth.h"
 #import "WMFArticlePreviewFetcher.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFArticleListTableViewCell.h"
@@ -231,9 +232,11 @@ NS_ASSUME_NONNULL_BEGIN
             // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
             return [[MWKTitle alloc] initWithString:article.titleText site:self.site];
         }];
-        return [self.previewFetcher fetchArticlePreviewResultsForTitles:titlesToPreview
-                                                                   site:mostReadResponse.site
-                                                          extractLength:0];
+        return [self.previewFetcher
+                fetchArticlePreviewResultsForTitles:titlesToPreview
+                                               site:mostReadResponse.site
+                                      extractLength:0
+                                     thumbnailWidth:[[UIScreen mainScreen] wmf_listThumbnailWidthForScale].unsignedIntegerValue];
     })
            .then(^NSArray<MWKSearchResult*>*(NSArray<MWKSearchResult*>* previews) {
         @strongify(self);

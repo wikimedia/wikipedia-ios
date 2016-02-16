@@ -13,10 +13,13 @@
 @implementation NSDictionary (WMFCommonParams)
 
 + (instancetype)wmf_titlePreviewRequestParameters {
-    return [self wmf_titlePreviewRequestParametersWithExtractLength:WMFNumberOfExtractCharacters];
+    return [self wmf_titlePreviewRequestParametersWithExtractLength:WMFNumberOfExtractCharacters
+                                                         imageWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale]];
 }
 
-+ (instancetype)wmf_titlePreviewRequestParametersWithExtractLength:(NSUInteger)extractLength {
++ (instancetype)wmf_titlePreviewRequestParametersWithExtractLength:(NSUInteger)extractLength
+                                                        imageWidth:(NSNumber*)imageWidth {
+    NSParameterAssert(imageWidth);
     NSMutableDictionary* defaults =
         [[NSMutableDictionary alloc] initWithObjectsAndKeys:
          @"", @"continue",
@@ -29,7 +32,7 @@
          @"description", @"wbptterms",
          // pageimage
          @"thumbnail", @"piprop",
-         [[UIScreen mainScreen] wmf_leadImageWidthForScale], @"pithumbsize", nil];
+         imageWidth, @"pithumbsize", nil];
 
     if (extractLength > 0) {
         defaults[@"explaintext"] = @"";

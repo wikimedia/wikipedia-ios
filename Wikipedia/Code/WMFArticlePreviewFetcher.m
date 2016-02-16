@@ -1,6 +1,8 @@
 #import "WMFArticlePreviewFetcher.h"
 #import "Wikipedia-Swift.h"
 
+#import "UIScreen+WMFImageWidth.h"
+
 // Networking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
@@ -24,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
 @property (nonatomic, assign) NSUInteger extractLength;
+@property (nonatomic, assign) NSUInteger thumbnailWidth;
 
 @end
 
@@ -60,15 +63,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
                                               site:(MWKSite*)site {
-    return [self fetchArticlePreviewResultsForTitles:titles site:site extractLength:WMFNumberOfExtractCharacters];
+    return [self fetchArticlePreviewResultsForTitles:titles
+                                                site:site
+                                       extractLength:WMFNumberOfExtractCharacters
+                                      thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue];
 }
 
 - (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
                                               site:(MWKSite*)site
-                                     extractLength:(NSUInteger)extractLength {
+                                     extractLength:(NSUInteger)extractLength
+                                    thumbnailWidth:(NSUInteger)thumbnailWidth {
     WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
-    params.titles        = titles;
-    params.extractLength = extractLength;
+    params.titles         = titles;
+    params.extractLength  = extractLength;
+    params.thumbnailWidth = thumbnailWidth;
 
     @weakify(self);
     return [self.operationManager wmf_GETWithSite:site parameters:params]
@@ -97,8 +105,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _titles        = @[];
-        _extractLength = WMFNumberOfExtractCharacters;
+        _titles         = @[];
+        _extractLength  = WMFNumberOfExtractCharacters;
+        _thumbnailWidth = [[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue;
     }
     return self;
 }
@@ -118,7 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSDictionary*)serializedParams:(WMFArticlePreviewRequestParameters*)params {
     NSMutableDictionary* baseParams =
-        [NSMutableDictionary wmf_titlePreviewRequestParametersWithExtractLength:params.extractLength];
+        [NSMutableDictionary wmf_titlePreviewRequestParametersWithExtractLength:params.extractLength
+                                                                     imageWidth:@(params.thumbnailWidth)];
     [baseParams setValuesForKeysWithDictionary:@{
          @"titles":[self barSeparatedTitlesStringFromTitles:params.titles],
          @"pilimit": @(params.titles.count)
