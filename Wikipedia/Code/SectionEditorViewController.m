@@ -43,7 +43,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 
     @weakify(self)
-    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
+    UIBarButtonItem * buttonX = [UIBarButtonItem wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self)
         [self.delegate sectionEditorFinishedEditing : self];
     }];

@@ -1,9 +1,9 @@
 @import UIKit;
 #import "WMFAnalyticsLogging.h"
+#import "MWKArticle.h"
 
 @class MWKDataStore;
 @class MWKTitle;
-@class MWKArticle;
 @class WMFShareFunnel;
 @class WMFArticleViewController;
 
@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)articleControllerDidFailToLoadArticle:(WMFArticleViewController*)controller;
 
 @end
-
 
 /**
  *  View controller responsible for displaying article content.
@@ -41,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL restoreScrollPositionOnArticleLoad;
 
-
 @property (nonatomic, weak) id<WMFArticleViewControllerDelegate> delegate;
 
 @end
@@ -56,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)canShare;
 - (BOOL)hasLanguages;
 - (BOOL)hasTableOfContents;
+- (BOOL)hasReadMore;
+- (BOOL)hasAboutThisArticle;
 
 - (void)fetchArticleIfNeeded;
 

@@ -93,23 +93,22 @@ NS_ASSUME_NONNULL_BEGIN
 // Children
 @property (nonatomic, strong) WMFArticleHeaderImageGalleryViewController* headerGallery;
 @property (nonatomic, strong) WMFReadMoreViewController* readMoreListViewController;
+@property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-
-@property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
-
-// Previewing
-@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
-
-@property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
-
 @property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
+
+// Previewing
+@property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
+@property (nonatomic, assign) BOOL isPreviewing;
+
+@property (strong, nonatomic, nullable) NSTimer* significantlyViewedTimer;
 
 @end
 
@@ -136,44 +135,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Accessors
 
+- (WMFArticleFooterMenuViewController*)footerMenuViewController {
+    if (!_footerMenuViewController && [self hasAboutThisArticle]) {
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+    }
+    return _footerMenuViewController;
+}
+
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@ %@", [super description], self.articleTitle];
 }
 
 - (void)setArticle:(nullable MWKArticle*)article {
     NSAssert(self.isViewLoaded, @"Expecting article to only be set after the view loads.");
+    NSAssert([article.title isEqualToTitle:self.articleTitle],
+             @"Invalid article set for VC expecting article data for title: %@", self.articleTitle);
 
-    if (_article == article) {
-        return;
-    }
-
-    _footerMenuViewController      = nil;
-    _tableOfContentsViewController = nil;
-    _shareFunnel                   = nil;
-    _shareOptionsController        = nil;
+    _shareFunnel            = nil;
+    _shareOptionsController = nil;
     [self.articleFetcher cancelFetchForPageTitle:_articleTitle];
 
     _article = article;
 
     // always update webVC & headerGallery, even if nil so they are reset if needed
-    self.webViewController.article = _article;
+    self.footerMenuViewController.article = _article;
+    self.webViewController.article        = _article;
     [self.headerGallery showImagesInArticle:_article];
-
-    // always update toolbar
-    [self updateToolbar];
-
-    // always update footers
-    [self updateArticleFootersIfNeeded];
 
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
-
-        if (!self.article.isMain) {
-            [self createTableOfContentsViewController];
-            [self fetchReadMore];
-        }
     }
+
+    [self updateToolbar];
+    [self createTableOfContentsViewControllerIfNeeded];
+    [self fetchReadMoreIfNeeded];
+    [self updateWebviewFootersIfNeeded];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -225,7 +222,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFReadMoreViewController*)readMoreListViewController {
     if (!_readMoreListViewController) {
-        _readMoreListViewController          = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle dataStore:self.dataStore];
+        _readMoreListViewController = [[WMFReadMoreViewController alloc] initWithTitle:self.articleTitle
+                                                                             dataStore:self.dataStore];
         _readMoreListViewController.delegate = self;
     }
     return _readMoreListViewController;
@@ -295,7 +293,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)hasTableOfContents {
-    return self.article != nil && !self.article.isMain;
+    return self.article && !self.article.isMain && self.article.sections.count > 0;
+}
+
+- (BOOL)hasReadMore {
+    WMF_TECH_DEBT_TODO(filter articles outside main namespace);
+    return self.article && !self.article.isMain;
+}
+
+- (BOOL)hasAboutThisArticle {
+    return self.article && !self.article.isMain;
 }
 
 - (NSString*)shareText {
@@ -367,7 +374,7 @@ NS_ASSUME_NONNULL_BEGIN
         _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
-                                                              action:@selector(fetchArticleIfNeeded)];
+                                                              action:@selector(fetchArticle)];
     }
     return _refreshToolbarItem;
 }
@@ -419,17 +426,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Footers
 
-- (void)updateArticleFootersIfNeeded {
-    if (!self.article || self.article.isMain) {
-        [self.webViewController setFooterViewControllers:nil];
-        return;
-    }
-
-    if (self.footerMenuViewController.article != self.article) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
-    }
-    NSMutableArray* footerVCs = [NSMutableArray arrayWithObject:self.footerMenuViewController];
-    if ([self.readMoreListViewController hasResults]) {
+- (void)updateWebviewFootersIfNeeded {
+    NSMutableArray* footerVCs = [NSMutableArray arrayWithCapacity:2];
+    [footerVCs wmf_safeAddObject:self.footerMenuViewController];
+    /*
+       NOTE: only include read more if it has results (don't want an empty section). conditionally fetched in `setArticle:`
+     */
+    if ([self hasReadMore] && [self.readMoreListViewController hasResults]) {
         [footerVCs addObject:self.readMoreListViewController];
         [self appendReadMoreTableOfContentsItemIfNeeded];
     }
@@ -637,13 +640,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Article Fetching
 
-- (void)fetchArticleIfNeeded {
+- (void)fetchArticleForce:(BOOL)force {
     NSAssert(self.isViewLoaded, @"Should only fetch article when view is loaded so we can update its state.");
-    if (self.article) {
+    if (!force && self.article) {
         return;
     }
+
+    //only show a blank view if we have nothing to show
+    if (!self.article) {
+        [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
+    }
+
     [self showProgressViewAnimated:YES];
-    [self wmf_showEmptyViewOfType:WMFEmptyViewTypeBlank];
     [self unobserveArticleUpdates];
 
     @weakify(self);
@@ -694,21 +702,34 @@ NS_ASSUME_NONNULL_BEGIN
     });
 }
 
-- (void)fetchReadMore {
+- (void)fetchArticle {
+    [self fetchArticleForce:YES];
+}
+
+- (void)fetchArticleIfNeeded {
+    [self fetchArticleForce:NO];
+}
+
+- (void)fetchReadMoreIfNeeded {
+    if (![self hasReadMore]) {
+        return;
+    }
+
     @weakify(self);
-    [self.readMoreListViewController fetch].then(^(id readMoreResults) {
+    [self.readMoreListViewController fetchIfNeeded].then(^{
         @strongify(self);
-        [self updateArticleFootersIfNeeded];
+        // update footers to include read more if there are results
+        [self updateWebviewFootersIfNeeded];
     })
     .catch(^(NSError* error){
         DDLogError(@"Read More Fetch Error: %@", error);
-        WMF_TECH_DEBT_TODO(show error view in read more)
+        WMF_TECH_DEBT_TODO(show read more w / an error view and allow user to retry ? );
     });
 }
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+- (void)shareArticleWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     if (text.length == 0) {
         text = [self.article shareSnippet];
     }
@@ -853,7 +874,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sectionEditorFinishedEditing:(SectionEditorViewController*)sectionEditorViewController {
     [self dismissViewControllerAnimated:YES completion:NULL];
-    [self fetchArticleIfNeeded];
+    [self fetchArticle];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
