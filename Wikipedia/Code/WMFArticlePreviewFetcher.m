@@ -90,7 +90,9 @@ NS_ASSUME_NONNULL_BEGIN
             MWKSearchResult* matchingPreview = [unsortedPreviews bk_match:^BOOL (MWKSearchResult* preview){
                 return [preview.displayTitle isEqualToString:title.text];
             }];
-            NSAssert(matchingPreview, @"Couldn't find requested preview for %@. Returned previews: %@", title, unsortedPreviews);
+            if (!matchingPreview) {
+                DDLogWarn(@"Couldn't find requested preview for %@. Returned previews: %@", title, unsortedPreviews);
+            }
             return matchingPreview;
         }];
     });

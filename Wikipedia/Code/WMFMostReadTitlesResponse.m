@@ -72,7 +72,7 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
     dispatch_once(&onceToken, ^{
         mainPages = [[[WMFAssetsFile alloc] initWithFileType:WMFAssetsFileTypeMainPages] dictionary];
     });
-    return [mainPages[self.site.language] isEqualToString:article.titleText];
+    return [mainPages[self.site.language] isEqualToString:[article.titleText wmf_normalizedPageTitle]];
 }
 
 #pragma mark - MTLJSONSerializing
@@ -90,7 +90,11 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
             [MTLJSONAdapter modelsOfClass:[WMFMostReadTitlesResponseItemArticle class]
                             fromJSONArray:value
                                     error:error];
-        return [[rawArticles sortedArrayUsingSelector:@selector(rank)] wmf_safeSubarrayWithRange:NSMakeRange(0, 50)];
+        return [[rawArticles sortedArrayUsingComparator:
+                 ^NSComparisonResult (WMFMostReadTitlesResponseItemArticle* _Nonnull a1,
+                                      WMFMostReadTitlesResponseItemArticle* _Nonnull a2) {
+            return a1.rank - a2.rank;
+        }] wmf_safeSubarrayWithRange:NSMakeRange(0, 50)];
     }];
 }
 
