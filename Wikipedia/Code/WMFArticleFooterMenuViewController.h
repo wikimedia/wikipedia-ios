@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
-@property (nonatomic, strong, readonly) MWKArticle* article;
+@property (nonatomic, strong, readwrite) MWKArticle* article;
 
 - (instancetype)initWithArticle:(MWKArticle*)article;
 

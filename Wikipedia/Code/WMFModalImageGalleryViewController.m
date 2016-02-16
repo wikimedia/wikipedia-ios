@@ -257,7 +257,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }];
 
     @weakify(self);
-    UIButton* closeButton = [UIButton wmf_buttonType:WMFButtonTypeClose handler:^(id sender){
+    UIButton* closeButton = [UIButton wmf_buttonType:WMFButtonTypeX handler:^(id sender){
         @strongify(self);
         [self closeButtonTapped:sender];
     }];

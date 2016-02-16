@@ -109,6 +109,8 @@
 "search-recent-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
 "search-result-redirected-from" = "Text for search result letting user know if a result is a redirect from another article. Parameters:\n* $1 - article title the current search result redirected from";
 "settings-title" = "Title of the view where app settings are displayed.\n{{Identical|Settings}}";
+"settings-project" = "Title for button letting user choose primary language Wikipedia for the app.";
+"settings-support" = "Title for button letting user make a donation.";
 "main-menu-title" = "Title for menu of secondary items.\n{{Identical|More}}";
 "main-menu-heading-about" = "'More' menu section heading for items about the app (e.g. privacy, terms, FAQ).";
 "main-menu-language-title" = "Header text for default search language selection. Parameters:\n* $1 - language domain name";
@@ -120,6 +122,8 @@
 "main-menu-account-title-logged-in" = "Header text used when account is logged in";
 "main-menu-account-login" = "Button text for logging in.\n{{Identical|Log in}}";
 "main-menu-account-logout" = "Button text for logging out. The username of the user who is currently logged in is displayed after the message, e.g. Log out ExampleUserName.\n{{Identical|Log out}}";
+"main-menu-account-logout-are-you-sure" = "Header asking if user is sure they wish to log out.";
+"main-menu-account-logout-cancel" = "Button text for hiding the log out menu.";
 "main-menu-show-title" = "Header informing the user that they can be shown various things";
 "main-menu-show-history" = "Button text for article history interface.\n{{Identical|Recent}}";
 "main-menu-show-saved" = "Button text for saved articles interface.\n{{Identical|Saved page}}";

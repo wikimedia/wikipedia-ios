@@ -147,11 +147,11 @@ static dispatch_once_t launchToken;
 
 #pragma mark - Notifications
 
-- (void)appDidBecomeActiveWithNotification:(NSNotification*)note {
+- (void)appWillEnterForegroundWithNotification:(NSNotification*)note {
     [self resumeApp];
 }
 
-- (void)appWillResignActiveWithNotification:(NSNotification*)note {
+- (void)appDidEnterBackgroundWithNotification:(NSNotification*)note {
     [self pauseApp];
 }
 
@@ -169,8 +169,8 @@ static dispatch_once_t launchToken;
     [window setRootViewController:self];
     [window makeKeyAndVisible];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveWithNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveWithNotification:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
@@ -207,7 +207,7 @@ static dispatch_once_t launchToken;
 
 - (void)pauseApp {
     [self downloadAssetsFilesIfNecessary];
-    [self performHousekeepingIfNecessary];
+    [self performHousekeeping];
 }
 
 #pragma mark - Shortcut
@@ -530,17 +530,9 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - House Keeping
 
-- (void)performHousekeepingIfNecessary {
-    NSDate* lastHousekeepingDate        = [[NSUserDefaults standardUserDefaults] objectForKey:@"LastHousekeepingDate"];
-    NSInteger daysSinceLastHouseKeeping = [[NSDate date] daysAfterDate:lastHousekeepingDate];
-    //NSLog(@"daysSinceLastHouseKeeping = %ld", (long)daysSinceLastHouseKeeping);
-    if (daysSinceLastHouseKeeping > 1) {
-        //NSLog(@"Performing housekeeping...");
-        MWKDataHousekeeping* dataHouseKeeping = [[MWKDataHousekeeping alloc] init];
-        [dataHouseKeeping performHouseKeeping];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"LastHousekeepingDate"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+- (void)performHousekeeping {
+    MWKDataHousekeeping* dataHouseKeeping = [[MWKDataHousekeeping alloc] init];
+    [dataHouseKeeping performHouseKeeping];
 }
 
 #pragma mark - Download Assets

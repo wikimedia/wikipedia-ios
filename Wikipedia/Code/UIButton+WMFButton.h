@@ -5,10 +5,7 @@
 
 typedef NS_ENUM (NSInteger, WMFButtonType) {
     WMFButtonTypeX,
-    WMFButtonTypeCaretLeft,
-    WMFButtonTypeBookmarkMini,
-    WMFButtonTypeClose,
-    WMFButtonTypeClearMini
+    WMFButtonTypeCaretLeft
 };
 
 NS_ASSUME_NONNULL_BEGIN
