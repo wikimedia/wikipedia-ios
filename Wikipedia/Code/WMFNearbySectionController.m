@@ -132,7 +132,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     return [WMFNearbyArticleTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Nearby";
 }
 

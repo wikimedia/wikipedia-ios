@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  *  View controller responsible for displaying article content.
  */
-@interface WMFArticleViewController : UIViewController<WMFAnalyticsLogging>
+@interface WMFArticleViewController : UIViewController<WMFAnalyticsContextProviding, WMFAnalyticsViewNameProviding>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            dataStore:(MWKDataStore*)dataStore;

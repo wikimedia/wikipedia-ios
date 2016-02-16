@@ -11,7 +11,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFSaveButtonController.h"
 
-@interface WMFReadMoreViewController ()
+@interface WMFReadMoreViewController ()<WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong, readwrite) MWKTitle* articleTitle;
 @property (nonatomic, strong) WMFRelatedTitleListDataSource* dataSource;
@@ -45,7 +45,8 @@
             cell.snippetText     = searchResult.extract;
             [cell setImageURL:searchResult.thumbnailURL];
             [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-            cell.saveButtonController.analyticsSource = self;
+            cell.saveButtonController.analyticsContext     = self;
+            cell.saveButtonController.analyticsContentType = self;
         };
     }
     return self;
@@ -67,6 +68,14 @@
     [super viewDidLoad];
     [self.tableView registerNib:[WMFArticlePreviewTableViewCell wmf_classNib] forCellReuseIdentifier:[WMFArticlePreviewTableViewCell identifier]];
     [self.tableView reloadData];
+}
+
+- (NSString*)analyticsContext {
+    return @"Reader";
+}
+
+- (NSString*)analyticsContentType {
+    return @"Read More";
 }
 
 @end

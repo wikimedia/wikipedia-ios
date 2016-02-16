@@ -103,7 +103,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
 
 @property (nonatomic, strong) WMFArticleFooterMenuViewController* footerMenuViewController;
-@property (nonatomic, assign) BOOL isPreviewing;
 
 @property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
@@ -411,9 +410,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
+    [[PiwikTracker sharedInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self pushArticleViewControllerWithTitle:language.title animated:YES];
+        [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
     }];
 }
 
@@ -587,10 +587,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchArticleIfNeeded];
 
     [self startSignificantlyViewedTimer];
-    if (self.isPreviewing) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
-        self.isPreviewing = NO;
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -769,7 +765,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapOnLinkForTitle:(MWKTitle*)title {
-    [self wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
+    [self pushArticleViewControllerWithTitle:title contentType:nil animated:YES];
 }
 
 - (void)webViewController:(WebViewController*)controller didSelectText:(NSString*)text {
@@ -897,8 +893,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
-        self.isPreviewing                = YES;
+        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
@@ -927,10 +922,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
-    self.isPreviewing = NO;
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
-        [self pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
+        [self pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit contentType:nil animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
@@ -939,21 +932,26 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Article Navigation
 
 
-- (void)pushArticleViewController:(WMFArticleViewController*)articleViewController animated:(BOOL)animated {
-    [self wmf_pushArticleViewController:articleViewController source:self animated:YES];
+- (void)pushArticleViewController:(WMFArticleViewController*)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
+    [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 
-- (void)pushArticleViewControllerWithTitle:(MWKTitle*)title animated:(BOOL)animated {
+- (void)pushArticleViewControllerWithTitle:(MWKTitle*)title contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
     WMFArticleViewController* articleViewController =
         [[WMFArticleViewController alloc] initWithArticleTitle:title
                                                      dataStore:self.dataStore];
-    [self pushArticleViewController:articleViewController animated:animated];
+    [self pushArticleViewController:articleViewController contentType:contentType animated:animated];
 }
 
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
-    [self pushArticleViewControllerWithTitle:title animated:YES];
+    id<WMFAnalyticsContentTypeProviding> contentType = nil;
+    if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+        contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
+    }
+    [self pushArticleViewControllerWithTitle:title contentType:contentType animated:YES];
 }
 
 - (UIViewController*)listViewContoller:(WMFArticleListTableViewController*)listController viewControllerForPreviewingTitle:(MWKTitle*)title {
@@ -963,17 +961,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
     if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
-        [self pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
+        id<WMFAnalyticsContentTypeProviding> contentType = nil;
+        if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+            contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
+        }
+        [self pushArticleViewController:(WMFArticleViewController*)viewController contentType:contentType animated:YES];
     } else {
         [self presentViewController:viewController animated:YES completion:nil];
     }
 }
 
-#pragma mark - WMFAnalyticsLogging
+#pragma mark - WMFAnalyticsContextProviding
 
+- (NSString*)analyticsContext {
+    return @"Article";
+}
 
 - (NSString*)analyticsName {
-    return @"Article";
+    return self.articleTitle.site.domain;
 }
 
 @end

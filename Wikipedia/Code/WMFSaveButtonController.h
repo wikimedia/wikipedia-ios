@@ -24,6 +24,7 @@
 /**
  *  Set to provide a source for logging saved pages
  */
-@property (weak, nonatomic) id<WMFAnalyticsLogging> analyticsSource;
+@property (weak, nonatomic) id<WMFAnalyticsContextProviding> analyticsContext;
+@property (weak, nonatomic) id<WMFAnalyticsContentTypeProviding> analyticsContentType;
 
 @end

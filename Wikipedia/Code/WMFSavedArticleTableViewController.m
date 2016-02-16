@@ -60,7 +60,7 @@
         cell.snippetText     = [article summary];
         [cell setImage:[article bestThumbnailImage]];
         [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-        cell.saveButtonController.analyticsSource = self;
+        cell.saveButtonController.analyticsContext = self;
     };
 
     self.dataSource = ds;
@@ -70,8 +70,12 @@
     return WMFEmptyViewTypeNoSavedPages;
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContext {
     return @"Saved";
+}
+
+- (NSString*)analyticsName {
+    return [self analyticsContext];
 }
 
 - (BOOL)showsDeleteAllButton {

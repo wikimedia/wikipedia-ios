@@ -6,7 +6,7 @@
 @class WMFRelatedSectionBlackList;
 @class MWKDataStore;
 
-@interface WMFRelatedSectionController : WMFBaseExploreSectionController <WMFExploreSectionController, WMFTitleProviding, WMFHeaderMenuProviding, WMFMoreFooterProviding>
+@interface WMFRelatedSectionController : WMFBaseExploreSectionController <WMFExploreSectionController, WMFTitleProviding, WMFHeaderMenuProviding, WMFMoreFooterProviding, WMFAnalyticsContentTypeProviding>
 
 - (instancetype)initWithArticleTitle:(MWKTitle*)title
                            blackList:(WMFRelatedSectionBlackList*)blackList

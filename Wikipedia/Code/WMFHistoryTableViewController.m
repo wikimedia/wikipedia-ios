@@ -60,15 +60,19 @@
     return WMFEmptyViewTypeNoHistory;
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContext {
     return @"Recent";
+}
+
+- (NSString*)analyticsName {
+    return [self analyticsContext];
 }
 
 - (BOOL)showsDeleteAllButton {
     return YES;
 }
 
-- (NSString*)deleteButtonText{
+- (NSString*)deleteButtonText {
     return MWLocalizedString(@"history-clear-all", nil);
 }
 

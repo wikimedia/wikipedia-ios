@@ -314,6 +314,11 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     [_mutableItems replaceObjectsAtIndexes:indexes withObjects:array];
 }
 
+- (NSString*)analyticsContext {
+    return @"Explore";
+}
+
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -71,7 +71,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
                                                         dataStore:_dataStore];
         _sharedSearchViewController = searchVC;
     }
-    [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController fromSource:nil];
+    [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController];
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];
 }
 
