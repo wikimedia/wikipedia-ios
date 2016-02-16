@@ -110,7 +110,7 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 }
 
 - (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFNearbySectionController alloc] initWithLocation:item.location site:self.site dataStore:self.dataStore];
+    return [[WMFNearbySectionController alloc] initWithLocation:item.location placemark:item.placemark site:self.site dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {

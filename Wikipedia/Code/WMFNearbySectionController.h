@@ -11,11 +11,13 @@ extern NSString* const WMFNearbySectionIdentifier;
     <WMFExploreSectionController, WMFTitleProviding, WMFMoreFooterProviding>
 
 - (instancetype)initWithLocation:(CLLocation*)location
+                       placemark:(nullable CLPlacemark*)placemark
                             site:(MWKSite*)site
                        dataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) CLLocation* location;
+@property (nonatomic, strong, readonly) CLPlacemark* placemark;
 
 @end
 
