@@ -18,13 +18,9 @@
     if (self) {
         self.dataSource = [[WMFMostReadListDataSource alloc] initWithPreviews:previews fromSite:site];
         self.dataStore  = dataStore;
+        self.title      = MWLocalizedString(@"explore-most-read-more-list-title", nil);
     }
     return self;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.title = MWLocalizedString(@"explore-most-read-more-list-title", nil);
 }
 
 - (void)viewDidLoad {
