@@ -11,6 +11,8 @@
 #import "Wikipedia-Swift.h"
 #import "WMFAssetsFile.h"
 
+#import <Tweaks/FBTweakInline.h>
+
 typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
     WMFMostReadTitlesResponseErrorEmptyItems
 };
@@ -28,12 +30,34 @@ typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
 
 @implementation WMFMostReadTitlesResponseItem
 
-- (void)setArticles:(NSArray<WMFMostReadTitlesResponseItemArticle*>*)articles {
-    NSAssert(!_articles, @"Unexpected call to %@, property is supposed to be mutable!", NSStringFromSelector(_cmd));
-    _articles = [articles bk_reject:^BOOL (WMFMostReadTitlesResponseItemArticle* article) {
-        return [article.titleText isEqualToString:@"-"]
-        // TODO: get namespace prefixes for self.site
-        || [self isArticleTitleMainPage:article];
+- (instancetype)initWithDictionary:(NSDictionary*)dictionaryValue error:(NSError* __autoreleasing*)error {
+    self = [super initWithDictionary:dictionaryValue error:error];
+    if (self) {
+        [self sanitizeArticles];
+    }
+    return self;
+}
+
+/**
+ *  Remove any articles whose title is a main page or one of the blacklisted titles.
+ *
+ *  @note This must be called after @c [super initWithDictionary:error:] to ensure the receiver's @c site is already set.
+ */
+- (void)sanitizeArticles {
+    NSArray* titleBlacklist =
+#if DEBUG
+        /*
+           Allow blacklisted titles to be changed "on the fly."  App must be restarted in order to filter results w/ updated
+           blacklist.
+         */
+        [FBTweakValue(@"Explore", @"Most Read", @"Title blacklist", @"-,Test_card,Web_scraping")
+         componentsSeparatedByString:@","];
+#else
+        @[@"-", @"Test_card", @"Web_scraping"];
+#endif
+
+    _articles = [_articles bk_reject:^BOOL (WMFMostReadTitlesResponseItemArticle* article) {
+        return [titleBlacklist containsObject:article.titleText] || [self isArticleTitleMainPage:article];
     }];
 }
 

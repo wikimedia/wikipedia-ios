@@ -19,6 +19,9 @@
 #import "UIView+WMFDefaultNib.h"
 #import "WMFMainPagePlaceholderTableViewCell.h"
 #import "Wikipedia-Swift.h"
+#import "NSNumber+MWKTitleNamespace.h"
+
+#import <Tweaks/FBTweakInline.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString* localDateDisplayString;
 
 @property (nonatomic, strong, nullable, readwrite) WMFMostReadTitlesResponseItem* mostReadArticlesResponse;
+@property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult*>* previews;
 
 @property (nonatomic, strong) WMFArticlePreviewFetcher* previewFetcher;
 @property (nonatomic, strong) WMFMostReadTitleFetcher* mostReadTitlesFetcher;
@@ -45,6 +49,18 @@ NS_ASSUME_NONNULL_BEGIN
         self.date = date;
     }
     return self;
+}
+
+- (NSString*)description {
+    return [NSString stringWithFormat:@"%@ site = %@, date = %@", [super description], self.site, [self englishUTCDateString]];
+}
+
+#pragma mark - Accessors
+
+- (void)setPreviews:(nullable NSArray<MWKSearchResult*>*)previews {
+    _previews = [previews bk_select:^BOOL (MWKSearchResult* preview) {
+        return [preview.titleNamespace wmf_isMainNamespace];
+    }];
 }
 
 /**
@@ -72,10 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString*)englishUTCDateString {
     return [[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:self.date];
-}
-
-- (NSString*)description {
-    return [NSString stringWithFormat:@"%@ site = %@, date = %@", [super description], self.site, [self englishUTCDateString]];
 }
 
 - (WMFMostReadTitleFetcher*)mostReadTitlesFetcher {
@@ -196,8 +208,8 @@ NS_ASSUME_NONNULL_BEGIN
             return [NSError cancelledError];
         }
         self.mostReadArticlesResponse = mostReadResponse;
-        NSArray<MWKTitle*>* titlesToPreview = [[mostReadResponse.articles
-                                                wmf_safeSubarrayWithRange:NSMakeRange(0, 5)]
+        WMF_TECH_DEBT_TODO(need to test for issues with really long query strings);
+        NSArray<MWKTitle*>* titlesToPreview = [mostReadResponse.articles
                                                bk_map:^MWKTitle*(WMFMostReadTitlesResponseItemArticle* article) {
             // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
             return [[MWKTitle alloc] initWithString:article.titleText site:self.site];
@@ -205,6 +217,12 @@ NS_ASSUME_NONNULL_BEGIN
         return [self.previewFetcher fetchArticlePreviewResultsForTitles:titlesToPreview
                                                                    site:mostReadResponse.site
                                                           extractLength:0];
+    })
+           .then(^NSArray<MWKSearchResult*>*(NSArray<MWKSearchResult*>* previews) {
+        @strongify(self);
+        self.previews = previews;
+        // only return first 5 previews to the section, store the rest internally for the full list view
+        return [self.previews wmf_safeSubarrayWithRange:NSMakeRange(0, 5)];
     });
 }
 
