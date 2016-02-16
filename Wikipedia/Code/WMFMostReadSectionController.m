@@ -7,6 +7,8 @@
 //
 
 #import "WMFMostReadSectionController.h"
+#import "Wikipedia-Swift.h"
+
 #import "WMFArticlePreviewFetcher.h"
 #import "NSDateFormatter+WMFExtensions.h"
 #import "WMFArticleListTableViewCell.h"
@@ -127,16 +129,22 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSAttributedString*)headerTitle {
+    // fall back to language code if it can't be localized
+    NSString* language        = [[NSLocale currentLocale] wmf_localizedLanguageNameForCode:self.site.language] ? : self.site.language;
     NSString* headingWithSite =
         [MWLocalizedString(@"explore-most-read-heading", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                        withString:self.site.URL.host];
+                                                                                        withString:language];
     NSDictionary* attributes = @{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]};
     return [[NSAttributedString alloc] initWithString:headingWithSite attributes:attributes];
 }
 
 - (NSAttributedString*)headerSubTitle {
+    NSString* subheading =
+        [MWLocalizedString(@"explore-most-read-subheading", nil)
+         stringByReplacingOccurrencesOfString:@"$1"
+                                   withString:self.localDateDisplayString];
     return [[NSAttributedString alloc]
-            initWithString:self.localDateDisplayString
+            initWithString:subheading
                 attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderTitleColor]}];
 }
 
