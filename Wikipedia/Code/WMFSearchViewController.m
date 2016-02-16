@@ -1,4 +1,5 @@
 #import "WMFSearchViewController.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
@@ -226,6 +227,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

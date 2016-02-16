@@ -254,6 +254,8 @@ NS_ASSUME_NONNULL_BEGIN
             [obj willDisplaySection];
         }
     }];
+
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -1,5 +1,6 @@
 
 #import "WMFHistoryTableViewController.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 #import "NSString+WMFExtras.h"
 
@@ -54,6 +55,11 @@
     };
 
     self.dataSource = ds;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (WMFEmptyViewType)emptyViewType {
