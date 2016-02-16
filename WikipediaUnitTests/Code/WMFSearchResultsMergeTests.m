@@ -12,6 +12,7 @@
 #import "WMFSearchResults.h"
 #import "MWKSearchResult.h"
 #import "MWKSearchRedirectMapping.h"
+#import "NSNumber+MWKTitleNamespace.h"
 
 static MWKSearchResult* dummySearchResultWithIndex(NSUInteger index) {
     static NSUInteger articleId = 0;
@@ -23,7 +24,8 @@ static MWKSearchResult* dummySearchResultWithIndex(NSUInteger index) {
                                          thumbnailURL:[NSURL URLWithString:@"http://foo.bar/baz"]
                                                 index:@(index)
                                      isDisambiguation:NO
-                                               isList:NO];
+                                               isList:NO
+                                       titleNamespace:@(MWKTitleNamespaceMain)];
 }
 
 QuickSpecBegin(WMFSearchResultMergeTests)
