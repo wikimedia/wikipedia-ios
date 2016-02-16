@@ -143,8 +143,8 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
         if (!value.length || components.count < 2) {
             WMFSafeAssign(error,
                           [NSError errorWithDomain:NSStringFromClass(self)
-                                                         code:0
-                                                     userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value}:nil]);
+                                              code:0
+                                          userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value}:nil]);
             return nil;
         }
         return [[MWKSite alloc] initWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];

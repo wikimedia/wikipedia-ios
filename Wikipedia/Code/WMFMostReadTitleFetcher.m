@@ -17,11 +17,9 @@
 #import <Mantle/MTLJSONAdapter.h>
 #import "WMFMostReadTitlesResponse.h"
 #import "NSCalendar+WMFCommonCalendars.h"
+#import "NSError+WMFExtensions.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-NSString* const WMFMostReadTitleFetcherErrorDomain                 = @"WMFMostReadTitleFetcherErrorDomain";
-NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostReadTitleFetcherErrorFailingDateUserInfoKey";
 
 @interface WMFMostReadTitleFetcher ()
 @property (nonatomic, strong) AFHTTPRequestOperationManager* operationManager;
@@ -49,9 +47,8 @@ NSString* const WMFMostReadTitleFetcherErrorFailingDateUserInfoKey = @"WMFMostRe
     NSString* dateString = [[NSDateFormatter wmf_englishUTCSlashDelimitedYearMonthDayFormatter] stringFromDate:date];
     if (!date) {
         DDLogError(@"Failed to format pageviews date URL component for date: %@", date);
-        NSError* error = [NSError errorWithDomain:WMFMostReadTitleFetcherErrorDomain
-                                             code:WMFMostReadTitleFetcherErrorInvalidDate
-                                         userInfo:@{WMFMostReadTitleFetcherErrorFailingDateUserInfoKey: date}];
+        NSError* error = [NSError wmf_errorWithType:WMFErrorTypeInvalidRequestParameters
+                                           userInfo:@{WMFFailingRequestParametersUserInfoKey: date}];
         return [AnyPromise promiseWithValue:error];
     }
 
