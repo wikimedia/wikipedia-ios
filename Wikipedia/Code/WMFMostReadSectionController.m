@@ -200,7 +200,9 @@ NS_ASSUME_NONNULL_BEGIN
             // HAX: must normalize title otherwise it won't match fetched previews. this is why pageid > title
             return [[MWKTitle alloc] initWithString:article.titleText site:self.site];
         }];
-        return [self.previewFetcher fetchArticlePreviewResultsForTitles:titlesToPreview site:mostReadResponse.site];
+        return [self.previewFetcher fetchArticlePreviewResultsForTitles:titlesToPreview
+                                                                   site:mostReadResponse.site
+                                                          extractLength:0];
     });
 }
 

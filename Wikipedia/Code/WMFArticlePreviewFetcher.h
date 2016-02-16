@@ -5,7 +5,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticlePreviewFetcher : NSObject
 
-- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site;
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
+                                              site:(MWKSite*)site;
+
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
+                                              site:(MWKSite*)site
+                                     extractLength:(NSUInteger)extractLength;
 
 @property (nonatomic, assign, readonly) BOOL isFetching;
 

@@ -16,21 +16,29 @@
     return [self wmf_titlePreviewRequestParametersWithExtractLength:WMFNumberOfExtractCharacters];
 }
 
-+ (instancetype)wmf_titlePreviewRequestParametersWithExtractLength:(NSUInteger)length {
-    return [[self alloc] initWithObjectsAndKeys:
-            @"", @"continue",
-            @"json", @"format",
-            @"query", @"action",
-            @"extracts|pageterms|pageimages", @"prop",
-            // extracts
-            @YES, @"exintro",
-            @(length), @"exchars",
-            @"", @"explaintext",
-            // pageterms
-            @"description", @"wbptterms",
-            // pageimage
-            @"thumbnail", @"piprop",
-            [[UIScreen mainScreen] wmf_leadImageWidthForScale], @"pithumbsize", nil];
++ (instancetype)wmf_titlePreviewRequestParametersWithExtractLength:(NSUInteger)extractLength {
+    NSMutableDictionary* defaults =
+        [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+         @"", @"continue",
+         @"json", @"format",
+         @"query", @"action",
+         @"pageterms|pageimages|pageprops", @"prop",
+         // pageprops
+         @"ppprop", @"ns",
+         // pageterms
+         @"description", @"wbptterms",
+         // pageimage
+         @"thumbnail", @"piprop",
+         [[UIScreen mainScreen] wmf_leadImageWidthForScale], @"pithumbsize", nil];
+
+    if (extractLength > 0) {
+        defaults[@"explaintext"] = @"";
+        defaults[@"exintro"] = @YES;
+        defaults[@"exchars"] = @(extractLength);
+        defaults[@"prop"] = [defaults[@"prop"] stringByAppendingString:@"|extracts"];
+    }
+
+    return defaults;
 }
 
 @end

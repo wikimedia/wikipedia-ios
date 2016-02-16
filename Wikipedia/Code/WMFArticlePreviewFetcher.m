@@ -1,22 +1,20 @@
-
 #import "WMFArticlePreviewFetcher.h"
+#import "Wikipedia-Swift.h"
 
-//AFNetworking
+// Networking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
-
-//Promises
-#import "Wikipedia-Swift.h"
+#import "WMFNumberOfExtractCharacters.h"
+#import "NSDictionary+WMFCommonParams.h"
+#import "WMFNetworkUtilities.h"
 
 //Models
 #import "MWKSearchResult.h"
 #import "MWKTitle.h"
 
-#import "NSDictionary+WMFCommonParams.h"
-#import "WMFNetworkUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticlePreviewRequestParameters : NSObject
 
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
+@property (nonatomic, assign) NSUInteger extractLength;
 
 @end
 
@@ -59,9 +58,17 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site {
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
+                                              site:(MWKSite*)site {
+    return [self fetchArticlePreviewResultsForTitles:titles site:site extractLength:WMFNumberOfExtractCharacters];
+}
+
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
+                                              site:(MWKSite*)site
+                                     extractLength:(NSUInteger)extractLength {
     WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
     params.titles = titles;
+    params.extractLength = extractLength;
 
     @weakify(self);
     return [self.operationManager wmf_GETWithSite:site parameters:params]
@@ -87,6 +94,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticlePreviewRequestParameters
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _titles = @[];
+        _extractLength = WMFNumberOfExtractCharacters;
+    }
+    return self;
+}
+
 @end
 
 #pragma mark - Request Serializer
@@ -101,12 +117,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSDictionary*)serializedParams:(WMFArticlePreviewRequestParameters*)params {
-    NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
+    NSMutableDictionary* baseParams =
+        [NSMutableDictionary wmf_titlePreviewRequestParametersWithExtractLength:params.extractLength];
     [baseParams setValuesForKeysWithDictionary:@{
          @"titles":[self barSeparatedTitlesStringFromTitles:params.titles],
-         @"exlimit": @(params.titles.count),
          @"pilimit": @(params.titles.count)
      }];
+    if (params.extractLength > 0) {
+        baseParams[@"exlimit"] = @(params.titles.count);
+    }
     return baseParams;
 }
 
