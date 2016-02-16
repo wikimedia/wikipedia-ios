@@ -14,8 +14,12 @@
 #import <Tweaks/FBTweakInline.h>
 
 typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
-    WMFMostReadTitlesResponseErrorEmptyItems
+    WMFMostReadTitlesResponseErrorEmptyItems,
+    WMFMostReadTitlesResponseErrorDateParseFailure
 };
+
+static NSString* const WMFMostReadTitlesFailingURLComponentsUserInfoKey = @"WMFMostReadTitlesFailingURLComponentsUserInfoKey";
+static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFMostReadFailingProjectUserInfoKey";
 
 @implementation WMFMostReadTitlesResponseItemArticle
 
@@ -91,26 +95,27 @@ typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
 }
 
 + (MTLValueTransformer*)dateJSONTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock :^id (NSDictionary* componentsMap,
-                                                                   BOOL* outSuccess,
-                                                                   NSError* __autoreleasing* outError) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (NSDictionary* componentsMap,
+                                                                  BOOL* outSuccess,
+                                                                  NSError* __autoreleasing* outError) {
         NSDateComponents* components = [[NSDateComponents alloc] init];
 
-        BOOL success = YES;
+        __block BOOL success = YES;
         NSDate* date;
 
-        // DRY up setting specific component, returning nil if an error occurs
-        // HAX: for some reason these fields come back as strings, not ints
-        #define setComponent(key) \
-    do { \
-        NSNumber* value = [componentsMap wmf_nonnullValueOfType:[NSString class] forKey:@#key error:outError]; \
-        success &= value != nil; \
-        components.key = value.intValue; \
-    } while (0)
+        NSInteger (^ nonnullComponentForKey)(NSString*) = ^(NSString* key) {
+            NSNumber* value = [componentsMap wmf_nonnullValueOfType:[NSString class]
+                                                             forKey:key
+                                                              error:outError];
+            if (!value) {
+                success = NO;
+            }
+            return value.integerValue;
+        };
 
-        setComponent(day);
-        setComponent(month);
-        setComponent(year);
+        components.day = nonnullComponentForKey(@"day");
+        components.month = nonnullComponentForKey(@"month");
+        components.year = nonnullComponentForKey(@"year");
 
         if (success) {
             components.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
@@ -118,6 +123,10 @@ typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
             if (!date) {
                 success = NO;
                 DDLogError(@"Failed to serialize date from components %@", components);
+                NSError* error = [NSError errorWithDomain:NSStringFromClass(self)
+                                                     code:WMFMostReadTitlesResponseErrorDateParseFailure
+                                                 userInfo:@{ WMFMostReadTitlesFailingURLComponentsUserInfoKey: componentsMap }];
+                WMFSafeAssign(outError, error);
             }
         }
 
@@ -133,9 +142,9 @@ typedef NS_ENUM (NSUInteger, WMFMostReadTitlesResponseError) {
         NSArray* components = [value componentsSeparatedByString:@"."];
         if (!value.length || components.count < 2) {
             WMFSafeAssign(error,
-                          [NSError errorWithDomain:@"WMFMostReadSerializationErrorDomain"
-                                              code:0
-                                          userInfo:value ? @{@"WMFMostReadFailingProjectUserInfoKey" : value}:nil]);
+                          [NSError errorWithDomain:NSStringFromClass(self)
+                                                         code:0
+                                                     userInfo:value ? @{WMFMostReadFailingProjectUserInfoKey : value}:nil]);
             return nil;
         }
         return [[MWKSite alloc] initWithDomain:[components[1] stringByAppendingString:@".org"] language:components[0]];
