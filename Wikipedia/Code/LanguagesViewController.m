@@ -311,4 +311,8 @@ static NSString* const LangaugesSectionFooterReuseIdentifier = @"LanguagesSectio
     return true;
 }
 
+- (NSString*)analyticsContentType {
+    return @"Language";
+}
+
 @end

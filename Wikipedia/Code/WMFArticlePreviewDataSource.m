@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFArticlePreviewDataSource
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContext {
     return @"Article Disambiguation";
 }
 

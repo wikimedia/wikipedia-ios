@@ -43,29 +43,27 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param dataStore The datastore to used to create WMFArticleViewController
  *  @param title                 The title for the article
  *  @param restoreScrollPosition Set to YES to restore the last scroll position of the article
- *  @param source                The analytics source
  *
  *  @return The navigationController
  */
-+ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source;
++ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition;
 
 /**
  *  Convienence ,The same as above, instead setting the first article with the given article view controller
  *
  *  @param viewController The viewcontroller loaded with the first article to didplay
- *  @param source                The analytics source
  *
  *  @return The navigationController
  */
-+ (WMFArticleBrowserViewController*)browserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source;
++ (WMFArticleBrowserViewController*)browserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController;
 
 
 
-- (void)pushArticleWithTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+- (void)pushArticleWithTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated;
 
-- (void)pushArticleWithTitle:(MWKTitle*)title source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+- (void)pushArticleWithTitle:(MWKTitle*)title animated:(BOOL)animated;
 
-- (void)pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+- (void)pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated;
 
 
 @end
@@ -73,11 +71,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (WMFArticlePresentation)
 
-- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated;
 
-- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore animated:(BOOL)animated;
 
-- (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated;
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated;
 
 @end
 

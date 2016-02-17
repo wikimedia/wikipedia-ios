@@ -122,15 +122,16 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     [cell setImageURL:item.thumbnailURL];
     [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    cell.saveButtonController.analyticsSource = self;
+    cell.saveButtonController.analyticsContext     = self;
+    cell.saveButtonController.analyticsContentType = self;
 }
 
 - (CGFloat)estimatedRowHeight {
     return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
-    return @"Featured Article";
+- (NSString*)analyticsContentType {
+    return @"Featured";
 }
 
 - (AnyPromise*)fetchData {

@@ -247,7 +247,7 @@ static dispatch_once_t launchToken;
             [self loadMainUI];
             [self hideSplashViewAnimated:!didShowOnboarding];
             [self resumeApp];
-            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore] fromSource:nil];
+            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
         }];
     }];
 }
@@ -301,7 +301,7 @@ static dispatch_once_t launchToken;
     return (UINavigationController*)[self.rootTabBarController viewControllers][tab];
 }
 
-- (UIViewController<WMFAnalyticsLogging>*)rootViewControllerForTab:(WMFAppTabType)tab {
+- (UIViewController<WMFAnalyticsViewNameProviding>*)rootViewControllerForTab:(WMFAppTabType)tab {
     return [[[self navigationControllerForTab:tab] viewControllers] firstObject];
 }
 
@@ -453,7 +453,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         }
 
         [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self exploreViewController] wmf_pushArticleWithTitle:lastRead dataStore:self.session.dataStore restoreScrollPosition:YES source:nil animated:YES];
+        [[self exploreViewController] wmf_pushArticleWithTitle:lastRead dataStore:self.session.dataStore restoreScrollPosition:YES animated:YES];
     }
 }
 
@@ -510,7 +510,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     MWKSite* site = [self.session searchSite];
     [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
         MWKTitle* title = [site titleWithString:result.displayTitle];
-        [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore source:nil animated:YES];
+        [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore animated:YES];
     }).catch(^(NSError* error){
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     });
@@ -571,8 +571,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-    WMFAppTabType tab = [[tabBarController viewControllers] indexOfObject:viewController];
-    [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:tab] fromSource:nil];
 }
 
 #pragma mark - Notifications

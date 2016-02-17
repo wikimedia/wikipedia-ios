@@ -73,4 +73,9 @@
     return WMFEmptyViewTypeNone; //Is controlled by the search VC
 }
 
+- (NSString*)analyticsContext {
+    return @"Search";
+}
+
+
 @end

@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString* const WMFRandomSectionIdentifier;
 
 @interface WMFRandomSectionController : WMFBaseExploreSectionController
-    <WMFExploreSectionController, WMFTitleProviding, WMFHeaderActionProviding>
+    <WMFExploreSectionController, WMFTitleProviding, WMFHeaderActionProviding, WMFAnalyticsContentTypeProviding>
 
 - (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
 

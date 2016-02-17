@@ -89,7 +89,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return [WMFArticleListTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Continue Reading";
 }
 

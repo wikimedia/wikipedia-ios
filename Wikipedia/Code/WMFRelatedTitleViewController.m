@@ -42,14 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
         cell.snippetText     = searchResult.extract;
         [cell setImageURL:searchResult.thumbnailURL];
         [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-        cell.saveButtonController.analyticsSource = self;
+        cell.saveButtonController.analyticsContext = self;
     };
 
     [super setDataSource:dataSource];
 }
 
-- (NSString*)analyticsName {
-    return @"Related";
+- (NSString*)analyticsContext {
+    return @"More Reccomended";
 }
 
 @end
