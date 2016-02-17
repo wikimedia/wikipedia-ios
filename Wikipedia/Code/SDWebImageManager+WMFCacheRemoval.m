@@ -18,7 +18,7 @@
 
 - (void)wmf_removeImageForURL:(NSURL* __nullable)URL fromDisk:(BOOL)fromDisk {
 #if LOG_POST_REMOVAL_CACHE_SIZE
-    DDLogVerbose(@"Removing image with URL %@ from cache. Current size: %lu", URL, [self.imageCache getSize]);
+    DDLogVerbose(@"Removing image with URL %@ from cache. Current size: %lu", URL, (unsigned long)[self.imageCache getSize]);
     @weakify(self)
 #endif
     [self.imageCache removeImageForKey:[self cacheKeyForURL:URL]
@@ -37,7 +37,7 @@
 
 - (void)wmf_removeImageURLs:(NSArray* __nonnull)URLs fromDisk:(BOOL)fromDisk {
 #if LOG_POST_REMOVAL_CACHE_SIZE
-    DDLogVerbose(@"Cache size is %lu before removing image URLs: %@", [self.imageCache getSize], URLs);
+    DDLogVerbose(@"Cache size is %lu before removing image URLs: %@", (unsigned long)[self.imageCache getSize], URLs);
 #endif
     for (NSURL* url in URLs) {
         NSAssert([url isKindOfClass:[NSURL class]], @"Unexpected value in image URL array: %@", url);
@@ -54,8 +54,8 @@
         DDLogInfo(@"Current cache size:\n"
                   "\t- files: %lu\n"
                   "\t- totalSize: %lu\n",
-                  fileCount,
-                  totalSize);
+                  (unsigned long)fileCount,
+                  (unsigned long)totalSize);
     }];
 }
 

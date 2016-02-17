@@ -5979,6 +5979,7 @@
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Wno-error=nullability-completeness",
+					"-Wno-error=format",
 				);
 			};
 			name = Beta;
@@ -6091,6 +6092,7 @@
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Wno-error=nullability-completeness",
+					"-Wno-error=format",
 				);
 			};
 			name = AdHoc;
@@ -6270,6 +6272,7 @@
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Wno-error=nullability-completeness",
+					"-Wno-error=format",
 				);
 			};
 			name = Debug;
@@ -6319,6 +6322,7 @@
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Wno-error=nullability-completeness",
+					"-Wno-error=format",
 				);
 			};
 			name = Release;
