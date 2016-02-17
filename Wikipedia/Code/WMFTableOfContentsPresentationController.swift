@@ -66,13 +66,15 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.statusBarBg.backgroundColor = UIColor.whiteColor()
         statusBarBgBottomBorder.backgroundColor = UIColor.lightGrayColor()
         self.statusBarBg.addSubview(statusBarBgBottomBorder)
-        self.presentedView()!.addSubview(self.statusBarBg)
+        self.backgroundView.addSubview(self.statusBarBg)
+
 
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
         //Add shadow to the presented view
         self.presentedView()?.layer.shadowOpacity = 0.5
+        self.presentedView()?.layer.shadowOffset = CGSize.init(width: 3, height: 5)
         self.presentedView()?.clipsToBounds = false
         
         // Fade in the dimming view alongside the transition
@@ -86,6 +88,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     override public func presentationTransitionDidEnd(completed: Bool)  {
         if !completed {
             self.backgroundView.removeFromSuperview()
+
         }
     }
     
@@ -95,12 +98,14 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
                 self.backgroundView.alpha  = 0.0
                 }, completion:nil)
         }
+
     }
     
     override public func dismissalTransitionDidEnd(completed: Bool) {
+
         if completed {
+
             self.backgroundView.removeFromSuperview()
-            self.statusBarBg.removeFromSuperview()
             self.togglePresentingViewControllerAccessibility(true)
 
             //Remove shadow from the presented View
@@ -115,6 +120,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
             frame.origin.x += self.visibleBackgroundWidth
         }
+        frame.origin.y =  UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
         frame.size.width -= self.visibleBackgroundWidth
         
         return frame
@@ -122,18 +128,32 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     override public func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator transitionCoordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: transitionCoordinator)
-        
+
         transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
             self.backgroundView.frame = self.containerView!.bounds
             }, completion:nil)
 
         if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
         {
-            self.statusBarBg.hidden = true
+            self.statusBarBg.hidden = true;
+            var frameL = self.containerView!.bounds;
+            if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
+                frameL.origin.x += self.visibleBackgroundWidth
+            }
+            frameL.size.width -= self.visibleBackgroundWidth
+            self.presentedView()!.frame = frameL;
+
         }
         else if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
         {
-            self.statusBarBg.hidden = false
+            self.statusBarBg.hidden = false;
+            var frameP = self.containerView!.bounds;
+            if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
+                frameP.origin.x += self.visibleBackgroundWidth
+            }
+            // HAX: we are not using statusbar.size.height here and using a 20 because the statusbar hight returns 0. casuing a bug the second time you open TOC and turn from landscape to portrait.
+            frameP.origin.y =  20 + 0.5;
+            self.presentedView()!.frame = frameP;
         }
     }
 }
