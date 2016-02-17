@@ -11,6 +11,8 @@
 #import "WMFLocationManager.h"
 #import "WMFAssetsFile.h"
 #import "WMFRelatedSectionBlackList.h"
+#import "NSDate+WMFMostReadDate.h"
+#import "NSCalendar+WMFCommonCalendars.h"
 
 @import Tweaks;
 @import CoreLocation;
@@ -120,6 +122,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  */
 - (void)reset {
     NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
+
+    [startingSchema addObject:[self newMostReadSectionWithLatestPopulatedDate]];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
 
@@ -234,6 +238,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     //Add featured articles
     [sections addObjectsFromArray:[self featuredSections]];
+
+    [sections addObjectsFromArray:[self mostReadSectionsWithUpdateIfNeeded]];
 
     //Add Saved and History
     NSArray<WMFExploreSection*>* recent = [self historyAndSavedPageSections];
@@ -378,6 +384,40 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 }
 
 #pragma mark - Daily Sections
+
+/**
+ *  Retrieve an updated list of "most read" sections, incorporating prior ones.
+ *
+ *  Selects all "most read" sections from the receiver and, if possible, appends an additional section for the most
+ *  recent data from the current site.
+ *
+ *  @return An array of "most read" sections that should be in an updated version of the receiver.
+ */
+- (NSArray<WMFExploreSection*>*)mostReadSectionsWithUpdateIfNeeded {
+    NSArray<WMFExploreSection*>* mostReadSections = [self.sections bk_select:^BOOL (WMFExploreSection* section) {
+        return section.type == WMFExploreSectionTypeMostRead;
+    }];
+
+    WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
+
+    BOOL containsLatestSectionEquivalent = [mostReadSections bk_match:^BOOL (WMFExploreSection* mostReadSection) {
+        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar] compareDate:mostReadSection.dateCreated
+                                                                            toDate:latestMostReadSection.dateCreated
+                                                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+        BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
+        return matchesDay && matchesSite;
+    }];
+
+    if (!containsLatestSectionEquivalent) {
+        mostReadSections = [mostReadSections arrayByAddingObject:latestMostReadSection];
+    }
+    return mostReadSections;
+}
+
+- (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
+    return [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
+                                                site:self.site];
+}
 
 - (NSArray<WMFExploreSection*>*)featuredSections {
     NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {

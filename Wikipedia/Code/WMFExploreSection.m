@@ -53,19 +53,21 @@ NS_ASSUME_NONNULL_BEGIN
             return 0;
         case WMFExploreSectionTypeFeaturedArticle:
             return 1;
-        case WMFExploreSectionTypeMainPage:
+        case WMFExploreSectionTypeMostRead:
             return 2;
-        case WMFExploreSectionTypePictureOfTheDay:
+        case WMFExploreSectionTypeMainPage:
             return 3;
-        case WMFExploreSectionTypeRandom:
+        case WMFExploreSectionTypePictureOfTheDay:
             return 4;
-        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypeRandom:
             return 5;
+        case WMFExploreSectionTypeNearby:
+            return 6;
 
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory:
             // Saved & History have identical same-day sorting behavior
-            return 6;
+            return 7;
     }
 }
 
@@ -99,6 +101,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Factory Methods
+
++ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
+    WMFExploreSection* trending = [[WMFExploreSection alloc] init];
+    trending.type        = WMFExploreSectionTypeMostRead;
+    trending.dateCreated = date;
+    trending.site        = site;
+    return trending;
+}
 
 + (instancetype)pictureOfTheDaySection {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];

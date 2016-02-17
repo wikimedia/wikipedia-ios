@@ -52,10 +52,9 @@ static NSString* const WMFPiwikSiteID    = @"4";
     [self sendEventWithCategory:[context analyticsContext] action:@"Tap Through More" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType{
+- (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
     [self sendEventWithCategory:[context analyticsContext] action:@"Switch Language" name:[contentType analyticsContentType] value:nil];
 }
-
 
 @end
 
