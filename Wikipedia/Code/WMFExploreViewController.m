@@ -695,7 +695,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
     NSParameterAssert(controllerForSection);
     if (!controllerForSection) {
-        DDLogError(@"Unexpected footer tap for missing section %lu.", section);
+        DDLogError(@"Unexpected footer tap for missing section %lu.", (unsigned long)section);
         return;
     }
     if (![controllerForSection respondsToSelector:@selector(moreViewController)]) {

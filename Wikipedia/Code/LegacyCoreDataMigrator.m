@@ -154,7 +154,7 @@ static NSUInteger const kWMFLegacyCoreDataBackupExpirationTimeInDays = 30;
         NSFetchRequest* req = [NSFetchRequest fetchRequestWithEntityName:@"Saved"];
         req.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey:@"dateSaved" ascending:YES]];
         totalArticlesToMigrate = [self.context countForFetchRequest:req error:&error];
-        NSLog(@"total articles: %lu", totalArticlesToMigrate);
+        NSLog(@"total articles: %lu", (unsigned long)totalArticlesToMigrate);
     }];
 
     NSUInteger fetchSize                   = 25;

@@ -65,7 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
                                       @"footer-edit-history")];
     } else {
         [menuItems addObject:makeItem(WMFArticleFooterMenuItemTypeLastEdited,
-                                      [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", [[NSDate date] daysAfterDate:article.lastmodified]]],
+                                      [MWSiteLocalizedString(article.title.site, @"page-last-edited", nil) stringByReplacingOccurrencesOfString:@"$1" withString:[NSString stringWithFormat:@"%ld", (long)[[NSDate date] daysAfterDate:article.lastmodified]]],
                                       MWSiteLocalizedString(article.title.site, @"page-edit-history", nil),
                                       @"footer-edit-history")];
     }
