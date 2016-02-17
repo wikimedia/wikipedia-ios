@@ -108,6 +108,12 @@ NS_ASSUME_NONNULL_BEGIN
     return _previewFetcher;
 }
 
+#pragma mark - Analytics
+
+- (NSString*)analyticsContentType {
+    return @"Top Articles";
+}
+
 #pragma mark - WMFExploreSectionController
 
 #pragma mark Meta
@@ -118,10 +124,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CGFloat)estimatedRowHeight {
     return [WMFArticleListTableViewCell estimatedRowHeight];
-}
-
-- (NSString*)analyticsName {
-    return @"Top Articles";
 }
 
 #pragma mark Header
