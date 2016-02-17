@@ -18,7 +18,10 @@ static NSString* const kAppInstallIdKey  = @"appInstallID";
 }
 
 - (BOOL)shouldLogInstallDays {
-    if ([[NSCalendar currentCalendar] isDateInToday:[[NSUserDefaults standardUserDefaults] wmf_dateLastDailyLoggingStatsSent]]) {
+    NSDate* date = [[NSUserDefaults standardUserDefaults] wmf_dateLastDailyLoggingStatsSent];
+    if (date == nil) {
+        return YES;
+    } else if ([[NSCalendar currentCalendar] isDateInToday:date]) {
         return NO;
     } else {
         return YES;
