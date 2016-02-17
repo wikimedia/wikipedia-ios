@@ -1,4 +1,5 @@
 #import "WMFSearchViewController.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
@@ -226,6 +227,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -589,9 +591,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+    //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
     }];
 }
 
@@ -601,9 +604,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+    //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
     }];
 }
 
@@ -616,8 +620,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContext {
     return @"Search";
+}
+
+- (NSString*)analyticsName {
+    return [self analyticsContext];
 }
 
 @end

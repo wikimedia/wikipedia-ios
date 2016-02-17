@@ -56,7 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFExploreViewController ()
 <WMFExploreSectionSchemaDelegate,
  UIViewControllerPreviewingDelegate,
- WMFAnalyticsLogging>
+ WMFAnalyticsContextProviding,
+ WMFAnalyticsViewNameProviding>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -69,7 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
 
-@property (nonatomic, assign) BOOL isPreviewing;
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
 @end
@@ -255,10 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 
-    if (self.isPreviewing) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
-        self.isPreviewing = NO;
-    }
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -469,7 +466,7 @@ NS_ASSUME_NONNULL_BEGIN
             || [controller shouldSelectItemAtIndexPath:indexPath])) {
         MWKTitle* title = [(id < WMFTitleProviding >)controller titleForItemAtIndexPath:indexPath];
         if (title) {
-            [[PiwikTracker sharedInstance] wmf_logActionScrollToItemInExploreSection:controller];
+            [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:controller];
         }
     }
 }
@@ -510,10 +507,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:controller];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:controller];
     UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc source:self animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc animated:YES];
     } else {
         [self presentViewController:vc animated:YES completion:nil];
     }
@@ -707,7 +704,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController, WMFMoreFooterProviding> articleSectionController = (id<WMFExploreSectionController, WMFMoreFooterProviding>)controllerForSection;
 
     UIViewController* moreVC = [articleSectionController moreViewController];
-    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreInExploreSection:articleSectionController];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:controllerForSection];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 
@@ -751,28 +748,29 @@ NS_ASSUME_NONNULL_BEGIN
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
-    self.isPreviewing             = YES;
     self.sectionOfPreviewingTitle = sectionController;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
     return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:self.sectionOfPreviewingTitle];
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
-    self.isPreviewing             = NO;
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.sectionOfPreviewingTitle];
     self.sectionOfPreviewingTitle = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }
 
+- (NSString*)analyticsContext {
+    return @"Explore";
+}
+
 - (NSString*)analyticsName {
-    return @"Home";
+    return [self analyticsContext];
 }
 
 @end

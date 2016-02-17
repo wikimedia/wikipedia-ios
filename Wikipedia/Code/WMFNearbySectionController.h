@@ -8,7 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString* const WMFNearbySectionIdentifier;
 
 @interface WMFNearbySectionController : WMFBaseExploreSectionController
-    <WMFExploreSectionController, WMFTitleProviding, WMFMoreFooterProviding>
+    <WMFExploreSectionController, WMFTitleProviding, WMFMoreFooterProviding, WMFAnalyticsContentTypeProviding>
 
 - (instancetype)initWithLocation:(CLLocation*)location
                             site:(MWKSite*)site

@@ -80,7 +80,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
 - (void)configureCell:(WMFArticleListTableViewCell*)cell withItem:(MWKTitle*)item atIndexPath:(NSIndexPath*)indexPath {
     MWKArticle* article = [self article];
     cell.titleText       = item.text;
-    cell.descriptionText = [article entityDescription];
+    cell.descriptionText = [[article entityDescription] wmf_stringByCapitalizingFirstCharacter];
     [cell setImage:article.image];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
@@ -89,7 +89,7 @@ static NSString* const WMFContinueReadingSectionIdentifier = @"WMFContinueReadin
     return [WMFArticleListTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Continue Reading";
 }
 

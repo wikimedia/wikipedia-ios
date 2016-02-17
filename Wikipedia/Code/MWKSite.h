@@ -54,6 +54,8 @@ extern NSString* const WMFDefaultSiteDomain;
 /// @name Computed Properties
 ///
 
+- (NSString*)urlDomainWithLanguage;
+
 - (NSURL*)URL;
 
 - (NSURL*)mobileURL;

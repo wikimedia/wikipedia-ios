@@ -77,8 +77,8 @@
     [self.compassViewModel stopUpdates];
 }
 
-- (NSString*)analyticsName {
-    return @"Nearby";
+- (NSString*)analyticsContext {
+    return @"More Nearby";
 }
 
 @end
