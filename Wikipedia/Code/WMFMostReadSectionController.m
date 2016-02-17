@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Analytics
 
 - (NSString*)analyticsContentType {
-    return @"Top Articles";
+    return @"Most Read";
 }
 
 #pragma mark - WMFExploreSectionController

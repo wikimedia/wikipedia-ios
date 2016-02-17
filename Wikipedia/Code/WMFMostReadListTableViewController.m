@@ -31,7 +31,7 @@
 #pragma mark - WMFArticleListTableViewController
 
 - (NSString*)analyticsContext {
-    return @"More Top Read Articles";
+    return @"More Most Read";
 }
 
 @end
