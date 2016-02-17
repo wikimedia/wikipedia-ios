@@ -220,13 +220,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (BOOL)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
-
+    
     if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
         && !force
         && self.lastUpdatedAt
         && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
         return [self updateContinueReading];
     }
+    
 
     //Get updated static sections
     NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
@@ -269,23 +270,43 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     WMFExploreSection* oldNearby = [self existingNearbySection];
 
     // Check distance to old location
-    if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby) {
+    if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
         return;
     }
 
     // Check if already updated today
-    if (oldNearby.location && [oldNearby.dateCreated isToday]) {
+    if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
         return;
     }
 
-    NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
-    [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
-        return obj.type == WMFExploreSectionTypeNearby;
+    @weakify(self);
+    [self reverseGeocodeLocation:location completionHandler:^(CLPlacemark* _Nullable placemark) {
+        dispatchOnMainQueue(^{
+            @strongify(self);
+            NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+            [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+                return obj.type == WMFExploreSectionTypeNearby;
+            }];
+
+            [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
+
+            [self updateSections:sections];
+        });
     }];
+}
 
-    [sections wmf_safeAddObject:[self nearbySectionWithLocation:location]];
+typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
-    [self updateSections:sections];
+- (void)reverseGeocodeLocation:(CLLocation*)location completionHandler:(nonnull WMFGeocodeCompletionHandler)completionHandler {
+    CLGeocoder* gc = [[CLGeocoder alloc] init];
+    [gc reverseGeocodeLocation:location completionHandler:^(NSArray < CLPlacemark* > * _Nullable placemarks, NSError* _Nullable error) {
+        if (error) {
+            completionHandler(nil);
+            return;
+        }
+
+        completionHandler([placemarks firstObject]);
+    }];
 }
 
 - (void)removeNearbySection {
@@ -412,11 +433,12 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 }
 
-- (WMFExploreSection*)nearbySectionWithLocation:(nullable CLLocation*)location {
-    if ([WMFLocationManager isDeniedOrDisabled]) {
+- (nullable WMFExploreSection*)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark {
+    NSParameterAssert(location);
+    if (!location || [WMFLocationManager isDeniedOrDisabled]) {
         return nil;
     }
-    return [WMFExploreSection nearbySectionWithLocation:location];
+    return [WMFExploreSection nearbySectionWithLocation:location placemark:placemark];
 }
 
 - (WMFExploreSection*)mainPageSection {
@@ -519,6 +541,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return [WMFExploreSection savedSectionWithSavedPageEntry:obj];
     }] wmf_arrayByTrimmingToLength:maxLength];
 }
+
 
 #pragma mark - WMFLocationManagerDelegate
 

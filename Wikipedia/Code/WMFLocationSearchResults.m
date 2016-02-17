@@ -8,13 +8,13 @@
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong, readwrite) CLLocation* location;
-@property (nonatomic, strong, readwrite) NSArray* results;
+@property (nonatomic, strong, readwrite) NSArray<MWKLocationSearchResult*>* results;
 
 @end
 
 @implementation WMFLocationSearchResults
 
-- (instancetype)initWithSite:(MWKSite*)site location:(CLLocation*)location results:(NSArray*)results {
+- (instancetype)initWithSite:(MWKSite*)site location:(CLLocation*)location results:(NSArray<MWKLocationSearchResult*>*)results {
     self = [super init];
     if (self) {
         self.searchSite = site;

@@ -9,6 +9,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager : NSObject
 
+@property (nonatomic, strong, readonly) CLLocationManager* locationManager;
+
 @property (nonatomic, weak, nullable) id<WMFLocationManagerDelegate> delegate;
 
 @property (nonatomic, strong, readonly) CLLocation* location;

@@ -28,7 +28,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 @interface WMFExploreSection : MTLModel
 
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 
@@ -85,6 +85,12 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *  For example, the location used to get articles for the "nearby" section.
  */
 @property (nonatomic, strong, readonly) CLLocation* location;
+
+/**
+ *  The placemark associated with the section, if any.
+ *
+ */
+@property (nonatomic, strong, readonly) CLPlacemark* placemark;
 
 /**
  *  Determine ordering between two sections.

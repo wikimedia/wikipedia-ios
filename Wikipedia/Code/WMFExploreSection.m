@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
 @property (nonatomic, strong, readwrite) CLLocation* location;
+@property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
 @end
 
@@ -132,10 +133,12 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location {
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark{
+    NSParameterAssert(location);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type     = WMFExploreSectionTypeNearby;
     item.location = location;
+    item.placemark = placemark;
     return item;
 }
 
