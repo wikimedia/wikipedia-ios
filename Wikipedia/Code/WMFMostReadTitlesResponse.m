@@ -93,7 +93,13 @@ static NSString* const WMFMostReadFailingProjectUserInfoKey             = @"WMFM
         return [[rawArticles sortedArrayUsingComparator:
                  ^NSComparisonResult (WMFMostReadTitlesResponseItemArticle* _Nonnull a1,
                                       WMFMostReadTitlesResponseItemArticle* _Nonnull a2) {
-            return a1.rank - a2.rank;
+            if (a1.rank > a2.rank) {
+                return NSOrderedDescending;
+            } else if (a1.rank < a2.rank) {
+                return NSOrderedAscending;
+            } else {
+                return NSOrderedAscending;
+            }
         }] wmf_safeSubarrayWithRange:NSMakeRange(0, 50)];
     }];
 }
