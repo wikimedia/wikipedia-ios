@@ -24,8 +24,7 @@ check-deps: xcode-cltools-check exec-check node-check bundle-check
 
 travis-get-deps: ##Install dependencies for building on Travis
 travis-get-deps: xcode-cltools-check submodules
-	@brew install uncrustify || brew upgrade uncrustify; \
-	bundle install --without dev;
+	@bundle install --without dev;
 
 #!!!!!
 #!!!!! Xcode dependencies

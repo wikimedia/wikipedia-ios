@@ -55,7 +55,7 @@
     WMFWelcomeLanguageTableViewCell* cell = (id)[tableView dequeueReusableCellWithIdentifier:[WMFWelcomeLanguageTableViewCell wmf_nibName]
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    cell.numberLabel.text       = [NSString stringWithFormat:@"%li", indexPath.row + 1];
+    cell.numberLabel.text       = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
     cell.languageNameLabel.text = langLink.localizedName;
 
     //can only delete non-OS languages
