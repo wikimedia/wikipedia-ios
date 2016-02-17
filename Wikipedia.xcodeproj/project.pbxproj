@@ -4820,7 +4820,7 @@
 						DevelopmentTeam = AKK7J2GV64;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
