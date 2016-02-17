@@ -224,14 +224,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (BOOL)update:(BOOL)force {
     [self.locationManager restartLocationMonitoring];
-    
+
     if (!FBTweakValue(@"Explore", @"General", @"Always update on launch", NO)
         && !force
         && self.lastUpdatedAt
         && [[NSDate date] timeIntervalSinceDate:self.lastUpdatedAt] < WMFHomeMinimumAutomaticReloadTime) {
         return [self updateContinueReading];
     }
-    
+
 
     //Get updated static sections
     NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
@@ -581,7 +581,6 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
         return [WMFExploreSection savedSectionWithSavedPageEntry:obj];
     }] wmf_arrayByTrimmingToLength:maxLength];
 }
-
 
 #pragma mark - WMFLocationManagerDelegate
 
