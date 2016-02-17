@@ -61,8 +61,9 @@
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility: {
             return
             [[WMFSettingsMenuItem alloc] initWithType:type
-                                                title:MWLocalizedString(@"settings-language-bar", nil)                                             iconName:@"settings-language"
-                                            iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                                title:MWLocalizedString(@"settings-language-bar", nil)
+                                             iconName:@"search"
+                                            iconColor:[UIColor colorWithRed:0.10f green:0.69f blue:0.54f alpha:1.0f]
                                        disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                        disclosureText:nil
                                            isSwitchOn:[[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]];
