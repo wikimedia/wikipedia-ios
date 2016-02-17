@@ -143,11 +143,11 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark{
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark {
     NSParameterAssert(location);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type     = WMFExploreSectionTypeNearby;
-    item.location = location;
+    item.type      = WMFExploreSectionTypeNearby;
+    item.location  = location;
     item.placemark = placemark;
     return item;
 }

@@ -687,7 +687,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (CGFloat)getRefsPanelHeight {
-WMF_TECH_DEBT_WARN(use size classes instead of interfaceOrientation)
+    WMF_TECH_DEBT_WARN(use size classes instead of interfaceOrientation)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
