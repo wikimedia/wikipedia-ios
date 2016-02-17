@@ -7,14 +7,18 @@
 #import "PiwikTracker+WMFExtensions.h"
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
+#import "WMFDailyStatsLoggingFunnel.h"
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) WMFAppViewController* appViewController;
+@property (nonatomic, strong) WMFDailyStatsLoggingFunnel* statsFunnel;
 
 @end
 
 @implementation AppDelegate
+
+#pragma mark - Defaults
 
 + (void)load {
     /**
@@ -34,6 +38,8 @@
      }];
 }
 
+#pragma mark - Accessors
+
 - (UIWindow*)window {
     if (!_window) {
         _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -41,21 +47,14 @@
     return _window;
 }
 
-- (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
-    [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
-    [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
-    [PiwikTracker wmf_start];
-
-    WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
-    [vc launchAppInWindow:self.window];
-    self.appViewController = vc;
-
-    [self updateDynamicIconShortcutItems];
-
-    NSLog(@"%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
-
-    return YES;
+- (WMFDailyStatsLoggingFunnel*)statsFunnel {
+    if (!_statsFunnel) {
+        _statsFunnel = [[WMFDailyStatsLoggingFunnel alloc] init];
+    }
+    return _statsFunnel;
 }
+
+#pragma mark - Shortcuts
 
 - (void)updateDynamicIconShortcutItems {
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(shortcutItems)]) {
@@ -76,6 +75,26 @@
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
+#pragma mark - UIApplicationDelegate
+
+- (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+    [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
+    [PiwikTracker wmf_start];
+
+    [[NSUserDefaults standardUserDefaults] wmf_setAppLaunchDate:[NSDate date]];
+    [[NSUserDefaults standardUserDefaults] wmf_setAppInstallDateIfNil:[NSDate date]];
+
+    [self.statsFunnel logAppNumberOfDaysSinceInstall];
+
+    WMFAppViewController* vc = [WMFAppViewController initialAppViewControllerFromDefaultStoryBoard];
+    [vc launchAppInWindow:self.window];
+    self.appViewController = vc;
+
+    [self updateDynamicIconShortcutItems];
+
+    return YES;
+}
+
 - (void)application:(UIApplication*)application performActionForShortcutItem:(UIApplicationShortcutItem*)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     [self.appViewController processShortcutItem:shortcutItem completion:completionHandler];
 }
@@ -94,11 +113,11 @@
 
 - (void)applicationWillEnterForeground:(UIApplication*)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [self.statsFunnel logAppNumberOfDaysSinceInstall];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication*)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
     [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
 }
 
