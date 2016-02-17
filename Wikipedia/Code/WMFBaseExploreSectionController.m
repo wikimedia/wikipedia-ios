@@ -319,7 +319,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return @"Explore";
 }
 
-
 @end
 
 NS_ASSUME_NONNULL_END
