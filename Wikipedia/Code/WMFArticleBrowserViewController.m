@@ -32,7 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 BOOL useSingleBrowserController() {
-    return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", YES);
+    return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", NO);
 }
 
 @interface WMFArticleBrowserViewController ()<UINavigationControllerDelegate, WMFArticleViewControllerDelegate, LanguageSelectionDelegate, UIToolbarDelegate, UINavigationBarDelegate>
