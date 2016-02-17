@@ -15,7 +15,7 @@
     if (ns >= MWKTitleNamespaceMedia && ns <= MWKTitleNamespaceCategoryTalk) {
         return ns;
     } else {
-        DDLogWarn(@"Unexpected title namespace: %ld", ns);
+        DDLogWarn(@"Unexpected title namespace: %ld", (long)ns);
         return MWKTitleNamespaceUnknown;
     }
 }
