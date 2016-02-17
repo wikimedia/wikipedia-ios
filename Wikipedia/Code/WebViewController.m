@@ -687,8 +687,11 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 - (CGFloat)getRefsPanelHeight {
-    // TODO: this code could be changed to use size classes instead of orientation which is deprecated from iOS 8
+WMF_TECH_DEBT_WARN(use size classes instead of interfaceOrientation)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     CGFloat percentOfHeight = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? 0.4 : 0.6;
+#pragma clang diagnostic pop
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
         percentOfHeight *= 0.5;
     }
