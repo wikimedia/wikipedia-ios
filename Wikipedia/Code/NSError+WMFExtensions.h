@@ -8,13 +8,22 @@ extern NSString* const WMFErrorDomain;
 extern NSString* const WMFRedirectTitleKey;
 extern NSString* const WMFRedirectTitleKey;
 
+/**
+ *  Key which can provide any failing request parameters for an error of type @c WMFErrorTypeInvalidRequestParameters.
+ *
+ *  The value set for this key varies depending on the kind of request, and is mosly provided for logging & diagnostic
+ *  purposes.
+ */
+extern NSString* const WMFFailingRequestParametersUserInfoKey;
+
 typedef NS_ENUM (NSInteger, WMFErrorType) {
     WMFErrorTypeStringLength,
     WMFErrorTypeStringMissingParameter,
     WMFErrorTypeRedirected,
     WMFErrorTypeUnableToSave,
     WMFErrorTypeArticleResponseSerialization,
-    WMFErrorTypeUnexpectedResponseType
+    WMFErrorTypeUnexpectedResponseType,
+    WMFErrorTypeInvalidRequestParameters
 };
 
 @interface NSError (WMFExtensions)

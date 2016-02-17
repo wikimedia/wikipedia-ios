@@ -39,8 +39,14 @@
 
 + (instancetype)wmf_mediumDateFormatterWithoutTime;
 
++ (instancetype)wmf_utcMediumDateFormatterWithoutTime;
+
 + (instancetype)wmf_englishHyphenatedYearMonthDayFormatter;
 
 + (instancetype)wmf_dayNameMonthNameDayOfMonthNumberDateFormatter;
+
++ (instancetype)wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter;
+
++ (instancetype)wmf_englishUTCSlashDelimitedYearMonthDayFormatter;
 
 @end

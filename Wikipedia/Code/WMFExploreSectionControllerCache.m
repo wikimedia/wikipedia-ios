@@ -21,6 +21,7 @@
 #import "WMFRandomSectionController.h"
 #import "WMFFeaturedArticleSectionController.h"
 #import "WMFPictureOfTheDaySectionController.h"
+#import "WMFMostReadSectionController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -87,6 +88,8 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
         case WMFExploreSectionTypePictureOfTheDay:
             controller = [self picOfTheDaySectionController];
             break;
+        case WMFExploreSectionTypeMostRead:
+            controller = [self mostReadSectionControllerForSection:section];
             /*
                !!!: do not add a default case, it is intentionally omitted so an error/warning is triggered when
                a new case is added to the enum, enforcing that all sections are handled here.
@@ -101,6 +104,12 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 
 #pragma mark - Section Controller Creation
 
+- (WMFMostReadSectionController*)mostReadSectionControllerForSection:(WMFExploreSection*)section {
+    return [[WMFMostReadSectionController alloc] initWithDate:section.dateCreated
+                                                         site:section.site
+                                                    dataStore:self.dataStore];
+}
+
 - (WMFRelatedSectionController*)relatedSectionControllerForSectionSchemaItem:(WMFExploreSection*)item {
     return [[WMFRelatedSectionController alloc] initWithArticleTitle:item.title blackList:[WMFRelatedSectionBlackList sharedBlackList] dataStore:self.dataStore];
 }
@@ -110,7 +119,7 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 }
 
 - (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFNearbySectionController alloc] initWithLocation:item.location site:self.site dataStore:self.dataStore];
+    return [[WMFNearbySectionController alloc] initWithLocation:item.location placemark:item.placemark site:self.site dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {

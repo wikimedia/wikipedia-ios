@@ -5,6 +5,8 @@
 
 + (instancetype)wmf_blueTintColor;
 
++ (instancetype)wmf_lightBlueTintColor;
+
 + (instancetype)wmf_tapHighlightColor;
 
 + (instancetype)wmf_summaryTextColor;
@@ -76,6 +78,8 @@
 ///
 /// @name Derivative Colors
 ///
+
+- (instancetype)wmf_copyWithAlpha:(CGFloat)alpha;
 
 /**
  *  @return A dimmed copy of the receiver.

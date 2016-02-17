@@ -710,24 +710,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didTapHeaderInSection:(NSUInteger)section {
     WMFExploreSection* homeSection = self.schemaManager.sections[section];
-    switch (homeSection.type) {
-        case WMFExploreSectionTypeContinueReading:
-        case WMFExploreSectionTypeMainPage:
-        case WMFExploreSectionTypeFeaturedArticle:
-        case WMFExploreSectionTypePictureOfTheDay:
-        case WMFExploreSectionTypeRandom:
-            [self selectFirstRowInSection:section];
-            break;
-        case WMFExploreSectionTypeNearby:
-            [self didTapFooterInSection:section];
-            break;
-        case WMFExploreSectionTypeSaved:
-        case WMFExploreSectionTypeHistory: {
-            WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
-            NSParameterAssert(controller.title);
-            [self wmf_pushArticleWithTitle:controller.title dataStore:self.dataStore animated:YES];
-            break;
-        }
+    if (homeSection.type == WMFExploreSectionTypeNearby) {
+        [self didTapFooterInSection:section];
+    } else {
+        [self selectFirstRowInSection:section];
     }
 }
 
