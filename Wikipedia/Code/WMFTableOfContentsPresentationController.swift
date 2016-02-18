@@ -19,6 +19,19 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
     public var visibleBackgroundWidth: CGFloat = 60.0
     
+    // MARK: - Status Bar Background
+    lazy var statusBarBg: UIView = {
+        let view = UIView(frame: CGRectZero)
+        view.frame = CGRect(x: self.containerView!.frame.origin.x, y: 0, width: self.containerView!.frame.size.width, height: UIApplication.sharedApplication().statusBarFrame.size.height)
+        
+        let statusBarBgBottomBorder = UIView(frame: CGRectMake(self.containerView!.frame.origin.x, UIApplication.sharedApplication().statusBarFrame.size.height, self.containerView!.frame.size.width, 0.5))
+        view.backgroundColor = UIColor.whiteColor()
+        statusBarBgBottomBorder.backgroundColor = UIColor.lightGrayColor()
+        view.addSubview(statusBarBgBottomBorder)
+
+        return view
+    }()
+    
     // MARK: - Views
     lazy var backgroundView :UIView = {
         let view = UIView(frame: CGRectZero)
@@ -27,12 +40,12 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: Selector("didTap:"))
         view.addGestureRecognizer(tap)
+        view.addSubview(self.statusBarBg)
+        
         return view
-        }()
+    }()
 
-    // MARK: - Status Bar Background
 
-    var statusBarBg: UIView = UIView()
 
 
     // MARK: - Tap Gesture
@@ -61,12 +74,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         self.containerView!.addSubview(self.presentedView()!)
         
         // Add a status bar background so the TOC scroll below it
-        self.statusBarBg = UIView(frame: CGRectMake(self.containerView!.frame.origin.x, 0, self.containerView!.frame.size.width, UIApplication.sharedApplication().statusBarFrame.size.height))
-        let statusBarBgBottomBorder = UIView(frame: CGRectMake(self.containerView!.frame.origin.x, UIApplication.sharedApplication().statusBarFrame.size.height, self.containerView!.frame.size.width, 0.5))
-        self.statusBarBg.backgroundColor = UIColor.whiteColor()
-        statusBarBgBottomBorder.backgroundColor = UIColor.lightGrayColor()
-        self.statusBarBg.addSubview(statusBarBgBottomBorder)
-        self.backgroundView.addSubview(self.statusBarBg)
+ 
 
 
         // Hide the presenting view controller for accessibility
@@ -74,7 +82,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
         //Add shadow to the presented view
         self.presentedView()?.layer.shadowOpacity = 0.5
-        self.presentedView()?.layer.shadowOffset = CGSize.init(width: 3, height: 5)
+        self.presentedView()?.layer.shadowOffset = CGSize(width: 3, height: 5)
         self.presentedView()?.clipsToBounds = false
         
         // Fade in the dimming view alongside the transition
@@ -132,8 +140,13 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
             self.backgroundView.frame = self.containerView!.bounds
             }, completion:nil)
-
-        if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
+    }
+    
+    override public func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
+        
+        if newCollection.verticalSizeClass == .Compact
         {
             self.statusBarBg.hidden = true;
             var frameL = self.containerView!.bounds;
@@ -142,9 +155,10 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             }
             frameL.size.width -= self.visibleBackgroundWidth
             self.presentedView()!.frame = frameL;
-
+            
         }
-        else if (UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
+        
+        if newCollection.verticalSizeClass == .Regular
         {
             self.statusBarBg.hidden = false;
             var frameP = self.containerView!.bounds;
@@ -155,5 +169,6 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             frameP.origin.y =  20 + 0.5;
             self.presentedView()!.frame = frameP;
         }
+
     }
 }
