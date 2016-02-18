@@ -368,31 +368,23 @@
 "potd-empty-error-description" = "Failed to retrieve picture of the day for $1";
 "potd-description-prefix" = "Picture of the day for $1";
 
-"welcome-whats-new-title" = "Welcome to Wikipedia";
-"welcome-whats-new-whats-new" = "What's New";
-"welcome-whats-new-bullet-one-title" = "A new way to Explore";
-"welcome-whats-new-bullet-one-text" = "Discover new and interesting articles just for you on the Explore screen.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Tell me more";
-"welcome-whats-new-bullet-two-title" = "Designed for Reading";
-"welcome-whats-new-bullet-two-text" = "Updated design focused on providing a great reading experience.";
-"welcome-whats-new-button-title" = "Get started";
+"welcome-explore-title" = "Explore";
+"welcome-explore-sub-title" = "A new way to discover interesting articles every day";
+"welcome-explore-tell-me-more" = "Tell me more";
+"welcome-explore-tell-me-more-details" = "When you visit an article, related articles are automatically added to your feed. This doesn’t change how we collect your information, and your reading history is still private.";
+"welcome-explore-tell-me-more-done-button" = "Got it";
+"welcome-explore-continue-button" = "Get started";
 
-"welcome-whats-new-bullet-one-more-info-text" = "When you visit an article, related articles are automatically added to your feed. This doesn’t change how we collect your information, and your reading history is still private.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Got it";
+"welcome-languages-title" = "Languages";
+"welcome-languages-sub-title" = "Choose your preferred languages to search Wikipedia";
+"welcome-languages-add-button" = "+ Add another";
+"welcome-languages-continue-button" = "Continue";
 
-"welcome-languages-title" = "Languages to search";
-"welcome-languages-more-info-button-text" = "Tell me more";
-"welcome-languages-more-info-text" = "Wikipedia articles are often available in multiple languages. Choose the languages you would like to use when searching. You can change these later.";
-"welcome-languages-more-info-done-button" = "Got it";
-"welcome-languages-more-languages-button-title" = "Add more languages";
-"welcome-languages-button-title" = "Continue";
-"welcome-languages-footnote-text" = "Don't worry you can change this later";
-
-"welcome-usage-reports-title" = "Help us make Wikipedia better";
-"welcome-usage-reports-body-text" = "You can help us make the app better by allowing us to collect information about how you use the app.";
-"welcome-usage-reports-switch-text" = "Send usage reports";
-"welcome-usage-reports-button-title" = "Get started";
-"welcome-usage-reports-privacy-policy-button-text" = "Your privacy is important to us";
+"welcome-volunteer-title" = "Volunteer";
+"welcome-volunteer-sub-title" = "Help improve the Wikipedia app by sharing how you use it";
+"welcome-volunteer-send-usage-reports" = "Send usage reports";
+"welcome-volunteer-continue-button" = "Continue";
+"welcome-volunteer-thanks-button" = "Thank you!";
 
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
