@@ -62,7 +62,7 @@
             return
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:MWLocalizedString(@"settings-language-bar", nil)
-                                                 iconName:@"search"
+                                                 iconName:@"settings-search"
                                                 iconColor:[UIColor colorWithRed:0.10f green:0.69f blue:0.54f alpha:1.0f]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
