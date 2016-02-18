@@ -13,6 +13,7 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_Login,
     WMFSettingsMenuItemType_Support,
     WMFSettingsMenuItemType_SearchLanguage,
+    WMFSettingsMenuItemType_SearchLanguageBarVisibility,
     WMFSettingsMenuItemType_PrivacyPolicy,
     WMFSettingsMenuItemType_Terms,
     WMFSettingsMenuItemType_SendUsageReports,
@@ -41,6 +42,8 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
 @property (nonatomic, copy, readonly) NSString* disclosureText;
 
 @property (nonatomic, assign, readwrite) BOOL isSwitchOn;
+
++ (WMFSettingsMenuItem*)itemForType:(WMFSettingsMenuItemType)type;
 
 - (instancetype)initWithType:(WMFSettingsMenuItemType)type
                        title:(NSString*)title

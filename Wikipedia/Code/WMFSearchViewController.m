@@ -47,12 +47,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController* resultsListController;
 
+@property (strong, nonatomic) IBOutlet UIView* searchFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField* searchField;
+@property (strong, nonatomic) IBOutlet UIView* searchContentContainer;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet UIView* separatorView;
 @property (weak, nonatomic) IBOutlet UIButton* closeButton;
+@property (strong, nonatomic) IBOutlet UIView* languageBarContainer;
 @property (strong, nonatomic) IBOutlet UIButton* languageOneButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageTwoButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageThreeButton;
@@ -172,24 +175,40 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureLanguageButtons {
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        obj.tintColor = [UIColor wmf_blueTintColor];
-    }];
+    if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
+        [self.view addSubview:self.languageBarContainer];
+        [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+            make.leading.and.trailing.equalTo(self.searchFieldContainer);
+        }];
+        [self.searchContentContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.languageBarContainer.mas_bottom);
+        }];
 
-    UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-    UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
-    [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
-    [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
-    [self.otherLanguagesButton.layer setCornerRadius:2.0f];
-    [self.otherLanguagesButton setClipsToBounds:YES];
+        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            obj.tintColor = [UIColor wmf_blueTintColor];
+        }];
 
-    [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
-    self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
+        UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+        UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
+        [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+        [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
+        [self.otherLanguagesButton.layer setCornerRadius:2.0f];
+        [self.otherLanguagesButton setClipsToBounds:YES];
 
-    [self.otherLanguagesButton sizeToFit];
+        [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
+        self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
-    [self updateLanguageButtonsToPreferredLanguages];
-    [self selectLanguageForSite:self.searchSite];
+        [self.otherLanguagesButton sizeToFit];
+
+        [self updateLanguageButtonsToPreferredLanguages];
+        [self selectLanguageForSite:self.searchSite];
+    } else {
+        [self.languageBarContainer removeFromSuperview];
+        [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+        }];
+    }
 }
 
 #pragma mark - UIViewController
@@ -213,6 +232,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    [self configureLanguageButtons];
+
     self.previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 

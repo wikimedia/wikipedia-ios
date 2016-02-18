@@ -110,4 +110,17 @@ extension NSUserDefaults {
         }
     }
 
+    public func wmf_setShowSearchLanguageBar(enabled: Bool) {
+        self.setObject(NSNumber(bool: enabled), forKey: "ShowLanguageBar")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_showSearchLanguageBar() -> Bool {
+        if let enabled = self.objectForKey("ShowLanguageBar") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
 }

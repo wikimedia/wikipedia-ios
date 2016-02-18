@@ -1958,8 +1958,6 @@
 				B0E806C01C0CEB380065EBC0 /* WMFSettingsViewController.h */,
 				B0E806C11C0CEB380065EBC0 /* WMFSettingsViewController.m */,
 				B0E804091C0CDE480065EBC0 /* WMFSettingsViewController.storyboard */,
-				B02B827A1C698FAB00B19309 /* WMFSettingsMenuItem.h */,
-				B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */,
 				B02B82721C696ECA00B19309 /* WMFSettingsTableViewCell.h */,
 				B02B82731C696ECA00B19309 /* WMFSettingsTableViewCell.m */,
 				B02B82741C696ECA00B19309 /* WMFSettingsTableViewCell.xib */,
@@ -2611,6 +2609,15 @@
 				0E03617F1C456C4600FD9642 /* WMFReadMoreViewController.m */,
 			);
 			name = "Read More";
+			sourceTree = "<group>";
+		};
+		0E8DC0961C7632B500622CBD /* Settings Item */ = {
+			isa = PBXGroup;
+			children = (
+				B02B827A1C698FAB00B19309 /* WMFSettingsMenuItem.h */,
+				B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */,
+			);
+			name = "Settings Item";
 			sourceTree = "<group>";
 		};
 		0E8E9A571BFA501E0054A242 /* Featured Article */ = {
@@ -3479,8 +3486,9 @@
 		BC45D5871C32F849007C72F3 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				045D871D19FAD2D00035C1F9 /* About The App */,
 				042A5B1419253D2A0095E172 /* View Controller */,
+				045D871D19FAD2D00035C1F9 /* About The App */,
+				0E8DC0961C7632B500622CBD /* Settings Item */,
 				B0E808231C0CF5120065EBC0 /* NSUserDefaults+WMFExtensions.swift */,
 			);
 			name = Settings;
