@@ -52,6 +52,23 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 + (instancetype)randomSection;
 
 /**
+ *  Returns the max number of sections for a section type
+ *
+ *  @param type The type of sections
+ *
+ *  @return The max number of sections
+ */
++ (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type;
+
+/**
+ *  Returns the max number of all sections
+ *
+ *  @return The total max number of ALL sections types
+ */
++ (NSUInteger)totalMaxNumberOfSections;
+
+
+/**
  *  The type of section.
  *
  *  Determines which metadata properties are available.

@@ -178,6 +178,37 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
++ (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type{
+    switch (type) {
+        case WMFExploreSectionTypeHistory:
+        case WMFExploreSectionTypeSaved:
+        case WMFExploreSectionTypeFeaturedArticle:
+        case WMFExploreSectionTypeMostRead:
+            return 10;
+            break;
+        case WMFExploreSectionTypePictureOfTheDay:
+        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypeContinueReading:
+        case WMFExploreSectionTypeRandom:
+        case WMFExploreSectionTypeMainPage:
+            return 1;
+            break;
+    }
+}
+
++ (NSUInteger)totalMaxNumberOfSections{
+    return [self maxNumberOfSectionsForType:WMFExploreSectionTypeHistory] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypePictureOfTheDay] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeNearby] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeContinueReading] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeRandom] +
+    [self maxNumberOfSectionsForType:WMFExploreSectionTypeMainPage];
+}
+
+
 @end
 
 NS_ASSUME_NONNULL_END
