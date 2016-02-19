@@ -19,20 +19,18 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
     public var visibleBackgroundWidth: CGFloat = 60.0
     
-    // MARK: - Status Bar Background
-    lazy var statusBarBg: UIView = {
+    // MARK: - Views
+    lazy var statusBarBackground: UIView = {
         let view = UIView(frame: CGRectZero)
-        view.frame = CGRect(x: self.containerView!.frame.origin.x, y: 0, width: self.containerView!.frame.size.width, height: UIApplication.sharedApplication().statusBarFrame.size.height)
-        
-        let statusBarBgBottomBorder = UIView(frame: CGRectMake(self.containerView!.frame.origin.x, UIApplication.sharedApplication().statusBarFrame.size.height, self.containerView!.frame.size.width, 0.5))
+        view.frame = CGRect(x: CGRectGetMinX(self.containerView!.bounds), y: CGRectGetMinY(self.containerView!.bounds), width: CGRectGetWidth(self.containerView!.bounds), height: 20.0)
+        let statusBarBackgroundBottomBorder = UIView(frame: CGRectMake(CGRectGetMinX(view.bounds), CGRectGetMaxY(view.bounds), CGRectGetWidth(view.bounds), 0.5))
         view.backgroundColor = UIColor.whiteColor()
-        statusBarBgBottomBorder.backgroundColor = UIColor.lightGrayColor()
-        view.addSubview(statusBarBgBottomBorder)
+        statusBarBackgroundBottomBorder.backgroundColor = UIColor.lightGrayColor()
+        view.addSubview(statusBarBackgroundBottomBorder)
 
         return view
     }()
     
-    // MARK: - Views
     lazy var backgroundView :UIView = {
         let view = UIView(frame: CGRectZero)
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
@@ -40,22 +38,10 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: Selector("didTap:"))
         view.addGestureRecognizer(tap)
-        view.addSubview(self.statusBarBg)
+        view.addSubview(self.statusBarBackground)
         
         return view
     }()
-
-
-
-
-    // MARK: - Tap Gesture
-    lazy var tapGesture :UIView = {
-        let view = UIView(frame: CGRectZero)
-        view.backgroundColor = UIColor(white: 1.0, alpha: 0.5)
-        view.alpha = 0.0
-        return view
-        }()
-    
     
     func didTap(tap: UITapGestureRecognizer) {
         self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
@@ -71,12 +57,13 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         // Add the dimming view and the presented view to the heirarchy
         self.backgroundView.frame = self.containerView!.bounds
         self.containerView!.addSubview(self.backgroundView)
+        
+        if(self.traitCollection.verticalSizeClass == .Compact){
+            self.statusBarBackground.hidden = true
+        }
+        
         self.containerView!.addSubview(self.presentedView()!)
         
-        // Add a status bar background so the TOC scroll below it
- 
-
-
         // Hide the presenting view controller for accessibility
         self.togglePresentingViewControllerAccessibility(false)
 
@@ -148,7 +135,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         
         if newCollection.verticalSizeClass == .Compact
         {
-            self.statusBarBg.hidden = true;
+            self.statusBarBackground.hidden = true;
             var frameL = self.containerView!.bounds;
             if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
                 frameL.origin.x += self.visibleBackgroundWidth
@@ -160,7 +147,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         
         if newCollection.verticalSizeClass == .Regular
         {
-            self.statusBarBg.hidden = false;
+            self.statusBarBackground.hidden = false;
             var frameP = self.containerView!.bounds;
             if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
                 frameP.origin.x += self.visibleBackgroundWidth
