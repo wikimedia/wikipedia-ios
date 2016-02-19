@@ -11,7 +11,7 @@
 
 #import "LSNocilla+Quick.h"
 #import "LSNocilla+AnyRequest.h"
-#import "MWKDataStore+TempDataStoreForEach.h"
+#import "MWKDataStore+TemporaryDataStore.h"
 #import "XCTestCase+PromiseKit.h"
 #import <PromiseKit/NSURLConnection+AnyPromise.h>
 
@@ -57,23 +57,33 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
 
 + (void)configure:(Configuration *)configuration {
     sharedExamples(@"a fetching section controller", ^(QCKDSLSharedExampleContext getContext) {
-        static FBKVOController* kvoController;
-        static NSMutableArray* itemsPerChange;
-        static WMFBaseExploreSectionController* sectionController;
-        static NSArray* expectedSuccessItems;
-
-        beforeEach(^{
-            kvoController = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
-            itemsPerChange = [NSMutableArray new];
-        });
+        __block FBKVOController* kvoController;
+        __block NSMutableArray* itemsPerKVONotification;
+        __block WMFBaseExploreSectionController* sectionController;
+        __block NSArray* expectedSuccessItems;
+        __block MWKDataStore* tempDataStore;
 
         startAndStopStubbingBetweenEach();
 
-        configureTempDataStoreForEach(tempDataStore, ^{
+        beforeEach(^{
+            tempDataStore = [MWKDataStore temporaryDataStore];
+            kvoController = [[FBKVOController alloc] initWithObserver:self retainObserved:NO];
+            itemsPerKVONotification = [NSMutableArray new];
+
             NSDictionary* context = getContext();
             Class SectionControllerClass = context[@"controllerClass"];
             sectionController = [[SectionControllerClass alloc] initWithDataStore:tempDataStore];
             expectedSuccessItems = context[@"expectedSuccessItems"];
+            [kvoController observe:sectionController
+                           keyPath:WMF_SAFE_KEYPATH(sectionController, items)
+                           options:0
+                             block:^(id observer, WMFBaseExploreSectionController* controller, NSDictionary *change) {
+                [itemsPerKVONotification addObject:[controller items]];
+            }];
+        });
+
+        afterEach(^{
+            [tempDataStore removeFolderAtBasePath];
         });
 
         /*
@@ -81,8 +91,10 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
             therefore, we need to be smart about `expect`-ing the value of a promise returned by a function to prevent 
             the function from being repeatedly invoked.
         */
-        #define expectValueOfPromiseReturnedBySectionControllerCall(fetchMethod) \
-        ^{ AnyPromise* fetch = [sectionController fetchMethod]; return expect(fetch.value); }()
+        #define expectValueOfPromiseReturnedBySectionControllerCall(fetchMethod) ^{ \
+            AnyPromise* fetch = [sectionController fetchMethod]; \
+            return expect(fetch.value); \
+        }()
 
         context(@"initial state", ^{
             it(@"should be filled with placeholders, if it supports placeholders", ^{
@@ -102,7 +114,7 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
         });
 
         context(@"previous request failed", ^{
-            static NSError* initialError;
+            __block NSError* initialError;
 
             beforeEach(^{
                 stubAnyRequest().andReturn(500);
@@ -115,6 +127,8 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
 
                 expect(initialError).to(beAKindOf([NSError class]));
 
+                expect(itemsPerKVONotification).to(equal(@[@[initialError]]));
+
                 // restart nocilla stubbing to remove failure stub & fail on any unexpected requests
                 [[LSNocilla sharedInstance] stop];
                 [[LSNocilla sharedInstance] start];
@@ -124,6 +138,8 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
                 expectValueOfPromiseReturnedBySectionControllerCall(fetchDataIfNeeded)
                 .withTimeout(5)
                 .toEventually(beIdenticalTo(initialError));
+
+                expect(itemsPerKVONotification).to(haveCount(@1));
             });
 
             it(@"should retry when asked to fetch by user", ^{
@@ -133,8 +149,7 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
                 .withTimeout(5)
                 .toEventually(equal(expectedSuccessItems));
 
-                expect(@([sectionController containsPlaceholders]))
-                .toWithDescription(beFalse(), @"it should have fetched real items.");
+                expect(@([sectionController containsPlaceholders])).to(beFalse());
 
                 expect(sectionController.items).to(equal(expectedSuccessItems));
             });
@@ -146,8 +161,7 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
                 .withTimeout(5)
                 .toEventually(beAKindOf([NSArray class]));
 
-                expect(@([sectionController containsPlaceholders]))
-                .toWithDescription(beFalse(), @"it should have fetched real items.");
+                expect(@([sectionController containsPlaceholders])).to(beFalse());
 
                 expect(sectionController.items).to(equal(expectedSuccessItems));
             });
