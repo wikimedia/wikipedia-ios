@@ -19,9 +19,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSUInteger const WMFMaximumNumberOfHistoryAndSavedSections = 20;
-static NSUInteger const WMFMaximumNumberOfFeaturedSections        = 10;
-
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
 static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 24 * 7; //7 days
@@ -394,9 +391,9 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
  *  @return An array of "most read" sections that should be in an updated version of the receiver.
  */
 - (NSArray<WMFExploreSection*>*)mostReadSectionsWithUpdateIfNeeded {
-    NSArray<WMFExploreSection*>* mostReadSections = [self.sections bk_select:^BOOL (WMFExploreSection* section) {
+    NSMutableArray<WMFExploreSection*>* mostReadSections = [[self.sections bk_select:^BOOL (WMFExploreSection* section) {
         return section.type == WMFExploreSectionTypeMostRead;
-    }];
+    }] mutableCopy];
 
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
 
@@ -409,9 +406,18 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     }];
 
     if (!containsLatestSectionEquivalent) {
-        mostReadSections = [mostReadSections arrayByAddingObject:latestMostReadSection];
+        [mostReadSections addObject:latestMostReadSection];
     }
-    return mostReadSections;
+
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of most read", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead]);
+
+    //Sort by date
+    [mostReadSections sortWithOptions:NSSortStable
+                      usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+        return -[obj1.dateCreated compare:obj2.dateCreated];
+    }];
+
+    return [mostReadSections wmf_arrayByTrimmingToLength:max];
 }
 
 - (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
@@ -437,7 +443,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
         [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
-    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle]);
 
     //Sort by date
     [featured sortWithOptions:NSSortStable
@@ -526,7 +532,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 - (NSArray<WMFExploreSection*>*)historyAndSavedPageSections {
     NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
-    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", WMFMaximumNumberOfHistoryAndSavedSections);
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] + [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeHistory]);
 
     NSArray<WMFExploreSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
     NSArray<WMFExploreSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];

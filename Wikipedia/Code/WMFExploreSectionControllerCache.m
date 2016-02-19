@@ -25,8 +25,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
-
 
 @interface WMFExploreSectionControllerCache ()
 
@@ -48,7 +46,7 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
         self.site                                   = site;
         self.dataStore                              = dataStore;
         self.sectionControllersBySection            = [[NSCache alloc] init];
-        self.sectionControllersBySection.countLimit = WMFExploreSectionControllerCacheLimit;
+        self.sectionControllersBySection.countLimit = [WMFExploreSection totalMaxNumberOfSections];
         self.sectionsBySectionController            = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
                                                                             valueOptions:NSMapTableWeakMemory];
     }
@@ -56,7 +54,8 @@ static NSUInteger const WMFExploreSectionControllerCacheLimit = 35;
 }
 
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
-    id<WMFExploreSectionController> controller = [self.sectionControllersBySection objectForKey:section];    return controller;
+    id<WMFExploreSectionController> controller = [self.sectionControllersBySection objectForKey:section];
+    return controller;
 }
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller {
