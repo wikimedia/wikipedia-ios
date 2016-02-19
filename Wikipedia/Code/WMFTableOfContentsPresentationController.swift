@@ -17,7 +17,8 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
     weak public var tapDelegate: WMFTableOfContentsPresentationControllerTapDelegate?
 
-    public var visibleBackgroundWidth: CGFloat = 60.0
+    public var minimumVisibleBackgroundWidth: CGFloat = 60.0
+    public var maximumTableOfContentsWidth: CGFloat = 300.0
     
     // MARK: - Views
     lazy var statusBarBackground: UIView = {
@@ -112,11 +113,17 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     override public func frameOfPresentedViewInContainerView() -> CGRect {
         var frame = self.containerView!.bounds;
-        if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
-            frame.origin.x += self.visibleBackgroundWidth
+        var bgWidth = self.minimumVisibleBackgroundWidth
+        var tocWidth = frame.size.width - bgWidth
+        if(tocWidth > self.maximumTableOfContentsWidth){
+            tocWidth = self.maximumTableOfContentsWidth
+            bgWidth = frame.size.width - tocWidth
         }
-        frame.origin.y =  UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
-        frame.size.width -= self.visibleBackgroundWidth
+        if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
+            frame.origin.x += bgWidth
+        }
+        frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
+        frame.size.width = bgWidth
         
         return frame
     }
@@ -138,9 +145,9 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.statusBarBackground.hidden = true;
             var frameL = self.containerView!.bounds;
             if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
-                frameL.origin.x += self.visibleBackgroundWidth
+                frameL.origin.x += self.minimumVisibleBackgroundWidth
             }
-            frameL.size.width -= self.visibleBackgroundWidth
+            frameL.size.width -= self.minimumVisibleBackgroundWidth
             self.presentedView()!.frame = frameL;
             
         }
@@ -150,7 +157,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.statusBarBackground.hidden = false;
             var frameP = self.containerView!.bounds;
             if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
-                frameP.origin.x += self.visibleBackgroundWidth
+                frameP.origin.x += self.minimumVisibleBackgroundWidth
             }
             // HAX: we are not using statusbar.size.height here and using a 20 because the statusbar hight returns 0. casuing a bug the second time you open TOC and turn from landscape to portrait.
             frameP.origin.y =  20 + 0.5;
