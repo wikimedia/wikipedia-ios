@@ -5,14 +5,14 @@
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
+#import "UIColor+WMFHexColor.h"
 
 @interface WMFWelcomeLanguageViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
+@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
-@property (strong, nonatomic) IBOutlet UILabel* footnoteLabel;
-@property (strong, nonatomic) IBOutlet UIButton* howThisWorksButton;
 
 @end
 
@@ -22,11 +22,18 @@
     [super viewDidLoad];
     self.languageTableView.editing = YES;
 
-    self.titleLabel.text = MWLocalizedString(@"welcome-languages-title", nil);
-    [self.moreLanguagesButton setTitle:MWLocalizedString(@"welcome-languages-more-languages-button-title", nil) forState:UIControlStateNormal];
-    [self.nextStepButton setTitle:MWLocalizedString(@"welcome-languages-button-title", nil) forState:UIControlStateNormal];
-    self.footnoteLabel.text = MWLocalizedString(@"welcome-languages-footnote-text", nil);
-    [self.howThisWorksButton setTitle:MWLocalizedString(@"welcome-languages-more-info-button-text", nil) forState:UIControlStateNormal];
+    self.titleLabel.text =
+        [MWLocalizedString(@"welcome-languages-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+
+    self.subTitleLabel.text = MWLocalizedString(@"welcome-languages-sub-title", nil);
+
+    [self.moreLanguagesButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
+                              forState:UIControlStateNormal];
+    
+    [self.nextStepButton setTitle:[MWLocalizedString(@"welcome-languages-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
+                         forState:UIControlStateNormal];
+    
+    self.nextStepButton.backgroundColor = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -36,11 +43,6 @@
     } else {
         [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:NO];
     }
-}
-
-- (IBAction)showHowThisWorksAlert:(id)sender {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-languages-more-info-button-text", nil) message:MWLocalizedString(@"welcome-languages-more-info-text", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-languages-more-info-done-button", nil) otherButtonTitles:nil];
-    [alert show];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -76,8 +78,6 @@
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         };
     }
-
-
     return cell;
 }
 

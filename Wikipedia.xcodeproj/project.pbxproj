@@ -2420,10 +2420,10 @@
 		0E26B08A1C0FD8040004D687 /* Language */ = {
 			isa = PBXGroup;
 			children = (
-				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
-				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
 				0E26B07B1C0F4F720004D687 /* WMFWelcomeLanguageViewController.h */,
 				0E26B07C1C0F4F720004D687 /* WMFWelcomeLanguageViewController.m */,
+				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
+				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
 				BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */,
 			);
 			name = Language;
