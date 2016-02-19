@@ -523,22 +523,28 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Languages
 
-- (NSArray*)allLanguagesFromController {
-    NSMutableArray* lang = [NSMutableArray array];
-    [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].preferredLanguages];
-    [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].otherLanguages];
-    return lang;
-}
-
 - (void)updateLanguages {
-    NSArray* languages = [self allLanguagesFromController];
+    NSArray* languages = [MWKLanguageLinkController sharedInstance].preferredLanguages;
     self.searchLanguages = [languages wmf_arrayByTrimmingToLength:3];
 }
 
 - (void)updateLanguageButtonsToPreferredLanguages {
     [self updateLanguages];
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj setTitle:[(MWKLanguageLink*)self.searchLanguages[idx] localizedName]  forState:UIControlStateNormal];
+    [self.searchLanguages enumerateObjectsUsingBlock:^(MWKLanguageLink*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(idx >= [self.languageButtons count]){
+            *stop = YES;
+        }
+        UIButton* button = self.languageButtons[idx];
+        [button setTitle:[obj localizedName] forState:UIControlStateNormal];
+    }];
+    
+    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(idx >= [self.searchLanguages count]){
+            obj.enabled = NO;
+            [obj setTitle:nil forState:UIControlStateNormal];
+        }else{
+            obj.enabled = YES;
+        }
     }];
     [self resizeLanguageButtonsIfNeeded];
 }
