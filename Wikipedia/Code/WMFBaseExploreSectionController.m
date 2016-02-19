@@ -60,6 +60,16 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return self;
 }
 
+- (NSString*)description {
+    NSAssert([self conformsToProtocol:@protocol(WMFExploreSectionController)],
+             @"Expected subclass of %@ to conform to %@, but %@ does not.",
+             [WMFBaseExploreSectionController class],
+             NSStringFromProtocol(@protocol(WMFExploreSectionController)),
+             [self class]);
+    return [NSString stringWithFormat:@"%@ identifier = %@",
+            [super description], [(id<WMFExploreSectionController>)self sectionIdentifier]];
+}
+
 #pragma mark - WMFBaseExploreSectionController
 
 - (MWKSavedPageList*)savedPageList {
