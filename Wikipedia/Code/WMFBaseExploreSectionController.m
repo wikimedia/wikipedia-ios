@@ -16,6 +16,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static const DDLogLevel WMFBaseExploreSectionControllerLogLevel = DDLogLevelInfo;
+
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFBaseExploreSectionControllerLogLevel
+
 static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectionControllerException";
 
 @interface WMFBaseExploreSectionController ()
@@ -46,7 +51,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     if (self) {
         self.dataStore    = dataStore;
         self.mutableItems = [NSMutableArray array];
-        [self setItemsToPlaceholdersOrEmpty];
+        [self setItemsToPlaceholdersIfSupported];
     }
     return self;
 }
@@ -216,21 +221,20 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
             }
             return error;
         });
-        // NOTE: set items to placeholders only after promise has been set to indicate isFetching state
-        [self setItemsToPlaceholdersOrEmpty];
         return self.fetcherPromise;
     }
 }
 
 - (void)resetData {
-    [self setItemsToPlaceholdersOrEmpty];
+    _fetchedItems = nil;
+    _fetchError   = nil;
+    self.items    = @[];
 }
 
 #pragma mark - Utility
 
-- (void)setItemsToPlaceholdersOrEmpty {
-    if (![self shouldShowPlaceholderCell]) {
-        self.items = @[];
+- (void)setItemsToPlaceholdersIfSupported {
+    if (![self supportsPlaceholders]) {
         return;
     }
     NSMutableArray* placeholders = [NSMutableArray array];
@@ -240,11 +244,26 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     [self setItems:placeholders];
 }
 
+- (BOOL)supportsPlaceholders {
+    BOOL supportsPlaceholders = [self numberOfPlaceholderCells];
+    NSAssert(supportsPlaceholders > 0 == ([self placeholderCellNib] != nil),
+             @"placeholderCellNib must be nonnull if placeholders are supported.");
+    NSAssert(supportsPlaceholders > 0 == ([self placeholderCellIdentifier] != nil),
+             @"placeholderCellIdentifier must be nonnull if placeholders are supported.");
+    return supportsPlaceholders;
+}
+
+/**
+ *  Indicates whether placeholders should be shown.
+ *
+ *  @note This is not the same as whether or not placeholders are supported.
+ *
+ *  @return @c YES if placeholder cell should be displayed, otherwise @c NO.
+ */
 - (BOOL)shouldShowPlaceholderCell {
-    return [self numberOfPlaceholderCells] > 0
+    return [self supportsPlaceholders]
            && [self.fetchedItems count] == 0
-           && self.fetchError == nil
-           && [self placeholderCellIdentifier] && [self placeholderCellNib];
+           && self.fetchError == nil;
 }
 
 - (BOOL)shouldShowEmptyCell {
