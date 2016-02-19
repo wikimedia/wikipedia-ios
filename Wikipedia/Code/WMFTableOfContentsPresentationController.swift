@@ -123,7 +123,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             frame.origin.x += bgWidth
         }
         frame.origin.y = UIApplication.sharedApplication().statusBarFrame.size.height + 0.5;
-        frame.size.width = bgWidth
+        frame.size.width = tocWidth
         
         return frame
     }
@@ -133,6 +133,8 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
         transitionCoordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
             self.backgroundView.frame = self.containerView!.bounds
+            let frame = self.frameOfPresentedViewInContainerView()
+            self.presentedView()!.frame = frame
             }, completion:nil)
     }
     
@@ -143,26 +145,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         if newCollection.verticalSizeClass == .Compact
         {
             self.statusBarBackground.hidden = true;
-            var frameL = self.containerView!.bounds;
-            if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
-                frameL.origin.x += self.minimumVisibleBackgroundWidth
-            }
-            frameL.size.width -= self.minimumVisibleBackgroundWidth
-            self.presentedView()!.frame = frameL;
-            
         }
         
         if newCollection.verticalSizeClass == .Regular
         {
             self.statusBarBackground.hidden = false;
-            var frameP = self.containerView!.bounds;
-            if !UIApplication.sharedApplication().wmf_tocShouldBeOnLeft{
-                frameP.origin.x += self.minimumVisibleBackgroundWidth
-            }
-            // HAX: we are not using statusbar.size.height here and using a 20 because the statusbar hight returns 0. casuing a bug the second time you open TOC and turn from landscape to portrait.
-            frameP.origin.y =  20 + 0.5;
-            self.presentedView()!.frame = frameP;
         }
-
     }
 }
