@@ -91,10 +91,11 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
             therefore, we need to be smart about `expect`-ing the value of a promise returned by a function to prevent
             the function from being repeatedly invoked.
          */
-        #define expectValueOfPromiseReturnedBySectionControllerCall(fetchMethod) ^ { \
-    AnyPromise* fetch = [sectionController fetchMethod]; \
-    return expect(fetch.value); \
-} ()
+                #define expectValueOfPromiseReturnedBySectionControllerCall(fetchMethod) \
+    ^ { \
+        AnyPromise* fetch = [sectionController fetchMethod]; \
+        return expect(fetch.value); \
+    } ()
 
         context(@"initial state", ^{
             it(@"should be filled with placeholders, if it supports placeholders", ^{
