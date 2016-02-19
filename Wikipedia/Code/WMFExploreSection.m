@@ -178,7 +178,7 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type{
++ (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type {
     switch (type) {
         case WMFExploreSectionTypeHistory:
         case WMFExploreSectionTypeSaved:
@@ -196,18 +196,17 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-+ (NSUInteger)totalMaxNumberOfSections{
++ (NSUInteger)totalMaxNumberOfSections {
     return [self maxNumberOfSectionsForType:WMFExploreSectionTypeHistory] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypePictureOfTheDay] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeNearby] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeContinueReading] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeRandom] +
-    [self maxNumberOfSectionsForType:WMFExploreSectionTypeMainPage];
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypePictureOfTheDay] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeNearby] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeContinueReading] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeRandom] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeMainPage];
 }
-
 
 @end
 

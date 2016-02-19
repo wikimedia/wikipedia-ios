@@ -16,3 +16,4 @@ static inline LSStubRequestDSL* stubAnyRequest() {
     NSCParameterAssert(!regexError);
     return stubRequest(@"GET", anyRequestRegex);
 }
+

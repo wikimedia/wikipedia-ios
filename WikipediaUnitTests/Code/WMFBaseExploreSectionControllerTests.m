@@ -42,7 +42,7 @@
 
 - (AnyPromise*)fetchData {
     return [NSURLConnection GET:@"https://test.io/foo"]
-    .then(^(id _) {
+           .then(^(id _) {
         return [WMFDummyExploreSectionController dummyItems];
     });
 }
@@ -55,7 +55,7 @@
 
 QuickConfigurationBegin(WMFSharedSectionControllerTests)
 
-+ (void)configure:(Configuration *)configuration {
++ (void)configure : (Configuration*)configuration {
     sharedExamples(@"a fetching section controller", ^(QCKDSLSharedExampleContext getContext) {
         __block FBKVOController* kvoController;
         __block NSMutableArray* itemsPerKVONotification;
@@ -77,7 +77,7 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
             [kvoController observe:sectionController
                            keyPath:WMF_SAFE_KEYPATH(sectionController, items)
                            options:0
-                             block:^(id observer, WMFBaseExploreSectionController* controller, NSDictionary *change) {
+                             block:^(id observer, WMFBaseExploreSectionController* controller, NSDictionary* change) {
                 [itemsPerKVONotification addObject:[controller items]];
             }];
         });
@@ -88,13 +88,13 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
 
         /*
             `expect()` takes a block—implicitly—which is repeatedly invoked to get the value of the given expression.
-            therefore, we need to be smart about `expect`-ing the value of a promise returned by a function to prevent 
+            therefore, we need to be smart about `expect`-ing the value of a promise returned by a function to prevent
             the function from being repeatedly invoked.
-        */
-        #define expectValueOfPromiseReturnedBySectionControllerCall(fetchMethod) ^{ \
-            AnyPromise* fetch = [sectionController fetchMethod]; \
-            return expect(fetch.value); \
-        }()
+         */
+        #define expectValueOfPromiseReturnedBySectionControllerCall(fetchMethod) ^ { \
+    AnyPromise* fetch = [sectionController fetchMethod]; \
+    return expect(fetch.value); \
+} ()
 
         context(@"initial state", ^{
             it(@"should be filled with placeholders, if it supports placeholders", ^{
@@ -102,7 +102,7 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
                 if (numberOfPlaceholders > 0
                     && [sectionController placeholderCellNib]
                     && [sectionController placeholderCellIdentifier]) {
-                    expect(@([sectionController.items bk_all:^BOOL(id obj) {
+                    expect(@([sectionController.items bk_all:^BOOL (id obj) {
                         return [obj isKindOfClass:[NSNumber class]];
                     }])).to(beTrue());
                     expect(@([sectionController containsPlaceholders])).to(beTrue());

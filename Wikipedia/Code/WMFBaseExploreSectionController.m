@@ -67,13 +67,13 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
              NSStringFromProtocol(@protocol(WMFExploreSectionController)),
              [self class]);
     return [NSString stringWithFormat:@"%@ identifier = %@",
-            [super description], [(id<WMFExploreSectionController>)self sectionIdentifier]];
+            [super description], [(id < WMFExploreSectionController >)self sectionIdentifier]];
 }
 
 #pragma mark - WMFBaseExploreSectionController
 
 - (BOOL)containsPlaceholders {
-    return [self.items bk_all:^BOOL(id obj) {
+    return [self.items bk_all:^BOOL (id obj) {
         return [obj isKindOfClass:[NSNumber class]];
     }];
 }

@@ -22,7 +22,7 @@
 
 /// Shorthand macro to expect a promise to catch with an error within the given timeout.
 #define expectCaughtErrorForPolicyWithTimeout(policy, aTimeout, promiseBlock) \
-    [self expectAnyPromiseToCatch:(promiseBlock) withPolicy:(policy) timeout:(aTimeout) WMFExpectFromHere]
+    [self expectAnyPromiseToCatch : (promiseBlock)withPolicy : (policy)timeout : (aTimeout)WMFExpectFromHere]
 
 /// Shorthand macro to expect a promise to catch with an error within the given timeout, using default policy (except cancellation).
 #define expectCaughtErrorWithTimeout(timeout, promiseBlock) \
