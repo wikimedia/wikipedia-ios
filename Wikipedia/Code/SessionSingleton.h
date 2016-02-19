@@ -13,8 +13,6 @@
 @class MWKTitle;
 @class MWKArticle;
 
-extern NSString* const WMFSearchLanguageDidChangeNotification;
-
 @interface SessionSingleton : NSObject
 
 - (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
@@ -29,17 +27,6 @@ extern NSString* const WMFSearchLanguageDidChangeNotification;
 // Data access objects
 @property (strong, nonatomic, readonly) MWKDataStore* dataStore;
 @property (strong, nonatomic, readonly) MWKUserDataStore* userDataStore;
-
-/**
- * Language code used as a component in the Wikipedia host name: <code>searchLanguage + "wikipedia.org"</code>.
- * @note This is usually RFC 639-x or BCP-47, but not always. Some language wikis either don't have a standard language
- *       code or are another weird edge case.
- */
-@property (copy, nonatomic) NSString* searchLanguage;
-
-
-/// @return Site initialized with @c searchLanguage and the default domain.
-- (MWKSite*)searchSite;
 
 /**
  *  The current article's site. This set automatically when setting the current article.
@@ -64,12 +51,7 @@ extern NSString* const WMFSearchLanguageDidChangeNotification;
  */
 @property (nonatomic, strong) MWKArticle* currentArticle;
 
-@property (strong, nonatomic, readonly) NSString* searchApiUrl;
-
 @property (nonatomic) BOOL fallback WMF_TECH_DEBT_DEPRECATED; //< Is this really necessary?
-
-- (NSString*)searchApiUrlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
-- (NSString*)searchLanguage;
 
 - (NSURL*)urlForLanguage:(NSString*)language WMF_TECH_DEBT_DEPRECATED_MSG("Use -[MWKSite apiEndpoint] instead.");
 

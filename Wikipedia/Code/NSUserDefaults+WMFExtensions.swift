@@ -5,10 +5,15 @@ let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
+let WMFAppSiteKey = "Domain"
 
 
 extension NSUserDefaults {
-    
+
+    @objc public class func WMFSearchLanguageDidChangeNotification() -> String {
+        return "WMFSearchLanguageDidChangeNotification"
+    }
+
     public func wmf_dateForKey(key: String) -> NSDate? {
         return self.objectForKey(key) as? NSDate
     }
@@ -95,6 +100,23 @@ extension NSUserDefaults {
         }else{
             return nil
         }
+    }
+    
+    public func wmf_appSite() -> MWKSite? {
+        if let data = self.objectForKey(WMFAppSiteKey) as? String{
+            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
+        }else{
+            return nil
+        }
+    }
+    
+    public func wmf_setAppSite(site: MWKSite) {
+        guard !site.isEqualToSite(self.wmf_appSite()) else{
+            return
+        }
+        self.setObject(site.language, forKey: WMFAppSiteKey)
+        self.synchronize()
+        NSNotificationCenter.defaultCenter().postNotificationName(NSUserDefaults.WMFSearchLanguageDidChangeNotification(), object: nil)
     }
 
     public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {

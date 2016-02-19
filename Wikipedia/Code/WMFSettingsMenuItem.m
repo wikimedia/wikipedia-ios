@@ -55,7 +55,7 @@
                                                  iconName:@"settings-project"
                                                 iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
-                                           disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]
+                                           disclosureText:[[NSUserDefaults standardUserDefaults].wmf_appSite.language uppercaseString]
                                                isSwitchOn:NO];
         }
         case WMFSettingsMenuItemType_SearchLanguageBarVisibility: {

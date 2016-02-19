@@ -190,7 +190,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 - (NSURL*)donationURL {
     NSString* url = WMFSettingsURLSupport;
 
-    NSString* languageCode = [SessionSingleton sharedInstance].searchSite.language;
+    NSString* languageCode = [NSUserDefaults standardUserDefaults].wmf_appSite.language;
     languageCode = [languageCode stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
     NSString* appVersion = [[NSBundle mainBundle] wmf_debugVersion];
@@ -256,12 +256,12 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    if ([[language site] isEqualToSite:[[SessionSingleton sharedInstance] searchSite]]) {
+    if ([[language site] isEqualToSite:[NSUserDefaults standardUserDefaults].wmf_appSite]) {
         return;
     }
 
     [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
-    [[SessionSingleton sharedInstance] setSearchLanguage:language.languageCode];
+    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[language site]];
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
 
     [self reloadVisibleCellOfType:WMFSettingsMenuItemType_SearchLanguage];

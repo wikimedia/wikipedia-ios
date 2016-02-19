@@ -125,31 +125,10 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (void)setSearchSite:(MWKSite*)searchSite {
-    NSParameterAssert(self.dataStore);
-    [self setSearchSite:self.searchSite dataStore:self.dataStore];
-}
-
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore {
-    if ([_searchSite isEqualToSite:searchSite]) {
-        return;
-    }
-
-    NSParameterAssert(searchSite);
-    NSParameterAssert(dataStore);
-
-    _searchSite = searchSite;
-    _dataStore  = dataStore;
-
-    self.schemaManager = nil;
-    [self createSectionSchemaIfNeeded];
-}
-
 - (WMFExploreSectionControllerCache*)sectionControllerCache {
-    NSParameterAssert(self.searchSite);
     NSParameterAssert(self.dataStore);
     if (!_sectionControllerCache) {
-        _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithSite:self.searchSite dataStore:self.dataStore];
+        _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite] dataStore:self.dataStore];
     }
     return _sectionControllerCache;
 }
@@ -238,7 +217,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.dataStore);
-    NSParameterAssert(self.searchSite);
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
@@ -559,9 +537,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.schemaManager) {
         return;
     }
-    if (!self.searchSite) {
-        return;
-    }
     if (!self.savedPages) {
         return;
     }
@@ -572,7 +547,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:self.searchSite
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]
                                                       savedPages:self.savedPages
                                                          history:self.recentPages
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];

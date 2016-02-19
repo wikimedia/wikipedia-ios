@@ -505,7 +505,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Languages
 
 - (void)saveSearchlanguage {
-    [[SessionSingleton sharedInstance] setSearchLanguage:self.searchSite.language];
+    [[NSUserDefaults standardUserDefaults] wmf_setAppSite:self.searchSite];
 }
 
 - (NSArray*)allLanguagesFromController {

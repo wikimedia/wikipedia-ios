@@ -4,6 +4,7 @@
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
 #import "MWKSite.h"
+#import "Wikipedia-Swift.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -62,7 +63,7 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
 
 - (void)wmf_showSearchAnimated:(BOOL)animated {
     NSParameterAssert(_dataStore);
-    MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
+    MWKSite* searchSite = [NSUserDefaults standardUserDefaults].wmf_appSite;
 
     if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
         WMFSearchViewController* searchVC =
