@@ -63,12 +63,10 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
 
 - (void)wmf_showSearchAnimated:(BOOL)animated {
     NSParameterAssert(_dataStore);
-    MWKSite* searchSite = [NSUserDefaults standardUserDefaults].wmf_appSite;
 
-    if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
+    if (!_sharedSearchViewController) {
         WMFSearchViewController* searchVC =
-            [WMFSearchViewController searchViewControllerWithSite:searchSite
-                                                        dataStore:_dataStore];
+            [WMFSearchViewController searchViewControllerWithDataStore:_dataStore];
         _sharedSearchViewController = searchVC;
     }
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];
