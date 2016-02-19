@@ -32,9 +32,9 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         return view
     }()
     
-    lazy var backgroundView :UIView = {
-        let view = UIView(frame: CGRectZero)
-        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+    lazy var backgroundView :UIVisualEffectView = {
+        let view = UIVisualEffectView(frame: CGRectZero)
+        view.effect = UIBlurEffect(style: .Dark)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
         tap.addTarget(self, action: Selector("didTap:"))
