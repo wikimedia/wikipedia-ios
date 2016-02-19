@@ -741,7 +741,8 @@ NS_ASSUME_NONNULL_BEGIN
                       viewControllerForLocation:(CGPoint)location {
     NSIndexPath* previewIndexPath                     = [self.tableView indexPathForRowAtPoint:location];
     id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
-    if (!sectionController) {
+
+    if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
         return nil;
     }
 
