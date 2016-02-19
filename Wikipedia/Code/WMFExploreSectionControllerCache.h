@@ -8,11 +8,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreSectionControllerCache : NSObject
 
-@property (nonatomic, strong, readonly) MWKSite* site;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
 
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore;
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore;
 
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section;
 

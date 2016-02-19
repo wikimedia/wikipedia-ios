@@ -43,35 +43,14 @@ afterSuite(^{
 
 describe(@"searchLanguage", ^{
     it(@"should default to the current device language", ^{
-        expect(testSession.searchSite.language)
+        expect([NSUserDefaults standardUserDefaults].wmf_appSite.language)
         .to(equal([[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]));
-    });
-
-    itBehavesLike(@"a persistent property", ^{
-        return @{ @"session": testSession,
-                  @"key": WMF_SAFE_KEYPATH(testSession, searchLanguage),
-                  // set to a different value by appending to current
-                  @"value": [testSession.searchLanguage stringByAppendingString:@"a"] };
-    });
-
-    it(@"should ignore nil values", ^{
-        NSString* langBeforeNil = [testSession searchLanguage];
-        [testSession setSearchLanguage:nil];
-        expect(testSession.searchLanguage).to(equal(langBeforeNil));
     });
 
     it(@"should be idempotent", ^{
         expectAction(^{
-            [testSession setSearchLanguage:testSession.searchSite.language];
-        }).notTo(postNotification(WMFSearchLanguageDidChangeNotification, nil));
-    });
-});
-
-describe(@"searchSite", ^{
-    it(@"should depend on search language", ^{
-        expect([MWKSite siteWithLanguage:testSession.searchLanguage]).to(equal(testSession.searchSite));
-        [testSession setSearchLanguage:[testSession.searchLanguage stringByAppendingString:@"a"]];
-        expect([MWKSite siteWithLanguage:testSession.searchLanguage]).to(equal(testSession.searchSite));
+            [[NSUserDefaults standardUserDefaults] wmf_setAppSite:[NSUserDefaults standardUserDefaults].wmf_appSite];
+        }).notTo(postNotification([NSUserDefaults WMFSearchLanguageDidChangeNotification], nil));
     });
 });
 

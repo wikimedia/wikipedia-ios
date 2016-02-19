@@ -138,7 +138,7 @@ static dispatch_once_t launchToken;
 }
 
 - (void)configureExploreViewController {
-    [self.exploreViewController setSearchSite:[self.session searchSite] dataStore:self.dataStore];
+    [self.exploreViewController setDataStore:[self dataStore]];
 }
 
 - (void)configureArticleListController:(WMFArticleListTableViewController*)controller {
@@ -363,7 +363,6 @@ static dispatch_once_t launchToken;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchLanguageDidChangeWithNotification:) name:WMFSearchLanguageDidChangeNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -507,7 +506,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
     if (exploreNavController.presentedViewController) {
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
-    MWKSite* site = [self.session searchSite];
+    MWKSite* site = [NSUserDefaults standardUserDefaults].wmf_appSite;
     [self.randomFetcher fetchRandomArticleWithSite:site].then(^(MWKSearchResult* result){
         MWKTitle* title = [site titleWithString:result.displayTitle];
         [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore animated:YES];
@@ -523,7 +522,7 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         [exploreNavController dismissViewControllerAnimated:NO completion:NULL];
     }
     [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
-    MWKSite* site                   = [self.session searchSite];
+    MWKSite* site                   = [NSUserDefaults standardUserDefaults].wmf_appSite;
     WMFNearbyListViewController* vc = [[WMFNearbyListViewController alloc] initWithSearchSite:site dataStore:self.dataStore];
     [[self navigationControllerForTab:WMFAppTabTypeExplore] pushViewController:vc animated:animated];
 }
@@ -571,12 +570,6 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
-}
-
-#pragma mark - Notifications
-
-- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
-    [self configureExploreViewController];
 }
 
 #pragma mark - UINavigationControllerDelegate

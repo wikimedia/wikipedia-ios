@@ -30,7 +30,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 
 + (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site;
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark;
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 
@@ -48,8 +48,8 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 ///
 
 + (instancetype)pictureOfTheDaySection;
-+ (instancetype)mainPageSection;
-+ (instancetype)randomSection;
++ (instancetype)mainPageSectionWithSite:(MWKSite*)site;
++ (instancetype)randomSectionWithSite:(MWKSite*)site;
 
 /**
  *  Returns the max number of sections for a section type
