@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, readonly) NSArray<WMFExploreSection*>* sections;
 
+
+- (void)updateSite:(MWKSite*)site;
+
 /**
  *  Update the schema based on the internal business rules
  *  When the update is complete the delegate will be notified

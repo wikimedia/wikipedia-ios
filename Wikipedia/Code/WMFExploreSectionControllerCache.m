@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFExploreSectionControllerCache ()
 
-@property (nonatomic, strong, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
 @property (nonatomic, strong) NSCache* sectionControllersBySection;
 @property (nonatomic, strong) NSMapTable* sectionsBySectionController;
@@ -37,13 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFExploreSectionControllerCache
 
-- (instancetype)initWithSite:(MWKSite*)site
-                   dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(site);
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
     self = [super init];
     if (self) {
-        self.site                                   = site;
         self.dataStore                              = dataStore;
         self.sectionControllersBySection            = [[NSCache alloc] init];
         self.sectionControllersBySection.countLimit = [WMFExploreSection totalMaxNumberOfSections];
@@ -118,15 +114,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFNearbySectionController alloc] initWithLocation:item.location placemark:item.placemark site:self.site dataStore:self.dataStore];
+    return [[WMFNearbySectionController alloc] initWithLocation:item.location placemark:item.placemark site:item.site dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFRandomSectionController alloc] initWithSite:self.site dataStore:self.dataStore];
+    return [[WMFRandomSectionController alloc] initWithSite:item.site dataStore:self.dataStore];
 }
 
 - (WMFMainPageSectionController*)mainPageSectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFMainPageSectionController alloc] initWithSite:self.site dataStore:self.dataStore];
+    return [[WMFMainPageSectionController alloc] initWithSite:item.site dataStore:self.dataStore];
 }
 
 - (WMFPictureOfTheDaySectionController*)picOfTheDaySectionController {

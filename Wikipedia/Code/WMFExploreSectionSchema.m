@@ -72,6 +72,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         schema.savedPages   = savedPages;
         schema.historyPages = history;
         schema.blackList    = blackList;
+        [schema update:YES];
     } else {
         schema = [[WMFExploreSectionSchema alloc] initWithSite:site savedPages:savedPages history:history blackList:blackList];
     }
@@ -118,7 +119,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  *  @see startingSchema
  */
 - (void)reset {
-    NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
+    NSMutableArray<WMFExploreSection*>* startingSchema = [[self startingSchema] mutableCopy];
 
     [startingSchema addObject:[self newMostReadSectionWithLatestPopulatedDate]];
 
@@ -144,10 +145,10 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  *
  *  @return An array of sections that can be used to start the "feed" from scratch.
  */
-+ (NSArray<WMFExploreSection*>*)startingSchema {
-    return @[[WMFExploreSection mainPageSection],
+- (NSArray<WMFExploreSection*>*)startingSchema {
+    return @[[WMFExploreSection mainPageSectionWithSite:self.site],
              [WMFExploreSection pictureOfTheDaySection],
-             [WMFExploreSection randomSection]];
+             [WMFExploreSection randomSectionWithSite:self.site]];
 }
 
 #pragma mark - Location
@@ -215,6 +216,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Update
 
+- (void)updateSite:(MWKSite*)site {
+    if ([site isEqual:self.site]) {
+        return;
+    }
+    self.site = site;
+    [self update:YES];
+}
+
 - (void)update {
     [self update:NO];
 }
@@ -250,7 +259,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (BOOL)updateContinueReading {
-    WMFExploreSection* old = [self existingCOntinueReadingSection];
+    WMFExploreSection* old = [self existingContinueReadingSection];
     WMFExploreSection* new = [self continueReadingSection];
     if ([[old title] isEqual:[new title]]) {
         return NO;
@@ -329,7 +338,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     }];
 }
 
-#pragma mmrk - Create Schema Items
+#pragma mmrk - Section Creation
 
 /**
  *  Sections which should always be present in the "feed" (i.e. everything that isn't site specific).
@@ -350,28 +359,36 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
 - (WMFExploreSection*)randomSection {
     WMFExploreSection* random = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeRandom) {
+        if (obj.type == WMFExploreSectionTypeRandom && [obj.site isEqual:self.site]) {
             return YES;
         }
         return NO;
     }];
-    ;
+
     MWKHistoryEntry* lastEntry = [self.historyPages.entries firstObject];
     if (lastEntry && [[NSDate date] timeIntervalSinceDate:lastEntry.date] > WMFTimeBeforeRefreshingRandom) {
-        random = [WMFExploreSection randomSection];
+        random = [WMFExploreSection randomSectionWithSite:self.site];
     }
 
     //Always return a random section
     if (!random) {
-        random = [WMFExploreSection randomSection];
+        random = [WMFExploreSection randomSectionWithSite:self.site];
     }
 
     return random;
 }
 
+- (nullable WMFExploreSection*)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark {
+    NSParameterAssert(location);
+    if (!location || [WMFLocationManager isDeniedOrDisabled]) {
+        return nil;
+    }
+    return [WMFExploreSection nearbySectionWithLocation:location placemark:placemark site:self.site];
+}
+
 - (nullable WMFExploreSection*)existingNearbySection {
     WMFExploreSection* nearby = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == WMFExploreSectionTypeNearby && obj.location) {
+        if (obj.type == WMFExploreSectionTypeNearby && obj.location != nil && [obj.site isEqual:self.site]) {
             return YES;
         }
         return NO;
@@ -379,8 +396,6 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
     return nearby;
 }
-
-#pragma mark - Daily Sections
 
 /**
  *  Retrieve an updated list of "most read" sections, incorporating prior ones.
@@ -454,9 +469,25 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     return [featured wmf_arrayByTrimmingToLength:max];
 }
 
-- (WMFExploreSection*)getOrCreateStaticTodaySectionOfType:(WMFExploreSectionType)type {
+- (WMFExploreSection*)mainPageSection {
+    WMFExploreSection* main = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+        if (obj.type == WMFExploreSectionTypeMainPage && [obj.site isEqual:self.site]) {
+            return YES;
+        }
+        return NO;
+    }];
+
+    //If it's a new day and we havent created a new main page section, create it now
+    if ([main.dateCreated isToday] && [main.site isEqual:self.site]) {
+        return main;
+    }
+
+    return [WMFExploreSection mainPageSectionWithSite:self.site];
+}
+
+- (WMFExploreSection*)picOfTheDaySection {
     WMFExploreSection* existingSection = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
-        if (obj.type == type) {
+        if (obj.type == WMFExploreSectionTypePictureOfTheDay) {
             return YES;
         }
         return NO;
@@ -467,32 +498,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
         return existingSection;
     }
 
-    switch (type) {
-        case WMFExploreSectionTypeMainPage:
-            return [WMFExploreSection mainPageSection];
-        case WMFExploreSectionTypePictureOfTheDay:
-            return [WMFExploreSection pictureOfTheDaySection];
-
-        default:
-            NSAssert(NO, @"Cannot create static 'today' section of type %ld", type);
-            return nil;
-    }
-}
-
-- (nullable WMFExploreSection*)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark {
-    NSParameterAssert(location);
-    if (!location || [WMFLocationManager isDeniedOrDisabled]) {
-        return nil;
-    }
-    return [WMFExploreSection nearbySectionWithLocation:location placemark:placemark];
-}
-
-- (WMFExploreSection*)mainPageSection {
-    return [self getOrCreateStaticTodaySectionOfType:WMFExploreSectionTypeMainPage];
-}
-
-- (WMFExploreSection*)picOfTheDaySection {
-    return [self getOrCreateStaticTodaySectionOfType:WMFExploreSectionTypePictureOfTheDay];
+    return [WMFExploreSection pictureOfTheDaySection];
 }
 
 - (nullable WMFExploreSection*)continueReadingSection {
@@ -511,7 +517,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     return nil;
 }
 
-- (nullable)existingCOntinueReadingSection {
+- (nullable)existingContinueReadingSection {
     return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
         if (obj.type == WMFExploreSectionTypeContinueReading) {
             return YES;

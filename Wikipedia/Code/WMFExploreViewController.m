@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (WMFExploreSectionControllerCache*)sectionControllerCache {
     NSParameterAssert(self.dataStore);
     if (!_sectionControllerCache) {
-        _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite] dataStore:self.dataStore];
+        _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithDataStore:self.dataStore];
     }
     return _sectionControllerCache;
 }
