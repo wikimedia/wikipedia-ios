@@ -59,7 +59,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (strong, nonatomic) IBOutlet UIButton* languageTwoButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageThreeButton;
 @property (strong, nonatomic) IBOutlet UIButton* otherLanguagesButton;
-@property (strong, nonatomic)IBOutletCollection(UIButton) NSArray * languageButtons;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *languageButtons;
 
 @property (nonatomic, strong) WMFSearchFetcher* fetcher;
 
@@ -541,9 +541,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if(idx >= [self.searchLanguages count]){
             obj.enabled = NO;
-            [obj setTitle:nil forState:UIControlStateNormal];
+            obj.hidden = YES;
         }else{
             obj.enabled = YES;
+            obj.hidden = NO;
         }
     }];
     [self resizeLanguageButtonsIfNeeded];
