@@ -168,12 +168,14 @@ QuickConfigurationBegin(WMFSharedSectionControllerTests)
             });
         });
 
-        context(@"has items", ^{
+        // pending...
+
+        xcontext(@"has items", ^{
             it(@"should only fetch if the user initiated it.", ^{
             });
         });
 
-        context(@"is fetching", ^{
+        xcontext(@"is fetching", ^{
             it(@"should not perform other fetches", ^{
             });
         });
