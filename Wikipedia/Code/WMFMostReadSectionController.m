@@ -119,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Meta
 
 - (NSString*)sectionIdentifier {
-    return [NSString stringWithFormat:@"%@_%@", self.site, [self englishUTCDateString]];
+    return [NSString stringWithFormat:@"%@_%@", self.site.URL.host, [self englishUTCDateString]];
 }
 
 - (CGFloat)estimatedRowHeight {
