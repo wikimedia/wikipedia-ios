@@ -158,7 +158,7 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLZeroFAQ]];
             break;
         case WMFSettingsMenuItemType_RateApp:
-            [self wmf_openExternalUrl:[NSURL URLWithString:WMFSettingsURLRate]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:WMFSettingsURLRate]]; //always exit the app
             break;
         case WMFSettingsMenuItemType_SendFeedback:
             [self wmf_openExternalUrl:[self emailURL]];
