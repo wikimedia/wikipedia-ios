@@ -74,6 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable UINib*)placeholderCellNib;
 
+- (BOOL)containsPlaceholders;
+
 @end
 
 /**

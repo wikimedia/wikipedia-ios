@@ -25,7 +25,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
 
-@property (nonatomic, weak) WMFArticlePreviewTableViewCell* cell;
+@property (nonatomic, weak, nullable) WMFArticlePreviewTableViewCell* cell;
 
 @end
 
@@ -99,6 +99,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
     cell.saveButtonController.analyticsContext     = self;
     cell.saveButtonController.analyticsContentType = self;
+    self.cell                                      = cell;
 }
 
 - (CGFloat)estimatedRowHeight {

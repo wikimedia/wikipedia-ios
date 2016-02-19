@@ -643,30 +643,6 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         [observer.tableView reloadData];
-        return;
-
-        //TODO: enable animated updates. Currently causes more jitters
-
-        NSIndexSet* indices = [change objectForKey:NSKeyValueChangeIndexesKey];
-        if (indices == nil) {
-            return;
-        }
-        NSMutableArray* indexPathArray = [NSMutableArray array];
-        [indices enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* _Nonnull stop) {
-            NSIndexPath* newPath = [NSIndexPath indexPathForRow:idx inSection:sectionIndex];
-            [indexPathArray addObject:newPath];
-        }];
-
-        [observer.tableView wmf_performUpdates:^{
-            NSNumber* kind = [change objectForKey:NSKeyValueChangeKindKey];
-            if ([kind integerValue] == NSKeyValueChangeInsertion) { // Rows were added
-                [observer.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if ([kind integerValue] == NSKeyValueChangeRemoval) { // Rows were removed
-                [observer.tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else { // Rows were Replaced
-                [observer.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        } withoutMovingCellAtIndexPath:[[self.tableView indexPathsForVisibleRows] firstObject]];
     }];
 }
 

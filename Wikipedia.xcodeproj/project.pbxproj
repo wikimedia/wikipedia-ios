@@ -568,6 +568,7 @@
 		BC6E42881BA9CB930059FBF6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BC6E428A1BA9CB930059FBF6 /* InfoPlist.strings */; };
 		BC8210D01B4EE3FA0010BF7B /* ArticleWithoutImages.dataexport.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */; };
 		BC8210D71B4F048F0010BF7B /* Barack_Obama in Resources */ = {isa = PBXBuildFile; fileRef = BC8210D61B4F048F0010BF7B /* Barack_Obama */; };
+		BC8B4F1C1C77A30C009B06F7 /* WMFBaseExploreSectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8B4F1B1C77A30C009B06F7 /* WMFBaseExploreSectionControllerTests.m */; };
 		BC8E58571BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json in Resources */ = {isa = PBXBuildFile; fileRef = BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */; };
 		BC90DE791C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */; };
 		BC9355431BE1A71D00697CB0 /* BarackSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = BC9355411BE1A71900697CB0 /* BarackSearch.json */; };
@@ -1700,6 +1701,8 @@
 		BC6E42B11BA9D1020059FBF6 /* mk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = mk; path = mk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BC8210CE1B4EE3F30010BF7B /* ArticleWithoutImages.dataexport.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArticleWithoutImages.dataexport.json; sourceTree = "<group>"; };
 		BC8210D61B4F048F0010BF7B /* Barack_Obama */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Barack_Obama; sourceTree = "<group>"; };
+		BC8B4F1B1C77A30C009B06F7 /* WMFBaseExploreSectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFBaseExploreSectionControllerTests.m; sourceTree = "<group>"; };
+		BC8B4F1D1C77B29A009B06F7 /* LSNocilla+AnyRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LSNocilla+AnyRequest.h"; path = "WikipediaUnitTests/Code/LSNocilla+AnyRequest.h"; sourceTree = SOURCE_ROOT; };
 		BC8E58561BF69C3F00F55225 /* NoSearchResultsWithSuggestion.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NoSearchResultsWithSuggestion.json; sourceTree = "<group>"; };
 		BC90DE781C57C5AD007E0E81 /* WMFWelcomeLanguageViewControllerVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFWelcomeLanguageViewControllerVisualTests.m; sourceTree = "<group>"; };
 		BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeLanguageViewController_Testing.h; path = Wikipedia/Code/WMFWelcomeLanguageViewController_Testing.h; sourceTree = SOURCE_ROOT; };
@@ -4244,6 +4247,7 @@
 				BC45FF4C1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.h */,
 				BC45FF4D1C1B2DDB00BAE501 /* QueuesSingleton+AllManagers.m */,
 				BCFEEA461C286DD600CA2986 /* LSNocilla+Quick.h */,
+				BC8B4F1D1C77B29A009B06F7 /* LSNocilla+AnyRequest.h */,
 				BCD557B91C45B1600060A51A /* UIApplication+VisualTestUtils.h */,
 				BCD557BA1C45B1600060A51A /* UIApplication+VisualTestUtils.m */,
 				BC62AE601C58FC810064C589 /* NSProcessInfo+WMFTestEnvironment.h */,
@@ -4590,6 +4594,7 @@
 				08A3C7B51C5FCC8500682DC0 /* WMFArticlePreviewCellVisualTests.m */,
 				BCD320071C6EC44300317D08 /* Time Zone Tests */,
 				B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */,
+				BC8B4F1B1C77A30C009B06F7 /* WMFBaseExploreSectionControllerTests.m */,
 			);
 			name = Tests;
 			path = WikipediaUnitTests/Code;
@@ -5376,6 +5381,7 @@
 				BCD557BB1C45B1600060A51A /* UIApplication+VisualTestUtils.m in Sources */,
 				B0E809191C0D19340065EBC0 /* LegacyCoreDataMigratorTests.m in Sources */,
 				B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */,
+				BC8B4F1C1C77A30C009B06F7 /* WMFBaseExploreSectionControllerTests.m in Sources */,
 				B0E8091F1C0D19700065EBC0 /* NSIndexSet+BKReduceTests.m in Sources */,
 				B0E809621C0D1BAD0065EBC0 /* WMFSearchResultsMergeTests.m in Sources */,
 				B0E808F71C0D18410065EBC0 /* MWKTestCase.m in Sources */,
