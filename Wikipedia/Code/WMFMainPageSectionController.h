@@ -6,7 +6,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFMainPageSectionController : WMFBaseExploreSectionController
-    <WMFExploreSectionController, WMFTitleProviding>
+    <WMFExploreSectionController, WMFTitleProviding, WMFAnalyticsContentTypeProviding>
 
 @property (nonatomic, strong, readonly) MWKSite* site;
 

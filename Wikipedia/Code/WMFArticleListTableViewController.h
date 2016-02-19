@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsLogging>
+@interface WMFArticleListTableViewController : UITableViewController<WMFAnalyticsContextProviding>
 
 @property (nonatomic, strong) MWKDataStore* dataStore;
 @property (nonatomic, strong, nullable) SSBaseDataSource<WMFTitleListDataSource>* dataSource;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFArticleListTableViewController (WMFSubclasses)
 
-- (NSString*)analyticsName;
+- (NSString*)analyticsContext;
 
 - (WMFEmptyViewType)emptyViewType;
 

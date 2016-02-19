@@ -1,5 +1,9 @@
 
 #import "WMFSettingsMenuItem.h"
+#import "UIColor+WMFHexColor.h"
+#import "SessionSingleton.h"
+#import "MWKSite.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFSettingsMenuItem ()
 
@@ -18,6 +22,164 @@
 @end
 
 @implementation WMFSettingsMenuItem
+
++ (WMFSettingsMenuItem*)itemForType:(WMFSettingsMenuItemType)type {
+    switch (type) {
+        case WMFSettingsMenuItemType_Login: {
+            NSString* userName    = [SessionSingleton sharedInstance].keychainCredentials.userName;
+            NSString* loginString = (userName) ? [MWLocalizedString(@"main-menu-account-title-logged-in", nil) stringByReplacingOccurrencesOfString : @"$1" withString:userName] : MWLocalizedString(@"main-menu-account-login", nil);
+
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:loginString
+                                                 iconName:@"settings-user"
+                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9CA1A7) alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_Support: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"settings-support", nil)
+                                                 iconName:@"settings-support"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_SearchLanguage: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"settings-project", nil)
+                                                 iconName:@"settings-project"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewControllerWithDisclosureText
+                                           disclosureText:[[SessionSingleton sharedInstance].searchSite.language uppercaseString]
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_SearchLanguageBarVisibility: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"settings-language-bar", nil)
+                                                 iconName:@"settings-search"
+                                                iconColor:[UIColor colorWithRed:0.10f green:0.69f blue:0.54f alpha:1.0f]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]];
+        }
+        case WMFSettingsMenuItemType_PrivacyPolicy: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-privacy-policy", nil)
+                                                 iconName:@"settings-privacy"
+                                                iconColor:[UIColor wmf_colorWithHex:0x884FDC alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_Terms: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-terms-of-use", nil)
+                                                 iconName:@"settings-terms"
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_SendUsageReports: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"preference_title_eventlogging_opt_in", nil)
+                                                 iconName:@"settings-analytics"
+                                                iconColor:[UIColor wmf_colorWithHex:0x95D15A alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].shouldSendUsageReports];
+        }
+        case WMFSettingsMenuItemType_ZeroWarnWhenLeaving: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"zero-warn-when-leaving", nil)
+                                                 iconName:@"settings-zero"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_Switch
+                                           disclosureText:nil
+                                               isSwitchOn:[SessionSingleton sharedInstance].zeroConfigState.warnWhenLeaving];
+        }
+        case WMFSettingsMenuItemType_ZeroFAQ: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-zero-faq", nil)
+                                                 iconName:@"settings-faq"
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_RateApp: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-rate-app", nil)
+                                                 iconName:@"settings-rate"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_SendFeedback: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-send-feedback", nil)
+                                                 iconName:@"settings-feedback"
+                                                iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_About: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-about", nil)
+                                                 iconName:@"settings-about"
+                                                iconColor:[UIColor wmf_colorWithHex:0x000000 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_FAQ: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-faq", nil)
+                                                 iconName:@"settings-faq"
+                                                iconColor:[UIColor wmf_colorWithHex:0x99A1A7 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_DebugCrash: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-debug-crash", nil)
+                                                 iconName:@"settings-crash"
+                                                iconColor:[UIColor wmf_colorWithHex:0xFF1B33 alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_None
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+        case WMFSettingsMenuItemType_DevSettings: {
+            return
+                [[WMFSettingsMenuItem alloc] initWithType:type
+                                                    title:MWLocalizedString(@"main-menu-debug-tweaks", nil)
+                                                 iconName:@"settings-dev"
+                                                iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureText:nil
+                                               isSwitchOn:NO];
+        }
+    }
+}
 
 - (instancetype)initWithType:(WMFSettingsMenuItemType)type
                        title:(NSString*)title

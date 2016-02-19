@@ -79,5 +79,48 @@ extension NSUserDefaults {
             return false
         }
     }
+    
+    public func wmf_setAppInstallDateIfNil(date: NSDate) {
+        let previous = self.wmf_appInstallDate()
+        
+        if previous == nil {
+            self.setObject(date, forKey: "AppInstallDate")
+            self.synchronize()
+        }
+    }
+    
+    public func wmf_appInstallDate() -> NSDate? {
+        if let date = self.objectForKey("AppInstallDate") as? NSDate {
+            return date
+        }else{
+            return nil
+        }
+    }
 
+    public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {
+        self.setObject(date, forKey: "DailyLoggingStatsDate")
+        self.synchronize()
+    }
+
+    public func wmf_dateLastDailyLoggingStatsSent() -> NSDate? {
+        if let date = self.objectForKey("DailyLoggingStatsDate") as? NSDate {
+            return date
+        }else{
+            return nil
+        }
+    }
+
+    public func wmf_setShowSearchLanguageBar(enabled: Bool) {
+        self.setObject(NSNumber(bool: enabled), forKey: "ShowLanguageBar")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_showSearchLanguageBar() -> Bool {
+        if let enabled = self.objectForKey("ShowLanguageBar") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
 }

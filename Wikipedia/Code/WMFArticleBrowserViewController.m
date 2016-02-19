@@ -32,7 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 BOOL useSingleBrowserController() {
-    return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", YES);
+    return FBTweakValue(@"Article", @"Browser", @"Use Article Browser", NO);
 }
 
 @interface WMFArticleBrowserViewController ()<UINavigationControllerDelegate, WMFArticleViewControllerDelegate, LanguageSelectionDelegate, UIToolbarDelegate, UINavigationBarDelegate>
@@ -43,7 +43,6 @@ BOOL useSingleBrowserController() {
 @property (nonatomic, strong) WMFArticleViewController* currentViewController;
 
 @property (nonatomic, strong, nullable) WMFArticleViewController* initialViewController;
-@property (nonatomic, strong, nullable) id<WMFAnalyticsLogging> initialViewControllerSource;
 
 @property (strong, nonatomic) UIProgressView* progressView;
 
@@ -81,17 +80,16 @@ BOOL useSingleBrowserController() {
     return vc;
 }
 
-+ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source {
++ (WMFArticleBrowserViewController*)browserViewControllerWithDataStore:(MWKDataStore*)dataStore articleTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
     vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
-    return [self browserViewControllerWithArticleViewController:vc source:source];
+    return [self browserViewControllerWithArticleViewController:vc];
 }
 
-+ (WMFArticleBrowserViewController*)browserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source {
++ (WMFArticleBrowserViewController*)browserViewControllerWithArticleViewController:(WMFArticleViewController*)viewController {
     NSParameterAssert(viewController);
     WMFArticleBrowserViewController* vc = [[WMFArticleBrowserViewController alloc] initWithDataStore:viewController.dataStore];
-    vc.initialViewController       = viewController;
-    vc.initialViewControllerSource = source;
+    vc.initialViewController = viewController;
     return vc;
 }
 
@@ -269,10 +267,9 @@ BOOL useSingleBrowserController() {
     self.navigationTitleStack = [NSMutableArray array];
 
     if (self.initialViewController) {
-        [self pushArticleViewController:self.initialViewController source:self.initialViewControllerSource animated:NO];
+        [self pushArticleViewController:self.initialViewController animated:NO];
         [self updateToolbar];
-        self.initialViewController       = nil;
-        self.initialViewControllerSource = nil;
+        self.initialViewController = nil;
     }
     [self addProgressView];
 }
@@ -294,20 +291,20 @@ BOOL useSingleBrowserController() {
 
 #pragma mark - Navigation
 
-- (void)pushArticleWithTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+- (void)pushArticleWithTitle:(MWKTitle*)title restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     WMFArticleViewController* articleViewController =
         [[WMFArticleViewController alloc] initWithArticleTitle:title
                                                      dataStore:self.dataStore];
-    [self pushArticleViewController:articleViewController source:source animated:animated];
+    [self pushArticleViewController:articleViewController animated:animated];
 }
 
-- (void)pushArticleWithTitle:(MWKTitle*)title source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
-    [self pushArticleWithTitle:title restoreScrollPosition:NO source:source animated:animated];
+- (void)pushArticleWithTitle:(MWKTitle*)title animated:(BOOL)animated {
+    [self pushArticleWithTitle:title restoreScrollPosition:NO animated:animated];
 }
 
-- (void)pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+- (void)pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated {
     viewController.delegate = self;
-    [[PiwikTracker sharedInstance] wmf_logView:viewController fromSource:source];
+    [[PiwikTracker sharedInstance] wmf_logView:viewController];
     [self.internalNavigationController pushViewController:viewController animated:animated];
 }
 
@@ -334,7 +331,7 @@ BOOL useSingleBrowserController() {
     articleViewController.restoreScrollPositionOnArticleLoad = YES;
     self.currentViewController                               = articleViewController;
     self.currentIndex                                        = nextIndex;
-    [self pushArticleViewController:articleViewController source:nil animated:YES];
+    [self pushArticleViewController:articleViewController animated:YES];
 }
 
 - (NSUInteger)previousIndex {
@@ -429,6 +426,8 @@ BOOL useSingleBrowserController() {
     } else {
         self.saveButtonController.title = [[self currentViewController] articleTitle];
     }
+
+    self.saveButtonController.analyticsContext = [self currentViewController];
 
     NSArray<UIBarButtonItem*>* toolbarItems =
         [NSArray arrayWithObjects:
@@ -561,30 +560,30 @@ BOOL useSingleBrowserController() {
 
 @implementation UIViewController (WMFArticlePresentation)
 
-- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore restoreScrollPosition:(BOOL)restoreScrollPosition animated:(BOOL)animated {
     WMFArticleViewController* vc = [[WMFArticleViewController alloc] initWithArticleTitle:title dataStore:dataStore];
     vc.restoreScrollPositionOnArticleLoad = restoreScrollPosition;
-    [self wmf_pushArticleViewController:vc source:source animated:animated];
+    [self wmf_pushArticleViewController:vc animated:animated];
 }
 
-- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
-    [self wmf_pushArticleWithTitle:title dataStore:dataStore restoreScrollPosition:NO source:source animated:animated];
+- (void)wmf_pushArticleWithTitle:(MWKTitle*)title dataStore:(MWKDataStore*)dataStore animated:(BOOL)animated {
+    [self wmf_pushArticleWithTitle:title dataStore:dataStore restoreScrollPosition:NO animated:animated];
 }
 
 /**
  *  HACK:// need to support multiple navigation schemes, so its easiest to just interrogate the stack for known situations.
  *  When removing one of the navigation options, this can be cleaned up
  */
-- (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:(nullable id<WMFAnalyticsLogging>)source animated:(BOOL)animated {
+- (void)wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated {
     if (useSingleBrowserController()) {
         if ([self isKindOfClass:[WMFArticleViewController class]] && [[self.navigationController parentViewController] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-            [(WMFArticleBrowserViewController*)[self.navigationController parentViewController] pushArticleViewController:viewController source:source animated:animated];
+            [(WMFArticleBrowserViewController*)[self.navigationController parentViewController] pushArticleViewController:viewController animated:animated];
         } else if ([self isKindOfClass:[WMFArticleBrowserViewController class]]) {
-            [(WMFArticleBrowserViewController*)self pushArticleViewController:viewController source:source animated:animated];
+            [(WMFArticleBrowserViewController*)self pushArticleViewController:viewController animated:animated];
         } else if ([[self presentedViewController] isKindOfClass:[WMFArticleBrowserViewController class]]) {
-            [(WMFArticleBrowserViewController*)[self presentedViewController] pushArticleViewController:viewController source:source animated:animated];
+            [(WMFArticleBrowserViewController*)[self presentedViewController] pushArticleViewController:viewController animated:animated];
         } else {
-            [self presentViewController:[WMFArticleBrowserViewController browserViewControllerWithArticleViewController:viewController source:source] animated:animated completion:NULL];
+            [self presentViewController:[WMFArticleBrowserViewController browserViewControllerWithArticleViewController:viewController] animated:animated completion:NULL];
         }
     } else {
         if (self.navigationController != nil) {
@@ -594,7 +593,7 @@ BOOL useSingleBrowserController() {
         } else {
             NSAssert(0, @"Unexpected view controller hierarchy");
         }
-        [[PiwikTracker sharedInstance] wmf_logView:viewController fromSource:source];
+        [[PiwikTracker sharedInstance] wmf_logView:viewController];
 
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
             MWKHistoryList* historyList = viewController.dataStore.userDataStore.historyList;

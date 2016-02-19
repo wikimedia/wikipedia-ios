@@ -1,5 +1,6 @@
 
 #import <UIKit/UIKit.h>
+#import "WMFAnalyticsLogging.h"
 
 @class MWKArticle;
 @class MWKLanguageLink;
@@ -15,7 +16,7 @@
 
 @end
 
-@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface LanguagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, WMFAnalyticsContentTypeProviding>
 
 /**
  *  Article title must be set before the view controller is displayed.

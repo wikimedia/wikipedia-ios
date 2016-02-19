@@ -1,5 +1,7 @@
 @import UIKit;
 
+#import "WMFAnalyticsLogging.h"
+
 @class MWKSite;
 @class MWKDataStore;
 @class MWKSavedPageList;
@@ -7,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFExploreViewController : UITableViewController
+@interface WMFExploreViewController : UITableViewController<WMFAnalyticsViewNameProviding>
 
 @property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;

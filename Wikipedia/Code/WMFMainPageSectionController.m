@@ -117,7 +117,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Main Page";
 }
 

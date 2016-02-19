@@ -1,4 +1,5 @@
 #import "WMFSearchViewController.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
@@ -46,12 +47,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController* resultsListController;
 
+@property (strong, nonatomic) IBOutlet UIView* searchFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField* searchField;
+@property (strong, nonatomic) IBOutlet UIView* searchContentContainer;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet UIView* separatorView;
 @property (weak, nonatomic) IBOutlet UIButton* closeButton;
+@property (strong, nonatomic) IBOutlet UIView* languageBarContainer;
 @property (strong, nonatomic) IBOutlet UIButton* languageOneButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageTwoButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageThreeButton;
@@ -171,24 +175,40 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureLanguageButtons {
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        obj.tintColor = [UIColor wmf_blueTintColor];
-    }];
+    if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
+        [self.view addSubview:self.languageBarContainer];
+        [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+            make.leading.and.trailing.equalTo(self.searchFieldContainer);
+        }];
+        [self.searchContentContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.languageBarContainer.mas_bottom);
+        }];
 
-    UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-    UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
-    [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
-    [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
-    [self.otherLanguagesButton.layer setCornerRadius:2.0f];
-    [self.otherLanguagesButton setClipsToBounds:YES];
+        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            obj.tintColor = [UIColor wmf_blueTintColor];
+        }];
 
-    [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
-    self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
+        UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+        UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
+        [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+        [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
+        [self.otherLanguagesButton.layer setCornerRadius:2.0f];
+        [self.otherLanguagesButton setClipsToBounds:YES];
 
-    [self.otherLanguagesButton sizeToFit];
+        [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
+        self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
-    [self updateLanguageButtonsToPreferredLanguages];
-    [self selectLanguageForSite:self.searchSite];
+        [self.otherLanguagesButton sizeToFit];
+
+        [self updateLanguageButtonsToPreferredLanguages];
+        [self selectLanguageForSite:self.searchSite];
+    } else {
+        [self.languageBarContainer removeFromSuperview];
+        [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+        }];
+    }
 }
 
 #pragma mark - UIViewController
@@ -212,6 +232,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    [self configureLanguageButtons];
+
     self.previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 
@@ -226,6 +249,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -589,9 +613,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+    //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
     }];
 }
 
@@ -601,9 +626,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+    //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
     }];
 }
 
@@ -616,8 +642,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContext {
     return @"Search";
+}
+
+- (NSString*)analyticsName {
+    return [self analyticsContext];
 }
 
 @end

@@ -10,18 +10,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)wmf_start;
 
-- (void)wmf_logView:(id<WMFAnalyticsLogging>)view fromSource:(nullable id<WMFAnalyticsLogging>)source;
+- (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view;
 
-- (void)wmf_logActionPreviewFromSource:(nullable id<WMFAnalyticsLogging>)source;
-- (void)wmf_logActionPreviewDismissedFromSource:(nullable id<WMFAnalyticsLogging>)source;
-- (void)wmf_logActionPreviewCommittedFromSource:(nullable id<WMFAnalyticsLogging>)source;
+- (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
+- (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
+- (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 
-- (void)wmf_logActionSaveTitleFromSource:(nullable id<WMFAnalyticsLogging>)source;
-- (void)wmf_logActionUnsaveTitleFromSource:(nullable id<WMFAnalyticsLogging>)source;
+- (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 
-- (void)wmf_logActionScrollToItemInExploreSection:(id<WMFAnalyticsLogging>)section;
-- (void)wmf_logActionOpenItemInExploreSection:(id<WMFAnalyticsLogging>)section;
-- (void)wmf_logActionOpenMoreInExploreSection:(id<WMFAnalyticsLogging>)section;
+- (void)wmf_logActionSaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
+- (void)wmf_logActionUnsaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
+- (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType;
 
 
 @end

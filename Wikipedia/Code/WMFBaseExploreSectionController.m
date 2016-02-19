@@ -189,6 +189,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
             return self.items;
         }).catch(^(NSError* error){
             @strongify(self);
+            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
             self.fetcherPromise = nil;
             self.fetchError = error;
             self.fetchedItems = nil;
@@ -312,6 +313,10 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 - (void)replaceItemsAtIndexes:(NSIndexSet*)indexes withItems:(NSArray*)array {
     [_mutableItems replaceObjectsAtIndexes:indexes withObjects:array];
+}
+
+- (NSString*)analyticsContext {
+    return @"Explore";
 }
 
 @end

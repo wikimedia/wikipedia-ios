@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol WMFExploreSectionController <WMFAnalyticsLogging>
+@protocol WMFExploreSectionController <WMFAnalyticsContentTypeProviding>
 
 /**
  *  The items of the section. Must be KVO-able

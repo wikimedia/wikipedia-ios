@@ -11,14 +11,13 @@
 #import "WMFLocationManager.h"
 #import "WMFAssetsFile.h"
 #import "WMFRelatedSectionBlackList.h"
+#import "NSDate+WMFMostReadDate.h"
+#import "NSCalendar+WMFCommonCalendars.h"
 
 @import Tweaks;
 @import CoreLocation;
 
 NS_ASSUME_NONNULL_BEGIN
-
-static NSUInteger const WMFMaximumNumberOfHistoryAndSavedSections = 20;
-static NSUInteger const WMFMaximumNumberOfFeaturedSections        = 10;
 
 static NSTimeInterval const WMFHomeMinimumAutomaticReloadTime      = 600.0; //10 minutes
 static NSTimeInterval const WMFTimeBeforeDisplayingLastReadArticle = 24 * 60 * 60; //24 hours
@@ -120,6 +119,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  */
 - (void)reset {
     NSMutableArray<WMFExploreSection*>* startingSchema = [[WMFExploreSectionSchema startingSchema] mutableCopy];
+
+    [startingSchema addObject:[self newMostReadSectionWithLatestPopulatedDate]];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
 
@@ -228,11 +229,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return [self updateContinueReading];
     }
 
+
     //Get updated static sections
     NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
 
     //Add featured articles
     [sections addObjectsFromArray:[self featuredSections]];
+
+    [sections addObjectsFromArray:[self mostReadSectionsWithUpdateIfNeeded]];
 
     //Add Saved and History
     NSArray<WMFExploreSection*>* recent = [self historyAndSavedPageSections];
@@ -269,23 +273,43 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     WMFExploreSection* oldNearby = [self existingNearbySection];
 
     // Check distance to old location
-    if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby) {
+    if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
         return;
     }
 
     // Check if already updated today
-    if (oldNearby.location && [oldNearby.dateCreated isToday]) {
+    if (oldNearby.location && [oldNearby.dateCreated isToday] && oldNearby.placemark != nil) {
         return;
     }
 
-    NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
-    [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
-        return obj.type == WMFExploreSectionTypeNearby;
+    @weakify(self);
+    [self reverseGeocodeLocation:location completionHandler:^(CLPlacemark* _Nullable placemark) {
+        dispatchOnMainQueue(^{
+            @strongify(self);
+            NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+            [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+                return obj.type == WMFExploreSectionTypeNearby;
+            }];
+
+            [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
+
+            [self updateSections:sections];
+        });
     }];
+}
 
-    [sections wmf_safeAddObject:[self nearbySectionWithLocation:location]];
+typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
-    [self updateSections:sections];
+- (void)reverseGeocodeLocation:(CLLocation*)location completionHandler:(nonnull WMFGeocodeCompletionHandler)completionHandler {
+    CLGeocoder* gc = [[CLGeocoder alloc] init];
+    [gc reverseGeocodeLocation:location completionHandler:^(NSArray < CLPlacemark* > * _Nullable placemarks, NSError* _Nullable error) {
+        if (error) {
+            completionHandler(nil);
+            return;
+        }
+
+        completionHandler([placemarks firstObject]);
+    }];
 }
 
 - (void)removeNearbySection {
@@ -358,6 +382,49 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Daily Sections
 
+/**
+ *  Retrieve an updated list of "most read" sections, incorporating prior ones.
+ *
+ *  Selects all "most read" sections from the receiver and, if possible, appends an additional section for the most
+ *  recent data from the current site.
+ *
+ *  @return An array of "most read" sections that should be in an updated version of the receiver.
+ */
+- (NSArray<WMFExploreSection*>*)mostReadSectionsWithUpdateIfNeeded {
+    NSMutableArray<WMFExploreSection*>* mostReadSections = [[self.sections bk_select:^BOOL (WMFExploreSection* section) {
+        return section.type == WMFExploreSectionTypeMostRead;
+    }] mutableCopy];
+
+    WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
+
+    BOOL containsLatestSectionEquivalent = [mostReadSections bk_any:^BOOL (WMFExploreSection* mostReadSection) {
+        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar] compareDate:mostReadSection.dateCreated
+                                                                            toDate:latestMostReadSection.dateCreated
+                                                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+        BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
+        return matchesDay && matchesSite;
+    }];
+
+    if (!containsLatestSectionEquivalent) {
+        [mostReadSections addObject:latestMostReadSection];
+    }
+
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of most read", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead]);
+
+    //Sort by date
+    [mostReadSections sortWithOptions:NSSortStable
+                      usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+        return -[obj1.dateCreated compare:obj2.dateCreated];
+    }];
+
+    return [mostReadSections wmf_arrayByTrimmingToLength:max];
+}
+
+- (nullable WMFExploreSection*)newMostReadSectionWithLatestPopulatedDate {
+    return [WMFExploreSection mostReadSectionForDate:[NSDate wmf_latestMostReadDataWithLikelyAvailableData]
+                                                site:self.site];
+}
+
 - (NSArray<WMFExploreSection*>*)featuredSections {
     NSArray* existingFeaturedArticleSections = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeFeaturedArticle;
@@ -376,7 +443,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
-    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", WMFMaximumNumberOfFeaturedSections);
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of featured", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle]);
 
     //Sort by date
     [featured sortWithOptions:NSSortStable
@@ -412,11 +479,12 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 }
 
-- (WMFExploreSection*)nearbySectionWithLocation:(nullable CLLocation*)location {
-    if ([WMFLocationManager isDeniedOrDisabled]) {
+- (nullable WMFExploreSection*)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark {
+    NSParameterAssert(location);
+    if (!location || [WMFLocationManager isDeniedOrDisabled]) {
         return nil;
     }
-    return [WMFExploreSection nearbySectionWithLocation:location];
+    return [WMFExploreSection nearbySectionWithLocation:location placemark:placemark];
 }
 
 - (WMFExploreSection*)mainPageSection {
@@ -464,7 +532,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 - (NSArray<WMFExploreSection*>*)historyAndSavedPageSections {
     NSMutableArray<WMFExploreSection*>* sections = [NSMutableArray array];
 
-    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", WMFMaximumNumberOfHistoryAndSavedSections);
+    NSUInteger max = FBTweakValue(@"Explore", @"Sections", @"Max number of history/saved", [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] + [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeHistory]);
 
     NSArray<WMFExploreSection*>* saved   = [self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:max];
     NSArray<WMFExploreSection*>* history = [self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved maxLength:max];

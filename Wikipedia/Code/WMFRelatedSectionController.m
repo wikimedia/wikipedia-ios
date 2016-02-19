@@ -122,15 +122,16 @@ static NSUInteger const WMFRelatedSectionMaxResults      = 3;
     [cell setImageURL:item.thumbnailURL];
     [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    cell.saveButtonController.analyticsSource = self;
+    cell.saveButtonController.analyticsContext     = self;
+    cell.saveButtonController.analyticsContentType = self;
 }
 
 - (CGFloat)estimatedRowHeight {
     return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
-    return @"Related";
+- (NSString*)analyticsContentType {
+    return @"Recommended";
 }
 
 - (AnyPromise*)fetchData {

@@ -1,5 +1,6 @@
 
 #import "WMFWelcomeLanguageViewController_Testing.h"
+#import "Wikipedia-Swift.h"
 #import "WMFWelcomeLanguageTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLink.h"
@@ -26,6 +27,15 @@
     [self.nextStepButton setTitle:MWLocalizedString(@"welcome-languages-button-title", nil) forState:UIControlStateNormal];
     self.footnoteLabel.text = MWLocalizedString(@"welcome-languages-footnote-text", nil);
     [self.howThisWorksButton setTitle:MWLocalizedString(@"welcome-languages-more-info-button-text", nil) forState:UIControlStateNormal];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:YES];
+    } else {
+        [[NSUserDefaults standardUserDefaults] wmf_setShowSearchLanguageBar:NO];
+    }
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
@@ -55,7 +65,7 @@
     WMFWelcomeLanguageTableViewCell* cell = (id)[tableView dequeueReusableCellWithIdentifier:[WMFWelcomeLanguageTableViewCell wmf_nibName]
                                                                                 forIndexPath:indexPath];
     MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
-    cell.numberLabel.text       = [NSString stringWithFormat:@"%li", indexPath.row + 1];
+    cell.numberLabel.text       = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
     cell.languageNameLabel.text = langLink.localizedName;
 
     //can only delete non-OS languages
