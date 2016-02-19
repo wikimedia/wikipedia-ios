@@ -72,6 +72,12 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 
 #pragma mark - WMFBaseExploreSectionController
 
+- (BOOL)containsPlaceholders {
+    return [self.items bk_all:^BOOL(id obj) {
+        return [obj isKindOfClass:[NSNumber class]];
+    }];
+}
+
 - (MWKSavedPageList*)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
 }
