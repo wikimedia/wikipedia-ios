@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -26,9 +27,9 @@
                         </variation>
                     </imageView>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="750" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC6-LC-20b" userLabel="Save Button" customClass="WMFTitleInsetRespectingButton">
-                        <rect key="frame" x="18" y="375" width="119" height="25"/>
+                        <rect key="frame" x="13" y="372" width="341" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" priority="999" constant="25" id="AEV-vl-3YX"/>
+                            <constraint firstAttribute="height" priority="999" constant="40" id="AEV-vl-3YX"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="nQE-Ht-SAz"/>
                         </constraints>
                         <color key="tintColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,12 +46,13 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="pC6-LC-20b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="1vd-Gr-Mmq"/>
+                    <constraint firstItem="pC6-LC-20b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="1vd-Gr-Mmq"/>
                     <constraint firstItem="RoZ-Ue-BfV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8hK-JT-Orq"/>
                     <constraint firstAttribute="trailing" secondItem="RoZ-Ue-BfV" secondAttribute="trailing" id="FFH-2w-PSs"/>
                     <constraint firstItem="RoZ-Ue-BfV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="FbC-nC-GOz"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="pC6-LC-20b" secondAttribute="trailing" constant="13" id="dM5-an-jcD"/>
                     <constraint firstAttribute="bottom" secondItem="RoZ-Ue-BfV" secondAttribute="bottom" id="sCD-Go-kVG"/>
-                    <constraint firstAttribute="bottom" secondItem="pC6-LC-20b" secondAttribute="bottom" constant="20" id="v65-6H-bIH"/>
+                    <constraint firstAttribute="bottom" secondItem="pC6-LC-20b" secondAttribute="bottom" constant="8" id="v65-6H-bIH"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -61,7 +63,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="article-card-placeholder" width="375" height="420"/>
+        <image name="article-card-placeholder" width="375" height="416"/>
         <image name="save-mini" width="12" height="17"/>
     </resources>
 </document>
