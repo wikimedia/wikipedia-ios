@@ -213,6 +213,8 @@ NS_ASSUME_NONNULL_BEGIN
                                              selector:@selector(tweaksDidChangeWithNotification:)
                                                  name:FBTweakShakeViewControllerDidDismissNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchLanguageDidChangeWithNotification:) name:[NSUserDefaults WMFSearchLanguageDidChangeNotification] object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -282,7 +284,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateSectionSchemaIfNeeded];
 }
 
-#pragma mark - Tweaks
+- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
+    [self createSectionSchemaIfNeeded];
+    [self.schemaManager updateSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]];
+}
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
     [self updateSectionSchemaIfNeeded];
@@ -553,7 +558,6 @@ NS_ASSUME_NONNULL_BEGIN
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
-    [self updateSectionSchemaForce:NO];
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
     [self.tableView reloadData];
