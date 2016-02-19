@@ -2,7 +2,7 @@
 
 Hpple: A nice Objective-C wrapper on the XPathQuery library for parsing HTML.
 
-Inspired by why the lucky stiff's [Hpricot](http://github.com/why/hpricot/tree/master).
+Inspired by why the lucky stiff's [Hpricot](https://github.com/why/hpricot/tree/master).
 
 # CREDITS
 
