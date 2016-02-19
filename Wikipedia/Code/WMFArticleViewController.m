@@ -669,6 +669,7 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
         [self hideProgressViewAnimated:YES];
+        [self.delegate articleControllerDidLoadArticle:self];
 
         MWKArticle* cachedFallback = error.userInfo[WMFArticleFetcherErrorCachedFallbackArticleKey];
         if (cachedFallback) {
