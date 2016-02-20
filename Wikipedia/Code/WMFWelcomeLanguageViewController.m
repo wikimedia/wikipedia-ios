@@ -75,7 +75,7 @@
         cell.deleteButtonTapped = ^{
             MWKLanguageLink* langLink = [MWKLanguageLinkController sharedInstance].preferredLanguages[indexPath.row];
             [[MWKLanguageLinkController sharedInstance] removePreferredLanguage:langLink];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView reloadData];
         };
     }
     return cell;
