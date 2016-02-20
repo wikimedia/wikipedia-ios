@@ -45,20 +45,6 @@
     }
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    [self lockTableViewIfContentFits];
-}
-
-- (void)lockTableViewIfContentFits {
-    //Don't make it scroll unless we have to (rare to have so many languages)
-    if (self.languageTableView.contentSize.height < self.languageTableView.frame.size.height) {
-        self.languageTableView.scrollEnabled = NO;
-    } else {
-        self.languageTableView.scrollEnabled = YES;
-    }
-}
-
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
     return [[MWKLanguageLinkController sharedInstance].preferredLanguages count];
 }
