@@ -78,17 +78,14 @@
     NSMutableSet* set = [activity.keywords mutableCopy];
     [set addObjectsFromArray:[article.title.text componentsSeparatedByString:@" "]];
     activity.keywords = set;
+    activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60*60*24*30];
 
-    CSSearchableItemAttributeSet* attributes = [[CSSearchableItemAttributeSet alloc] initWithItemContentType:(NSString*)kUTTypeContent];
-    if (article.imageURL) {
-        NSURL* url = [NSURL URLWithString:article.imageURL];
-        attributes.thumbnailData = [[WMFImageController sharedInstance] diskDataForImageWithURL:url];
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
+        attributes.relatedUniqueIdentifier = [article.title.mobileURL absoluteString];
+        activity.contentAttributeSet       = attributes;
     }
-    attributes.contentDescription      = article.entityDescription;
-    attributes.contentType             = (__bridge NSString * _Nullable)(kUTTypeItem);
-    attributes.relatedUniqueIdentifier = [article.title.mobileURL absoluteString];
 
-    activity.contentAttributeSet = attributes;
     return activity;
 }
 
