@@ -62,9 +62,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - File Info
 
-@property (nonatomic, strong) UIButton* infoButton;
+@property (nonatomic, strong) UIButton* shareButton;
 
-- (void)updateInfoButtonVisibility;
+- (void)updateShareButtonVisibility;
 
 #pragma mark - Chrome
 
@@ -271,13 +271,14 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         make.top.equalTo(self.view.mas_top);
     }];
 
-    self.infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [self.infoButton addTarget:self action:@selector(didTapInfoButton) forControlEvents:UIControlEventTouchUpInside];
-    self.infoButton.tintColor = [UIColor whiteColor];
-    // NOTE(bgerstle): info button starts hidden, and is conditionally revealed once info is downloaded for the current image
-    self.infoButton.hidden = YES;
-    [self.view addSubview:self.infoButton];
-    [self.infoButton mas_makeConstraints:^(MASConstraintMaker* make) {
+    self.shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.shareButton setImage:[UIImage imageNamed:@"share-mini"] forState:UIControlStateNormal];
+    [self.shareButton addTarget:self action:@selector(didTapShareButton) forControlEvents:UIControlEventTouchUpInside];
+    self.shareButton.tintColor = [UIColor whiteColor];
+    // NOTE(bgerstle): share button starts hidden, and is conditionally revealed once info is downloaded for the current image
+    self.shareButton.hidden = YES;
+    [self.view addSubview:self.shareButton];
+    [self.shareButton mas_makeConstraints:^(MASConstraintMaker* make) {
         make.width.and.height.mas_equalTo(60.f);
         make.centerY.equalTo(self.closeButton);
         make.trailing.and.top.equalTo(self.view);
@@ -293,7 +294,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     chromeTapGestureRecognizer.delegate             = self;
 
     // NOTE(bgerstle): recognizer must be added to collection view so as to not disrupt interactions w/ overlay UI
-    [self.collectionView addGestureRecognizer:chromeTapGestureRecognizer];
+    [self.view addGestureRecognizer:chromeTapGestureRecognizer];
     _chromeTapGestureRecognizer = chromeTapGestureRecognizer;
 
     self.collectionView.backgroundColor = [UIColor blackColor];
@@ -337,7 +338,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
                     animations:^{
         self.topGradientView.hidden = [self isChromeHidden];
         self.closeButton.hidden = [self isChromeHidden];
-        [self updateInfoButtonVisibility];
+        [self updateShareButtonVisibility];
         for (NSIndexPath* indexPath in self.collectionView.indexPathsForVisibleItems) {
             [self updateDetailVisibilityForCellAtIndexPath:indexPath animated:NO];
         }
@@ -369,11 +370,45 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - File Info
 
-- (void)updateInfoButtonVisibility {
+- (void)updateShareButtonVisibility {
     NSIndexPath* visibleIndexPath = [NSIndexPath indexPathForItem:self.currentPage inSection:0];
-    self.infoButton.hidden =
+    self.shareButton.hidden =
         self.isChromeHidden
         || [[self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath] filePageURL] == nil;
+}
+
+- (void)didTapShareButton{
+    NSAssert(self.collectionView.indexPathsForVisibleItems.count == 1,
+             @"Expected paging collection view to only have one visible item at time, got %@",
+             self.collectionView.indexPathsForVisibleItems);
+    NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
+    MWKImageInfo* info = [self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath];
+
+    @weakify(self);
+    [[WMFImageController sharedInstance] fetchImageWithURL:info.imageThumbURL].then(^(WMFImageDownload* _Nullable download){
+        @strongify(self);
+        
+        NSMutableArray* items = [NSMutableArray array];
+        
+        if (download.image) {
+            [items addObject:download.image];
+        }
+        
+        NSMutableString* text = [NSMutableString string];
+        
+        if (info.filePageURL) {
+            [text appendFormat:@"Licence: %@", [info.filePageURL absoluteString]];
+        }
+        
+        UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+        
+        [self presentViewController:vc animated:YES completion:NULL];
+    }).catch(^(NSError* error){
+        [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
+    })
+;
+
+    
 }
 
 - (void)didTapInfoButton {
@@ -389,6 +424,38 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - UIGestureRecognizerDelegate
 
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    
+    if(gestureRecognizer != self.chromeTapGestureRecognizer){
+        return YES;
+    }
+    
+    WMFImageGalleryCollectionViewCell* cell = (WMFImageGalleryCollectionViewCell*)[[self.collectionView visibleCells] firstObject];
+    if(!cell){
+        return YES;
+    }
+    
+    CGPoint location = [gestureRecognizer locationInView:self.view];
+    if(CGRectContainsPoint(self.closeButton.frame, location)){
+        return NO;
+    }
+    
+    if(CGRectContainsPoint(self.shareButton.frame, location)){
+        return NO;
+    }
+    
+    location = [gestureRecognizer locationInView:cell.detailOverlayView];
+    if(CGRectContainsPoint(cell.detailOverlayView.ownerButton.frame, location)){
+        return NO;
+    }
+    
+    if(CGRectContainsPoint(cell.detailOverlayView.infoButton.frame, location)){
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (BOOL)                             gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer
     shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer*)otherGestureRecognizer {
     return gestureRecognizer != self.chromeTapGestureRecognizer;
@@ -403,7 +470,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 - (void)primitiveSetCurrentPage:(NSUInteger)page {
     [super primitiveSetCurrentPage:page];
-    [self updateInfoButtonVisibility];
+    [self updateShareButtonVisibility];
 }
 
 #pragma mark - CollectionView
@@ -445,6 +512,9 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
         cell.detailOverlayView.ownerTapCallback = ^{
             [self wmf_openExternalUrl:infoForImage.license.URL];
+        };
+        cell.detailOverlayView.infoTapCallback = ^{
+            [self didTapInfoButton];
         };
     }
 
@@ -606,7 +676,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (void)modalGalleryDataSource:(id<WMFModalImageGalleryDataSource>)dataSource
          updatedItemsAtIndexes:(NSIndexSet*)indexes {
     [self.loadingIndicator stopAnimating];
-    [self updateInfoButtonVisibility];
+    [self updateShareButtonVisibility];
     /*
        NOTE: Do not call `reloadItemsAtIndexPaths:` because that will cause an infinite loop with the collection view
        reloading the cell, which asks the dataSource to fetch data, which triggers this method, which reloads the cell...
