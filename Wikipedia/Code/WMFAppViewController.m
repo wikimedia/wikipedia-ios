@@ -86,6 +86,7 @@ static dispatch_once_t launchToken;
 @property (nonatomic, strong) SavedArticlesFetcher* savedArticlesFetcher;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
+@property (nonatomic, strong) WMFSavedPageSpotlightManager* spotlightManager;
 
 @property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
 @property (nonatomic, strong) void (^ shortcutCompletion)(BOOL succeeded);
@@ -242,6 +243,9 @@ static dispatch_once_t launchToken;
         @strongify(self)
         [self.imageMigration setupAndStart];
         [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+        }
         [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
             @strongify(self)
             [self loadMainUI];
