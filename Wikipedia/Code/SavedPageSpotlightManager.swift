@@ -34,6 +34,7 @@ public extension CSSearchableItemAttributeSet {
     }
 }
 
+@available(iOS 9.0, *)
 
 public class WMFSavedPageSpotlightManager: NSObject {
     
@@ -52,48 +53,59 @@ public class WMFSavedPageSpotlightManager: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didSaveTitle:", name: MWKSavedPageListDidSaveNotification, object: nil)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didUnsaveTitle:", name: MWKSavedPageListDidUnsaveNotification, object: nil)
-
+        
+    }
+    
+    public func reindexSavedPages() {
+        for element in savedPageList.entries {
+            if let element = element as? MWKSavedPageEntry {
+                addToIndex(element.title)
+            }
+        }
     }
     
     func didSaveTitle(notification: NSNotification){
         if let title = notification.userInfo?[MWKTitleKey] as? MWKTitle {
-            // CSSearchableItemAttributes for bill data
-            if #available(iOS 9.0, *) {
-                if let article = dataStore.existingArticleWithTitle(title) {
-                    
-                    let searchableItemAttributes = CSSearchableItemAttributeSet.attributes(article)
-                    searchableItemAttributes.keywords?.append("Saved")
-                    
-                    let item = CSSearchableItem(uniqueIdentifier: article.title.mobileURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
-                    item.expirationDate = NSDate.distantFuture()
-
-                    CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
-                        if let error = error {
-                            print("Indexing error: \(error.localizedDescription)")
-                        } else {
-                            print("Search item successfully indexed!")
-                        }
-                    }
-
-                }
-            }
+            addToIndex(title)
         }
     }
 
     func didUnsaveTitle(notification: NSNotification){
         if let title = notification.userInfo?[MWKTitleKey] as? MWKTitle {
-            if #available(iOS 9.0, *) {
-                CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.mobileURL.absoluteString]) { (error: NSError?) -> Void in
-                    if let error = error {
-                        print("Deindexing error: \(error.localizedDescription)")
-                    } else {
-                        print("Search item successfully removed!")
-                    }
+            removeFromIndex(title)
+        }
+    }
+    
+    func addToIndex(title: MWKTitle) {
+        if let article = dataStore.existingArticleWithTitle(title) {
             
+            let searchableItemAttributes = CSSearchableItemAttributeSet.attributes(article)
+            searchableItemAttributes.keywords?.append("Saved")
+            
+            let item = CSSearchableItem(uniqueIdentifier: article.title.mobileURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+            item.expirationDate = NSDate.distantFuture()
+            
+            CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
+                if let error = error {
+                    print("Indexing error: \(error.localizedDescription)")
+                } else {
+                    print("Search item successfully indexed!")
                 }
             }
         }
     }
+    
+    func removeFromIndex(title: MWKTitle) {
+        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.mobileURL.absoluteString]) { (error: NSError?) -> Void in
+            if let error = error {
+                print("Deindexing error: \(error.localizedDescription)")
+            } else {
+                print("Search item successfully removed!")
+            }
+            
+        }
+    }
+
 }
 
 
