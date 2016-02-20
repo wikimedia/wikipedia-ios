@@ -6,6 +6,7 @@
 @import Tweaks;
 
 #import "PiwikTracker+WMFExtensions.h"
+#import "NSUserActivity+WMFExtensions.h"
 #import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
 // Sections
@@ -236,6 +237,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     [[PiwikTracker sharedInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

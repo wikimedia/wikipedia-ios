@@ -121,13 +121,17 @@
     [[NSUserDefaults standardUserDefaults] wmf_setAppBecomeActiveDate:[NSDate date]];
 }
 
+//- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray *restorableObjects))restorationHandler{
+//    
+//    
+//    
+//}
+
+
 - (void)applicationWillTerminate:(UIApplication*)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self applicationDidEnterBackground:application];
 }
 
-// TODO: fetch saved pages in the background
-//- (void)application:(UIApplication *)application
-//    performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-//}
 
 @end

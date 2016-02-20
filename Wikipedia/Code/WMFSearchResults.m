@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
-@property (nonatomic, strong, readwrite) NSArray<MWKSearchResult*>* results;
+@property (nonatomic, strong, readwrite, nullable) NSArray<MWKSearchResult*>* results;
 
 @end
 
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
     _redirectMappings = [redirectMappings copy] ? : @[];
 }
 
-- (NSArray*)results {
+- (nullable NSArray*)results {
     return _mutableResults;
 }
 

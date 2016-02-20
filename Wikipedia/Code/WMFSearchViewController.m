@@ -6,6 +6,8 @@
 
 #import "SessionSingleton.h"
 
+#import "NSUserActivity+WMFExtensions.h"
+
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 
@@ -252,6 +254,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker sharedInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -440,6 +443,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.resultsListController.dataSource = dataSource;
 
         [self updateUIWithResults:results];
+        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivityWithSearchTerm:results.searchTerm]];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm
