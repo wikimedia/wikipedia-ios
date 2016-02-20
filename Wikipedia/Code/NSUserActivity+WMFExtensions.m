@@ -52,7 +52,7 @@
 }
 
 + (instancetype)wmf_recentViewActivity {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"Recent"];
+    NSUserActivity* activity = [self wmf_pageActivityWithName:@"History"];
     return activity;
 }
 
@@ -73,16 +73,16 @@
 
     NSUserActivity* activity = [self wmf_actvityWithType:@"article"];
     activity.title      = article.displaytitle;
-    activity.webpageURL = article.title.mobileURL;
+    activity.webpageURL = article.title.desktopURL;
 
     NSMutableSet* set = [activity.keywords mutableCopy];
     [set addObjectsFromArray:[article.title.text componentsSeparatedByString:@" "]];
-    activity.keywords = set;
-    activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60*60*24*30];
+    activity.keywords       = set;
+    activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 30];
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
         CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
-        attributes.relatedUniqueIdentifier = [article.title.mobileURL absoluteString];
+        attributes.relatedUniqueIdentifier = [article.title.desktopURL absoluteString];
         activity.contentAttributeSet       = attributes;
     }
 
@@ -100,6 +100,31 @@
         activity.userInfo      = dict;
     }
     return activity;
+}
+
+- (WMFUserActivityType)wmf_type {
+    if (self.userInfo[@"WMFPage"] != nil) {
+        NSString* page = self.userInfo[@"WMFPage"];
+        if ([page isEqualToString:@"Explore"]) {
+            return WMFUserActivityTypeExplore;
+        } else if ([page isEqualToString:@"Saved"]) {
+            return WMFUserActivityTypeSavedPages;
+        } else if ([page isEqualToString:@"History"]) {
+            return WMFUserActivityTypeHistory;
+        } else if ([page isEqualToString:@"Search"]) {
+            return WMFUserActivityTypeSearch;
+        } else {
+            return WMFUserActivityTypeSettings;
+        }
+    } else if (self.userInfo[@"WMFSearchTerm"] != nil) {
+        return WMFUserActivityTypeSearchResults;
+    } else {
+        return WMFUserActivityTypeArticle;
+    }
+}
+
+- (NSString*)wmf_searchTerm {
+    return self.userInfo[@"WMFSearchTerm"];
 }
 
 @end

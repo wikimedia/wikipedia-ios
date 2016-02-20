@@ -24,7 +24,7 @@ public extension CSSearchableItemAttributeSet {
         searchableItem.subject = article.entityDescription
         searchableItem.contentDescription = article.summary()
         searchableItem.displayName = article.displaytitle
-        searchableItem.identifier = article.title.mobileURL.absoluteString
+        searchableItem.identifier = article.title.desktopURL.absoluteString
         if (article.imageURL != nil) {
             if let url = NSURL(string: article.imageURL) {
                 searchableItem.thumbnailData = WMFImageController.sharedInstance().diskDataForImageWithURL(url);
