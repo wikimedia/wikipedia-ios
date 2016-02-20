@@ -35,6 +35,7 @@
 		0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FBD1C56B3E70099B02E /* WMFBaseExploreSectionController.m */; };
 		0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */; };
 		0E4B5FC61C5BFFFB0099B02E /* WMFArticleBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */; };
+		0E568D481C78273B00E68FC1 /* SavedPageSpotlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */; };
 		0E5DC8631C6D716100C39A6F /* NSUserActivity+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */; };
 		0E7FC4631C517B00000E878B /* WMFBlacklistTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */; };
 		0E8DC0951C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E8DC0941C74F0D700622CBD /* WMFDailyStatsLoggingFunnel.m */; };
@@ -695,6 +696,7 @@
 		0E4B5FC01C5725C20099B02E /* WMFExploreSectionControllerCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFExploreSectionControllerCache.m; path = Wikipedia/Code/WMFExploreSectionControllerCache.m; sourceTree = SOURCE_ROOT; };
 		0E4B5FC41C5BFFFB0099B02E /* WMFArticleBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleBrowserViewController.h; path = Wikipedia/Code/WMFArticleBrowserViewController.h; sourceTree = SOURCE_ROOT; };
 		0E4B5FC51C5BFFFB0099B02E /* WMFArticleBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleBrowserViewController.m; path = Wikipedia/Code/WMFArticleBrowserViewController.m; sourceTree = SOURCE_ROOT; };
+		0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedPageSpotlightManager.swift; sourceTree = "<group>"; };
 		0E5DC8611C6D716100C39A6F /* NSUserActivity+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserActivity+WMFExtensions.h"; sourceTree = "<group>"; };
 		0E5DC8621C6D716100C39A6F /* NSUserActivity+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserActivity+WMFExtensions.m"; sourceTree = "<group>"; };
 		0E7FC4621C517B00000E878B /* WMFBlacklistTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFBlacklistTests.m; path = WikipediaUnitTests/Code/WMFBlacklistTests.m; sourceTree = SOURCE_ROOT; };
@@ -4617,6 +4619,7 @@
 				B0E803AA1C0CDBAD0065EBC0 /* WMFSavedPagesDataSource.m */,
 				B0E803CD1C0CDCAF0065EBC0 /* WMFSaveButtonController.h */,
 				B0E803CE1C0CDCAF0065EBC0 /* WMFSaveButtonController.m */,
+				0E568D471C78273B00E68FC1 /* SavedPageSpotlightManager.swift */,
 			);
 			name = "Saved Pages";
 			path = Wikipedia/Code;
@@ -5605,6 +5608,7 @@
 				B0E806E21C0CEB930065EBC0 /* PreviewAndSaveViewController.m in Sources */,
 				B0E808241C0CF5120065EBC0 /* NSUserDefaults+WMFExtensions.swift in Sources */,
 				B0E805951C0CE2C60065EBC0 /* ToCInteractionFunnel.m in Sources */,
+				0E568D481C78273B00E68FC1 /* SavedPageSpotlightManager.swift in Sources */,
 				B0E8068C1C0CEA060065EBC0 /* WMFArticleProtocol.m in Sources */,
 				B0E8031C1C0CD6820065EBC0 /* WMFCompassView.m in Sources */,
 				B0E804C31C0CE0B40065EBC0 /* NSArray+BKIndex.m in Sources */,
