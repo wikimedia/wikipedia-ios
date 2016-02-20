@@ -22,9 +22,10 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     // MARK: - Views
     lazy var statusBarBackground: UIView = {
-        let view = UIView(frame: CGRectZero)
-        view.frame = CGRect(x: CGRectGetMinX(self.containerView!.bounds), y: CGRectGetMinY(self.containerView!.bounds), width: CGRectGetWidth(self.containerView!.bounds), height: 20.0)
+        let view = UIView(frame: CGRect(x: CGRectGetMinX(self.containerView!.bounds), y: CGRectGetMinY(self.containerView!.bounds), width: CGRectGetWidth(self.containerView!.bounds), height: 20.0))
+        view.autoresizingMask = .FlexibleWidth
         let statusBarBackgroundBottomBorder = UIView(frame: CGRectMake(CGRectGetMinX(view.bounds), CGRectGetMaxY(view.bounds), CGRectGetWidth(view.bounds), 0.5))
+        statusBarBackgroundBottomBorder.autoresizingMask = .FlexibleWidth
         view.backgroundColor = UIColor.whiteColor()
         statusBarBackgroundBottomBorder.backgroundColor = UIColor.lightGrayColor()
         view.addSubview(statusBarBackgroundBottomBorder)
@@ -34,6 +35,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     lazy var backgroundView :UIVisualEffectView = {
         let view = UIVisualEffectView(frame: CGRectZero)
+        view.autoresizingMask = .FlexibleWidth
         view.effect = UIBlurEffect(style: .Dark)
         view.alpha = 0.0
         let tap = UITapGestureRecognizer.init()
