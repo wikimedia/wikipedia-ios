@@ -394,6 +394,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Search
 
+- (void)setSearchTerm:(NSString*)searchTerm{
+    if(searchTerm.length == 0){
+        return;
+    }
+    [self setSearchFieldText:searchTerm];
+    [self searchForSearchTerm:searchTerm];
+}
+
+
 - (MWKSite*)currentlySelectedSearchSite{
     NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if(obj.selected){

@@ -171,13 +171,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Actions
 
-- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+- (void)showSettings{
     UINavigationController* settingsContainer =
-        [[UINavigationController alloc] initWithRootViewController:
-         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+    [[UINavigationController alloc] initWithRootViewController:
+     [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
+}
+
+- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+    [self showSettings];
 }
 
 #pragma mark - UIViewController

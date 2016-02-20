@@ -7,6 +7,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (WMFSearchButton)
 
++ (WMFSearchViewController*)wmf_sharedSearchViewController;
+
 /**
  *  This datastore is passed to the search VC
  *

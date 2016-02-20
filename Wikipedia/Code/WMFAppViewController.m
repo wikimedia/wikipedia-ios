@@ -10,7 +10,7 @@
 //Utility
 #import "NSDate+Utilities.h"
 #import "MWKDataHousekeeping.h"
-
+#import "NSUserActivity+WMFExtensions.h"
 // Networking
 #import "SavedArticlesFetcher.h"
 #import "SessionSingleton.h"
@@ -234,6 +234,61 @@ static dispatch_once_t launchToken;
     }
 }
 
+#pragma mark - NSUserActivity
+
+- (BOOL)processUserActivity:(NSUserActivity*)activity {
+    switch ([activity wmf_type]) {
+        case WMFUserActivityTypeExplore:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeSavedPages:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeSaved];
+            [[self navigationControllerForTab:WMFAppTabTypeSaved] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeHistory:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeRecent];
+            [[self navigationControllerForTab:WMFAppTabTypeRecent] popToRootViewControllerAnimated:NO];
+            break;
+        case WMFUserActivityTypeSearch:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            break;
+        case WMFUserActivityTypeSearchResults:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [[self rootViewControllerForTab:WMFAppTabTypeExplore] wmf_showSearchAnimated:NO];
+            [[UIViewController wmf_sharedSearchViewController] setSearchTerm:[activity wmf_searchTerm]];
+            break;
+        case WMFUserActivityTypeArticle: {
+            MWKTitle* title = [[MWKTitle alloc] initWithURL:activity.webpageURL];
+            if(!title){
+                return NO;
+            }
+            [self showArticleForTitle:title animated:NO];
+        }
+        break;
+        case WMFUserActivityTypeSettings:
+            [self dismissViewControllerAnimated:NO completion:NULL];
+            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+            [[self navigationControllerForTab:WMFAppTabTypeExplore] popToRootViewControllerAnimated:NO];
+            [self.exploreViewController showSettings];
+            break;
+        default:
+            return NO;
+            break;
+    }
+
+
+    return YES;
+}
+
 #pragma mark - Start App
 
 - (void)startApp {
@@ -448,16 +503,20 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 #pragma mark - Last Read Article
 
+- (void)showArticleForTitle:(MWKTitle*)title animated:(BOOL)animated {
+    if (!title) {
+        return;
+    }
+    if ([[self onscreenTitle] isEqualToTitle:title]) {
+        return;
+    }
+    [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
+    [[self exploreViewController] wmf_pushArticleWithTitle:title dataStore:self.session.dataStore restoreScrollPosition:YES animated:animated];
+}
+
 - (void)showLastReadArticleAnimated:(BOOL)animated {
     MWKTitle* lastRead = [[NSUserDefaults standardUserDefaults] wmf_openArticleTitle];
-    if (lastRead) {
-        if ([[self onscreenTitle] isEqualToTitle:lastRead]) {
-            return;
-        }
-
-        [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-        [[self exploreViewController] wmf_pushArticleWithTitle:lastRead dataStore:self.session.dataStore restoreScrollPosition:YES animated:YES];
-    }
+    [self showArticleForTitle:lastRead animated:animated];
 }
 
 - (WMFArticleBrowserViewController*)currentlyDisplayedArticleBrowser {
