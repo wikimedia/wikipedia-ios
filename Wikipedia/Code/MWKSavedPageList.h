@@ -8,6 +8,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString* const MWKSavedPageListDidSaveNotification;
+extern NSString* const MWKSavedPageListDidUnsaveNotification;
+
+extern NSString* const MWKTitleKey;
+
+
 @interface MWKSavedPageList : MWKList<MWKSavedPageEntry*, MWKTitle*>
     < MWKDataStoreList >
 

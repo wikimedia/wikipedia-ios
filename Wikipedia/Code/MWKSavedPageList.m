@@ -4,6 +4,11 @@
 #import "MWKList+Subclass.h"
 #import "Wikipedia-Swift.h"
 
+NSString* const MWKSavedPageListDidSaveNotification   = @"MWKSavedPageListDidSaveNotification";
+NSString* const MWKSavedPageListDidUnsaveNotification = @"MWKSavedPageListDidUnsaveNotification";
+
+NSString* const MWKTitleKey = @"MWKTitleKey";
+
 NSString* const MWKSavedPageExportedEntriesKey       = @"entries";
 NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
@@ -91,14 +96,23 @@ NSString* const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
     if ([self isSaved:entry.title]) {
         return;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidSaveNotification object:self userInfo:@{MWKTitleKey:entry.title}];
     [self insertEntry:entry atIndex:0];
 }
 
-- (void)removeEntryWithListIndex:(id)listIndex {
+- (void)removeEntryWithListIndex:(MWKTitle*)listIndex {
     if ([[listIndex text] length] == 0) {
         return;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey:listIndex}];
     [super removeEntryWithListIndex:listIndex];
+}
+
+- (void)removeAllEntries{
+    [self.entries enumerateObjectsUsingBlock:^(MWKSavedPageEntry * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MWKSavedPageListDidUnsaveNotification object:self userInfo:@{MWKTitleKey:obj.title}];
+    }];
+    [super removeAllEntries];
 }
 
 #pragma mark - Save
