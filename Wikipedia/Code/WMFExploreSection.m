@@ -188,10 +188,10 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeFeaturedArticle:
         case WMFExploreSectionTypeMostRead:
+        case WMFExploreSectionTypeNearby:
             return 10;
             break;
         case WMFExploreSectionTypePictureOfTheDay:
-        case WMFExploreSectionTypeNearby:
         case WMFExploreSectionTypeContinueReading:
         case WMFExploreSectionTypeRandom:
         case WMFExploreSectionTypeMainPage:
