@@ -1,7 +1,7 @@
 
 import UIKit
 
-public class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
+public class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
 
     let info: MWKImageInfo
     
@@ -11,22 +11,22 @@ public class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
     }
     
     public func activityViewControllerPlaceholderItem(activityViewController: UIActivityViewController) -> AnyObject {
-        return String()
+        return NSURL()
     }
     
     public func activityViewController(activityViewController: UIActivityViewController, itemForActivityType activityType: String) -> AnyObject? {
         
-        var text: String?
-
-        if activityType == UIActivityTypePostToTwitter {
-            text = localizedStringForKeyFallingBackOnEnglish("share-on-twitter-sign-off")
-        }else if activityType == UIActivityTypePostToFacebook {
-            text = info.filePageURL.absoluteString
+        var url: NSURL?
+        
+        if activityType == UIActivityTypePostToTwitter
+        || activityType == UIActivityTypePostToWeibo
+        || activityType == UIActivityTypePostToTencentWeibo{
+            url = info.filePageURL
         }else {
-            text = nil
+            url = nil
         }
         
-        return text
+        return url
     }
-    
+
 }

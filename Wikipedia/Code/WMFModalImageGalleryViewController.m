@@ -390,12 +390,11 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         
         NSMutableArray* items = [NSMutableArray array];
         
-        if(info.filePageURL){
-            [items addObject:info.filePageURL];
-        }
-        
-        WMFImageTextActivitySource* source = [[WMFImageTextActivitySource alloc] initWithInfo:info];
-        [items addObject:source];
+        WMFImageTextActivitySource* textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
+        [items addObject:textSource];
+
+        WMFImageURLActivitySource* imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
+        [items addObject:imageSource];
         
         if (download.image) {
             [items addObject:download.image];
