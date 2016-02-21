@@ -78,6 +78,7 @@ PODS:
   - TSMessages (0.9.13):
     - HexColors (~> 2.3.0)
     - Masonry (~> 0.6)
+  - TUSafariActivity (1.0.4)
   - Tweaks (HEAD based on 2.0.0)
 
 DEPENDENCIES:
@@ -109,6 +110,7 @@ DEPENDENCIES:
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
+  - TUSafariActivity
   - Tweaks (HEAD)
 
 EXTERNAL SOURCES:
@@ -175,6 +177,7 @@ SPEC CHECKSUMS:
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
+  TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
 
 COCOAPODS: 0.39.0

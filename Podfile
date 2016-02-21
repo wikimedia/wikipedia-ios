@@ -44,6 +44,8 @@ pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
 pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
 
+pod 'TUSafariActivity'
+
 # Diagnostics
 pod 'PiwikTracker', :head
 pod 'CocoaLumberjack/Swift', '~> 2.2'
