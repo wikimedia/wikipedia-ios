@@ -390,23 +390,25 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         
         NSMutableArray* items = [NSMutableArray array];
         
+        if(info.filePageURL){
+            [items addObject:info.filePageURL];
+        }
+        
+        WMFImageTextActivitySource* source = [[WMFImageTextActivitySource alloc] initWithInfo:info];
+        [items addObject:source];
+        
         if (download.image) {
             [items addObject:download.image];
         }
         
-        NSMutableString* text = [NSMutableString string];
-        
-        if (info.filePageURL) {
-            [text appendFormat:@"Licence: %@", [info.filePageURL absoluteString]];
-        }
-        
         UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
+        vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
         
         [self presentViewController:vc animated:YES completion:NULL];
     }).catch(^(NSError* error){
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
-    })
-;
+    });
+
 
     
 }

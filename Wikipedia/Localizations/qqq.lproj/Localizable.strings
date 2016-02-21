@@ -383,3 +383,4 @@
 "explore-most-read-footer" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles when tapped.";
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
+"share-on-twitter-sign-off" = "Text placed at the end of a tweet when sharing. Contains the wikipedia twitter handle";
