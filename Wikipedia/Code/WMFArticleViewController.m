@@ -393,7 +393,7 @@ NS_ASSUME_NONNULL_BEGIN
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender){
             @strongify(self);
-            [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
+            [self shareArticleWithTextSnippet:nil fromButton:sender];
         }];
     }
     return _shareToolbarItem;
@@ -737,7 +737,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem*)button{
-    [self shareArticleWithTextSnippet:[self shareText] fromButton:button];
+    [self shareArticleWithTextSnippet:nil fromButton:button];
 }
 
 - (void)shareArticleWithTextSnippet: (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
