@@ -20,7 +20,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "PiwikTracker+WMFExtensions.h"
-#import "WMFShareOptionsController.h"
 #import "WMFShareFunnel.h"
 #import "UIToolbar+WMFStyling.h"
 
@@ -58,8 +57,6 @@ BOOL useSingleBrowserController() {
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
-
-@property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
 
 @end
 
@@ -181,18 +178,6 @@ BOOL useSingleBrowserController() {
                                                                 action:@selector(showLanguagePicker)];
     }
     return _languagesToolbarItem;
-}
-
-- (nullable WMFShareOptionsController*)shareOptionsController {
-    NSParameterAssert([[self currentViewController] article]);
-    if (![[self currentViewController] article]) {
-        return nil;
-    }
-    if (!_shareOptionsController) {
-        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:[[self currentViewController] article]
-                                                                         shareFunnel:[[self currentViewController] shareFunnel]];
-    }
-    return _shareOptionsController;
 }
 
 - (UINavigationController*)internalNavigationController {
@@ -469,13 +454,7 @@ BOOL useSingleBrowserController() {
 #pragma mark - Share
 
 - (void)showShareSheet {
-    [self showShareSheetFrombarButtonItem:self.shareToolbarItem];
-}
-
-- (void)showShareSheetFrombarButtonItem:(nullable UIBarButtonItem*)item {
-    NSString* text = [[self currentViewController] shareText];
-    [[[self currentViewController] shareFunnel] logShareButtonTappedResultingInSelection:text];
-    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:item];
+    [[self currentViewController] shareArticleFromButton:self.shareToolbarItem];
 }
 
 #pragma mark - Languages
@@ -497,10 +476,6 @@ BOOL useSingleBrowserController() {
 
 #pragma mark - WMFArticleViewControllerDelegate
 
-- (void)articleControllerDidTapShareSelectedText:(WMFArticleViewController*)controller {
-    [self showShareSheetFrombarButtonItem:nil];
-}
-
 - (void)articleController:(WMFArticleViewController*)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated {
     [self updateProgress:progress animated:animated];
 }
@@ -519,8 +494,6 @@ BOOL useSingleBrowserController() {
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
     WMFArticleViewController* vc = (WMFArticleViewController*)[self.internalNavigationController topViewController];
     vc.delegate = nil;
-
-    self.shareOptionsController = nil;
 
     if (self.currentViewController != viewController) {
         //unknown view controller being displayed

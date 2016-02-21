@@ -50,6 +50,8 @@
 #import "UIWebView+WMFTrackingView.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import <TUSafariActivity/TUSafariActivity.h>
+#import "WMFArticleTextActivitySource.h"
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
@@ -732,6 +734,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)shareAFactWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
+}
+
+- (void)shareArticleFromButton:(nullable UIBarButtonItem*)button{
+    [self shareArticleWithTextSnippet:[self shareText] fromButton:button];
+}
+
+- (void)shareArticleWithTextSnippet: (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+
+    NSMutableArray* items = [NSMutableArray array];
+    if (self.article.title.mobileURL) {
+        [items addObject:self.article.title.mobileURL];
+    }
+    
+    WMFArticleTextActivitySource* source = [[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text];
+    [items addObject:source];
+    
+    UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - Scroll Position and Fragments
