@@ -72,7 +72,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (UIImage*)headerIcon {
-    return [UIImage imageNamed:@"home-nearby"];
+    return [UIImage imageNamed:@"nearby-mini"];
 }
 
 - (UIColor*)headerIconTintColor {
