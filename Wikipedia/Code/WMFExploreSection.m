@@ -110,9 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
     return trending;
 }
 
-+ (instancetype)pictureOfTheDaySection {
++ (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type = WMFExploreSectionTypePictureOfTheDay;
+    item.dateCreated = date;
     return item;
 }
 
@@ -188,9 +189,9 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeFeaturedArticle:
         case WMFExploreSectionTypeMostRead:
+        case WMFExploreSectionTypePictureOfTheDay:
             return 10;
             break;
-        case WMFExploreSectionTypePictureOfTheDay:
         case WMFExploreSectionTypeNearby:
         case WMFExploreSectionTypeContinueReading:
         case WMFExploreSectionTypeRandom:
