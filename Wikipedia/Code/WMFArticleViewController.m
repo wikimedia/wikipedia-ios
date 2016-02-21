@@ -730,11 +730,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
-    if (text.length == 0) {
-        text = [self.article shareSnippet];
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+- (void)shareAFactWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
 }
 
@@ -795,9 +791,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
-    [self shareArticleWithTextSnippet:text fromButton:nil];
-    [self.delegate articleControllerDidTapShareSelectedText:self];
+    [self shareAFactWithTextSnippet:text fromButton:nil];
 }
+
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
     if (footerViewController == self.readMoreListViewController) {

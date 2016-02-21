@@ -360,7 +360,6 @@
 		B0E806F61C0CEBB60065EBC0 /* ReferenceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F31C0CEBB60065EBC0 /* ReferenceVC.m */; };
 		B0E806F91C0CEBC70065EBC0 /* SectionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806F81C0CEBC70065EBC0 /* SectionEditorViewController.m */; };
 		B0E807071C0CEBDA0065EBC0 /* ShareCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806FA1C0CEBDA0065EBC0 /* ShareCard.xib */; };
-		B0E807081C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806FC1C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m */; };
 		B0E807091C0CEBDA0065EBC0 /* ShareOptions.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */; };
 		B0E8070A1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806FF1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m */; };
 		B0E8070B1C0CEBDA0065EBC0 /* WMFShareCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E807011C0CEBDA0065EBC0 /* WMFShareCardViewController.m */; };
@@ -1299,8 +1298,6 @@
 		B0E806F71C0CEBC70065EBC0 /* SectionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionEditorViewController.h; path = Wikipedia/Code/SectionEditorViewController.h; sourceTree = SOURCE_ROOT; };
 		B0E806F81C0CEBC70065EBC0 /* SectionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionEditorViewController.m; path = Wikipedia/Code/SectionEditorViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E806FA1C0CEBDA0065EBC0 /* ShareCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareCard.xib; path = Wikipedia/Code/ShareCard.xib; sourceTree = SOURCE_ROOT; };
-		B0E806FB1C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareMenuSavePageActivity.h; path = Wikipedia/Code/ShareMenuSavePageActivity.h; sourceTree = SOURCE_ROOT; };
-		B0E806FC1C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareMenuSavePageActivity.m; path = Wikipedia/Code/ShareMenuSavePageActivity.m; sourceTree = SOURCE_ROOT; };
 		B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareOptions.xib; path = Wikipedia/Code/ShareOptions.xib; sourceTree = SOURCE_ROOT; };
 		B0E806FE1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFShareCardImageContainer.h; path = Wikipedia/Code/WMFShareCardImageContainer.h; sourceTree = SOURCE_ROOT; };
 		B0E806FF1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFShareCardImageContainer.m; path = Wikipedia/Code/WMFShareCardImageContainer.m; sourceTree = SOURCE_ROOT; };
@@ -3617,19 +3614,6 @@
 		BC45D5A01C330393007C72F3 /* Sharing */ = {
 			isa = PBXGroup;
 			children = (
-				B0E806FA1C0CEBDA0065EBC0 /* ShareCard.xib */,
-				B0E806FB1C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.h */,
-				B0E806FC1C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m */,
-				B0E806FD1C0CEBDA0065EBC0 /* ShareOptions.xib */,
-				B0E806FE1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.h */,
-				B0E806FF1C0CEBDA0065EBC0 /* WMFShareCardImageContainer.m */,
-				B0E807001C0CEBDA0065EBC0 /* WMFShareCardViewController.h */,
-				B0E807011C0CEBDA0065EBC0 /* WMFShareCardViewController.m */,
-				B0E807021C0CEBDA0065EBC0 /* WMFShareOptionsController.h */,
-				B0E807031C0CEBDA0065EBC0 /* WMFShareOptionsController.m */,
-				B0E807041C0CEBDA0065EBC0 /* WMFShareOptionsView.h */,
-				B0E807051C0CEBDA0065EBC0 /* WMFShareOptionsView.m */,
-				B0E807061C0CEBDA0065EBC0 /* WMFSharing.h */,
 			);
 			name = Sharing;
 			sourceTree = "<group>";
@@ -5698,7 +5682,6 @@
 				0E0361741C4485FA00FD9642 /* WMFSelfSizingArticleListTableViewController.m in Sources */,
 				B0E805961C0CE2C60065EBC0 /* WMFHamburgerMenuFunnel.m in Sources */,
 				B0E807B01C0CEFF70065EBC0 /* MWKHistoryList.m in Sources */,
-				B0E807081C0CEBDA0065EBC0 /* ShareMenuSavePageActivity.m in Sources */,
 				B0E803381C0CD7550065EBC0 /* UIViewController+WMFSearch.m in Sources */,
 				B0E804631C0CE0920065EBC0 /* AFHTTPRequestOperationManager+WMFUniqueRequests.m in Sources */,
 				B0E803991C0CDB280065EBC0 /* WMFArticleFetcher.m in Sources */,
