@@ -97,7 +97,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-@property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
@@ -369,15 +368,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _saveToolbarItem;
 }
 
-- (UIBarButtonItem*)refreshToolbarItem {
-    if (!_refreshToolbarItem) {
-        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(fetchArticle)];
-    }
-    return _refreshToolbarItem;
-}
 
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
