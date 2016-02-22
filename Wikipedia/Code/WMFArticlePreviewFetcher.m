@@ -1,22 +1,22 @@
-
 #import "WMFArticlePreviewFetcher.h"
+#import "Wikipedia-Swift.h"
 
-//AFNetworking
+#import "UIScreen+WMFImageWidth.h"
+
+// Networking
 #import "MWNetworkActivityIndicatorManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
 #import "AFHTTPRequestOperationManager+WMFDesktopRetry.h"
 #import "WMFMantleJSONResponseSerializer.h"
 #import <Mantle/Mantle.h>
-
-//Promises
-#import "Wikipedia-Swift.h"
+#import "WMFNumberOfExtractCharacters.h"
+#import "NSDictionary+WMFCommonParams.h"
+#import "WMFNetworkUtilities.h"
 
 //Models
 #import "MWKSearchResult.h"
 #import "MWKTitle.h"
 
-#import "NSDictionary+WMFCommonParams.h"
-#import "WMFNetworkUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticlePreviewRequestParameters : NSObject
 
 @property (nonatomic, strong) NSArray<MWKTitle*>* titles;
+@property (nonatomic, assign) NSUInteger extractLength;
+@property (nonatomic, assign) NSUInteger thumbnailWidth;
 
 @end
 
@@ -59,9 +61,22 @@ NS_ASSUME_NONNULL_BEGIN
     return [[self.operationManager operationQueue] operationCount] > 0;
 }
 
-- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles site:(MWKSite*)site {
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
+                                              site:(MWKSite*)site {
+    return [self fetchArticlePreviewResultsForTitles:titles
+                                                site:site
+                                       extractLength:WMFNumberOfExtractCharacters
+                                      thumbnailWidth:[[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue];
+}
+
+- (AnyPromise*)fetchArticlePreviewResultsForTitles:(NSArray<MWKTitle*>*)titles
+                                              site:(MWKSite*)site
+                                     extractLength:(NSUInteger)extractLength
+                                    thumbnailWidth:(NSUInteger)thumbnailWidth {
     WMFArticlePreviewRequestParameters* params = [WMFArticlePreviewRequestParameters new];
-    params.titles = titles;
+    params.titles         = titles;
+    params.extractLength  = extractLength;
+    params.thumbnailWidth = thumbnailWidth;
 
     @weakify(self);
     return [self.operationManager wmf_GETWithSite:site parameters:params]
@@ -72,9 +87,13 @@ NS_ASSUME_NONNULL_BEGIN
         }
         WMF_TECH_DEBT_TODO(handle case where no preview is retrieved for title)
         return [titles wmf_mapAndRejectNil:^(MWKTitle* title) {
-            return [unsortedPreviews bk_match:^BOOL (MWKSearchResult* preview){
+            MWKSearchResult* matchingPreview = [unsortedPreviews bk_match:^BOOL (MWKSearchResult* preview){
                 return [preview.displayTitle isEqualToString:title.text];
             }];
+            if (!matchingPreview) {
+                DDLogWarn(@"Couldn't find requested preview for %@. Returned previews: %@", title, unsortedPreviews);
+            }
+            return matchingPreview;
         }];
     });
 }
@@ -84,6 +103,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Internal Class Implementations
 
 @implementation WMFArticlePreviewRequestParameters
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _titles         = @[];
+        _extractLength  = WMFNumberOfExtractCharacters;
+        _thumbnailWidth = [[UIScreen mainScreen] wmf_leadImageWidthForScale].unsignedIntegerValue;
+    }
+    return self;
+}
 
 @end
 
@@ -99,12 +128,16 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSDictionary*)serializedParams:(WMFArticlePreviewRequestParameters*)params {
-    NSMutableDictionary* baseParams = [NSMutableDictionary wmf_titlePreviewRequestParameters];
+    NSMutableDictionary* baseParams =
+        [NSMutableDictionary wmf_titlePreviewRequestParametersWithExtractLength:params.extractLength
+                                                                     imageWidth:@(params.thumbnailWidth)];
     [baseParams setValuesForKeysWithDictionary:@{
          @"titles":[self barSeparatedTitlesStringFromTitles:params.titles],
-         @"exlimit": @(params.titles.count),
          @"pilimit": @(params.titles.count)
      }];
+    if (params.extractLength > 0) {
+        baseParams[@"exlimit"] = @(params.titles.count);
+    }
     return baseParams;
 }
 

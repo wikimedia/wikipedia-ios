@@ -66,6 +66,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
            appendToPreviousResults:(nullable WMFSearchResults*)previousResults
                      useDesktopURL:(BOOL)useDeskTopURL
                           resolver:(PMKResolver)resolve {
+    NSParameterAssert(site);
     NSURL* url = [site apiEndpoint:useDeskTopURL];
 
     WMFSearchRequestParameters* params = [WMFSearchRequestParameters new];
@@ -111,7 +112,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
 - (void)setNumberOfResults:(NSUInteger)numberOfResults {
     if (numberOfResults > WMFMaxSearchResultLimit) {
         DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
-                   numberOfResults, WMFMaxSearchResultLimit);
+                   (unsigned long)numberOfResults, (unsigned long)WMFMaxSearchResultLimit);
         numberOfResults = WMFMaxSearchResultLimit;
     }
     _numberOfResults = numberOfResults;

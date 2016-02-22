@@ -96,7 +96,7 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     }
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Picture of the Day";
 }
 

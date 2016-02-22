@@ -5,10 +5,15 @@ let WMFAppLaunchDateKey = "WMFAppLaunchDateKey"
 let WMFAppBecomeActiveDateKey = "WMFAppBecomeActiveDateKey"
 let WMFAppResignActiveDateKey = "WMFAppResignActiveDateKey"
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
+let WMFAppSiteKey = "Domain"
 
 
 extension NSUserDefaults {
-    
+
+    @objc public class func WMFSearchLanguageDidChangeNotification() -> String {
+        return "WMFSearchLanguageDidChangeNotification"
+    }
+
     public func wmf_dateForKey(key: String) -> NSDate? {
         return self.objectForKey(key) as? NSDate
     }
@@ -79,5 +84,65 @@ extension NSUserDefaults {
             return false
         }
     }
+    
+    public func wmf_setAppInstallDateIfNil(date: NSDate) {
+        let previous = self.wmf_appInstallDate()
+        
+        if previous == nil {
+            self.setObject(date, forKey: "AppInstallDate")
+            self.synchronize()
+        }
+    }
+    
+    public func wmf_appInstallDate() -> NSDate? {
+        if let date = self.objectForKey("AppInstallDate") as? NSDate {
+            return date
+        }else{
+            return nil
+        }
+    }
+    
+    public func wmf_appSite() -> MWKSite? {
+        if let data = self.objectForKey(WMFAppSiteKey) as? String{
+            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
+        }else{
+            return nil
+        }
+    }
+    
+    public func wmf_setAppSite(site: MWKSite) {
+        guard !site.isEqualToSite(self.wmf_appSite()) else{
+            return
+        }
+        self.setObject(site.language, forKey: WMFAppSiteKey)
+        self.synchronize()
+        NSNotificationCenter.defaultCenter().postNotificationName(NSUserDefaults.WMFSearchLanguageDidChangeNotification(), object: nil)
+    }
 
+    public func wmf_setDateLastDailyLoggingStatsSent(date: NSDate) {
+        self.setObject(date, forKey: "DailyLoggingStatsDate")
+        self.synchronize()
+    }
+
+    public func wmf_dateLastDailyLoggingStatsSent() -> NSDate? {
+        if let date = self.objectForKey("DailyLoggingStatsDate") as? NSDate {
+            return date
+        }else{
+            return nil
+        }
+    }
+
+    public func wmf_setShowSearchLanguageBar(enabled: Bool) {
+        self.setObject(NSNumber(bool: enabled), forKey: "ShowLanguageBar")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_showSearchLanguageBar() -> Bool {
+        if let enabled = self.objectForKey("ShowLanguageBar") as? NSNumber {
+            return enabled.boolValue
+        }else{
+            return false
+        }
+    }
 }

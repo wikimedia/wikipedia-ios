@@ -114,6 +114,7 @@
 "settings-title" = "Settings";
 "settings-project" = "Wikipedia project";
 "settings-support" = "Support Wikipedia";
+"settings-language-bar" = "Show languages on search";
 
 "main-menu-title" = "More";
 "main-menu-heading-about" = "About";
@@ -335,7 +336,7 @@
 
 "page-issues" = "Page issues";
 "page-similar-titles" = "Similar pages";
-"page-read-in-other-languages" = "Read in $1 languages";
+"page-read-in-other-languages" = "Available in $1 languages";
 "page-last-edited" = "Edited $1 days ago";
 "page-edit-history" = "Full edit history";
 
@@ -426,3 +427,6 @@
 "explore-random-article-heading" = "Random article";
 "explore-random-article-sub-heading" = "English Wikipedia";
 "explore-potd-heading" = "Picture of the day";
+"explore-most-read-heading" = "Top read on $1 Wikipedia";
+"explore-most-read-footer" = "All top read articles";
+"explore-most-read-more-list-title" = "Top read articles";

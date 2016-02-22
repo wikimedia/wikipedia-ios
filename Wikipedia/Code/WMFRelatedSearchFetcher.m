@@ -90,7 +90,7 @@ NSUInteger const WMFMaxRelatedSearchResultLimit = 20;
 - (void)setNumberOfResults:(NSUInteger)numberOfResults {
     if (numberOfResults > WMFMaxRelatedSearchResultLimit) {
         DDLogError(@"Illegal attempt to request %lu articles, limiting to %lu.",
-                   numberOfResults, WMFMaxRelatedSearchResultLimit);
+                   (unsigned long)numberOfResults, (unsigned long)WMFMaxRelatedSearchResultLimit);
         numberOfResults = WMFMaxRelatedSearchResultLimit;
     }
     _numberOfResults = numberOfResults;

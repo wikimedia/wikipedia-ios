@@ -25,7 +25,7 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 
 @property (nonatomic, strong, nullable) MWKSearchResult* result;
 
-@property (nonatomic, weak) WMFArticlePreviewTableViewCell* cell;
+@property (nonatomic, weak, nullable) WMFArticlePreviewTableViewCell* cell;
 
 @end
 
@@ -97,14 +97,16 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
     [cell setImageURL:item.thumbnailURL];
     [cell setSaveableTitle:[self titleForItemAtIndexPath:indexPath] savedPageList:self.savedPageList];
     [cell wmf_layoutIfNeededIfOperatingSystemVersionLessThan9_0_0];
-    cell.saveButtonController.analyticsSource = self;
+    cell.saveButtonController.analyticsContext     = self;
+    cell.saveButtonController.analyticsContentType = self;
+    self.cell                                      = cell;
 }
 
 - (CGFloat)estimatedRowHeight {
     return [WMFArticlePreviewTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Random";
 }
 

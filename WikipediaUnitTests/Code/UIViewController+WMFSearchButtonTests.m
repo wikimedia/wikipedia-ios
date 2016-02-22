@@ -87,34 +87,6 @@ afterEach(^{
 #pragma mark - Tests
 
 describe(@"search button", ^{
-    it(@"should have the same (correct) site when presented consecutively", ^{
-        presentSearchFromVCAndWait(testVC);
-
-        WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
-        dismissSearchAndWait();
-
-        presentSearchFromVCAndWait(testVC);
-
-        expect([UIViewController sharedSearchViewController]).to(equal(oldSearchVC));
-
-        expect([UIViewController sharedSearchViewController].searchSite).to(equal(oldSearchVC.searchSite));
-    });
-
-    it(@"should have correct site when presented after changes to search site", ^{
-        presentSearchFromVCAndWait(testVC);
-
-        WMFSearchViewController* oldSearchVC = [UIViewController sharedSearchViewController];
-
-        dismissSearchAndWait();
-
-        [[SessionSingleton sharedInstance] setSearchLanguage:
-         [[[SessionSingleton sharedInstance] searchLanguage] stringByAppendingString:@"a"]];
-
-        presentSearchFromVCAndWait(testVC);
-
-        expect([UIViewController sharedSearchViewController]).toNot(equal(oldSearchVC));
-    });
-
     it(@"should be presentable from different view controllers", ^{
         presentSearchFromVCAndWait(testVC);
 

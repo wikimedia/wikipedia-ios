@@ -56,7 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFExploreViewController ()
 <WMFExploreSectionSchemaDelegate,
  UIViewControllerPreviewingDelegate,
- WMFAnalyticsLogging>
+ WMFAnalyticsContextProviding,
+ WMFAnalyticsViewNameProviding>
 
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* recentPages;
@@ -69,7 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isWaitingForNetworkToReconnect;
 
-@property (nonatomic, assign) BOOL isPreviewing;
 @property (nonatomic, strong, nullable) id<WMFExploreSectionController> sectionOfPreviewingTitle;
 
 @end
@@ -125,31 +125,10 @@ NS_ASSUME_NONNULL_BEGIN
                                            action:@selector(didTapSettingsButton:)];
 }
 
-- (void)setSearchSite:(MWKSite*)searchSite {
-    NSParameterAssert(self.dataStore);
-    [self setSearchSite:self.searchSite dataStore:self.dataStore];
-}
-
-- (void)setSearchSite:(MWKSite* __nonnull)searchSite dataStore:(MWKDataStore* _Nonnull)dataStore {
-    if ([_searchSite isEqualToSite:searchSite]) {
-        return;
-    }
-
-    NSParameterAssert(searchSite);
-    NSParameterAssert(dataStore);
-
-    _searchSite = searchSite;
-    _dataStore  = dataStore;
-
-    self.schemaManager = nil;
-    [self createSectionSchemaIfNeeded];
-}
-
 - (WMFExploreSectionControllerCache*)sectionControllerCache {
-    NSParameterAssert(self.searchSite);
     NSParameterAssert(self.dataStore);
     if (!_sectionControllerCache) {
-        _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithSite:self.searchSite dataStore:self.dataStore];
+        _sectionControllerCache = [[WMFExploreSectionControllerCache alloc] initWithDataStore:self.dataStore];
     }
     return _sectionControllerCache;
 }
@@ -234,11 +213,12 @@ NS_ASSUME_NONNULL_BEGIN
                                              selector:@selector(tweaksDidChangeWithNotification:)
                                                  name:FBTweakShakeViewControllerDidDismissNotification
                                                object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchLanguageDidChangeWithNotification:) name:[NSUserDefaults WMFSearchLanguageDidChangeNotification] object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     NSParameterAssert(self.dataStore);
-    NSParameterAssert(self.searchSite);
     NSParameterAssert(self.recentPages);
     NSParameterAssert(self.savedPages);
     [super viewDidAppear:animated];
@@ -255,10 +235,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 
-    if (self.isPreviewing) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
-        self.isPreviewing = NO;
-    }
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -307,7 +284,10 @@ NS_ASSUME_NONNULL_BEGIN
     [self updateSectionSchemaIfNeeded];
 }
 
-#pragma mark - Tweaks
+- (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
+    [self createSectionSchemaIfNeeded];
+    [self.schemaManager updateSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]];
+}
 
 - (void)tweaksDidChangeWithNotification:(NSNotification*)note {
     [self updateSectionSchemaIfNeeded];
@@ -469,7 +449,7 @@ NS_ASSUME_NONNULL_BEGIN
             || [controller shouldSelectItemAtIndexPath:indexPath])) {
         MWKTitle* title = [(id < WMFTitleProviding >)controller titleForItemAtIndexPath:indexPath];
         if (title) {
-            [[PiwikTracker sharedInstance] wmf_logActionScrollToItemInExploreSection:controller];
+            [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:controller];
         }
     }
 }
@@ -510,10 +490,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:controller];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:controller];
     UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc source:self animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)vc animated:YES];
     } else {
         [self presentViewController:vc animated:YES completion:nil];
     }
@@ -562,9 +542,6 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.schemaManager) {
         return;
     }
-    if (!self.searchSite) {
-        return;
-    }
     if (!self.savedPages) {
         return;
     }
@@ -575,13 +552,12 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:self.searchSite
+    self.schemaManager = [WMFExploreSectionSchema schemaWithSite:[[NSUserDefaults standardUserDefaults] wmf_appSite]
                                                       savedPages:self.savedPages
                                                          history:self.recentPages
                                                        blackList:[WMFRelatedSectionBlackList sharedBlackList]];
     self.schemaManager.delegate = self;
     [self loadSectionControllersForCurrentSectionSchema];
-    [self updateSectionSchemaForce:NO];
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
     [self.tableView reloadData];
@@ -667,30 +643,6 @@ NS_ASSUME_NONNULL_BEGIN
         }
 
         [observer.tableView reloadData];
-        return;
-
-        //TODO: enable animated updates. Currently causes more jitters
-
-        NSIndexSet* indices = [change objectForKey:NSKeyValueChangeIndexesKey];
-        if (indices == nil) {
-            return;
-        }
-        NSMutableArray* indexPathArray = [NSMutableArray array];
-        [indices enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL* _Nonnull stop) {
-            NSIndexPath* newPath = [NSIndexPath indexPathForRow:idx inSection:sectionIndex];
-            [indexPathArray addObject:newPath];
-        }];
-
-        [observer.tableView wmf_performUpdates:^{
-            NSNumber* kind = [change objectForKey:NSKeyValueChangeKindKey];
-            if ([kind integerValue] == NSKeyValueChangeInsertion) { // Rows were added
-                [observer.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if ([kind integerValue] == NSKeyValueChangeRemoval) { // Rows were removed
-                [observer.tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else { // Rows were Replaced
-                [observer.tableView reloadRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        } withoutMovingCellAtIndexPath:[[self.tableView indexPathsForVisibleRows] firstObject]];
     }];
 }
 
@@ -698,7 +650,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController> controllerForSection = [self sectionControllerForSectionAtIndex:section];
     NSParameterAssert(controllerForSection);
     if (!controllerForSection) {
-        DDLogError(@"Unexpected footer tap for missing section %lu.", section);
+        DDLogError(@"Unexpected footer tap for missing section %lu.", (unsigned long)section);
         return;
     }
     if (![controllerForSection respondsToSelector:@selector(moreViewController)]) {
@@ -707,30 +659,16 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController, WMFMoreFooterProviding> articleSectionController = (id<WMFExploreSectionController, WMFMoreFooterProviding>)controllerForSection;
 
     UIViewController* moreVC = [articleSectionController moreViewController];
-    [[PiwikTracker sharedInstance] wmf_logActionOpenMoreInExploreSection:articleSectionController];
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:controllerForSection];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 
 - (void)didTapHeaderInSection:(NSUInteger)section {
     WMFExploreSection* homeSection = self.schemaManager.sections[section];
-    switch (homeSection.type) {
-        case WMFExploreSectionTypeContinueReading:
-        case WMFExploreSectionTypeMainPage:
-        case WMFExploreSectionTypeFeaturedArticle:
-        case WMFExploreSectionTypePictureOfTheDay:
-        case WMFExploreSectionTypeRandom:
-            [self selectFirstRowInSection:section];
-            break;
-        case WMFExploreSectionTypeNearby:
-            [self didTapFooterInSection:section];
-            break;
-        case WMFExploreSectionTypeSaved:
-        case WMFExploreSectionTypeHistory: {
-            WMFRelatedSectionController* controller = (WMFRelatedSectionController*)[self sectionControllerForSectionAtIndex:section];
-            NSParameterAssert(controller.title);
-            [self wmf_pushArticleWithTitle:controller.title dataStore:self.dataStore source:self animated:YES];
-            break;
-        }
+    if (homeSection.type == WMFExploreSectionTypeNearby) {
+        [self didTapFooterInSection:section];
+    } else {
+        [self selectFirstRowInSection:section];
     }
 }
 
@@ -758,35 +696,37 @@ NS_ASSUME_NONNULL_BEGIN
                       viewControllerForLocation:(CGPoint)location {
     NSIndexPath* previewIndexPath                     = [self.tableView indexPathForRowAtPoint:location];
     id<WMFExploreSectionController> sectionController = [self sectionControllerForSectionAtIndex:previewIndexPath.section];
-    if (!sectionController) {
+
+    if (![sectionController shouldSelectItemAtIndexPath:previewIndexPath]) {
         return nil;
     }
 
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
-    self.isPreviewing             = YES;
     self.sectionOfPreviewingTitle = sectionController;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
     return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionOpenItemInExploreSection:self.sectionOfPreviewingTitle];
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
-    self.isPreviewing             = NO;
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.sectionOfPreviewingTitle];
     self.sectionOfPreviewingTitle = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
     } else {
         [self presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
 }
 
+- (NSString*)analyticsContext {
+    return @"Explore";
+}
+
 - (NSString*)analyticsName {
-    return @"Home";
+    return [self analyticsContext];
 }
 
 @end

@@ -15,14 +15,10 @@ static NSString* const WMFPiwikSiteID    = @"4";
 #endif
 }
 
-- (void)wmf_logView:(id<WMFAnalyticsLogging>)view fromSource:(nullable id<WMFAnalyticsLogging>)source {
+- (void)wmf_logView:(id<WMFAnalyticsViewNameProviding>)view {
     NSParameterAssert([view analyticsName]);
 #ifdef PIWIK_ENABLED
-    if (source) {
-        [self sendViewsFromArray:@[[source analyticsName], [view analyticsName]]];
-    } else {
-        [self sendView:[view analyticsName]];
-    }
+    [self sendView:[view analyticsName]];
 #endif
 }
 
@@ -32,36 +28,32 @@ static NSString* const WMFPiwikSiteID    = @"4";
 #endif
 }
 
-- (void)wmf_logActionPreviewFromSource:(nullable id<WMFAnalyticsLogging>)source {
-    [self wmf_sendEventWithCategory:@"Preview" action:@"Shown" name:[source analyticsName] value:nil];
+- (void)wmf_logActionPreviewInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext] action:@"Preview" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionPreviewDismissedFromSource:(nullable id<WMFAnalyticsLogging>)source {
-    [self wmf_sendEventWithCategory:@"Preview" action:@"Dismissed" name:[source analyticsName] value:nil];
+- (void)wmf_logActionTapThroughInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext] action:@"Tap Through" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionPreviewCommittedFromSource:(nullable id<WMFAnalyticsLogging>)source {
-    [self wmf_sendEventWithCategory:@"Preview" action:@"Converted" name:[source analyticsName] value:nil];
+- (void)wmf_logActionSaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext] action:@"Save" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionSaveTitleFromSource:(nullable id<WMFAnalyticsLogging>)source {
-    [self wmf_sendEventWithCategory:@"Save" action:@"Save" name:[source analyticsName] value:nil];
+- (void)wmf_logActionUnsaveInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext] action:@"Unsave" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionUnsaveTitleFromSource:(nullable id<WMFAnalyticsLogging>)source {
-    [self wmf_sendEventWithCategory:@"Save" action:@"Unsave" name:[source analyticsName] value:nil];
+- (void)wmf_logActionImpressionInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self wmf_sendEventWithCategory:[context analyticsContext] action:@"Impression" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionScrollToItemInExploreSection:(id<WMFAnalyticsLogging>)section {
-    [self wmf_sendEventWithCategory:@"Explore" action:@"View Item" name:[section analyticsName] value:nil];
+- (void)wmf_logActionTapThroughMoreInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self sendEventWithCategory:[context analyticsContext] action:@"Tap Through More" name:[contentType analyticsContentType] value:nil];
 }
 
-- (void)wmf_logActionOpenItemInExploreSection:(id<WMFAnalyticsLogging>)section {
-    [self wmf_sendEventWithCategory:@"Explore" action:@"Open Item" name:[section analyticsName] value:nil];
-}
-
-- (void)wmf_logActionOpenMoreInExploreSection:(id<WMFAnalyticsLogging>)section {
-    [self sendEventWithCategory:@"Explore" action:@"Open More Like" name:[section analyticsName] value:nil];
+- (void)wmf_logActionSwitchLanguageInContext:(id<WMFAnalyticsContextProviding>)context contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType {
+    [self sendEventWithCategory:[context analyticsContext] action:@"Switch Language" name:[contentType analyticsContentType] value:nil];
 }
 
 @end

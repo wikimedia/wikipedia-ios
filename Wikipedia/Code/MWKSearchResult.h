@@ -15,6 +15,8 @@
 
 @property (nonatomic, copy, readonly) NSNumber* index;
 
+@property (nonatomic, copy, readonly) NSNumber* titleNamespace;
+
 @property (nonatomic, assign, readonly) BOOL isDisambiguation;
 
 @property (nonatomic, assign, readonly) BOOL isList;
@@ -26,6 +28,7 @@
                      thumbnailURL:(NSURL*)thumbnailURL
                             index:(NSNumber*)index
                  isDisambiguation:(BOOL)isDisambiguation
-                           isList:(BOOL)isList;
+                           isList:(BOOL)isList
+                   titleNamespace:(NSNumber*)titleNamespace;
 
 @end

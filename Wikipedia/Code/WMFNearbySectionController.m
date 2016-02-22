@@ -36,6 +36,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 
 @property (nonatomic, strong, readwrite) MWKSite* searchSite;
 @property (nonatomic, strong, readwrite) CLLocation* location;
+@property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
 @property (nonatomic, strong) WMFLocationSearchFetcher* locationSearchFetcher;
 
@@ -48,12 +49,15 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 @implementation WMFNearbySectionController
 
 - (instancetype)initWithLocation:(CLLocation*)location
+                       placemark:(nullable CLPlacemark*)placemark
                             site:(MWKSite*)site
                        dataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(site);
+    NSParameterAssert(location);
     self = [super initWithDataStore:dataStore];
     if (self) {
         self.location              = location;
+        self.placemark             = placemark;
         self.searchSite            = site;
         self.locationSearchFetcher = [[WMFLocationSearchFetcher alloc] init];
         self.compassViewModel      = [[WMFCompassViewModel alloc] init];
@@ -68,7 +72,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (UIImage*)headerIcon {
-    return [UIImage imageNamed:@"home-nearby"];
+    return [UIImage imageNamed:@"nearby-mini"];
 }
 
 - (UIColor*)headerIconTintColor {
@@ -84,7 +88,13 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 }
 
 - (NSAttributedString*)headerSubTitle {
-    return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    if (self.placemark) {
+        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@, %@", self.placemark.name, self.placemark.locality] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    } else if (self.searchResults.results.count > 0) {
+        return [[NSAttributedString alloc] initWithString:[[self.searchResults.results firstObject] displayTitle] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    } else {
+        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%f, %f", self.location.coordinate.latitude, self.location.coordinate.longitude] attributes:@{NSForegroundColorAttributeName: [UIColor wmf_exploreSectionHeaderSubTitleColor]}];
+    }
 }
 
 - (NSString*)cellIdentifier {
@@ -132,7 +142,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
     return [WMFNearbyArticleTableViewCell estimatedRowHeight];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContentType {
     return @"Nearby";
 }
 

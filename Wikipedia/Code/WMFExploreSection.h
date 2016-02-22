@@ -22,13 +22,15 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
     WMFExploreSectionTypeHistory         = 4,
     WMFExploreSectionTypeSaved           = 5,
     WMFExploreSectionTypeFeaturedArticle = 6,
-    WMFExploreSectionTypePictureOfTheDay = 7
+    WMFExploreSectionTypePictureOfTheDay = 7,
+    WMFExploreSectionTypeMostRead        = 8
 };
 
 @interface WMFExploreSection : MTLModel
 
++ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site;
 + (instancetype)continueReadingSectionWithTitle:(MWKTitle*)title;
-+ (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location;
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
 
@@ -46,8 +48,25 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 ///
 
 + (instancetype)pictureOfTheDaySection;
-+ (instancetype)mainPageSection;
-+ (instancetype)randomSection;
++ (instancetype)mainPageSectionWithSite:(MWKSite*)site;
++ (instancetype)randomSectionWithSite:(MWKSite*)site;
+
+/**
+ *  Returns the max number of sections for a section type
+ *
+ *  @param type The type of sections
+ *
+ *  @return The max number of sections
+ */
++ (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type;
+
+/**
+ *  Returns the max number of all sections
+ *
+ *  @return The total max number of ALL sections types
+ */
++ (NSUInteger)totalMaxNumberOfSections;
+
 
 /**
  *  The type of section.
@@ -85,6 +104,12 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
  *  For example, the location used to get articles for the "nearby" section.
  */
 @property (nonatomic, strong, readonly) CLLocation* location;
+
+/**
+ *  The placemark associated with the section, if any.
+ *
+ */
+@property (nonatomic, strong, readonly) CLPlacemark* placemark;
 
 /**
  *  Determine ordering between two sections.

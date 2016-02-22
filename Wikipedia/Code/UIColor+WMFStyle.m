@@ -140,7 +140,7 @@
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconTintColor {
-    return [UIColor wmf_colorWithHex:0x9CA1A7 alpha:1.0];
+    return [self wmf_customGray];
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconBackgroundColor {
@@ -159,6 +159,10 @@
         c = [UIColor colorWithHue:0.611 saturation:0.75 brightness:0.8 alpha:1];
     });
     return c;
+}
+
++ (instancetype)wmf_lightBlueTintColor {
+    return [UIColor colorWithRed:0.92 green:0.95 blue:1.0 alpha:1.0];
 }
 
 + (instancetype)wmf_tapHighlightColor {
@@ -243,6 +247,12 @@
         c = [UIColor colorWithRed:0.94 green:0.94 blue:0.96 alpha:1.0];
     });
     return c;
+}
+
+- (instancetype)wmf_copyWithAlpha:(CGFloat)alpha {
+    CGFloat r, g, b, _;
+    [self getRed:&r green:&g blue:&b alpha:&_];
+    return [UIColor colorWithRed:r green:g blue:b alpha:alpha];
 }
 
 - (instancetype)wmf_colorByApplyingDim {

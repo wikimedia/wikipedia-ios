@@ -41,4 +41,8 @@
     self.navigationItem.rightBarButtonItem = nil;
 }
 
+- (NSString*)analyticsContext {
+    return @"Disambiguation";
+}
+
 @end

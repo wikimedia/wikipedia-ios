@@ -10,8 +10,6 @@
 #import "Wikipedia-Swift.h"
 
 
-NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidChangeNotification";
-
 @interface SessionSingleton ()
 
 @property (strong, nonatomic, readwrite) MWKDataStore* dataStore;
@@ -21,8 +19,6 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
 @property (strong, nonatomic, readwrite) MWKSite* currentArticleSite;
 
 @property (strong, nonatomic) MWKTitle* currentArticleTitle;
-
-@property (strong, nonatomic) MWKSite* searchSite;
 
 @end
 
@@ -133,41 +129,6 @@ NSString* const WMFSearchLanguageDidChangeNotification = @"WMFSearchLanguageDidC
     }
     MWKArticle* article = [self.dataStore articleWithTitle:lastLoadedTitle];
     return article;
-}
-
-#pragma mark - Search
-
-- (NSString*)searchApiUrl {
-    return [self searchApiUrlForLanguage:self.searchLanguage];
-}
-
-- (NSString*)searchApiUrlForLanguage:(NSString*)language {
-    NSString* endpoint = self.fallback ? @"" : @".m";
-    if (!self.currentArticleSite) {
-        return nil;
-    }
-    return [NSString stringWithFormat:@"https://%@%@.%@/w/api.php", language, endpoint, self.currentArticleSite.domain];
-}
-
-- (void)setSearchLanguage:(NSString*)searchLanguage {
-    if (!searchLanguage || [self.searchSite.language isEqualToString:searchLanguage]) {
-        return;
-    }
-    [[NSUserDefaults standardUserDefaults] setObject:searchLanguage forKey:@"Domain"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    self.searchSite = nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:WMFSearchLanguageDidChangeNotification object:nil];
-}
-
-- (NSString*)searchLanguage {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"Domain"];
-}
-
-- (MWKSite*)searchSite {
-    if (_searchSite == nil) {
-        _searchSite = [[MWKSite alloc] initWithDomain:WMFDefaultSiteDomain language:[self searchLanguage]];
-    }
-    return _searchSite;
 }
 
 #pragma mark - Language URL

@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:nil animated:YES];
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
     }];
 }
 
@@ -168,7 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:nil animated:YES];
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
     }];
 }
 

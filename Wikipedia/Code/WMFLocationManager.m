@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager ()<CLLocationManagerDelegate>
 
-@property (nonatomic, strong) CLLocationManager* locationManager;
+@property (nonatomic, strong, readwrite) CLLocationManager* locationManager;
 @property (nonatomic, strong, nullable) id orientationNotificationToken;
 
 /**
@@ -58,9 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CLLocationManager*)locationManager {
     if (!_locationManager) {
-        _locationManager              = [[CLLocationManager alloc] init];
-        _locationManager.delegate     = self;
-        _locationManager.activityType = CLActivityTypeFitness;
+        _locationManager                 = [[CLLocationManager alloc] init];
+        _locationManager.delegate        = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+        _locationManager.activityType    = CLActivityTypeFitness;
         /*
            Update location every 1 meter. This is separate from how often we update the titles that are near a given
            location.

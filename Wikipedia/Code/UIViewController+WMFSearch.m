@@ -4,7 +4,7 @@
 #import <BlocksKit/UIBarButtonItem+BlocksKit.h>
 #import "SessionSingleton.h"
 #import "MWKSite.h"
-#import "PiwikTracker+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -63,15 +63,12 @@ static WMFSearchViewController* _sharedSearchViewController = nil;
 
 - (void)wmf_showSearchAnimated:(BOOL)animated {
     NSParameterAssert(_dataStore);
-    MWKSite* searchSite = [[SessionSingleton sharedInstance] searchSite];
 
-    if (![searchSite isEqual:_sharedSearchViewController.searchSite]) {
+    if (!_sharedSearchViewController) {
         WMFSearchViewController* searchVC =
-            [WMFSearchViewController searchViewControllerWithSite:searchSite
-                                                        dataStore:_dataStore];
+            [WMFSearchViewController searchViewControllerWithDataStore:_dataStore];
         _sharedSearchViewController = searchVC;
     }
-    [[PiwikTracker sharedInstance] wmf_logView:_sharedSearchViewController fromSource:nil];
     [self presentViewController:_sharedSearchViewController animated:animated completion:nil];
 }
 

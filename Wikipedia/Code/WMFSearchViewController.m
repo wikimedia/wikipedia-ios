@@ -1,4 +1,5 @@
 #import "WMFSearchViewController.h"
+#import "PiwikTracker+WMFExtensions.h"
 
 #import "RecentSearchesViewController.h"
 #import "WMFSearchResultsTableViewController.h"
@@ -38,7 +39,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
  WMFArticleListTableViewControllerDelegate,
  LanguageSelectionDelegate>
 
-@property (nonatomic, strong) MWKSite* searchSite;
 @property (nonatomic, strong) MWKDataStore* dataStore;
 
 @property (nonatomic, strong) NSArray* searchLanguages;
@@ -46,12 +46,15 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 @property (nonatomic, strong) RecentSearchesViewController* recentSearchesViewController;
 @property (nonatomic, strong) WMFSearchResultsTableViewController* resultsListController;
 
+@property (strong, nonatomic) IBOutlet UIView* searchFieldContainer;
 @property (strong, nonatomic) IBOutlet UITextField* searchField;
+@property (strong, nonatomic) IBOutlet UIView* searchContentContainer;
 @property (strong, nonatomic) IBOutlet UIButton* searchSuggestionButton;
 @property (strong, nonatomic) IBOutlet UIView* resultsListContainerView;
 @property (strong, nonatomic) IBOutlet UIView* recentSearchesContainerView;
 @property (weak, nonatomic) IBOutlet UIView* separatorView;
 @property (weak, nonatomic) IBOutlet UIButton* closeButton;
+@property (strong, nonatomic) IBOutlet UIView* languageBarContainer;
 @property (strong, nonatomic) IBOutlet UIButton* languageOneButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageTwoButton;
 @property (strong, nonatomic) IBOutlet UIButton* languageThreeButton;
@@ -89,11 +92,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-+ (instancetype)searchViewControllerWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
-    NSParameterAssert(site);
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
     WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
-    searchVC.searchSite             = site;
     searchVC.dataStore              = dataStore;
     searchVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
     searchVC.modalTransitionStyle   = UIModalTransitionStyleCrossDissolve;
@@ -102,8 +103,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Accessors
 
-- (NSString*)currentSearchTerm {
+- (NSString*)currentResultsSearchTerm {
     return [[self.resultsListController.dataSource searchResults] searchTerm];
+}
+
+- (MWKSite*)currentResultsSearchSite {
+    return [self.resultsListController.dataSource searchSite];
 }
 
 - (NSString*)searchSuggestion {
@@ -171,24 +176,38 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)configureLanguageButtons {
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        obj.tintColor = [UIColor wmf_blueTintColor];
-    }];
+    if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
+        [self.view addSubview:self.languageBarContainer];
+        [self.languageBarContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+            make.leading.and.trailing.equalTo(self.searchFieldContainer);
+        }];
+        [self.searchContentContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.languageBarContainer.mas_bottom);
+        }];
 
-    UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
-    UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
-    [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
-    [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
-    [self.otherLanguagesButton.layer setCornerRadius:2.0f];
-    [self.otherLanguagesButton setClipsToBounds:YES];
+        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            obj.tintColor = [UIColor wmf_blueTintColor];
+        }];
 
-    [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
-    self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
+        UIImage* buttonBackground            = [UIImage wmf_imageFromColor:[UIColor whiteColor]];
+        UIImage* highlightedButtonBackground = [UIImage wmf_imageFromColor:[UIColor colorWithWhite:0.9 alpha:1]];
+        [self.otherLanguagesButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+        [self.otherLanguagesButton setBackgroundImage:highlightedButtonBackground forState:UIControlStateHighlighted];
+        [self.otherLanguagesButton.layer setCornerRadius:2.0f];
+        [self.otherLanguagesButton setClipsToBounds:YES];
 
-    [self.otherLanguagesButton sizeToFit];
+        [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
+        self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
-    [self updateLanguageButtonsToPreferredLanguages];
-    [self selectLanguageForSite:self.searchSite];
+        [self.otherLanguagesButton sizeToFit];
+        [self updateLanguageButtonsToPreferredLanguages];
+    } else {
+        [self.languageBarContainer removeFromSuperview];
+        [self.searchContentContainer mas_makeConstraints:^(MASConstraintMaker* make) {
+            make.top.equalTo(self.searchFieldContainer.mas_bottom);
+        }];
+    }
 }
 
 #pragma mark - UIViewController
@@ -198,6 +217,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
     [self configureSearchField];
     [self configureLanguageButtons];
+    MWKLanguageLink* lang = [self.searchLanguages firstObject];
+    [self selectLanguageForSite:lang.site];
 
     // move search field offscreen, preparing for transition in viewWillAppear
     self.searchFieldTop.constant = -self.searchFieldHeight.constant;
@@ -212,6 +233,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    [self configureLanguageButtons];
+
     self.previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 
@@ -226,6 +250,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[PiwikTracker sharedInstance] wmf_logView:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -238,7 +263,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            view presented on top of it.
          */
         [self saveLastSearch];
-        [self saveSearchlanguage];
 
         self.searchFieldTop.constant = -self.searchFieldHeight.constant;
 
@@ -305,7 +329,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField {
-    if (![[self currentSearchTerm] isEqualToString:textField.text]) {
+    if (![[self currentResultsSearchTerm] isEqualToString:textField.text]) {
         [self searchForSearchTerm:textField.text];
     }
 }
@@ -366,6 +390,27 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Search
 
+- (MWKSite*)currentlySelectedSearchSite {
+    if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
+        NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL (UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            if (obj.selected) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+
+        if (index == NSNotFound) {
+            index = 0;
+        }
+
+        MWKLanguageLink* lang = self.searchLanguages[index];
+        return [lang site];
+    } else {
+        return [[NSUserDefaults standardUserDefaults] wmf_appSite];
+    }
+}
+
 - (void)didCancelSearch {
     [self setSearchFieldText:nil];
     [self updateSearchSuggestion:nil];
@@ -381,7 +426,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
     @weakify(self);
     [self.resultsListController wmf_hideEmptyView];
-    [self.fetcher fetchArticlesForSearchTerm:searchTerm site:self.searchSite resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
+    MWKSite* site = [self currentlySelectedSearchSite];
+    [self.fetcher fetchArticlesForSearchTerm:searchTerm site:site resultLimit:WMFMaxSearchResultLimit].thenOn(dispatch_get_main_queue(), ^id (WMFSearchResults* results){
         @strongify(self);
         if (![results.searchTerm isEqualToString:self.searchField.text]) {
             return [NSError cancelledError];
@@ -392,7 +438,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
            collection view, meaning there's a chance the collectionView accesses deallocated memory during an animation
          */
         WMFSearchDataSource* dataSource =
-            [[WMFSearchDataSource alloc] initWithSearchSite:self.searchSite searchResults:results];
+            [[WMFSearchDataSource alloc] initWithSearchSite:site searchResults:results];
 
         self.resultsListController.dataSource = dataSource;
 
@@ -400,7 +446,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm
-                                                       site:self.searchSite
+                                                       site:site
                                                 resultLimit:WMFMaxSearchResultLimit
                                              fullTextSearch:YES
                                     appendToPreviousResults:results];
@@ -469,9 +515,9 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - RecentSearches
 
 - (void)saveLastSearch {
-    if ([self currentSearchTerm]) {
-        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:self.searchSite
-                                                                      searchTerm:[self currentSearchTerm]];
+    if ([self currentResultsSearchTerm]) {
+        MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[self currentResultsSearchSite]
+                                                                      searchTerm:[self currentResultsSearchTerm]];
         [self.dataStore.userDataStore.recentSearchList addEntry:entry];
         [self.dataStore.userDataStore.recentSearchList save];
         [self.recentSearchesViewController reloadRecentSearches];
@@ -479,10 +525,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 #pragma mark - Languages
-
-- (void)saveSearchlanguage {
-    [[SessionSingleton sharedInstance] setSearchLanguage:self.searchSite.language];
-}
 
 - (NSArray*)allLanguagesFromController {
     NSMutableArray* lang = [NSMutableArray array];
@@ -531,7 +573,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)selectLanguageForSite:(MWKSite*)site {
-    self.searchSite = site;
     [self.searchLanguages enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
         if ([[language site] isEqual:site]) {
             UIButton* buttonToSelect = self.languageButtons[idx];
@@ -589,9 +630,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+    //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
+        [presenter wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
     }];
 }
 
@@ -601,9 +643,10 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 }
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+    //log tap through done in table
     UIViewController* presenter = [self presentingViewController];
     [self dismissViewControllerAnimated:YES completion:^{
-        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController source:self animated:YES];
+        [presenter wmf_pushArticleViewController:(WMFArticleViewController*)viewController animated:YES];
     }];
 }
 
@@ -616,8 +659,12 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [controller dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (NSString*)analyticsName {
+- (NSString*)analyticsContext {
     return @"Search";
+}
+
+- (NSString*)analyticsName {
+    return [self analyticsContext];
 }
 
 @end

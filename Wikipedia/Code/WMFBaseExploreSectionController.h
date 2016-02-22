@@ -1,6 +1,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WMFExploreSectionController.h"
+#import "WMFAnalyticsLogging.h"
 
 @class WMFEmptySectionTableViewCell, MWKDataStore, MWKSavedPageList, MWKHistoryList;
 
@@ -13,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  See WMFExploreSectionController.h for further documentation.
  */
-@interface WMFBaseExploreSectionController : NSObject
+@interface WMFBaseExploreSectionController : NSObject<WMFAnalyticsContextProviding>
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -72,6 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString*)placeholderCellIdentifier;
 
 - (nullable UINib*)placeholderCellNib;
+
+- (BOOL)containsPlaceholders;
 
 @end
 

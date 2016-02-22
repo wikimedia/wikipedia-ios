@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WMFArticleListTableViewController ()<UIViewControllerPreviewingDelegate>
 
 @property (nonatomic, weak) id<UIViewControllerPreviewing> previewingContext;
-@property (nonatomic, assign) BOOL isPreviewing;
 
 @end
 
@@ -205,18 +204,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerForPreviewingIfAvailable];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if (self.isPreviewing) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewDismissedFromSource:self];
-        self.isPreviewing = NO;
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
 - (void)traitCollectionDidChange:(nullable UITraitCollection*)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
     [self registerForPreviewingIfAvailable];
@@ -241,13 +228,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     [self wmf_hideKeyboard];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
         [self.delegate listViewContoller:self didSelectTitle:title];
         return;
     }
-    [self wmf_pushArticleWithTitle:title dataStore:self.dataStore source:self animated:YES];
+    [self wmf_pushArticleWithTitle:title dataStore:self.dataStore animated:YES];
 }
 
 #pragma mark - UIViewControllerPreviewingDelegate
@@ -261,9 +249,12 @@ NS_ASSUME_NONNULL_BEGIN
 
     previewingContext.sourceRect = [self.tableView cellForRowAtIndexPath:previewIndexPath].frame;
 
-    MWKTitle* title = [self.dataSource titleForIndexPath:previewIndexPath];
-    self.isPreviewing = YES;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewFromSource:self];
+    MWKTitle* title                                  = [self.dataSource titleForIndexPath:previewIndexPath];
+    id<WMFAnalyticsContentTypeProviding> contentType = nil;
+    if ([self conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
+        contentType = (id<WMFAnalyticsContentTypeProviding>)self;
+    }
+    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:contentType];
 
     if (self.delegate) {
         return [self.delegate listViewContoller:self viewControllerForPreviewingTitle:title];
@@ -274,17 +265,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UINavigationController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewCommittedFromSource:self];
-    self.isPreviewing = NO;
+    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     if (self.delegate) {
         [self.delegate listViewContoller:self didCommitToPreviewedViewController:viewControllerToCommit];
     } else {
-        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit source:self animated:YES];
+        [self wmf_pushArticleViewController:(WMFArticleViewController*)viewControllerToCommit animated:YES];
     }
 }
 
-- (NSString*)analyticsName {
-    return @"Article List";
+- (NSString*)analyticsContext {
+    return @"Generic Article List";
 }
 
 - (WMFEmptyViewType)emptyViewType {

@@ -170,7 +170,7 @@ NSDictionary* WMFIndexImageInfo(NSArray* __nullable imageInfo){
     NSParameterAssert(index < self.uniqueArticleImages.count);
     if (index > self.uniqueArticleImages.count) {
         DDLogWarn(@"Attempted to fetch %lu which is beyond upper bound of %lu",
-                  index, self.uniqueArticleImages.count);
+                  (unsigned long)index, (unsigned long)self.uniqueArticleImages.count);
         return WMFRangeMakeNotFound();
     }
     NSUInteger const start = floorf(index / (float)self.infoBatchSize) * self.infoBatchSize;

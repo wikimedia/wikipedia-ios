@@ -16,6 +16,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+static const DDLogLevel WMFBaseExploreSectionControllerLogLevel = DDLogLevelInfo;
+
+#undef LOG_LEVEL_DEF
+#define LOG_LEVEL_DEF WMFBaseExploreSectionControllerLogLevel
+
 static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectionControllerException";
 
 @interface WMFBaseExploreSectionController ()
@@ -46,7 +51,7 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     if (self) {
         self.dataStore    = dataStore;
         self.mutableItems = [NSMutableArray array];
-        [self setItemsToPlaceholders];
+        [self setItemsToPlaceholdersIfSupported];
     }
     return self;
 }
@@ -55,12 +60,28 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     NSParameterAssert(items);
     self = [self initWithDataStore:dataStore];
     if (self) {
-        [self.mutableItems addObjectsFromArray:items];
+        [self.mutableItems setArray:items];
     }
     return self;
 }
 
+- (NSString*)description {
+    NSAssert([self conformsToProtocol:@protocol(WMFExploreSectionController)],
+             @"Expected subclass of %@ to conform to %@, but %@ does not.",
+             [WMFBaseExploreSectionController class],
+             NSStringFromProtocol(@protocol(WMFExploreSectionController)),
+             [self class]);
+    return [NSString stringWithFormat:@"%@ identifier = %@",
+            [super description], [(id < WMFExploreSectionController >)self sectionIdentifier]];
+}
+
 #pragma mark - WMFBaseExploreSectionController
+
+- (BOOL)containsPlaceholders {
+    return [self.items bk_all:^BOOL (id obj) {
+        return [obj isKindOfClass:[NSNumber class]];
+    }];
+}
 
 - (MWKSavedPageList*)savedPageList {
     return self.dataStore.userDataStore.savedPageList;
@@ -178,23 +199,20 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     } else if ([self isFetching]) {
         return [AnyPromise promiseWithValue:self.items];
     } else {
-        [self setItemsToPlaceholders];
         @weakify(self);
         self.fetcherPromise = [self fetchData].then(^(NSArray* items){
             @strongify(self);
             self.fetcherPromise = nil;
-            self.fetchError = nil;
             self.fetchedItems = items;
-            [self setItemsToFetchedItems:items];
             return self.items;
         }).catch(^(NSError* error){
             @strongify(self);
+            DDLogError(@"Failed to fetch items for section %@. %@", self, error);
             self.fetcherPromise = nil;
             self.fetchError = error;
-            self.fetchedItems = nil;
-            [self setItemsToError:error];
-            @weakify(self);
+
             //Clear network error on network reconnect
+            @weakify(self);
             if ([error wmf_isNetworkConnectionError]) {
                 SCNetworkReachability().then(^{
                     @strongify(self);
@@ -208,56 +226,48 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 }
 
 - (void)resetData {
-    self.fetchError = nil;
-    [self setItemsToPlaceholders];
+    _fetchedItems = nil;
+    _fetchError   = nil;
+    self.items    = @[];
 }
 
 #pragma mark - Utility
 
-- (void)setItemsToPlaceholders {
-    if (![self shouldShowPlaceholderCell]) {
+- (void)setItemsToPlaceholdersIfSupported {
+    if (![self supportsPlaceholders]) {
         return;
     }
     NSMutableArray* placeholders = [NSMutableArray array];
     for (int i = 0; i < [self numberOfPlaceholderCells]; i++) {
         [placeholders addObject:@(i)];
     }
-    [self.mutableItems removeObjectsInArray:self.mutableItems];
-    [self.mutableItems addObjectsFromArray:placeholders];
+    [self setItems:placeholders];
 }
 
-- (void)setItemsToError:(NSError*)error {
-    [self.mutableItems removeObjectsInArray:self.mutableItems];
-    [self.mutableItems addObject:error];
+- (BOOL)supportsPlaceholders {
+    BOOL supportsPlaceholders = [self numberOfPlaceholderCells];
+    NSAssert(supportsPlaceholders > 0 == ([self placeholderCellNib] != nil),
+             @"placeholderCellNib must be nonnull if placeholders are supported.");
+    NSAssert(supportsPlaceholders > 0 == ([self placeholderCellIdentifier] != nil),
+             @"placeholderCellIdentifier must be nonnull if placeholders are supported.");
+    return supportsPlaceholders;
 }
 
-- (void)setItemsToFetchedItems:(NSArray*)items {
-    if ([self.mutableItems count] == 0) {
-        [self.mutableItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])]];
-    } else if ([self.mutableItems count] == [items count]) {
-        [self.mutableItems replaceObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])] withObjects:items];
-    } else {
-        [self.mutableItems removeObjectsInArray:self.mutableItems];
-        [self.mutableItems insertObjects:items atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [items count])]];
-    }
-}
-
+/**
+ *  Indicates whether placeholders should be shown.
+ *
+ *  @note This is not the same as whether or not placeholders are supported.
+ *
+ *  @return @c YES if placeholder cell should be displayed, otherwise @c NO.
+ */
 - (BOOL)shouldShowPlaceholderCell {
-    if ([self numberOfPlaceholderCells] > 0
-        && [self.fetchedItems count] == 0
-        && self.fetchError == nil
-        && [self placeholderCellIdentifier] && [self placeholderCellNib]) {
-        return YES;
-    }
-    return NO;
+    return [self supportsPlaceholders]
+           && [self.fetchedItems count] == 0
+           && self.fetchError == nil;
 }
 
 - (BOOL)shouldShowEmptyCell {
-    if ([self.fetchedItems count] == 0
-        && self.fetchError) {
-        return YES;
-    }
-    return NO;
+    return [self.fetchedItems count] == 0 && self.fetchError;
 }
 
 - (BOOL)lastFetchFailed {
@@ -272,46 +282,51 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
     return self.fetcherPromise != nil;
 }
 
-#pragma mark - Items KVO
+#pragma mark - Items Accessors
+
+- (void)setFetchedItems:(nullable NSArray*)fetchedItems {
+    if (WMF_EQUAL(self.fetchedItems, isEqualToArray:, fetchedItems)) {
+        return;
+    }
+    _fetchedItems = fetchedItems;
+    _fetchError   = nil;
+    if (fetchedItems) {
+        self.items = fetchedItems;
+    }
+}
+
+- (void)setFetchError:(nullable NSError*)fetchError {
+    _fetchError   = fetchError;
+    _fetchedItems = nil;
+    if (fetchError) {
+        self.items = @[fetchError];
+    }
+}
+
++ (BOOL)automaticallyNotifiesObserversOfItems {
+    return NO;
+}
+
++ (BOOL)automaticallyNotifiesObserversOfMutableItems {
+    return NO;
+}
+
+- (void)setItems:(NSArray* _Nonnull)items {
+    if (WMF_EQUAL(self.items, isEqualToArray:, items)) {
+        return;
+    }
+    // NOTE: only fire KVO notifications when items have actually changed
+    [self willChangeValueForKey:WMF_SAFE_KEYPATH(self, items)];
+    [_mutableItems setArray:items];
+    [self didChangeValueForKey:WMF_SAFE_KEYPATH(self, items)];
+}
 
 - (NSArray*)items {
     return _mutableItems;
 }
 
-- (NSMutableArray*)mutableItems {
-    return [self mutableArrayValueForKey:WMF_SAFE_KEYPATH(self, items)];
-}
-
-- (NSUInteger)countOfItems {
-    return [_mutableItems count];
-}
-
-- (id)objectInItemsAtIndex:(NSUInteger)index {
-    return [_mutableItems objectAtIndex:index];
-}
-
-- (void)insertObject:(id)object inItemsAtIndex:(NSUInteger)index {
-    [_mutableItems insertObject:object atIndex:index];
-}
-
-- (void)insertItems:(NSArray*)array atIndexes:(NSIndexSet*)indexes {
-    [_mutableItems insertObjects:array atIndexes:indexes];
-}
-
-- (void)removeObjectFromItemsAtIndex:(NSUInteger)index {
-    [_mutableItems removeObjectAtIndex:index];
-}
-
-- (void)removeItemsAtIndexes:(NSIndexSet*)indexes {
-    [_mutableItems removeObjectsAtIndexes:indexes];
-}
-
-- (void)replaceObjectInItemsAtIndex:(NSUInteger)index withObject:(id)object {
-    [_mutableItems replaceObjectAtIndex:index withObject:object];
-}
-
-- (void)replaceItemsAtIndexes:(NSIndexSet*)indexes withItems:(NSArray*)array {
-    [_mutableItems replaceObjectsAtIndexes:indexes withObjects:array];
+- (NSString*)analyticsContext {
+    return @"Explore";
 }
 
 @end

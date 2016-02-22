@@ -100,6 +100,12 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return siteURLComponents;
 }
 
+- (NSString*)urlDomainWithLanguage {
+    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+    [hostComponents addObject:self.domain];
+    return [hostComponents componentsJoinedByString:@"."];
+}
+
 - (NSURL*)URL {
     return [self URL:NO];
 }

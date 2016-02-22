@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) MWKTitle* title;
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
 @property (nonatomic, strong, readwrite) CLLocation* location;
+@property (nonatomic, strong, readwrite) CLPlacemark* placemark;
 
 @end
 
@@ -52,19 +53,21 @@ NS_ASSUME_NONNULL_BEGIN
             return 0;
         case WMFExploreSectionTypeFeaturedArticle:
             return 1;
-        case WMFExploreSectionTypeMainPage:
+        case WMFExploreSectionTypeMostRead:
             return 2;
-        case WMFExploreSectionTypePictureOfTheDay:
+        case WMFExploreSectionTypeMainPage:
             return 3;
-        case WMFExploreSectionTypeRandom:
+        case WMFExploreSectionTypePictureOfTheDay:
             return 4;
-        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypeRandom:
             return 5;
+        case WMFExploreSectionTypeNearby:
+            return 6;
 
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory:
             // Saved & History have identical same-day sorting behavior
-            return 6;
+            return 7;
     }
 }
 
@@ -99,6 +102,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Factory Methods
 
++ (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
+    WMFExploreSection* trending = [[WMFExploreSection alloc] init];
+    trending.type        = WMFExploreSectionTypeMostRead;
+    trending.dateCreated = date;
+    trending.site        = site;
+    return trending;
+}
+
 + (instancetype)pictureOfTheDaySection {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type = WMFExploreSectionTypePictureOfTheDay;
@@ -126,22 +137,28 @@ NS_ASSUME_NONNULL_BEGIN
     return item;
 }
 
-+ (instancetype)mainPageSection {
++ (instancetype)mainPageSectionWithSite:(MWKSite*)site {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type = WMFExploreSectionTypeMainPage;
+    item.site = site;
     return item;
 }
 
-+ (nullable instancetype)nearbySectionWithLocation:(nullable CLLocation*)location {
++ (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site {
+    NSParameterAssert(location);
+    NSParameterAssert(site);
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type     = WMFExploreSectionTypeNearby;
-    item.location = location;
+    item.type      = WMFExploreSectionTypeNearby;
+    item.location  = location;
+    item.placemark = placemark;
+    item.site      = site;
     return item;
 }
 
-+ (instancetype)randomSection {
++ (instancetype)randomSectionWithSite:(MWKSite*)site {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
     item.type = WMFExploreSectionTypeRandom;
+    item.site = site;
     return item;
 }
 
@@ -163,6 +180,36 @@ NS_ASSUME_NONNULL_BEGIN
     item.title       = entry.title;
     item.dateCreated = entry.date;
     return item;
+}
+
++ (NSUInteger)maxNumberOfSectionsForType:(WMFExploreSectionType)type {
+    switch (type) {
+        case WMFExploreSectionTypeHistory:
+        case WMFExploreSectionTypeSaved:
+        case WMFExploreSectionTypeFeaturedArticle:
+        case WMFExploreSectionTypeMostRead:
+            return 10;
+            break;
+        case WMFExploreSectionTypePictureOfTheDay:
+        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypeContinueReading:
+        case WMFExploreSectionTypeRandom:
+        case WMFExploreSectionTypeMainPage:
+            return 1;
+            break;
+    }
+}
+
++ (NSUInteger)totalMaxNumberOfSections {
+    return [self maxNumberOfSectionsForType:WMFExploreSectionTypeHistory] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeSaved] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeFeaturedArticle] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypePictureOfTheDay] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeMostRead] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeNearby] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeContinueReading] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeRandom] +
+           [self maxNumberOfSectionsForType:WMFExploreSectionTypeMainPage];
 }
 
 @end

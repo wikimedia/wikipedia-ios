@@ -16,7 +16,6 @@ platform :ios do
 
   desc "Runs linting (and eventually static analysis)"
   lane :analyze do
-    make 'lint'
     xcodebuild(
       workspace: "Wikipedia.xcworkspace",
       scheme: "Wikipedia",
