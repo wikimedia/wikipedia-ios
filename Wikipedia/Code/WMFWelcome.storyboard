@@ -335,6 +335,13 @@
                                     <constraint firstAttribute="bottom" secondItem="NhA-v2-Uom" secondAttribute="bottom" id="yO8-WU-p74"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IQ-9d-NOr" userLabel="Line above button">
+                                <rect key="frame" x="0.0" y="519" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.77254901960784317" green="0.81960784313725488" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="sd0-U6-9us"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mC-Fk-qiy">
                                 <rect key="frame" x="0.0" y="520" width="320" height="60"/>
                                 <constraints>
@@ -360,13 +367,6 @@
                                     <segue destination="vzW-SM-zih" kind="show" id="DHd-Xu-AzQ"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IQ-9d-NOr" userLabel="Line above button">
-                                <rect key="frame" x="0.0" y="519" width="320" height="1"/>
-                                <color key="backgroundColor" red="0.0039215686274509803" green="0.41960784313725491" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="sd0-U6-9us"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
