@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) MWKTitle* articleTitle;
 @property (nonatomic, strong, readonly) MWKDataStore* dataStore;
-@property (nonatomic, strong, readonly) UIRefreshControl* pullToRefresh;
 
 @property (nonatomic, strong, readonly, nullable) MWKArticle* article;
 

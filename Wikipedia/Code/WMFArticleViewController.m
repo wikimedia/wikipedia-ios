@@ -103,6 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
+@property (nonatomic, strong) UIRefreshControl* pullToRefresh;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -622,9 +623,9 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     [self.webViewController didMoveToParentViewController:self];
 
-    _pullToRefresh = [[UIRefreshControl alloc] init];
-    _pullToRefresh.enabled         = [self canRefresh];
-    [_pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
+    self.pullToRefresh = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.enabled         = [self canRefresh];
+    [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
 
 }
@@ -710,7 +711,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticle {
     [self fetchArticleForce:YES];
-    [_pullToRefresh endRefreshing];
+    [self.pullToRefresh endRefreshing];
 }
 
 - (void)fetchArticleIfNeeded {
