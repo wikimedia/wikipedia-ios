@@ -140,7 +140,7 @@
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconTintColor {
-    return [UIColor wmf_colorWithHex:0x9CA1A7 alpha:1.0];
+    return [self wmf_customGray];
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconBackgroundColor {
