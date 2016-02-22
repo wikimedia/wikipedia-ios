@@ -71,8 +71,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
-static dispatch_once_t launchToken;
-
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
@@ -168,12 +166,9 @@ static dispatch_once_t launchToken;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-}
-
-#pragma mark - Start/Pause/Resume App
-
-- (void)startApp {
+    
     [self showSplashView];
+    
     @weakify(self)
     [self runDataMigrationIfNeededWithCompletion :^{
         @strongify(self)
@@ -189,8 +184,10 @@ static dispatch_once_t launchToken;
     }];
 }
 
+#pragma mark - Start/Pause/Resume App
+
 - (void)resumeApp {
-    if (![self launchCompleted] || self.isPresentingOnboarding) {
+    if (self.isPresentingOnboarding) {
         return;
     }
     
@@ -243,10 +240,6 @@ static dispatch_once_t launchToken;
 }
 
 #pragma mark - Utilities
-
-- (BOOL)launchCompleted {
-    return launchToken != 0;
-}
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
@@ -346,18 +339,6 @@ static dispatch_once_t launchToken;
 }
 
 #pragma mark - UIViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    dispatch_once(&launchToken, ^{
-        [self startApp];
-    });
-}
 
 - (BOOL)shouldAutorotate {
     return YES;
@@ -553,6 +534,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         }];
     }];
 }
+
+#pragma mark - UITabBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
