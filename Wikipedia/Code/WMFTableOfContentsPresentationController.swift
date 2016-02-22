@@ -42,8 +42,8 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: "didTap:", forControlEvents: .TouchUpInside)
         
-        button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("close-table-of-contents-accessibility-hint")
-        button.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("close-table-of-contents-accessibility-label")
+        button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-hint")
+        button.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-label")
 
         return button
     }()
