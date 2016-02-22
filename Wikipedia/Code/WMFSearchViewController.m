@@ -392,20 +392,28 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 #pragma mark - Search
 
 - (MWKSite*)currentlySelectedSearchSite{
-    NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if(obj.selected){
-            *stop = YES;
-            return YES;
+    if([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]){
+        
+        NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(obj.selected){
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+        
+        if(index == NSNotFound){
+            index = 0;
         }
-        return NO;
-    }];
-    
-    if(index == NSNotFound){
-        index = 0;
+        
+        MWKLanguageLink* lang = self.searchLanguages[index];
+        return [lang site];
+        
+    }else{
+        return [[NSUserDefaults standardUserDefaults] wmf_appSite];
     }
     
-    MWKLanguageLink* lang = self.searchLanguages[index];
-    return [lang site];
+   
 }
 
 - (void)didCancelSearch {
