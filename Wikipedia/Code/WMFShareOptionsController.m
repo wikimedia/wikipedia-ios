@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic, readwrite) MWKArticle* article;
 @property (strong, nonatomic, readwrite) WMFShareFunnel* shareFunnel;
+@property (nonatomic, readwrite) BOOL active;
 
 @property (nullable, copy, nonatomic) NSString* snippet;
 @property (weak, nonatomic) UIViewController* containerViewController;
@@ -71,6 +72,10 @@ NS_ASSUME_NONNULL_BEGIN
         _shareFunnel = funnel;
     }
     return self;
+}
+
+- (BOOL)isActive {
+    return  self.containerViewController != nil;
 }
 
 #pragma mark - Public Presentation methods
