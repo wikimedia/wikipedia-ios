@@ -3,6 +3,7 @@
 
 #import "WMFURLCache.h"
 #import "SessionSingleton.h"
+#import "FBTweak+WikipediaZero.h"
 
 NSString* const WMFURLCacheZeroStateChanged     = @"ZeroStateChanged";
 static NSString* const WMFURLCacheWikipediaHost = @".m.wikipedia.org";
@@ -43,7 +44,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
     // Go to WebViewController.m and uncomment the W0 part,
     // then when running the app in the simulator fire the
     // memory warning to toggle the fake state on or off.
-    if ([SessionSingleton sharedInstance].zeroConfigState.fakeZeroOn) {
+    if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
         zeroRatedHeaderPresent = YES;
         xZeroRatedHeader       = WMFURLCache00000;
     }

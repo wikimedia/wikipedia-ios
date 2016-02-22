@@ -166,9 +166,9 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
+
     [self showSplashView];
-    
+
     @weakify(self)
     [self runDataMigrationIfNeededWithCompletion :^{
         @strongify(self)
@@ -190,13 +190,13 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     if (self.isPresentingOnboarding) {
         return;
     }
-    
+
     if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
     }
-    
+
     if (FBTweakValue(@"Alerts", @"General", @"Show error on launch", NO)) {
         [[WMFAlertManager sharedInstance] showErrorAlert:[NSError errorWithDomain:@"WMFTestDomain" code:0 userInfo:@{NSLocalizedDescriptionKey: @"There was an error"}] sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     }
@@ -219,11 +219,10 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 #pragma mark - Shortcut
 
 - (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
-    
-    if(!item){
+    if (!item) {
         return;
     }
-    
+
     if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
         [self showSearchAnimated:YES];
     } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
@@ -233,7 +232,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
     } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
         [self showLastReadArticleAnimated:YES];
     }
-    
+
     if (completion) {
         completion(YES);
     }

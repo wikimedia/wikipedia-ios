@@ -13,10 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL zeroOnDialogShownOnce;
 @property (nonatomic) BOOL warnWhenLeaving;
-@property (nonatomic, readonly) BOOL fakeZeroOn;
 
 - (void)setZeroOnDialogShownOnce;
-- (void)toggleFakeZeroOn;
 
 @end
 
