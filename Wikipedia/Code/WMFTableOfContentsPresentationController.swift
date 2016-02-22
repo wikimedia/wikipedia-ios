@@ -1,6 +1,7 @@
 
 import UIKit
 
+
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsPresentationControllerTapDelegate {
     
@@ -19,6 +20,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
     public var minimumVisibleBackgroundWidth: CGFloat = 60.0
     public var maximumTableOfContentsWidth: CGFloat = 300.0
+    public var closeButtonPadding: CGFloat = 10.0
     
     // MARK: - Views
     lazy var statusBarBackground: UIView = {
@@ -33,6 +35,19 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         return view
     }()
     
+    lazy var closeButton:UIButton = {
+        let button = UIButton(frame: CGRectZero)
+        button.frame = CGRect(x: self.closeButtonPadding, y: CGRectGetHeight(self.containerView!.bounds) - 44 - self.closeButtonPadding, width: 44, height: 44)
+        button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
+        button.tintColor = UIColor.whiteColor()
+        button.addTarget(self, action: "didTap:", forControlEvents: .TouchUpInside)
+        // someone fix this so it uses localized strings
+//        button.accessibilityHint = MWLocalizedString("close-table-of-contents-accessibility-hint", nil);
+//        button.accessibilityLabel = MWLocalizedString("close-table-of-contents-accessibility-label", nil);
+
+        return button
+    }()
+
     lazy var backgroundView :UIVisualEffectView = {
         let view = UIVisualEffectView(frame: CGRectZero)
         view.autoresizingMask = .FlexibleWidth
@@ -42,9 +57,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         tap.addTarget(self, action: Selector("didTap:"))
         view.addGestureRecognizer(tap)
         view.addSubview(self.statusBarBackground)
-        
+        view.addSubview(self.closeButton)
+
         return view
     }()
+
     
     func didTap(tap: UITapGestureRecognizer) {
         self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
@@ -137,6 +154,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.backgroundView.frame = self.containerView!.bounds
             let frame = self.frameOfPresentedViewInContainerView()
             self.presentedView()!.frame = frame
+
+            var buttonFrame = self.closeButton.frame;
+            buttonFrame.origin.y = CGRectGetHeight(self.containerView!.bounds) - 44 - self.closeButtonPadding
+            self.closeButton.frame = buttonFrame;
+
             }, completion:nil)
     }
     
