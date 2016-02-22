@@ -13,7 +13,7 @@
 #import "NSDate+Utilities.h"
 
 static inline NSString* expectedPOTDTitleStringForYearMonthDay(NSInteger year, NSInteger month, NSInteger day) {
-    return [NSString stringWithFormat:@"%@/%ld-%02ld-%02ld", WMFPOTDTitlePrefix, year, month, day];
+    return [NSString stringWithFormat:@"%@/%ld-%02ld-%02ld_(en)", WMFPOTDTitlePrefix, year, month, day];
 }
 
 QuickSpecBegin(NSDate_WMFPOTDTitleTests)
