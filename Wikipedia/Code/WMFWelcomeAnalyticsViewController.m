@@ -7,10 +7,9 @@
 
 @interface WMFWelcomeAnalyticsViewController ()
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-@property (strong, nonatomic) IBOutlet UILabel* detailLabel;
+@property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel* toggleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
-@property (strong, nonatomic) IBOutlet UIButton* privacyPolicyButton;
 @property (strong, nonatomic) IBOutlet UISwitch* toggle;
 
 @end
@@ -19,11 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text  = MWLocalizedString(@"welcome-usage-reports-title", nil);
-    self.detailLabel.text = MWLocalizedString(@"welcome-usage-reports-body-text", nil);
-    self.toggleLabel.text = MWLocalizedString(@"welcome-usage-reports-switch-text", nil);
-    [self.nextStepButton setTitle:MWLocalizedString(@"welcome-usage-reports-button-title", nil) forState:UIControlStateNormal];
-    [self.privacyPolicyButton setTitle:MWLocalizedString(@"welcome-usage-reports-privacy-policy-button-text", nil) forState:UIControlStateNormal];
+    self.titleLabel.text  = [MWLocalizedString(@"welcome-volunteer-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.subTitleLabel.text = MWLocalizedString(@"welcome-volunteer-sub-title", nil);
+    self.toggleLabel.text = MWLocalizedString(@"welcome-volunteer-send-usage-reports", nil);
+    [self.nextStepButton setTitle:[MWLocalizedString(@"welcome-volunteer-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
+                         forState:UIControlStateNormal];
 
     //Set state of the toggle. Also make sure crash manager setting is in sync with this setting - likely to happen on first launch or for previous users.
     if ([[NSUserDefaults standardUserDefaults] wmf_sendUsageReports]) {
