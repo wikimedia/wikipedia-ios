@@ -11,6 +11,7 @@ import XCTest
 @testable import Wikipedia
 import PromiseKit
 import Nocilla
+import Nimble
 
 class WMFImageControllerTests: XCTestCase {
     private typealias ImageDownloadPromiseErrorCallback = (Promise<WMFImageDownload>) -> ((ErrorType) -> Void) -> Void
@@ -176,6 +177,47 @@ class WMFImageControllerTests: XCTestCase {
             wmf_waitForExpectations(10)
 
             LSNocilla.sharedInstance().stop()
+        }
+    }
+
+    func testSDWebImageDownloaderOperationThreadSafety() {
+        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
+        defer {
+            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
+        }
+
+        [0...1000].forEach { _ in
+            let downloadOperation = SDWebImageDownloaderOperation(
+                request: NSURLRequest(URL: NSURL(string: "https://test.org/foo")!),
+                options: [],
+                progress: nil,
+                completed: nil,
+                cancelled: nil
+            )
+
+            let testThread = NSThread(target: downloadOperation, selector: Selector("start"), object: nil)
+            testThread.start()
+
+            expect(downloadOperation.executing).toEventually(beTrue())
+            expect(downloadOperation.finished).toEventually(beFalse())
+            expect(downloadOperation.valueForKey("thread") as? NSThread).toEventually(beIdenticalTo(testThread))
+
+            let operations: [() -> Void] = [
+                downloadOperation.cancel, {
+                downloadOperation.performSelector(
+                    Selector("connectionDidFinishLoading:"),
+                    onThread: testThread,
+                    withObject: nil,
+                    waitUntilDone: false)
+            }]
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                dispatch_apply(2, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                    operations[$0]()
+                }
+            }
+
+            expect(downloadOperation.executing).toEventually(beFalse(), timeout: 5)
         }
     }
 
