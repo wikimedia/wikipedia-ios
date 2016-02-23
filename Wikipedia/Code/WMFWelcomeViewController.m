@@ -43,6 +43,7 @@
     }];
 }
 
+/*
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController*)navigationController
                                   animationControllerForOperation:(UINavigationControllerOperation)operation
                                                fromViewController:(UIViewController*)fromVC
@@ -51,5 +52,6 @@
     animation.operation = operation;
     return animation;
 }
+*/
 
 @end

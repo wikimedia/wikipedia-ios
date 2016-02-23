@@ -2,6 +2,7 @@
 #import "WMFWelcomeAnalyticsViewController.h"
 #import "Wikipedia-Swift.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import "UIBarButtonItem+WMFButtonConvenience.h"
 
 @import HockeySDK;
 
@@ -11,6 +12,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* toggleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UISwitch* toggle;
+@property (strong, nonatomic) IBOutlet UIButton* buttonCaretLeft;
 
 @end
 
@@ -32,6 +34,9 @@
         self.toggle.on                                                           = NO;
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
     }
+
+    [self.buttonCaretLeft setTintColor:[UIColor wmf_blueTintColor]];
+    [self.buttonCaretLeft wmf_setButtonType:WMFButtonTypeCaretLeft];
 }
 
 - (IBAction)toggleAnalytics:(id)sender {
