@@ -91,92 +91,34 @@ class WMFImageControllerTests: XCTestCase {
         }
     }
 
-    func testRetrySucceedsAfterCancelledDownload() {
-        let testURL = NSURL(string:"https://foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
-        let testImage = UIImage(named: "image-placeholder")!
-        let stubbedData = UIImagePNGRepresentation(testImage)
-
-        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
-
-        let (afterFirstDownloadStarts, didStartFirstDownload, _) = Promise<Void>.pendingPromise()
-
-        var observationToken: AnyObject!
-        observationToken =
-            NSNotificationCenter.defaultCenter().addObserverForName(SDWebImageDownloadStartNotification, object: nil, queue: nil) { _ -> Void in
-            // only call once
-            NSNotificationCenter.defaultCenter().removeObserver(observationToken!)
-            didStartFirstDownload()
-        }
-
-        // run test on second fetch
-        expectPromise(toResolve(),
-            pipe: { (imgDownload: WMFImageDownload) -> Void in
-                XCTAssertEqual(UIImagePNGRepresentation(imgDownload.image), stubbedData)
-            },
-            timeout: 5) { () -> Promise<WMFImageDownload> in
-                let retry = afterFirstDownloadStarts.then() { _ -> Promise<WMFImageDownload> in
-                    // cancel the first download
-                    self.imageController.cancelFetchForURL(testURL)
-
-                    // replace "hanging" protocol w/ nocilla stub protocol
-                    NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
-                    LSNocilla.sharedInstance().start()
-                    stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
-
-                    return self.imageController.fetchImageWithURL(testURL)
-                }
-
-                // return the "recovery" promise which ensures that not only was the first request cancelled, but the
-                // second resolved
-                return self.imageController.fetchImageWithURL(testURL).recover() { _ -> Promise<WMFImageDownload> in
-                    return retry
-                }
-        }
-    }
-
-    func testSDWebImageSanity() {
+    func testCancellationDoesNotAffectRetry() {
         let testURL = NSURL(string:"https://foo@\(UInt(UIScreen.mainScreen().scale))x.png")!
         let testImage = UIImage(named: "image-placeholder")!
         let stubbedData = UIImagePNGRepresentation(testImage)!
 
-        let downloader = SDWebImageDownloader()
-
         [0...100].forEach { _ in
             NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
 
-            let operation =
-            downloader.downloadImageWithURL(testURL,
-                                            options: SDWebImageDownloaderOptions(),
-                                            progress: nil) { img, data, err, finished in
-                XCTFail("Request should have been cancelled!")
-            } as! NSOperation
+            let firstRequest: Promise<WMFImageDownload> = imageController.fetchImageWithURL(testURL)
 
-            expectationForPredicate(NSPredicate(block: { o, _ in return o.isExecuting}),
-                                    evaluatedWithObject: operation,
-                                    handler: nil)
+            expect(self.imageController.imageManager.imageDownloader.isDownloadingImageAtURL(testURL))
+            .toEventually(beTrue(), timeout: 2)
 
-            wmf_waitForExpectations(10)
-
-            operation.cancel()
-
-            let expectation = expectationWithDescription("download")
+            imageController.cancelFetchForURL(testURL)
 
             NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
             LSNocilla.sharedInstance().start()
-            stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
-
-            downloader.downloadImageWithURL(testURL,
-                options: SDWebImageDownloaderOptions(),
-                progress: nil) { (img: UIImage?, data: NSData?, err: NSError?, finished: Bool) in
-                    XCTAssertEqual(img.flatMap(UIImagePNGRepresentation), stubbedData as NSData?)
-                    XCTAssertTrue(finished, "second download operation didn't finish: \(err)")
-                    expectation.fulfill()
+            defer {
+                LSNocilla.sharedInstance().stop()
             }
 
+            stubRequest("GET", testURL.absoluteString).andReturnRawResponse(stubbedData)
 
-            wmf_waitForExpectations(10)
+            let secondRequest: Promise<WMFImageDownload> = imageController.fetchImageWithURL(testURL)
 
-            LSNocilla.sharedInstance().stop()
+            expect(secondRequest.value.flatMap({ UIImagePNGRepresentation($0.image) }))
+            .toEventually(equal(stubbedData), timeout: 10)
+            expect((firstRequest.error as? CancellableErrorType)?.cancelled).toEventually(beTrue(), timeout: 5)
         }
     }
 
@@ -202,6 +144,13 @@ class WMFImageControllerTests: XCTestCase {
             expect(downloadOperation.finished).toEventually(beFalse())
             expect(downloadOperation.valueForKey("thread") as? NSThread).toEventually(beIdenticalTo(testThread))
 
+            /*
+             A previous modification to SDWebImage which intended to simplify cancel<->retry race conditions introduced
+             a deadlock.  This test verifies that cancelling the operation at the same time that the connection finishes
+             loading doesn't cause a deadlock.
+             
+             See https://github.com/wikimedia/SDWebImage/commit/5c85e9042226df2ab8fc5f7c3d5370dc4f2a035f
+            */
             let operations: [() -> Void] = [
                 downloadOperation.cancel, {
                 downloadOperation.performSelector(
@@ -217,7 +166,11 @@ class WMFImageControllerTests: XCTestCase {
                 }
             }
 
-            expect(downloadOperation.executing).toEventually(beFalse(), timeout: 5)
+            expect(downloadOperation.executing)
+            .toEventually(
+                beFalse(),
+                timeout: 5,
+                description: "Operations should support simultaneous cancellation & completion w/o deadlocking.")
         }
     }
 
