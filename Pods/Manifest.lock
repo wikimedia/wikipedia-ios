@@ -79,6 +79,7 @@ PODS:
     - HexColors (~> 2.3.0)
     - Masonry (~> 0.6)
   - Tweaks (HEAD based on 2.0.0)
+  - VTAcknowledgementsViewController (0.17)
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.6.0)
@@ -110,6 +111,7 @@ DEPENDENCIES:
   - SVWebViewController (~> 1.0)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - Tweaks (HEAD)
+  - VTAcknowledgementsViewController
 
 EXTERNAL SOURCES:
   FBSnapshotTestCase:
@@ -176,5 +178,6 @@ SPEC CHECKSUMS:
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
   TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
+  VTAcknowledgementsViewController: 6056f5f5e5ed995bbf0581bed6ddd29355ca9a80
 
 COCOAPODS: 0.39.0

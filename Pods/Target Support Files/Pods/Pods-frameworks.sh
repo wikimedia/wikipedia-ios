@@ -102,6 +102,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/SVWebViewController.framework"
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
@@ -124,6 +125,7 @@ if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "Pods/SVWebViewController.framework"
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
@@ -146,6 +148,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/SVWebViewController.framework"
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
@@ -168,6 +171,7 @@ if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "Pods/SVWebViewController.framework"
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
