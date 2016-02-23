@@ -258,17 +258,17 @@ public class WMFImageController : NSObject {
         }
 
         return dispatch_promise(on: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) { [weak self] in
-            guard let strongSelf: WMFImageController = self else {
+            guard let `self` = self else {
                 throw WMFImageControllerError.Deinit
             }
 
-            if strongSelf.hasDataOnDiskForImageWithURL(url) {
+            if self.hasDataOnDiskForImageWithURL(url) {
                 DDLogDebug("Skipping import of image with URL \(url) since it's already in the cache, deleting it instead")
                 try NSFileManager.defaultManager().removeItemAtPath(filepath)
                 return
             }
 
-            let diskCachePath = strongSelf.imageManager.imageCache.defaultCachePathForKey(strongSelf.cacheKeyForURL(url))
+            let diskCachePath = self.imageManager.imageCache.defaultCachePathForKey(self.cacheKeyForURL(url))
             let diskCacheURL = NSURL(fileURLWithPath: diskCachePath, isDirectory: false)
             let fileURL = NSURL(fileURLWithPath: filepath, isDirectory: false)
 
