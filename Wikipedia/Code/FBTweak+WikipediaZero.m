@@ -28,9 +28,9 @@ static NSString* const WMFWikipediaZeroHeaderTweakIdentifier = @"org.wikimedia.w
 }
 
 + (BOOL)wmf_shouldMockWikipediaZeroHeaders {
-    return [[[[[FBTweakStore sharedInstance] tweakCategoryWithName:@"Networking"]
+    return [[[[[[FBTweakStore sharedInstance] tweakCategoryWithName:@"Networking"]
               tweakCollectionWithName:@"Wikipedia Zero"]
-             tweakWithIdentifier:WMFWikipediaZeroHeaderTweakIdentifier] currentValue];
+             tweakWithIdentifier:WMFWikipediaZeroHeaderTweakIdentifier] currentValue] boolValue];
 }
 
 @end
