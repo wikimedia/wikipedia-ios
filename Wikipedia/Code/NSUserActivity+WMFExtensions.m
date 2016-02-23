@@ -62,10 +62,13 @@
 
 + (instancetype)wmf_actvityWithType:(NSString*)type {
     NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", [type lowercaseString]]];
-    activity.eligibleForHandoff        = YES;
-    activity.eligibleForSearch         = YES;
-    activity.eligibleForPublicIndexing = YES;
-    activity.keywords                  = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
+
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        activity.eligibleForHandoff        = YES;
+        activity.eligibleForSearch         = YES;
+        activity.eligibleForPublicIndexing = YES;
+        activity.keywords                  = [NSSet setWithArray:@[@"Wikipedia", @"Wikimedia", @"Wiki"]];
+    }
     return activity;
 }
 
@@ -73,9 +76,12 @@
     NSUserActivity* activity = [self wmf_actvityWithType:[pageName lowercaseString]];
     activity.title    = pageName;
     activity.userInfo = @{@"WMFPage": pageName};
-    NSMutableSet* set = [activity.keywords mutableCopy];
-    [set addObjectsFromArray:[pageName componentsSeparatedByString:@" "]];
-    activity.keywords = set;
+
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        NSMutableSet* set = [activity.keywords mutableCopy];
+        [set addObjectsFromArray:[pageName componentsSeparatedByString:@" "]];
+        activity.keywords = set;
+    }
 
     return activity;
 }
@@ -114,12 +120,12 @@
     activity.title      = article.displaytitle;
     activity.webpageURL = article.title.desktopURL;
 
-    NSMutableSet* set = [activity.keywords mutableCopy];
-    [set addObjectsFromArray:[article.title.text componentsSeparatedByString:@" "]];
-    activity.keywords       = set;
-    activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 30];
-
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        NSMutableSet* set = [activity.keywords mutableCopy];
+        [set addObjectsFromArray:[article.title.text componentsSeparatedByString:@" "]];
+        activity.keywords       = set;
+        activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 30];
+
         CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
         attributes.relatedUniqueIdentifier = [article.title.desktopURL absoluteString];
         activity.contentAttributeSet       = attributes;
@@ -138,8 +144,11 @@
 
     activity.title                     = [NSString stringWithFormat:@"Search for %@", searchTerm];
     activity.webpageURL                = url;
-    activity.eligibleForSearch         = NO;
-    activity.eligibleForPublicIndexing = NO;
+    
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        activity.eligibleForSearch         = NO;
+        activity.eligibleForPublicIndexing = NO;
+    }
 
     return activity;
 }
