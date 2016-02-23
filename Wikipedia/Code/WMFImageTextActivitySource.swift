@@ -20,7 +20,9 @@ public class WMFImageTextActivitySource: NSObject, UIActivityItemSource  {
 
         if activityType == UIActivityTypePostToTwitter {
             text = localizedStringForKeyFallingBackOnEnglish("share-on-twitter-sign-off")
-        }else if activityType == UIActivityTypePostToFacebook {
+        }else if activityType == UIActivityTypePostToFacebook ||
+        activityType == UIActivityTypeMail ||
+        activityType == UIActivityTypePostToFlickr {
             text = info.filePageURL.absoluteString
         }else {
             text = nil
