@@ -2,6 +2,7 @@
 #import <Foundation/Foundation.h>
 
 @class MWKArticle;
+@class MWKSite;
 
 typedef NS_ENUM (NSUInteger, WMFUserActivityType){
     WMFUserActivityTypeExplore,
@@ -22,7 +23,7 @@ typedef NS_ENUM (NSUInteger, WMFUserActivityType){
 + (instancetype)wmf_recentViewActivity;
 
 + (instancetype)wmf_searchViewActivity;
-+ (instancetype)wmf_searchResultsActivityWithSearchTerm:(NSString*)searchTerm;
++ (instancetype)wmf_searchResultsActivitySearchSite:(MWKSite*)site searchTerm:(NSString*)searchTerm;
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article;
 

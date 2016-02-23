@@ -2,10 +2,49 @@
 #import "NSUserActivity+WMFExtensions.h"
 #import "MWKArticle.h"
 #import "MWKTitle.h"
+#import "MWKSite.h"
 #import "Wikipedia-Swift.h"
 
 @import CoreSpotlight;
 @import MobileCoreServices;
+
+
+@interface NSString (WMFQuery)
+
+- (NSDictionary*)wmf_URLQueryDictionary;
+
+@end
+
+@implementation NSString (WMFQuery)
+
+- (NSDictionary*)wmf_URLQueryDictionary {
+    NSMutableDictionary* mute = @{}.mutableCopy;
+    for (NSString* query in [self componentsSeparatedByString:@"&"]) {
+        NSArray* components = [query componentsSeparatedByString:@"="];
+        if (components.count == 0) {
+            continue;
+        }
+        NSString* key = [components[0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        id value      = nil;
+        if (components.count == 1) {
+            // key with no value
+            value = [NSNull null];
+        }
+        if (components.count == 2) {
+            value = [components[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            // cover case where there is a separator, but no actual value
+            value = [value length] ? value : [NSNull null];
+        }
+        if (components.count > 2) {
+            // invalid - ignore this pair. is this best, though?
+            continue;
+        }
+        mute[key] = value ? : [NSNull null];
+    }
+    return mute.count ? mute.copy : nil;
+}
+
+@end
 
 @implementation NSUserActivity (WMFExtensions)
 
@@ -22,7 +61,7 @@
 }
 
 + (instancetype)wmf_actvityWithType:(NSString*)type {
-    NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", type]];
+    NSUserActivity* activity = [[NSUserActivity alloc] initWithActivityType:[NSString stringWithFormat:@"org.wikimedia.wikipedia.%@", [type lowercaseString]]];
     activity.eligibleForHandoff        = YES;
     activity.eligibleForSearch         = YES;
     activity.eligibleForPublicIndexing = YES;
@@ -89,16 +128,19 @@
     return activity;
 }
 
-+ (instancetype)wmf_searchResultsActivityWithSearchTerm:(NSString*)searchTerm {
-    NSUserActivity* activity = [self wmf_pageActivityWithName:@"Search Results"];
++ (instancetype)wmf_searchResultsActivitySearchSite:(MWKSite*)site searchTerm:(NSString*)searchTerm {
+    NSURL* url                  = [site URL];
+    NSURLComponents* components = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:NO];
+    components.path = [NSString stringWithFormat:@"/w/index.php?search=%@&title=Special%%3ASearch&fulltext=1", searchTerm];
+    url             = [components URL];
+
+    NSUserActivity* activity = [self wmf_actvityWithType:@"Searchresults"];
+
+    activity.title                     = [NSString stringWithFormat:@"Search for %@", searchTerm];
+    activity.webpageURL                = url;
     activity.eligibleForSearch         = NO;
     activity.eligibleForPublicIndexing = NO;
 
-    if (searchTerm.length > 0) {
-        NSMutableDictionary* dict = [activity.userInfo mutableCopy];
-        dict[@"WMFSearchTerm"] = searchTerm;
-        activity.userInfo      = dict;
-    }
     return activity;
 }
 
@@ -116,7 +158,7 @@
         } else {
             return WMFUserActivityTypeSettings;
         }
-    } else if (self.userInfo[@"WMFSearchTerm"] != nil) {
+    } else if ([self.webpageURL.absoluteString containsString:@"/w/index.php?search="]) {
         return WMFUserActivityTypeSearchResults;
     } else {
         return WMFUserActivityTypeArticle;
@@ -124,7 +166,14 @@
 }
 
 - (NSString*)wmf_searchTerm {
-    return self.userInfo[@"WMFSearchTerm"];
+    if (self.wmf_type != WMFUserActivityTypeSearchResults) {
+        return nil;
+    }
+
+    NSDictionary* query = [[self.webpageURL parameterString] wmf_URLQueryDictionary];
+
+    return query[@"search"];
 }
 
 @end
+
