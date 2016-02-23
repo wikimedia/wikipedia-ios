@@ -124,7 +124,7 @@
                                                     title:MWLocalizedString(@"main-menu-rate-app", nil)
                                                  iconName:@"settings-rate"
                                                 iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
