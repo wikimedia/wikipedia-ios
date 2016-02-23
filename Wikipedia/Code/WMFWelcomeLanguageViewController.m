@@ -36,8 +36,8 @@
     self.nextStepButton.backgroundColor = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
 }
 
-- (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
 
     //HAX: to maintain fairly consistent margins above and below the welcome panels
     // their content is constrained to vertically center the image and labels as a
