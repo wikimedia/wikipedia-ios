@@ -50,6 +50,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 
 @implementation WMFExploreSectionSchema
+@synthesize sections=_sections;
 
 - (NSString*)description {
     // HAX: prevent this from logging all its properties in its description, as this causes recursion to
@@ -65,38 +66,15 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSParameterAssert(history);
     NSParameterAssert(blackList);
 
-    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk];
+    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk] ?: [[WMFExploreSectionSchema alloc] init];
+    schema.site         = site;
+    schema.savedPages   = savedPages;
+    schema.historyPages = history;
+    schema.blackList    = blackList;
 
-    if (schema) {
-        schema.site         = site;
-        schema.savedPages   = savedPages;
-        schema.historyPages = history;
-        schema.blackList    = blackList;
-        [schema update:YES];
-    } else {
-        schema = [[WMFExploreSectionSchema alloc] initWithSite:site savedPages:savedPages history:history blackList:blackList];
-    }
+    [schema update:YES];
 
     return schema;
-}
-
-- (instancetype)initWithSite:(MWKSite*)site
-                  savedPages:(MWKSavedPageList*)savedPages
-                     history:(MWKHistoryList*)history
-                   blackList:(WMFRelatedSectionBlackList*)blackList {
-    NSParameterAssert(site);
-    NSParameterAssert(savedPages);
-    NSParameterAssert(history);
-    NSParameterAssert(blackList);
-    self = [super init];
-    if (self) {
-        self.site         = site;
-        self.savedPages   = savedPages;
-        self.historyPages = history;
-        self.blackList    = blackList;
-        [self reset];
-    }
-    return self;
 }
 
 - (void)setBlackList:(WMFRelatedSectionBlackList*)blackList {
@@ -109,33 +87,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [self.KVOController observe:_blackList keyPath:WMF_SAFE_KEYPATH(_blackList, entries) options:0 block:^(WMFExploreSectionSchema* observer, WMFRelatedSectionBlackList* object, NSDictionary* change) {
         [observer updateWithChangesInBlackList:object];
     }];
-}
-
-/**
- *  Reset the feed to its initial set, containing a specific array of items depending on the current site.
- *
- *  Inserts featured section as well as related sections from saved and/or history to the @c startingSchema.
- *
- *  @see startingSchema
- */
-- (void)reset {
-    NSMutableArray<WMFExploreSection*>* startingSchema = [[self startingSchema] mutableCopy];
-
-    [startingSchema addObject:[self newMostReadSectionWithLatestPopulatedDate]];
-
-    [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
-
-    WMFExploreSection* saved =
-        [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
-
-    WMFExploreSection* recent =
-        [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved ? @[saved] : nil maxLength:1] firstObject];
-
-    [startingSchema wmf_safeAddObject:recent];
-    [startingSchema wmf_safeAddObject:saved];
-
-    self.lastUpdatedAt = nil;
-    [self updateSections:startingSchema];
 }
 
 /**
@@ -194,11 +145,31 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Sections
 
-- (void)updateSections:(NSArray<WMFExploreSection*>*)sections {
-    self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
-        return [obj1 compare:obj2];
-    }];
+- (NSArray<WMFExploreSection*>*)sections {
+    if (!_sections) {
+        // required to enforce nonnull compliance when created for the first time
+        _sections = @[];
+    }
+    return _sections;
+}
+
+- (void)setSections:(NSArray<WMFExploreSection*>*)sections {
+    if (_sections == sections) {
+        // not bothering with equality check here since it could be expensive when list is long
+        return;
+    }
+
+    if (sections) {
+        _sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+            return [obj1 compare:obj2];
+        }];
+    } else {
+        // must be nonnull
+        _sections = @[];
+    }
+
     [self.delegate sectionSchemaDidUpdateSections:self];
+
     [WMFExploreSectionSchema saveSchemaToDisk:self];
 }
 
@@ -254,7 +225,9 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 
     self.lastUpdatedAt = [NSDate date];
-    [self updateSections:sections];
+
+    [self setSections:sections];
+
     return YES;
 }
 
@@ -272,7 +245,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     if (new) {
         [sections insertObject:new atIndex:0];
     }
-    [self updateSections:sections];
+    [self setSections:sections];
     return YES;
 }
 
@@ -302,7 +275,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
             [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
 
-            [self updateSections:sections];
+            [self setSections:sections];
         });
     }];
 }
@@ -326,7 +299,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeNearby;
     }];
-    [self updateSections:sections];
+    [self setSections:sections];
 }
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
@@ -598,7 +571,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
 - (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled {
     if (!enabled) {
-        [self updateSections:
+        [self setSections:
          [self.sections filteredArrayUsingPredicate:
           [NSPredicate predicateWithBlock:^BOOL (WMFExploreSection* _Nonnull evaluatedObject,
                                                  NSDictionary < NSString*, id > * _Nullable _) {
