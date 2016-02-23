@@ -285,7 +285,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canShare {
-    return self.article != nil;
+    return [self.article shareSnippet].length != 0;
 }
 
 - (BOOL)hasLanguages {
@@ -728,6 +728,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Share
 
 - (void)shareArticleWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+    if (self.shareOptionsController.isActive) {
+        return;
+    }
+    
     if (text.length == 0) {
         text = [self.article shareSnippet];
     }
