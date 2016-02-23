@@ -145,4 +145,19 @@ extension NSUserDefaults {
             return false
         }
     }
+    
+    public func wmf_setReadingFontSize(fontSize: NSNumber) {
+        self.setObject(fontSize, forKey: "ReadingFontSize")
+        self.synchronize()
+        
+    }
+    
+    public func wmf_readingFontSize() -> NSNumber {
+        if let fontSize = self.objectForKey("ReadingFontSize") as? NSNumber {
+            return fontSize
+        }else{
+            return NSNumber(integer:100) //defauly is 100%
+        }
+    }
+
 }

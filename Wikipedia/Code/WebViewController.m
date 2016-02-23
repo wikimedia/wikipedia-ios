@@ -853,6 +853,33 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self presentViewController:nc animated:YES completion:nil];
 }
 
+- (void)increaseFontSize {
+    NSNumber* fontSize = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
+    fontSize = @(fontSize.integerValue + 10);
+    if (fontSize.integerValue >= 160) {
+        fontSize = @(160);
+    }
+    [self setFontSize:fontSize];
+}
+
+- (void)decreaseFontSize {
+    NSNumber* fontSize = [[NSUserDefaults standardUserDefaults] wmf_readingFontSize];
+    fontSize = @(fontSize.integerValue - 10);
+    if (fontSize.integerValue <= 70) {
+        fontSize = @(70);
+    }
+    [self setFontSize:fontSize];
+}
+
+- (void)setFontSize:(NSNumber*)fontSize {
+    if (fontSize == nil) {
+        fontSize = @(100);
+    }
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.querySelector('body').style['-webkit-text-size-adjust'] = '%ld%%';", fontSize.integerValue]];
+    [[NSUserDefaults standardUserDefaults] wmf_setReadingFontSize:fontSize];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark - Previewing
 
 - (JSValue*)htmlElementAtLocation:(CGPoint)location {

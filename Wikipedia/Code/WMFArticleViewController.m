@@ -391,7 +391,9 @@ NS_ASSUME_NONNULL_BEGIN
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender){
             @strongify(self);
-            [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
+                                                                                
+                                                                                [self.webViewController increaseFontSize];
+//            [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
         }];
     }
     return _shareToolbarItem;
