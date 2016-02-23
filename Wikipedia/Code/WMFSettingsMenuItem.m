@@ -63,7 +63,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:MWLocalizedString(@"settings-language-bar", nil)
                                                  iconName:@"settings-search"
-                                                iconColor:[UIColor colorWithRed:0.10f green:0.69f blue:0.54f alpha:1.0f]
+                                                iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_Switch
                                            disclosureText:nil
                                                isSwitchOn:[[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]];
@@ -133,7 +133,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:MWLocalizedString(@"main-menu-send-feedback", nil)
                                                  iconName:@"settings-feedback"
-                                                iconColor:[UIColor wmf_colorWithHex:0x00B18D alpha:1.0]
+                                                iconColor:[UIColor wmf_green]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
