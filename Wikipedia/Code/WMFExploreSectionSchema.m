@@ -50,7 +50,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 
 @implementation WMFExploreSectionSchema
-@synthesize sections=_sections;
+@synthesize sections = _sections;
 
 - (NSString*)description {
     // HAX: prevent this from logging all its properties in its description, as this causes recursion to
@@ -66,7 +66,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSParameterAssert(history);
     NSParameterAssert(blackList);
 
-    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk] ?: [[WMFExploreSectionSchema alloc] init];
+    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk] ? : [[WMFExploreSectionSchema alloc] init];
     schema.site         = site;
     schema.savedPages   = savedPages;
     schema.historyPages = history;
@@ -421,13 +421,13 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     //Don't add new ones if we aren't in english
     NSMutableArray* featured = [existingFeaturedArticleSections mutableCopy];
 
-    WMFExploreSection* today = [featured bk_match:^BOOL (WMFExploreSection* obj) {
+    BOOL const containsTodaysFeaturedArticle = [featured bk_any:^BOOL (WMFExploreSection* obj) {
         NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
                  @"List should only contain featured sections, got %@", featured);
         return [obj.dateCreated isToday];
     }];
 
-    if (!today) {
+    if (!containsTodaysFeaturedArticle) {
         [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
@@ -603,14 +603,16 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
 + (NSDictionary*)encodingBehaviorsByPropertyKey {
     NSMutableDictionary* behaviors = [[super encodingBehaviorsByPropertyKey] mutableCopy];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"site"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"savedPages"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"historyPages"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"mainPages"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"delegate"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationManager"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationRequestStarted"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"blackList"];
+
+    #define WMFExploreSectionSchemaKey(key) WMF_SAFE_KEYPATH([WMFExploreSectionSchema new], key)
+
+    behaviors[WMFExploreSectionSchemaKey(site)]            = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(savedPages)]      = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(historyPages)]    = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(mainPages)]       = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(delegate)]        = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }
