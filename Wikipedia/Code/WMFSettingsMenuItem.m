@@ -178,6 +178,16 @@
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }
+        case WMFSettingsMenuItemType_3rdPartyLicenses: {
+            return
+            [[WMFSettingsMenuItem alloc] initWithType:type
+                                                title:@"Licenses"
+                                             iconName:@"settings-dev"
+                                            iconColor:[UIColor wmf_colorWithHex:0x1F95DE alpha:1.0]
+                                       disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                       disclosureText:nil
+                                           isSwitchOn:NO];
+        }
     }
 }
 
