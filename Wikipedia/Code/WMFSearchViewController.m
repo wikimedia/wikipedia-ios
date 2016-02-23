@@ -94,7 +94,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 @implementation WMFSearchViewController
 
-+ (instancetype)searchViewControllerWithDataStore:(MWKDataStore*)dataStore{
++ (instancetype)searchViewControllerWithDataStore:(MWKDataStore*)dataStore {
     NSParameterAssert(dataStore);
     WMFSearchViewController* searchVC = [self wmf_initialViewControllerFromClassStoryboard];
     searchVC.dataStore              = dataStore;
@@ -112,7 +112,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (MWKSite*)currentResultsSearchSite {
     return [self.resultsListController.dataSource searchSite];
 }
-
 
 - (NSString*)searchSuggestion {
     return [[self.resultsListController.dataSource searchResults] searchSuggestion];
@@ -402,22 +401,25 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     [self searchForSearchTerm:searchTerm];
 }
 
+- (MWKSite*)currentlySelectedSearchSite {
+    if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
+        NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL (UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+            if (obj.selected) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
 
-- (MWKSite*)currentlySelectedSearchSite{
-    NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL(UIButton*  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if(obj.selected){
-            *stop = YES;
-            return YES;
+        if (index == NSNotFound) {
+            index = 0;
         }
-        return NO;
-    }];
-    
-    if(index == NSNotFound){
-        index = 0;
+
+        MWKLanguageLink* lang = self.searchLanguages[index];
+        return [lang site];
+    } else {
+        return [[NSUserDefaults standardUserDefaults] wmf_appSite];
     }
-    
-    MWKLanguageLink* lang = self.searchLanguages[index];
-    return [lang site];
 }
 
 - (void)didCancelSearch {
@@ -536,22 +538,29 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Languages
 
-- (NSArray*)allLanguagesFromController {
-    NSMutableArray* lang = [NSMutableArray array];
-    [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].preferredLanguages];
-    [lang addObjectsFromArray:[MWKLanguageLinkController sharedInstance].otherLanguages];
-    return lang;
-}
-
 - (void)updateLanguages {
-    NSArray* languages = [self allLanguagesFromController];
+    NSArray* languages = [MWKLanguageLinkController sharedInstance].preferredLanguages;
     self.searchLanguages = [languages wmf_arrayByTrimmingToLength:3];
 }
 
 - (void)updateLanguageButtonsToPreferredLanguages {
     [self updateLanguages];
+    [self.searchLanguages enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+        if (idx >= [self.languageButtons count]) {
+            *stop = YES;
+        }
+        UIButton* button = self.languageButtons[idx];
+        [button setTitle:[obj localizedName] forState:UIControlStateNormal];
+    }];
+
     [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj setTitle:[(MWKLanguageLink*)self.searchLanguages[idx] localizedName]  forState:UIControlStateNormal];
+        if (idx >= [self.searchLanguages count]) {
+            obj.enabled = NO;
+            obj.hidden = YES;
+        } else {
+            obj.enabled = YES;
+            obj.hidden = NO;
+        }
     }];
     [self resizeLanguageButtonsIfNeeded];
 }

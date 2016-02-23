@@ -33,7 +33,7 @@
                 [[WMFSettingsMenuItem alloc] initWithType:type
                                                     title:loginString
                                                  iconName:@"settings-user"
-                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9CA1A7) alpha:1.0]
+                                                iconColor:[UIColor wmf_colorWithHex:(userName ? 0xFF8E2B : 0x9AA0A7) alpha:1.0]
                                            disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
                                            disclosureText:nil
                                                isSwitchOn:NO];
@@ -124,7 +124,7 @@
                                                     title:MWLocalizedString(@"main-menu-rate-app", nil)
                                                  iconName:@"settings-rate"
                                                 iconColor:[UIColor wmf_colorWithHex:0xFEA13D alpha:1.0]
-                                           disclosureType:WMFSettingsMenuItemDisclosureType_ViewController
+                                           disclosureType:WMFSettingsMenuItemDisclosureType_ExternalLink
                                            disclosureText:nil
                                                isSwitchOn:NO];
         }

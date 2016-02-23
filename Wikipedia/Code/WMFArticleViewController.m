@@ -99,12 +99,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Views
 @property (nonatomic, strong) MASConstraint* headerHeightConstraint;
-@property (nonatomic, strong) UIBarButtonItem* refreshToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* saveToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* languagesToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* shareToolbarItem;
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 @property (strong, nonatomic) UIProgressView* progressView;
+@property (nonatomic, strong) UIRefreshControl* pullToRefresh;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> linkPreviewingContext;
@@ -288,7 +288,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)canShare {
-    return self.article != nil;
+    return [self.article shareSnippet].length != 0;
 }
 
 - (BOOL)hasLanguages {
@@ -330,10 +330,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSArray<UIBarButtonItem*>* toolbarItems =
         [NSArray arrayWithObjects:
-         self.refreshToolbarItem, [self flexibleSpaceToolbarItem],
+         self.languagesToolbarItem,
+         [self flexibleSpaceToolbarItem],
          self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
          self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:18.f],
-         self.languagesToolbarItem,
          [self flexibleSpaceToolbarItem],
          self.tableOfContentsToolbarItem,
          nil];
@@ -345,7 +345,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)updateToolbarItemEnabledState {
-    self.refreshToolbarItem.enabled         = [self canRefresh];
     self.shareToolbarItem.enabled           = [self canShare];
     self.languagesToolbarItem.enabled       = [self hasLanguages];
     self.tableOfContentsToolbarItem.enabled = [self hasTableOfContents];
@@ -372,15 +371,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _saveToolbarItem;
 }
 
-- (UIBarButtonItem*)refreshToolbarItem {
-    if (!_refreshToolbarItem) {
-        _refreshToolbarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"refresh"]
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(fetchArticle)];
-    }
-    return _refreshToolbarItem;
-}
 
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
@@ -625,6 +615,12 @@ NS_ASSUME_NONNULL_BEGIN
         make.leading.trailing.top.and.bottom.equalTo(self.view);
     }];
     [self.webViewController didMoveToParentViewController:self];
+
+    self.pullToRefresh = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.enabled         = [self canRefresh];
+    [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
+    [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
+
 }
 
 #pragma mark - Save Offset
@@ -708,6 +704,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchArticle {
     [self fetchArticleForce:YES];
+    [self.pullToRefresh endRefreshing];
 }
 
 - (void)fetchArticleIfNeeded {
@@ -734,6 +731,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Share
 
 - (void)shareArticleWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+    if (self.shareOptionsController.isActive) {
+        return;
+    }
+    
     if (text.length == 0) {
         text = [self.article shareSnippet];
     }

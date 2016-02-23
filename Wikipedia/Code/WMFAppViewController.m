@@ -71,8 +71,6 @@ static NSUInteger const WMFAppTabCount = WMFAppTabTypeRecent + 1;
 
 static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
-static dispatch_once_t launchToken;
-
 @interface WMFAppViewController ()<UITabBarControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UIView* splashView;
@@ -87,9 +85,6 @@ static dispatch_once_t launchToken;
 @property (nonatomic, strong) WMFRandomArticleFetcher* randomFetcher;
 @property (nonatomic, strong) SessionSingleton* session;
 @property (nonatomic, strong) WMFSavedPageSpotlightManager* spotlightManager;
-
-@property (nonatomic, strong) UIApplicationShortcutItem* shortcutItemSelectedAtLaunch;
-@property (nonatomic, strong) void (^ shortcutCompletion)(BOOL succeeded);
 
 @property (nonatomic) BOOL isPresentingOnboarding;
 
@@ -156,7 +151,7 @@ static dispatch_once_t launchToken;
     [self pauseApp];
 }
 
-#pragma mark - Public
+#pragma mark - Launch
 
 + (WMFAppViewController*)initialAppViewControllerFromDefaultStoryBoard {
     return [[UIStoryboard storyboardWithName:NSStringFromClass([WMFAppViewController class]) bundle:nil] instantiateInitialViewController];
@@ -172,21 +167,35 @@ static dispatch_once_t launchToken;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillEnterForegroundWithNotification:) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackgroundWithNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+
+    [self showSplashView];
+
+    @weakify(self)
+    [self runDataMigrationIfNeededWithCompletion :^{
+        @strongify(self)
+        [self.imageMigration setupAndStart];
+        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
+        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
+        }
+        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+            @strongify(self)
+            [self loadMainUI];
+            [self hideSplashViewAnimated:!didShowOnboarding];
+            [self resumeApp];
+            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+        }];
+    }];
 }
 
-- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
-    self.shortcutItemSelectedAtLaunch = item;
-    self.shortcutCompletion           = completion;
-}
+#pragma mark - Start/Pause/Resume App
 
 - (void)resumeApp {
-    if (![self launchCompleted] || self.isPresentingOnboarding) {
+    if (self.isPresentingOnboarding) {
         return;
     }
 
-    if ([self shouldProcessAppShortcutOnLaunch]) {
-        [self processApplicationShortcutItem];
-    } else if ([self shouldShowLastReadArticleOnLaunch]) {
+    if ([self shouldShowLastReadArticleOnLaunch]) {
         [self showLastReadArticleAnimated:YES];
     } else if ([self shouldShowExploreScreenOnLaunch]) {
         [self showExplore];
@@ -213,24 +222,23 @@ static dispatch_once_t launchToken;
 
 #pragma mark - Shortcut
 
-- (void)processApplicationShortcutItem {
-    UIApplicationShortcutItem* shortcutItemSelectedAtLaunch = self.shortcutItemSelectedAtLaunch;
-    self.shortcutItemSelectedAtLaunch = nil;
-    if (shortcutItemSelectedAtLaunch) {
-        if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeSearch]) {
-            [self showSearchAnimated:YES];
-        } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeRandom]) {
-            [self showRandomArticleAnimated:YES];
-        } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeNearby]) {
-            [self.rootTabBarController setSelectedIndex:WMFAppTabTypeExplore];
-            [self showNearbyListAnimated:YES];
-        } else if ([shortcutItemSelectedAtLaunch.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
-            [self showLastReadArticleAnimated:YES];
-        }
-        if (self.shortcutCompletion) {
-            self.shortcutCompletion(YES);
-            self.shortcutCompletion = NULL;
-        }
+- (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion {
+    if (!item) {
+        return;
+    }
+
+    if ([item.type isEqualToString:WMFIconShortcutTypeSearch]) {
+        [self showSearchAnimated:YES];
+    } else if ([item.type isEqualToString:WMFIconShortcutTypeRandom]) {
+        [self showRandomArticleAnimated:YES];
+    } else if ([item.type isEqualToString:WMFIconShortcutTypeNearby]) {
+        [self showNearbyListAnimated:YES];
+    } else if ([item.type isEqualToString:WMFIconShortcutTypeContinueReading]) {
+        [self showLastReadArticleAnimated:YES];
+    }
+
+    if (completion) {
+        completion(YES);
     }
 }
 
@@ -289,37 +297,8 @@ static dispatch_once_t launchToken;
     return YES;
 }
 
-#pragma mark - Start App
-
-- (void)startApp {
-    [self showSplashView];
-    @weakify(self)
-    [self runDataMigrationIfNeededWithCompletion :^{
-        @strongify(self)
-        [self.imageMigration setupAndStart];
-        [self.savedArticlesFetcher fetchAndObserveSavedPageList];
-        if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
-            self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
-        }
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
-            @strongify(self)
-            [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker sharedInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-        }];
-    }];
-}
 
 #pragma mark - Utilities
-
-- (BOOL)launchCompleted {
-    return launchToken != 0;
-}
-
-- (BOOL)shouldProcessAppShortcutOnLaunch {
-    return self.shortcutItemSelectedAtLaunch != nil;
-}
 
 - (BOOL)shouldShowExploreScreenOnLaunch {
     NSDate* resignActiveDate = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
@@ -419,18 +398,6 @@ static dispatch_once_t launchToken;
 }
 
 #pragma mark - UIViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    dispatch_once(&launchToken, ^{
-        [self startApp];
-    });
-}
 
 - (BOOL)shouldAutorotate {
     return YES;
@@ -630,6 +597,8 @@ static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
         }];
     }];
 }
+
+#pragma mark - UITabBarControllerDelegate
 
 - (void)tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
     [self wmf_hideKeyboard];
