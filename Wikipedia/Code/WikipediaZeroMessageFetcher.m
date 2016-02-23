@@ -10,6 +10,8 @@
 #import "WikipediaAppUtils.h"
 #import "WMF_Colors.h"
 
+#import "FBTweak+WikipediaZero.h"
+
 @interface WikipediaZeroMessageFetcher ()
 
 @property (strong, nonatomic) NSString* domain;
@@ -40,11 +42,7 @@
     [manager GET:url.absoluteString parameters:params success:^(AFHTTPRequestOperation* operation, id responseObject) {
         [[MWNetworkActivityIndicatorManager sharedManager] pop];
 
-        // If we're simulating with memory warnings in WebViewcontroller.m,
-        // don't trigger an error for non-dictionary responses, but rather
-        // simulate a received message.
-        // But if we're not simulating, force an error on non-dictionary responses.
-        if ([SessionSingleton sharedInstance].zeroConfigState.fakeZeroOn) {
+        if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
             responseObject = @{
                 @"message": @"Free Wikipedia by Test Operator",
                 @"foreground": @"#00FF00",
