@@ -44,8 +44,9 @@
     // whole. This is trickier to do with a table which has a variable number of cells.
     // This hack vertically centers this panel's table contents. Note the image and
     // labels are part of the table so the table's scroll view can be used to scroll
-    // the image, labels, and table cells as a group if needed - this is expecially
-    // important on small screens such as a 4s.
+    // the image, labels, and table cells as a group if needed (such as when many
+    // language cells are added) - this is expecially important on small screens such
+    // as a 4s.
     [self addTopInsetToVerticallyCenterLanguagesTableContentIfNeeded];
 }
 
