@@ -33,6 +33,9 @@ pod 'Tweaks', :head
 # KVO
 pod 'KVOController'
 
+# Dates
+pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
+
 # Datasources
 pod 'SSDataSources', '~> 0.8.0'
 

@@ -40,6 +40,7 @@ PODS:
   - MGSwipeTableCell (1.5.3)
   - Nimble (3.1.0)
   - Nocilla (0.10.0)
+  - NSDate-Extensions (0.0.1)
   - OAStackView (0.2.0):
     - KVOController (~> 1.0)
   - OCHamcrest (4.2.0)
@@ -98,6 +99,7 @@ DEPENDENCIES:
   - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
   - Nimble (~> 3.1.0)
   - Nocilla
+  - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
@@ -119,6 +121,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/facebook/ios-snapshot-test-case
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
+  NSDate-Extensions:
+    :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
     :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
@@ -137,6 +141,9 @@ CHECKOUT OPTIONS:
   MGSwipeTableCell:
     :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
+  NSDate-Extensions:
+    :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
+    :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
     :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
     :git: git@github.com:wikimedia/OAStackView.git
@@ -166,6 +173,7 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
+  NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
