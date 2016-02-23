@@ -93,4 +93,6 @@
  */
 - (instancetype)wmf_colorByScalingComponents:(CGFloat)amount;
 
++ (instancetype)wmf_green;
+
 @end

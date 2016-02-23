@@ -266,4 +266,14 @@
     return [UIColor colorWithRed:r * amount green:g * amount blue:b * amount alpha:a];
 }
 
++ (instancetype)wmf_green {
+    static UIColor* c = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
+    });
+    return c;
+}
+
 @end
