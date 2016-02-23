@@ -42,9 +42,9 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: "didTap:", forControlEvents: .TouchUpInside)
-        // someone fix this so it uses localized strings
-//        button.accessibilityHint = MWLocalizedString("close-table-of-contents-accessibility-hint", nil);
-//        button.accessibilityLabel = MWLocalizedString("close-table-of-contents-accessibility-label", nil);
+        
+        button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-hint")
+        button.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-label")
 
         return button
     }()
