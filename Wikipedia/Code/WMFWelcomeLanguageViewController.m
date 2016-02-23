@@ -36,6 +36,27 @@
     self.nextStepButton.backgroundColor = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+
+    //HAX: to maintain fairly consistent margins above and below the welcome panels
+    // their content is constrained to vertically center the image and labels as a
+    // whole. This is trickier to do with a table which has a variable number of cells.
+    // This hack vertically centers this panel's table contents. Note the image and
+    // labels are part of the table so the table's scroll view can be used to scroll
+    // the image, labels, and table cells as a group if needed - this is expecially
+    // important on small screens such as a 4s.
+    [self addTopInsetToVerticallyCenterLanguagesTableContentIfNeeded];
+}
+
+-(void)addTopInsetToVerticallyCenterLanguagesTableContentIfNeeded {
+    CGFloat topInsetRequiredToCenterTableContent =
+        (self.languageTableView.frame.size.height - self.languageTableView.contentSize.height) / 2.f;
+    if (topInsetRequiredToCenterTableContent > 0) {
+        self.languageTableView.contentInset = UIEdgeInsetsMake(topInsetRequiredToCenterTableContent, 0, 0, 0);
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if ([[MWKLanguageLinkController sharedInstance].preferredLanguages count] > 1) {
