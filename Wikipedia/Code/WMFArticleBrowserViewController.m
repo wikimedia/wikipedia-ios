@@ -593,8 +593,10 @@ BOOL useSingleBrowserController() {
     } else {
         if (self.navigationController != nil) {
             [self.navigationController pushViewController:viewController animated:animated];
-        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]] && [[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] isKindOfClass:[UINavigationController class]]) {
-            [(UINavigationController*)[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] pushViewController:viewController animated:animated];
+        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
+            UITabBarController* tab = (UITabBarController*)[self.childViewControllers firstObject];
+            UINavigationController* nav = [tab selectedViewController];
+            [nav pushViewController:viewController animated:animated];
         } else {
             NSAssert(0, @"Unexpected view controller hierarchy");
         }
