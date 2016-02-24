@@ -200,7 +200,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         [self.otherLanguagesButton setTitle:MWLocalizedString(@"main-menu-title", nil) forState:UIControlStateNormal];
         self.otherLanguagesButton.titleLabel.font = [UIFont wmf_subtitle];
 
-        [self.otherLanguagesButton sizeToFit];
         [self updateLanguageButtonsToPreferredLanguages];
     } else {
         [self.languageBarContainer removeFromSuperview];
@@ -283,12 +282,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    [coordinator animateAlongsideTransition:^(id < UIViewControllerTransitionCoordinatorContext > _Nonnull context) {
-        [self resizeLanguageButtonsIfNeeded];
-    } completion:nil];
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
@@ -587,34 +580,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
             obj.hidden = NO;
         }
     }];
-    [self resizeLanguageButtonsIfNeeded];
 }
 
-/**
- *  HACK: Auto layout is not possible in the tool bar.
- *  This truncates text of language buttons if they are larger than the display
- */
-- (void)resizeLanguageButtonsIfNeeded {
-    [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        [obj sizeToFit];
-        CGRect f = obj.frame;
-        f.size.height = 30.0f;
-        obj.frame = f;
-    }];
-    CGFloat buttonWidth = [[self.languageButtons bk_reduce:@0 withBlock:^id (NSNumber* sum, UIButton* obj) {
-        return @(obj.frame.size.width + [sum floatValue]);
-    }] floatValue];
-    buttonWidth += self.otherLanguagesButton.frame.size.width;
-
-    //6 leaves us 2 pixels between each button
-    if (buttonWidth > self.view.frame.size.width - 6) {
-        [self.languageButtons enumerateObjectsUsingBlock:^(UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-            CGRect f = obj.frame;
-            f.size.width -= (buttonWidth - (self.view.frame.size.width - 6)) / 3;
-            obj.frame = f;
-        }];
-    }
-}
 
 - (void)selectLanguageForSite:(MWKSite*)site {
     [[self languages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {
