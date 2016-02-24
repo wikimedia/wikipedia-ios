@@ -53,13 +53,15 @@ describe(@"initial state", ^{
             site = [MWKSite siteWithLanguage:@"en"];
         });
 
-        context(@"clean install, location allowed", ^{
+        context(@"location allowed", ^{
             beforeEach(^{
                 [mockLocationManager setLocation:[[CLLocation alloc] initWithLatitude:0 longitude:0]];
             });
 
             it(@"should contain everything except 'because you read' sections", ^{
                 setupSchemaWithSite(site);
+
+                expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                 .withTimeout(5)
                 .toEventually(equal(@[@(WMFExploreSectionTypeFeaturedArticle),
@@ -97,11 +99,20 @@ describe(@"initial state", ^{
                 expect(nearbySection.location).to(equal(mockLocationManager.location));
                 expect(@([nearbySection.dateCreated isToday])).to(beTrue());
             });
+
+            context(@"saved and recent pages", ^{
+                beforeEach(^{
+                    // TODO: add saved & recent page
+                });
+
+                pending(@"should include saved & recent page entries", ^{});
+            });
         });
 
-        context(@"clean install, no location", ^{
+        context(@"no location", ^{
             it(@"should contain everything except 'because you read', continue reading, and location sections", ^{
                 setupSchemaWithSite(site);
+                expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                 .withTimeout(5)
                 .toEventually(equal(@[@(WMFExploreSectionTypeFeaturedArticle),
@@ -148,6 +159,7 @@ describe(@"initial state", ^{
 
             it(@"should contain same as EN wiki, minus featured article", ^{
                 setupSchemaWithSite(site);
+                expect(@([schema.lastUpdatedAt isToday])).to(beTrue());
                 expect([schema.sections valueForKey:WMF_SAFE_KEYPATH([WMFExploreSection new], type)])
                 .withTimeout(5)
                 .toEventually(equal(@[@(WMFExploreSectionTypeMostRead),
@@ -185,7 +197,25 @@ describe(@"initial state", ^{
 });
 
 describe(@"persistence", ^{
-    pending(@"it should persist changes", ^{});
+    pending(@"should read previous states from disk", ^{});
+    pending(@"should persist changes", ^{});
+});
+
+describe(@"updates", ^{
+    pending(@"should skip updates when lastUpdated is below threshold", ^{});
+    pending(@"should update when the site has changed", ^{});
+    pending(@"should add new location sections when location changes significantly", ^{});
+    pending(@"should add new 'daily' sections every day", ^{});
+    pending(@"should add recommended titles for saved & recent pages not already in the schema", ^{});
+});
+
+describe(@"blacklist", ^{
+    pending(@"should filter recommended titles that are in blacklist", ^{});
+    pending(@"should update when blacklist changes", ^{});
+});
+
+describe(@"continue reading", ^{
+    pending(@"should show continue reading as first section when appropriate", ^{});
 });
 
 QuickSpecEnd
