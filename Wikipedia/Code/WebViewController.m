@@ -259,6 +259,7 @@ NSString* const WMFLicenseTitleOnENWiki =
     self.footerViewHeadersByIndex = [NSMutableDictionary dictionary];
     [self addFooterContainerView];
     [self addFooterContentViews];
+    [self.footerContainerView wmf_recursivelyDisableScrollsToTop];
 }
 
 - (void)addFooterContainerView {
@@ -324,6 +325,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         [self addChildViewController:childVC];
         // didMoveToParent is called when they are added to the view
     }];
+    
     [self addFooterView];
 }
 

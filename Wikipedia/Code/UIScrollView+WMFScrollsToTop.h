@@ -14,3 +14,14 @@
 - (void)wmf_shouldScrollToTopOnStatusBarTap:(BOOL)shouldScrollOnTap;
 
 @end
+
+@interface UIView (WMFScrollsToTop)
+
+/**
+ *  Disable scrolls to top on any sroll views in the hirarchy of the given view
+ *
+ */
+- (void)wmf_recursivelyDisableScrollsToTop;
+
+@end
+
