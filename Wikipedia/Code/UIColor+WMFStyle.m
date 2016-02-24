@@ -140,7 +140,7 @@
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconTintColor {
-    return [UIColor wmf_colorWithHex:0x9CA1A7 alpha:1.0];
+    return [self wmf_customGray];
 }
 
 + (instancetype)wmf_exploreSectionHeaderIconBackgroundColor {
@@ -176,11 +176,11 @@
 }
 
 + (instancetype)wmf_nearbyArrowColor {
-    return [UIColor blackColor];
+    return [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
 }
 
 + (instancetype)wmf_nearbyTickColor {
-    return [UIColor wmf_999999Color];
+    return [UIColor wmf_colorWithHex:0x00AF89 alpha:0.8];
 }
 
 + (instancetype)wmf_nearbyTitleColor {

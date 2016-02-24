@@ -141,7 +141,7 @@
 "main-menu-about" = "About the app";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Privacy policy";
-"main-menu-terms-of-use" = "Terms of use";
+"main-menu-terms-of-use" = "Terms of Use";
 "main-menu-rate-app" = "Rate the app";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacy and Terms";
@@ -269,6 +269,8 @@
 
 "table-of-contents-heading" = "Contents";
 "table-of-contents-button-label" = "Table of Contents";
+"table-of-contents-close-accessibility-label" = "Close Table of Contents";
+"table-of-contents-close-accessibility-hint" = "Close";
 
 "abuse-filter-warning-heading" = "This looks like an unconstructive edit, are you sure you want to save it?";
 "abuse-filter-warning-subheading" = "Your edit may contain one or more of the following:";

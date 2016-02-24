@@ -136,14 +136,14 @@ public class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, U
     func animateTransition(interactive: Bool, duration: NSTimeInterval, animations: () -> Void, completion: ((Bool) -> Void)?){
         
         if(interactive){
-            UIView.animateWithDuration(duration, delay: 0.0, options: .CurveLinear, animations: { () -> Void in
+            UIView.animateWithDuration(duration, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
                 animations()
                 }, completion: { (completed: Bool) -> Void in
                     completion?(completed)
             })
     
         }else{
-            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+            UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
                 animations()
                 }, completion: {(completed: Bool) -> Void in
                     completion?(completed)

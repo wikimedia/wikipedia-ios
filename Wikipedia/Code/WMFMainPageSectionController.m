@@ -70,7 +70,7 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
 }
 
 - (UIImage*)headerIcon {
-    return [UIImage imageNamed:@"featured-mini"];
+    return [UIImage imageNamed:@"news-mini"];
 }
 
 - (UIColor*)headerIconTintColor {

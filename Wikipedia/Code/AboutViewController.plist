@@ -16,7 +16,7 @@
 	<key>repositories</key>
 	<dict>
 		<key>GitHub</key>
-		<string>https://github.com/wikimedia/wikipedia.ios</string>
+		<string>https://github.com/wikimedia/wikipedia-ios</string>
 		<key>Gerrit</key>
 		<string>https://gerrit.wikimedia.org/r/#/q/project:apps/ios/wikipedia,n,z</string>
 	</dict>
