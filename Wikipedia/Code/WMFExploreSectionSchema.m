@@ -1,5 +1,5 @@
 
-#import "WMFExploreSectionSchema.h"
+#import "WMFExploreSectionSchema_Testing.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKDataStore.h"
@@ -46,6 +46,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 @property (nonatomic, strong, readwrite) NSArray<WMFExploreSection*>* sections;
 
+@property (nonatomic, strong, readwrite) NSString* filePath;
+
 @end
 
 
@@ -60,17 +62,37 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Setup
 
-+ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history blackList:(WMFRelatedSectionBlackList*)blackList {
++ (instancetype)schemaWithSite:(MWKSite*)site
+                    savedPages:(MWKSavedPageList*)savedPages
+                       history:(MWKHistoryList*)history
+                     blackList:(WMFRelatedSectionBlackList*)blackList {
+    return [self schemaWithSite:site
+                     savedPages:savedPages
+                        history:history
+                      blackList:blackList
+                locationManager:[[WMFLocationManager alloc] init]
+                           file:[[self schemaFileURL] path]];
+}
+
++ (instancetype)schemaWithSite:(MWKSite*)site
+                    savedPages:(MWKSavedPageList*)savedPages
+                       history:(MWKHistoryList*)history
+                     blackList:(WMFRelatedSectionBlackList*)blackList
+               locationManager:(WMFLocationManager*)locationManager
+                          file:(NSString*)filePath {
     NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
     NSParameterAssert(blackList);
 
-    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk] ? : [[WMFExploreSectionSchema alloc] init];
+    WMFExploreSectionSchema* schema = [self schemaFromFileAtPath:filePath] ? : [[WMFExploreSectionSchema alloc] init];
     schema.site         = site;
     schema.savedPages   = savedPages;
     schema.historyPages = history;
     schema.blackList    = blackList;
+    schema.filePath     = filePath;
+    schema.locationManager = locationManager;
+    locationManager.delegate = schema;
 
     [schema update:YES];
 
@@ -100,16 +122,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return @[[WMFExploreSection mainPageSectionWithSite:self.site],
              [WMFExploreSection pictureOfTheDaySection],
              [WMFExploreSection randomSectionWithSite:self.site]];
-}
-
-#pragma mark - Location
-
-- (WMFLocationManager*)locationManager {
-    if (_locationManager == nil) {
-        _locationManager          = [[WMFLocationManager alloc] init];
-        _locationManager.delegate = self;
-    }
-    return _locationManager;
 }
 
 #pragma mark - Main Article
@@ -170,7 +182,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     [self.delegate sectionSchemaDidUpdateSections:self];
 
-    [WMFExploreSectionSchema saveSchemaToDisk:self];
+    [self save];
 }
 
 - (void)removeSection:(WMFExploreSection*)section {
@@ -182,7 +194,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [sections removeObject:section];
     self.sections = sections;
     [self.delegate sectionSchema:self didRemoveSection:section atIndex:index];
-    [WMFExploreSectionSchema saveSchemaToDisk:self];
+    [self save];
 }
 
 #pragma mark - Update
@@ -265,33 +277,21 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 
     @weakify(self);
-    [self reverseGeocodeLocation:location completionHandler:^(CLPlacemark* _Nullable placemark) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-            NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
-            [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
-                return obj.type == WMFExploreSectionTypeNearby;
-            }];
+    [self.locationManager reverseGeocodeLocation:location]
+    .catch(^(NSError* error) {
+        DDLogWarn(@"Suppressing geocoding error: %@", error);
+        return nil;
+    })
+    .then(^(CLPlacemark* _Nullable placemark) {
+        @strongify(self);
+        NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+        [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+            return obj.type == WMFExploreSectionTypeNearby;
+        }];
+        [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
 
-            [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
-
-            [self setSections:sections];
-        });
-    }];
-}
-
-typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
-
-- (void)reverseGeocodeLocation:(CLLocation*)location completionHandler:(nonnull WMFGeocodeCompletionHandler)completionHandler {
-    CLGeocoder* gc = [[CLGeocoder alloc] init];
-    [gc reverseGeocodeLocation:location completionHandler:^(NSArray < CLPlacemark* > * _Nullable placemarks, NSError* _Nullable error) {
-        if (error) {
-            completionHandler(nil);
-            return;
-        }
-
-        completionHandler([placemarks firstObject]);
-    }];
+        [self setSections:sections];
+    });
 }
 
 - (void)removeNearbySection {
@@ -613,29 +613,35 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     behaviors[WMFExploreSectionSchemaKey(delegate)]        = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(filePath)]        = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }
 
-+ (NSURL*)schemaFileURL {
-    return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFExploreSectionsFileName] stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
-}
-
-+ (void)saveSchemaToDisk:(WMFExploreSectionSchema*)schema {
+- (void)save {
     dispatchOnBackgroundQueue(^{
-        if (![NSKeyedArchiver archiveRootObject:schema toFile:[[self schemaFileURL] path]]) {
-            //TODO: not sure what to do with an error here
+        BOOL const success = [NSKeyedArchiver archiveRootObject:self toFile:self.filePath];
+        NSParameterAssert(success);
+        if (!success) {
+            WMF_TECH_DEBT_TODO(add error handling);
             DDLogError(@"Failed to save sections to disk!");
         }
     });
 }
 
-+ (WMFExploreSectionSchema*)loadSchemaFromDisk {
++ (NSURL*)schemaFileURL {
+    return [NSURL fileURLWithPath:
+            [[documentsDirectory()
+              stringByAppendingPathComponent:WMFExploreSectionsFileName]
+             stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
+}
+
++ (instancetype)schemaFromFileAtPath:(NSString*)filePath {
     //Need to map old class names
     [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
     [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
 
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:[[self schemaFileURL] path]];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
 }
 
 @end
