@@ -349,7 +349,8 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 static NSString* const WMFDidShowOnboarding = @"DidShowOnboarding5.0";
 
 - (BOOL)shouldShowOnboarding {
-    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO)) {
+    if (FBTweakValue(@"Welcome", @"General", @"Show on launch (requires force quit)", NO)
+        || [[NSProcessInfo processInfo] environment][@"WMFShowWelcomeView"].boolValue) {
         return YES;
     }
     NSNumber* didShow = [[NSUserDefaults standardUserDefaults] objectForKey:WMFDidShowOnboarding];
