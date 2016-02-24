@@ -1,6 +1,7 @@
 
 
 #import "WMFBoringNavigationTransition.h"
+#import "Wikipedia-Swift.h"
 
 @implementation WMFBoringNavigationTransition
 
@@ -11,15 +12,15 @@
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext;
 {
-    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    __block UIViewController* toViewController   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    CGRect screenFrame                   = fromViewController.view.frame;
-    UIView* containerView                = [transitionContext containerView];
+    UIViewController* fromViewController       = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    __block UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    CGRect screenFrame                         = fromViewController.view.frame;
+    UIView* containerView                      = [transitionContext containerView];
     [containerView addSubview:toViewController.view];
-    
+
     CGFloat startX;
     CGFloat endX;
-    if (self.operation == UINavigationControllerOperationPush) {
+    if (self.operation == UINavigationControllerOperationPush && ![[UIApplication sharedApplication] wmf_isRTL]) {
         startX = screenFrame.size.width;
         endX   = -screenFrame.size.width;
     } else {
@@ -28,7 +29,7 @@
     }
 
     CGRect f = toViewController.view.frame;
-    f.origin.x = startX;
+    f.origin.x                  = startX;
     toViewController.view.frame = f;
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^
     {
