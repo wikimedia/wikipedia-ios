@@ -43,6 +43,11 @@
     if ([sender isOn]) {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAutoSend;
         [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:YES];
+        
+        dispatchOnMainQueueAfterDelayInSeconds(1.4, ^{
+            [self.nextStepButton sendActionsForControlEvents: UIControlEventTouchUpInside];
+        });
+        
     } else {
         [[BITHockeyManager sharedHockeyManager] crashManager].crashManagerStatus = BITCrashManagerStatusAlwaysAsk;
         [[NSUserDefaults standardUserDefaults] wmf_setSendUsageReports:NO];
