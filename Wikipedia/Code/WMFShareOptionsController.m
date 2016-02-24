@@ -142,7 +142,8 @@ NS_ASSUME_NONNULL_BEGIN
     shareOptionsView.shareAsCardLabel.userInteractionEnabled       = YES;
     shareOptionsView.shareAsTextLabel.userInteractionEnabled       = YES;
     shareOptionsView.cancelLabel.userInteractionEnabled            = YES;
-    shareOptionsView.shareAsCardLabel.text                         = MWLocalizedString(@"share-custom-menu-item", nil);
+    shareOptionsView.shareAsCardLabel.text                         = MWLocalizedString(@"share-as-image", nil);
+    shareOptionsView.shareAsTextLabel.text                         = MWLocalizedString(@"share-as-text", nil);
     shareOptionsView.cancelLabel.text                              = MWLocalizedString(@"share-cancel", nil);
     shareOptionsView.cardImageView.image                           = self.shareImage;
 

@@ -209,7 +209,6 @@
 "share-menu-page-saved" = "Alert text shown when page saved for offline reading.\n\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved-access}}";
 "share-menu-page-saved-access" = "Reminder to user of ways to access saved pages. Parameters:\n* $1 - the main menu W icon\n* $2 - the save page heart icon\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved}}";
 "share-custom-menu-item" = "Button label for text selection Share\n{{Identical|Share}}";
-"share-a-fact-custom-menu-item" = "Button label for Share A Fact feature which overlays text on an image";
 "share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
 "share-article-name-on-wikipedia-with-selected-text" = "Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks. $2 will be a user-selected text snippet, which should be wrapped in the localized double quote marks.";
 "share-as-image" = "Button label for sharing as an image card";

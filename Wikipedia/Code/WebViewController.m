@@ -554,7 +554,7 @@ NSString* const WMFLicenseTitleOnENWiki =
             }
         }];
 
-        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-custom-menu-item", nil)
+        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
                                                               action:@selector(shareMenuItemTapped:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
@@ -877,3 +877,24 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 @end
+
+
+
+
+@interface WMFWebView : UIWebView
+
+@end
+
+
+@implementation WMFWebView
+
+//Disable OS share menu when selecting text
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == NSSelectorFromString(@"_share:")) {
+        return NO;
+    }
+    return [super canPerformAction:action withSender:sender];
+}
+
+@end
+
