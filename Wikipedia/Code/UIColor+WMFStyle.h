@@ -95,4 +95,12 @@
 
 + (instancetype)wmf_green;
 
++ (instancetype)wmf_welcomeNextButtonBackgroundColor;
+
++ (instancetype)wmf_welcomeThanksButtonBackgroundColor;
+
++ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor;
+
++ (instancetype)wmf_welcomeThanksButtonDividerBackgroundColor;
+
 @end

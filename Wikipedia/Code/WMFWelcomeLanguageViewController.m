@@ -5,7 +5,6 @@
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIColor+WMFHexColor.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 
 @interface WMFWelcomeLanguageViewController ()
@@ -15,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIButton* buttonCaretLeft;
+@property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 
 @end
 
@@ -35,10 +35,13 @@
     [self.nextStepButton setTitle:[MWLocalizedString(@"welcome-languages-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
                          forState:UIControlStateNormal];
     
-    self.nextStepButton.backgroundColor = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
+    self.nextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonBackgroundColor];
+    [self.nextStepButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
 
     [self.buttonCaretLeft setTintColor:[UIColor wmf_blueTintColor]];
     [self.buttonCaretLeft wmf_setButtonType:WMFButtonTypeCaretLeft];
+
+    self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 }
 
 - (void)viewDidLayoutSubviews {

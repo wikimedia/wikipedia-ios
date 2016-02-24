@@ -402,6 +402,7 @@
                     <size key="freeformSize" width="320" height="580"/>
                     <connections>
                         <outlet property="buttonCaretLeft" destination="ufW-wA-1De" id="Ou2-5V-IoH"/>
+                        <outlet property="dividerAboveNextStepButton" destination="6IQ-9d-NOr" id="wwf-bs-9JA"/>
                         <outlet property="languageTableView" destination="NhA-v2-Uom" id="fhm-4F-gOJ"/>
                         <outlet property="moreLanguagesButton" destination="aQm-oo-RaU" id="HS5-TX-RId"/>
                         <outlet property="nextStepButton" destination="4mC-Fk-qiy" id="P63-h8-FjQ"/>
@@ -553,6 +554,7 @@
                     </view>
                     <connections>
                         <outlet property="buttonCaretLeft" destination="Q5d-Hx-VAp" id="7Xf-am-xRX"/>
+                        <outlet property="dividerAboveNextStepButton" destination="qgl-77-UMc" id="ZcG-pt-FGY"/>
                         <outlet property="nextStepButton" destination="QWe-KF-DYa" id="k0L-OH-v5S"/>
                         <outlet property="subTitleLabel" destination="Y8L-fH-dvF" id="Box-7T-Tju"/>
                         <outlet property="titleLabel" destination="6rU-AF-ucZ" id="0if-0x-nka"/>
