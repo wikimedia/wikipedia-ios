@@ -11,6 +11,7 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "Wikipedia-Swift.h"
+#import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 
 static NSString* const kWMFAboutHTMLFile  = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -95,47 +96,12 @@ static NSString* const kWMFContributorsKey = @"contributors";
     return [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
 }
 
-- (NSArray*)libraries {
-    return self.data[kWMFLibrariesKey];
-}
-
 - (NSString*)contributors {
     return [self.data[kWMFContributorsKey] componentsJoinedByString:@", "];
 }
 
 - (NSDictionary*)urls {
     return self.data[kWMFURLsKey];
-}
-
-- (NSDictionary*)podLibraryLicenses {
-    NSString* filePath = [[NSBundle mainBundle] pathForResource:kWMFPodsPlistName ofType:@"plist"];
-
-    NSDictionary* plist = [NSDictionary dictionaryWithContentsOfFile:filePath];
-
-    NSArray* pods = plist[kWMFPodsLibraryArray];
-
-    pods = [pods bk_map:^id (NSDictionary* obj) {
-        return @{obj[kWMFPodsLibraryNameKey]: obj[kWMFPodsLibraryLicenseKey]};
-    }];
-
-    return [pods bk_reduce:[NSMutableDictionary dictionary] withBlock:^id (NSMutableDictionary* sum, NSDictionary* obj) {
-        [sum addEntriesFromDictionary:obj];
-        return sum;
-    }];
-}
-
-- (NSString*)libraryLinks {
-    NSArray* libraries = [[self libraries] bk_map:^id (NSDictionary* obj) {
-        NSString* sourceLink = [[self class] linkHTMLForURLString:obj[kWMFLibraryURLKey] title:obj[kWMFLibraryNameKey]];
-
-        NSString* licenseURLPath = [[self class] licenseURLPathForLibraryName:obj[kWMFLibraryNameKey]];
-
-        NSString* licenseLink = [[self class] linkHTMLForURLString:licenseURLPath title:MWLocalizedString(@"about-libraries-license", nil)];
-
-        return [sourceLink stringByAppendingString:[self createRTLCompatibleLicenseLink:licenseLink]];
-    }];
-
-    return [libraries componentsJoinedByString:@", "];
 }
 
 - (NSString*)createRTLCompatibleLicenseLink:(NSString*)licenseLink {
@@ -164,34 +130,6 @@ static NSString* const kWMFContributorsKey = @"contributors";
     return encodedUrlString;
 }
 
-#pragma mark - License Search
-
-- (NSString*)licenseTextForLicenseURL:(NSURL*)licenseURL {
-    return [self licenseTextForLibraryName:[licenseURL host]];
-}
-
-- (NSString*)licenseTextForLibraryName:(NSString*)libraryName {
-    NSString* license = [self.podLibraryLicenses bk_match:^BOOL (NSString* key, NSString* license) {
-        if ([key wmf_caseInsensitiveContainsString:libraryName]) {
-            return YES;
-        }
-
-        return NO;
-    }];
-
-    if (!license) {
-        license = [[self libraries] bk_match:^BOOL (NSDictionary* obj) {
-            if ([obj[kWMFLibraryNameKey] isEqualToString:libraryName]) {
-                return YES;
-            }
-
-            return NO;
-        }][kWMFLibraryLicenseTextKey];
-    }
-
-    return license;
-}
-
 #pragma mark - HTML Injection
 
 
@@ -218,7 +156,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     setDivHTML(@"translators_title", MWLocalizedString(@"about-translators", nil));
     setDivHTML(@"testers_title", MWLocalizedString(@"about-testers", nil));
     setDivHTML(@"libraries_title", MWLocalizedString(@"about-libraries", nil));
-    setDivHTML(@"libraries_body", self.libraryLinks);
+    setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:MWLocalizedString(@"about-libraries-licenses", nil)]);
     setDivHTML(@"repositories_title", MWLocalizedString(@"about-repositories", nil));
     setDivHTML(@"repositories_body", self.repositoryLinks);
     setDivHTML(@"feedback_body", [[self class] linkHTMLForURLString:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
@@ -270,8 +208,11 @@ static NSString* const kWMFContributorsKey = @"contributors";
     NSURL* requestURL = [request URL];
 
     if ([[self class] isLicenseURL:requestURL]) {
-        NSString* licenseText = [self licenseTextForLicenseURL:requestURL];
-        [self.webView loadHTMLString:licenseText baseURL:nil];
+        VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
+        vc.headerText = NSLocalizedString(@"We love open source software <3.", nil);
+
+        UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
+        [self presentViewController:nc animated:YES completion:nil];
 
         return NO;
     }

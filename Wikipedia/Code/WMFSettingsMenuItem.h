@@ -25,7 +25,6 @@ typedef NS_ENUM (NSUInteger, WMFSettingsMenuItemType) {
     WMFSettingsMenuItemType_FAQ,
     WMFSettingsMenuItemType_DebugCrash,
     WMFSettingsMenuItemType_DevSettings,
-    WMFSettingsMenuItemType_3rdPartyLicenses,
 };
 
 @interface WMFSettingsMenuItem : MTLModel

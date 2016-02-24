@@ -32,7 +32,6 @@
 #import "MWKLanguageLinkController.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "NSBundle+WMFInfoUtils.h"
-#import <VTAcknowledgementsViewController/VTAcknowledgementsViewController.h>
 
 #pragma mark - Static URLs
 
@@ -180,14 +179,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
             tweaksVC.tweaksDelegate = self;
             [self presentViewController:tweaksVC animated:YES completion:nil];
         }
-        case WMFSettingsMenuItemType_3rdPartyLicenses: {
-            VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
-            vc.headerText = NSLocalizedString(@"We love open source software.", nil);
-            
-            UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
-            [self presentViewController:nc animated:YES completion:nil];
-        }
-
         default:
             break;
     }
@@ -388,7 +379,6 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
     SSSection* section =
         [SSSection sectionWithItems:@[
              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_About],
-             [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_3rdPartyLicenses],
              [WMFSettingsMenuItem itemForType:WMFSettingsMenuItemType_FAQ]
          ]];
     section.header = nil;
