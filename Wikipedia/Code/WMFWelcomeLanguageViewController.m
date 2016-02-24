@@ -6,6 +6,7 @@
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFWelcomeNavigation.h"
+#import "UIButton+WMFWelcomeNextButton.h"
 
 @interface WMFWelcomeLanguageViewController ()
 
@@ -31,11 +32,7 @@
     [self.moreLanguagesButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
                               forState:UIControlStateNormal];
     
-    [self.nextStepButton setTitle:[MWLocalizedString(@"welcome-languages-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
-                         forState:UIControlStateNormal];
-    
-    self.nextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonBackgroundColor];
-    [self.nextStepButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+    [self.nextStepButton wmf_configureAsWelcomeNextButton];
 
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 

@@ -386,7 +386,7 @@
 "welcome-volunteer-sub-title" = "Help improve the Wikipedia app by sharing how you use it";
 "welcome-volunteer-send-usage-reports" = "Send usage reports";
 "welcome-volunteer-continue-button" = "Continue";
-"welcome-volunteer-thanks-button" = "$1 Thank you!";
+"welcome-volunteer-thanks" = "$1 Thank you!";
 
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";

@@ -344,7 +344,7 @@
 "welcome-volunteer-sub-title" = "Sub-title explaining how sending usage reports can help improve the app";
 "welcome-volunteer-send-usage-reports" = "Text for switch allowing user to choose whether to send usage reports";
 "welcome-volunteer-continue-button" = "Text for button for dismissming the last welcome screen";
-"welcome-volunteer-thanks-button" = "Text which is shown if the user decides to send usage reports. $1 will be substituted with a positive image or emoji such as a smiley face or a thumbs-up.";
+"welcome-volunteer-thanks" = "Text which is shown if the user decides to send usage reports. $1 will be substituted with a positive image or emoji such as a smiley face or a thumbs-up.";
 "empty-no-feed-title" = "Title of messsage shown in place of feed when no content could be loaded. Indicates there is no internet available";
 "empty-no-feed-message" = "Body of messsage shown in place of content when no feed could be loaded. Tells users they can see the articles when the interent is restored";
 "empty-no-feed-action-message" = "Footer messsage shown in place of content when no feed could be loaded. Tells users they can read saved pages offline";
