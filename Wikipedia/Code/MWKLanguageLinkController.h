@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)languageIsOSLanguage:(MWKLanguageLink*)language;
 
+
+- (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site;
+
 @end
 
 NS_ASSUME_NONNULL_END
