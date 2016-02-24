@@ -21,12 +21,12 @@
     return self.mockLocation;
 }
 
-- (void)setLocation:(CLLocation *)location {
+- (void)setLocation:(CLLocation*)location {
     self.mockLocation = location;
     [self.delegate nearbyController:self didUpdateLocation:self.location];
 }
 
-- (void)setHeading:(CLHeading *)heading {
+- (void)setHeading:(CLHeading*)heading {
     self.mockHeading = heading;
     [self.delegate nearbyController:self didUpdateHeading:self.heading];
 }
@@ -52,7 +52,7 @@
 - (void)stopMonitoringLocation {
 }
 
-- (AnyPromise*)reverseGeocodeLocation:(CLLocation *)location {
+- (AnyPromise*)reverseGeocodeLocation:(CLLocation*)location {
     return [AnyPromise promiseWithValue:nil];
 }
 

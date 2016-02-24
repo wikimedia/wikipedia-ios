@@ -20,12 +20,12 @@
 
 QuickSpecBegin(WMFExploreSectionSchemaTests)
 
-__block WMFExploreSectionSchema* schema;
+__block WMFExploreSectionSchema * schema;
 __block MWKDataStore* dataStore;
 __block WMFMockLocationManager* mockLocationManager;
 
 // Convenience setup method which creates a schema for the given site, injecting mocks & temporary stores for other fields.
-void(^setupSchemaWithSite)(MWKSite*) = ^(MWKSite* site) {
+void (^ setupSchemaWithSite)(MWKSite*) = ^(MWKSite* site) {
     // TODO: setup w/ temp blacklist
     schema = [WMFExploreSectionSchema schemaWithSite:site
                                           savedPages:dataStore.userDataStore.savedPageList

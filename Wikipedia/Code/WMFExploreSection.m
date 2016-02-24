@@ -120,9 +120,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
     WMFExploreSection* trending = [[WMFExploreSection alloc] init];
-    trending.type        = WMFExploreSectionTypeMostRead;
+    trending.type              = WMFExploreSectionTypeMostRead;
     trending.mostReadFetchDate = date;
-    trending.site        = site;
+    trending.site              = site;
     return trending;
 }
 

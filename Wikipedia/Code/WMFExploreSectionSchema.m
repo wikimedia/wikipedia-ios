@@ -86,12 +86,12 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSParameterAssert(blackList);
 
     WMFExploreSectionSchema* schema = [self schemaFromFileAtPath:filePath] ? : [[WMFExploreSectionSchema alloc] init];
-    schema.site         = site;
-    schema.savedPages   = savedPages;
-    schema.historyPages = history;
-    schema.blackList    = blackList;
-    schema.filePath     = filePath;
-    schema.locationManager = locationManager;
+    schema.site              = site;
+    schema.savedPages        = savedPages;
+    schema.historyPages      = history;
+    schema.blackList         = blackList;
+    schema.filePath          = filePath;
+    schema.locationManager   = locationManager;
     locationManager.delegate = schema;
 
     [schema update:YES];
@@ -388,8 +388,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     BOOL containsLatestSectionEquivalent = [mostReadSections bk_any:^BOOL (WMFExploreSection* mostReadSection) {
         BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar]
                                  compareDate:mostReadSection.mostReadFetchDate
-                                 toDate:latestMostReadSection.mostReadFetchDate
-                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+                                       toDate:latestMostReadSection.mostReadFetchDate
+                            toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
         BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
         return matchesDay && matchesSite;
     }];
