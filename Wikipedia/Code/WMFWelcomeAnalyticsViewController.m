@@ -55,7 +55,7 @@
 }
 
 -(void)updateNextStepButtonStyleForUsageReportsIsOn:(BOOL)isOn {
-    NSString* buttonTitle = isOn ? MWLocalizedString(@"welcome-volunteer-thanks-button", nil) : MWLocalizedString(@"welcome-volunteer-continue-button", nil);
+    NSString* buttonTitle = isOn ? [MWLocalizedString(@"welcome-volunteer-thanks-button", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"😀"] : MWLocalizedString(@"welcome-volunteer-continue-button", nil);
 
     [self.nextStepButton setTitle:[buttonTitle uppercaseStringWithLocale:[NSLocale currentLocale]]
                          forState:UIControlStateNormal];
