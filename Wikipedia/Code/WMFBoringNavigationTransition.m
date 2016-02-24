@@ -21,8 +21,13 @@
     CGFloat startX;
     CGFloat endX;
     
-    BOOL leftToRight = (![[UIApplication sharedApplication] wmf_isRTL] && self.operation == UINavigationControllerOperationPush) || ([[UIApplication sharedApplication] wmf_isRTL] && self.operation == UINavigationControllerOperationPop);
-
+    BOOL leftToRight;
+    if([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]){
+        leftToRight = (![[UIApplication sharedApplication] wmf_isRTL] && self.operation == UINavigationControllerOperationPush) || ([[UIApplication sharedApplication] wmf_isRTL] && self.operation == UINavigationControllerOperationPop);
+    }else{
+        leftToRight = (self.operation == UINavigationControllerOperationPush);
+    }
+    
     if (leftToRight) {
         startX = screenFrame.size.width;
         endX   = -screenFrame.size.width;
