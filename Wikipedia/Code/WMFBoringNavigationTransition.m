@@ -20,7 +20,10 @@
 
     CGFloat startX;
     CGFloat endX;
-    if (self.operation == UINavigationControllerOperationPush && ![[UIApplication sharedApplication] wmf_isRTL]) {
+    
+    BOOL leftToRight = (![[UIApplication sharedApplication] wmf_isRTL] && self.operation == UINavigationControllerOperationPush) || ([[UIApplication sharedApplication] wmf_isRTL] && self.operation == UINavigationControllerOperationPop);
+
+    if (leftToRight) {
         startX = screenFrame.size.width;
         endX   = -screenFrame.size.width;
     } else {
