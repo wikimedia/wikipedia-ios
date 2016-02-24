@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Section Controller Creation
 
 - (WMFMostReadSectionController*)mostReadSectionControllerForSection:(WMFExploreSection*)section {
-    return [[WMFMostReadSectionController alloc] initWithDate:section.dateCreated
+    return [[WMFMostReadSectionController alloc] initWithDate:section.mostReadFetchDate
                                                          site:section.site
                                                     dataStore:self.dataStore];
 }

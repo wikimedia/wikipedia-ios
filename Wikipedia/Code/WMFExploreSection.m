@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite) NSDate* dateCreated;
 @property (nonatomic, strong, readwrite) CLLocation* location;
 @property (nonatomic, strong, readwrite) CLPlacemark* placemark;
+@property (nonatomic, strong, readwrite) NSDate* mostReadFetchDate;
 
 @end
 
@@ -34,8 +35,23 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithCoder:coder];
     if (self) {
         //site was added after persistence. We need to provide a default value.
-        if (self.type == WMFExploreSectionTypeFeaturedArticle && self.site == nil) {
-            self.site = [MWKSite siteWithLanguage:@"en"];
+        switch (self.type) {
+            case WMFExploreSectionTypeFeaturedArticle: {
+                if (self.site == nil) {
+                    self.site = [MWKSite siteWithLanguage:@"en"];
+                }
+                break;
+            }
+
+            case WMFExploreSectionTypeMostRead: {
+                if (!self.mostReadFetchDate) {
+                    // fall back for legacy beta "most read" sections
+                    self.mostReadFetchDate = self.dateCreated;
+                }
+                break;
+            }
+            default:
+                break;
         }
     }
     return self;
@@ -105,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)mostReadSectionForDate:(NSDate*)date site:(MWKSite*)site {
     WMFExploreSection* trending = [[WMFExploreSection alloc] init];
     trending.type        = WMFExploreSectionTypeMostRead;
-    trending.dateCreated = date;
+    trending.mostReadFetchDate = date;
     trending.site        = site;
     return trending;
 }

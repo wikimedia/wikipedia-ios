@@ -386,9 +386,10 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
 
     BOOL containsLatestSectionEquivalent = [mostReadSections bk_any:^BOOL (WMFExploreSection* mostReadSection) {
-        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar] compareDate:mostReadSection.dateCreated
-                                                                            toDate:latestMostReadSection.dateCreated
-                                                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar]
+                                 compareDate:mostReadSection.mostReadFetchDate
+                                 toDate:latestMostReadSection.mostReadFetchDate
+                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
         BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
         return matchesDay && matchesSite;
     }];
