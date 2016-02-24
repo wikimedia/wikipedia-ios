@@ -122,6 +122,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSMutableArray<WMFExploreSection*>* startingSchema = [[self startingSchema] mutableCopy];
 
     [startingSchema addObject:[self newMostReadSectionWithLatestPopulatedDate]];
+    
+    [startingSchema addObjectsFromArray:[self pictureOfTheDaySections]];
 
     [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
 
@@ -147,7 +149,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
  */
 - (NSArray<WMFExploreSection*>*)startingSchema {
     return @[[WMFExploreSection mainPageSectionWithSite:self.site],
-             [WMFExploreSection pictureOfTheDaySection],
              [WMFExploreSection randomSectionWithSite:self.site]];
 }
 
@@ -238,7 +239,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         return [self updateContinueReading];
     }
 
-
     //Get updated static sections
     NSMutableArray<WMFExploreSection*>* sections = [[self staticSections] mutableCopy];
 
@@ -247,6 +247,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     [sections addObjectsFromArray:[self mostReadSectionsWithUpdateIfNeeded]];
 
+    [sections addObjectsFromArray:[self pictureOfTheDaySections]];
+    
     //Add Saved and History
     NSArray<WMFExploreSection*>* recent = [self historyAndSavedPageSections];
     if ([recent count] > 0) {
@@ -351,7 +353,6 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     [sections wmf_safeAddObject:[self existingNearbySection]];
     [sections wmf_safeAddObject:[self randomSection]];
     [sections addObject:[self mainPageSection]];
-    [sections addObject:[self picOfTheDaySection]];
     [sections wmf_safeAddObject:[self continueReadingSection]];
 
     return sections;
@@ -485,21 +486,41 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     return [WMFExploreSection mainPageSectionWithSite:self.site];
 }
 
-- (WMFExploreSection*)picOfTheDaySection {
-    WMFExploreSection* existingSection = [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
+- (NSArray<WMFExploreSection*>*)pictureOfTheDaySections {
+    
+    NSMutableArray<WMFExploreSection*>* existingSections = [[self.sections bk_select:^BOOL (WMFExploreSection* obj) {
         if (obj.type == WMFExploreSectionTypePictureOfTheDay) {
             return YES;
         }
         return NO;
+    }] mutableCopy];
+    
+    WMFExploreSection* todaySection = [existingSections bk_match:^BOOL(WMFExploreSection* existingSection) {
+        
+        //Only one section per day
+        if ([existingSection.dateCreated isToday]) {
+            return YES;
+        }
+        
+        return NO;
     }];
 
-    //If it's a new day and we havent created a new main page section, create it now
-    if ([existingSection.dateCreated isToday]) {
-        return existingSection;
+    if(todaySection == nil){
+        [existingSections addObject:[WMFExploreSection pictureOfTheDaySectionWithDate:[NSDate date]]];
     }
-
-    return [WMFExploreSection pictureOfTheDaySection];
+    
+    NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypePictureOfTheDay];
+    
+    //Sort by date
+    [existingSections sortWithOptions:NSSortStable
+                      usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+                          return -[obj1.dateCreated compare:obj2.dateCreated];
+                      }];
+    
+    return [existingSections wmf_arrayByTrimmingToLength:max];
 }
+
+
 
 - (nullable WMFExploreSection*)continueReadingSection {
     NSDate* resignActiveDate             = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
@@ -517,7 +538,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     return nil;
 }
 
-- (nullable)existingContinueReadingSection {
+- (nullable WMFExploreSection*)existingContinueReadingSection {
     return [self.sections bk_match:^BOOL (WMFExploreSection* obj) {
         if (obj.type == WMFExploreSectionTypeContinueReading) {
             return YES;

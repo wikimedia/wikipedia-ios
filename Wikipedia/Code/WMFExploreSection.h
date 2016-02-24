@@ -33,6 +33,7 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 + (instancetype)nearbySectionWithLocation:(CLLocation*)location placemark:(nullable CLPlacemark*)placemark site:(MWKSite*)site;
 + (instancetype)historySectionWithHistoryEntry:(MWKHistoryEntry*)entry;
 + (instancetype)savedSectionWithSavedPageEntry:(MWKSavedPageEntry*)entry;
++ (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date;
 
 /**
  *  Create a section which displays the featured article of the day for a specific site.
@@ -47,7 +48,6 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 /// @name Static Sections
 ///
 
-+ (instancetype)pictureOfTheDaySection;
 + (instancetype)mainPageSectionWithSite:(MWKSite*)site;
 + (instancetype)randomSectionWithSite:(MWKSite*)site;
 
