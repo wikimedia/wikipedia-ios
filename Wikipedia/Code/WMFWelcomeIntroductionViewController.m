@@ -1,5 +1,6 @@
 
 #import "WMFWelcomeIntroductionViewController.h"
+
 @interface WMFWelcomeIntroductionViewController ()
 
 @property (strong, nonatomic) IBOutlet UILabel* titleLabel;
@@ -8,7 +9,6 @@
 @property (strong, nonatomic) IBOutlet UIButton* nextButton;
 
 @end
-
 
 @implementation WMFWelcomeIntroductionViewController
 
@@ -35,8 +35,14 @@
     [alert show];
 }
 
--(IBAction)prepareForUnwindFromLanguages:(UIStoryboardSegue *)segue {
-    // Needed so we can set up unwind segue from storyboard.
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }
 
 @end

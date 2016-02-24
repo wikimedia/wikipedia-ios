@@ -63,6 +63,8 @@
 		B07963E31C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = B07963E21C5850C10015D2D4 /* UINavigationController+WMFHideEmptyToolbar.m */; };
 		B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */; };
 		B09D64E81C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B09D64E71C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m */; };
+		B0AB16371C7E5762002E566A /* UINavigationBar+WMFTransparency.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */; };
+		B0AB163A1C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AB16391C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m */; };
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
 		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
@@ -750,6 +752,10 @@
 		B08E7E9A1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFEmptyView.m"; path = "Wikipedia/Code/UIViewController+WMFEmptyView.m"; sourceTree = SOURCE_ROOT; };
 		B09D64E61C2514FF00A29514 /* WMFArticleFooterMenuDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuDataSource.h; path = Wikipedia/Code/WMFArticleFooterMenuDataSource.h; sourceTree = SOURCE_ROOT; };
 		B09D64E71C2514FF00A29514 /* WMFArticleFooterMenuDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuDataSource.m; path = Wikipedia/Code/WMFArticleFooterMenuDataSource.m; sourceTree = SOURCE_ROOT; };
+		B0AB16351C7E5762002E566A /* UINavigationBar+WMFTransparency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UINavigationBar+WMFTransparency.h"; path = "Wikipedia/Code/UINavigationBar+WMFTransparency.h"; sourceTree = SOURCE_ROOT; };
+		B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UINavigationBar+WMFTransparency.m"; path = "Wikipedia/Code/UINavigationBar+WMFTransparency.m"; sourceTree = SOURCE_ROOT; };
+		B0AB16381C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+WMFWelcomeNavigation.h"; path = "Wikipedia/Code/UIViewController+WMFWelcomeNavigation.h"; sourceTree = SOURCE_ROOT; };
+		B0AB16391C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+WMFWelcomeNavigation.m"; path = "Wikipedia/Code/UIViewController+WMFWelcomeNavigation.m"; sourceTree = SOURCE_ROOT; };
 		B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFSettingsMenuItem.m; path = Wikipedia/Code/WMFSettingsMenuItem.m; sourceTree = SOURCE_ROOT; };
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WMFButtonConvenience.h"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = SOURCE_ROOT; };
@@ -2192,6 +2198,7 @@
 				BC45D5831C32F79A007C72F3 /* UIScrollView */,
 				BC45D5821C32F745007C72F3 /* UIView */,
 				BC45D5811C32F6BC007C72F3 /* UIViewController */,
+				B0AB16341C7E570F002E566A /* UINavigationBar */,
 				B07963E41C5857890015D2D4 /* UINavigationController */,
 				B0E804A21C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.h */,
 				B0E804A31C0CE0B40065EBC0 /* NSProcessInfo+WMFOperatingSystemVersionChecks.m */,
@@ -2388,6 +2395,8 @@
 			isa = PBXGroup;
 			children = (
 				0E26B0741C0F4F720004D687 /* WMFWelcome.storyboard */,
+				B0AB16381C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.h */,
+				B0AB16391C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m */,
 				0E26B0881C0FD7E00004D687 /* Container */,
 				0E26B0891C0FD7F70004D687 /* Intro */,
 				0E26B08A1C0FD8040004D687 /* Language */,
@@ -2889,6 +2898,15 @@
 				BC45D5B31C330C94007C72F3 /* Views */,
 			);
 			name = "Footer Menu";
+			sourceTree = "<group>";
+		};
+		B0AB16341C7E570F002E566A /* UINavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				B0AB16351C7E5762002E566A /* UINavigationBar+WMFTransparency.h */,
+				B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */,
+			);
+			name = UINavigationBar;
 			sourceTree = "<group>";
 		};
 		BC22F44C1BA33CF400B64F4B /* Value Providers */ = {
@@ -5519,6 +5537,7 @@
 				B0E8070B1C0CEBDA0065EBC0 /* WMFShareCardViewController.m in Sources */,
 				B0E807771C0CEEB00065EBC0 /* UIImageView+WMFImageFetchingInternal.m in Sources */,
 				B0E804641C0CE0920065EBC0 /* AFHTTPRequestOperationManager+WMFDesktopRetry.m in Sources */,
+				B0AB16371C7E5762002E566A /* UINavigationBar+WMFTransparency.m in Sources */,
 				B0E802CD1C0CD2F70065EBC0 /* WMFPictureOfTheDaySectionController.m in Sources */,
 				B0E804451C0CDF850065EBC0 /* WikiGlyphButton.m in Sources */,
 				B0E805651C0CE0DC0065EBC0 /* UIWebView+WMFSuppressSelection.m in Sources */,
@@ -5548,6 +5567,7 @@
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B0E806991C0CEAC20065EBC0 /* AccountCreationViewController.m in Sources */,
+				B0AB163A1C7E5A3F002E566A /* UIViewController+WMFWelcomeNavigation.m in Sources */,
 				B08E7E9B1C1FA57A00EC3C99 /* UIViewController+WMFEmptyView.m in Sources */,
 				B0E807D41C0CF04A0065EBC0 /* MWKArticle+HTMLImageImport.m in Sources */,
 				B0E805641C0CE0DC0065EBC0 /* UIWebView+WMFJavascriptToXcodeConsoleLogging.m in Sources */,

@@ -5,7 +5,7 @@
 #import "UIView+WMFDefaultNib.h"
 #import "MWKLanguageLink.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "UIBarButtonItem+WMFButtonConvenience.h"
+#import "UIViewController+WMFWelcomeNavigation.h"
 
 @interface WMFWelcomeLanguageViewController ()
 
@@ -13,7 +13,6 @@
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
-@property (strong, nonatomic) IBOutlet UIButton* buttonCaretLeft;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 
 @end
@@ -38,10 +37,9 @@
     self.nextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonBackgroundColor];
     [self.nextStepButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
 
-    [self.buttonCaretLeft setTintColor:[UIColor wmf_blueTintColor]];
-    [self.buttonCaretLeft wmf_setButtonType:WMFButtonTypeCaretLeft];
-
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
+
+    [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -120,10 +118,6 @@
     [[MWKLanguageLinkController sharedInstance] appendPreferredLanguage:language];
     [self.languageTableView reloadData];
     [controller dismissViewControllerAnimated:YES completion:NULL];
-}
-
--(IBAction)prepareForUnwindFromVolunteer:(UIStoryboardSegue *)segue {
-    // Needed so we can set up unwind segue from storyboard.
 }
 
 @end
