@@ -244,6 +244,8 @@
 "license-footer-name" = "License short name; usually leave untranslated as CC-BY-SA 3.0\n{{Identical|CC BY-SA}}";
 "table-of-contents-heading" = "Header text appearing above the first section in the table of contents\n{{Identical|Content}}";
 "table-of-contents-button-label" = "Accessibility label for the Table of Contents button";
+"table-of-contents-close-accessibility-label" = "Accessibility label for closing table of contents";
+"table-of-contents-close-accessibility-hint" = "Accessibility hint for closing table of contents";
 "abuse-filter-warning-heading" = "Header text for unconstructive edit warning";
 "abuse-filter-warning-subheading" = "Subheading text for potentially unconstructive edit warning";
 "abuse-filter-warning-caps" = "Label text for typing in all capitals";

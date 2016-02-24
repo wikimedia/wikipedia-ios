@@ -112,6 +112,14 @@ typedef NS_ENUM (NSUInteger, WMFExploreSectionType){
 @property (nonatomic, strong, readonly) CLPlacemark* placemark;
 
 /**
+ *  The date to fetch most read reuslts for.
+ *
+ *  This is not the same as date created, as the date the section was created (and how it's sorted with respect to
+ *  other sections) is not the same as the date results were fetched for.
+ */
+@property (nonatomic, strong, readonly) NSDate* mostReadFetchDate;
+
+/**
  *  Determine ordering between two sections.
  *
  *  Use this to sort home sections. Sort currently works like this:

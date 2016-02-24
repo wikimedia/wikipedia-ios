@@ -176,11 +176,11 @@
 }
 
 + (instancetype)wmf_nearbyArrowColor {
-    return [UIColor blackColor];
+    return [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
 }
 
 + (instancetype)wmf_nearbyTickColor {
-    return [UIColor wmf_999999Color];
+    return [UIColor wmf_colorWithHex:0x00AF89 alpha:0.8];
 }
 
 + (instancetype)wmf_nearbyTitleColor {
