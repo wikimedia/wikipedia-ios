@@ -216,10 +216,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sTt-Sj-Jo5">
-                            <rect key="frame" x="8" y="0.0" width="584" height="43"/>
+                            <rect key="frame" x="16" y="0.0" width="576" height="43"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="mcT-oI-oNl">
-                                    <rect key="frame" x="0.0" y="6" width="207" height="32"/>
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="mcT-oI-oNl">
+                                    <rect key="frame" x="0.0" y="6" width="197" height="32"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGK-Lg-uhN" customClass="WMFUnderlineButton">
                                             <rect key="frame" x="0.0" y="0.0" width="49" height="32"/>
@@ -232,8 +232,8 @@
                                                 <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="HMz-jF-QpA"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpf-xN-ND1" customClass="WMFUnderlineButton">
-                                            <rect key="frame" x="79" y="0.0" width="49" height="32"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zpf-xN-ND1" customClass="WMFUnderlineButton">
+                                            <rect key="frame" x="74" y="0.0" width="49" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <state key="normal" title="Button">
@@ -243,8 +243,8 @@
                                                 <action selector="setLanguageWithSender:" destination="tkf-8P-b2O" eventType="touchUpInside" id="f8m-IP-3Pc"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9C2-oo-p5z" customClass="WMFUnderlineButton">
-                                            <rect key="frame" x="158" y="0.0" width="49" height="32"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9C2-oo-p5z" customClass="WMFUnderlineButton">
+                                            <rect key="frame" x="148" y="0.0" width="49" height="32"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                             <state key="normal" title="Button">
@@ -257,7 +257,7 @@
                                     </subviews>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWF-WY-cEi" customClass="WMFTitleInsetRespectingButton">
-                                    <rect key="frame" x="535" y="6" width="49" height="32"/>
+                                    <rect key="frame" x="527" y="6" width="49" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <inset key="titleEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                     <state key="normal" title="Button">
@@ -294,7 +294,7 @@
                         <constraint firstAttribute="trailing" secondItem="dFR-By-zsk" secondAttribute="trailing" id="h9w-Hl-U2z"/>
                         <constraint firstAttribute="height" constant="44" id="hE6-Up-vv4"/>
                         <constraint firstItem="sTt-Sj-Jo5" firstAttribute="top" secondItem="xlJ-QG-9Zi" secondAttribute="top" id="nNk-PV-6BU"/>
-                        <constraint firstItem="sTt-Sj-Jo5" firstAttribute="leading" secondItem="xlJ-QG-9Zi" secondAttribute="leading" constant="8" id="sb2-jF-0NN"/>
+                        <constraint firstItem="sTt-Sj-Jo5" firstAttribute="leading" secondItem="xlJ-QG-9Zi" secondAttribute="leading" constant="16" id="sb2-jF-0NN"/>
                     </constraints>
                 </view>
             </objects>
