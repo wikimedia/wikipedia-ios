@@ -325,7 +325,7 @@ NSString* const WMFLicenseTitleOnENWiki =
         [self addChildViewController:childVC];
         // didMoveToParent is called when they are added to the view
     }];
-    
+
     [self addFooterView];
 }
 
