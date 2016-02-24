@@ -62,3 +62,4 @@ Wikipedia/assets/
 # Git
 *.orig
 
+node_modules/**
