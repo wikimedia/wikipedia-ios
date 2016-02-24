@@ -473,11 +473,10 @@ BOOL useSingleBrowserController() {
 }
 
 - (void)showShareSheetFrombarButtonItem:(nullable UIBarButtonItem*)item {
-    
     if (self.shareOptionsController.isActive) {
         return;
     }
-    
+
     NSString* text = [[self currentViewController] shareText];
     [[[self currentViewController] shareFunnel] logShareButtonTappedResultingInSelection:text];
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:item];
@@ -594,7 +593,7 @@ BOOL useSingleBrowserController() {
         if (self.navigationController != nil) {
             [self.navigationController pushViewController:viewController animated:animated];
         } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
-            UITabBarController* tab = (UITabBarController*)[self.childViewControllers firstObject];
+            UITabBarController* tab     = (UITabBarController*)[self.childViewControllers firstObject];
             UINavigationController* nav = [tab selectedViewController];
             [nav pushViewController:viewController animated:animated];
         } else {
