@@ -258,6 +258,20 @@ NS_ASSUME_NONNULL_BEGIN
     [self.delegate nearbyController:self didReceiveError:error];
 }
 
+#pragma mark - Geocoding
+
+- (AnyPromise*)reverseGeocodeLocation:(CLLocation*)location {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        [[[CLGeocoder alloc] init] reverseGeocodeLocation:location completionHandler:^(NSArray <CLPlacemark*>* _Nullable placemarks, NSError* _Nullable error) {
+            if (error) {
+                resolve(error);
+            } else {
+                resolve(placemarks.firstObject);
+            }
+        }];
+    }];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
