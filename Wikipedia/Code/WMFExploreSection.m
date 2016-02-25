@@ -71,15 +71,14 @@ NS_ASSUME_NONNULL_BEGIN
             return 1;
         case WMFExploreSectionTypeMostRead:
             return 2;
-        case WMFExploreSectionTypeMainPage:
-            return 3;
         case WMFExploreSectionTypePictureOfTheDay:
+            return 3;
+        case WMFExploreSectionTypeMainPage:
             return 4;
         case WMFExploreSectionTypeRandom:
             return 5;
         case WMFExploreSectionTypeNearby:
             return 6;
-
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory:
             // Saved & History have identical same-day sorting behavior
