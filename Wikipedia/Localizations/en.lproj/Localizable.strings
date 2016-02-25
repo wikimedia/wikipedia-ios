@@ -216,6 +216,7 @@
 "about-libraries" = "libraries used";
 "about-libraries-license" = "License";
 "about-libraries-licenses" = "Licenses";
+"about-libraries-licenses-title" = "We love open source software $1";
 "about-repositories" = "repositories";
 "about-send-feedback" = "Send app feedback";
 "about-product-of" = "A product of the $1";
