@@ -285,44 +285,30 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
     
     @weakify(self);
-    [self reverseGeocodeLocation:location completionHandler:^(CLPlacemark* _Nullable placemark) {
-        dispatchOnMainQueue(^{
-            @strongify(self);
-
-            NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
-            [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
-                return obj.type == WMFExploreSectionTypeNearby;
-            }];
-            
-            [existingNearbySections addObject:[self nearbySectionWithLocation:location placemark:placemark]];
-            
-            NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeNearby];
-            
-            [existingNearbySections sortWithOptions:NSSortStable
-                      usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
-                          return -[obj1.dateCreated compare:obj2.dateCreated];
-                      }];
-            
-            [existingNearbySections wmf_arrayByTrimmingToLength:max];
-            [sections addObjectsFromArray:existingNearbySections];
-    [self.locationManager reverseGeocodeLocation:location]
-    .catch(^(NSError* error) {
-        DDLogWarn(@"Suppressing geocoding error: %@", error);
-        return nil;
-    })
-    .then(^(CLPlacemark* _Nullable placemark) {
+    [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark* _Nullable placemark) {
         @strongify(self);
         NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
         [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
             return obj.type == WMFExploreSectionTypeNearby;
         }];
-        [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
-
+        
+        [existingNearbySections addObject:[self nearbySectionWithLocation:location placemark:placemark]];
+        
+        NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeNearby];
+        
+        [existingNearbySections sortWithOptions:NSSortStable
+                                usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+                                    return -[obj1.dateCreated compare:obj2.dateCreated];
+                                }];
+        
+        [existingNearbySections wmf_arrayByTrimmingToLength:max];
+        [sections addObjectsFromArray:existingNearbySections];
         [self setSections:sections];
+        
+    }).catch(^(NSError* error) {
+        DDLogWarn(@"Suppressing geocoding error: %@", error);
+        return nil;
     });
-            [self updateSections:sections];
-        });
-    }];
 }
 
 - (void)removeNearbySection {
