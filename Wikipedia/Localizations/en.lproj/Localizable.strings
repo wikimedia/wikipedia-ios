@@ -354,6 +354,7 @@
 "home-continue-related-heading" = "Because you read $1";
 "home-more-like-footer" = "More like $1";
 "home-nearby-footer" = "More from nearby your location";
+"home-nearby-location-footer" = "More nearby $1";
 "home-nearby-nothing" = "Nothing nearby";
 "home-nearby-check-again" = "Check again";
 "home-featured-article-heading" = "Featured article for $1";

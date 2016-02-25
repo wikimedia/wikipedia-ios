@@ -316,6 +316,7 @@
 "home-continue-related-heading" = "Heading for presenting user option to read articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-more-like-footer" = "Footer for presenting user option to see longer list of articles related to a previously read article. $1 will be replaced with the name of the previously read article.";
 "home-nearby-footer" = "Footer for presenting user option to see longer list of nearby articles.";
+"home-nearby-location-footer" = "Footer for presenting user option to see longer list of articles nearby a specific location. $1 will be replaced with the name of the location";
 "home-nearby-nothing" = "Text informing user no nearby articles were found.";
 "home-nearby-check-again" = "Text for button letting user re-check for nearby articles.";
 "home-featured-article-heading" = "Heading above today's featured article. $1 will be replaced with today's date.";
