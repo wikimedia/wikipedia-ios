@@ -272,7 +272,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
     }];
 
     self.shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.shareButton setImage:[UIImage imageNamed:@"share-mini"] forState:UIControlStateNormal];
+    [self.shareButton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(didTapShareButton) forControlEvents:UIControlEventTouchUpInside];
     self.shareButton.tintColor = [UIColor whiteColor];
     // NOTE(bgerstle): share button starts hidden, and is conditionally revealed once info is downloaded for the current image
