@@ -120,11 +120,11 @@ NPM_VERSION = "$(shell npm -version 2>/dev/null)"
 
 grunt: ##Run grunt
 grunt: npm
-	@cd www && grunt && cd ..
+	grunt
 
 npm: ##Install Javascript dependencies
 npm:
-	@cd www && npm install && cd ..
+	npm install
 
 get-node: ##Install node via Homebrew
 	brew install node
