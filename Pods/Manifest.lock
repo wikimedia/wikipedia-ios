@@ -40,6 +40,7 @@ PODS:
   - MGSwipeTableCell (1.5.3)
   - Nimble (3.1.0)
   - Nocilla (0.10.0)
+  - NSDate-Extensions (0.0.1)
   - OAStackView (0.2.0):
     - KVOController (~> 1.0)
   - OCHamcrest (4.2.0)
@@ -80,6 +81,7 @@ PODS:
     - Masonry (~> 0.6)
   - TUSafariActivity (1.0.4)
   - Tweaks (HEAD based on 2.0.0)
+  - VTAcknowledgementsViewController (0.17)
 
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.6.0)
@@ -98,6 +100,7 @@ DEPENDENCIES:
   - MGSwipeTableCell (from `git@github.com:wikimedia/MGSwipeTableCell.git`)
   - Nimble (~> 3.1.0)
   - Nocilla
+  - NSDate-Extensions (from `git@github.com:wikimedia/NSDate-Extensions.git`)
   - OAStackView (from `git@github.com:wikimedia/OAStackView.git`)
   - OCHamcrest (~> 4.2.0)
   - OCMockito (~> 1.4.0)
@@ -106,12 +109,13 @@ DEPENDENCIES:
   - PromiseKit/SystemConfiguration (from `https://github.com/mxcl/PromiseKit.git`,
     branch `swift-2.0-beta5`)
   - Quick (~> 0.8.0)
-  - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `f4529eeac3da5bc5a5f43ec51ea142eba6c86999`)
+  - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
   - TUSafariActivity
   - Tweaks (HEAD)
+  - VTAcknowledgementsViewController
 
 EXTERNAL SOURCES:
   FBSnapshotTestCase:
@@ -119,13 +123,15 @@ EXTERNAL SOURCES:
     :git: https://github.com/facebook/ios-snapshot-test-case
   MGSwipeTableCell:
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
+  NSDate-Extensions:
+    :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
     :git: git@github.com:wikimedia/OAStackView.git
   PromiseKit:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :commit: f4529eeac3da5bc5a5f43ec51ea142eba6c86999
+    :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
@@ -137,6 +143,9 @@ CHECKOUT OPTIONS:
   MGSwipeTableCell:
     :commit: 8ca85004bd7fcfe09a3b7938fb8c079a88481d45
     :git: git@github.com:wikimedia/MGSwipeTableCell.git
+  NSDate-Extensions:
+    :commit: 388ab1b864b742feadc1cf94063968953fc6a6a1
+    :git: git@github.com:wikimedia/NSDate-Extensions.git
   OAStackView:
     :commit: f2adee6f7b66bf1192a4bd551fa343abf6d5aa2d
     :git: git@github.com:wikimedia/OAStackView.git
@@ -144,7 +153,7 @@ CHECKOUT OPTIONS:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :commit: f4529eeac3da5bc5a5f43ec51ea142eba6c86999
+    :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   TSMessages:
     :commit: d86e3fb47ee80175d8fa8d26d17b56e42a0d60d2
@@ -166,6 +175,7 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: 5ae3b9a15efda26b201adc8676b24040febe6ff6
   Nimble: 79d40f4d69d47314229bbabacaa02b8838c779b9
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
+  NSDate-Extensions: 5bd64f8815dc6b3c9d08e1f620229567e2b4771c
   OAStackView: 323757cd34a1bc5fcc9ed3c903b51dbfe192f355
   OCHamcrest: c14c0b3f4c4e99363e5b87d97bae38c4438b6d5d
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
@@ -179,5 +189,6 @@ SPEC CHECKSUMS:
   TSMessages: 39ca10c7bfdaa42d574af0f7946a04699145051e
   TUSafariActivity: afc55a00965377939107ce4fdc7f951f62454546
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
+  VTAcknowledgementsViewController: 6056f5f5e5ed995bbf0581bed6ddd29355ca9a80
 
 COCOAPODS: 0.39.0

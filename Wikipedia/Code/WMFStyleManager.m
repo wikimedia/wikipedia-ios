@@ -34,6 +34,8 @@ static WMFStyleManager* _styleManager = nil;
 
     [[UITabBar appearance] setTintColor:[UIColor wmf_blueTintColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:[UIColor wmf_blueTintColor]];
+
+    [[UISwitch appearance] setOnTintColor:[UIColor wmf_green]];
 }
 
 @end

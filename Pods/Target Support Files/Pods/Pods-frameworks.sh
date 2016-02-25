@@ -93,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/MGSwipeTableCell.framework"
   install_framework "Pods/Mantle.framework"
   install_framework "Pods/Masonry.framework"
+  install_framework "Pods/NSDate_Extensions.framework"
   install_framework "Pods/OAStackView.framework"
   install_framework "Pods/OMGHTTPURLRQ.framework"
   install_framework "Pods/PiwikTracker.framework"
@@ -103,6 +104,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/TUSafariActivity.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
@@ -116,6 +118,7 @@ if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "Pods/MGSwipeTableCell.framework"
   install_framework "Pods/Mantle.framework"
   install_framework "Pods/Masonry.framework"
+  install_framework "Pods/NSDate_Extensions.framework"
   install_framework "Pods/OAStackView.framework"
   install_framework "Pods/OMGHTTPURLRQ.framework"
   install_framework "Pods/PiwikTracker.framework"
@@ -126,6 +129,7 @@ if [[ "$CONFIGURATION" == "AdHoc" ]]; then
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/TUSafariActivity.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
@@ -139,6 +143,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/MGSwipeTableCell.framework"
   install_framework "Pods/Mantle.framework"
   install_framework "Pods/Masonry.framework"
+  install_framework "Pods/NSDate_Extensions.framework"
   install_framework "Pods/OAStackView.framework"
   install_framework "Pods/OMGHTTPURLRQ.framework"
   install_framework "Pods/PiwikTracker.framework"
@@ -149,6 +154,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/TUSafariActivity.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi
@@ -162,6 +168,7 @@ if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "Pods/MGSwipeTableCell.framework"
   install_framework "Pods/Mantle.framework"
   install_framework "Pods/Masonry.framework"
+  install_framework "Pods/NSDate_Extensions.framework"
   install_framework "Pods/OAStackView.framework"
   install_framework "Pods/OMGHTTPURLRQ.framework"
   install_framework "Pods/PiwikTracker.framework"
@@ -172,6 +179,7 @@ if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_framework "Pods/TSMessages.framework"
   install_framework "Pods/TUSafariActivity.framework"
   install_framework "Pods/Tweaks.framework"
+  install_framework "Pods/VTAcknowledgementsViewController.framework"
   install_framework "Pods/hpple.framework"
   install_framework "Pods/libextobjc.framework"
 fi

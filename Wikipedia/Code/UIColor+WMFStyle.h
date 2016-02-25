@@ -93,4 +93,10 @@
  */
 - (instancetype)wmf_colorByScalingComponents:(CGFloat)amount;
 
++ (instancetype)wmf_green;
+
++ (instancetype)wmf_welcomeNextButtonBackgroundColor;
+
++ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor;
+
 @end

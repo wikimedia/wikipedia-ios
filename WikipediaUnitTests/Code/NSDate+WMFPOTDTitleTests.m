@@ -8,9 +8,9 @@
 
 @import Quick;
 @import Nimble;
+@import NSDate_Extensions;
 
 #import "NSDate+WMFPOTDTitle.h"
-#import "NSDate+Utilities.h"
 
 static inline NSString* expectedPOTDTitleStringForYearMonthDay(NSInteger year, NSInteger month, NSInteger day) {
     return [NSString stringWithFormat:@"%@/%ld-%02ld-%02ld_(en)", WMFPOTDTitlePrefix, year, month, day];
