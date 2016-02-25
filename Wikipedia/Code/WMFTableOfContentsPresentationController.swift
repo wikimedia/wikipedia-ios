@@ -1,7 +1,6 @@
 
 import UIKit
 
-
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsPresentationControllerTapDelegate {
     
@@ -38,7 +37,7 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
     
     lazy var closeButton:UIButton = {
         let button = UIButton(frame: CGRectZero)
-        button.frame = CGRect(x: self.closeButtonPadding, y: self.statusBarEstimatedHeight + self.closeButtonPadding, width: 44, height: 44)
+        
         button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: "didTap:", forControlEvents: .TouchUpInside)
@@ -59,9 +58,25 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         view.addGestureRecognizer(tap)
         view.addSubview(self.statusBarBackground)
         view.addSubview(self.closeButton)
-
+        
         return view
     }()
+    
+    func updateButtonConstraints() {
+        
+        self.closeButton.mas_remakeConstraints({ make in
+            make.width.equalTo()(44)
+            make.height.equalTo()(44)
+            make.leading.equalTo()(self.closeButton.superview!.mas_leading).offset()(10)
+            if(self.traitCollection.verticalSizeClass == .Compact){
+                make.top.equalTo()(self.closeButtonPadding)
+            }else{
+                make.top.equalTo()(self.closeButtonPadding + self.statusBarEstimatedHeight)
+            }
+
+            return ()
+        })
+    }
 
     
     func didTap(tap: UITapGestureRecognizer) {
@@ -83,6 +98,8 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.statusBarBackground.hidden = true
         }
         
+        updateButtonConstraints()
+
         self.containerView!.addSubview(self.presentedView()!)
         
         // Hide the presenting view controller for accessibility
@@ -167,17 +184,18 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         if newCollection.verticalSizeClass == .Compact
         {
             self.statusBarBackground.hidden = true;
-            var buttonFrame = self.closeButton.frame;
-            buttonFrame.origin.y = self.closeButtonPadding
-            self.closeButton.frame = buttonFrame;
+            
         }
         
         if newCollection.verticalSizeClass == .Regular
         {
             self.statusBarBackground.hidden = false;
-            var buttonFrame = self.closeButton.frame;
-            buttonFrame.origin.y = self.closeButtonPadding + self.statusBarEstimatedHeight
-            self.closeButton.frame = buttonFrame;
         }
+        
+        coordinator.animateAlongsideTransition({(context: UIViewControllerTransitionCoordinatorContext!) -> Void in
+            self.updateButtonConstraints()
+            
+            }, completion:nil)
+
     }
 }
