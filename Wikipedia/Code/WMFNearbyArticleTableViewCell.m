@@ -52,9 +52,11 @@
     self.articleImageView.layer.borderWidth         = 1.0 / [UIScreen mainScreen].scale;
     self.articleImageView.layer.borderColor         = [UIColor colorWithWhite:0.9 alpha:1.0].CGColor;
     self.distanceLabelBackground.layer.cornerRadius = 2.0;
-    self.distanceLabelBackground.backgroundColor    = [UIColor wmf_customGray];
+    self.distanceLabelBackground.layer.borderWidth  = 1.0 / [UIScreen mainScreen].scale;
+    self.distanceLabelBackground.layer.borderColor  = [UIColor wmf_customGray].CGColor;
+    self.distanceLabelBackground.backgroundColor    = [UIColor clearColor];
     self.distanceLabel.font                         = [UIFont wmf_nearbyDistanceFont];
-    self.distanceLabel.textColor                    = [UIColor wmf_nearbyDistanceTextColor];
+    self.distanceLabel.textColor                    = [UIColor wmf_customGray];
     [self wmf_addSelectedBackgroundView];
     [self wmf_makeCellDividerBeEdgeToEdge];
 }

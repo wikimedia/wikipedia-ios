@@ -66,6 +66,7 @@ NSUInteger const WMFMaxSearchResultLimit = 24;
            appendToPreviousResults:(nullable WMFSearchResults*)previousResults
                      useDesktopURL:(BOOL)useDeskTopURL
                           resolver:(PMKResolver)resolve {
+    NSParameterAssert(site);
     NSURL* url = [site apiEndpoint:useDeskTopURL];
 
     WMFSearchRequestParameters* params = [WMFSearchRequestParameters new];

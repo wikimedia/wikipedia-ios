@@ -1,5 +1,5 @@
 
-#import "WMFExploreSectionSchema.h"
+#import "WMFExploreSectionSchema_Testing.h"
 #import "MWKSite.h"
 #import "MWKTitle.h"
 #import "MWKDataStore.h"
@@ -46,10 +46,13 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 @property (nonatomic, strong, readwrite) NSArray<WMFExploreSection*>* sections;
 
+@property (nonatomic, strong, readwrite) NSString* filePath;
+
 @end
 
 
 @implementation WMFExploreSectionSchema
+@synthesize sections = _sections;
 
 - (NSString*)description {
     // HAX: prevent this from logging all its properties in its description, as this causes recursion to
@@ -59,44 +62,41 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Setup
 
-+ (instancetype)schemaWithSite:(MWKSite*)site savedPages:(MWKSavedPageList*)savedPages history:(MWKHistoryList*)history blackList:(WMFRelatedSectionBlackList*)blackList {
-    NSParameterAssert(site);
-    NSParameterAssert(savedPages);
-    NSParameterAssert(history);
-    NSParameterAssert(blackList);
-
-    WMFExploreSectionSchema* schema = [self loadSchemaFromDisk];
-
-    if (schema) {
-        schema.site         = site;
-        schema.savedPages   = savedPages;
-        schema.historyPages = history;
-        schema.blackList    = blackList;
-        [schema update:YES];
-    } else {
-        schema = [[WMFExploreSectionSchema alloc] initWithSite:site savedPages:savedPages history:history blackList:blackList];
-    }
-
-    return schema;
++ (instancetype)schemaWithSite:(MWKSite*)site
+                    savedPages:(MWKSavedPageList*)savedPages
+                       history:(MWKHistoryList*)history
+                     blackList:(WMFRelatedSectionBlackList*)blackList {
+    return [self schemaWithSite:site
+                     savedPages:savedPages
+                        history:history
+                      blackList:blackList
+                locationManager:[[WMFLocationManager alloc] init]
+                           file:[[self schemaFileURL] path]];
 }
 
-- (instancetype)initWithSite:(MWKSite*)site
-                  savedPages:(MWKSavedPageList*)savedPages
-                     history:(MWKHistoryList*)history
-                   blackList:(WMFRelatedSectionBlackList*)blackList {
++ (instancetype)schemaWithSite:(MWKSite*)site
+                    savedPages:(MWKSavedPageList*)savedPages
+                       history:(MWKHistoryList*)history
+                     blackList:(WMFRelatedSectionBlackList*)blackList
+               locationManager:(WMFLocationManager*)locationManager
+                          file:(NSString*)filePath {
     NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
     NSParameterAssert(blackList);
-    self = [super init];
-    if (self) {
-        self.site         = site;
-        self.savedPages   = savedPages;
-        self.historyPages = history;
-        self.blackList    = blackList;
-        [self reset];
-    }
-    return self;
+
+    WMFExploreSectionSchema* schema = [self schemaFromFileAtPath:filePath] ? : [[WMFExploreSectionSchema alloc] init];
+    schema.site              = site;
+    schema.savedPages        = savedPages;
+    schema.historyPages      = history;
+    schema.blackList         = blackList;
+    schema.filePath          = filePath;
+    schema.locationManager   = locationManager;
+    locationManager.delegate = schema;
+
+    [schema update:YES];
+
+    return schema;
 }
 
 - (void)setBlackList:(WMFRelatedSectionBlackList*)blackList {
@@ -112,33 +112,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 /**
- *  Reset the feed to its initial set, containing a specific array of items depending on the current site.
- *
- *  Inserts featured section as well as related sections from saved and/or history to the @c startingSchema.
- *
- *  @see startingSchema
- */
-- (void)reset {
-    NSMutableArray<WMFExploreSection*>* startingSchema = [[self startingSchema] mutableCopy];
-
-    [startingSchema addObject:[self newMostReadSectionWithLatestPopulatedDate]];
-
-    [startingSchema wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
-
-    WMFExploreSection* saved =
-        [[self sectionsFromSavedEntriesExcludingExistingTitlesInSections:nil maxLength:1] firstObject];
-
-    WMFExploreSection* recent =
-        [[self sectionsFromHistoryEntriesExcludingExistingTitlesInSections:saved ? @[saved] : nil maxLength:1] firstObject];
-
-    [startingSchema wmf_safeAddObject:recent];
-    [startingSchema wmf_safeAddObject:saved];
-
-    self.lastUpdatedAt = nil;
-    [self updateSections:startingSchema];
-}
-
-/**
  *  Sections used to "seed" a user's "feed" with an initial set of content.
  *
  *  Omits certain sections which are not guaranteed to be available (e.g. featured articles & nearby).
@@ -149,16 +122,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return @[[WMFExploreSection mainPageSectionWithSite:self.site],
              [WMFExploreSection pictureOfTheDaySection],
              [WMFExploreSection randomSectionWithSite:self.site]];
-}
-
-#pragma mark - Location
-
-- (WMFLocationManager*)locationManager {
-    if (_locationManager == nil) {
-        _locationManager          = [[WMFLocationManager alloc] init];
-        _locationManager.delegate = self;
-    }
-    return _locationManager;
 }
 
 #pragma mark - Main Article
@@ -194,12 +157,32 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 #pragma mark - Sections
 
-- (void)updateSections:(NSArray<WMFExploreSection*>*)sections {
-    self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
-        return [obj1 compare:obj2];
-    }];
+- (NSArray<WMFExploreSection*>*)sections {
+    if (!_sections) {
+        // required to enforce nonnull compliance when created for the first time
+        _sections = @[];
+    }
+    return _sections;
+}
+
+- (void)setSections:(NSArray<WMFExploreSection*>*)sections {
+    if (_sections == sections) {
+        // not bothering with equality check here since it could be expensive when list is long
+        return;
+    }
+
+    if (sections) {
+        _sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+            return [obj1 compare:obj2];
+        }];
+    } else {
+        // must be nonnull
+        _sections = @[];
+    }
+
     [self.delegate sectionSchemaDidUpdateSections:self];
-    [WMFExploreSectionSchema saveSchemaToDisk:self];
+
+    [self save];
 }
 
 - (void)removeSection:(WMFExploreSection*)section {
@@ -211,7 +194,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [sections removeObject:section];
     self.sections = sections;
     [self.delegate sectionSchema:self didRemoveSection:section atIndex:index];
-    [WMFExploreSectionSchema saveSchemaToDisk:self];
+    [self save];
 }
 
 #pragma mark - Update
@@ -253,7 +236,9 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     }
 
     self.lastUpdatedAt = [NSDate date];
-    [self updateSections:sections];
+
+    [self setSections:sections];
+
     return YES;
 }
 
@@ -271,7 +256,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     if (new) {
         [sections insertObject:new atIndex:0];
     }
-    [self updateSections:sections];
+    [self setSections:sections];
     return YES;
 }
 
@@ -320,23 +305,23 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
             
             [existingNearbySections wmf_arrayByTrimmingToLength:max];
             [sections addObjectsFromArray:existingNearbySections];
+    [self.locationManager reverseGeocodeLocation:location]
+    .catch(^(NSError* error) {
+        DDLogWarn(@"Suppressing geocoding error: %@", error);
+        return nil;
+    })
+    .then(^(CLPlacemark* _Nullable placemark) {
+        @strongify(self);
+        NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
+        [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
+            return obj.type == WMFExploreSectionTypeNearby;
+        }];
+        [sections wmf_safeAddObject:[self nearbySectionWithLocation:location placemark:placemark]];
 
+        [self setSections:sections];
+    });
             [self updateSections:sections];
         });
-    }];
-}
-
-typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
-
-- (void)reverseGeocodeLocation:(CLLocation*)location completionHandler:(nonnull WMFGeocodeCompletionHandler)completionHandler {
-    CLGeocoder* gc = [[CLGeocoder alloc] init];
-    [gc reverseGeocodeLocation:location completionHandler:^(NSArray < CLPlacemark* > * _Nullable placemarks, NSError* _Nullable error) {
-        if (error) {
-            completionHandler(nil);
-            return;
-        }
-
-        completionHandler([placemarks firstObject]);
     }];
 }
 
@@ -345,7 +330,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeNearby;
     }];
-    [self updateSections:sections];
+    [self setSections:sections];
 }
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
@@ -432,9 +417,10 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     WMFExploreSection* latestMostReadSection = [self newMostReadSectionWithLatestPopulatedDate];
 
     BOOL containsLatestSectionEquivalent = [mostReadSections bk_any:^BOOL (WMFExploreSection* mostReadSection) {
-        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar] compareDate:mostReadSection.dateCreated
-                                                                            toDate:latestMostReadSection.dateCreated
-                                                                 toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
+        BOOL const matchesDay = [[NSCalendar wmf_utcGregorianCalendar]
+                                 compareDate:mostReadSection.mostReadFetchDate
+                                       toDate:latestMostReadSection.mostReadFetchDate
+                            toUnitGranularity:NSCalendarUnitDay] == NSOrderedSame;
         BOOL const matchesSite = [mostReadSection.site isEqualToSite:latestMostReadSection.site];
         return matchesDay && matchesSite;
     }];
@@ -467,13 +453,13 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
     //Don't add new ones if we aren't in english
     NSMutableArray* featured = [existingFeaturedArticleSections mutableCopy];
 
-    WMFExploreSection* today = [featured bk_match:^BOOL (WMFExploreSection* obj) {
+    BOOL const containsTodaysFeaturedArticle = [featured bk_any:^BOOL (WMFExploreSection* obj) {
         NSAssert(obj.type == WMFExploreSectionTypeFeaturedArticle,
                  @"List should only contain featured sections, got %@", featured);
         return [obj.dateCreated isToday];
     }];
 
-    if (!today) {
+    if (!containsTodaysFeaturedArticle) {
         [featured wmf_safeAddObject:[WMFExploreSection featuredArticleSectionWithSiteIfSupported:self.site]];
     }
 
@@ -617,7 +603,7 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
 - (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled {
     if (!enabled) {
-        [self updateSections:
+        [self setSections:
          [self.sections filteredArrayUsingPredicate:
           [NSPredicate predicateWithBlock:^BOOL (WMFExploreSection* _Nonnull evaluatedObject,
                                                  NSDictionary < NSString*, id > * _Nullable _) {
@@ -649,37 +635,45 @@ typedef void (^ WMFGeocodeCompletionHandler)(CLPlacemark* __nullable placemark);
 
 + (NSDictionary*)encodingBehaviorsByPropertyKey {
     NSMutableDictionary* behaviors = [[super encodingBehaviorsByPropertyKey] mutableCopy];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"site"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"savedPages"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"historyPages"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"mainPages"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"delegate"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationManager"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"locationRequestStarted"];
-    [behaviors setObject:@(MTLModelEncodingBehaviorExcluded) forKey:@"blackList"];
+
+    #define WMFExploreSectionSchemaKey(key) WMF_SAFE_KEYPATH([WMFExploreSectionSchema new], key)
+
+    behaviors[WMFExploreSectionSchemaKey(site)]            = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(savedPages)]      = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(historyPages)]    = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(mainPages)]       = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(delegate)]        = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(filePath)]        = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }
 
-+ (NSURL*)schemaFileURL {
-    return [NSURL fileURLWithPath:[[documentsDirectory() stringByAppendingPathComponent:WMFExploreSectionsFileName] stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
-}
-
-+ (void)saveSchemaToDisk:(WMFExploreSectionSchema*)schema {
+- (void)save {
     dispatchOnBackgroundQueue(^{
-        if (![NSKeyedArchiver archiveRootObject:schema toFile:[[self schemaFileURL] path]]) {
-            //TODO: not sure what to do with an error here
+        BOOL const success = [NSKeyedArchiver archiveRootObject:self toFile:self.filePath];
+        NSParameterAssert(success);
+        if (!success) {
+            WMF_TECH_DEBT_TODO(add error handling);
             DDLogError(@"Failed to save sections to disk!");
         }
     });
 }
 
-+ (WMFExploreSectionSchema*)loadSchemaFromDisk {
++ (NSURL*)schemaFileURL {
+    return [NSURL fileURLWithPath:
+            [[documentsDirectory()
+              stringByAppendingPathComponent:WMFExploreSectionsFileName]
+             stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
+}
+
++ (instancetype)schemaFromFileAtPath:(NSString*)filePath {
     //Need to map old class names
     [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
     [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
 
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:[[self schemaFileURL] path]];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
 }
 
 @end

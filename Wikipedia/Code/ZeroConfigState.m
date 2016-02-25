@@ -25,14 +25,4 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"ZeroWarnWhenLeaving"];
 }
 
-- (void)toggleFakeZeroOn {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:![self fakeZeroOn]]
-                                              forKey:@"FakeZeroOn"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (BOOL)fakeZeroOn {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"FakeZeroOn"];
-}
-
 @end
