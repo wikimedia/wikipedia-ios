@@ -25,7 +25,14 @@
 
 - (CLLocationDegrees)wmf_bearingToLocation:(CLLocation*)location
                          forCurrentHeading:(CLHeading*)currentHeading {
-    return [self wmf_bearingToLocation:location] - currentHeading.trueHeading;
+    CLLocationDegrees bearing = [self wmf_bearingToLocation:location];
+
+    // use true heading if available, otherwise fall back to magnetic heading
+    if (currentHeading.trueHeading >= 0) {
+        return bearing - currentHeading.trueHeading;
+    } else {
+        return bearing - currentHeading.magneticHeading;
+    }
 }
 
 @end
