@@ -675,7 +675,6 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
                                     userInfo:@{NSLocalizedDescriptionKey: exception.name,
                                                NSLocalizedFailureReasonErrorKey: exception.reason}];
         }
-
     });
 }
 

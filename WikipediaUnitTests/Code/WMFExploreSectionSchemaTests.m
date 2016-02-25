@@ -84,7 +84,7 @@ describe(@"initial state", ^{
                 WMFExploreSection* potdSection = schema.sections[2];
                 expect(@(potdSection.type)).to(equal(@(WMFExploreSectionTypePictureOfTheDay)));
                 expect(@([potdSection.dateCreated isToday])).to(beTrue());
-                
+
                 WMFExploreSection* mainPageSection = schema.sections[3];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
                 expect(mainPageSection.site).to(equal(site));
