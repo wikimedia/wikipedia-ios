@@ -657,11 +657,24 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (void)save {
     dispatchOnBackgroundQueue(^{
-        BOOL const success = [NSKeyedArchiver archiveRootObject:self toFile:self.filePath];
-        NSParameterAssert(success);
-        if (!success) {
-            WMF_TECH_DEBT_TODO(add error handling);
-            DDLogError(@"Failed to save sections to disk!");
+        NSError* error;
+        NSMutableData* result = [NSMutableData data];
+        NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
+
+        @try {
+            [archiver encodeObject:self forKey:NSKeyedArchiveRootObjectKey];
+            [archiver finishEncoding];
+            if (![result writeToFile:self.filePath options:NSDataWritingAtomic error:&error]) {
+                WMF_TECH_DEBT_TODO(add error handling);
+                DDLogError(@"Failed to save sections to disk!");
+            }
+        } @catch (NSException* exception) {
+            if (error) {
+                error = [NSError errorWithDomain:NSInvalidArchiveOperationException
+                                            code:-1
+                                        userInfo:@{NSLocalizedDescriptionKey: exception.name,
+                                                   NSLocalizedFailureReasonErrorKey: exception.reason}];
+            }
         }
     });
 }
