@@ -266,4 +266,34 @@
     return [UIColor colorWithRed:r * amount green:g * amount blue:b * amount alpha:a];
 }
 
++ (instancetype)wmf_green {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0x00AF89 alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_welcomeNextButtonBackgroundColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0xE8F3FE alpha:1.0];
+    });
+    return c;
+}
+
++ (instancetype)wmf_welcomeNextButtonDividerBackgroundColor {
+    static UIColor* c = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        c = [UIColor wmf_colorWithHex:0xC5D1EA alpha:1.0];
+    });
+    return c;
+}
+
 @end
