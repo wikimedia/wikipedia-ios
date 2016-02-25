@@ -164,19 +164,19 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return _sections;
 }
 
-- (void)setSections:(NSArray<WMFExploreSection*>*)sections {
-    if (_sections == sections) {
+- (void)updateSections:(NSArray<WMFExploreSection*>*)sections {
+    if (self.sections == sections) {
         // not bothering with equality check here since it could be expensive when list is long
         return;
     }
 
     if (sections) {
-        _sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
+        self.sections = [sections sortedArrayWithOptions:NSSortStable usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
             return [obj1 compare:obj2];
         }];
     } else {
         // must be nonnull
-        _sections = @[];
+        self.sections = @[];
     }
 
     [self.delegate sectionSchemaDidUpdateSections:self];
@@ -228,7 +228,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [sections addObjectsFromArray:[self nearbySections]];
 
     [sections addObjectsFromArray:[self pictureOfTheDaySections]];
-    
+
     //Add Saved and History
     NSArray<WMFExploreSection*>* recent = [self historyAndSavedPageSections];
     if ([recent count] > 0) {
@@ -237,7 +237,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
     self.lastUpdatedAt = [NSDate date];
 
-    [self setSections:sections];
+    [self updateSections:sections];
 
     return YES;
 }
@@ -256,7 +256,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     if (new) {
         [sections insertObject:new atIndex:0];
     }
-    [self setSections:sections];
+    [self updateSections:sections];
     return YES;
 }
 
@@ -264,9 +264,8 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSParameterAssert(location);
 
     NSMutableArray<WMFExploreSection*>* existingNearbySections = [[self nearbySections] mutableCopy];
-    
-    WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL(WMFExploreSection* oldNearby) {
-        
+
+    WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
         //Don't add a new one if we have one that is minimum distance
         if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
             return YES;
@@ -279,11 +278,11 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
         return NO;
     }];
-    
-    if(closeEnough != nil){
+
+    if (closeEnough != nil) {
         return;
     }
-    
+
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark* _Nullable placemark) {
         @strongify(self);
@@ -291,20 +290,19 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
         [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
             return obj.type == WMFExploreSectionTypeNearby;
         }];
-        
+
         [existingNearbySections addObject:[self nearbySectionWithLocation:location placemark:placemark]];
-        
+
         NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypeNearby];
-        
+
         [existingNearbySections sortWithOptions:NSSortStable
                                 usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
-                                    return -[obj1.dateCreated compare:obj2.dateCreated];
-                                }];
-        
+            return -[obj1.dateCreated compare:obj2.dateCreated];
+        }];
+
         [existingNearbySections wmf_arrayByTrimmingToLength:max];
         [sections addObjectsFromArray:existingNearbySections];
-        [self setSections:sections];
-        
+        [self updateSections:sections];
     }).catch(^(NSError* error) {
         DDLogWarn(@"Suppressing geocoding error: %@", error);
         return nil;
@@ -316,7 +314,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
         return obj.type == WMFExploreSectionTypeNearby;
     }];
-    [self setSections:sections];
+    [self updateSections:sections];
 }
 
 - (void)updateWithChangesInBlackList:(WMFRelatedSectionBlackList*)blackList {
@@ -366,8 +364,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     return random;
 }
 
-- (NSArray<WMFExploreSection*>*)nearbySections{
-    
+- (NSArray<WMFExploreSection*>*)nearbySections {
     NSArray<WMFExploreSection*>* nearby = [self.sections bk_select:^BOOL (WMFExploreSection* obj) {
         if (obj.type == WMFExploreSectionTypeNearby && obj.location != nil && obj.site != nil) {
             return YES;
@@ -476,40 +473,36 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (NSArray<WMFExploreSection*>*)pictureOfTheDaySections {
-    
     NSMutableArray<WMFExploreSection*>* existingSections = [[self.sections bk_select:^BOOL (WMFExploreSection* obj) {
         if (obj.type == WMFExploreSectionTypePictureOfTheDay) {
             return YES;
         }
         return NO;
     }] mutableCopy];
-    
-    WMFExploreSection* todaySection = [existingSections bk_match:^BOOL(WMFExploreSection* existingSection) {
-        
+
+    WMFExploreSection* todaySection = [existingSections bk_match:^BOOL (WMFExploreSection* existingSection) {
         //Only one section per day
         if ([existingSection.dateCreated isToday]) {
             return YES;
         }
-        
+
         return NO;
     }];
 
-    if(todaySection == nil){
+    if (todaySection == nil) {
         [existingSections addObject:[WMFExploreSection pictureOfTheDaySectionWithDate:[NSDate date]]];
     }
-    
+
     NSUInteger max = [WMFExploreSection maxNumberOfSectionsForType:WMFExploreSectionTypePictureOfTheDay];
-    
+
     //Sort by date
     [existingSections sortWithOptions:NSSortStable
                       usingComparator:^NSComparisonResult (WMFExploreSection* _Nonnull obj1, WMFExploreSection* _Nonnull obj2) {
-                          return -[obj1.dateCreated compare:obj2.dateCreated];
-                      }];
-    
+        return -[obj1.dateCreated compare:obj2.dateCreated];
+    }];
+
     return [existingSections wmf_arrayByTrimmingToLength:max];
 }
-
-
 
 - (nullable WMFExploreSection*)continueReadingSection {
     NSDate* resignActiveDate             = [[NSUserDefaults standardUserDefaults] wmf_appResignActiveDate];
@@ -608,7 +601,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 - (void)nearbyController:(WMFLocationManager*)controller didChangeEnabledState:(BOOL)enabled {
     if (!enabled) {
-        [self setSections:
+        [self updateSections:
          [self.sections filteredArrayUsingPredicate:
           [NSPredicate predicateWithBlock:^BOOL (WMFExploreSection* _Nonnull evaluatedObject,
                                                  NSDictionary < NSString*, id > * _Nullable _) {
