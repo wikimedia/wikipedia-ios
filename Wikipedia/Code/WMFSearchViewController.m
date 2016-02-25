@@ -282,7 +282,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
     }
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.destinationViewController isKindOfClass:[WMFArticleListTableViewController class]]) {
         self.resultsListController = segue.destinationViewController;
@@ -518,41 +517,40 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Languages
 
-- (MWKLanguageLink*)selectedLanguage{
-    MWKSite* site = [[NSUserDefaults standardUserDefaults] wmf_currentSearchLanguageSite];
+- (MWKLanguageLink*)selectedLanguage {
+    MWKSite* site         = [[NSUserDefaults standardUserDefaults] wmf_currentSearchLanguageSite];
     MWKLanguageLink* lang = nil;
-    if(site){
+    if (site) {
         lang = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
-    }else{
+    } else {
         lang = [self appLanguage];
     }
     return lang;
 }
 
-- (void)setSelectedLanguage:(MWKLanguageLink*)language{
+- (void)setSelectedLanguage:(MWKLanguageLink*)language {
     [[NSUserDefaults standardUserDefaults] wmf_setCurrentSearchLanguageSite:language.site];
     [self updateLanguageButtonsToPreferredLanguages];
     [self selectLanguageForSite:language.site];
 }
 
-- (NSArray<MWKLanguageLink*>*)languages{
+- (NSArray<MWKLanguageLink*>*)languages {
     NSMutableArray* l = [NSMutableArray arrayWithObject:[self appLanguage]];
     [l addObjectsFromArray:self.preferredLanguages];
     return l;
 }
 
-- (MWKLanguageLink*)appLanguage{
-    MWKSite* site = [[NSUserDefaults standardUserDefaults] wmf_appSite];
+- (MWKLanguageLink*)appLanguage {
+    MWKSite* site             = [[NSUserDefaults standardUserDefaults] wmf_appSite];
     MWKLanguageLink* language = [[MWKLanguageLinkController sharedInstance] languageForSite:site];
     return language;
 }
 
-
 - (void)updatePreferredLanguages {
-    NSArray* languages = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
+    NSArray* languages           = [[MWKLanguageLinkController sharedInstance].preferredLanguages wmf_arrayByTrimmingToLength:3];
     MWKLanguageLink* appLanguage = [self appLanguage];
-    languages = [languages bk_reject:^BOOL(MWKLanguageLink* obj) {
-        if([obj isEqualToLanguageLink:appLanguage]){
+    languages = [languages bk_reject:^BOOL (MWKLanguageLink* obj) {
+        if ([obj isEqualToLanguageLink:appLanguage]) {
             return YES;
         }
         return NO;
@@ -562,7 +560,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)updateLanguageButtonsToPreferredLanguages {
     [self updatePreferredLanguages];
-    
+
     [[self languages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
         if (idx >= [self.languageButtons count]) {
             *stop = YES;
@@ -581,7 +579,6 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         }
     }];
 }
-
 
 - (void)selectLanguageForSite:(MWKSite*)site {
     [[self languages] enumerateObjectsUsingBlock:^(MWKLanguageLink* _Nonnull language, NSUInteger idx, BOOL* _Nonnull stop) {

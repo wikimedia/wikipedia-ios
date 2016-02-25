@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type = WMFExploreSectionTypePictureOfTheDay;
+    item.type        = WMFExploreSectionTypePictureOfTheDay;
     item.dateCreated = date;
     return item;
 }
