@@ -17,6 +17,10 @@
                            dataStore:(MWKDataStore*)dataStore
                 relatedSearchFetcher:(WMFRelatedSearchFetcher*)relatedSearchFetcher NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items NS_UNAVAILABLE;
+
 @property (nonatomic, strong, readonly) MWKTitle* title;
 @property (nonatomic, strong, readonly) WMFRelatedSearchFetcher* relatedSearchFetcher;
 
