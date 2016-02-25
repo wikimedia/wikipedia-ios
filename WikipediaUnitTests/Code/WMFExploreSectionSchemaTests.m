@@ -66,8 +66,8 @@ describe(@"initial state", ^{
                 .withTimeout(5)
                 .toEventually(equal(@[@(WMFExploreSectionTypeFeaturedArticle),
                                       @(WMFExploreSectionTypeMostRead),
-                                      @(WMFExploreSectionTypeMainPage),
                                       @(WMFExploreSectionTypePictureOfTheDay),
+                                      @(WMFExploreSectionTypeMainPage),
                                       @(WMFExploreSectionTypeRandom),
                                       @(WMFExploreSectionTypeNearby)]));
 
@@ -81,14 +81,14 @@ describe(@"initial state", ^{
                 expect(mostReadSection.site).to(equal(site));
                 // not asserting most read section date, see WMFMostReadDateTests
 
-                WMFExploreSection* mainPageSection = schema.sections[2];
+                WMFExploreSection* potdSection = schema.sections[2];
+                expect(@(potdSection.type)).to(equal(@(WMFExploreSectionTypePictureOfTheDay)));
+                expect(@([potdSection.dateCreated isToday])).to(beTrue());
+                
+                WMFExploreSection* mainPageSection = schema.sections[3];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
                 expect(mainPageSection.site).to(equal(site));
                 expect(@([mainPageSection.dateCreated isToday])).to(beTrue());
-
-                WMFExploreSection* potdSection = schema.sections[3];
-                expect(@(potdSection.type)).to(equal(@(WMFExploreSectionTypePictureOfTheDay)));
-                expect(@([potdSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* randomSection = schema.sections[4];
                 expect(@(randomSection.type)).to(equal(@(WMFExploreSectionTypeRandom)));
@@ -117,8 +117,8 @@ describe(@"initial state", ^{
                 .withTimeout(5)
                 .toEventually(equal(@[@(WMFExploreSectionTypeFeaturedArticle),
                                       @(WMFExploreSectionTypeMostRead),
-                                      @(WMFExploreSectionTypeMainPage),
                                       @(WMFExploreSectionTypePictureOfTheDay),
+                                      @(WMFExploreSectionTypeMainPage),
                                       @(WMFExploreSectionTypeRandom)]));
 
                 WMFExploreSection* featuredArticleSection = schema.sections[0];
@@ -131,14 +131,14 @@ describe(@"initial state", ^{
                 expect(mostReadSection.site).to(equal(site));
                 // not asserting most read section date, see WMFMostReadDateTests
 
-                WMFExploreSection* mainPageSection = schema.sections[2];
+                WMFExploreSection* potdSection = schema.sections[2];
+                expect(@(potdSection.type)).to(equal(@(WMFExploreSectionTypePictureOfTheDay)));
+                expect(@([potdSection.dateCreated isToday])).to(beTrue());
+
+                WMFExploreSection* mainPageSection = schema.sections[3];
                 expect(@(mainPageSection.type)).to(equal(@(WMFExploreSectionTypeMainPage)));
                 expect(mainPageSection.site).to(equal(site));
                 expect(@([mainPageSection.dateCreated isToday])).to(beTrue());
-
-                WMFExploreSection* potdSection = schema.sections[3];
-                expect(@(potdSection.type)).to(equal(@(WMFExploreSectionTypePictureOfTheDay)));
-                expect(@([potdSection.dateCreated isToday])).to(beTrue());
 
                 WMFExploreSection* randomSection = schema.sections[4];
                 expect(@(randomSection.type)).to(equal(@(WMFExploreSectionTypeRandom)));
