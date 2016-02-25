@@ -105,7 +105,7 @@ DEPENDENCIES:
   - PromiseKit/SystemConfiguration (from `https://github.com/mxcl/PromiseKit.git`,
     branch `swift-2.0-beta5`)
   - Quick (~> 0.8.0)
-  - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `5c85e9042226df2ab8fc5f7c3d5370dc4f2a035f`)
+  - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
   - TSMessages (from `https://github.com/wikimedia/TSMessages.git`)
@@ -123,7 +123,7 @@ EXTERNAL SOURCES:
     :branch: swift-2.0-beta5
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :commit: 5c85e9042226df2ab8fc5f7c3d5370dc4f2a035f
+    :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   TSMessages:
     :git: https://github.com/wikimedia/TSMessages.git
@@ -142,7 +142,7 @@ CHECKOUT OPTIONS:
     :commit: c90cfc1c578ed09b5d3d21e0ac71aa5020be0899
     :git: https://github.com/mxcl/PromiseKit.git
   SDWebImage:
-    :commit: 5c85e9042226df2ab8fc5f7c3d5370dc4f2a035f
+    :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   TSMessages:
     :commit: d86e3fb47ee80175d8fa8d26d17b56e42a0d60d2

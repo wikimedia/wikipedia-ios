@@ -18,7 +18,7 @@ pod 'AFNetworking/NSURLConnection', '~> 2.6.0'
 pod 'Mantle', '~> 2.0.0'
 
 # Images
-pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => '5c85e9042226df2ab8fc5f7c3d5370dc4f2a035f'
+pod 'SDWebImage', :git => 'https://github.com/wikimedia/SDWebImage.git', :commit => 'bb49df83e72f2231a191e9477a85f0effe13430a'
 pod 'AnimatedGIFImageSerialization'
 
 # Utilities

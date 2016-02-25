@@ -143,19 +143,25 @@ NSString *const SDWebImageDownloadFinishNotification = @"SDWebImageDownloadFinis
 
 - (void)cancel {
     @synchronized (self) {
-        if (self.thread) {
-            [self performSelector:@selector(cancelInternalAndStop) onThread:self.thread withObject:nil waitUntilDone:NO];
-        }
-        else {
-            [self cancelInternal];
-        }
+        /*
+         stop internal thread runloop asynchronously, perform cancellation logic synchronously. this prevents deadlocks
+         while still allowing cancel cleanup (i.e. block invocation) to happen synchronously—which is key for preventing
+         cancelled requests from affecting retries (i.e. request, cancel, re-request).
+        */
+        [self stopRunloop];
+        [self cancelInternal];
     }
 }
 
-- (void)cancelInternalAndStop {
-    if (self.isFinished) return;
-    [self cancelInternal];
-    CFRunLoopStop(CFRunLoopGetCurrent());
+// Stop runloop used by internal thread. Dispatches to internal thread asynchronously if needed.
+- (void)stopRunloop {
+    if (self.thread) {
+        if ([[NSThread currentThread] isEqual:self.thread]) {
+            CFRunLoopStop(CFRunLoopGetCurrent());
+        } else {
+            [self performSelector:_cmd onThread:self.thread withObject:nil waitUntilDone:NO];
+        }
+    }
 }
 
 - (void)cancelInternal {
@@ -232,20 +238,23 @@ NSString *const SDWebImageDownloadFinishNotification = @"SDWebImageDownloadFinis
         
         //This is the case when server returns '304 Not Modified'. It means that remote image is not changed.
         //In case of 304 we need just cancel the operation and return cached image from the cache.
-        if (code == 304) {
-            [self cancelInternal];
-        } else {
-            [self.connection cancel];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:SDWebImageDownloadStopNotification object:self];
-        });
+        @synchronized(self) {
+            if (code == 304) {
+                [self cancelInternal];
+            } else {
+                [self.connection cancel];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:SDWebImageDownloadStopNotification object:self];
+            });
 
-        if (self.completedBlock) {
-            self.completedBlock(nil, nil, [NSError errorWithDomain:NSURLErrorDomain code:[((NSHTTPURLResponse *)response) statusCode] userInfo:nil], YES);
+            if (self.completedBlock) {
+                self.completedBlock(nil, nil, [NSError errorWithDomain:NSURLErrorDomain code:[((NSHTTPURLResponse *)response) statusCode] userInfo:nil], YES);
+            }
+            // need to stop runloop here using "GetCurrent" since it's already been nil'd out above
+            CFRunLoopStop(CFRunLoopGetCurrent());
+            [self done];
         }
-        CFRunLoopStop(CFRunLoopGetCurrent());
-        [self done];
     }
 }
 

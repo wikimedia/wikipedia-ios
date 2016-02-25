@@ -122,58 +122,6 @@ class WMFImageControllerTests: XCTestCase {
         }
     }
 
-    func testSDWebImageDownloaderOperationThreadSafety() {
-        NSURLProtocol.registerClass(WMFHTTPHangingProtocol)
-        defer {
-            NSURLProtocol.unregisterClass(WMFHTTPHangingProtocol)
-        }
-
-        [0...1000].forEach { _ in
-            let downloadOperation = SDWebImageDownloaderOperation(
-                request: NSURLRequest(URL: NSURL(string: "https://test.org/foo")!),
-                options: [],
-                progress: nil,
-                completed: nil,
-                cancelled: nil
-            )
-
-            let testThread = NSThread(target: downloadOperation, selector: Selector("start"), object: nil)
-            testThread.start()
-
-            expect(downloadOperation.executing).toEventually(beTrue())
-            expect(downloadOperation.finished).toEventually(beFalse())
-            expect(downloadOperation.valueForKey("thread") as? NSThread).toEventually(beIdenticalTo(testThread))
-
-            /*
-             A previous modification to SDWebImage which intended to simplify cancel<->retry race conditions introduced
-             a deadlock.  This test verifies that cancelling the operation at the same time that the connection finishes
-             loading doesn't cause a deadlock.
-             
-             See https://github.com/wikimedia/SDWebImage/commit/5c85e9042226df2ab8fc5f7c3d5370dc4f2a035f
-            */
-            let operations: [() -> Void] = [
-                downloadOperation.cancel, {
-                downloadOperation.performSelector(
-                    Selector("connectionDidFinishLoading:"),
-                    onThread: testThread,
-                    withObject: nil,
-                    waitUntilDone: false)
-            }]
-
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                dispatch_apply(2, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                    operations[$0]()
-                }
-            }
-
-            expect(downloadOperation.executing)
-            .toEventually(
-                beFalse(),
-                timeout: 5,
-                description: "Operations should support simultaneous cancellation & completion w/o deadlocking.")
-        }
-    }
-
     func testDeallocCancelsUnresovledFetches() {
         if NSProcessInfo.processInfo()
                         .isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 9,
