@@ -9,20 +9,23 @@
     if (shouldScrollOnTap) {
         UIViewController* rootViewController =
             (UIViewController*)[[[UIApplication sharedApplication] delegate] window].rootViewController;
-        [self recursivelyDisableScrollsToTop:rootViewController.view];
+        [rootViewController.view.window wmf_recursivelyDisableScrollsToTop];
     }
     self.scrollsToTop = shouldScrollOnTap;
 }
 
-- (void)recursivelyDisableScrollsToTop:(UIView*)view {
-    for (UIView* subview in [view subviews]) {
+@end
+
+
+@implementation UIView (WMFScrollsToTop)
+
+- (void)wmf_recursivelyDisableScrollsToTop {
+    for (UIView* subview in [self subviews]) {
         if ([subview isKindOfClass:[UIScrollView class]]) {
             UIScrollView* scrollView = (UIScrollView*)subview;
-            if ([scrollView scrollsToTop]) {
-                scrollView.scrollsToTop = NO;
-            }
+            scrollView.scrollsToTop = NO;
         }
-        [self recursivelyDisableScrollsToTop:subview];
+        [subview wmf_recursivelyDisableScrollsToTop];
     }
 }
 

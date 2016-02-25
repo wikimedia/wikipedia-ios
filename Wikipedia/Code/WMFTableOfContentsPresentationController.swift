@@ -1,6 +1,7 @@
 
 import UIKit
 
+
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsPresentationControllerTapDelegate {
     
@@ -19,10 +20,12 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
 
     public var minimumVisibleBackgroundWidth: CGFloat = 60.0
     public var maximumTableOfContentsWidth: CGFloat = 300.0
+    public var closeButtonPadding: CGFloat = 10.0
+    public var statusBarEstimatedHeight: CGFloat = 20.0
     
     // MARK: - Views
     lazy var statusBarBackground: UIView = {
-        let view = UIView(frame: CGRect(x: CGRectGetMinX(self.containerView!.bounds), y: CGRectGetMinY(self.containerView!.bounds), width: CGRectGetWidth(self.containerView!.bounds), height: 20.0))
+        let view = UIView(frame: CGRect(x: CGRectGetMinX(self.containerView!.bounds), y: CGRectGetMinY(self.containerView!.bounds), width: CGRectGetWidth(self.containerView!.bounds), height: self.statusBarEstimatedHeight))
         view.autoresizingMask = .FlexibleWidth
         let statusBarBackgroundBottomBorder = UIView(frame: CGRectMake(CGRectGetMinX(view.bounds), CGRectGetMaxY(view.bounds), CGRectGetWidth(view.bounds), 0.5))
         statusBarBackgroundBottomBorder.autoresizingMask = .FlexibleWidth
@@ -33,6 +36,19 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         return view
     }()
     
+    lazy var closeButton:UIButton = {
+        let button = UIButton(frame: CGRectZero)
+        button.frame = CGRect(x: self.closeButtonPadding, y: self.statusBarEstimatedHeight + self.closeButtonPadding, width: 44, height: 44)
+        button.setImage(UIImage(named: "close"), forState: UIControlState.Normal)
+        button.tintColor = UIColor.whiteColor()
+        button.addTarget(self, action: "didTap:", forControlEvents: .TouchUpInside)
+        
+        button.accessibilityHint = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-hint")
+        button.accessibilityLabel = localizedStringForKeyFallingBackOnEnglish("table-of-contents-close-accessibility-label")
+
+        return button
+    }()
+
     lazy var backgroundView :UIVisualEffectView = {
         let view = UIVisualEffectView(frame: CGRectZero)
         view.autoresizingMask = .FlexibleWidth
@@ -42,9 +58,11 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         tap.addTarget(self, action: Selector("didTap:"))
         view.addGestureRecognizer(tap)
         view.addSubview(self.statusBarBackground)
-        
+        view.addSubview(self.closeButton)
+
         return view
     }()
+
     
     func didTap(tap: UITapGestureRecognizer) {
         self.tapDelegate?.tableOfContentsPresentationControllerDidTapBackground(self);
@@ -137,6 +155,8 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
             self.backgroundView.frame = self.containerView!.bounds
             let frame = self.frameOfPresentedViewInContainerView()
             self.presentedView()!.frame = frame
+
+
             }, completion:nil)
     }
     
@@ -147,11 +167,17 @@ public class WMFTableOfContentsPresentationController: UIPresentationController 
         if newCollection.verticalSizeClass == .Compact
         {
             self.statusBarBackground.hidden = true;
+            var buttonFrame = self.closeButton.frame;
+            buttonFrame.origin.y = self.closeButtonPadding
+            self.closeButton.frame = buttonFrame;
         }
         
         if newCollection.verticalSizeClass == .Regular
         {
             self.statusBarBackground.hidden = false;
+            var buttonFrame = self.closeButton.frame;
+            buttonFrame.origin.y = self.closeButtonPadding + self.statusBarEstimatedHeight
+            self.closeButton.frame = buttonFrame;
         }
     }
 }

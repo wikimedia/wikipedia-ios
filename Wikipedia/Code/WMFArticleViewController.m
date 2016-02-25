@@ -368,7 +368,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _saveToolbarItem;
 }
 
-
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                          target:nil
@@ -613,11 +612,10 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     [self.webViewController didMoveToParentViewController:self];
 
-    self.pullToRefresh = [[UIRefreshControl alloc] init];
-    self.pullToRefresh.enabled         = [self canRefresh];
+    self.pullToRefresh         = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
-
 }
 
 #pragma mark - Save Offset
@@ -731,7 +729,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.shareOptionsController.isActive) {
         return;
     }
-    
+
     if (text.length == 0) {
         text = [self.article shareSnippet];
     }

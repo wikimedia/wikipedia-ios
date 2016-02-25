@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isDeniedOrDisabled;
 
+- (AnyPromise*)reverseGeocodeLocation:(CLLocation*)location;
+
 @end
 
 
