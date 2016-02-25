@@ -670,13 +670,12 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
                 DDLogError(@"Failed to save sections to disk!");
             }
         } @catch (NSException* exception) {
-            if (error) {
-                error = [NSError errorWithDomain:NSInvalidArchiveOperationException
-                                            code:-1
-                                        userInfo:@{NSLocalizedDescriptionKey: exception.name,
-                                                   NSLocalizedFailureReasonErrorKey: exception.reason}];
-            }
+            error = [NSError errorWithDomain:NSInvalidArchiveOperationException
+                                        code:-1
+                                    userInfo:@{NSLocalizedDescriptionKey: exception.name,
+                                               NSLocalizedFailureReasonErrorKey: exception.reason}];
         }
+
     });
 }
 
