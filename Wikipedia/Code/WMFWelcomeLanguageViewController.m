@@ -31,7 +31,7 @@
 
     [self.moreLanguagesButton setTitle:MWLocalizedString(@"welcome-languages-add-button", nil)
                               forState:UIControlStateNormal];
-    
+
     [self.nextStepButton wmf_configureAsWelcomeNextButton];
 
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
@@ -53,7 +53,7 @@
     [self addTopInsetToVerticallyCenterLanguagesTableContentIfNeeded];
 }
 
--(void)addTopInsetToVerticallyCenterLanguagesTableContentIfNeeded {
+- (void)addTopInsetToVerticallyCenterLanguagesTableContentIfNeeded {
     CGFloat topInsetRequiredToCenterTableContent =
         (self.languageTableView.frame.size.height - self.languageTableView.contentSize.height) / 2.f;
     if (topInsetRequiredToCenterTableContent > 0) {

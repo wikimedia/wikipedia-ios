@@ -4,7 +4,7 @@
 
 - (void)wmf_configureAsWelcomeNextButton {
     [self setTitle:[MWLocalizedString(@"welcome-languages-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
-                         forState:UIControlStateNormal];
+          forState:UIControlStateNormal];
     self.backgroundColor = [UIColor wmf_welcomeNextButtonBackgroundColor];
     [self setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
 }

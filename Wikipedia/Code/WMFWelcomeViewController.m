@@ -11,12 +11,12 @@
 
 @implementation WMFWelcomeViewController
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.welcomeNavigationController.interactivePopGestureRecognizer.delegate = self;
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
     return YES;
 }
 

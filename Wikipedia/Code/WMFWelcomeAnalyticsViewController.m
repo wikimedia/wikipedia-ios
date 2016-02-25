@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text  = [MWLocalizedString(@"welcome-volunteer-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.titleLabel.text    = [MWLocalizedString(@"welcome-volunteer-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.subTitleLabel.text = MWLocalizedString(@"welcome-volunteer-sub-title", nil);
 
     [self.nextStepButton wmf_configureAsWelcomeNextButton];
@@ -40,7 +40,6 @@
     }
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
-
 }
 
 - (IBAction)toggleAnalytics:(UISwitch*)sender {
@@ -58,9 +57,9 @@
     [self wmf_openExternalUrl:[NSURL URLWithString:URL_PRIVACY_POLICY]];
 }
 
--(void)updateToggleLabelTitleForUsageReportsIsOn:(BOOL)isOn {
-    NSString* title = isOn ? [MWLocalizedString(@"welcome-volunteer-thanks", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"😀"] : MWLocalizedString(@"welcome-volunteer-send-usage-reports", nil);
-    self.toggleLabel.text = title;
+- (void)updateToggleLabelTitleForUsageReportsIsOn:(BOOL)isOn {
+    NSString* title = isOn ? [MWLocalizedString(@"welcome-volunteer-thanks", nil) stringByReplacingOccurrencesOfString : @"$1" withString:@"😀"] : MWLocalizedString(@"welcome-volunteer-send-usage-reports", nil);
+    self.toggleLabel.text      = title;
     self.toggleLabel.textColor = isOn ? [UIColor wmf_green] : [UIColor darkGrayColor];
 }
 

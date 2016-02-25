@@ -15,15 +15,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.titleLabel.text    =
-    [MWLocalizedString(@"welcome-explore-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    
+    self.titleLabel.text =
+        [MWLocalizedString(@"welcome-explore-title", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+
     self.subTitleLabel.text =
-    MWLocalizedString(@"welcome-explore-sub-title", nil);
+        MWLocalizedString(@"welcome-explore-sub-title", nil);
 
     [self.tellMeMoreButton setTitle:MWLocalizedString(@"welcome-explore-tell-me-more", nil)
                            forState:UIControlStateNormal];
-    
+
     [self.nextButton setTitle:[MWLocalizedString(@"welcome-explore-continue-button", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]
                      forState:UIControlStateNormal];
 
@@ -35,12 +35,12 @@
     [alert show];
 }
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
 }

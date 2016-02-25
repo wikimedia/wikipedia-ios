@@ -2,6 +2,6 @@
 
 @interface UIViewController (WMFWelcomeNavigation)
 
--(void)wmf_setupTransparentWelcomeNavigationBarWithBackChevron;
+- (void)wmf_setupTransparentWelcomeNavigationBarWithBackChevron;
 
 @end
