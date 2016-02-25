@@ -8,6 +8,7 @@
 
 @import Quick;
 @import Nimble;
+@import NSDate_Extensions;
 
 #import "WMFExploreSection.h"
 #import "WMFExploreSectionSchema_Testing.h"
@@ -16,7 +17,6 @@
 #import "WMFRandomFileUtilities.h"
 #import "WMFRelatedSectionBlacklist.h"
 #import "WMFMockLocationManager.h"
-#import "NSDate+Utilities.h"
 
 QuickSpecBegin(WMFExploreSectionSchemaTests)
 

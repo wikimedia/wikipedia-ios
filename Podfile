@@ -33,6 +33,9 @@ pod 'Tweaks', :head
 # KVO
 pod 'KVOController'
 
+# Dates
+pod 'NSDate-Extensions', :git => 'git@github.com:wikimedia/NSDate-Extensions.git'
+
 # Datasources
 pod 'SSDataSources', '~> 0.8.0'
 
@@ -43,6 +46,9 @@ pod 'Masonry', '0.6.2'
 pod 'OAStackView', :git => 'git@github.com:wikimedia/OAStackView.git'
 pod 'MGSwipeTableCell', :git => 'git@github.com:wikimedia/MGSwipeTableCell.git'
 pod 'TSMessages', :git => 'https://github.com/wikimedia/TSMessages.git'
+
+# Licenses
+pod 'VTAcknowledgementsViewController'
 
 # Diagnostics
 pod 'PiwikTracker', :head
