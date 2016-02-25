@@ -71,15 +71,14 @@ NS_ASSUME_NONNULL_BEGIN
             return 1;
         case WMFExploreSectionTypeMostRead:
             return 2;
-        case WMFExploreSectionTypeMainPage:
-            return 3;
         case WMFExploreSectionTypePictureOfTheDay:
+            return 3;
+        case WMFExploreSectionTypeMainPage:
             return 4;
         case WMFExploreSectionTypeRandom:
             return 5;
         case WMFExploreSectionTypeNearby:
             return 6;
-
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeHistory:
             // Saved & History have identical same-day sorting behavior
@@ -126,9 +125,10 @@ NS_ASSUME_NONNULL_BEGIN
     return trending;
 }
 
-+ (instancetype)pictureOfTheDaySection {
++ (instancetype)pictureOfTheDaySectionWithDate:(NSDate*)date {
     WMFExploreSection* item = [[WMFExploreSection alloc] init];
-    item.type = WMFExploreSectionTypePictureOfTheDay;
+    item.type        = WMFExploreSectionTypePictureOfTheDay;
+    item.dateCreated = date;
     return item;
 }
 
@@ -204,10 +204,10 @@ NS_ASSUME_NONNULL_BEGIN
         case WMFExploreSectionTypeSaved:
         case WMFExploreSectionTypeFeaturedArticle:
         case WMFExploreSectionTypeMostRead:
+        case WMFExploreSectionTypeNearby:
+        case WMFExploreSectionTypePictureOfTheDay:
             return 10;
             break;
-        case WMFExploreSectionTypePictureOfTheDay:
-        case WMFExploreSectionTypeNearby:
         case WMFExploreSectionTypeContinueReading:
         case WMFExploreSectionTypeRandom:
         case WMFExploreSectionTypeMainPage:

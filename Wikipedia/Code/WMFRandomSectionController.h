@@ -12,6 +12,10 @@ extern NSString* const WMFRandomSectionIdentifier;
 
 - (instancetype)initWithSite:(MWKSite*)site dataStore:(MWKDataStore*)dataStore;
 
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items NS_UNAVAILABLE;
+
 
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
 

@@ -15,6 +15,10 @@ extern NSString* const WMFNearbySectionIdentifier;
                             site:(MWKSite*)site
                        dataStore:(MWKDataStore*)dataStore NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore NS_UNAVAILABLE;
+
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore items:(NSArray*)items NS_UNAVAILABLE;
+
 @property (nonatomic, strong, readonly) MWKSite* searchSite;
 @property (nonatomic, strong, readonly) CLLocation* location;
 @property (nonatomic, strong, readonly) CLPlacemark* placemark;

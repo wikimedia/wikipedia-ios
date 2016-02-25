@@ -170,7 +170,7 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 #pragma mark - WMFMoreFooterProviding
 
 - (NSString*)footerText {
-    return MWLocalizedString(@"home-nearby-footer", nil);
+    return [MWLocalizedString(@"home-nearby-location-footer", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.placemark.name];
 }
 
 - (UIViewController*)moreViewController {
