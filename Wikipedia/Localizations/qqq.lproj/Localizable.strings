@@ -333,6 +333,7 @@
 "welcome-explore-title" = "Title for welcome screen explaining new exploration features";
 "welcome-explore-sub-title" = "Sub-title for exploration welcome screen";
 "welcome-explore-tell-me-more" = "Title for link which when tapped shows explaination of new exploration features";
+"welcome-explore-tell-me-more-about-explore" = "Title for detailed explore explanation";
 "welcome-explore-tell-me-more-details" = "A more detailed explanation of new exploration features";
 "welcome-explore-tell-me-more-done-button" = "Text for button dismissing detailed explanation of new features";
 "welcome-explore-continue-button" = "Text for button for moving to next welcome screen";

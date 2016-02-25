@@ -31,7 +31,7 @@
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more", nil) message:MWLocalizedString(@"welcome-explore-tell-me-more-details", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"welcome-explore-tell-me-more-about-explore", nil) message:MWLocalizedString(@"welcome-explore-tell-me-more-details", nil) delegate:nil cancelButtonTitle:MWLocalizedString(@"welcome-explore-tell-me-more-done-button", nil) otherButtonTitles:nil];
     [alert show];
 }
 
