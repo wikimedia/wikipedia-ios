@@ -618,6 +618,14 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateLocation:(CLLocation*)location {
+    if (!location) {
+        return;
+    }
+    if ([[NSDate date] timeIntervalSinceDate:[location timestamp]] > 60 * 5) {
+        //We don't want old cached values - fresh data please!
+        return;
+    }
+    [self.locationManager stopMonitoringLocation];
     [self insertNearbySectionWithLocationIfNeeded:location];
 }
 
