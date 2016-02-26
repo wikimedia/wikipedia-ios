@@ -83,46 +83,22 @@ platform :ios do
 
     changelog = default_changelog
 
-    hockey(
-      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
-      notes: changelog,
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-    )
-
-    # Note: skipping submission means that the changelog isn't added
-    # This isn't a beta, so we can't submit to external testers
-    pilot(skip_submission: true)
-
-    tag_name = "alphas/#{new_version}"
-
-    # all goes well, tag the new version on git
-    add_git_tag(tag: tag_name)
-    sh "git push origin #{tag_name}"
-  end
-
-  desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for external testing."
-  lane :beta do
-    sigh(
-      adhoc: false,
-      force: true
-    )
-
-    gym(
-      configuration: "Beta",
-      scheme: "Wikipedia Beta"
-    )
-
-    changelog = default_changelog
-
-    hockey(
-      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
-      notes: changelog,
-      notify: '0', # Means do not notify
-      status: '1', # Means do not make available for download
-    )
-
-    pilot(skip_submission: false, changelog: changelog)
+    # hockey(
+    #   public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
+    #   notes: changelog,
+    #   notify: '0', # Means do not notify
+    #   status: '1', # Means do not make available for download
+    # )
+    #
+    # # Note: skipping submission means that the changelog isn't added
+    # # This isn't a beta, so we can't submit to external testers
+    # pilot(skip_submission: true)
+    #
+    # tag_name = "alphas/#{new_version}"
+    #
+    # # all goes well, tag the new version on git
+    # add_git_tag(tag: tag_name)
+    # sh "git push origin #{tag_name}"
   end
 
   desc "Upload a developer build to Hockey."
@@ -197,7 +173,6 @@ platform :ios do
       configuration: "Release",
       scheme: "Wikipedia"
     )
-
 
     hockey(
       notes: default_changelog,
