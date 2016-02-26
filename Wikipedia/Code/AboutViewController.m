@@ -210,7 +210,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     if ([[self class] isLicenseURL:requestURL]) {
         VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
-        
+
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 

@@ -74,12 +74,11 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
     }
 }
 
-- (IBAction)didTapInfoButton{
-    if(self.infoTapCallback){
+- (IBAction)didTapInfoButton {
+    if (self.infoTapCallback) {
         self.infoTapCallback();
     }
 }
-
 
 - (NSString*)imageDescription {
     return self.imageDescriptionLabel.attributedText.string;

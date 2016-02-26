@@ -35,8 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
             return nil; //just send the URL
         }
     }
-    
-    if([activityType isEqualToString:UIActivityTypePostToTwitter]){
+
+    if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
         NSString* text = nil;
         if (self.shareText.length > 0) {
             text = self.shareText;
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
         return [NSString stringWithFormat:@"%@ %@", text, MWLocalizedString(@"share-on-twitter-sign-off", nil)];
     }
 
-    if([activityType isEqualToString:UIActivityTypePostToFacebook]){
+    if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
         NSString* text = nil;
         if (self.shareText.length > 0) {
             text = self.shareText;
@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
         return text;
     }
-    
+
     return self.article.displaytitle; //send just the title for other sharing services
 }
 

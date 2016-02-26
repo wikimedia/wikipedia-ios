@@ -377,39 +377,36 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
         || [[self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath] filePageURL] == nil;
 }
 
-- (void)didTapShareButton{
+- (void)didTapShareButton {
     NSAssert(self.collectionView.indexPathsForVisibleItems.count == 1,
              @"Expected paging collection view to only have one visible item at time, got %@",
              self.collectionView.indexPathsForVisibleItems);
     NSIndexPath* visibleIndexPath = self.collectionView.indexPathsForVisibleItems.firstObject;
-    MWKImageInfo* info = [self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath];
+    MWKImageInfo* info            = [self.modalGalleryDataSource imageInfoAtIndexPath:visibleIndexPath];
 
     @weakify(self);
     [[WMFImageController sharedInstance] fetchImageWithURL:info.imageThumbURL].then(^(WMFImageDownload* _Nullable download){
         @strongify(self);
-        
+
         NSMutableArray* items = [NSMutableArray array];
-        
+
         WMFImageTextActivitySource* textSource = [[WMFImageTextActivitySource alloc] initWithInfo:info];
         [items addObject:textSource];
 
         WMFImageURLActivitySource* imageSource = [[WMFImageURLActivitySource alloc] initWithInfo:info];
         [items addObject:imageSource];
-        
+
         if (download.image) {
             [items addObject:download.image];
         }
-        
+
         UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:nil];
         vc.excludedActivityTypes = @[UIActivityTypeAddToReadingList];
-        
+
         [self presentViewController:vc animated:YES completion:NULL];
     }).catch(^(NSError* error){
         [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:NO dismissPreviousAlerts:NO tapCallBack:NULL];
     });
-
-
-    
 }
 
 - (void)didTapInfoButton {
@@ -425,35 +422,34 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 
 #pragma mark - UIGestureRecognizerDelegate
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    
-    if(gestureRecognizer != self.chromeTapGestureRecognizer){
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    if (gestureRecognizer != self.chromeTapGestureRecognizer) {
         return YES;
     }
-    
+
     WMFImageGalleryCollectionViewCell* cell = (WMFImageGalleryCollectionViewCell*)[[self.collectionView visibleCells] firstObject];
-    if(!cell){
+    if (!cell) {
         return YES;
     }
-    
+
     CGPoint location = [gestureRecognizer locationInView:self.view];
-    if(CGRectContainsPoint(self.closeButton.frame, location)){
+    if (CGRectContainsPoint(self.closeButton.frame, location)) {
         return NO;
     }
-    
-    if(CGRectContainsPoint(self.shareButton.frame, location)){
+
+    if (CGRectContainsPoint(self.shareButton.frame, location)) {
         return NO;
     }
-    
+
     location = [gestureRecognizer locationInView:cell.detailOverlayView];
-    if(CGRectContainsPoint(cell.detailOverlayView.ownerButton.frame, location)){
+    if (CGRectContainsPoint(cell.detailOverlayView.ownerButton.frame, location)) {
         return NO;
     }
-    
-    if(CGRectContainsPoint(cell.detailOverlayView.infoButton.frame, location)){
+
+    if (CGRectContainsPoint(cell.detailOverlayView.infoButton.frame, location)) {
         return NO;
     }
-    
+
     return YES;
 }
 
