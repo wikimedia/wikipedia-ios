@@ -742,6 +742,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
 
     NSMutableArray* items = [NSMutableArray array];
+
+    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
+
     if (self.article.title.desktopURL) {
         NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
                                                     self.article.title.desktopURL.absoluteString,
@@ -749,9 +752,6 @@ NS_ASSUME_NONNULL_BEGIN
 
         [items addObject:url];
     }
-
-    WMFArticleTextActivitySource* source = [[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text];
-    [items addObject:source];
 
     UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
 

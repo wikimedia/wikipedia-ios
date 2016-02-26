@@ -36,27 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
 
-    if ([activityType isEqualToString:UIActivityTypePostToTwitter]) {
-        NSString* text = nil;
-        if (self.shareText.length > 0) {
-            text = self.shareText;
-        } else {
-            text = self.article.displaytitle;
-        }
-        return [NSString stringWithFormat:@"%@ %@", text, MWLocalizedString(@"share-on-twitter-sign-off", nil)];
-    }
-
-    if ([activityType isEqualToString:UIActivityTypePostToFacebook]) {
-        NSString* text = nil;
-        if (self.shareText.length > 0) {
-            text = self.shareText;
-        } else {
-            text = self.article.displaytitle;
-        }
-        return text;
-    }
-
-    return self.article.displaytitle; //send just the title for other sharing services
+    return [MWLocalizedString(@"share-article-name-on-wikipedia", nil) stringByReplacingOccurrencesOfString:@"$1" withString:self.article.title.text]; //send just the title for other sharing services
 }
 
 @end
