@@ -50,6 +50,14 @@
     return [self objectForInfoDictionaryKey:@"WMFHockeyAppIdentifier"];
 }
 
+- (NSString*)wmf_piwikURL {
+    return [self objectForInfoDictionaryKey:@"WMFPiwikURL"];
+}
+
+- (NSString*)wmf_piwikAppID {
+    return [self objectForInfoDictionaryKey:@"WMFPiwikAppIdentifier"];
+}
+
 - (BOOL)wmf_shouldShowDebugMenu {
     return [[self objectForInfoDictionaryKey:@"WMFShowDebugMenu"] boolValue];
 }

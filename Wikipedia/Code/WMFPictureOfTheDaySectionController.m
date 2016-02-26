@@ -26,10 +26,10 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
 
 @implementation WMFPictureOfTheDaySectionController
 
-- (instancetype)initWithDataStore:(MWKDataStore*)dataStore {
+- (instancetype)initWithDataStore:(MWKDataStore*)dataStore date:(NSDate*)date {
     self = [super initWithDataStore:dataStore];
     if (self) {
-        self.fetchedDate = [NSDate date];
+        self.fetchedDate = date;
     }
     return self;
 }
