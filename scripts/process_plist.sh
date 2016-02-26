@@ -23,9 +23,13 @@ fi
 if [[ "${CONFIGURATION}" == "Beta" ]]; then
   echo "Setting Hockey App ID for ${CONFIGURATION} build."
   defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $HOCKEY_BETA
+  defaults write "${INFO_PLIST}" WMFPiwikURL -string $PIWIK_URL
+  defaults write "${INFO_PLIST}" WMFPiwikAppIdentifier -string $PIWIK_BETA
 fi
 
 if [[ "${CONFIGURATION}" == "Release" ]]; then
   echo "Setting Hockey App ID for ${CONFIGURATION} build."
   defaults write "${INFO_PLIST}" WMFHockeyAppIdentifier -string $HOCKEY_PRODUCTION
+  defaults write "${INFO_PLIST}" WMFPiwikURL -string $PIWIK_URL
+  defaults write "${INFO_PLIST}" WMFPiwikAppIdentifier -string $PIWIK_PRODUCTION
 fi

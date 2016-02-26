@@ -1,17 +1,28 @@
 
 #import "PiwikTracker+WMFExtensions.h"
+#import "NSBundle+WMFInfoUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString* const WMFPiwikServerURL = @"http://piwik.wmflabs.org/piwik/";
-static NSString* const WMFPiwikSiteID    = @"4";
+#ifdef DEBUG
+static NSTimeInterval const WMFDispatchInterval = 5;
+#else
+static NSTimeInterval const WMFDispatchInterval = 60;
+#endif
 
 @implementation PiwikTracker (WMFExtensions)
 
 + (void)wmf_start {
 #ifdef PIWIK_ENABLED
-    [PiwikTracker sharedInstanceWithSiteID:WMFPiwikSiteID baseURL:[NSURL URLWithString:WMFPiwikServerURL]];
-    [[PiwikTracker sharedInstance] setDispatchInterval:60];
+    NSString* url   = [[NSBundle mainBundle] wmf_piwikURL];
+    NSString* appID = [[NSBundle mainBundle] wmf_hockeyappIdentifier];
+
+    if (!url || !appID) {
+        return;
+    }
+
+    [PiwikTracker sharedInstanceWithSiteID:appID baseURL:[NSURL URLWithString:url]];
+    [[PiwikTracker sharedInstance] setDispatchInterval:WMFDispatchInterval];
 #endif
 }
 

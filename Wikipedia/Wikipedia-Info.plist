@@ -64,6 +64,10 @@
 	<false/>
 	<key>WMFHockeyAppIdentifier</key>
 	<string></string>
+	<key>WMFPiwikAppIdentifier</key>
+	<string></string>
+	<key>WMFPiwikURL</key>
+	<string></string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>
