@@ -156,10 +156,13 @@ static NSString* const kWMFContributorsKey = @"contributors";
     setDivHTML(@"translators_title", MWLocalizedString(@"about-translators", nil));
     setDivHTML(@"testers_title", MWLocalizedString(@"about-testers", nil));
     setDivHTML(@"libraries_title", MWLocalizedString(@"about-libraries", nil));
-    setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:MWLocalizedString(@"about-libraries-licenses", nil)]);
+    setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:MWLocalizedString(@"about-libraries-complete-list", nil)]);
     setDivHTML(@"repositories_title", MWLocalizedString(@"about-repositories", nil));
     setDivHTML(@"repositories_body", self.repositoryLinks);
+    setDivHTML(@"repositories_subtitle", MWLocalizedString(@"about-repositories-app-source-license", nil));
     setDivHTML(@"feedback_body", [[self class] linkHTMLForURLString:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
+    setDivHTML(@"license_title", MWLocalizedString(@"about-content-license", nil));
+    setDivHTML(@"license_body", MWLocalizedString(@"about-content-license-details", nil));
 
     NSString* twnUrl            = self.urls[kWMFURLsTranslateWikiKey];
     NSString* translatorsLink   = [[self class] linkHTMLForURLString:twnUrl title:[twnUrl substringFromIndex:7]];

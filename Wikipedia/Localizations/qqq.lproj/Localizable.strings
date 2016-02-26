@@ -202,9 +202,13 @@
 "about-libraries" = "Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
 "about-libraries-license" = "About page link title that will display a license for a library used in the app\n{{Identical|License}}";
 "about-repositories" = "Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. \n{{Identical|Repository}}";
+"about-repositories-app-source-license" = "Text explaining the app source licensing";
 "about-libraries-licenses" = "About page link title that will display all licenses for libraries used in the app";
+"about-content-license" = "Header text for content license section";
+"about-content-license-details" = "Text explaining license of app content";
 "about-libraries-licenses-title" = "Title for list of library licenses. $1 will be replaced with an emoji expressing our love for open source software";
 
+"about-libraries-complete-list" = "Title for link to complete list of libraries use by the app";
 "about-send-feedback" = "Link text for sending app feedback";
 "about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
