@@ -50,6 +50,8 @@
     return self;
 }
 
+#pragma mark - Updates
+
 - (void)startUpdates {
     [self.locationManager startMonitoringLocation];
 }
@@ -97,13 +99,15 @@
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {
-    if ([WMFLocationManager isDeniedOrDisabled]) {
-        //TODO: anything we need to handle?
-    }
-    if (![error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown) {
-        //TODO: anything we need to handle?
-    }
-//    [self stopUpdates]; //should we stop updates?
+    WMF_TECH_DEBT_TODO(implement compass error handling);
+//    if ([WMFLocationManager isDeniedOrDisabled]) {
+//        //TODO: anything we need to handle?
+//    }
+//    if (![error.domain isEqualToString:kCLErrorDomain] && error.code == kCLErrorLocationUnknown) {
+//        //TODO: anything we need to handle?
+//    }
+//    // should we stop updates?
+//    [self stopUpdates];
 }
 
 @end

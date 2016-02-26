@@ -116,7 +116,6 @@ static NSUInteger const WMFNearbySectionFetchCount = 3;
 - (void)configureCell:(WMFNearbyArticleTableViewCell*)cell withItem:(MWKLocationSearchResult*)item atIndexPath:(nonnull NSIndexPath*)indexPath {
     NSParameterAssert([item isKindOfClass:[MWKLocationSearchResult class]]);
     NSParameterAssert([cell isKindOfClass:[WMFNearbyArticleTableViewCell class]]);
-
     cell.titleText       = item.displayTitle;
     cell.descriptionText = item.wikidataDescription;
     [cell setImageURL:item.thumbnailURL];

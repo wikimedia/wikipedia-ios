@@ -17,6 +17,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) CLHeading* heading;
 
+/**
+ *  Whether or not the receiver is listening for updates to location & heading.
+ *
+ *  @note
+ *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
+ *  We use this to ignore events after a stop has been requested
+ */
+@property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
+
 - (void)startMonitoringLocation;
 - (void)stopMonitoringLocation;
 - (void)restartLocationMonitoring;

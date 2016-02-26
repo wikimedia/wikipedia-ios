@@ -31,11 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, readwrite, nullable) CLHeading* lastHeading;
 
-/**
- *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
- *  We use this to ignore events after a stop has been requested
- */
-@property (nonatomic, assign) BOOL locationUpdatesStopped;
+@property (nonatomic, assign, readwrite, getter=isUpdating) BOOL updating;
 
 @end
 
@@ -74,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString*)description {
     NSString* delegateDesc = [self.delegate description] ? : @"nil";
     return [NSString stringWithFormat:@"<%@ manager: %@ delegate: %@ is updating: %d>",
-            [super description], _locationManager, delegateDesc, !self.locationUpdatesStopped];
+            [super description], _locationManager, delegateDesc, self.isUpdating];
 }
 
 #pragma mark - Permissions
@@ -115,14 +111,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     DDLogVerbose(@"%@ will start location & heading updates.", self);
 
-    self.locationUpdatesStopped = NO;
+    self.updating = YES;
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
 
 - (void)stopMonitoringLocation {
     DDLogVerbose(@"%@ will stop location & heading updates.", self);
-    self.locationUpdatesStopped = YES;
+    self.updating = NO;
     [self stopLocationUpdates];
     [self stopHeadingUpdates];
 }
@@ -142,7 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
         [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification
                                                           object:nil
                                                            queue:nil
-                                                      usingBlock:^(NSNotification* note) {
+                                                      usingBlock:^(NSNotification* _) {
         @strongify(self);
         [self updateHeadingOrientation];
     }];
@@ -175,6 +171,9 @@ NS_ASSUME_NONNULL_BEGIN
             self.locationManager.headingOrientation = CLDeviceOrientationUnknown;
             break;
     }
+    // Force location manager to re-emit the current heading which will take into account the current device orientation
+    [self.locationManager stopUpdatingHeading];
+    [self.locationManager startUpdatingHeading];
 }
 
 - (void)stopLocationUpdates {
@@ -219,7 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations {
     // ignore nil values to keep last known heading on the screen
-    if (self.locationUpdatesStopped || !manager.location) {
+    if (!self.isUpdating || !manager.location) {
         return;
     }
     self.lastLocation = manager.location;
@@ -229,9 +228,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
     // ignore nil or innaccurate values values to keep last known heading on the screen
-    if (self.locationUpdatesStopped
-        || !newHeading
-        || newHeading.headingAccuracy <= 0) {
+    if (!self.isUpdating || !newHeading || newHeading.headingAccuracy <= 0) {
         return;
     }
     self.lastHeading = newHeading;
@@ -240,7 +237,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
-    if (self.locationUpdatesStopped) {
+    if (!self.isUpdating) {
         DDLogVerbose(@"Suppressing error received after call to stop monitoring location: %@", error);
         return;
     }

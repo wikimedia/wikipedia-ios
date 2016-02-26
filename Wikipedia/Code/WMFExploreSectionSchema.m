@@ -246,7 +246,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 - (BOOL)updateContinueReading {
     WMFExploreSection* old = [self existingContinueReadingSection];
     WMFExploreSection* new = [self continueReadingSection];
-    if ([[old title] isEqual:[new title]]) {
+    if (WMF_EQUAL(old.title, isEqualToTitle:, new.title)) {
         return NO;
     }
 
