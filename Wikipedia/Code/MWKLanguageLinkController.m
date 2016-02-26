@@ -109,16 +109,14 @@ static id _sharedInstance;
     [self updateLanguageArrays];
 }
 
-- (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site{
-    return [self.allLanguages bk_match:^BOOL(MWKLanguageLink* obj) {
-        if([obj.site isEqualToSite:site]){
+- (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site {
+    return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* obj) {
+        if ([obj.site isEqualToSite:site]) {
             return YES;
         }
         return NO;
     }];
-    
 }
-
 
 #pragma mark - Build Language Arrays
 

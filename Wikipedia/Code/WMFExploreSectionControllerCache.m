@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
             controller = [self featuredArticleSectionControllerForSchemaItem:section];
             break;
         case WMFExploreSectionTypePictureOfTheDay:
-            controller = [self picOfTheDaySectionController];
+            controller = [self picOfTheDaySectionControllerForSchemaItem:section];
             break;
         case WMFExploreSectionTypeMostRead:
             controller = [self mostReadSectionControllerForSection:section];
@@ -125,8 +125,8 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFMainPageSectionController alloc] initWithSite:item.site dataStore:self.dataStore];
 }
 
-- (WMFPictureOfTheDaySectionController*)picOfTheDaySectionController {
-    return [[WMFPictureOfTheDaySectionController alloc] initWithDataStore:self.dataStore];
+- (WMFPictureOfTheDaySectionController*)picOfTheDaySectionControllerForSchemaItem:(WMFExploreSection*)item  {
+    return [[WMFPictureOfTheDaySectionController alloc] initWithDataStore:self.dataStore date:item.dateCreated];
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFExploreSection*)item {

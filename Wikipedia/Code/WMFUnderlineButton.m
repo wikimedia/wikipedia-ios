@@ -67,7 +67,7 @@
     }
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews {
     [self updateUnderlineConstraints];
     [super layoutSubviews];
 }
