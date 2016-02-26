@@ -14,7 +14,9 @@
     NSString* appSupportDir =
         [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject];
     NSParameterAssert(appSupportDir.length);
-    return [[SDImageCache alloc] initWithNamespace:ns inDirectory:appSupportDir];
+    SDImageCache* cache = [[SDImageCache alloc] initWithNamespace:ns inDirectory:appSupportDir];
+    cache.maxMemoryCountLimit = 50;
+    return cache;
 }
 
 @end
