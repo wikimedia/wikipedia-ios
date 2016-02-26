@@ -90,18 +90,18 @@ platform :ios do
       status: '1', # Means do not make available for download
     )
 
-    # # Note: skipping submission means that the changelog isn't added
-    # # This isn't a beta, so we can't submit to external testers
-    # pilot(
-    #   skip_submission: false,
-    #   distribute_external: false
-    # )
-    #
-    # tag_name = "alphas/#{new_version}"
-    #
-    # # all goes well, tag the new version on git
-    # add_git_tag(tag: tag_name)
-    # sh "git push origin #{tag_name}"
+    # Note: skipping submission means that the changelog isn't added
+    # This isn't a beta, so we can't submit to external testers
+    pilot(
+      skip_submission: false,
+      distribute_external: false
+    )
+
+    tag_name = "alphas/#{new_version}"
+
+    # all goes well, tag the new version on git
+    add_git_tag(tag: tag_name)
+    sh "git push origin #{tag_name}"
   end
 
   desc "Upload a developer build to Hockey."
