@@ -218,11 +218,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations {
-    if (self.locationUpdatesStopped) {
-        return;
-    }
-    if (!manager.location) {
-        // ignore nil values to keep last known heading on the screen
+    // ignore nil values to keep last known heading on the screen
+    if (self.locationUpdatesStopped || !manager.location) {
         return;
     }
     self.lastLocation = manager.location;
@@ -231,11 +228,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
-    if (self.locationUpdatesStopped) {
-        return;
-    }
-    if (!newHeading) {
-        // ignore nil values to keep last known heading on the screen
+    // ignore nil or innaccurate values values to keep last known heading on the screen
+    if (self.locationUpdatesStopped
+        || !newHeading
+        || newHeading.headingAccuracy <= 0) {
         return;
     }
     self.lastHeading = newHeading;
