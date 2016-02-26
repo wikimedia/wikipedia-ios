@@ -20,9 +20,11 @@
 "history-section-yesterday" = "Gëschter";
 "history-section-lastweek" = "Lescht Woch";
 "history-section-lastmonth" = "Leschte Mount";
+// Fuzzy
 "history-clear-confirmation-heading" = "All rezent Elementer läschen?";
 "history-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "history-clear-cancel" = "Ofbriechen";
+// Fuzzy
 "history-clear-delete-all" = "All läschen";
 "history-description" = "Dir hutt se wahrscheinlech all geläscht. Wann Dir déi nächste Kéier op eng Säit gitt da kënnt Dir vun hei aus op déi Säit zréckgoen.";
 "history-none" = "Keng rezent Säiten hei.";
@@ -38,6 +40,7 @@
 "zero-learn-more-learn-more" = "Liest méi";
 "zero-learn-more-no-thanks" = "Verwerfen";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Beim Verloosse vu Wikipedia Zero warnen";
 "account-creation-captcha-required" = "CAPTCHA-Kontroll obligatoresch.";
 "account-creation-captcha-obtaining" = "En neie CAPTCHA kréien.";
@@ -93,16 +96,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "search-recent-clear-cancel" = "Ofbriechen";
 "search-recent-clear-delete-all" = "All läschen";
+"search-result-redirected-from" = "Virugeleet vun: $1";
 "settings-title" = "Astellungen";
 "main-menu-title" = "Méi";
 "main-menu-heading-about" = "Iwwer";
 "main-menu-language-title" = "Sicht an der Wiki op $1";
+// Fuzzy
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Sprooche weisen";
 "main-menu-language-toggle-hide" = "Sprooche verstoppen";
 "main-menu-language-selection-saved" = "Eraussiche vun der Sprooch gespäichert";
 "main-menu-account-title-logged-out" = "Benotzerkont";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Ageloggt als: $1";
+// Fuzzy
 "main-menu-account-login" = "Op Wikipedia aloggen";
 "main-menu-account-logout" = "Ausloggen";
 "main-menu-show-title" = "Weis mir...";
@@ -111,13 +118,17 @@
 "main-menu-current-article-save" = "$1 späichere fir off-line ze liesen";
 "main-menu-random" = "Zoufälleg";
 "main-menu-feedback-heading" = "Feedback";
+// Fuzzy
 "main-menu-send-feedback" = "Feedback vun der App schécken";
 "main-menu-show-page-history" = "Historique vun de Ännerunge vu(n) $1";
 "main-menu-credits" = "Merci";
+// Fuzzy
 "main-menu-about" = "Iwwer d'Wikipedia App";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Dateschutz";
+// Fuzzy
 "main-menu-terms-of-use" = "Benotzungs-Bedingungen";
+// Fuzzy
 "main-menu-rate-app" = "App bewäerten";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Dateschutz a Konditiounen";
@@ -128,9 +139,11 @@
 "main-menu-debug-crash" = "Crash";
 "saved-title" = "Gespäichert";
 "saved-pages-title" = "Gespäichert Säiten";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "All gespäichert Elementer läschen?";
 "saved-pages-clear-confirmation-sub-heading" = "Dës Aktioun kann net réckgängeg gemaach ginn!";
 "saved-pages-clear-cancel" = "Ofbriechen";
+// Fuzzy
 "saved-pages-clear-delete-all" = "All läschen";
 "saved-pages-refresh-cancel-alert-title" = "Aktualisatioun ofgegrach";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-Artikele ginn dauernd aktualiséiert. Klickt 'Aktualiséieren' fir déi neist Versioun vun allen Artikelen ze kréien.";
@@ -190,6 +203,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
 "share-as-image" = "Als Bild deelen";
 "share-as-text" = "Als Text deelen";
+"share-cancel" = "Ofbriechen";
 "timestamp-just-now" = "grad elo";
 "timestamp-minutes" = "viru(n) %d Minutten";
 "timestamp-hours" = "viru(n) %d Stonnen";
@@ -219,6 +233,7 @@
 "license-footer-text" = "Den Inhalt ass ënner $1 disponibel";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Inhalter";
+"table-of-contents-button-label" = "Inhaltsverzeechnes";
 "abuse-filter-warning-heading" = "Dëst gesäit no enger wéineg konstruktiver Ännerung aus, sidd Dir sécher datt Dir se späichere wëllt?";
 "abuse-filter-warning-subheading" = "An Ärer Ännerung kéinte eng oder méi vun dëse Saachen dra sinn:";
 "abuse-filter-warning-caps" = "Mat GROUSSE BUSCHTAWEN tippen";
@@ -276,6 +291,7 @@
 "hockeyapp-alert-privacy" = "$1-Dateschutz";
 "page-issues" = "Problemer mat der Säit";
 "page-similar-titles" = "Ähnlech Säiten";
+// Fuzzy
 "page-read-in-other-languages" = "An $1 Sprooche liesen";
 "page-last-edited" = "Viru(n) $1 Deeg geännert";
 "page-edit-history" = "All Versioune vun der Säit";
@@ -291,33 +307,37 @@
 "home-featured-article-heading" = "Besonneschen Artikel vum $1";
 "home-main-page-heading" = "Haut op Wikipedia";
 "home-potd-heading" = "Bild vum Dag vum $1";
+"home-last-update-label" = "Lescht Aktualisatioun: $1";
+"home-last-update-never-label" = "Lescht Aktualisatioun: Ni";
+"home-updating-label" = "Gëtt aktualiséiert...";
+"home-hide-suggestion-prompt" = "Dës Propos verstoppen";
+"home-hide-suggestion-cancel" = "Ofbriechen";
 "potd-empty-error-description" = "Bild vum Dag vum $1 konnt net erofgeluede ginn";
 "potd-description-prefix" = "Bild vum Dag vum $1";
-"welcome-whats-new-title" = "Wëllkomm bei Wikipedia";
-"welcome-whats-new-whats-new" = "WAT ASS NEI";
-"welcome-whats-new-bullet-one-title" = "Eng nei Manéier fir z'entdecken";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Wéi et geet...";
-"welcome-whats-new-bullet-two-title" = "Fir d'Liesen entwéckelt";
-"welcome-whats-new-button-title" = "Fir unzefänken";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Verstan";
+// Fuzzy
 "welcome-languages-title" = "Sprooche fir ze sichen";
-"welcome-languages-more-info-button-text" = "Ech wëll méi wëssen";
-"welcome-languages-more-info-text" = "Wikipedia-Artikele sinn dacks a méi Sproochen disponibel. Sicht d'Sproochen eraus, déi Dir beim Siche benotze wëllt. Dir kënnt se duerno nach änneren.";
-"welcome-languages-more-info-done-button" = "Verstan";
-"welcome-languages-more-languages-button-title" = "Méi Sproochen derbäisetzen";
-"welcome-languages-button-title" = "Virufueren";
-"welcome-languages-footnote-text" = "Dir kënnt dat méi spéit änneren.";
-"welcome-usage-reports-title" = "Hëlleft eis Wikipedia besser ze maachen";
-"welcome-usage-reports-body-text" = "Dir kënnt eis hëllefe fir d'App besser ze maachen an deem Dir eis erlaabt Informatiounen ze sammele wéi Dir d'App benotzt.";
-"welcome-usage-reports-switch-text" = "Rapporten iwwer d'Benotze schécken";
-"welcome-usage-reports-button-title" = "Fir unzefänken";
-"welcome-usage-reports-privacy-policy-button-text" = "Ären Dateschutz ass wichteg fir eis";
 "empty-no-feed-title" = "Keng Internetverbindung";
 "empty-no-feed-message" = "Dir kënnt Är recommandéiert Artikele gesi wann Dir Internet hutt.";
 "empty-no-feed-action-message" = "Dir kënnt an der Tëschenzäit gespäichert Säite liesen";
 "empty-no-article-message" = "Leider konnt den Artikel net geluede ginn";
+// Fuzzy
 "empty-no-search-results-message" = "Leider kënnen d'Resultater net geluede ginn";
 "empty-no-saved-pages-title" = "Nach keng gespäichert Säiten";
 "empty-no-saved-pages-message" = "Säite späichere fir se spéider offline ze kucken";
 "empty-no-history-title" = "Keen Historique vu Versioune weisen";
 "alert-no-internet" = "Dir hutt keng Internetverbindung";
+"icon-shortcut-search-title" = "Op Wikipedia sichen";
+"icon-shortcut-continue-reading-title" = "Virufuere mat Liesen";
+"icon-shortcut-random-title" = "Zoufällegen Artikel";
+"icon-shortcut-nearby-title" = "Artikelen nobäi";
+"close-button-accessibility-label" = "Zoumaachen";
+"back-button-accessibility-label" = "Zréck";
+"compass-direction" = "ëm $1 Auer";
+"explore-featured-article-heading" = "Recommandéierten Artikel";
+"explore-continue-reading-heading" = "Virufuere mat Liesen";
+"explore-nearby-heading" = "Plazen nobäi";
+"explore-continue-related-heading" = "Well Dir liest";
+"explore-main-page-heading" = "Haut op Wikipedia";
+"explore-random-article-heading" = "Zoufällegen Artikel";
+"explore-random-article-sub-heading" = "Wikipedia op Englesch";
+"explore-potd-heading" = "Bild vum Dag";

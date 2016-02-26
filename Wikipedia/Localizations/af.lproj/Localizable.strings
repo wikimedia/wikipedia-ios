@@ -20,9 +20,11 @@
 "history-section-yesterday" = "Gister";
 "history-section-lastweek" = "Afgelope week";
 "history-section-lastmonth" = "Afgelope maand";
+// Fuzzy
 "history-clear-confirmation-heading" = "Skrap alle onlangse items?";
 "history-clear-confirmation-sub-heading" = "Hierdie aksie kan nie ongedaan gemaak word nie!";
 "history-clear-cancel" = "Kanselleer";
+// Fuzzy
 "history-clear-delete-all" = "Skrap Alles";
 "history-none" = "Geen onlangse bladsye hier.";
 "zero-free-verbiage" = "Gratis Wikipedia toegang van jou diensverskaffer (datakostes kwytgeskeld)";
@@ -37,6 +39,7 @@
 "zero-learn-more-learn-more" = "Lees meer";
 "zero-learn-more-no-thanks" = "Sluit";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Waarsku indien Wikipedia Zero verlaat word";
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-verifikasie vereis.";
@@ -99,11 +102,13 @@
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Aangaande";
 "main-menu-language-title" = "Soek in $1 Wikipedia";
+// Fuzzy
 "main-menu-faq" = "Gewilde vrae";
 "main-menu-language-toggle-show" = "Vertoon tale";
 "main-menu-language-toggle-hide" = "Verskuil tale";
 "main-menu-language-selection-saved" = "Taalkeuse gestoor";
 "main-menu-account-title-logged-out" = "Rekening";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Aangemeld as: $1";
 // Fuzzy
 "main-menu-account-login" = "Meld aan";
@@ -114,13 +119,17 @@
 "main-menu-current-article-save" = "Stoor $1 vir aflyn lees";
 "main-menu-random" = "Lukraak";
 "main-menu-feedback-heading" = "Terugvoer";
+// Fuzzy
 "main-menu-send-feedback" = "Stuur toep terugvoer";
 "main-menu-show-page-history" = "Geskiedenis van wysigings aan $1";
 "main-menu-credits" = "Krediet";
+// Fuzzy
 "main-menu-about" = "Aangaande Wikipedia toep";
 "main-menu-zero-faq" = "Gewilde vrae oor Wikipedia Zero";
 "main-menu-privacy-policy" = "Privaatheidsbeleid";
+// Fuzzy
 "main-menu-terms-of-use" = "Gebruiksvoorwaardes";
+// Fuzzy
 "main-menu-rate-app" = "Gradeer toep";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privaatheid en Voorwaardes";
@@ -130,9 +139,11 @@
 "main-menu-heading-debug" = "Ontfout";
 "main-menu-debug-crash" = "Breek";
 "saved-pages-title" = "Gestoorde bladsye";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Skrap alle gestoorde items?";
 "saved-pages-clear-confirmation-sub-heading" = "Hierdie aksie kan nie ongedaan gemaak word nie!";
 "saved-pages-clear-cancel" = "Kanselleer";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Skrap Alles";
 "saved-pages-refresh-cancel-alert-title" = "Opdatering gekanselleer";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia artikels word heeltyd opdateer. Kliek herlaai om die nuutste weergawes van al die artikels te verkry.";

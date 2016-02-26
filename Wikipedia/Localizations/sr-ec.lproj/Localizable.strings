@@ -22,6 +22,7 @@
 "history-section-lastmonth" = "Прошлог месеца";
 "history-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "history-clear-cancel" = "Откажи";
+// Fuzzy
 "history-clear-delete-all" = "Обрисати све";
 "history-description" = "Највероватније сте их све обрисали. Кад идући пут будете посетили страницу, можете јој се поново вратити овде.";
 "history-none" = "Нема страница.";
@@ -79,12 +80,15 @@
 "main-menu-title" = "Више";
 "main-menu-heading-about" = "О";
 "main-menu-language-title" = "Претрага Википедије";
+// Fuzzy
 "main-menu-faq" = "ЧПП";
 "main-menu-language-toggle-show" = "Прикажи језике";
 "main-menu-language-toggle-hide" = "Сакриј језике";
 "main-menu-language-selection-saved" = "Избор језика сачуван";
 "main-menu-account-title-logged-out" = "Налог";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Пријављен сте као: $1";
+// Fuzzy
 "main-menu-account-login" = "Пријави ме";
 "main-menu-account-logout" = "Одјави ме";
 "main-menu-show-title" = "Прикажи...";
@@ -93,20 +97,25 @@
 "main-menu-current-article-save" = "Сачувај $1 за ванмрежно читање";
 "main-menu-random" = "Насумице";
 "main-menu-feedback-heading" = "Повратне информације";
+// Fuzzy
 "main-menu-send-feedback" = "Пошаљи повратне информације";
 "main-menu-show-page-history" = "Историја измена за $1";
 "main-menu-credits" = "Заслуге";
 "main-menu-privacy-policy" = "Политика приватности";
+// Fuzzy
 "main-menu-terms-of-use" = "Услови коришћења";
+// Fuzzy
 "main-menu-rate-app" = "Оцените апликацију";
 "main-menu-heading-legal" = "Приватност и услови";
 "main-menu-show-today" = "Данас";
 "main-menu-nearby" = "У близини";
 "main-menu-more" = "Више…";
 "saved-pages-title" = "Сачуване странице";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Обрисати све сачуване?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова радња се не може поништити!";
 "saved-pages-clear-cancel" = "Откажи";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Обриши све";
 "saved-pages-refresh-cancel-alert-title" = "Ажурирање отказано";
 "saved-pages-refresh-cancel-alert-message" = "Чланци на Википедији се стално дорађују, тапните да преузмете најновије верзије свих чланака.";
@@ -209,17 +218,10 @@
 "page-issues" = "Недостаци странице";
 "page-similar-titles" = "Сличне странице";
 "captcha-prompt" = "Унесите текст са слике изнад";
-"welcome-whats-new-title" = "Добро дошли на Википедију";
-"welcome-whats-new-whats-new" = "Шта је ново";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Разумем!";
 // Fuzzy
 "welcome-languages-title" = "Изаберите језик";
-"welcome-languages-more-languages-button-title" = "Додај још језика";
-"welcome-languages-button-title" = "Настави";
-"welcome-usage-reports-switch-text" = "Пошаљи корисничке извештаје";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Готово";
 "empty-no-feed-title" = "Нема интернет везе";
 "empty-no-article-message" = "Учитавање чланка није успело";
+// Fuzzy
 "empty-no-search-results-message" = "Учитавање резултата није успело";
 "alert-no-internet" = "Нема интернет везе";

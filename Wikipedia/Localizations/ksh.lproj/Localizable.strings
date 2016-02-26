@@ -17,9 +17,11 @@
 "history-section-yesterday" = "Jäßtere";
 "history-section-lastweek" = "Läz Woch";
 "history-section-lastmonth" = "Läz Mohnd";
+// Fuzzy
 "history-clear-confirmation-heading" = "Wells De alle neujere Änderonge fott schmiiße?";
 "history-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "history-clear-cancel" = "Ophüre!";
+// Fuzzy
 "history-clear-delete-all" = "Alle fottschmieße";
 "history-description" = "Do hä se velleisch alle fott jeschmeße. Et nähkste Mohl woh de obb en Sigg jeihß, kanns De op se zeröck jonn.";
 "history-none" = "Kein köözlesche Sigge heh.";
@@ -81,11 +83,13 @@
 "main-menu-title" = "Mih";
 "main-menu-heading-about" = "Övver";
 "main-menu-language-title" = "En de <code lang=\"zxx\" xml:lang=\"zxx\" dir=\"ltr\">$1</code>-Wikkipehdija söhke";
+// Fuzzy
 "main-menu-faq" = "Öff jeschtallte Frohre";
 "main-menu-language-toggle-show" = "Schprohche aanzeije";
 "main-menu-language-toggle-hide" = "Schprohche verschteijsche";
 "main-menu-language-selection-saved" = "Schprohche-Wahl faßjehallde";
 "main-menu-account-title-logged-out" = "Zohjang";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Ennjelogg als: $1";
 // Fuzzy
 "main-menu-account-login" = "Enlogge";
@@ -96,10 +100,13 @@
 "main-menu-current-article-save" = "Donn $1 För et Lässe der ohne Internet faßhallde.";
 "main-menu-random" = "Zohfall";
 "main-menu-feedback-heading" = "Rökmäldong";
+// Fuzzy
 "main-menu-send-feedback" = "En Rökmäldong jävve";
 "main-menu-credits" = "Aanäkännong för Beijdrähsch";
+// Fuzzy
 "main-menu-about" = "Övver de Wikkipehdija Äpp";
 "main-menu-privacy-policy" = "Rääjelle för der Daateschotz un de Jeheimhaldung";
+// Fuzzy
 "main-menu-terms-of-use" = "Bedengonge för der Jebruch";
 "main-menu-heading-legal" = "Rääschlesche Krohm";
 "main-menu-show-today" = "Hügg";
@@ -108,9 +115,11 @@
 "main-menu-heading-debug" = "Noh Fähler Söhke";
 "main-menu-debug-crash" = "För de Wand loufe lohße";
 "saved-pages-title" = "Jesescherte Sigge";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Wells De alle jesescherte Saache fott schmiiße?";
 "saved-pages-clear-confirmation-sub-heading" = "Dat kam_mer nit zerök nämme!";
 "saved-pages-clear-cancel" = "Ophüre";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Alle fottschmiiße";
 "saved-pages-refresh-cancel-alert-title" = "Et Huh_Lahde es afjebroche";
 "saved-pages-refresh-cancel-alert-message" = "En de Wikkipehdija wähde de Atikelle alle nahslangs op ene neue schtand jebraaat. Klegg op\n„Aktualisieren“,!!FUZZYY!! öm alldemohlde de neuste Väsjohn vun alle Atikelle ze sinn ze krijje.";

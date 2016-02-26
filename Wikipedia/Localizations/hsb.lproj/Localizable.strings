@@ -19,9 +19,11 @@
 "history-section-yesterday" = "Wčera";
 "history-section-lastweek" = "Zańdźeny tydźeń";
 "history-section-lastmonth" = "Zańdźeny měsac";
+// Fuzzy
 "history-clear-confirmation-heading" = "Wšu historiju wušmórnyć?";
 "history-clear-confirmation-sub-heading" = "Njemóžeš tule akciju wróćo wzać!";
 "history-clear-cancel" = "Přetorhnyć";
+// Fuzzy
 "history-clear-delete-all" = "Wšě wušmórnyć";
 "history-description" = "Sy najskerje wšě strony wušmórnył. Při přichodnym wopyće móžeš so wottud wróćić k stronje.";
 "zero-charged-verbiage" = "Wikipedija Zero hasnjene";
@@ -33,6 +35,7 @@
 "zero-learn-more-learn-more" = "Wjace čitać";
 "zero-learn-more-no-thanks" = "Ně, dźakuju so";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Warnuj mi před wopušćenjom Wikipedije Zero";
 "account-creation-captcha-required" = "Přepruwowanje přez CAPTCHA trěbne";
 "account-creation-logging-in" = "Přizjewja so...";
@@ -91,11 +94,13 @@
 "main-menu-title" = "Wjace";
 "main-menu-heading-about" = "Wo";
 "main-menu-language-title" = "Rěčny wiki $1 přepytać";
+// Fuzzy
 "main-menu-faq" = "Huste prašenja";
 "main-menu-language-toggle-show" = "Rěče pokazać";
 "main-menu-language-toggle-hide" = "Rěče schować";
 "main-menu-language-selection-saved" = "Wuběr rěče składowany";
 "main-menu-account-title-logged-out" = "Konto";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Přizjewjeny jako $1.";
 // Fuzzy
 "main-menu-account-login" = "Přizjewić";
@@ -107,10 +112,13 @@
 "main-menu-random" = "Připadnje";
 "main-menu-feedback-heading" = "Komentar";
 "main-menu-show-page-history" = "Historija změnow pod $1";
+// Fuzzy
 "main-menu-about" = "Wo app Wikipedije";
 "main-menu-zero-faq" = "Wikipedija Zero - Huste prašenja";
 "main-menu-privacy-policy" = "Škit datow";
+// Fuzzy
 "main-menu-terms-of-use" = "Wužiwanske wuměnjenja";
+// Fuzzy
 "main-menu-rate-app" = "Pohódnoćić app";
 "main-menu-heading-zero" = "Wikipedija Zero";
 "main-menu-heading-legal" = "Datowy škit a wuměnjenja";
@@ -119,9 +127,11 @@
 "main-menu-more" = "Wjace…";
 "main-menu-heading-debug" = "Zmylki porjedźić";
 "saved-pages-title" = "Składowane strony";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Wšě składowane objekty wušmórnyć?";
 "saved-pages-clear-confirmation-sub-heading" = "Njemóžeš tule akciju wróćo wzać!";
 "saved-pages-clear-cancel" = "Přetorhnyć";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Wšě wušmórnyć";
 "navbar-title-mode-edit-wikitext" = "Wobdźěłać";
 // Fuzzy

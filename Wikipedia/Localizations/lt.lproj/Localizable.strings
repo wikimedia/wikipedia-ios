@@ -18,9 +18,11 @@
 "history-section-yesterday" = "Vakar";
 "history-section-lastweek" = "Praėjusią savaitę";
 "history-section-lastmonth" = "Praėjusį mėnesį";
+// Fuzzy
 "history-clear-confirmation-heading" = "Naikinti visus naujausius elementus?";
 "history-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "history-clear-cancel" = "Atšaukti";
+// Fuzzy
 "history-clear-delete-all" = "Naikinti viską";
 "history-none" = "Naujausių puslapių nėra.";
 "zero-interstitial-continue" = "Išeiti";
@@ -75,12 +77,15 @@
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
+// Fuzzy
 "main-menu-faq" = "DUK";
 "main-menu-language-toggle-show" = "Rodyti kalbas";
 "main-menu-language-toggle-hide" = "Slėpti kalbas";
 "main-menu-language-selection-saved" = "Kalbos pasirinkimas įrašytas";
 "main-menu-account-title-logged-out" = "Paskyra";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Prisijungta kaip: $1";
+// Fuzzy
 "main-menu-account-login" = "Prisijunkite prie Vikipedijos";
 "main-menu-account-logout" = "Atsijungti";
 "main-menu-show-title" = "Rodyti man...";
@@ -88,12 +93,16 @@
 "main-menu-show-saved" = "Įrašyti puslapiai";
 "main-menu-random" = "Atsitiktinis";
 "main-menu-feedback-heading" = "Atsiliepimas";
+// Fuzzy
 "main-menu-send-feedback" = "Siųsti atsiliepimą apie programėlę";
 "main-menu-credits" = "Kreditai";
+// Fuzzy
 "main-menu-about" = "Apie Vikipedijos programėlę";
 "main-menu-zero-faq" = "Vikipedija Zero DUK";
 "main-menu-privacy-policy" = "Privatumo politika";
+// Fuzzy
 "main-menu-terms-of-use" = "Naudojimosi sąlygos";
+// Fuzzy
 "main-menu-rate-app" = "Įvertinti programėlę";
 "main-menu-heading-zero" = "Vikipedija Zero";
 "main-menu-show-today" = "Šiandien";
@@ -101,6 +110,7 @@
 "main-menu-more" = "Daugiau...";
 "main-menu-debug-crash" = "Užlūžo";
 "saved-pages-title" = "Įrašyti puslapiai";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Naikinti visus įrašytus elementus?";
 "saved-pages-clear-confirmation-sub-heading" = "Šio veiksmo anuliuoti negalima!";
 "saved-pages-clear-cancel" = "Atšaukti";
@@ -196,19 +206,7 @@
 "hockeyapp-alert-do-not-send" = "Nesiųsti";
 "page-similar-titles" = "Panašūs puslapiai";
 "captcha-reload" = "Rodyti kitą saugos kodą";
-"welcome-whats-new-title" = "Sveiki atvykę į Vikipedija";
-"welcome-whats-new-whats-new" = "KAS NAUJO";
-"welcome-whats-new-bullet-one-title" = "Naujas būdas tyrinėti";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Kaip tai veikia...";
-"welcome-whats-new-bullet-two-title" = "Sukurta skaityti";
-"welcome-whats-new-button-title" = "Pradėti";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Supratau";
 // Fuzzy
 "welcome-languages-title" = "Pasirink savo kalbas";
-"welcome-languages-more-languages-button-title" = "Pridėti daugiau kalbų";
-"welcome-languages-button-title" = "Tęsti";
-"welcome-usage-reports-switch-text" = "Siųsti naudojimo ataskaitas";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Atlikta";
 "empty-no-feed-title" = "Nėra interneto ryšio";
 "alert-no-internet" = "Ten nėra interneto ryšio";
