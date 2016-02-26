@@ -63,7 +63,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>WMFHockeyAppIdentifier</key>
-	<string>${WMF_HOCKEYAPP_IDENTIFIER}</string>
+	<string></string>
+	<key>WMFPiwikAppIdentifier</key>
+	<string></string>
+	<key>WMFPiwikURL</key>
+	<string></string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
 </dict>
