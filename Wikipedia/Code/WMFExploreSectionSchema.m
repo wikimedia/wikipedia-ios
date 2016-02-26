@@ -71,7 +71,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
                         history:history
                       blackList:blackList
                 locationManager:[[WMFLocationManager alloc] init]
-                           file:[[self schemaFileURL] path]];
+                           file:[[self schemaFileURL] absoluteString]];
 }
 
 + (instancetype)schemaWithSite:(MWKSite*)site
@@ -84,6 +84,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
     NSParameterAssert(blackList);
+    NSParameterAssert(filePath);
 
     WMFExploreSectionSchema* schema = [self schemaFromFileAtPath:filePath] ? : [[WMFExploreSectionSchema alloc] init];
     schema.site              = site;
