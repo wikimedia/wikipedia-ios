@@ -21,7 +21,8 @@ public class WMFImageURLActivitySource: NSObject, UIActivityItemSource {
         if activityType == UIActivityTypePostToTwitter
         || activityType == UIActivityTypePostToWeibo
         || activityType == UIActivityTypePostToTencentWeibo{
-            url = info.filePageURL
+            let string = "\(info.filePageURL.absoluteString)?wprov=sfii1"
+            url = NSURL(string: string)
         }else {
             url = nil
         }

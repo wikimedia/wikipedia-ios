@@ -727,30 +727,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareAFactWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
-	if (self.shareOptionsController.isActive) {
+- (void)shareAFactWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+    if (self.shareOptionsController.isActive) {
         return;
     }
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
 }
 
-- (void)shareArticleFromButton:(nullable UIBarButtonItem*)button{
+- (void)shareArticleFromButton:(nullable UIBarButtonItem*)button {
     [self shareArticleWithTextSnippet:nil fromButton:button];
 }
 
-- (void)shareArticleWithTextSnippet: (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
 
     NSMutableArray* items = [NSMutableArray array];
-    if (self.article.title.mobileURL) {
-        [items addObject:self.article.title.mobileURL];
+    if (self.article.title.desktopURL) {
+        NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
+                                                    self.article.title.desktopURL.absoluteString,
+                                                    @"wprov=sfii1"]];
+
+        [items addObject:url];
     }
-    
+
     WMFArticleTextActivitySource* source = [[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text];
     [items addObject:source];
-    
+
     UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
-    
+
     [self presentViewController:vc animated:YES completion:NULL];
 }
 
@@ -813,7 +817,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
     [self shareAFactWithTextSnippet:text fromButton:nil];
 }
-
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
     if (footerViewController == self.readMoreListViewController) {
