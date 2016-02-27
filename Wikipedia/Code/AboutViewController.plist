@@ -4,6 +4,10 @@
 <dict>
 	<key>urls</key>
 	<dict>
+		<key>sharealike</key>
+		<string>https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License</string>
+		<key>mit</key>
+		<string>https://raw.githubusercontent.com/wikimedia/wikipedia-ios/master/LICENSE.txt</string>
 		<key>tsg</key>
 		<string>http://specialistsguild.org</string>
 		<key>feedback</key>

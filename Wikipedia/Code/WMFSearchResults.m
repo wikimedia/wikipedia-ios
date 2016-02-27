@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, copy, nullable, readwrite) NSString* searchSuggestion;
-@property (nonatomic, strong, readwrite) NSArray<MWKSearchResult*>* results;
+@property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult*>* results;
 
 @end
 

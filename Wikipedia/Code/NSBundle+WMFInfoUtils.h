@@ -43,6 +43,8 @@
 
 - (BOOL)wmf_shouldShowDebugMenu;
 
+- (BOOL)wmf_isPiwikEnabledAndConfigured;
+
 /// @return HockeyApp ID for crash reports
 - (NSString*)wmf_hockeyappIdentifier;
 

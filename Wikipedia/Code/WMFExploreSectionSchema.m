@@ -26,11 +26,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingRandom          = 60 * 60 * 2
 
 static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
-static NSString* const WMFExploreSectionsFileName      = @"WMFHomeSections";
-static NSString* const WMFExploreSectionsFileExtension = @"plist";
-
-
-
 @interface WMFExploreSectionSchema ()<WMFLocationManagerDelegate>
 
 @property (nonatomic, strong, readwrite) MWKSite* site;
@@ -48,11 +43,21 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 
 @property (nonatomic, strong, readwrite) NSString* filePath;
 
+@property (nonatomic, strong) dispatch_queue_t saveQueue;
+
 @end
 
 
 @implementation WMFExploreSectionSchema
 @synthesize sections = _sections;
+
+- (dispatch_queue_t)saveQueue {
+    if (_saveQueue == nil) {
+        const char* queueName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.explore.schema.save.%p", self].UTF8String;
+        self.saveQueue = dispatch_queue_create(queueName, DISPATCH_QUEUE_SERIAL);;
+    }
+    return _saveQueue;
+}
 
 - (NSString*)description {
     // HAX: prevent this from logging all its properties in its description, as this causes recursion to
@@ -71,7 +76,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
                         history:history
                       blackList:blackList
                 locationManager:[WMFLocationManager coarseLocationManager]
-                           file:[[self schemaFileURL] absoluteString]];
+                           file:[[self defaultSchemaURL] path]];
 }
 
 + (instancetype)schemaWithSite:(MWKSite*)site
@@ -654,45 +659,66 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
     behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(filePath)]        = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(saveQueue)]       = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }
 
 - (void)save {
-    dispatchOnBackgroundQueue(^{
+    /*
+       NOTE: until this class is made immutable, it cannot safely be passed between threads.
+     */
+    WMFExploreSectionSchema* backgroundCopy = [self copy];
+    dispatch_async(self.saveQueue, ^{
         NSError* error;
         NSMutableData* result = [NSMutableData data];
         NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
 
         @try {
-            [archiver encodeObject:self forKey:NSKeyedArchiveRootObjectKey];
+            [[NSFileManager defaultManager] createDirectoryAtPath:[self.filePath stringByDeletingLastPathComponent]
+                                      withIntermediateDirectories:YES
+                                                       attributes:nil
+                                                            error:nil];
+            [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
             [archiver finishEncoding];
-            if (![result writeToFile:self.filePath options:NSDataWritingAtomic error:&error]) {
-                WMF_TECH_DEBT_TODO(add error handling);
-                DDLogError(@"Failed to save sections to disk!");
-            }
+            [result writeToURL:[NSURL fileURLWithPath:self.filePath isDirectory:NO]
+                       options:NSDataWritingAtomic
+                         error:&error];
         } @catch (NSException* exception) {
             error = [NSError errorWithDomain:NSInvalidArchiveOperationException
                                         code:-1
                                     userInfo:@{NSLocalizedDescriptionKey: exception.name,
                                                NSLocalizedFailureReasonErrorKey: exception.reason}];
         }
+        NSAssert(!error, @"Failed to save sections: %@", error);
+        if (error) {
+            DDLogError(@"Failed to save sections to disk: %@", error);
+        }
     });
 }
 
-+ (NSURL*)schemaFileURL {
-    return [NSURL fileURLWithPath:
-            [[documentsDirectory()
-              stringByAppendingPathComponent:WMFExploreSectionsFileName]
-             stringByAppendingPathExtension:WMFExploreSectionsFileExtension]];
++ (NSURL*)defaultSchemaURL {
+    static NSString* const WMFExploreSectionsFilePath = @"WMFHomeSections.plist";
+    return [NSURL fileURLWithPath:WMFExploreSectionsFilePath
+                      isDirectory:NO
+                    relativeToURL:[NSURL fileURLWithPath:documentsDirectory() isDirectory:YES]];
 }
 
 + (instancetype)schemaFromFileAtPath:(NSString*)filePath {
     //Need to map old class names
     [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
     [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
-
-    return [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    NSError* error;
+    NSURL* fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
+    NSData* data   = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&error];
+    if (!data) {
+        NSAssert([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError,
+                 @"Unexpected error reading schema data: %@", error);
+        return nil;
+    }
+    WMFExploreSectionSchema* schema = [NSKeyedUnarchiver unarchiveTopLevelObjectWithData:data error:&error];
+    NSAssert(schema, @"Failed to unarchive schema: %@", error);
+    return schema;
 }
 
 @end

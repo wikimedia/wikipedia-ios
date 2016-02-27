@@ -248,7 +248,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] wmf_logView:self];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

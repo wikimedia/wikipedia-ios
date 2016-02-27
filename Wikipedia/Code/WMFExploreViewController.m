@@ -275,7 +275,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self sendWillDisplayToVisibleSectionControllers];
 
-    [[PiwikTracker sharedInstance] wmf_logView:self];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -495,7 +495,7 @@ NS_ASSUME_NONNULL_BEGIN
             || [controller shouldSelectItemAtIndexPath:indexPath])) {
         MWKTitle* title = [(id < WMFTitleProviding >)controller titleForItemAtIndexPath:indexPath];
         if (title) {
-            [[PiwikTracker sharedInstance] wmf_logActionImpressionInContext:self contentType:controller];
+            [[PiwikTracker wmf_configuredInstance] wmf_logActionImpressionInContext:self contentType:controller];
         }
     }
 }
@@ -540,7 +540,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:controller];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:controller];
     UIViewController* vc = [controller detailViewControllerForItemAtIndexPath:indexPath];
     if ([vc isKindOfClass:[WMFArticleViewController class]]) {
         [self wmf_pushArticleViewController:(WMFArticleViewController*)vc animated:YES];
@@ -713,7 +713,7 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController, WMFMoreFooterProviding> articleSectionController = (id<WMFExploreSectionController, WMFMoreFooterProviding>)controllerForSection;
 
     UIViewController* moreVC = [articleSectionController moreViewController];
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughMoreInContext:self contentType:controllerForSection];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughMoreInContext:self contentType:controllerForSection];
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 
@@ -759,13 +759,13 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* vc = [sectionController detailViewControllerForItemAtIndexPath:previewIndexPath];
     self.sectionOfPreviewingTitle = sectionController;
-    [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:sectionController];
     return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
      commitViewController:(UIViewController*)viewControllerToCommit {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:self.sectionOfPreviewingTitle];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:self.sectionOfPreviewingTitle];
     self.sectionOfPreviewingTitle = nil;
 
     if ([viewControllerToCommit isKindOfClass:[WMFArticleViewController class]]) {
