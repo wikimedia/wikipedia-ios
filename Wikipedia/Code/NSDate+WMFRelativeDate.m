@@ -17,7 +17,7 @@
     double days             = hours / 24.0;
     double months           = days / (365.25 / 12.0);
     double years            = months / 12.0;
-    
+
     if (minutes < 2.0) {
         return MWLocalizedString(@"timestamp-just-now", nil);
     } else if (hours < 2.0) {
@@ -32,4 +32,5 @@
         return [NSString stringWithFormat:MWLocalizedString(@"timestamp-years", nil), (int)round(years)];
     }
 }
+
 @end
