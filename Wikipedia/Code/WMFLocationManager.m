@@ -103,24 +103,25 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startMonitoringLocation {
-    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled]) {
+    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled] || self.isUpdating) {
         return;
     }
 
     NSParameterAssert([WMFLocationManager isAuthorized]);
 
-    DDLogVerbose(@"%@ will start location & heading updates.", self);
-
     self.updating = YES;
+    DDLogInfo(@"%@ starting monitoring location & heading updates.", self);
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
 
 - (void)stopMonitoringLocation {
-    DDLogVerbose(@"%@ will stop location & heading updates.", self);
-    self.updating = NO;
-    [self stopLocationUpdates];
-    [self stopHeadingUpdates];
+    if (self.isUpdating) {
+        self.updating = NO;
+        DDLogInfo(@"%@ stopping location & heading updates.", self);
+        [self stopLocationUpdates];
+        [self stopHeadingUpdates];
+    }
 }
 
 #pragma mark - Location Updates

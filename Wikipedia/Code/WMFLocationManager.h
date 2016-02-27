@@ -26,8 +26,22 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
 
+/**
+ *  Start monitoring location and heading updates.
+ *
+ *  @note
+ *  This method is idempotent. To force new values to be sent, use @c restartLocationMonitoring.
+ */
 - (void)startMonitoringLocation;
+
+/**
+ *  Stop monitoring location and heading updates.
+ */
 - (void)stopMonitoringLocation;
+
+/**
+ *  Restart location monitoring, forcing the receiver to emit new location and heading values (if possible).
+ */
 - (void)restartLocationMonitoring;
 
 + (BOOL)isAuthorized;
