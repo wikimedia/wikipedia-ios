@@ -281,7 +281,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     // stop location manager from updating.
-    [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+    [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
         if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
             [obj didEndDisplayingSection];
         }
@@ -484,8 +484,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([controller respondsToSelector:@selector(willDisplaySection)]
-        && [self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+    if ([controller respondsToSelector:@selector(willDisplaySection)]) {
         [controller willDisplaySection];
     }
 
@@ -504,9 +503,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([controller respondsToSelector:@selector(didEndDisplayingSection)]
-        && [self isVisibilityTransitioningForRowIndexPath:indexPath]) {
-        [controller didEndDisplayingSection];
+    if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
+        if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+            [controller didEndDisplayingSection];
+        } else {
+            DDLogInfo(@"Skipping calling didEndDisplaySection for controller %@ indexPath %@", controller, indexPath);
+        }
     }
 
     NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
