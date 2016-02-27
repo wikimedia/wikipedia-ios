@@ -556,7 +556,7 @@ NSString* const WMFLicenseTitleOnENWiki =
             }
         }];
 
-        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-custom-menu-item", nil)
+        UIMenuItem* shareSnippet = [[UIMenuItem alloc] initWithTitle:MWLocalizedString(@"share-a-fact-share-menu-item", nil)
                                                               action:@selector(shareMenuItemTapped:)];
         [UIMenuController sharedMenuController].menuItems = @[shareSnippet];
 
@@ -881,6 +881,8 @@ NSString* const WMFLicenseTitleOnENWiki =
 @end
 
 
+
+
 @interface WMFWebView : UIWebView
 
 @end
@@ -897,3 +899,4 @@ NSString* const WMFLicenseTitleOnENWiki =
 }
 
 @end
+

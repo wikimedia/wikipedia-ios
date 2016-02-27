@@ -227,6 +227,8 @@
 "share-menu-page-saved-access" = "Tip: to access your saved pages, tap $1 above or long-press $2 below.";
 
 "share-custom-menu-item" = "Share";
+"share-a-fact-share-menu-item" = "Share-a-fact";
+"share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
 "share-as-image" = "Share as image";
