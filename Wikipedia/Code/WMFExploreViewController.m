@@ -611,7 +611,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    if (index >= self.schemaManager.sections.count) {
+    if(index >= self.schemaManager.sections.count){
         return nil;
     }
     WMFExploreSection* section = self.schemaManager.sections[index];
