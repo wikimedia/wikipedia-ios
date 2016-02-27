@@ -304,7 +304,7 @@ BOOL useSingleBrowserController() {
 
 - (void)pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated {
     viewController.delegate = self;
-    [[PiwikTracker sharedInstance] wmf_logView:viewController];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
     [self.internalNavigationController pushViewController:viewController animated:animated];
 }
 
@@ -599,7 +599,7 @@ BOOL useSingleBrowserController() {
         } else {
             NSAssert(0, @"Unexpected view controller hierarchy");
         }
-        [[PiwikTracker sharedInstance] wmf_logView:viewController];
+        [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
 
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
             MWKHistoryList* historyList = viewController.dataStore.userDataStore.historyList;
