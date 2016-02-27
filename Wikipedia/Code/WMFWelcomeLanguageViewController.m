@@ -7,6 +7,7 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
+#import "UIView+WMFWelcomeFadeInAndUp.h"
 
 @interface WMFWelcomeLanguageViewController ()
 
@@ -15,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
+@property (strong, nonatomic) IBOutlet UIView* containerView;
 
 @end
 
@@ -37,6 +39,22 @@
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.containerView wmf_zeroLayerOpacity];
+    });
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.containerView wmf_fadeInAndUpAfterDelay:0.1];
+    });
 }
 
 - (void)viewDidLayoutSubviews {

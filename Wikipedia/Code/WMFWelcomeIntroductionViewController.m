@@ -1,5 +1,6 @@
 
 #import "WMFWelcomeIntroductionViewController.h"
+#import "UIView+WMFWelcomeFadeInAndUp.h"
 
 @interface WMFWelcomeIntroductionViewController ()
 
@@ -7,6 +8,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* tellMeMoreButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextButton;
+@property (strong, nonatomic) IBOutlet UIView* containerView;
 
 @end
 
@@ -38,6 +40,18 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.containerView wmf_zeroLayerOpacity];
+    });
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self.containerView wmf_fadeInAndUpAfterDelay:0.8];
+    });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
