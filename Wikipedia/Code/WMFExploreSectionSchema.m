@@ -43,11 +43,21 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 @property (nonatomic, strong, readwrite) NSString* filePath;
 
+@property (nonatomic, strong) dispatch_queue_t saveQueue;
+
 @end
 
 
 @implementation WMFExploreSectionSchema
 @synthesize sections = _sections;
+
+- (dispatch_queue_t)saveQueue {
+    if (_saveQueue == nil) {
+        const char* queueName = [NSString stringWithFormat:@"org.wikimedia.wikipedia.explore.schema.save.%p", self].UTF8String;
+        self.saveQueue = dispatch_queue_create(queueName, DISPATCH_QUEUE_SERIAL);;
+    }
+    return _saveQueue;
+}
 
 - (NSString*)description {
     // HAX: prevent this from logging all its properties in its description, as this causes recursion to
@@ -648,12 +658,17 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(filePath)]        = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(saveQueue)]       = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }
 
 - (void)save {
-    dispatchOnBackgroundQueue(^{
+    /*
+     NOTE: until this class is made immutable, it cannot safely be passed between threads.
+    */
+    WMFExploreSectionSchema* backgroundCopy = [self copy];
+    dispatch_async(self.saveQueue, ^{
         NSError* error;
         NSMutableData* result = [NSMutableData data];
         NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
@@ -663,7 +678,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
                                       withIntermediateDirectories:YES
                                                        attributes:nil
                                                             error:nil];
-            [archiver encodeObject:self forKey:NSKeyedArchiveRootObjectKey];
+            [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
             [archiver finishEncoding];
             [result writeToURL:[NSURL fileURLWithPath:self.filePath isDirectory:NO]
                        options:NSDataWritingAtomic
