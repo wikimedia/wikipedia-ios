@@ -18,7 +18,8 @@ describe(@"cache invalidation", ^{
     __block __weak id<WMFExploreSectionController> weakCachedController;
 
     beforeEach(^{
-        id<WMFExploreSectionController> controller = [controllerCache newControllerForSection:cachedSection];
+        id<WMFExploreSectionController> controller = [controllerCache getOrCreateControllerForSection:cachedSection
+                                                                                        creationBlock:nil];
         weakCachedController = controller;
     });
 

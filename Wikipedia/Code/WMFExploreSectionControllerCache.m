@@ -107,13 +107,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
-                                                     creationBlock:(nonnull void (^)(id<WMFExploreSectionController> _Nonnull))creationBlock {
+                                                     creationBlock:(nullable void (^)(id<WMFExploreSectionController> _Nonnull))creationBlock {
     id<WMFExploreSectionController> controller = [self controllerForSection:section];
     if (controller) {
         return controller;
     }
     controller = [self newControllerForSection:section];
-    creationBlock(controller);
+    if (creationBlock) {
+        creationBlock(controller);
+    }
     return controller;
 }
 

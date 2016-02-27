@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A section controller for `section`.
  */
 - (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
-                                                     creationBlock:(void (^)(id<WMFExploreSectionController> newController))creationBlock;
+                                                     creationBlock:(nullable void (^)(id<WMFExploreSectionController> newController))creationBlock;
 
 @end
 
