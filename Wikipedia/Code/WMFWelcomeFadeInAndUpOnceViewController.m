@@ -5,6 +5,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView* containerView;
 @property (nonatomic) BOOL hasAlreadyFaded;
+@property (strong, nonatomic) NSNumber* fadeInAndUpDelay;
 
 @end
 
@@ -20,7 +21,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (!self.hasAlreadyFaded) {
-        [self.containerView wmf_fadeInAndUpAfterDelay:0.1];
+        [self.containerView wmf_fadeInAndUpAfterDelay:[self.fadeInAndUpDelay floatValue]];
     }
     self.hasAlreadyFaded = YES;
 }

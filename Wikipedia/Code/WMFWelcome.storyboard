@@ -186,6 +186,11 @@
                     <navigationItem key="navigationItem" id="a7n-EJ-oET"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="580"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="fadeInAndUpDelay">
+                            <real key="value" value="0.80000000000000004"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="containerView" destination="9dd-dc-1mh" id="xa5-eq-2CJ"/>
                         <outlet property="nextButton" destination="xhM-X9-Rcd" id="a7u-X1-Y5Q"/>
@@ -275,7 +280,7 @@
                                                 <rect key="frame" x="0.0" y="309" width="280" height="56"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XVM-je-wTt" id="aqT-I1-gCa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="56"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="55.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGu-4w-xAJ">
@@ -388,6 +393,11 @@
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="580"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="fadeInAndUpDelay">
+                            <real key="value" value="0.10000000000000001"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="containerView" destination="VzI-zt-78F" id="XfM-7o-NdP"/>
                         <outlet property="dividerAboveNextStepButton" destination="6IQ-9d-NOr" id="wwf-bs-9JA"/>
@@ -528,6 +538,11 @@
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="580"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="fadeInAndUpDelay">
+                            <real key="value" value="0.10000000000000001"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="containerView" destination="WBJ-0G-ANz" id="9h5-nf-24n"/>
                         <outlet property="dividerAboveNextStepButton" destination="qgl-77-UMc" id="ZcG-pt-FGY"/>
