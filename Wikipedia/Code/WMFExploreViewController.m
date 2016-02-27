@@ -667,7 +667,9 @@ NS_ASSUME_NONNULL_BEGIN
     WMFExploreSection* homeSection = self.schemaManager.sections[section];
     if (homeSection.type == WMFExploreSectionTypeNearby) {
         [self didTapFooterInSection:section];
-    } else {
+    } else if (homeSection.type == WMFExploreSectionTypeHistory || homeSection.type == WMFExploreSectionTypeSaved) {
+        [self wmf_pushArticleWithTitle:homeSection.title dataStore:self.dataStore animated:YES];
+    }else{
         [self selectFirstRowInSection:section];
     }
 }
