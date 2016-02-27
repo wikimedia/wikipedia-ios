@@ -70,7 +70,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
                      savedPages:savedPages
                         history:history
                       blackList:blackList
-                locationManager:[[WMFLocationManager alloc] init]
+                locationManager:[WMFLocationManager coarseLocationManager]
                            file:[[self schemaFileURL] absoluteString]];
 }
 
@@ -624,6 +624,7 @@ static NSString* const WMFExploreSectionsFileExtension = @"plist";
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
+    WMF_TECH_DEBT_TODO(disable heading updates for this location manager);
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {

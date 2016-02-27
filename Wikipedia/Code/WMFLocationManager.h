@@ -26,6 +26,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, readonly, getter=isUpdating) BOOL updating;
 
++ (instancetype)fineLocationManager;
+
++ (instancetype)coarseLocationManager;
+
+/**
+ *  Use one of the above factory methods instead.
+ *  
+ *  @see fineLocationManager
+ *  @see coarseLocationManager
+ */
+- (instancetype)init NS_UNAVAILABLE;
+
 /**
  *  Start monitoring location and heading updates.
  *

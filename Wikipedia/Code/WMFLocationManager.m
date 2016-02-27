@@ -1,6 +1,7 @@
 
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
+#import "CLLocationManager+WMFLocationManagers.h"
 
 static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelInfo;
 
@@ -33,9 +34,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readwrite, getter=isUpdating) BOOL updating;
 
+- (instancetype)initWithLocationManager:(CLLocationManager*)locationManager NS_DESIGNATED_INITIALIZER;
+
 @end
 
 @implementation WMFLocationManager
+
++ (instancetype)fineLocationManager {
+    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_fineLocationManager]];
+}
+
++ (instancetype)coarseLocationManager {
+    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
+}
+
+- (instancetype)initWithLocationManager:(CLLocationManager*)locationManager {
+    self = [super init];
+    if (self) {
+        self.locationManager = locationManager;
+        locationManager.delegate = self;
+    }
+    return self;
+}
 
 - (void)dealloc {
     self.locationManager.delegate = nil;
@@ -50,21 +70,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (CLLocation*)location {
     return self.lastLocation;
-}
-
-- (CLLocationManager*)locationManager {
-    if (!_locationManager) {
-        _locationManager                 = [[CLLocationManager alloc] init];
-        _locationManager.delegate        = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-        _locationManager.activityType    = CLActivityTypeFitness;
-        /*
-           Update location every 1 meter. This is separate from how often we update the titles that are near a given
-           location.
-         */
-        _locationManager.distanceFilter = 1;
-    }
-    return _locationManager;
 }
 
 - (NSString*)description {

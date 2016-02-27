@@ -44,7 +44,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.locationManager          = [[WMFLocationManager alloc] init];
+        self.locationManager          = [WMFLocationManager fineLocationManager];
         self.locationManager.delegate = self;
     }
     return self;
