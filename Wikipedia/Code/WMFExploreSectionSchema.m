@@ -665,8 +665,8 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (void)save {
     /*
-     NOTE: until this class is made immutable, it cannot safely be passed between threads.
-    */
+       NOTE: until this class is made immutable, it cannot safely be passed between threads.
+     */
     WMFExploreSectionSchema* backgroundCopy = [self copy];
     dispatch_async(self.saveQueue, ^{
         NSError* error;
@@ -709,11 +709,11 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
     NSError* error;
     NSURL* fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
-    NSData* data = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&error];
+    NSData* data   = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&error];
     if (!data) {
-       NSAssert([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError,
-                @"Unexpected error reading schema data: %@", error);
-       return nil;
+        NSAssert([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError,
+                 @"Unexpected error reading schema data: %@", error);
+        return nil;
     }
     WMFExploreSectionSchema* schema = [NSKeyedUnarchiver unarchiveTopLevelObjectWithData:data error:&error];
     NSAssert(schema, @"Failed to unarchive schema: %@", error);
