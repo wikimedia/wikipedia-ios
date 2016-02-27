@@ -15,9 +15,11 @@
 "history-section-yesterday" = "Kecha";
 "history-section-lastweek" = "Oʻtgan hafta";
 "history-section-lastmonth" = "Oʻtgan oy";
+// Fuzzy
 "history-clear-confirmation-heading" = "Barcha soʻnggi elementlarni o'chirmoqchimisiz?";
 "history-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "history-clear-cancel" = "Bekor qilish";
+// Fuzzy
 "history-clear-delete-all" = "Barchasini oʻchirish";
 "zero-charged-verbiage" = "Wikipedia Zero oʻchirilgan";
 "zero-interstitial-title" = "Wikipediya Zerodan chiqilyapti";
@@ -26,6 +28,7 @@
 "zero-learn-more-learn-more" = "Koʻproq bilib olish";
 "zero-learn-more-no-thanks" = "Yashirish";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Wikipedia Zerodan chiqilayotganda xabar bering";
 "account-creation-captcha-required" = "Mashina emasligingizni tasdiqlang.";
 "account-creation-captcha-obtaining" = "Odam va mashinalarni aniqlovchi toʻla avtomatlashgan ochiq Tyuring testi yangilanyapti.";
@@ -73,6 +76,7 @@
 "main-menu-language-toggle-hide" = "Tillarni yashirish";
 "main-menu-language-selection-saved" = "Tanlangan til saqlandi";
 "main-menu-account-title-logged-out" = "Hisob";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1 sifatida kirdingiz";
 // Fuzzy
 "main-menu-account-login" = "Kirish";
@@ -87,16 +91,20 @@
 "main-menu-credits" = "Quyidagilardan foydalanildi";
 "main-menu-zero-faq" = "Wikipedia Zero TTS";
 "main-menu-privacy-policy" = "Maxfiylik siyosati";
+// Fuzzy
 "main-menu-terms-of-use" = "Foydalanish shartlari";
+// Fuzzy
 "main-menu-rate-app" = "Dasturni baholash";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-show-today" = "Bugun";
 "main-menu-nearby" = "Yaqin atrofda";
 "main-menu-more" = "Batafsil...";
 "saved-pages-title" = "Saqlangan sahifalar";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Barcha saqlangan elementlarni oʻchirmoqchimisiz?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu amalni bekor qilib boʻlmaydi!";
 "saved-pages-clear-cancel" = "Bekor qilish";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Barchasini oʻchirish";
 "page-history-title" = "Maqolani tarixi";
 "page-history-downloading" = "Maqolani tarixi o'rnatish...";

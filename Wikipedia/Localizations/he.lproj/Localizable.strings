@@ -25,9 +25,11 @@
 "history-section-yesterday" = "אתמול";
 "history-section-lastweek" = "בשבוע שעבר";
 "history-section-lastmonth" = "בחודש שעבר";
+// Fuzzy
 "history-clear-confirmation-heading" = "למחוק את כל הפריטים האחרונים?";
 "history-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "history-clear-cancel" = "ביטול";
+// Fuzzy
 "history-clear-delete-all" = "למחוק הכול";
 "history-description" = "כנראה מחקת את כולם. בפעם הבאה שיזדמן לך לקרוא דף, אפשר יהיה לחזור אליו מכאן.";
 "history-none" = "אין פה דפים שקראת לאחרונה.";
@@ -43,6 +45,7 @@
 "zero-learn-more-learn-more" = "מידע נוסף";
 "zero-learn-more-no-thanks" = "לא, תודה";
 "zero-wikipedia-zero-heading" = "ויקיפדיה אפס";
+// Fuzzy
 "zero-warn-when-leaving" = "להזהיר בעת עזיבת ויקיפדיה אפס";
 "zero-settings-devmode" = "אפס – מצב מפתחים";
 "account-creation-captcha-required" = "נדרש אימות אנושיוּת";
@@ -101,16 +104,20 @@
 "search-recent-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "search-recent-clear-cancel" = "ביטול";
 "search-recent-clear-delete-all" = "למחוק הכול";
+"search-result-redirected-from" = "הופנה מהדף: $1";
 "settings-title" = "הגדרות";
 "main-menu-title" = "עוד";
 "main-menu-heading-about" = "אודות";
 "main-menu-language-title" = "חיפוש בוויקיפדיה ה$1";
+// Fuzzy
 "main-menu-faq" = "שו\"ת";
 "main-menu-language-toggle-show" = "הצגת השפות";
 "main-menu-language-toggle-hide" = "הסתרת השפות";
 "main-menu-language-selection-saved" = "בחירת השפה נשמרה";
 "main-menu-account-title-logged-out" = "חשבון";
+// Fuzzy
 "main-menu-account-title-logged-in" = "נכנסת בתור: $1";
+// Fuzzy
 "main-menu-account-login" = "כניסה לוויקיפדיה";
 "main-menu-account-logout" = "יציאה";
 "main-menu-show-title" = "תַראו לי...";
@@ -119,13 +126,17 @@
 "main-menu-current-article-save" = "שמירת $1 לקריאה בלי רשת";
 "main-menu-random" = "אקראי";
 "main-menu-feedback-heading" = "משוב";
+// Fuzzy
 "main-menu-send-feedback" = "שליחת משוב על היישום";
 "main-menu-show-page-history" = "היסטוריה של שינויים שנעשו לדף $1";
 "main-menu-credits" = "קרדיטים";
+// Fuzzy
 "main-menu-about" = "אודות יישום ויקיפדיה";
 "main-menu-zero-faq" = "שו\"ת ויקיפדיה אפס";
 "main-menu-privacy-policy" = "מדיניות פרטיות";
+// Fuzzy
 "main-menu-terms-of-use" = "תנאי שימוש";
+// Fuzzy
 "main-menu-rate-app" = "דירוג יישום";
 "main-menu-heading-zero" = "ויקיפדיה אפס";
 "main-menu-heading-legal" = "פרטיות ותנאי שימוש";
@@ -134,11 +145,14 @@
 "main-menu-more" = "עוד...";
 "main-menu-heading-debug" = "תיקון שגיאות";
 "main-menu-debug-crash" = "הקרסה";
+"main-menu-debug-tweaks" = "הגדרות מפתח";
 "saved-title" = "נשמר";
 "saved-pages-title" = "דפים שמורים";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "למחוק את כל הפריטים השמורים?";
 "saved-pages-clear-confirmation-sub-heading" = "לא ניתן לבטל את הפעולה הזאת!";
 "saved-pages-clear-cancel" = "ביטול";
+// Fuzzy
 "saved-pages-clear-delete-all" = "למחוק הכול";
 "saved-pages-refresh-cancel-alert-title" = "העדכון בוטל";
 "saved-pages-refresh-cancel-alert-message" = "ערכים בוויקיפדיה מתעדכנים כל הזמן. יש ללחוץ על רענון כדי לקבל את הגרסה החדשה ביותר של כל הערכים.";
@@ -201,6 +215,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" באתר @wikipedia: \"$2\"";
 "share-as-image" = "שיתוף תמונה";
 "share-as-text" = "שיתוף טקסט";
+"share-cancel" = "ביטול";
 "timestamp-just-now" = "זה עתה";
 "timestamp-minutes" = "לפני %d דקות";
 "timestamp-hours" = "לפני %d שעות";
@@ -230,6 +245,7 @@
 "license-footer-text" = "התוכן זמין לפי תנאי $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "תוכן עניינים";
+"table-of-contents-button-label" = "תוכן עניינים";
 "abuse-filter-warning-heading" = "ייתכן שזאת עריכה בלתי־מועילה, באמת לשמור אותה?";
 "abuse-filter-warning-subheading" = "העריכה שלך עשויה להכיל אחד מהדברים הבאים:";
 "abuse-filter-warning-caps" = "הקלדה באותיות גדולות";
@@ -289,6 +305,7 @@
 "hockeyapp-alert-privacy" = "פרטיות של $1";
 "page-issues" = "בעיות בדף";
 "page-similar-titles" = "דפים דומים";
+// Fuzzy
 "page-read-in-other-languages" = "לקרוא בעוד $1 שפות";
 "page-last-edited" = "נערך לפי $1 ימים";
 "page-edit-history" = "היסטוריית עריכה מלאה";
@@ -305,37 +322,40 @@
 "home-featured-article-heading" = "ערך מומלץ עבור $1";
 "home-main-page-heading" = "היום בוויקיפדיה";
 "home-potd-heading" = "תמונת היום עבור $1";
+"home-last-update-label" = "עדכון אחרון: $1";
+"home-last-update-never-label" = "עדכון אחרון: מעולם לא";
+"home-updating-label" = "עדכון...";
+"home-hide-suggestion-prompt" = "הסתרת ההצעה הזאת";
+"home-hide-suggestion-cancel" = "ביטול";
+"home-accessibility-label" = "ויקיפדיה, לחקור";
+"home-button-accessibility-label" = "כפתור בית";
 "potd-empty-error-description" = "לא הצלחתי לאחזר את תמונת היום של $1";
 "potd-description-prefix" = "תמונת היום של $1";
-"welcome-whats-new-title" = "ברוך בואך לוויקיפדיה";
-"welcome-whats-new-whats-new" = "מה חדש";
-"welcome-whats-new-bullet-one-title" = "דרך חדשה לחקור";
-"welcome-whats-new-bullet-one-text" = "לגלות ערכים חדשים ומעניינים במיוחד בשבילך במסך \"לחקור\".";
-"welcome-whats-new-bullet-one-more-info-button-text" = "איך זה עובד...";
-"welcome-whats-new-bullet-two-title" = "מעוצב בשביל קריאה";
-"welcome-whats-new-bullet-two-text" = "עיצוב מעודכן שמתמקד בחוויית קריאה מצוינת.";
-"welcome-whats-new-button-title" = "להתחיל";
-"welcome-whats-new-bullet-one-more-info-text" = "בעת ביקור בערך, ערכים קשורים נוספים אוטומטית להזנה שלך. זה לא משנה את הצורה שבא אנחנו אוספים מידע והיסטוריית הקריאה שלך עדיין פרטית.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "הבנתי";
+// Fuzzy
 "welcome-languages-title" = "באילו שפות לחפש";
-"welcome-languages-more-info-button-text" = "ספרו לי עוד";
-"welcome-languages-more-info-text" = "ערכי ויקיפדיה זמינים לעתים קרובות בשפות רבות. נא לבחור את השפות שברצונך להשתמש בהן בעת החיפוש. אפשר לשנות את זה אחר־כך.";
-"welcome-languages-more-info-done-button" = "הבנתי";
-"welcome-languages-more-languages-button-title" = "הוספת שפות";
-"welcome-languages-button-title" = "המשך";
-"welcome-languages-footnote-text" = "אל דאגה, אפשר לשנות את זה אחר־כך.";
-"welcome-usage-reports-title" = "עזרו לנו לשפר את ויקיפדיה";
-"welcome-usage-reports-body-text" = "אתם יכולים לעזור לנו לשפר את היישום אם תאפשרו לנו לאסוף מידע על איך שאתם משתמשים בו.";
-"welcome-usage-reports-switch-text" = "לשלוח דיווחי שימוש";
-"welcome-usage-reports-button-title" = "להתחיל";
-"welcome-usage-reports-privacy-policy-button-text" = "אכפת לנו מהפרטיות שלך";
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
 "empty-no-feed-action-message" = "בינתיים אפשר לקרוא דפים שמורים";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
+// Fuzzy
 "empty-no-search-results-message" = "סליחה, לא ניתן לטעון את התוצאות";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
 "empty-no-saved-pages-message" = "אפשר לשמור דפים כדי לקרוא אותם אחר־כך, אפילו בלי חיבור לרשת";
 "empty-no-history-title" = "אין היסטוריה להציג";
 "empty-no-history-message" = "כאן אפשר לעקוב אחרי מה שקראת";
 "alert-no-internet" = "אין חיבור אינטרנט";
+"icon-shortcut-search-title" = "חיפוש בוויקיפדיה";
+"icon-shortcut-continue-reading-title" = "המשך קריאה";
+"icon-shortcut-random-title" = "ערך אקראי";
+"icon-shortcut-nearby-title" = "ערכים בסביבה";
+"close-button-accessibility-label" = "סגירה";
+"back-button-accessibility-label" = "חזרה";
+"compass-direction" = "בשעה $1";
+"explore-featured-article-heading" = "ערך מומלץ";
+"explore-continue-reading-heading" = "המשך קריאה";
+"explore-nearby-heading" = "מקומות בסביבה";
+"explore-continue-related-heading" = "כי קראת את";
+"explore-main-page-heading" = "היום בוויקיפדיה";
+"explore-random-article-heading" = "ערך אקראי";
+"explore-random-article-sub-heading" = "ויקיפדיה עברית";
+"explore-potd-heading" = "תמונת היום";

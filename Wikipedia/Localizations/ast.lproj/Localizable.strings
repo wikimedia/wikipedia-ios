@@ -21,9 +21,11 @@
 "history-section-yesterday" = "Ayeri";
 "history-section-lastweek" = "Cabera selmana";
 "history-section-lastmonth" = "Caberu mes";
+// Fuzzy
 "history-clear-confirmation-heading" = "¿Desaniciar tolos elementos recientes?";
 "history-clear-confirmation-sub-heading" = "¡Esta aición nun pué desfacese!";
 "history-clear-cancel" = "Encaboxar";
+// Fuzzy
 "history-clear-delete-all" = "Desaniciar too";
 "history-description" = "Probablemente desaniciástiles toes. La siguiente vez que vaigas a una páxina pues volver a ella dende equí.";
 "history-none" = "Equí nun hai páxines recientes.";
@@ -39,6 +41,7 @@
 "zero-learn-more-learn-more" = "Lleer más";
 "zero-learn-more-no-thanks" = "Descartar";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Avisar si s'abandones Wikipedia Zero";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "Comprobación de CAPTCHA obligatoria.";
@@ -101,12 +104,15 @@
 "main-menu-title" = "Más";
 "main-menu-heading-about" = "Tocante a";
 "main-menu-language-title" = "Guetar la wiki en llingua $1";
+// Fuzzy
 "main-menu-faq" = "EMF (entrugues más frecuentes)";
 "main-menu-language-toggle-show" = "Amosar llingües";
 "main-menu-language-toggle-hide" = "Anubrir llingües";
 "main-menu-language-selection-saved" = "Seleición d'idioma guardada";
 "main-menu-account-title-logged-out" = "Cuenta";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Aniciasti sesión como $1.";
+// Fuzzy
 "main-menu-account-login" = "Aniciar sesión en Wikipedia";
 "main-menu-account-logout" = "Salir";
 "main-menu-show-title" = "Amosame...";
@@ -115,13 +121,17 @@
 "main-menu-current-article-save" = "Guardar $1 pa lleer ensin conexón";
 "main-menu-random" = "Al debalu";
 "main-menu-feedback-heading" = "La to opinión";
+// Fuzzy
 "main-menu-send-feedback" = "Unviar comentariu sobro la app";
 "main-menu-show-page-history" = "Historial de los cambios a $1";
 "main-menu-credits" = "Créditos";
+// Fuzzy
 "main-menu-about" = "Tocante a la app de Wikipedia";
 "main-menu-zero-faq" = "EMF de Wikipedia Zero";
 "main-menu-privacy-policy" = "Política d'intimidá";
+// Fuzzy
 "main-menu-terms-of-use" = "Condiciones d'usu";
+// Fuzzy
 "main-menu-rate-app" = "Calificar app";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacidá y Condiciones";
@@ -132,9 +142,11 @@
 "main-menu-debug-crash" = "Colgar";
 "saved-title" = "Guardada";
 "saved-pages-title" = "Páxines guardaes";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "¿Desaniciar tolos elementos guardaos?";
 "saved-pages-clear-confirmation-sub-heading" = "¡Esta aición nun pué desfacese!";
 "saved-pages-clear-cancel" = "Encaboxar";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Desaniciar too";
 "saved-pages-refresh-cancel-alert-title" = "Anovamientu encaboxáu";
 "saved-pages-refresh-cancel-alert-message" = "Los artículos de Wikipedia anuévense tol tiempu. Toca refrescar pa recibir les caberes versiones de tolos artículos.";
@@ -285,6 +297,7 @@
 "hockeyapp-alert-privacy" = "Intimidá de $1";
 "page-issues" = "Problemes de la páxina";
 "page-similar-titles" = "Páxines asemeyaes";
+// Fuzzy
 "page-read-in-other-languages" = "Lleer en $1 idiomes";
 "page-last-edited" = "Editáu fai $1 díes";
 "page-edit-history" = "Historial d'edición completu";
@@ -303,32 +316,13 @@
 "home-potd-heading" = "Imaxe del día pal $1";
 "potd-empty-error-description" = "Nun pudo algamase la imaxe del día pal $1";
 "potd-description-prefix" = "Imaxe del día pal $1";
-"welcome-whats-new-title" = "Bienllegaos a Wikipedia";
-"welcome-whats-new-whats-new" = "LO MÁS NUEVO";
-"welcome-whats-new-bullet-one-title" = "Una manera nueva d'esplorar";
-"welcome-whats-new-bullet-one-text" = "Descubri artículos nuevos ya interesantes pa ti na pantalla Esplorar.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Cómo funciona...";
-"welcome-whats-new-bullet-two-title" = "Diseñada pa lleer";
-"welcome-whats-new-bullet-two-text" = "Diseñu anováu, centráu n'ufrir una gran esperiencia na llectura.";
-"welcome-whats-new-button-title" = "Primeros pasos";
-"welcome-whats-new-bullet-one-more-info-text" = "Cuando visites un artículu, los artículos rellacionaos amiéstense automáticamente a la to canal. Esto nun cambia cómo collechamos la to información, ya'l to historial de llectura caltiense priváu.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Entendílo";
+// Fuzzy
 "welcome-languages-title" = "Llingües a buscar";
-"welcome-languages-more-info-button-text" = "Cúntame más";
-"welcome-languages-more-info-text" = "Los artículos de Wikipedia, de cutiu, tán disponibles en dellos idiomes. Escueye los idiomes que quies usar nes guetes. Puedes camudar esto más tarde.";
-"welcome-languages-more-info-done-button" = "Entendílo";
-"welcome-languages-more-languages-button-title" = "Amestar más llingües";
-"welcome-languages-button-title" = "Siguir";
-"welcome-languages-footnote-text" = "Nun t'esmolezas, llueu puedes cambialo.";
-"welcome-usage-reports-title" = "Ayúdanos a facer Wikipedia meyor";
-"welcome-usage-reports-body-text" = "Puedes ayudanos a ameyorar l'app permitiéndonos collechar información tocante al mou como uses l'app.";
-"welcome-usage-reports-switch-text" = "Unviar informes d'usu";
-"welcome-usage-reports-button-title" = "Primeros pasos";
-"welcome-usage-reports-privacy-policy-button-text" = "La to intimidá ye importante pa nós";
 "empty-no-feed-title" = "Sin conexón a Internet";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
 "empty-no-feed-action-message" = "Entrín y non, puedes lleer páxines guardaes";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
+// Fuzzy
 "empty-no-search-results-message" = "Nun pudieron cargase les resultancies";
 "empty-no-saved-pages-title" = "Inda nun hai páxines guardaes";
 "empty-no-saved-pages-message" = "Guardar páxines pa veles más tarde, inclusive ensin conexón";

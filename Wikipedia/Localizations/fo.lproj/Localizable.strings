@@ -15,9 +15,11 @@
 "history-section-yesterday" = "Í gjár";
 "history-section-lastweek" = "Í síðstu viku";
 "history-section-lastmonth" = "Í síðsta mánað";
+// Fuzzy
 "history-clear-confirmation-heading" = "Tøma loggin yvir seinast lutir?";
 "history-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "history-clear-cancel" = "Angra";
+// Fuzzy
 "history-clear-delete-all" = "Sletta alt";
 "history-none" = "Ongar nýggjar síður her.";
 "zero-free-verbiage" = "Ókeypis Wikipedia atgongd frá tínum fartelefonveitara (krevur ikki gjald fyri dáta)";
@@ -32,6 +34,7 @@
 "zero-learn-more-learn-more" = "Les meira";
 "zero-learn-more-no-thanks" = "Lat aftur";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Ávara meg um eg fari burtur frá Wikipedia Zero";
 "account-creation-captcha-required" = "CAPTCHA váttan verður kravd.";
 "account-creation-captcha-obtaining" = "Heintar ein nýggjan CAPTCHA.";
@@ -93,6 +96,7 @@
 "main-menu-language-toggle-hide" = "Fjal mál";
 "main-menu-language-selection-saved" = "Val av máli er goymt";
 "main-menu-account-title-logged-out" = "Konta";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Innritað/ur sum: $1";
 // Fuzzy
 "main-menu-account-login" = "Rita inn";
@@ -103,13 +107,17 @@
 "main-menu-current-article-save" = "Goym $1 fyri offline lesing";
 "main-menu-random" = "Tilvildarlig";
 "main-menu-feedback-heading" = "Afturmeldingar";
+// Fuzzy
 "main-menu-send-feedback" = "Send afturmelding um appina";
 "main-menu-show-page-history" = "Søgan yvir broytingar av $1";
 "main-menu-credits" = "Ognan";
+// Fuzzy
 "main-menu-about" = "Um Wikipedia appina";
 "main-menu-zero-faq" = "Wikipedia Zero Ofta settir spurningar";
 "main-menu-privacy-policy" = "Handfaring av persónligum upplýsingum";
+// Fuzzy
 "main-menu-terms-of-use" = "Nýtslutreytir";
+// Fuzzy
 "main-menu-rate-app" = "Met um appina";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privatlívsvernd og treytir";
@@ -119,9 +127,11 @@
 "main-menu-heading-debug" = "Leita eftir feili";
 "main-menu-debug-crash" = "Krasj";
 "saved-pages-title" = "Goymdar síður";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Strika allar goymdar síður?";
 "saved-pages-clear-confirmation-sub-heading" = "Tú kanst ikki angra hesa gerð!";
 "saved-pages-clear-cancel" = "Angra";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Strika alt";
 "saved-pages-refresh-cancel-alert-title" = "Dagføring avbtotin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia greinar verða dagførdar alla tíðina. Trýst á dagfør fyri at fáa tær nýggjastu versjónirnar av øllum greinunum.";

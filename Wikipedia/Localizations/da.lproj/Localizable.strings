@@ -22,9 +22,11 @@
 "history-section-yesterday" = "I går";
 "history-section-lastweek" = "Sidste uge";
 "history-section-lastmonth" = "Sidste måned";
+// Fuzzy
 "history-clear-confirmation-heading" = "Slet alle de seneste emner?";
 "history-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "history-clear-cancel" = "Annuller";
+// Fuzzy
 "history-clear-delete-all" = "Slet";
 "history-description" = "Du har formentlig slettet dem alle. Næste gang du går til en side, kan du komme tilbage til den her.";
 "history-none" = "Ingen nylige sider her.";
@@ -40,6 +42,7 @@
 "zero-learn-more-learn-more" = "Læs mere";
 "zero-learn-more-no-thanks" = "Luk";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Advar hvis jeg forlader Wikipedia Zero";
 "zero-settings-devmode" = "Zero udviklertilstand";
 "account-creation-captcha-required" = "CAPTCHA kontrol kræves.";
@@ -102,11 +105,13 @@
 "main-menu-title" = "Mere";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søg i Wikipedia på $1";
+// Fuzzy
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Vis sprog";
 "main-menu-language-toggle-hide" = "Skjul sprog";
 "main-menu-language-selection-saved" = "Sprogvalg gemt";
 "main-menu-account-title-logged-out" = "Konto";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Logget på som: $1";
 // Fuzzy
 "main-menu-account-login" = "Log på";
@@ -117,13 +122,17 @@
 "main-menu-current-article-save" = "Gem $1 til læsning offline";
 "main-menu-random" = "Tilfældig";
 "main-menu-feedback-heading" = "Tilbagemelding";
+// Fuzzy
 "main-menu-send-feedback" = "Send tilbagemelding om app";
 "main-menu-show-page-history" = "Historik over redigeringer af $1";
 "main-menu-credits" = "Krediteringer";
+// Fuzzy
 "main-menu-about" = "Om Wikipedia-appen";
 "main-menu-zero-faq" = "Ofte stillede spørgsmål om Wikipedia Zero";
 "main-menu-privacy-policy" = "Behandling af personlige oplysninger";
+// Fuzzy
 "main-menu-terms-of-use" = "Vilkår for anvendelse";
+// Fuzzy
 "main-menu-rate-app" = "Bedøm appen";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privatliv og vilkår";
@@ -133,9 +142,11 @@
 "main-menu-heading-debug" = "Fejlsøgning";
 "main-menu-debug-crash" = "Crash";
 "saved-pages-title" = "Gemte sider";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Vil du slette alle gemte sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Denne handling kan ikke fortrydes!";
 "saved-pages-clear-cancel" = "Annuller";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Slet";
 "saved-pages-refresh-cancel-alert-title" = "Opdatering annulleret";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler opdateres hele tiden. Tryk opdater for at få seneste version af alle artiklerne.";

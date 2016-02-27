@@ -17,12 +17,14 @@
 "history-section-lastweek" = "La stimana pasà";
 "history-section-lastmonth" = "El mese pasà";
 "history-clear-cancel" = "Anuła";
+// Fuzzy
 "history-clear-delete-all" = "Scancela tuto";
 "zero-charged-verbiage" = "Wikipedia Zero xe smorsà";
 "zero-interstitial-cancel" = "Stà qua";
 "zero-learn-more-learn-more" = "Lèxi de pi";
 "zero-learn-more-no-thanks" = "Scondi";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Dime se sto 'ndando fora da Wikipedia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-username-placeholder-text" = "Nome utente";
@@ -49,8 +51,10 @@
 "main-menu-title" = "Piassè";
 "main-menu-heading-about" = "Informasion";
 "main-menu-language-title" = "Serca nel wiki in lengua $1";
+// Fuzzy
 "main-menu-faq" = "Domande frequenti";
 "main-menu-account-title-logged-out" = "Utensa";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Aceso efetuà cofà: $1";
 // Fuzzy
 "main-menu-account-login" = "Va drento";
@@ -58,10 +62,13 @@
 "main-menu-show-title" = "Mòstreme...";
 "main-menu-random" = "A ocio";
 "main-menu-feedback-heading" = "Comenti";
+// Fuzzy
 "main-menu-about" = "Informasion su l'app de Wikipedia";
 "main-menu-zero-faq" = "FAQ de Wikipedia Zero";
 "main-menu-privacy-policy" = "Polìtega su la riservadessa";
+// Fuzzy
 "main-menu-terms-of-use" = "Condission de utilixo";
+// Fuzzy
 "main-menu-rate-app" = "Valuta app";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacy e condision";
@@ -70,6 +77,7 @@
 "main-menu-more" = "Altro...";
 "main-menu-heading-debug" = "Debug";
 "saved-pages-clear-cancel" = "Anuła";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Scancela tuto";
 "saved-pages-refresh-cancel-alert-button" = "Go capìo";
 "navbar-title-mode-create-account" = "Crea un utente novo";

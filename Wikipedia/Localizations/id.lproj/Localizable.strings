@@ -31,9 +31,11 @@
 "history-section-yesterday" = "Kemarin";
 "history-section-lastweek" = "Minggu lalu";
 "history-section-lastmonth" = "Bulan lalu";
+// Fuzzy
 "history-clear-confirmation-heading" = "Hapus semua butir terkini?";
 "history-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "history-clear-cancel" = "Batalkan";
+// Fuzzy
 "history-clear-delete-all" = "Hapus Semua";
 "history-description" = "Anda mungkin menghapus semua dari mereka. Lain kali Anda pergi ke halaman Anda dapat kembali ke sana dari sini.";
 "history-none" = "Tidak ada halaman terbaru di sini.";
@@ -49,6 +51,7 @@
 "zero-learn-more-learn-more" = "Baca lebih lanjut";
 "zero-learn-more-no-thanks" = "Tutup";
 "zero-wikipedia-zero-heading" = "Wikipedia Nol";
+// Fuzzy
 "zero-warn-when-leaving" = "Peringatkan jika meninggalkan Wikipedia Nol";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verifikasi CAPTCHA diperlukan.";
@@ -107,16 +110,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "search-recent-clear-cancel" = "Batalkan";
 "search-recent-clear-delete-all" = "Hapus Semua";
+"search-result-redirected-from" = "Dialihkan dari: $1";
 "settings-title" = "Pengaturan";
 "main-menu-title" = "Lainnya";
 "main-menu-heading-about" = "Tentang";
 "main-menu-language-title" = "Cari Wikipedia $1";
+// Fuzzy
 "main-menu-faq" = "Tanya jawab";
 "main-menu-language-toggle-show" = "Tampilkan bahasa";
 "main-menu-language-toggle-hide" = "Sembunyikan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa yang disimpan";
 "main-menu-account-title-logged-out" = "Akun";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Masuk log sebagai: $1";
+// Fuzzy
 "main-menu-account-login" = "Masuk log ke Wikipedia";
 "main-menu-account-logout" = "Keluar log";
 "main-menu-show-title" = "Tunjukkan padaku...";
@@ -125,13 +132,17 @@
 "main-menu-current-article-save" = "Simpan $1 untuk membaca secara luring";
 "main-menu-random" = "Sembarang";
 "main-menu-feedback-heading" = "Umpan balik";
+// Fuzzy
 "main-menu-send-feedback" = "Kirim umpan balik apl";
 "main-menu-show-page-history" = "Riwayat perubahan $1";
 "main-menu-credits" = "Kredit";
+// Fuzzy
 "main-menu-about" = "Tentang aplikasi Wikipedia";
 "main-menu-zero-faq" = "Tanya jawab Wikipedia Nol";
 "main-menu-privacy-policy" = "Kebijakan privasi";
+// Fuzzy
 "main-menu-terms-of-use" = "Ketentuan penggunaan";
+// Fuzzy
 "main-menu-rate-app" = "Beri nilai apl";
 "main-menu-heading-zero" = "Wikipedia Nol";
 "main-menu-heading-legal" = "Privasi dan Ketentuan";
@@ -140,11 +151,14 @@
 "main-menu-more" = "Lainnya...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Hancur";
+"main-menu-debug-tweaks" = "Pengaturan pengembang";
 "saved-title" = "Tersimpan";
 "saved-pages-title" = "Artikel tersimpan";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Hapus semua butir yang disimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak bisa dibatalkan!";
 "saved-pages-clear-cancel" = "Batal";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Hapus Semua";
 "saved-pages-refresh-cancel-alert-title" = "Pembaruan dibatalkan";
 "saved-pages-refresh-cancel-alert-message" = "Artikel Wikipedia diperbarui setiap saat. Ketuk segarkan untuk mendapatkan versi terbaru dari semua artikel.";
@@ -207,6 +221,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" pada @Wikipedia: \"$2\"";
 "share-as-image" = "Bagikan sebagai berkas";
 "share-as-text" = "Bagikan sebagai teks";
+"share-cancel" = "Batal";
 "timestamp-just-now" = "baru saja";
 "timestamp-minutes" = "%d menit yang lalu";
 "timestamp-hours" = "%d jam yang lalu";
@@ -236,6 +251,7 @@
 "license-footer-text" = "Konten tersedia di bawah lisensi $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Konten";
+"table-of-contents-button-label" = "Daftar Isi";
 "abuse-filter-warning-heading" = "Ini tampak seperti suntingan yang tidak konstruktif. Apakah Anda yakin ingin menyimpannya?";
 "abuse-filter-warning-subheading" = "Suntingan Anda dapat berisi satu atau lebih hal berikut:";
 "abuse-filter-warning-caps" = "Mengetik dalam SEMUA HURUF BESAR";
@@ -295,6 +311,7 @@
 "hockeyapp-alert-privacy" = "Privasi $1";
 "page-issues" = "Masalah halaman";
 "page-similar-titles" = "Halaman serupa";
+// Fuzzy
 "page-read-in-other-languages" = "Baca dalam bahasa $1";
 "page-last-edited" = "Disunting $1 hari yang lalu";
 "page-edit-history" = "Semua riwayat suntingan";
@@ -311,37 +328,40 @@
 "home-featured-article-heading" = "Artikel pilihan untuk $1";
 "home-main-page-heading" = "Hari ini di Wikipedia";
 "home-potd-heading" = "Gambar hari ini untuk $1";
+"home-last-update-label" = "Terakhir Diperbarui: $1";
+"home-last-update-never-label" = "Terakhir Diperbarui: Tidak pernah";
+"home-updating-label" = "Memperbarui...";
+"home-hide-suggestion-prompt" = "Sembunyikan saran ini";
+"home-hide-suggestion-cancel" = "Batal";
+"home-accessibility-label" = "Wikipedia, Jelajah";
+"home-button-accessibility-label" = "Tombol Beranda";
 "potd-empty-error-description" = "Gagal untuk menerima gambar hari ini untuk $1";
 "potd-description-prefix" = "Gambar hari ini untuk $1";
-"welcome-whats-new-title" = "Selamat datang di Wikipedia";
-"welcome-whats-new-whats-new" = "Apa yang baru?";
-"welcome-whats-new-bullet-one-title" = "Cara baru untuk menjelajah";
-"welcome-whats-new-bullet-one-text" = "Temukan artikel baru dan menarik untuk Anda pada layar Penjelajahan.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Ceritakan lebih banyak";
-"welcome-whats-new-bullet-two-title" = "Dirancang untuk Bacaan";
-"welcome-whats-new-bullet-two-text" = "Desain terbaru terpusat pada penyediaan sebuah pengalaman baca yang menyenangkan.";
-"welcome-whats-new-button-title" = "Mulai";
-"welcome-whats-new-bullet-one-more-info-text" = "Ketika Anda mengunjungi suatu artikel, makan artikel terkait akan ditambahkan secara otomatis pada umpan web Anda. Hal ini tidak akan mengubah cara kami mengumpulkan informasi dari Anda dan sejarah bacaan Anda masih tetap bersifat pribadi.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Mengerti";
+// Fuzzy
 "welcome-languages-title" = "Pencarian bahasa";
-"welcome-languages-more-info-button-text" = "Ceritakan padaku lebih banyak";
-"welcome-languages-more-info-text" = "Artikel Wikipedia seringkali tersedia dalam beberapa bahasa. Pilih bahasa yang Anda inginkan saat melakukan pencarian. Anda bisa mengubahnya nanti.";
-"welcome-languages-more-info-done-button" = "Mengerti";
-"welcome-languages-more-languages-button-title" = "Tambahkan bahasa lainnya";
-"welcome-languages-button-title" = "Lanjutkan";
-"welcome-languages-footnote-text" = "Jangan khawatir, Anda bisa mengubahnya nanti";
-"welcome-usage-reports-title" = "Bantu Wikipedia menjadi lebih baik";
-"welcome-usage-reports-body-text" = "Anda dapat membantu kami membuat aplikasi ini lebih baik lagi dengan membolehkan kami untuk mengumpulkan informasi tentang bagaimana Anda menggunakan aplikasi ini.";
-"welcome-usage-reports-switch-text" = "Kirim laporan penggunaan";
-"welcome-usage-reports-button-title" = "Memulai";
-"welcome-usage-reports-privacy-policy-button-text" = "Privasi Anda penting bagi kami";
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
 "empty-no-feed-action-message" = "Anda masih bisa membaca laman tersimpan";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
+// Fuzzy
 "empty-no-search-results-message" = "Maaf, hasil tidak dapat dimuat";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
 "empty-no-saved-pages-message" = "Simpan halaman untuk dilihat nanti, bahkan ketika luring";
 "empty-no-history-title" = "Tidak ada riwayat yang muncul";
 "empty-no-history-message" = "Melacak apa yang Anda sudah baca di sini";
 "alert-no-internet" = "Tidak ada sambungan internet";
+"icon-shortcut-search-title" = "Cari Wikipedia";
+"icon-shortcut-continue-reading-title" = "Lanjutkan membaca";
+"icon-shortcut-random-title" = "Artikel acak";
+"icon-shortcut-nearby-title" = "Artikel sekitar";
+"close-button-accessibility-label" = "Tutup";
+"back-button-accessibility-label" = "Kembali";
+"compass-direction" = "pada pukul $1 tepat";
+"explore-featured-article-heading" = "Artikel pilihan";
+"explore-continue-reading-heading" = "Lanjutkan membaca";
+"explore-nearby-heading" = "Tempat sekitar";
+"explore-continue-related-heading" = "Karena Anda membaca";
+"explore-main-page-heading" = "Hari ini di Wikipedia";
+"explore-random-article-heading" = "Artikel acak";
+"explore-random-article-sub-heading" = "Wikipedia Bahasa Inggris";
+"explore-potd-heading" = "Gambar pilihan";

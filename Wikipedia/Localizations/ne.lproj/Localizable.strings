@@ -15,6 +15,7 @@
 "history-section-yesterday" = "हिजो";
 "history-section-lastweek" = "पछिल्लो हप्ता";
 "history-clear-cancel" = "रद्द गर्ने";
+// Fuzzy
 "history-clear-delete-all" = "सबै मेट्ने";
 "history-none" = "यहाँ भर्खरैको कुनै पृष्ठ नरहेको !";
 "zero-charged-verbiage" = "विकिपीडिया शुन्य बन्द भयो";
@@ -55,6 +56,7 @@
 "main-menu-language-toggle-hide" = "भाषाहरू लुकाउनुहोस्";
 "main-menu-language-selection-saved" = "भाषा चयन बचत भयो";
 "main-menu-account-title-logged-out" = "खाता";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1: को रूपमा प्रवेश भयो";
 // Fuzzy
 "main-menu-account-login" = "प्रवेश";
@@ -65,12 +67,15 @@
 "main-menu-current-article-save" = "अफलाइन पढ्नको लागि $1 बचत गर्नुहोस्";
 "main-menu-random" = "अनियमित";
 "main-menu-feedback-heading" = "प्रतिक्रिया";
+// Fuzzy
 "main-menu-send-feedback" = "पृष्ठपोषण पठाउनुहोस";
 "main-menu-show-page-history" = "$1 मा परिवर्तनको इतिहास";
 "main-menu-credits" = "श्रेयहरू";
+// Fuzzy
 "main-menu-about" = "विकिपीडिया एप्पको बारेमा";
 "main-menu-zero-faq" = "विकिपीडिया शुन्य प्रायः सोधिने प्रश्नहरू";
 "main-menu-privacy-policy" = "गोप्नियता नीति";
+// Fuzzy
 "main-menu-terms-of-use" = "प्रयोगका शर्तहरू";
 "main-menu-heading-zero" = "विकिपीडिया शुन्य";
 "main-menu-show-today" = "आज";
@@ -79,6 +84,7 @@
 "saved-title" = "संग्रह गर्ने";
 "saved-pages-title" = "संग्रहित पृष्ठहरू";
 "saved-pages-clear-cancel" = "रद्द गर्ने";
+// Fuzzy
 "saved-pages-clear-delete-all" = "सबै मेट्ने";
 "saved-pages-refresh-cancel-alert-button" = "पाउनु भयो";
 "saved-pages-none" = "संग्रह गरिएका पृष्ठहरू नभएको !";
@@ -170,10 +176,3 @@
 "migration-prompt-message" = "हामी तपाईंको रक्षण गरिएका तथा भर्खरका पृष्ठलाई सार्दै छौ । यसमा केही समय लाग्ने छ...";
 "migration-skip-button-title" = " $1 मेट्नुहोस्";
 "image-gallery-fetch-image-info-error-ok" = "ठीक";
-"welcome-whats-new-title" = "विकिपिडियामा स्वागत् छ";
-"welcome-whats-new-whats-new" = "केहि नयाँ";
-"welcome-languages-more-info-button-text" = "मलाई थप भन्नुहोस";
-"welcome-languages-more-info-done-button" = "पाउनु भयो";
-"welcome-languages-more-languages-button-title" = "थप भाषाहरू थप्नुहोस्";
-"welcome-usage-reports-switch-text" = "उपयोग प्रतिवेदन पठाउनुहोस् ।";
-"welcome-usage-reports-button-title" = "शुरु भयो";

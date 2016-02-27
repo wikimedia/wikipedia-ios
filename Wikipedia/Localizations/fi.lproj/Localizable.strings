@@ -16,8 +16,10 @@
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
 "article-languages-filter-placeholder" = "Kielisuodatin";
 "article-read-more-title" = "Lue lisää";
+"article-about-title" = "Tietoja tästä artikkelista";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
 "article-unable-to-load-article" = "Artikkelin lataaminen epäonnistui.";
+"article-related-articles-title" = "Aiheeseen liittyvät artikkelit";
 "info-box-title" = "Pikafaktoja";
 "info-box-close-text" = "Sulje";
 "table-title-other" = "Lisätietoja";
@@ -26,9 +28,11 @@
 "history-section-yesterday" = "Eilen";
 "history-section-lastweek" = "Viime viikolla";
 "history-section-lastmonth" = "Viime kuussa";
+// Fuzzy
 "history-clear-confirmation-heading" = "Poista kaikki tuoreet kohteet?";
 "history-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
 "history-clear-cancel" = "Peruuta";
+// Fuzzy
 "history-clear-delete-all" = "Poista kaikki";
 "history-description" = "Olet todennäköisesti poistanut ne kaikki. Seuraavalla kerralla kun menet sivulle, voit palata sinne tätä kautta.";
 "history-none" = "Ei tuoreita sivuja täällä.";
@@ -44,6 +48,7 @@
 "zero-learn-more-learn-more" = "Lue lisää";
 "zero-learn-more-no-thanks" = "Piilota";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Varoita poistuttaessa Wikipedia Zerosta";
 "zero-settings-devmode" = "Zeron kehitystila";
 "account-creation-captcha-required" = "CAPTCHA-varmistus vaaditaan.";
@@ -102,16 +107,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Toimintoa ei voi kumota!";
 "search-recent-clear-cancel" = "Keskeytä";
 "search-recent-clear-delete-all" = "Poista kaikki";
+"search-result-redirected-from" = "Ohjattu sivulta: $1";
 "settings-title" = "Asetukset";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
 "main-menu-language-title" = "Etsi wikistä kielellä $1";
+// Fuzzy
 "main-menu-faq" = "UKK";
 "main-menu-language-toggle-show" = "Näytä kielet";
 "main-menu-language-toggle-hide" = "Piilota kielet";
 "main-menu-language-selection-saved" = "Kielivalinta tallennettu";
 "main-menu-account-title-logged-out" = "Käyttäjätili";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Olet kirjautunut käyttäjänä: $1";
+// Fuzzy
 "main-menu-account-login" = "Kirjaudu Wikipediaan";
 "main-menu-account-logout" = "Kirjaudu ulos";
 "main-menu-show-title" = "Näytä minulle...";
@@ -120,13 +129,17 @@
 "main-menu-current-article-save" = "Tallenna $1 offline-tilassa luettavaksi";
 "main-menu-random" = "Satunnainen";
 "main-menu-feedback-heading" = "Palaute";
+// Fuzzy
 "main-menu-send-feedback" = "Lähetä palautetta sovelluksesta";
 "main-menu-show-page-history" = "Sivun $1 muokkaushistoria";
 "main-menu-credits" = "Kiitokset";
+// Fuzzy
 "main-menu-about" = "Tietoja Wikipedia-sovelluksesta";
 "main-menu-zero-faq" = "Usein kysyttyjä kysymyksiä Wikipedia Zerosta";
 "main-menu-privacy-policy" = "Tietosuojakäytäntö";
+// Fuzzy
 "main-menu-terms-of-use" = "Käyttöehdot";
+// Fuzzy
 "main-menu-rate-app" = "Arvostele sovellus";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Tietosuoja ja Ehdot";
@@ -135,17 +148,21 @@
 "main-menu-more" = "Lisää...";
 "main-menu-heading-debug" = "Vianetsintä";
 "main-menu-debug-crash" = "Virhe";
+"main-menu-debug-tweaks" = "Kehittäjien asetukset";
 "saved-title" = "Tallennettu";
 "saved-pages-title" = "Tallennetut sivut";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Poista kaikki tallennetut kohteet?";
 "saved-pages-clear-confirmation-sub-heading" = "Tätä toimintoa ei voi kumota!";
 "saved-pages-clear-cancel" = "Peruuta";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Poista Kaikki";
 "saved-pages-refresh-cancel-alert-title" = "Päivitys peruttiin";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedian artikkeleja päivitetään kaiken aikaa. Napauta päivitä saadaksesi kaikkien artikkeleiden uusimmat versiot.";
 "saved-pages-refresh-cancel-alert-button" = "Selvä!";
 "saved-pages-description" = "Tallennetut sivut ovat melko loistavia. Ajattele niitä kirjanmerkkeinä, joita voit lukea ilman verkkoyhteyttä.";
 "saved-pages-none" = "Ei vielä tallennettuja sivuja.";
+"saved-pages-image-download-error" = "Tämän tallennetun sivun kuvien lataaminen epäonnistui.";
 "history-title" = "Historia";
 "page-history-title" = "Artikkelin historia";
 "page-history-downloading" = "Ladataan artikkelin historiaa...";
@@ -201,6 +218,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia'ssa: \"$2\"";
 "share-as-image" = "Jaa kuvana";
 "share-as-text" = "Jaa tekstinä";
+"share-cancel" = "Peruuta";
 "timestamp-just-now" = "juuri nyt";
 "timestamp-minutes" = "%d minuuttia sitten";
 "timestamp-hours" = "%d tuntia sitten";
@@ -212,6 +230,8 @@
 "button-next" = "Seuraava";
 "button-done" = "Valmis";
 "button-save" = "Tallenna";
+"button-save-for-later" = "Tallenna myöhemmäksi";
+"button-saved-for-later" = "Tallennettu myöhemmäksi";
 "onboarding-create-account" = "Luo tunnus";
 "onboarding-login" = "Kirjaudu sisään";
 "onboarding-already-have-account" = "Onko sinulla jo tunnus? $1";
@@ -228,6 +248,7 @@
 "license-footer-text" = "Sisältö on käytettävissä $1 -lisenssin ehtojen mukaisesti.";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Sisällys";
+"table-of-contents-button-label" = "Sisällysluettelo";
 "abuse-filter-warning-heading" = "Tämä saattaa olla haitallinen muokkaus. Haluatko varmasti tallentaa sen?";
 "abuse-filter-warning-subheading" = "Muokkauksesi saattaa sisältää yhden tai useampia seuraavista:";
 "abuse-filter-warning-caps" = "Kirjoittamista ISOILLA KIRJAIMILLA";
@@ -284,5 +305,43 @@
 "hockeyapp-alert-privacy" = "$1 tietosuoja";
 "page-issues" = "Sivun ongelmat";
 "page-similar-titles" = "Samankaltaiset sivut";
+// Fuzzy
+"page-read-in-other-languages" = "Lue $1 kielellä";
+"page-last-edited" = "Muokattu $1 päivää sitten";
+"page-edit-history" = "Täysi muokkaushistoria";
 "captcha-reload" = "Näytä toinen CAPTCHA";
 "captcha-prompt" = "Syötä CAPTCHA-teksti yllä olevasta kuvasta";
+"home-title" = "Tutki";
+"home-continue-reading-heading" = "Jatka lukemista";
+"home-nearby-check-again" = "Tarkista uudelleen";
+"home-main-page-heading" = "Tänään Wikipediassa";
+"home-last-update-label" = "Viimeisin päivitys: $1";
+"home-last-update-never-label" = "Viimeisin päivitys: Ei koskaan";
+"home-updating-label" = "Päivitetään…";
+"home-hide-suggestion-prompt" = "Piilota tämä ehdotus";
+"home-hide-suggestion-cancel" = "Peruuta";
+"home-accessibility-label" = "Wikipedia, Tutki";
+"home-button-accessibility-label" = "Koti-painike";
+// Fuzzy
+"welcome-languages-title" = "Hakukielet";
+"empty-no-feed-title" = "Ei Internet-yhteyttä";
+"empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
+"empty-no-feed-action-message" = "Voit lukea tallennettuja sivuja sillä välin";
+"empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
+// Fuzzy
+"empty-no-search-results-message" = "Pahoittelut, tuloksia ei voitu ladata";
+"empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
+"empty-no-saved-pages-message" = "Tallenna sivuja tarkastellaksesi niitä myöhemmin, jopa yhteydettömässä tilassa";
+"empty-no-history-title" = "Ei näytettävää historiaa";
+"alert-no-internet" = "Ei Internet-yhteyttä";
+"icon-shortcut-search-title" = "Etsi Wikipediasta";
+"icon-shortcut-continue-reading-title" = "Jatka lukemista";
+"icon-shortcut-random-title" = "Satunnainen artikkeli";
+"close-button-accessibility-label" = "Sulje";
+"back-button-accessibility-label" = "Takaisin";
+"explore-featured-article-heading" = "Suositeltu artikkeli";
+"explore-continue-reading-heading" = "Jatka lukemista";
+"explore-main-page-heading" = "Tänään Wikipediassa";
+"explore-random-article-heading" = "Satunnainen artikkeli";
+"explore-random-article-sub-heading" = "Englanninkielinen Wikipedia";
+"explore-potd-heading" = "Päivän kuva";

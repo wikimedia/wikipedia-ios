@@ -22,9 +22,11 @@
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "Минатата седмица";
 "history-section-lastmonth" = "Минатиот месец";
+// Fuzzy
 "history-clear-confirmation-heading" = "Да ги избришам сите скорешни ставки?";
 "history-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "history-clear-cancel" = "Откажи";
+// Fuzzy
 "history-clear-delete-all" = "Избриши ги сите";
 "history-description" = "Веројатно сите сте ги избришале. Кога во иднина ќе отидете на некоја страница, ќе можете оттука да се вратите на неа.";
 "history-none" = "Тука нема скорешни страници.";
@@ -40,6 +42,7 @@
 "zero-learn-more-learn-more" = "Прочитајте повеќе";
 "zero-learn-more-no-thanks" = "Тргни";
 "zero-wikipedia-zero-heading" = "Википедија Нулта";
+// Fuzzy
 "zero-warn-when-leaving" = "Предупреди ме доколку ја напуштам Википедија Нулта";
 "zero-settings-devmode" = "Развоен режим на Нулта";
 "account-creation-captcha-required" = "Се бара потврда со сликичка";
@@ -98,16 +101,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "search-recent-clear-cancel" = "Откажи";
 "search-recent-clear-delete-all" = "Избриши ги сите";
+"search-result-redirected-from" = "Пренасочено од: $1";
 "settings-title" = "Нагодувања";
 "main-menu-title" = "Повеќе";
 "main-menu-heading-about" = "За прилогот";
 "main-menu-language-title" = "Пребарување на Википедија на $1";
+// Fuzzy
 "main-menu-faq" = "ЧПП";
 "main-menu-language-toggle-show" = "Прикажи јазици";
 "main-menu-language-toggle-hide" = "Скриј јазици";
 "main-menu-language-selection-saved" = "Одбраниот јазик е зачуван";
 "main-menu-account-title-logged-out" = "Сметка";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Најавени сте како: $1";
+// Fuzzy
 "main-menu-account-login" = "Најава на Википедија";
 "main-menu-account-logout" = "Одјава";
 "main-menu-show-title" = "Покажи ми...";
@@ -116,13 +123,17 @@
 "main-menu-current-article-save" = "Зачувај ја „$1“ за вонмрежно читање";
 "main-menu-random" = "Случајна";
 "main-menu-feedback-heading" = "Мислења";
+// Fuzzy
 "main-menu-send-feedback" = "Испрати мислење";
 "main-menu-show-page-history" = "Историја на измените на $1";
 "main-menu-credits" = "Признанија";
+// Fuzzy
 "main-menu-about" = "За прилогот „Википедија“";
 "main-menu-zero-faq" = "ЧПП за Википедија Нулта";
 "main-menu-privacy-policy" = "Заштита на личните податоци";
+// Fuzzy
 "main-menu-terms-of-use" = "Услови на употреба";
+// Fuzzy
 "main-menu-rate-app" = "Оценете го прилогов";
 "main-menu-heading-zero" = "Википедија Нулта";
 "main-menu-heading-legal" = "Лични податоци и услови";
@@ -131,11 +142,14 @@
 "main-menu-more" = "Повеќе...";
 "main-menu-heading-debug" = "Исправки";
 "main-menu-debug-crash" = "Уривање";
+"main-menu-debug-tweaks" = "Поставки за програмери";
 "saved-title" = "Зачувано";
 "saved-pages-title" = "Зачувани страници";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "saved-pages-clear-cancel" = "Откажи";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Избриши ги сите";
 "saved-pages-refresh-cancel-alert-title" = "Подновата е откажана";
 "saved-pages-refresh-cancel-alert-message" = "Статиите на Википедија сето време се менуваат, односно подновуваат. Допрете на „Превчитај“ за да ги добиете најновите верзии на сите статии.";
@@ -198,6 +212,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ на @Википедија: „$2“";
 "share-as-image" = "Сподели ја сликава";
 "share-as-text" = "Сподели како текст";
+"share-cancel" = "Откажи";
 "timestamp-just-now" = "штотуку";
 "timestamp-minutes" = "пред %d минути";
 "timestamp-hours" = "пред %d часа";
@@ -227,6 +242,7 @@
 "license-footer-text" = "Содржината е достапна под $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содржина";
+"table-of-contents-button-label" = "Содржина";
 "abuse-filter-warning-heading" = "Ова личи на неконструктивно уредување. Дали сигурно сакате да го зачувате?";
 "abuse-filter-warning-subheading" = "Вашето уредување може да содржи едно или повеќе од следниве:";
 "abuse-filter-warning-caps" = "ГОЛЕМИ БУКВИ";
@@ -286,6 +302,7 @@
 "hockeyapp-alert-privacy" = "Приватност на $1";
 "page-issues" = "Проблеми со страницата";
 "page-similar-titles" = "Слични страници";
+// Fuzzy
 "page-read-in-other-languages" = "Прочитајте на $1 јазици";
 "page-last-edited" = "Изменето пред $1 дена";
 "page-edit-history" = "Цела историја на уредувања";
@@ -302,37 +319,40 @@
 "home-featured-article-heading" = "Избрана статија за $1";
 "home-main-page-heading" = "Денес на Википедија";
 "home-potd-heading" = "Слика на денот за $1";
+"home-last-update-label" = "Последна поднова: $1";
+"home-last-update-never-label" = "Последна поднова: никогаш";
+"home-updating-label" = "Подновувам...";
+"home-hide-suggestion-prompt" = "Скриј го предлогов";
+"home-hide-suggestion-cancel" = "Откажи";
+"home-accessibility-label" = "Википедија, Истражете";
+"home-button-accessibility-label" = "Копче за Почетна";
 "potd-empty-error-description" = "Не можев да ја добијам сликата на денот за $1";
 "potd-description-prefix" = "Слика на денот за $1";
-"welcome-whats-new-title" = "Добре дојдовте на Википедија";
-"welcome-whats-new-whats-new" = "ШТО ИМА НОВО";
-"welcome-whats-new-bullet-one-title" = "Нов начин да истражите";
-"welcome-whats-new-bullet-one-text" = "Откривајте нови интересни статии токму за Вас на екранот „Истражи“";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Како ова работи...";
-"welcome-whats-new-bullet-two-title" = "Предвидена за читање";
-"welcome-whats-new-bullet-two-text" = "Подновениот изглед е осмислен за да овозможи одлична околина за читање.";
-"welcome-whats-new-button-title" = "Почнете";
-"welcome-whats-new-bullet-one-more-info-text" = "Кога ќе посетите некоја статија, во каналот авоматски се додаваат сродни статии. Ова не го менува начинот на којшто ги прибираме Вашите информации, а Вашата историја на посетени статии останува тајна.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Јасно";
+// Fuzzy
 "welcome-languages-title" = "Јазици за пребарување";
-"welcome-languages-more-info-button-text" = "Објасни ми";
-"welcome-languages-more-info-text" = "Статиите најчесто се достапни на повеќе јазици. Изберете ги јазиците за пребарување. Подоцна можете да ги смените.";
-"welcome-languages-more-info-done-button" = "Јасно";
-"welcome-languages-more-languages-button-title" = "Додај уште јазици";
-"welcome-languages-button-title" = "Продолжи";
-"welcome-languages-footnote-text" = "Не грижете се. Ова можете да го измените подоцна.";
-"welcome-usage-reports-title" = "Помогнете ни да ја подобриме Википедија";
-"welcome-usage-reports-body-text" = "Можете да ни помогнете да ја го подобриме прилогов со тоа што ќе ни дозволите да собираме информации за тоа како го користите.";
-"welcome-usage-reports-switch-text" = "Испраќај извештаи за употребата";
-"welcome-usage-reports-button-title" = "Започи";
-"welcome-usage-reports-privacy-policy-button-text" = "Вашата приватност ни значи";
 "empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
 "empty-no-feed-action-message" = "Во меѓувреме, можете да ги читате зачуваните страници";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
+// Fuzzy
 "empty-no-search-results-message" = "За жал, не можев да го вчитам исходот";
 "empty-no-saved-pages-title" = "Засега нема зачувани страници";
 "empty-no-saved-pages-message" = "Зачувајте ги страниците за да ги читате подоцна, дури и кога немате линија";
 "empty-no-history-title" = "Нема историја";
 "empty-no-history-message" = "Тука се заведува сè имате читано";
 "alert-no-internet" = "Не сте поврзани со семрежјето";
+"icon-shortcut-search-title" = "Пребарај ја Википедија";
+"icon-shortcut-continue-reading-title" = "Продолжете со читање";
+"icon-shortcut-random-title" = "Случајна статија";
+"icon-shortcut-nearby-title" = "Статии во близина";
+"close-button-accessibility-label" = "Затвори";
+"back-button-accessibility-label" = "Назад";
+"compass-direction" = "во $1 часот";
+"explore-featured-article-heading" = "Избрани статии";
+"explore-continue-reading-heading" = "Продолжете со читање";
+"explore-nearby-heading" = "Околни места";
+"explore-continue-related-heading" = "Бидејќи читавте";
+"explore-main-page-heading" = "Денес на Википедија";
+"explore-random-article-heading" = "Случајна статија";
+"explore-random-article-sub-heading" = "англиска Википедија";
+"explore-potd-heading" = "Слика на денот";

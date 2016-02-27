@@ -1,6 +1,7 @@
 // Messages for Persian (فارسی)
 // Exported from translatewiki.net
 // Author: Alirezaaa
+// Author: Arian Ar
 // Author: BaziOnline
 // Author: Ebraminio
 // Author: Fatemi127
@@ -21,8 +22,8 @@
 "article-languages-filter-placeholder" = "پالایه زبان";
 "article-read-more-title" = "بیشتر بخوانید";
 "article-about-title" = "دربارهٔ این مقاله";
-"article-unable-to-load-section" = "امکان براگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
-"article-unable-to-load-article" = "بارگذاری مقاله ناموفق بود.";
+"article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
+"article-unable-to-load-article" = "بارگیری مقاله ناموفق بود.";
 "article-related-articles-title" = "مقاله‌های مرتبط";
 "info-box-title" = "واقعیت‌های سریع";
 "info-box-close-text" = "بستن";
@@ -32,15 +33,17 @@
 "history-section-yesterday" = "دیروز";
 "history-section-lastweek" = "هفتهٔ گذشته";
 "history-section-lastmonth" = "ماه گذشته";
+// Fuzzy
 "history-clear-confirmation-heading" = "همه موارد اخیر حذف شوند؟";
 "history-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "history-clear-cancel" = "لغو";
+// Fuzzy
 "history-clear-delete-all" = "حذف همه";
 "history-description" = "شما احتمالاً همه آنها را حذف کردید. دفعه بعد که به صفحه‌ای می‌روید می‌توانید از اینجا به آن صفحه برگردید.";
 "history-none" = "هیچ صفحه اخیری اینجا نیست.";
-"zero-free-verbiage" = "دسترسی مجانی از تلفن همراه توسط اپراتور تامین شده‌است (هزینهٔ دیتا گرفته نمی‌شود)";
+"zero-free-verbiage" = "دسترسی رایگان به ویکی‌پدیا  توسط اپراتور تلفن همراه تامین شده‌است (هزینهٔ دیتا گرفته نمی‌شود)";
 "zero-charged-verbiage" = "ویکی پدیای صفر خاموش است";
-"zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و آزاد هستند.";
+"zero-charged-verbiage-extended" = "در حال بارگذاری دیگر مقاله‌هایی که ممکن است بر هزینه داده محتمل شوند. مقاله‌های آفلاین ذخیره‌شده از داده‌ها استفاده نمی‌کنند و رایگان هستند.";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
 "zero-interstitial-title" = "ترک ویکی‌پدیا صفر";
 "zero-interstitial-leave-app" = "هزینهٔ استاندارد دیتا دریافت می‌گردد. آیا شما قصد دارید وارد سایت دیگری به غیر از ویکی‌پدیا شوید؟";
@@ -50,9 +53,10 @@
 "zero-learn-more-learn-more" = "بیشتر بخوانید";
 "zero-learn-more-no-thanks" = "پنهان‌سازی";
 "zero-wikipedia-zero-heading" = "ویکی‌پدیای صفر";
+// Fuzzy
 "zero-warn-when-leaving" = "هشدار برای خروج از ویکی‌پدیا صفر";
 "zero-settings-devmode" = "وضعیت برنامه‌نویسی صفر";
-"account-creation-captcha-required" = "نیازمند به وارد کردن کپتچا.";
+"account-creation-captcha-required" = "نیازمند به وارد کردن کپچا.";
 "account-creation-captcha-obtaining" = "اخذ کپچا تازه.";
 "account-creation-logging-in" = "ورود به سیستم...";
 "account-creation-passwords-mismatched" = "گذرواژه‌ها همخوانی ندارند.";
@@ -74,18 +78,18 @@
 "login-username-placeholder-text" = "نام کاربری";
 "login-password-placeholder-text" = "گذرواژه";
 "wikitext-downloading" = "بارگیری متن...";
-"wikitext-download-failed" = "آخرین تجدید نظر اخذ نمی‌شود.";
+"wikitext-download-failed" = "ناتوانی در اخذ آخرین تجدید نظر.";
 "wikitext-download-success" = "متن بارگیری شد.";
 "wikitext-preview-changes" = "بازیابی پیش نمایش تغییرات شما...";
 "wikitext-preview-changes-none" = "تغییری برای پیش نمایش وجود ندارد.";
 "wikitext-upload-result-unknown" = "قادر به تعیین نتیجه بارگذاری متن ویکی نیست.";
-"wikitext-upload-captcha-error" = "کپتچا به درستی وارد نشده است.";
-"wikitext-upload-captcha-needed" = "نیاز به تایید بوسیله کپتچا";
+"wikitext-upload-captcha-error" = "کپچا به درستی وارد نشده است.";
+"wikitext-upload-captcha-needed" = "نیاز به تایید بوسیله کپچا";
 "wikitext-upload-save" = "در حال ذخیره‌سازی...";
 "wikitext-upload-save-sign-in" = "ورود";
 "wikitext-upload-save-sign-in-benefits" = "بنابراین ویرایشگران همکار می توانند با شما تماس برقرار کنند و شما می‌توانید ببنید چه مقالاتی ویرایش کرده‌اید.";
 "wikitext-upload-save-anonymously" = "ذخیره به صورت ناشناس";
-"wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری را رعایت کنید.";
+"wikitext-upload-save-anonymously-warning" = "ویرایش شما با آدرس آی‌پی دستگاه شما نمایش داده می‌شود. اگر شما  $1  باید حریم خصوصی بیشتری خواهید داشت.";
 "wikitext-upload-save-terms-and-license" = "با ذخیره‌کردن، می‌پذیرید که $1، و به طور جبران‌ناشدنی مشارکت‌هایتان را تحت پروانه $2 منتشر کنید.";
 "wikitext-upload-save-terms-name" = "شرایط استفاده";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -104,20 +108,24 @@
 "search-within-articles" = "در مقالات";
 "search-did-you-mean" = "منظورتان «$1» بود؟";
 "search-recent-title" = "جستجوهای اخیر";
-"search-recent-clear-confirmation-heading" = "حذف همهٔ آخرین جستجوها؟";
+"search-recent-clear-confirmation-heading" = "حذف همهٔ جستجوهای اخیر ؟";
 "search-recent-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "search-recent-clear-cancel" = "لغو";
 "search-recent-clear-delete-all" = "حذف همه";
+"search-result-redirected-from" = "تغییرمسیر از: $1";
 "settings-title" = "تنظیمات";
 "main-menu-title" = "بیشتر";
 "main-menu-heading-about" = "درباره";
 "main-menu-language-title" = "جستجوی  $1  زبان ویکی";
+// Fuzzy
 "main-menu-faq" = "پاسخ پرسش‌های رایج";
 "main-menu-language-toggle-show" = "نمایش زبان‌ها";
 "main-menu-language-toggle-hide" = "پنهان کردن زبان‌ها";
 "main-menu-language-selection-saved" = "انتخاب زبان ذخیره شد";
 "main-menu-account-title-logged-out" = "حساب کاربری";
+// Fuzzy
 "main-menu-account-title-logged-in" = "ورود به عنوان: $1";
+// Fuzzy
 "main-menu-account-login" = "ورود به ویکی‌پدیا";
 "main-menu-account-logout" = "خروج از سامانه";
 "main-menu-show-title" = "نشانم بده...";
@@ -126,14 +134,18 @@
 "main-menu-current-article-save" = "ذخیره  $1  برای خواندن آفلاین";
 "main-menu-random" = "تصادفی";
 "main-menu-feedback-heading" = "بازخورد";
+// Fuzzy
 "main-menu-send-feedback" = "فرستادن بازخورد برنامه";
 "main-menu-show-page-history" = "سابقه تغییرات $1";
 "main-menu-credits" = "اعتبارات";
+// Fuzzy
 "main-menu-about" = "دربارهٔ نرم‌افزار ویکی‌پدیا";
 "main-menu-zero-faq" = "پرسش‌های رایج ویکی‌پدیا صفر";
 "main-menu-privacy-policy" = "سیاست محرمانگی";
+// Fuzzy
 "main-menu-terms-of-use" = "شرایط استفاده";
-"main-menu-rate-app" = "رتبه برنامه";
+// Fuzzy
+"main-menu-rate-app" = "به برنامه امتیاز دهید";
 "main-menu-heading-zero" = "ویکی‌پدیای صفر";
 "main-menu-heading-legal" = "سیاست‌ها و محرمانگی";
 "main-menu-show-today" = "امروز";
@@ -141,13 +153,16 @@
 "main-menu-more" = "بیشتر...";
 "main-menu-heading-debug" = "اشکال‌زدائی";
 "main-menu-debug-crash" = "از کار افتادن";
+"main-menu-debug-tweaks" = "تنظیمات توسعه دهنده";
 "saved-title" = "ذخیره شد";
 "saved-pages-title" = "صفحات ذخیره شده";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "همه موارد ذخیره‌شده حذف شوند؟";
 "saved-pages-clear-confirmation-sub-heading" = "این عمل نمی‌تواند برگردانده شود!";
 "saved-pages-clear-cancel" = "لغو";
+// Fuzzy
 "saved-pages-clear-delete-all" = "حذف همه";
-"saved-pages-refresh-cancel-alert-title" = "بارگذاری لغو شد";
+"saved-pages-refresh-cancel-alert-title" = "به‌روز رسانی لغو شد";
 "saved-pages-refresh-cancel-alert-message" = "مقالات ویکی‌پدیا همیشه به‌روز می‌شوند. برای دریافت آخرین نسخه بر روی صفحه انگشت بزنید تا بروز شود.";
 "saved-pages-refresh-cancel-alert-button" = "گرفتم";
 "saved-pages-description" = "صفحات ذخیره‌شده بسیار عالی هستند. به آنها به چشم بوکمارک‌هایی نگاه کنید که می‌توانید بخوانید حتی زمانی که آفلاین هستید.";
@@ -176,17 +191,17 @@
 "edit-summary-choice-added-missing-info" = "افزودن اطلاعات ناقص";
 "edit-summary-choice-added-clarification" = "افزودن توضیح";
 "edit-summary-choice-other" = "سایر";
-"edit-summary-description" = "خلاصه ویرایش به دیگر همکاران  کمک می‌کند تا ویرایش‌هایتان را به سرعت بررسی می کنند. همچنین می‌توانید از برچسب ها زیر استفاده کنید.";
+"edit-summary-description" = "خلاصه ویرایش به دیگر همکاران  کمک می‌کند تا ویرایش‌هایتان را به سرعت بررسی کنند. همچنین می‌توانید از برچسب های زیر استفاده کنید.";
 "edit-summary-field-placeholder-text" = "راه‌های دیگر برای بهبود دادن مقاله";
 "edit-summary-title" = "چگونه مقاله را بهبود دادید؟";
 "fetching-random-article" = "دریافت مقاله تصادفی";
-"article-pull-to-refresh-prompt" = "برای بروزرسانی، صفحه را بکشید";
+"article-pull-to-refresh-prompt" = "برای بروزرسانی، صفحه را به پایین بکشید";
 "article-pull-to-refresh-is-refreshing" = "بازیابی مقاله";
 "credits-title" = "مخازن منبع باز";
-"credits-wikimedia-repos" = "ویکی‌مدیا";
+"credits-wikimedia-repos" = "مخازن ویکی‌مدیا";
 "credits-gerrit-repo" = "نرم‌افزار اصلی (گرت)";
 "credits-github-mirror" = "نرم‌افزار مشابه (GitHub)";
-"credits-external-libraries" = "خارجی";
+"credits-external-libraries" = "مخازن خارجی";
 "about-title" = "درباره";
 "about-wikipedia" = "ویکی‌پدیا";
 "about-contributors" = "مشارکت‌کنندگان";
@@ -206,8 +221,9 @@
 "share-custom-menu-item" = "به اشتراک گذاشتن";
 "share-article-name-on-wikipedia" = "\"$1\" در @ویکی‌پدیا:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" در @ویکی‌پدیا: \"$2\"";
-"share-as-image" = "اشتراک گذاشتن پرونده";
-"share-as-text" = "اشتراک گذاشتن متن";
+"share-as-image" = "اشتراک گذاشتن به عنوان پرونده";
+"share-as-text" = "اشتراک گذاشتن به عنوان متن";
+"share-cancel" = "لغو";
 "timestamp-just-now" = "هم‌اکنون";
 "timestamp-minutes" = "%d دقیقه پیش";
 "timestamp-hours" = "%d ساعت پیش";
@@ -223,12 +239,12 @@
 "button-saved-for-later" = "ذخیره برای بعد";
 "onboarding-create-account" = "ایجاد حساب کاربری";
 "onboarding-login" = "ورود به سامانه";
-"onboarding-already-have-account" = "حساب کاربری دارید؟ $1.";
+"onboarding-already-have-account" = "حساب کاربری دارید؟ $1";
 "onboarding-skip" = "رها کردن";
 "onboarding-wikipedia" = "ویکی‌پدیا";
 "onboarding-free-encyclopedia" = "دانشنامهٔ آزاد";
 "preference_title_eventlogging_opt_in" = "ارسال گزارش‌های استفاده";
-"preference_summary_eventlogging_opt_in" = "به ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این اپلیکیشن برای ساخت اپلیکیشن بهتر اجازه دهید";
+"preference_summary_eventlogging_opt_in" = "به ویکی‌مدیا برای جمع‌آوری اطلاعات درباره چگونگی استفاده‌تان از این اپلیکیشن برای بهتر ساختن اپلیکیشن اجازه دهید";
 "page_protected_autoconfirmed" = "این صفحه به طور نیمه حفاظت شده‌است.";
 "page_protected_sysop" = "این صفحه به طور کامل حفاظت شده‌است.";
 "page_protected_other" = "این صفحه به سطح‌های روبرو حفاظت شده‌است: $1";
@@ -237,6 +253,7 @@
 "license-footer-text" = "مطالب زیر تحت شرایط $1 در دسترس است";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "محتویات";
+"table-of-contents-button-label" = "فهرست مندرجات";
 "abuse-filter-warning-heading" = "به نظر می‌آید این ویرایش غیرسازنده باشد، آیا مطمئنید می‌خواهید ذخیره‌اش کنید؟";
 "abuse-filter-warning-subheading" = "ویرایش‌تان ممکن است شامل یک یا چند مورد از موارد زیر باشد:";
 "abuse-filter-warning-caps" = "نوشتن همه با حروف بزرگ";
@@ -269,13 +286,13 @@
 "nearby-pull-to-refresh-is-refreshing" = "تازه کردن";
 "nearby-loading" = "در حال بارگذاری مقاله‌های نزدیک...";
 "nearby-loaded" = "مقاله‌های بارگذاری‌شده در این نزدیکی";
-"nearby-none" = "هیچ مقاله نزدیکی یافت نشد. برای تازه کردن فشار دهید یا بعداً تلاش کنید.";
+"nearby-none" = "هیچ مقاله نزدیکی یافت نشد. برای تازه کردن بکشید یا بعداً تلاش کنید.";
 "nearby-open-in-maps" = "بازشدن در نقشه";
 "nearby-cancel" = "لغو";
 "nearby-location-updates-denied" = "این اپلیکیشن دسترسی برای به روز رسانی‌های موقعیت را ندارد.";
 "nearby-location-updates-enable" = "برای فعال کردن به روز رسانی‌ها تنظیمات اپلیکیشن را باز کنید و روبرو را انتخاب کنید:";
 "nearby-location-updates-settings-menu" = "حریم شخصی > خدمات موقعیت > ویکی‌پدیا";
-"nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه کردن فشار دهید یا بعداً تلاش کنید.";
+"nearby-location-general-error" = "ناتوان در تشخیص موقعیت. برای تازه کردن بکشید یا بعداً تلاش کنید.";
 "nearby-wifi" = "فعال کردن وای‌فای می‌تواند به دستگاه‌تان در بهتر تشخیص‌دادن موقعیت‌تان کمک کند.";
 "migration-update-progress-label" = "مهاجرت اطلاعات محلی";
 "migration-update-progress-count-label" = "مهاجرت مقاله از $1 به $2";
@@ -283,9 +300,9 @@
 "migration-prompt-message" = "باید صفحات ذخیره شده و صفحات اخیر انتقال یابند. این کار چند دقیقه زمان می‌برد…";
 "migration-confirm-button-title" = "کارهای من را انتقال بده";
 "migration-skip-button-title" = "حذف این";
-"image-gallery-unknown-owner" = "آپلود کننده ناشناخته است.";
+"image-gallery-unknown-owner" = "بارگذار ناشناخته است.";
 "image-gallery-fetch-image-info-error-title" = "امکان دانلود تصویرها نیست";
-"image-gallery-fetch-image-info-error-message" = "امکان دانلود پرونده برای این مقاله نیست. لطفاً از تلاش مجدد کنید.";
+"image-gallery-fetch-image-info-error-message" = "امکان دانلود پرونده برای این مقاله نیست. لطفاً صفحه را تازه کرده و مجددا امتحان کنید.";
 "image-gallery-fetch-image-info-error-ok" = "تأیید";
 "hockeyapp-alert-question" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟";
 "hockeyapp-alert-question-with-response-field" = "آیا مایلید تا گزارش از کار افتادن را به $1 ارسال کنید تا ویکی‌مدیا بتواند آن‌را بررسی کند؟ لطفاً شرح دهید که در هنگام از کار افتادن چه رخ داد:";
@@ -296,6 +313,7 @@
 "hockeyapp-alert-privacy" = "سیاست محرمانگی $1";
 "page-issues" = "موضوعات صفحه";
 "page-similar-titles" = "صفحات مشابه";
+// Fuzzy
 "page-read-in-other-languages" = "خواندن به $1 زبان";
 "page-last-edited" = "تغییر یافته در $1 روز پیش";
 "page-edit-history" = "تاریخچهٔ کامل ویرایش";
@@ -307,42 +325,45 @@
 "home-continue-related-heading" = "چون شما $1 را مطالعه می‌کنید";
 "home-more-like-footer" = "موارد بیشتر شبیه $1";
 "home-nearby-footer" = "موارد بیشتر در نزدیکی شما";
-"home-nearby-nothing" = "هیچ چیز در نزدیکی";
+"home-nearby-nothing" = "هیچ چیز در نزدیکی نیست";
 "home-nearby-check-again" = "جستجوی مجدد";
-"home-featured-article-heading" = "مشخصات مقاله $1";
+"home-featured-article-heading" = "مقاله برگزیده برای $1";
 "home-main-page-heading" = "امروز در ویکی‌پدیا";
 "home-potd-heading" = "تصویر روز برای $1";
+"home-last-update-label" = "آخرین به روز رسانی: $1";
+"home-last-update-never-label" = "آخرین به‌روز رسانی: هرگز";
+"home-updating-label" = "در حال به‌روز رسانی...";
+"home-hide-suggestion-prompt" = "این پیشنهاد را پنهان کن";
+"home-hide-suggestion-cancel" = "لغو";
+"home-accessibility-label" = "ویکی‌پدیا, کاوش";
+"home-button-accessibility-label" = "دکمه خانه";
 "potd-empty-error-description" = "خطا در دریافت تصویر روز برای $1";
 "potd-description-prefix" = "تصویر روز برای $1";
-"welcome-whats-new-title" = "به ویکی‌پدیا خوش آمدید";
-"welcome-whats-new-whats-new" = "موارد جدید";
-"welcome-whats-new-bullet-one-title" = "روش جدید برای مرور";
-"welcome-whats-new-bullet-one-text" = "پیدا کردن مقاله مورد علاقه و جدید برای شما در صفحهٔ مرور.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "این چگونه کار می‌کند...";
-"welcome-whats-new-bullet-two-title" = "برای مطالعه طراحی شده‌است";
-"welcome-whats-new-bullet-two-text" = "طرح به‌روز شده بر روی بهبود تجربهد مطالعه تمرکز کرده‌است.";
-"welcome-whats-new-button-title" = "شروع شده‌است";
-"welcome-whats-new-bullet-one-more-info-text" = "زمانی که شما یک مقاله را مطالعه می‌کنید، مقالات مرتبط به صورت خودکار به فید شما افزوده می‌شوند این مورد تغییری در نحوهٔ جمع‌آوری اطلاعات شما ندارد و تاریخچهٔ مواردی را که خواندید به صورت خصوصی باقی خواهد ماند.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "گرفتم";
+// Fuzzy
 "welcome-languages-title" = "زبان برای جستجو";
-"welcome-languages-more-info-button-text" = "به من بیشتر بگو";
-"welcome-languages-more-info-text" = "مقالات ویکی‌پدیا معمولاً به چند زبان موجودند. زبانی را که قصد جستجو بر پایهٔ آن را دارید، انتخاب کنید. بعداً امکان تغییر وجود دارد.";
-"welcome-languages-more-info-done-button" = "گرفتم";
-"welcome-languages-more-languages-button-title" = "زبان‌های بیشتر بیافزائید";
-"welcome-languages-button-title" = "ادامه";
-"welcome-languages-footnote-text" = "نگران نباشید این را بعدا می توانید تغییر دهید.";
-"welcome-usage-reports-title" = "به ما در بهبود ویکی‌پدیا کمک کنید";
-"welcome-usage-reports-body-text" = "با اجازه دادن به ما برای جمع‌آوری اطلاعات دربارهٔ نحوهٔ استفادهٔ شما از این اپلیکیشن، در بهبود آن کمک کنید.";
-"welcome-usage-reports-switch-text" = "ارسال گزارش‌های استفاده";
-"welcome-usage-reports-button-title" = "شروع شد";
-"welcome-usage-reports-privacy-policy-button-text" = "امنیت شما برای ما اهمیت دارد";
 "empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
 "empty-no-feed-action-message" = "فعلا می توانید صفحه‌های ذخیره شده را مطالعه کنید";
 "empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
+// Fuzzy
 "empty-no-search-results-message" = "متاسفانه امکان بارگیری نتیجه نیست";
 "empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
 "empty-no-saved-pages-message" = "ذخیرهٔ صفحه برای مشاهدهٔ بعدی، شاید آفلاین";
 "empty-no-history-title" = "تاریخچه‌ای برای مشاهده وجود ندارد";
 "empty-no-history-message" = "پیگیری مواردی که مطالعه کرده‌اید";
 "alert-no-internet" = "به اینترنت متصل نیستید";
+"icon-shortcut-search-title" = "جستجو در ویکی‌پدیا";
+"icon-shortcut-continue-reading-title" = "ادامه دادن به خواندن";
+"icon-shortcut-random-title" = "مقاله تصادفی";
+"icon-shortcut-nearby-title" = "مقاله های نزدیک";
+"close-button-accessibility-label" = "بستن";
+"back-button-accessibility-label" = "بازگشت";
+"compass-direction" = "در ساعت $1";
+"explore-featured-article-heading" = "مقالهٔ برگزیده";
+"explore-continue-reading-heading" = "ادامه دادن به خواندن";
+"explore-nearby-heading" = "مکان های نزدیک";
+"explore-continue-related-heading" = "چون شما مطالعه می‌کنید";
+"explore-main-page-heading" = "امروز در ویکی‌پدیا";
+"explore-random-article-heading" = "مقاله تصادفی";
+"explore-random-article-sub-heading" = "ویکی‌پدیای انگلیسی";
+"explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
