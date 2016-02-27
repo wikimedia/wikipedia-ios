@@ -1,0 +1,23 @@
+{
+  "name": "NSDate-Extensions",
+  "version": "0.0.1",
+  "summary": "Practical real-world dates.",
+  "homepage": "http://ericasadun.com",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Erica Sadun": "erica@ericasadun.com"
+  },
+  "platforms": {
+    "ios": null
+  },
+  "source": {
+    "git": "https://github.com/wikimedia/NSDate-Extensions.git",
+    "commit": "fe0e541c053257b97402ca799f91951a9261e590"
+  },
+  "source_files": "*.{h,m}",
+  "frameworks": "Foundation",
+  "requires_arc": true
+}

@@ -52,6 +52,8 @@
 #import "UIWebView+WMFTrackingView.h"
 #import "NSArray+WMFLayoutDirectionUtilities.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
+#import <TUSafariActivity/TUSafariActivity.h>
+#import "WMFArticleTextActivitySource.h"
 
 #import "NSString+WMFPageUtilities.h"
 #import "NSURL+WMFLinkParsing.h"
@@ -371,7 +373,6 @@ NS_ASSUME_NONNULL_BEGIN
     return _saveToolbarItem;
 }
 
-
 - (UIBarButtonItem*)flexibleSpaceToolbarItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                          target:nil
@@ -384,7 +385,7 @@ NS_ASSUME_NONNULL_BEGIN
         _shareToolbarItem = [[UIBarButtonItem alloc] bk_initWithBarButtonSystemItem:UIBarButtonSystemItemAction
                                                                             handler:^(id sender){
             @strongify(self);
-            [self shareArticleWithTextSnippet:[self.webViewController selectedText] fromButton:sender];
+            [self shareArticleWithTextSnippet:nil fromButton:sender];
         }];
     }
     return _shareToolbarItem;
@@ -410,7 +411,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[PiwikTracker sharedInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
         [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
@@ -616,11 +617,10 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     [self.webViewController didMoveToParentViewController:self];
 
-    self.pullToRefresh = [[UIRefreshControl alloc] init];
-    self.pullToRefresh.enabled         = [self canRefresh];
+    self.pullToRefresh         = [[UIRefreshControl alloc] init];
+    self.pullToRefresh.enabled = [self canRefresh];
     [self.pullToRefresh addTarget:self action:@selector(fetchArticle) forControlEvents:UIControlEventValueChanged];
     [self.webViewController.webView.scrollView addSubview:_pullToRefresh];
-
 }
 
 #pragma mark - Save Offset
@@ -730,16 +730,35 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareArticleWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+- (void)shareAFactWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
     if (self.shareOptionsController.isActive) {
         return;
     }
-    
-    if (text.length == 0) {
-        text = [self.article shareSnippet];
-    }
-    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
     [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
+}
+
+- (void)shareArticleFromButton:(nullable UIBarButtonItem*)button {
+    [self shareArticleWithTextSnippet:nil fromButton:button];
+}
+
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+    [self.shareFunnel logShareButtonTappedResultingInSelection:text];
+
+    NSMutableArray* items = [NSMutableArray array];
+
+    [items addObject:[[WMFArticleTextActivitySource alloc] initWithArticle:self.article shareText:text]];
+
+    if (self.article.title.desktopURL) {
+        NSURL* url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@?%@",
+                                                    self.article.title.desktopURL.absoluteString,
+                                                    @"wprov=sfii1"]];
+
+        [items addObject:url];
+    }
+
+    UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+
+    [self presentViewController:vc animated:YES completion:NULL];
 }
 
 #pragma mark - Scroll Position and Fragments
@@ -799,8 +818,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
-    [self shareArticleWithTextSnippet:text fromButton:nil];
-    [self.delegate articleControllerDidTapShareSelectedText:self];
+    [self shareAFactWithTextSnippet:text fromButton:nil];
 }
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {
@@ -919,7 +937,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:nil];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
@@ -959,7 +977,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)pushArticleViewController:(WMFArticleViewController*)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 

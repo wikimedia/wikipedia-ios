@@ -3,8 +3,8 @@
 @interface UIViewController (WMFOpenExternalLinkDelegate)
 
 /**
- *  Open an external URL. 
- *  In iOS 9, this uses Safari since we get the nice bread crumb. 
+ *  Open an external URL.
+ *  In iOS 9, this uses Safari since we get the nice bread crumb.
  *  In iOS 8 we use aninternal browser so they dont'y leave the app
  *
  *  @param url The url to open

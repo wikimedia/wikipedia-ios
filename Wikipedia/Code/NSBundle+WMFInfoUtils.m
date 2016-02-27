@@ -50,8 +50,24 @@
     return [self objectForInfoDictionaryKey:@"WMFHockeyAppIdentifier"];
 }
 
+- (NSString*)wmf_piwikURL {
+    return [self objectForInfoDictionaryKey:@"WMFPiwikURL"];
+}
+
+- (NSString*)wmf_piwikAppID {
+    return [self objectForInfoDictionaryKey:@"WMFPiwikAppIdentifier"];
+}
+
 - (BOOL)wmf_shouldShowDebugMenu {
     return [[self objectForInfoDictionaryKey:@"WMFShowDebugMenu"] boolValue];
+}
+
+- (BOOL)wmf_isPiwikEnabledAndConfigured {
+#ifndef PIWIK_ENABLED
+    return NO;
+#else
+    return [self wmf_piwikURL].length > 0 && [self wmf_piwikAppID].length > 0;
+#endif
 }
 
 @end

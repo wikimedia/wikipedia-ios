@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isActive {
-    return  self.containerViewController != nil;
+    return self.containerViewController != nil;
 }
 
 #pragma mark - Public Presentation methods

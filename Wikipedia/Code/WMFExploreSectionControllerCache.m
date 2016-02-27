@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
             controller = [self featuredArticleSectionControllerForSchemaItem:section];
             break;
         case WMFExploreSectionTypePictureOfTheDay:
-            controller = [self picOfTheDaySectionController];
+            controller = [self picOfTheDaySectionControllerForSchemaItem:section];
             break;
         case WMFExploreSectionTypeMostRead:
             controller = [self mostReadSectionControllerForSection:section];
@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Section Controller Creation
 
 - (WMFMostReadSectionController*)mostReadSectionControllerForSection:(WMFExploreSection*)section {
-    return [[WMFMostReadSectionController alloc] initWithDate:section.dateCreated
+    return [[WMFMostReadSectionController alloc] initWithDate:section.mostReadFetchDate
                                                          site:section.site
                                                     dataStore:self.dataStore];
 }
@@ -125,8 +125,8 @@ NS_ASSUME_NONNULL_BEGIN
     return [[WMFMainPageSectionController alloc] initWithSite:item.site dataStore:self.dataStore];
 }
 
-- (WMFPictureOfTheDaySectionController*)picOfTheDaySectionController {
-    return [[WMFPictureOfTheDaySectionController alloc] initWithDataStore:self.dataStore];
+- (WMFPictureOfTheDaySectionController*)picOfTheDaySectionControllerForSchemaItem:(WMFExploreSection*)item  {
+    return [[WMFPictureOfTheDaySectionController alloc] initWithDataStore:self.dataStore date:item.dateCreated];
 }
 
 - (WMFFeaturedArticleSectionController*)featuredArticleSectionControllerForSchemaItem:(WMFExploreSection*)item {

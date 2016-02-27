@@ -57,7 +57,6 @@ static double const WMFImageGalleryMaxDetailHeight = 250.0;
         _imageView = imageView;
 
         WMFImageGalleryDetailOverlayView* detailOverlayView = [WMFImageGalleryDetailOverlayView wmf_viewFromClassNib];
-        detailOverlayView.userInteractionEnabled = NO;
         [self.contentView addSubview:detailOverlayView];
         _detailOverlayView = detailOverlayView;
 

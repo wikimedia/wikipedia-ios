@@ -15,7 +15,7 @@
     [self wmf_openExternalUrl:url useSafari:NO];
 }
 
-- (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari{
+- (void)wmf_openExternalUrl:(NSURL*)url useSafari:(BOOL)useSafari {
     NSParameterAssert(url);
 
     //If zero rated, don't open any external (non-zero rated!) links until user consents!
@@ -31,9 +31,7 @@
     } else {
         [self wmf_openExternalUrlModallyIfNeeded:url forceSafari:useSafari];
     }
-
 }
-
 
 - (void)wmf_openExternalUrlModallyIfNeeded:(NSURL*)url forceSafari:(BOOL)forceSafari {
     // iOS 9 and later just use UIApplication's openURL.

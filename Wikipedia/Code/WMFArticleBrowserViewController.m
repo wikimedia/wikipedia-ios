@@ -20,7 +20,6 @@
 #import "UIViewController+WMFStoryboardUtilities.h"
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "PiwikTracker+WMFExtensions.h"
-#import "WMFShareOptionsController.h"
 #import "WMFShareFunnel.h"
 #import "UIToolbar+WMFStyling.h"
 
@@ -58,8 +57,6 @@ BOOL useSingleBrowserController() {
 @property (nonatomic, strong) UIBarButtonItem* tableOfContentsToolbarItem;
 
 @property (nonatomic, strong) WMFSaveButtonController* saveButtonController;
-
-@property (strong, nonatomic, nullable) WMFShareOptionsController* shareOptionsController;
 
 @end
 
@@ -183,18 +180,6 @@ BOOL useSingleBrowserController() {
     return _languagesToolbarItem;
 }
 
-- (nullable WMFShareOptionsController*)shareOptionsController {
-    NSParameterAssert([[self currentViewController] article]);
-    if (![[self currentViewController] article]) {
-        return nil;
-    }
-    if (!_shareOptionsController) {
-        _shareOptionsController = [[WMFShareOptionsController alloc] initWithArticle:[[self currentViewController] article]
-                                                                         shareFunnel:[[self currentViewController] shareFunnel]];
-    }
-    return _shareOptionsController;
-}
-
 - (UINavigationController*)internalNavigationController {
     if (!_internalNavigationController) {
         UINavigationController* nav = [[UINavigationController alloc] init];
@@ -304,7 +289,7 @@ BOOL useSingleBrowserController() {
 
 - (void)pushArticleViewController:(WMFArticleViewController*)viewController animated:(BOOL)animated {
     viewController.delegate = self;
-    [[PiwikTracker sharedInstance] wmf_logView:viewController];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
     [self.internalNavigationController pushViewController:viewController animated:animated];
 }
 
@@ -469,18 +454,7 @@ BOOL useSingleBrowserController() {
 #pragma mark - Share
 
 - (void)showShareSheet {
-    [self showShareSheetFrombarButtonItem:self.shareToolbarItem];
-}
-
-- (void)showShareSheetFrombarButtonItem:(nullable UIBarButtonItem*)item {
-    
-    if (self.shareOptionsController.isActive) {
-        return;
-    }
-    
-    NSString* text = [[self currentViewController] shareText];
-    [[[self currentViewController] shareFunnel] logShareButtonTappedResultingInSelection:text];
-    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:item];
+    [[self currentViewController] shareArticleFromButton:self.shareToolbarItem];
 }
 
 #pragma mark - Languages
@@ -502,10 +476,6 @@ BOOL useSingleBrowserController() {
 
 #pragma mark - WMFArticleViewControllerDelegate
 
-- (void)articleControllerDidTapShareSelectedText:(WMFArticleViewController*)controller {
-    [self showShareSheetFrombarButtonItem:nil];
-}
-
 - (void)articleController:(WMFArticleViewController*)controller didUpdateArticleLoadProgress:(CGFloat)progress animated:(BOOL)animated {
     [self updateProgress:progress animated:animated];
 }
@@ -524,8 +494,6 @@ BOOL useSingleBrowserController() {
 - (void)navigationController:(UINavigationController*)navigationController willShowViewController:(UIViewController*)viewController animated:(BOOL)animated {
     WMFArticleViewController* vc = (WMFArticleViewController*)[self.internalNavigationController topViewController];
     vc.delegate = nil;
-
-    self.shareOptionsController = nil;
 
     if (self.currentViewController != viewController) {
         //unknown view controller being displayed
@@ -593,12 +561,14 @@ BOOL useSingleBrowserController() {
     } else {
         if (self.navigationController != nil) {
             [self.navigationController pushViewController:viewController animated:animated];
-        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]] && [[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] isKindOfClass:[UINavigationController class]]) {
-            [(UINavigationController*)[[(UITabBarController*)[self.childViewControllers firstObject] viewControllers] firstObject] pushViewController:viewController animated:animated];
+        } else if ([[self.childViewControllers firstObject] isKindOfClass:[UITabBarController class]]) {
+            UITabBarController* tab     = (UITabBarController*)[self.childViewControllers firstObject];
+            UINavigationController* nav = [tab selectedViewController];
+            [nav pushViewController:viewController animated:animated];
         } else {
             NSAssert(0, @"Unexpected view controller hierarchy");
         }
-        [[PiwikTracker sharedInstance] wmf_logView:viewController];
+        [[PiwikTracker wmf_configuredInstance] wmf_logView:viewController];
 
         dispatchOnMainQueueAfterDelayInSeconds(0.5, ^{
             MWKHistoryList* historyList = viewController.dataStore.userDataStore.historyList;

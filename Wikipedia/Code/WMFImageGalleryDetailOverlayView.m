@@ -19,10 +19,12 @@ static double const WMFImageGalleryLicenseBaselineOffset = -1.5;
 static double const WMFImageGalleryOwnerFontSize         = 11.f;
 
 @interface WMFImageGalleryDetailOverlayView ()
-@property (nonatomic, weak) IBOutlet UILabel* imageDescriptionLabel;
-@property (nonatomic, weak) IBOutlet UIButton* ownerButton;
+@property (nonatomic, strong) IBOutlet UILabel* imageDescriptionLabel;
+@property (nonatomic, strong) IBOutlet UIButton* ownerButton;
+@property (nonatomic, strong) IBOutlet UIButton* infoButton;
 
 - (IBAction)didTapOwnerButton;
+- (IBAction)didTapInfoButton;
 
 @end
 
@@ -69,6 +71,12 @@ static NSAttributedString* ConcatOwnerAndLicense(NSString* owner, MWKLicense* li
 - (IBAction)didTapOwnerButton {
     if (self.ownerTapCallback) {
         self.ownerTapCallback();
+    }
+}
+
+- (IBAction)didTapInfoButton {
+    if (self.infoTapCallback) {
+        self.infoTapCallback();
     }
 }
 

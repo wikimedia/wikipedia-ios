@@ -3,13 +3,22 @@
 #import "WMFWelcomeIntroductionViewController.h"
 #import "WMFBoringNavigationTransition.h"
 
-@interface WMFWelcomeViewController ()<UINavigationControllerDelegate>
+@interface WMFWelcomeViewController ()<UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UINavigationController* welcomeNavigationController;
 
 @end
 
 @implementation WMFWelcomeViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.welcomeNavigationController.interactivePopGestureRecognizer.delegate = self;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return YES;
+}
 
 + (instancetype)welcomeViewControllerFromDefaultStoryBoard {
     return [[UIStoryboard storyboardWithName:@"WMFWelcome" bundle:nil] instantiateInitialViewController];

@@ -4,7 +4,7 @@
 @implementation WMFTitleInsetRespectingButton
 
 /**
- *  UIButton does not take into acocunt its insets when calculating intrinisic content size
+ *  UIButton does not take into account its insets when calculating intrinisic content size
  *  http://stackoverflow.com/a/17806333/48311
  *
  */

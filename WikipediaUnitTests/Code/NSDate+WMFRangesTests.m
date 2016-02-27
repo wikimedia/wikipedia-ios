@@ -8,9 +8,9 @@
 
 @import Quick;
 @import Nimble;
+@import NSDate_Extensions;
 
 #import "NSDate+WMFDateRanges.h"
-#import "NSDate+Utilities.h"
 
 QuickSpecBegin(NSDate_WMFRangesTests)
 

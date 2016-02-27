@@ -69,7 +69,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] wmf_logView:self];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
     [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
 }
 
