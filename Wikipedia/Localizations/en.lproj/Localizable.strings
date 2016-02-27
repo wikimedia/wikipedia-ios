@@ -217,11 +217,13 @@
 "about-libraries-license" = "License";
 "about-libraries-licenses" = "Licenses";
 "about-content-license" = "Content license";
-"about-content-license-details" = "Unless otherwise specified, content is available under a Creative Commons Attribution-ShareAlike License.";
+"about-content-license-details" = "Unless otherwise specified, content is available under a $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Attribution-ShareAlike License";
 "about-libraries-licenses-title" = "We love open source software $1";
 "about-libraries-complete-list" = "Complete list";
 "about-repositories" = "Repositories";
-"about-repositories-app-source-license" = "Source code available under the MIT License.";
+"about-repositories-app-source-license" = "Source code available under the $1.";
+"about-repositories-app-source-license-mit" = "MIT License";
 "about-send-feedback" = "Send app feedback";
 "about-product-of" = "A product of the $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";

@@ -26,6 +26,9 @@ static NSString* const kWMFURLsFeedbackKey        = @"feedback";
 static NSString* const kWMFURLsTranslateWikiKey   = @"twn";
 static NSString* const kWMFURLsWikimediaKey       = @"wmf";
 static NSString* const kWMFURLsSpecialistGuildKey = @"tsg";
+static NSString* const kWMFURLsMITKey             = @"mit";
+static NSString* const kWMFURLsShareAlikeKey      = @"sharealike";
+
 
 static NSString* const kWMFRepositoriesKey = @"repositories";
 
@@ -159,31 +162,19 @@ static NSString* const kWMFContributorsKey = @"contributors";
     setDivHTML(@"libraries_body", [[self class] linkHTMLForURLString:@"wmflicense://licenses" title:MWLocalizedString(@"about-libraries-complete-list", nil)]);
     setDivHTML(@"repositories_title", MWLocalizedString(@"about-repositories", nil));
     setDivHTML(@"repositories_body", self.repositoryLinks);
-    setDivHTML(@"repositories_subtitle", MWLocalizedString(@"about-repositories-app-source-license", nil));
+
+    setDivHTML(@"repositories_subtitle", [self stringFromLocalizationKey:@"about-repositories-app-source-license" urlKey:kWMFURLsMITKey urlLocalizationKey:@"about-repositories-app-source-license-mit"]);
+
     setDivHTML(@"feedback_body", [[self class] linkHTMLForURLString:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
     setDivHTML(@"license_title", MWLocalizedString(@"about-content-license", nil));
-    setDivHTML(@"license_body", MWLocalizedString(@"about-content-license-details", nil));
 
-    NSString* twnUrl            = self.urls[kWMFURLsTranslateWikiKey];
-    NSString* translatorsLink   = [[self class] linkHTMLForURLString:twnUrl title:[twnUrl substringFromIndex:7]];
-    NSString* translatorDetails =
-        [MWLocalizedString(@"about-translators-details", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                        withString:translatorsLink];
-    setDivHTML(@"translators_body", translatorDetails);
 
-    NSString* tsgUrl     = self.urls[kWMFURLsSpecialistGuildKey];
-    NSString* tsgLink    = [[self class] linkHTMLForURLString:tsgUrl title:[tsgUrl substringFromIndex:7]];
-    NSString* tsgDetails =
-        [MWLocalizedString(@"about-testers-details", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                                    withString:tsgLink];
-    setDivHTML(@"testers_body", tsgDetails);
+    setDivHTML(@"license_body", [self stringFromLocalizationKey:@"about-content-license-details" urlKey:kWMFURLsShareAlikeKey urlLocalizationKey:@"about-content-license-details-share-alike-license"]);
 
-    NSString* wmfUrl     = self.urls[kWMFURLsWikimediaKey];
-    NSString* foundation = [[self class] linkHTMLForURLString:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];
-    NSString* footer     =
-        [MWLocalizedString(@"about-product-of", nil) stringByReplacingOccurrencesOfString:@"$1"
-                                                                               withString:foundation];
-    setDivHTML(@"footer", footer);
+    setDivHTML(@"translators_body", [self stringFromLocalizationKey:@"about-translators-details" urlKey:kWMFURLsTranslateWikiKey]);
+    setDivHTML(@"testers_body", [self stringFromLocalizationKey:@"about-testers-details" urlKey:kWMFURLsSpecialistGuildKey]);
+
+    setDivHTML(@"footer", [self stringFromLocalizationKey:@"about-product-of" urlKey:kWMFURLsWikimediaKey urlLocalizationKey:@"about-wikimedia-foundation"]);
 
     NSString* textDirection   = ([[UIApplication sharedApplication] wmf_isRTL] ? @"rtl" : @"ltr");
     NSString* textDirectionJS = [NSString stringWithFormat:@"document.body.style.direction = '%@'", textDirection];
@@ -191,6 +182,19 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     NSString* fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
     [webView stringByEvaluatingJavaScriptFromString:fontSizeJS];
+}
+
+- (NSString*)stringFromLocalizationKey:(NSString*)localizationKey
+                                urlKey:(NSString*)urlKey
+                    urlLocalizationKey:(NSString*)urlLocalizationKey {
+    return [MWLocalizedString(localizationKey, nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                              withString:[[self class] linkHTMLForURLString:self.urls[urlKey] title:MWLocalizedString(urlLocalizationKey, nil)]];
+}
+
+- (NSString*)stringFromLocalizationKey:(NSString*)localizationKey
+                                urlKey:(NSString*)urlKey {
+    return [MWLocalizedString(localizationKey, nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                              withString:[[self class] linkHTMLForURLString:self.urls[urlKey] title:[self.urls[urlKey] substringFromIndex:7]]];
 }
 
 #pragma mark - Introspection
@@ -213,7 +217,7 @@ static NSString* const kWMFContributorsKey = @"contributors";
     if ([[self class] isLicenseURL:requestURL]) {
         VTAcknowledgementsViewController* vc = [VTAcknowledgementsViewController acknowledgementsViewController];
         vc.headerText = [MWLocalizedString(@"about-libraries-licenses-title", nil) stringByReplacingOccurrencesOfString:@"$1" withString:@"💖"];
-        
+
         UINavigationController* nc = [[UINavigationController alloc] initWithRootViewController:vc];
         [self presentViewController:nc animated:YES completion:nil];
 
