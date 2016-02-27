@@ -408,7 +408,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)languagesController:(LanguagesViewController*)controller didSelectLanguage:(MWKLanguageLink*)language {
-    [[PiwikTracker sharedInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionSwitchLanguageInContext:self contentType:nil];
     [[MWKLanguageLinkController sharedInstance] addPreferredLanguage:language];
     [self dismissViewControllerAnimated:YES completion:^{
         [self pushArticleViewControllerWithTitle:language.title contentType:nil animated:YES];
@@ -934,7 +934,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIViewController* peekVC = [self viewControllerForPreviewURL:peekURL];
     if (peekVC) {
-        [[PiwikTracker sharedInstance] wmf_logActionPreviewInContext:self contentType:nil];
+        [[PiwikTracker wmf_configuredInstance] wmf_logActionPreviewInContext:self contentType:nil];
         self.webViewController.isPeeking = YES;
         previewingContext.sourceRect     = [self.webViewController rectForHTMLElement:peekElement];
         return peekVC;
@@ -974,7 +974,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)pushArticleViewController:(WMFArticleViewController*)articleViewController contentType:(nullable id<WMFAnalyticsContentTypeProviding>)contentType animated:(BOOL)animated {
-    [[PiwikTracker sharedInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
+    [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:contentType];
     [self wmf_pushArticleViewController:articleViewController animated:YES];
 }
 

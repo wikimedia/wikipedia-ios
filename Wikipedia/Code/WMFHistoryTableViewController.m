@@ -59,7 +59,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[PiwikTracker sharedInstance] wmf_logView:self];
+    [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
 }
 
 - (WMFEmptyViewType)emptyViewType {
