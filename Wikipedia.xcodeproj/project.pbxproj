@@ -73,6 +73,7 @@
 		B0B0EC221C6999A9006F0D9C /* WMFSettingsMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0EC211C6999A9006F0D9C /* WMFSettingsMenuItem.m */; };
 		B0C0B07E1C6D989000859AD5 /* WMFSettingsCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */; };
 		B0E5E96F1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */; };
+		B0E5E9721C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */; };
 		B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */; };
 		B0E802BB1C0CD2260065EBC0 /* WMFStyleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BA1C0CD2260065EBC0 /* WMFStyleManager.m */; };
 		B0E802BE1C0CD2360065EBC0 /* UIButton+WMFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E802BD1C0CD2360065EBC0 /* UIButton+WMFButton.m */; };
@@ -775,6 +776,8 @@
 		B0C0B07C1C6D988800859AD5 /* WMFSettingsCellVisualTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSettingsCellVisualTests.m; sourceTree = "<group>"; };
 		B0E5E96D1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WMFWelcomeFadeInAndUp.h"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.h"; sourceTree = SOURCE_ROOT; };
 		B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WMFWelcomeFadeInAndUp.m"; path = "Wikipedia/Code/UIView+WMFWelcomeFadeInAndUp.m"; sourceTree = SOURCE_ROOT; };
+		B0E5E9701C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFWelcomeFadeInAndUpOnceViewController.h; path = Wikipedia/Code/WMFWelcomeFadeInAndUpOnceViewController.h; sourceTree = SOURCE_ROOT; };
+		B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFWelcomeFadeInAndUpOnceViewController.m; path = Wikipedia/Code/WMFWelcomeFadeInAndUpOnceViewController.m; sourceTree = SOURCE_ROOT; };
 		B0E802B61C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WMFButtonConvenience.h"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.h"; sourceTree = SOURCE_ROOT; };
 		B0E802B71C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+WMFButtonConvenience.m"; path = "Wikipedia/Code/UIBarButtonItem+WMFButtonConvenience.m"; sourceTree = SOURCE_ROOT; };
 		B0E802B91C0CD2260065EBC0 /* WMFStyleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFStyleManager.h; path = Wikipedia/Code/WMFStyleManager.h; sourceTree = SOURCE_ROOT; };
@@ -2420,6 +2423,8 @@
 				B0AB163C1C7E742F002E566A /* UIButton+WMFWelcomeNextButton.m */,
 				B0E5E96D1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.h */,
 				B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */,
+				B0E5E9701C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.h */,
+				B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */,
 				0E26B0881C0FD7E00004D687 /* Container */,
 				0E26B0891C0FD7F70004D687 /* Intro */,
 				0E26B08A1C0FD8040004D687 /* Language */,
@@ -5710,6 +5715,7 @@
 				B0E8055B1C0CE0DC0065EBC0 /* UIView+WMFSearchSubviews.m in Sources */,
 				B01162E81C24D3B200C3B52B /* WMFPageIssuesViewController.m in Sources */,
 				B0E803BD1C0CDC360065EBC0 /* WMFArticleListTableViewCell.m in Sources */,
+				B0E5E9721C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m in Sources */,
 				B0E806F51C0CEBB60065EBC0 /* ReferencesVC.m in Sources */,
 				B0E804411C0CDF850065EBC0 /* MenuButton.m in Sources */,
 				B0E806911C0CEA470065EBC0 /* SessionSingleton.m in Sources */,

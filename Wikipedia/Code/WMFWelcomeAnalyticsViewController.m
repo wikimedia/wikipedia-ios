@@ -5,7 +5,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import "UIViewController+WMFWelcomeNavigation.h"
 #import "UIButton+WMFWelcomeNextButton.h"
-#import "UIView+WMFWelcomeFadeInAndUp.h"
 
 @import HockeySDK;
 
@@ -16,7 +15,6 @@
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UISwitch* toggle;
-@property (strong, nonatomic) IBOutlet UIView* containerView;
 
 @end
 
@@ -42,22 +40,6 @@
     }
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [self.containerView wmf_zeroLayerOpacity];
-    });
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [self.containerView wmf_fadeInAndUpAfterDelay:0.1];
-    });
 }
 
 - (IBAction)toggleAnalytics:(UISwitch*)sender {
