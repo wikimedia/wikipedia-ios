@@ -269,9 +269,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     /*
-     NOTE: Section should only be _created_ on `viewDidAppear`, which is not the same as updating.  Updates only happen
-     between sessions (i.e. when resumed from background or relaunched).
-    */
+       NOTE: Section should only be _created_ on `viewDidAppear`, which is not the same as updating.  Updates only happen
+       between sessions (i.e. when resumed from background or relaunched).
+     */
     [self createSectionSchemaIfNeeded];
 
     [self sendWillDisplayToVisibleSectionControllers];
@@ -660,14 +660,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<WMFExploreSectionController>)sectionControllerForSection:(WMFExploreSection*)section {
     id<WMFExploreSectionController> sectionController =
         [self.sectionControllerCache getOrCreateControllerForSection:section
-                                                       creationBlock:^(id<WMFExploreSectionController>  _Nonnull newController) {
-            [self registerSectionForSectionController:newController];
-        }];
+                                                       creationBlock:^(id < WMFExploreSectionController > _Nonnull newController) {
+        [self registerSectionForSectionController:newController];
+    }];
     return sectionController;
 }
 
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    if(index >= self.schemaManager.sections.count){
+    if (index >= self.schemaManager.sections.count) {
         return nil;
     }
     WMFExploreSection* section = self.schemaManager.sections[index];

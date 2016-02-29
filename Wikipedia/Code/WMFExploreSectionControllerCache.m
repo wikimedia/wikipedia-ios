@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param sectionOrController
  */
-#define WMFVerifyCacheConsistency(sectionOrController) [self verifyCacheConsistency: (sectionOrController)]
+#define WMFVerifyCacheConsistency(sectionOrController) [self verifyCacheConsistency : (sectionOrController)]
 #else
 #define WMFVerifyCacheConsistency(sectionOrController)
 #endif

@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
  *  We use this to ignore events after a stop has been requested
  */
-@property (nonatomic, assign, readwrite, getter=isUpdating) BOOL updating;
+@property (nonatomic, assign, readwrite, getter = isUpdating) BOOL updating;
 
 - (instancetype)initWithLocationManager:(CLLocationManager*)locationManager NS_DESIGNATED_INITIALIZER;
 
@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithLocationManager:(CLLocationManager*)locationManager {
     self = [super init];
     if (self) {
-        self.locationManager = locationManager;
+        self.locationManager     = locationManager;
         locationManager.delegate = self;
     }
     return self;

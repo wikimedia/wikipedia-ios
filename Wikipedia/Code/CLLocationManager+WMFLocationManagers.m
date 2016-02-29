@@ -14,7 +14,7 @@
     CLLocationManager* locationManager = [[CLLocationManager alloc] init];
     locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     locationManager.activityType    = CLActivityTypeFitness;
-    locationManager.distanceFilter = 10;
+    locationManager.distanceFilter  = 10;
     return locationManager;
 }
 
@@ -22,9 +22,8 @@
     CLLocationManager* locationManager = [[CLLocationManager alloc] init];
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     locationManager.activityType    = CLActivityTypeFitness;
-    locationManager.distanceFilter = 1;
+    locationManager.distanceFilter  = 1;
     return locationManager;
 }
-
 
 @end

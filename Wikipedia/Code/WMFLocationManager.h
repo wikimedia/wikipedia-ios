@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Use one of the above factory methods instead.
- *  
+ *
  *  @see fineLocationManager
  *  @see coarseLocationManager
  */
