@@ -5,6 +5,7 @@
 // Author: Kingu
 // Author: Laaknor
 // Author: Macofe
+// Author: SuperPotato
 // Author: Tsaetre
 
 "languages-title" = "Språk";
@@ -25,9 +26,11 @@
 "history-section-yesterday" = "I går";
 "history-section-lastweek" = "Siste uke";
 "history-section-lastmonth" = "Siste måned";
+// Fuzzy
 "history-clear-confirmation-heading" = "Tømme loggen?";
 "history-clear-confirmation-sub-heading" = "Handlingen kan ikke angres!";
 "history-clear-cancel" = "Avbryt";
+// Fuzzy
 "history-clear-delete-all" = "Tøm alt";
 "history-description" = "Du har antakelig tømt loggen. Neste gang du besøker en side kan du finne den igjen her.";
 "history-none" = "Ingen nylig besøkte sider.";
@@ -43,6 +46,7 @@
 "zero-learn-more-learn-more" = "Lær mer";
 "zero-learn-more-no-thanks" = "Lukk";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Advar meg hvis jeg forlater WIkipedia Zero";
 "zero-settings-devmode" = "Zero-utviklermodus";
 "account-creation-captcha-required" = "CAPTCHA-verifisering kreves.";
@@ -101,16 +105,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Handlingen kan ikke omgjøres!";
 "search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-delete-all" = "Slett alt";
+"search-result-redirected-from" = "Omdirigert fra: $1";
 "settings-title" = "Innstillinger";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Søk i Wikipedia på $1";
+// Fuzzy
 "main-menu-faq" = "Ofte stilte spørsmål";
 "main-menu-language-toggle-show" = "Vis språk";
 "main-menu-language-toggle-hide" = "Skjul språk";
 "main-menu-language-selection-saved" = "Språkvalg lagret";
 "main-menu-account-title-logged-out" = "Konto";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Innlogget som: $1";
+// Fuzzy
 "main-menu-account-login" = "Logg inn på Wikipedia";
 "main-menu-account-logout" = "Logg ut";
 "main-menu-show-title" = "Vis meg…";
@@ -119,13 +127,17 @@
 "main-menu-current-article-save" = "Lagre $1 for lesing offline";
 "main-menu-random" = "Tilfeldig artikkel";
 "main-menu-feedback-heading" = "Tilbakemelding";
+// Fuzzy
 "main-menu-send-feedback" = "Gi tilbakemelding på appen";
 "main-menu-show-page-history" = "Endringshistorikk for $";
 "main-menu-credits" = "Kreditering";
+// Fuzzy
 "main-menu-about" = "Om Wikipedia-appen";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "Personvernpolitikk";
+// Fuzzy
 "main-menu-terms-of-use" = "Bruksvilkår";
+// Fuzzy
 "main-menu-rate-app" = "Vurder appen";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Personvern og vilkår";
@@ -134,11 +146,14 @@
 "main-menu-more" = "Mer…";
 "main-menu-heading-debug" = "Feilsøking";
 "main-menu-debug-crash" = "Kræsj";
+"main-menu-debug-tweaks" = "Utviklers innstillinger";
 "saved-title" = "Lagret";
 "saved-pages-title" = "Lagrede sider";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Fjerne alle lagrede sider?";
 "saved-pages-clear-confirmation-sub-heading" = "Handlingen kan ikke angres!";
 "saved-pages-clear-cancel" = "Avbryt";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Slett alt";
 "saved-pages-refresh-cancel-alert-title" = "Oppdatering avbrutt";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artikler blir oppdatert hele tiden. Trykk oppdater for å få den siste versjonene av alle artiklene.";
@@ -201,6 +216,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» på @Wikipedia: «$2»";
 "share-as-image" = "Del som bilde";
 "share-as-text" = "Del som tekst";
+"share-cancel" = "Avbryt";
 "timestamp-just-now" = "nå nettopp";
 "timestamp-minutes" = "for %d minutter siden";
 "timestamp-hours" = "for %d timer siden";
@@ -230,6 +246,7 @@
 "license-footer-text" = "Innholdet er tilgjengelig under $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innhold";
+"table-of-contents-button-label" = "Oversikt over Innhold";
 "abuse-filter-warning-heading" = "Dette er muligens en lite konstruktiv redigering. Er du sikker på at du vil lagre?";
 "abuse-filter-warning-subheading" = "Den kan inneholde en eller flere av følgende ting:";
 "abuse-filter-warning-caps" = "Tekst skrevet med STORE BOKSTAVER";
@@ -289,6 +306,7 @@
 "hockeyapp-alert-privacy" = "$ personvern";
 "page-issues" = "Problemer med siden";
 "page-similar-titles" = "Lignende sider";
+// Fuzzy
 "page-read-in-other-languages" = "Les på $1 språk";
 "page-last-edited" = "Redigert for $1 dager siden";
 "page-edit-history" = "Fullstendig redigeringshistorikk";
@@ -305,37 +323,40 @@
 "home-featured-article-heading" = "Fremhevet artikkel $1";
 "home-main-page-heading" = "I dag på Wikipedia";
 "home-potd-heading" = "Dagens bilde $1";
+"home-last-update-label" = "Sist oppdatert: $1";
+"home-last-update-never-label" = "Sist oppdatert: Aldri";
+"home-updating-label" = "Oppdaterer...";
+"home-hide-suggestion-prompt" = "Skjul dette forslaget";
+"home-hide-suggestion-cancel" = "Avbryt";
+"home-accessibility-label" = "Wikipedia, Utforsk";
+"home-button-accessibility-label" = "Hjem knappen";
 "potd-empty-error-description" = "Klarte ikke hente dagens bilde $1";
 "potd-description-prefix" = "Dagens bilde $1";
-"welcome-whats-new-title" = "Velkommen til Wikipedia";
-"welcome-whats-new-whats-new" = "HVA ER NYTT";
-"welcome-whats-new-bullet-one-title" = "En ny måte å utforske på";
-"welcome-whats-new-bullet-one-text" = "Oppdag nye og interessante artikler på Oppdagelsesskjermen";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Hvordan dette fungerer…";
-"welcome-whats-new-bullet-two-title" = "Utformet for lesing";
-"welcome-whats-new-bullet-two-text" = "Oppdatert design rettet mot å gi en god leseopplevelse.";
-"welcome-whats-new-button-title" = "Kom i gang";
-"welcome-whats-new-bullet-one-more-info-text" = "Når du besøker en artikkel blir relaterte artikler automatisk lagt til i kanalen din. Dette endrer ikke hvordan vi samler inn informasjon, og lesehistorikken din forblir privat.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Forstått";
+// Fuzzy
 "welcome-languages-title" = "Språk å søke på";
-"welcome-languages-more-info-button-text" = "Jeg vil vite mer";
-"welcome-languages-more-info-text" = "Wikipedia-artikler er ofte tilgjengelig på flere språk. Velg språkene du ønsker å bruke når du søker. Du kan endre dette senere.";
-"welcome-languages-more-info-done-button" = "Forstått";
-"welcome-languages-more-languages-button-title" = "Legg til flere språk";
-"welcome-languages-button-title" = "Fortsett";
-"welcome-languages-footnote-text" = "Ingen fare, du kan endre dette senere.";
-"welcome-usage-reports-title" = "Hjelp oss med å gjøre Wikipedia bedre";
-"welcome-usage-reports-body-text" = "Du kan hjelpe oss med å gjøre appen bedre ved å tillate at vi samler inn informasjon om hvordan du bruker den.";
-"welcome-usage-reports-switch-text" = "Send bruksrapporter";
-"welcome-usage-reports-button-title" = "Kom i gang";
-"welcome-usage-reports-privacy-policy-button-text" = "Vi tar personvernet ditt på alvor";
 "empty-no-feed-title" = "Ingen internettforbindelse";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
 "empty-no-feed-action-message" = "Du kan lese lagrede sider i mellomtiden";
 "empty-no-article-message" = "Artikkelen kunne ikke lastes";
+// Fuzzy
 "empty-no-search-results-message" = "Kunne ikke hente resultater";
 "empty-no-saved-pages-title" = "Ingen sider lagret enda";
 "empty-no-saved-pages-message" = "Lagre sider for senere visning, også offline.";
 "empty-no-history-title" = "Ingen historikk å vise";
 "empty-no-history-message" = "Her kan du holde styr på hva du har lest";
 "alert-no-internet" = "Ingen internettforbindelse";
+"icon-shortcut-search-title" = "Søk i Wikipedia";
+"icon-shortcut-continue-reading-title" = "Fortsett å lese";
+"icon-shortcut-random-title" = "Tilfeldig artikkel";
+"icon-shortcut-nearby-title" = "Nære artikler";
+"close-button-accessibility-label" = "Lukk";
+"back-button-accessibility-label" = "Tilbake";
+"compass-direction" = "mot kl. $1";
+"explore-featured-article-heading" = "Fremhevede artikler";
+"explore-continue-reading-heading" = "Fortsett å lese";
+"explore-nearby-heading" = "Nære plasser";
+"explore-continue-related-heading" = "Fordi du leste";
+"explore-main-page-heading" = "I dag på Wikipedia";
+"explore-random-article-heading" = "Tilfeldig artikkel";
+"explore-random-article-sub-heading" = "Engelsk Wikipedia";
+"explore-potd-heading" = "Dagens bilde";

@@ -20,9 +20,11 @@
 "history-section-yesterday" = "Semalam";
 "history-section-lastweek" = "Minggu lepas";
 "history-section-lastmonth" = "Bulan lepas";
+// Fuzzy
 "history-clear-confirmation-heading" = "Padamkan semua item terbaru?";
 "history-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "history-clear-cancel" = "Batalkan";
+// Fuzzy
 "history-clear-delete-all" = "Padam Semua";
 "history-description" = "Mungkin anda telah memadamkan kesemuanya. Lain kali anda ke sesuatu laman, anda boleh kembali kepadanya dari sini.";
 "history-none" = "Tiada laman terbaru di sini.";
@@ -38,6 +40,7 @@
 "zero-learn-more-learn-more" = "Baca lagi";
 "zero-learn-more-no-thanks" = "Singkir";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Pesan apabila keluar dari Wikipedia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Pengesahan CAPTCHA diperlukan.";
@@ -99,11 +102,13 @@
 "main-menu-title" = "Lagi";
 "main-menu-heading-about" = "Perihal";
 "main-menu-language-title" = "Cari dalam wiki bahasa $1";
+// Fuzzy
 "main-menu-faq" = "Soalan Lazim";
 "main-menu-language-toggle-show" = "Paparkan bahasa";
 "main-menu-language-toggle-hide" = "Sorokkan bahasa";
 "main-menu-language-selection-saved" = "Pilihan bahasa disimpan";
 "main-menu-account-title-logged-out" = "Akaun";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Anda telah log masuk sebagai: $1";
 // Fuzzy
 "main-menu-account-login" = "Log masuk";
@@ -114,13 +119,17 @@
 "main-menu-current-article-save" = "Simpan $1 untuk dibaca offline";
 "main-menu-random" = "Rawak";
 "main-menu-feedback-heading" = "Maklum balas";
+// Fuzzy
 "main-menu-send-feedback" = "Hantar maklum balas aplikasi";
 "main-menu-show-page-history" = "Sejarah perubahan $1";
 "main-menu-credits" = "Kredit";
+// Fuzzy
 "main-menu-about" = "Tentang aplikasi Wikipedia";
 "main-menu-zero-faq" = "Soalan Lazim Wikipedia Zero";
 "main-menu-privacy-policy" = "Dasar privasi";
+// Fuzzy
 "main-menu-terms-of-use" = "Syarat-syarat penggunaan";
+// Fuzzy
 "main-menu-rate-app" = "Beri nilai aplikasi";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privasi dan Syarat-syarat";
@@ -130,9 +139,11 @@
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Tutup Terus";
 "saved-pages-title" = "Laman Tersimpan";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Padamkan semua item tersimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "saved-pages-clear-cancel" = "Batalkan";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Padam Semua";
 "saved-pages-refresh-cancel-alert-title" = "Pengemaskinian dibatalkan";
 "saved-pages-refresh-cancel-alert-message" = "Rencana-rencana Wikipedia dikemaskinikan sepanjang masa. Sentuh \"muat semula\" untuk mendapatkan versi terbaru semua rencana.";

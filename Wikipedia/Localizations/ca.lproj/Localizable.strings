@@ -32,9 +32,11 @@
 "history-section-yesterday" = "Ahir";
 "history-section-lastweek" = "La setmana passada";
 "history-section-lastmonth" = "El mes passat";
+// Fuzzy
 "history-clear-confirmation-heading" = "Eliminar els elements recents?";
 "history-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "history-clear-cancel" = "Cancel·la";
+// Fuzzy
 "history-clear-delete-all" = "Esborra-ho tot";
 "history-description" = "Probablement els heu esborrat tots. La pròxima vegada que aneu a una pàgina podreu tornar-hi des d'aquí.";
 "history-none" = "No hi ha pàgines recents aquí.";
@@ -50,6 +52,7 @@
 "zero-learn-more-learn-more" = "Més informació";
 "zero-learn-more-no-thanks" = "Descarta";
 "zero-wikipedia-zero-heading" = "Viquipèdia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Avisa si se surt de Viquipèdia Zero";
 "zero-settings-devmode" = "Zero Devmode";
 "account-creation-captcha-required" = "Verificació de CAPTCHA requerida.";
@@ -108,16 +111,20 @@
 "search-recent-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "search-recent-clear-cancel" = "Cancel·la";
 "search-recent-clear-delete-all" = "Suprimeix-ho tot";
+"search-result-redirected-from" = "Redirigit de: $1";
 "settings-title" = "Configuració";
 "main-menu-title" = "Més";
 "main-menu-heading-about" = "Quant a";
 "main-menu-language-title" = "Cerca la wiki en llengua $1";
+// Fuzzy
 "main-menu-faq" = "PMF";
 "main-menu-language-toggle-show" = "Mostra idiomes";
 "main-menu-language-toggle-hide" = "Amaga idiomes";
 "main-menu-language-selection-saved" = "Selecció d'idioma enregistrada";
 "main-menu-account-title-logged-out" = "Compte";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Sessió iniciada com a: $1";
+// Fuzzy
 "main-menu-account-login" = "Inicia la sessió a la Viquipèdia";
 "main-menu-account-logout" = "Finalitza la sessió";
 "main-menu-show-title" = "Mostra'm...";
@@ -126,13 +133,17 @@
 "main-menu-current-article-save" = "Desa $1 per a lectura fora de línia";
 "main-menu-random" = "A l'atzar";
 "main-menu-feedback-heading" = "Comentaris";
+// Fuzzy
 "main-menu-send-feedback" = "Envieu un suggeriment per l’aplicació";
 "main-menu-show-page-history" = "Història dels canvis a $1";
 "main-menu-credits" = "Crèdits";
+// Fuzzy
 "main-menu-about" = "Sobre l'aplicació de la Viquipèdia";
 "main-menu-zero-faq" = "Preguntes més freqüents sobre Viquipèdia Zero";
 "main-menu-privacy-policy" = "Política de privadesa";
+// Fuzzy
 "main-menu-terms-of-use" = "Condicions d’ús";
+// Fuzzy
 "main-menu-rate-app" = "Puntua l'aplicació";
 "main-menu-heading-zero" = "Viquipèdia Zero";
 "main-menu-heading-legal" = "Privadesa i condicions";
@@ -141,11 +152,14 @@
 "main-menu-more" = "Més...";
 "main-menu-heading-debug" = "Depuració";
 "main-menu-debug-crash" = "Fallada";
+"main-menu-debug-tweaks" = "Paràmetres de desenvolupament";
 "saved-title" = "Desat";
 "saved-pages-title" = "Pàgines desades";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Suprimir tots els elements desats?";
 "saved-pages-clear-confirmation-sub-heading" = "No es pot desfer l'acció!";
 "saved-pages-clear-cancel" = "Cancel·la";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Esborra-ho tot";
 "saved-pages-refresh-cancel-alert-title" = "Actualització cancel·lada";
 "saved-pages-refresh-cancel-alert-message" = "Els articles de la Viquipèdia s'actualitzen constantment. Feu un toc per obtenir la darrera versió de tots els articles.";
@@ -208,6 +222,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» a @Viquipedia: «$2»";
 "share-as-image" = "Comparteix com a imatge";
 "share-as-text" = "Comparteix com a text";
+"share-cancel" = "Cancel·la";
 "timestamp-just-now" = "ara mateix";
 "timestamp-minutes" = "fa %d minuts";
 "timestamp-hours" = "fa %d hores";
@@ -237,6 +252,7 @@
 "license-footer-text" = "El contingut està disponible sota $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Continguts";
+"table-of-contents-button-label" = "Taula de continguts";
 "abuse-filter-warning-heading" = "Això sembla una modificació no constructiva. Esteu segur que voleu desar-la?";
 "abuse-filter-warning-subheading" = "La vostra modificació pot contenir un o més dels següents problemes:";
 "abuse-filter-warning-caps" = "Escrivint en MAJÚSCULES";
@@ -296,6 +312,7 @@
 "hockeyapp-alert-privacy" = "Privadesa de $1";
 "page-issues" = "Problemes de la pàgina";
 "page-similar-titles" = "Pàgines similars";
+// Fuzzy
 "page-read-in-other-languages" = "Llegeix en $1 llengües";
 "page-last-edited" = "Modificat fa $1 dies";
 "page-edit-history" = "Historial complet";
@@ -312,37 +329,21 @@
 "home-featured-article-heading" = "Article de Qualitat per $1";
 "home-main-page-heading" = "Avui a la Viquipèdia";
 "home-potd-heading" = "Imatge del dia per a $1";
+"home-last-update-label" = "Darrera actualització: $1";
 "potd-empty-error-description" = "Ha fallat en recuperar la imatge del dia per a $1";
 "potd-description-prefix" = "Imatge del dia per a $1";
-"welcome-whats-new-title" = "Benvinguts a la Viquipèdia";
-"welcome-whats-new-whats-new" = "Què hi ha de nou";
-"welcome-whats-new-bullet-one-title" = "Una nova manera d'Explorar";
-"welcome-whats-new-bullet-one-text" = "Descobriu nous i interessants articles només per a tu a la pantalla Exploreu!";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Com funciona...";
-"welcome-whats-new-bullet-two-title" = "Dissenyat per Llegir";
-"welcome-whats-new-bullet-two-text" = "Disseny actualitzat enfocat a proporcionar una gran experiència de lectura.";
-"welcome-whats-new-button-title" = "Començar";
-"welcome-whats-new-bullet-one-more-info-text" = "Quan visiteu un article, els articles relacionats s'afegeixen automàticament al vostre canal. Això no canvia com recopilem la vostra informació, i el vostre historial de lectura segueix sent privat.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Ho he entès";
+// Fuzzy
 "welcome-languages-title" = "Llengües per cercar";
-"welcome-languages-more-info-button-text" = "Explica'm-ho més";
-"welcome-languages-more-info-text" = "Els articles de la Viquipèdia sovint estan disponibles en múltiples llengües. Seleccioneu les llengües que voleu utilitzar en les cerques. Podeu canviar-les més endavant.";
-"welcome-languages-more-info-done-button" = "Ho he entès";
-"welcome-languages-more-languages-button-title" = "Afegeix més llengües";
-"welcome-languages-button-title" = "Continua";
-"welcome-languages-footnote-text" = "No us preocupeu, podeu canviar-ho més endavant";
-"welcome-usage-reports-title" = "Ajudeu-nos a millorar la Viquipèdia";
-"welcome-usage-reports-body-text" = "Podeu ajudar-nos a millorar l'aplicació si ens permeteu recopilar informació sobre com la feu servir.";
-"welcome-usage-reports-switch-text" = "Envia informes d'ús";
-"welcome-usage-reports-button-title" = "Començar";
-"welcome-usage-reports-privacy-policy-button-text" = "Ens importa la vostra privacitat";
 "empty-no-feed-title" = "Sense Connexió a Internet";
 "empty-no-feed-message" = "Podeu veure els vostres articles recomanats quan tingueu Internet";
 "empty-no-feed-action-message" = "Mentrestant, podeu llegir les pàgines desades";
 "empty-no-article-message" = "Ho sentim, no s'ha pogut carregar l'article";
+// Fuzzy
 "empty-no-search-results-message" = "Ho sentim, no hem pogut carregar els resultats";
 "empty-no-saved-pages-title" = "Encara no teniu pàgines desades";
 "empty-no-saved-pages-message" = "Desa les pàgines per visualitzar-les més tard, fins i tot fora de línia";
 "empty-no-history-title" = "No hi ha historial per mostrar";
 "empty-no-history-message" = "Mantén un registre del que he llegit aquí";
 "alert-no-internet" = "No hi ha connexió a internet";
+"explore-featured-article-heading" = "Article destacat";
+"explore-continue-reading-heading" = "Continua llegint";

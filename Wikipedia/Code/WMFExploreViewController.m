@@ -661,6 +661,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
+    if(index >= self.schemaManager.sections.count){
+        return nil;
+    }
     WMFExploreSection* section = self.schemaManager.sections[index];
     return [self sectionControllerForSection:section];
 }
@@ -721,6 +724,8 @@ NS_ASSUME_NONNULL_BEGIN
     WMFExploreSection* homeSection = self.schemaManager.sections[section];
     if (homeSection.type == WMFExploreSectionTypeNearby) {
         [self didTapFooterInSection:section];
+    } else if (homeSection.type == WMFExploreSectionTypeHistory || homeSection.type == WMFExploreSectionTypeSaved) {
+        [self wmf_pushArticleWithTitle:homeSection.title dataStore:self.dataStore animated:YES];
     } else {
         [self selectFirstRowInSection:section];
     }

@@ -30,9 +30,11 @@
 "history-section-yesterday" = "昨天";
 "history-section-lastweek" = "上周";
 "history-section-lastmonth" = "上月";
+// Fuzzy
 "history-clear-confirmation-heading" = "删除所有最近项目？";
 "history-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "history-clear-cancel" = "取消";
+// Fuzzy
 "history-clear-delete-all" = "删除全部";
 "history-description" = "您可能清空了它们。下次您前往一个页面时，可从此返回。";
 "history-none" = "无最近页面。";
@@ -48,6 +50,7 @@
 "zero-learn-more-learn-more" = "阅读更多";
 "zero-learn-more-no-thanks" = "解除";
 "zero-wikipedia-zero-heading" = "维基百科零";
+// Fuzzy
 "zero-warn-when-leaving" = "离开维基百科零时提示";
 "zero-settings-devmode" = "零开发模式";
 "account-creation-captcha-required" = "需要验证码验证。";
@@ -106,16 +109,20 @@
 "search-recent-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "search-recent-clear-cancel" = "取消";
 "search-recent-clear-delete-all" = "删除全部";
+"search-result-redirected-from" = "重定向自：$1";
 "settings-title" = "设置";
 "main-menu-title" = "更多";
 "main-menu-heading-about" = "关于";
 "main-menu-language-title" = "搜索$1语维基百科";
+// Fuzzy
 "main-menu-faq" = "常见问题";
 "main-menu-language-toggle-show" = "显示语言";
 "main-menu-language-toggle-hide" = "隐藏语言";
 "main-menu-language-selection-saved" = "语言选择已保存";
 "main-menu-account-title-logged-out" = "账户";
+// Fuzzy
 "main-menu-account-title-logged-in" = "登录身份:$1";
+// Fuzzy
 "main-menu-account-login" = "登录至维基百科";
 "main-menu-account-logout" = "退出";
 "main-menu-show-title" = "告诉我...";
@@ -124,13 +131,17 @@
 "main-menu-current-article-save" = "保存$1以离线阅读";
 "main-menu-random" = "随机";
 "main-menu-feedback-heading" = "反馈";
+// Fuzzy
 "main-menu-send-feedback" = "发送程序反馈";
 "main-menu-show-page-history" = "$1的更改历史";
 "main-menu-credits" = "制作人员";
+// Fuzzy
 "main-menu-about" = "关于维基百科应用程序";
 "main-menu-zero-faq" = "维基百科零常见问题";
 "main-menu-privacy-policy" = "隐私政策";
+// Fuzzy
 "main-menu-terms-of-use" = "使用条款";
+// Fuzzy
 "main-menu-rate-app" = "付费应用程序";
 "main-menu-heading-zero" = "维基百科零";
 "main-menu-heading-legal" = "隐私和条款";
@@ -139,11 +150,14 @@
 "main-menu-more" = "更多…";
 "main-menu-heading-debug" = "调试";
 "main-menu-debug-crash" = "崩溃";
+"main-menu-debug-tweaks" = "开发人员设置";
 "saved-title" = "已保存";
 "saved-pages-title" = "已保存页面";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "删除所有保存的项目？";
 "saved-pages-clear-confirmation-sub-heading" = "此操作不能撤销！";
 "saved-pages-clear-cancel" = "取消";
+// Fuzzy
 "saved-pages-clear-delete-all" = "删除全部";
 "saved-pages-refresh-cancel-alert-title" = "更新已取消";
 "saved-pages-refresh-cancel-alert-message" = "维基百科条目始终在更新。点按刷新以获得所有条目的最新版本。";
@@ -206,6 +220,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "“$1”在@Wikipedia：“$2”";
 "share-as-image" = "分享为图片";
 "share-as-text" = "分享为文本";
+"share-cancel" = "取消";
 "timestamp-just-now" = "刚刚";
 "timestamp-minutes" = "%d分钟前";
 "timestamp-hours" = "%d小时前";
@@ -235,6 +250,7 @@
 "license-footer-text" = "内容根据$1可用";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "内容";
+"table-of-contents-button-label" = "目录";
 "abuse-filter-warning-heading" = "这看起来是没有建设性的编辑，您确定要保存它？";
 "abuse-filter-warning-subheading" = "您的编辑可能包含以下情况之一：";
 "abuse-filter-warning-caps" = "输入全部大写字母";
@@ -294,6 +310,7 @@
 "hockeyapp-alert-privacy" = "$1隐私";
 "page-issues" = "页面问题";
 "page-similar-titles" = "相似页面";
+// Fuzzy
 "page-read-in-other-languages" = "在$1种语言中阅读";
 "page-last-edited" = "编辑于$1天前";
 "page-edit-history" = "完整编辑历史";
@@ -310,37 +327,40 @@
 "home-featured-article-heading" = "$1的特色条目";
 "home-main-page-heading" = "维基百科今日";
 "home-potd-heading" = "$1的每日图片";
+"home-last-update-label" = "最后更新：$1";
+"home-last-update-never-label" = "最后更新：从未";
+"home-updating-label" = "正在更新…";
+"home-hide-suggestion-prompt" = "隐藏该建议";
+"home-hide-suggestion-cancel" = "取消";
+"home-accessibility-label" = "维基百科，探索";
+"home-button-accessibility-label" = "首页按钮";
 "potd-empty-error-description" = "无法检索$1的每日图片";
 "potd-description-prefix" = "$1的每日图片";
-"welcome-whats-new-title" = "欢迎来到维基百科";
-"welcome-whats-new-whats-new" = "最新动态";
-"welcome-whats-new-bullet-one-title" = "新的探索方法";
-"welcome-whats-new-bullet-one-text" = "在探索屏幕上浏览您认为新而有趣的条目。";
-"welcome-whats-new-bullet-one-more-info-button-text" = "它是如何工作的...";
-"welcome-whats-new-bullet-two-title" = "为阅读设计";
-"welcome-whats-new-bullet-two-text" = "专注于提供最佳阅读体验的更新设计。";
-"welcome-whats-new-button-title" = "开始";
-"welcome-whats-new-bullet-one-more-info-text" = "当您访问条目时，相关条目会自动添加至您的订阅源中。这不会更改我们收集您信息的方式，并且您的阅读历史仍然是私有的。";
-"welcome-whats-new-bullet-one-more-info-done-button" = "明白了";
+// Fuzzy
 "welcome-languages-title" = "要搜索的语言";
-"welcome-languages-more-info-button-text" = "告诉我们更多";
-"welcome-languages-more-info-text" = "维基百科条目经常有多种语言版本。选择您想在搜索时使用的语言。您可在稍后改变这些。";
-"welcome-languages-more-info-done-button" = "明白了";
-"welcome-languages-more-languages-button-title" = "添加更多语言";
-"welcome-languages-button-title" = "继续";
-"welcome-languages-footnote-text" = "不要担心，您可以稍后更新它。";
-"welcome-usage-reports-title" = "帮助我们使维基百科做的更好";
-"welcome-usage-reports-body-text" = "您可以通过允许我们收集有关您使用应用程序时产生的信息，帮助我们使应用程序更好。";
-"welcome-usage-reports-switch-text" = "发送使用情况报告";
-"welcome-usage-reports-button-title" = "入门";
-"welcome-usage-reports-privacy-policy-button-text" = "您的隐私对我们很重要";
 "empty-no-feed-title" = "没有网络连接";
 "empty-no-feed-message" = "当您有网络连接时，您可以查看您推荐的条目";
 "empty-no-feed-action-message" = "同时您可以阅读保存的页面";
 "empty-no-article-message" = "对不起，无法加载条目";
+// Fuzzy
 "empty-no-search-results-message" = "对不起，无法加载结果";
 "empty-no-saved-pages-title" = "尚无保存的页面";
 "empty-no-saved-pages-message" = "保存页面以便日后查看，即便在离线时";
 "empty-no-history-title" = "没有要显示的历史";
 "empty-no-history-message" = "在此记录您的阅读经历";
 "alert-no-internet" = "当前无网络连接";
+"icon-shortcut-search-title" = "搜索维基百科";
+"icon-shortcut-continue-reading-title" = "继续阅读";
+"icon-shortcut-random-title" = "随机条目";
+"icon-shortcut-nearby-title" = "附近条目";
+"close-button-accessibility-label" = "关闭";
+"back-button-accessibility-label" = "返回";
+"compass-direction" = "$1点钟";
+"explore-featured-article-heading" = "特色条目";
+"explore-continue-reading-heading" = "继续阅读";
+"explore-nearby-heading" = "附近地点";
+"explore-continue-related-heading" = "因为您阅读";
+"explore-main-page-heading" = "维基百科今日";
+"explore-random-article-heading" = "随机条目";
+"explore-random-article-sub-heading" = "英语维基百科";
+"explore-potd-heading" = "每日图片";

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MWKSavedPageList* savedPages;
 @property (nonatomic, strong, readonly) MWKHistoryList* historyPages;
 @property (nonatomic, strong, readonly) WMFRelatedSectionBlackList* blackList;
-@property (nonatomic, strong, readonly) NSString* filePath;
+@property (nonatomic, strong, readonly) NSURL* fileURL;
 
 @property (nonatomic, strong, readonly, nullable) NSDate* lastUpdatedAt;
 

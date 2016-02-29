@@ -23,9 +23,11 @@
 "history-section-yesterday" = "Včera";
 "history-section-lastweek" = "Poslední týden";
 "history-section-lastmonth" = "Poslední měsíc";
+// Fuzzy
 "history-clear-confirmation-heading" = "Smazat všechny poslední položky?";
 "history-clear-confirmation-sub-heading" = "Tato akce nemůže být vrácena zpět!";
 "history-clear-cancel" = "Zrušit";
+// Fuzzy
 "history-clear-delete-all" = "Smazat vše";
 "zero-free-verbiage" = "Přístup k Wikipedii zdarma od vašeho mobilního operátora (bez účtování mobilních dat)";
 "zero-charged-verbiage" = "Wikipedie Zero je vypnuta";
@@ -89,6 +91,7 @@
 "main-menu-language-toggle-hide" = "Skrýt jazyky";
 "main-menu-language-selection-saved" = "Výběr jazyka uložen";
 "main-menu-account-title-logged-out" = "Účet";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Přihlášen jako: $1";
 // Fuzzy
 "main-menu-account-login" = "Přihlásit se";
@@ -98,16 +101,20 @@
 "main-menu-current-article-save" = "Uložit $1 pro čtení offline";
 "main-menu-random" = "Náhodný";
 "main-menu-feedback-heading" = "Zpětná vazba";
+// Fuzzy
 "main-menu-send-feedback" = "Poslat zpětnou vazbu k aplikaci";
 "main-menu-show-page-history" = "Historie změn stránky $1";
 "main-menu-privacy-policy" = "Ochrana osobních údajů";
+// Fuzzy
 "main-menu-terms-of-use" = "Podmínky užití";
+// Fuzzy
 "main-menu-rate-app" = "Ohodnotit aplikaci";
 "main-menu-heading-zero" = "Wikipedie Zero";
 "main-menu-show-today" = "Dnes";
 "main-menu-nearby" = "Poblíž";
 "main-menu-more" = "Více…";
 "saved-pages-title" = "Uložené stránky";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Smazat vše";
 "saved-pages-none" = "Zatím žádné uložené stránky.";
 "page-history-title" = "Historie článku";
