@@ -32,7 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
  *  Verify consistency between internal `NSCache` and reverse-section-lookup `NSMapTable`.
  *
  *  Need to be sure that when the `NSCache` evicts a controller, that its corresponding entry in the reverse lookup table
- *  is also removed.  If this invariant ever fails, this macro will raise an assertion (in debug mode).
+ *  is also removed.  There might be times when the two are temporarily out of sync (such as when a nearby section is
+ *  removed due to restricted permissions, and the explore view controller delays fetching of its preceding section,
+ *  which temporarily retains it), but seeing too many of these inconsistencies in the should point to a controller
+ *  being retained somewhere it shoudln't be.
  *
  *  @param sectionOrController
  */
@@ -72,7 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
-    NSAssert(cacheController, @"Reverse map contains section for controller which is no longer cached: %@", section);
+    if (!cacheController) {
+        DDLogWarn(@"Reverse map contains section for controller which is no longer cached: %@", section);
+    }
 }
 
 - (void)verifyCacheConsistencyForSection:(WMFExploreSection*)section {
@@ -81,9 +86,10 @@ NS_ASSUME_NONNULL_BEGIN
         return [[self.reverseLookup objectForKey:obj] isEqual:section];
     }];
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
-    NSAssert(reverseMapController == cacheController,
-             @"Mismatch between cached controllers & reverse map! Reverse map: %@ cache: %@",
-             reverseMapController, cacheController);
+    if (reverseMapController != cacheController) {
+        DDLogWarn(@"Mismatch between cached controllers & reverse map! Reverse map: %@ cache: %@",
+                  reverseMapController, cacheController);
+    }
 }
 
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
