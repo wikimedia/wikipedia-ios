@@ -632,8 +632,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isViewLoaded) {
         return NO;
     }
-    [self.refreshControl beginRefreshing];
-    return [self.schemaManager update:force];
+    BOOL const willUpdate = [self.schemaManager update:force];
+    if (willUpdate) {
+        [self.refreshControl beginRefreshing];
+    }
+    return willUpdate;
 }
 
 #pragma mark - Delayed Fetching
