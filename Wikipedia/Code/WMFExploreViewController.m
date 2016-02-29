@@ -47,7 +47,7 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
-static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelOff;
+static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
 
@@ -202,6 +202,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendWillDisplayToVisibleSectionControllers {
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull controller) {
         if ([controller respondsToSelector:@selector(willDisplaySection)]) {
+            DDLogInfo(@"Manually sending willDisplaySection to controller %@", controller);
             [controller willDisplaySection];
         }
     }];
@@ -485,7 +486,12 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
-        [controller willDisplaySection];
+        if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+            DDLogInfo(@"Sending willDisplaySection for contorller %@ at indexPath %@", controller, indexPath);
+            [controller willDisplaySection];
+        } else {
+            DDLogWarn(@"Skipping willDisplaySection for controller %@ at indexPath %@", controller, indexPath);
+        }
     }
 
     [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
@@ -696,10 +702,10 @@ NS_ASSUME_NONNULL_BEGIN
                                               id < WMFExploreSectionController > observedController,
                                               NSDictionary* _) {
         NSUInteger sectionIndex = [observer indexForSectionController:observedController];
-        if (sectionIndex == NSNotFound) {
-            return;
+        if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
+            DDLogInfo(@"Reloading table to display results in controller %@", observedController);
+            [observer.tableView reloadData];
         }
-        [observer.tableView reloadData];
     }];
 }
 

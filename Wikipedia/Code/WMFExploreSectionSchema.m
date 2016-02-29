@@ -273,7 +273,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
         //Don't add a new one if we have one that is minimum distance
-        if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
+        if (oldNearby.location
+            && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby
+            && oldNearby.placemark != nil) {
             return YES;
         }
 

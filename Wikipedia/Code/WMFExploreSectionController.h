@@ -140,10 +140,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Called when a section is about to be displayed.
- *
- *  @warning 
- *  This will be called once for each cell that is displayed. It is the controller's responsibility to make sure this
- *  method is idempotent.
  */
 - (void)willDisplaySection;
 

@@ -82,8 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
     }];
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
     NSAssert(reverseMapController == cacheController,
-             @"Mismatch between cached controllers & reverse map! Got %@ expected %@",
-             cacheController, reverseMapController);
+             @"Mismatch between cached controllers & reverse map! Reverse map: %@ cache: %@",
+             reverseMapController, cacheController);
 }
 
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
