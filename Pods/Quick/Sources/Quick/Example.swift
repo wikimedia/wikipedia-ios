@@ -1,3 +1,5 @@
+import Foundation
+
 private var numberOfExamplesRun = 0
 
 /**
@@ -55,7 +57,7 @@ final public class Example: NSObject {
         closures defined in the its surrounding example groups.
     */
     public func run() {
-        let world = World.sharedWorld()
+        let world = World.sharedWorld
 
         if numberOfExamplesRun == 0 {
             world.suiteHooks.executeBefores()
@@ -65,18 +67,22 @@ final public class Example: NSObject {
         world.currentExampleMetadata = exampleMetadata
 
         world.exampleHooks.executeBefores(exampleMetadata)
+        group!.phase = .BeforesExecuting
         for before in group!.befores {
             before(exampleMetadata: exampleMetadata)
         }
+        group!.phase = .BeforesFinished
 
         closure()
 
+        group!.phase = .AftersExecuting
         for after in group!.afters {
             after(exampleMetadata: exampleMetadata)
         }
+        group!.phase = .AftersFinished
         world.exampleHooks.executeAfters(exampleMetadata)
 
-        ++numberOfExamplesRun
+        numberOfExamplesRun += 1
 
         if !world.isRunningAdditionalSuites && numberOfExamplesRun >= world.exampleCount {
             world.suiteHooks.executeAfters()
