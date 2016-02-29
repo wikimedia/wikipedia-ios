@@ -112,7 +112,7 @@
 "search-result-redirected-from" = "Redirected from: $1";
 
 "settings-title" = "Settings";
-"settings-project" = "Wikipedia project";
+"settings-language" = "Wikipedia language";
 "settings-support" = "Support Wikipedia";
 "settings-language-bar" = "Show languages on search";
 
