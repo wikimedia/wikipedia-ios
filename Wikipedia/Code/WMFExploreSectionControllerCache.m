@@ -57,7 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
     return self;
 }
 
-#if DEBUG
 - (void)verifyCacheConsistency:(id)sectionOrController {
     if ([sectionOrController isKindOfClass:[WMFExploreSection class]]) {
         [self verifyCacheConsistencyForSection:sectionOrController];
@@ -86,8 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
              @"Mismatch between cached controllers & reverse map! Got %@ expected %@",
              cacheController, reverseMapController);
 }
-
-#endif
 
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
     WMFVerifyCacheConsistency(section);
