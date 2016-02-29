@@ -7,7 +7,7 @@
 
 QuickSpecBegin(WMFExploreSectionControllerCacheTests)
 
-__block WMFExploreSectionControllerCache* controllerCache;
+__block WMFExploreSectionControllerCache * controllerCache;
 
 configureTempDataStoreForEach(tempDataStore, ^{
     controllerCache = [[WMFExploreSectionControllerCache alloc] initWithDataStore:tempDataStore];
@@ -31,7 +31,7 @@ describe(@"cache invalidation", ^{
         expect(weakCachedController)
         .toEventuallyWithDescription(beNil(), @"Purged controller should have been deallocated!");
 
-        expect([controllerCache.sectionsBySectionController objectForKey:cachedSection])
+        expect([controllerCache.reverseLookup objectForKey:cachedSection])
         .toEventuallyWithDescription(beNil(), @"Internal reverse map of sections to controllers should also be empty!");
     });
 });

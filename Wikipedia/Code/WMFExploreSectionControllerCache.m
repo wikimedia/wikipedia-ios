@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  *  @param sectionOrController
  */
-#define WMFVerifyCacheConsistency(sectionOrController) [self verifyCacheConsistency:(sectionOrController)]
+#define WMFVerifyCacheConsistency(sectionOrController) [self verifyCacheConsistency: (sectionOrController)]
 #else
 #define WMFVerifyCacheConsistency(sectionOrController)
 #endif
@@ -50,16 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
         self.dataStore                              = dataStore;
         self.sectionControllersBySection            = [[NSCache alloc] init];
         self.sectionControllersBySection.countLimit = [WMFExploreSection totalMaxNumberOfSections];
-
-        /*
-         Controllers (keys in the map) are retained by the NSCache and can be evicted at any time. On the other hand,
-         sections (values in the map) are "value types" which should be owned by the receiver.  In other words, sections
-         are created as needed, and not retained for any particular reason, and it would be unintentional for a value in
-         this map to disappear because it was dereferenced externally.
-         */
-        self.sectionsBySectionController            =
+        self.reverseLookup                          =
             [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
-                                  valueOptions:NSMapTableStrongMemory];
+                                  valueOptions:NSMapTableWeakMemory];
     }
     return self;
 }
@@ -74,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)verifyCacheConsistencyForController:(id<WMFExploreSectionController>)controller {
-    WMFExploreSection* section = [self.sectionsBySectionController objectForKey:controller];
+    WMFExploreSection* section = [self.reverseLookup objectForKey:controller];
     if (!section) {
         // can't check controller consistency w/o a key since NSCache doesn't tell you all the objects it contains
         return;
@@ -85,15 +78,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)verifyCacheConsistencyForSection:(WMFExploreSection*)section {
     id<WMFExploreSectionController> reverseMapController =
-    [[[self.sectionsBySectionController keyEnumerator] allObjects] bk_match:^BOOL(id obj) {
-        return [[self.sectionsBySectionController objectForKey:obj] isEqual:section];
+        [[[self.reverseLookup keyEnumerator] allObjects] bk_match:^BOOL (id obj) {
+        return [[self.reverseLookup objectForKey:obj] isEqual:section];
     }];
     id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
     NSAssert(reverseMapController == cacheController,
              @"Mismatch between cached controllers & reverse map! Got %@ expected %@",
              cacheController, reverseMapController);
-
 }
+
 #endif
 
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
@@ -103,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller {
     WMFVerifyCacheConsistency(controller);
-    return [self.sectionsBySectionController objectForKey:controller];
+    return [self.reverseLookup objectForKey:controller];
 }
 
 - (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
@@ -157,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self.sectionControllersBySection setObject:controller forKey:section];
-    [self.sectionsBySectionController setObject:section forKey:controller];
+    [self.reverseLookup setObject:section forKey:controller];
 
     return controller;
 }
