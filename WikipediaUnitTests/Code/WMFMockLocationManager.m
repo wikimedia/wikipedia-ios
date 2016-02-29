@@ -49,6 +49,10 @@
     }
 }
 
+- (void)         locationManager:(CLLocationManager*)manager
+    didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+}
+
 - (void)stopMonitoringLocation {
 }
 

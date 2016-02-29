@@ -41,7 +41,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 @property (nonatomic, strong, readwrite) NSArray<WMFExploreSection*>* sections;
 
-@property (nonatomic, strong, readwrite) NSString* filePath;
+@property (nonatomic, strong, readwrite) NSURL* fileURL;
 
 @property (nonatomic, strong) dispatch_queue_t saveQueue;
 
@@ -76,7 +76,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
                         history:history
                       blackList:blackList
                 locationManager:[[WMFLocationManager alloc] init]
-                           file:[[self defaultSchemaURL] path]];
+                           file:[self defaultSchemaURL]];
 }
 
 + (instancetype)schemaWithSite:(MWKSite*)site
@@ -84,19 +84,19 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
                        history:(MWKHistoryList*)history
                      blackList:(WMFRelatedSectionBlackList*)blackList
                locationManager:(WMFLocationManager*)locationManager
-                          file:(NSString*)filePath {
+                          file:(NSURL*)fileURL {
     NSParameterAssert(site);
     NSParameterAssert(savedPages);
     NSParameterAssert(history);
     NSParameterAssert(blackList);
-    NSParameterAssert(filePath);
+    NSParameterAssert(fileURL);
 
-    WMFExploreSectionSchema* schema = [self schemaFromFileAtPath:filePath] ? : [[WMFExploreSectionSchema alloc] init];
+    WMFExploreSectionSchema* schema = [self schemaFromFileAtURL:fileURL] ? : [[WMFExploreSectionSchema alloc] init];
     schema.site              = site;
     schema.savedPages        = savedPages;
     schema.historyPages      = history;
     schema.blackList         = blackList;
-    schema.filePath          = filePath;
+    schema.fileURL           = fileURL;
     schema.locationManager   = locationManager;
     locationManager.delegate = schema;
 
@@ -251,7 +251,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 - (BOOL)updateContinueReading {
     WMFExploreSection* old = [self existingContinueReadingSection];
     WMFExploreSection* new = [self continueReadingSection];
-    if ([[old title] isEqual:[new title]]) {
+    if (WMF_EQUAL(old.title, isEqualToTitle:, new.title)) {
         return NO;
     }
 
@@ -292,6 +292,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark* _Nullable placemark) {
         @strongify(self);
+        if (!self) {
+            return;
+        }
         NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
         [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
             return obj.type == WMFExploreSectionTypeNearby;
@@ -657,65 +660,88 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     behaviors[WMFExploreSectionSchemaKey(delegate)]        = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(locationManager)] = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(blackList)]       = @(MTLModelEncodingBehaviorExcluded);
-    behaviors[WMFExploreSectionSchemaKey(filePath)]        = @(MTLModelEncodingBehaviorExcluded);
+    behaviors[WMFExploreSectionSchemaKey(fileURL)]         = @(MTLModelEncodingBehaviorExcluded);
     behaviors[WMFExploreSectionSchemaKey(saveQueue)]       = @(MTLModelEncodingBehaviorExcluded);
 
     return behaviors;
 }
 
-- (void)save {
+- (AnyPromise*)save {
     /*
        NOTE: until this class is made immutable, it cannot safely be passed between threads.
      */
     WMFExploreSectionSchema* backgroundCopy = [self copy];
-    dispatch_async(self.saveQueue, ^{
-        NSError* error;
-        NSMutableData* result = [NSMutableData data];
-        NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
 
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
+        dispatch_async(self.saveQueue, ^{
+            NSError* error;
+            if (![[NSFileManager defaultManager] createDirectoryAtURL:[self.fileURL URLByDeletingLastPathComponent]
+                                          withIntermediateDirectories:YES
+                                                           attributes:nil
+                                                                error:&error]) {
+                DDLogError(@"Failed to save sections to disk: %@", error);
+                resolve(error);
+                return;
+            }
+
+            NSMutableData* result = [NSMutableData data];
+            NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
+
+            @try {
+                [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
+                [archiver finishEncoding];
+                [result writeToURL:self.fileURL
+                           options:NSDataWritingAtomic
+                             error:&error];
+            } @catch (NSException* exception) {
+                error = [NSError errorWithDomain:NSInvalidArchiveOperationException
+                                            code:-1
+                                        userInfo:@{NSLocalizedDescriptionKey: exception.name,
+                                                   NSLocalizedFailureReasonErrorKey: exception.reason}];
+            }
+
+            NSAssert(!error, @"Failed to save sections: %@", error);
+            if (error) {
+                DDLogError(@"Failed to save sections to disk: %@", error);
+            }
+            resolve(error);
+        });
+    }];
+}
+
++ (NSURL*)defaultSchemaURL {
+    static NSString* const WMFExploreSectionsFilePath = @"WMFHomeSections.plist";
+    NSString* documents                               = documentsDirectory();
+    NSString* path                                    = [documents stringByAppendingPathComponent:WMFExploreSectionsFilePath];
+    NSURL* url                                        = [NSURL fileURLWithPath:path];
+    return url;
+}
+
++ (instancetype)schemaFromFileAtURL:(NSURL*)fileURL {
+    //Need to map old class names
+    [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
+    [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
+    NSError* error;
+    NSData* data = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&error];
+    if (!data) {
+        NSAssert([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError,
+                 @"Unexpected error reading schema data: %@", error);
+        return nil;
+    }
+    WMFExploreSectionSchema* schema;
+
+    if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
+        schema = [NSKeyedUnarchiver unarchiveTopLevelObjectWithData:data error:&error];
+    } else {
         @try {
-            [[NSFileManager defaultManager] createDirectoryAtPath:[self.filePath stringByDeletingLastPathComponent]
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:nil];
-            [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
-            [archiver finishEncoding];
-            [result writeToURL:[NSURL fileURLWithPath:self.filePath isDirectory:NO]
-                       options:NSDataWritingAtomic
-                         error:&error];
+            schema = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         } @catch (NSException* exception) {
             error = [NSError errorWithDomain:NSInvalidArchiveOperationException
                                         code:-1
                                     userInfo:@{NSLocalizedDescriptionKey: exception.name,
                                                NSLocalizedFailureReasonErrorKey: exception.reason}];
         }
-        NSAssert(!error, @"Failed to save sections: %@", error);
-        if (error) {
-            DDLogError(@"Failed to save sections to disk: %@", error);
-        }
-    });
-}
-
-+ (NSURL*)defaultSchemaURL {
-    static NSString* const WMFExploreSectionsFilePath = @"WMFHomeSections.plist";
-    return [NSURL fileURLWithPath:WMFExploreSectionsFilePath
-                      isDirectory:NO
-                    relativeToURL:[NSURL fileURLWithPath:documentsDirectory() isDirectory:YES]];
-}
-
-+ (instancetype)schemaFromFileAtPath:(NSString*)filePath {
-    //Need to map old class names
-    [NSKeyedUnarchiver setClass:[WMFExploreSectionSchema class] forClassName:@"WMFHomeSectionSchema"];
-    [NSKeyedUnarchiver setClass:[WMFExploreSection class] forClassName:@"WMFHomeSection"];
-    NSError* error;
-    NSURL* fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
-    NSData* data   = [[NSData alloc] initWithContentsOfURL:fileURL options:0 error:&error];
-    if (!data) {
-        NSAssert([error.domain isEqualToString:NSCocoaErrorDomain] && error.code == NSFileReadNoSuchFileError,
-                 @"Unexpected error reading schema data: %@", error);
-        return nil;
     }
-    WMFExploreSectionSchema* schema = [NSKeyedUnarchiver unarchiveTopLevelObjectWithData:data error:&error];
     NSAssert(schema, @"Failed to unarchive schema: %@", error);
     return schema;
 }
