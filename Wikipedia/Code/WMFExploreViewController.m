@@ -322,7 +322,17 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
-    [self updateSectionSchemaIfNeeded];
+    if (![self updateSectionSchemaIfNeeded]) {
+        WMF_TECH_DEBT_WARN(forcing table refresh when data in memory is purged in background);
+        /*
+         The section controller cache was likely purged when going to the background, therefore we need to refresh
+         the table view to indicate the data its views are displaying is now gone and needs to be re-fetched.
+         
+         Ideally this data still be retrievable from disk caches, obviating the need to show placeholders again, but
+         that will have to come later.
+         */
+        [self.tableView reloadData];
+    }
 
     [self sendWillDisplayToVisibleSectionControllers];
 }
@@ -616,6 +626,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self loadSectionControllersForCurrentSectionSchema];
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
+    
     [self.tableView reloadData];
 }
 
