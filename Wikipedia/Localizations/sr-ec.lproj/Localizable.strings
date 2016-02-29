@@ -148,11 +148,15 @@
 "credits-wikimedia-repos" = "Викимедија";
 "about-title" = "О";
 "about-wikipedia" = "Википедија";
+// Fuzzy
 "about-contributors" = "Доприносиоци";
+// Fuzzy
 "about-testers" = "тестери";
+// Fuzzy
 "about-translators" = "Преводиоци";
 "about-translators-details" = "За превод су заслужни волонтери сајта $1";
 "about-libraries-license" = "Лиценца";
+// Fuzzy
 "about-repositories" = "репозитари";
 "about-send-feedback" = "Пошаљи повратне информације";
 "about-product-of" = "Производ Задужбине Викимедије";

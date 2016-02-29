@@ -113,9 +113,12 @@
 "article-pull-to-refresh-is-refreshing" = "Барӯзкунии мақола";
 "about-title" = "Дар бораи";
 "about-wikipedia" = "Википедиа";
+// Fuzzy
 "about-contributors" = "саҳмгузорон";
+// Fuzzy
 "about-translators" = "тарҷумонҳо";
 "about-translators-details" = "Тавассути ихтиёриҳо дар $1 тарҷума шудааст";
+// Fuzzy
 "about-libraries" = "китобхонаҳои истифодашуда";
 "about-libraries-license" = "Иҷозатнома";
 "share-custom-menu-item" = "Паҳнкунӣ";

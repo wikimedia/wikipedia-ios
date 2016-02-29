@@ -200,13 +200,18 @@
 "credits-external-libraries" = "外部儲存庫";
 "about-title" = "關於";
 "about-wikipedia" = "維基百科";
+// Fuzzy
 "about-contributors" = "貢獻者";
+// Fuzzy
 "about-testers" = "測試人員";
 "about-testers-details" = "已由 $1 完成 QA 測試";
+// Fuzzy
 "about-translators" = "翻譯人員";
 "about-translators-details" = "$1 由志工翻譯";
+// Fuzzy
 "about-libraries" = "使用的函式庫";
 "about-libraries-license" = "授權條款";
+// Fuzzy
 "about-repositories" = "儲存庫";
 "about-send-feedback" = "傳送應用程式意見回饋";
 "about-product-of" = "$1 出品";

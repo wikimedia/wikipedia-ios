@@ -190,13 +190,18 @@
 "credits-external-libraries" = "Utanáliggjandi söfn";
 "about-title" = "Um";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "framleggjendur";
+// Fuzzy
 "about-testers" = "prófarar";
 "about-testers-details" = "Gæðaprófað af $1";
+// Fuzzy
 "about-translators" = "þýðendur";
 "about-translators-details" = "Þýtt af sjálfboðaaðilum á $1";
+// Fuzzy
 "about-libraries" = "notuð söfn";
 "about-libraries-license" = "Leyfi";
+// Fuzzy
 "about-repositories" = "söfn";
 "about-send-feedback" = "Senda ábendingar um appið";
 "about-product-of" = "Vara frá $1";

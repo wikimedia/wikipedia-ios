@@ -128,7 +128,9 @@
 "credits-external-libraries" = "बाह्य";
 "about-title" = "बारेमा";
 "about-wikipedia" = "विकिपीडिया";
+// Fuzzy
 "about-contributors" = "योगदानकर्ताहरू";
+// Fuzzy
 "about-translators" = "अनुवादकहरू";
 "about-libraries-license" = "अनुज्ञापत्र";
 "about-wikimedia-foundation" = "विकिमीडिया फाउण्डेशन";

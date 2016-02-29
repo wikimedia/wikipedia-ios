@@ -155,9 +155,12 @@
 "article-pull-to-refresh-is-refreshing" = "កំពុងផ្ទុកអត្ថបទជាថ្មី";
 "about-title" = "អំពី";
 "about-wikipedia" = "វិគីភីឌា";
+// Fuzzy
 "about-contributors" = "អ្នករួមចំណែក";
+// Fuzzy
 "about-translators" = "អ្នកបកប្រែ";
 "about-translators-details" = "ត្រូវបានបកប្រែដោយអ្នកស្ម័គ្រចិត្តនៅ $1";
+// Fuzzy
 "about-libraries" = "បណ្ណាល័យដែលបានប្រើ";
 "about-libraries-license" = "អាជ្ញាបណ្ណ";
 "about-send-feedback" = "ផ្ញើមតិយោបល់អំពីកម្មវិធីនេះ";

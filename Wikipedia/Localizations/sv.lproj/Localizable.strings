@@ -24,17 +24,17 @@
 "info-box-title" = "Snabbfakta";
 "info-box-close-text" = "Stäng";
 "table-title-other" = "Mer information";
+"saved-clear-all" = "Rensa";
+"history-clear-all" = "Rensa";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
 "history-section-yesterday" = "Igår";
 "history-section-lastweek" = "Senaste veckan";
 "history-section-lastmonth" = "Senaste månaden";
-// Fuzzy
-"history-clear-confirmation-heading" = "Radera alla senaste objekt?";
+"history-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina senaste objekt?";
 "history-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "history-clear-cancel" = "Avbryt";
-// Fuzzy
-"history-clear-delete-all" = "Radera alla";
+"history-clear-delete-all" = "Ja, radera alla";
 "history-description" = "Du raderade förmodligen samtliga. Nästa gång du går till en sida kan du komma tillbaka till den härifrån.";
 "history-none" = "Inga nya sidor här.";
 "zero-free-verbiage" = "Gratis Wikipedia-tillgång från din mobiloperatör (utan dataavgifter)";
@@ -49,8 +49,7 @@
 "zero-learn-more-learn-more" = "Läs mer";
 "zero-learn-more-no-thanks" = "Stäng";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
-// Fuzzy
-"zero-warn-when-leaving" = "Varna om jag lämnar Wikipedia Zero";
+"zero-warn-when-leaving" = "Varna om jag lämnar Zero";
 "zero-settings-devmode" = "Zero-utvecklarläge";
 "account-creation-captcha-required" = "CAPTCHA-verifiering krävs.";
 "account-creation-captcha-obtaining" = "Hämtar en ny CAPTCHA";
@@ -110,38 +109,36 @@
 "search-recent-clear-delete-all" = "Radera alla";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "settings-title" = "Inställningar";
+"settings-project" = "Wikipedia-projekt";
+"settings-support" = "Stöd Wikipedia";
+"settings-language-bar" = "Visa språk vid sökfältet";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";
-// Fuzzy
-"main-menu-faq" = "FAQ";
+"main-menu-faq" = "Vanliga frågor och svar";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
 "main-menu-language-selection-saved" = "Språkval sparades";
 "main-menu-account-title-logged-out" = "Konto";
-// Fuzzy
 "main-menu-account-title-logged-in" = "Inloggad som $1";
-// Fuzzy
-"main-menu-account-login" = "Logga in på Wikipedia";
+"main-menu-account-login" = "Logga in";
 "main-menu-account-logout" = "Logga ut";
+"main-menu-account-logout-are-you-sure" = "Är du säker på att du vill logga ut?";
+"main-menu-account-logout-cancel" = "Avbryt";
 "main-menu-show-title" = "Visa mig...";
 "main-menu-show-history" = "Webbhistorik";
 "main-menu-show-saved" = "Sparade artiklar";
 "main-menu-current-article-save" = "Spara $1 för läsning offline";
 "main-menu-random" = "Slumpartikel";
 "main-menu-feedback-heading" = "Återkoppling";
-// Fuzzy
-"main-menu-send-feedback" = "Skicka återkoppling om appen";
+"main-menu-send-feedback" = "Skriv till oss";
 "main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
-// Fuzzy
-"main-menu-about" = "Om Wikipedia-appen";
+"main-menu-about" = "Om appen";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "main-menu-privacy-policy" = "Integritetspolicy";
-// Fuzzy
 "main-menu-terms-of-use" = "Användarvillkor";
-// Fuzzy
-"main-menu-rate-app" = "Betygsätt app";
+"main-menu-rate-app" = "Betygsätt appen";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Integritet och villkor";
 "main-menu-show-today" = "Idag";
@@ -152,12 +149,10 @@
 "main-menu-debug-tweaks" = "Utvecklarinställningar";
 "saved-title" = "Sparade";
 "saved-pages-title" = "Sparade artiklar";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
+"saved-pages-clear-confirmation-heading" = "Är du säker på att du vill radera alla dina sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "saved-pages-clear-cancel" = "Avbryt";
-// Fuzzy
-"saved-pages-clear-delete-all" = "Radera allt";
+"saved-pages-clear-delete-all" = "Ja, radera allt";
 "saved-pages-refresh-cancel-alert-title" = "Uppdatering avbruten";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
 "saved-pages-refresh-cancel-alert-button" = "Jag förstår";
@@ -200,13 +195,20 @@
 "credits-external-libraries" = "Externa";
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "Bidragsgivare";
+// Fuzzy
 "about-testers" = "Testare";
 "about-testers-details" = "Kvalitetssäkringstestad av $1";
+// Fuzzy
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
+// Fuzzy
 "about-libraries" = "bibliotek som används";
 "about-libraries-license" = "Licens";
+"about-libraries-licenses" = "Licenser";
+"about-libraries-licenses-title" = "Vi älskar öppen källkod $1";
+// Fuzzy
 "about-repositories" = "Förvar";
 "about-send-feedback" = "Skicka återkoppling om appen";
 "about-product-of" = "En produkt av $1";
@@ -250,6 +252,8 @@
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
 "table-of-contents-button-label" = "Innehållsförteckning";
+"table-of-contents-close-accessibility-label" = "Stäng innehållsförteckningen";
+"table-of-contents-close-accessibility-hint" = "Stäng";
 "abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill spara den?";
 "abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
 "abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
@@ -309,18 +313,20 @@
 "hockeyapp-alert-privacy" = "$1s sekretess";
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
-// Fuzzy
-"page-read-in-other-languages" = "Läs på $1 språk";
+"page-read-in-other-languages" = "Tillgänglig på $1 språk";
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
 "captcha-reload" = "Visa en annan captcha";
 "captcha-prompt" = "Ange captchatexten från bilden ovan";
 "mwk-empty-title-error" = "Det går inte att utföra åtgärden med tom titel.";
 "home-title" = "Utforska";
+"home-empty-section" = "Inga resultat";
+"home-empty-section-check-again" = "Försök igen";
 "home-continue-reading-heading" = "Fortsätt läsa";
 "home-continue-related-heading" = "Eftersom du läste $1";
 "home-more-like-footer" = "Mer som liknar $1";
 "home-nearby-footer" = "Mer från i närheten av din plats";
+"home-nearby-location-footer" = "Mer i närheten av $1";
 "home-nearby-nothing" = "Ingenting i närheten";
 "home-nearby-check-again" = "Kolla igen";
 "home-featured-article-heading" = "Utmärkt artikel för $1";
@@ -335,14 +341,27 @@
 "home-button-accessibility-label" = "Hem-knapp";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
 "potd-description-prefix" = "Dagens bild för $1";
-// Fuzzy
-"welcome-languages-title" = "Språk att söka på";
+"welcome-explore-title" = "Utforska";
+"welcome-explore-sub-title" = "Ett nytt sätt att upptäcka intressanta artiklar varje dag";
+"welcome-explore-tell-me-more" = "Berätta mer";
+"welcome-explore-tell-me-more-about-explore" = "Mer om Utforska";
+"welcome-explore-tell-me-more-details" = "När du besöker en artikel läggs relaterade artiklar automatiskt till ditt Utforskningsflöde. Detta ändrar inte hur vi samlar in din information och din läsningshistorik är fortfarande privat.";
+"welcome-explore-tell-me-more-done-button" = "Jag förstår";
+"welcome-explore-continue-button" = "Kom igång";
+"welcome-languages-title" = "Språk";
+"welcome-languages-sub-title" = "Välj dina föredragna språk att söka på i Wikipedia";
+"welcome-languages-add-button" = "+ Lägg till en annat";
+"welcome-languages-continue-button" = "Fortsätt";
+"welcome-volunteer-title" = "Volontär";
+"welcome-volunteer-sub-title" = "Hjälp till att förbättra Wikipedia-appen genom att dela hur du använder den";
+"welcome-volunteer-send-usage-reports" = "Skicka användningsrapporter";
+"welcome-volunteer-continue-button" = "Fortsätt";
+"welcome-volunteer-thanks" = "$1 Tack!";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
 "empty-no-feed-action-message" = "Du kan läsa sparade sidor under tiden";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
-// Fuzzy
-"empty-no-search-results-message" = "Tyvärr, kunde inte läsa in resultaten";
+"empty-no-search-results-message" = "Inga resultat hittades";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-history-title" = "Ingen historik att visa";
@@ -363,3 +382,6 @@
 "explore-random-article-heading" = "Slumpartikel";
 "explore-random-article-sub-heading" = "Engelskspråkiga Wikipedia";
 "explore-potd-heading" = "Dagens bild";
+"explore-most-read-heading" = "Mest lästa på $1 Wikipedia";
+"explore-most-read-footer" = "Alla mest lästa artiklar";
+"explore-most-read-more-list-title" = "Mest lästa artiklar";
