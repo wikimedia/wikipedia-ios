@@ -487,10 +487,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
         if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
-            DDLogInfo(@"Sending willDisplaySection for contorller %@ at indexPath %@", controller, indexPath);
+            DDLogVerbose(@"Sending willDisplaySection for contorller %@ at indexPath %@", controller, indexPath);
             [controller willDisplaySection];
         } else {
-            DDLogWarn(@"Skipping willDisplaySection for controller %@ at indexPath %@", controller, indexPath);
+            DDLogVerbose(@"Skipping willDisplaySection for controller %@ at indexPath %@", controller, indexPath);
         }
     }
 
@@ -513,7 +513,7 @@ NS_ASSUME_NONNULL_BEGIN
         if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
             [controller didEndDisplayingSection];
         } else {
-            DDLogInfo(@"Skipping calling didEndDisplaySection for controller %@ indexPath %@", controller, indexPath);
+            DDLogVerbose(@"Skipping calling didEndDisplaySection for controller %@ indexPath %@", controller, indexPath);
         }
     }
 
@@ -527,7 +527,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     if (visibleIndexPathsInSection.count == 0) {
-        DDLogInfo(@"Cancelling fetch for scrolled-away section: %@", controller);
+        DDLogVerbose(@"Cancelling fetch for scrolled-away section: %@", controller);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchSectionIfShowing:) object:controller];
     }
 }
@@ -703,7 +703,7 @@ NS_ASSUME_NONNULL_BEGIN
                                               NSDictionary* _) {
         NSUInteger sectionIndex = [observer indexForSectionController:observedController];
         if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
-            DDLogInfo(@"Reloading table to display results in controller %@", observedController);
+            DDLogVerbose(@"Reloading table to display results in controller %@", observedController);
             [observer.tableView reloadData];
         }
     }];
