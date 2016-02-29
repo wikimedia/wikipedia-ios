@@ -545,6 +545,7 @@
 		B0E8096A1C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E809691C0D1C070065EBC0 /* XCTestCase+PromiseSwiftKitTests.swift */; };
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
+		B0F0874E1C856DFB0086F710 /* WelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874D1C856DFB0086F710 /* WelcomeAnimationExtensions.swift */; };
 		B0F956A91C481BC000691810 /* WMFArticleFooterMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */; };
 		B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */; };
 		BC0069C91C7BD03700F2C377 /* FBTweak+WikipediaZero.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069C81C7BD03700F2C377 /* FBTweak+WikipediaZero.m */; };
@@ -1622,6 +1623,7 @@
 		B0E809701C0D215D0065EBC0 /* WikipediaUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WikipediaUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplicationShortcutItem+WMFShortcutItem.h"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.h"; sourceTree = SOURCE_ROOT; };
 		B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplicationShortcutItem+WMFShortcutItem.m"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.m"; sourceTree = SOURCE_ROOT; };
+		B0F0874D1C856DFB0086F710 /* WelcomeAnimationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeAnimationExtensions.swift; sourceTree = SOURCE_ROOT; };
 		B0F956A71C481BC000691810 /* WMFArticleFooterMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuCell.h; path = Wikipedia/Code/WMFArticleFooterMenuCell.h; sourceTree = SOURCE_ROOT; };
 		B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuCell.m; path = Wikipedia/Code/WMFArticleFooterMenuCell.m; sourceTree = SOURCE_ROOT; };
 		B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuCell.xib; path = Wikipedia/Code/WMFArticleFooterMenuCell.xib; sourceTree = SOURCE_ROOT; };
@@ -2438,6 +2440,7 @@
 				B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */,
 				B0E5E9701C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.h */,
 				B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */,
+				B0F0874D1C856DFB0086F710 /* WelcomeAnimationExtensions.swift */,
 				0E26B0881C0FD7E00004D687 /* Container */,
 				0E26B0891C0FD7F70004D687 /* Intro */,
 				0E26B08A1C0FD8040004D687 /* Language */,
@@ -5578,6 +5581,7 @@
 				B0E8039E1C0CDB3B0065EBC0 /* WMFArticleRequestSerializer.m in Sources */,
 				B0E805D41C0CE5550065EBC0 /* UIImageView+WMFPlaceholder.m in Sources */,
 				B0E804421C0CDF850065EBC0 /* MenuLabel.m in Sources */,
+				B0F0874E1C856DFB0086F710 /* WelcomeAnimationExtensions.swift in Sources */,
 				B0E803351C0CD7430065EBC0 /* WMFArticleListTableViewController.m in Sources */,
 				BC23E4DD1C223DCB00B5AFDE /* WMFArticleRevisionFetcher.m in Sources */,
 				B0E8045E1C0CDFFB0065EBC0 /* WMFLegacyImageDataMigration.swift in Sources */,

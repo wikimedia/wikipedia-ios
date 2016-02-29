@@ -1,5 +1,6 @@
 
 #import "WMFWelcomeIntroductionViewController.h"
+#import "Wikipedia-Swift.h"
 
 @interface WMFWelcomeIntroductionViewController ()
 
@@ -7,6 +8,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* tellMeMoreButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextButton;
+@property (strong, nonatomic) IBOutlet UIView* animationView;
 
 @end
 
@@ -28,6 +30,8 @@
                      forState:UIControlStateNormal];
 
     [self.nextButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
+
+    [self.animationView wmf_configureForIntroAnimation];
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {

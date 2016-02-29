@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
+@property (strong, nonatomic) IBOutlet UIView* animationView;
 
 @end
 
@@ -37,6 +38,8 @@
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
+
+    [self.animationView wmf_configureForLanguagesAnimation];
 }
 
 - (void)viewDidLayoutSubviews {
