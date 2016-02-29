@@ -669,7 +669,7 @@ NS_ASSUME_NONNULL_BEGIN
         [self didTapFooterInSection:section];
     } else if (homeSection.type == WMFExploreSectionTypeHistory || homeSection.type == WMFExploreSectionTypeSaved) {
         [self wmf_pushArticleWithTitle:homeSection.title dataStore:self.dataStore animated:YES];
-    }else{
+    } else {
         [self selectFirstRowInSection:section];
     }
 }

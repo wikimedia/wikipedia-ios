@@ -668,11 +668,11 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
 - (AnyPromise*)save {
     /*
-     NOTE: until this class is made immutable, it cannot safely be passed between threads.
+       NOTE: until this class is made immutable, it cannot safely be passed between threads.
      */
     WMFExploreSectionSchema* backgroundCopy = [self copy];
 
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver _Nonnull resolve) {
         dispatch_async(self.saveQueue, ^{
             NSError* error;
             if (![[NSFileManager defaultManager] createDirectoryAtURL:[self.fileURL URLByDeletingLastPathComponent]

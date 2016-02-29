@@ -29,7 +29,7 @@
 
 @implementation CLPlacemark (WMFComparison)
 
-- (BOOL)wmf_isEqual:(CLPlacemark *)rhs {
+- (BOOL)wmf_isEqual:(CLPlacemark*)rhs {
     if (self == rhs) {
         return YES;
     } else if (![rhs isKindOfClass:[CLPlacemark class]]) {

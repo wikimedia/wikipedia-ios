@@ -49,7 +49,7 @@
     }
 }
 
-- (void)locationManager:(CLLocationManager*)manager
+- (void)         locationManager:(CLLocationManager*)manager
     didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
