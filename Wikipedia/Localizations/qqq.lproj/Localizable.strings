@@ -390,9 +390,5 @@
 "explore-most-read-heading" = "Text for 'Most read articles' explore section header. $1 is substituted for the localized language name (e.g. 'English' or 'Espanol').";
 "explore-most-read-footer" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles when tapped.";
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
-<<<<<<< 822d428433b3bcba947d8cebd8da712225c0651f
 "settings-language-bar" = "Title in Settings for toggling the display the language bar in the search view";
 "share-on-twitter-sign-off" = "Text placed at the end of a tweet when sharing. Contains the wikipedia twitter handle";
-
-=======
->>>>>>> Localisation updates from https://translatewiki.net.
