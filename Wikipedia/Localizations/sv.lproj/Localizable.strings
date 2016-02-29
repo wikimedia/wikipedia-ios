@@ -29,9 +29,11 @@
 "history-section-yesterday" = "Igår";
 "history-section-lastweek" = "Senaste veckan";
 "history-section-lastmonth" = "Senaste månaden";
+// Fuzzy
 "history-clear-confirmation-heading" = "Radera alla senaste objekt?";
 "history-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "history-clear-cancel" = "Avbryt";
+// Fuzzy
 "history-clear-delete-all" = "Radera alla";
 "history-description" = "Du raderade förmodligen samtliga. Nästa gång du går till en sida kan du komma tillbaka till den härifrån.";
 "history-none" = "Inga nya sidor här.";
@@ -47,6 +49,7 @@
 "zero-learn-more-learn-more" = "Läs mer";
 "zero-learn-more-no-thanks" = "Stäng";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Varna om jag lämnar Wikipedia Zero";
 "zero-settings-devmode" = "Zero-utvecklarläge";
 "account-creation-captcha-required" = "CAPTCHA-verifiering krävs.";
@@ -105,16 +108,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "search-recent-clear-cancel" = "Avbryt";
 "search-recent-clear-delete-all" = "Radera alla";
+"search-result-redirected-from" = "Omdirigerad från: $1";
 "settings-title" = "Inställningar";
 "main-menu-title" = "Mer";
 "main-menu-heading-about" = "Om";
 "main-menu-language-title" = "Sök $1.Wikipedia";
+// Fuzzy
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Visa språk";
 "main-menu-language-toggle-hide" = "Dölj språk";
 "main-menu-language-selection-saved" = "Språkval sparades";
 "main-menu-account-title-logged-out" = "Konto";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Inloggad som $1";
+// Fuzzy
 "main-menu-account-login" = "Logga in på Wikipedia";
 "main-menu-account-logout" = "Logga ut";
 "main-menu-show-title" = "Visa mig...";
@@ -123,13 +130,17 @@
 "main-menu-current-article-save" = "Spara $1 för läsning offline";
 "main-menu-random" = "Slumpartikel";
 "main-menu-feedback-heading" = "Återkoppling";
+// Fuzzy
 "main-menu-send-feedback" = "Skicka återkoppling om appen";
 "main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
+// Fuzzy
 "main-menu-about" = "Om Wikipedia-appen";
 "main-menu-zero-faq" = "Vanliga frågor om Wikipedia Zero";
 "main-menu-privacy-policy" = "Integritetspolicy";
+// Fuzzy
 "main-menu-terms-of-use" = "Användarvillkor";
+// Fuzzy
 "main-menu-rate-app" = "Betygsätt app";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Integritet och villkor";
@@ -138,11 +149,14 @@
 "main-menu-more" = "Mer...";
 "main-menu-heading-debug" = "Felsökning";
 "main-menu-debug-crash" = "Krasch";
+"main-menu-debug-tweaks" = "Utvecklarinställningar";
 "saved-title" = "Sparade";
 "saved-pages-title" = "Sparade artiklar";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "saved-pages-clear-cancel" = "Avbryt";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Radera allt";
 "saved-pages-refresh-cancel-alert-title" = "Uppdatering avbruten";
 "saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
@@ -205,6 +219,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" på @Wikipedia: \"$2\"";
 "share-as-image" = "Dela som bild";
 "share-as-text" = "Dela som text";
+"share-cancel" = "Avbryt";
 "timestamp-just-now" = "just nu";
 "timestamp-minutes" = "%d minuter sedan";
 "timestamp-hours" = "%d timmar sedan";
@@ -234,6 +249,7 @@
 "license-footer-text" = "Innehållet är tillgängligt under $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Innehåll";
+"table-of-contents-button-label" = "Innehållsförteckning";
 "abuse-filter-warning-heading" = "Detta ser ut som en icke-konstruktiv redigering. Är du säker på att du vill spara den?";
 "abuse-filter-warning-subheading" = "Din redigering kan innehålla ett eller flera av följande:";
 "abuse-filter-warning-caps" = "Text skriven helt med VERSALER";
@@ -293,6 +309,7 @@
 "hockeyapp-alert-privacy" = "$1s sekretess";
 "page-issues" = "Sidproblem";
 "page-similar-titles" = "Liknande sidor";
+// Fuzzy
 "page-read-in-other-languages" = "Läs på $1 språk";
 "page-last-edited" = "Redigerad för $1 dagar sedan";
 "page-edit-history" = "Full redigeringshistorik";
@@ -309,37 +326,40 @@
 "home-featured-article-heading" = "Utmärkt artikel för $1";
 "home-main-page-heading" = "Idag på Wikipedia";
 "home-potd-heading" = "Dagens bild för $1";
+"home-last-update-label" = "Senast uppdaterad: $1";
+"home-last-update-never-label" = "Senast uppdaterad: Aldrig";
+"home-updating-label" = "Uppdaterar...";
+"home-hide-suggestion-prompt" = "Dölj detta förslag";
+"home-hide-suggestion-cancel" = "Avbryt";
+"home-accessibility-label" = "Wikipedia, Utforska";
+"home-button-accessibility-label" = "Hem-knapp";
 "potd-empty-error-description" = "Kunde inte hämta dagens bild för $1";
 "potd-description-prefix" = "Dagens bild för $1";
-"welcome-whats-new-title" = "Välkommen till Wikipedia";
-"welcome-whats-new-whats-new" = "Vad är nytt";
-"welcome-whats-new-bullet-one-title" = "Ett nytt sätt att utforska";
-"welcome-whats-new-bullet-one-text" = "Upptäck nya och intressanta artiklar bara för dig på Utforskningsskärmen.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Hur detta fungerar...";
-"welcome-whats-new-bullet-two-title" = "Designad för läsning";
-"welcome-whats-new-bullet-two-text" = "Uppdaterad design som fokuserar på att tillhandahålla en bra läsupplevelse.";
-"welcome-whats-new-button-title" = "Kom igång";
-"welcome-whats-new-bullet-one-more-info-text" = "När du besöker en artikel läggs relaterade artiklar till automatiskt i din ström. Detta ändrar inte hur vi samlar in din information och din läshistorik är fortfarande privat.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Jag förstår";
+// Fuzzy
 "welcome-languages-title" = "Språk att söka på";
-"welcome-languages-more-info-button-text" = "Berätta mer";
-"welcome-languages-more-info-text" = "Wikipedia-artiklar är ofta tillgängliga på flera språk. Välj de språk du vill använda när du söker. Du kan ändra dessa senare.";
-"welcome-languages-more-info-done-button" = "Jag förstår";
-"welcome-languages-more-languages-button-title" = "Lägg till fler språk";
-"welcome-languages-button-title" = "Fortsätt";
-"welcome-languages-footnote-text" = "Ingen fara, du kan ändra detta senare.";
-"welcome-usage-reports-title" = "Hjälp oss att göra Wikipedia bättre";
-"welcome-usage-reports-body-text" = "Du kan hjälpa oss att göra appen bättre genom att låta oss samla in information om hur du använder appen.";
-"welcome-usage-reports-switch-text" = "Skicka användningsrapporter";
-"welcome-usage-reports-button-title" = "Kom igång";
-"welcome-usage-reports-privacy-policy-button-text" = "Din integritet är viktig för oss";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
 "empty-no-feed-action-message" = "Du kan läsa sparade sidor under tiden";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
+// Fuzzy
 "empty-no-search-results-message" = "Tyvärr, kunde inte läsa in resultaten";
 "empty-no-saved-pages-title" = "Inga sparade sidor ännu";
 "empty-no-saved-pages-message" = "Spara sidor och titta på dem senare, även offline";
 "empty-no-history-title" = "Ingen historik att visa";
 "empty-no-history-message" = "Håll koll på vad du har läst här";
 "alert-no-internet" = "Det finns ingen Internetanslutning";
+"icon-shortcut-search-title" = "Sök på Wikipedia";
+"icon-shortcut-continue-reading-title" = "Fortsätt läsa";
+"icon-shortcut-random-title" = "Slumpartikel";
+"icon-shortcut-nearby-title" = "Artiklar i närheten";
+"close-button-accessibility-label" = "Stäng";
+"back-button-accessibility-label" = "Tillbaka";
+"compass-direction" = "mot klockan $1";
+"explore-featured-article-heading" = "Utmärkt artikel";
+"explore-continue-reading-heading" = "Fortsätt läsa";
+"explore-nearby-heading" = "Platser i närheten";
+"explore-continue-related-heading" = "Eftersom du läste";
+"explore-main-page-heading" = "Idag på Wikipedia";
+"explore-random-article-heading" = "Slumpartikel";
+"explore-random-article-sub-heading" = "Engelskspråkiga Wikipedia";
+"explore-potd-heading" = "Dagens bild";

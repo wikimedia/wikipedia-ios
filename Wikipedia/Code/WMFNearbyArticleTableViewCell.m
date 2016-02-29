@@ -9,6 +9,7 @@
 #import "WMFNearbyArticleTableViewCell.h"
 
 @import CoreLocation;
+#import <Tweaks/FBTweakInline.h>
 
 #import "UIImageView+WMFImageFetching.h"
 
@@ -185,12 +186,11 @@
 }
 
 - (void)setDistance:(CLLocationDistance)distance {
-#if DEBUG && 0
-    //   Set ^ to 1 to debug live distance updates by showing the full value
-    self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
-#else
-    self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
-#endif
+    if (FBTweakValue(@"Explore", @"Nearby", @"Show raw distance", NO)) {
+        self.distanceLabel.text = [NSString stringWithFormat:@"%f", distance];
+    } else {
+        self.distanceLabel.text = [NSString wmf_localizedStringForDistance:distance];
+    }
 }
 
 #pragma mark - Image

@@ -18,6 +18,7 @@
 "history-section-lastweek" = "Անցյալ շաբաթ";
 "history-section-lastmonth" = "Անցյալ ամիս";
 "history-clear-cancel" = "Չեղարկել";
+// Fuzzy
 "history-clear-delete-all" = "Ջնջել ամբողջը";
 "zero-charged-verbiage" = "Վիքիպեդիա Զրոն անջատված է";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -55,7 +56,6 @@
 "search-cancel" = "Չեղարկել";
 "search-titles" = "Վերնագրեր";
 "search-within-articles" = "Հոդվածների ներսում";
-// Fuzzy
 "search-recent-title" = "Վերջին որոնումները";
 "search-recent-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր վերջին որոնումները:";
 "search-recent-clear-cancel" = "Չեղարկել";
@@ -63,12 +63,13 @@
 "main-menu-title" = "Ավելին";
 "main-menu-heading-about" = "Ծրագրի մասին";
 "main-menu-language-title" = "Որոնել $1 Վիքիպեդիա";
+// Fuzzy
 "main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Ցույց տալ լեզուները";
 "main-menu-language-toggle-hide" = "Թաքցնել լեզուները";
 "main-menu-account-title-logged-out" = "Հաշիվ";
 // Fuzzy
-"main-menu-account-login" = "Մուտք գործել";
+"main-menu-account-login" = "Մուտք գործել Վիքիպեդիա";
 "main-menu-account-logout" = "Դուրս գալ";
 "main-menu-show-title" = "Ցույց տալ ինձ...";
 "main-menu-show-history" = "Վերջին";
@@ -76,12 +77,16 @@
 "main-menu-current-article-save" = "Պահպանել $1 օֆլայն կարդալու համար";
 "main-menu-random" = "Պատահական";
 "main-menu-feedback-heading" = "Հետադարձ կապ";
+// Fuzzy
 "main-menu-send-feedback" = "Արձագանք թողնել ծրագրի մասին";
 "main-menu-credits" = "Հեղինակներ";
+// Fuzzy
 "main-menu-about" = "«Վիքիպեդիա» ծրագրի մասին";
 "main-menu-zero-faq" = "Վիքիպեդիա Զրո FAQ";
 "main-menu-privacy-policy" = "Գաղտնիության քաղաքականություն";
+// Fuzzy
 "main-menu-terms-of-use" = "Օգտագործման պայմաններ";
+// Fuzzy
 "main-menu-rate-app" = "Գնահատել ծրագիրը";
 "main-menu-heading-zero" = "Վիքիպեդիա Զրո";
 "main-menu-heading-legal" = "Գաղտնիություն և պայմաններ";
@@ -89,8 +94,10 @@
 "main-menu-nearby" = "Մոտակայքում";
 "main-menu-more" = "Ավելին...";
 "saved-pages-title" = "Պահպանված էջեր";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Հեռացնե՞լ բոլոր պահպանված տարրերը ։";
 "saved-pages-clear-cancel" = "Չեղարկել";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Ջնջել ամբողջը";
 "saved-pages-refresh-cancel-alert-title" = "Թարմացումը չեղյալ է հայտարարվել";
 "saved-pages-refresh-cancel-alert-button" = "Հասկանալի է";
@@ -126,6 +133,7 @@
 "share-custom-menu-item" = "Կիսվել";
 "share-as-image" = "Կիսվել որպես պատկեր";
 "share-as-text" = "Կիսվել որպես տեքստ";
+"share-cancel" = "Չեղարկել";
 "timestamp-just-now" = "մի փոքր առաջ";
 "timestamp-minutes" = "%d րոպե առաջ";
 "timestamp-hours" = "%d ժամ առաջ";
@@ -183,3 +191,4 @@
 "hockeyapp-alert-privacy" = "$1 գաղտնիության քաղաքականություն";
 "page-issues" = "Էջի քննարկումներ";
 "page-similar-titles" = "Նմանատիպ էջեր";
+"home-hide-suggestion-cancel" = "Չեղարկել";

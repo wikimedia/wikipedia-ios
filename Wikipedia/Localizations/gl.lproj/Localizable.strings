@@ -23,9 +23,11 @@
 "history-section-yesterday" = "Onte";
 "history-section-lastweek" = "Última semana";
 "history-section-lastmonth" = "Último mes";
+// Fuzzy
 "history-clear-confirmation-heading" = "Borrar tódolos elementos recentes?";
 "history-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
 "history-clear-cancel" = "Cancelar";
+// Fuzzy
 "history-clear-delete-all" = "Borrar todo";
 "history-description" = "Probablemente borrounas todas. A próxima vez que vaia a unha páxina pode recuperala desde aquí.";
 "history-none" = "Non hai páxinas recentes aquí.";
@@ -41,6 +43,7 @@
 "zero-learn-more-learn-more" = "Ler máis";
 "zero-learn-more-no-thanks" = "Agochar";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Avisádeme ao saír da Wikipedia Zero";
 "zero-settings-devmode" = "Modo de desenvolvedor Zero";
 "account-creation-captcha-required" = "Requírese a verificación do código CAPTCHA.";
@@ -99,16 +102,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer.";
 "search-recent-clear-cancel" = "Cancelar";
 "search-recent-clear-delete-all" = "Borrar todo";
+"search-result-redirected-from" = "Redirixido de: $1";
 "settings-title" = "Configuración";
 "main-menu-title" = "Máis";
 "main-menu-heading-about" = "Acerca de";
 "main-menu-language-title" = "Procurar na Wikipedia en $1";
+// Fuzzy
 "main-menu-faq" = "Preguntas máis frecuentes";
 "main-menu-language-toggle-show" = "Mostrar idiomas";
 "main-menu-language-toggle-hide" = "Ocultar idiomas";
 "main-menu-language-selection-saved" = "Gardouse a selección de idioma.";
 "main-menu-account-title-logged-out" = "Conta";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Sesión iniciada como: $1";
+// Fuzzy
 "main-menu-account-login" = "Iniciar sesión na Wikipedia";
 "main-menu-account-logout" = "Saír";
 "main-menu-show-title" = "Mostrarme…";
@@ -117,13 +124,17 @@
 "main-menu-current-article-save" = "Gardar $1 para ler sen conexión";
 "main-menu-random" = "Ao chou";
 "main-menu-feedback-heading" = "Comentarios";
+// Fuzzy
 "main-menu-send-feedback" = "Enviar comentarios sobre a aplicación";
 "main-menu-show-page-history" = "Historial de cambios de $1";
 "main-menu-credits" = "Créditos";
+// Fuzzy
 "main-menu-about" = "Acerca da aplicación da Wikipedia";
 "main-menu-zero-faq" = "Preguntas frecuentes sobre a Wikipedia Zero";
 "main-menu-privacy-policy" = "Política de protección de datos";
+// Fuzzy
 "main-menu-terms-of-use" = "Termos de uso";
+// Fuzzy
 "main-menu-rate-app" = "Avaliar aplicación";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacidade e Condicións";
@@ -132,11 +143,14 @@
 "main-menu-more" = "Máis...";
 "main-menu-heading-debug" = "Depurar";
 "main-menu-debug-crash" = "Lixo";
+"main-menu-debug-tweaks" = "Parámetros de programación";
 "saved-title" = "Gardado";
 "saved-pages-title" = "Páxinas gardadas";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Borrar tódolos elementos gardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
 "saved-pages-clear-cancel" = "Cancelar";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Borrar todo";
 "saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
 "saved-pages-refresh-cancel-alert-message" = "Os artigos de Wikipedia actualízanse todo o tempo. Prema actualizar para obter as últimas versións de tódolos artigos.";
@@ -199,6 +213,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" en @Wikipedia: \"$2\"";
 "share-as-image" = "Compartir como imaxe";
 "share-as-text" = "Compartir como texto";
+"share-cancel" = "Cancelar";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "hai %d minutos";
 "timestamp-hours" = "hai %d horas";
@@ -228,6 +243,7 @@
 "license-footer-text" = "O contido está dispoñible baixo a $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Contidos";
+"table-of-contents-button-label" = "Táboa de contidos";
 "abuse-filter-warning-heading" = "Isto semella unha edición non construtiva, está seguro de querer gardala?";
 "abuse-filter-warning-subheading" = "A súa edición pode conter un ou máis dos seguintes:";
 "abuse-filter-warning-caps" = "Escribir TODO EN MAIÚSCULAS";
@@ -287,6 +303,7 @@
 "hockeyapp-alert-privacy" = "Confidencialidade de $1";
 "page-issues" = "Problemas na páxina";
 "page-similar-titles" = "Páxinas similares";
+// Fuzzy
 "page-read-in-other-languages" = "Ler en $1 linguas";
 "page-last-edited" = "Editado fai $1 días";
 "page-edit-history" = "Historial de edición completo";
@@ -303,37 +320,40 @@
 "home-featured-article-heading" = "Artigo destacado para $1";
 "home-main-page-heading" = "Hoxe en Wikipedia";
 "home-potd-heading" = "Imaxe do día para $1";
+"home-last-update-label" = "Última actualización: $1";
+"home-last-update-never-label" = "Última actualización: Nunca";
+"home-updating-label" = "Actualizando…";
+"home-hide-suggestion-prompt" = "Ocultar esta suxestión";
+"home-hide-suggestion-cancel" = "Cancelar";
+"home-accessibility-label" = "Wikipedia, Explore";
+"home-button-accessibility-label" = "Botón de comezo";
 "potd-empty-error-description" = "Erro ó recuperar a imaxe do día para $1";
 "potd-description-prefix" = "Imaxe do día para $1";
-"welcome-whats-new-title" = "Benvido á Wikipedia";
-"welcome-whats-new-whats-new" = "QUE HAI DE NOVO";
-"welcome-whats-new-bullet-one-title" = "Un xeito novo de Explorar";
-"welcome-whats-new-bullet-one-text" = "Descubrir artigos novos e interesantes só para vostede na pantalla de Explorar";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Como funciona isto...";
-"welcome-whats-new-bullet-two-title" = "Deseñado para ler";
-"welcome-whats-new-bullet-two-text" = "Deseño actualizado centrado en proporcionar unha mellor experiencia de lectura.";
-"welcome-whats-new-button-title" = "Comezar";
-"welcome-whats-new-bullet-one-more-info-text" = "Cando visita un artigo, os artigos relacionados engádense automaticamente á súa bandexa. Isto non cambia a forma na que recollemos a súa información, e o seu historial de lectura permanece privado.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Entendido";
+// Fuzzy
 "welcome-languages-title" = "Linguas a procurar";
-"welcome-languages-more-info-button-text" = "Máis información";
-"welcome-languages-more-info-text" = "Os artigos de Wikipedia moitas veces están dispoñibles en varias linguas. Seleccione as linguas que queira usar nas procuras. Pode cambiar isto máis tarde.";
-"welcome-languages-more-info-done-button" = "Entendido";
-"welcome-languages-more-languages-button-title" = "Engadir máis linguas";
-"welcome-languages-button-title" = "Continuar";
-"welcome-languages-footnote-text" = "Non se preocupe, vostede pode cambiar isto máis tarde.";
-"welcome-usage-reports-title" = "Axúdenos a facer a Wikipedia mellor";
-"welcome-usage-reports-body-text" = "Pode axudarnos a facer mellor a app permitíndonos recoller información sobre a maneira na que vostede a usa.";
-"welcome-usage-reports-switch-text" = "Enviar informe de uso";
-"welcome-usage-reports-button-title" = "Comezar";
-"welcome-usage-reports-privacy-policy-button-text" = "A súa privacidade é importante para nós";
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
 "empty-no-feed-action-message" = "Mentras tanto, pode ler a páxinas gardadas";
 "empty-no-article-message" = "Sentímolo, non foi posible cargar o artigo";
+// Fuzzy
 "empty-no-search-results-message" = "Sentímolo, non se puideron cargar os resultados";
 "empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
 "empty-no-saved-pages-message" = "Gardar páxinas para velas máis tarde, incluso sen conexión";
 "empty-no-history-title" = "Non hai ningún historial para amosar";
 "empty-no-history-message" = "Manter un rexistro do que fun lendo aquí";
 "alert-no-internet" = "Non hai conexión a Internet";
+"icon-shortcut-search-title" = "Procurar na Wikipedia";
+"icon-shortcut-continue-reading-title" = "Continuar lendo";
+"icon-shortcut-random-title" = "Artigo ao chou";
+"icon-shortcut-nearby-title" = "Artigos próximos";
+"close-button-accessibility-label" = "Pechar";
+"back-button-accessibility-label" = "Volver";
+"compass-direction" = "ás $1";
+"explore-featured-article-heading" = "Artigo destacado";
+"explore-continue-reading-heading" = "Continuar lendo";
+"explore-nearby-heading" = "Lugares próximos";
+"explore-continue-related-heading" = "Porque leu";
+"explore-main-page-heading" = "Hoxe en Wikipedia";
+"explore-random-article-heading" = "Artigo ao chou";
+"explore-random-article-sub-heading" = "Wikipedia inglesa";
+"explore-potd-heading" = "Imaxe do día";

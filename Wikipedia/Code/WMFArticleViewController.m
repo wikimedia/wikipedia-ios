@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (WMFArticleFooterMenuViewController*)footerMenuViewController {
     if (!_footerMenuViewController && [self hasAboutThisArticle]) {
-        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article];
+        self.footerMenuViewController = [[WMFArticleFooterMenuViewController alloc] initWithArticle:self.article similarPagesListDelegate:self];
     }
     return _footerMenuViewController;
 }
@@ -991,6 +991,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
+    if ([self presentedViewController]) {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
     id<WMFAnalyticsContentTypeProviding> contentType = nil;
     if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {
         contentType = (id<WMFAnalyticsContentTypeProviding>)listController;
@@ -1004,6 +1007,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
+    if ([self presentedViewController]) {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
     if ([viewController isKindOfClass:[WMFArticleViewController class]]) {
         id<WMFAnalyticsContentTypeProviding> contentType = nil;
         if ([listController conformsToProtocol:@protocol(WMFAnalyticsContentTypeProviding)]) {

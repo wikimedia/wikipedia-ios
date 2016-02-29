@@ -230,6 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
     [[PiwikTracker wmf_configuredInstance] wmf_logActionTapThroughInContext:self contentType:nil];
     [self wmf_hideKeyboard];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     MWKTitle* title = [self.dataSource titleForIndexPath:indexPath];
     if (self.delegate) {
         [self.delegate listViewContoller:self didSelectTitle:title];

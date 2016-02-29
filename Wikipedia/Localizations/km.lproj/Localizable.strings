@@ -17,9 +17,11 @@
 "history-section-yesterday" = "ម្សិលមិញ";
 "history-section-lastweek" = "សប្តាហ៍មុន";
 "history-section-lastmonth" = "ខែមុន";
+// Fuzzy
 "history-clear-confirmation-heading" = "លុបរបស់ថ្មីៗទាំងអស់?";
 "history-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "history-clear-cancel" = "បោះបង់";
+// Fuzzy
 "history-clear-delete-all" = "លុបចោលទាំងអស់";
 "zero-free-verbiage" = "ចូលទៅកាន់វិគីភីឌាពីប្រព័ន្ធទូរស័ព្ទចល័តរបស់អ្នកដោយឥតគិតថ្លៃ (លើកលែងមិនបាច់បង់តម្លៃផ្ញើទិន្នន័យចេញចូល)";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -29,6 +31,7 @@
 "zero-learn-more-learn-more" = "អានបន្ថែម";
 "zero-learn-more-no-thanks" = "លាក់";
 "zero-wikipedia-zero-heading" = "វិគីភីឌាសូន្យ";
+// Fuzzy
 "zero-warn-when-leaving" = "រំលឹកពេលចង់ចាកចេញពីវិគីសូន្យ";
 "account-creation-captcha-required" = "ត្រូវការផ្ទៀតផ្ទាត់ CAPTCHA";
 "account-creation-captcha-obtaining" = "យក CAPTCHA ថ្មី។";
@@ -83,11 +86,13 @@
 "main-menu-title" = "បន្ថែមទៀត";
 "main-menu-heading-about" = "អំពី";
 "main-menu-language-title" = "ស្វែងរក $1 ក្នុងវិគីភីឌា";
+// Fuzzy
 "main-menu-faq" = "សំណួរដែលសួរញឹកញាប់";
 "main-menu-language-toggle-show" = "បង្ហាញភាសា";
 "main-menu-language-toggle-hide" = "លាក់ភាសា";
 "main-menu-language-selection-saved" = "បានរក្សាទុកជម្រើសភាសា";
 "main-menu-account-title-logged-out" = "គណនី";
+// Fuzzy
 "main-menu-account-title-logged-in" = "កត់ឈ្មោះចូលជា៖ $1";
 // Fuzzy
 "main-menu-account-login" = "កត់ឈ្មោះចូល";
@@ -98,12 +103,16 @@
 "main-menu-current-article-save" = "រក្សាទុក $1 សម្រាប់អាននៅក្រៅបណ្ដាញ";
 "main-menu-random" = "ចៃដន្យ";
 "main-menu-feedback-heading" = "មតិយោបល់";
+// Fuzzy
 "main-menu-send-feedback" = "ផ្ញើមតិយោបល់អំពីកម្មវិធីនេះ";
 "main-menu-show-page-history" = "ប្រវត្តិបន្លាស់ប្ដូរលើ $1";
+// Fuzzy
 "main-menu-about" = "អំពីកម្មវិធីវិគីភីឌា";
 "main-menu-zero-faq" = "សំនួរញឹកញាប់សម្រាប់វិគីភីឌាសូន្យ";
 "main-menu-privacy-policy" = "គោលការណ៍នៃ​ភាពឯកជន";
+// Fuzzy
 "main-menu-terms-of-use" = "លក្ខខណ្ឌប្រើប្រាស់";
+// Fuzzy
 "main-menu-rate-app" = "វាយតម្លៃកម្មវិធី";
 "main-menu-heading-zero" = "វិគីភីឌាសូន្យ";
 "main-menu-heading-legal" = "ភាពឯកជននិងលក្ខខណ្ឌប្រើប្រាស់";
@@ -112,9 +121,11 @@
 "main-menu-more" = "បន្ថែមទៀត...";
 "main-menu-debug-crash" = "គាំង";
 "saved-pages-title" = "ទំព័រដែលបានរក្សាទុក";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "លុបរបស់ដែលបានរក្សាទុកទាំងអស់?";
 "saved-pages-clear-confirmation-sub-heading" = "សកម្មភាពនេះមិនអាចឈប់ធ្វើវិញបានទេ!";
 "saved-pages-clear-cancel" = "បោះបង់";
+// Fuzzy
 "saved-pages-clear-delete-all" = "លុបចោលទាំងអស់";
 "saved-pages-refresh-cancel-alert-title" = "ការបន្ទាន់សម័យត្រូវបានបោះបង់";
 "saved-pages-refresh-cancel-alert-button" = "យល់ហើយ";

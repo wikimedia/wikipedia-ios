@@ -18,9 +18,11 @@
 "history-section-yesterday" = "Dje";
 "history-section-lastweek" = "Javën e kaluar";
 "history-section-lastmonth" = "Muajin e kaluar";
+// Fuzzy
 "history-clear-confirmation-heading" = "Fshini të gjithë artikujt e fundit?";
 "history-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
 "history-clear-cancel" = "Anulo";
+// Fuzzy
 "history-clear-delete-all" = "Fshi të gjitha";
 "history-description" = "Ndoshta i keni fshirë të gjitha. Herën tjetër që shkoni në një faqe, ju mund të riktheheni te ajo nga këtu.";
 "history-none" = "Nuk ka faqe të fundit këtu.";
@@ -36,6 +38,7 @@
 "zero-learn-more-learn-more" = "Lexo më shumë";
 "zero-learn-more-no-thanks" = "Largoje";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Më paralajmëro nëse po lë Wikipedia Zeron";
 "zero-settings-devmode" = "Zero devmode";
 "account-creation-captcha-required" = "Kërkohet verifikimi CAPTCHA.";
@@ -89,10 +92,12 @@
 "main-menu-title" = "Më tepër...";
 "main-menu-heading-about" = "Rreth";
 "main-menu-language-title" = "Kërko në Wikipedian në gjuhën $1";
+// Fuzzy
 "main-menu-faq" = "Pyetje të shpeshta";
 "main-menu-language-toggle-show" = "Trego gjuhët";
 "main-menu-language-toggle-hide" = "Fshih gjuhët";
 "main-menu-account-title-logged-out" = "Llogaria";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Keni hyrë si: $1";
 // Fuzzy
 "main-menu-account-login" = "Hyni";
@@ -103,13 +108,17 @@
 "main-menu-current-article-save" = "Ruani %1 për lexim pa internet";
 "main-menu-random" = "I rastit";
 "main-menu-feedback-heading" = "Komente";
+// Fuzzy
 "main-menu-send-feedback" = "Dërgoni komente rreth aplikacionit";
 "main-menu-show-page-history" = "Historiku i ndryshimeve të artikullit $1";
 "main-menu-credits" = "Kreditet";
+// Fuzzy
 "main-menu-about" = "Rreth aplikacionit Wikipedia";
 "main-menu-zero-faq" = "Pyetje dhe përgjigje për Wikipedia Zero";
 "main-menu-privacy-policy" = "Politika e privatësisë";
+// Fuzzy
 "main-menu-terms-of-use" = "Kushtet e përdorimit";
+// Fuzzy
 "main-menu-rate-app" = "Vlerësoni aplikacionin";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privatësia dhe Kushtet";
@@ -119,9 +128,11 @@
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Mbyllje e detyrueshme";
 "saved-pages-title" = "Faqet e ruajtura";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Fshi të gjithë artikujt e ruajtur?";
 "saved-pages-clear-confirmation-sub-heading" = "Ky veprim nuk mund të zhbëhet!";
 "saved-pages-clear-cancel" = "Anulo";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Fshi të gjitha";
 "saved-pages-refresh-cancel-alert-button" = "E kuptova";
 "page-history-title" = "Historiku i artikullit";

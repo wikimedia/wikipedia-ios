@@ -6,7 +6,7 @@
 //  Copyright © 2016 Wikimedia Foundation. All rights reserved.
 //
 
-#import "WMFExploreSectionControllerCache.h"
+#import "WMFExploreSectionControllerCache_Testing.h"
 #import "MWKSite.h"
 #import "MWKDataStore.h"
 #import "MWKUserDataStore.h"
@@ -25,14 +25,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
-@interface WMFExploreSectionControllerCache ()
-
-@property (nonatomic, strong, readwrite) MWKDataStore* dataStore;
-@property (nonatomic, strong) NSCache* sectionControllersBySection;
-@property (nonatomic, strong) NSMapTable* sectionsBySectionController;
-
-@end
+#if DEBUG
+/**
+ *  @function WMFVerifyCacheConsistency
+ *
+ *  Verify consistency between internal `NSCache` and reverse-section-lookup `NSMapTable`.
+ *
+ *  Need to be sure that when the `NSCache` evicts a controller, that its corresponding entry in the reverse lookup table
+ *  is also removed.  There might be times when the two are temporarily out of sync (such as when a nearby section is
+ *  removed due to restricted permissions, and the explore view controller delays fetching of its preceding section,
+ *  which temporarily retains it), but seeing too many of these inconsistencies in the should point to a controller
+ *  being retained somewhere it shoudln't be.
+ *
+ *  @param sectionOrController
+ */
+#define WMFVerifyCacheConsistency(sectionOrController) [self verifyCacheConsistency : (sectionOrController)]
+#else
+#define WMFVerifyCacheConsistency(sectionOrController)
+#endif
 
 @implementation WMFExploreSectionControllerCache
 
@@ -43,22 +53,73 @@ NS_ASSUME_NONNULL_BEGIN
         self.dataStore                              = dataStore;
         self.sectionControllersBySection            = [[NSCache alloc] init];
         self.sectionControllersBySection.countLimit = [WMFExploreSection totalMaxNumberOfSections];
-        self.sectionsBySectionController            = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
-                                                                            valueOptions:NSMapTableWeakMemory];
+        self.reverseLookup                          =
+            [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory | NSMapTableObjectPointerPersonality
+                                  valueOptions:NSMapTableWeakMemory];
     }
     return self;
 }
 
+- (void)verifyCacheConsistency:(id)sectionOrController {
+    if ([sectionOrController isKindOfClass:[WMFExploreSection class]]) {
+        [self verifyCacheConsistencyForSection:sectionOrController];
+    } else {
+        [self verifyCacheConsistencyForController:sectionOrController];
+    }
+}
+
+- (void)verifyCacheConsistencyForController:(id<WMFExploreSectionController>)controller {
+    WMFExploreSection* section = [self.reverseLookup objectForKey:controller];
+    if (!section) {
+        // can't check controller consistency w/o a key since NSCache doesn't tell you all the objects it contains
+        return;
+    }
+    id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
+    if (!cacheController) {
+        DDLogWarn(@"Reverse map contains section for controller which is no longer cached: %@", section);
+    }
+}
+
+- (void)verifyCacheConsistencyForSection:(WMFExploreSection*)section {
+    id<WMFExploreSectionController> reverseMapController =
+        [[[self.reverseLookup keyEnumerator] allObjects] bk_match:^BOOL (id obj) {
+        return [[self.reverseLookup objectForKey:obj] isEqual:section];
+    }];
+    id<WMFExploreSectionController> cacheController = [self.sectionControllersBySection objectForKey:section];
+    if (reverseMapController != cacheController) {
+        DDLogWarn(@"Mismatch between cached controllers & reverse map! Reverse map: %@ cache: %@",
+                  reverseMapController, cacheController);
+    }
+}
+
 - (nullable id<WMFExploreSectionController>)controllerForSection:(WMFExploreSection*)section {
-    id<WMFExploreSectionController> controller = [self.sectionControllersBySection objectForKey:section];
-    return controller;
+    WMFVerifyCacheConsistency(section);
+    return [self.sectionControllersBySection objectForKey:section];
 }
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller {
-    return [self.sectionsBySectionController objectForKey:controller];
+    WMFVerifyCacheConsistency(controller);
+    return [self.reverseLookup objectForKey:controller];
+}
+
+- (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
+                                                     creationBlock:(nullable void (^)(id<WMFExploreSectionController> _Nonnull))creationBlock {
+    id<WMFExploreSectionController> controller = [self controllerForSection:section];
+    if (controller) {
+        return controller;
+    }
+    controller = [self newControllerForSection:section];
+    if (creationBlock) {
+        creationBlock(controller);
+    }
+    return controller;
 }
 
 - (id<WMFExploreSectionController>)newControllerForSection:(WMFExploreSection*)section {
+    NSAssert(![self.sectionControllersBySection objectForKey:section],
+             @"Invalid request to create a new section controller for section %@ when one already exists: %@",
+             section, [self.sectionControllersBySection objectForKey:section]);
+
     id<WMFExploreSectionController> controller;
     switch (section.type) {
         case WMFExploreSectionTypeHistory:
@@ -92,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     [self.sectionControllersBySection setObject:controller forKey:section];
-    [self.sectionsBySectionController setObject:section forKey:controller];
+    [self.reverseLookup setObject:section forKey:controller];
 
     return controller;
 }
@@ -114,7 +175,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (WMFNearbySectionController*)nearbySectionControllerForSchemaItem:(WMFExploreSection*)item {
-    return [[WMFNearbySectionController alloc] initWithLocation:item.location placemark:item.placemark site:item.site dataStore:self.dataStore];
+    return [[WMFNearbySectionController alloc] initWithLocation:item.location
+                                                      placemark:item.placemark
+                                                           site:item.site
+                                                      dataStore:self.dataStore];
 }
 
 - (WMFRandomSectionController*)randomSectionControllerForSchemaItem:(WMFExploreSection*)item {

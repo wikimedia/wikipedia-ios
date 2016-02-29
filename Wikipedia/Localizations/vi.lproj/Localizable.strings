@@ -7,6 +7,7 @@
 // Author: Macofe
 // Author: Max20091
 // Author: Minh Nguyen
+// Author: Nguyên Lê
 // Author: Vinhtantran
 
 "languages-title" = "Ngôn ngữ";
@@ -15,6 +16,7 @@
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
 "article-read-more-title" = "Đọc tiếp";
+"article-about-title" = "Thông tin về bài viết";
 "article-unable-to-load-section" = "Không thể tải lên phần này. Hãy thử tải lại bài để xem lỗi có được khắc phục hay không.";
 "article-unable-to-load-article" = "Không thể tải bài này.";
 "article-related-articles-title" = "Các bài liên quan";
@@ -26,11 +28,13 @@
 "history-section-yesterday" = "Hôm qua";
 "history-section-lastweek" = "Tuần trước";
 "history-section-lastmonth" = "Tháng trước";
+// Fuzzy
 "history-clear-confirmation-heading" = "Xóa tất cả các mục gần đây?";
 "history-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "history-clear-cancel" = "Hủy bỏ";
+// Fuzzy
 "history-clear-delete-all" = "Xóa Toàn bộ";
-"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
+"history-description" = "Có lẽ bạn đã xóa toàn bộ. Lần sau khi bạn xem một trang, trang sẽ xuất hiện tại đây để truy cập sau.";
 "history-none" = "Đây không có trang gần đây.";
 "zero-free-verbiage" = "Truy cập Wikipedia miễn phí qua nhà điều hành điện thoại di động (miễn phí dữ liệu)";
 "zero-charged-verbiage" = "Wikipedia Miễn phí đang tắt";
@@ -44,6 +48,7 @@
 "zero-learn-more-learn-more" = "Đọc thêm";
 "zero-learn-more-no-thanks" = "Bỏ qua";
 "zero-wikipedia-zero-heading" = "Wikipedia Miễn phí";
+// Fuzzy
 "zero-warn-when-leaving" = "Cảnh báo khi ra khỏi Wikipedia Miễn phí";
 "zero-settings-devmode" = "Chế độ phát triển Miễn phí";
 "account-creation-captcha-required" = "Cần xác nhận bằng CAPTCHA.";
@@ -102,16 +107,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "search-recent-clear-cancel" = "Hủy bỏ";
 "search-recent-clear-delete-all" = "Xóa Toàn bộ";
+"search-result-redirected-from" = "Đổi hướng từ: $1";
 "settings-title" = "Cài đặt";
 "main-menu-title" = "Khác";
 "main-menu-heading-about" = "Giới thiệu";
 "main-menu-language-title" = "Tìm kiếm trong phiên bản ngôn ngữ $1";
+// Fuzzy
 "main-menu-faq" = "Câu hỏi thường gặp";
 "main-menu-language-toggle-show" = "Xem các ngôn ngữ";
 "main-menu-language-toggle-hide" = "Ẩn các ngôn ngữ";
 "main-menu-language-selection-saved" = "Đã lưu phiên bản ngôn ngữ để tìm kiếm";
 "main-menu-account-title-logged-out" = "Tài khoản";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Đã đăng nhập là: $1.";
+// Fuzzy
 "main-menu-account-login" = "Đăng nhập vào Wikipedia";
 "main-menu-account-logout" = "Đăng xuất";
 "main-menu-show-title" = "Cho tôi xem…";
@@ -120,13 +129,17 @@
 "main-menu-current-article-save" = "Lưu $1 để đọc ngoại tuyến";
 "main-menu-random" = "Ngẫu nhiên";
 "main-menu-feedback-heading" = "Phản hồi";
+// Fuzzy
 "main-menu-send-feedback" = "Gửi phản hồi về ứng dụng";
 "main-menu-show-page-history" = "Lịch sử các thay đổi vào $1";
 "main-menu-credits" = "Ghi công";
+// Fuzzy
 "main-menu-about" = "Giới thiệu về ứng dụng Wikipedia";
 "main-menu-zero-faq" = "Câu thường hỏi về Wikipedia Miễn phí";
 "main-menu-privacy-policy" = "Quy định về quyền riêng tư";
+// Fuzzy
 "main-menu-terms-of-use" = "Điều khoản Sử dụng";
+// Fuzzy
 "main-menu-rate-app" = "Đánh giá ứng dụng";
 "main-menu-heading-zero" = "Wikipedia Miễn phí";
 "main-menu-heading-legal" = "Thông tin pháp luật";
@@ -135,16 +148,22 @@
 "main-menu-more" = "Thêm…";
 "main-menu-heading-debug" = "Gỡ lỗi";
 "main-menu-debug-crash" = "Gây Sự cố";
+"main-menu-debug-tweaks" = "Tuỳ chọn cho nhà phát triển";
+"saved-title" = "Đã lưu";
 "saved-pages-title" = "Trang đã Lưu";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Xóa tất cả các mục đã lưu?";
 "saved-pages-clear-confirmation-sub-heading" = "Không thể hoàn tác tác vụ này!";
 "saved-pages-clear-cancel" = "Hủy bỏ";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Xóa Toàn bộ";
 "saved-pages-refresh-cancel-alert-title" = "Đã hủy cập nhật";
 "saved-pages-refresh-cancel-alert-message" = "Các bài viết Wikipedia được cập nhật rất thường xuyên. Chạm vào Tải lại để lấy bản mới nhất của các bài.";
 "saved-pages-refresh-cancel-alert-button" = "Được rồi";
 "saved-pages-description" = "Các trang đã lưu là giống như các dấu trang có thể đọc ngay cả khi ngoại tuyến.";
 "saved-pages-none" = "Chưa lưu trang nào.";
+"saved-pages-image-download-error" = "Tải xuống hình ảnh khi lưu trang này thất bại.";
+"history-title" = "Lịch sử";
 "page-history-title" = "Lịch sử trang";
 "page-history-downloading" = "Đang tải lịch sử trang…";
 "navbar-title-mode-edit-wikitext" = "Sửa đổi";
@@ -199,7 +218,8 @@
 "share-article-name-on-wikipedia-with-selected-text" = "“$1” trên @Wikipedia: “$2”";
 "share-as-image" = "Chia sẻ hình ảnh";
 "share-as-text" = "Chia sẻ văn bản";
-"timestamp-just-now" = "hồi nãy";
+"share-cancel" = "Huỷ bỏ";
+"timestamp-just-now" = "vừa xong";
 "timestamp-minutes" = "%d phút trước";
 "timestamp-hours" = "%d giờ trước";
 "timestamp-days" = "%d ngày trước";
@@ -228,6 +248,7 @@
 "license-footer-text" = "Nội dung được phát hành theo $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Mục lục";
+"table-of-contents-button-label" = "Mục lục";
 "abuse-filter-warning-heading" = "Sửa đổi này có vẻ không có tính xây dựng. Bạn có chắc chắn muốn lưu nó?";
 "abuse-filter-warning-subheading" = "Sửa đổi của bạn có thể có những vấn đề sau:";
 "abuse-filter-warning-caps" = "Viết TOÀN CHỮ HOA";
@@ -287,6 +308,10 @@
 "hockeyapp-alert-privacy" = "Quyền riêng tư $1";
 "page-issues" = "Vấn đề trang";
 "page-similar-titles" = "Trang tương tự";
+// Fuzzy
+"page-read-in-other-languages" = "Đọc trong $1 ngôn ngữ";
+"page-last-edited" = "Sửa đổi lần cuối $1 ngày trước";
+"page-edit-history" = "Toàn bộ lịch sử sửa đổi";
 "captcha-reload" = "Hiển thị CAPTCHA khác";
 "captcha-prompt" = "Nhập văn bản CAPTCHA theo hình bên trên";
 "mwk-empty-title-error" = "Không thể thực hiện tác vụ đối với một tiêu đề trống.";
@@ -300,32 +325,40 @@
 "home-featured-article-heading" = "Bài viết chọn lọc cho $1";
 "home-main-page-heading" = "Hôm nay tại Wikipedia";
 "home-potd-heading" = "Hình trong ngày cho $1";
+"home-last-update-label" = "Cập nhật lần cuối: $1";
+"home-last-update-never-label" = "Cập nhật lần cuối: Chưa bao giờ";
+"home-updating-label" = "Đang cập nhật…";
+"home-hide-suggestion-prompt" = "Ẩn gợi ý này";
+"home-hide-suggestion-cancel" = "Huỷ bỏ";
+"home-accessibility-label" = "Wikipedia, Khám phá";
+"home-button-accessibility-label" = "Nút Trang chủ";
 "potd-empty-error-description" = "Thất bại khi lấy hình trong ngày cho $1";
 "potd-description-prefix" = "Hình trong ngày cho $1";
-"welcome-whats-new-title" = "Chào mừng bạn đến với Wikipedia";
-"welcome-whats-new-whats-new" = "CÓ GÌ MỚI";
-"welcome-whats-new-bullet-one-title" = "Một cách mới để Thám hiểm";
-"welcome-whats-new-bullet-one-text" = "Khám phá các bài mới và thú vị dành cho bạn trên màn hình Thám hiểm.";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Ấy làm sao…";
-"welcome-whats-new-bullet-two-title" = "Thiết kế lại để dễ Đọc";
-"welcome-whats-new-bullet-two-text" = "Thiết kế mới chú trọng về trải nghiệm đọc.";
-"welcome-whats-new-button-title" = "Bắt đầu";
-"welcome-whats-new-bullet-one-more-info-text" = "Khi nào bạn mở một bài, các bài có liên quan được tự động thêm vào nguồn cấp của bạn. Điều này không thay đổi chúng tôi lấy thông tin của bạn như thế nào, và lịch sử đọc của bạn vẫn là riêng tư.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Được rồi";
 // Fuzzy
-"welcome-languages-title" = "Chọn các ngôn ngữ của bạn";
-"welcome-languages-more-languages-button-title" = "Thêm nhiều ngôn ngữ hơn";
-"welcome-languages-button-title" = "Tiếp tục";
-"welcome-languages-footnote-text" = "Đừng lo, bạn có thể lúc nào thay đổi danh sách này.";
-"welcome-usage-reports-title" = "Giúp chúng tôi cải thiện Wikipedia";
-"welcome-usage-reports-body-text" = "Bạn có thể giúp chúng tôi cải thiện ứng dụng này bằng cách cho phép chúng tôi thăm dò bạn sử dụng ứng dụng như thế nào.";
-"welcome-usage-reports-switch-text" = "Gửi báo cáo sử dụng";
-// Fuzzy
-"welcome-usage-reports-button-title" = "Xong";
-"welcome-usage-reports-privacy-policy-button-text" = "Chúng tôi tôn trọng quyền riêng tư của bạn";
+"welcome-languages-title" = "Ngôn ngữ khi tìm kiếm";
 "empty-no-feed-title" = "Không có kết nối Internet";
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
 "empty-no-feed-action-message" = "Trong lúc ấy thì bạn có thể đọc các trang đã lưu";
 "empty-no-article-message" = "Rất tiếc, không thể tải bài";
+// Fuzzy
 "empty-no-search-results-message" = "Rất tiếc, không thể tải kết quả";
+"empty-no-saved-pages-title" = "Chưa lưu trang nào.";
+"empty-no-saved-pages-message" = "Lưu trang để xem sau, thậm chí để xem ngoại tuyến.";
+"empty-no-history-title" = "Không có gì để hiển thị";
+"empty-no-history-message" = "Ghi lại danh sách các trang bạn đã đọc";
 "alert-no-internet" = "Không có kết nối Internet";
+"icon-shortcut-search-title" = "Tìm trong Wikipedia";
+"icon-shortcut-continue-reading-title" = "Đọc tiếp";
+"icon-shortcut-random-title" = "Bài viết ngẫu nhiên";
+"icon-shortcut-nearby-title" = "Bài viết lân cận";
+"close-button-accessibility-label" = "Đóng";
+"back-button-accessibility-label" = "Quay lại";
+"compass-direction" = "hướng $1 giờ";
+"explore-featured-article-heading" = "Bài viết chọn lọc";
+"explore-continue-reading-heading" = "Đọc tiếp";
+"explore-nearby-heading" = "Địa điểm lân cận";
+"explore-continue-related-heading" = "Vì bạn đã đọc $1";
+"explore-main-page-heading" = "Hôm nay tại Wikipedia";
+"explore-random-article-heading" = "Bài viết ngẫu nhiên";
+"explore-random-article-sub-heading" = "Wikipedia tiếng Anh";
+"explore-potd-heading" = "Hình ảnh trong ngày";

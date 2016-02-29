@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
                        history:(MWKHistoryList*)history
                      blackList:(WMFRelatedSectionBlackList*)blackList
                locationManager:(WMFLocationManager*)locationManager
-                          file:(NSString*)filePath;
+                          file:(NSURL*)fileURL;
+
+- (AnyPromise*)save;
 
 @end
 

@@ -2,11 +2,13 @@
 // Exported from translatewiki.net
 // Author: Cedric31
 
+"languages-title" = "Lengas";
 "article-languages-label" = "Causir una lenga";
 "article-languages-cancel" = "Anullar";
 "article-languages-downloading" = "Cargament de las lengas de l’article en cors…";
 "article-languages-filter-placeholder" = "Filtre de lenga";
 "article-read-more-title" = "Ne saber mai";
+"article-about-title" = "A prepaus d'aqueste article";
 "info-box-title" = "Faches en brèu";
 "info-box-close-text" = "Tampar";
 "history-label" = "Recent";
@@ -15,6 +17,7 @@
 "history-section-lastweek" = "La setmana passada";
 "history-section-lastmonth" = "Lo mes passat";
 "history-clear-cancel" = "Anullar";
+// Fuzzy
 "history-clear-delete-all" = "Suprimir tot";
 "zero-charged-verbiage" = "Wikipèdia Zèro es desactivada";
 "zero-interstitial-title" = "Sortida de Wikipèdia Zèro";
@@ -23,6 +26,7 @@
 "zero-learn-more-learn-more" = "Legir la seguida";
 "zero-learn-more-no-thanks" = "Regetar";
 "zero-wikipedia-zero-heading" = "Wikipèdia Zèro";
+// Fuzzy
 "zero-warn-when-leaving" = "Avertir en quitant Wikipèdia Zèro";
 "zero-settings-devmode" = "Devmode Zèro";
 "account-creation-logging-in" = "Connexion en cors…";
@@ -43,6 +47,7 @@
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Dobrir lo ligam";
 "open-link-cancel" = "Anullar";
+"search-title" = "Recercar";
 "search-searching" = "Recèrca en cors...";
 "search-field-placeholder-text" = "Recercar dins Wikipèdia";
 "search-field-placeholder-text-zero" = "Recercar dins Wikipèdia Zèro";
@@ -53,19 +58,23 @@
 "search-titles" = "Títols";
 "search-within-articles" = "Dins los articles";
 "search-did-you-mean" = "Volètz dire $1 ?";
-// Fuzzy
-"search-recent-title" = "Recèrcas recentas";
+"search-recent-title" = "Recercats recentament";
 "search-recent-clear-cancel" = "Anullar";
 "search-recent-clear-delete-all" = "Suprimir tot";
+"settings-title" = "Paramètres";
 "main-menu-title" = "Mai";
+"main-menu-heading-about" = "A prepaus";
 "main-menu-language-title" = "Recercar lo wiki de lenga $1";
+// Fuzzy
+"main-menu-faq" = "FAQ";
 "main-menu-language-toggle-show" = "Afichar las lengas";
 "main-menu-language-toggle-hide" = "Amagar las lengas";
 "main-menu-language-selection-saved" = "Seleccion de lenga enregistrada";
 "main-menu-account-title-logged-out" = "Compte";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Connectat en tant que : $1.";
 // Fuzzy
-"main-menu-account-login" = "Connexion";
+"main-menu-account-login" = "Connexion a Wikipèdia";
 "main-menu-account-logout" = "Desconnexion";
 "main-menu-show-title" = "M’afichar…";
 "main-menu-show-history" = "Recent";
@@ -73,12 +82,16 @@
 "main-menu-current-article-save" = "Enregistrar $1 per una lectura fòra linha";
 "main-menu-random" = "A l'azard";
 "main-menu-feedback-heading" = "Comentari";
+// Fuzzy
 "main-menu-send-feedback" = "Mandar un comentari sus l’aplicacion";
 "main-menu-credits" = "Mercejaments";
+// Fuzzy
 "main-menu-about" = "A prepaus de l’aplicacion Wikipèdia";
 "main-menu-zero-faq" = "FAQ de Wikipèdia Zèro";
 "main-menu-privacy-policy" = "Politica de confidencialitat";
+// Fuzzy
 "main-menu-terms-of-use" = "Condicions d'utilizacion";
+// Fuzzy
 "main-menu-rate-app" = "Notar l’aplicacion";
 "main-menu-heading-zero" = "Wikipèdia Zèro";
 "main-menu-heading-legal" = "Confidencialitat e condicions";
@@ -87,12 +100,15 @@
 "main-menu-more" = "Mai...";
 "main-menu-heading-debug" = "Desbogar";
 "main-menu-debug-crash" = "Plantar";
+"saved-title" = "Enregistrat";
 "saved-pages-title" = "Paginas enregistradas";
 "saved-pages-clear-cancel" = "Anullar";
+// Fuzzy
+"saved-pages-clear-delete-all" = "Suprimir tot";
 "saved-pages-refresh-cancel-alert-title" = "Mesa a jorn anullada";
 "saved-pages-refresh-cancel-alert-button" = "L’obténer";
-// Fuzzy
-"page-history-title" = "Istoric de la pagina";
+"history-title" = "Istoric";
+"page-history-title" = "Istoric de l’article";
 "navbar-title-mode-edit-wikitext" = "Modificar";
 "navbar-title-mode-login" = "Se connectar";
 "navbar-title-mode-create-account" = "Crear un compte";
@@ -101,8 +117,7 @@
 "navbar-title-mode-edit-wikitext-preview" = "Apercebut";
 "navbar-title-mode-edit-wikitext-captcha" = "Verificacion rapida necessària";
 "navbar-title-mode-edit-wikitext-save" = "Enregistrar";
-// Fuzzy
-"edit-summary-choice-linked-words" = "Mots ligats";
+"edit-summary-choice-linked-words" = "Ligams aponduts";
 "edit-summary-choice-fixed-grammar" = "Correccion gramaticala";
 "edit-summary-choice-fixed-inaccuracy" = "Inexactitud corregida";
 "edit-summary-choice-fixed-styling" = "Correccion d'estil";
@@ -122,7 +137,7 @@
 "about-testers" = "testaires";
 "about-testers-details" = "AQ testada per $1";
 "about-translators" = "traductors";
-"about-translators-details" = "Aquesta aplicacion es estada tradusida per de traductors benevòls sus $1";
+"about-translators-details" = "Aquesta aplicacion es estada traducha per de traductors benevòls sus $1";
 "about-libraries" = "bibliotècas utilizadas";
 "about-libraries-license" = "Licéncia";
 "about-repositories" = "referencials";
@@ -131,10 +146,12 @@
 "about-wikimedia-foundation" = "Fondacion Wikimèdia";
 "share-menu-save-page" = "Enregistrar la pagina";
 "share-menu-page-saved" = "Pagina enregistrada";
+"share-custom-menu-item" = "Partejar";
 "share-article-name-on-wikipedia" = "« $1 » sus @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "« $1 » sus @Wikipedia : « $2 »";
 "share-as-image" = "Partejar coma imatge";
 "share-as-text" = "Partejar coma tèxte";
+"share-cancel" = "Anullar";
 "timestamp-just-now" = "sulpic";
 "timestamp-minutes" = "i a %d minutas";
 "timestamp-hours" = "i a %d oras";
@@ -168,6 +185,7 @@
 "menu-share-accessibility-label" = "Partejar";
 "menu-more-accessibility-label" = "Mai de paramètres";
 "menu-trash-accessibility-label" = "Suprimir";
+"menu-language-accessibility-label" = "Lengas";
 "nearby-title" = "A proximitat";
 "nearby-distance-label-meters" = "$1 m";
 "nearby-distance-label-km" = "$1 km";
@@ -176,3 +194,13 @@
 "nearby-pull-to-refresh-prompt" = "Tirar per actualizar";
 "nearby-pull-to-refresh-is-refreshing" = "Actualizacion";
 "nearby-cancel" = "Anullar";
+"image-gallery-fetch-image-info-error-ok" = "D'acòrdi";
+"home-title" = "Explorar";
+"home-hide-suggestion-cancel" = "Anullar";
+"home-accessibility-label" = "Wikipèdia, Explòra";
+"icon-shortcut-search-title" = "Recercar dins Wikipèdia";
+"close-button-accessibility-label" = "Tampar";
+"back-button-accessibility-label" = "Retorn";
+"compass-direction" = "a $1 oras";
+"explore-main-page-heading" = "Uèi sus Wikipèdia";
+"explore-random-article-sub-heading" = "Wikipèdia en anglés";

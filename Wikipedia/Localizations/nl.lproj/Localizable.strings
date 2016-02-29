@@ -18,10 +18,10 @@
 "article-languages-downloading" = "Paginatalen aan het laden...";
 "article-languages-filter-placeholder" = "Taal filteren";
 "article-read-more-title" = "Meer lezen";
-"article-about-title" = "Over dit artikel";
+"article-about-title" = "Over deze pagina";
 "article-unable-to-load-section" = "Het was niet mogelijk deze sectie te laden. Het verversen van de pagina verhelpt mogelijk dit probleem.";
 "article-unable-to-load-article" = "Het was niet mogelijk de pagina te laden.";
-"article-related-articles-title" = "Gerelateerde artikelen";
+"article-related-articles-title" = "Gerelateerde pagina's";
 "info-box-title" = "Snelle feiten";
 "info-box-close-text" = "Sluiten";
 "table-title-other" = "Meer informatie";
@@ -30,9 +30,11 @@
 "history-section-yesterday" = "Gisteren";
 "history-section-lastweek" = "Afgelopen week";
 "history-section-lastmonth" = "Afgelopen maand";
+// Fuzzy
 "history-clear-confirmation-heading" = "Alle recente items verwijderen?";
 "history-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "history-clear-cancel" = "Annuleren";
+// Fuzzy
 "history-clear-delete-all" = "Alles verwijderen";
 "history-description" = "U heeft ze waarschijnlijk allemaal verwijderd. De volgende keer als u een pagina bezoekt, kunt u hem hier terugvinden.";
 "history-none" = "Geen recente pagina's.";
@@ -48,6 +50,7 @@
 "zero-learn-more-learn-more" = "Meer lezen";
 "zero-learn-more-no-thanks" = "Sluiten";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Waarschuwen bij verlaten Wikipedia Zero";
 "zero-settings-devmode" = "Zero-ontwikkelmodus";
 "account-creation-captcha-required" = "CAPTCHA-controle vereist.";
@@ -106,16 +109,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "search-recent-clear-cancel" = "Annuleren";
 "search-recent-clear-delete-all" = "Alles verwijderen";
+"search-result-redirected-from" = "Doorverwezen vanaf: $1";
 "settings-title" = "Instellingen";
 "main-menu-title" = "Meer";
 "main-menu-heading-about" = "Over";
 "main-menu-language-title" = "Zoeken in Wikipedia in het $1";
+// Fuzzy
 "main-menu-faq" = "Veelgestelde vragen";
 "main-menu-language-toggle-show" = "Talen bekijken";
 "main-menu-language-toggle-hide" = "Talen verbergen";
 "main-menu-language-selection-saved" = "Taalkeuze opgeslagen";
 "main-menu-account-title-logged-out" = "Account";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Aangemeld als: $1";
+// Fuzzy
 "main-menu-account-login" = "Aanmelden bij Wikipedia";
 "main-menu-account-logout" = "Afmelden";
 "main-menu-show-title" = "Laat mij...";
@@ -124,13 +131,17 @@
 "main-menu-current-article-save" = "$1 opslaan voor offline lezen";
 "main-menu-random" = "Willekeurige pagina";
 "main-menu-feedback-heading" = "Terugkoppeling";
+// Fuzzy
 "main-menu-send-feedback" = "App-terugkoppeling verzenden";
 "main-menu-show-page-history" = "Geschiedenis van wijzigingen aan $1";
 "main-menu-credits" = "Vermeldingen";
+// Fuzzy
 "main-menu-about" = "Over de Wikipedia-app";
 "main-menu-zero-faq" = "Veelgestelde vragen over Wikipedia Zero";
 "main-menu-privacy-policy" = "Privacybeleid";
+// Fuzzy
 "main-menu-terms-of-use" = "Gebruiksvoorwaarden";
+// Fuzzy
 "main-menu-rate-app" = "App beoordelen";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Privacy en voorwaarden";
@@ -139,11 +150,14 @@
 "main-menu-more" = "Meer...";
 "main-menu-heading-debug" = "Debug";
 "main-menu-debug-crash" = "Crash";
+"main-menu-debug-tweaks" = "Ontwikkelaarsvoorkeuren";
 "saved-title" = "Opgeslagen";
 "saved-pages-title" = "Opgeslagen pagina's";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Alle opgeslagen items verwijderen?";
 "saved-pages-clear-confirmation-sub-heading" = "Deze handeling kan niet ongedaan worden gemaakt!";
 "saved-pages-clear-cancel" = "Annuleren";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Alles verwijderen";
 "saved-pages-refresh-cancel-alert-title" = "Bijwerken geanuleerd";
 "saved-pages-refresh-cancel-alert-message" = "Wikipediapagina's worden constant bijgewerkt. Druk op vernieuwen om de nieuwste versie van de pagina's te bekijken.";
@@ -206,6 +220,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" op @Wikipedia: \"$2\"";
 "share-as-image" = "Als bestand delen";
 "share-as-text" = "Als tekst delen";
+"share-cancel" = "Annuleren";
 "timestamp-just-now" = "zojuist";
 "timestamp-minutes" = "%d minuten geleden";
 "timestamp-hours" = "%d uur geleden";
@@ -235,6 +250,7 @@
 "license-footer-text" = "Inhoud is beschikbaar onder $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "Inhoud";
+"table-of-contents-button-label" = "Inhoudsopgave";
 "abuse-filter-warning-heading" = "Dit lijkt een niet-constructieve bewerking. Weet u zeker dat u die wilt opslaan?";
 "abuse-filter-warning-subheading" = "Uw bewerking kan een of meer van het volgende bevatten:";
 "abuse-filter-warning-caps" = "Tekst in HOOFDLETTERS";
@@ -294,6 +310,7 @@
 "hockeyapp-alert-privacy" = "Privacy van $1";
 "page-issues" = "Paginaproblemen";
 "page-similar-titles" = "Vergelijkbare pagina's";
+// Fuzzy
 "page-read-in-other-languages" = "Lezen in $1 talen";
 "page-last-edited" = "$1 dagen geleden bewerkt";
 "page-edit-history" = "Volledige bewerkingsgeschiedenis";
@@ -302,45 +319,48 @@
 "mwk-empty-title-error" = "Het was niet mogelijk de bewerking uit de voeren zonder paginanaam.";
 "home-title" = "Ontdek";
 "home-continue-reading-heading" = "Lees verder";
-"home-continue-related-heading" = "Omdat je $1 hebt gelezen";
+"home-continue-related-heading" = "Omdat u $1 hebt gelezen";
 "home-more-like-footer" = "Vergelijkbaar met $1";
-"home-nearby-footer" = "Meer in de buurt van je huidige locatie";
+"home-nearby-footer" = "Meer in de buurt van uw huidige locatie";
 "home-nearby-nothing" = "Niets in de buurt";
 "home-nearby-check-again" = "Controleer opnieuw";
-"home-featured-article-heading" = "Uitgelicht artikel voor $1";
+"home-featured-article-heading" = "Uitgelichte pagina voor $1";
 "home-main-page-heading" = "Vandaag op Wikipedia";
 "home-potd-heading" = "Afbeelding van de dag voor $1";
+"home-last-update-label" = "Laatst bijgewerkt: $1";
+"home-last-update-never-label" = "Laatst bijgewerkt: Nooit";
+"home-updating-label" = "Bijwerken...";
+"home-hide-suggestion-prompt" = "Suggestie verbergen";
+"home-hide-suggestion-cancel" = "Annuleren";
+"home-accessibility-label" = "Wikipedia, ontdek";
+"home-button-accessibility-label" = "Startscherm";
 "potd-empty-error-description" = "Ophalen van de afbeelding van de dag voor $1 is mislukt";
 "potd-description-prefix" = "Afbeelding van de dag voor $1";
-"welcome-whats-new-title" = "Welkom op Wikipedia";
-"welcome-whats-new-whats-new" = "Nieuw in deze versie";
-"welcome-whats-new-bullet-one-title" = "Een nieuwe manier om te ontdekken";
-"welcome-whats-new-bullet-one-text" = "Ontdek nieuwe en interessante artikelen via \"Ontdek\".";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Vertel me meer";
-"welcome-whats-new-bullet-two-title" = "Ontworpen voor lezen";
-"welcome-whats-new-bullet-two-text" = "Een vernieuwd ontwerp, speciaal ontworpen voor een uitstekende leeservaring.";
-"welcome-whats-new-button-title" = "Aan de slag";
-"welcome-whats-new-bullet-one-more-info-text" = "Wanneer u een artikel leest, worden automatisch gerelateerde artikelen aan uw persoonlijke overzicht toegevoegd. Dit heeft geen gevolgen voor de manier waarop we uw informatie verzamelen en uw leesgeschiedenis blijft privé.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Begrepen";
+// Fuzzy
 "welcome-languages-title" = "Talen om in te zoeken";
-"welcome-languages-more-info-button-text" = "Vertel me meer";
-"welcome-languages-more-info-text" = "Wikipedia-artikelen zijn vaak beschikbaar in meerdere talen. Kies de talen waarin u graag wilt zoeken. U kunt deze altijd later aanpassen.";
-"welcome-languages-more-info-done-button" = "Begrepen";
-"welcome-languages-more-languages-button-title" = "Meer talen toevoegen";
-"welcome-languages-button-title" = "Doorgaan";
-"welcome-languages-footnote-text" = "Maak je geen zorgen, dit kun je later aanpassen";
-"welcome-usage-reports-title" = "Help ons met het verbeteren van Wikipedia";
-"welcome-usage-reports-body-text" = "U kunt ons helpen met het verbeteren van de app door toe te staan dat wij informatie verzamelen over hoe u de app gebruikt.";
-"welcome-usage-reports-switch-text" = "Gebruiksrapporten verzenden";
-"welcome-usage-reports-button-title" = "Aan de slag";
-"welcome-usage-reports-privacy-policy-button-text" = "Uw privacy is voor ons belangrijk";
 "empty-no-feed-title" = "Geen internetverbinding";
-"empty-no-feed-message" = "U kunt aanbevolen artikelen bekijken wanneer u bent verbonden met het internet";
+"empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
 "empty-no-feed-action-message" = "U kunt in de tussentijd wel uw opgeslagen pagina's lezen";
-"empty-no-article-message" = "Sorry, het artikel kon niet worden geladen";
-"empty-no-search-results-message" = "Sorry, de resultaten kunnen niet worden opgehaald";
+"empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
+// Fuzzy
+"empty-no-search-results-message" = "De resultaten kunnen helaas niet worden opgehaald";
 "empty-no-saved-pages-title" = "Nog geen opgeslagen pagina's";
 "empty-no-saved-pages-message" = "Sla pagina's op om deze later te lezen, zelfs offline";
 "empty-no-history-title" = "Geen geschiedenis om te weergeven";
 "empty-no-history-message" = "Blijf op de hoogte van wat je hebt gelezen";
 "alert-no-internet" = "Er is geen internetverbinding";
+"icon-shortcut-search-title" = "Zoeken in Wikipedia";
+"icon-shortcut-continue-reading-title" = "Verder lezen";
+"icon-shortcut-random-title" = "Willekeurig pagina";
+"icon-shortcut-nearby-title" = "Pagina's in de buurt";
+"close-button-accessibility-label" = "Sluiten";
+"back-button-accessibility-label" = "Terug";
+"compass-direction" = "op $1 uur";
+"explore-featured-article-heading" = "Uitgelichte pagina";
+"explore-continue-reading-heading" = "Verder lezen";
+"explore-nearby-heading" = "Plaatsen in de buurt";
+"explore-continue-related-heading" = "Omdat u hebt gelezen";
+"explore-main-page-heading" = "Vandaag op Wikipedia";
+"explore-random-article-heading" = "Willekeurig pagina";
+"explore-random-article-sub-heading" = "Engelstalige Wikipedia";
+"explore-potd-heading" = "Afbeelding van de dag";

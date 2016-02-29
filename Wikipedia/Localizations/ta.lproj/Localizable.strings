@@ -26,6 +26,7 @@
 "history-section-lastweek" = "கடந்த வாரம்";
 "history-section-lastmonth" = "கடந்த மாதம்";
 "history-clear-cancel" = "ரத்து செய்";
+// Fuzzy
 "history-clear-delete-all" = "அனைத்தையும் நீக்குக";
 "history-description" = "அனைத்தையும் அழித்துவிட்டீர்கள் போல. அடுத்த முறை ஒருபக்கத்துக்கு செல்லும்போது அதற்கு இங்கிருந்து திரும்பச் செல்லலாம்.";
 "history-none" = "அண்மைய பக்கங்கள் இங்கேதுமில்லை.";
@@ -36,6 +37,7 @@
 "zero-learn-more-learn-more" = "மேலும் படிக்கவும்";
 "zero-learn-more-no-thanks" = "அகற்று";
 "zero-wikipedia-zero-heading" = "விக்கிப்பீடியா சுழி";
+// Fuzzy
 "zero-warn-when-leaving" = "விக்கிப்பீடியா சுழியை விட்டு வெளியேறினால் எச்சரிக்க";
 "account-creation-logging-in" = "உள்நுழைய படுகிறது...";
 "account-creation-passwords-mismatched" = "கடவுச்சொல் களங்கள் பொருந்தவில்லை.";
@@ -74,12 +76,15 @@
 "main-menu-title" = "மேலும்";
 "main-menu-heading-about" = "பற்றி";
 "main-menu-language-title" = "$1 விக்கிப்பீடியாவில் தேடவும்";
+// Fuzzy
 "main-menu-faq" = "அகேகே";
 "main-menu-language-toggle-show" = "மொழிகளை காண்பி";
 "main-menu-language-toggle-hide" = "மொழிகளை மறை";
 "main-menu-language-selection-saved" = "மொழி தேர்வு சேமிக்கப்பட்டது";
 "main-menu-account-title-logged-out" = "கணக்கு";
+// Fuzzy
 "main-menu-account-title-logged-in" = "$1 என புகுபதிகை";
+// Fuzzy
 "main-menu-account-login" = "விக்கிப்பீடியாவில் புகுபதிகை செய்";
 "main-menu-account-logout" = "விடுபதிகை";
 "main-menu-show-title" = "எனக்கு காண்பி...";
@@ -87,12 +92,16 @@
 "main-menu-show-saved" = "சேமிக்கப்பட்ட பக்கங்கள்";
 "main-menu-random" = "ஏதோ ஒன்று";
 "main-menu-feedback-heading" = "பின்னூட்டம்";
+// Fuzzy
 "main-menu-send-feedback" = "நிரல் பின்னூட்டம் அனுப்பு";
 "main-menu-credits" = "அங்கீகாரங்கள்";
+// Fuzzy
 "main-menu-about" = "விக்கிப்பீடியா நிரலைப் பற்றி";
 "main-menu-zero-faq" = "விக்கிப்பீடியா சுழி அடிக்கடிக் கேட்கப்படும் கேள்விகள்";
 "main-menu-privacy-policy" = "தனியுரிமைக் கொள்கை";
+// Fuzzy
 "main-menu-terms-of-use" = "பயன்பாட்டு விதிமுறைகள்";
+// Fuzzy
 "main-menu-rate-app" = "நிரல் விகிதம்";
 "main-menu-heading-zero" = "விக்கிப்பீடியா சுழி";
 "main-menu-show-today" = "இன்று";
@@ -101,8 +110,10 @@
 "main-menu-heading-debug" = "பிழை திருத்தும்";
 "main-menu-debug-crash" = "இடிபாடு";
 "saved-pages-title" = "சேமிக்கப்பட்ட பக்கங்கள்";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "சேமிக்கப்பட்ட உருப்படிகள் அனைத்தையும் அழிக்கவா?";
 "saved-pages-clear-cancel" = "ரத்து செய்";
+// Fuzzy
 "saved-pages-clear-delete-all" = "அனைத்தையும் நீக்குக";
 "saved-pages-none" = "இன்னும் சேமிக்கப்பட்ட பக்கங்கள் இல்லை.";
 "page-history-title" = "கட்டுரை வரலாறு";

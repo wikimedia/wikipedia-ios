@@ -70,7 +70,7 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (3.0.0):
     - PromiseKit/CorePromise
-  - Quick (0.8.0)
+  - Quick (0.9.1)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -108,7 +108,7 @@ DEPENDENCIES:
   - PromiseKit (from `https://github.com/mxcl/PromiseKit.git`, branch `swift-2.0-beta5`)
   - PromiseKit/SystemConfiguration (from `https://github.com/mxcl/PromiseKit.git`,
     branch `swift-2.0-beta5`)
-  - Quick (~> 0.8.0)
+  - Quick (~> 0.9.0)
   - SDWebImage (from `https://github.com/wikimedia/SDWebImage.git`, commit `bb49df83e72f2231a191e9477a85f0effe13430a`)
   - SSDataSources (~> 0.8.0)
   - SVWebViewController (~> 1.0)
@@ -182,7 +182,7 @@ SPEC CHECKSUMS:
   OMGHTTPURLRQ: 8376dc887d76a5a7e2a67881dc788f917a2f437c
   PiwikTracker: 7147287d30a3192289bef9cddb2b5342d67dae43
   PromiseKit: 6810c48ec19990d3253dc8caf0e05519e7cd39ba
-  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
+  Quick: a5221fc21788b6aeda934805e68b061839bc3165
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SSDataSources: b01170fb23b82acf0649194e9189b0bf5f702681
   SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901

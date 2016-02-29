@@ -20,9 +20,11 @@
 "history-section-yesterday" = "გოღა";
 "history-section-lastweek" = "ულირ მარას";
 "history-section-lastmonth" = "ულირ თუთას";
+// Fuzzy
 "history-clear-confirmation-heading" = "დობლასათო არძა ასერდეიანი ელემენტი?";
 "history-clear-confirmation-sub-heading" = "თე ქიმინჯუაშ გოუქვაფა ვეშილებე!";
 "history-clear-cancel" = "გოუქვაფა";
+// Fuzzy
 "history-clear-delete-all" = "არძაშ ლასუა";
 "history-description" = "თქვა, საეგებიოთ, ლასირ გაფჷნა. ანწიანშო, მუჟამსთ ხასჷლაშა გენშურთჷნ, თქვა შეილებჷნა თის თაურეშე დართათჷნ.";
 "history-none" = "ასერდეიანი გჷნაჯინა ხასჷლეფი ვარე.";
@@ -38,6 +40,7 @@
 "zero-learn-more-learn-more" = "კილიშკილშა";
 "zero-learn-more-no-thanks" = "კილუა";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "გუმართხილი, მუჟამსჷთ Wikipedia Zero-შე გიშურქჷნ";
 "zero-settings-devmode" = "Zero აკმახანდალიშ რეჟიმი";
 "account-creation-captcha-required" = "ოხვილჷ CAPTCHA-შ გინოჯინას.";
@@ -95,12 +98,15 @@
 "main-menu-title" = "ხოლო";
 "main-menu-heading-about" = "-შენი";
 "main-menu-language-title" = "გორუა $1 ვიკიპედიას";
+// Fuzzy
 "main-menu-faq" = "შხირი კითხვეფი";
 "main-menu-language-toggle-show" = "ნინეფიშ ძირაფა";
 "main-menu-language-toggle-hide" = "ნინეფიშ ტყობინაფა";
 "main-menu-language-selection-saved" = "გიშაგორილი ნინა ჩუალირი რე";
 "main-menu-account-title-logged-out" = "ანგარიში";
+// Fuzzy
 "main-menu-account-title-logged-in" = "მიშულირი რეთ მუჭო: $1";
+// Fuzzy
 "main-menu-account-login" = "ვიკიპედიაშა მიშულა";
 "main-menu-account-logout" = "გიშულა";
 "main-menu-show-title" = "ქუმოძირე…";
@@ -111,10 +117,13 @@
 "main-menu-feedback-heading" = "წიმოხრსხუ";
 "main-menu-show-page-history" = "ხასჷლა $1-შ თირუეფიშ ისტორია";
 "main-menu-credits" = "ავტორეფი";
+// Fuzzy
 "main-menu-about" = "აპლიკაცია \"ვიკიპედიაშ\" გეშა";
 "main-menu-zero-faq" = "Wikipedia Zero FAQ";
 "main-menu-privacy-policy" = "კონფიდენციალურობაშ პოლიტიკა";
+// Fuzzy
 "main-menu-terms-of-use" = "გჷმორინაფაშ წესეფი";
+// Fuzzy
 "main-menu-rate-app" = "აპლიკაციაშ შეფასება";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "კონფიდენციალურობა დო წესეფი";
@@ -124,8 +133,10 @@
 "main-menu-debug-crash" = "Crash";
 "saved-title" = "ჩუალირი";
 "saved-pages-title" = "ჩუალირი ხასჷლეფი";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "დობლასათო არძა ჩუალირი ელემენტი?";
 "saved-pages-clear-cancel" = "გოუქვაფა";
+// Fuzzy
 "saved-pages-clear-delete-all" = "არძაშ ლასუა";
 "saved-pages-refresh-cancel-alert-title" = "გოახალაფა გოუქვაფილი რე";
 "saved-pages-refresh-cancel-alert-button" = "ქიგებგი";

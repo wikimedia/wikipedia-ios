@@ -31,9 +31,11 @@
 "history-section-yesterday" = "Вчера";
 "history-section-lastweek" = "На прошлой неделе";
 "history-section-lastmonth" = "В прошлом месяце";
+// Fuzzy
 "history-clear-confirmation-heading" = "Удалить все недавние элементы?";
 "history-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "history-clear-cancel" = "Отмена";
+// Fuzzy
 "history-clear-delete-all" = "Удалить всё";
 "history-description" = "Вы, вероятно, удалили их все. В следующий раз, когда зайдёте на страницу, вы сможете вернуться к ней отсюда.";
 "history-none" = "Недавно просмотренных страниц нет.";
@@ -49,6 +51,7 @@
 "zero-learn-more-learn-more" = "Подробнее";
 "zero-learn-more-no-thanks" = "Закрыть";
 "zero-wikipedia-zero-heading" = "Wikipedia Zero";
+// Fuzzy
 "zero-warn-when-leaving" = "Предупреждать, если покидаете Wikipedia Zero";
 "zero-settings-devmode" = "Режим разработчика Zero";
 "account-creation-captcha-required" = "Требуется проверка капчей.";
@@ -107,16 +110,20 @@
 "search-recent-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "search-recent-clear-cancel" = "Отмена";
 "search-recent-clear-delete-all" = "Удалить всё";
+"search-result-redirected-from" = "Перенаправлено с: $1";
 "settings-title" = "Настройки";
 "main-menu-title" = "Ещё";
 "main-menu-heading-about" = "Про приложение";
 "main-menu-language-title" = "Поиск $1 Википедии";
+// Fuzzy
 "main-menu-faq" = "Частые вопросы";
 "main-menu-language-toggle-show" = "Показать языки";
 "main-menu-language-toggle-hide" = "Скрыть языки";
 "main-menu-language-selection-saved" = "Выбранный язык сохранен";
 "main-menu-account-title-logged-out" = "Учётная запись";
+// Fuzzy
 "main-menu-account-title-logged-in" = "Вошёл как: $1";
+// Fuzzy
 "main-menu-account-login" = "Войти в Википедию";
 "main-menu-account-logout" = "Выйти";
 "main-menu-show-title" = "Показать мне…";
@@ -125,13 +132,17 @@
 "main-menu-current-article-save" = "Сохранить $1 для чтения в автономном режиме";
 "main-menu-random" = "Случайная";
 "main-menu-feedback-heading" = "Обратная связь";
+// Fuzzy
 "main-menu-send-feedback" = "Отправить отзыв о приложении";
 "main-menu-show-page-history" = "История изменений страницы $1";
 "main-menu-credits" = "Авторы";
+// Fuzzy
 "main-menu-about" = "О приложении «Википедия»";
 "main-menu-zero-faq" = "ЧаВо по Wikipedia Zero";
 "main-menu-privacy-policy" = "Политика конфиденциальности";
+// Fuzzy
 "main-menu-terms-of-use" = "Условия использования";
+// Fuzzy
 "main-menu-rate-app" = "Оценить приложение";
 "main-menu-heading-zero" = "Wikipedia Zero";
 "main-menu-heading-legal" = "Конфиденциальность и условия";
@@ -140,11 +151,14 @@
 "main-menu-more" = "Ещё…";
 "main-menu-heading-debug" = "Отладка";
 "main-menu-debug-crash" = "Падение";
+"main-menu-debug-tweaks" = "Настройки для разработчиков";
 "saved-title" = "Сохранено";
 "saved-pages-title" = "Сохранённые страницы";
+// Fuzzy
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "saved-pages-clear-cancel" = "Отмена";
+// Fuzzy
 "saved-pages-clear-delete-all" = "Удалить всё";
 "saved-pages-refresh-cancel-alert-title" = "Обновление отменено";
 "saved-pages-refresh-cancel-alert-message" = "Статьи Википедии всё время обновляются. Нажмите «обновить», чтобы получить последние версии всех статей.";
@@ -207,6 +221,7 @@
 "share-article-name-on-wikipedia-with-selected-text" = "«$1» в @Wikipedia: «$2»";
 "share-as-image" = "Поделиться как изображением";
 "share-as-text" = "Поделиться как текстом";
+"share-cancel" = "Отмена";
 "timestamp-just-now" = "только что";
 "timestamp-minutes" = "%d мин. назад";
 "timestamp-hours" = "%d ч. назад";
@@ -236,6 +251,7 @@
 "license-footer-text" = "Содержимое доступно по лицензии $1";
 "license-footer-name" = "CC-BY-SA 3.0";
 "table-of-contents-heading" = "Содержание";
+"table-of-contents-button-label" = "Содержание";
 "abuse-filter-warning-heading" = "Эта правка выглядит деструктивной. Вы уверены, что хотите сохранить её?";
 "abuse-filter-warning-subheading" = "Ваша правка может содержать одно или несколько из следующих действий:";
 "abuse-filter-warning-caps" = "Печать ЗАГЛАВНЫМИ БУКВАМИ";
@@ -295,6 +311,7 @@
 "hockeyapp-alert-privacy" = "Политика конфиденциальности $1";
 "page-issues" = "Вопросы по странице";
 "page-similar-titles" = "Похожие страницы";
+// Fuzzy
 "page-read-in-other-languages" = "Читать на $1 языках";
 "page-last-edited" = "Отредактировано $1 д. назад";
 "page-edit-history" = "Полная история редактирования";
@@ -311,37 +328,40 @@
 "home-featured-article-heading" = "Избранная статья за $1";
 "home-main-page-heading" = "Сегодня в Википедии";
 "home-potd-heading" = "Изображение дня за $1";
+"home-last-update-label" = "Последнее обновление: $1";
+"home-last-update-never-label" = "Последнее обновление: никогда";
+"home-updating-label" = "Обновление…";
+"home-hide-suggestion-prompt" = "Скрыть это предложение";
+"home-hide-suggestion-cancel" = "Отмена";
+"home-accessibility-label" = "Википедия, Исследуйте";
+"home-button-accessibility-label" = "Кнопка перехода на Заглавную страницу";
 "potd-empty-error-description" = "Не удалось получить изображение дня за $1";
 "potd-description-prefix" = "Изображение дня за $1";
-"welcome-whats-new-title" = "Добро пожаловать в Википедию";
-"welcome-whats-new-whats-new" = "ЧТО НОВОГО";
-"welcome-whats-new-bullet-one-title" = "Новый способ знакомства";
-"welcome-whats-new-bullet-one-text" = "Откройте для себя новые и интересные именно для Вас статьи на экране «Исследуйте!».";
-"welcome-whats-new-bullet-one-more-info-button-text" = "Как это работает…";
-"welcome-whats-new-bullet-two-title" = "Разработано для чтения";
-"welcome-whats-new-bullet-two-text" = "Обновлённый дизайн, в котором особое внимание уделено ещё большему удобству чтения.";
-"welcome-whats-new-button-title" = "Начать";
-"welcome-whats-new-bullet-one-more-info-text" = "Когда вы открываете статью, связанные с ней статьи автоматически добавляются в вашу ленту. Это не изменяет то, как нами собирается ваша информация, так что ваше история чтение по-прежнему остаётся закрытой.";
-"welcome-whats-new-bullet-one-more-info-done-button" = "Понятно";
+// Fuzzy
 "welcome-languages-title" = "Языки для поиска";
-"welcome-languages-more-info-button-text" = "Расскажите об этом подробнее";
-"welcome-languages-more-info-text" = "Статьи Википедии часто доступны на нескольких языках. Выберите языки, которые вы бы хотели использовать при поиске. Вы можете изменить их позже.";
-"welcome-languages-more-info-done-button" = "Понятно";
-"welcome-languages-more-languages-button-title" = "Добавить другие языки";
-"welcome-languages-button-title" = "Продолжить";
-"welcome-languages-footnote-text" = "Не волнуйтесь, вы можете внести изменения позже.";
-"welcome-usage-reports-title" = "Помогите нам сделать Википедию лучше";
-"welcome-usage-reports-body-text" = "Вы можете помочь нам сделать программу лучше,  позволив собирать информацию о том, как вы используете это приложение.";
-"welcome-usage-reports-switch-text" = "Отправлять отчёты об использовании";
-"welcome-usage-reports-button-title" = "Начать";
-"welcome-usage-reports-privacy-policy-button-text" = "Ваша конфиденциальность важна для нас";
 "empty-no-feed-title" = "Нет подключения к интернету";
 "empty-no-feed-message" = "Вы можете увидеть рекомендованные статьи, когда у вас есть доступ в интернет";
 "empty-no-feed-action-message" = "Пока вы можете почитать ранее сохранённые страницы";
 "empty-no-article-message" = "К сожалению, не удалось загрузить статью";
+// Fuzzy
 "empty-no-search-results-message" = "К сожалению, не удалось загрузить результаты";
 "empty-no-saved-pages-title" = "Ещё нет сохранённых страниц";
 "empty-no-saved-pages-message" = "Сохраняйте страницы, чтобы просматривать их позже, даже в автономном режиме";
 "empty-no-history-title" = "Нет истории для отображения";
 "empty-no-history-message" = "Отслеживайте то, что вы уже читали здесь";
 "alert-no-internet" = "Нет соединения с интернетом";
+"icon-shortcut-search-title" = "Поиск по Википедии";
+"icon-shortcut-continue-reading-title" = "Продолжить чтение";
+"icon-shortcut-random-title" = "Случайная статья";
+"icon-shortcut-nearby-title" = "Статьи о том, что есть поблизости";
+"close-button-accessibility-label" = "Закрыть";
+"back-button-accessibility-label" = "Назад";
+"compass-direction" = "на $1 часов";
+"explore-featured-article-heading" = "Избранная статья";
+"explore-continue-reading-heading" = "Продолжить чтение";
+"explore-nearby-heading" = "Места поблизости";
+"explore-continue-related-heading" = "Потому что вы читали";
+"explore-main-page-heading" = "Сегодня в Википедии";
+"explore-random-article-heading" = "Случайная статья";
+"explore-random-article-sub-heading" = "Английская Википедия";
+"explore-potd-heading" = "Изображение дня";
