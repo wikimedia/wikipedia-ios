@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
                locationManager:(WMFLocationManager*)locationManager
                           file:(NSURL*)fileURL;
 
+- (AnyPromise*)save;
+
 @end
 
 NS_ASSUME_NONNULL_END

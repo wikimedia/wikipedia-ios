@@ -6,6 +6,7 @@
 #import "MWKSavedPageEntry.h"
 #import "NSDate+Utilities.h"
 #import "WMFLocationManager.h"
+#import "CLLocation+WMFComparison.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -55,6 +56,26 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }
     return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    } else if ([object isKindOfClass:[WMFExploreSection class]]) {
+        return [self isEqualToSection:object];
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)isEqualToSection:(WMFExploreSection*)rhs {
+    return self.type == rhs.type
+           && WMF_RHS_PROP_EQUAL(dateCreated, isEqualToDate:)
+           && WMF_RHS_PROP_EQUAL(site, isEqualToSite:)
+           && WMF_RHS_PROP_EQUAL(title, isEqualToTitle:)
+           && WMF_RHS_PROP_EQUAL(mostReadFetchDate, isEqualToDate:)
+           && WMF_RHS_PROP_EQUAL(location, wmf_isEqual:)
+           && WMF_RHS_PROP_EQUAL(placemark, wmf_isEqual:);
 }
 
 /**

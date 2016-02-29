@@ -32,7 +32,7 @@ void (^ setupSchemaWithSite)(MWKSite*) = ^(MWKSite* site) {
                                              history:dataStore.userDataStore.historyList
                                            blackList:[WMFRelatedSectionBlackList new]
                                      locationManager:mockLocationManager
-                                                file:WMFRandomTemporaryFileOfType(@"plist")];
+                                                file:[NSURL fileURLWithPath:WMFRandomTemporaryFileOfType(@"plist")]];
 };
 
 beforeEach(^{
@@ -42,7 +42,7 @@ beforeEach(^{
 
 afterEach(^{
     [dataStore removeFolderAtBasePath];
-    [[NSFileManager defaultManager] removeItemAtPath:schema.filePath error:nil];
+    [[NSFileManager defaultManager] removeItemAtPath:schema.fileURL.path error:nil];
 });
 
 describe(@"initial state", ^{
@@ -197,8 +197,26 @@ describe(@"initial state", ^{
 });
 
 describe(@"persistence", ^{
-    pending(@"should read previous states from disk", ^{});
-    pending(@"should persist changes", ^{});
+    beforeEach(^{
+        [mockLocationManager setLocation:[[CLLocation alloc] initWithLatitude:0 longitude:0]];
+        setupSchemaWithSite([MWKSite siteWithLanguage:@"en"]);
+    });
+
+    it(@"should be equal to a copy read from data serialized to disk", ^{
+        expect(schema.sections).withTimeout(5).toEventually(haveCount(@6));
+
+        AnyPromise* schemaSave = [schema save];
+        expect(@(schemaSave.resolved)).withTimeout(5).toEventually(beTrue());
+
+        WMFExploreSectionSchema* schema2 = [WMFExploreSectionSchema schemaWithSite:schema.site
+                                                                        savedPages:schema.savedPages
+                                                                           history:schema.historyPages
+                                                                         blackList:schema.blackList
+                                                                   locationManager:mockLocationManager
+                                                                              file:schema.fileURL];
+        // lastUpdatedAt times will be slightly different, since it will forcibly update on creation
+        expect(schema2.sections).to(equal(schema.sections));
+    });
 });
 
 describe(@"updates", ^{

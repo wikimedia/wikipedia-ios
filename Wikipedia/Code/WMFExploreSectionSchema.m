@@ -251,7 +251,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 - (BOOL)updateContinueReading {
     WMFExploreSection* old = [self existingContinueReadingSection];
     WMFExploreSection* new = [self continueReadingSection];
-    if ([[old title] isEqual:[new title]]) {
+    if (WMF_EQUAL(old.title, isEqualToTitle:, new.title)) {
         return NO;
     }
 
@@ -292,6 +292,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     @weakify(self);
     [self.locationManager reverseGeocodeLocation:location].then(^(CLPlacemark* _Nullable placemark) {
         @strongify(self);
+        if (!self) {
+            return;
+        }
         NSMutableArray<WMFExploreSection*>* sections = [self.sections mutableCopy];
         [sections bk_performReject:^BOOL (WMFExploreSection* obj) {
             return obj.type == WMFExploreSectionTypeNearby;
@@ -663,41 +666,47 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
     return behaviors;
 }
 
-- (void)save {
+- (AnyPromise*)save {
     /*
-       NOTE: until this class is made immutable, it cannot safely be passed between threads.
+     NOTE: until this class is made immutable, it cannot safely be passed between threads.
      */
     WMFExploreSectionSchema* backgroundCopy = [self copy];
-    dispatch_async(self.saveQueue, ^{
-        NSError* error;
-        if (![[NSFileManager defaultManager] createDirectoryAtURL:[self.fileURL URLByDeletingLastPathComponent]
-                                      withIntermediateDirectories:YES
-                                                       attributes:nil
-                                                            error:&error]) {
-            DDLogError(@"Failed to save sections to disk: %@", error);
-            return;
-        }
 
-        NSMutableData* result = [NSMutableData data];
-        NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver  _Nonnull resolve) {
+        dispatch_async(self.saveQueue, ^{
+            NSError* error;
+            if (![[NSFileManager defaultManager] createDirectoryAtURL:[self.fileURL URLByDeletingLastPathComponent]
+                                          withIntermediateDirectories:YES
+                                                           attributes:nil
+                                                                error:&error]) {
+                DDLogError(@"Failed to save sections to disk: %@", error);
+                resolve(error);
+                return;
+            }
 
-        @try {
-            [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
-            [archiver finishEncoding];
-            [result writeToURL:self.fileURL
-                       options:NSDataWritingAtomic
-                         error:&error];
-        } @catch (NSException* exception) {
-            error = [NSError errorWithDomain:NSInvalidArchiveOperationException
-                                        code:-1
-                                    userInfo:@{NSLocalizedDescriptionKey: exception.name,
-                                               NSLocalizedFailureReasonErrorKey: exception.reason}];
-        }
-        NSAssert(!error, @"Failed to save sections: %@", error);
-        if (error) {
-            DDLogError(@"Failed to save sections to disk: %@", error);
-        }
-    });
+            NSMutableData* result = [NSMutableData data];
+            NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:result];
+
+            @try {
+                [archiver encodeObject:backgroundCopy forKey:NSKeyedArchiveRootObjectKey];
+                [archiver finishEncoding];
+                [result writeToURL:self.fileURL
+                           options:NSDataWritingAtomic
+                             error:&error];
+            } @catch (NSException* exception) {
+                error = [NSError errorWithDomain:NSInvalidArchiveOperationException
+                                            code:-1
+                                        userInfo:@{NSLocalizedDescriptionKey: exception.name,
+                                                   NSLocalizedFailureReasonErrorKey: exception.reason}];
+            }
+
+            NSAssert(!error, @"Failed to save sections: %@", error);
+            if (error) {
+                DDLogError(@"Failed to save sections to disk: %@", error);
+            }
+            resolve(error);
+        });
+    }];
 }
 
 + (NSURL*)defaultSchemaURL {
