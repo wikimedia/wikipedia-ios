@@ -112,7 +112,7 @@
 "search-result-redirected-from" = "Redirected from: $1";
 
 "settings-title" = "Settings";
-"settings-project" = "Wikipedia project";
+"settings-language" = "Wikipedia language";
 "settings-support" = "Support Wikipedia";
 "settings-language-bar" = "Show languages on search";
 
@@ -385,7 +385,7 @@
 "welcome-explore-sub-title" = "A new way to discover interesting articles every day";
 "welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-about-explore" = "More about Explore";
-"welcome-explore-tell-me-more-details" = "When you visit an article, related articles are automatically added to your Explore feed. This doesn’t change how we collect your information, and your reading history is still private.";
+"welcome-explore-tell-me-more-details" = "When you read an article, related articles are automatically added to your Explore feed. This doesn’t change how we collect your information, and your reading history is still private.";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-explore-continue-button" = "Get started";
 
