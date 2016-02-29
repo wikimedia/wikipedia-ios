@@ -212,12 +212,8 @@
 "about-content-license-details" = "Text explaining license of app content. $1 is the message {{msg-wikimedia|about-content-license-details-share-alike-license}}.";
 "about-content-license-details-share-alike-license" = "Name of the \"Creative Commons Attribution-ShareAlike\" license";
 "about-libraries-licenses-title" = "Title for list of library licenses. $1 will be replaced with an emoji expressing our love for open source software";
-<<<<<<< 822d428433b3bcba947d8cebd8da712225c0651f
-
 "about-libraries-complete-list" = "Title for link to complete list of libraries use by the app";
-=======
 "about-repositories" = "Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. \n{{Identical|Repository}}";
->>>>>>> Localisation updates from https://translatewiki.net.
 "about-send-feedback" = "Link text for sending app feedback";
 "about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
 "about-wikimedia-foundation" = "Name of the Wikimedia Foundation. Used by the message {{Msg-wikimedia|wikipedia-ios-about-product-of}}.";
