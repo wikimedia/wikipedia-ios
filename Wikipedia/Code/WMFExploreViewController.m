@@ -47,7 +47,7 @@
 // Controllers
 #import "WMFRelatedSectionBlackList.h"
 
-static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelOff;
+static DDLogLevel const WMFExploreVCLogLevel = DDLogLevelInfo;
 #undef LOG_LEVEL_DEF
 #define LOG_LEVEL_DEF WMFExploreVCLogLevel
 
@@ -140,8 +140,14 @@ NS_ASSUME_NONNULL_BEGIN
     if (sectionIndex == NSNotFound) {
         return NO;
     }
+    return [self isDisplayingCellsForSection:sectionIndex];
+}
+
+- (BOOL)isDisplayingCellsForSection:(NSInteger)section {
+    NSParameterAssert(section != NSNotFound);
+    NSParameterAssert(section < [self numberOfSectionsInTableView:self.tableView]);
     return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL (NSIndexPath* indexPath) {
-        return indexPath.section == sectionIndex;
+        return indexPath.section == section;
     }];
 }
 
@@ -157,6 +163,18 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
+/**
+ *  Check whether or not a section is going in or out of view.
+ *
+ *  @param indexPath The index path of the row which will or did end displaying.
+ *
+ *  @return @c YES if that section isn't displaying or the given row is the only one visible in its section, otherwise @c NO.
+ */
+- (BOOL)isVisibilityTransitioningForRowIndexPath:(NSIndexPath*)indexPath {
+    return ![self isDisplayingCellsForSection:indexPath.section]
+           || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath];
+}
+
 - (NSArray*)visibleSectionControllers {
     NSIndexSet* visibleSectionIndexes = [[self.tableView indexPathsForVisibleRows] bk_reduce:[NSMutableIndexSet indexSet] withBlock:^id (NSMutableIndexSet* sum, NSIndexPath* obj) {
         [sum addIndex:(NSUInteger)obj.section];
@@ -168,15 +186,35 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 }
 
+/**
+ * Sends `willDisplaySection` to controllers whose sections are currently visible in the receiver's `tableView`.
+ *
+ * Must be called when the view (re)appears: `viewDidApppear` and when the application is resumed (will enter foreground).
+ *
+ * `tableView:willDisplayCell:forRowAtIndexPath:` will not trigger a `willDisplaySection` message, since it's only
+ * designed to trigger when sections are *scrolled* in and out of view.  This is mostly because we only want to call
+ * `willDisplaySection` _once_ for each section as its (potentially multiple) cells scroll into view.
+ *
+ * This was manifested in the following issue: https://phabricator.wikimedia.org/T128217
+ *
+ * @see isVisibilityTransitioningForRowIndexPath:
+ */
+- (void)sendWillDisplayToVisibleSectionControllers {
+    [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull controller) {
+        if ([controller respondsToSelector:@selector(willDisplaySection)]) {
+            DDLogInfo(@"Manually sending willDisplaySection to controller %@", controller);
+            [controller willDisplaySection];
+        }
+    }];
+}
+
 #pragma mark - Actions
 
 - (void)didTapSettingsButton:(UIBarButtonItem*)sender {
     UINavigationController* settingsContainer =
         [[UINavigationController alloc] initWithRootViewController:
          [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
-    [self presentViewController:settingsContainer
-                       animated:YES
-                     completion:nil];
+    [self presentViewController:settingsContainer animated:YES completion:nil];
 }
 
 #pragma mark - UIViewController
@@ -206,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
      forHeaderFooterViewReuseIdentifier:[WMFExploreSectionFooter wmf_nibName]];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidEnterForegroundWithNotification:)
+                                             selector:@selector(applicationWillEnterForegroundWithNotification:)
                                                  name:UIApplicationWillEnterForegroundNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -214,7 +252,10 @@ NS_ASSUME_NONNULL_BEGIN
                                                  name:FBTweakShakeViewControllerDidDismissNotification
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchLanguageDidChangeWithNotification:) name:[NSUserDefaults WMFSearchLanguageDidChangeNotification] object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(searchLanguageDidChangeWithNotification:)
+                                                 name:[NSUserDefaults WMFSearchLanguageDidChangeNotification]
+                                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -227,13 +268,13 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
 
+    /*
+       NOTE: Section should only be _created_ on `viewDidAppear`, which is not the same as updating.  Updates only happen
+       between sessions (i.e. when resumed from background or relaunched).
+     */
     [self createSectionSchemaIfNeeded];
 
-    [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
-        if ([obj respondsToSelector:@selector(willDisplaySection)]) {
-            [obj willDisplaySection];
-        }
-    }];
+    [self sendWillDisplayToVisibleSectionControllers];
 
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
 }
@@ -241,7 +282,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     // stop location manager from updating.
-    [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController> _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
+    [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
         if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
             [obj didEndDisplayingSection];
         }
@@ -276,12 +317,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Notifications
 
-- (void)applicationDidEnterForegroundWithNotification:(NSNotification*)note {
+- (void)applicationWillEnterForegroundWithNotification:(NSNotification*)note {
     if (!self.isViewLoaded || !self.view.window) {
         return;
     }
 
-    [self updateSectionSchemaIfNeeded];
+    if (![self updateSectionSchemaIfNeeded]) {
+        WMF_TECH_DEBT_WARN(forcing table refresh when data in memory is purged in background);
+        /*
+         The section controller cache was likely purged when going to the background, therefore we need to refresh
+         the table view to indicate the data its views are displaying is now gone and needs to be re-fetched.
+         
+         Ideally this data still be retrievable from disk caches, obviating the need to show placeholders again, but
+         that will have to come later.
+         */
+        [self.tableView reloadData];
+    }
+
+    [self sendWillDisplayToVisibleSectionControllers];
 }
 
 - (void)searchLanguageDidChangeWithNotification:(NSNotification*)note {
@@ -394,14 +447,18 @@ NS_ASSUME_NONNULL_BEGIN
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[UIImage imageNamed:@"overflow-mini"] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+        @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
+            @strongify(controller);
             [[(id < WMFHeaderMenuProviding >)controller menuActionSheet] showFromTabBar:self.navigationController.tabBarController.tabBar];
         } forControlEvents:UIControlEventTouchUpInside];
     } else if ([controller conformsToProtocol:@protocol(WMFHeaderActionProviding)]) {
         header.rightButtonEnabled = YES;
         [[header rightButton] setImage:[(id < WMFHeaderActionProviding >)controller headerButtonIcon] forState:UIControlStateNormal];
         [header.rightButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+        @weakify(controller);
         [header.rightButton bk_addEventHandler:^(id sender) {
+            @strongify(controller);
             [(id < WMFHeaderActionProviding >)controller performHeaderButtonAction];
         } forControlEvents:UIControlEventTouchUpInside];
     } else {
@@ -438,8 +495,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([controller respondsToSelector:@selector(willDisplaySection)] && (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath])) {
-        [controller willDisplaySection];
+    if ([controller respondsToSelector:@selector(willDisplaySection)]) {
+        if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+            DDLogVerbose(@"Sending willDisplaySection for contorller %@ at indexPath %@", controller, indexPath);
+            [controller willDisplaySection];
+        } else {
+            DDLogVerbose(@"Skipping willDisplaySection for controller %@ at indexPath %@", controller, indexPath);
+        }
     }
 
     [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
@@ -457,8 +519,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView*)tableView didEndDisplayingCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
-    if ([controller respondsToSelector:@selector(didEndDisplayingSection)] && (![self isDisplayingCellsForSectionController:controller] || [self rowAtIndexPathIsOnlyRowVisibleInSection:indexPath])) {
-        [controller didEndDisplayingSection];
+    if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
+        if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+            [controller didEndDisplayingSection];
+        } else {
+            DDLogVerbose(@"Skipping calling didEndDisplaySection for controller %@ indexPath %@", controller, indexPath);
+        }
     }
 
     NSArray<NSIndexPath*>* visibleIndexPathsInSection = [tableView.indexPathsForVisibleRows bk_select:^BOOL (NSIndexPath* i) {
@@ -471,7 +537,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     if (visibleIndexPathsInSection.count == 0) {
-        DDLogInfo(@"Cancelling fetch for scrolled-away section: %@", controller);
+        DDLogVerbose(@"Cancelling fetch for scrolled-away section: %@", controller);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchSectionIfShowing:) object:controller];
     }
 }
@@ -560,6 +626,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self loadSectionControllersForCurrentSectionSchema];
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
+    
     [self.tableView reloadData];
 }
 
@@ -576,8 +643,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isViewLoaded) {
         return NO;
     }
-    [self.refreshControl beginRefreshing];
-    return [self.schemaManager update:force];
+    BOOL const willUpdate = [self.schemaManager update:force];
+    if (willUpdate) {
+        [self.refreshControl beginRefreshing];
+    }
+    return willUpdate;
 }
 
 #pragma mark - Delayed Fetching
@@ -602,16 +672,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Section Info
 
 - (id<WMFExploreSectionController>)sectionControllerForSection:(WMFExploreSection*)section {
-    id<WMFExploreSectionController> sectionController = [self.sectionControllerCache controllerForSection:section];
-    if (!sectionController) {
-        sectionController = [self.sectionControllerCache newControllerForSection:section];
-        [self registerSectionForSectionController:sectionController];
-    }
+    id<WMFExploreSectionController> sectionController =
+        [self.sectionControllerCache getOrCreateControllerForSection:section
+                                                       creationBlock:^(id < WMFExploreSectionController > _Nonnull newController) {
+        [self registerSectionForSectionController:newController];
+    }];
     return sectionController;
 }
 
 - (nullable id<WMFExploreSectionController>)sectionControllerForSectionAtIndex:(NSInteger)index {
-    if(index >= self.schemaManager.sections.count){
+    if (index >= self.schemaManager.sections.count) {
         return nil;
     }
     WMFExploreSection* section = self.schemaManager.sections[index];
@@ -639,13 +709,17 @@ NS_ASSUME_NONNULL_BEGIN
 
     [self.KVOControllerNonRetaining unobserve:controller keyPath:WMF_SAFE_KEYPATH(controller, items)];
 
-    [self.KVOControllerNonRetaining observe:controller keyPath:WMF_SAFE_KEYPATH(controller, items) options:0 block:^(WMFExploreViewController* observer, id < WMFExploreSectionController > object, NSDictionary* change) {
-        NSUInteger sectionIndex = [observer indexForSectionController:controller];
-        if (sectionIndex == NSNotFound) {
-            return;
+    [self.KVOControllerNonRetaining observe:controller
+                                    keyPath:WMF_SAFE_KEYPATH(controller, items)
+                                    options:0
+                                      block:^(WMFExploreViewController* observer,
+                                              id < WMFExploreSectionController > observedController,
+                                              NSDictionary* _) {
+        NSUInteger sectionIndex = [observer indexForSectionController:observedController];
+        if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
+            DDLogVerbose(@"Reloading table to display results in controller %@", observedController);
+            [observer.tableView reloadData];
         }
-
-        [observer.tableView reloadData];
     }];
 }
 

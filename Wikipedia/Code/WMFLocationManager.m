@@ -1,6 +1,7 @@
 
 #import "WMFLocationManager.h"
 #import "WMFLocationSearchFetcher.h"
+#import "CLLocationManager+WMFLocationManagers.h"
 
 static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelInfo;
 
@@ -32,14 +33,36 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readwrite, nullable) CLHeading* lastHeading;
 
 /**
+ *  Whether or not the receiver is listening for updates to location & heading.
+ *
+ *  @note
  *  CLLocationmanager doesn't always immediately listen to the request for stopping location updates
  *  We use this to ignore events after a stop has been requested
  */
-@property (nonatomic, assign) BOOL locationUpdatesStopped;
+@property (nonatomic, assign, readwrite, getter = isUpdating) BOOL updating;
+
+- (instancetype)initWithLocationManager:(CLLocationManager*)locationManager NS_DESIGNATED_INITIALIZER;
 
 @end
 
 @implementation WMFLocationManager
+
++ (instancetype)fineLocationManager {
+    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_fineLocationManager]];
+}
+
++ (instancetype)coarseLocationManager {
+    return [[self alloc] initWithLocationManager:[CLLocationManager wmf_coarseLocationManager]];
+}
+
+- (instancetype)initWithLocationManager:(CLLocationManager*)locationManager {
+    self = [super init];
+    if (self) {
+        self.locationManager     = locationManager;
+        locationManager.delegate = self;
+    }
+    return self;
+}
 
 - (void)dealloc {
     self.locationManager.delegate = nil;
@@ -56,25 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
     return self.lastLocation;
 }
 
-- (CLLocationManager*)locationManager {
-    if (!_locationManager) {
-        _locationManager                 = [[CLLocationManager alloc] init];
-        _locationManager.delegate        = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
-        _locationManager.activityType    = CLActivityTypeFitness;
-        /*
-           Update location every 1 meter. This is separate from how often we update the titles that are near a given
-           location.
-         */
-        _locationManager.distanceFilter = 1;
-    }
-    return _locationManager;
-}
-
 - (NSString*)description {
     NSString* delegateDesc = [self.delegate description] ? : @"nil";
     return [NSString stringWithFormat:@"<%@ manager: %@ delegate: %@ is updating: %d>",
-            [super description], _locationManager, delegateDesc, !self.locationUpdatesStopped];
+            [super description], _locationManager, delegateDesc, self.isUpdating];
 }
 
 #pragma mark - Permissions
@@ -107,24 +115,25 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)startMonitoringLocation {
-    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled]) {
+    if ([self requestAuthorizationIfNeeded] || [WMFLocationManager isDeniedOrDisabled] || self.isUpdating) {
         return;
     }
 
     NSParameterAssert([WMFLocationManager isAuthorized]);
 
-    DDLogVerbose(@"%@ will start location & heading updates.", self);
-
-    self.locationUpdatesStopped = NO;
+    self.updating = YES;
+    DDLogInfo(@"%@ starting monitoring location & heading updates.", self);
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
 
 - (void)stopMonitoringLocation {
-    DDLogVerbose(@"%@ will stop location & heading updates.", self);
-    self.locationUpdatesStopped = YES;
-    [self stopLocationUpdates];
-    [self stopHeadingUpdates];
+    if (self.isUpdating) {
+        self.updating = NO;
+        DDLogInfo(@"%@ stopping location & heading updates.", self);
+        [self stopLocationUpdates];
+        [self stopHeadingUpdates];
+    }
 }
 
 #pragma mark - Location Updates
@@ -142,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
         [[NSNotificationCenter defaultCenter] addObserverForName:UIDeviceOrientationDidChangeNotification
                                                           object:nil
                                                            queue:nil
-                                                      usingBlock:^(NSNotification* note) {
+                                                      usingBlock:^(NSNotification* _) {
         @strongify(self);
         [self updateHeadingOrientation];
     }];
@@ -175,6 +184,9 @@ NS_ASSUME_NONNULL_BEGIN
             self.locationManager.headingOrientation = CLDeviceOrientationUnknown;
             break;
     }
+    // Force location manager to re-emit the current heading which will take into account the current device orientation
+    [self.locationManager stopUpdatingHeading];
+    [self.locationManager startUpdatingHeading];
 }
 
 - (void)stopLocationUpdates {
@@ -219,7 +231,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateLocations:(NSArray*)locations {
     // ignore nil values to keep last known heading on the screen
-    if (self.locationUpdatesStopped || !manager.location) {
+    if (!self.isUpdating || !manager.location) {
         return;
     }
     self.lastLocation = manager.location;
@@ -229,9 +241,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
     // ignore nil or innaccurate values values to keep last known heading on the screen
-    if (self.locationUpdatesStopped
-        || !newHeading
-        || newHeading.headingAccuracy <= 0) {
+    if (!self.isUpdating || !newHeading || newHeading.headingAccuracy <= 0) {
         return;
     }
     self.lastHeading = newHeading;
@@ -240,7 +250,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
-    if (self.locationUpdatesStopped) {
+    if (!self.isUpdating) {
         DDLogVerbose(@"Suppressing error received after call to stop monitoring location: %@", error);
         return;
     }

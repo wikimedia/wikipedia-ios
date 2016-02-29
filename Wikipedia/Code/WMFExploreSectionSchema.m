@@ -75,7 +75,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
                      savedPages:savedPages
                         history:history
                       blackList:blackList
-                locationManager:[[WMFLocationManager alloc] init]
+                locationManager:[WMFLocationManager coarseLocationManager]
                            file:[self defaultSchemaURL]];
 }
 
@@ -273,7 +273,9 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 
     WMFExploreSection* closeEnough = [existingNearbySections bk_match:^BOOL (WMFExploreSection* oldNearby) {
         //Don't add a new one if we have one that is minimum distance
-        if (oldNearby.location && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby && oldNearby.placemark != nil) {
+        if (oldNearby.location
+            && [location distanceFromLocation:oldNearby.location] < WMFMinimumDistanceBeforeUpdatingNearby
+            && oldNearby.placemark != nil) {
             return YES;
         }
 
@@ -632,6 +634,7 @@ static CLLocationDistance const WMFMinimumDistanceBeforeUpdatingNearby = 500.0;
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didUpdateHeading:(CLHeading*)heading {
+    WMF_TECH_DEBT_TODO(disable heading updates for this location manager);
 }
 
 - (void)nearbyController:(WMFLocationManager*)controller didReceiveError:(NSError*)error {

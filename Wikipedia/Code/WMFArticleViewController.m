@@ -988,7 +988,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - WMFArticleListTableViewControllerDelegate
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didSelectTitle:(MWKTitle*)title {
-    if([self presentedViewController]){
+    if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
     id<WMFAnalyticsContentTypeProviding> contentType = nil;
@@ -1004,7 +1004,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)listViewContoller:(WMFArticleListTableViewController*)listController didCommitToPreviewedViewController:(UIViewController*)viewController {
-    if([self presentedViewController]){
+    if ([self presentedViewController]) {
         [self dismissViewControllerAnimated:YES completion:NULL];
     }
     if ([viewController isKindOfClass:[WMFArticleViewController class]]) {

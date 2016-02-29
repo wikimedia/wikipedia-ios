@@ -139,12 +139,15 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
- *  Called when a section is about to be displayed
+ *  Called when a section is about to be displayed.
  */
 - (void)willDisplaySection;
 
 /**
- *  Called when finished displaying a section
+ *  Called when the receiver's section in the table is no longer visible.
+ *
+ *  This can happen when either the cells are scolled offscreen (invoked after last cell scolls away) or when the entire
+ *  table view disappears (e.g. switching tabs).
  */
 - (void)didEndDisplayingSection;
 

@@ -16,7 +16,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable WMFExploreSection*)sectionForController:(id<WMFExploreSectionController>)controller;
 
-- (id<WMFExploreSectionController>)newControllerForSection:(WMFExploreSection*)section;
+/**
+ *  Get a controller for a particular section, or create one if it doesn't exist.
+ *
+ *  @param section The section to retrieve or create a controller for.
+ *  @param factory A block which is invoked when a new section is created.
+ *
+ *  @return A section controller for `section`.
+ */
+- (id<WMFExploreSectionController>)getOrCreateControllerForSection:(WMFExploreSection*)section
+                                                     creationBlock:(nullable void (^)(id<WMFExploreSectionController> newController))creationBlock;
 
 @end
 

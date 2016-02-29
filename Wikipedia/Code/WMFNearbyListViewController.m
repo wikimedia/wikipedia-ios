@@ -21,7 +21,7 @@
 
 - (WMFLocationManager*)locationManager {
     if (_locationManager == nil) {
-        _locationManager          = [[WMFLocationManager alloc] init];
+        _locationManager          = [WMFLocationManager fineLocationManager];
         _locationManager.delegate = self;
     }
     return _locationManager;
