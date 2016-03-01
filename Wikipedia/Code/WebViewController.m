@@ -31,6 +31,8 @@
 #import "UIScrollView+WMFContentOffsetUtils.h"
 #import "NSURL+WMFExtras.h"
 
+#import "WMFZeroMessage.h"
+
 typedef NS_ENUM (NSInteger, WMFWebViewAlertType) {
     WMFWebViewAlertZeroWebPage,
     WMFWebViewAlertZeroCharged,
@@ -138,6 +140,16 @@ NSString* const WMFLicenseTitleOnENWiki =
     [self.webView.scrollView wmf_shouldScrollToTopOnStatusBarTap:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateZeroStateWithNotification:)
+                                                 name:WMFZeroDispositionDidChange
+                                               object:nil];
+    // should happen in will appear to prevent bar from being incorrect during transitions
+    [self updateZeroState];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     [self layoutWebViewSubviews];
@@ -145,6 +157,7 @@ NSString* const WMFLicenseTitleOnENWiki =
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:WMFZeroDispositionDidChange object:nil];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection*)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -178,6 +191,26 @@ NSString* const WMFLicenseTitleOnENWiki =
                                       block:^(WebViewController* observer, id object, NSDictionary* change) {
         [observer layoutWebViewSubviews];
     }];
+}
+
+#pragma mark - Zero
+
+- (void)updateZeroStateWithNotification:(NSNotification*)notification {
+    [self updateZeroState];
+}
+
+- (void)updateZeroState {
+    if ([[SessionSingleton sharedInstance] zeroConfigState].disposition) {
+        [self showZeroBannerWithMessage:[[[SessionSingleton sharedInstance] zeroConfigState] zeroMessage]];
+    } else {
+        self.zeroStatusLabel.text = @"";
+    }
+}
+
+- (void)showZeroBannerWithMessage:(WMFZeroMessage*)zeroMessage {
+    self.zeroStatusLabel.text = zeroMessage.message;
+    self.zeroStatusLabel.textColor = zeroMessage.foreground;
+    self.zeroStatusLabel.backgroundColor = zeroMessage.background;
 }
 
 #pragma mark - Headers & Footers
