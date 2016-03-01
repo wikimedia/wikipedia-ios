@@ -9,6 +9,7 @@
 import UIKit
 import MobileCoreServices
 import CoreSpotlight
+import CocoaLumberjack
 
 @available(iOS 9.0, *)
 
@@ -87,9 +88,9 @@ public class WMFSavedPageSpotlightManager: NSObject {
             
             CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
                 if let error = error {
-                    print("Indexing error: \(error.localizedDescription)")
+                    DDLogError("Indexing error: \(error.localizedDescription)")
                 } else {
-                    print("Search item successfully indexed!")
+                    DDLogVerbose("Search item successfully indexed!")
                 }
             }
         }
@@ -98,9 +99,9 @@ public class WMFSavedPageSpotlightManager: NSObject {
     func removeFromIndex(title: MWKTitle) {
         CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.mobileURL.absoluteString]) { (error: NSError?) -> Void in
             if let error = error {
-                print("Deindexing error: \(error.localizedDescription)")
+                DDLogError("Deindexing error: \(error.localizedDescription)")
             } else {
-                print("Search item successfully removed!")
+                DDLogVerbose("Search item successfully removed!")
             }
             
         }
