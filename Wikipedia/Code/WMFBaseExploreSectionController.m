@@ -154,14 +154,15 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
         return;
     } else if ([self shouldShowEmptyCell]) {
         WMFEmptySectionTableViewCell* emptyCell = (id)cell;
-        if (![emptyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
-            @weakify(self);
-            [emptyCell.reloadButton bk_addEventHandler:^(id sender) {
-                @strongify(self);
-                [self resetData];
-                [self fetchDataIfError];
-            } forControlEvents:UIControlEventTouchUpInside];
-        }
+        [emptyCell.reloadButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+
+        @weakify(self);
+        [emptyCell.reloadButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            [self resetData];
+            [self fetchDataUserInitiated];
+        } forControlEvents:UIControlEventTouchUpInside];
+
         [self configureEmptyCell:emptyCell];
     } else {
         [self configureCell:cell withItem:self.items[indexPath.row] atIndexPath:indexPath];
