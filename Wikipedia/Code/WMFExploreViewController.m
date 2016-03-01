@@ -144,6 +144,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isDisplayingCellsForSection:(NSInteger)section {
+    //NOTE: numberOfSectionsInTableView returns 0 when isWaitingForNetworkToReconnect == YES
+    //so we need to bail here or the assertion below is tripped
+    if (self.isWaitingForNetworkToReconnect) {
+        return NO;
+    }
     NSParameterAssert(section != NSNotFound);
     NSParameterAssert(section < [self numberOfSectionsInTableView:self.tableView]);
     return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL (NSIndexPath* indexPath) {
@@ -325,11 +330,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (![self updateSectionSchemaIfNeeded]) {
         WMF_TECH_DEBT_WARN(forcing table refresh when data in memory is purged in background);
         /*
-         The section controller cache was likely purged when going to the background, therefore we need to refresh
-         the table view to indicate the data its views are displaying is now gone and needs to be re-fetched.
-         
-         Ideally this data still be retrievable from disk caches, obviating the need to show placeholders again, but
-         that will have to come later.
+           The section controller cache was likely purged when going to the background, therefore we need to refresh
+           the table view to indicate the data its views are displaying is now gone and needs to be re-fetched.
+
+           Ideally this data still be retrievable from disk caches, obviating the need to show placeholders again, but
+           that will have to come later.
          */
         [self.tableView reloadData];
     }
@@ -364,14 +369,18 @@ NS_ASSUME_NONNULL_BEGIN
         @strongify(self);
         self.isWaitingForNetworkToReconnect = NO;
         [self.tableView reloadData];
+        [self wmf_hideEmptyView];
+
         [[self visibleSectionControllers] enumerateObjectsUsingBlock:^(id<WMFExploreSectionController>  _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
             @weakify(self);
+            [obj resetData];
             [obj fetchDataIfError].catch(^(NSError* error){
                 @strongify(self);
-                [self showOfflineEmptyViewAndReloadWhenReachable];
+                if ([error wmf_isNetworkConnectionError]) {
+                    [self showOfflineEmptyViewAndReloadWhenReachable];
+                }
             });
         }];
-        [self wmf_hideEmptyView];
     });
 }
 
@@ -763,6 +772,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_hideEmptyView];
     [self loadSectionControllersForCurrentSectionSchema];
     [self.tableView reloadData];
+    [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
+        [obj fetchDataIfError];
+    }];
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {

@@ -7,7 +7,6 @@
 //
 
 #import "WMFBaseExploreSectionController.h"
-#import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 #import "WMFEmptySectionTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -155,14 +154,15 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
         return;
     } else if ([self shouldShowEmptyCell]) {
         WMFEmptySectionTableViewCell* emptyCell = (id)cell;
-        if (![emptyCell.reloadButton bk_hasEventHandlersForControlEvents:UIControlEventTouchUpInside]) {
-            @weakify(self);
-            [emptyCell.reloadButton bk_addEventHandler:^(id sender) {
-                @strongify(self);
-                [self resetData];
-                [self fetchDataIfError];
-            } forControlEvents:UIControlEventTouchUpInside];
-        }
+        [emptyCell.reloadButton bk_removeEventHandlersForControlEvents:UIControlEventTouchUpInside];
+
+        @weakify(self);
+        [emptyCell.reloadButton bk_addEventHandler:^(id sender) {
+            @strongify(self);
+            [self resetData];
+            [self fetchDataUserInitiated];
+        } forControlEvents:UIControlEventTouchUpInside];
+
         [self configureEmptyCell:emptyCell];
     } else {
         [self configureCell:cell withItem:self.items[indexPath.row] atIndexPath:indexPath];
@@ -210,15 +210,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
             DDLogError(@"Failed to fetch items for section %@. %@", self, error);
             self.fetcherPromise = nil;
             self.fetchError = error;
-
-            //Clear network error on network reconnect
-            @weakify(self);
-            if ([error wmf_isNetworkConnectionError]) {
-                SCNetworkReachability().then(^{
-                    @strongify(self);
-                    self.fetchError = nil;
-                });
-            }
             return error;
         });
         return self.fetcherPromise;
@@ -228,7 +219,11 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 - (void)resetData {
     _fetchedItems = nil;
     _fetchError   = nil;
-    self.items    = @[];
+    if ([self supportsPlaceholders]) {
+        [self setItemsToPlaceholdersIfSupported];
+    } else {
+        self.items = @[];
+    }
 }
 
 #pragma mark - Utility
