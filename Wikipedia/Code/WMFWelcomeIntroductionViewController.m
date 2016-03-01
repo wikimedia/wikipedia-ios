@@ -30,8 +30,7 @@
                      forState:UIControlStateNormal];
 
     [self.nextButton setTitleColor:[UIColor wmf_blueTintColor] forState:UIControlStateNormal];
-
-    [self.animationView wmf_configureForIntroAnimation];
+    self.animationView.backgroundColor = [UIColor clearColor];
 }
 
 - (IBAction)showHowThisWorksAlert:(id)sender {
@@ -47,6 +46,14 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    BOOL shouldAnimate = !self.hasAlreadyFaded;
+    [super viewDidAppear:animated];
+    if (shouldAnimate) {
+        [self.animationView wmf_configureForIntroAnimation];
+    }
 }
 
 @end

@@ -2,4 +2,6 @@
 
 @interface WMFWelcomeFadeInAndUpOnceViewController : UIViewController
 
+@property (nonatomic) BOOL hasAlreadyFaded;
+
 @end

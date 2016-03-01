@@ -38,8 +38,7 @@
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
-
-    [self.animationView wmf_configureForLanguagesAnimation];
+    self.animationView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -61,6 +60,14 @@
         (self.languageTableView.frame.size.height - self.languageTableView.contentSize.height) / 2.f;
     if (topInsetRequiredToCenterTableContent > 0) {
         self.languageTableView.contentInset = UIEdgeInsetsMake(topInsetRequiredToCenterTableContent, 0, 0, 0);
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    BOOL shouldAnimate = !self.hasAlreadyFaded;
+    [super viewDidAppear:animated];
+    if (shouldAnimate) {
+        [self.animationView wmf_configureForLanguagesAnimation];
     }
 }
 

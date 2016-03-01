@@ -42,7 +42,15 @@
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
 
-    [self.animationView wmf_configureForAnalyticsAnimation];
+    self.animationView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    BOOL shouldAnimate = !self.hasAlreadyFaded;
+    [super viewDidAppear:animated];
+    if (shouldAnimate) {
+        [self.animationView wmf_configureForAnalyticsAnimation];
+    }
 }
 
 - (IBAction)toggleAnalytics:(UISwitch*)sender {
