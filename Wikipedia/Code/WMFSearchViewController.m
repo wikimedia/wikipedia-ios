@@ -6,6 +6,8 @@
 
 #import "SessionSingleton.h"
 
+#import "NSUserActivity+WMFExtensions.h"
+
 #import "MWKLanguageLinkController.h"
 #import "MWKLanguageLink.h"
 
@@ -249,6 +251,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchViewActivity]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -381,6 +384,14 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Search
 
+- (void)setSearchTerm:(NSString*)searchTerm{
+    if(searchTerm.length == 0){
+        return;
+    }
+    [self setSearchFieldText:searchTerm];
+    [self searchForSearchTerm:searchTerm];
+}
+
 - (MWKSite*)currentlySelectedSearchSite {
     if ([[NSUserDefaults standardUserDefaults] wmf_showSearchLanguageBar]) {
         NSUInteger index = [self.languageButtons indexOfObjectPassingTest:^BOOL (UIButton* _Nonnull obj, NSUInteger idx, BOOL* _Nonnull stop) {
@@ -434,6 +445,7 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
         self.resultsListController.dataSource = dataSource;
 
         [self updateUIWithResults:results];
+        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_searchResultsActivitySearchSite:site searchTerm:results.searchTerm]];
 
         if ([results.results count] < kWMFMinResultsBeforeAutoFullTextSearch) {
             return [self.fetcher fetchArticlesForSearchTerm:searchTerm

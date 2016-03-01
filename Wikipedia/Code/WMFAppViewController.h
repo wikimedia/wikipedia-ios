@@ -9,4 +9,6 @@
 
 - (void)processShortcutItem:(UIApplicationShortcutItem*)item completion:(void (^)(BOOL))completion;
 
+- (BOOL)processUserActivity:(NSUserActivity*)activity;
+
 @end

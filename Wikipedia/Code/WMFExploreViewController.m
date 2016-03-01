@@ -6,6 +6,7 @@
 @import Tweaks;
 
 #import "PiwikTracker+WMFExtensions.h"
+#import "NSUserActivity+WMFExtensions.h"
 #import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 
 // Sections
@@ -215,11 +216,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Actions
 
-- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+- (void)showSettings{
     UINavigationController* settingsContainer =
-        [[UINavigationController alloc] initWithRootViewController:
-         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
-    [self presentViewController:settingsContainer animated:YES completion:nil];
+    [[UINavigationController alloc] initWithRootViewController:
+     [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+    [self presentViewController:settingsContainer
+                       animated:YES
+                     completion:nil];
+}
+
+- (void)didTapSettingsButton:(UIBarButtonItem*)sender {
+    [self showSettings];
 }
 
 #pragma mark - UIViewController
@@ -282,6 +289,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self sendWillDisplayToVisibleSectionControllers];
 
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_exploreViewActivity]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

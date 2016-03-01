@@ -4,16 +4,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#ifdef DEBUG
-static NSTimeInterval const WMFDispatchInterval = 5;
-#else
-static NSTimeInterval const WMFDispatchInterval = 60;
-#endif
-
 @implementation PiwikTracker (WMFExtensions)
 
 + (void)wmf_start {
 #ifdef PIWIK_ENABLED
+    static NSTimeInterval const WMFDispatchInterval = 60;
+
     if (![[NSBundle mainBundle] wmf_isPiwikEnabledAndConfigured]) {
         DDLogError(@"Not starting Piwik becuase no URL or app ID was found");
         return;

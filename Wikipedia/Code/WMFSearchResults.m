@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
     _redirectMappings = [redirectMappings copy] ? : @[];
 }
 
-- (NSArray*)results {
+- (nullable NSArray*)results {
     return _mutableResults;
 }
 

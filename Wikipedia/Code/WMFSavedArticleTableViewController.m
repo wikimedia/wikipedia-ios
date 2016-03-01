@@ -9,6 +9,7 @@
 #import "WMFSavedArticleTableViewController.h"
 #import "PiwikTracker+WMFExtensions.h"
 #import "NSString+WMFExtras.h"
+#import "NSUserActivity+WMFExtensions.h"
 
 #import "WMFSavedPagesDataSource.h"
 #import "MWKDataStore.h"
@@ -69,6 +70,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [[PiwikTracker wmf_configuredInstance] wmf_logView:self];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_savedPagesViewActivity]];
 }
 
 - (WMFEmptyViewType)emptyViewType {

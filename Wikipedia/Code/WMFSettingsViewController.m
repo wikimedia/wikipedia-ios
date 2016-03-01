@@ -4,6 +4,7 @@
 // Views
 #import "WMFSettingsTableViewCell.h"
 #import "Wikipedia-Swift.h"
+#import "NSUserActivity+WMFExtensions.h"
 
 // View Controllers
 #import "WMFSettingsViewController.h"
@@ -74,6 +75,11 @@ static NSString* const WMFSettingsURLSupport = @"https://donate.wikimedia.org/?u
                                       block:^(WMFSettingsViewController* observer, id object, NSDictionary* change) {
         [observer reloadVisibleCellOfType:WMFSettingsMenuItemType_Login];
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_settingsViewActivity]];
 }
 
 - (void)configureBackButton {

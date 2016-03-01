@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)searchViewControllerWithDataStore:(MWKDataStore*)dataStore;
 
+- (void)setSearchTerm:(NSString*)searchTerm;
+
 @end
 
 NS_ASSUME_NONNULL_END

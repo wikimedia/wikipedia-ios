@@ -1,6 +1,8 @@
 #import "WMFArticleViewController_Private.h"
 #import "Wikipedia-Swift.h"
 
+#import "NSUserActivity+WMFExtensions.h"
+
 // Frameworks
 #import <Masonry/Masonry.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -166,6 +168,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (self.article) {
         [self startSignificantlyViewedTimer];
         [self wmf_hideEmptyView];
+        [NSUserActivity wmf_makeActivityActive:[NSUserActivity wmf_articleViewActivityWithArticle:self.article]];
     }
 
     [self updateToolbar];
