@@ -7,7 +7,6 @@
 //
 
 #import "WMFBaseExploreSectionController.h"
-#import <PromiseKit/SCNetworkReachability+AnyPromise.h>
 #import "WMFEmptySectionTableViewCell.h"
 #import "UIView+WMFDefaultNib.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
@@ -210,15 +209,6 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
             DDLogError(@"Failed to fetch items for section %@. %@", self, error);
             self.fetcherPromise = nil;
             self.fetchError = error;
-
-            //Clear network error on network reconnect
-            @weakify(self);
-            if ([error wmf_isNetworkConnectionError]) {
-                SCNetworkReachability().then(^{
-                    @strongify(self);
-                    self.fetchError = nil;
-                });
-            }
             return error;
         });
         return self.fetcherPromise;
