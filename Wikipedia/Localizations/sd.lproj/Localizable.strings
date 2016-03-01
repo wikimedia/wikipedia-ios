@@ -180,9 +180,12 @@
 "article-pull-to-refresh-is-refreshing" = "مضمون کي تازو ڪندي";
 "about-title" = "بانت";
 "about-wikipedia" = "وڪيپيڊيا";
+// Fuzzy
 "about-contributors" = "ڀاڱيدار";
+// Fuzzy
 "about-translators" = "ترجميڪار";
 "about-translators-details" = "$1 تي رضاڪارن طرفان ترجمو ڪيل";
+// Fuzzy
 "about-libraries" = "استعمال ڪيل ڪتبخانا";
 "about-libraries-license" = "لائسنس";
 "about-send-feedback" = "ايپ جي پذيرائي موڪليو";

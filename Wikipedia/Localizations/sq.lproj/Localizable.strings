@@ -159,8 +159,11 @@
 "article-pull-to-refresh-is-refreshing" = "Duke përditësuar artikullin";
 "about-title" = "Rreth";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "kontribuuesit";
+// Fuzzy
 "about-testers" = "testuesit";
+// Fuzzy
 "about-translators" = "përkthyesit";
 "about-translators-details" = "Përkthyer nga vullnetarët në $1";
 "share-menu-save-page" = "Ruaj faqen";

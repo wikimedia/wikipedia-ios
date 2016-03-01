@@ -155,7 +155,9 @@
 "article-pull-to-refresh-is-refreshing" = "लेख तरोताजा करीत आहे";
 "about-title" = "च्या विषयी";
 "about-wikipedia" = "विकिपीडिया";
+// Fuzzy
 "about-contributors" = "योगदान";
+// Fuzzy
 "about-translators" = "भाषांतरकार";
 "about-libraries-license" = "परवाना";
 "about-wikimedia-foundation" = "विकीमेडिया प्रतिष्ठान";

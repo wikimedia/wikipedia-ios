@@ -144,10 +144,14 @@
 "credits-github-mirror" = "אפ-שפיגל (גיטהאב)";
 "about-title" = "וועגן";
 "about-wikipedia" = "וויקיפעדיע";
+// Fuzzy
 "about-contributors" = "בײַשטײַערער";
+// Fuzzy
 "about-translators" = "איבערזעצער";
+// Fuzzy
 "about-libraries" = "געניצטע ביבליאטעקן";
 "about-libraries-license" = "ליצענץ";
+// Fuzzy
 "about-repositories" = "רעפאזיטאריעס";
 "about-send-feedback" = "שיקן אפ־פידבעק";
 "about-product-of" = "א פראדוקט פון $1";

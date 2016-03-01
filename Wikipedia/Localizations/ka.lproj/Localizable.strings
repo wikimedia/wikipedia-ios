@@ -189,13 +189,18 @@
 "credits-external-libraries" = "გარე";
 "about-title" = "შესახებ";
 "about-wikipedia" = "ვიკიპედია";
+// Fuzzy
 "about-contributors" = "ავტორები";
+// Fuzzy
 "about-testers" = "ტესტერები";
 "about-testers-details" = "QA დატესტილი $1-ის მიერ";
+// Fuzzy
 "about-translators" = "მთარგმნელები";
 "about-translators-details" = "ეს აპლიკაცია ნათარგმნია მოხალისეების მიერ $1-ზე";
+// Fuzzy
 "about-libraries" = "გამოყენებული მასალები";
 "about-libraries-license" = "ლიცენზია";
+// Fuzzy
 "about-repositories" = "რეპოზიტორები";
 "about-send-feedback" = "შეაფასეთ აპლიკაცია";
 "about-product-of" = "$1-ის პროდუქტი";

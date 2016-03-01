@@ -123,8 +123,11 @@
 "credits-github-mirror" = "Հայելի (GitHub)";
 "about-title" = "Ծրագրի մասին";
 "about-wikipedia" = "Վիքիպեդիա";
+// Fuzzy
 "about-contributors" = "հեղինակներ";
+// Fuzzy
 "about-testers" = "փարձարկողներ";
+// Fuzzy
 "about-translators" = "թարգմանիչներ";
 "about-libraries-license" = "Արտոնագիր";
 "about-wikimedia-foundation" = "Վիքիմեդիա Հիմնադրամ";

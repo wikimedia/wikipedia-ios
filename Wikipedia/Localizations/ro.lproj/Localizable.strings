@@ -191,13 +191,18 @@
 "credits-external-libraries" = "Externe";
 "about-title" = "Despre";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "contribuitori";
+// Fuzzy
 "about-testers" = "testeri";
 "about-testers-details" = "QA testată de $1";
+// Fuzzy
 "about-translators" = "traducători";
 "about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
+// Fuzzy
 "about-libraries" = "biblioteci utilizate";
 "about-libraries-license" = "Licență";
+// Fuzzy
 "about-repositories" = "depozite";
 "about-send-feedback" = "Trimiteți o părere despre aplicație";
 "about-product-of" = "Un produs al $1";

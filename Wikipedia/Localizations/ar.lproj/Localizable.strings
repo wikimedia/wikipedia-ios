@@ -2,6 +2,7 @@
 // Exported from translatewiki.net
 // Author: Haytham morsy
 // Author: Hocinend1
+// Author: Maroen1990
 // Author: Meno25
 // Author: Musab Moahmmed
 // Author: Omda4wady
@@ -88,20 +89,19 @@
 "search-recent-clear-delete-all" = "حذف الكل";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "settings-title" = "إعدادات";
+"settings-project" = "مشروع ويكيبيديا";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
 "main-menu-language-title" = "البحث في ويكيبيديا";
-// Fuzzy
 "main-menu-faq" = "الأسئلة المتكررة";
 "main-menu-language-toggle-show" = "أظهر اللغات";
 "main-menu-language-toggle-hide" = "أخف اللغات";
 "main-menu-language-selection-saved" = "اختيار اللغة حُفظ";
 "main-menu-account-title-logged-out" = "الحساب";
-// Fuzzy
-"main-menu-account-title-logged-in" = "مسجل الدخول بصفتك: $1";
-// Fuzzy
-"main-menu-account-login" = "تسجيل الدخول إلى ويكيبيديا";
+"main-menu-account-title-logged-in" = "مسجل الدخول بصفتك $1";
+"main-menu-account-login" = "تسجيل الدخول";
 "main-menu-account-logout" = "تسجيل الخروج";
+"main-menu-account-logout-cancel" = "ألغ";
 "main-menu-show-title" = "أرني...";
 "main-menu-show-history" = "الأخيرة";
 "main-menu-show-saved" = "الصفحات المحفوظة";
@@ -109,8 +109,7 @@
 "main-menu-random" = "عشوائي";
 // Fuzzy
 "main-menu-send-feedback" = "إرسال الملاحظات على التطبيق";
-// Fuzzy
-"main-menu-about" = "عن تطبيق ويكيبيديا";
+"main-menu-about" = "عن التطبيق";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "main-menu-privacy-policy" = "سياسة الخصوصية";
 // Fuzzy
@@ -125,8 +124,7 @@
 "main-menu-debug-tweaks" = "إعدادات المطور";
 "saved-title" = "حُفظ";
 "saved-pages-title" = "الصفحات المحفوظة";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "حذف جميع العناصر المحفوظة؟";
+"saved-pages-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع الصفحات المحفوظة؟";
 "saved-pages-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "saved-pages-clear-cancel" = "إلغاء";
 // Fuzzy
@@ -151,10 +149,14 @@
 "edit-summary-choice-other" = "غير ذلك";
 "about-title" = "عن";
 "about-wikipedia" = "ويكيبيديا";
+// Fuzzy
 "about-contributors" = "المساهمون";
+// Fuzzy
 "about-translators" = "المترجمون";
+// Fuzzy
 "about-libraries" = "المكتبات المستخدمة";
 "about-libraries-license" = "ترخيص";
+"about-libraries-licenses" = "الرخصة";
 "about-send-feedback" = "إرسال الملاحظات على التطبيق";
 "about-wikimedia-foundation" = "مؤسسة ويكيميديا";
 "share-menu-save-page" = "احفظ الصفحة";
@@ -182,6 +184,7 @@
 "license-footer-text" = "المحتوى متاح تحت رخصة $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "المحتويات";
+"table-of-contents-close-accessibility-hint" = "أغلق";
 "menu-edit-accessibility-label" = "عدل";
 "menu-close-accessibility-label" = "أغلق";
 "menu-preview-accessibility-label" = "معاينة";
@@ -209,6 +212,8 @@
 "page-similar-titles" = "صفحات مشابهة";
 "page-edit-history" = "تاريخ التعديل الكامل";
 "home-title" = "استكشف";
+"home-empty-section" = "لا نتائج";
+"home-empty-section-check-again" = "حاول مرة أخرى";
 "home-continue-reading-heading" = "مواصلة القراءة";
 "home-continue-related-heading" = "لأنك قرأت $1";
 "home-more-like-footer" = "المزيد مثل $1";
@@ -217,6 +222,11 @@
 "home-nearby-check-again" = "تحقق مرة أخرى";
 "home-main-page-heading" = "اليوم في ويكيبيديا";
 "home-updating-label" = "جارٍ التحديث...";
+"welcome-explore-continue-button" = "فلنبدأ";
+"welcome-languages-title" = "اللغات";
+"welcome-volunteer-title" = "متطوع";
+"welcome-volunteer-continue-button" = "استمرار";
+"empty-no-search-results-message" = "لا توجد نتائج";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
 "icon-shortcut-continue-reading-title" = "مواصلة القراءة";

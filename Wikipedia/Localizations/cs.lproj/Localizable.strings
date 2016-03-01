@@ -132,8 +132,11 @@
 "edit-summary-choice-added-missing-info" = "Přidána chybějící informace";
 "edit-summary-choice-added-clarification" = "Přidáno upřesnění";
 "edit-summary-choice-other" = "Ostatní";
+// Fuzzy
 "about-contributors" = "přispěvatelé";
+// Fuzzy
 "about-translators" = "překladatelé";
+// Fuzzy
 "about-libraries" = "použité knihovny";
 "about-libraries-license" = "Licence";
 "about-wikimedia-foundation" = "Nadace Wikimedia";
