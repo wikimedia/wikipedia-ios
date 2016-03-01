@@ -188,13 +188,18 @@
 "credits-external-libraries" = "Eksterne arkiver";
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "bidragsydere";
+// Fuzzy
 "about-testers" = "testere";
 "about-testers-details" = "Kvalitetssikringstestet af $1";
+// Fuzzy
 "about-translators" = "oversættere";
 "about-translators-details" = "Oversat af frivillige på $1";
+// Fuzzy
 "about-libraries" = "anvendte biblioteker";
 "about-libraries-license" = "Licens";
+// Fuzzy
 "about-repositories" = "lagre";
 "about-send-feedback" = "Send tilbagemelding om app";
 "about-product-of" = "Et produkt af $1";

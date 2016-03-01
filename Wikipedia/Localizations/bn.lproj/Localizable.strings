@@ -190,13 +190,18 @@
 "credits-external-libraries" = "বাহ্যিক";
 "about-title" = "পরিচিতি";
 "about-wikipedia" = "উইকিপিডিয়া";
+// Fuzzy
 "about-contributors" = "অবদানকারনগণ";
+// Fuzzy
 "about-testers" = "পরীক্ষকগণ";
 "about-testers-details" = "$1 দ্বারা QA পরীক্ষিত";
+// Fuzzy
 "about-translators" = "অনুবাদকগণ";
 "about-translators-details" = "$1 -এ স্বেচ্ছাসেবকদের দ্বারা অনূদিত";
+// Fuzzy
 "about-libraries" = "ব্যবহৃত লাইব্রেরীসমূহ";
 "about-libraries-license" = "লাইসেন্স";
+// Fuzzy
 "about-repositories" = "সংগ্রহস্থল";
 "about-send-feedback" = "অ্যাপ সম্পর্কে প্রতিক্রিয়া জানান";
 "about-product-of" = "$1-এর একটি পণ্য";

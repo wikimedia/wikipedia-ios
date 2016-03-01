@@ -138,8 +138,11 @@
 "edit-summary-choice-other" = "Beste";
 "about-title" = "Honi buruz";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "ekarleak";
+// Fuzzy
 "about-translators" = "itzultzaileak";
+// Fuzzy
 "about-libraries" = "Erabilitako liburutegiak";
 "about-libraries-license" = "Lizentzia";
 "about-wikimedia-foundation" = "Wikimedia Fundazioa";

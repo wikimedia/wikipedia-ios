@@ -115,7 +115,9 @@
 "edit-summary-choice-other" = "Nyingine";
 "about-title" = "Kuhusu";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "wachangiaji";
+// Fuzzy
 "about-translators" = "wafasiri";
 "about-libraries-license" = "Leseni";
 "about-send-feedback" = "Toa maoni ya programu timizi";

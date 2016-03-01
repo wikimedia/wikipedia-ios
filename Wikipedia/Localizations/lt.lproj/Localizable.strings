@@ -140,12 +140,17 @@
 "article-pull-to-refresh-is-refreshing" = "Straipsnis naujinamas";
 "about-title" = "Apie";
 "about-wikipedia" = "Vikipedija";
+// Fuzzy
 "about-contributors" = "autoriai";
+// Fuzzy
 "about-testers" = "testuotojai";
+// Fuzzy
 "about-translators" = "vertėjai";
 "about-translators-details" = "Išversta savanorių $1";
+// Fuzzy
 "about-libraries" = "naudotos bibliotekos";
 "about-libraries-license" = "Licencija";
+// Fuzzy
 "about-repositories" = "duomenų saugyklos";
 "about-send-feedback" = "Siųsti atsiliepimą apie programėlę";
 "about-product-of" = "$1 produktas";

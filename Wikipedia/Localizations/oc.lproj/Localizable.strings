@@ -133,13 +133,18 @@
 "credits-external-libraries" = "Extèrne";
 "about-title" = "A prepaus";
 "about-wikipedia" = "Wikipèdia";
+// Fuzzy
 "about-contributors" = "contributors";
+// Fuzzy
 "about-testers" = "testaires";
 "about-testers-details" = "AQ testada per $1";
+// Fuzzy
 "about-translators" = "traductors";
 "about-translators-details" = "Aquesta aplicacion es estada traducha per de traductors benevòls sus $1";
+// Fuzzy
 "about-libraries" = "bibliotècas utilizadas";
 "about-libraries-license" = "Licéncia";
+// Fuzzy
 "about-repositories" = "referencials";
 "about-send-feedback" = "Mandar un comentari sus l’aplicacion";
 "about-product-of" = "Un produch de la $1";

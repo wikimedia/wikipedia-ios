@@ -4,6 +4,7 @@
 // Author: Dude1717
 // Author: Fryed-peach
 // Author: Kanon und wikipedia
+// Author: Los688
 // Author: Otokoume
 // Author: Shirayuki
 // Author: SkyDaisy9
@@ -25,17 +26,17 @@
 "info-box-title" = "基本データ";
 "info-box-close-text" = "閉じる";
 "table-title-other" = "さらに見る";
+"saved-clear-all" = "消去";
+"history-clear-all" = "消去";
 "history-label" = "最近閲覧した記事";
 "history-section-today" = "今日";
 "history-section-yesterday" = "昨日";
 "history-section-lastweek" = "先週";
 "history-section-lastmonth" = "先月";
-// Fuzzy
-"history-clear-confirmation-heading" = "最近の項目をすべて削除しますか?";
+"history-clear-confirmation-heading" = "最近の項目をすべて削除しても構いませんか?";
 "history-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "history-clear-cancel" = "中止";
-// Fuzzy
-"history-clear-delete-all" = "すべて削除";
+"history-clear-delete-all" = "すべて削除します";
 "history-description" = "すべて削除したのかもしれません。他のページに行った後にここへ戻ってみてください。";
 "history-none" = "履歴はまだありません。";
 "zero-free-verbiage" = "ブラウザからウィキペディアへの無料アクセス (通信料金は免除されます)";
@@ -50,8 +51,7 @@
 "zero-learn-more-learn-more" = "さらに読む";
 "zero-learn-more-no-thanks" = "非表示";
 "zero-wikipedia-zero-heading" = "ウィキペディアゼロ";
-// Fuzzy
-"zero-warn-when-leaving" = "ウィキペディアゼロを離れる場合には警告";
+"zero-warn-when-leaving" = "ゼロを離れる場合には警告";
 "zero-settings-devmode" = "ゼロ開発者モード";
 "account-creation-captcha-required" = "CAPTCHA 検証が必要です。";
 "account-creation-captcha-obtaining" = "新しい CAPTCHA を取得する。";
@@ -111,20 +111,20 @@
 "search-recent-clear-delete-all" = "すべて削除";
 "search-result-redirected-from" = "$1 から転送されました";
 "settings-title" = "設定";
+"settings-project" = "ウィキペディア・プロジェクト";
+"settings-language-bar" = "検索結果に表示する言語";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";
 "main-menu-language-title" = "$1版ウィキペディア内を検索";
-// Fuzzy
 "main-menu-faq" = "よくある質問";
 "main-menu-language-toggle-show" = "言語を表示";
 "main-menu-language-toggle-hide" = "言語を非表示";
 "main-menu-language-selection-saved" = "言語の選択を保存しました";
 "main-menu-account-title-logged-out" = "アカウント";
-// Fuzzy
 "main-menu-account-title-logged-in" = "$1 としてログインしています。";
-// Fuzzy
-"main-menu-account-login" = "ウィキペディアにログイン";
+"main-menu-account-login" = "ログイン";
 "main-menu-account-logout" = "ログアウト";
+"main-menu-account-logout-cancel" = "キャンセル";
 "main-menu-show-title" = "表示...";
 "main-menu-show-history" = "最近閲覧した記事";
 "main-menu-show-saved" = "保存したページ";
@@ -135,14 +135,11 @@
 "main-menu-send-feedback" = "アプリのフィードバックを送る";
 "main-menu-show-page-history" = "$1 の変更履歴";
 "main-menu-credits" = "クレジット";
-// Fuzzy
-"main-menu-about" = "ウィキペディアアプリについて";
+"main-menu-about" = "アプリについて";
 "main-menu-zero-faq" = "ウィキペディアゼロについてのFAQ";
 "main-menu-privacy-policy" = "プライバシー・ポリシー";
-// Fuzzy
 "main-menu-terms-of-use" = "利用規約";
-// Fuzzy
-"main-menu-rate-app" = "アプリを評価";
+"main-menu-rate-app" = "このアプリを評価";
 "main-menu-heading-zero" = "ウィキペディアゼロ";
 "main-menu-heading-legal" = "プライバシーと利用規約";
 "main-menu-show-today" = "今日";
@@ -153,12 +150,10 @@
 "main-menu-debug-tweaks" = "開発者向けの設定";
 "saved-title" = "保存済み";
 "saved-pages-title" = "保存したページ";
-// Fuzzy
-"saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか?";
+"saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "saved-pages-clear-cancel" = "キャンセル";
-// Fuzzy
-"saved-pages-clear-delete-all" = "すべて削除";
+"saved-pages-clear-delete-all" = "すべて削除します";
 "saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
 "saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
 "saved-pages-refresh-cancel-alert-button" = "了解";
@@ -201,13 +196,19 @@
 "credits-external-libraries" = "外部リポジトリ";
 "about-title" = "このアプリについて";
 "about-wikipedia" = "ウィキペディアについて";
+// Fuzzy
 "about-contributors" = "貢献者";
+// Fuzzy
 "about-testers" = "テスター";
 "about-testers-details" = "$1 によって品質保証テストされました";
+// Fuzzy
 "about-translators" = "翻訳者";
 "about-translators-details" = "このアプリは$1においてボランティアにより翻訳されました";
+// Fuzzy
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-license" = "ライセンス";
+"about-libraries-licenses" = "ライセンス";
+// Fuzzy
 "about-repositories" = "リポジトリについて";
 "about-send-feedback" = "フィードバックを送信";
 "about-product-of" = "$1の製品について";
@@ -251,6 +252,8 @@
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "目次";
 "table-of-contents-button-label" = "目次";
+"table-of-contents-close-accessibility-label" = "目次を閉じる";
+"table-of-contents-close-accessibility-hint" = "閉じる";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないかもしれません。それでも保存しますか？";
 "abuse-filter-warning-subheading" = "あなたの編集には以下のものが当てはまっているかもしれません。";
 "abuse-filter-warning-caps" = "すべて大文字での入力";
@@ -310,14 +313,15 @@
 "hockeyapp-alert-privacy" = "$1 のプライバシーについて";
 "page-issues" = "ページの問題点";
 "page-similar-titles" = "類似したページ";
-// Fuzzy
-"page-read-in-other-languages" = "$1 の言語で読む";
+"page-read-in-other-languages" = "$1 の言語で利用可能";
 "page-last-edited" = "最終編集日: $1日前";
 "page-edit-history" = "すべての編集履歴";
 "captcha-reload" = "別の文字を表示";
 "captcha-prompt" = "上に示した画像に書いてある文字を入力してください";
 "mwk-empty-title-error" = "タイトルなしでは操作を実行できません。";
 "home-title" = "探してみよう";
+"home-empty-section" = "該当結果はありません。";
+"home-empty-section-check-again" = "もう一度お試しください";
 "home-continue-reading-heading" = "続けて読む";
 "home-continue-related-heading" = "$1 も読まれています";
 "home-more-like-footer" = "$1 なども読まれています";
@@ -334,14 +338,24 @@
 "home-button-accessibility-label" = "ホームボタン";
 "potd-empty-error-description" = "$1日の写真の取得に失敗しました";
 "potd-description-prefix" = "$1日の写真";
-// Fuzzy
-"welcome-languages-title" = "言語を選択してください";
+"welcome-explore-title" = "探してみよう";
+"welcome-explore-tell-me-more" = "もっと詳しく";
+"welcome-explore-tell-me-more-about-explore" = "「探してみよう」について";
+"welcome-explore-tell-me-more-done-button" = "わかりました";
+"welcome-explore-continue-button" = "次へ";
+"welcome-languages-title" = "言語";
+"welcome-languages-sub-title" = "ウィキペディアでの検索に使用する言語を選択してください";
+"welcome-languages-add-button" = "+ 言語を追加";
+"welcome-languages-continue-button" = "次へ";
+"welcome-volunteer-title" = "ボランティア";
+"welcome-volunteer-send-usage-reports" = "利用状況レポートを送信";
+"welcome-volunteer-continue-button" = "次へ";
+"welcome-volunteer-thanks" = "$1 ありがとうございます!";
 "empty-no-feed-title" = "インターネットが接続されていません";
 "empty-no-feed-message" = "インターネットに接続しているときに、おすすめの記事を見ることができます";
 "empty-no-feed-action-message" = "保存したページを読むことができます";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
-// Fuzzy
-"empty-no-search-results-message" = "申し訳ありませんが、結果を読み込むことができませんでした";
+"empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";
 "empty-no-saved-pages-title" = "保存したページはまだありません";
 "empty-no-saved-pages-message" = "ページを保存することで、オフラインでも閲覧することができます";
 "empty-no-history-title" = "表示する履歴がありません";

@@ -185,13 +185,18 @@
 "credits-external-libraries" = "Eksterne kodebanke";
 "about-title" = "Aangaande";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "bydraers";
+// Fuzzy
 "about-testers" = "toetsers";
 "about-testers-details" = "QA getoets deur $1";
+// Fuzzy
 "about-translators" = "vertalers";
 "about-translators-details" = "Vertaal deur vrywilligers by $1";
+// Fuzzy
 "about-libraries" = "biblioteke gebruik";
 "about-libraries-license" = "Lisensie";
+// Fuzzy
 "about-repositories" = "kodebanke";
 "about-send-feedback" = "Stuur toep terugvoer";
 "about-product-of" = "'n Produk van die $1";

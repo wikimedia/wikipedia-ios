@@ -207,13 +207,18 @@
 "credits-external-libraries" = "Externo";
 "about-title" = "Sobre";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "about-contributors" = "contribuidores";
+// Fuzzy
 "about-testers" = "testadores";
 "about-testers-details" = "QA testada por $1";
+// Fuzzy
 "about-translators" = "tradutores";
 "about-translators-details" = "Esta aplicação foi traduzida por tradutores voluntários em $1";
+// Fuzzy
 "about-libraries" = "bibliotecas usadas";
 "about-libraries-license" = "Licença";
+// Fuzzy
 "about-repositories" = "repositórios";
 "about-send-feedback" = "Enviar comentários sobre o aplicativo";
 "about-product-of" = "Um produto da $1";

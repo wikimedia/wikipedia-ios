@@ -183,13 +183,18 @@
 "credits-external-libraries" = "Aleng bukbau";
 "about-title" = "Konglam";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "Teltumtu pawl";
+// Fuzzy
 "about-testers" = "teptu pawl";
 "about-testers-details" = "$1 a biahalnak";
+// Fuzzy
 "about-translators" = "Holh Lettu";
 "about-translators-details" = "Zaanghleicawi nih $1 ah an leh.";
+// Fuzzy
 "about-libraries" = "Hmanmi caruuk";
 "about-libraries-license" = "License";
+// Fuzzy
 "about-repositories" = "bukbau";
 "about-send-feedback" = "App cung na ruahnak kuat ding";
 "about-product-of" = "$1 kutchuak";
