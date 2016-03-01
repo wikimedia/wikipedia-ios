@@ -373,7 +373,9 @@ NS_ASSUME_NONNULL_BEGIN
             @weakify(self);
             [obj fetchDataIfError].catch(^(NSError* error){
                 @strongify(self);
-                [self showOfflineEmptyViewAndReloadWhenReachable];
+                if ([error wmf_isNetworkConnectionError]) {
+                    [self showOfflineEmptyViewAndReloadWhenReachable];
+                }
             });
         }];
         [self wmf_hideEmptyView];
