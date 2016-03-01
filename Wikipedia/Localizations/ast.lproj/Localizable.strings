@@ -190,13 +190,18 @@
 "credits-external-libraries" = "Esternu";
 "about-title" = "Tocante a";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "collaboradores";
+// Fuzzy
 "about-testers" = "probadores";
 "about-testers-details" = "Control de calidá comprobáu por $1";
+// Fuzzy
 "about-translators" = "traductores";
 "about-translators-details" = "Traducida por voluntarios en $1";
+// Fuzzy
 "about-libraries" = "biblioteques utilizaes";
 "about-libraries-license" = "Llicencia";
+// Fuzzy
 "about-repositories" = "repositorios";
 "about-send-feedback" = "Unviar comentariu sobro la app";
 "about-product-of" = "Un productu de la $1";

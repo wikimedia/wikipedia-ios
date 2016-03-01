@@ -201,13 +201,18 @@
 "credits-external-libraries" = "Externe bronnen";
 "about-title" = "Over";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "bijdragers";
+// Fuzzy
 "about-testers" = "testers";
 "about-testers-details" = "Getest door $1";
+// Fuzzy
 "about-translators" = "vertalers";
 "about-translators-details" = "Deze app is vertaald door de vrijwillige vertalers van $1";
+// Fuzzy
 "about-libraries" = "gebruikte bibliotheken";
 "about-libraries-license" = "Licentie";
+// Fuzzy
 "about-repositories" = "repositories";
 "about-send-feedback" = "Terugkoppeling over app geven";
 "about-product-of" = "Een product van de $1";

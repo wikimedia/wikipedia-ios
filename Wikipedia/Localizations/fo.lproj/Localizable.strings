@@ -155,6 +155,7 @@
 "edit-summary-choice-other" = "Annað";
 "article-pull-to-refresh-is-refreshing" = "Dagførir greinina";
 "credits-wikimedia-repos" = "Wikimedia";
+// Fuzzy
 "about-translators" = "týðarar";
 "about-translators-details" = "Týtt av sjálvbodnum á $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
