@@ -29,7 +29,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WMFShareOptionsController ()<UIPopoverControllerDelegate>
+@interface WMFShareOptionsController ()
 
 @property (strong, nonatomic, readwrite) MWKArticle* article;
 @property (strong, nonatomic, readwrite) WMFShareFunnel* shareFunnel;
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Public Presentation methods
 
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item {
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(UIBarButtonItem*)item {
     self.snippet                 = [snippet copy];
     self.containerViewController = viewController;
     self.originButtonItem        = item;
@@ -88,7 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self fetchImageThenShowShareCard];
 }
 
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view {
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(UIView*)view {
     self.snippet                 = [snippet copy];
     self.containerViewController = viewController;
     self.originButtonItem        = nil;
@@ -320,7 +320,14 @@ NS_ASSUME_NONNULL_BEGIN
 
     UIActivityViewController* shareActivityVC =
         [[UIActivityViewController alloc] initWithActivityItems:activityItems
-                                          applicationActivities:@[] /*shareMenuSavePageActivity*/ ];
+                                          applicationActivities:@[]];
+    UIPopoverPresentationController* presenter = [shareActivityVC popoverPresentationController];
+    if (self.originButtonItem) {
+        presenter.barButtonItem = self.originButtonItem;
+    } else {
+        presenter.sourceView = self.originView;
+        presenter.sourceRect = [self.containerViewController.view convertRect:self.originView.frame fromView:self.originView.superview];
+    }
 
     shareActivityVC.excludedActivityTypes = @[
         UIActivityTypePrint,
@@ -337,36 +344,9 @@ NS_ASSUME_NONNULL_BEGIN
         }
     }];
 
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self.containerViewController presentViewController:shareActivityVC animated:YES completion:nil];
-    } else {
-        self.popover          = [[UIPopoverController alloc] initWithContentViewController:shareActivityVC];
-        self.popover.delegate = self;
-
-        if (self.originButtonItem) {
-            [self.popover presentPopoverFromBarButtonItem:self.originButtonItem
-                                 permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                 animated:YES];
-        } else {
-            CGRect frame = self.originView.frame;
-            if (CGRectIsNull(frame)) {
-                frame = self.containerViewController.view.frame;
-            } else {
-                frame = [self.containerViewController.view convertRect:frame fromView:self.originView.superview];
-            }
-
-            [self.popover presentPopoverFromRect:frame
-                                          inView:self.containerViewController.view
-                        permittedArrowDirections:UIPopoverArrowDirectionAny
-                                        animated:YES];
-        }
-    }
+    [self.containerViewController presentViewController:shareActivityVC animated:YES completion:nil];
 
     [self cleanup];
-}
-
-- (void)popoverControllerDidDismissPopover:(UIPopoverController*)popoverController {
-    self.popover = nil;
 }
 
 @end

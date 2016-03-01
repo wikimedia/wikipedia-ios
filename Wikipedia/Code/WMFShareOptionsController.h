@@ -36,12 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @note Truncating `snippet` is not necessary, as it's done internally by the share view's `UILabel`.
  */
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(nullable UIBarButtonItem*)item;
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromBarButtonItem:(UIBarButtonItem*)item;
 
 /**
  * Same as above, but presented from a view instead of a bar button item
  */
-- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(nullable UIView*)view;
+- (void)presentShareOptionsWithSnippet:(NSString*)snippet inViewController:(UIViewController*)viewController fromView:(UIView*)view;
 
 @end
 
