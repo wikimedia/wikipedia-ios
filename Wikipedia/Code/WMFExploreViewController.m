@@ -772,6 +772,9 @@ NS_ASSUME_NONNULL_BEGIN
     [self wmf_hideEmptyView];
     [self loadSectionControllersForCurrentSectionSchema];
     [self.tableView reloadData];
+    [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
+        [obj fetchDataIfError];
+    }];
 }
 
 - (void)sectionSchema:(WMFExploreSectionSchema*)schema didRemoveSection:(WMFExploreSection*)section atIndex:(NSUInteger)index {
