@@ -144,6 +144,11 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isDisplayingCellsForSection:(NSInteger)section {
+    //NOTE: numberOfSectionsInTableView returns 0 when isWaitingForNetworkToReconnect == YES
+    //so we need to bail here or the assertion below is tripped
+    if(self.isWaitingForNetworkToReconnect){
+        return NO;
+    }
     NSParameterAssert(section != NSNotFound);
     NSParameterAssert(section < [self numberOfSectionsInTableView:self.tableView]);
     return [self.tableView.indexPathsForVisibleRows bk_any:^BOOL (NSIndexPath* indexPath) {
