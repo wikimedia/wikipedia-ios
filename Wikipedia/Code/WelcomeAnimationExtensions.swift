@@ -208,6 +208,8 @@ extension UIView{
     }
     
     func wmf_configureForIntroAnimation(){
+        CATransaction.begin()
+
         let finalDashedCircleOpacity = 0.15
         let finalCircleOpacity = 0.09
         let finalPlusOpacity = 0.15
@@ -249,9 +251,13 @@ extension UIView{
             WelcomeLine(position: CGPointMake(0.836, 0.81), width: 0.06, opacity: finalLinesOpacity, initialTransform: linesXF, finalTransform: CATransform3DIdentity),
             WelcomeLine(position: CGPointMake(0.907, 0.81), width: 0.0125, opacity: finalLinesOpacity, initialTransform: linesXF, finalTransform: CATransform3DIdentity)
         )
+        
+        CATransaction.commit()
     }
     
     func wmf_configureForLanguagesAnimation(){
+        CATransaction.begin()
+
         let finalDashedCircleOpacity = 0.15
         let finalCircleOpacity = 0.04
         let finalPlusOpacity = 0.15
@@ -284,9 +290,13 @@ extension UIView{
             WelcomeLine(position: CGPointMake(0.255, 0.162), width: 0.135, opacity: finalLinesOpacity, initialTransform: linesXF, finalTransform: CATransform3DIdentity),
             WelcomeLine(position: CGPointMake(0.205, 0.127), width: 0.135, opacity: finalLinesOpacity, initialTransform: linesXF, finalTransform: CATransform3DIdentity)
         )
+        
+        CATransaction.commit()
     }
     
     func wmf_configureForAnalyticsAnimation(){
+        CATransaction.begin()
+
         let finalDashedCircleOpacity = 0.15
         let finalCircleOpacity = 0.04
         let finalPlusOpacity = 0.15
@@ -336,5 +346,6 @@ extension UIView{
             WelcomeBar(frame: CGRectMake(0.593, 0.64, 0.039, 0.15), color: blue, cornerRadius: 0.0, opacity: 1.0, initialTransform: squashedHeightXF, finalTransform: fullHeightXF)
         )
 
+        CATransaction.commit()
     }
 }
