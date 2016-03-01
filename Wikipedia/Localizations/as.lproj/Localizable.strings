@@ -170,13 +170,18 @@
 "credits-wikimedia-repos" = "ৱিকিমিডিয়া ভঁৰাল";
 "about-title" = "বিষয়ে";
 "about-wikipedia" = "ৱিকিপিডিয়া";
+// Fuzzy
 "about-contributors" = "অৱদানকাৰীসমূহ";
+// Fuzzy
 "about-testers" = "পৰীক্ষকসকল";
 "about-testers-details" = "$1ৰ দ্বাৰা QA পৰীক্ষিত";
+// Fuzzy
 "about-translators" = "অনুবাদকসকল";
 "about-translators-details" = "$1ত স্বেচ্ছাসেৱকৰ দ্বাৰা অনূদিত";
+// Fuzzy
 "about-libraries" = "ব্যৱহৃত পুথিভঁৰাল";
 "about-libraries-license" = "অনুজ্ঞাপত্ৰ";
+// Fuzzy
 "about-repositories" = "ভঁৰাল";
 "about-send-feedback" = "এপ্‌ প্ৰতিক্ৰিয়া জনাওক";
 "about-product-of" = "$1ৰ এক সামগ্ৰী";

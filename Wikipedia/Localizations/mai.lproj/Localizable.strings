@@ -146,7 +146,9 @@
 "fetching-random-article" = "यादृच्छिक लेख लेल जा रहल अछि";
 "about-title" = "विवरण";
 "about-wikipedia" = "विकिपिडिया";
+// Fuzzy
 "about-contributors" = "योगदानकर्ता";
+// Fuzzy
 "about-translators" = "उल्था-केनहार सभ";
 "about-libraries-license" = "अधिकार";
 "about-wikimedia-foundation" = "विकिमेडिया फाउंडेशन";

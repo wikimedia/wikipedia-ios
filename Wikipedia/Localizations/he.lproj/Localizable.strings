@@ -196,13 +196,18 @@
 "credits-external-libraries" = "חיצוני";
 "about-title" = "אודות";
 "about-wikipedia" = "ויקיפדיה";
+// Fuzzy
 "about-contributors" = "תורמים";
+// Fuzzy
 "about-testers" = "בודקים";
 "about-testers-details" = "בקרת איכות של $1";
+// Fuzzy
 "about-translators" = "מתרגמים";
 "about-translators-details" = "היישום הזה תורגם על־ידי מתרגמים מתנדבים באתר $1";
+// Fuzzy
 "about-libraries" = "ספריות בשימוש";
 "about-libraries-license" = "רישיון";
+// Fuzzy
 "about-repositories" = "מאגרים";
 "about-send-feedback" = "שליחת משוב על היישום";
 "about-product-of" = "מוצר של $1";

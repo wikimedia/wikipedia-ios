@@ -197,13 +197,18 @@
 "credits-external-libraries" = "Eksterne kodelagre";
 "about-title" = "Om";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "bidragsytere";
+// Fuzzy
 "about-testers" = "testere";
 "about-testers-details" = "Kvalitetssikret av $1";
+// Fuzzy
 "about-translators" = "oversettere";
 "about-translators-details" = "Oversatt av frivillige på $1";
+// Fuzzy
 "about-libraries" = "bibliotek brukt";
 "about-libraries-license" = "Lisens";
+// Fuzzy
 "about-repositories" = "lagre";
 "about-send-feedback" = "Gi tilbakemelding på appen";
 "about-product-of" = "Et produkt fra $1";

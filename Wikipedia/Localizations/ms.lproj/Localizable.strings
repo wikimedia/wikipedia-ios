@@ -185,13 +185,18 @@
 "credits-external-libraries" = "Luaran";
 "about-title" = "Perihal";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "penyumbang";
+// Fuzzy
 "about-testers" = "penguji";
 "about-testers-details" = "QA diuji oleh $1";
+// Fuzzy
 "about-translators" = "penterjemah";
 "about-translators-details" = "Aplikasi ini diterjemahkan oleh para penterjemah sukarela di $1";
+// Fuzzy
 "about-libraries" = "perpustakaan yang digunakan";
 "about-libraries-license" = "Lesen";
+// Fuzzy
 "about-repositories" = "repositori";
 "about-send-feedback" = "Hantar maklum balas aplikasi";
 "about-product-of" = "Keluaran $1";

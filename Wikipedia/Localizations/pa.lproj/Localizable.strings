@@ -183,9 +183,12 @@
 "credits-external-libraries" = "ਬਾਹਰੀ ਭੰਡਾਰ";
 "about-title" = "ਬਾਰੇ";
 "about-wikipedia" = "ਵਿਕੀਪੀਡੀਆ";
+// Fuzzy
 "about-contributors" = "ਯੋਗਦਾਨੀ";
+// Fuzzy
 "about-translators" = "ਅਨੁਵਾਦਕ";
 "about-libraries-license" = "ਲਸੰਸ";
+// Fuzzy
 "about-repositories" = "ਖਜ਼ਾਨਾਂ";
 "about-send-feedback" = "ਅੈਪ ਸੰਬੰਧੀ ਸਲਾਹ ਭੇਜੋ";
 "about-product-of" = "$1 ਦਾ ਸਾਮਾਨ";

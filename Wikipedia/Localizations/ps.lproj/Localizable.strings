@@ -127,10 +127,14 @@
 "edit-summary-choice-other" = "بل";
 "about-title" = "په اړه";
 "about-wikipedia" = "ويکيپېډيا";
+// Fuzzy
 "about-contributors" = "ونډه وال";
+// Fuzzy
 "about-translators" = "ژباړنان";
+// Fuzzy
 "about-libraries" = "کارېدلي کتابتونونه";
 "about-libraries-license" = "منښتليک";
+// Fuzzy
 "about-repositories" = "زېرمې";
 "about-wikimedia-foundation" = "ويکيمېډيا بنسټ";
 "share-menu-save-page" = "مخ خوندي کول";

@@ -127,9 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
 
     self = [super init];
     if (self) {
-        self.articleTitle = title;
-        self.dataStore    = dataStore;
-        [self observeArticleUpdates];
+        self.articleTitle             = title;
+        self.dataStore                = dataStore;
         self.hidesBottomBarWhenPushed = YES;
     }
     return self;
@@ -173,6 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self createTableOfContentsViewControllerIfNeeded];
     [self fetchReadMoreIfNeeded];
     [self updateWebviewFootersIfNeeded];
+    [self observeArticleUpdates];
 }
 
 - (MWKHistoryList*)recentPages {
@@ -695,7 +695,6 @@ NS_ASSUME_NONNULL_BEGIN
     }).finally(^{
         @strongify(self);
         self.articleFetcherPromise = nil;
-        [self observeArticleUpdates];
     });
 }
 

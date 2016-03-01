@@ -197,13 +197,18 @@
 "credits-external-libraries" = "Зовнішні";
 "about-title" = "Про";
 "about-wikipedia" = "Вікіпедія";
+// Fuzzy
 "about-contributors" = "співавтори";
+// Fuzzy
 "about-testers" = "тестери";
 "about-testers-details" = "QA-тестування від $1";
+// Fuzzy
 "about-translators" = "перекладачі";
 "about-translators-details" = "Перекладено волонтерами на $1";
+// Fuzzy
 "about-libraries" = "використовувані бібліотеки";
 "about-libraries-license" = "Ліцензія";
+// Fuzzy
 "about-repositories" = "репозиторії";
 "about-send-feedback" = "Надіслати відгук про програму";
 "about-product-of" = "Продукт $1";
