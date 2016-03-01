@@ -156,7 +156,7 @@ CHECKOUT OPTIONS:
     :commit: bb49df83e72f2231a191e9477a85f0effe13430a
     :git: https://github.com/wikimedia/SDWebImage.git
   TSMessages:
-    :commit: d86e3fb47ee80175d8fa8d26d17b56e42a0d60d2
+    :commit: ec0aa9be29ab79083e4957ac500f3af2f622605d
     :git: https://github.com/wikimedia/TSMessages.git
 
 SPEC CHECKSUMS:
