@@ -5,7 +5,6 @@
 #import "SessionSingleton.h"
 #import "FBTweak+WikipediaZero.h"
 
-NSString* const WMFURLCacheZeroStateChanged     = @"ZeroStateChanged";
 static NSString* const WMFURLCacheWikipediaHost = @".m.wikipedia.org";
 static NSString* const WMFURLCacheJsonMIMEType  = @"application/json";
 static NSString* const WMFURLCache00000         = @"000-00";
@@ -31,7 +30,6 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 }
 
 - (void)processZeroHeaders:(NSURLResponse*)response {
-    NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
     NSHTTPURLResponse* httpUrlResponse       = (NSHTTPURLResponse*)response;
     NSDictionary* headers                    = httpUrlResponse.allHeaderFields;
     NSString* xZeroRatedHeader               = [headers objectForKey:WMFURLCacheXCS];
@@ -40,10 +38,7 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
     BOOL zeroProviderChanged                 = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
     BOOL zeroDisposition                     = [SessionSingleton sharedInstance].zeroConfigState.disposition;
 
-    // For testing Wikipedia Zero visual flourishes.
-    // Go to WebViewController.m and uncomment the W0 part,
-    // then when running the app in the simulator fire the
-    // memory warning to toggle the fake state on or off.
+    // enable this tweak to make the cache pretend it found W0 headers in the response
     if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {
         zeroRatedHeaderPresent = YES;
         xZeroRatedHeader       = WMFURLCache00000;
@@ -52,11 +47,9 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
     if (zeroRatedHeaderPresent && (!zeroDisposition || zeroProviderChanged)) {
         [SessionSingleton sharedInstance].zeroConfigState.disposition = YES;
         [SessionSingleton sharedInstance].zeroConfigState.partnerXcs  = xZeroRatedHeader;
-        [notificationCenter postNotificationName:WMFURLCacheZeroStateChanged object:self userInfo:@{WMFURLCacheState: @YES}];
     } else if (!zeroRatedHeaderPresent && zeroDisposition) {
         [SessionSingleton sharedInstance].zeroConfigState.disposition = NO;
         [SessionSingleton sharedInstance].zeroConfigState.partnerXcs  = nil;
-        [notificationCenter postNotificationName:WMFURLCacheZeroStateChanged object:self userInfo:@{WMFURLCacheState: @NO}];
     }
 }
 

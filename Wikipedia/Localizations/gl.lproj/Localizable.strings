@@ -194,13 +194,18 @@
 "credits-external-libraries" = "Repositorios externos";
 "about-title" = "Acerca de";
 "about-wikipedia" = "Galipedia";
+// Fuzzy
 "about-contributors" = "colaboradores";
+// Fuzzy
 "about-testers" = "probadores";
 "about-testers-details" = "QA probada por $1";
+// Fuzzy
 "about-translators" = "tradutores";
 "about-translators-details" = "Esta aplicación foi traducida polos tradutores voluntarios en $1";
+// Fuzzy
 "about-libraries" = "bibliotecas empregadas";
 "about-libraries-license" = "Licenza";
+// Fuzzy
 "about-repositories" = "repositorios";
 "about-send-feedback" = "Enviar comentarios sobre a aplicación";
 "about-product-of" = "Un produto da $1";

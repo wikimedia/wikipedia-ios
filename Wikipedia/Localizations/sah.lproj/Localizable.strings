@@ -192,13 +192,18 @@
 "credits-external-libraries" = "Туора сирдэр";
 "about-title" = "Бу туһунан";
 "about-wikipedia" = "Бикипиэдьийэ";
+// Fuzzy
 "about-contributors" = "оҥорсооччулар";
+// Fuzzy
 "about-testers" = "тургутааччылар";
 "about-testers-details" = "Таһымын $1 тургуппут";
+// Fuzzy
 "about-translators" = "тылбаасчыттар";
 "about-translators-details" = "Бу дьибилгэт $1 дьон босхо тылбаастаабыта";
+// Fuzzy
 "about-libraries" = "туһаныллар бибилэтиэкэлэр";
 "about-libraries-license" = "Лиссиэнсийэ";
+// Fuzzy
 "about-repositories" = "харалта";
 "about-send-feedback" = "Дьибилгэт туһунан санааҕын ыыт";
 "about-product-of" = "$1 бородуукта";

@@ -158,12 +158,17 @@
 "credits-external-libraries" = "Eksteraj deponejoj";
 "about-title" = "Pri";
 "about-wikipedia" = "Vikipedio";
+// Fuzzy
 "about-contributors" = "Kontribuantoj";
+// Fuzzy
 "about-testers" = "provantoj";
+// Fuzzy
 "about-translators" = "tradukantoj";
 "about-translators-details" = "Tradukita de volontuloj ĉe $1";
+// Fuzzy
 "about-libraries" = "bibliotekoj uzataj";
 "about-libraries-license" = "Permesilo";
+// Fuzzy
 "about-repositories" = "deponejoj";
 "about-send-feedback" = "Sendi rimarkojn pri la aplikaĵo";
 "about-product-of" = "Produkto de $1";

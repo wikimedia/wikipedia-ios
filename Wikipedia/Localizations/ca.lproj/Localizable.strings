@@ -203,13 +203,18 @@
 "credits-external-libraries" = "Repositoris externs";
 "about-title" = "Quant a";
 "about-wikipedia" = "Viquipèdia";
+// Fuzzy
 "about-contributors" = "col·laboradors";
+// Fuzzy
 "about-testers" = "provadors";
 "about-testers-details" = "Provat per $1";
+// Fuzzy
 "about-translators" = "traductors";
 "about-translators-details" = "Traduït per voluntaris a $1";
+// Fuzzy
 "about-libraries" = "biblioteques utilitzades";
 "about-libraries-license" = "Llicència";
+// Fuzzy
 "about-repositories" = "repositoris";
 "about-send-feedback" = "Enviar comentaris sobre l'aplicació";
 "about-product-of" = "Un producte de la $1";

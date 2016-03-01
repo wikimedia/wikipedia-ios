@@ -80,5 +80,7 @@
 	<string></string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
+  <key>ITSAppUsesNonExemptEncryption</key>
+  <false/>
 </dict>
 </plist>

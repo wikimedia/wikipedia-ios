@@ -184,13 +184,18 @@
 "credits-external-libraries" = "बाह्यभाण्डागारः";
 "about-title" = "विवरणम्";
 "about-wikipedia" = "विकिपीडिया";
+// Fuzzy
 "about-contributors" = "योगदानानि";
+// Fuzzy
 "about-testers" = "परीक्षकाः";
 "about-testers-details" = "$1 द्वारा QA परीक्षितः";
+// Fuzzy
 "about-translators" = "अनुवादकाः";
 "about-translators-details" = "$1 अत्र अनुवादः स्वयंसेव्यनुवादकेन कृतः";
+// Fuzzy
 "about-libraries" = "प्रयुक्ताः सङ्ग्रहालयाः";
 "about-libraries-license" = "अनुज्ञापत्रम्";
+// Fuzzy
 "about-repositories" = "भण्डाराः";
 "about-send-feedback" = "अनुप्रयोगप्रतिक्रियां प्रेषयतु";
 "about-product-of" = "$1 इत्यस्य प्रकाशनम्";

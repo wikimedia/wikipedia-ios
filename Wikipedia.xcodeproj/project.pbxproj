@@ -317,7 +317,6 @@
 		B0E8064C1C0CE7F70065EBC0 /* EditTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806461C0CE7F70065EBC0 /* EditTokenFetcher.m */; };
 		B0E806581C0CE84B0065EBC0 /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */; };
 		B0E806591C0CE84B0065EBC0 /* ThumbnailFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806511C0CE84B0065EBC0 /* ThumbnailFetcher.m */; };
-		B0E8065A1C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806531C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.m */; };
 		B0E8065B1C0CE84B0065EBC0 /* WikiTextSectionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */; };
 		B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E806571C0CE84B0065EBC0 /* WikiTextSectionUploader.m */; };
 		B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8065E1C0CE9030065EBC0 /* LoginTokenFetcher.m */; };
@@ -596,6 +595,9 @@
 		BCAF230F1C6CE233005F2D8D /* WMFMostReadTitleFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF230E1C6CE233005F2D8D /* WMFMostReadTitleFetcher.m */; };
 		BCAF23131C6CF1B5005F2D8D /* WMFMostReadTitlesResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF23121C6CF1B5005F2D8D /* WMFMostReadTitlesResponse.m */; };
 		BCAF23161C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */; };
+		BCB00EBE1C84F1EB0070E220 /* WMFZeroMessageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EBD1C84F1EB0070E220 /* WMFZeroMessageFetcher.m */; };
+		BCB00EC11C84F2690070E220 /* WMFZeroMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EC01C84F2690070E220 /* WMFZeroMessage.m */; };
+		BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */; };
 		BCB6081C1BC80DE00088086A /* Spider-Man_actors.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */; };
 		BCC4D3551C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */; };
 		BCCB813D1C110702008BC602 /* NSDate+WMFDateRanges.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCB813A1C110702008BC602 /* NSDate+WMFDateRanges.m */; };
@@ -1234,8 +1236,6 @@
 		B0E8064F1C0CE84B0065EBC0 /* SavedArticlesFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SavedArticlesFetcher.m; path = Wikipedia/Code/SavedArticlesFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806501C0CE84B0065EBC0 /* ThumbnailFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThumbnailFetcher.h; path = Wikipedia/Code/ThumbnailFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E806511C0CE84B0065EBC0 /* ThumbnailFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ThumbnailFetcher.m; path = Wikipedia/Code/ThumbnailFetcher.m; sourceTree = SOURCE_ROOT; };
-		B0E806521C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikipediaZeroMessageFetcher.h; path = Wikipedia/Code/WikipediaZeroMessageFetcher.h; sourceTree = SOURCE_ROOT; };
-		B0E806531C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikipediaZeroMessageFetcher.m; path = Wikipedia/Code/WikipediaZeroMessageFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806541C0CE84B0065EBC0 /* WikiTextSectionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikiTextSectionFetcher.h; path = Wikipedia/Code/WikiTextSectionFetcher.h; sourceTree = SOURCE_ROOT; };
 		B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikiTextSectionFetcher.m; path = Wikipedia/Code/WikiTextSectionFetcher.m; sourceTree = SOURCE_ROOT; };
 		B0E806561C0CE84B0065EBC0 /* WikiTextSectionUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikiTextSectionUploader.h; path = Wikipedia/Code/WikiTextSectionUploader.h; sourceTree = SOURCE_ROOT; };
@@ -1769,6 +1769,12 @@
 		BCAF23121C6CF1B5005F2D8D /* WMFMostReadTitlesResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFMostReadTitlesResponse.m; path = Wikipedia/Code/WMFMostReadTitlesResponse.m; sourceTree = SOURCE_ROOT; };
 		BCAF23141C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+WMFRequiredValueForKey.h"; path = "Wikipedia/Code/NSDictionary+WMFRequiredValueForKey.h"; sourceTree = SOURCE_ROOT; };
 		BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+WMFRequiredValueForKey.m"; path = "Wikipedia/Code/NSDictionary+WMFRequiredValueForKey.m"; sourceTree = SOURCE_ROOT; };
+		BCB00EBC1C84F1EB0070E220 /* WMFZeroMessageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFZeroMessageFetcher.h; sourceTree = "<group>"; };
+		BCB00EBD1C84F1EB0070E220 /* WMFZeroMessageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFZeroMessageFetcher.m; sourceTree = "<group>"; };
+		BCB00EBF1C84F2690070E220 /* WMFZeroMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFZeroMessage.h; sourceTree = "<group>"; };
+		BCB00EC01C84F2690070E220 /* WMFZeroMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFZeroMessage.m; sourceTree = "<group>"; };
+		BCB00EC21C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MTLValueTransformer+WMFColorTransformer.h"; path = "Wikipedia/Code/MTLValueTransformer+WMFColorTransformer.h"; sourceTree = SOURCE_ROOT; };
+		BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MTLValueTransformer+WMFColorTransformer.m"; path = "Wikipedia/Code/MTLValueTransformer+WMFColorTransformer.m"; sourceTree = SOURCE_ROOT; };
 		BCB6081B1BC80DE00088086A /* Spider-Man_actors.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Spider-Man_actors.jpg"; sourceTree = "<group>"; };
 		BCC4D3541C11F39700F00D58 /* NSDate+WMFPOTDTitleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+WMFPOTDTitleTests.m"; path = "WikipediaUnitTests/Code/NSDate+WMFPOTDTitleTests.m"; sourceTree = SOURCE_ROOT; };
 		BCCB81391C110702008BC602 /* NSDate+WMFDateRanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+WMFDateRanges.h"; path = "Wikipedia/Code/NSDate+WMFDateRanges.h"; sourceTree = SOURCE_ROOT; };
@@ -2112,7 +2118,6 @@
 				BCB669621A83DB8100C7B1FE /* Serializers */,
 				0487043F19F824D700B7D307 /* Queues */,
 				04616DF71AE7060C00815BCE /* URL Protocols */,
-				049566BF18F5F4CB0058EA12 /* Zero */,
 				B0E8044D1C0CDFDA0065EBC0 /* WMFURLCache.h */,
 				B0E8044E1C0CDFDA0065EBC0 /* WMFURLCache.m */,
 				B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */,
@@ -2162,8 +2167,6 @@
 				B0E806461C0CE7F70065EBC0 /* EditTokenFetcher.m */,
 				B0E806501C0CE84B0065EBC0 /* ThumbnailFetcher.h */,
 				B0E806511C0CE84B0065EBC0 /* ThumbnailFetcher.m */,
-				B0E806521C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.h */,
-				B0E806531C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.m */,
 				B0E806541C0CE84B0065EBC0 /* WikiTextSectionFetcher.h */,
 				B0E806551C0CE84B0065EBC0 /* WikiTextSectionFetcher.m */,
 				B0E806561C0CE84B0065EBC0 /* WikiTextSectionUploader.h */,
@@ -2191,16 +2194,6 @@
 			);
 			name = BaseFetcher;
 			path = Wikipedia/Code/BaseFetcher;
-			sourceTree = SOURCE_ROOT;
-		};
-		049566BF18F5F4CB0058EA12 /* Zero */ = {
-			isa = PBXGroup;
-			children = (
-				B0E807401C0CED9F0065EBC0 /* ZeroConfigState.h */,
-				B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */,
-			);
-			name = Zero;
-			path = Wikipedia/Code/Zero;
 			sourceTree = SOURCE_ROOT;
 		};
 		04A97E8418B81D440046B166 /* AccountCreation */ = {
@@ -3277,6 +3270,8 @@
 				B0E806321C0CE7680065EBC0 /* WMFMantleJSONResponseSerializer.m */,
 				BCAF23141C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.h */,
 				BCAF23151C6CF74C005F2D8D /* NSDictionary+WMFRequiredValueForKey.m */,
+				BCB00EC21C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.h */,
+				BCB00EC31C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -3642,6 +3637,7 @@
 				BC45D59F1C33018C007C72F3 /* User */,
 				0E26B0541C0E28E60004D687 /* Welcome */,
 				0E3268C01C52C84D00131F5F /* Nearby */,
+				BCB00EBB1C84F1960070E220 /* Zero */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -4389,6 +4385,19 @@
 				BCAF23121C6CF1B5005F2D8D /* WMFMostReadTitlesResponse.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		BCB00EBB1C84F1960070E220 /* Zero */ = {
+			isa = PBXGroup;
+			children = (
+				B0E807401C0CED9F0065EBC0 /* ZeroConfigState.h */,
+				B0E807411C0CED9F0065EBC0 /* ZeroConfigState.m */,
+				BCB00EBC1C84F1EB0070E220 /* WMFZeroMessageFetcher.h */,
+				BCB00EBD1C84F1EB0070E220 /* WMFZeroMessageFetcher.m */,
+				BCB00EBF1C84F2690070E220 /* WMFZeroMessage.h */,
+				BCB00EC01C84F2690070E220 /* WMFZeroMessage.m */,
+			);
+			name = Zero;
 			sourceTree = "<group>";
 		};
 		BCB58F401A890D8200465627 /* Categories */ = {
@@ -5524,11 +5533,11 @@
 				B0E803711C0CD9A80065EBC0 /* WMFTableOfContentsAnimator.swift in Sources */,
 				B0E804251C0CDF350065EBC0 /* WMFAssetsFile.m in Sources */,
 				B0E805BE1C0CE4D40065EBC0 /* MWKDataHousekeeping.m in Sources */,
+				BCB00EBE1C84F1EB0070E220 /* WMFZeroMessageFetcher.m in Sources */,
 				B0E8030D1C0CD5E00065EBC0 /* WMFNearbyArticleTableViewCell.m in Sources */,
 				B00050141C52D73800515F70 /* UIApplication+RTL.swift in Sources */,
 				BCD557B31C455F840060A51A /* WMFTextualSaveButton.m in Sources */,
 				B0E803B11C0CDBCF0065EBC0 /* WMFSearchDataSource.m in Sources */,
-				B0E8065A1C0CE84B0065EBC0 /* WikipediaZeroMessageFetcher.m in Sources */,
 				0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */,
 				B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */,
 				0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */,
@@ -5658,6 +5667,7 @@
 				B0E5E96F1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m in Sources */,
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
 				B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */,
+				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
 				B0E802B81C0CD2140065EBC0 /* UIBarButtonItem+WMFButtonConvenience.m in Sources */,
 				B0E806991C0CEAC20065EBC0 /* AccountCreationViewController.m in Sources */,
@@ -5842,6 +5852,7 @@
 				B0E807D71C0CF04A0065EBC0 /* MWKDataStore.m in Sources */,
 				BCCFC44C1C84BAE0009D3613 /* CLLocation+WMFComparison.m in Sources */,
 				0EF5BB701C1628B100DE75E1 /* NSArray+WMFMapping.m in Sources */,
+				BCB00EC11C84F2690070E220 /* WMFZeroMessage.m in Sources */,
 				B0E8037D1C0CD9E10065EBC0 /* TableOfContentsReadMoreItem.swift in Sources */,
 				B0E8077A1C0CEEC00065EBC0 /* MWKImageInfo+MWKImageComparison.m in Sources */,
 				BC0069C91C7BD03700F2C377 /* FBTweak+WikipediaZero.m in Sources */,

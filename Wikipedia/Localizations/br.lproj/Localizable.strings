@@ -187,13 +187,18 @@
 "credits-external-libraries" = "Diavaez";
 "about-title" = "Diwar-benn";
 "about-wikipedia" = "Wikipedia";
+// Fuzzy
 "about-contributors" = "kenlabourerien";
+// Fuzzy
 "about-testers" = "prouaderioù";
 "about-testers-details" = "AQ prouet gant $1";
+// Fuzzy
 "about-translators" = "troerien";
 "about-translators-details" = "Troet eo bet an arload-mañ gant troerien a-youl vat e $1";
+// Fuzzy
 "about-libraries" = "levraouegoù implijet";
 "about-libraries-license" = "Aotre-implijout";
+// Fuzzy
 "about-repositories" = "Reizhiadoù daveiñ";
 "about-send-feedback" = "Kas un ali diwar-benn an arload";
 "about-product-of" = "Ur produ eus an $1";

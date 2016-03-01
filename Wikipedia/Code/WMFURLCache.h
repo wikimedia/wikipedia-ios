@@ -3,8 +3,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString* const WMFURLCacheZeroStateChanged;
-
 @interface WMFURLCache : NSURLCache
 
 @end

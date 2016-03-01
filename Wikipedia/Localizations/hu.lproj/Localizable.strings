@@ -154,12 +154,17 @@
 "credits-external-libraries" = "Külső tárolók";
 "about-title" = "Névjegy";
 "about-wikipedia" = "Wikipédia";
+// Fuzzy
 "about-contributors" = "közreműködők";
+// Fuzzy
 "about-testers" = "tesztelők";
+// Fuzzy
 "about-translators" = "fordítók";
 "about-translators-details" = "A $1 önkéntesi fordították";
+// Fuzzy
 "about-libraries" = "felhasznált könyvtárak";
 "about-libraries-license" = "Licenc";
+// Fuzzy
 "about-repositories" = "tárolók";
 "about-send-feedback" = "App visszajelzés küldése";
 "about-wikimedia-foundation" = "Wikimédia Alapítvány";
