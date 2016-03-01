@@ -8,6 +8,8 @@
 #import "WMFAppViewController.h"
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "WMFDailyStatsLoggingFunnel.h"
+#import <Tweaks/FBTweakShakeWindow.h>
+#import "ZeroConfigState.h"
 
 @interface AppDelegate ()
 
@@ -29,9 +31,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
          @"CurrentArticleDomain": defaultLanguage,
          @"Domain": defaultLanguage,
-         @"ZeroWarnWhenLeaving": @YES,
-         @"ZeroOnDialogShownOnce": @NO,
-         @"FakeZeroOn": @NO,
+         ZeroWarnWhenLeaving: @YES,
+         ZeroOnDialogShownOnce: @NO,
          @"LastHousekeepingDate": [NSDate date],
          @"SendUsageReports": @NO,
          @"AccessSavedPagesMessageShown": @NO
@@ -42,7 +43,11 @@
 
 - (UIWindow*)window {
     if (!_window) {
-        _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        if ([[[NSProcessInfo processInfo] environment][@"FBTweakShakeWindowEnabled"] boolValue]) {
+            _window = [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        } else {
+            _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        }
     }
     return _window;
 }
