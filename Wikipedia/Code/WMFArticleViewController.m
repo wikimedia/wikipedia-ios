@@ -726,18 +726,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareAFactWithTextSnippet : (nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+- (void)shareAFactWithTextSnippet : (nullable NSString*)text{
     if (self.shareOptionsController.isActive) {
         return;
     }
-    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:button];
+    [self.shareOptionsController presentShareOptionsWithSnippet:text inViewController:self fromBarButtonItem:self.shareToolbarItem];
 }
 
 - (void)shareArticleFromButton:(nullable UIBarButtonItem*)button {
     [self shareArticleWithTextSnippet:nil fromButton:button];
 }
 
-- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(nullable UIBarButtonItem*)button {
+- (void)shareArticleWithTextSnippet:(nullable NSString*)text fromButton:(UIBarButtonItem*)button {
     [self.shareFunnel logShareButtonTappedResultingInSelection:text];
 
     NSMutableArray* items = [NSMutableArray array];
@@ -753,6 +753,8 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
     UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    UIPopoverPresentationController* presenter = [vc popoverPresentationController];
+    presenter.barButtonItem = button;
 
     [self presentViewController:vc animated:YES completion:NULL];
 }
@@ -814,7 +816,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)webViewController:(WebViewController*)controller didTapShareWithSelectedText:(NSString*)text {
-    [self shareAFactWithTextSnippet:text fromButton:nil];
+    [self shareAFactWithTextSnippet:text];
 }
 
 - (nullable NSString*)webViewController:(WebViewController*)controller titleForFooterViewController:(UIViewController*)footerViewController {

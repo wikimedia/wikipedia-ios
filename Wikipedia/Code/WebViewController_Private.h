@@ -9,7 +9,6 @@
 #import "WebViewController.h"
 
 #import "WikipediaAppUtils.h"
-#import "WikipediaZeroMessageFetcher.h"
 #import "CommunicationBridge.h"
 #import "SessionSingleton.h"
 #import "MWLanguageInfo.h"

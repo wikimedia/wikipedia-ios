@@ -63,6 +63,9 @@ platform :ios do
         between: [ENV['GIT_PREVIOUS_SUCCESSFUL_COMMIT'] || "HEAD^^^^^", "HEAD"],
         pretty: "- %s"
     )
+    # HAX: strip emoji from changelog
+    changelog = changelog.sub(/[\u{1F300}-\u{1F6FF}]/, '')
+    Actions.lane_context[SharedValues::FL_CHANGELOG] = changelog
     puts changelog
     changelog
   end
