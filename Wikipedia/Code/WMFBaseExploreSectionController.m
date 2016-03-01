@@ -219,7 +219,11 @@ static NSString* const WMFExploreSectionControllerException = @"WMFExploreSectio
 - (void)resetData {
     _fetchedItems = nil;
     _fetchError   = nil;
-    self.items    = @[];
+    if ([self supportsPlaceholders]) {
+        [self setItemsToPlaceholdersIfSupported];
+    } else {
+        self.items = @[];
+    }
 }
 
 #pragma mark - Utility
