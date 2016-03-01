@@ -9,7 +9,7 @@
 #import "FBTweak+WikipediaZero.h"
 #import <Tweaks/FBTweakInline.h>
 
-static NSString* const WMFWikipediaZeroHeaderTweakIdentifier = @"org.wikimedia.wikipedia.tweaks.networking.zero.fakezeorheaders";
+static NSString* const WMFWikipediaZeroHeaderTweakIdentifier = @"org.wikimedia.wikipedia.tweaks.networking.zero.fakezeroheaders";
 
 @implementation FBTweak (WikipediaZero)
 
