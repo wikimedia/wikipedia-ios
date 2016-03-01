@@ -386,6 +386,8 @@
 "welcome-explore-tell-me-more" = "Tell me more";
 "welcome-explore-tell-me-more-about-explore" = "More about Explore";
 "welcome-explore-tell-me-more-details" = "When you read an article, related articles are automatically added to your Explore feed. This doesn’t change how we collect your information, and your reading history is still private.";
+"welcome-explore-tell-me-more-related" = "The Explore feed shows you articles related to articles you have read.";
+"welcome-explore-tell-me-more-privacy" = "No reading list or profile is stored on our servers.";
 "welcome-explore-tell-me-more-done-button" = "Got it";
 "welcome-explore-continue-button" = "Get started";
 
@@ -435,4 +437,4 @@
 "explore-potd-heading" = "Picture of the day";
 "explore-most-read-heading" = "Top read on $1 Wikipedia";
 "explore-most-read-footer" = "All top read articles";
-"explore-most-read-more-list-title" = "Top read articles";
+"explore-most-read-more-list-title" = "Top articles";
