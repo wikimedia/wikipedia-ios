@@ -110,9 +110,12 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
                                            metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]].then(^(MWKImageInfo* info) {
         @strongify(self);
         self.imageInfo = info;
-        return @[self.imageInfo];
-    })
-           .catch(^(NSError* error) {
+        if (self.imageInfo) {
+            return @[self.imageInfo];
+        } else {
+            return @[];
+        }
+    }).catch(^(NSError* error) {
         @strongify(self);
         self.imageInfo = nil;
         return error;
