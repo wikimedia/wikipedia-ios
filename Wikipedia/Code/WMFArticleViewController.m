@@ -955,7 +955,9 @@ NS_ASSUME_NONNULL_BEGIN
         if ([url wmf_isCitation]) {
             return nil;
         }
-        return [[SFSafariViewController alloc] initWithURL:url];
+        if ([url.scheme hasPrefix:@"http"]) {
+            return [[SFSafariViewController alloc] initWithURL:url];
+        }
     } else {
         if (![url wmf_isIntraPageFragment]) {
             return [[WMFArticleViewController alloc] initWithArticleTitle:[[MWKTitle alloc] initWithURL:url]

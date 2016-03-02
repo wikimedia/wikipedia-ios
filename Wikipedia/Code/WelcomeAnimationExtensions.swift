@@ -207,6 +207,10 @@ extension UIView{
             return imageView
         })
     }
+
+    func wmf_radiansFromDegrees(degrees: CGFloat) -> CGFloat{
+        return ((degrees) / 180.0 * CGFloat(M_PI))
+    }
     
     func wmf_configureForIntroAnimation(){
         CATransaction.begin()
@@ -226,12 +230,12 @@ extension UIView{
         bgImageView.contentMode = UIViewContentMode.ScaleAspectFit;
         bgImageView.layer.zPosition = 99
         view.addSubview(bgImageView)
+    
         
         let rotationPoint = CGPointMake(0.575,  0.3821)
-        
-        let angle = CGFloat((M_PI * 2.0) / 360.0) * -45.0;
-        let rotateTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
-        
+        let initialRotationTransform = CATransform3DMakeRotation(wmf_radiansFromDegrees(-25.0), 0.0, 0.0, 1.0)
+        let finalRotationTransform = CATransform3DMakeRotation(wmf_radiansFromDegrees(5.0), 0.0, 0.0, 1.0)
+
         let rectCorrectingForRotate = CGRectMake(view.bounds.origin.x - (view.bounds.size.width * (0.5 - rotationPoint.x)), view.bounds.origin.y - (view.bounds.size.height * (0.5 - rotationPoint.y)), view.bounds.size.width, view.bounds.size.height)
 
         let images = view.wmf_addImages(
@@ -257,8 +261,8 @@ extension UIView{
                     duration: 1.0,
                     initialOpacity: 1.0,
                     finalOpacity: 1.0,
-                    initialTransform: rotateTransform,
-                    finalTransform: CATransform3DIdentity
+                    initialTransform: initialRotationTransform,
+                    finalTransform: finalRotationTransform
                 )
             )
         )

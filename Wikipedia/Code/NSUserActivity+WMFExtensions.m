@@ -74,12 +74,12 @@
 }
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article {
-    NSParameterAssert(article.title.mobileURL);
+    NSParameterAssert(article.title.desktopURL);
     NSParameterAssert(article.title.text);
     NSParameterAssert(article.displaytitle);
 
     NSUserActivity* activity = [self wmf_actvityWithType:@"article"];
-    activity.title      = article.displaytitle;
+    activity.title      = article.title.text;
     activity.webpageURL = article.title.desktopURL;
 
     if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
@@ -89,8 +89,7 @@
         activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 30];
 
         CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
-        attributes.relatedUniqueIdentifier = [article.title.desktopURL absoluteString];
-        activity.contentAttributeSet       = attributes;
+        activity.contentAttributeSet = attributes;
     }
 
     return activity;
