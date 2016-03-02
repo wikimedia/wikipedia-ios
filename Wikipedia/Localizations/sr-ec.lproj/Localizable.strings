@@ -10,6 +10,7 @@
 "article-languages-label" = "Изаберите језик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Учитавање језика...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Филтер језика";
 "article-read-more-title" = "Прочитај више";
 "info-box-title" = "Брзи факти";

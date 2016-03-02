@@ -11,6 +11,7 @@
 "article-languages-label" = "భాషని ఎంచుకోండి";
 "article-languages-cancel" = "రద్దుచేయి";
 "article-languages-downloading" = "వ్యాసపు భాషలు లోడవుతున్నాయి...";
+// Fuzzy
 "article-languages-filter-placeholder" = "భాష వడబోత";
 "article-read-more-title" = "మరింత చదవండి";
 "article-about-title" = "ఈ వ్యాసం గురించి";

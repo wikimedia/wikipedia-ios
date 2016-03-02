@@ -15,6 +15,7 @@
 "article-languages-label" = "Välj språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Läs mer";
 "article-about-title" = "Om den här artikeln";
@@ -109,7 +110,6 @@
 "search-recent-clear-delete-all" = "Radera alla";
 "search-result-redirected-from" = "Omdirigerad från: $1";
 "settings-title" = "Inställningar";
-"settings-project" = "Wikipedia-projekt";
 "settings-support" = "Stöd Wikipedia";
 "settings-language-bar" = "Visa språk vid sökfältet";
 "main-menu-title" = "Mer";
@@ -345,6 +345,7 @@
 "welcome-explore-sub-title" = "Ett nytt sätt att upptäcka intressanta artiklar varje dag";
 "welcome-explore-tell-me-more" = "Berätta mer";
 "welcome-explore-tell-me-more-about-explore" = "Mer om Utforska";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "När du besöker en artikel läggs relaterade artiklar automatiskt till ditt Utforskningsflöde. Detta ändrar inte hur vi samlar in din information och din läsningshistorik är fortfarande privat.";
 "welcome-explore-tell-me-more-done-button" = "Jag förstår";
 "welcome-explore-continue-button" = "Kom igång";
@@ -359,6 +360,7 @@
 "welcome-volunteer-thanks" = "$1 Tack!";
 "empty-no-feed-title" = "Ingen internetanslutning";
 "empty-no-feed-message" = "Du kan se dina rekommenderade artiklar när du har internetåtkomst";
+// Fuzzy
 "empty-no-feed-action-message" = "Du kan läsa sparade sidor under tiden";
 "empty-no-article-message" = "Tyvärr, kunde inte läsa in artikeln";
 "empty-no-search-results-message" = "Inga resultat hittades";
@@ -376,6 +378,7 @@
 "compass-direction" = "mot klockan $1";
 "explore-featured-article-heading" = "Utmärkt artikel";
 "explore-continue-reading-heading" = "Fortsätt läsa";
+// Fuzzy
 "explore-nearby-heading" = "Platser i närheten";
 "explore-continue-related-heading" = "Eftersom du läste";
 "explore-main-page-heading" = "Idag på Wikipedia";
@@ -384,4 +387,5 @@
 "explore-potd-heading" = "Dagens bild";
 "explore-most-read-heading" = "Mest lästa på $1 Wikipedia";
 "explore-most-read-footer" = "Alla mest lästa artiklar";
+// Fuzzy
 "explore-most-read-more-list-title" = "Mest lästa artiklar";

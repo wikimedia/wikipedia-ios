@@ -8,6 +8,7 @@
 "article-languages-label" = "Изберете јазик";
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Јазичен филтер";
 "article-read-more-title" = "Прочитајте повеќе";
 "article-about-title" = "Уреди ја статијава";
@@ -102,7 +103,6 @@
 "search-recent-clear-delete-all" = "Избриши ги сите";
 "search-result-redirected-from" = "Пренасочено од: $1";
 "settings-title" = "Нагодувања";
-"settings-project" = "Википедиин проект";
 "settings-support" = "Поддржете ја Википедија";
 "settings-language-bar" = "Прикажувај јазици при пребарувањето";
 "main-menu-title" = "Повеќе";
@@ -338,6 +338,7 @@
 "welcome-explore-sub-title" = "Нов начин да откривате интересни статии секој ден";
 "welcome-explore-tell-me-more" = "Сакам да дознаам повеќе";
 "welcome-explore-tell-me-more-about-explore" = "Повеќе за „Истражете“";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "Кога ќе појдете на некоја статија, во текот на „Истражете“ автоматски ќе ви се појават поврзани статии. Ова не го менува прибирањето на информации. Историјата на читани статии останува приватна.";
 "welcome-explore-tell-me-more-done-button" = "Јасно";
 "welcome-explore-continue-button" = "Започни";
@@ -352,6 +353,7 @@
 "welcome-volunteer-thanks" = "$1 Благодариме!";
 "empty-no-feed-title" = "Не сте поврзани со семрежјето";
 "empty-no-feed-message" = "Препорачаните статии ќе ги видите кога ќе се поврзете со семрежјето";
+// Fuzzy
 "empty-no-feed-action-message" = "Во меѓувреме, можете да ги читате зачуваните страници";
 "empty-no-article-message" = "За жал, не можев да ја вчитам статијата";
 "empty-no-search-results-message" = "Не пронајдов ништо";
@@ -369,6 +371,7 @@
 "compass-direction" = "во $1 часот";
 "explore-featured-article-heading" = "Избрани статии";
 "explore-continue-reading-heading" = "Продолжете со читање";
+// Fuzzy
 "explore-nearby-heading" = "Околни места";
 "explore-continue-related-heading" = "Бидејќи читавте";
 "explore-main-page-heading" = "Денес на Википедија";
@@ -377,4 +380,5 @@
 "explore-potd-heading" = "Слика на денот";
 "explore-most-read-heading" = "Најчистано на Википедија на $1";
 "explore-most-read-footer" = "Сите најчитани статии";
+// Fuzzy
 "explore-most-read-more-list-title" = "Најчитани статии";

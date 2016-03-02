@@ -10,6 +10,7 @@
 "article-languages-label" = "Vælg sprog";
 "article-languages-cancel" = "Annuller";
 "article-languages-downloading" = "Indlæser artikelsprog...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Sprogfilter";
 "article-read-more-title" = "Læs mere";
 "article-unable-to-load-section" = "Kunne ikke indlæse dette afsnit. Prøv at genindlæse artiklen for at se om det løser problemet.";

@@ -17,6 +17,7 @@
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "中止";
 "article-languages-downloading" = "言語リストを取得中...";
+// Fuzzy
 "article-languages-filter-placeholder" = "言語の絞り込み";
 "article-read-more-title" = "さらに読む";
 "article-about-title" = "この記事について";
@@ -111,7 +112,6 @@
 "search-recent-clear-delete-all" = "すべて削除";
 "search-result-redirected-from" = "$1 から転送されました";
 "settings-title" = "設定";
-"settings-project" = "ウィキペディア・プロジェクト";
 "settings-language-bar" = "検索結果に表示する言語";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";
@@ -196,19 +196,14 @@
 "credits-external-libraries" = "外部リポジトリ";
 "about-title" = "このアプリについて";
 "about-wikipedia" = "ウィキペディアについて";
-// Fuzzy
 "about-contributors" = "貢献者";
-// Fuzzy
 "about-testers" = "テスター";
 "about-testers-details" = "$1 によって品質保証テストされました";
-// Fuzzy
 "about-translators" = "翻訳者";
 "about-translators-details" = "このアプリは$1においてボランティアにより翻訳されました";
-// Fuzzy
 "about-libraries" = "使用ライブラリについて";
 "about-libraries-license" = "ライセンス";
 "about-libraries-licenses" = "ライセンス";
-// Fuzzy
 "about-repositories" = "リポジトリについて";
 "about-send-feedback" = "フィードバックを送信";
 "about-product-of" = "$1の製品について";
@@ -353,6 +348,7 @@
 "welcome-volunteer-thanks" = "$1 ありがとうございます!";
 "empty-no-feed-title" = "インターネットが接続されていません";
 "empty-no-feed-message" = "インターネットに接続しているときに、おすすめの記事を見ることができます";
+// Fuzzy
 "empty-no-feed-action-message" = "保存したページを読むことができます";
 "empty-no-article-message" = "申し訳ありませんが、記事を読み込むことができませんでした";
 "empty-no-search-results-message" = "申し訳ありませんが、該当するものはありません。";

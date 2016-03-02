@@ -9,6 +9,7 @@
 "article-languages-label" = "აირჩიეთ ენა";
 "article-languages-cancel" = "გაუქმება";
 "article-languages-downloading" = "სტატიის ენები იტვირთება...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ენის ფილტრი";
 "article-read-more-title" = "წაიკითხეთ მეტი";
 "article-about-title" = "ამ სტატიის შესახებ";
@@ -331,6 +332,7 @@
 "welcome-languages-title" = "ენების მოძებნა";
 "empty-no-feed-title" = "ინტერნეტ-კავშირი არ არის";
 "empty-no-feed-message" = "თქვენ შეძლებთ რეკომენდებული სტატიების ნახვას, როდესაც გექნებათ ინტერნეტი";
+// Fuzzy
 "empty-no-feed-action-message" = "შეგიძლიათ იხილოთ შენახული გვერდები";
 "empty-no-article-message" = "უკაცრავად, სტატიის ჩატვირთვა ვერ მოხერხდა";
 // Fuzzy

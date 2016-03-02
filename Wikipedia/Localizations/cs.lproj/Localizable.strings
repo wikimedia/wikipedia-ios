@@ -13,6 +13,7 @@
 "article-languages-label" = "Vybrat jazyk";
 "article-languages-cancel" = "Zrušit";
 "article-languages-downloading" = "Nahrávání článků v dalších jazycích…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtr jazyka";
 "article-unable-to-load-article" = "Není možné načíst článek.";
 "info-box-title" = "Stručná fakta";
@@ -105,7 +106,6 @@
 "main-menu-send-feedback" = "Poslat zpětnou vazbu k aplikaci";
 "main-menu-show-page-history" = "Historie změn stránky $1";
 "main-menu-privacy-policy" = "Ochrana osobních údajů";
-// Fuzzy
 "main-menu-terms-of-use" = "Podmínky užití";
 // Fuzzy
 "main-menu-rate-app" = "Ohodnotit aplikaci";
@@ -132,13 +132,17 @@
 "edit-summary-choice-added-missing-info" = "Přidána chybějící informace";
 "edit-summary-choice-added-clarification" = "Přidáno upřesnění";
 "edit-summary-choice-other" = "Ostatní";
-// Fuzzy
-"about-contributors" = "přispěvatelé";
-// Fuzzy
-"about-translators" = "překladatelé";
-// Fuzzy
-"about-libraries" = "použité knihovny";
+"about-contributors" = "Přispěvatelé";
+"about-testers" = "Testeři";
+"about-translators" = "Překladatelé";
+"about-libraries" = "Použité knihovny";
 "about-libraries-license" = "Licence";
+"about-content-license" = "Licence obsahu";
+"about-content-license-details" = "Pokud není uvedeno jinak, obsah je k dispozici pod licencí $1.";
+"about-content-license-details-share-alike-license" = "Creative Commons Uveďte autora-Zachovejte licenci";
+"about-libraries-complete-list" = "Úplný seznam";
+"about-repositories-app-source-license" = "Zdrojový kód je k dispozici pod licencí $1.";
+"about-repositories-app-source-license-mit" = "Licence MIT";
 "about-wikimedia-foundation" = "Nadace Wikimedia";
 "share-menu-save-page" = "Uložit článek";
 "share-menu-page-saved" = "Článek uložen";

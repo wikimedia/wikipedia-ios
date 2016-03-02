@@ -14,6 +14,7 @@
 "article-languages-label" = "Chọn ngôn ngữ";
 "article-languages-cancel" = "Hủy bỏ";
 "article-languages-downloading" = "Đang tải các ngôn ngữ của bài…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Lọc Ngôn ngữ";
 "article-read-more-title" = "Đọc tiếp";
 "article-about-title" = "Thông tin về bài viết";
@@ -343,6 +344,7 @@
 "welcome-languages-title" = "Ngôn ngữ khi tìm kiếm";
 "empty-no-feed-title" = "Không có kết nối Internet";
 "empty-no-feed-message" = "Bạn có thể xem các bài được gợi ý cho bạn khi bạn có kết nối Internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Trong lúc ấy thì bạn có thể đọc các trang đã lưu";
 "empty-no-article-message" = "Rất tiếc, không thể tải bài";
 // Fuzzy
@@ -361,6 +363,7 @@
 "compass-direction" = "hướng $1 giờ";
 "explore-featured-article-heading" = "Bài viết chọn lọc";
 "explore-continue-reading-heading" = "Đọc tiếp";
+// Fuzzy
 "explore-nearby-heading" = "Địa điểm lân cận";
 "explore-continue-related-heading" = "Vì bạn đã đọc $1";
 "explore-main-page-heading" = "Hôm nay tại Wikipedia";

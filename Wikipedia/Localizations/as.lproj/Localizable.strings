@@ -7,6 +7,7 @@
 "article-languages-label" = "ভাষা নির্বাচন কৰক";
 "article-languages-cancel" = "বাতিল কৰক";
 "article-languages-downloading" = "প্ৰবন্ধৰ ভাষা ল'ড হৈ আছে...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ভাষা ছাকনী";
 "article-read-more-title" = "আৰু পঢ়ক";
 "article-unable-to-load-section" = "এই অনুচ্ছেদটো ল'ড কৰাত অসমৰ্থ। সমস্যা সমাধানৰ বাবে প্ৰবন্ধটো সতেজ কৰি চাব পাৰে।";

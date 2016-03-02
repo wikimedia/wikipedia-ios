@@ -15,6 +15,7 @@
 "article-languages-label" = "اختر لغة";
 "article-languages-cancel" = "إلغاء";
 "article-languages-downloading" = "جاري تحميل لغات المقال";
+// Fuzzy
 "article-languages-filter-placeholder" = "مرشح اللغات";
 "article-read-more-title" = "قراءة المزيد";
 "article-about-title" = "حول المقال";
@@ -23,6 +24,8 @@
 "info-box-title" = "معلومات سريعة";
 "info-box-close-text" = "إغلاق";
 "table-title-other" = "مزيد من المعلومات";
+"saved-clear-all" = "امسح";
+"history-clear-all" = "امسح";
 "history-label" = "الأخيرة";
 "history-section-today" = "اليوم";
 "history-section-yesterday" = "الأمس";
@@ -32,8 +35,7 @@
 "history-clear-confirmation-heading" = "حذف جميع العناصر الجديدة؟";
 "history-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "history-clear-cancel" = "إلغاء";
-// Fuzzy
-"history-clear-delete-all" = "حذف الكل";
+"history-clear-delete-all" = "نعم، احذف الكل";
 "history-none" = "لا توجد صفحات جديدة هنا.";
 "zero-charged-verbiage" = "ويكيبيديا زيرو معطلة";
 "zero-webpage-url" = "https://wikimediafoundation.org/wiki/Wikipedia_Zero_App_FAQ";
@@ -58,6 +60,7 @@
 "account-creation-email-placeholder-text" = "البريد الإلكتروني (اختياري)";
 "account-creation-missing-fields" = "يجب عليك إدخال اسم مستخدم، وكلمة مرور، وتأكيد كلمة المرور لإنشاء حسابٍ.";
 "login-name-not-found" = "اسم المستخدم مطلوب للولوج.";
+"login-name-does-not-exist" = "اسم المستخدم الذي أدخلته غير موجود";
 "login-password-empty" = "كلمة المرور مطلوبة للولوج";
 "login-password-wrong" = "كلمة السر التي أدخلتها غير صحيحة.";
 "login-user-blocked" = "المستخدم ممنوع";
@@ -85,11 +88,12 @@
 "search-did-you-mean" = "هل عنيت $1؟";
 "search-recent-title" = "عمليات البحث الأخيرة";
 "search-recent-clear-confirmation-heading" = "إزالة كل عمليات البحث الأخيرة؟";
+"search-recent-clear-confirmation-sub-heading" = "لا يمكن التراجع عن هذا الفعل!";
 "search-recent-clear-cancel" = "إلغاء";
 "search-recent-clear-delete-all" = "حذف الكل";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "settings-title" = "إعدادات";
-"settings-project" = "مشروع ويكيبيديا";
+"settings-language-bar" = "إظهار اللغات في البحث";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
 "main-menu-language-title" = "البحث في ويكيبيديا";
@@ -107,14 +111,11 @@
 "main-menu-show-saved" = "الصفحات المحفوظة";
 "main-menu-current-article-save" = "احفظ $1 للقراءة دون تصفح";
 "main-menu-random" = "عشوائي";
-// Fuzzy
-"main-menu-send-feedback" = "إرسال الملاحظات على التطبيق";
+"main-menu-send-feedback" = "راسلنا";
 "main-menu-about" = "عن التطبيق";
 "main-menu-zero-faq" = "الأسئلة المتكررة عن ويكيبيديا زيرو";
 "main-menu-privacy-policy" = "سياسة الخصوصية";
-// Fuzzy
 "main-menu-terms-of-use" = "شروط الاستخدام";
-// Fuzzy
 "main-menu-rate-app" = "قيم التطبيق";
 "main-menu-heading-zero" = "ويكيبيديا زيرو";
 "main-menu-show-today" = "اليوم";
@@ -127,9 +128,9 @@
 "saved-pages-clear-confirmation-heading" = "هل أنت متأكد من رغبتك في حذف جميع الصفحات المحفوظة؟";
 "saved-pages-clear-confirmation-sub-heading" = "هذا العمل لا يُمكن التراجع عنه.";
 "saved-pages-clear-cancel" = "إلغاء";
-// Fuzzy
-"saved-pages-clear-delete-all" = "احذف الكل";
+"saved-pages-clear-delete-all" = "نغم,احذف الكل";
 "saved-pages-refresh-cancel-alert-title" = "ألغي التحديث";
+"saved-pages-none" = "لا صفحات محفوظة بعد";
 "history-title" = "التاريخ";
 "page-history-title" = "تاريخ المقالة";
 "page-history-downloading" = "جارٍ تحميل تاريخ المقالة...";
@@ -147,16 +148,19 @@
 "edit-summary-choice-fixed-typos" = "تم تصحيح خطأ مطبعي";
 "edit-summary-choice-added-category" = "تمت إضافة تصنيف";
 "edit-summary-choice-other" = "غير ذلك";
+"credits-wikimedia-repos" = "مستودعات ويكيميديا";
 "about-title" = "عن";
 "about-wikipedia" = "ويكيبيديا";
-// Fuzzy
 "about-contributors" = "المساهمون";
-// Fuzzy
+"about-testers" = "مختبرو التطبيق";
 "about-translators" = "المترجمون";
-// Fuzzy
 "about-libraries" = "المكتبات المستخدمة";
 "about-libraries-license" = "ترخيص";
 "about-libraries-licenses" = "الرخصة";
+"about-content-license" = "رخصة المحتوى";
+"about-libraries-complete-list" = "القائمة الكاملة";
+"about-repositories" = "المستودعات";
+"about-repositories-app-source-license-mit" = "ترخيص MIT";
 "about-send-feedback" = "إرسال الملاحظات على التطبيق";
 "about-wikimedia-foundation" = "مؤسسة ويكيميديا";
 "share-menu-save-page" = "احفظ الصفحة";
@@ -184,6 +188,7 @@
 "license-footer-text" = "المحتوى متاح تحت رخصة $1";
 "license-footer-name" = "CC BY-SA 3.0";
 "table-of-contents-heading" = "المحتويات";
+"table-of-contents-close-accessibility-label" = "أغلق قائمة المحتويات";
 "table-of-contents-close-accessibility-hint" = "أغلق";
 "menu-edit-accessibility-label" = "عدل";
 "menu-close-accessibility-label" = "أغلق";
@@ -222,10 +227,18 @@
 "home-nearby-check-again" = "تحقق مرة أخرى";
 "home-main-page-heading" = "اليوم في ويكيبيديا";
 "home-updating-label" = "جارٍ التحديث...";
+"welcome-explore-title" = "استكشف";
+"welcome-explore-tell-me-more" = "أطلعني على المزيد";
+"welcome-explore-tell-me-more-done-button" = "فهمت";
 "welcome-explore-continue-button" = "فلنبدأ";
 "welcome-languages-title" = "اللغات";
+"welcome-languages-sub-title" = "اختيار اللغة المفضلة للبحث في ويكيبيديا";
+"welcome-languages-add-button" = "+إضافة آخر";
+"welcome-languages-continue-button" = "استمر";
 "welcome-volunteer-title" = "متطوع";
+"welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "welcome-volunteer-continue-button" = "استمرار";
+"welcome-volunteer-thanks" = "شكرا لك!1$";
 "empty-no-search-results-message" = "لا توجد نتائج";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
@@ -236,9 +249,12 @@
 "back-button-accessibility-label" = "ارجع";
 "explore-featured-article-heading" = "مقالة مختارة";
 "explore-continue-reading-heading" = "مواصلة القراءة";
+// Fuzzy
 "explore-nearby-heading" = "أماكن قريبة";
 "explore-continue-related-heading" = "لأنك قرأت";
 "explore-main-page-heading" = "اليوم في ويكيبيديا";
 "explore-random-article-heading" = "مقالة عشوائية";
 "explore-random-article-sub-heading" = "ويكيبيديا الإنجليزية";
 "explore-potd-heading" = "صورة اليوم";
+// Fuzzy
+"explore-most-read-more-list-title" = "اكقر المقالات قراءة";

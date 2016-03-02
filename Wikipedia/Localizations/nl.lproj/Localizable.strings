@@ -16,6 +16,7 @@
 "article-languages-label" = "Taal kiezen";
 "article-languages-cancel" = "Annuleren";
 "article-languages-downloading" = "Paginatalen aan het laden...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Taal filteren";
 "article-read-more-title" = "Meer lezen";
 "article-about-title" = "Over deze pagina";
@@ -212,8 +213,7 @@
 // Fuzzy
 "about-libraries" = "gebruikte bibliotheken";
 "about-libraries-license" = "Licentie";
-// Fuzzy
-"about-repositories" = "repositories";
+"about-repositories" = "Repositories";
 "about-send-feedback" = "Terugkoppeling over app geven";
 "about-product-of" = "Een product van de $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -345,6 +345,7 @@
 "welcome-languages-title" = "Talen om in te zoeken";
 "empty-no-feed-title" = "Geen internetverbinding";
 "empty-no-feed-message" = "U kunt aanbevolen pagina's bekijken wanneer u bent verbonden met het internet";
+// Fuzzy
 "empty-no-feed-action-message" = "U kunt in de tussentijd wel uw opgeslagen pagina's lezen";
 "empty-no-article-message" = "Sorry, de pagina kon niet worden geladen";
 // Fuzzy
@@ -363,6 +364,7 @@
 "compass-direction" = "op $1 uur";
 "explore-featured-article-heading" = "Uitgelichte pagina";
 "explore-continue-reading-heading" = "Verder lezen";
+// Fuzzy
 "explore-nearby-heading" = "Plaatsen in de buurt";
 "explore-continue-related-heading" = "Omdat u hebt gelezen";
 "explore-main-page-heading" = "Vandaag op Wikipedia";

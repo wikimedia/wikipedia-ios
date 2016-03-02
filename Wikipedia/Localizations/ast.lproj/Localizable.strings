@@ -1,12 +1,14 @@
 // Messages for Asturian (asturianu)
 // Exported from translatewiki.net
 // Author: Enolp
+// Author: Macofe
 // Author: Xuacu
 
 "languages-title" = "Llingües";
 "article-languages-label" = "Escoyer llingua";
 "article-languages-cancel" = "Encaboxar";
 "article-languages-downloading" = "Cargando llingües del artículu...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtru de llingua";
 "article-read-more-title" = "Lleer más";
 "article-about-title" = "Tocante a esti artículu";
@@ -190,19 +192,14 @@
 "credits-external-libraries" = "Esternu";
 "about-title" = "Tocante a";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"about-contributors" = "collaboradores";
-// Fuzzy
-"about-testers" = "probadores";
+"about-contributors" = "Collaboradores";
+"about-testers" = "Probadores";
 "about-testers-details" = "Control de calidá comprobáu por $1";
-// Fuzzy
-"about-translators" = "traductores";
+"about-translators" = "Traductores";
 "about-translators-details" = "Traducida por voluntarios en $1";
-// Fuzzy
-"about-libraries" = "biblioteques utilizaes";
+"about-libraries" = "Biblioteques utilizaes";
 "about-libraries-license" = "Llicencia";
-// Fuzzy
-"about-repositories" = "repositorios";
+"about-repositories" = "Repositorios";
 "about-send-feedback" = "Unviar comentariu sobro la app";
 "about-product-of" = "Un productu de la $1";
 "about-wikimedia-foundation" = "Fundación Wikimedia";
@@ -325,6 +322,7 @@
 "welcome-languages-title" = "Llingües a buscar";
 "empty-no-feed-title" = "Sin conexón a Internet";
 "empty-no-feed-message" = "Puedes ver los artículos recomendaos cuando tengas internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Entrín y non, puedes lleer páxines guardaes";
 "empty-no-article-message" = "Nun pudo cargase l'artículu";
 // Fuzzy

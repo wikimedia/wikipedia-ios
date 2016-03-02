@@ -6,6 +6,7 @@
 "article-languages-label" = "ជ្រើសរើសភាសា";
 "article-languages-cancel" = "បោះបង់";
 "article-languages-downloading" = "កំពុងផ្ទុកភាសាអត្ថបទ...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ចម្រោះភាសា";
 "article-read-more-title" = "អានបន្ថែម";
 "article-unable-to-load-article" = "មិនអាចផ្ទុកអត្ថបទនេះបានទេ។";
