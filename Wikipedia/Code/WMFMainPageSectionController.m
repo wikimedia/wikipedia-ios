@@ -134,7 +134,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
     }).then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
         self.mainPageSearchResult = [searchResults firstObject];
-        return @[self.mainPageSearchResult];
+        if (self.mainPageSearchResult) {
+            return @[self.mainPageSearchResult];
+        } else {
+            return @[];
+        }
     }).catch(^(NSError* error){
         @strongify(self);
         self.siteInfo = nil;

@@ -118,9 +118,12 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
         @strongify(self);
         [self.cell setLoading:NO];
         self.result = result;
-        return @[result];
-    })
-           .catch(^(NSError* error){
+        if (self.result) {
+            return @[result];
+        } else {
+            return @[];
+        }
+    }).catch(^(NSError* error){
         @strongify(self);
         self.result = nil;
         [self.cell setLoading:NO];
