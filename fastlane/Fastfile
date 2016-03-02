@@ -54,7 +54,7 @@ platform :ios do
     else
       increment_build_number
     end
-    "#{get_version_number}.#{get_build_number}"
+    get_version_string
   end
 
   desc "Returns a default changelog."
@@ -86,8 +86,11 @@ platform :ios do
 
     changelog = default_changelog
 
+    hockey_beta_id = ENV["HOCKEY_BETA"]
+    raise "Must specifiy HockeyApp public identifier." unless hockey_beta_id.length > 0
+
     hockey(
-      public_identifier: '2295c3698bbd0b050f257772dd2bdbb2',
+      public_identifier: hockey_beta_id,
       notes: changelog,
       notify: '0', # Means do not notify
       status: '1', # Means do not make available for download
@@ -99,6 +102,44 @@ platform :ios do
     )
 
     tag_name = "alphas/#{new_version}"
+
+    # all goes well, tag the new version on git
+    add_git_tag(tag: tag_name)
+    sh "git push origin #{tag_name}"
+  end
+
+  desc "Submit a new App Store release candidate Apple TestFlight for internal testing."
+  lane :store do
+    sigh(
+      adhoc: false,
+      force: true
+    )
+
+    gym(
+      configuration: "Release",
+      scheme: "Wikipedia"
+    )
+
+    changelog = default_changelog
+
+    hockey_prod_id = ENV["HOCKEY_PRODUCTION"]
+    raise "Must specifiy HockeyApp public identifier." unless hockey_prod_id.length > 0
+
+    hockey(
+      public_identifier: hockey_prod_id,
+      notes: changelog,
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
+    )
+
+    pilot(
+      skip_submission: false,
+      distribute_external: false
+    )
+
+    new_version = get_version_string
+
+    tag_name = "releases/#{new_version}"
 
     # all goes well, tag the new version on git
     add_git_tag(tag: tag_name)
@@ -133,64 +174,4 @@ platform :ios do
       release_type: '2' # 'alpha' release type
     )
   end
-
-
-  desc "Upload AdHoc \"Release Candidate\" build to Hockey."
-  lane :rc do
-    sigh(
-      adhoc: true,
-      # Fastlane has issues forcing AdHoc profiles
-      force: false
-    )
-
-    # force iTunes file sharing to be enabled (normally disabled for release builds)
-    ENV['WMF_FORCE_ITUNES_FILE_SHARING'] = '1'
-    # force debug menu to be shown
-    ENV['WMF_FORCE_DEBUG_MENU'] = '1'
-
-    gym(
-      configuration: "Release",
-      scheme: "Wikipedia",
-      # both of these flags are required for ad hoc
-      export_method: 'ad-hoc',
-      use_legacy_build_api: true,
-      # override hockeyapp ID for release candidate so reports go corresponding RC "app"
-      xcargs: 'WMF_HOCKEYAPP_IDENTIFIER=78e94cb597309a55d5bb99c839aa18a8'
-    )
-
-    hockey(
-      notes: default_changelog,
-      notify: '0', # Do not notify
-      status: '2', # Make available for download
-      release_type: '0' # 'beta' release type
-    )
-  end
-
-  desc "Upload AppStore build to iTC & HockeyApp"
-  lane :store do
-    sigh(
-      adhoc: false,
-      force: true
-    )
-
-    gym(
-      configuration: "Release",
-      scheme: "Wikipedia"
-    )
-
-    hockey(
-      notes: default_changelog,
-      notify: '0', # Do not notify
-      status: '1', # Do not make available for download
-      release_type: '1', # 'store' release type
-      upload_dsym_only: true
-    )
-
-    deliver force: true
-  end
-
-  after_all do |lane|
-
-  end
-
 end

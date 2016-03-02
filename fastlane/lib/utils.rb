@@ -15,6 +15,12 @@ def make(args)
   end
 end
 
+# Create a string of the app version & build number
+# Must be invoked w/in fastlane
+def get_version_string
+  "#{get_version_number}.#{get_build_number}"
+end
+
 # Parses JSON output of `plutil`
 def info_plist_to_hash(path)
   require 'json'
