@@ -19,12 +19,12 @@ public extension CSSearchableItemAttributeSet {
         
         let searchableItem = CSSearchableItemAttributeSet(itemContentType: kUTTypeInternetLocation as String)
 
-        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + article.displaytitle.componentsSeparatedByString(" ")
+        searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + article.title.text.componentsSeparatedByString(" ")
         
         searchableItem.title = article.title.text
         searchableItem.subject = article.entityDescription
         searchableItem.contentDescription = article.summary()
-        searchableItem.displayName = article.displaytitle
+        searchableItem.displayName = article.title.text
         searchableItem.identifier = article.title.desktopURL.absoluteString
         if (article.imageURL != nil) {
             if let url = NSURL(string: article.imageURL) {
