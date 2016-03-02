@@ -513,12 +513,8 @@ NS_ASSUME_NONNULL_BEGIN
     id<WMFExploreSectionController> controller = [self sectionControllerForSectionAtIndex:indexPath.section];
 
     if ([controller respondsToSelector:@selector(willDisplaySection)]) {
-        if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
-            DDLogVerbose(@"Sending willDisplaySection for contorller %@ at indexPath %@", controller, indexPath);
-            [controller willDisplaySection];
-        } else {
-            DDLogVerbose(@"Skipping willDisplaySection for controller %@ at indexPath %@", controller, indexPath);
-        }
+        DDLogDebug(@"Sending willDisplaySection for controller %@ at indexPath %@", controller, indexPath);
+        [controller willDisplaySection];
     }
 
     [self performSelector:@selector(fetchSectionIfShowing:) withObject:controller afterDelay:0.25 inModes:@[NSRunLoopCommonModes]];
