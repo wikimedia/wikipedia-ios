@@ -4,7 +4,6 @@
 @interface WMFWelcomeFadeInAndUpOnceViewController ()
 
 @property (strong, nonatomic) IBOutlet UIView* containerView;
-@property (nonatomic) BOOL hasAlreadyFaded;
 @property (strong, nonatomic) NSNumber* fadeInAndUpDelay;
 
 @end

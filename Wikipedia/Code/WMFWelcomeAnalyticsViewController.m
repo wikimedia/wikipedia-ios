@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UISwitch* toggle;
+@property (strong, nonatomic) IBOutlet UIView* animationView;
 
 @end
 
@@ -40,6 +41,16 @@
     }
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
+
+    self.animationView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    BOOL shouldAnimate = !self.hasAlreadyFaded;
+    [super viewDidAppear:animated];
+    if (shouldAnimate) {
+        [self.animationView wmf_configureForAnalyticsAnimation];
+    }
 }
 
 - (IBAction)toggleAnalytics:(UISwitch*)sender {

@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
+@property (strong, nonatomic) IBOutlet UIView* animationView;
 
 @end
 
@@ -37,6 +38,7 @@
     self.dividerAboveNextStepButton.backgroundColor = [UIColor wmf_welcomeNextButtonDividerBackgroundColor];
 
     [self wmf_setupTransparentWelcomeNavigationBarWithBackChevron];
+    self.animationView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -58,6 +60,14 @@
         (self.languageTableView.frame.size.height - self.languageTableView.contentSize.height) / 2.f;
     if (topInsetRequiredToCenterTableContent > 0) {
         self.languageTableView.contentInset = UIEdgeInsetsMake(topInsetRequiredToCenterTableContent, 0, 0, 0);
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    BOOL shouldAnimate = !self.hasAlreadyFaded;
+    [super viewDidAppear:animated];
+    if (shouldAnimate) {
+        [self.animationView wmf_configureForLanguagesAnimation];
     }
 }
 
