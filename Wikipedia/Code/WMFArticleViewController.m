@@ -335,7 +335,7 @@ NS_ASSUME_NONNULL_BEGIN
          self.languagesToolbarItem,
          [self flexibleSpaceToolbarItem],
          self.shareToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:24.f],
-         self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:18.f],
+         self.saveToolbarItem, [UIBarButtonItem wmf_barButtonItemOfFixedWidth:2.0],
          [self flexibleSpaceToolbarItem],
          self.tableOfContentsToolbarItem,
          nil];
