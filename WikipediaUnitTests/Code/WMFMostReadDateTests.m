@@ -28,7 +28,7 @@ describe(@"most read date", ^{
         }];
     });
 
-    it(@"should be yesterday if the hour is >= 6, otherwise day before yesterday", ^{
+    it(@"should be yesterday if the hour is >= threshold, otherwise day before yesterday", ^{
         for (int i = 0; i < 24; i++) {
             NSDate* nowAtHour =
                 [[NSCalendar wmf_utcGregorianCalendar]
@@ -44,7 +44,7 @@ describe(@"most read date", ^{
                                                       fromDate:nowAtHour
                                                         toDate:bestDate
                                                        options:NSCalendarMatchStrictly].day;
-            NSNumber* expectedDayDelta = i >= 6 ? @(-1) : @(-2);
+            NSNumber* expectedDayDelta = i >= WMFPageviewDataAvailabilityThreshold ? @(-1) : @(-2);
             expect(@(bestDateDaysSinceNowAtHour)).to(equal(expectedDayDelta));
         }
     });
