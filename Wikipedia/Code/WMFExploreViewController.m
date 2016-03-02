@@ -297,6 +297,7 @@ NS_ASSUME_NONNULL_BEGIN
     // stop location manager from updating.
     [[self visibleSectionControllers] bk_each:^(id<WMFExploreSectionController> _Nonnull obj) {
         if ([obj respondsToSelector:@selector(didEndDisplayingSection)]) {
+            DDLogDebug(@"Sending didEndDisplayingSection to controller %@ on view disappearance", obj);
             [obj didEndDisplayingSection];
         }
     }];
@@ -534,9 +535,10 @@ NS_ASSUME_NONNULL_BEGIN
 
     if ([controller respondsToSelector:@selector(didEndDisplayingSection)]) {
         if ([self isVisibilityTransitioningForRowIndexPath:indexPath]) {
+            DDLogDebug(@"Sending didEndDisplayingSection for controller %@ at indexPath %@", controller, indexPath);
             [controller didEndDisplayingSection];
         } else {
-            DDLogVerbose(@"Skipping calling didEndDisplaySection for controller %@ indexPath %@", controller, indexPath);
+            DDLogDebug(@"Skipping calling didEndDisplaySection for controller %@ indexPath %@", controller, indexPath);
         }
     }
 
@@ -550,7 +552,7 @@ NS_ASSUME_NONNULL_BEGIN
     }];
 
     if (visibleIndexPathsInSection.count == 0) {
-        DDLogVerbose(@"Cancelling fetch for scrolled-away section: %@", controller);
+        DDLogInfo(@"Cancelling fetch for scrolled-away section: %@", controller);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(fetchSectionIfShowing:) object:controller];
     }
 }
@@ -667,7 +669,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)fetchSectionIfShowing:(id<WMFExploreSectionController>)controller {
     if ([self isDisplayingCellsForSectionController:controller]) {
-        DDLogVerbose(@"Fetching section after delay: %@", controller);
+        DDLogDebug(@"Fetching section after delay: %@", controller);
         @weakify(self);
         [controller fetchDataIfNeeded].catch(^(NSError* error){
             @strongify(self);
@@ -730,7 +732,7 @@ NS_ASSUME_NONNULL_BEGIN
                                               NSDictionary* _) {
         NSUInteger sectionIndex = [observer indexForSectionController:observedController];
         if (sectionIndex != NSNotFound && [observer isDisplayingCellsForSection:sectionIndex]) {
-            DDLogVerbose(@"Reloading table to display results in controller %@", observedController);
+            DDLogDebug(@"Reloading table to display results in controller %@", observedController);
             [observer.tableView reloadData];
         }
     }];
