@@ -26,6 +26,8 @@ public extension CSSearchableItemAttributeSet {
         searchableItem.contentDescription = article.summary()
         searchableItem.displayName = article.title.text
         searchableItem.identifier = article.title.desktopURL.absoluteString
+        searchableItem.relatedUniqueIdentifier = article.title.desktopURL.absoluteString
+
         if (article.imageURL != nil) {
             if let url = NSURL(string: article.imageURL) {
                 searchableItem.thumbnailData = WMFImageController.sharedInstance().diskDataForImageWithURL(url);
@@ -83,7 +85,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
             let searchableItemAttributes = CSSearchableItemAttributeSet.attributes(article)
             searchableItemAttributes.keywords?.append("Saved")
             
-            let item = CSSearchableItem(uniqueIdentifier: article.title.mobileURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
+            let item = CSSearchableItem(uniqueIdentifier: article.title.desktopURL.absoluteString, domainIdentifier: "org.wikimedia.wikipedia", attributeSet: searchableItemAttributes)
             item.expirationDate = NSDate.distantFuture()
             
             CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
@@ -97,7 +99,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
     }
     
     func removeFromIndex(title: MWKTitle) {
-        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.mobileURL.absoluteString]) { (error: NSError?) -> Void in
+        CSSearchableIndex.defaultSearchableIndex().deleteSearchableItemsWithIdentifiers([title.desktopURL.absoluteString]) { (error: NSError?) -> Void in
             if let error = error {
                 DDLogError("Deindexing error: \(error.localizedDescription)")
             } else {

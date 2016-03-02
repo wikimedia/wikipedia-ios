@@ -74,7 +74,7 @@
 }
 
 + (instancetype)wmf_articleViewActivityWithArticle:(MWKArticle*)article {
-    NSParameterAssert(article.title.mobileURL);
+    NSParameterAssert(article.title.desktopURL);
     NSParameterAssert(article.title.text);
     NSParameterAssert(article.displaytitle);
 
@@ -89,8 +89,7 @@
         activity.expirationDate = [[NSDate date] dateByAddingTimeInterval:60 * 60 * 24 * 30];
 
         CSSearchableItemAttributeSet* attributes = [CSSearchableItemAttributeSet attributes:article];
-        attributes.relatedUniqueIdentifier = [article.title.desktopURL absoluteString];
-        activity.contentAttributeSet       = attributes;
+        activity.contentAttributeSet = attributes;
     }
 
     return activity;
