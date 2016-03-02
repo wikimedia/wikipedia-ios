@@ -22,25 +22,25 @@ static NSString* cachedApplicationName;
 - (NSString*)formatLogMessage:(DDLogMessage*)logMessage {
     NSString* level = @"";
     switch (logMessage->_flag) {
-        case DDLogFlagDebug:
-            level = @"DEBUG";
-            break;
         case DDLogFlagVerbose:
-            level = @"VERBOSE";
+            level = @"V";
+            break;
+        case DDLogFlagDebug:
+            level = @"D";
             break;
         case DDLogFlagInfo:
-            level = @"INFO";
+            level = @"I";
             break;
         case DDLogFlagWarning:
-            level = @"WARN";
+            level = @"W";
             break;
         case DDLogFlagError:
-            level = @"ERROR";
+            level = @"E";
             break;
         default:
             break;
     }
-    return [NSString stringWithFormat:@"%@ %@[%@] %@#L%lu %@:\n%@",
+    return [NSString stringWithFormat:@"%@ %@[%@] %@#L%lu %@: %@",
             [self stringFromDate:logMessage->_timestamp],
             cachedApplicationName,
             [self queueThreadLabelForLogMessage:logMessage],

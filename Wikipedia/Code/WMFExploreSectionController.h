@@ -140,6 +140,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  Called when a section is about to be displayed.
+ *
+ *  This can happen when one of a section's cells scrolls on screen, or the entire table view appears and the receiver's section is visible. Note that
+ *  cells can also rapidly appear & disappear as the result of table reloads.
+ *
+ *  @warning
+ *  This method must be idempotent, as it will be called multiple times for each cell appearance.
  */
 - (void)willDisplaySection;
 
@@ -147,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  Called when the receiver's section in the table is no longer visible.
  *
  *  This can happen when either the cells are scolled offscreen (invoked after last cell scolls away) or when the entire
- *  table view disappears (e.g. switching tabs).
+ *  table view disappears (e.g. switching tabs). Note that cells can also rapidly appear & disappear as the result of table reloads.
  */
 - (void)didEndDisplayingSection;
 
