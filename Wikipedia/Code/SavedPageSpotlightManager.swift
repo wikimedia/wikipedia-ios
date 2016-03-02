@@ -21,7 +21,7 @@ public extension CSSearchableItemAttributeSet {
 
         searchableItem.keywords = ["Wikipedia","Wikimedia","Wiki"] + article.displaytitle.componentsSeparatedByString(" ")
         
-        searchableItem.title = article.displaytitle
+        searchableItem.title = article.title.text
         searchableItem.subject = article.entityDescription
         searchableItem.contentDescription = article.summary()
         searchableItem.displayName = article.displaytitle
