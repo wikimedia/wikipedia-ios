@@ -9,6 +9,7 @@
 #import "WMFModalImageGalleryViewController.h"
 #import "UIScreen+WMFImageWidth.h"
 #import "NSDateFormatter+WMFExtensions.h"
+#import "Wikipedia-Swift.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -109,12 +110,11 @@ static NSString* WMFPlaceholderImageInfoTitle = @"WMFPlaceholderImageInfoTitle";
     return [self.fetcher fetchPicOfTheDaySectionInfoForDate:self.fetchedDate
                                            metadataLanguage:[[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]].then(^(MWKImageInfo* info) {
         @strongify(self);
-        self.imageInfo = info;
-        if (self.imageInfo) {
-            return @[self.imageInfo];
-        } else {
-            return @[];
+        if (!self) {
+            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
         }
+        self.imageInfo = info;
+        return (id) @[info];
     }).catch(^(NSError* error) {
         @strongify(self);
         self.imageInfo = nil;

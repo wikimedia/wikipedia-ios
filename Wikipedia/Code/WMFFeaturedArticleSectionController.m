@@ -127,12 +127,11 @@ static NSString* const WMFFeaturedArticleSectionIdentifierPrefix = @"WMFFeatured
     @weakify(self);
     return [self.featuredTitlePreviewFetcher fetchFeaturedArticlePreviewForDate:self.date].then(^(MWKSearchResult* data) {
         @strongify(self);
-        self.featuredArticlePreview = data;
-        if (self.featuredArticlePreview) {
-            return @[self.featuredArticlePreview];
-        } else {
-            return @[];
+        if (!self) {
+            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
         }
+        self.featuredArticlePreview = data;
+        return (id) @[data];
     }).catch(^(NSError* error){
         @strongify(self);
         self.featuredArticlePreview = nil;

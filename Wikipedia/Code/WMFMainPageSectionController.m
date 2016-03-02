@@ -133,12 +133,11 @@ static NSString* const WMFMainPageSectionIdentifier = @"WMFMainPageSectionIdenti
         return [self.titleSearchFetcher fetchArticlePreviewResultsForTitles:@[self.siteInfo.mainPageTitle] site:self.site];
     }).then(^(NSArray<MWKSearchResult*>* searchResults) {
         @strongify(self);
-        self.mainPageSearchResult = [searchResults firstObject];
-        if (self.mainPageSearchResult) {
-            return @[self.mainPageSearchResult];
-        } else {
-            return @[];
+        if (!self) {
+            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
         }
+        self.mainPageSearchResult = [searchResults firstObject];
+        return (id) @[[searchResults firstObject]];
     }).catch(^(NSError* error){
         @strongify(self);
         self.siteInfo = nil;

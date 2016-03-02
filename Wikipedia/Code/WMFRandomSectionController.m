@@ -113,16 +113,14 @@ NSString* const WMFRandomSectionIdentifier = @"WMFRandomSectionIdentifier";
 - (AnyPromise*)fetchData {
     [self.cell setLoading:YES];
     @weakify(self);
-    return [self.fetcher fetchRandomArticleWithSite:self.searchSite]
-           .then(^(id result){
+    return [self.fetcher fetchRandomArticleWithSite:self.searchSite].then(^(id result){
         @strongify(self);
+        if (!self) {
+            return (id)[AnyPromise promiseWithValue:[NSError cancelledError]];
+        }
         [self.cell setLoading:NO];
         self.result = result;
-        if (self.result) {
-            return @[result];
-        } else {
-            return @[];
-        }
+        return (id) @[result];
     }).catch(^(NSError* error){
         @strongify(self);
         self.result = nil;
