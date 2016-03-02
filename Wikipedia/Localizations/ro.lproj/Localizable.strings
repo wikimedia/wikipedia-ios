@@ -1,11 +1,13 @@
 // Messages for Romanian (română)
 // Exported from translatewiki.net
+// Author: Macofe
 // Author: Minisarm
 
 "languages-title" = "Limbi";
 "article-languages-label" = "Alegere limbă";
 "article-languages-cancel" = "Revocare";
 "article-languages-downloading" = "Se încarcă limbile articolului...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtru de limbă";
 "article-read-more-title" = "Citiți mai multe";
 "article-about-title" = "Despre acest articol";
@@ -191,16 +193,13 @@
 "credits-external-libraries" = "Externe";
 "about-title" = "Despre";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
-"about-contributors" = "contribuitori";
+"about-contributors" = "Contribuitori";
 // Fuzzy
 "about-testers" = "testeri";
 "about-testers-details" = "QA testată de $1";
-// Fuzzy
-"about-translators" = "traducători";
+"about-translators" = "Traducători";
 "about-translators-details" = "Această aplicație a fost tradusă de traducătorii voluntari de la $1";
-// Fuzzy
-"about-libraries" = "biblioteci utilizate";
+"about-libraries" = "Biblioteci utilizate";
 "about-libraries-license" = "Licență";
 // Fuzzy
 "about-repositories" = "depozite";
@@ -335,6 +334,7 @@
 "welcome-languages-title" = "Limbile pentru căutare";
 "empty-no-feed-title" = "Fără conexiune la internet";
 "empty-no-feed-message" = "Puteți vedea articolele recomandate atunci când aveți acces la internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Între timp, puteți lectura paginile salvate";
 "empty-no-article-message" = "Ne pare rău, articolul nu poate fi încărcat";
 // Fuzzy
@@ -353,6 +353,7 @@
 "compass-direction" = "la ora $1";
 "explore-featured-article-heading" = "Articol de calitate";
 "explore-continue-reading-heading" = "Reluare lectură";
+// Fuzzy
 "explore-nearby-heading" = "Locuri din apropiere";
 "explore-continue-related-heading" = "Pentru că ați citit";
 "explore-main-page-heading" = "Astăzi la Wikipedia";

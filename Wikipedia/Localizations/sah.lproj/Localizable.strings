@@ -7,6 +7,7 @@
 "article-languages-label" = "Тылгын тал";
 "article-languages-cancel" = "Таҕыс";
 "article-languages-downloading" = "Ыстатыйа тылларын хачайдааһын...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Тыл сиидэтэ";
 "article-read-more-title" = "Бу туһунан сиһилии";
 "article-about-title" = "Бу ыстатыйа туһунан";
@@ -336,6 +337,7 @@
 "welcome-languages-title" = "Көрдүүр тылым";
 "empty-no-feed-title" = "Интэриниэти кытта ситим суох";
 "empty-no-feed-message" = "Сүбэлиир ыстатыйаларбытын ситим баар буоллаҕына көрүөххүн сөп";
+// Fuzzy
 "empty-no-feed-action-message" = "Билигин урут хаалларыллыбыт ыстатыйалары көрүөххүн сөп";
 "empty-no-article-message" = "Баалаама, ыстатыйа кыайан хачайдаммата";
 // Fuzzy
@@ -354,6 +356,7 @@
 "compass-direction" = "$1 чааска";
 "explore-featured-article-heading" = "Бастыҥ ыстатыйалар";
 "explore-continue-reading-heading" = "Салгыы ааҕыы";
+// Fuzzy
 "explore-nearby-heading" = "чугастааҕы сирдэр";
 "explore-continue-related-heading" = "Тоҕо диэтэххэ ыстатыйаны аахпыккын";
 "explore-main-page-heading" = "Бикипиэдьийэҕэ бүгүн";

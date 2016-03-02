@@ -10,6 +10,7 @@
 "article-languages-label" = "भाषा निवडा";
 "article-languages-cancel" = "रद्द करा";
 "article-languages-downloading" = "लेखाच्या भाषेचे भारण करीत आहे...";
+// Fuzzy
 "article-languages-filter-placeholder" = "भाषेची गाळणी";
 "article-read-more-title" = "अधिक वाचन";
 "article-about-title" = "या लेखाबद्दल";
@@ -252,6 +253,7 @@
 // Fuzzy
 "welcome-languages-title" = "शोधावयाची भाषा";
 "empty-no-feed-title" = "जाल अनुबंध नाही";
+// Fuzzy
 "empty-no-feed-action-message" = "यादरम्यान आपण जतन केलेली पाने वाचू शकता";
 "empty-no-article-message" = "माफ करा, लेख भारीत करु शकलो नाही";
 // Fuzzy

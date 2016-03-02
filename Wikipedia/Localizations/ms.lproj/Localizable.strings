@@ -3,11 +3,13 @@
 // Author: Anakmalaysia
 // Author: Aviator
 // Author: Kurniasan
+// Author: Macofe
 
 "languages-title" = "Bahasa";
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batalkan";
 "article-languages-downloading" = "Memuatkan bahasa-bahasa rencana...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Tapis Bahasa";
 "article-read-more-title" = "Selanjutnya";
 "article-unable-to-load-section" = "Bahagian ini tidak dapat dimuatkan. Cuba muatkan semula (refresh) rencana ini untuk betulkan masalah ini.";
@@ -196,8 +198,7 @@
 // Fuzzy
 "about-libraries" = "perpustakaan yang digunakan";
 "about-libraries-license" = "Lesen";
-// Fuzzy
-"about-repositories" = "repositori";
+"about-repositories" = "Repositori";
 "about-send-feedback" = "Hantar maklum balas aplikasi";
 "about-product-of" = "Keluaran $1";
 "about-wikimedia-foundation" = "Yayasan Wikimedia";

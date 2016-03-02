@@ -16,6 +16,7 @@
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtre de langue";
 "article-read-more-title" = "En savoir plus";
 "article-about-title" = "À propos de cet article";
@@ -110,7 +111,6 @@
 "search-recent-clear-delete-all" = "Supprimer tout";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "settings-title" = "Paramètres";
-"settings-project" = "Projet Wikipédia";
 "settings-support" = "Soutenir Wikipédia";
 "settings-language-bar" = "Afficher les langues dans la recherche";
 "main-menu-title" = "Plus";
@@ -196,21 +196,22 @@
 "credits-external-libraries" = "Externe";
 "about-title" = "À propos";
 "about-wikipedia" = "Wikipédia";
-// Fuzzy
-"about-contributors" = "contributeurs";
-// Fuzzy
-"about-testers" = "testeurs";
+"about-contributors" = "Contributeurs";
+"about-testers" = "Testeurs";
 "about-testers-details" = "AQ testée par $1";
-// Fuzzy
-"about-translators" = "traducteurs";
+"about-translators" = "Traducteurs";
 "about-translators-details" = "Cette application a été traduite par des traducteurs bénévoles sur $1";
-// Fuzzy
-"about-libraries" = "bibliothèques utilisées";
+"about-libraries" = "Bibliothèques utilisées";
 "about-libraries-license" = "Licence";
 "about-libraries-licenses" = "Licences";
+"about-content-license" = "Licence du contenu";
+"about-content-license-details" = "À moins d'indication contraire, le contenu est disponible sous $1.";
+"about-content-license-details-share-alike-license" = "Licence Creative Commons Attribution-ShareAlike";
 "about-libraries-licenses-title" = "Nous aimons le logiciel de code ouvert $1";
-// Fuzzy
-"about-repositories" = "référentiels";
+"about-libraries-complete-list" = "Liste complète";
+"about-repositories" = "Référentiels";
+"about-repositories-app-source-license" = "Le code source est disponible sous les $1.";
+"about-repositories-app-source-license-mit" = "Licence MIT";
 "about-send-feedback" = "Envoyer un avis sur l’application";
 "about-product-of" = "Un produit de la $1";
 "about-wikimedia-foundation" = "Fondation Wikimédia";
@@ -218,6 +219,8 @@
 "share-menu-page-saved" = "Page enregistrée";
 "share-menu-page-saved-access" = "Conseil : pour accéder à vos pages enregistrées, tapez $1 ci-dessus ou appuyez longuement sur $2 ci-dessous.";
 "share-custom-menu-item" = "Partager";
+"share-a-fact-share-menu-item" = "Partager-un-fait";
+"share-on-twitter-sign-off" = "via @Wikipedia";
 "share-article-name-on-wikipedia" = "« $1 » sur @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "« $1 » sur @Wikipedia : « $2 »";
 "share-as-image" = "Partager comme image";
@@ -346,6 +349,7 @@
 "welcome-explore-sub-title" = "Une nouvelle manière de découvrir des articles intéressants chaque jour";
 "welcome-explore-tell-me-more" = "M’en dire plus";
 "welcome-explore-tell-me-more-about-explore" = "Davantage au sujet de Explore";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "Quand vous visitez un article, les articles connexes sont automatiquement ajoutés à votre fil Explore. Cela ne change rien à la manière dont nous collectons vos informations, et votre historique de lecture reste privé.";
 "welcome-explore-tell-me-more-done-button" = "Opter pour";
 "welcome-explore-continue-button" = "Commencer";
@@ -360,6 +364,7 @@
 "welcome-volunteer-thanks" = "$1 Merci !";
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
+// Fuzzy
 "empty-no-feed-action-message" = "Vous pouvez lire les pages enregistrées entre temps";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
@@ -377,6 +382,7 @@
 "compass-direction" = "à $1 heures";
 "explore-featured-article-heading" = "Article vedette";
 "explore-continue-reading-heading" = "Continuer à lire";
+// Fuzzy
 "explore-nearby-heading" = "Endroits voisins";
 "explore-continue-related-heading" = "Parce que vous avez lu";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
@@ -385,4 +391,5 @@
 "explore-potd-heading" = "Image du jour";
 "explore-most-read-heading" = "Meilleures lectures sur Wikipédia en $1";
 "explore-most-read-footer" = "Tous les articles les plus lus";
+// Fuzzy
 "explore-most-read-more-list-title" = "Articles les plus lus";

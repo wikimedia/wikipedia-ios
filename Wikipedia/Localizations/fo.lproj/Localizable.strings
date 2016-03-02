@@ -5,6 +5,7 @@
 "article-languages-label" = "Vel mál";
 "article-languages-cancel" = "Avbrýt";
 "article-languages-downloading" = "Innlesur greinamál...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Málsligt filtur";
 "article-read-more-title" = "Les meira";
 "info-box-title" = "Skjót fakta";

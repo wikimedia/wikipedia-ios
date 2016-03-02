@@ -5,6 +5,7 @@
 "article-languages-label" = "भाषा चुनु";
 "article-languages-cancel" = "रद्द करु";
 "article-languages-downloading" = "लेख के भाषासभ लोड भ्यरहल अछि";
+// Fuzzy
 "article-languages-filter-placeholder" = "भाषा छनोट";
 "article-read-more-title" = "आर बेसी पढू";
 "article-unable-to-load-section" = "इ खंड के लोड करइ में असमर्थ । ई समस्या समाधान देखईके लेल लेख ताजा प्रयास कइर देखु।";

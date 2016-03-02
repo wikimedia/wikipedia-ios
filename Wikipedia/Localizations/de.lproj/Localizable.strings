@@ -7,6 +7,7 @@
 "article-languages-label" = "Sprache auswählen";
 "article-languages-cancel" = "Abbrechen";
 "article-languages-downloading" = "Lade Artikelsprachen …";
+// Fuzzy
 "article-languages-filter-placeholder" = "Sprachfilter";
 "article-read-more-title" = "Mehr lesen";
 "article-about-title" = "Über diesen Artikel";
@@ -101,7 +102,6 @@
 "search-recent-clear-delete-all" = "Alle löschen";
 "search-result-redirected-from" = "Weitergeleitet von: $1";
 "settings-title" = "Einstellungen";
-"settings-project" = "Wikipedia-Projekt";
 "settings-support" = "Wikipedia unterstützen";
 "settings-language-bar" = "Sprachen in der Suche anzeigen";
 "main-menu-title" = "Weitere";
@@ -187,21 +187,22 @@
 "credits-external-libraries" = "Extern";
 "about-title" = "Über";
 "about-wikipedia" = "Wikipedia";
-// Fuzzy
 "about-contributors" = "Autoren";
-// Fuzzy
 "about-testers" = "Tester";
 "about-testers-details" = "QS getestet durch $1";
-// Fuzzy
 "about-translators" = "Übersetzer";
 "about-translators-details" = "Diese App wurde von freiwilligen Übersetzern auf $1 übersetzt";
-// Fuzzy
 "about-libraries" = "Verwendete Bibliotheken";
 "about-libraries-license" = "Lizenz";
 "about-libraries-licenses" = "Lizenzen";
+"about-content-license" = "Inhaltslizenz";
+"about-content-license-details" = "Sofern nicht anders angegeben, ist der Inhalt verfügbar unter einer $1.";
+"about-content-license-details-share-alike-license" = "Creative-Commons-Attribution-ShareAlike-Lizenz";
 "about-libraries-licenses-title" = "Wir lieben Open-Source-Software $1";
-// Fuzzy
+"about-libraries-complete-list" = "Vollständige Liste";
 "about-repositories" = "Repositorien";
+"about-repositories-app-source-license" = "Der Quellcode ist verfügbar unter der $1.";
+"about-repositories-app-source-license-mit" = "MIT-Lizenz";
 "about-send-feedback" = "App-Rückmeldung senden";
 "about-product-of" = "Ein Produkt der $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -209,6 +210,8 @@
 "share-menu-page-saved" = "Seite gespeichert";
 "share-menu-page-saved-access" = "Tipp: Um auf deine gespeicherten Seiten zuzugreifen, tippe oben auf $1 oder halte unten $2 gedrückt.";
 "share-custom-menu-item" = "Teilen";
+"share-a-fact-share-menu-item" = "Teile-einen-Fakt";
+"share-on-twitter-sign-off" = "über @Wikipedia";
 "share-article-name-on-wikipedia" = "„$1“ auf @Wikipedia:";
 "share-article-name-on-wikipedia-with-selected-text" = "„$1“ auf @Wikipedia: „$2“";
 "share-as-image" = "Als Bild teilen";
@@ -337,6 +340,7 @@
 "welcome-explore-sub-title" = "Ein neuer Weg, um täglich interessante Artikel zu entdecken.";
 "welcome-explore-tell-me-more" = "Mehr erfahren";
 "welcome-explore-tell-me-more-about-explore" = "Mehr über Entdecken";
+// Fuzzy
 "welcome-explore-tell-me-more-details" = "Wenn du einen Artikel besuchst, werden verwandte Artikel automatisch deinem Entdecken-Feed hinzugefügt. Dies ändert nichts daran, wie wir deine Informationen sammeln, sodass dein Leseverlauf privat bleibt.";
 "welcome-explore-tell-me-more-done-button" = "Verstanden";
 "welcome-explore-continue-button" = "Anfangen";
@@ -351,6 +355,7 @@
 "welcome-volunteer-thanks" = "$1 Vielen Dank!";
 "empty-no-feed-title" = "Keine Internetverbindung";
 "empty-no-feed-message" = "Du kannst deine empfohlenen Artikel ansehen, wenn du Internet hast.";
+// Fuzzy
 "empty-no-feed-action-message" = "Du kannst in der Zwischenzeit gespeicherte Seiten lesen";
 "empty-no-article-message" = "Leider konnte der Artikel nicht geladen werden";
 "empty-no-search-results-message" = "Keine Ergebnisse gefunden";
@@ -368,6 +373,7 @@
 "compass-direction" = "nach $1 Uhr";
 "explore-featured-article-heading" = "Vorgestellter Artikel";
 "explore-continue-reading-heading" = "Mit dem Lesen fortfahren";
+// Fuzzy
 "explore-nearby-heading" = "Orte in der Nähe";
 "explore-continue-related-heading" = "Weil du liest";
 "explore-main-page-heading" = "Heute auf Wikipedia";
@@ -376,4 +382,5 @@
 "explore-potd-heading" = "Bild des Tages";
 "explore-most-read-heading" = "Meistgelesen in der Wikipedia auf $1";
 "explore-most-read-footer" = "Alle beliebtesten Artikel";
+// Fuzzy
 "explore-most-read-more-list-title" = "Beliebteste Artikel";

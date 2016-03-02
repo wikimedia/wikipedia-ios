@@ -6,6 +6,7 @@
 "article-languages-label" = "Zgjidhni gjuhën";
 "article-languages-cancel" = "Anulo";
 "article-languages-downloading" = "Duke ngarkuar gjuhët e artikullit...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Filtrimi i gjuhës";
 "article-read-more-title" = "Lexo më shumë";
 "article-unable-to-load-section" = "Nuk mund të ngarkohet ky seksion. Provoni të rihapni artikullin për të parë nëse rregullohet problemi.";

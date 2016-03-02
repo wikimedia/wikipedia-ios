@@ -9,6 +9,7 @@
 "article-languages-label" = "Velja tungumál";
 "article-languages-cancel" = "Hætta við";
 "article-languages-downloading" = "Hleður greinartungumál...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Tungumálasía";
 "article-read-more-title" = "Lesa meira";
 "article-about-title" = "Um þessa grein";
@@ -341,6 +342,7 @@
 "compass-direction" = "klukkan $1 á áttavita";
 "explore-featured-article-heading" = "Aðalgrein";
 "explore-continue-reading-heading" = "Halda lestri áfram";
+// Fuzzy
 "explore-nearby-heading" = "Staðir í nágrenninu";
 "explore-continue-related-heading" = "Því þú last";
 "explore-main-page-heading" = "Í dag á Wikipedia";

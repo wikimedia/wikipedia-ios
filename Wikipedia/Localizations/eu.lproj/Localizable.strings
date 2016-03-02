@@ -10,6 +10,7 @@
 "article-languages-label" = "Hizkuntza aukeratu";
 "article-languages-cancel" = "Utzi";
 "article-languages-downloading" = "Artikuluaren hizkuntzak kargatzen...";
+// Fuzzy
 "article-languages-filter-placeholder" = "Hizkuntza Iragazkia";
 "article-read-more-title" = "Irakurri gehiago";
 "article-about-title" = "Artikulu honi buruz";
@@ -217,5 +218,6 @@
 "empty-no-feed-title" = "Internet Konexiorik Ez";
 "icon-shortcut-nearby-title" = "Inguruko artikuluak";
 "close-button-accessibility-label" = "Itxi";
+// Fuzzy
 "explore-nearby-heading" = "Inguruko tokiak";
 "explore-random-article-heading" = "Ausazko artikulua";

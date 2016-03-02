@@ -7,6 +7,7 @@
 "article-languages-label" = "ٻولي چونڊيو";
 "article-languages-cancel" = "رد";
 "article-languages-downloading" = "مضمون جون ٻوليون لاهيندي...";
+// Fuzzy
 "article-languages-filter-placeholder" = "ٻولي جي ڇاڻي";
 "article-read-more-title" = "وڌيڪ پڙهو";
 "article-about-title" = "هن مضمون بابت";
@@ -312,6 +313,7 @@
 "welcome-languages-title" = "ڳولا لاءِ ٻوليون";
 "empty-no-feed-title" = "باهمڄار (انٽرنيٽ) ڳانڍاپو غير موجود";
 "empty-no-feed-message" = "جڏهن توهان کي انٽرنيٽ ڳانڍاپو آهي تہ توهان پنهنجا سفارش ڪيل مضمون ڏسي سگهو ٿا";
+// Fuzzy
 "empty-no-feed-action-message" = "ان دوران توهان پنهنجا سانڍل مضمون پڙهي سگهو ٿا";
 "empty-no-article-message" = "معاف ڪجو، مضمون اتاري نہ سگهياسين.";
 // Fuzzy
@@ -330,6 +332,7 @@
 "compass-direction" = " $1 بجي";
 "explore-featured-article-heading" = "نمايان مضمون";
 "explore-continue-reading-heading" = "پڙهڻ جاري رکو";
+// Fuzzy
 "explore-nearby-heading" = "ويجھڙائيءَ ۾ جڳھون";
 "explore-continue-related-heading" = "ڇو تہ توھان پڙھو ٿا";
 "explore-main-page-heading" = "اڄ وڪيپيڊيا تي";

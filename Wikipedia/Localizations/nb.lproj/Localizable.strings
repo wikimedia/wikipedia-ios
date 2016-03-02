@@ -12,6 +12,7 @@
 "article-languages-label" = "Velg språk";
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Laster artikkelspråk…";
+// Fuzzy
 "article-languages-filter-placeholder" = "Språkfilter";
 "article-read-more-title" = "Les mer";
 "article-about-title" = "Om artikkelen";
@@ -341,6 +342,7 @@
 "welcome-languages-title" = "Språk å søke på";
 "empty-no-feed-title" = "Ingen internettforbindelse";
 "empty-no-feed-message" = "Du kan se de anbefalte artiklene dine når du ikke har internett";
+// Fuzzy
 "empty-no-feed-action-message" = "Du kan lese lagrede sider i mellomtiden";
 "empty-no-article-message" = "Artikkelen kunne ikke lastes";
 // Fuzzy
@@ -359,6 +361,7 @@
 "compass-direction" = "mot kl. $1";
 "explore-featured-article-heading" = "Fremhevede artikler";
 "explore-continue-reading-heading" = "Fortsett å lese";
+// Fuzzy
 "explore-nearby-heading" = "Nære plasser";
 "explore-continue-related-heading" = "Fordi du leste";
 "explore-main-page-heading" = "I dag på Wikipedia";
