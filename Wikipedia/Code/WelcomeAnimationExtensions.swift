@@ -324,7 +324,7 @@ extension UIView{
                 position: CGPointMake(0.91, 0.778),
                 width: 0.144,
                 animation: WelcomeAnimation(
-                    delay: 0.0,
+                    delay: 0.3,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -370,7 +370,9 @@ extension UIView{
         let finalLinesOpacity = 0.15
         let scaleZeroXF = CATransform3DMakeScale(0, 0, 1)
         let leftXF = CATransform3DMakeTranslation(-50, 0, 0)
-        let rightXF = CATransform3DMakeTranslation(50, 0, 0)
+
+        let lowerLeftXF = CATransform3DMakeTranslation(-50, 50, 0)
+        let lowerRightXF = CATransform3DMakeTranslation(50, 50, 0)
         
         let view = self
         view.backgroundColor = UIColor.clearColor()
@@ -379,13 +381,13 @@ extension UIView{
             WelcomeImage(
                 name: "ftux-left-bubble",
                 frame: view.bounds,
-                zPosition: 101,
+                zPosition: 102,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
-                    initialTransform: leftXF,
+                    initialTransform: CATransform3DConcat(scaleZeroXF, lowerLeftXF),
                     finalTransform: CATransform3DIdentity
                 )
             ),
@@ -398,7 +400,7 @@ extension UIView{
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
-                    initialTransform: rightXF,
+                    initialTransform: CATransform3DConcat(scaleZeroXF, lowerRightXF),
                     finalTransform: CATransform3DIdentity
                 )
             )
@@ -410,7 +412,7 @@ extension UIView{
                 radius: 0.31,
                 isDashed: false,
                 animation:WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalCircleOpacity,
@@ -423,7 +425,7 @@ extension UIView{
                 radius: 0.31,
                 isDashed: true,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalDashedCircleOpacity,
@@ -437,7 +439,7 @@ extension UIView{
             WelcomePlus(
                 position: CGPointMake(0.825, 0.225),
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalPlusOpacity,
@@ -448,7 +450,7 @@ extension UIView{
             WelcomePlus(
                 position: CGPointMake(0.755, 0.17),
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalPlusOpacity,
@@ -459,7 +461,7 @@ extension UIView{
             WelcomePlus(
                 position: CGPointMake(0.112, 0.353),
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalPlusOpacity,
@@ -475,7 +477,7 @@ extension UIView{
                 position: CGPointMake(0.845, 0.865),
                 width: 0.135,
                 animation: WelcomeAnimation(
-                    delay: 0.0,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -487,7 +489,7 @@ extension UIView{
                 position: CGPointMake(0.255, 0.162),
                 width: 0.135,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -499,7 +501,7 @@ extension UIView{
                 position: CGPointMake(0.205, 0.127),
                 width: 0.135,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -532,7 +534,7 @@ extension UIView{
                 frame: view.bounds,
                 zPosition: 101,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
@@ -548,7 +550,7 @@ extension UIView{
                 radius: 0.235,
                 isDashed: false,
                 animation:WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalCircleOpacity,
@@ -561,7 +563,7 @@ extension UIView{
                 radius: 0.258,
                 isDashed: true,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalDashedCircleOpacity,
@@ -575,7 +577,7 @@ extension UIView{
             WelcomePlus(
                 position: CGPointMake(0.9, 0.222),
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalPlusOpacity,
@@ -586,7 +588,7 @@ extension UIView{
             WelcomePlus(
                 position: CGPointMake(0.832, 0.167),
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalPlusOpacity,
@@ -603,7 +605,7 @@ extension UIView{
                 position: CGPointMake(0.82, 0.778),
                 width: 0.125,
                 animation: WelcomeAnimation(
-                    delay: 0.0,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -615,7 +617,7 @@ extension UIView{
                 position: CGPointMake(0.775, 0.736),
                 width: 0.127,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -627,7 +629,7 @@ extension UIView{
                 position: CGPointMake(0.233, 0.385),
                 width: 0.043,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -639,7 +641,7 @@ extension UIView{
                 position: CGPointMake(0.17, 0.385),
                 width: 0.015,
                 animation: WelcomeAnimation(
-                    delay: 0.0,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -651,7 +653,7 @@ extension UIView{
                 position: CGPointMake(0.11, 0.427),
                 width: 0.043,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -663,7 +665,7 @@ extension UIView{
                 position: CGPointMake(0.173, 0.427),
                 width: 0.015,
                 animation: WelcomeAnimation(
-                    delay: 0.3,
+                    delay: 0.1,
                     duration: 1.0,
                     initialOpacity: 0.0,
                     finalOpacity: finalLinesOpacity,
@@ -684,7 +686,7 @@ extension UIView{
                     color: blue,
                     cornerRadius: 0.0,
                     animation:WelcomeAnimation(
-                        delay: 0.6,
+                        delay: 0.3,
                         duration: 0.3,
                         initialOpacity: 0.0,
                         finalOpacity: 1.0,
@@ -697,7 +699,7 @@ extension UIView{
                 color: green,
                 cornerRadius: 0.0,
                 animation:WelcomeAnimation(
-                    delay: 0.7,
+                    delay: 0.4,
                     duration: 0.3,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
@@ -710,7 +712,7 @@ extension UIView{
                 color: blue,
                 cornerRadius: 0.0,
                 animation:WelcomeAnimation(
-                    delay: 0.7,
+                    delay: 0.5,
                     duration: 0.3,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
@@ -723,7 +725,7 @@ extension UIView{
                 color: green,
                 cornerRadius: 0.0,
                 animation:WelcomeAnimation(
-                    delay: 0.9,
+                    delay: 0.6,
                     duration: 0.3,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
@@ -736,7 +738,7 @@ extension UIView{
                 color: blue,
                 cornerRadius: 0.0,
                 animation:WelcomeAnimation(
-                    delay: 1.0,
+                    delay: 0.7,
                     duration: 0.3,
                     initialOpacity: 0.0,
                     finalOpacity: 1.0,
