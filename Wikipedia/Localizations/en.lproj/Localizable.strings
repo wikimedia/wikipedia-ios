@@ -404,7 +404,7 @@
 
 "empty-no-feed-title" = "No Internet Connection";
 "empty-no-feed-message" = "You can see your recommended articles when you have internet";
-"empty-no-feed-action-message" = "You can read saved pages meanwhile";
+"empty-no-feed-action-message" = "You can still read saved pages";
 
 "empty-no-article-message" = "Sorry, could not load the article";
 "empty-no-search-results-message" = "No results found";
@@ -429,7 +429,7 @@
 
 "explore-featured-article-heading" = "Featured article";
 "explore-continue-reading-heading" = "Continue reading";
-"explore-nearby-heading" = "Nearby places";
+"explore-nearby-heading" = "Places near";
 "explore-continue-related-heading" = "Because you read";
 "explore-main-page-heading" = "Today on Wikipedia";
 "explore-random-article-heading" = "Random article";
