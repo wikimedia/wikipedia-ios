@@ -8,7 +8,7 @@
 
 - (void)wmf_fadeInAndUpAfterDelay:(CGFloat)delay {
     self.layer.transform = CATransform3DMakeTranslation(0, 18, 0);
-    [UIView animateWithDuration:0.25
+    [UIView animateWithDuration:0.4
                           delay:delay
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
