@@ -238,7 +238,7 @@
 "welcome-volunteer-title" = "متطوع";
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "welcome-volunteer-continue-button" = "استمرار";
-"welcome-volunteer-thanks" = "شكرا لك!1$";
+"welcome-volunteer-thanks" = "شكرا لك!$1";
 "empty-no-search-results-message" = "لا توجد نتائج";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";
