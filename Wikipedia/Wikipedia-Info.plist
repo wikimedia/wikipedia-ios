@@ -22,6 +22,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>565</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -47,6 +49,8 @@
 	</array>
 	<key>UIFileSharingEnabled</key>
 	<false/>
+	<key>UILaunchStoryboardName</key>
+	<string>Launch Screen</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -80,7 +84,5 @@
 	<string></string>
 	<key>WMFShowDebugMenu</key>
 	<false/>
-  <key>ITSAppUsesNonExemptEncryption</key>
-  <false/>
 </dict>
 </plist>
