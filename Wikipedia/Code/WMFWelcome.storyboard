@@ -189,7 +189,7 @@
                     <size key="freeformSize" width="320" height="580"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="fadeInAndUpDelay">
-                            <real key="value" value="0.80000000000000004"/>
+                            <real key="value" value="0.10000000000000001"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>

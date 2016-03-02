@@ -240,7 +240,7 @@ extension UIView{
                 frame: view.bounds,
                 zPosition: 101,
                 animation: WelcomeAnimation(
-                    delay: 1.0,
+                    delay: 0.3,
                     duration: 1.0,
                     initialOpacity: 1.0,
                     finalOpacity: 1.0,
@@ -253,7 +253,7 @@ extension UIView{
                 frame: rectCorrectingForRotate,
                 zPosition: 101,
                 animation: WelcomeAnimation(
-                    delay: 1.0,
+                    delay: 0.3,
                     duration: 1.0,
                     initialOpacity: 1.0,
                     finalOpacity: 1.0,
