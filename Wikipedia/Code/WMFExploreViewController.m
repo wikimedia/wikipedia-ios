@@ -216,10 +216,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Actions
 
-- (void)showSettings{
+- (void)showSettings {
     UINavigationController* settingsContainer =
-    [[UINavigationController alloc] initWithRootViewController:
-     [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
+        [[UINavigationController alloc] initWithRootViewController:
+         [WMFSettingsViewController wmf_initialViewControllerFromClassStoryboard]];
     [self presentViewController:settingsContainer
                        animated:YES
                      completion:nil];
@@ -641,7 +641,7 @@ NS_ASSUME_NONNULL_BEGIN
     [self loadSectionControllersForCurrentSectionSchema];
     self.tableView.dataSource = self;
     self.tableView.delegate   = self;
-    
+
     [self.tableView reloadData];
 }
 

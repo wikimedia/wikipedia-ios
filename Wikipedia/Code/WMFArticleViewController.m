@@ -729,7 +729,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Share
 
-- (void)shareAFactWithTextSnippet : (nullable NSString*)text{
+- (void)shareAFactWithTextSnippet : (nullable NSString*)text {
     if (self.shareOptionsController.isActive) {
         return;
     }
@@ -755,7 +755,7 @@ NS_ASSUME_NONNULL_BEGIN
         [items addObject:url];
     }
 
-    UIActivityViewController* vc = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
+    UIActivityViewController* vc               = [[UIActivityViewController alloc] initWithActivityItems:items applicationActivities:@[[[TUSafariActivity alloc] init]]];
     UIPopoverPresentationController* presenter = [vc popoverPresentationController];
     presenter.barButtonItem = button;
 

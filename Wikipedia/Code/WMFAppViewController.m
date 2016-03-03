@@ -276,7 +276,7 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
             break;
         case WMFUserActivityTypeArticle: {
             MWKTitle* title = [[MWKTitle alloc] initWithURL:activity.webpageURL];
-            if(!title){
+            if (!title) {
                 return NO;
             }
             [self showArticleForTitle:title animated:NO];
@@ -296,7 +296,6 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
 
     return YES;
 }
-
 
 #pragma mark - Utilities
 

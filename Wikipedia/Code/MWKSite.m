@@ -49,7 +49,7 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     }
     //strip mobile domain
     [hostComponents removeObject:@"m"];
-    
+
     NSString* domain =
         [[hostComponents subarrayWithRange:NSMakeRange(1, hostComponents.count - 1)] componentsJoinedByString:@"."];
     return [self initWithDomain:domain language:language];

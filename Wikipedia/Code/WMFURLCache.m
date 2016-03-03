@@ -30,13 +30,13 @@ static NSString* const WMFURLCacheXCS           = @"X-CS";
 }
 
 - (void)processZeroHeaders:(NSURLResponse*)response {
-    NSHTTPURLResponse* httpUrlResponse       = (NSHTTPURLResponse*)response;
-    NSDictionary* headers                    = httpUrlResponse.allHeaderFields;
-    NSString* xZeroRatedHeader               = [headers objectForKey:WMFURLCacheXCS];
-    BOOL zeroRatedHeaderPresent              = xZeroRatedHeader != nil;
-    NSString* xcs                            = [SessionSingleton sharedInstance].zeroConfigState.partnerXcs;
-    BOOL zeroProviderChanged                 = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
-    BOOL zeroDisposition                     = [SessionSingleton sharedInstance].zeroConfigState.disposition;
+    NSHTTPURLResponse* httpUrlResponse = (NSHTTPURLResponse*)response;
+    NSDictionary* headers              = httpUrlResponse.allHeaderFields;
+    NSString* xZeroRatedHeader         = [headers objectForKey:WMFURLCacheXCS];
+    BOOL zeroRatedHeaderPresent        = xZeroRatedHeader != nil;
+    NSString* xcs                      = [SessionSingleton sharedInstance].zeroConfigState.partnerXcs;
+    BOOL zeroProviderChanged           = zeroRatedHeaderPresent && ![xZeroRatedHeader isEqualToString:xcs];
+    BOOL zeroDisposition               = [SessionSingleton sharedInstance].zeroConfigState.disposition;
 
     // enable this tweak to make the cache pretend it found W0 headers in the response
     if ([FBTweak wmf_shouldMockWikipediaZeroHeaders]) {

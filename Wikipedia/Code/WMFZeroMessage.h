@@ -9,7 +9,7 @@
 #import <Mantle/Mantle.h>
 
 @interface WMFZeroMessage : MTLModel
-<MTLJSONSerializing>
+    <MTLJSONSerializing>
 
 @property (nonatomic, copy, readonly) NSString* message;
 @property (nonatomic, strong, readonly) UIColor* foreground;

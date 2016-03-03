@@ -111,10 +111,7 @@ static id _sharedInstance;
 
 - (nullable MWKLanguageLink*)languageForSite:(MWKSite*)site {
     return [self.allLanguages bk_match:^BOOL (MWKLanguageLink* obj) {
-        if ([obj.site isEqualToSite:site]) {
-            return YES;
-        }
-        return NO;
+        return [obj.site isEqualToSite:site];
     }];
 }
 
