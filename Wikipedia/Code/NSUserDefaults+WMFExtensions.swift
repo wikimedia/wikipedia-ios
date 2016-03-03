@@ -104,11 +104,15 @@ extension NSUserDefaults {
     }
     
     public func wmf_appSite() -> MWKSite? {
-        if let data = self.objectForKey(WMFAppSiteKey) as? String{
-            return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
-        }else{
-            return nil
+        guard let data = self.objectForKey(WMFAppSiteKey) as? String else {
+            DDLogError("Site preference was empty! Falling back to device language")
+            let fallbackSite = MWKSite.siteWithCurrentLocale()
+            // NOTE: need to set defaults directly, otherwise we'd get into inf. loop
+            self.setObject(fallbackSite.language, forKey: WMFAppSiteKey)
+            self.synchronize()
+            return fallbackSite
         }
+        return MWKSite.init(domain: WMFDefaultSiteDomain, language: data)
     }
     
     public func wmf_setAppSite(site: MWKSite) {
