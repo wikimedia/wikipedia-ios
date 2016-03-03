@@ -13,7 +13,7 @@
 @implementation MTLValueTransformer (WMFColorTransformer)
 
 + (instancetype)wmf_forwardHexColorTransformer {
-    return [MTLValueTransformer transformerUsingForwardBlock:^id(id value, BOOL *success, NSError *__autoreleasing *error) {
+    return [MTLValueTransformer transformerUsingForwardBlock:^id (id value, BOOL* success, NSError* __autoreleasing* error) {
         unsigned int hexValue;
         if ([value isKindOfClass:[NSString class]]
             && [value length] > 1
@@ -25,7 +25,6 @@
             WMFSafeAssign(error, [NSError wmf_errorWithType:WMFErrorTypeUnexpectedResponseType userInfo:nil]);
             return nil;
         }
-
     }];
 }
 

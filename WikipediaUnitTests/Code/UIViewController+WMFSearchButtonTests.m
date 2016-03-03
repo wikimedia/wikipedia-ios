@@ -16,7 +16,7 @@
 
 @interface UIViewController (WMFSharedTestAccess)
 
-+ (void)                    wmf_clearSearchViewController;
++ (void)wmf_clearSearchViewController;
 
 @end
 

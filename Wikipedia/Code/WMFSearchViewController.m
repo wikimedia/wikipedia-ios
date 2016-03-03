@@ -384,8 +384,8 @@ static NSUInteger const kWMFMinResultsBeforeAutoFullTextSearch = 12;
 
 #pragma mark - Search
 
-- (void)setSearchTerm:(NSString*)searchTerm{
-    if(searchTerm.length == 0){
+- (void)setSearchTerm:(NSString*)searchTerm {
+    if (searchTerm.length == 0) {
         return;
     }
     [self setSearchFieldText:searchTerm];
