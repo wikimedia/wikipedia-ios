@@ -72,18 +72,6 @@ NS_ASSUME_NONNULL_BEGIN
                            currentImage:(nullable MWKImage*)currentImage;
 
 /**
- *  Initialize a modal gallery with images in an article that hasn't been downloaded yet.
- *
- *  @param articlePromise       Promise which should resolve to an @c MWKArticle.
- *  @param placeholderArticle   Article object with partial data, such as @c image or @c thumbnailImage, which will be
- *                              displayed while the article and its images' info are downloaded.
- *
- *  @return A new modal image gallery which will eventually display the images in the resolved article.
- */
-- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise
-                                  placeholder:(nullable MWKArticle*)placeholderArticle;
-
-/**
  *  Initialize a modal gallery which will display the last several pictures of the day, including the given date.
  *
  *  @param info The info which was already downloaded to display picture of the day in the Home view.

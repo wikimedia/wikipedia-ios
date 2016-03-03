@@ -837,26 +837,12 @@ NS_ASSUME_NONNULL_BEGIN
      didSelectImageAtIndex:(NSUInteger)index {
     WMFModalImageGalleryViewController* fullscreenGallery;
 
-    if (self.article.isCached) {
-        fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article
-                                                                                   currentImage:nil];
-        fullscreenGallery.currentPage = gallery.currentPage;
-    } else {
-        /*
-           In case the user taps on the lead image before the article is loaded, present the gallery w/ the lead image
-           as a placeholder, then populate it in-place once the article is fetched.
-         */
-        NSAssert(index == 0, @"Unexpected selected index for uncached article. Only expecting lead image tap.");
-        if (!self.articleFetcherPromise) {
-            // Fetch the article if it hasn't been fetched already
-            DDLogInfo(@"User tapped lead image before article fetch started, fetching before showing gallery.");
-            [self fetchArticleIfNeeded];
-        }
-        fullscreenGallery =
-            [[WMFModalImageGalleryViewController alloc] initWithImagesInFutureArticle:self.articleFetcherPromise
-                                                                          placeholder:self.article];
+    NSAssert(self.article.isCached, @"Expected article data to already be downloaded.");
+    if (!self.article.isCached) {
+        return;
     }
-
+    fullscreenGallery = [[WMFModalImageGalleryViewController alloc] initWithImagesInArticle:self.article currentImage:nil];
+    fullscreenGallery.currentPage = gallery.currentPage;
     // set delegate to ensure the header gallery is updated when the fullscreen gallery is dismissed
     fullscreenGallery.delegate = self;
 

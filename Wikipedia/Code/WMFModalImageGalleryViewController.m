@@ -115,12 +115,7 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
 - (instancetype)initWithImagesInArticle:(MWKArticle*)article currentImage:(nullable MWKImage*)currentImage {
     self = [self init];
     if (self) {
-        NSAssert(article.isCached, @"Unexpected initialization with uncached instance of %@ in %@, use %@ instead.",
-                 article.title,
-                 NSStringFromSelector(_cmd),
-                 NSStringFromSelector(@selector(initWithImagesInFutureArticle:placeholder:)));
-        WMFModalArticleImageGalleryDataSource* articleGalleryDataSource =
-            [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
+        WMFModalArticleImageGalleryDataSource* articleGalleryDataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
         self.dataSource = articleGalleryDataSource;
         if (currentImage) {
             NSInteger selectedImageIndex = [articleGalleryDataSource.allItems
@@ -138,26 +133,6 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             }
             self.currentPage = selectedImageIndex;
         }
-    }
-    return self;
-}
-
-- (instancetype)initWithImagesInFutureArticle:(AnyPromise*)articlePromise
-                                  placeholder:(nullable MWKArticle*)placeholderArticle {
-    self = [self init];
-    if (self) {
-        if (placeholderArticle) {
-            self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:placeholderArticle];
-        }
-        @weakify(self);
-        articlePromise.then(^(MWKArticle* article) {
-            @strongify(self);
-            self.dataSource = [[WMFModalArticleImageGalleryDataSource alloc] initWithArticle:article];
-        })
-        // NOTE: article load error is caught in article view, which will also show a banner
-        .finally(^{
-            [self.loadingIndicator stopAnimating];
-        });
     }
     return self;
 }
