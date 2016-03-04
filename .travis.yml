@@ -22,6 +22,7 @@ script:
 after_success:
   - bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/master/codecov) -J "Wikipedia*"
 
+
 branches:
   only:
     - master
