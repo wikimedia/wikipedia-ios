@@ -548,6 +548,10 @@
 		B0E8096C1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E8096B1C0D1C120065EBC0 /* WMFPicOfTheDayTableViewCellVisualTests.m */; };
 		B0EF42D01C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */; };
 		B0F087501C860E910086F710 /* WelcomeAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */; };
+		B0F7CB541C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB531C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift */; };
+		B0F7CB561C8A89E300996DE0 /* WelcomeAnalyticsAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB551C8A89E300996DE0 /* WelcomeAnalyticsAnimationView.swift */; };
+		B0F7CB581C8A89EA00996DE0 /* WelcomeIntroductionAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB571C8A89EA00996DE0 /* WelcomeIntroductionAnimationView.swift */; };
+		B0F7CB5A1C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F7CB591C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift */; };
 		B0F956A91C481BC000691810 /* WMFArticleFooterMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */; };
 		B0F956AB1C481C2100691810 /* WMFArticleFooterMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */; };
 		BC0069C91C7BD03700F2C377 /* FBTweak+WikipediaZero.m in Sources */ = {isa = PBXBuildFile; fileRef = BC0069C81C7BD03700F2C377 /* FBTweak+WikipediaZero.m */; };
@@ -1632,6 +1636,10 @@
 		B0EF42CE1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIApplicationShortcutItem+WMFShortcutItem.h"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.h"; sourceTree = SOURCE_ROOT; };
 		B0EF42CF1C43FDD200D125A8 /* UIApplicationShortcutItem+WMFShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIApplicationShortcutItem+WMFShortcutItem.m"; path = "Wikipedia/Code/UIApplicationShortcutItem+WMFShortcutItem.m"; sourceTree = SOURCE_ROOT; };
 		B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeAnimationExtensions.swift; path = Wikipedia/Code/WelcomeAnimationExtensions.swift; sourceTree = SOURCE_ROOT; };
+		B0F7CB531C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeAnimationShapeLayers.swift; path = Wikipedia/Code/WelcomeAnimationShapeLayers.swift; sourceTree = SOURCE_ROOT; };
+		B0F7CB551C8A89E300996DE0 /* WelcomeAnalyticsAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeAnalyticsAnimationView.swift; path = Wikipedia/Code/WelcomeAnalyticsAnimationView.swift; sourceTree = SOURCE_ROOT; };
+		B0F7CB571C8A89EA00996DE0 /* WelcomeIntroductionAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeIntroductionAnimationView.swift; path = Wikipedia/Code/WelcomeIntroductionAnimationView.swift; sourceTree = SOURCE_ROOT; };
+		B0F7CB591C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeLanguagesAnimationView.swift; path = Wikipedia/Code/WelcomeLanguagesAnimationView.swift; sourceTree = SOURCE_ROOT; };
 		B0F956A71C481BC000691810 /* WMFArticleFooterMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticleFooterMenuCell.h; path = Wikipedia/Code/WMFArticleFooterMenuCell.h; sourceTree = SOURCE_ROOT; };
 		B0F956A81C481BC000691810 /* WMFArticleFooterMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticleFooterMenuCell.m; path = Wikipedia/Code/WMFArticleFooterMenuCell.m; sourceTree = SOURCE_ROOT; };
 		B0F956AA1C481C2100691810 /* WMFArticleFooterMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WMFArticleFooterMenuCell.xib; path = Wikipedia/Code/WMFArticleFooterMenuCell.xib; sourceTree = SOURCE_ROOT; };
@@ -2441,7 +2449,7 @@
 				B0E5E96E1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m */,
 				B0E5E9701C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.h */,
 				B0E5E9711C8237EC00D8E267 /* WMFWelcomeFadeInAndUpOnceViewController.m */,
-				B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */,
+				B0F7CB521C8A87B300996DE0 /* Animation */,
 				0E26B0881C0FD7E00004D687 /* Container */,
 				0E26B0891C0FD7F70004D687 /* Intro */,
 				0E26B08A1C0FD8040004D687 /* Language */,
@@ -2467,6 +2475,7 @@
 			children = (
 				0E26B0771C0F4F720004D687 /* WMFWelcomeIntroductionViewController.h */,
 				0E26B0781C0F4F720004D687 /* WMFWelcomeIntroductionViewController.m */,
+				B0F7CB571C8A89EA00996DE0 /* WelcomeIntroductionAnimationView.swift */,
 			);
 			name = Intro;
 			sourceTree = "<group>";
@@ -2479,6 +2488,7 @@
 				0E26B0791C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.h */,
 				0E26B07A1C0F4F720004D687 /* WMFWelcomeLanguageTableViewCell.m */,
 				BC90DE7A1C57D142007E0E81 /* WMFWelcomeLanguageViewController_Testing.h */,
+				B0F7CB591C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift */,
 			);
 			name = Language;
 			sourceTree = "<group>";
@@ -2488,6 +2498,7 @@
 			children = (
 				0E26B0751C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.h */,
 				0E26B0761C0F4F720004D687 /* WMFWelcomeAnalyticsViewController.m */,
+				B0F7CB551C8A89E300996DE0 /* WelcomeAnalyticsAnimationView.swift */,
 			);
 			name = Analytics;
 			sourceTree = "<group>";
@@ -2983,6 +2994,15 @@
 				B0AB16361C7E5762002E566A /* UINavigationBar+WMFTransparency.m */,
 			);
 			name = UINavigationBar;
+			sourceTree = "<group>";
+		};
+		B0F7CB521C8A87B300996DE0 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				B0F0874F1C860E910086F710 /* WelcomeAnimationExtensions.swift */,
+				B0F7CB531C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 		BC0069C61C7BD01700F2C377 /* Tweaks */ = {
@@ -5546,6 +5566,7 @@
 				BCD557B31C455F840060A51A /* WMFTextualSaveButton.m in Sources */,
 				B0E803B11C0CDBCF0065EBC0 /* WMFSearchDataSource.m in Sources */,
 				0E4B5FBE1C56B3E70099B02E /* WMFBaseExploreSectionController.m in Sources */,
+				B0F7CB5A1C8A89EF00996DE0 /* WelcomeLanguagesAnimationView.swift in Sources */,
 				B0E806471C0CE7F70065EBC0 /* AccountCreationTokenFetcher.m in Sources */,
 				0E4B5FC11C5725C20099B02E /* WMFExploreSectionControllerCache.m in Sources */,
 				BCCB813E1C110702008BC602 /* NSDate+WMFPOTDTitle.m in Sources */,
@@ -5674,6 +5695,7 @@
 				0E26B0831C0F4F720004D687 /* WMFWelcomeLanguageViewController.m in Sources */,
 				B0E5E96F1C818E7100D8E267 /* UIView+WMFWelcomeFadeInAndUp.m in Sources */,
 				0E09EAC51C4426470058F2D8 /* WMFHistoryTableViewController.m in Sources */,
+				B0F7CB581C8A89EA00996DE0 /* WelcomeIntroductionAnimationView.swift in Sources */,
 				B0E806691C0CE9030065EBC0 /* LoginTokenFetcher.m in Sources */,
 				BCB00EC41C84FE950070E220 /* MTLValueTransformer+WMFColorTransformer.m in Sources */,
 				0E09EAC31C4426470058F2D8 /* WMFSearchResultsTableViewController.m in Sources */,
@@ -5811,6 +5833,7 @@
 				B0E803311C0CD6F20065EBC0 /* WMFExploreSectionFooter.m in Sources */,
 				0E78419C1C7CF5CE004F9D36 /* NSDate+WMFRelativeDate.m in Sources */,
 				B0E804BB1C0CE0B40065EBC0 /* CIContext+WMFImageProcessing.m in Sources */,
+				B0F7CB561C8A89E300996DE0 /* WelcomeAnalyticsAnimationView.swift in Sources */,
 				B0E8065C1C0CE84B0065EBC0 /* WikiTextSectionUploader.m in Sources */,
 				B0AB163D1C7E742F002E566A /* UIButton+WMFWelcomeNextButton.m in Sources */,
 				B0E805531C0CE0DC0065EBC0 /* UIView+ConstraintsScale.m in Sources */,
@@ -5921,6 +5944,7 @@
 				B0E804DE1C0CE0B40065EBC0 /* NSURL+WMFExtras.m in Sources */,
 				B0E8036F1C0CD99A0065EBC0 /* WMFTableOfContentsPresentationController.swift in Sources */,
 				BCA15B011C0E896700D0A3EA /* WMFModalArticleImageGalleryDataSource.m in Sources */,
+				B0F7CB541C8A895600996DE0 /* WelcomeAnimationShapeLayers.swift in Sources */,
 				B0E806361C0CE7680065EBC0 /* WMFApiJsonResponseSerializer.m in Sources */,
 				B0E807111C0CEBF00065EBC0 /* WebViewController.m in Sources */,
 				B0E8037F1C0CD9EE0065EBC0 /* MWKSection+TOCItem.swift in Sources */,
