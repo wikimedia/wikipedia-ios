@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite) MWKSite* site;
 @property (nonatomic, strong, readwrite) NSDate* date;
 @property (nonatomic, strong, readonly) NSString* localDateDisplayString;
+@property (nonatomic, strong, readonly) NSString* localDateShortDisplayString;
 
 @property (nonatomic, strong, nullable, readwrite) WMFMostReadTitlesResponseItem* mostReadArticlesResponse;
 @property (nonatomic, strong, nullable, readwrite) NSArray<MWKSearchResult*>* previews;
@@ -44,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation WMFMostReadSectionController
 @synthesize localDateDisplayString = _localDateDisplayString;
+@synthesize localDateShortDisplayString = _localDateShortDisplayString;
 
 - (instancetype)initWithDate:(NSDate*)date site:(MWKSite*)site dataStore:(MWKDataStore*)dataStore {
     self = [super initWithDataStore:dataStore];
@@ -81,6 +83,14 @@ NS_ASSUME_NONNULL_BEGIN
             [[NSDateFormatter wmf_utcDayNameMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
     }
     return _localDateDisplayString;
+}
+
+- (NSString*)localDateShortDisplayString {
+    if (!_localDateShortDisplayString) {
+        _localDateShortDisplayString =
+        [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:self.date];
+    }
+    return _localDateShortDisplayString;
 }
 
 /**
@@ -159,7 +169,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Footer
 
 - (NSString*)footerText {
-    return MWLocalizedString(@"explore-most-read-footer", nil);
+    return
+    [MWLocalizedString(@"explore-most-read-footer-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                            withString:self.localDateShortDisplayString];
 }
 
 - (UIViewController*)moreViewController {
