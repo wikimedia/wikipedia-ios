@@ -438,3 +438,4 @@
 "explore-most-read-heading" = "Top read on $1 Wikipedia";
 "explore-most-read-footer" = "All top read articles";
 "explore-most-read-more-list-title" = "Top articles";
+"explore-most-read-more-list-title-for-date" = "Top on $1";

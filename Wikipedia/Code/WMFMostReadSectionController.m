@@ -165,6 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIViewController*)moreViewController {
     return [[WMFMostReadListTableViewController alloc] initWithPreviews:self.previews
                                                                fromSite:self.site
+                                                                forDate:self.date
                                                               dataStore:self.dataStore];
 }
 
