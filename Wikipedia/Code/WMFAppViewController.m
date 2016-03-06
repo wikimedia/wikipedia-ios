@@ -178,13 +178,16 @@ static NSTimeInterval const WMFTimeBeforeRefreshingExploreScreen = 24 * 60 * 60;
         if ([[NSProcessInfo processInfo] wmf_isOperatingSystemMajorVersionAtLeast:9]) {
             self.spotlightManager = [[WMFSavedPageSpotlightManager alloc] initWithDataStore:self.session.dataStore];
         }
-        [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+        dispatchOnMainQueueAfterDelayInSeconds(0.35, ^{ //HAX: fix for "Unbalanced calls to begin/end appearance transitions" warning
             @strongify(self)
-            [self loadMainUI];
-            [self hideSplashViewAnimated:!didShowOnboarding];
-            [self resumeApp];
-            [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
-        }];
+            [self presentOnboardingIfNeededWithCompletion:^(BOOL didShowOnboarding) {
+                @strongify(self)
+                [self loadMainUI];
+                [self hideSplashViewAnimated:!didShowOnboarding];
+                [self resumeApp];
+                [[PiwikTracker wmf_configuredInstance] wmf_logView:[self rootViewControllerForTab:WMFAppTabTypeExplore]];
+            }];
+        });
     }];
 }
 
