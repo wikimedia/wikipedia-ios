@@ -8,19 +8,29 @@
 
 #import "WMFMostReadListTableViewController.h"
 #import "WMFMostReadListDataSource.h"
+#import "NSDateFormatter+WMFExtensions.h"
 
 @implementation WMFMostReadListTableViewController
 
 - (instancetype)initWithPreviews:(NSArray<MWKSearchResult*>*)previews
                         fromSite:(MWKSite*)site
+                         forDate:(NSDate*)date
                        dataStore:(MWKDataStore*)dataStore {
     self = [super init];
     if (self) {
         self.dataSource = [[WMFMostReadListDataSource alloc] initWithPreviews:previews fromSite:site];
         self.dataStore  = dataStore;
-        self.title      = MWLocalizedString(@"explore-most-read-more-list-title", nil);
+        self.title      = [self titleForDate:date];
     }
     return self;
+}
+
+- (NSString*)titleForDate:(NSDate*)date {
+    return
+    [MWLocalizedString(@"explore-most-read-more-list-title-for-date", nil) stringByReplacingOccurrencesOfString:@"$1"
+                                                                                                    withString:
+     [[NSDateFormatter wmf_utcShortDayNameShortMonthNameDayOfMonthNumberDateFormatter] stringFromDate:date]
+     ];
 }
 
 - (void)viewDidLoad {
