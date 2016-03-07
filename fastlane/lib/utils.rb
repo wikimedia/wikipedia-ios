@@ -24,7 +24,7 @@ end
 # Create a string of the build number with a "b" to denote beta status
 # Must be invoked w/in fastlane
 def get_beta_build_number
-  number = (get_build_number + 1)
+  number = (get_build_number.to_i + 1)
   "#{number}b"
 end
 
