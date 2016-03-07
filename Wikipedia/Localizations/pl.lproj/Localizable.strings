@@ -110,6 +110,7 @@
 "search-recent-clear-delete-all" = "Usuń wszystko";
 "search-result-redirected-from" = "Przekierowanie z: $1";
 "settings-title" = "Ustawienia";
+"settings-language" = "Język Wikipedii";
 "settings-support" = "Wspomóż Wikimedię";
 "main-menu-title" = "Więcej";
 "main-menu-heading-about" = "O aplikacji";
@@ -202,6 +203,7 @@
 "about-libraries-licenses" = "Licencje";
 "about-content-license-details" = "O ile nie zaznaczono inaczej, treść jest dostępna na licencji $1.";
 "about-content-license-details-share-alike-license" = "Licencja Creative Commons Uznanie autorstwa-Na tych samych warunkach";
+"about-libraries-complete-list" = "Pełna lista";
 "about-repositories" = "Repozytoria";
 "about-repositories-app-source-license" = "Kod źródłowy dostępny na licencji $1.";
 "about-repositories-app-source-license-mit" = "Licencja MIT";

@@ -14,8 +14,7 @@
 "article-languages-label" = "Valitse kieli";
 "article-languages-cancel" = "Peruuta";
 "article-languages-downloading" = "Ladataan artikkelin kieliä...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Kielisuodatin";
+"article-languages-filter-placeholder" = "Löydä kieli";
 "article-read-more-title" = "Lue lisää";
 "article-about-title" = "Tietoja tästä artikkelista";
 "article-unable-to-load-section" = "Tämän osion lataaminen ei onnistu. Yritä päivittää artikkeli nähdäksesi josko se korjaa ongelman.";
@@ -109,6 +108,7 @@
 "search-recent-clear-delete-all" = "Poista kaikki";
 "search-result-redirected-from" = "Ohjattu sivulta: $1";
 "settings-title" = "Asetukset";
+"settings-language" = "Wikipedian kieli";
 "settings-support" = "Tue Wikipediaa";
 "main-menu-title" = "Lisää";
 "main-menu-heading-about" = "Tietoja";
@@ -215,6 +215,7 @@
 "share-menu-page-saved-access" = "Vihje: Päästäksesi tallentamillesi sivuille näpäytä kuvaketta $1 tai paina pitkään kuvaketta $2.";
 "share-custom-menu-item" = "Jaa";
 "share-a-fact-share-menu-item" = "Jaa fakta";
+"share-on-twitter-sign-off" = "@Wikipedia'n kautta";
 "share-article-name-on-wikipedia" = "\"$1\" @Wikipedia'ssa:";
 "share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia'ssa: \"$2\"";
 "share-as-image" = "Jaa kuvana";
@@ -338,8 +339,7 @@
 "welcome-volunteer-thanks" = "$1 Kiitos!";
 "empty-no-feed-title" = "Ei Internet-yhteyttä";
 "empty-no-feed-message" = "Näet suositellut artikkelisi kun sinulla on Internet-yhteys";
-// Fuzzy
-"empty-no-feed-action-message" = "Voit lukea tallennettuja sivuja sillä välin";
+"empty-no-feed-action-message" = "Voit silti lukea tallennettuja sivuja";
 "empty-no-article-message" = "Pahoittelut, artikkelia ei voitu ladata";
 "empty-no-search-results-message" = "Tuloksia ei löytynyt";
 "empty-no-saved-pages-title" = "Ei tallennettuja sivua vielä";
@@ -357,3 +357,4 @@
 "explore-random-article-heading" = "Satunnainen artikkeli";
 "explore-random-article-sub-heading" = "Englanninkielinen Wikipedia";
 "explore-potd-heading" = "Päivän kuva";
+"explore-most-read-more-list-title" = "Huippuartikkelit";

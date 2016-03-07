@@ -19,8 +19,7 @@
 "article-languages-label" = "انتخاب زبان";
 "article-languages-cancel" = "لغو";
 "article-languages-downloading" = "در حال بارگیری زبان‌های مقاله...";
-// Fuzzy
-"article-languages-filter-placeholder" = "پالایه زبان";
+"article-languages-filter-placeholder" = "یافتن زبان";
 "article-read-more-title" = "بیشتر بخوانید";
 "article-about-title" = "دربارهٔ این مقاله";
 "article-unable-to-load-section" = "امکان بارگیری این بخش وجود ندارد. برای رفع مشکل صفحه را تازه کنید.";
@@ -114,6 +113,7 @@
 "search-recent-clear-delete-all" = "حذف همه";
 "search-result-redirected-from" = "تغییرمسیر از: $1";
 "settings-title" = "تنظیمات";
+"settings-language" = "زبان ویکی‌پدیا";
 "settings-support" = "حمایت از ویکی‌پدیا";
 "settings-language-bar" = "نمایش زبان در جستجو";
 "main-menu-title" = "بیشتر";
@@ -352,8 +352,9 @@
 "welcome-explore-sub-title" = "روش جدید برای پیدا کردن روزانهٔ مقالات جذاب";
 "welcome-explore-tell-me-more" = "به من بیشتر بگو";
 "welcome-explore-tell-me-more-about-explore" = "بیشتر در مورد کاوش";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "زمانی که شما یک مقاله را مشاهده می‌کنید مقاله به صورت خودکار به فهرست کاوش شما افزوده می‌شود. این مورد به روش جمع‌آوری اطلاعات شما توسط ما کاری ندارد و تاریخچهٔ مشاهدات شما به صورت خصوصی باقی می‌ماند.";
+"welcome-explore-tell-me-more-details" = "زمانی که شما یک مقاله را مطالعه می‌کنید مقاله به صورت خودکار به فهرست کاوش شما افزوده می‌شود. این مورد به روش جمع‌آوری اطلاعات شما توسط ما کاری ندارد و تاریخچهٔ مشاهدات شما به صورت خصوصی باقی می‌ماند.";
+"welcome-explore-tell-me-more-related" = "فیدهای کاوش مقالات مرتبط با مقاله‌ای که مطالعه کرده‌اید را به شما نمایش می‌دهد.";
+"welcome-explore-tell-me-more-privacy" = "هیچ فهرست یا داده‌ای از مطالعات و اطلاعات شما بر روی سرورهای ما ذخیره نمی‌شود.";
 "welcome-explore-tell-me-more-done-button" = "گرفتم";
 "welcome-explore-continue-button" = "شروع شد";
 "welcome-languages-title" = "زبان‌ها";
@@ -367,8 +368,7 @@
 "welcome-volunteer-thanks" = "$1 متشکریم!";
 "empty-no-feed-title" = "عدم اتصال به اینترنت";
 "empty-no-feed-message" = "زمانی که به اینترنت متصل باشید می‌توانید مقالات پیشنهادی را مشاهده کنید.";
-// Fuzzy
-"empty-no-feed-action-message" = "فعلا می توانید صفحه‌های ذخیره شده را مطالعه کنید";
+"empty-no-feed-action-message" = "فعلاً می توانید صفحه‌های ذخیره شده را مطالعه کنید";
 "empty-no-article-message" = "متاسفانه امکان بارگیری مقاله نیست";
 "empty-no-search-results-message" = "نتیجه‌ای یافت نشد";
 "empty-no-saved-pages-title" = "هنوز صفحه‌ای ذخیره نشده‌است";
@@ -385,8 +385,7 @@
 "compass-direction" = "در ساعت $1";
 "explore-featured-article-heading" = "مقالهٔ برگزیده";
 "explore-continue-reading-heading" = "ادامه دادن به خواندن";
-// Fuzzy
-"explore-nearby-heading" = "مکان های نزدیک";
+"explore-nearby-heading" = "مکان‌های نزدیک";
 "explore-continue-related-heading" = "چون شما مطالعه می‌کنید";
 "explore-main-page-heading" = "امروز در ویکی‌پدیا";
 "explore-random-article-heading" = "مقاله تصادفی";
@@ -394,5 +393,4 @@
 "explore-potd-heading" = "نگارهٔ برگزیدهٔ روز";
 "explore-most-read-heading" = "برای مطالعه در ویکی‌پدیای $1";
 "explore-most-read-footer" = "همهٔ مقالاتی که بیشترین بازدید را داشتند";
-// Fuzzy
-"explore-most-read-more-list-title" = "مقالات بیشتر خوانده شده";
+"explore-most-read-more-list-title" = "بالاترین مقالات";
