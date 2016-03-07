@@ -26,6 +26,35 @@ platform :ios do
     )
   end
 
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :testAndPushToBetaBranch do
+    verifyTestPlatforms
+    bumpAndTagBeta
+  end
+
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :submitAndPushToMaster do
+    bumpAndTagRelease
+    store
+  end
+
+  desc "Runs tests on the primary platforms and configurations"
+  lane :verifyTestPlatforms do
+    verify(
+     sim_os: 8.4,
+     scheme: "WikipediaRTL"
+    )
+    verify(
+     sim_os: 8.4
+    )
+    verify(
+     scheme: "WikipediaRTL"
+    )
+    verify(
+     junit: true
+    )
+  end
+
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
@@ -52,25 +81,43 @@ platform :ios do
     if opt_build_num then
       increment_build_number(build_number: opt_build_num.to_i)
     else
-      increment_build_number
+      increment_build_number(build_number: get_beta_build_number)
     end
     get_version_string
   end
 
-  desc "Increment the app's build number, add a tag, and push to the repo."
-  lane :bumpAndTag do |options|
+  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
+  lane :bumpAndTagBeta do |options|
     sh "git fetch"
     sh "git checkout -b beta origin/beta"
 
-    new_version = bump
+    increment_build_number(build_number: get_beta_build_number)
+
+    new_version = get_version_string
     commit_version_bump
 
     tag_name = "betas/#{new_version}"
     add_git_tag(tag: tag_name)
-    
-    push_to_git_remote
 
+    push_to_git_remote
   end
+
+  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
+  lane :bumpAndTagRelease do |options|
+    sh "git fetch"
+    sh "git checkout -b beta origin/master"
+
+    increment_build_number(build_number: get_release_build_number)
+
+    new_version = get_version_string
+    commit_version_bump
+
+    tag_name = "releases/#{new_version}"
+    add_git_tag(tag: tag_name)
+
+    push_to_git_remote
+  end
+
 
   desc "Returns a default changelog."
   lane :default_changelog do
@@ -146,12 +193,6 @@ platform :ios do
       distribute_external: false
     )
 
-    new_version = get_version_string
-    tag_name = "releases/#{new_version}"
-
-    # all goes well, tag the new version on git
-    add_git_tag(tag: tag_name)
-    push_git_tags
   end
 
 
