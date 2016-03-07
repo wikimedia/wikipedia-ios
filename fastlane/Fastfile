@@ -27,9 +27,10 @@ platform :ios do
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
-  lane :testAndPushToBetaBranch do
+  lane :testAndPushBeta do
     verifyTestPlatforms
     bumpAndTagBeta
+    beta
   end
 
   desc "Runs tests, version, tag, and push to the beta branch"
