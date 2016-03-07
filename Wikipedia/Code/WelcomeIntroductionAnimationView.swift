@@ -28,7 +28,7 @@ public class WelcomeIntroAnimationView : UIView {
 
         let tubeRotationPoint = CGPointMake(0.576, 0.38)
 
-        let initialTubeRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(-25.0)
+        let initialTubeRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(0.0)
         
         let rectCorrectingForRotation = CGRectMake(
             self.bounds.origin.x - (self.bounds.size.width * (0.5 - tubeRotationPoint.x)),
@@ -119,19 +119,19 @@ public class WelcomeIntroAnimationView : UIView {
     public func beginAnimations() {
         CATransaction.begin()
         
-        let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(10.0)
-        let tubeFinalRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(5.0)
+        let tubeOvershootRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(15.0)
+        let tubeFinalRotationTransform = CATransform3D.wmf_rotationTransformWithDegrees(-2.0)
 
         tubeImgView.layer.wmf_animateToOpacity(1.0,
             transform:tubeOvershootRotationTransform,
-            delay: 0.4,
-            duration: 1.3
+            delay: 0.8,
+            duration: 0.7
         )
 
         tubeImgView.layer.wmf_animateToOpacity(1.0,
             transform:tubeFinalRotationTransform,
-            delay: 1.75,
-            duration: 1.3
+            delay: 1.5,
+            duration: 0.7
         )
 
         self.solidCircle?.wmf_animateToOpacity(0.09,
