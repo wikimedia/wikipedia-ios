@@ -57,6 +57,21 @@ platform :ios do
     get_version_string
   end
 
+  desc "Increment the app's build number, add a tag, and push to the repo."
+  lane :bumpAndTag do |options|
+    sh "git fetch"
+    sh "git checkout -b beta origin/beta"
+
+    new_version = bump
+    commit_version_bump
+
+    tag_name = "betas/#{new_version}"
+    add_git_tag(tag: tag_name)
+    
+    push_to_git_remote
+
+  end
+
   desc "Returns a default changelog."
   lane :default_changelog do
     changelog = changelog_from_git_commits(
@@ -71,8 +86,7 @@ platform :ios do
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
-  lane :alpha do
-    new_version = bump
+  lane :beta do
 
     sigh(
       adhoc: false,
@@ -101,11 +115,6 @@ platform :ios do
       distribute_external: false
     )
 
-    tag_name = "alphas/#{new_version}"
-
-    # all goes well, tag the new version on git
-    add_git_tag(tag: tag_name)
-    sh "git push origin #{tag_name}"
   end
 
   desc "Submit a new App Store release candidate Apple TestFlight for internal testing."
@@ -138,13 +147,13 @@ platform :ios do
     )
 
     new_version = get_version_string
-
     tag_name = "releases/#{new_version}"
 
     # all goes well, tag the new version on git
     add_git_tag(tag: tag_name)
-    sh "git push origin #{tag_name}"
+    push_git_tags
   end
+
 
   desc "Upload a developer build to Hockey."
   lane :dev do
