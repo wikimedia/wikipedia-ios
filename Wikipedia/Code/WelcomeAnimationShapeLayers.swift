@@ -34,7 +34,7 @@ public class WelcomeBarShapeLayer : WelcomeShapeLayer {
         
     }
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
+        super.init(coder: aDecoder)
     }
     public required init() {
         super.init()
@@ -65,7 +65,7 @@ public class WelcomeCircleShapeLayer : WelcomeShapeLayer {
         
     }
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
+        super.init(coder: aDecoder)
     }
     public required init() {
         super.init()
@@ -87,7 +87,7 @@ public class WelcomePlusShapeLayer : WelcomeShapeLayer {
 
     }
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
+        super.init(coder: aDecoder)
     }
     public required init() {
         super.init()
@@ -107,7 +107,7 @@ public class WelcomeLineShapeLayer : WelcomeShapeLayer {
         
     }
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder);
+        super.init(coder: aDecoder)
     }
     public required init() {
         super.init()

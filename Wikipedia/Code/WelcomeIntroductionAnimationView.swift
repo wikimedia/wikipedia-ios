@@ -1,6 +1,6 @@
 import Foundation
 
-public class WelcomeIntroAnimationView : UIView {
+public class WelcomeIntroAnimationView : WelcomeAnimationView {
 
     var tubeImgView: UIImageView
     var dashedCircle: WelcomeCircleShapeLayer?
@@ -21,9 +21,9 @@ public class WelcomeIntroAnimationView : UIView {
 
         let baseImgView = UIImageView(frame: self.bounds)
         baseImgView.image = UIImage(named: "ftux-telescope-base")
-        baseImgView.contentMode = UIViewContentMode.ScaleAspectFit;
+        baseImgView.contentMode = UIViewContentMode.ScaleAspectFit
         baseImgView.layer.zPosition = 101
-        baseImgView.layer.transform = CATransform3DIdentity;
+        baseImgView.layer.transform = CATransform3DIdentity
         self.addSubview(baseImgView)
 
         let tubeRotationPoint = CGPointMake(0.576, 0.38)
@@ -39,23 +39,18 @@ public class WelcomeIntroAnimationView : UIView {
         
         tubeImgView.frame = rectCorrectingForRotation
         tubeImgView.image = UIImage(named: "ftux-telescope-tube")
-        tubeImgView.contentMode = UIViewContentMode.ScaleAspectFit;
+        tubeImgView.contentMode = UIViewContentMode.ScaleAspectFit
         tubeImgView.layer.zPosition = 101
-        tubeImgView.layer.transform = initialTubeRotationTransform;
+        tubeImgView.layer.transform = initialTubeRotationTransform
         tubeImgView.layer.anchorPoint = tubeRotationPoint
         self.addSubview(tubeImgView)
-
-        let horizontalOffset = CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.width)
-        let scaleZeroTransform = CATransform3DMakeScale(0, 0, 1)
-        let rightTransform = CATransform3DMakeTranslation(horizontalOffset, 0, 0)
-        let linesTransform: CATransform3D  = CATransform3DConcat(scaleZeroTransform, rightTransform)
         
         self.solidCircle = WelcomeCircleShapeLayer(
             unitRadius: 0.32,
             unitOrigin: CGPointMake(0.625, 0.55),
             referenceSize: self.frame.size,
             isDashed: false,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity:0.0
         )
         self.layer.addSublayer(self.solidCircle!)
@@ -65,7 +60,7 @@ public class WelcomeIntroAnimationView : UIView {
             unitOrigin: CGPointMake(0.521, 0.531),
             referenceSize: self.frame.size,
             isDashed: true,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity:0.0
         )
         self.layer.addSublayer(self.dashedCircle!)
@@ -74,7 +69,7 @@ public class WelcomeIntroAnimationView : UIView {
             unitOrigin: CGPointMake(0.033, 0.219),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus1!)
@@ -83,7 +78,7 @@ public class WelcomeIntroAnimationView : UIView {
             unitOrigin: CGPointMake(0.11, 0.16),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus2!)
@@ -92,7 +87,7 @@ public class WelcomeIntroAnimationView : UIView {
             unitOrigin: CGPointMake(0.91, 0.778),
             unitWidth: 0.144,
             referenceSize: self.frame.size,
-            transform: linesTransform,
+            transform: self.wmf_scaleZeroAndRightTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line1!)
@@ -101,7 +96,7 @@ public class WelcomeIntroAnimationView : UIView {
             unitOrigin: CGPointMake(0.836, 0.81),
             unitWidth: 0.06,
             referenceSize: self.frame.size,
-            transform: linesTransform,
+            transform: self.wmf_scaleZeroAndRightTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line2!)
@@ -110,7 +105,7 @@ public class WelcomeIntroAnimationView : UIView {
             unitOrigin: CGPointMake(0.907, 0.81),
             unitWidth: 0.0125,
             referenceSize: self.frame.size,
-            transform: linesTransform,
+            transform: self.wmf_scaleZeroAndRightTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line3!)

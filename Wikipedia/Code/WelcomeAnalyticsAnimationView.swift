@@ -1,6 +1,6 @@
 import Foundation
 
-public class WelcomeAnalyticsAnimationView : UIView {
+public class WelcomeAnalyticsAnimationView : WelcomeAnimationView {
 
     var fileImgView: UIImageView
     var bar1: WelcomeBarShapeLayer?
@@ -27,56 +27,50 @@ public class WelcomeAnalyticsAnimationView : UIView {
     override public func didMoveToSuperview() {
         super.didMoveToSuperview()
 
-        let horizontalOffset = CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.width)
-        let leftTransform = CATransform3DMakeTranslation(-horizontalOffset, 0, 0)
-        let rightTransform = CATransform3DMakeTranslation(horizontalOffset, 0, 0)
-        let scaleZeroTransform = CATransform3DMakeScale(0, 0, 1)
-        let squashedHeightTransform = CATransform3DMakeScale(1, 0, 1)
-        let linesLeftTransform: CATransform3D  = CATransform3DConcat(scaleZeroTransform, rightTransform)
-        let linesRightTransform: CATransform3D  = CATransform3DConcat(scaleZeroTransform, leftTransform)
-
         fileImgView.frame = self.bounds
         fileImgView.image = UIImage(named: "ftux-file")
-        fileImgView.contentMode = UIViewContentMode.ScaleAspectFit;
+        fileImgView.contentMode = UIViewContentMode.ScaleAspectFit
         fileImgView.layer.zPosition = 101
         fileImgView.layer.opacity = 0
-        fileImgView.layer.transform = leftTransform;
+        fileImgView.layer.transform = self.wmf_leftTransform
         self.addSubview(fileImgView)
         
+        let squashedHeightBarTransform = CATransform3DMakeScale(1, 0, 1)
+
         // Reminder: no need to start bars with opacity 0 because fileImgView, to which the bars are added, already
         // fades from 0 to 1 opacity
         bar1 = WelcomeBarShapeLayer(
             unitRect: CGRectMake(0.313, 0.64, 0.039, 0.18),
             referenceSize:self.frame.size,
-            transform: squashedHeightTransform
+            transform: squashedHeightBarTransform
         )
         fileImgView.layer.addSublayer(bar1!)
 
         bar2 = WelcomeBarShapeLayer(
             unitRect: CGRectMake(0.383, 0.64, 0.039, 0.23),
             referenceSize:self.frame.size,
-            transform: squashedHeightTransform
+            transform: squashedHeightBarTransform
         )
         fileImgView.layer.addSublayer(bar2!)
 
         bar3 = WelcomeBarShapeLayer(
             unitRect: CGRectMake(0.453, 0.64, 0.039, 0.06),
             referenceSize:self.frame.size,
-            transform: squashedHeightTransform
+            transform: squashedHeightBarTransform
         )
         fileImgView.layer.addSublayer(bar3!)
 
         bar4 = WelcomeBarShapeLayer(
             unitRect: CGRectMake(0.523, 0.64, 0.039, 0.12),
             referenceSize:self.frame.size,
-            transform: squashedHeightTransform
+            transform: squashedHeightBarTransform
         )
         fileImgView.layer.addSublayer(bar4!)
 
         bar5 = WelcomeBarShapeLayer(
             unitRect: CGRectMake(0.593, 0.64, 0.039, 0.15),
             referenceSize:self.frame.size,
-            transform: squashedHeightTransform
+            transform: squashedHeightBarTransform
         )
         fileImgView.layer.addSublayer(bar5!)
 
@@ -93,7 +87,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.654, 0.41),
             referenceSize: self.frame.size,
             isDashed: false,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity:0.0
         )
         self.layer.addSublayer(self.solidCircle!)
@@ -103,7 +97,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.61, 0.44),
             referenceSize: self.frame.size,
             isDashed: true,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity:0.0
         )
         self.layer.addSublayer(self.dashedCircle!)
@@ -112,7 +106,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.9, 0.222),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus1!)
@@ -121,7 +115,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.832, 0.167),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus2!)
@@ -130,7 +124,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.82, 0.778),
             unitWidth: 0.125,
             referenceSize: self.frame.size,
-            transform: linesLeftTransform,
+            transform: self.wmf_scaleZeroAndRightTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line1!)
@@ -139,7 +133,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.775, 0.736),
             unitWidth: 0.127,
             referenceSize: self.frame.size,
-            transform: linesLeftTransform,
+            transform: self.wmf_scaleZeroAndRightTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line2!)
@@ -148,7 +142,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.233, 0.385),
             unitWidth: 0.043,
             referenceSize: self.frame.size,
-            transform: linesRightTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line3!)
@@ -157,7 +151,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.17, 0.385),
             unitWidth: 0.015,
             referenceSize: self.frame.size,
-            transform: linesRightTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line4!)
@@ -166,7 +160,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.11, 0.427),
             unitWidth: 0.043,
             referenceSize: self.frame.size,
-            transform: linesRightTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line5!)
@@ -175,7 +169,7 @@ public class WelcomeAnalyticsAnimationView : UIView {
             unitOrigin: CGPointMake(0.173, 0.427),
             unitWidth: 0.015,
             referenceSize: self.frame.size,
-            transform: linesRightTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line6!)
@@ -197,9 +191,10 @@ public class WelcomeAnalyticsAnimationView : UIView {
         )
 
         var barIndex = 0
+        let fullHeightBarTransform = CATransform3DMakeScale(1, -1, 1) // -1 to flip Y so bars grow from bottom up.
         let animateBarGrowingUp = { (layer: CALayer) -> () in
             layer.wmf_animateToOpacity(1.0,
-                transform: CATransform3DMakeScale(1, -1, 1), // -1 to flip Y so bars grow from bottom up.
+                transform: fullHeightBarTransform,
                 delay: (0.3 + (Double(barIndex) * 0.1)),
                 duration: 0.3
             )

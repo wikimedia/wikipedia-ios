@@ -1,6 +1,6 @@
 import Foundation
 
-public class WelcomeLanguagesAnimationView : UIView {
+public class WelcomeLanguagesAnimationView : WelcomeAnimationView {
 
     var bubbleLeftImgView: UIImageView
     var bubbleRightImgView: UIImageView
@@ -21,28 +21,21 @@ public class WelcomeLanguagesAnimationView : UIView {
     
     override public func didMoveToSuperview() {
         super.didMoveToSuperview()
-
-        let horizontalOffset = CGFloat(0.35).wmf_denormalizeUsingReference(self.frame.width)
-        let scaleZeroTransform = CATransform3DMakeScale(0, 0, 1)
-        let leftTransform = CATransform3DMakeTranslation(-horizontalOffset, 0, 0)
-        let lowerLeftTransform = CATransform3DMakeTranslation(-horizontalOffset, horizontalOffset, 0)
-        let lowerRightTransform = CATransform3DMakeTranslation(horizontalOffset, horizontalOffset, 0)
-        let linesTransform: CATransform3D  = CATransform3DConcat(scaleZeroTransform, leftTransform)
         
         bubbleLeftImgView.frame = self.bounds
         bubbleLeftImgView.image = UIImage(named: "ftux-left-bubble")
-        bubbleLeftImgView.contentMode = UIViewContentMode.ScaleAspectFit;
+        bubbleLeftImgView.contentMode = UIViewContentMode.ScaleAspectFit
         bubbleLeftImgView.layer.zPosition = 102
         bubbleLeftImgView.layer.opacity = 0
-        bubbleLeftImgView.layer.transform = CATransform3DConcat(scaleZeroTransform, lowerLeftTransform);
+        bubbleLeftImgView.layer.transform = self.wmf_scaleZeroAndLowerLeftTransform
         self.addSubview(bubbleLeftImgView)
 
         bubbleRightImgView.frame = self.bounds
         bubbleRightImgView.image = UIImage(named: "ftux-right-bubble")
-        bubbleRightImgView.contentMode = UIViewContentMode.ScaleAspectFit;
+        bubbleRightImgView.contentMode = UIViewContentMode.ScaleAspectFit
         bubbleRightImgView.layer.zPosition = 101
         bubbleRightImgView.layer.opacity = 0
-        bubbleRightImgView.layer.transform = CATransform3DConcat(scaleZeroTransform, lowerRightTransform);
+        bubbleRightImgView.layer.transform = self.wmf_scaleZeroAndLowerRightTransform
         self.addSubview(bubbleRightImgView)
 
         self.solidCircle = WelcomeCircleShapeLayer(
@@ -50,7 +43,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.39, 0.5),
             referenceSize: self.frame.size,
             isDashed: false,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity:0.0
         )
         self.layer.addSublayer(self.solidCircle!)
@@ -60,7 +53,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.508, 0.518),
             referenceSize: self.frame.size,
             isDashed: true,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity:0.0
         )
         self.layer.addSublayer(self.dashedCircle!)
@@ -69,7 +62,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.825, 0.225),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus1!)
@@ -78,7 +71,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.755, 0.17),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus2!)
@@ -87,7 +80,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.112, 0.353),
             unitWidth: 0.05,
             referenceSize: self.frame.size,
-            transform: scaleZeroTransform,
+            transform: self.wmf_scaleZeroTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.plus3!)
@@ -96,7 +89,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.845, 0.865),
             unitWidth: 0.135,
             referenceSize: self.frame.size,
-            transform: linesTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line1!)
@@ -105,7 +98,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.255, 0.162),
             unitWidth: 0.135,
             referenceSize: self.frame.size,
-            transform: linesTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line2!)
@@ -114,7 +107,7 @@ public class WelcomeLanguagesAnimationView : UIView {
             unitOrigin: CGPointMake(0.205, 0.127),
             unitWidth: 0.135,
             referenceSize: self.frame.size,
-            transform: linesTransform,
+            transform: self.wmf_scaleZeroAndLeftTransform,
             opacity: 0.0
         )
         self.layer.addSublayer(self.line3!)
