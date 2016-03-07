@@ -26,6 +26,36 @@ platform :ios do
     )
   end
 
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :testAndPushBeta do
+    verifyTestPlatforms
+    bumpAndTagBeta
+    beta
+  end
+
+  desc "Runs tests, version, tag, and push to the beta branch"
+  lane :submitAndPushToMaster do
+    bumpAndTagRelease
+    store
+  end
+
+  desc "Runs tests on the primary platforms and configurations"
+  lane :verifyTestPlatforms do
+    verify(
+     sim_os: 8.4,
+     scheme: "WikipediaRTL"
+    )
+    verify(
+     sim_os: 8.4
+    )
+    verify(
+     scheme: "WikipediaRTL"
+    )
+    verify(
+     junit: true
+    )
+  end
+
   desc "Runs unit tests, optionally generating a JUnit report."
   lane :verify do |options|
     scheme = options[:scheme] || 'Wikipedia'
@@ -52,10 +82,43 @@ platform :ios do
     if opt_build_num then
       increment_build_number(build_number: opt_build_num.to_i)
     else
-      increment_build_number
+      increment_build_number(build_number: get_beta_build_number)
     end
     get_version_string
   end
+
+  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
+  lane :bumpAndTagBeta do |options|
+    sh "git fetch"
+    sh "git checkout -b beta origin/beta"
+
+    increment_build_number(build_number: get_beta_build_number)
+
+    new_version = get_version_string
+    commit_version_bump
+
+    tag_name = "betas/#{new_version}"
+    add_git_tag(tag: tag_name)
+
+    push_to_git_remote
+  end
+
+  desc "Increment the app's beta build number, add a tag, and push to the beta branch."
+  lane :bumpAndTagRelease do |options|
+    sh "git fetch"
+    sh "git checkout -b beta origin/master"
+
+    increment_build_number(build_number: get_release_build_number)
+
+    new_version = get_version_string
+    commit_version_bump
+
+    tag_name = "releases/#{new_version}"
+    add_git_tag(tag: tag_name)
+
+    push_to_git_remote
+  end
+
 
   desc "Returns a default changelog."
   lane :default_changelog do
@@ -71,8 +134,7 @@ platform :ios do
   end
 
   desc "Submit a new **Wikipedia Beta** build to Apple TestFlight for internal testing."
-  lane :alpha do
-    new_version = bump
+  lane :beta do
 
     sigh(
       adhoc: false,
@@ -101,11 +163,6 @@ platform :ios do
       distribute_external: false
     )
 
-    tag_name = "alphas/#{new_version}"
-
-    # all goes well, tag the new version on git
-    add_git_tag(tag: tag_name)
-    sh "git push origin #{tag_name}"
   end
 
   desc "Submit a new App Store release candidate Apple TestFlight for internal testing."
@@ -137,14 +194,8 @@ platform :ios do
       distribute_external: false
     )
 
-    new_version = get_version_string
-
-    tag_name = "releases/#{new_version}"
-
-    # all goes well, tag the new version on git
-    add_git_tag(tag: tag_name)
-    sh "git push origin #{tag_name}"
   end
+
 
   desc "Upload a developer build to Hockey."
   lane :dev do
