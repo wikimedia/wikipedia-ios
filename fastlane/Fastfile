@@ -96,11 +96,12 @@ platform :ios do
 
     new_version = get_version_string
     commit_version_bump
+    push_to_git_remote
 
     tag_name = "betas/#{new_version}"
     add_git_tag(tag: tag_name)
+    push_git_tags
 
-    push_to_git_remote
   end
 
   desc "Increment the app's beta build number, add a tag, and push to the beta branch."
@@ -112,11 +113,12 @@ platform :ios do
 
     new_version = get_version_string
     commit_version_bump
+    push_to_git_remote
 
     tag_name = "releases/#{new_version}"
     add_git_tag(tag: tag_name)
-
-    push_to_git_remote
+    push_git_tags
+    
   end
 
 
