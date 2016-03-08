@@ -78,7 +78,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faM-dw-L8V" userLabel="Container view">
                                         <rect key="frame" x="20" y="94" width="280" height="333.5"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-5J-nGL">
+                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0sR-5J-nGL" customClass="WelcomeIntroAnimationView" customModule="Wikipedia" customModuleProvider="target">
                                                 <rect key="frame" x="68.5" y="0.0" width="143" height="143"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -227,7 +227,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="280" height="281"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w9e-2q-iXX">
+                                                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w9e-2q-iXX" customClass="WelcomeLanguagesAnimationView" customModule="Wikipedia" customModuleProvider="target">
                                                     <rect key="frame" x="68.5" y="14" width="143" height="143"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -434,7 +434,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EXr-nK-I6n" userLabel="Container View">
                                         <rect key="frame" x="20" y="60" width="280" height="401"/>
                                         <subviews>
-                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7X-cL-jMB">
+                                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7X-cL-jMB" customClass="WelcomeAnalyticsAnimationView" customModule="Wikipedia" customModuleProvider="target">
                                                 <rect key="frame" x="68.5" y="14" width="143" height="143"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
