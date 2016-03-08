@@ -58,7 +58,18 @@
             NSString* localizedString = stringsDict[key];
             assertThat(localizedString, isNot(stringContainsInOrder(@"<", @">", nil)));
             assertThat(localizedString, isNot(containsSubstring(@"&nbsp")));
-            assertThat(localizedString, isNot(stringContainsInOrder(@"{{", @"}}", nil)));
+        }
+    }
+}
+
+- (void)test_incoming_translation_string_for_bracket_substitutions {
+    for (NSString* lprojFileName in self.lprojFiles) {
+        if (![lprojFileName isEqualToString:@"qqq.lproj"]) {
+            NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+            for (NSString* key in stringsDict) {
+                NSString* localizedString = stringsDict[key];
+                assertThat(localizedString, isNot(stringContainsInOrder(@"{{", @"}}", nil)));
+            }
         }
     }
 }
