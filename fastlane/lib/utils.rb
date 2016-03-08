@@ -21,9 +21,22 @@ def get_version_string
   "#{get_version_number}.#{get_build_number}"
 end
 
+# Create a string of the build number with a "b" to denote beta status
+# Must be invoked w/in fastlane
+def get_beta_build_number
+  number = (get_build_number.to_i + 1)
+  "#{number}b"
+end
+
+# Create a string of the build number without a "b" for release
+# Must be invoked w/in fastlane
+def get_release_build_number
+  number = get_build_number.chomp("b")
+  number
+end
+
 # Parses JSON output of `plutil`
 def info_plist_to_hash(path)
   require 'json'
   JSON.parse! %x[plutil -convert json -o - #{path}]
 end
-
