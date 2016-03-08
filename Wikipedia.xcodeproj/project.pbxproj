@@ -6371,6 +6371,7 @@
 					"FB_REFERENCE_IMAGE_DIR=\\\"\"$(SOURCE_ROOT)/WikipediaUnitTests/ReferenceImages\"\\\"",
 					"MKT_SHORTHAND=1",
 					"HC_SHORTHAND=1",
+					"LOCALIZATIONS_DIR=@\\\"\"$(SOURCE_ROOT)/Wikipedia/Localizations\"\\\"",
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (

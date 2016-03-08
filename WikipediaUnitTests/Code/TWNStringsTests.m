@@ -17,11 +17,15 @@
 - (void)setUp {
     [super setUp];
     self.bundleRoot = [[NSBundle mainBundle] bundlePath];
-    self.lprojFiles = [self getLprogFiles];
+    self.lprojFiles = [self bundledLprogFiles];
 }
 
-- (NSArray*)getLprogFiles {
+- (NSArray*)bundledLprogFiles {
     return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.bundleRoot error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
+}
+
+- (NSArray*)allLprogFiles {
+    return [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:LOCALIZATIONS_DIR error:nil] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"pathExtension='lproj'"]];
 }
 
 - (NSDictionary*)getTranslationStringsDictFromLprogAtPath:(NSString*)lprojPath {
@@ -72,6 +76,17 @@
             }
         }
     }
+}
+
+-(NSArray *)unbundledLprojFiles {
+    NSMutableArray *files = [[self allLprogFiles] mutableCopy];
+    [files removeObjectsInArray:[self bundledLprogFiles]];
+    return files;
+}
+
+- (void)test_all_translated_languages_were_added_to_project_localizations {
+    // These languages will need to get added to the project localizations!
+    assertThat(self.unbundledLprojFiles, isEmpty());
 }
 
 - (void)tearDown {
