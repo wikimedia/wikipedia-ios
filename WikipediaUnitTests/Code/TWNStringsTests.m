@@ -37,7 +37,7 @@
     assertThat(@(self.lprojFiles.count), is(greaterThan(@(0))));
 }
 
-- (void)test_incoming_translation_string_substitution_shortcuts {
+- (void)test_incoming_translation_string_for_reversed_substitution_shortcuts {
     for (NSString* lprojFileName in self.lprojFiles) {
         NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
         for (NSString* key in stringsDict) {
@@ -47,6 +47,16 @@
             assertThat(localizedString, isNot(containsSubstring(@"3$")));
             assertThat(localizedString, isNot(containsSubstring(@"4$")));
             assertThat(localizedString, isNot(containsSubstring(@"5$")));
+        }
+    }
+}
+
+- (void)test_incoming_translation_string_for_html {
+    for (NSString* lprojFileName in self.lprojFiles) {
+        NSDictionary* stringsDict = [self getTranslationStringsDictFromLprogAtPath:[self.bundleRoot stringByAppendingPathComponent:lprojFileName]];
+        for (NSString* key in stringsDict) {
+            NSString* localizedString = stringsDict[key];
+            assertThat(localizedString, isNot(stringContainsInOrder(@"<", @">", nil)));
         }
     }
 }

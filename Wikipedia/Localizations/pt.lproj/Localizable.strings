@@ -341,7 +341,7 @@
 "welcome-explore-tell-me-more" = "Conte-me mais";
 "welcome-explore-tell-me-more-about-explore" = "Mais sobre Explorar";
 // Fuzzy
-"welcome-explore-tell-me-more-details" = "Quando visitar um artigo, os relacionados são automaticamente adicionados ao seu <em>feed</em> Explorar. Isto não muda a forma como recolhemos a sua informação, e o seu histórico de leitura permanece privado.";
+"welcome-explore-tell-me-more-details" = "Quando visitar um artigo, os relacionados são automaticamente adicionados ao seu feed Explorar. Isto não muda a forma como recolhemos a sua informação, e o seu histórico de leitura permanece privado.";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
