@@ -112,6 +112,7 @@
 "search-recent-clear-delete-all" = "すべて削除";
 "search-result-redirected-from" = "$1 から転送されました";
 "settings-title" = "設定";
+"settings-language" = "ウィキペディアの言語";
 "settings-language-bar" = "検索結果に表示する言語";
 "main-menu-title" = "その他";
 "main-menu-heading-about" = "このアプリについて";

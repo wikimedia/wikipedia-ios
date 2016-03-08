@@ -16,8 +16,7 @@
 "article-languages-label" = "Choisir langue";
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtre de langue";
+"article-languages-filter-placeholder" = "Trouver la langue";
 "article-read-more-title" = "En savoir plus";
 "article-about-title" = "À propos de cet article";
 "article-unable-to-load-section" = "Impossible de charger cette section. Essayez de rafraîchir l’article pour voir si cela corrige le problème.";
@@ -111,6 +110,7 @@
 "search-recent-clear-delete-all" = "Supprimer tout";
 "search-result-redirected-from" = "(Redirigé depuis $1)";
 "settings-title" = "Paramètres";
+"settings-language" = "Langue de Wikipédia";
 "settings-support" = "Soutenir Wikipédia";
 "settings-language-bar" = "Afficher les langues dans la recherche";
 "main-menu-title" = "Plus";
@@ -349,8 +349,9 @@
 "welcome-explore-sub-title" = "Une nouvelle manière de découvrir des articles intéressants chaque jour";
 "welcome-explore-tell-me-more" = "M’en dire plus";
 "welcome-explore-tell-me-more-about-explore" = "Davantage au sujet de Explore";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "Quand vous visitez un article, les articles connexes sont automatiquement ajoutés à votre fil Explore. Cela ne change rien à la manière dont nous collectons vos informations, et votre historique de lecture reste privé.";
+"welcome-explore-tell-me-more-details" = "Quand vous lisez un article, les articles connexes sont automatiquement ajoutés à votre fil Explore. Cela ne change rien à la manière dont nous collectons vos informations, et votre historique de lecture reste privé.";
+"welcome-explore-tell-me-more-related" = "Le fil Explore vous montre les articles liés aux articles que vous avez lus.";
+"welcome-explore-tell-me-more-privacy" = "Aucune liste ni profil de lecture ne sont stockés sur nos serveurs.";
 "welcome-explore-tell-me-more-done-button" = "Opter pour";
 "welcome-explore-continue-button" = "Commencer";
 "welcome-languages-title" = "Langues";
@@ -364,8 +365,7 @@
 "welcome-volunteer-thanks" = "$1 Merci !";
 "empty-no-feed-title" = "Pas de connexion à Internet";
 "empty-no-feed-message" = "Vous pouvez voir vos articles recommandés quand vous avez Internet";
-// Fuzzy
-"empty-no-feed-action-message" = "Vous pouvez lire les pages enregistrées entre temps";
+"empty-no-feed-action-message" = "Vous pouvez toujours lire les pages enregistrées";
 "empty-no-article-message" = "Désolé, l'article n'a pas pu être chargé";
 "empty-no-search-results-message" = "Aucun résultat trouvé";
 "empty-no-saved-pages-title" = "Encore aucune page enregistrée";
@@ -382,8 +382,7 @@
 "compass-direction" = "à $1 heures";
 "explore-featured-article-heading" = "Article vedette";
 "explore-continue-reading-heading" = "Continuer à lire";
-// Fuzzy
-"explore-nearby-heading" = "Endroits voisins";
+"explore-nearby-heading" = "Endroits proches";
 "explore-continue-related-heading" = "Parce que vous avez lu";
 "explore-main-page-heading" = "Aujourd’hui sur Wikipédia";
 "explore-random-article-heading" = "Article au hasard";
@@ -391,5 +390,4 @@
 "explore-potd-heading" = "Image du jour";
 "explore-most-read-heading" = "Meilleures lectures sur Wikipédia en $1";
 "explore-most-read-footer" = "Tous les articles les plus lus";
-// Fuzzy
-"explore-most-read-more-list-title" = "Articles les plus lus";
+"explore-most-read-more-list-title" = "Meilleurs articles";

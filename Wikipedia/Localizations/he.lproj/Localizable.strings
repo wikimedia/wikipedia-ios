@@ -11,8 +11,7 @@
 "article-languages-label" = "בחירת שפה";
 "article-languages-cancel" = "ביטול";
 "article-languages-downloading" = "טעינת שפות הערך...";
-// Fuzzy
-"article-languages-filter-placeholder" = "סינון שפה";
+"article-languages-filter-placeholder" = "מציאת שפה";
 "article-read-more-title" = "לקרוא עוד";
 "article-about-title" = "מידע על הערך הזה";
 "article-unable-to-load-section" = "לא ניתן לטעון את הפסקה הזאת. נא לנסות לרענן את הערך כדי לראות אם זה מתקן את הבעיה.";
@@ -106,6 +105,7 @@
 "search-recent-clear-delete-all" = "למחוק הכול";
 "search-result-redirected-from" = "הופנה מהדף: $1";
 "settings-title" = "הגדרות";
+"settings-language" = "שפת הוויקיפדיה";
 "settings-support" = "תמיכה בוויקיפדיה";
 "settings-language-bar" = "הצגת שפות בחיפוש";
 "main-menu-title" = "עוד";
@@ -344,8 +344,9 @@
 "welcome-explore-sub-title" = "דרך חדשה לגלות ערכים מעניינים מדי יום";
 "welcome-explore-tell-me-more" = "ספרו לי עוד";
 "welcome-explore-tell-me-more-about-explore" = "עוד על האפשרות לחקור";
-// Fuzzy
 "welcome-explore-tell-me-more-details" = "בזמן קריאת ערך, ערכים קשורים נוספים באופן אוטומטי להזנת ה\"לחקור\" שלך. זה לא משנה את הצורה שבה אנחנו אוספים את המידע שלך, והיסטוריית הגלישה שלך עדיין פרטית.";
+"welcome-explore-tell-me-more-related" = "הזנת ה\"לחקור\" מציכה לך ערכים שקשורים לערכים שכבר קראת.";
+"welcome-explore-tell-me-more-privacy" = "איננו שומרים שום רשימת קריאה או פרופיל בשרתים שלנו.";
 "welcome-explore-tell-me-more-done-button" = "הבנתי";
 "welcome-explore-continue-button" = "להתחיל";
 "welcome-languages-title" = "שפות";
@@ -359,8 +360,7 @@
 "welcome-volunteer-thanks" = "$1 תודה!";
 "empty-no-feed-title" = "אין חיבור אינטרנט";
 "empty-no-feed-message" = "אפשר לראות הצעות לערכים כשיהיה לך אינטרנט";
-// Fuzzy
-"empty-no-feed-action-message" = "בינתיים אפשר לקרוא דפים שמורים";
+"empty-no-feed-action-message" = "עדיין אפשר לקרוא דפים שמורים";
 "empty-no-article-message" = "סליחה, לא ניתן לטעון ערך";
 "empty-no-search-results-message" = "לא נמצאו תוצאות";
 "empty-no-saved-pages-title" = "אין עדיין דפים שמורים";
@@ -377,7 +377,6 @@
 "compass-direction" = "בשעה $1";
 "explore-featured-article-heading" = "ערך מומלץ";
 "explore-continue-reading-heading" = "המשך קריאה";
-// Fuzzy
 "explore-nearby-heading" = "מקומות בסביבה";
 "explore-continue-related-heading" = "כי קראת את";
 "explore-main-page-heading" = "היום בוויקיפדיה";
@@ -386,5 +385,4 @@
 "explore-potd-heading" = "תמונת היום";
 "explore-most-read-heading" = "הכי נקרא בוויקיפדיה ה$1";
 "explore-most-read-footer" = "כל הערכים שנקראו הכי הרבה";
-// Fuzzy
-"explore-most-read-more-list-title" = "ערכים שנקראו הכי הרבה";
+"explore-most-read-more-list-title" = "ערכים מובילים";

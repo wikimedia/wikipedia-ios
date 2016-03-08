@@ -25,8 +25,7 @@
 "article-languages-label" = "Scegli la lingua";
 "article-languages-cancel" = "Annulla";
 "article-languages-downloading" = "Caricamento delle lingue in cui è disponibile la voce...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtra lingua";
+"article-languages-filter-placeholder" = "Trova lingua";
 "article-read-more-title" = "Leggi altro";
 "article-about-title" = "Su questa voce";
 "article-unable-to-load-section" = "Impossibile caricare questa sezione. Prova ad aggiornare l'articolo per vedere se si risolve il problema.";
@@ -120,6 +119,7 @@
 "search-recent-clear-delete-all" = "Cancella tutto";
 "search-result-redirected-from" = "Reindirizzamento da: $1";
 "settings-title" = "Impostazioni";
+"settings-language" = "Lingua di Wikipedia";
 "settings-support" = "Sostieni Wikipedia";
 "settings-language-bar" = "Mostra lingue nella ricerca";
 "main-menu-title" = "Altro";
@@ -358,8 +358,9 @@
 "welcome-explore-sub-title" = "Un nuovo modo di scoprire voci interessanti ogni giorno";
 "welcome-explore-tell-me-more" = "Dimmi di più";
 "welcome-explore-tell-me-more-about-explore" = "Altro su Esplorare";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "Quando visiti una voce, le voci correlate sono aggiunte automaticamente al tuo feed Esplora. Questo non modificherà il modo in cui raccogliamo le tue informazioni, e la tua cronologia di lettura resterà privata.";
+"welcome-explore-tell-me-more-details" = "Quando leggi una voce, le voci correlate sono aggiunte automaticamente al tuo feed Esplora. Questo non modificherà il modo in cui raccogliamo le tue informazioni, e la tua cronologia di lettura resterà privata.";
+"welcome-explore-tell-me-more-related" = "Il feed Esplora ti mostra voci relative a voci che hai letto.";
+"welcome-explore-tell-me-more-privacy" = "Nessun elenco di lettura o profilo è memorizzato sui nostri server.";
 "welcome-explore-tell-me-more-done-button" = "Capito";
 "welcome-explore-continue-button" = "Inizia";
 "welcome-languages-title" = "Lingue";
@@ -373,8 +374,7 @@
 "welcome-volunteer-thanks" = "$1 Grazie!";
 "empty-no-feed-title" = "Nessuna connessione internet";
 "empty-no-feed-message" = "Puoi vedere le tue voci consigliate quando si dispone di internet";
-// Fuzzy
-"empty-no-feed-action-message" = "Puoi leggere le pagine salvate nel frattempo";
+"empty-no-feed-action-message" = "Puoi ancora leggere le pagine salvate";
 "empty-no-article-message" = "Spiacenti, impossibile caricare la voce";
 "empty-no-search-results-message" = "Nessun risultato trovato";
 "empty-no-saved-pages-title" = "Nessuna pagina salvata ancora";
@@ -391,8 +391,7 @@
 "compass-direction" = "a ore $1";
 "explore-featured-article-heading" = "Voce in vetrina";
 "explore-continue-reading-heading" = "Continua a leggere";
-// Fuzzy
-"explore-nearby-heading" = "Luoghi nelle vicinanze";
+"explore-nearby-heading" = "Luoghi vicino";
 "explore-continue-related-heading" = "Perché hai letto";
 "explore-main-page-heading" = "Oggi su Wikipedia";
 "explore-random-article-heading" = "Voce a caso";
