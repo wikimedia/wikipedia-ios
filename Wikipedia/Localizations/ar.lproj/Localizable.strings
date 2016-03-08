@@ -93,6 +93,7 @@
 "search-recent-clear-delete-all" = "حذف الكل";
 "search-result-redirected-from" = "بالتحويل من: $1";
 "settings-title" = "إعدادات";
+"settings-language" = "لغة ويكيبيديا";
 "settings-language-bar" = "إظهار اللغات في البحث";
 "main-menu-title" = "المزيد";
 "main-menu-heading-about" = "حول";
@@ -239,6 +240,7 @@
 "welcome-volunteer-send-usage-reports" = "إرسال تقارير الاستخدام";
 "welcome-volunteer-continue-button" = "استمرار";
 "welcome-volunteer-thanks" = "شكرا لك!$1";
+"empty-no-feed-action-message" = "ما زال بالإمكان قراءة الصفحات المحفوظة";
 "empty-no-search-results-message" = "لا توجد نتائج";
 "alert-no-internet" = "لا يوجد اتصال بالإنترنت";
 "icon-shortcut-search-title" = "البحث في ويكيبيديا";

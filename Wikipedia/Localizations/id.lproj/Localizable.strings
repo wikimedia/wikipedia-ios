@@ -17,8 +17,7 @@
 "article-languages-label" = "Pilih bahasa";
 "article-languages-cancel" = "Batal";
 "article-languages-downloading" = "Memuat bahasa artikel...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Saring Bahasa";
+"article-languages-filter-placeholder" = "Cari Bahasa";
 "article-read-more-title" = "Baca lebih lanjut";
 "article-about-title" = "Mengenai berkas ini";
 "article-unable-to-load-section" = "Tidak dapat memuat bagian ini. Coba menyegarkan artikel untuk melihat apakah itu bisa memperbaiki masalah.";
@@ -112,6 +111,7 @@
 "search-recent-clear-delete-all" = "Hapus Semua";
 "search-result-redirected-from" = "Dialihkan dari: $1";
 "settings-title" = "Pengaturan";
+"settings-language" = "Bahasa Wikipedia";
 "settings-support" = "Dukung Wikipedia";
 "settings-language-bar" = "Tampilkan bahasa di pencarian";
 "main-menu-title" = "Lainnya";
@@ -350,8 +350,9 @@
 "welcome-explore-sub-title" = "Cara baru untuk menemukan artikel yang menarik setiap hari";
 "welcome-explore-tell-me-more" = "Beritahu saya lebih lanjut";
 "welcome-explore-tell-me-more-about-explore" = "Lebih lanjut mengenai Jelajah";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "Ketika Anda mengunjungi artikel, artikel yang terkait ditambahkan ke umpan Jelajah Anda. Hal ini tidak mengubah bagaimana mengumpulkan informasi Anda, dan riwayat bacaan Anda selalu tetap rahasia.";
+"welcome-explore-tell-me-more-details" = "Ketika Anda membaca artikel, artikel yang terkait ditambahkan ke umpan Jelajah Anda. Hal ini tidak mengubah bagaimana mengumpulkan informasi Anda, dan riwayat bacaan Anda selalu tetap rahasia.";
+"welcome-explore-tell-me-more-related" = "Umpan Jelajah menampilkan Anda artikel yang berhubungan dengan artikel yang Anda sudah baca.";
+"welcome-explore-tell-me-more-privacy" = "Tidak ada daftar bacaan ataupun profil yang disimpan di server kami.";
 "welcome-explore-tell-me-more-done-button" = "Mengerti";
 "welcome-explore-continue-button" = "Memulai";
 "welcome-languages-title" = "Bahasa";
@@ -365,8 +366,7 @@
 "welcome-volunteer-thanks" = "Terima kasih! $1";
 "empty-no-feed-title" = "Tidak ada sambungan internet";
 "empty-no-feed-message" = "Anda bisa melihat artikel yang disarankan untuk Anda saat Anda mempunyai sambungan intenet";
-// Fuzzy
-"empty-no-feed-action-message" = "Anda masih bisa membaca laman tersimpan";
+"empty-no-feed-action-message" = "Anda masih dapat membaca laman tersimpan";
 "empty-no-article-message" = "Maaf, artikel tidak bisa dimuat";
 "empty-no-search-results-message" = "Tidak ada hasil yang ditemukan";
 "empty-no-saved-pages-title" = "Tidak ada halaman yang disimpan.";
@@ -383,8 +383,7 @@
 "compass-direction" = "pada pukul $1 tepat";
 "explore-featured-article-heading" = "Artikel pilihan";
 "explore-continue-reading-heading" = "Lanjutkan membaca";
-// Fuzzy
-"explore-nearby-heading" = "Tempat sekitar";
+"explore-nearby-heading" = "Tempat dekat";
 "explore-continue-related-heading" = "Karena Anda membaca";
 "explore-main-page-heading" = "Hari ini di Wikipedia";
 "explore-random-article-heading" = "Artikel acak";
@@ -392,5 +391,4 @@
 "explore-potd-heading" = "Gambar pilihan";
 "explore-most-read-heading" = "Bacaan teratas di Wikipedia Bahasa $1";
 "explore-most-read-footer" = "Semua artikel bacaan teratas";
-// Fuzzy
-"explore-most-read-more-list-title" = "Artikel bacaan teratas";
+"explore-most-read-more-list-title" = "Artikel teratas";

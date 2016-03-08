@@ -12,8 +12,7 @@
 "article-languages-label" = "Escolher idioma";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "A carregar idiomas do artigo...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtro de idioma";
+"article-languages-filter-placeholder" = "Encontrar um idioma";
 "article-read-more-title" = "Ler mais";
 "article-about-title" = "Sobre este artigo";
 "article-unable-to-load-section" = "Não foi possível carregar esta secção. Experimente recarregar o artigo para tentar corrigir o problema.";
@@ -107,6 +106,7 @@
 "search-recent-clear-delete-all" = "Apagar tudo";
 "search-result-redirected-from" = "Redirecionado de: $1";
 "settings-title" = "Definições";
+"settings-language" = "Idioma da Wikipédia";
 "settings-support" = "Apoie a Wikipédia";
 "settings-language-bar" = "Mostrar idiomas na pesquisa";
 "main-menu-title" = "Mais";
@@ -201,9 +201,13 @@
 "about-libraries-license" = "Licença";
 "about-libraries-licenses" = "Licenças";
 "about-content-license" = "Licença de conteúdo";
+"about-content-license-details" = "A menos que seja indicado o contrário, o conteúdo está disponível sob a $1.";
 "about-content-license-details-share-alike-license" = "Creative Commons - Atribuição - Partilha nos Mesmos Termos";
 "about-libraries-licenses-title" = "Adoramos software em código aberto $1";
+"about-libraries-complete-list" = "Lista completa";
 "about-repositories" = "Repositórios";
+"about-repositories-app-source-license" = "Código-fonte disponível sob a $1.";
+"about-repositories-app-source-license-mit" = "Licença MIT";
 "about-send-feedback" = "Enviar comentários sobre a aplicação";
 "about-product-of" = "Um produto da $1";
 "about-wikimedia-foundation" = "Wikimedia Foundation";
@@ -340,8 +344,8 @@
 "welcome-explore-sub-title" = "Uma nova forma de descobrir artigos interessantes todos os dias";
 "welcome-explore-tell-me-more" = "Conte-me mais";
 "welcome-explore-tell-me-more-about-explore" = "Mais sobre Explorar";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "Quando visitar um artigo, os relacionados são automaticamente adicionados ao seu <em>feed</em> Explorar. Isto não muda a forma como recolhemos a sua informação, e o seu histórico de leitura permanece privado.";
+"welcome-explore-tell-me-more-details" = "Quando ler um artigo, os relacionados são automaticamente adicionados ao seu <em>feed</em> Explorar. Isto não muda a forma como recolhemos a sua informação, e o seu histórico de leitura permanece privado.";
+"welcome-explore-tell-me-more-related" = "O feed Explorar mostra-lhe artigos relacionados com os que já leu.";
 "welcome-explore-tell-me-more-done-button" = "Entendi";
 "welcome-explore-continue-button" = "Começar";
 "welcome-languages-title" = "Idiomas";
@@ -355,8 +359,7 @@
 "welcome-volunteer-thanks" = "$1 Obrigado(a)!";
 "empty-no-feed-title" = "Sem ligação à Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados quando tiver acesso à Internet";
-// Fuzzy
-"empty-no-feed-action-message" = "Entretanto, pode ler páginas que tenha guardadas";
+"empty-no-feed-action-message" = "Pode ler páginas que tenha guardadas";
 "empty-no-article-message" = "Desculpe, não foi possível carregar o artigo";
 "empty-no-search-results-message" = "Não foram encontrados resultados";
 "empty-no-saved-pages-title" = "Sem páginas guardadas ainda";
@@ -373,7 +376,6 @@
 "compass-direction" = "às $1 horas";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-continue-reading-heading" = "Continuar a ler";
-// Fuzzy
 "explore-nearby-heading" = "Lugares próximos";
 "explore-continue-related-heading" = "Porque leu";
 "explore-main-page-heading" = "Hoje na Wikipédia";
@@ -382,5 +384,4 @@
 "explore-potd-heading" = "Imagem do dia";
 "explore-most-read-heading" = "Os mais lidos na Wikipédia em $1";
 "explore-most-read-footer" = "Todos os artigos mais lidos";
-// Fuzzy
 "explore-most-read-more-list-title" = "Artigos mais lidos";

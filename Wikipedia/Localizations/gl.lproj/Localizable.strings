@@ -10,8 +10,7 @@
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando as linguas do artigo...";
-// Fuzzy
-"article-languages-filter-placeholder" = "Filtro de linguas";
+"article-languages-filter-placeholder" = "Atopar lingua";
 "article-read-more-title" = "Ler máis";
 "article-about-title" = "Acerca deste artigo";
 "article-unable-to-load-section" = "Non foi posible cargar esta sección. Probe a refrescar o artigo para intentar amañar o problema.";
@@ -105,6 +104,7 @@
 "search-recent-clear-delete-all" = "Borrar todo";
 "search-result-redirected-from" = "Redirixido de: $1";
 "settings-title" = "Configuración";
+"settings-language" = "Lingua de Wikipedia";
 "settings-support" = "Apoie a Wikipedia";
 "settings-language-bar" = "Amosar as linguas ó buscar";
 "main-menu-title" = "Máis";
@@ -343,8 +343,9 @@
 "welcome-explore-sub-title" = "Unha forma nova de descubrir artigos interesantes todos os días";
 "welcome-explore-tell-me-more" = "Contarme máis";
 "welcome-explore-tell-me-more-about-explore" = "Máis sobre Explorar";
-// Fuzzy
-"welcome-explore-tell-me-more-details" = "Cando visita un artigo, os artigos relacionados agréganse automaticamente á súa canle de Explorar. Isto non cambia a maneira en que recompilamos a súa información, e o seu historial de lectura segue sendo privado.";
+"welcome-explore-tell-me-more-details" = "Cando le un artigo, os artigos relacionados agréganse automaticamente á súa canle de Explorar. Isto non cambia a maneira en que recompilamos a súa información, e o seu historial de lectura segue sendo privado.";
+"welcome-explore-tell-me-more-related" = "A canle Explorar mostra artigos relacionados cos artigos que xa leu.";
+"welcome-explore-tell-me-more-privacy" = "Nos nosos servidores non se gardan nin perfís nin listas de lectura.";
 "welcome-explore-tell-me-more-done-button" = "Entendido";
 "welcome-explore-continue-button" = "Comezar";
 "welcome-languages-title" = "Linguas";
@@ -358,8 +359,7 @@
 "welcome-volunteer-thanks" = "$1 Grazas!";
 "empty-no-feed-title" = "Sen conexión a Internet";
 "empty-no-feed-message" = "Pode ver os seus artigos recomendados cando teña conexión a Internet";
-// Fuzzy
-"empty-no-feed-action-message" = "Mentras tanto, pode ler a páxinas gardadas";
+"empty-no-feed-action-message" = "Aínda pode ler as páxinas gardadas";
 "empty-no-article-message" = "Sentímolo, non foi posible cargar o artigo";
 "empty-no-search-results-message" = "No se atoparon resultados";
 "empty-no-saved-pages-title" = "Aínda non hai páxinas gardadas";
@@ -376,7 +376,6 @@
 "compass-direction" = "ás $1";
 "explore-featured-article-heading" = "Artigo destacado";
 "explore-continue-reading-heading" = "Continuar lendo";
-// Fuzzy
 "explore-nearby-heading" = "Lugares próximos";
 "explore-continue-related-heading" = "Porque leu";
 "explore-main-page-heading" = "Hoxe en Wikipedia";
@@ -385,5 +384,4 @@
 "explore-potd-heading" = "Imaxe do día";
 "explore-most-read-heading" = "Os máis lidos en Wikipedia en $1";
 "explore-most-read-footer" = "Todos os artigos máis lidos";
-// Fuzzy
-"explore-most-read-more-list-title" = "Os artigos máis lidos";
+"explore-most-read-more-list-title" = "Os mellores artigos";
