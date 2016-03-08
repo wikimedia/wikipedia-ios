@@ -5,9 +5,8 @@
 "languages-title" = "Schprohche";
 "article-languages-label" = "Söhg en Schprohch uß";
 "article-languages-cancel" = "Ophüre!";
-"article-languages-downloading" = "Ben dä Sigg iehr Schprohche aam ahde&nbsp;{{int:ellipsis}}";
-// Fuzzy
-"article-languages-filter-placeholder" = "Schprohche ußsöhke";
+"article-languages-downloading" = "Ben dä Sigg iehr Schprohche aam ahde …";
+"article-languages-filter-placeholder" = "Schprohche fenge";
 "article-read-more-title" = "Mih lässe";
 "article-unable-to-load-section" = "mer kunnte dä affschnett nit lahde. Versöhg ens, dä jannze Atikel neu ze lahde, öm ze sinn, of dat hellef.";
 "article-unable-to-load-article" = "Mer künne dä Atikel nit lahde.";
@@ -32,16 +31,16 @@
 "zero-learn-more" = "Koßte för der Dahteverkehr för heh di Wikkipehdija Äpp falle kein aan.";
 "zero-learn-more-learn-more" = "Mih lässe";
 "zero-learn-more-no-thanks" = "Nää, well esch nit lässe.";
-"account-creation-captcha-required" = "Et <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span> moß jepröhv wähde.";
-"account-creation-captcha-obtaining" = "Ben e neu <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span> aam holle.";
+"account-creation-captcha-required" = "Et Kaptscha moß jepröhv wähde.";
+"account-creation-captcha-obtaining" = "Ben e neu Kaptscha aam holle.";
 "account-creation-logging-in" = "Aam Enlogge …";
 "account-creation-passwords-mismatched" = "De Paßwööter paße nit zersamme.";
-"account-creation-saving" = "Ben aam Afseschere{{int:ellipsis}}";
+"account-creation-saving" = "Ben aam Afseschere …";
 "account-creation-login" = "Do häs alld_ene Zohjang? Dann donn enlogge!";
 "account-creation-username-placeholder-text" = "Der Metmaacher_Nahme";
 "account-creation-password-placeholder-text" = "Paßwoot";
 "account-creation-password-confirm-placeholder-text" = "Noch ens dat Paßwoot";
-"account-creation-email-placeholder-text" = "De <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„de eläktrohnesche Poß“\">e-mail</i>-Adräß, kann och fott bliehve";
+"account-creation-email-placeholder-text" = "De e-mail-Adräß, kann och fott bliehve";
 "account-creation-missing-fields" = "Do moss ene Metmaacher_Nahme, e Paßwoot un en Beschtähtejong för et Paßwoot enjävve, öm ene Zohjang aanzelähje.";
 "login-name-not-found" = "Ene Metmaacher_Nahme es nühdesch zom Enlogge.";
 "login-name-illegal" = "Do häss ene onjöltejje Metmaacher_Nahme aanjejovve.";
@@ -56,12 +55,12 @@
 "wikitext-downloading" = "Aam Lahde ...";
 "wikitext-download-success" = "Ennhalld jelahde.";
 "wikitext-upload-result-unknown" = "Mer künne nit eruß fenge, wat beim Huhlahde för ene Wikkitägs eruß jekumme es.";
-"wikitext-upload-captcha-error" = "<span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span>-Fähler.";
-"wikitext-upload-captcha-needed" = "Et <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span> moß jepröhv wähde.";
+"wikitext-upload-captcha-error" = "Kaptscha-Fähler.";
+"wikitext-upload-captcha-needed" = "Et Kaptscha moß jepröhv wähde.";
 "wikitext-upload-save" = "Aam Affschpeijschere …";
 "wikitext-upload-save-sign-in" = "Enlogge";
 "wikitext-upload-save-anonymously" = "Faßhallde als Beijdrach vun enem Nahmelosse";
-"wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"Internet Protocol\">IP</i>-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
+"wikitext-upload-save-anonymously-warning" = "Ding Änderonge wähde dä IP-Adräß vun Dingem Apparaht zohjeschrevve. Wann De $1, beß De jät prevahter.";
 "wikitext-upload-save-terms-name" = "Bedengonge för der Jebruch";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
 "open-link-title" = "Dä Lengk opmaache";
@@ -81,11 +80,12 @@
 "search-recent-clear-cancel" = "Ophüre";
 "search-recent-clear-delete-all" = "Alle fottschmieße";
 "settings-title" = "Enschtällonge";
+"settings-language" = "Dä Wikkipehdija ier Schprohch";
 "settings-support" = "Ongerschtöz de Wikkipehdija!";
 "settings-language-bar" = "Schprohche beim Söhke aanzeije";
 "main-menu-title" = "Mih";
 "main-menu-heading-about" = "Övver";
-"main-menu-language-title" = "En de <code lang=\"zxx\" xml:lang=\"zxx\" dir=\"ltr\">$1</code>-Wikkipehdija söhke";
+"main-menu-language-title" = "En de $1-Wikkipehdija söhke";
 "main-menu-faq" = "Öff jeschtallte Frohre";
 "main-menu-language-toggle-show" = "Schprohche aanzeije";
 "main-menu-language-toggle-hide" = "Schprohche verschteijsche";
@@ -110,7 +110,7 @@
 "main-menu-heading-legal" = "Rääschlesche Krohm";
 "main-menu-show-today" = "Hügg";
 "main-menu-nearby" = "En de Nöhde";
-"main-menu-more" = "Mih&nbsp;…";
+"main-menu-more" = "Mih …";
 "main-menu-heading-debug" = "Noh Fähler Söhke";
 "main-menu-debug-crash" = "För de Wand loufe lohße";
 "saved-pages-title" = "Jesescherte Sigge";
@@ -124,7 +124,7 @@
 "saved-pages-description" = "Faßjehallde Sigge sin janz johd. Kannze lässe, sälvs wann De kein Verbendong mem Näz häs, un wi op Lässezeische drop zohjriife.";
 "saved-pages-none" = "Noch kein faßjehallde Sigge.";
 "page-history-title" = "Väsjohne vun dä Sigg";
-"page-history-downloading" = "Ben dä Sigg iehr ällter Väsjohne aan lahde&nbsp;…";
+"page-history-downloading" = "Ben dä Sigg iehr ällter Väsjohne aan lahde …";
 "navbar-title-mode-edit-wikitext" = "Ändere";
 "navbar-title-mode-login" = "Enlogge";
 "navbar-title-mode-login-and-save" = "Ennlogge un faßhallde";
@@ -152,8 +152,8 @@
 "article-pull-to-refresh-prompt" = "Trick, öm dä Atikel neuj_anzezeije.";
 "article-pull-to-refresh-is-refreshing" = "Ben dä Atikell neu aam lahde";
 "credits-wikimedia-repos" = "Repossetohreje vun de Wikkimehdija Schtefftong";
-"credits-gerrit-repo" = "De Äpp „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">main</code>“ (<i xml:lang=\"en\" lang=\"en\" dir=\"ltr\" title=\"a free, web-based team code collaboration tool integrated closely with the distributed version control system Git\">Gerrit</i>)";
-"credits-github-mirror" = "Dä Äpp iere Schpehjel (<i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"GitHub - ene Deens för et Zesammewerke beim Projrammehre, un esuh\">GitHub</i>)";
+"credits-gerrit-repo" = "De Äpp „main“ (Gerrit)";
+"credits-github-mirror" = "Dä Äpp iere Schpehjel (GitHub)";
 "credits-external-libraries" = "Repossetohreje ußerhallef";
 "about-title" = "Övver";
 "about-wikipedia" = "Wikkipehdija";
@@ -165,10 +165,12 @@
 "about-libraries" = "Jebruchte Projrammbibblijothke";
 "about-libraries-license" = "Lezänz";
 "about-libraries-licenses" = "Lėzänze";
+"about-content-license" = "De Lezänz för der Ennhalld";
 "about-libraries-licenses-title" = "Mer han Projrame med offe Quälle jähn $1";
 "about-libraries-complete-list" = "Kumplätte Leß";
-// Fuzzy
 "about-repositories" = "Repossetohreje";
+"about-repositories-app-source-license" = "De Projrmm-Quälle sin ze han onger $1.";
+"about-repositories-app-source-license-mit" = "dem MIT sing Lezänz";
 "about-send-feedback" = "En Rökmäldong jävve";
 "about-product-of" = "Jemaht vun $1";
 "about-wikimedia-foundation" = "de Wikkimehdija Schtefftong";
@@ -187,7 +189,7 @@
 "timestamp-months" = "vör $d Mohnde";
 "timestamp-years" = "vör $d Johre";
 "lastmodified-by-user" = "Vum „$2“ $1 beärbeidt.";
-"lastmodified-by-anon" = "{{ucfirst:$1}} vun enem nahmelohse Metmaacher verändert.";
+"lastmodified-by-anon" = "$1 vun enem nahmelohse Metmaacher verändert.";
 "button-next" = "Näx";
 "button-done" = "Jedonn";
 "button-save" = "Faßhalde";
@@ -207,7 +209,7 @@
 "table-of-contents-close-accessibility-hint" = "Zohmaache";
 "abuse-filter-warning-subheading" = "En Dinger Änderong kann et ein udder andere derbeij sin vun:";
 "abuse-filter-warning-caps" = "En GRUHẞSCHREFF jeschrevve";
-"abuse-filter-warning-blanking" = "Atikelle läddesch maache udder <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„för jewöhnlesch angmaß övverdrahre Nohreeschte udder Meddeijlonge, di wä se kritt jaa nit han well,“\">SPAM</i> verbreijde.";
+"abuse-filter-warning-blanking" = "Atikelle läddesch maache udder SPAM verbreijde.";
 "abuse-filter-warning-irrelevant" = "Bellder üdder Lengks noh ußerhallf ohne ene Wäät";
 "abuse-filter-warning-repeat" = "Zeische wohte reppeteeeeeeeeeeeeeeeeehrt.";
 "abuse-filter-disallow-heading" = "Do kanns heh di Änderong nit faßhallde lohße. Jangk retuhr un änder se.";
@@ -242,7 +244,7 @@
 "nearby-location-general-error" = "Mer künne der Plaz nidd erus krijje, woh et Jerähd em Momang es. Donn et tiräk udder schpääder norr_ens probehre.";
 "nearby-wifi" = "Et W-LAN ennzeschallde künnt hällfe, dinge Plaz erus ze fenge.";
 "migration-update-progress-count-label" = "Mer wandelle jrahdt der $1-te vun $2 Atikelle.";
-"migration-prompt-message" = "Mer möße Ding jeseschterte un neuste Sigge erövver koppehre. Dat kann ene Momang duhre&nbsp;…";
+"migration-prompt-message" = "Mer möße Ding jeseschterte un neuste Sigge erövver koppehre. Dat kann ene Momang duhre …";
 "migration-confirm-button-title" = "Övvernämm ming Dahte!";
 "migration-skip-button-title" = "Schmiiß dat fott";
 "image-gallery-unknown-owner" = "Onbikannt, wä dat huhjelahde hät";
@@ -256,22 +258,30 @@
 "hockeyapp-alert-privacy" = "Jeheimhalldong vun $1";
 "page-issues" = "Problehme met heh dä Sigg";
 "page-similar-titles" = "Ähnlejje Sigge";
-"page-read-in-other-languages" = "En $1 Schprohche <!-- FUZZY https://phabricator.wikimedia.org/T128254 -->";
+"page-read-in-other-languages" = "En $1 Schprohche";
 "captcha-reload" = "En annder Kaptscha";
-"captcha-prompt" = "Jif dä <span style=\"text-transform:uppercase\" title=\"Jät zom Ennjävve, öm ze zeije, dadd ene Minsch vör em Kompjuhter sez\">Kaptscha</span>-Täx vun dämm Belld en.";
+"captcha-prompt" = "Jif dä Kaptscha-Täx vun dämm Belld en.";
 "mwk-empty-title-error" = "Medd_ene läddeje Övverschreff jeiht dat nit ze maache.";
 "home-empty-section" = "Nix jefonge";
 "home-empty-section-check-again" = "Norr_ens versöhke";
 "home-nearby-location-footer" = "Mih en Nöhde vun $1";
+"welcome-explore-title" = "Ußfochsche";
 "welcome-explore-tell-me-more" = "Lohß mesch mih weße";
+// Fuzzy
+"welcome-explore-tell-me-more-details" = "Wann De en Sigg liß, wähde Sigge, di dermet ze donn han, automattesch en Ding Explore feed jedonn. Dat ändert nix draan, wi mer Enfommazjuhne övver Desch sammelle, un wat De jelässe häs, blihv prevaht.";
+// Fuzzy
+"welcome-explore-tell-me-more-related" = "Da Kannahl zom Fochsche zeisch Der Sigge aan, di met Sigge em Zesammehang schtonn, di De jelässe häs.";
 "welcome-explore-tell-me-more-done-button" = "Wiggermaache";
 "welcome-explore-continue-button" = "Wigger";
 "welcome-languages-title" = "Schprohche";
 "welcome-languages-add-button" = "+ Donn ein dobei";
 "welcome-languages-continue-button" = "Wiggermaache";
+"welcome-volunteer-title" = "Freiwellejer";
 "welcome-volunteer-continue-button" = "Wiggermaache";
 "welcome-volunteer-thanks" = "$1 Ene schöne Dangk och!";
+"empty-no-feed-action-message" = "Do kanns emmer noch de op Dingem Jeräht faßjehallde Sigge lässe.";
 "empty-no-search-results-message" = "Nix jefonge";
-"explore-most-read-heading" = "<!-- FUZZY https://phabricator.wikimedia.org/T128258 --> De mihts jelässe Sigge en de Wikkipehdija op $1";
-// Fuzzy
+"explore-nearby-heading" = "Pläz en der Nöhde vun";
+"explore-most-read-heading" = "De mihts jelässe Sigge en de Wikkipehdija op $1";
+"explore-most-read-footer" = "All de mihts jelässe Sigge";
 "explore-most-read-more-list-title" = "De mihts jelässe Sigge";

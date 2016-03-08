@@ -32,6 +32,7 @@
 "zero-learn-more-learn-more" = "Skaityti daugiau";
 "zero-learn-more-no-thanks" = "Atmesti";
 "zero-wikipedia-zero-heading" = "Vikipedija Zero";
+"zero-warn-when-leaving" = "Perspėti, jeigu paliekamas „Zero“";
 "account-creation-captcha-required" = "Reikia patikrinimo saugos kodu.";
 "account-creation-captcha-obtaining" = "Gaunamas naujas saugos kodas.";
 "account-creation-logging-in" = "Jungiamasi...";
@@ -75,7 +76,9 @@
 "search-recent-clear-cancel" = "Atšaukti";
 "search-recent-clear-delete-all" = "Naikinti viską";
 "settings-title" = "Nustatymai";
+"settings-language" = "Vikipedijos kalba";
 "settings-support" = "Paremti Vikipediją";
+"settings-language-bar" = "Rodyti kalbas paieškoje";
 "main-menu-title" = "Daugiau";
 "main-menu-heading-about" = "Apie";
 "main-menu-language-title" = "Paieška $1 Vikipedijoje";
@@ -156,6 +159,7 @@
 "share-menu-save-page" = "Įrašyti puslapį";
 "share-custom-menu-item" = "Dalintis";
 "share-a-fact-share-menu-item" = "Dalintis faktu";
+"share-on-twitter-sign-off" = "per @Wikipedia";
 "share-as-image" = "Dalintis kaip vaizdu";
 "share-as-text" = "Dalintis kaip tekstu";
 "timestamp-just-now" = "tik ką";
@@ -217,6 +221,8 @@
 "home-empty-section-check-again" = "Bandyti dar kartą";
 "home-nearby-location-footer" = "Daugiau netoliese $1";
 "welcome-explore-title" = "Tyrinėti";
+"welcome-explore-tell-me-more" = "Pasakykite man daugiau";
+"welcome-explore-tell-me-more-about-explore" = "Daugiau apie „Tyrinėti“";
 "welcome-explore-tell-me-more-done-button" = "Supratau";
 "welcome-explore-continue-button" = "Pradėti";
 "welcome-languages-title" = "Kalbos";
@@ -227,4 +233,6 @@
 "welcome-volunteer-continue-button" = "Tęsti";
 "welcome-volunteer-thanks" = "$1 Ačiū!";
 "empty-no-feed-title" = "Nėra interneto ryšio";
+"empty-no-search-results-message" = "Rezultatų nerasta";
 "alert-no-internet" = "Ten nėra interneto ryšio";
+"explore-most-read-more-list-title" = "Top straipsniai";
