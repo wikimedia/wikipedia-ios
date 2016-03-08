@@ -58,6 +58,7 @@
             NSString* localizedString = stringsDict[key];
             assertThat(localizedString, isNot(stringContainsInOrder(@"<", @">", nil)));
             assertThat(localizedString, isNot(containsSubstring(@"&nbsp")));
+            assertThat(localizedString, isNot(stringContainsInOrder(@"{{", @"}}", nil)));
         }
     }
 }
