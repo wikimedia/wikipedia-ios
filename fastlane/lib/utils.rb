@@ -21,17 +21,13 @@ def get_version_string
   "#{get_version_number}.#{get_build_number}"
 end
 
-# Create a string of the build number with a "b" to denote beta status
-# Must be invoked w/in fastlane
-def get_beta_build_number
-  number = (get_build_number.to_i + 1)
-  "#{number}b"
-end
-
-# Create a string of the build number without a "b" for release
+# Create a string of the build number for release
+# This adds a .1 to differentiate from the beta build number
+# Its a bit of a hack, but we cant use "b" to denote a beta (Testflight hates that)
+# Also test flight won't allow us to upload more than 1 build with the same build number
 # Must be invoked w/in fastlane
 def get_release_build_number
-  number = get_build_number.chomp("b")
+  number = "#{get_build_number}.1"
   number
 end
 
