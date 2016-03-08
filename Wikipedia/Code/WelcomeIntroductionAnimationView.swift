@@ -129,13 +129,13 @@ public class WelcomeIntroAnimationView : WelcomeAnimationView {
         tubeImgView.layer.wmf_animateToOpacity(1.0,
             transform:tubeOvershootRotationTransform,
             delay: 0.8,
-            duration: 0.7
+            duration: 0.9
         )
 
         tubeImgView.layer.wmf_animateToOpacity(1.0,
             transform:tubeFinalRotationTransform,
-            delay: 1.5,
-            duration: 0.7
+            delay: 1.8,
+            duration: 0.9
         )
 
         self.solidCircle.wmf_animateToOpacity(0.09,
