@@ -6184,7 +6184,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 784b;
+				CURRENT_PROJECT_VERSION = 785;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
@@ -6297,7 +6297,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 784b;
+				CURRENT_PROJECT_VERSION = 785;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -6527,7 +6527,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 784b;
+				CURRENT_PROJECT_VERSION = 785;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = YES;
@@ -6562,7 +6562,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Wikipedia/Wikipedia Debug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 784b;
+				CURRENT_PROJECT_VERSION = 785;
 				DEFINES_MODULE = YES;
 				ENABLE_TESTABILITY = NO;
 				GCC_OPTIMIZATION_LEVEL = 3;
