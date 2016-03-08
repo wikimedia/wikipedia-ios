@@ -90,7 +90,10 @@ platform :ios do
   desc "Increment the app's beta build number, add a tag, and push to the beta branch."
   lane :bumpAndTagBeta do |options|
     sh "git fetch"
+    sh "git checkout develop"
+    sh "git pull"
     sh "git checkout beta"
+    sh "git merge develop"
 
     increment_build_number(build_number: get_beta_build_number)
 
@@ -110,7 +113,10 @@ platform :ios do
   desc "Increment the app's beta build number, add a tag, and push to the beta branch."
   lane :bumpAndTagRelease do |options|
     sh "git fetch"
-    sh "git checkout -b beta origin/master"
+    sh "git checkout release"
+    sh "git pull"
+    sh "git checkout master"
+    sh "git merge release"
 
     increment_build_number(build_number: get_release_build_number)
 
