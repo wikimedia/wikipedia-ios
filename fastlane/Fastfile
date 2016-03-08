@@ -95,7 +95,7 @@ platform :ios do
     sh "git checkout beta"
     sh "git merge develop"
 
-    increment_build_number(build_number: get_beta_build_number)
+    increment_build_number
 
     new_version = get_version_string
     commit_version_bump
