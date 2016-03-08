@@ -15,7 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UISwitch* toggle;
-@property (strong, nonatomic) IBOutlet UIView* animationView;
+@property (strong, nonatomic) IBOutlet WelcomeAnalyticsAnimationView* animationView;
 
 @end
 
@@ -49,7 +49,7 @@
     BOOL shouldAnimate = !self.hasAlreadyFaded;
     [super viewDidAppear:animated];
     if (shouldAnimate) {
-        [self.animationView wmf_configureForAnalyticsAnimation];
+        [self.animationView beginAnimations];
     }
 }
 

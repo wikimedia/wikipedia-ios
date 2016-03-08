@@ -15,7 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIButton* moreLanguagesButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextStepButton;
 @property (strong, nonatomic) IBOutlet UIView* dividerAboveNextStepButton;
-@property (strong, nonatomic) IBOutlet UIView* animationView;
+@property (strong, nonatomic) IBOutlet WelcomeLanguagesAnimationView* animationView;
 
 @end
 
@@ -67,7 +67,7 @@
     BOOL shouldAnimate = !self.hasAlreadyFaded;
     [super viewDidAppear:animated];
     if (shouldAnimate) {
-        [self.animationView wmf_configureForLanguagesAnimation];
+        [self.animationView beginAnimations];
     }
 }
 

@@ -8,7 +8,7 @@
 @property (strong, nonatomic) IBOutlet UILabel* subTitleLabel;
 @property (strong, nonatomic) IBOutlet UIButton* tellMeMoreButton;
 @property (strong, nonatomic) IBOutlet UIButton* nextButton;
-@property (strong, nonatomic) IBOutlet UIView* animationView;
+@property (strong, nonatomic) IBOutlet WelcomeIntroAnimationView* animationView;
 
 @end
 
@@ -52,7 +52,7 @@
     BOOL shouldAnimate = !self.hasAlreadyFaded;
     [super viewDidAppear:animated];
     if (shouldAnimate) {
-        [self.animationView wmf_configureForIntroAnimation];
+        [self.animationView beginAnimations];
     }
 }
 
