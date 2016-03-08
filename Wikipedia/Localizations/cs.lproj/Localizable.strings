@@ -177,10 +177,10 @@
 "menu-trash-accessibility-label" = "Smazat";
 "menu-language-accessibility-label" = "Jazyky";
 "nearby-title" = "Poblíž";
-"nearby-distance-label-meters" = "$1 {{PLURAL:$1|metr|metry|metrů}}";
+"nearby-distance-label-meters" = "$1 metry";
 "nearby-distance-label-km" = "$1 km";
-"nearby-distance-label-feet" = "$1 {{PLURAL:$1|stopa|stopy|stop}}";
-"nearby-distance-label-miles" = "$1 {{PLURAL:$1|míle|míle|mil}}";
+"nearby-distance-label-feet" = "$1 stopy";
+"nearby-distance-label-miles" = "$1 míle";
 "nearby-open-in-maps" = "Otevřít v Mapách";
 "nearby-cancel" = "Zrušit";
 "migration-update-progress-label" = "Přesun místních dat";

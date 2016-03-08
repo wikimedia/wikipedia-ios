@@ -182,7 +182,7 @@
 "edit-summary-choice-other" = "Inny";
 "edit-summary-description" = "Dokładny opis pomaga innym uczestnikom szybko sprawdzić Twoje edycje. Można wpisać opis również z użyciem następujących tagów.";
 "edit-summary-field-placeholder-text" = "Inne sposoby, którymi można poprawić stronę";
-"edit-summary-title" = "Jak {{GENDER:|poprawiłeś|poprawiłaś}} stronę?";
+"edit-summary-title" = "Jak poprawiłeś stronę?";
 "fetching-random-article" = "Wybór losowego artykułu";
 "article-pull-to-refresh-prompt" = "Pociągnij, aby odświeżyć artykuł";
 "article-pull-to-refresh-is-refreshing" = "Odświeżanie artykułu";
