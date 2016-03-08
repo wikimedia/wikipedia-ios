@@ -6,5 +6,5 @@ end
 
 group :ci do
   gem 'fastlane', '~> 1.48.0'
+  gem 'sigh', '~> 1.3.1'
 end
-
