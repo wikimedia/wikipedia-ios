@@ -100,7 +100,7 @@ platform :ios do
 
     tag_name = "betas/#{new_version}"
     add_git_tag(tag: tag_name)
-    push_git_tags
+    sh "git push origin --tags"
 
   end
 
@@ -117,8 +117,8 @@ platform :ios do
 
     tag_name = "releases/#{new_version}"
     add_git_tag(tag: tag_name)
-    push_git_tags
-    
+    sh "git push origin --tags"
+
   end
 
 
