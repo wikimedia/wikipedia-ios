@@ -394,3 +394,5 @@
 "explore-most-read-footer-for-date" = "Text which shown on the footer beneath 'Most read articles', which presents a longer list of 'most read' articles for a given date when tapped. $1 will be substituted with the date";
 "explore-most-read-more-list-title" = "Title for the view displaying longer list of top read articles.";
 "explore-most-read-more-list-title-for-date" = "Title with date for the view displaying longer list of top read articles. $1 will be substituted with the date";
+"no-email-account-alert" = "Displayed to the user when they try to send a feedback email, but they have never set up an account on their device";
+
